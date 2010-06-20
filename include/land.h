@@ -181,7 +181,7 @@ extern double attack_val(int, struct lndstr *);
 extern double defense_val(struct lndstr *);
 extern int lnd_reaction_range(struct lndstr *);
 extern void lnd_print(struct ulist *, char *);
-extern void lnd_delete(struct ulist *, char *);
+extern void lnd_delete(struct ulist *);
 extern int lnd_take_casualty(int, struct ulist *, int);
 extern void lnd_submil(struct lndstr *, int);
 extern void lnd_takemob(struct emp_qelem *, double);

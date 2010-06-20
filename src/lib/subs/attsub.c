@@ -1290,7 +1290,8 @@ get_ototal(int combat_mode, struct combat *off, struct emp_qelem *olist,
 		    w = n;
 	    }
 	    if (w < 0) {
-		lnd_delete(llp, "is in a sector not owned by you");
+		lnd_print(llp, "is in a sector not owned by you");
+		lnd_delete(llp);
 		continue;
 	    }
 	    ototal += attack_val(combat_mode, &llp->unit.land) *
@@ -1355,14 +1356,16 @@ get_oland(int combat_mode, struct ulist *llp)
     if (lp->lnd_own != player->cnum) {
 	sprintf(buf, "was destroyed and is no longer a part of the %s",
 		att_mode[combat_mode]);
-	lnd_delete(llp, buf);
+	lnd_print(llp, buf);
+	lnd_delete(llp);
 	return 0;
     }
     if (lp->lnd_x != llp->x || lp->lnd_y != llp->y) {
 	sprintf(buf,
 		"left to fight another battle and is no longer a part of the %s",
 		att_mode[combat_mode]);
-	lnd_delete(llp, buf);
+	lnd_print(llp, buf);
+	lnd_delete(llp);
 	return 0;
     }
     if (lp->lnd_effic < llp->eff) {
@@ -1385,12 +1388,14 @@ get_dland(struct combat *def, struct ulist *llp)
 
     if (lp->lnd_effic < LAND_MINEFF) {
 	sprintf(buf, "was destroyed and is no longer a part of the defense");
-	lnd_delete(llp, buf);
+	lnd_print(llp, buf);
+	lnd_delete(llp);
 	return 0;
     }
     if (lp->lnd_x != def->x || lp->lnd_y != def->y) {
-	lnd_delete(llp,
-		   "left to go fight another battle and is no longer a part of the defense");
+	lnd_print(llp,
+		  "left to go fight another battle and is no longer a part of the defense");
+	lnd_delete(llp);
 	return 0;
     }
 
@@ -1409,7 +1414,8 @@ kill_land(struct emp_qelem *list)
 	llp = (struct ulist *)qp;
 	if (llp->unit.land.lnd_ship >= 0) {
 	    llp->unit.land.lnd_effic = 0;
-	    lnd_delete(llp, "cannot return to the ship, and dies!");
+	    lnd_print(llp, "cannot return to the ship, and dies!");
+	    lnd_delete(llp);
 	}
     }
 }
@@ -2156,7 +2162,8 @@ send_reacting_units_home(struct emp_qelem *list)
 		    xyas(llp->x, llp->y, llp->unit.land.lnd_own));
 	    llp->unit.land.lnd_x = llp->x;
 	    llp->unit.land.lnd_y = llp->y;
-	    lnd_delete(llp, buf);
+	    lnd_print(llp, buf);
+	    lnd_delete(llp);
 	}
     }
 }
@@ -2229,12 +2236,14 @@ take_def(int combat_mode, struct emp_qelem *list, struct combat *off,
 	    if (def->type == EF_SHIP) {
 		llp->unit.land.lnd_ship = def->shp_uid;
 		sprintf(buf, "boards %s", prcom(0, def));
+		lnd_print(llp, buf);
 		delete_me = llp;
 	    } else {
 		llp->unit.land.lnd_ship = -1;
 		sprintf(buf, "moves in to occupy %s",
 			xyas(def->x, def->y, player->cnum));
-		lnd_delete(llp, buf);
+		lnd_print(llp, buf);
+		lnd_delete(llp);
 	    }
 	}
     }
@@ -2256,7 +2265,7 @@ take_def(int combat_mode, struct emp_qelem *list, struct combat *off,
 	putland(land.lnd_uid, &land);
     }
     if (delete_me)
-	lnd_delete(delete_me, buf);
+	lnd_delete(delete_me);
     att_get_combat(def, 0);
     return 1;
 }
@@ -2315,7 +2324,8 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 	sprintf(buf, "stays in %s",
 		xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
 		     player->cnum));
-	lnd_delete(llp, buf);
+	lnd_print(llp, buf);
+	lnd_delete(llp);
     }
     if (QEMPTY(olist))
 	return;
@@ -2328,7 +2338,8 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 	    sprintf(buf, "stays in %s",
 		    xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
 			 player->cnum));
-	    lnd_delete(llp, buf);
+	    lnd_print(llp, buf);
+	    lnd_delete(llp);
 	}
 	return;
     }

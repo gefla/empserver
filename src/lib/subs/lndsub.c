@@ -145,10 +145,8 @@ lnd_print(struct ulist *llp, char *s)
 }
 
 void
-lnd_delete(struct ulist *llp, char *s)
+lnd_delete(struct ulist *llp)
 {
-    if (s)
-	lnd_print(llp, s);
     putland(llp->unit.land.lnd_uid, &llp->unit.land);
     emp_remque((struct emp_qelem *)llp);
     free(llp);
@@ -192,7 +190,8 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 		combat_mode ? att_mode[combat_mode] : "defending",
 		xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
 		     llp->unit.land.lnd_own));
-	lnd_delete(llp, buf);
+	lnd_print(llp, buf);
+	lnd_delete(llp);
 	/* Since we killed the unit, we killed all the mil on it */
 	return taken;
     } else {
@@ -268,7 +267,8 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 		sprintf(buf, "retreats at %d%% efficiency to %s!",
 			llp->unit.land.lnd_effic,
 			xyas(bx, by, llp->unit.land.lnd_own));
-		lnd_delete(llp, buf);
+		lnd_print(llp, buf);
+		lnd_delete(llp);
 	    }
 	} else {		/* attacking from a sector */
 	    sprintf(buf, "leaves the battlefield at %d%% efficiency",
@@ -278,7 +278,8 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 	    else
 		llp->unit.land.lnd_mobil -= (int)llp->mobil;
 	    llp->mobil = 0.0;
-	    lnd_delete(llp, buf);
+	    lnd_print(llp, buf);
+	    lnd_delete(llp);
 	}
     }
     if (nowhere_to_go) {
@@ -286,9 +287,10 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 	llp->unit.land.lnd_effic -= 10;
 	lnd_submil(&llp->unit.land,
 		   ((struct lchrstr *)llp->chrp)->l_item[I_MILIT] / 10);
-	if (llp->unit.land.lnd_effic < LAND_MINEFF)
-	    lnd_delete(llp, "has nowhere to retreat, and dies!");
-	else
+	if (llp->unit.land.lnd_effic < LAND_MINEFF) {
+	    lnd_print(llp, "has nowhere to retreat, and dies!");
+	    lnd_delete(llp);
+	} else
 	    lnd_print(llp,
 		      "has nowhere to retreat and takes extra losses!");
     }
@@ -1021,7 +1023,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		    pr("%s was shot and killed.\n", prland(&llp->unit.land));
 		    llp->unit.land.lnd_effic = 0;
 		    putland(llp->unit.land.lnd_uid, &llp->unit.land);
-		    lnd_delete(llp, NULL);
+		    lnd_delete(llp);
 		}
 	    }
 	}
