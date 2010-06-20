@@ -136,12 +136,12 @@ lnd_reaction_range(struct lndstr *lp)
 }
 
 void
-lnd_print(struct ulist *llp, char *s)
+lnd_print(natid actor, struct ulist *llp, char *s)
 {
-    if (llp->unit.land.lnd_own == player->cnum)
+    if (actor == player->cnum)
 	pr("%s %s\n", prland(&llp->unit.land), s);
     else
-	wu(0, llp->unit.land.lnd_own, "%s %s\n", prland(&llp->unit.land), s);
+	wu(0, actor, "%s %s\n", prland(&llp->unit.land), s);
 }
 
 void
@@ -190,7 +190,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 		combat_mode ? att_mode[combat_mode] : "defending",
 		xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
 		     llp->unit.land.lnd_own));
-	lnd_print(llp, buf);
+	lnd_print(llp->unit.land.lnd_own, llp, buf);
 	lnd_delete(llp);
 	/* Since we killed the unit, we killed all the mil on it */
 	return taken;
@@ -215,7 +215,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
     ret_chance = llp->unit.land.lnd_retreat - llp->unit.land.lnd_effic;
     if (roll(100) < ret_chance) {
 	pr("\n");
-	lnd_print(llp, "fails morale check!");
+	lnd_print(llp->unit.land.lnd_own, llp, "fails morale check!");
 	llp->unit.land.lnd_mission = 0;
 	llp->unit.land.lnd_harden = 0;
 	if (llp->unit.land.lnd_ship >= 0 || llp->unit.land.lnd_land >= 0)
@@ -267,7 +267,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 		sprintf(buf, "retreats at %d%% efficiency to %s!",
 			llp->unit.land.lnd_effic,
 			xyas(bx, by, llp->unit.land.lnd_own));
-		lnd_print(llp, buf);
+		lnd_print(llp->unit.land.lnd_own, llp, buf);
 		lnd_delete(llp);
 	    }
 	} else {		/* attacking from a sector */
@@ -278,7 +278,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 	    else
 		llp->unit.land.lnd_mobil -= (int)llp->mobil;
 	    llp->mobil = 0.0;
-	    lnd_print(llp, buf);
+	    lnd_print(llp->unit.land.lnd_own, llp, buf);
 	    lnd_delete(llp);
 	}
     }
@@ -288,10 +288,11 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 	lnd_submil(&llp->unit.land,
 		   ((struct lchrstr *)llp->chrp)->l_item[I_MILIT] / 10);
 	if (llp->unit.land.lnd_effic < LAND_MINEFF) {
-	    lnd_print(llp, "has nowhere to retreat, and dies!");
+	    lnd_print(llp->unit.land.lnd_own, llp,
+		      "has nowhere to retreat, and dies!");
 	    lnd_delete(llp);
 	} else
-	    lnd_print(llp,
+	    lnd_print(llp->unit.land.lnd_own, llp,
 		      "has nowhere to retreat and takes extra losses!");
     }
 
