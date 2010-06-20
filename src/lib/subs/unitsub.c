@@ -116,7 +116,7 @@ unit_put(struct emp_qelem *list, natid actor)
 	    continue;
 	if (actor) {
 	    mpr(actor, "%s stopped at %s\n", obj_nameof(unit),
-		xyas(unit->x, unit->y, unit->own));
+		xyas(unit->x, unit->y, actor));
 	    if (unit->ef_type == EF_LAND) {
 		if (ulp->mobil < -127)
 		    ulp->mobil = -127;
