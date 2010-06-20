@@ -56,12 +56,6 @@ radmap(int cx, int cy, int eff, int range, double seesub)
 }
 
 void
-radmapnopr(int cx, int cy, int eff, int range, double seesub)
-{
-    radmap2(player->cnum, cx, cy, eff, range, seesub, 0);
-}
-
-void
 radmapupd(int own, int cx, int cy, int eff, int range, double seesub)
 {
     radmap2(own, cx, cy, eff, range, seesub, 0);

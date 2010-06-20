@@ -157,11 +157,11 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 		cp = buf;
 	}
 	if (type == EF_SHIP) {
-	    radmapnopr(leader->x, leader->y, (int)leader->effic,
-		       (int)techfact(leader->tech,
-				     mchr[(int)leader->type].m_vrnge),
-		       (mchr[(int)leader->type].m_flags & M_SONAR)
-		       ? techfact(leader->tech, 1.0) : 0.0);
+	    radmapupd(player->cnum, leader->x, leader->y, leader->effic,
+		      (int)techfact(leader->tech,
+				    mchr[leader->type].m_vrnge),
+		      (mchr[leader->type].m_flags & M_SONAR)
+		      ? techfact(leader->tech, 1.0) : 0.0);
 	}
 	if (cp == NULL || *cp == '\0')
 	    cp = &dirch[DIR_STOP];

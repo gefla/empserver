@@ -584,7 +584,6 @@ extern int ufindpfx(char *, int);
 extern int deltx(struct range *, coord);
 extern int delty(struct range *, coord);
 extern void radmap(int, int, int, int, double);
-extern void radmapnopr(int, int, int, int, double);
 extern void radmapupd(int, int, int, int, int, double);
 /* rej.c */
 extern int setrel(natid, natid, int);
