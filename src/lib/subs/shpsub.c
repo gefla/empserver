@@ -54,7 +54,7 @@
 
 static int shp_check_one_mines(struct ulist *);
 static int shp_hit_mine(struct shpstr *);
-static void shp_mess(char *, struct ulist *);
+static void shp_stays(natid, char *, struct ulist *);
 
 void
 shp_sel(struct nstr_item *ni, struct emp_qelem *list)
@@ -122,32 +122,32 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	}
 	if (opt_SAIL) {
 	    if (*ship.shp_path && !update_running) {
-		shp_mess("has a sail path", mlp);
+		shp_stays(actor, "has a sail path", mlp);
 		mpr(actor, "Use `sail <#> -' to reset\n");
 		continue;
 	    }
 	}
 	/* check crew - uws don't count */
 	if (ship.shp_item[I_MILIT] == 0 && ship.shp_item[I_CIVIL] == 0) {
-	    shp_mess("is crewless", mlp);
+	    shp_stays(actor, "is crewless", mlp);
 	    continue;
 	}
 	if (!getsect(ship.shp_x, ship.shp_y, &sect)) {
-	    shp_mess("was sucked into the sky by a strange looking spaceship", mlp);	/* heh -KHS */
+	    shp_stays(actor, "was sucked into the sky by a strange looking spaceship", mlp);	/* heh -KHS */
 	    continue;
 	}
 	switch (shp_check_nav(&sect, &ship)) {
 	case CN_CONSTRUCTION:
-	    shp_mess("is caught in a construction zone", mlp);
+	    shp_stays(actor, "is caught in a construction zone", mlp);
 	    continue;
 	case CN_LANDLOCKED:
-	    shp_mess("is landlocked", mlp);
+	    shp_stays(actor, "is landlocked", mlp);
 	    continue;
 	case CN_NAVIGABLE:
 	    break;
 	case CN_ERROR:
 	default:
-	    shp_mess("was just swallowed by a big green worm", mlp);
+	    shp_stays(actor, "was just swallowed by a big green worm", mlp);
 	    continue;
 	}
 	if (first) {
@@ -280,12 +280,11 @@ shp_check_mines(struct emp_qelem *ship_list)
 
 
 static void
-shp_mess(char *str, struct ulist *mlp)
+shp_stays(natid actor, char *str, struct ulist *mlp)
 {
-    mpr(mlp->unit.ship.shp_own, "%s %s & stays in %s\n",
-	prship(&mlp->unit.ship),
-	str, xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y,
-		  mlp->unit.ship.shp_own));
+    mpr(actor, "%s %s & stays in %s\n",
+	prship(&mlp->unit.ship), str,
+	xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, actor));
     mlp->unit.ship.shp_mobil = (int)mlp->mobil;
     putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
     emp_remque((struct emp_qelem *)mlp);
@@ -766,13 +765,13 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 		mpr(actor, "%s\n", dp);
 		return 2;
 	    } else {
-		shp_mess(dp, mlp);
+		shp_stays(actor, dp, mlp);
 		continue;
 	    }
 	}
 
 	if (mlp->mobil <= 0.0) {
-	    shp_mess("is out of mobility", mlp);
+	    shp_stays(actor, "is out of mobility", mlp);
 	    continue;
 	}
 	mobcost = shp_mobcost(&mlp->unit.ship);
