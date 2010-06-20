@@ -186,7 +186,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	if (own == player->cnum) {
 	    pr("%s at %s reports %d%% damage\n",
 	       prplane(&plane),
-	       xyas(plane.pln_x, plane.pln_y, own), damage);
+	       xyas(plane.pln_x, plane.pln_y, player->cnum), damage);
 	} else {
 	    mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
 		cname(player->cnum), damage,
@@ -228,7 +228,8 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	land_damage(&land, damage);
 	if (own == player->cnum) {
 	    pr("%s at %s reports %d%% damage\n",
-	       prland(&land), xyas(land.lnd_x, land.lnd_y, own), damage);
+	       prland(&land), xyas(land.lnd_x, land.lnd_y, player->cnum),
+	       damage);
 	} else {
 	    mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
 		cname(player->cnum), damage,
@@ -264,7 +265,8 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	ship_damage(&ship, damage);
 	if (own == player->cnum) {
 	    pr("%s at %s reports %d%% damage\n",
-	       prship(&ship), xyas(ship.shp_x, ship.shp_y, own), damage);
+	       prship(&ship), xyas(ship.shp_x, ship.shp_y, player->cnum),
+	       damage);
 	} else {
 	    mpr(own, "%s nuclear device did %d%% damage to %s at %s\n",
 		cname(player->cnum), damage, prship(&ship),
@@ -284,7 +286,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	nuke.nuk_effic = 0;
 	if (own == player->cnum) {
 	    pr("%s at %s destroyed\n",
-	       prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, own));
+	       prnuke(&nuke), xyas(nuke.nuk_x, nuke.nuk_y, player->cnum));
 	} else {
 	    mpr(own, "%s nuclear device destroyed %s at %s\n",
 		cname(player->cnum), prnuke(&nuke),
