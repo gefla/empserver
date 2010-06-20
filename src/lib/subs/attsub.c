@@ -2379,7 +2379,7 @@ move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	return;
     if (def->type == EF_SECTOR) {
 	if (opt_INTERDICT_ATT) {
-	    lnd_sweep(olist, 0, 0, def->own);
+	    lnd_sweep(olist, 0, 0, player->cnum);
 	    lnd_check_mines(olist);
 	}
 	sprintf(buf, "now occupies %s", prcom(0, def));
