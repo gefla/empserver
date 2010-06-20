@@ -513,14 +513,14 @@ pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 	    if (sect.sct_effic < 40) {
 		if (noisy)
 		    pr("%s is not 40%% efficient, %s can't take off from there.\n",
-		       xyas(sect.sct_x, sect.sct_y, pp->pln_own),
+		       xyas(sect.sct_x, sect.sct_y, player->cnum),
 		       prplane(pp));
 		return 0;
 	    }
 	    if (!oneway && sect.sct_effic < 60) {
 		if (noisy)
 		    pr("%s is not 60%% efficient, %s can't land there.\n",
-		       xyas(sect.sct_x, sect.sct_y, pp->pln_own),
+		       xyas(sect.sct_x, sect.sct_y, player->cnum),
 		       prplane(pp));
 		return 0;
 	    }
