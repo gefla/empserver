@@ -47,6 +47,8 @@
 #include "ship.h"
 #include "xy.h"
 
+static int rad_range(int, double, int);
+
 /* More dynamic world sized buffers.  We create 'em once, and then
  * never again.  No need to keep creating/tearing apart.  We may
  * want to do this in other places too where it doesn't matter. */
@@ -57,12 +59,11 @@ static signed char *visbuf;
 
 /*
  * Draw a radar map for radar at CX,CY.
- * EFF is the radar's efficiency, and RANGE its range at 100%
- * efficiency.
+ * EFF is the radar's efficiency, TLEV its tech level, SPY its power.
  * Submarines are detected at fraction SEESUB of the range.
  */
 void
-radmap(int cx, int cy, int eff, int range, double seesub)
+radmap(int cx, int cy, int eff, double tlev, int spy, double seesub)
 {
     int visib, rng;
     struct sctstr sect;
@@ -73,6 +74,7 @@ radmap(int cx, int cy, int eff, int range, double seesub)
     int x, y;
     int row;
     int n;
+    int range = rad_range(eff, tlev, spy);
     int changed = 0;
 
     if (!radbuf)
@@ -99,9 +101,6 @@ radmap(int cx, int cy, int eff, int range, double seesub)
     }
 
     memset(visbuf, 0, (WORLD_Y * (WORLD_X + 1)));
-    range = (int)(range * (eff / 100.0));
-    if (range < 1)
-	range = 1;
     pr("%s efficiency %d%%, max range %d\n",
        xyas(cx, cy, player->cnum), eff, range);
     snxtsct_dist(&ns, cx, cy, range);
@@ -193,20 +192,17 @@ delty(struct range *r, coord y)
 
 /*
  * Update OWNER's bmap for radar at CX,CY.
- * EFF is the radar's efficiency, and RANGE its range at 100%
- * efficiency.
+ * EFF is the radar's efficiency, TLEV its tech level, SPY its power.
  */
 void
-rad_map_set(natid owner, int cx, int cy, int eff, int range)
+rad_map_set(natid owner, int cx, int cy, int eff, double tlev, int spy)
 {
     struct nstr_sect ns;
     struct sctstr sect;
+    int range = rad_range(eff, tlev, spy);
     int changed = 0;
     char ch;
 
-    range = (int)(range * (eff / 100.0));
-    if (range < 1)
-	range = 1;
     snxtsct_dist(&ns, cx, cy, range);
     while (nxtsct(&ns, &sect)) {
 	if (sect.sct_own == owner
@@ -221,4 +217,19 @@ rad_map_set(natid owner, int cx, int cy, int eff, int range)
     }
     if (changed)
 	writemap(owner);
+}
+
+/*
+ * Range of a radar with EFF efficiency, TLEV tech, and SPY power.
+ */
+static int
+rad_range(int eff, double tlev, int spy)
+{
+    int range;
+
+    range = (int)techfact(tlev, spy);
+    range = (int)(range * (eff / 100.0));
+    if (range < 1)
+	range = 1;
+    return range;
 }

@@ -732,7 +732,6 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     coord newy;
     int stopping = 0;
     double mobcost;
-    double tech;		/* for mapping */
     char dp[80];
     int navigate;
 
@@ -785,11 +784,10 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
 
 	/* Now update the map for this ship */
-	tech = techfact(mlp->unit.ship.shp_tech,
-			((struct mchrstr *)mlp->chrp)->m_vrnge);
 	rad_map_set(mlp->unit.ship.shp_own,
 		    mlp->unit.ship.shp_x, mlp->unit.ship.shp_y,
-		    mlp->unit.ship.shp_effic, (int)tech);
+		    mlp->unit.ship.shp_effic, mlp->unit.ship.shp_tech,
+		    ((struct mchrstr *)mlp->chrp)->m_vrnge);
     }
     if (QEMPTY(list))
 	return stopping;

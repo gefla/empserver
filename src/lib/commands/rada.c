@@ -54,7 +54,8 @@ radar(int type)
 {
     char *cp;
     double tf;
-    double tech;
+    double tlev;
+    int spy;
     struct nstr_item ni;
     struct nstr_sect ns;
     union empobj_storage item;
@@ -73,14 +74,14 @@ radar(int type)
     case NS_AREA:
 	if (!snxtsct(&ns, cp))
 	    return RET_SYN;
-	tech = tfact(player->cnum, 8.0);
+	tlev = getnatp(player->cnum)->nat_level[NAT_TLEV];
 	while (nxtsct(&ns, &item.sect)) {
 	    if (item.sect.sct_type != SCT_RADAR)
 		continue;
 	    if (!player->owner)
 		continue;
 	    radmap(item.sect.sct_x, item.sect.sct_y, item.sect.sct_effic,
-		   (int)(tech * 2.0), 0.0);
+		   tlev, 16, 0.0);
 	}
 	break;
     case NS_LIST:
@@ -97,8 +98,7 @@ radar(int type)
 	    if (type == EF_SHIP) {
 		if (mchr[(int)item.ship.shp_type].m_flags & M_SONAR)
 		    tf = techfact(item.ship.shp_tech, 1.0);
-		tech = techfact(item.ship.shp_tech,
-				mchr[(int)item.ship.shp_type].m_vrnge);
+		spy = mchr[item.ship.shp_type].m_vrnge;
 	    } else {
 		if (!(lchr[(int)item.land.lnd_type].l_flags & L_RADAR)) {
 		    pr("%s can't use radar!\n", prland(&item.land));
@@ -108,12 +108,12 @@ radar(int type)
 		    pr("Units on ships can't use radar!\n");
 		    continue;
 		}
-		tech = techfact(item.land.lnd_tech,
-				lchr[item.land.lnd_type].l_spy);
+		spy = lchr[item.land.lnd_type].l_spy;
 	    }
 
 	    pr("%s at ", obj_nameof(&item.gen));
-	    radmap(item.gen.x, item.gen.y, item.gen.effic, (int)tech, tf);
+	    radmap(item.gen.x, item.gen.y, item.gen.effic,
+		   item.gen.tech, spy, tf);
 	}
 	break;
     default:
