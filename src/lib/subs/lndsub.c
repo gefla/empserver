@@ -653,9 +653,7 @@ lnd_mess(char *str, struct ulist *llp)
     if (llp->mobil < -127)
 	llp->mobil = -127;
     llp->unit.land.lnd_mobil = llp->mobil;
-    putland(llp->unit.land.lnd_uid, &llp->unit.land);
-    emp_remque((struct emp_qelem *)llp);
-    free(llp);
+    lnd_delete(llp);
 }
 
 static int
