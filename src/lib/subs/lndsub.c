@@ -51,7 +51,7 @@
 #include "empobj.h"
 #include "unit.h"
 
-static void lnd_mess(char *, struct ulist *);
+static void lnd_stays(natid, char *, struct ulist *);
 static int lnd_hit_mine(struct lndstr *);
 static int has_helpful_engineer(coord, coord, natid);
 
@@ -485,21 +485,21 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    continue;
 	}
 	if (land.lnd_ship >= 0) {
-	    lnd_mess("is on a ship", llp);
+	    lnd_stays(actor, "is on a ship", llp);
 	    continue;
 	}
 	if (land.lnd_land >= 0) {
-	    lnd_mess("is on a unit", llp);
+	    lnd_stays(actor, "is on a unit", llp);
 	    continue;
 	}
 	if (!getsect(land.lnd_x, land.lnd_y, &sect)) {
-	    lnd_mess("was sucked into the sky by a strange looking spaceland", llp);	/* heh -KHS */
+	    lnd_stays(actor, "was sucked into the sky by a strange looking spaceland", llp);	/* heh -KHS */
 	    continue;
 	}
 	if (!(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY) &&
 	    !(lchr[(int)llp->unit.land.lnd_type].l_flags & L_TRAIN) &&
 	    llp->unit.land.lnd_item[I_MILIT] == 0) {
-	    lnd_mess("has no mil on it to guide it", llp);
+	    lnd_stays(actor, "has no mil on it to guide it", llp);
 	    continue;
 	}
 	rel = getrel(getnatp(sect.sct_own), player->cnum);
@@ -507,7 +507,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    !(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY) &&
 	    sect.sct_own) {
 	    sprintf(mess, "has been kidnapped by %s", cname(sect.sct_own));
-	    lnd_mess(mess, llp);
+	    lnd_stays(actor, mess, llp);
 	    continue;
 	}
 	if (first) {
@@ -549,7 +549,7 @@ lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
 	}
 	if (takemob && llp->mobil < 0.0) {
 	    if (verbose)
-		lnd_mess("is out of mobility", llp);
+		lnd_stays(actor, "is out of mobility", llp);
 	    continue;
 	}
 	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
@@ -645,12 +645,11 @@ lnd_check_mines(struct emp_qelem *land_list)
 }
 
 static void
-lnd_mess(char *str, struct ulist *llp)
+lnd_stays(natid actor, char *str, struct ulist *llp)
 {
-    mpr(llp->unit.land.lnd_own, "%s %s & stays in %s\n",
-	prland(&llp->unit.land),
-	str, xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
-		  llp->unit.land.lnd_own));
+    mpr(actor, "%s %s & stays in %s\n",
+	prland(&llp->unit.land), str,
+	xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y, actor));
     if (llp->mobil < -127)
 	llp->mobil = -127;
     llp->unit.land.lnd_mobil = llp->mobil;
@@ -948,23 +947,24 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 			       sect.sct_type == SCT_SANCT ||
 			       sect.sct_type == SCT_WASTE)) {
 	    if (together) {
-		pr("can't go to %s\n", xyas(newx, newy, actor));
+		mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
 		return 1;
 	    } else {
 		sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
-		lnd_mess(dp, llp);
+		lnd_stays(actor, dp, llp);
 		continue;
 	    }
 	}
 	if (!SCT_HAS_RAIL(&sect)
 	    && lnd_mobtype(&llp->unit.land) == MOB_RAIL) {
 	    if (together) {
-		pr("no rail system in %s\n", xyas(newx, newy, actor));
+		mpr(actor, "no rail system in %s\n",
+		    xyas(newx, newy, actor));
 		return 1;
 	    } else {
 		sprintf(dp, "has no rail system in %s",
 			xyas(newx, newy, actor));
-		lnd_mess(dp, llp);
+		lnd_stays(actor, dp, llp);
 		continue;
 	    }
 	}
@@ -985,12 +985,12 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		    return 1;
 	    }
 	    if (stop) {
-		lnd_mess("stops", llp);
+		lnd_stays(actor, "stops", llp);
 		continue;
 	    }
 	}
 	if (llp->mobil <= 0.0) {
-	    lnd_mess("is out of mobility", llp);
+	    lnd_stays(actor, "is out of mobility", llp);
 	    continue;
 	}
 	llp->unit.land.lnd_x = newx;
@@ -1003,8 +1003,8 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	getsect(osect.sct_x, osect.sct_y, &osect);
 	if (osect.sct_own != oldown && oldown == player->cnum) {
 	    /* It was your sector, now it's not.  Simple :) */
-	    pr("You no longer own %s\n",
-	       xyas(osect.sct_x, osect.sct_y, player->cnum));
+	    mpr(actor, "You no longer own %s\n",
+		xyas(osect.sct_x, osect.sct_y, actor));
 	}
 	if (rel != ALLIED && sect.sct_own != actor && sect.sct_own) {	/* must be a spy */
 	    /* Always a 10% chance of getting caught. */
@@ -1019,7 +1019,8 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		    wu(0, sect.sct_own,
 		       "%s spy shot in %s\n", cname(player->cnum),
 		       xyas(sect.sct_x, sect.sct_y, sect.sct_own));
-		    pr("%s was shot and killed.\n", prland(&llp->unit.land));
+		    mpr(actor, "%s was shot and killed.\n",
+			prland(&llp->unit.land));
 		    llp->unit.land.lnd_effic = 0;
 		    putland(llp->unit.land.lnd_uid, &llp->unit.land);
 		    lnd_delete(llp);
