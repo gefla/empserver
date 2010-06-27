@@ -123,7 +123,6 @@ showsat(struct sky **skypp, int x, int y)
     struct sky *skyp;
     struct sky *todelete = NULL;
     struct sky **prev;
-    struct plchrstr *pcp;
     int nsat = 0;
 
     prev = NULL;
@@ -139,7 +138,6 @@ showsat(struct sky **skypp, int x, int y)
 	    prev = &(*prev)->s_next;
 	    continue;
 	}
-	pcp = &plchr[(int)skyp->s_sat.pln_type];
 	pr(" %12.12s (#%3d) %s @ %s\n",
 	   cname(skyp->s_sat.pln_own), skyp->s_sat.pln_own,
 	   prplane(&skyp->s_sat), xyas(x, y, player->cnum));
