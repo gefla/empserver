@@ -140,19 +140,14 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	    flags = pln_caps(bomb_list);
 	    if (opt_HIDDEN)
 		setcont(player->cnum, sect.sct_own, FOUND_FLY);
-	    if (sect.sct_type == SCT_WATER) {
+	    if (sect.sct_type == SCT_WATER)
 		pr("flying over %s at %s\n",
 		   dchr[sect.sct_type].d_name, xyas(x, y, player->cnum));
-		if (mission_flags & PM_S)
-		    plane_sweep(bomb_list, x, y);
-		if (flags & P_A)
-		    plane_sona(bomb_list, x, y, &head);
-	    } else if (flags & P_S)
+	    else if (flags & P_S)
 		satdisp_sect(&sect, flags & P_I ? 10 : 50);
 	    else
 		look_at_sect(&sect, 25);
-	    changed += map_set(player->cnum, sect.sct_x, sect.sct_y,
-			       dchr[sect.sct_type].d_mnem, 0);
+
 	    if (flags & P_S)
 		satdisp_units(sect.sct_x, sect.sct_y);
 	    else {
@@ -167,12 +162,11 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 			   cname(cn), xyas(x, y, player->cnum));
 		}
 	    }
-	} else {
+	} else
 	    mpr(plane_owner, "flying over %s at %s\n",
 		dchr[sect.sct_type].d_name, xyas(x, y, plane_owner));
-	    changed += map_set(plane_owner, sect.sct_x, sect.sct_y,
-			       dchr[sect.sct_type].d_mnem, 0);
-	}
+	changed += map_set(plane_owner, sect.sct_x, sect.sct_y,
+			   dchr[sect.sct_type].d_mnem, 0);
 
 	evaded = do_evade(bomb_list, esc_list);
 	if (!evaded) {
@@ -207,6 +201,14 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 			     !(cn == sect.sct_own
 			       || gotships[cn] || gotlands[cn]));
 	    }
+	}
+
+	if (mission_flags & PM_R) {
+	    flags = pln_caps(bomb_list);
+	    if (sect.sct_type == SCT_WATER && mission_flags & PM_S)
+		plane_sweep(bomb_list, x, y);
+	    if (sect.sct_type == SCT_WATER && flags & P_A)
+		plane_sona(bomb_list, x, y, &head);
 	}
 
 	dir = *path++;
