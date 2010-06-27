@@ -124,8 +124,8 @@ set(void)
 	    else
 		id = ni_trade.cur;
 	    ef_blank(EF_TRADE, id, &trade);
-	    trade.trd_x = item.gen.x;
-	    trade.trd_y = item.gen.y;
+	    trade.trd_x = 1;
+	    trade.trd_y = 0;
 	    trade.trd_type = type;
 	    trade.trd_owner = player->cnum;
 	    trade.trd_unitid = ni.cur;

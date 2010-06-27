@@ -54,7 +54,7 @@ struct trdstr {
     long trd_price;
     int trd_maxbidder;
     time_t trd_markettime;
-    coord trd_x;
+    coord trd_x;		/* destination for teleporting trade */
     coord trd_y;
 };
 

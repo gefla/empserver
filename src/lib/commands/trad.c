@@ -177,11 +177,8 @@ trad(void)
 	}
     }
     canspend = natp->nat_money - tally;
-    /*
-     * Find the destination sector for the plane before the trade is
-     * actually made, except for satellites in orbit.  Must be owned
-     * and must be a 60% airfield (except for VTOL planes).
-     */
+
+    /* Find the destination sector for the trade */
     if (((trade.trd_type == EF_PLANE) && !pln_is_in_orbit(&tg.plane))
 	|| (trade.trd_type == EF_NUKE)) {
 	while (1) {
@@ -211,8 +208,7 @@ trad(void)
 	    }
 	    break;
 	}
-    }
-    if (trade.trd_type == EF_LAND) {
+    } else if (trade.trd_type == EF_LAND) {
 	while (1) {
 	    p = getstring("Destination sector: ", buf);
 	    if (!trade_check_ok(&trade, &tg))
@@ -238,6 +234,10 @@ trad(void)
 	    }
 	    break;
 	}
+    } else {
+	/* This trade doesn't teleport; make destination invalid */
+	sx = 1;
+	sy = 0;
     }
 
     p = getstring("How much do you bid: ", buf);
