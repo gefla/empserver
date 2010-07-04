@@ -615,6 +615,7 @@ setstr(int fldno, char *str)
     case NSC_STRING:
 	old = ((char **)memb_ptr)[idx];
 	if (!must_match)
+	    /* FIXME may leak old value */
 	    ((char **)memb_ptr)[idx] = str ? strdup(str) : NULL;
 	len = 65535;		/* really SIZE_MAX, but that's C99 */
 	break;
