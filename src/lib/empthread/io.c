@@ -209,8 +209,6 @@ io_output(struct iop *iop, int wait)
     if (iop->flags & IO_ERROR)
 	return -1;
 
-    n = ioq_makeiov(iop->output, iov, IO_BUFSIZE);
-
     if (wait) {
 	res = empth_select(iop->fd, EMPTH_FD_WRITE, NULL);
 	if (res == 0)
@@ -221,6 +219,7 @@ io_output(struct iop *iop, int wait)
 	}
     }
 
+    n = ioq_makeiov(iop->output, iov, IO_BUFSIZE);
     cc = writev(iop->fd, iov, n);
     if (cc < 0) {
 	if (errno == EAGAIN || errno == EWOULDBLOCK)
