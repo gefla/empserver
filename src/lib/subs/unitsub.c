@@ -36,6 +36,7 @@
 
 #include "empobj.h"
 #include "file.h"
+#include "path.h"
 #include "player.h"
 #include "optlist.h"
 #include "prototypes.h"

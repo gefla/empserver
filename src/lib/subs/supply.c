@@ -39,6 +39,7 @@
 #include "land.h"
 #include "nat.h"
 #include "optlist.h"
+#include "path.h"
 #include "player.h"
 #include "prototypes.h"
 #include "sect.h"

@@ -255,7 +255,7 @@ int zdon(void);
  * src/lib/common/ *.c
  */
 /* bestpath.c */
-extern char *bestownedpath(char *, char *, int, int, int, int, int);
+/* in path.h */
 /* conftab.c */
 extern int read_builtin_tables(void);
 extern int read_custom_tables(void);
@@ -285,16 +285,7 @@ extern int mapdist(int, int, int, int);
 /* nstreval.c */
 /* in nsc.h */
 /* path.c */
-extern void bp_enable_cachepath(void);
-extern void bp_disable_cachepath(void);
-extern void bp_clear_cachepath(void);
-extern char *BestDistPath(char *, struct sctstr *, struct sctstr *,
-			  double *);
-extern char *BestLandPath(char *, struct sctstr *, struct sctstr *,
-			  double *, int);
-extern char *BestShipPath(char *, int, int, int, int, int);
-extern char *BestAirPath(char *, int, int, int, int);
-extern double pathcost(struct sctstr *, char *, int);
+/* in path.h */
 /* rdsched.c */
 extern int read_schedule(char *, time_t[], int, time_t, time_t);
 /* res_pop.c */

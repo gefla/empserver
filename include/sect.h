@@ -196,10 +196,6 @@ extern struct dchrstr dchr[SCT_TYPE_MAX + 2];
 #define SCT_LANDMINES(sp) \
     (SCT_MINES_ARE_SEAMINES((sp)) ? 0 : (sp)->sct_mines)
 
-#define MOB_MOVE	0
-#define MOB_MARCH	1
-#define MOB_RAIL	2
-
 #define INT_ROAD	0
 #define INT_RAIL	1
 #define INT_DEF		2
