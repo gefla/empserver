@@ -337,8 +337,6 @@ extern char *numstr(char buf[], int n);
 extern char *esplur(int n);
 extern char *splur(int n);
 extern char *iesplur(int n);
-extern char *plurize(char *buf, int max_len, int n);
-/* more in misc.h */
 
 /*
  * src/lib/global/ *.c
