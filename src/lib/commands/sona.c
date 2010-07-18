@@ -272,7 +272,7 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 		continue;
 	    add_shiplist(targ->shp_uid, head);
 	    if (!found) {
-		pr("\nSonar contact in %s\n", xyas(x, y, player->cnum));
+		pr("Sonar contact in %s\n", xyas(x, y, player->cnum));
 		found = 1;
 	    }
 	    if (getrel(getnatp(targ->shp_own), pp->pln_own) < FRIENDLY &&
@@ -290,6 +290,8 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 		   xyas(targ->shp_x, targ->shp_y, player->cnum));
 	}
     }
+    if (found)
+	pr("\n");
 }
 
 /*
