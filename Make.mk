@@ -131,6 +131,7 @@ ttop := info/TOP.t
 # Formatted info:
 info.nr := $(addprefix info.nr/, $(info))
 info.html := $(addprefix info.html/, $(addsuffix .html, $(info)))
+info.all := $(info.nr) $(info.html) info.ps
 
 # Conditionally generated files:
 empth_obj := src/lib/empthread/io.o
@@ -155,7 +156,7 @@ endif
 # Each generated file should be in one of the following sets.
 # Removed by clean:
 clean := $(obj) $(deps) $(libs) $(util) $(client) $(server) $(tsubj)	\
-$(ttop) $(info.nr) $(info.html) $(empth_obj) $(empth_lib)
+$(ttop) $(info.all) $(empth_obj) $(empth_lib)
 # Removed by distclean:
 distclean := $(ac) $(mk)
 # Distributed by dist-source from $(srcdir):
