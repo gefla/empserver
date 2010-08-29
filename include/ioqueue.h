@@ -43,7 +43,7 @@ extern void ioq_destroy(struct ioqueue *ioq);
 extern void ioq_drain(struct ioqueue *ioq);
 extern int ioq_makeiov(struct ioqueue *ioq, struct iovec *iov, int cc);
 extern int ioq_peek(struct ioqueue *ioq, char *buf, int cc);
-extern int ioq_dequeue(struct ioqueue *ioq, int cc);
+extern void ioq_dequeue(struct ioqueue *ioq, int cc);
 extern void ioq_append(struct ioqueue *ioq, char *buf, int cc);
 extern int ioq_qsize(struct ioqueue *ioq);
 extern int ioq_gets(struct ioqueue *ioq, char *buf, int cc);
