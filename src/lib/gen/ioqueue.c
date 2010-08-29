@@ -132,7 +132,9 @@ ioq_peek(struct ioqueue *ioq, char *buf, int cc)
 int
 ioq_dequeue(struct ioqueue *ioq, int cc)
 {
-    return removecc(ioq, cc);
+    int res = removecc(ioq, cc);
+    CANT_HAPPEN(res != cc);
+    return res;
 }
 
 void
