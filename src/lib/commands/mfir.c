@@ -82,8 +82,6 @@ multifire(void)
     struct shpstr vship;
     struct sctstr vsect;
     enum targ_type target;
-    int rel;
-    struct natstr *natp;
     struct nstr_item nbst;
     int type;
     struct empobj *attgp;
@@ -416,17 +414,6 @@ multifire(void)
 	    break;
 	}
 
-	if (opt_SLOW_WAR) {
-	    if (target == targ_land) {
-		natp = getnatp(player->cnum);
-		rel = getrel(natp, vict);
-		if ((rel != AT_WAR) && (player->cnum != vict) &&
-		    (vict) && (vsect.sct_oldown != player->cnum)) {
-		    pr("You're not at war with them!\n");
-		    continue;
-		}
-	    }
-	}
 	nfiring++;
 	switch (target) {
 	case targ_sub:

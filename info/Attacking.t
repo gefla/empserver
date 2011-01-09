@@ -44,10 +44,6 @@ The "assault" command is the only command which will let you attack
 your own sector (you can use this to get mil & assault units on
 shore).  You should not "attack" unowned land (see info explore).
 .s1
-If the SLOW_WAR option is enabled, you will not be able to attack
-a sector owned by a country you are not AT_WAR with, unless you
-are the old owner of the sector.
-.s1
 .L "(2)  Ask the aggressor further details about the offensive force."
 .s1
 When you board, you are asked for a ship or sector to board from.

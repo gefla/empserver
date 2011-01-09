@@ -30,8 +30,7 @@ report.
 .FI
 .s1
 Relations are: \*QAllied\*U, \*QFriendly\*U, \*QNeutral\*U,
-\*QHostile\*U, \*QMobilizing\*U, \*QSitzkrieg\*U, and \*QAt
-War\*U. Each has certain ramifications.
+\*QHostile\*U, and \*QAt War\*U. Each has certain ramifications.
 .s1
 .L Allied
 Your ally is someone you trust deeply, and are willing to make
@@ -84,20 +83,5 @@ Also, there is an automatic progression. If someone you are allied with
 attacks you, you become hostile towards them. If someone you are neutral
 to over-flies or attacks you, you become hostile towards them. Neither of
 these progressions can lead to war, however, they both stop at hostility.
-.s1
-The following paragraphs apply only if the SLOW_WAR option is used.
-.s1
-.L Mobilizing
-If you are Mobilizing, it means that you have declared war, and are getting
-ready to attack. You cannot attack someone's land until you are actually
-\*QAt War\*U. At the next update, you will automatically move to
-\*QSitzkrieg\*U.  Your interdiction of the enemy will be the same as
-if you were hostile towards them.
-.s1
-.L Sitzkrieg
-Sitzkrieg is the same as \*QMobilizing\*U. You still are unable to attack
-their land. At the next update, you will automatically move to \*QAt War\*U.
-.s1
-When you are At War with someone, you may attack them willy-nilly.
 .s1
 .SA "Diplomacy"

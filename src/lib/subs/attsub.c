@@ -435,9 +435,6 @@ int
 att_abort(int combat_mode, struct combat *off, struct combat *def)
 {
     struct sctstr sect;
-    int rel;
-    char y_or_n[512];
-    struct natstr *natp;
 
     if (player->aborted)
 	return 1;
@@ -513,23 +510,7 @@ att_abort(int combat_mode, struct combat *off, struct combat *def)
 	setcont(player->cnum, def->own, FOUND_SPY);
 	setcont(def->own, player->cnum, FOUND_SPY);
     }
-    if (opt_SLOW_WAR && def->own != player->cnum) {
-	natp = getnatp(player->cnum);
-	rel = getrel(natp, def->own);
 
-	if (rel == ALLIED) {
-	    sprintf(y_or_n, "Sector is owned by %s, your ally, %s [yn]? ",
-		    cname(def->own), att_mode[combat_mode]);
-	    if (!confirm(y_or_n))
-		return abort_attack();
-
-	}
-	if ((rel != AT_WAR) && (def->own) &&
-	    (sect.sct_oldown != player->cnum)) {
-	    pr("You're not at war with them!\n");
-	    return abort_attack();
-	}
-    }
     return 0;
 }
 

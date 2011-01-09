@@ -64,20 +64,6 @@ decl(void)
     case 'h':
 	rel = HOSTILE;
 	break;
-    case 'm':
-	if (!opt_SLOW_WAR)
-	    return RET_SYN;
-	if (!player->god)
-	    return RET_SYN;
-	rel = MOBILIZATION;
-	break;
-    case 's':
-	if (!opt_SLOW_WAR)
-	    return RET_SYN;
-	if (!player->god)
-	    return RET_SYN;
-	rel = SITZKRIEG;
-	break;
     case 'w':
 	rel = AT_WAR;
 	break;

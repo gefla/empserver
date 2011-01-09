@@ -53,7 +53,6 @@ setrel(natid us, natid them, int rel)
     int n_up = 0;
     int n_down = 0;
     char *addendum = NULL;
-    int theirrel;
 
     if (rel < AT_WAR)
 	rel = AT_WAR;
@@ -84,34 +83,6 @@ setrel(natid us, natid them, int rel)
 	n_up = N_UP_HOSTILE;
 	n_down = N_DOWN_HOSTILE;
     } else if (rel < HOSTILE) {
-	if (opt_SLOW_WAR) {
-	    struct natstr *natp2;
-	    double cost;
-
-	    if (!player->god) {
-		natp2 = themnp;
-		theirrel = getrel(natp2, us);
-		if (theirrel <= MOBILIZATION) {
-		    rel = theirrel;
-		    cost = 0;
-		} else if (us == player->cnum && !update_running) {
-		    if (mynp->nat_money < War_Cost) {
-			mpr(us, "You don't have the money!\n");
-			return RET_FAIL;
-		    }
-		    rel = MOBILIZATION;
-		    cost = War_Cost;
-		} else {	/* nreport is forcing us to decl war */
-		    return RET_FAIL;
-		}
-		if (rel >= oldrel) {
-		    if (us == player->cnum && !update_running)
-			mpr(us, "No change required for that!\n");
-		    return RET_FAIL;
-		}
-		player->dolcost += cost;
-	    }
-	}
 	addendum = "Declaration made (give 'em hell).";
 	n_down = N_DECL_WAR;
     }

@@ -298,7 +298,6 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
     struct empobj *gp;
     union empobj_storage item;
     int relat;
-    struct sctstr sect;
 
     snxtitem_all(&ni, type);
     while (nxtitem(&ni, &item)) {
@@ -328,25 +327,6 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 
 	if (!in_oparea(gp, x, y))
 	    continue;
-
-	if (opt_SLOW_WAR) {
-	    if (mission != MI_AIR_DEFENSE) {
-		getsect(x, y, &sect);
-		if (getrel(getnatp(gp->own), sect.sct_own) > AT_WAR) {
-
-		    /*
-		     * If the owner of the unit isn't at war
-		     * with the victim, and doesn't own the
-		     * sect being acted upon, and isn't the
-		     * old owner of that sect, bounce them.
-		     */
-		    if (sect.sct_type != SCT_WATER &&
-			sect.sct_own != gp->own &&
-			sect.sct_oldown != gp->own)
-			continue;
-		}
-	    }
-	}
 
 	glp = malloc(sizeof(struct genlist));
 	memset(glp, 0, sizeof(struct genlist));

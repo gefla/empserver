@@ -42,8 +42,7 @@
 
 char *relates[] = {
     /* must follow nation relation defines in nat.h */
-    "At War", "Sitzkrieg", "Mobilizing", "Hostile", "Neutral", "Friendly",
-    "Allied"
+    "At War", "Hostile", "Neutral", "Friendly", "Allied"
 };
 
 char *

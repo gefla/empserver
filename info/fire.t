@@ -7,9 +7,6 @@ changes. It is still used to shoot up land sectors or ships. However,
 you may now use multiple ships, units, sectors to fire from. Return
 fire is spread amongst all the firing things.
 .s1
-If the SLOW_WAR option is in use, you cannot fire on the
-land of any nation you are not at war with. (see info relations)
-.s1
 The general form for shooting at land from a sector is:
 .EX fire sect <ASECTS> <VSECT>
 Where <VSECT> is the victim sector,

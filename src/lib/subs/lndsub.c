@@ -1011,8 +1011,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		       "%s unit spotted in %s\n", cname(player->cnum),
 		       xyas(sect.sct_x, sect.sct_y, sect.sct_own));
 		    setrel(sect.sct_own, llp->unit.land.lnd_own, HOSTILE);
-		} else if (rel == HOSTILE || rel == AT_WAR ||
-			   rel == SITZKRIEG || rel == MOBILIZATION) {
+		} else if (rel <= HOSTILE) {
 		    wu(0, sect.sct_own,
 		       "%s spy shot in %s\n", cname(player->cnum),
 		       xyas(sect.sct_x, sect.sct_y, sect.sct_own));

@@ -182,8 +182,6 @@ launch_missile(struct plnstr *pp)
     struct mchrstr *mcp;
     struct shpstr target_ship;
     struct sctstr sect;
-    int rel;
-    struct natstr *natp;
     struct nukstr nuke;
     char buf[1024];
 
@@ -230,18 +228,6 @@ launch_missile(struct plnstr *pp)
 	if (msl_equip(pp, 's') < 0)
 	    return RET_FAIL;
 	getsect(sx, sy, &sect);
-	if (opt_SLOW_WAR) {
-	    natp = getnatp(player->cnum);
-	    rel = getrel(natp, sect.sct_own);
-	    if ((rel != AT_WAR) && (sect.sct_own != player->cnum) &&
-		(sect.sct_own) && (sect.sct_oldown != player->cnum)) {
-		pr("You are not at war with the player->owner of the target sector!\n");
-		pr_beep();
-		pr("Kaboom!!!\n");
-		pr("Missile monitoring officer destroys RV before detonation.\n");
-		return RET_OK;
-	    }
-	}
 	if (msl_launch(pp, EF_SECTOR, "sector", sx, sy, sect.sct_own,
 		       &sublaunch) < 0)
 	    return RET_OK;

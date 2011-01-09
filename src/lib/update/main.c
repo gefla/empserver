@@ -59,8 +59,7 @@ update_main(void)
     int n;
     int i;
     struct bp *bp;
-    int cn, cn2, rel;
-    struct natstr *cnp;
+    int cn;
     struct natstr *np;
 
     logerror("production update (%d etus)", etu);
@@ -130,26 +129,7 @@ update_main(void)
     prod_nat(etu);
     age_levels(etu);
     free(bp);
-    if (opt_SLOW_WAR) {
-	/* Update war declarations */
-	/* MOBILIZATION->SITZKRIEG->AT_WAR */
-	for (cn = 1; cn < MAXNOC; cn++) {
-	    if (!(cnp = getnatp(cn)))
-		break;
-	    for (cn2 = 1; cn2 < MAXNOC; cn2++) {
-		if (cn2 == cn)
-		    continue;
-		rel = getrel(cnp, cn2);
-		if (rel == MOBILIZATION) {
-		    rel = SITZKRIEG;
-		    setrel(cn, cn2, rel);
-		} else if (rel == SITZKRIEG) {
-		    rel = AT_WAR;
-		    setrel(cn, cn2, rel);
-		}
-	    }
-	}
-    }
+
     /* Only update mobility for non-MOB_ACCESS here, since it doesn't
        get done for MOB_ACCESS anyway during the update */
     if (!opt_MOB_ACCESS) {

@@ -120,12 +120,10 @@ struct natstr {
 
 	/* nation relation codes */
 #define AT_WAR		0
-#define SITZKRIEG	1
-#define MOBILIZATION	2
-#define HOSTILE		3
-#define NEUTRAL		4
-#define FRIENDLY	5
-#define ALLIED		6
+#define HOSTILE		1
+#define NEUTRAL		2
+#define FRIENDLY	3
+#define ALLIED		4
 
 	/* nation reject codes */
 #define REJ_TELE	bit(0)	/* dont allow telegrams to be sent */

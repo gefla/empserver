@@ -101,8 +101,6 @@ vers(void)
     if (rollover_avail_max)
 	pr("Up to %d avail can roll over an update.\n",
 	   rollover_avail_max);
-    if (opt_SLOW_WAR)
-	pr("Declaring war will cost you $%i\n\n", War_Cost);
     pr("Happiness p.e. requires 1 happy stroller per %d civ.\n",
        (int)hap_cons / etu_per_update);
     pr("Education p.e. requires 1 class of graduates per %d civ.\n",

@@ -191,9 +191,6 @@ double buil_tower_bt = 100.0;	/* tech level required to build a tower */
 int buil_tower_bh = 400;	/* hcm required to build a bridge tower */
 double buil_tower_bc = 3000.0;	/* cash required to build a bridge tower */
 
-/* opt_SLOW_WAR */
-int War_Cost = 1000;		/* Cost to declare war */
-
 float drnuke_const = 0.0;	/* research must be at least drnuke_const*tech */
 				/* in order to build a nuke. For example, if
 				 * drnuke_const is .25, you need a 75 res to

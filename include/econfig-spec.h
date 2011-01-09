@@ -181,8 +181,6 @@ EMPCF_OPT("RES_POP", opt_RES_POP,
     "Population is limited by research")
 EMPCF_OPT("SAIL", opt_SAIL,
     "Enable sail command")
-EMPCF_OPT("SLOW_WAR", opt_SLOW_WAR,
-    "Declaring war takes time")
 EMPCF_OPT("SUPER_BARS", opt_SUPER_BARS,
     "Make bars immune to damage")
 EMPCF_OPT("TECH_POP", opt_TECH_POP,
@@ -207,8 +205,6 @@ EMPCFBOTH("at_least_one_100", at_least_one_100, int, NSC_INT, KM_INTERNAL,
     "Initialize new countries with at least one sector with 100 of all resource")
 EMPCFBOTH("start_cash", start_cash, long, NSC_LONG, KM_INTERNAL,
     "Starting cash for new countries")
-EMPCFBOTH("war_cost", War_Cost, int, NSC_INT, 0,
-    "Cost to declare war (if SLOW_WAR is on)")
 
 EMPCF_COMMENT("\n\n### Technology/Research/Education/Happiness")
 EMPCFBOTH("easy_tech", easy_tech, float, NSC_FLOAT, 0,

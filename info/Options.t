@@ -11,7 +11,6 @@ The following options were introduced in the Chainsaw server:
 EASY_BRIDGES:	bridges can be built from any sector
 SUPER_BARS:	gold bars aren't destroyed by shelling or bombing
 ALL_BLEED:	you get tech bleed from all countries, not just allies
-SLOW_WAR:	War declaring takes time. No land attacks unless at war.
 NOMOBCOST:	ships pay 0 mob to fire. Subs pay 1/2 a sect's movement cost
 TRADESHIPS:	you can build/nav/scuttle trade ships to make money
 RES_POP:	Research affects max sector population.

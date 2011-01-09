@@ -95,8 +95,6 @@ bomb(void)
     char mission;
     struct plist *plp;
     struct emp_qelem *qp, *next;
-    int rel;
-    struct natstr *natp;
     char buf[1024];
 
     if (get_planes(&ni_bomb, &ni_esc, player->argp[1], player->argp[2]) < 0)
@@ -160,20 +158,6 @@ bomb(void)
 	    }
 	    break;
 	case 's':
-	    if (opt_SLOW_WAR) {
-		natp = getnatp(player->cnum);
-		if (target.sct_own) {
-		    rel = getrel(natp, target.sct_own);
-		    if ((rel != AT_WAR) && (player->cnum != target.sct_own)
-			&& (target.sct_own) &&
-			(target.sct_oldown != player->cnum)) {
-			pr("You're not at war with them!\n");
-			pln_put(&bomb_list);
-			pln_put(&esc_list);
-			return RET_FAIL;
-		    }
-		}
-	    }
 	    nreport(player->cnum, N_SCT_BOMB, target.sct_own, 1);
 	    strat_bomb(&bomb_list, &target);
 	    break;
@@ -197,8 +181,6 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     char *p;
     int nsubs;
     int nunits;
-    struct natstr *natp;
-    int rel;
     char buf[1024];
     int i;
 
@@ -229,18 +211,6 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
     }
     switch (*p) {
     case 'l':
-	if (opt_SLOW_WAR) {
-	    natp = getnatp(player->cnum);
-	    if (target->sct_own) {
-		rel = getrel(natp, target->sct_own);
-		if ((rel != AT_WAR) && (player->cnum != target->sct_own)
-		    && (target->sct_own) &&
-		    (target->sct_oldown != player->cnum)) {
-		    pr("You're not at war with them!\n");
-		    goto retry;
-		}
-	    }
-	}
 	if (nunits == 0) {
 	    pr("no units there\n");
 	    goto retry;
@@ -248,18 +218,6 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
 	land_bomb(list, target);
 	break;
     case 'p':
-	if (opt_SLOW_WAR) {
-	    natp = getnatp(player->cnum);
-	    if (target->sct_own) {
-		rel = getrel(natp, target->sct_own);
-		if ((rel != AT_WAR) && (player->cnum != target->sct_own)
-		    && (target->sct_own) &&
-		    (target->sct_oldown != player->cnum)) {
-		    pr("You're not at war with them!\n");
-		    goto retry;
-		}
-	    }
-	}
 	if (nplanes == 0) {
 	    pr("no planes there\n");
 	    goto retry;
@@ -281,19 +239,6 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
 	ship_bomb(list, target);
 	break;
     case 'c':
-	if (opt_SLOW_WAR) {
-	    natp = getnatp(player->cnum);
-	    if (target->sct_own) {
-		rel = getrel(natp, target->sct_own);
-		if ((rel != AT_WAR) && (player->cnum != target->sct_own)
-		    && (target->sct_own) &&
-		    (target->sct_oldown != player->cnum)) {
-		    pr("You're not at war with them!\n");
-		    goto retry;
-		}
-	    }
-	}
-
 	for (i = 0; i < nbomb; i++) {
 	    if (!target->sct_item[bombcomm[i]])
 		continue;
@@ -307,18 +252,6 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
 	comm_bomb(list, target);
 	break;
     case 'e':
-	if (opt_SLOW_WAR) {
-	    natp = getnatp(player->cnum);
-	    if (target->sct_own) {
-		rel = getrel(natp, target->sct_own);
-		if ((rel != AT_WAR) && (player->cnum != target->sct_own)
-		    && (target->sct_own) &&
-		    (target->sct_oldown != player->cnum)) {
-		    pr("You're not at war with them!\n");
-		    goto retry;
-		}
-	    }
-	}
 	eff_bomb(list, target);
 	break;
     case 'q':

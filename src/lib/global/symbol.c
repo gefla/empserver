@@ -139,8 +139,6 @@ struct symbol nation_rejects[] = {
 struct symbol nation_relations[] = {
     {-1, "unknown"},
     {AT_WAR, "at-war"},
-    {SITZKRIEG, "sitzkrieg"},
-    {MOBILIZATION, "mobilization"},
     {HOSTILE, "hostile"},
     {NEUTRAL, "neutral"},
     {FRIENDLY, "friendly"},

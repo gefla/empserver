@@ -173,8 +173,7 @@ assa(void)
 		putland(llp->unit.land.lnd_uid, &llp->unit.land);
 	    } else {
 		pr("%s was spotted", prland(&llp->unit.land));
-		if (rel == HOSTILE || rel == AT_WAR || rel == SITZKRIEG ||
-		    rel == MOBILIZATION) {
+		if (rel <= HOSTILE) {
 		    wu(0, def->own, "%s spy shot and killed in %s.\n",
 		       cname(player->cnum), xyas(def->x, def->y,
 						 def->own));
