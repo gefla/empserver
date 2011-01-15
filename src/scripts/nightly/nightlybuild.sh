@@ -95,7 +95,7 @@ in
 # Make sandbox
 if [ -d "${WORKDIR}" ]
 then
-	! [ -d "${WORKDIR}"/empserver/.git ]  || err "Invalid sandbox, missing .git directory"
+	[ -d "${WORKDIR}"/empserver/.git ] || err "Invalid sandbox, missing .git directory"
 else
 	echo making directory
 	mkdir "${WORKDIR}" || warn "Could not create ${BOXDIR}/${WORKDIR}"
