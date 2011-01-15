@@ -478,12 +478,11 @@ in
 rm -rf `find "${WORKDIR}" -maxdepth 1 ! -name .git` || warn "Directory ${WORKDIR} could not be forcibly removed !"
 		;;
 	*)
-rm -r "${WORKDIR}" || warn "Directory ${WORKDIR} could not be cleanly removed !"
 rm -rf "${WORKDIR}" || warn "Directory ${WORKDIR} could not be forcibly removed !"
 [ -d "${WORKDIR}/." ] && warn "Directory ${WORKDIR} still present"
-echo "Done (cleaning)."
 		;;
 esac
+echo "Done (cleaning)."
 		;;
 esac
 #
