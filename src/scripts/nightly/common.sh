@@ -27,8 +27,6 @@ runfeed() {
 	[ -n "$1" ] || { warn "INTERNAL ERROR: No coun/repr given ?" ; return 2 ; }
 	REP="$2"
 	[ -n "$REP" ] || REP="$1"
-	{
-		cat
-	} | ${EMPIRE_PATH}/empire "$1" "$REP" || { warn "empire not ok ?" ; return 1 ; }
+	${EMPIRE_PATH}/empire "$1" "$REP" || { warn "empire not ok ?" ; return 1 ; }
 	return 0
 }
