@@ -165,7 +165,8 @@ scuttle_tradeship(struct shpstr *sp, int interactive)
     mp = &mchr[(int)sp->shp_type];
     getsect(sp->shp_x, sp->shp_y, &sect);
     if (sect.sct_own && sect.sct_type == SCT_HARBR && sect.sct_effic >= 2
-	&& getrel(getnatp(sect.sct_own), sp->shp_own) >= FRIENDLY) {
+	&& (sect.sct_own == sp->shp_own
+	    || getrel(getnatp(sect.sct_own), sp->shp_own) >= FRIENDLY)) {
 	dist = mapdist(sp->shp_x, sp->shp_y,
 		       sp->shp_orig_x, sp->shp_orig_y);
 	/* Don't disclose distance to to pirates */
