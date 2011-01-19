@@ -420,6 +420,9 @@ share_bmap(natid from, natid to, struct nstr_sect *ns, char des,
     char todes;
     char from_des = *from_name;
 
+    if (from == to)
+	return 0;
+
     if (isalpha(from_des))
 	from_des &= ~0x20;
 
