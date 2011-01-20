@@ -285,16 +285,15 @@ att_get_combat(struct combat *com, int isdef)
 		   mil);
 	    com->troops = mil;
 	} else {		/* attacker */
-	    if (owner != player->cnum
-		&& getrel(getnatp(owner), player->cnum) != ALLIED) {
+	    if (owner != com->own && owner != player->cnum) {
 		/* must be EF_SECTOR */
-		if (com->mil)
+		if (com->troops)
 		    pr("WARNING: Your %d mil in %s were destroyed because %s just took the sector!\n",
 		       com->mil, xyas(com->x, com->y, player->cnum),
 		       cname(owner));
 		else
-		    pr("You no longer own %s\n",
-		       xyas(com->x, com->y, player->cnum));
+		    pr("%s just took %s!\n",
+		       cname(owner), xyas(com->x, com->y, player->cnum));
 		return att_combat_init(com, EF_BAD);
 	    }
 	    if (com->troops && com->troops + 1 > mil) {
@@ -1272,7 +1271,7 @@ get_ototal(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	    }
 	    if (w < 0) {
 		lnd_print(player->cnum, llp,
-			  "is in a sector not owned by you");
+			  "can't attack from this sector now");
 		lnd_delete(llp);
 		continue;
 	    }
