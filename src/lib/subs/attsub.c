@@ -1022,7 +1022,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	     * of high-mobility sectors (mountains): for those we
 	     * still require attack mobility.
 	     */
-	    pathcost = att_mobcost(off->own, def, lnd_mobtype(&land));
+	    pathcost = att_mobcost(land.lnd_own, def, lnd_mobtype(&land));
 	    mobcost = lnd_pathcost(&land, pathcost);
 	    if (pathcost < 1.0) {
 		if (land.lnd_mobil <= 0) {
@@ -2515,7 +2515,7 @@ take_move_in_mob(int combat_mode, struct ulist *llp, struct combat *off,
     switch (combat_mode) {
     case A_ATTACK:
 	mobcost = lnd_pathcost(&llp->unit.land,
-			       att_mobcost(off->own, def,
+			       att_mobcost(llp->unit.land.lnd_own, def,
 					   lnd_mobtype(&llp->unit.land)));
 	break;
     case A_ASSAULT:
