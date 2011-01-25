@@ -104,6 +104,16 @@ getrel(struct natstr *np, natid them)
     return np->nat_relate[them];
 }
 
+/*
+ * Return relations US has with THEM.
+ * Countries are considered allied to themselves.
+ */
+int
+relations_with(natid us, natid them)
+{
+    return us == them ? ALLIED : getrel(getnatp(us), them);
+}
+
 int
 getrejects(natid them, struct natstr *np)
 {

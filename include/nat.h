@@ -170,6 +170,7 @@ extern char *relatename(struct natstr *np, natid other);
 extern char *rejectname(struct natstr *np, natid other);
 extern char *natstate(struct natstr *np);
 extern int getrel(struct natstr *np, natid them);
+extern int relations_with(natid, natid);
 extern int getrejects(natid them, struct natstr *np);
 extern int getcontact(struct natstr *np, natid them);
 extern void putrel(struct natstr *np, natid them, int relate);
