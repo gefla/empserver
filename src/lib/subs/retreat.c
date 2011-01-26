@@ -249,8 +249,8 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 
 	getsect(newx, newy, &sect);
 	if (shp_check_nav(&sect, sp) != CN_NAVIGABLE ||
-	    (sect.sct_own && sect.sct_own != sp->shp_own &&
-	     getrel(getnatp(sect.sct_own), sp->shp_own) < FRIENDLY)) {
+	    (sect.sct_own
+	     && relations_with(sect.sct_own, sp->shp_own) < FRIENDLY)) {
 	    wu(0, sp->shp_own, "%s %s,\nbut could not retreat to %s!\n",
 	       prship(sp), conditions[findcondition(code)].desc[orig],
 	       xyas(newx, newy, sp->shp_own));

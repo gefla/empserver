@@ -74,8 +74,7 @@ drop(void)
 	return RET_SYN;
     getsect(tx, ty, &target);
 
-    if (target.sct_own == player->cnum
-	|| getrel(getnatp(target.sct_own), player->cnum) == ALLIED) {
+    if (relations_with(target.sct_own, player->cnum) == ALLIED) {
 	/* own or allied sector: cargo drop */
 	if (ip->i_uid == I_CIVIL && target.sct_own != target.sct_oldown) {
 	    pr("Can't drop civilians into occupied sectors.\n");

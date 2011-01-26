@@ -102,8 +102,7 @@ carriersatxy(coord x, coord y, natid own)
     while (nxtitem(&ni, &ship)) {
 	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
 	    continue;
-	if (ship.shp_own != own
-	    && getrel(getnatp(ship.shp_own), own) != ALLIED)
+	if (relations_with(ship.shp_own, own) != ALLIED)
 	    continue;
 	if ((carrier_planes(&ship, 0) & (P_L | P_K)) == 0)
 	    continue;

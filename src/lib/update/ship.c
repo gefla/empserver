@@ -268,8 +268,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
     sp = getsectp(ship->shp_x, ship->shp_y);
 
     if (sp->sct_own != 0
-	&& sp->sct_own != ship->shp_own
-	&& getrel(getnatp(sp->sct_own), ship->shp_own) < FRIENDLY)
+	&& relations_with(sp->sct_own, ship->shp_own) < FRIENDLY)
 	return;
 
     /* only military can work on a military boat */

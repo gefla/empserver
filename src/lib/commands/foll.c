@@ -60,8 +60,7 @@ foll(void)
     if (!good)
 	return RET_SYN;
     getship(leader, &ship);
-    if (ship.shp_own != player->cnum &&
-	getrel(getnatp(ship.shp_own), player->cnum) < FRIENDLY) {
+    if (relations_with(ship.shp_own, player->cnum) < FRIENDLY) {
 	pr("That ship won't let you follow.\n");
 	return RET_FAIL;
     }

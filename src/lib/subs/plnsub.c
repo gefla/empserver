@@ -102,8 +102,7 @@ get_assembly_point(char *input, struct sctstr *ap_sect, char *buf)
 	return NULL;
 
     /* over own or allied sector is fine */
-    if (ap_sect->sct_own == player->cnum
-	|| getrel(getnatp(ap_sect->sct_own), player->cnum) == ALLIED)
+    if (relations_with(ap_sect->sct_own, player->cnum) == ALLIED)
 	return ap_sect;
 
     /* over own or allied ship is fine */
@@ -111,8 +110,7 @@ get_assembly_point(char *input, struct sctstr *ap_sect, char *buf)
     while (nxtitem(&ni, &ship)) {
 	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
 	    continue;
-	if (ship.shp_own == player->cnum
-	    || getrel(getnatp(ship.shp_own), player->cnum) == ALLIED)
+	if (relations_with(ship.shp_own, player->cnum) == ALLIED)
 	    return ap_sect;
     }
 
@@ -170,8 +168,7 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
     }
 
     /* try to land at sector */
-    if (target->sct_own != player->cnum
-	&& getrel(getnatp(target->sct_own), player->cnum) != ALLIED) {
+    if (relations_with(target->sct_own, player->cnum) != ALLIED) {
 	pr("Nowhere to land at sector %s!\n",
 	   xyas(target->sct_x, target->sct_y, player->cnum));
 	return -1;
@@ -285,8 +282,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 		pr("Your %s vanish without a trace.\n", ip->i_name);
 	    return;
 	}
-	if (sect.sct_own != player->cnum
-	    && getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
+	if (relations_with(sect.sct_own, player->cnum) != ALLIED) {
 	    pr("You don't own %s!  Cargo jettisoned...\n",
 	       xyas(tx, ty, player->cnum));
 	    return;
@@ -461,8 +457,7 @@ pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 	    CANT_REACH();
 	    return 0;
 	}
-	if (ship.shp_own != pp->pln_own
-	    && getrel(getnatp(ship.shp_own), pp->pln_own) != ALLIED) {
+	if (relations_with(ship.shp_own, pp->pln_own) != ALLIED) {
 	    if (noisy)
 		pr("(note) An ally does not own the ship %s is on\n",
 		   prplane(pp));
@@ -477,8 +472,7 @@ pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 	    CANT_REACH();
 	    return 0;
 	}
-	if (land.lnd_own != pp->pln_own
-	    && getrel(getnatp(land.lnd_own), pp->pln_own) != ALLIED) {
+	if (relations_with(land.lnd_own, pp->pln_own) != ALLIED) {
 	    if (noisy)
 		pr("(note) An ally does not own the unit %s is on\n",
 		   prplane(pp));
@@ -496,8 +490,7 @@ pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 	    return 0;
 	}
 
-	if (sect.sct_own != pp->pln_own
-	    && getrel(getnatp(sect.sct_own), pp->pln_own) != ALLIED) {
+	if (relations_with(sect.sct_own, pp->pln_own) != ALLIED) {
 	    if (noisy)
 		pr("(note) An ally does not own the sector %s is in\n",
 		   prplane(pp));
