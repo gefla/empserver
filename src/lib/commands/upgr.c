@@ -100,8 +100,8 @@ lupgr(void)
 	    continue;
 	if (sect.sct_type != SCT_HEADQ || sect.sct_effic < 60)
 	    continue;
-	if (getrel(getnatp(land.lnd_own), sect.sct_own) < FRIENDLY
-	    && sect.sct_own != land.lnd_own) {
+	if (land.lnd_own != sect.sct_own
+	    && getrel(getnatp(land.lnd_own), sect.sct_own) < FRIENDLY) {
 	    pr("You are not on friendly terms with the owner of unit %d!\n",
 	       land.lnd_uid);
 	    continue;
@@ -181,8 +181,8 @@ supgr(void)
 	    continue;
 	if (sect.sct_type != SCT_HARBR || sect.sct_effic < 60)
 	    continue;
-	if (getrel(getnatp(ship.shp_own), sect.sct_own) < FRIENDLY
-	    && sect.sct_own != ship.shp_own) {
+	if (ship.shp_own != sect.sct_own
+	    && getrel(getnatp(ship.shp_own), sect.sct_own) < FRIENDLY) {
 	    pr("You are not on friendly terms with the owner of ship %d!\n",
 	       ship.shp_uid);
 	    continue;
@@ -261,8 +261,8 @@ pupgr(void)
 	    continue;
 	if (sect.sct_type != SCT_AIRPT || sect.sct_effic < 60)
 	    continue;
-	if (getrel(getnatp(plane.pln_own), sect.sct_own) < FRIENDLY
-	    && sect.sct_own != plane.pln_own) {
+	if (plane.pln_own != sect.sct_own
+	    && getrel(getnatp(plane.pln_own), sect.sct_own) < FRIENDLY) {
 	    pr("You are not on friendly terms with the owner of plane %d!\n",
 	       plane.pln_uid);
 	    continue;

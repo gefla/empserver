@@ -749,8 +749,9 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 	getsect(newx, newy, &sect);
 	navigate = shp_check_nav(&sect, &mlp->unit.ship);
 	if (navigate != CN_NAVIGABLE ||
-	    (sect.sct_own && actor != sect.sct_own &&
-	     getrel(getnatp(sect.sct_own), actor) < FRIENDLY)) {
+	    (sect.sct_own
+	     && sect.sct_own != actor
+	     && getrel(getnatp(sect.sct_own), actor) < FRIENDLY)) {
 	    if (dchr[sect.sct_type].d_nav == NAV_CANAL &&
 		!(((struct mchrstr *)mlp->chrp)->m_flags & M_CANAL) &&
 		navigate == CN_LANDLOCKED)

@@ -143,7 +143,8 @@ load(void)
 		   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    continue;
 	}
-	if (!player->owner && load_unload == UNLOAD
+	if (load_unload == UNLOAD
+	    && !player->owner
 	    && getrel(getnatp(sect.sct_own), player->cnum) < FRIENDLY) {
 	    if (noisy)
 		pr("You can't unload into an unfriendly %s\n",

@@ -501,7 +501,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    lnd_stays(actor, "has no mil on it to guide it", llp);
 	    continue;
 	}
-	if (sect.sct_own != land.lnd_own &&
+	if (sect.sct_own != actor &&
 	    getrel(getnatp(sect.sct_own), actor) != ALLIED &&
 	    !(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY) &&
 	    sect.sct_own) {
@@ -782,9 +782,8 @@ lnd_fort_interdiction(struct emp_qelem *list,
     while (nxtsct(&ns, &fsect)) {
 	if (fsect.sct_own == 0)
 	    continue;
-	if (fsect.sct_own == victim)
-	    continue;
-	if (getrel(getnatp(fsect.sct_own), victim) >= NEUTRAL)
+	if (fsect.sct_own == victim
+	    || getrel(getnatp(fsect.sct_own), victim) >= NEUTRAL)
 	    continue;
 	range = roundrange(fortrange(&fsect));
 	trange = mapdist(newx, newy, fsect.sct_x, fsect.sct_y);
