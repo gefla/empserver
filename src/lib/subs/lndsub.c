@@ -502,7 +502,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    lnd_stays(actor, "has no mil on it to guide it", llp);
 	    continue;
 	}
-	rel = getrel(getnatp(sect.sct_own), player->cnum);
+	rel = getrel(getnatp(sect.sct_own), actor);
 	if (sect.sct_own != land.lnd_own && rel != ALLIED &&
 	    !(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY) &&
 	    sect.sct_own) {
@@ -937,7 +937,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	newx = xnorm(llp->unit.land.lnd_x + dx);
 	newy = ynorm(llp->unit.land.lnd_y + dy);
 	getsect(newx, newy, &sect);
-	rel = getrel(getnatp(sect.sct_own), player->cnum);
+	rel = getrel(getnatp(sect.sct_own), actor);
 	if ((sect.sct_own != actor && rel != ALLIED &&
 	     !(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY) &&
 	     sect.sct_own) || (sect.sct_type == SCT_WATER ||
@@ -998,7 +998,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	putland(llp->unit.land.lnd_uid, &llp->unit.land);
 	putsect(&osect);
 	getsect(osect.sct_x, osect.sct_y, &osect);
-	if (osect.sct_own != oldown && oldown == player->cnum) {
+	if (osect.sct_own != oldown && oldown == actor) {
 	    /* It was your sector, now it's not.  Simple :) */
 	    mpr(actor, "You no longer own %s\n",
 		xyas(osect.sct_x, osect.sct_y, actor));
@@ -1008,12 +1008,12 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	    if (chance(LND_SPY_DETECT_CHANCE(llp->unit.land.lnd_effic))) {
 		if (rel == NEUTRAL || rel == FRIENDLY) {
 		    wu(0, sect.sct_own,
-		       "%s unit spotted in %s\n", cname(player->cnum),
+		       "%s unit spotted in %s\n", cname(actor),
 		       xyas(sect.sct_x, sect.sct_y, sect.sct_own));
 		    setrel(sect.sct_own, llp->unit.land.lnd_own, HOSTILE);
 		} else if (rel <= HOSTILE) {
 		    wu(0, sect.sct_own,
-		       "%s spy shot in %s\n", cname(player->cnum),
+		       "%s spy shot in %s\n", cname(actor),
 		       xyas(sect.sct_x, sect.sct_y, sect.sct_own));
 		    mpr(actor, "%s was shot and killed.\n",
 			prland(&llp->unit.land));
