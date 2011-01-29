@@ -117,7 +117,7 @@ load(void)
 	if (!player->owner) {
 	    if (load_unload == UNLOAD || !noisy)
 		continue;
-	    if (getrel(getnatp(ship.shp_own), player->cnum) < FRIENDLY)
+	    if (relations_with(ship.shp_own, player->cnum) < FRIENDLY)
 		continue;
 	}
 
@@ -145,7 +145,7 @@ load(void)
 	}
 	if (load_unload == UNLOAD
 	    && !player->owner
-	    && getrel(getnatp(sect.sct_own), player->cnum) < FRIENDLY) {
+	    && relations_with(sect.sct_own, player->cnum) < FRIENDLY) {
 	    if (noisy)
 		pr("You can't unload into an unfriendly %s\n",
 		   dchr[sect.sct_type].d_name);
@@ -251,7 +251,7 @@ lload(void)
 	if (!player->owner) {
 	    if (load_unload == UNLOAD || !noisy)
 		continue;
-	    if (getrel(getnatp(land.lnd_own), player->cnum) != ALLIED)
+	    if (relations_with(land.lnd_own, player->cnum) != ALLIED)
 		continue;
 	}
 
@@ -266,7 +266,7 @@ lload(void)
 		       xyas(sect.sct_x, sect.sct_y, player->cnum));
 		continue;
 	    }
-	    if (getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
+	    if (relations_with(sect.sct_own, player->cnum) != ALLIED) {
 		pr("Sector %s is not yours.\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum));
 		continue;

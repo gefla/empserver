@@ -134,8 +134,8 @@ tend(void)
 	    return RET_SYN;
 	total = 0;
 	while (nxtitem(&targets, &target)) {
-	    if (!player->owner &&
-		(getrel(getnatp(target.shp_own), player->cnum) < FRIENDLY))
+	    if (!player->owner
+		&& relations_with(target.shp_own, player->cnum) < FRIENDLY)
 		continue;
 	    if (target.shp_uid == tender.shp_uid)
 		continue;
@@ -232,8 +232,8 @@ tend_land(struct shpstr *tenderp, char *units)
 	if (!check_ship_ok(tenderp) || !check_land_ok(&land))
 	    return RET_SYN;
 	while (nxtitem(&targets, &target)) {
-	    if (!player->owner &&
-		(getrel(getnatp(target.shp_own), player->cnum) < FRIENDLY))
+	    if (!player->owner
+		&& relations_with(target.shp_own, player->cnum) < FRIENDLY)
 		continue;
 	    if (target.shp_uid == tenderp->shp_uid)
 		continue;

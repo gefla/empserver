@@ -173,7 +173,7 @@ sona(void)
 	    if (rad[y][x] != dchr[SCT_WATER].d_mnem && rad[y][x] != 'X')
 		continue;
 	    if (tmcp->m_flags & M_SUB &&
-		getrel(getnatp(targ.shp_own), player->cnum) < FRIENDLY) {
+		relations_with(targ.shp_own, player->cnum) < FRIENDLY) {
 		if (mcp->m_vrnge + visib < 8)
 		    pr("Sonar detects sub #%d @ %s\n",
 		       targ.shp_uid,
@@ -275,7 +275,7 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 		pr("Sonar contact in %s\n", xyas(x, y, player->cnum));
 		found = 1;
 	    }
-	    if (getrel(getnatp(targ->shp_own), pp->pln_own) < FRIENDLY &&
+	    if (relations_with(targ->shp_own, pp->pln_own) < FRIENDLY &&
 		roll(100) > pln_identchance(pp, shp_hardtarget(targ),
 					    EF_SHIP))
 		if (roll(100) > pln_identchance(pp, shp_hardtarget(targ),

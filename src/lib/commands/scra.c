@@ -135,7 +135,7 @@ scra(void)
 	getsect(item.gen.x, item.gen.y, &sect);
 	if (type == EF_SHIP) {
 	    if (!player->owner
-		&& getrel(getnatp(sect.sct_own), player->cnum) < FRIENDLY) {
+		&& relations_with(sect.sct_own, player->cnum) < FRIENDLY) {
 		pr("%s is not in a friendly harbor!\n",
 		   prship(&item.ship));
 		continue;
@@ -158,7 +158,7 @@ scra(void)
 	    }
 	} else {
 	    if (!player->owner
-		&& getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
+		&& relations_with(sect.sct_own, player->cnum) != ALLIED) {
 		pr("%s is not in an allied sector!\n",
 		   obj_nameof(&item.gen));
 		continue;

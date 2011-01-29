@@ -143,7 +143,7 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
 	    if (cno < 0
 		|| !getship(cno, &ship)
 		|| (!player->owner
-		    && (getrel(getnatp(ship.shp_own), player->cnum)
+		    && (relations_with(ship.shp_own, player->cnum)
 			!= ALLIED))) {
 		pr("Not yours\n");
 		continue;

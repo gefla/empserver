@@ -95,7 +95,7 @@ atta(void)
 	newy = def->y + diroff[n + 1][1];
 	getsect(newx, newy, &sect);	/* incase cross world boundary */
 	if (!player->owner
-	    && getrel(getnatp(sect.sct_own), player->cnum) != ALLIED)
+	    && relations_with(sect.sct_own, player->cnum) != ALLIED)
 	    continue;
 	att_combat_init(&off[++last], EF_SECTOR);
 	off[last].x = sect.sct_x;

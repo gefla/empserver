@@ -129,7 +129,7 @@ spy(void)
 		continue;
 
 	    own = dsect.sct_own;
-	    relat = getrel(getnatp(own), player->cnum);
+	    relat = relations_with(own, player->cnum);
 	    if (relat <= NEUTRAL
 		&& chance(dsect.sct_item[I_MILIT] / 200.0)) {
 		/* spy caught */

@@ -59,7 +59,7 @@ arm(void)
 	return RET_SYN;
     while (nxtitem(&ni, &pl)) {
 	if (!player->owner
-	    && getrel(getnatp(pl.pln_own), player->cnum) != ALLIED)
+	    && relations_with(pl.pln_own, player->cnum) != ALLIED)
 	    continue;
 	plc = &plchr[(int)pl.pln_type];
 	if ((plc->pl_flags & (P_O | P_N | P_MAR))
@@ -150,7 +150,7 @@ disarm(void)
 	}
 	getsect(nuke.nuk_x, nuke.nuk_y, &sect);
 	if (!player->owner
-	    && getrel(getnatp(sect.sct_own), player->cnum) != ALLIED) {
+	    && relations_with(sect.sct_own, player->cnum) != ALLIED) {
 	    pr("Disarming %s in sector %s requires an alliance!\n",
 	       prplane(&pl), xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    continue;

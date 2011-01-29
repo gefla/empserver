@@ -164,7 +164,7 @@ assa(void)
 	for (qp = olist.q_forw; qp != &olist; qp = next) {
 	    next = qp->q_forw;
 	    llp = (struct ulist *)qp;
-	    rel = getrel(getnatp(def->own), player->cnum);
+	    rel = relations_with(def->own, player->cnum);
 	    if (chance(0.10) || rel == ALLIED || !def->own) {
 		pr("%s made it on shore safely.\n", prland(&llp->unit.land));
 		llp->unit.land.lnd_x = def->x;

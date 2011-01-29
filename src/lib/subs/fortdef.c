@@ -159,8 +159,8 @@ feels_like_helping(natid cn, natid friend, natid foe)
     if (cn == friend)
 	return 1;		/* help self against anybody else */
     /* third party helps ally if at war with foe: */
-    return getrel(getnatp(cn), friend) == ALLIED
-	&& getrel(getnatp(cn), foe) == AT_WAR;
+    return relations_with(cn, friend) == ALLIED
+	&& relations_with(cn, foe) == AT_WAR;
 }
 
 /* Shoot back
