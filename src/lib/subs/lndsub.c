@@ -468,7 +468,6 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
     coord ally;
     int first = 1;
     char mess[128];
-    int rel;
 
     *minmobp = 9876.0;
     *maxmobp = -9876.0;
@@ -502,8 +501,8 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    lnd_stays(actor, "has no mil on it to guide it", llp);
 	    continue;
 	}
-	rel = getrel(getnatp(sect.sct_own), actor);
-	if (sect.sct_own != land.lnd_own && rel != ALLIED &&
+	if (sect.sct_own != land.lnd_own &&
+	    getrel(getnatp(sect.sct_own), actor) != ALLIED &&
 	    !(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY) &&
 	    sect.sct_own) {
 	    sprintf(mess, "has been kidnapped by %s", cname(sect.sct_own));

@@ -60,7 +60,6 @@ atta(void)
     int last, n;
     char *p;
     char buf[1024];
-    int rel;
 
     att_combat_init(def, EF_SECTOR);
     /*
@@ -95,8 +94,8 @@ atta(void)
 	newx = def->x + diroff[n + 1][0];
 	newy = def->y + diroff[n + 1][1];
 	getsect(newx, newy, &sect);	/* incase cross world boundary */
-	rel = getrel(getnatp(sect.sct_own), player->cnum);
-	if (!player->owner && rel != ALLIED)
+	if (!player->owner
+	    && getrel(getnatp(sect.sct_own), player->cnum) != ALLIED)
 	    continue;
 	att_combat_init(&off[++last], EF_SECTOR);
 	off[last].x = sect.sct_x;

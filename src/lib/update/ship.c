@@ -263,15 +263,12 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
     int w_p_eff;
     int mult;
     int mvec[I_MAX + 1];
-    int rel;
 
     mp = &mchr[(int)ship->shp_type];
     sp = getsectp(ship->shp_x, ship->shp_y);
 
     if ((sp->sct_own != ship->shp_own) && (sp->sct_own != 0)) {
-	rel = getrel(getnatp(sp->sct_own), ship->shp_own);
-
-	if (rel < FRIENDLY)
+	if (getrel(getnatp(sp->sct_own), ship->shp_own) < FRIENDLY)
 	    return;
     }
 
