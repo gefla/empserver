@@ -105,7 +105,7 @@ ground_interdict(coord x, coord y, natid victim, char *s)
     memset(mi, 0, sizeof(mi));
     act[0] = 0;
     for (cn = 1; cn < MAXNOC; cn++) {
-	act[cn] = getrel(getnatp(cn), victim) <= HOSTILE;
+	act[cn] = relations_with(cn, victim) <= HOSTILE;
 	emp_initque((struct emp_qelem *)&mi[cn]);
     }
 
@@ -1041,7 +1041,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 		   prplane(pp), xyas(x, y, pp->pln_own));
 		continue;
 	    }
-	    if (getrel(getnatp(pp->pln_own), victim) > HOSTILE) {
+	    if (relations_with(pp->pln_own, victim) > HOSTILE) {
 		wu(0, pp->pln_own,
 		   "\t%s tracks %s %s at %s\n",
 		   prplane(pp), cname(victim), s, xyas(x, y, pp->pln_own));

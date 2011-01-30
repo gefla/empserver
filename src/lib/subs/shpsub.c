@@ -611,7 +611,7 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	return 0;		/* Only coastwatch notify in nofortfire */
     /* Only fire at Hostile ships */
     for (i = 0; i < MAXNOC; ++i) {
-	if (getrel(getnatp(i), victim) >= NEUTRAL)
+	if (relations_with(i, victim) >= NEUTRAL)
 	    notified[i] = 0;
     }
     snxtsct_dist(&ns, newx, newy, fort_max_interdiction_range);
@@ -849,7 +849,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	if (!(mchr[(int)ship.shp_type].m_flags & M_ANTIMISSILE))
 	    continue;
 
-	if (getrel(getnatp(ship.shp_own), bombown) >= NEUTRAL)
+	if (relations_with(ship.shp_own, bombown) >= NEUTRAL)
 	    continue;
 
 	if (ship.shp_effic < 60)

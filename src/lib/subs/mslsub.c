@@ -199,7 +199,7 @@ msl_sel(struct emp_qelem *list, coord x, coord y, natid victim,
 	if (mission &&
 	    plane.pln_radius < mapdist(x, y, plane.pln_opx, plane.pln_opy))
 	    continue;
-	if (getrel(getnatp(plane.pln_own), victim) >= NEUTRAL)
+	if (relations_with(plane.pln_own, victim) >= NEUTRAL)
 	    continue;
 	/* missiles go one way, so we can use all the range */
 	if (plane.pln_range < mapdist(x, y, plane.pln_x, plane.pln_y))

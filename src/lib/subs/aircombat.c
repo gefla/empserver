@@ -618,7 +618,7 @@ ac_shipflak(struct emp_qelem *list, coord x, coord y)
 	mcp = &mchr[(int)ship.shp_type];
 	if (mcp->m_flags & M_SUB)
 	    continue;
-	if (getrel(getnatp(ship.shp_own), plane_owner) > HOSTILE)
+	if (relations_with(ship.shp_own, plane_owner) > HOSTILE)
 	    continue;
 	gun = shp_usable_guns(&ship);
 	if (gun == 0)
@@ -669,7 +669,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 	    continue;
 	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
 	    continue;
-	if (getrel(getnatp(land.lnd_own), plane_owner) > HOSTILE)
+	if (relations_with(land.lnd_own, plane_owner) > HOSTILE)
 	    continue;
 	flak = aaf * 1.5 * land.lnd_effic / 100.0;
 	ngun += flak;
