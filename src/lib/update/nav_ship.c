@@ -160,7 +160,7 @@ nav_loadship(struct shpstr *sp)
     if (!(sectp = getsectp(sp->shp_x, sp->shp_y)))
 	return 0;		/* safety */
 
-    rel = getrel(getnatp(sectp->sct_own), sp->shp_own);
+    rel = relations_with(sectp->sct_own, sp->shp_own);
 
     /* loop through each field for that ship */
     for (i = 0; i < TMAX; ++i) {
@@ -181,7 +181,7 @@ nav_loadship(struct shpstr *sp)
 	    didsomething[i] = 1;
 	    continue;
 	}
-	if (sectp->sct_own == sp->shp_own || rel >= FRIENDLY)
+	if (rel >= FRIENDLY)
 	    didsomething[i] = load_it(sp, sectp, i);
     }
 
