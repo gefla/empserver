@@ -142,7 +142,7 @@ swap(struct shpstr *sp)
  */
 
 static int
-nav_loadship(struct shpstr *sp, natid cnum)
+nav_loadship(struct shpstr *sp)
 {
     struct sctstr *sectp;
     int i, landown, shipown, didsomething[TMAX], rel;
@@ -162,7 +162,7 @@ nav_loadship(struct shpstr *sp, natid cnum)
 
     landown = sectp->sct_own;
     shipown = sp->shp_own;
-    rel = getrel(getnatp(sectp->sct_own), cnum);
+    rel = getrel(getnatp(sectp->sct_own), sp->shp_own);
 
     /* loop through each field for that ship */
     for (i = 0; i < TMAX; ++i) {
@@ -313,7 +313,7 @@ nav_ship(struct shpstr *sp)
 
 	/* Try to load the ship */
 	if (sp->shp_autonav & AN_LOADING) {
-	    didsomething = nav_loadship(sp, sp->shp_own);
+	    didsomething = nav_loadship(sp);
 	    if (didsomething)
 		quit = 1;
 	}
