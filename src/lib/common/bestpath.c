@@ -201,8 +201,7 @@ owned_and_navigable(char *bigmap, int x, int y, int own)
 
     /* Owned or allied sector?  Check the real sector.  */
     getsect(x, y, &sect);
-    if (sect.sct_own == own
-	|| (sect.sct_own && getrel(getnatp(sect.sct_own), own) == ALLIED)) {
+    if (sect.sct_own && relations_with(sect.sct_own, own) == ALLIED) {
 	/* FIXME duplicates shp_check_nav() logic */
 	switch (dchr[sect.sct_type].d_nav) {
 	case NAVOK:
