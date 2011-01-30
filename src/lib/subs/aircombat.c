@@ -172,7 +172,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 	if (!evaded) {
 	    overfly[sect.sct_own]++;
 	    for (cn = 1; cn < MAXNOC; cn++) {
-		if (cn == plane_owner || rel[cn] == ALLIED)
+		if (rel[cn] == ALLIED)
 		    continue;
 		if (cn != sect.sct_own && !gotships[cn] && !gotlands[cn])
 		    continue;
@@ -220,8 +220,6 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
 
     /* Let's report all of the overflights even if aborted */
     for (cn = 1; cn < MAXNOC; cn++) {
-	if (plane_owner == cn)
-	    continue;
 	if (overfly[cn] > 0 && rel[cn] != ALLIED)
 	    nreport(plane_owner, N_OVFLY_SECT, cn, overfly[cn]);
     }
@@ -762,7 +760,7 @@ getilists(struct emp_qelem *list, unsigned char *rel, natid intruder)
 
     rel[0] = NEUTRAL;
     for (cn = 1; cn < MAXNOC; cn++) {
-	rel[cn] = getrel(getnatp(cn), intruder);
+	rel[cn] = relations_with(cn, intruder);
 	emp_initque(&list[cn]);
     }
 
