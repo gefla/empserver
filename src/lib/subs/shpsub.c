@@ -589,7 +589,7 @@ shp_fort_interdiction(struct emp_qelem *list, coord newx, coord newy,
 
     /* Inform neutral and worse */
     for (i = 0; i < MAXNOC; ++i) {
-	if (getrel(getnatp(i), victim) <= NEUTRAL)
+	if (relations_with(i, victim) <= NEUTRAL)
 	    notified[i] = 0;
 	else
 	    notified[i] = 1;
