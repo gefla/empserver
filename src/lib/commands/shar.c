@@ -47,7 +47,7 @@ shar(void)
     if (to < 0)
 	return RET_SYN;
 
-    if (getrel(getnatp(to), player->cnum) < FRIENDLY) {
+    if (to != player->cnum && getrel(getnatp(to), player->cnum) < FRIENDLY) {
 	pr("%s does not have friendly relations towards you\n", cname(to));
 	return RET_FAIL;
     }
