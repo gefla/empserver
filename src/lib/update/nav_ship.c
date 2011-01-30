@@ -255,13 +255,10 @@ nav_ship(struct shpstr *sp)
     int dummyint;
     double dummydouble;
     int dir;
-    natid cnum;
 
     /* just return if no autonaving to do for this ship */
     if (!(sp->shp_autonav & AN_AUTONAV) || (sp->shp_autonav & AN_STANDBY))
 	return 0;
-
-    cnum = sp->shp_own;
 
     /* Make a list of one ships so we can use the navi.c code */
     emp_initque(&ship_list);
@@ -284,7 +281,7 @@ nav_ship(struct shpstr *sp)
 			      sp->shp_destx[0], sp->shp_desty[0],
 			      sp->shp_own);
 	    if (!cp) {
-		wu(0, cnum,
+		wu(0, sp->shp_own,
 		   "%s bad path, ship put on standby\n", prship(sp));
 		sp->shp_autonav |= AN_STANDBY;
 		putship(sp->shp_uid, sp);
@@ -316,7 +313,7 @@ nav_ship(struct shpstr *sp)
 
 	/* Try to load the ship */
 	if (sp->shp_autonav & AN_LOADING) {
-	    didsomething = nav_loadship(sp, cnum);
+	    didsomething = nav_loadship(sp, sp->shp_own);
 	    if (didsomething)
 		quit = 1;
 	}
