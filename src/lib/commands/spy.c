@@ -254,7 +254,7 @@ prplanes(int x, int y)
 static char *
 player_relstr(natid them)
 {
-    int rel = getrel(getnatp(player->cnum), them);
+    int rel = relations_with(player->cnum, them);
 
     if (rel == ALLIED)
 	return "Allied";
