@@ -933,8 +933,8 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	newx = xnorm(llp->unit.land.lnd_x + dx);
 	newy = ynorm(llp->unit.land.lnd_y + dy);
 	getsect(newx, newy, &sect);
-	rel = getrel(getnatp(sect.sct_own), actor);
-	if ((sect.sct_own != actor && rel != ALLIED &&
+	rel = relations_with(sect.sct_own, actor);
+	if ((rel != ALLIED &&
 	     !(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY) &&
 	     sect.sct_own) || (sect.sct_type == SCT_WATER ||
 			       sect.sct_type == SCT_SANCT ||
@@ -999,7 +999,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	    mpr(actor, "You no longer own %s\n",
 		xyas(osect.sct_x, osect.sct_y, actor));
 	}
-	if (rel != ALLIED && sect.sct_own != actor && sect.sct_own) {	/* must be a spy */
+	if (rel != ALLIED && sect.sct_own) {	/* must be a spy */
 	    /* Always a 10% chance of getting caught. */
 	    if (chance(LND_SPY_DETECT_CHANCE(llp->unit.land.lnd_effic))) {
 		if (rel == NEUTRAL || rel == FRIENDLY) {
