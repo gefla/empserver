@@ -59,11 +59,12 @@ void
 nreport(natid actor, int event, natid victim, int times)
 {
     int nice;
-    struct natstr *natp;
     struct newscache *ncp;
 
     if (CANT_HAPPEN((unsigned)event > N_MAX_VERB
 		    || rpt[event].r_newstory[0] == rpt[0].r_newstory[0]))
+	return;
+    if (CANT_HAPPEN(actor >= MAXNOC || victim >= MAXNOC))
 	return;
 
     ncp = ncache(actor, event, victim, times);
@@ -83,9 +84,7 @@ nreport(natid actor, int event, natid victim, int times)
 	return;
     if (!chance((double)-nice * times / 20.0))
 	return;
-    if (!(natp = getnatp(victim)))
-	return;
-    if (getrel(natp, actor) < HOSTILE)
+    if (getrel(getnatp(victim), actor) < HOSTILE)
 	return;
 
     setrel(victim, actor, HOSTILE);
