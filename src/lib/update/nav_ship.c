@@ -145,7 +145,7 @@ static int
 nav_loadship(struct shpstr *sp)
 {
     struct sctstr *sectp;
-    int i, landown, shipown, didsomething[TMAX], rel;
+    int i, didsomething[TMAX], rel;
 
     for (i = 0; i < TMAX; i++)
 	didsomething[i] = 0;
@@ -160,8 +160,6 @@ nav_loadship(struct shpstr *sp)
     if (!(sectp = getsectp(sp->shp_x, sp->shp_y)))
 	return 0;		/* safety */
 
-    landown = sectp->sct_own;
-    shipown = sp->shp_own;
     rel = getrel(getnatp(sectp->sct_own), sp->shp_own);
 
     /* loop through each field for that ship */
@@ -173,7 +171,7 @@ nav_loadship(struct shpstr *sp)
 	    didsomething[i] = 1;
 	    continue;
 	}
-	if (landown == 0) {
+	if (sectp->sct_own == 0) {
 	    /* either sea or deity harbor */
 	    didsomething[i] = 1;
 	    continue;
@@ -183,7 +181,7 @@ nav_loadship(struct shpstr *sp)
 	    didsomething[i] = 1;
 	    continue;
 	}
-	if (landown == shipown || rel >= FRIENDLY)
+	if (sectp->sct_own == sp->shp_own || rel >= FRIENDLY)
 	    didsomething[i] = load_it(sp, sectp, i);
     }
 
