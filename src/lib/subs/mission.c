@@ -231,6 +231,11 @@ def_support(coord x, coord y, natid victim, natid actee)
     return dosupport(x, y, victim, actee, MI_DSUPPORT);
 }
 
+/*
+ * Perform support missions in X,Y against VICTIM for ACTEE.
+ * MISSION is either MI_OSUPPORT or MI_DSUPPORT.
+ * Return total damage.
+ */
 static int
 dosupport(coord x, coord y, natid victim, natid actee, int mission)
 {
@@ -243,9 +248,7 @@ dosupport(coord x, coord y, natid victim, natid actee, int mission)
     memset(mi, 0, sizeof(mi));
     act[0] = 0;
     for (cn = 1; cn < MAXNOC; cn++) {
-	act[cn] = (cn == actee
-		   || (getrel(getnatp(cn), actee) == ALLIED
-		       && getrel(getnatp(cn), victim) == AT_WAR));
+	act[cn] = feels_like_helping(cn, actee, victim);
 	emp_initque((struct emp_qelem *)&mi[cn]);
     }
 

@@ -1068,16 +1068,15 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 }
 
 /*
- * find all artillery units belonging
- * to the attacker or defender that can fire.
- * Each arty unit adds +1%/damage point
+ * Fire land unit support against VICTIM for ATTACKER, at X,Y.
+ * If DEFENDING, this is defensive support, else offensive support.
+ * Return total damage.
  */
 int
 lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
 {
     struct nstr_item ni;
     struct lndstr land;
-    int rel, rel2;
     int dam, dam2;
     int dist;
     int range;
@@ -1087,10 +1086,7 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
     while (nxtitem(&ni, &land)) {
 	if ((land.lnd_x == x) && (land.lnd_y == y))
 	    continue;
-	rel = getrel(getnatp(land.lnd_own), attacker);
-	rel2 = getrel(getnatp(land.lnd_own), victim);
-	if ((land.lnd_own != attacker) &&
-	    ((rel != ALLIED) || (rel2 != AT_WAR)))
+	if (!feels_like_helping(land.lnd_own, attacker, victim))
 	    continue;
 
 	/* are we in range? */
