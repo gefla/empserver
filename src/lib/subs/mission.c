@@ -63,9 +63,11 @@ struct airport {
 static void add_airport(struct emp_qelem *, coord, coord);
 static int air_damage(struct emp_qelem *, coord, coord, int, natid,
 		      char *, int);
-static void build_mission_list(struct genlist *, coord, coord, int, natid);
-static void build_mission_list_type(struct genlist *, coord, coord, int,
-				    int, natid);
+static void build_mission_list(struct genlist[],
+			       unsigned char[], unsigned char[],
+			       coord, coord, int);
+static void build_mission_list_type(struct genlist[], unsigned char[],
+				    coord, coord, int, int);
 static void divide(struct emp_qelem *, struct emp_qelem *, coord, coord);
 static int dosupport(coord, coord, natid, natid, int);
 static int find_airport(struct emp_qelem *, coord, coord);
@@ -96,20 +98,20 @@ int
 ground_interdict(coord x, coord y, natid victim, char *s)
 {
     int cn;
-    int dam = 0, newdam, rel;
+    int dam = 0, newdam;
+    unsigned char act[MAXNOC];
     struct genlist mi[MAXNOC];
 
     memset(mi, 0, sizeof(mi));
-    for (cn = 1; cn < MAXNOC; cn++)
+    act[0] = 0;
+    for (cn = 1; cn < MAXNOC; cn++) {
+	act[cn] = getrel(getnatp(cn), victim) <= HOSTILE;
 	emp_initque((struct emp_qelem *)&mi[cn]);
+    }
 
-    build_mission_list(mi, x, y, MI_INTERDICT, victim);
+    build_mission_list(mi, act, act, x, y, MI_INTERDICT);
 
     for (cn = 1; cn < MAXNOC; cn++) {
-	rel = getrel(getnatp(cn), victim);
-	if (rel > HOSTILE)
-	    continue;
-
 	if (QEMPTY(&mi[cn].queue))
 	    continue;
 
@@ -177,25 +179,24 @@ int
 unit_interdict(coord x, coord y, natid victim, char *s, int hardtarget,
 	       int mission)
 {
-    int cn, newdam, osubs;
+    int cn, rel, newdam, osubs;
     int dam = -1;
+    unsigned char plane_act[MAXNOC], other_act[MAXNOC];
     struct genlist mi[MAXNOC];
 
     memset(mi, 0, sizeof(mi));
-    for (cn = 1; cn < MAXNOC; cn++)
+    other_act[0] = plane_act[0] = 0;
+    for (cn = 1; cn < MAXNOC; cn++) {
+	rel = getrel(getnatp(cn), victim);
+	other_act[cn] = rel <= HOSTILE;
+	plane_act[cn] = mission == MI_SINTERDICT
+	    ? cn != victim && rel <= NEUTRAL : other_act[cn];
 	emp_initque((struct emp_qelem *)&mi[cn]);
+    }
 
-    build_mission_list(mi, x, y, mission, victim);
+    build_mission_list(mi, other_act, plane_act, x, y, mission);
 
     for (cn = 1; cn < MAXNOC; cn++) {
-	if (cn == victim)
-	    continue;
-	if (mission == MI_SINTERDICT) {
-	    if (getrel(getnatp(cn), victim) >= FRIENDLY)
-		continue;
-	} else if (getrel(getnatp(cn), victim) > HOSTILE)
-	    continue;
-
 	if (QEMPTY(&mi[cn].queue))
 	    continue;
 
@@ -234,25 +235,24 @@ static int
 dosupport(coord x, coord y, natid victim, natid actee, int mission)
 {
     int cn;
+    unsigned char act[MAXNOC];
     struct genlist mi[MAXNOC];
-    int rel, newdam;
+    int newdam;
     int dam = 0;
 
     memset(mi, 0, sizeof(mi));
-    for (cn = 1; cn < MAXNOC; cn++)
+    act[0] = 0;
+    for (cn = 1; cn < MAXNOC; cn++) {
+	act[cn] = (cn == actee
+		   || (getrel(getnatp(cn), actee) == ALLIED
+		       && getrel(getnatp(cn), victim) == AT_WAR));
 	emp_initque((struct emp_qelem *)&mi[cn]);
+    }
 
-    build_mission_list(mi, x, y, MI_SUPPORT, victim);
-    build_mission_list(mi, x, y, mission, victim);
+    build_mission_list(mi, act, act, x, y, MI_SUPPORT);
+    build_mission_list(mi, act, act, x, y, mission);
 
     for (cn = 1; cn < MAXNOC; cn++) {
-	rel = getrel(getnatp(cn), actee);
-	if ((cn != actee) && (rel != ALLIED))
-	    continue;
-	rel = getrel(getnatp(cn), victim);
-	if ((cn != actee) && (rel != AT_WAR))
-	    continue;
-
 	if (QEMPTY(&mi[cn].queue))
 	    continue;
 
@@ -265,29 +265,29 @@ dosupport(coord x, coord y, natid victim, natid actee, int mission)
 }
 
 static void
-build_mission_list(struct genlist *mi, coord x, coord y, int mission,
-		   natid victim)
+build_mission_list(struct genlist mi[],
+		   unsigned char other_act[], unsigned char plane_act[],
+		   coord x, coord y, int mission)
 {
-    build_mission_list_type(mi, x, y, mission, EF_LAND, victim);
-    build_mission_list_type(mi, x, y, mission, EF_SHIP, victim);
-    build_mission_list_type(mi, x, y, mission, EF_PLANE, victim);
+    build_mission_list_type(mi, other_act, x, y, mission, EF_LAND);
+    build_mission_list_type(mi, other_act, x, y, mission, EF_SHIP);
+    build_mission_list_type(mi, plane_act, x, y, mission, EF_PLANE);
 }
 
 static void
-build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
-			int type, natid victim)
+build_mission_list_type(struct genlist mi[], unsigned char act[],
+			coord x, coord y, int mission, int type)
 {
     struct nstr_item ni;
     struct genlist *glp;
     struct empobj *gp;
     union empobj_storage item;
-    int relat;
 
     snxtitem_all(&ni, type);
     while (nxtitem(&ni, &item)) {
 	gp = (struct empobj *)&item;
 
-	if (gp->own == 0)
+	if (!act[gp->own])
 	    continue;
 
 	if (gp->mobil < 1)
@@ -298,15 +298,6 @@ build_mission_list_type(struct genlist *mi, coord x, coord y, int mission,
 
 	if ((gp->mission != mission) && (mission == MI_SINTERDICT) &&
 	    (gp->mission != MI_INTERDICT))
-	    continue;
-
-	relat = getrel(getnatp(gp->own), victim);
-	if (mission == MI_SINTERDICT) {
-	    if (relat >= FRIENDLY)
-		continue;
-	    else if (type != EF_PLANE && relat > HOSTILE)
-		continue;
-	} else if (relat > HOSTILE)
 	    continue;
 
 	if (!in_oparea(gp, x, y))
@@ -371,21 +362,22 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 				       targeting_ships);
 	} else if (glp->thing->ef_type == EF_PLANE) {
 	    pcp = &plchr[glp->thing->type];
-	    if (pcp->pl_flags & P_M)
-		/* units have their own missile interdiction */
-		if (hardtarget != SECT_HARDTARGET || pcp->pl_flags & P_MAR)
-		    continue;
+	    if ((pcp->pl_flags & P_M)
+		&& (hardtarget != SECT_HARDTARGET
+		    || (pcp->pl_flags & P_MAR)))
+		;      /* units have their own missile interdiction */
+	    else {
+		/* save planes for later */
+		plp = malloc(sizeof(struct plist));
 
-	    /* save planes for later */
-	    plp = malloc(sizeof(struct plist));
-
-	    memset(plp, 0, sizeof(struct plist));
-	    plp->pcp = pcp;
-	    memcpy(&plp->plane, glp->thing, sizeof(struct plnstr));
-	    if (plp->pcp->pl_flags & P_M)
-		emp_insque(&plp->queue, &missiles);
-	    else
-		emp_insque(&plp->queue, &bombers);
+		memset(plp, 0, sizeof(struct plist));
+		plp->pcp = pcp;
+		memcpy(&plp->plane, glp->thing, sizeof(struct plnstr));
+		if (plp->pcp->pl_flags & P_M)
+		    emp_insque(&plp->queue, &missiles);
+		else
+		    emp_insque(&plp->queue, &bombers);
+	    }
 	} else {
 	    CANT_REACH();
 	    break;
