@@ -437,6 +437,7 @@ extern void ef_fin_srv(void);
 extern int sd(natid, natid, coord, coord, int, int, int);
 extern int dd(natid, natid, coord, coord, int, int);
 extern int shipdef(natid, natid, coord, coord);
+extern int feels_like_helping(natid, natid, natid);
 /* getbit.c */
 extern int emp_getbit(int, int, unsigned char *);
 extern void emp_setbit(int, int, unsigned char *);

@@ -588,7 +588,7 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
     struct shpstr ship;
     struct lndstr land;
     struct nstr_item ni;
-    int dam, dam2, rel, rel2;
+    int dam, dam2;
     struct sctstr firing;
     struct nstr_sect ns;
     struct flist *fp;
@@ -598,19 +598,12 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
     dam = 0;
     snxtitem_dist(&ni, EF_SHIP, ax, ay, 8);
     while (nxtitem(&ni, &ship)) {
-	if (ship.shp_own == 0)
+	if (!feels_like_helping(ship.shp_own, own, aown))
 	    continue;
 
 	if ((mchr[ship.shp_type].m_flags & M_SUB) && type != EF_SHIP)
 	    continue;
 
-	rel = getrel(getnatp(ship.shp_own), own);
-	rel2 = getrel(getnatp(ship.shp_own), aown);
-	if ((ship.shp_own != own) && ((rel != ALLIED) || (rel2 != AT_WAR)))
-	    continue;
-	/* Don't shoot yourself */
-	if (ship.shp_own == aown)
-	    continue;
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB) {
 	    erange = torprange(&ship);
 	    if (roundrange(erange) < ni.curdist)
@@ -650,16 +643,7 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
     }
     snxtitem_dist(&ni, EF_LAND, ax, ay, 8);
     while (nxtitem(&ni, &land)) {
-	if (land.lnd_own == 0)
-	    continue;
-	/* Don't shoot yourself */
-	if (land.lnd_own == aown)
-	    continue;
-
-	rel = getrel(getnatp(land.lnd_own), own);
-	rel2 = getrel(getnatp(land.lnd_own), aown);
-
-	if ((land.lnd_own != own) && ((rel != ALLIED) || (rel2 != AT_WAR)))
+	if (!feels_like_helping(land.lnd_own, own, aown))
 	    continue;
 
 	erange = lnd_fire_range(&land);
@@ -697,17 +681,9 @@ quiet_bigdef(int type, struct emp_qelem *list, natid own, natid aown,
     if (!opt_NO_FORT_FIRE) {
 	snxtsct_dist(&ns, ax, ay, 8);
 	while (nxtsct(&ns, &firing)) {
-	    if (firing.sct_own == 0)
+	    if (!feels_like_helping(firing.sct_own, own, aown))
 		continue;
-	    rel = getrel(getnatp(firing.sct_own), own);
-	    rel2 = getrel(getnatp(firing.sct_own), aown);
 
-	    if ((firing.sct_own != own) &&
-		((rel != ALLIED) || (rel2 != AT_WAR)))
-		continue;
-	    /* Don't shoot yourself */
-	    if (firing.sct_own == aown)
-		continue;
 	    erange = fortrange(&firing);
 	    if (roundrange(erange) < ns.curdist)
 		continue;

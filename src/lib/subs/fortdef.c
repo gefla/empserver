@@ -71,7 +71,7 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
     double eff;
     struct shpstr ship;
     struct nstr_item ni;
-    int dam, rel, rel2;
+    int dam;
 
     if (own == 0)
 	return 0;
@@ -80,15 +80,9 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
     eff = 1.0;
     snxtitem_dist(&ni, EF_SHIP, x, y, 8);
     while (nxtitem(&ni, &ship) && eff > 0.30) {
-	if (ship.shp_own == att)
-	    continue;
-	if (ship.shp_own == 0)
+	if (!feels_like_helping(ship.shp_own, own, att))
 	    continue;
 
-	rel = getrel(getnatp(ship.shp_own), own);
-	rel2 = getrel(getnatp(ship.shp_own), att);
-	if ((ship.shp_own != own) && ((rel != ALLIED) || (rel2 != AT_WAR)))
-	    continue;
 	if ((mchr[(int)ship.shp_type].m_flags & M_SUB) && !usesubs)
 	    continue;
 	range = roundrange(shp_fire_range(&ship));
@@ -131,7 +125,7 @@ sd(natid att, natid own, coord x, coord y, int noisy, int defending,
 int
 dd(natid att, natid def_own, coord ax, coord ay, int noisy, int defending)
 {
-    int dam, rel, rel2;
+    int dam;
     struct sctstr firing;
     struct nstr_sect ns;
 
@@ -144,18 +138,29 @@ dd(natid att, natid def_own, coord ax, coord ay, int noisy, int defending)
     dam = 0;
     snxtsct_dist(&ns, ax, ay, 8);
     while (nxtsct(&ns, &firing) && dam < 80) {
-	if (firing.sct_own == att)
-	    continue;
-	if (firing.sct_own == 0)
-	    continue;
-	rel = getrel(getnatp(firing.sct_own), def_own);
-	rel2 = getrel(getnatp(firing.sct_own), att);
-	if (firing.sct_own != def_own && (rel != ALLIED || rel2 != AT_WAR))
+	if (!feels_like_helping(firing.sct_own, def_own, att))
 	    continue;
 	/* XXX defdef damage is additive, but ship or land unit damage isn't */
 	dam += sb(att, def_own, &firing, ax, ay, noisy, defending);
     }
     return dam;
+}
+
+/*
+ * Shall CN attempt to help FRIEND against FOE?
+ */
+int
+feels_like_helping(natid cn, natid friend, natid foe)
+{
+    if (cn == 0)
+	return 0;		/* never helps anybody */
+    if (cn == foe)
+	return 0;		/* don't help anybody against self */
+    if (cn == friend)
+	return 1;		/* help self against anybody else */
+    /* third party helps ally if at war with foe: */
+    return getrel(getnatp(cn), friend) == ALLIED
+	&& getrel(getnatp(cn), foe) == AT_WAR;
 }
 
 /* Shoot back
