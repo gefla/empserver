@@ -67,7 +67,7 @@ static void build_mission_list(struct genlist *, coord, coord, int, natid);
 static void build_mission_list_type(struct genlist *, coord, coord, int,
 				    int, natid);
 static void divide(struct emp_qelem *, struct emp_qelem *, coord, coord);
-static int dosupport(struct genlist *, coord, coord, natid, natid);
+static int dosupport(coord, coord, natid, natid, int);
 static int find_airport(struct emp_qelem *, coord, coord);
 static void mission_pln_arm(struct emp_qelem *, coord, coord, int,
 			    int, struct ichrstr *);
@@ -218,19 +218,7 @@ unit_interdict(coord x, coord y, natid victim, char *s, int hardtarget,
 int
 off_support(coord x, coord y, natid victim, natid actee)
 {
-    int dam = 0;
-    struct genlist mi[MAXNOC];
-    int cn;
-
-    memset(mi, 0, sizeof(mi));
-    for (cn = 1; cn < MAXNOC; cn++)
-	emp_initque((struct emp_qelem *)&mi[cn]);
-
-    build_mission_list(mi, x, y, MI_SUPPORT, victim);
-    build_mission_list(mi, x, y, MI_OSUPPORT, victim);
-
-    dam = dosupport(mi, x, y, victim, actee);
-    return dam;
+    return dosupport(x, y, victim, actee, MI_OSUPPORT);
 }
 
 /*
@@ -239,27 +227,23 @@ off_support(coord x, coord y, natid victim, natid actee)
 int
 def_support(coord x, coord y, natid victim, natid actee)
 {
-    int dam = 0;
-    struct genlist mi[MAXNOC];
+    return dosupport(x, y, victim, actee, MI_DSUPPORT);
+}
+
+static int
+dosupport(coord x, coord y, natid victim, natid actee, int mission)
+{
     int cn;
+    struct genlist mi[MAXNOC];
+    int rel, newdam;
+    int dam = 0;
 
     memset(mi, 0, sizeof(mi));
     for (cn = 1; cn < MAXNOC; cn++)
 	emp_initque((struct emp_qelem *)&mi[cn]);
 
     build_mission_list(mi, x, y, MI_SUPPORT, victim);
-    build_mission_list(mi, x, y, MI_DSUPPORT, victim);
-
-    dam = dosupport(mi, x, y, victim, actee);
-    return dam;
-}
-
-static int
-dosupport(struct genlist *mi, coord x, coord y, natid victim, natid actee)
-{
-    int cn;
-    int rel, newdam;
-    int dam = 0;
+    build_mission_list(mi, x, y, mission, victim);
 
     for (cn = 1; cn < MAXNOC; cn++) {
 	rel = getrel(getnatp(cn), actee);
