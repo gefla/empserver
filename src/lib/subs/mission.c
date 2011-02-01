@@ -187,10 +187,10 @@ unit_interdict(coord x, coord y, natid victim, char *s, int hardtarget,
     memset(mi, 0, sizeof(mi));
     other_act[0] = plane_act[0] = 0;
     for (cn = 1; cn < MAXNOC; cn++) {
-	rel = getrel(getnatp(cn), victim);
+	rel = relations_with(cn, victim);
 	other_act[cn] = rel <= HOSTILE;
 	plane_act[cn] = mission == MI_SINTERDICT
-	    ? cn != victim && rel <= NEUTRAL : other_act[cn];
+	    ? rel <= NEUTRAL : other_act[cn];
 	emp_initque((struct emp_qelem *)&mi[cn]);
     }
 
