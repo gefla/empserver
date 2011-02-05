@@ -152,13 +152,12 @@ sendmessage(struct natstr *us, struct natstr *to, char *message, int verbose)
 		     us->nat_cnam, us->nat_cnum, message);
 	sent++;
     }
+    
     if (player->god) {
-	if (to)
-	    if (sent)
-		pr("Flash sent to %s\n", to->nat_cnam);
-	    else
+	if (to) {
+	    if (!sent)
 		pr("%s is not logged on\n", to->nat_cnam);
-	else if (sent)
+	} else if (sent)
 	    pr("Broadcast sent to %d players\n", sent);
 	else
 	    pr("No-one is logged in\n");
