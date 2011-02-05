@@ -44,8 +44,8 @@
 int
 setrel(natid us, natid them, int rel)
 {
-    struct natstr *mynp;
-    struct natstr *themnp;
+    struct natstr *mynp = getnatp(us);
+    struct natstr *themnp = getnatp(them);
     char *myname = cname(us);
     char *themname;
     int oldrel;
@@ -54,13 +54,11 @@ setrel(natid us, natid them, int rel)
     int n_down = 0;
     char *addendum = NULL;
 
-    if (rel < AT_WAR)
+    if (CANT_HAPPEN(rel < AT_WAR))
 	rel = AT_WAR;
-    if (rel > ALLIED)
+    if (CANT_HAPPEN(rel > ALLIED))
 	rel = ALLIED;
-    if (!(mynp = getnatp(us)))
-	return RET_FAIL;
-    if (!(themnp = getnatp(them)))
+    if (CANT_HAPPEN(!mynp || !themnp))
 	return RET_FAIL;
     if ((oldrel = getrel(mynp, them)) == rel)
 	return RET_FAIL;
@@ -118,9 +116,9 @@ setrel(natid us, natid them, int rel)
 int
 setcont(natid us, natid them, int contact)
 {
-    struct natstr *np;
+    struct natstr *np = getnatp(us);
 
-    if (!(np = getnatp(us)))
+    if (CANT_HAPPEN(!np))
 	return 0;
     putcontact(np, them, contact);
     putnat(np);
@@ -130,9 +128,9 @@ setcont(natid us, natid them, int contact)
 int
 setrej(natid us, natid them, int how, int what)
 {
-    struct natstr *np;
+    struct natstr *np = getnatp(us);
 
-    if (!(np = getnatp(us)))
+    if (CANT_HAPPEN(!np))
 	return 0;
     putreject(np, them, how, what);
     putnat(np);
