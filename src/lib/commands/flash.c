@@ -119,7 +119,7 @@ sendmessage(struct natstr *us, struct natstr *to, char *message, int verbose)
     struct player *other;
     struct tm *tm;
     time_t now;
-    int sent = 0;
+    int sent = 0, rejected = 0;
     struct natstr *wto;
 
     time(&now);
@@ -127,16 +127,18 @@ sendmessage(struct natstr *us, struct natstr *to, char *message, int verbose)
     for (other = player_next(NULL); other; other = player_next(other)) {
 	if (other->state != PS_PLAYING)
 	    continue;
+	if (player == other)
+	    continue;
 	if (to && other->cnum != to->nat_cnum)
 	    continue;
 	if (!(wto = getnatp(other->cnum)))
 	    continue;
 	if (!to && !player->god && getrel(wto, player->cnum) != ALLIED)
 	    continue;
-	if (!player->god && !(wto->nat_flags & NF_FLASH))
+	if (!player->god && !(wto->nat_flags & NF_FLASH)) {
+	    rejected++;
 	    continue;
-	if (player == other)
-	    continue;
+	}
 	if (verbose)
 	    if (to)
 		pr_flash(other, "FLASH from %s (#%d) @ %02d:%02d%s\n",
@@ -162,14 +164,13 @@ sendmessage(struct natstr *us, struct natstr *to, char *message, int verbose)
 	else
 	    pr("No-one is logged in\n");
     }
-    if (to && !player->god) {
+    if (to && !player->god && getrel(to, player->cnum) == ALLIED) {
 	/* If they are allied with us, we would normally see that
 	 * they are logged in anyway, so just tell us */
-	if ((getrel(to, player->cnum) == ALLIED) && !sent) {
-	    if (to->nat_flags & NF_FLASH)
-		pr("%s is not logged on\n", to->nat_cnam);
-	    else
-		pr("%s is not accepting flashes\n", to->nat_cnam);
+	if (rejected)
+	    pr("%s is not accepting flashes\n", to->nat_cnam);
+	else if (!sent) {
+	    pr("%s is not logged on\n", to->nat_cnam);
 	}
     }
     return 0;
