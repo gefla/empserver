@@ -63,7 +63,8 @@ flash(void)
 	}
     } else {
 	/* Ok, we are a normal country, can we flash them? */
-	if (to->nat_stat != STAT_GOD && getrel(to, player->cnum) < FRIENDLY) {
+	if (to->nat_stat != STAT_GOD && tocn != player->cnum
+	    && getrel(to, player->cnum) < FRIENDLY) {
 	    pr("%s is not a deity or friendly with us.\n", to->nat_cnam);
 	    return RET_SYN;
 	}
@@ -127,8 +128,6 @@ sendmessage(struct natstr *to, char *message, int verbose)
     for (other = player_next(NULL); other; other = player_next(other)) {
 	if (other->state != PS_PLAYING)
 	    continue;
-	if (player == other)
-	    continue;
 	if (to) {
 	    /* flash */
 	    if (other->cnum != to->nat_cnum)
@@ -136,6 +135,8 @@ sendmessage(struct natstr *to, char *message, int verbose)
 	    wto = to;
 	} else {
 	    /* wall */
+	    if (player == other)
+		continue;
 	    wto = getnatp(other->cnum);
 	    if (CANT_HAPPEN(!wto))
 		continue;
@@ -165,7 +166,8 @@ sendmessage(struct natstr *to, char *message, int verbose)
 
     if (to) {
 	/* flash */
-	if (player->god || getrel(to, player->cnum) == ALLIED) {
+	if (player->god || to->nat_cnum == player->cnum
+	    || getrel(to, player->cnum) == ALLIED) {
 	    /* Can see TO logged in anyway, so it's okay to tell */
 	    if (rejected)
 		pr("%s is not accepting flashes\n", to->nat_cnam);
