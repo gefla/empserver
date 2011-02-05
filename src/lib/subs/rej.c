@@ -46,8 +46,6 @@ setrel(natid us, natid them, int rel)
 {
     struct natstr *mynp = getnatp(us);
     struct natstr *themnp = getnatp(them);
-    char *myname = cname(us);
-    char *themname;
     int oldrel;
     char *whichway;
     int n_up = 0;
@@ -65,7 +63,6 @@ setrel(natid us, natid them, int rel)
     oldrel = getrel(mynp, them);
     if (oldrel == rel)
 	return;
-    themname = cname(them);
     if (rel > oldrel)
 	whichway = "upgraded";
     else
@@ -91,11 +88,11 @@ setrel(natid us, natid them, int rel)
     if (addendum && us == player->cnum && !update_running)
 	pr("%s\n", addendum);
     mpr(us, "Diplomatic relations with %s %s to \"%s\".\n",
-	themname, whichway, relates[rel]);
+	cname(them), whichway, relates[rel]);
     if (!(getrejects(us, themnp) & REJ_TELE))
 	mpr(them,
 	    "Country %s (#%d) has %s their relations with you to \"%s\"!\n",
-	    myname, us, whichway, relates[rel]);
+	    cname(us), us, whichway, relates[rel]);
 
     putrel(mynp, them, rel);
     putnat(mynp);
