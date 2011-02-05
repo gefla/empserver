@@ -131,8 +131,13 @@ sendmessage(struct natstr *us, struct natstr *to, char *message, int verbose)
 	    continue;
 	if (to && other->cnum != to->nat_cnum)
 	    continue;
-	if (!(wto = getnatp(other->cnum)))
-	    continue;
+	if (to)
+	    wto = to;
+	else {
+	    wto = getnatp(other->cnum);
+	    if (CANT_HAPPEN(!wto))
+		continue;
+	}
 	if (!to && !player->god && getrel(wto, player->cnum) != ALLIED)
 	    continue;
 	if (!player->god && !(wto->nat_flags & NF_FLASH)) {
