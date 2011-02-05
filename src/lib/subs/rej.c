@@ -60,6 +60,8 @@ setrel(natid us, natid them, int rel)
 	rel = ALLIED;
     if (CANT_HAPPEN(!mynp || !themnp))
 	return;
+    if (us == them)
+	return;
     oldrel = getrel(mynp, them);
     if (oldrel == rel)
 	return;
