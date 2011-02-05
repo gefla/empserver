@@ -41,7 +41,7 @@
 #include "prototypes.h"
 #include "server.h"
 
-int
+void
 setrel(natid us, natid them, int rel)
 {
     struct natstr *mynp = getnatp(us);
@@ -59,9 +59,10 @@ setrel(natid us, natid them, int rel)
     if (CANT_HAPPEN(rel > ALLIED))
 	rel = ALLIED;
     if (CANT_HAPPEN(!mynp || !themnp))
-	return RET_FAIL;
-    if ((oldrel = getrel(mynp, them)) == rel)
-	return RET_FAIL;
+	return;
+    oldrel = getrel(mynp, them);
+    if (oldrel == rel)
+	return;
     themname = cname(them);
     if (rel > oldrel)
 	whichway = "upgraded";
@@ -109,30 +110,26 @@ setrel(natid us, natid them, int rel)
     }
     if (opt_HIDDEN)
 	setcont(them, us, FOUND_TELE);
-
-    return RET_OK;
 }
 
-int
+void
 setcont(natid us, natid them, int contact)
 {
     struct natstr *np = getnatp(us);
 
     if (CANT_HAPPEN(!np))
-	return 0;
+	return;
     putcontact(np, them, contact);
     putnat(np);
-    return 1;
 }
 
-int
+void
 setrej(natid us, natid them, int how, int what)
 {
     struct natstr *np = getnatp(us);
 
     if (CANT_HAPPEN(!np))
-	return 0;
+	return;
     putreject(np, them, how, what);
     putnat(np);
-    return 1;
 }

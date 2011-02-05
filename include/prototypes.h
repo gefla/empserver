@@ -585,9 +585,9 @@ extern int delty(struct range *, coord);
 extern void radmap(int, int, int, double, int, double);
 extern void rad_map_set(natid, int, int, int, double, int);
 /* rej.c */
-extern int setrel(natid, natid, int);
-extern int setcont(natid, natid, int);
-extern int setrej(natid, natid, int, int);
+extern void setrel(natid, natid, int);
+extern void setcont(natid, natid, int);
+extern void setrej(natid, natid, int, int);
 /* retreat.c */
 extern void retreat_ship(struct shpstr *, char);
 extern void retreat_land(struct lndstr *, char);
