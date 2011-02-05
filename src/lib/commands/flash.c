@@ -38,8 +38,8 @@
 
 #include "commands.h"
 
-static int chat(struct natstr *, struct natstr *, char *);
-static int sendmessage(struct natstr *, struct natstr *, char *, int);
+static int chat(struct natstr *, char *);
+static int sendmessage(struct natstr *, char *, int);
 
 int
 flash(void)
@@ -69,13 +69,13 @@ flash(void)
 	}
     }
 
-    return chat(us, to, player->comtail[2]);
+    return chat(to, player->comtail[2]);
 }
 
 int
 wall(void)
 {
-    return chat(getnatp(player->cnum), NULL, player->comtail[1]);
+    return chat(NULL, player->comtail[1]);
 }
 
 /*
@@ -85,7 +85,7 @@ wall(void)
  * Return RET_OK.
  */
 static int
-chat(struct natstr *us, struct natstr *to, char *message)
+chat(struct natstr *to, char *message)
 {
     char buf[1024];		/* UTF-8 */
 
@@ -93,15 +93,15 @@ chat(struct natstr *us, struct natstr *to, char *message)
 	buf[0] = ':';
 	buf[1] = ' ';
 	strcpy(buf+2, message);
-	sendmessage(us, to, buf, 1);
+	sendmessage(to, buf, 1);
     } else {
-	sendmessage(us, to, "...", 1);
+	sendmessage(to, "...", 1);
 	while (ugetstring("> ", buf)) {
 	    if (*buf == '.')
 		break;
-	    sendmessage(us, to, buf, 0);
+	    sendmessage(to, buf, 0);
 	}
-	sendmessage(us, to, "<EOT>", 0);
+	sendmessage(to, "<EOT>", 0);
     }
     return RET_OK;
 }
@@ -114,7 +114,7 @@ chat(struct natstr *us, struct natstr *to, char *message)
  * verbose if VERBOSE.
  */
 static int
-sendmessage(struct natstr *us, struct natstr *to, char *message, int verbose)
+sendmessage(struct natstr *to, char *message, int verbose)
 {
     struct player *other;
     struct tm *tm;
@@ -150,16 +150,16 @@ sendmessage(struct natstr *us, struct natstr *to, char *message, int verbose)
 	if (verbose)
 	    if (to)
 		pr_flash(other, "FLASH from %s (#%d) @ %02d:%02d%s\n",
-			 us->nat_cnam, us->nat_cnum, tm->tm_hour,
+			 cname(player->cnum), player->cnum, tm->tm_hour,
 			 tm->tm_min, message);
 	    else
 		pr_flash(other, "BROADCAST from %s (#%d) @ %02d:%02d%s\n",
-			 us->nat_cnam, us->nat_cnum, tm->tm_hour,
+			 cname(player->cnum), player->cnum, tm->tm_hour,
 			 tm->tm_min, message);
 
 	else
 	    pr_flash(other, "%s (#%d): %s\n",
-		     us->nat_cnam, us->nat_cnum, message);
+		     cname(player->cnum), player->cnum, message);
 	sent++;
     }
 
