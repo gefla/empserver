@@ -68,7 +68,7 @@ coun_list(struct natstr *natp)
     if (getplayer(cn)
 	&& (player->god
 	    || natp->nat_stat == STAT_GOD
-	    || cn == player->cnum || getrel(natp, player->cnum) == ALLIED))
+	    || relations_with(cn, player->cnum) == ALLIED))
 	pr(" Now logged on                     ");
     else if (player->god) {
 	if (natp->nat_last_login == 0)

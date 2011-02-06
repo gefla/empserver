@@ -67,8 +67,7 @@ orig(void)
 	cnum = natarg(p, NULL);
 	if (!(np = getnatp(cnum)))
 	    return RET_SYN;
-	if (!player->god && player->cnum != cnum
-	    && getrel(np, player->cnum) != ALLIED) {
+	if (!player->god && relations_with(cnum, player->cnum) != ALLIED) {
 	    pr("Country %s is not allied with you!\n", np->nat_cnam);
 	    return RET_FAIL;
 	}
