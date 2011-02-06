@@ -99,7 +99,7 @@ cede(void)
 	pr("You can only give to normal countries...\n");
 	return RET_FAIL;
     }
-    if (getrel(natp, player->cnum) < FRIENDLY) {
+    if (relations_with(n, player->cnum) < FRIENDLY) {
 	pr("You can only cede to a country that is friendly towards you...\n");
 	return RET_FAIL;
     }

@@ -245,9 +245,9 @@ share_incr(double *res, double *tech)
 		    continue;
 	    }
 	    if (!opt_ALL_BLEED) {
-		if (getrel(np, j) != ALLIED)
+		if (relations_with(i, j) != ALLIED)
 		    continue;
-		if (getrel(other, i) != ALLIED)
+		if (relations_with(j, i) != ALLIED)
 		    continue;
 		res[i] += levels[j][NAT_RLEV];
 		tech[i] += levels[j][NAT_TLEV];

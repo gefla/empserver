@@ -90,7 +90,7 @@ play_list(struct player *joe)
 	/* This isn't us.  Can we see it? */
 	if (natp->nat_stat == STAT_VIS) {
 	    /* Yes, we can see visitors are logged on */
-	} else if (getrel(natp, player->cnum) < ALLIED) {
+	} else if (relations_with(joe->cnum, player->cnum) < ALLIED) {
 	    /* This is a non-allied country, don't show it. */
 	    return 0;
 	}

@@ -93,7 +93,7 @@ decl(void)
 		continue;
 	    }
 	}
-	if (getrel(natp, (natid)ni.cur) == rel)
+	if (relations_with(who, (natid)ni.cur) == rel)
 	    continue;
 	setrel(who, (natid)ni.cur, rel);
     }

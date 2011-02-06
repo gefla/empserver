@@ -60,7 +60,7 @@ setrel(natid us, natid them, int rel)
 	return;
     if (us == them)
 	return;
-    oldrel = getrel(mynp, them);
+    oldrel = relations_with(us, them);
     if (oldrel == rel)
 	return;
     if (rel > oldrel)
