@@ -623,9 +623,10 @@ lnd_check_mines(struct emp_qelem *land_list)
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
 	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
-	if (sect.sct_oldown == llp->unit.land.lnd_own)
-	    continue;
 	if (SCT_LANDMINES(&sect) == 0)
+	    continue;
+	if (relations_with(sect.sct_oldown, llp->unit.land.lnd_own)
+	    == ALLIED)
 	    continue;
 	if (chance(DMINE_LHITCHANCE(sect.sct_mines) / (1 + 2 * with_eng))) {
 	    lnd_hit_mine(&llp->unit.land);
