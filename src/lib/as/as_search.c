@@ -82,6 +82,7 @@ as_search(struct as_data *adp)
 	fprintf(stderr, "\tExtending queue\n");
 #endif /* DEBUG */
 	adp->head = head = as_extend(adp);
+	/* FIXME leaks when as_extend() returns NULL without adding to tried */
 
 #ifdef DEBUG
 	fprintf(stderr, "queue:\n");
