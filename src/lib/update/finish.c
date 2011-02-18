@@ -53,16 +53,7 @@ struct distinfo {
  * of course :) ) We do clear it each and every time. */
 static struct distinfo *g_distptrs;
 
-/* Note that even though we malloc and save the path, it is never
- * used.  Thus, this option.  If you want to malloc and save every
- * path and then free when done, just enable this.  Or, if the
- * dodistribute ever uses the path for something other than checking
- * to see that a path exists, enable this */
-/* #define SAVE_FINISH_PATHS */
-
-#ifndef SAVE_FINISH_PATHS
 static char *finish_path = "h";	/* Placeholder indicating path exists */
-#endif /* SAVE_FINISH_PATHS */
 
 static void assemble_dist_paths(struct distinfo *distptrs);
 static char *ReversePath(char *path);
@@ -139,33 +130,17 @@ finish_sects(int etu)
     }
     logerror("done exporting\n");
 
-    /* Note that we free the paths (if allocated) as we loop here */
     logerror("importing...");
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	/* Get the pointer (we do it first so we can free if needed) */
 	infptr = &g_distptrs[sp->sct_uid];
-	if (sp->sct_type == SCT_WATER || sp->sct_own == 0) {
-#ifdef SAVE_FINISH_PATHS
-	    if (infptr->path)
-		free(infptr->path);
-#endif /* SAVE_FINISH_PATHS */
+	if (sp->sct_type == SCT_WATER || sp->sct_own == 0)
 	    continue;
-	}
 	np = getnatp(sp->sct_own);
-	if (np->nat_money < 0) {
-#ifdef SAVE_FINISH_PATHS
-	    if (infptr->path)
-		free(infptr->path);
-#endif /* SAVE_FINISH_PATHS */
+	if (np->nat_money < 0)
 	    continue;
-	}
 	dodistribute(sp, IMPORT,
 		     infptr->path, infptr->imcost, infptr->excost);
-#ifdef SAVE_FINISH_PATHS
-	if (infptr->path)
-	    free(infptr->path);
-#endif /* SAVE_FINISH_PATHS */
-
 	sp->sct_off = 0;
     }
     logerror("done importing\n");
@@ -203,16 +178,6 @@ assemble_dist_paths(struct distinfo *distptrs)
 
 	/* Now, we have a path */
 	if (path != NULL) {
-#ifdef SAVE_FINISH_PATHS
-	    int len;
-	    /* Here we malloc a buffer and save it */
-	    len = strlen(path);
-	    infptr->path = malloc(len);
-	    if (infptr->path == NULL) {
-		logerror("malloc failed in assemble_dist_path!\n");
-		return;
-	    }
-#endif /* SAVE_FINISH_PATHS */
 	    /* Save the import cost */
 	    infptr->imcost = d;
 	    /* Now, reverse the path */
@@ -220,11 +185,7 @@ assemble_dist_paths(struct distinfo *distptrs)
 	    /* And walk the path back to the dist center to get the export
 	       cost */
 	    infptr->excost = pathcost(sp, p, MOB_MOVE);
-#ifdef SAVE_FINISH_PATHS
-	    memcpy(infptr->path, p, len);
-#else
 	    infptr->path = finish_path;
-#endif /* SAVE_FINISH_PATHS */
 	}
     }
 }
