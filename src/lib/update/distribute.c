@@ -51,8 +51,7 @@
 #define IMPORT_BONUS 10.0
 
 int
-dodistribute(struct sctstr *sp, int imex,
-	     double dist_i_cost, double dist_e_cost)
+dodistribute(struct sctstr *sp, int imex, double path_cost)
 {
     struct ichrstr *ip;
     struct sctstr *dist;
@@ -72,7 +71,7 @@ dodistribute(struct sctstr *sp, int imex,
     if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
 	return 0;
 
-    if (dist_e_cost < 0.0) {
+    if (path_cost < 0.0) {
 	if (sp->sct_own != 0) {
 	    if (imex == EXPORT)	/* only want this once */
 		wu(0, sp->sct_own, "No path to dist sector for %s\n",
@@ -87,7 +86,7 @@ dodistribute(struct sctstr *sp, int imex,
 
     DPRINTF("distribute: %d,%d to %d,%d pathcost %g\n",
 	    sp->sct_x, sp->sct_y, sp->sct_dist_x, sp->sct_dist_y,
-	    imex == IMPORT ? dist_i_cost : dist_e_cost);
+	    path_cost);
 
     lplague = rplague = changed = 0;
     for (item = I_NONE + 1; item <= I_MAX; item++) {
@@ -138,7 +137,7 @@ dodistribute(struct sctstr *sp, int imex,
 		    continue;
 	    }
 	    pack = ip->i_pkg[dist_packing];
-	    mcost = dist_i_cost / pack * ip->i_lbs / IMPORT_BONUS;
+	    mcost = path_cost / pack * ip->i_lbs / IMPORT_BONUS;
 	    if (dist->sct_mobil < mcost * amt)
 		amt = dist->sct_mobil / mcost;
 
@@ -169,7 +168,7 @@ dodistribute(struct sctstr *sp, int imex,
 	    if (amt > amt_sect)
 		amt = amt_sect;
 	    pack = MAX(ip->i_pkg[sect_packing], ip->i_pkg[dist_packing]);
-	    mcost = dist_e_cost / pack * ip->i_lbs / EXPORT_BONUS;
+	    mcost = path_cost / pack * ip->i_lbs / EXPORT_BONUS;
 	    if (sp->sct_mobil < mcost * amt)
 		amt = sp->sct_mobil / mcost;
 	    if (amt > ITEM_MAX - amt_dist)

@@ -694,7 +694,7 @@ extern void delete_old_announcements(void);
 /* deliver.c */
 extern void dodeliver(struct sctstr *);
 /* distribute.c */
-extern int dodistribute(struct sctstr *, int, double, double);
+extern int dodistribute(struct sctstr *, int, double);
 /* finish.c */
 extern void finish_sects(int);
 /* human.c */

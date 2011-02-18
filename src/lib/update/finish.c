@@ -122,7 +122,7 @@ finish_sects(int etu)
 	    continue;
 	/* Get the pointer */
 	infptr = &g_distptrs[sp->sct_uid];
-	dodistribute(sp, EXPORT, infptr->imcost, infptr->excost);
+	dodistribute(sp, EXPORT, infptr->excost);
     }
     logerror("done exporting\n");
 
@@ -135,7 +135,7 @@ finish_sects(int etu)
 	np = getnatp(sp->sct_own);
 	if (np->nat_money < 0)
 	    continue;
-	dodistribute(sp, IMPORT, infptr->imcost, infptr->excost);
+	dodistribute(sp, IMPORT, infptr->imcost);
 	sp->sct_off = 0;
     }
     logerror("done importing\n");
