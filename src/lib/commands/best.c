@@ -52,11 +52,11 @@ best(void)
 	return RET_SYN;
 
     while (!player->aborted && nxtsct(&nstr, &s1)) {
-	if (s1.sct_own != player->cnum)
+	if (!player->owner)
 	    continue;
 	snxtsct_rewind(&nstr2);
 	while (!player->aborted && nxtsct(&nstr2, &s2)) {
-	    if (s2.sct_own != player->cnum)
+	    if (!player->owner)
 		continue;
 	    path = BestLandPath(buf, &s1, &s2, &cost, MOB_MOVE);
 	    if (path)
