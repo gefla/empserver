@@ -43,7 +43,6 @@
 
 /* Used for building up distribution info */
 struct distinfo {
-    char *path;			/* path to take */
     double imcost;		/* import cost */
     double excost;		/* export cost */
 };
@@ -52,8 +51,6 @@ struct distinfo {
  * We only malloc this once, and never again (until reboot time
  * of course :) ) We do clear it each and every time. */
 static struct distinfo *g_distptrs;
-
-static char *finish_path = "h";	/* Placeholder indicating path exists */
 
 static void assemble_dist_paths(struct distinfo *distptrs);
 static char *ReversePath(char *path);
@@ -125,8 +122,7 @@ finish_sects(int etu)
 	    continue;
 	/* Get the pointer */
 	infptr = &g_distptrs[sp->sct_uid];
-	dodistribute(sp, EXPORT,
-		     infptr->path, infptr->imcost, infptr->excost);
+	dodistribute(sp, EXPORT, infptr->imcost, infptr->excost);
     }
     logerror("done exporting\n");
 
@@ -139,8 +135,7 @@ finish_sects(int etu)
 	np = getnatp(sp->sct_own);
 	if (np->nat_money < 0)
 	    continue;
-	dodistribute(sp, IMPORT,
-		     infptr->path, infptr->imcost, infptr->excost);
+	dodistribute(sp, IMPORT, infptr->imcost, infptr->excost);
 	sp->sct_off = 0;
     }
     logerror("done importing\n");
@@ -177,7 +172,9 @@ assemble_dist_paths(struct distinfo *distptrs)
 	path = BestDistPath(buf, dist, sp, &d);
 
 	/* Now, we have a path */
-	if (path != NULL) {
+	if (!path)
+	    infptr->imcost = infptr->excost = -1.0;
+	else {
 	    /* Save the import cost */
 	    infptr->imcost = d;
 	    /* Now, reverse the path */
@@ -185,7 +182,6 @@ assemble_dist_paths(struct distinfo *distptrs)
 	    /* And walk the path back to the dist center to get the export
 	       cost */
 	    infptr->excost = pathcost(sp, p, MOB_MOVE);
-	    infptr->path = finish_path;
 	}
     }
 }

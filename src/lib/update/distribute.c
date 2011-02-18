@@ -51,9 +51,8 @@
 #define IMPORT_BONUS 10.0
 
 int
-dodistribute(struct sctstr *sp, int imex, char *path, double dist_i_cost,
-	     double dist_e_cost)
-	  /* import or export? */
+dodistribute(struct sctstr *sp, int imex,
+	     double dist_i_cost, double dist_e_cost)
 {
     struct ichrstr *ip;
     struct sctstr *dist;
@@ -73,7 +72,7 @@ dodistribute(struct sctstr *sp, int imex, char *path, double dist_i_cost,
     if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
 	return 0;
 
-    if (!path) {
+    if (dist_e_cost < 0.0) {
 	if (sp->sct_own != 0) {
 	    if (imex == EXPORT)	/* only want this once */
 		wu(0, sp->sct_own, "No path to dist sector for %s\n",
