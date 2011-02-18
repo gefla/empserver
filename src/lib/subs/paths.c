@@ -262,7 +262,7 @@ pathrange(coord cx, coord cy, char *pp, int border, struct range *range)
     hy += border;
 
     range->lx = xnorm(lx);
-    range->hx = ynorm(hx - lx < WORLD_X ? hx : lx - 1);
+    range->hx = xnorm(hx - lx < WORLD_X ? hx : lx - 1);
     range->ly = ynorm(ly);
     range->hy = ynorm(hy - ly < WORLD_Y ? hy : ly - 1);
     xysize_range(range);
