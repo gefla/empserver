@@ -51,8 +51,6 @@
 #define BP_NEIGHBORS	6	/* max number of neighbors */
 
 struct bestp {
-    int sctcache_hits;
-    int sctcache_misses;
     int bp_mobtype;
     struct as_data *adp;
 };
@@ -123,11 +121,6 @@ best_path(struct sctstr *from, struct sctstr *to, char *path, int mob_type)
 #ifdef AS_STATS
     as_stats(adp, stderr);
 #endif /* AS_STATS */
-#ifdef BP_STATS
-    fprintf(stderr, "best path %s\n", path);
-    fprintf(stderr, "cache hits/misses: %d/%d\n",
-	    bp->sctcache_hits, bp->sctcache_misses);
-#endif /* BP_STATS */
     return 0;
 }
 
