@@ -120,6 +120,8 @@ best_path(struct sctstr *from, struct sctstr *to, char *path, int mob_type)
 
 #ifdef AS_STATS
     as_stats(adp, stderr);
+    fprintf(stderr, "neighbor cache %zu bytes\n",
+	    WORLD_SZ() * 6 * sizeof(struct sctstr *));
 #endif /* AS_STATS */
     return 0;
 }
