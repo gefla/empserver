@@ -26,13 +26,20 @@
  *  ---
  *
  *  path.c: Empire/A* Interface code.
- *          Define AS_STATS for A* statistics.
  *
  *  Known contributors to this file:
  *     Phil Lapsley, 1991
  *     Dave Pare, 1991
  *     Thomas Ruschak, 1993
  *     Steve McClure, 1997
+ */
+
+/*
+ * Define AS_STATS for A* statistics on stderr.
+ *
+ * Define AS_NO_PATH_CACHE to disable the path cache.  The path cache
+ * saves a lot of work, but uses lots of memory.  It should be a
+ * significant net win, unless you run out of memory.
  */
 
 #include <config.h>
@@ -103,7 +110,11 @@ best_path(struct sctstr *from, struct sctstr *to, char *path, int mob_type)
     if (!mybestpath)
 	mybestpath = bp_init();
     adp = mybestpath->adp;
+#ifdef AS_NO_PATH_CACHE
+    ap = NULL;
+#else
     ap = as_find_cachepath(from->sct_x, from->sct_y, to->sct_x, to->sct_y);
+#endif
     if (ap == NULL) {
 	adp->from.x = from->sct_x;
 	adp->from.y = from->sct_y;
@@ -278,19 +289,25 @@ bp_coord_hash(struct as_coord c)
 void
 bp_enable_cachepath(void)
 {
+#ifndef AS_NO_PATH_CACHE
     as_enable_cachepath();
+#endif
 }
 
 void
 bp_disable_cachepath(void)
 {
+#ifndef AS_NO_PATH_CACHE
     as_disable_cachepath();
+#endif
 }
 
 void
 bp_clear_cachepath(void)
 {
+#ifndef AS_NO_PATH_CACHE
     as_clear_cachepath();
+#endif
 }
 
 double
