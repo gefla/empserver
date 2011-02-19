@@ -31,6 +31,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1993
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -41,41 +42,27 @@
 #include "path.h"
 #include "update.h"
 
-/* Used for building up distribution info */
-struct distinfo {
-    double imcost;		/* import cost */
-    double excost;		/* export cost */
-};
-
-/* This is our global buffer of distribution pointers.  Note that
- * We only malloc this once, and never again (until reboot time
- * of course :) ) We do clear it each and every time. */
-static struct distinfo *g_distptrs;
-
-static void assemble_dist_paths(struct distinfo *distptrs);
-static char *ReversePath(char *path);
+static void assemble_dist_paths(double *);
 
 void
 finish_sects(int etu)
 {
+    static double *import_cost;
     struct sctstr *sp;
     struct natstr *np;
     int n;
     struct rusage rus1, rus2;
-    struct distinfo *infptr;
 
-    if (g_distptrs == NULL) {
+    if (import_cost == NULL) {
 	logerror("First update since reboot, allocating buffer\n");
-	/* Allocate the information buffer */
-	g_distptrs = malloc(WORLD_SZ() * sizeof(*g_distptrs));
-	if (g_distptrs == NULL) {
+	import_cost = malloc(WORLD_SZ() * sizeof(*import_cost));
+	if (import_cost == NULL) {
 	    logerror("malloc failed in finish_sects.\n");
 	    return;
 	}
     }
 
-    /* Wipe it clean */
-    memset(g_distptrs, 0, WORLD_SZ() * sizeof(*g_distptrs));
+    memset(import_cost, 0, WORLD_SZ() * sizeof(*import_cost));
 
     logerror("delivering...\n");
     /* Do deliveries */
@@ -98,7 +85,7 @@ finish_sects(int etu)
     bp_enable_cachepath();
 
     /* Now assemble the paths */
-    assemble_dist_paths(g_distptrs);
+    assemble_dist_paths(import_cost);
 
     /* Now disable the best_path cacheing */
     bp_disable_cachepath();
@@ -120,22 +107,18 @@ finish_sects(int etu)
 	np = getnatp(sp->sct_own);
 	if (np->nat_money < 0)
 	    continue;
-	/* Get the pointer */
-	infptr = &g_distptrs[sp->sct_uid];
-	dodistribute(sp, EXPORT, infptr->excost);
+	dodistribute(sp, EXPORT, import_cost[n]);
     }
     logerror("done exporting\n");
 
     logerror("importing...");
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
-	/* Get the pointer (we do it first so we can free if needed) */
-	infptr = &g_distptrs[sp->sct_uid];
 	if (sp->sct_type == SCT_WATER || sp->sct_own == 0)
 	    continue;
 	np = getnatp(sp->sct_own);
 	if (np->nat_money < 0)
 	    continue;
-	dodistribute(sp, IMPORT, infptr->imcost);
+	dodistribute(sp, IMPORT, import_cost[n]);
 	sp->sct_off = 0;
     }
     logerror("done importing\n");
@@ -143,21 +126,18 @@ finish_sects(int etu)
 }
 
 static void
-assemble_dist_paths(struct distinfo *distptrs)
+assemble_dist_paths(double *import_cost)
 {
-    char *path, *p;
+    char *path;
     double d;
     struct sctstr *sp;
     struct sctstr *dist;
-    struct distinfo *infptr;
     int n;
     char buf[512];
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
 	    continue;
-	/* Set the pointer */
-	infptr = &distptrs[sp->sct_uid];
 	/* now, get the dist sector */
 	dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
 	if (dist == NULL) {
@@ -170,45 +150,9 @@ assemble_dist_paths(struct distinfo *distptrs)
 	/* Note we go from the dist center to the sector.  This gives
 	   us the import path for that sector. */
 	path = BestDistPath(buf, dist, sp, &d);
-
-	/* Now, we have a path */
-	if (!path)
-	    infptr->imcost = infptr->excost = -1.0;
-	else {
-	    /* Save the import cost */
-	    infptr->imcost = d;
-	    /* Now, reverse the path */
-	    p = ReversePath(path);
-	    /* And walk the path back to the dist center to get the export
-	       cost */
-	    infptr->excost = pathcost(sp, p, MOB_MOVE);
-	}
+	if (path)
+	    import_cost[n] = d;
+	else
+	    import_cost[n] = -1;
     }
-}
-
-static char *
-ReversePath(char *path)
-{
-    char *patharray = "aucdefjhigklmyopqrstbvwxnz";
-    static char new_path[512];
-    int ind;
-
-    if (path == NULL)
-	return NULL;
-
-    ind = strlen(path);
-    if (ind == 0)
-	return NULL;
-
-    if (path[ind - 1] == 'h')
-	ind--;
-
-    new_path[ind--] = '\0';
-    new_path[ind] = '\0';
-
-    while (ind >= 0) {
-	new_path[ind--] = patharray[*(path++) - 'a'];
-    }
-
-    return new_path;
 }

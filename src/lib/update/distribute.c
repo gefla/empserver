@@ -30,6 +30,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -51,8 +52,9 @@
 #define IMPORT_BONUS 10.0
 
 int
-dodistribute(struct sctstr *sp, int imex, double path_cost)
+dodistribute(struct sctstr *sp, int imex, double import_cost)
 {
+    double path_cost, dcc;
     struct ichrstr *ip;
     struct sctstr *dist;
     int amt;
@@ -71,16 +73,23 @@ dodistribute(struct sctstr *sp, int imex, double path_cost)
     if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
 	return 0;
 
-    if (path_cost < 0.0) {
-	if (sp->sct_own != 0) {
-	    if (imex == EXPORT)	/* only want this once */
-		wu(0, sp->sct_own, "No path to dist sector for %s\n",
-		   ownxy(sp));
-	}
+    if (imex == IMPORT && import_cost < 0.0)
 	return 0;
-    }
 
     dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
+    if (imex == IMPORT)
+	path_cost = import_cost;
+    else {
+	dcc = sector_mcost(dist, MOB_MOVE);
+	if (import_cost < 0.0 || dcc < 0.0) {
+	    if (sp->sct_own != 0)
+		wu(0, sp->sct_own, "No path to dist sector for %s\n",
+		   ownxy(sp));
+	    return 0;
+	}
+	path_cost = import_cost - sector_mcost(sp, MOB_MOVE) + dcc;
+    }
+
     dist_packing = dist->sct_effic >= 60 ? dchr[dist->sct_type].d_pkg : IPKG;
     sect_packing = sp->sct_effic   >= 60 ? dchr[sp->sct_type].d_pkg : IPKG;
 
