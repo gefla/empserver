@@ -31,8 +31,11 @@ as_stats(struct as_data *adp, FILE * fp)
     int i;
     int j;
     int total_q;
+    int total_p;
     int total_h;
+    size_t other;
     struct as_queue *qp;
+    struct as_path *pp;
     struct as_hash *hp;
 
     fprintf(fp, "Statistics:\n");
@@ -52,6 +55,10 @@ as_stats(struct as_data *adp, FILE * fp)
 	i++;
     fprintf(fp, "\tsubsumed:\t%d\n", i);
     total_q += i;
+    for (i = 0, pp = adp->path; pp; pp = pp->next)
+	i++;
+    total_p = i;
+    fprintf(fp, "path length: %d\n", total_p);
     fprintf(fp, "hash table statistics (size %d):\n", adp->hashsize);
     for (i = 0; i < adp->hashsize; i++) {
 	for (j = 0, hp = adp->hashtab[i]; hp; hp = hp->next)
@@ -64,10 +71,18 @@ as_stats(struct as_data *adp, FILE * fp)
     fprintf(fp, "\tqueues\t%d\n",
 	    (int)(total_q * sizeof(struct as_queue)));
     fprintf(fp, "\tnodes\t%d\n", (int)(total_q * sizeof(struct as_node)));
+    fprintf(fp, "\tpath\t%d\n", (int)(total_p * sizeof(struct as_path)));
     fprintf(fp, "\thash ents\t%d\n",
 	    (int)(total_h * sizeof(struct as_hash)));
+    other = sizeof(struct as_data);
+    other += adp->maxneighbors * sizeof(struct as_coord);
+    other += (adp->maxneighbors + 1) * sizeof(struct as_node *);
+    other += adp->hashsize * sizeof(struct as_hash *);
+    fprintf(fp, "\tother\t%d\n", (int)other);
     fprintf(fp, "\ttotal\t%d\n",
 	    (int)(total_q * sizeof(struct as_queue) +
 		  total_q * sizeof(struct as_node) +
-		  total_h * sizeof(struct as_hash)));
+		  total_p * sizeof(struct as_path) +
+		  total_h * sizeof(struct as_hash) +
+		  other));
 }
