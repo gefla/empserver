@@ -98,6 +98,7 @@ best_path(struct sctstr *from, struct sctstr *to, char *path, int mob_type)
     static struct bestp *mybestpath;
     struct as_data *adp;
     struct as_path *ap;
+    int res;
 
     if (!mybestpath)
 	mybestpath = bp_init();
@@ -110,19 +111,19 @@ best_path(struct sctstr *from, struct sctstr *to, char *path, int mob_type)
 	adp->to.y = to->sct_y;
 	mybestpath->bp_mobtype = mob_type;
 
-	if (as_search(adp) < 0)
+	res = as_search(adp);
+#ifdef AS_STATS
+	as_stats(adp, stderr);
+	fprintf(stderr, "neighbor cache %zu bytes\n",
+		WORLD_SZ() * 6 * sizeof(struct sctstr *));
+#endif
+	if (res < 0)
 	    return -1;
 	ap = adp->path;
     }
 
     if (bp_path(ap, path) < 0)
 	return -1;
-
-#ifdef AS_STATS
-    as_stats(adp, stderr);
-    fprintf(stderr, "neighbor cache %zu bytes\n",
-	    WORLD_SZ() * 6 * sizeof(struct sctstr *));
-#endif /* AS_STATS */
     return 0;
 }
 
