@@ -40,6 +40,10 @@
  * Define AS_NO_PATH_CACHE to disable the path cache.  The path cache
  * saves a lot of work, but uses lots of memory.  It should be a
  * significant net win, unless you run out of memory.
+ *
+ * Define AS_NO_NEIGHBOR_CACHE to disable the neighbor cache.  The
+ * neighbor cache trades a modest amount of memory to save a bit of
+ * work.  In its current form, it doesn't really make a difference.
  */
 
 #include <config.h>
@@ -87,8 +91,10 @@ bp_init(void)
     if (bp->adp == NULL)
 	return NULL;
 
+#ifndef AS_NO_NEIGHBOR_CACHE
     if (neighsects == NULL)
 	neighsects = calloc(WORLD_SZ() * 6, sizeof(struct sctstr *));
+#endif
 
     return bp;
 }
@@ -125,8 +131,10 @@ best_path(struct sctstr *from, struct sctstr *to, char *path, int mob_type)
 	res = as_search(adp);
 #ifdef AS_STATS
 	as_stats(adp, stderr);
+#ifndef AS_NO_NEIGHBOR_CACHE
 	fprintf(stderr, "neighbor cache %zu bytes\n",
 		WORLD_SZ() * 6 * sizeof(struct sctstr *));
+#endif
 #endif
 	if (res < 0)
 	    return -1;
