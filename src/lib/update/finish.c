@@ -130,4 +130,5 @@ assemble_dist_paths(double *import_cost)
 				   sp->sct_x, sp->sct_y,
 				   dist->sct_own, MOB_MOVE);
     }
+    path_find_print_stats();
 }

@@ -52,6 +52,8 @@ static char *bufrotate(char *buf, size_t bufsz, size_t i);
 /*
  * Dijkstra's algorithm.  Refer to your graph algorithm textbook for
  * how it works.  Implementation is specialized to hex maps.
+ *
+ * Define PATH_FIND_STATS for performance statistics on stdout.
  */
 
 /*
@@ -111,6 +113,22 @@ static coord pf_sx, pf_sy;
 static int pf_suid;
 static natid pf_actor;
 static double (*pf_sct_cost)(natid, int);
+
+/*
+ * Performance statistics
+ */
+#ifdef PATH_FIND_STATS
+static unsigned pf_nsearch, pf_nsource, pf_nopen, pf_nclose;
+static unsigned pf_nheap_max, pf_noway;
+static double pf_sumcost;
+#define STAT_INC(v) ((void)((v)++))
+#define STAT_INCBY(v, i) ((void)((v) += i))
+#define STAT_HIMARK(v, h) ((void)((v) < (h) ? (v) = (h) : (h)))
+#else	/* !PATH_FIND_STATS */
+#define STAT_INC(v) ((void)0)
+#define STAT_INCBY(v, i) ((void)0)
+#define STAT_HIMARK(v, h) ((void)0)
+#endif	/* !PATH_FIND_STATS */
 
 #ifndef NDEBUG			/* silence "not used" warning */
 /* Is sector with uid UID open?  */
@@ -224,7 +242,9 @@ pf_open(int uid, coord x, coord y, int dir, double cost)
 {
     int i;
 
+    STAT_INC(pf_nopen);
     i = pf_nheap++;
+    STAT_HIMARK(pf_nheap_max, (unsigned)pf_nheap);
     DPRINTF("pf: open %d,%d %g %c %d\n", x, y, cost, dirch[dir], i);
     assert(pf_is_unvisited(uid));
     pf_map[uid].visit = pf_visit;
@@ -248,6 +268,7 @@ pf_close(void)
 {
     int uid = pf_heap[0].uid;
 
+    STAT_INC(pf_nclose);
     DPRINTF("pf: close %d,%d %d\n", pf_heap[0].x, pf_heap[0].y, pf_nheap);
     assert(pf_is_open(uid));
     if (--pf_nheap) {
@@ -305,6 +326,7 @@ rev_dir(int dir)
 static void
 pf_set_source(coord sx, coord sy, natid actor, double (*cost)(natid, int))
 {
+    STAT_INC(pf_nsource);
     DPRINTF("pf: source %d,%d\n", sx, sy);
     pf_sx = sx;
     pf_sy = sy;
@@ -339,10 +361,12 @@ path_find_to(coord dx, coord dy)
     double cost, c1;
     coord x, y, nx, ny;
 
+    STAT_INC(pf_nsearch);
     DPRINTF("pf: dest %d,%d\n", dx, dy);
     duid = XYOFFSET(dx, dy);
     if (pf_is_closed(duid)) {
 	DPRINTF("pf: done old %g\n", pf_map[duid].cost);
+	STAT_INCBY(pf_sumcost, pf_map[duid].cost);
 	return pf_map[duid].cost;
     }
 
@@ -373,8 +397,11 @@ path_find_to(coord dx, coord dy)
     }
 
     DPRINTF("pf: done new %g\n", !pf_nheap ? -1.0 : pf_map[duid].cost);
-    if (!pf_nheap)
+    if (!pf_nheap) {
+	STAT_INC(pf_noway);
 	return -1.0;
+    }
+    STAT_INCBY(pf_sumcost, pf_map[duid].cost);
     return pf_map[duid].cost;
 }
 
@@ -449,6 +476,18 @@ bufrotate(char *buf, size_t bufsz, size_t i)
     return buf;
 }
 
+#ifdef PATH_FIND_STATS
+void
+path_find_print_stats(void)
+{
+    printf("pathfind %u searches, %u sources, %u opened, %u closed,"
+	   " %u heap max, %zu bytes, %u noway, %g avg cost\n",
+	   pf_nsearch, pf_nsource, pf_nopen, pf_nclose,
+	   pf_nheap_max,
+	   (WORLD_SZ() * (sizeof(*pf_map) + sizeof(*pf_heap))),
+	   pf_noway, pf_nsearch ? pf_sumcost / pf_nsearch : 0.0);
+}
+#endif
 
 /*
  * Empire interface glue

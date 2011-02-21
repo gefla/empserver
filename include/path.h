@@ -73,6 +73,11 @@ extern void path_find_from(coord, coord, natid, int);
 extern double path_find_to(coord, coord);
 extern double path_find(coord, coord, coord, coord, natid, int);
 extern size_t path_find_route(char *, size_t, coord, coord, coord, coord);
+#ifdef PATH_FIND_STATS
+extern void path_find_print_stats(void);
+#else
+#define path_find_print_stats() ((void)0)
+#endif
 
 /* src/lib/common/path.c */
 extern char *BestDistPath(char *, struct sctstr *, struct sctstr *,
