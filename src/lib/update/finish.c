@@ -124,7 +124,7 @@ finish_sects(int etu)
 
 }
 
-#if defined(USE_PATH_FIND) || defined(TEST_PATH_FIND)
+#if (defined(USE_PATH_FIND) || defined(TEST_PATH_FIND)) && !defined(DIST_PATH_NO_REUSE)
 static int
 distcmp(const void *p, const void *q)
 {
@@ -154,6 +154,12 @@ assemble_dist_paths(double *import_cost)
     int uid, i;
     coord dx = 1, dy = 0;	/* invalid */
 
+#ifdef DIST_PATH_NO_REUSE
+    for (uid = 0; NULL != (sp = getsectid(uid)); uid++) {
+	import_cost[uid] = -1;
+	if (sp->sct_dist_x == sp->sct_x && sp->sct_dist_y == sp->sct_y)
+	    continue;
+#else
     if (!job)
 	job = malloc(WORLD_SZ() * sizeof(*job));
 
@@ -174,18 +180,25 @@ assemble_dist_paths(double *import_cost)
 
     for (i = 0; i < n; i++) {
 	uid = job[i];
+#endif	/* !DIST_PATH_NO_REUSE */
 	sp = getsectid(uid);
 	dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
 	if (CANT_HAPPEN(!dist))
 	    continue;
 	if (sp->sct_own != dist->sct_own)
 	    continue;
+#ifdef DIST_PATH_NO_REUSE
+	import_cost[uid] = path_find(sp->sct_dist_x, sp->sct_dist_y,
+				     sp->sct_x, sp->sct_y, dist->sct_own,
+				     MOB_MOVE);
+#else
 	if (sp->sct_dist_x != dx || sp->sct_dist_y != dy) {
 	    dx = sp->sct_dist_x;
 	    dy = sp->sct_dist_y;
 	    path_find_from(dx, dy, dist->sct_own, MOB_MOVE);
 	}
 	import_cost[uid] = path_find_to(sp->sct_x, sp->sct_y);
+#endif
     }
 #endif	/* USE_PATH_FIND || TEST_PATH_FIND */
 #if !defined(USE_PATH_FIND) || defined(TEST_PATH_FIND)
