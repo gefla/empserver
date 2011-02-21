@@ -110,18 +110,54 @@ finish_sects(int etu)
 
 }
 
+static int
+distcmp(const void *p, const void *q)
+{
+    int a = *(int *)p;
+    int b = *(int *)q;
+    struct sctstr *sp = (void *)empfile[EF_SECTOR].cache;
+    int d;
+
+    d = sp[b].sct_dist_y - sp[a].sct_dist_y;
+    if (d)
+	return d;
+    d = sp[b].sct_dist_x - sp[a].sct_dist_x;
+    if (d)
+	return d;
+    return b - a;
+}
+
 static void
 assemble_dist_paths(double *import_cost)
 {
     struct sctstr *sp;
     struct sctstr *dist;
     int n;
+    static int *job;
+    int uid, i;
     coord dx = 1, dy = 0;	/* invalid */
 
-    for (n = 0; NULL != (sp = getsectid(n)); n++) {
-	import_cost[n] = -1;
+    if (!job)
+	job = malloc(WORLD_SZ() * sizeof(*job));
+
+    n = 0;
+    for (uid = 0; NULL != (sp = getsectid(uid)); uid++) {
+	import_cost[uid] = -1;
 	if (sp->sct_dist_x == sp->sct_x && sp->sct_dist_y == sp->sct_y)
 	    continue;
+	job[n++] = uid;
+    }
+
+#ifdef PATH_FIND_STATS
+    printf("dist path reuse %zu bytes, %d/%d used\n",
+	   WORLD_SZ() * sizeof(*job), n, WORLD_SZ());
+#endif
+
+    qsort(job, n, sizeof(*job), distcmp);
+
+    for (i = 0; i < n; i++) {
+	uid = job[i];
+	sp = getsectid(uid);
 	dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
 	if (CANT_HAPPEN(!dist))
 	    continue;
@@ -132,7 +168,7 @@ assemble_dist_paths(double *import_cost)
 	    dy = sp->sct_dist_y;
 	    path_find_from(dx, dy, dist->sct_own, MOB_MOVE);
 	}
-	import_cost[n] = path_find_to(sp->sct_x, sp->sct_y);
+	import_cost[uid] = path_find_to(sp->sct_x, sp->sct_y);
     }
     path_find_print_stats();
 }
