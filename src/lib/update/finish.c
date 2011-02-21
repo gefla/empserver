@@ -116,6 +116,7 @@ assemble_dist_paths(double *import_cost)
     struct sctstr *sp;
     struct sctstr *dist;
     int n;
+    coord dx = 1, dy = 0;	/* invalid */
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	import_cost[n] = -1;
@@ -126,9 +127,12 @@ assemble_dist_paths(double *import_cost)
 	    continue;
 	if (sp->sct_own != dist->sct_own)
 	    continue;
-	import_cost[n] = path_find(sp->sct_dist_x, sp->sct_dist_y,
-				   sp->sct_x, sp->sct_y,
-				   dist->sct_own, MOB_MOVE);
+	if (sp->sct_dist_x != dx || sp->sct_dist_y != dy) {
+	    dx = sp->sct_dist_x;
+	    dy = sp->sct_dist_y;
+	    path_find_from(dx, dy, dist->sct_own, MOB_MOVE);
+	}
+	import_cost[n] = path_find_to(sp->sct_x, sp->sct_y);
     }
     path_find_print_stats();
 }
