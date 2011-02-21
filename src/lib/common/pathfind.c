@@ -280,6 +280,20 @@ pf_close(void)
     pf_check();
 }
 
+/* silence "not used" warning */
+#ifdef PATH_FIND_DEBUG
+/*
+ * Return cost from source to sector with uid UID.
+ * It must be visited, i.e. open or closed.
+ */
+static double
+pf_cost(int uid)
+{
+    assert(!pf_is_unvisited(uid));
+    return pf_map[uid].cost;
+}
+#endif
+
 static coord
 x_in_dir(coord x, int dir)
 {
@@ -475,6 +489,66 @@ bufrotate(char *buf, size_t bufsz, size_t i)
     buf[bufsz - 1] = 0;
     return buf;
 }
+
+#ifdef PATH_FIND_DEBUG
+void
+path_find_visualize(coord sx, coord sy, coord dx, coord dy)
+{
+    int uid;
+    int xmin, xmax, ymin, ymax, x, y, odd, ch;
+    double c, u, cost;
+    char buf[1024];
+
+    assert(pf_cost(XYOFFSET(sx, sy)) == 0.0);
+    c = pf_cost(XYOFFSET(dx, dy));
+    u = c / 10.0;
+
+    /* find bounding box */
+    xmin = xmax = 0;
+    ymin = ymax = 0;
+    for (y = -WORLD_Y / 2; y < WORLD_Y / 2; y++) {
+	odd = ((sx + -WORLD_X / 2) ^ (sy + y)) & 1;
+	for (x = -WORLD_X / 2 + odd; x < WORLD_X / 2; x += 2) {
+	    uid = XYOFFSET(XNORM(sx + x), YNORM(sy + y));
+	    if (pf_is_unvisited(uid))
+		continue;
+	    if (xmin > x)
+		xmin = x;
+	    if (xmax < x)
+		xmax = x;
+	    if (ymin > y)
+		ymin = y;
+	    if (ymax < y)
+		ymax = y;
+	}
+    }
+    printf("bbox %d:%d,%d:%d origin %d,%d\n",
+	   xmin, xmax, ymin, ymax, sx, sy);
+
+    for (y = ymin; y <= ymax; y++) {
+	odd = ((sx + xmin) ^ (sy + y)) & 1;
+	if (odd)
+	    printf(" ");
+	for (x = xmin + odd; x <= xmax; x += 2) {
+	    uid = XYOFFSET(XNORM(sx + x), YNORM(sy + y));
+	    if (pf_is_unvisited(uid))
+		ch = ' ';
+	    else if (uid == XYOFFSET(dx, dy))
+		ch = 'D';
+	    else if (uid == XYOFFSET(sx, sy))
+		ch = 'S';
+	    else {
+		cost = pf_cost(uid);
+		ch = cost > c ? '+' : '0' + (int)(10 * (cost / c));
+	    }
+	    printf(" %c", ch);
+	}
+	printf("\n");
+    }
+    path_find_route(buf, sizeof(buf), sx, sy, dx, dy);
+    printf("%s %g\n", buf, pf_cost(XYOFFSET(dx, dy)));
+}
+#endif
 
 #ifdef PATH_FIND_STATS
 void
