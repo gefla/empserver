@@ -27,12 +27,13 @@
  *  path.h: Definitions for directions, paths, etc.
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2005-2011
  */
 
 #ifndef PATH_H
 #define PATH_H
 
+#include <stddef.h>
 #include "types.h"
 
 	/* direction indices */
@@ -66,6 +67,12 @@ extern char *routech[DIR_LAST+1];
 
 /* src/lib/common/bestpath.c */
 extern char *bestownedpath(char *, char *, int, int, int, int, int);
+
+/* src/lib/common/findpath.c */
+extern void path_find_from(coord, coord, natid, int);
+extern double path_find_to(coord, coord);
+extern double path_find(coord, coord, coord, coord, natid, int);
+extern size_t path_find_route(char *, size_t, coord, coord, coord, coord);
 
 /* src/lib/common/path.c */
 extern void bp_enable_cachepath(void);
