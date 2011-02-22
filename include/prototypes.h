@@ -253,8 +253,6 @@ int zdon(void);
 /*
  * src/lib/common/ *.c
  */
-/* bestpath.c */
-/* in path.h */
 /* conftab.c */
 extern int read_builtin_tables(void);
 extern int read_custom_tables(void);

@@ -86,16 +86,29 @@ BestDistPath(char *path,
 char *
 BestShipPath(char *path, int fx, int fy, int tx, int ty, int owner)
 {
-    char *map;
+    size_t len;
 
-    map = ef_ptr(EF_BMAP, owner);
-    if (!map)
+    if (path_find(fx, fy, tx, ty, owner, MOB_SAIL) < 0)
 	return NULL;
-    return bestownedpath(path, map, fx, fy, tx, ty, owner);
+    len = path_find_route(path, 100, fx, fy, tx, ty);
+    if (len >= 100)
+	return NULL;
+    if (len == 0)
+	strcpy(path, "h");
+    return path;
 }
 
 char *
 BestAirPath(char *path, int fx, int fy, int tx, int ty)
 {
-    return bestownedpath(path, NULL, fx, fy, tx, ty, -1);
+    size_t len;
+
+    if (path_find(fx, fy, tx, ty, 0, MOB_FLY) < 0)
+	return NULL;
+    len = path_find_route(path, 100, fx, fy, tx, ty);
+    if (len >= 100)
+	return NULL;
+    if (len == 0)
+	strcpy(path, "h");
+    return path;
 }

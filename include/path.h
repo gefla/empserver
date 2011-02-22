@@ -52,6 +52,8 @@
 #define MOB_MOVE	0
 #define MOB_MARCH	1
 #define MOB_RAIL	2
+#define MOB_SAIL	3
+#define MOB_FLY		4
 
 enum p_mode {			/* How to find path to destination */
     P_NONE,			/* don't */
@@ -64,9 +66,6 @@ extern signed char dirindex['z'-'a'+1];
 extern int diroff[DIR_MAP+1][2];
 extern char dirch[DIR_MAP+2];
 extern char *routech[DIR_LAST+1];
-
-/* src/lib/common/bestpath.c */
-extern char *bestownedpath(char *, char *, int, int, int, int, int);
 
 /* src/lib/common/findpath.c */
 extern void path_find_from(coord, coord, natid, int);

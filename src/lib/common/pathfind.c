@@ -37,6 +37,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "file.h"
+#include "nat.h"
 #include "optlist.h"
 #include "path.h"
 #include "sect.h"
@@ -598,8 +599,43 @@ cost_rail(natid actor, int uid)
     return cost_land(actor, uid, MOB_RAIL);
 }
 
+static double
+cost_sail(natid actor, int uid)
+{
+    struct sctstr *sp = (void *)empfile[EF_SECTOR].cache;
+    natid sctown = sp[uid].sct_own;
+    char *bmap;
+
+    if (sctown && relations_with(sctown, actor) == ALLIED) {
+	/* FIXME duplicates shp_check_nav() logic */
+	switch (dchr[sp[uid].sct_type].d_nav) {
+	case NAVOK:
+	    return 1.0;
+	case NAV_CANAL:
+	    /* FIXME return 1.0 when all ships have M_CANAL */
+	    return -1.0;
+	case NAV_02:
+	    return sp[uid].sct_effic >= 2 ? 1.0 : -1.0;
+	case NAV_60:
+	    return sp[uid].sct_effic >= 60 ? 1.0 : -1.0;
+	default:
+	    return -1.0;
+	}
+    }
+
+    bmap = ef_ptr(EF_BMAP, actor);
+    return bmap[uid] == '.' || bmap[uid] == ' ' || bmap[uid] == 0
+	? 1.0 : -1.0;
+}
+
+static double
+cost_fly(natid actor, int uid)
+{
+    return 1.0;
+}
+
 static double (*cost_tab[])(natid, int) = {
-    cost_move, cost_march, cost_rail
+    cost_move, cost_march, cost_rail, cost_sail, cost_fly
 };
 
 /*
