@@ -227,8 +227,8 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, void *pp)
 	    *ssp = sp;
 	} else {
 	    sp = *ssp;
-	    sx = XNORM(sp->sct_x);
-	    sy = YNORM(sp->sct_y);
+	    sx = sp->sct_x;
+	    sy = sp->sct_y;
 	}
 	/* No need to calculate cost each time, just make sure we can
 	   move through it.  We calculate it later. */
