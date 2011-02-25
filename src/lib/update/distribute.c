@@ -41,6 +41,12 @@
 #include "prototypes.h"
 #include "update.h"
 
+#ifdef DISTRIBUTE_DEBUG
+#define DPRINTF(fmt, ...) ((void)printf(fmt , ## __VA_ARGS__))
+#else
+#define DPRINTF(fmt, ...) ((void)0)
+#endif
+
 #define EXPORT_BONUS 10.0
 #define IMPORT_BONUS 10.0
 
@@ -79,6 +85,10 @@ dodistribute(struct sctstr *sp, int imex, char *path, double dist_i_cost,
     dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
     dist_packing = dist->sct_effic >= 60 ? dchr[dist->sct_type].d_pkg : IPKG;
     sect_packing = sp->sct_effic   >= 60 ? dchr[sp->sct_type].d_pkg : IPKG;
+
+    DPRINTF("distribute: %d,%d to %d,%d pathcost %g\n",
+	    sp->sct_x, sp->sct_y, sp->sct_dist_x, sp->sct_dist_y,
+	    imex == IMPORT ? dist_i_cost : dist_e_cost);
 
     lplague = rplague = changed = 0;
     for (item = I_NONE + 1; item <= I_MAX; item++) {
