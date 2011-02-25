@@ -62,8 +62,6 @@ finish_sects(int etu)
 	}
     }
 
-    memset(import_cost, 0, WORLD_SZ() * sizeof(*import_cost));
-
     logerror("delivering...\n");
     /* Do deliveries */
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
@@ -136,23 +134,17 @@ assemble_dist_paths(double *import_cost)
     char buf[512];
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
+	import_cost[n] = -1;
 	if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
 	    continue;
-	/* now, get the dist sector */
 	dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
-	if (dist == NULL) {
-	    logerror("Bad dist sect %d,%d for %d,%d !\n",
-		     sp->sct_dist_x, sp->sct_dist_y,
-		     sp->sct_x, sp->sct_y);
+	if (CANT_HAPPEN(!dist))
 	    continue;
-	}
 	/* Now, get the best distribution path over roads */
 	/* Note we go from the dist center to the sector.  This gives
 	   us the import path for that sector. */
 	path = BestDistPath(buf, dist, sp, &d);
 	if (path)
 	    import_cost[n] = d;
-	else
-	    import_cost[n] = -1;
     }
 }
