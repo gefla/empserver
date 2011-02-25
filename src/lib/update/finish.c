@@ -140,6 +140,8 @@ assemble_dist_paths(double *import_cost)
 	dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
 	if (CANT_HAPPEN(!dist))
 	    continue;
+	if (sp->sct_own != dist->sct_own)
+	    continue;
 	/* Now, get the best distribution path over roads */
 	/* Note we go from the dist center to the sector.  This gives
 	   us the import path for that sector. */
