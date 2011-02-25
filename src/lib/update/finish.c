@@ -100,7 +100,7 @@ finish_sects(int etu)
 
     logerror("exporting...");
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
-	if (sp->sct_type == SCT_WATER || sp->sct_own == 0)
+	if (!sp->sct_own)
 	    continue;
 	np = getnatp(sp->sct_own);
 	if (np->nat_money < 0)
@@ -111,7 +111,7 @@ finish_sects(int etu)
 
     logerror("importing...");
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
-	if (sp->sct_type == SCT_WATER || sp->sct_own == 0)
+	if (!sp->sct_own)
 	    continue;
 	np = getnatp(sp->sct_own);
 	if (np->nat_money < 0)
