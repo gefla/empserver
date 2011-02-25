@@ -70,9 +70,6 @@ dodistribute(struct sctstr *sp, int imex, double import_cost)
     int rplague;
     int lplague;
 
-    if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
-	return 0;
-
     if (imex == IMPORT && import_cost < 0.0)
 	return 0;
 
@@ -82,7 +79,7 @@ dodistribute(struct sctstr *sp, int imex, double import_cost)
     else {
 	dcc = sector_mcost(dist, MOB_MOVE);
 	if (import_cost < 0.0 || dcc < 0.0) {
-	    if (sp->sct_own != 0)
+	    if (sp->sct_own && sp->sct_uid != dist->sct_uid)
 		wu(0, sp->sct_own, "No path to dist sector for %s\n",
 		   ownxy(sp));
 	    return 0;
