@@ -475,12 +475,64 @@ BestShipPath(char *path, int fx, int fy, int tx, int ty, int owner)
     map = ef_ptr(EF_BMAP, owner);
     if (!map)
 	return NULL;
+#ifdef TEST_PATH_FIND
+    double newc = path_find(fx, fy, tx, ty, owner, MOB_SAIL);
+    char *p = bestownedpath(path, map, fx, fy, tx, ty, owner);
+    double c;
+    size_t l;
+    char buf[MAX_PATH_LEN];
+
+    if (!p)
+	c = -1.0;
+    else {
+	l = strlen(p);
+	if (p[l-1] == 'h')
+	    l--;
+	c = l;
+    }
+
+    if (c != newc) {
+	path_find_route(buf, sizeof(buf), fx, fy, tx, ty);
+	printf("%d,%d -> %d,%d %d: old %g, new %g, %g off\n",
+	       fx, fy, tx, ty, MOB_FLY, c, newc, c - newc);
+	printf("\told: %s\n", p);
+	printf("\tnew: %s\n", buf);
+    }
+    return p;
+#else
     return bestownedpath(path, map, fx, fy, tx, ty, owner);
+#endif
 }
 
 char *
 BestAirPath(char *path, int fx, int fy, int tx, int ty)
 {
+#ifdef TEST_PATH_FIND
+    double newc = path_find(fx, fy, tx, ty, 0, MOB_FLY);
+    char *p = bestownedpath(path, NULL, fx, fy, tx, ty, -1);
+    double c;
+    size_t l;
+    char buf[MAX_PATH_LEN];
+
+    if (!p)
+	c = -1.0;
+    else {
+	l = strlen(p);
+	if (p[l-1] == 'h')
+	    l--;
+	c = l;
+    }
+
+    if (c != newc) {
+	path_find_route(buf, sizeof(buf), fx, fy, tx, ty);
+	printf("%d,%d -> %d,%d %d: old %g, new %g, %g off\n",
+	       fx, fy, tx, ty, MOB_FLY, c, newc, c - newc);
+	printf("\told: %s\n", p);
+	printf("\tnew: %s\n", buf);
+    }
+    return p;
+#else
     return bestownedpath(path, NULL, fx, fy, tx, ty, -1);
+#endif
 }
 #endif	/* !USE_PATH_FIND */
