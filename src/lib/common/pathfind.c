@@ -452,6 +452,9 @@ bufrotate(char *buf, size_t bufsz, size_t i)
 static double
 cost_land(natid actor, int uid, int mobtype)
 {
+    /*
+     * Non-negative cost must not depend on ACTOR, see BestLandPath().
+     */
     struct sctstr *sp = (void *)empfile[EF_SECTOR].cache;
 
     if (sp[uid].sct_own != actor)

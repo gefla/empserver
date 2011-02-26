@@ -119,7 +119,7 @@ obj := $(csrc:.c=.o) $(filter %.o, $(ac:.c=.o))
 # Dependencies:
 deps := $(obj:.o=.d)
 # Library archives:
-libs := $(addprefix lib/, libcommon.a libas.a libgen.a libglobal.a)
+libs := $(addprefix lib/, libcommon.a libgen.a libglobal.a)
 # Programs:
 util := $(addprefix src/util/, $(addsuffix $(EXEEXT), empdump empsched fairland files pconfig))
 client := src/client/empire$(EXEEXT)
@@ -291,7 +291,6 @@ $(client): $(filter src/client/%, $(obj)) src/lib/global/version.o
 
 $(util): $(libs)
 
-lib/libas.a: $(filter src/lib/as/%, $(obj))
 lib/libcommon.a: $(filter src/lib/common/%, $(obj))
 lib/libgen.a: $(filter src/lib/gen/%, $(obj))
 lib/libglobal.a: $(filter src/lib/global/%, $(obj))

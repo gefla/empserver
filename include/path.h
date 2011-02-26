@@ -75,16 +75,12 @@ extern double path_find(coord, coord, coord, coord, natid, int);
 extern size_t path_find_route(char *, size_t, coord, coord, coord, coord);
 
 /* src/lib/common/path.c */
-extern void bp_enable_cachepath(void);
-extern void bp_disable_cachepath(void);
-extern void bp_clear_cachepath(void);
 extern char *BestDistPath(char *, struct sctstr *, struct sctstr *,
 			  double *);
 extern char *BestLandPath(char *, struct sctstr *, struct sctstr *,
 			  double *, int);
 extern char *BestShipPath(char *, int, int, int, int, int);
 extern char *BestAirPath(char *, int, int, int, int);
-extern double pathcost(struct sctstr *, char *, int);
 
 /* src/lib/subs/paths.c */
 extern char *getpath(char *, char *, coord, coord, int, int, enum p_mode);

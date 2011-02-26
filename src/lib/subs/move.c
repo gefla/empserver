@@ -63,8 +63,8 @@ move_ground(struct sctstr *start, struct sctstr *end,
     int intcost;
     int takedam = *dam;
     int out = 0;
-    char bpath[512];
-    char buf2[512];
+    char bpath[1024];
+    char buf2[1024];
     char prompt[128];
     char buf[1024];
 

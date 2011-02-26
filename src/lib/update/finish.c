@@ -77,19 +77,7 @@ finish_sects(int etu)
 
     logerror("assembling paths...\n");
     getrusage(RUSAGE_SELF, &rus1);
-
-    /* First, enable the best_path cacheing */
-    bp_enable_cachepath();
-
-    /* Now assemble the paths */
     assemble_dist_paths(import_cost);
-
-    /* Now disable the best_path cacheing */
-    bp_disable_cachepath();
-
-    /* Now, clear the best_path cache that may have been created */
-    bp_clear_cachepath();
-
     getrusage(RUSAGE_SELF, &rus2);
     logerror("done assembling paths %g user %g system",
 	     rus2.ru_utime.tv_sec + rus2.ru_utime.tv_usec / 1e6
@@ -125,27 +113,21 @@ finish_sects(int etu)
 static void
 assemble_dist_paths(double *import_cost)
 {
-    char *path;
-    double d;
     struct sctstr *sp;
     struct sctstr *dist;
     int n;
-    char buf[512];
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	import_cost[n] = -1;
-	if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
+	if (sp->sct_dist_x == sp->sct_x && sp->sct_dist_y == sp->sct_y)
 	    continue;
 	dist = getsectp(sp->sct_dist_x, sp->sct_dist_y);
 	if (CANT_HAPPEN(!dist))
 	    continue;
 	if (sp->sct_own != dist->sct_own)
 	    continue;
-	/* Now, get the best distribution path over roads */
-	/* Note we go from the dist center to the sector.  This gives
-	   us the import path for that sector. */
-	path = BestDistPath(buf, dist, sp, &d);
-	if (path)
-	    import_cost[n] = d;
+	import_cost[n] = path_find(sp->sct_dist_x, sp->sct_dist_y,
+				   sp->sct_x, sp->sct_y,
+				   dist->sct_own, MOB_MOVE);
     }
 }
