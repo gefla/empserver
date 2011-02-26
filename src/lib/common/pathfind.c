@@ -112,12 +112,14 @@ static int pf_suid;
 static natid pf_actor;
 static double (*pf_sct_cost)(natid, int);
 
+#ifndef NDEBUG			/* silence "not used" warning */
 /* Is sector with uid UID open?  */
 static int
 pf_is_open(int uid)
 {
     return pf_map[uid].visit == pf_visit;
 }
+#endif
 
 /* Is sector with uid UID closed?  */
 static int
@@ -222,21 +224,16 @@ pf_open(int uid, coord x, coord y, int dir, double cost)
 {
     int i;
 
-    if (pf_is_open(uid)) {
-	i = pf_map[uid].heapi;
-	DPRINTF("pf: reopen %d,%d %g %c %d\n", x, y, cost, dirch[dir], i);
-	assert(cost < pf_map[uid].cost);
-    } else {
-	i = pf_nheap++;
-	DPRINTF("pf: open %d,%d %g %c %d\n", x, y, cost, dirch[dir], i);
-	pf_map[uid].heapi = i;
-	pf_map[uid].visit = pf_visit;
-	pf_heap[i].uid = uid;
-	pf_heap[i].x = x;
-	pf_heap[i].y = y;
-    }
+    i = pf_nheap++;
+    DPRINTF("pf: open %d,%d %g %c %d\n", x, y, cost, dirch[dir], i);
+    assert(pf_is_unvisited(uid));
+    pf_map[uid].visit = pf_visit;
     pf_map[uid].dir = dir;
+    pf_map[uid].heapi = i;
     pf_map[uid].cost = cost;
+    pf_heap[i].uid = uid;
+    pf_heap[i].x = x;
+    pf_heap[i].y = y;
     pf_heap[i].cost = cost;
 
     pf_sift_up(i);
@@ -359,11 +356,19 @@ path_find_to(coord dx, coord dy)
 	    nx = x_in_dir(x, DIR_FIRST + i);
 	    ny = y_in_dir(y, DIR_FIRST + i);
 	    nuid = XYOFFSET(nx, ny);
+	    /*
+	     * Cost to enter NX,NY doesn't depend on direction of
+	     * entry.  This X,Y is at least as expensive as any
+	     * previous one.  Therefore, cost to go to NX,NY via X,Y
+	     * is at least as high as any previously found route.
+	     * Skip neighbors that have a route already.
+	     */
+	    if (!pf_is_unvisited(nuid))
+		continue;
 	    c1 = pf_sct_cost(pf_actor, nuid);
 	    if (c1 < 0)
 		continue;
-	    if (pf_is_unvisited(nuid) || cost + c1 < pf_map[nuid].cost)
-		pf_open(nuid, nx, ny, DIR_FIRST + i, cost + c1);
+	    pf_open(nuid, nx, ny, DIR_FIRST + i, cost + c1);
 	}
     }
 
