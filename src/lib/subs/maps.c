@@ -30,7 +30,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2008
+ *     Markus Armbruster, 2004-2011
  *     Ron Koenderink, 2006
  */
 
@@ -148,7 +148,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	}
     }
     if (!bitmap)
-	bitmap = malloc(WORLD_SZ() / 8);
+	bitmap = malloc((WORLD_SZ() + 7) / 8);
     if (!wmapbuf || !wmap || !bitmap) {
 	pr("Memory error, tell the deity.\n");
 	logerror("malloc failed in draw_map\n");
@@ -202,7 +202,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 		struct sctstr sect;
 
 		if (!player->god) {
-		    memset(bitmap, 0, WORLD_SZ() / 8);
+		    memset(bitmap, 0, (WORLD_SZ() + 7) / 8);
 		    bitinit2(nsp, bitmap, player->cnum);
 		}
 		while (nxtsct(nsp, &sect) && !player->aborted) {
@@ -221,7 +221,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	int changed = 0;
 
 	if (!player->god) {
-	    memset(bitmap, 0, WORLD_SZ() / 8);
+	    memset(bitmap, 0, (WORLD_SZ() + 7) / 8);
 	    bitinit2(nsp, bitmap, player->cnum);
 	}
 	while (nxtsct(nsp, &sect) && !player->aborted) {

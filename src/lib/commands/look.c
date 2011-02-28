@@ -70,7 +70,7 @@ do_look(int type)
 
     if (!snxtitem(&ni, type, player->argp[1], NULL))
 	return RET_SYN;
-    bitmap = calloc(WORLD_SZ() / 8, 1);
+    bitmap = calloc((WORLD_SZ() + 7) / 8, 1);
     if (!bitmap) {
 	logerror("malloc failed in do_look\n");
 	pr("Memory error.  Tell the deity.\n");

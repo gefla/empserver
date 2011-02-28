@@ -30,7 +30,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2005-2008
+ *     Markus Armbruster, 2005-2011
  */
 
 #include <config.h>
@@ -86,7 +86,7 @@ spy(void)
 	pr("You don't have the BTU's for spying on that scale!\n");
 	return RET_FAIL;
     }
-    bitmap = calloc(WORLD_SZ() / 8, 1);
+    bitmap = calloc((WORLD_SZ() + 7) / 8, 1);
     if (!bitmap) {
 	logerror("malloc failed in do_look\n");
 	pr("Memory error.  Tell the deity.\n");
