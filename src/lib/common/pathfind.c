@@ -39,6 +39,7 @@
 #include "file.h"
 #include "nat.h"
 #include "optlist.h"
+#include "prototypes.h"
 #include "path.h"
 #include "sect.h"
 
@@ -51,8 +52,8 @@
 static char *bufrotate(char *buf, size_t bufsz, size_t i);
 
 /*
- * Dijkstra's algorithm.  Refer to your graph algorithm textbook for
- * how it works.  Implementation is specialized to hex maps.
+ * A* algorithm.  Refer to your graph algorithm textbook for how it
+ * works.  Implementation is specialized to hex maps.
  *
  * Define PATH_FIND_STATS for performance statistics on stdout.
  */
@@ -101,7 +102,7 @@ static struct pf_map *pf_map;
 struct pf_heap {
     int uid;			/* sector uid and */
     coord x, y;			/* coordinates, uid == XYOFFSET(x, y) */
-    double cost;		/* cost from source */
+    double f;			/* estimated cost from source to dest */
 };
 
 static int pf_nheap;		/* #entries in pf_nheap[] */
@@ -114,12 +115,13 @@ static coord pf_sx, pf_sy;
 static int pf_suid;
 static natid pf_actor;
 static double (*pf_sct_cost)(natid, int);
+static double (*pf_h)(coord, coord, coord, coord, double);
 
 /*
  * Performance statistics
  */
 #ifdef PATH_FIND_STATS
-static unsigned pf_nsearch, pf_nsource, pf_nopen, pf_nclose;
+static unsigned pf_nsearch, pf_nsource, pf_nopen, pf_nreopen, pf_nclose;
 static unsigned pf_nheap_max, pf_noway;
 static double pf_sumcost;
 #define STAT_INC(v) ((void)((v)++))
@@ -131,14 +133,12 @@ static double pf_sumcost;
 #define STAT_HIMARK(v, h) ((void)0)
 #endif	/* !PATH_FIND_STATS */
 
-#ifndef NDEBUG			/* silence "not used" warning */
 /* Is sector with uid UID open?  */
 static int
 pf_is_open(int uid)
 {
     return pf_map[uid].visit == pf_visit;
 }
-#endif
 
 /* Is sector with uid UID closed?  */
 static int
@@ -169,11 +169,11 @@ pf_check(void)
 	assert(0 <= uid && uid < WORLD_SZ());
 	assert(pf_map[uid].heapi == i);
 	assert(pf_map[uid].visit == pf_visit);
-	assert(pf_map[uid].cost <= pf_heap[i].cost);
+	assert(pf_map[uid].cost <= pf_heap[i].f);
 	c = 2 * i + 1;
-	assert(c >= pf_nheap || pf_heap[i].cost <= pf_heap[c].cost);
+	assert(c >= pf_nheap || pf_heap[i].f <= pf_heap[c].f);
 	c++;
-	assert(c >= pf_nheap || pf_heap[i].cost <= pf_heap[c].cost);
+	assert(c >= pf_nheap || pf_heap[i].f <= pf_heap[c].f);
     }
 
     for (uid = 0; uid < WORLD_SZ(); uid++) {
@@ -211,9 +211,9 @@ pf_sift_down(int n)
 
     assert(0 <= n && n < pf_nheap);
     for (r = n; (c = 2 * r + 1) < pf_nheap; r = c) {
-	if (c + 1 < pf_nheap && pf_heap[c].cost > pf_heap[c + 1].cost)
+	if (c + 1 < pf_nheap && pf_heap[c].f > pf_heap[c + 1].f)
 	    c++;
-	if (pf_heap[r].cost < pf_heap[c].cost)
+	if (pf_heap[r].f < pf_heap[c].f)
 	    break;
 	pf_heap_swap(r, c);
     }
@@ -227,7 +227,7 @@ pf_sift_up(int n)
 
     assert(0 <= n && n < pf_nheap);
     for (c = n; (p = (c - 1) / 2), c > 0; c = p) {
-	if (pf_heap[p].cost < pf_heap[c].cost)
+	if (pf_heap[p].f < pf_heap[c].f)
 	    break;
 	pf_heap_swap(p, c);
     }
@@ -237,25 +237,32 @@ pf_sift_up(int n)
  * Open the unvisited sector X,Y.
  * UID is sector uid, it equals XYOFFSET(X,Y).
  * Cheapest path from source comes from direction DIR and has cost COST.
+ * H is the estimated cost from X,Y to the destination.
  */
 static void
-pf_open(int uid, coord x, coord y, int dir, double cost)
+pf_open(int uid, coord x, coord y, int dir, double cost, double h)
 {
     int i;
 
-    STAT_INC(pf_nopen);
-    i = pf_nheap++;
-    STAT_HIMARK(pf_nheap_max, (unsigned)pf_nheap);
-    DPRINTF("pf: open %d,%d %g %c %d\n", x, y, cost, dirch[dir], i);
-    assert(pf_is_unvisited(uid));
-    pf_map[uid].visit = pf_visit;
+    if (pf_is_open(uid)) {
+	STAT_INC(pf_nreopen);
+	i = pf_map[uid].heapi;
+	DPRINTF("pf: reopen %d,%d %g %c %d\n", x, y, cost, dirch[dir], i);
+    } else {
+	assert(pf_is_unvisited(uid));
+	STAT_INC(pf_nopen);
+	i = pf_nheap++;
+	STAT_HIMARK(pf_nheap_max, (unsigned)pf_nheap);
+	DPRINTF("pf: open %d,%d %g %c %d\n", x, y, cost, dirch[dir], i);
+	pf_map[uid].heapi = i;
+	pf_map[uid].visit = pf_visit;
+	pf_heap[i].uid = uid;
+	pf_heap[i].x = x;
+	pf_heap[i].y = y;
+    }
     pf_map[uid].dir = dir;
-    pf_map[uid].heapi = i;
     pf_map[uid].cost = cost;
-    pf_heap[i].uid = uid;
-    pf_heap[i].x = x;
-    pf_heap[i].y = y;
-    pf_heap[i].cost = cost;
+    pf_heap[i].f = cost + h;
 
     pf_sift_up(i);
     pf_check();
@@ -285,7 +292,7 @@ pf_close(void)
 #ifdef PATH_FIND_DEBUG
 /*
  * Return cost from source to sector with uid UID.
- * It must be visited, i.e. open or closed.
+ * It must be open (cost is an estimate) or closed (cost is exact).
  */
 static double
 pf_cost(int uid)
@@ -337,9 +344,17 @@ rev_dir(int dir)
  * SX,SY is the source.
  * The cost to enter the sector with uid u is COST(ACTOR, u).
  * Negative value means the sector can't be entered.
+ * Optional H() is the heuristic: the cost from x,y to the destination
+ * dx,dy is at least H(x, y, dx, dy, c1d), where c1d is the cost to
+ * enter dx,dy.  The closer H() is to the true cost, the more
+ * efficient this function works.
+ * With a null H(), A* degenerates into Dijkstra's algorithm.  You can
+ * then call path_find_to() multiple times for the same source.  This
+ * is faster when you need many destinations.
  */
 static void
-pf_set_source(coord sx, coord sy, natid actor, double (*cost)(natid, int))
+pf_set_source(coord sx, coord sy, natid actor, double (*cost) (natid, int),
+	      double (*h) (coord, coord, coord, coord, double))
 {
     STAT_INC(pf_nsource);
     DPRINTF("pf: source %d,%d\n", sx, sy);
@@ -348,6 +363,7 @@ pf_set_source(coord sx, coord sy, natid actor, double (*cost)(natid, int))
     pf_suid = XYOFFSET(sx, sy);
     pf_actor = actor;
     pf_sct_cost = cost;
+    pf_h = h;
 
     if (!pf_map) {
 	pf_map = calloc(WORLD_SZ(), sizeof(*pf_map));
@@ -361,8 +377,6 @@ pf_set_source(coord sx, coord sy, natid actor, double (*cost)(natid, int))
 	pf_visit += 2;
 
     pf_nheap = 0;
-
-    pf_open(pf_suid, pf_sx, pf_sy, DIR_STOP, 0.0);
 }
 
 /*
@@ -373,7 +387,7 @@ path_find_to(coord dx, coord dy)
 {
     int duid;
     int uid, nuid, i;
-    double cost, c1;
+    double c1d, cost, c1;
     coord x, y, nx, ny;
 
     STAT_INC(pf_nsearch);
@@ -385,29 +399,38 @@ path_find_to(coord dx, coord dy)
 	return pf_map[duid].cost;
     }
 
+    c1d = pf_sct_cost(pf_actor, duid);
+    if (c1d < 0) {
+	DPRINTF("pf: done new %g\n", -1.0);
+	STAT_INC(pf_noway);
+	return -1;
+    }
+
+    if (pf_is_unvisited(pf_suid))
+	/* first search from this source */
+	pf_open(pf_suid, pf_sx, pf_sy, DIR_STOP, 0.0,
+		pf_h ? pf_h(pf_sx, pf_sy, dx, dy, c1d) : 0.0);
+    else
+	assert(!pf_h);		/* multiple searches only w/o heuristic */
+
     while (pf_nheap > 0 && (uid = pf_heap[0].uid) != duid) {
 	x = pf_heap[0].x;
 	y = pf_heap[0].y;
-	cost = pf_heap[0].cost;
 	pf_close();
+	cost = pf_map[uid].cost;
 
 	for (i = 0; i < 6; i++) { /* for all neighbors */
 	    nx = x_in_dir(x, DIR_FIRST + i);
 	    ny = y_in_dir(y, DIR_FIRST + i);
 	    nuid = XYOFFSET(nx, ny);
-	    /*
-	     * Cost to enter NX,NY doesn't depend on direction of
-	     * entry.  This X,Y is at least as expensive as any
-	     * previous one.  Therefore, cost to go to NX,NY via X,Y
-	     * is at least as high as any previously found route.
-	     * Skip neighbors that have a route already.
-	     */
-	    if (!pf_is_unvisited(nuid))
+	    if (pf_h ? pf_is_closed(nuid) : !pf_is_unvisited(nuid))
 		continue;
 	    c1 = pf_sct_cost(pf_actor, nuid);
 	    if (c1 < 0)
 		continue;
-	    pf_open(nuid, nx, ny, DIR_FIRST + i, cost + c1);
+	    if (pf_is_unvisited(nuid) || cost + c1 < pf_map[nuid].cost)
+		pf_open(nuid, nx, ny, DIR_FIRST + i, cost + c1,
+			pf_h ? pf_h(nx, ny, dx, dy, c1d) : 0);
 	}
     }
 
@@ -555,9 +578,10 @@ path_find_visualize(coord sx, coord sy, coord dx, coord dy)
 void
 path_find_print_stats(void)
 {
-    printf("pathfind %u searches, %u sources, %u opened, %u closed,"
+    printf("pathfind %u searches, %u sources,"
+	   " %u opened, %u reopened, %u closed,"
 	   " %u heap max, %zu bytes, %u noway, %g avg cost\n",
-	   pf_nsearch, pf_nsource, pf_nopen, pf_nclose,
+	   pf_nsearch, pf_nsource, pf_nopen, pf_nreopen, pf_nclose,
 	   pf_nheap_max,
 	   (WORLD_SZ() * (sizeof(*pf_map) + sizeof(*pf_heap))),
 	   pf_noway, pf_nsearch ? pf_sumcost / pf_nsearch : 0.0);
@@ -600,6 +624,20 @@ cost_rail(natid actor, int uid)
 }
 
 static double
+h_move(coord x, coord y, coord dx, coord dy, double c1d)
+{
+    int md = mapdist(x, y, dx, dy);
+    return md ? c1d + (md - 1) * 0.001 : 0.0;
+}
+
+static double
+h_march_rail(coord x, coord y, coord dx, coord dy, double c1d)
+{
+    int md = mapdist(x, y, dx, dy);
+    return md ? c1d + (md - 1) * 0.02 : 0.0;
+}
+
+static double
 cost_sail(natid actor, int uid)
 {
     struct sctstr *sp = (void *)empfile[EF_SECTOR].cache;
@@ -634,8 +672,18 @@ cost_fly(natid actor, int uid)
     return 1.0;
 }
 
+static double
+h_sail_fly(coord x, coord y, coord dx, coord dy, double c1d)
+{
+    return mapdist(x, y, dx, dy);
+}
+
 static double (*cost_tab[])(natid, int) = {
     cost_move, cost_march, cost_rail, cost_sail, cost_fly
+};
+
+static double (*h[])(coord, coord, coord, coord, double) = {
+    h_move, h_march_rail, h_march_rail, h_sail_fly, h_sail_fly
 };
 
 /*
@@ -645,7 +693,7 @@ static double (*cost_tab[])(natid, int) = {
 void
 path_find_from(coord sx, coord sy, natid actor, int mobtype)
 {
-    pf_set_source(sx, sy, actor, cost_tab[mobtype]);
+    pf_set_source(sx, sy, actor, cost_tab[mobtype], NULL);
 }
 
 /*
@@ -655,6 +703,6 @@ path_find_from(coord sx, coord sy, natid actor, int mobtype)
 double
 path_find(coord sx, coord sy, coord dx, coord dy, natid actor, int mobtype)
 {
-    pf_set_source(sx, sy, actor, cost_tab[mobtype]);
+    pf_set_source(sx, sy, actor, cost_tab[mobtype], h[mobtype]);
     return path_find_to(dx, dy);
 }
