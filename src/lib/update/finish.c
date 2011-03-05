@@ -188,9 +188,15 @@ assemble_dist_paths(double *import_cost)
 	if (sp->sct_own != dist->sct_own)
 	    continue;
 #ifdef DIST_PATH_NO_REUSE
+#if DIST_PATH_NO_REUSE == 1
 	import_cost[uid] = path_find(sp->sct_dist_x, sp->sct_dist_y,
 				     sp->sct_x, sp->sct_y, dist->sct_own,
 				     MOB_MOVE);
+#else
+	path_find_from(sp->sct_dist_x, sp->sct_dist_y,
+		       dist->sct_own, MOB_MOVE);
+	import_cost[uid] = path_find_to(sp->sct_x, sp->sct_y);
+#endif
 #else
 	if (sp->sct_dist_x != dx || sp->sct_dist_y != dy) {
 	    dx = sp->sct_dist_x;
