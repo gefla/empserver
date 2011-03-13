@@ -53,6 +53,8 @@ alert_deity ()
 test -n "$privlog" && trap 'alert_deity' EXIT
 
 core_name=`ls -td $core_pattern | head -n 1`
+test -n "$core_name"
+test -r "$core_name"
 saved_core=$core_dir/core-`/bin/date +%Y-%m-%d-%H:%M`
 
 mv -f $core_name $saved_core
