@@ -1,6 +1,6 @@
 #!/bin/sh -e
 # Script to save core files, to be run from post_crash_dump_hook
-# Written by Markus Armbruster, 2008
+# Written by Markus Armbruster, 2008-2011
 # This script is in the public domain.
 
 # Use: edit configuration variables below to taste, then set
@@ -29,6 +29,9 @@ core_pattern=core.*
 # them up, which is probably not what you want.
 core_dir=../core-dumps
 
+# Minimum free disk space for saving core dumps, in KiB
+space_low=102400
+
 # Whom to send mail (leave empty to not send any)
 privlog=
 
@@ -55,7 +58,12 @@ test -n "$privlog" && trap 'alert_deity' EXIT
 core_name=`ls -td $core_pattern | head -n 1`
 test -n "$core_name"
 test -r "$core_name"
-saved_core=$core_dir/core-`/bin/date +%Y-%m-%d-%H:%M`
+tstamp=`/bin/date +%Y-%m-%d-%H:%M`
+saved_core=$core_dir/core-$tstamp
+
+if [ `df -kP $core_dir | awk 'NR!=1 { print $4 }'` -lt "$space_low" ]
+then rm -f $core_name; exit
+fi
 
 mv -f $core_name $saved_core
 saved=y
