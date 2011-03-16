@@ -36,6 +36,7 @@
 
 #include <config.h>
 
+#include <sys/resource.h>
 #include "budg.h"
 #include "empthread.h"
 #include "game.h"
@@ -56,6 +57,7 @@ void
 update_main(void)
 {
     int etu = etu_per_update;
+    struct rusage rus1, rus2;
     int n;
     int i;
     struct bp *bp;
@@ -63,6 +65,7 @@ update_main(void)
     struct natstr *np;
 
     logerror("production update (%d etus)", etu);
+    getrusage(RUSAGE_SELF, &rus1);
     game_record_update(time(NULL));
     journal_update(etu);
 
@@ -154,5 +157,10 @@ update_main(void)
     /* Clear all the telegram flags */
     for (cn = 0; cn < MAXNOC; cn++)
 	clear_telegram_is_new(cn);
-    logerror("End update");
+    getrusage(RUSAGE_SELF, &rus2);
+    logerror("End update %g user %g system",
+	     rus2.ru_utime.tv_sec + rus2.ru_utime.tv_usec / 1e6
+	     - (rus1.ru_utime.tv_sec + rus1.ru_utime.tv_usec / 1e6),
+	     rus2.ru_stime.tv_sec + rus2.ru_stime.tv_usec / 1e6
+	     - (rus1.ru_stime.tv_sec + rus1.ru_stime.tv_usec / 1e6));
 }
