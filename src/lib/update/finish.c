@@ -36,6 +36,7 @@
 #include <config.h>
 
 #include <stdlib.h>
+#include <sys/resource.h>
 #include "distribute.h"
 #include "path.h"
 #include "update.h"
@@ -72,6 +73,7 @@ finish_sects(int etu)
     struct sctstr *sp;
     struct natstr *np;
     int n;
+    struct rusage rus1, rus2;
     struct distinfo *infptr;
 
     if (g_distptrs == NULL) {
@@ -102,6 +104,7 @@ finish_sects(int etu)
     logerror("done delivering\n");
 
     logerror("assembling paths...\n");
+    getrusage(RUSAGE_SELF, &rus1);
 
     /* First, enable the best_path cacheing */
     bp_enable_cachepath();
@@ -115,7 +118,12 @@ finish_sects(int etu)
     /* Now, clear the best_path cache that may have been created */
     bp_clear_cachepath();
 
-    logerror("done assembling paths\n");
+    getrusage(RUSAGE_SELF, &rus2);
+    logerror("done assembling paths %g user %g system",
+	     rus2.ru_utime.tv_sec + rus2.ru_utime.tv_usec / 1e6
+	     - (rus1.ru_utime.tv_sec + rus1.ru_utime.tv_usec / 1e6),
+	     rus2.ru_stime.tv_sec + rus2.ru_stime.tv_usec / 1e6
+	     - (rus1.ru_stime.tv_sec + rus1.ru_stime.tv_usec / 1e6));
 
     logerror("exporting...");
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
