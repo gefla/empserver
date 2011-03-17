@@ -35,6 +35,8 @@
 
 #include <config.h>
 
+#include <assert.h>
+#include <math.h>
 #include <stdlib.h>
 #include <sys/resource.h>
 #include "distribute.h"
@@ -122,7 +124,7 @@ finish_sects(int etu)
 
 }
 
-#ifdef USE_PATH_FIND
+#if defined(USE_PATH_FIND) || defined(TEST_PATH_FIND)
 static int
 distcmp(const void *p, const void *q)
 {
@@ -147,7 +149,7 @@ assemble_dist_paths(double *import_cost)
     struct sctstr *sp;
     struct sctstr *dist;
     int n;
-#ifdef USE_PATH_FIND
+#if defined(USE_PATH_FIND) || defined(TEST_PATH_FIND)
     static int *job;
     int uid, i;
     coord dx = 1, dy = 0;	/* invalid */
@@ -185,13 +187,16 @@ assemble_dist_paths(double *import_cost)
 	}
 	import_cost[uid] = path_find_to(sp->sct_x, sp->sct_y);
     }
-    path_find_print_stats();
-#else	/* !USE_PATH_FIND */
+#endif	/* USE_PATH_FIND || TEST_PATH_FIND */
+#if !defined(USE_PATH_FIND) || defined(TEST_PATH_FIND)
     char *path;
     double d;
     char buf[512];
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
+#ifdef TEST_PATH_FIND
+	double new_imc = import_cost[n];
+#endif
 	import_cost[n] = -1;
 	if ((sp->sct_dist_x == sp->sct_x) && (sp->sct_dist_y == sp->sct_y))
 	    continue;
@@ -206,6 +211,25 @@ assemble_dist_paths(double *import_cost)
 	path = BestDistPath(buf, dist, sp, &d);
 	if (path)
 	    import_cost[n] = d;
+#ifdef TEST_PATH_FIND
+	if (fabs(import_cost[n] - new_imc) >= 1e-6) {
+	    printf("%d,%d <- %d,%d %d: old %g, new %g, %g off\n",
+		   sp->sct_dist_x, sp->sct_dist_y,
+		   sp->sct_x, sp->sct_y, MOB_MOVE,
+		   import_cost[n], new_imc, import_cost[n] - new_imc);
+	    printf("\told: %s\n", path);
+	    d = path_find(sp->sct_dist_x, sp->sct_dist_y,
+			  sp->sct_x, sp->sct_y, dist->sct_own, MOB_MOVE);
+	    assert(d - new_imc < 1e-6);
+	    path_find_route(buf, sizeof(buf),
+			    sp->sct_dist_x, sp->sct_dist_y,
+			    sp->sct_x, sp->sct_y);
+	    printf("\tnew: %s\n", buf);
+	}
+#endif	/* TEST_PATH_FIND */
     }
-#endif	/* !USE_PATH_FIND */
+#endif	/* !USE_PATH_FIND || TEST_PATH_FIND */
+#if defined(USE_PATH_FIND) || defined(TEST_PATH_FIND)
+    path_find_print_stats();
+#endif
 }
