@@ -29,6 +29,7 @@
  *
  *  Known contributors to this file:
  *     Markus Armbruster, 2011
+ *     Ron Koenderink, 2011 (some of this code was taken from MinGW)
  */
 
 #include <config.h>
@@ -44,8 +45,27 @@ getrusage(int who, struct rusage *rus)
 	return -1;
     }
 
-    /* FIXME stub */
-    rus->ru_utime.tv_sec = rus->ru_utime.tv_usec = 0;
-    rus->ru_stime.tv_sec = rus->ru_stime.tv_usec = 0;
+    if (who == RUSAGE_SELF) {
+	HANDLE hProcess;
+	FILETIME ftCreation, ftExit, ftUser, ftKernel;
+	_int64 itmp;
+
+	hProcess = GetCurrentProcess ();
+
+	GetProcessTimes (hProcess, &ftCreation, &ftExit, &ftKernel, &ftUser);
+
+	itmp = (_int64)ftUser.dwLowDateTime +
+	    ((_int64)ftUser.dwHighDateTime * (_int64)0x100000000);
+	rus->ru_utime.tv_sec = (long)(itmp / 10000000U);
+	rus->ru_utime.tv_usec = (long)((itmp % 10000000U) / 10.);
+
+	itmp = (_int64)ftKernel.dwLowDateTime +
+	    ((_int64)ftKernel.dwHighDateTime * (_int64)0x100000000);
+	rus->ru_stime.tv_sec = (long)(itmp / 10000000U);
+	rus->ru_stime.tv_usec = (long)((itmp % 10000000U) / 10.);
+    } else {
+	rus->ru_utime.tv_sec = rus->ru_utime.tv_usec = 0;
+	rus->ru_stime.tv_sec = rus->ru_stime.tv_usec = 0;
+    }
     return 0;
 }
