@@ -91,6 +91,8 @@ bp_init(void)
 /*
  * Find the best path from sector to to sector, and put the Empire movement
  * string in path.  Return 0 on success, -1 on error.
+ * FIXME unsafe by design: assumes path[] has space; buffer overrun
+ * when path gets long!
  */
 static int
 best_path(struct sctstr *from, struct sctstr *to, char *path, int mob_type)
