@@ -319,15 +319,14 @@ s_commod(struct empobj *sink, short *vec,
 	if (land.lnd_item[type] <= get_minimum(&land, type))
 	    continue;
 
-	getsect(land.lnd_x, land.lnd_y, &sect);
+	if (land.lnd_ship >= 0) {
+	    getsect(land.lnd_x, land.lnd_y, &sect);
+	    if (sect.sct_type != SCT_HARBR || sect.sct_effic < 2)
+		continue;
+	}
+
 	move_cost = path_find(land.lnd_x, land.lnd_y, x, y, own, MOB_MOVE);
 	if (move_cost < 0)
-	    continue;
-
-	if ((land.lnd_ship >= 0) && (sect.sct_type != SCT_HARBR))
-	    continue;
-
-	if ((land.lnd_ship >= 0) && (sect.sct_effic < 2))
 	    continue;
 
 #if 0
