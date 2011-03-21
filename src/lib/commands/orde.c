@@ -285,13 +285,12 @@ orde(void)
 }
 
 static void
-eta_calc(struct shpstr *sp, char *path, int *len, int *nupdates)
+eta_calc(struct shpstr *sp, int len, int *nupdates)
 {
     double mobcost, mobil;
     int i;
 
-    i = strlen(path);
-    *len = i;
+    i = len;
     *nupdates = 1;
 
     mobcost = shp_mobcost(sp);
@@ -440,7 +439,8 @@ sorde(void)
 		    pr(" has arrived");
 		else {
 		    /* distance to destination */
-		    eta_calc(&ship, c, &len, &updates);
+		    len = strlen(c);
+		    eta_calc(&ship, len, &updates);
 		    pr(" %3d %4d", len, updates);
 		}
 	    }
