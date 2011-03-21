@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Chad Zabel, 1994
  *     Steve McClure, 2000
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -385,10 +386,9 @@ sorde(void)
 {
     int nships = 0;
     int len, updates;
-    char *c;
+    double c;
     struct nstr_item nb;
     struct shpstr ship;
-    char buf[1024];
 
     if (!snxtitem(&nb, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
@@ -430,17 +430,16 @@ sorde(void)
 		pr(" loading");
 	    else {
 		/* ETA calculation */
-
-		c = BestShipPath(buf, ship.shp_x, ship.shp_y,
-				 ship.shp_destx[0], ship.shp_desty[0],
-				 ship.shp_own);
-		if (!c)
+		c = path_find(ship.shp_x, ship.shp_y,
+			      ship.shp_destx[0], ship.shp_desty[0],
+			      ship.shp_own, MOB_SAIL);
+		if (c < 0)
 		    pr(" no route possible");
-		else if (*c == 'h')
+		else if (c == 0)
 		    pr(" has arrived");
 		else {
 		    /* distance to destination */
-		    len = strlen(c);
+		    len = (int)c;
 		    updates = eta_calc(&ship, len);
 		    pr(" %3d %4d", len, updates);
 		}
