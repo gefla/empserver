@@ -284,14 +284,14 @@ orde(void)
     return RET_OK;
 }
 
-static void
-eta_calc(struct shpstr *sp, int len, int *nupdates)
+static int
+eta_calc(struct shpstr *sp, int len)
 {
     double mobcost, mobil;
-    int i;
+    int i, nupdates;
 
     i = len;
-    *nupdates = 1;
+    nupdates = 1;
 
     mobcost = shp_mobcost(sp);
     mobil = sp->shp_mobil;
@@ -301,9 +301,10 @@ eta_calc(struct shpstr *sp, int len, int *nupdates)
 	    i--;
 	} else {
 	    mobil += (ship_mob_scale * (float)etu_per_update);
-	    (*nupdates)++;
+	    nupdates++;
 	}
     }
+    return nupdates;
 }
 
 static void
@@ -440,7 +441,7 @@ sorde(void)
 		else {
 		    /* distance to destination */
 		    len = strlen(c);
-		    eta_calc(&ship, len, &updates);
+		    updates = eta_calc(&ship, len);
 		    pr(" %3d %4d", len, updates);
 		}
 	    }
