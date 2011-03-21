@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2006-2009
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>
@@ -1457,7 +1457,6 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 {
     struct nstr_item ni;
     struct lndstr land;
-    struct sctstr sect, dsect;
     struct ulist *llp;
     int dtotal;
     double new_land = 0;
@@ -1465,7 +1464,6 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
     double pathcost;
     int origx, origy;
     double eff = att_combat_eff(def);
-    char buf[1024];
 
     if (list)
 	dtotal = get_dtotal(def, list, 1.0, 1);
@@ -1497,12 +1495,10 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	if (!in_oparea((struct empobj *)&land, def->x, def->y))
 	    continue;
 
-	getsect(land.lnd_x, land.lnd_y, &sect);
-	getsect(def->x, def->y, &dsect);
-	if (!BestLandPath(buf, &sect, &dsect, &pathcost,
-			  lnd_mobtype(&land)))
+	pathcost = path_find(land.lnd_x, land.lnd_y, def->x, def->y,
+			    def->own, lnd_mobtype(&land));
+	if (pathcost < 0)
 	    continue;
-
 	mobcost = lnd_pathcost(&land, pathcost);
 	if (land.lnd_mobil < mobcost)
 	    continue;

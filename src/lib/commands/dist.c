@@ -30,6 +30,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1993 (rewritten)
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2008-2011
  */
 
 #include <config.h>
@@ -46,7 +47,7 @@ dist(void)
     struct sctstr sect, dsect, tsect;
     struct nstr_sect nstr;
     char *p;
-    double move_cost = 0.0;
+    double move_cost;
     coord dstx, dsty;
     char buf[1024];
 
@@ -90,7 +91,9 @@ dist(void)
 	    pr("Warning: you don't own %s!\n",
 	       xyas(dsect.sct_x, dsect.sct_y, player->cnum));
 
-	if (!BestDistPath(buf, &sect, &dsect, &move_cost)) {
+	move_cost = path_find(sect.sct_x, sect.sct_y, dstx, dsty,
+			      player->cnum, MOB_MOVE);
+	if (move_cost < 0) {
 	    pr("No owned path from %s to %s.\n",
 	       xyas(dsect.sct_x, dsect.sct_y, player->cnum),
 	       xyas(sect.sct_x, sect.sct_y, player->cnum));

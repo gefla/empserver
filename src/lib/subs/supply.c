@@ -27,7 +27,7 @@
  *  supply.c: Supply subroutines
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -109,7 +109,7 @@ s_commod(struct empobj *sink, short *vec,
     coord x = sink->x;
     coord y = sink->y;
     int lookrange;
-    struct sctstr sect, dest;
+    struct sctstr sect;
     struct nstr_sect ns;
     struct nstr_item ni;
     struct lchrstr *lcp;
@@ -122,15 +122,12 @@ s_commod(struct empobj *sink, short *vec,
     int packing;
     struct dchrstr *dp;
     struct ichrstr *ip;
-    char buf[1024];
 
     if (wanted > limit)
 	wanted = limit;
     if (wanted <= vec[type])
 	return 1;
     wanted -= vec[type];
-
-    getsect(x, y, &dest);
 
     /* try to get it from sector we're in */
     if (sink->ef_type != EF_SECTOR) {
@@ -175,7 +172,8 @@ s_commod(struct empobj *sink, short *vec,
 	    continue;
 	if (sect.sct_effic < 60)
 	    continue;
-	if (!BestLandPath(buf, &sect, &dest, &move_cost, MOB_MOVE))
+	move_cost = path_find(sect.sct_x, sect.sct_y, x, y, own, MOB_MOVE);
+	if (move_cost < 0)
 	    continue;
 	if (!opt_NOFOOD && type == I_FOOD)
 	    minimum = 1 + (int)ceil(food_needed(sect.sct_item,
@@ -247,7 +245,8 @@ s_commod(struct empobj *sink, short *vec,
 	    continue;
 	if (sect.sct_effic < 2)
 	    continue;
-	if (!BestLandPath(buf, &sect, &dest, &move_cost, MOB_MOVE))
+	move_cost = path_find(sect.sct_x, sect.sct_y, x, y, own, MOB_MOVE);
+	if (move_cost < 0)
 	    continue;
 	if (!opt_NOFOOD && type == I_FOOD)
 	    minimum = 1 + (int)ceil(food_needed(ship.shp_item,
@@ -321,7 +320,8 @@ s_commod(struct empobj *sink, short *vec,
 	    continue;
 
 	getsect(land.lnd_x, land.lnd_y, &sect);
-	if (!BestLandPath(buf, &sect, &dest, &move_cost, MOB_MOVE))
+	move_cost = path_find(land.lnd_x, land.lnd_y, x, y, own, MOB_MOVE);
+	if (move_cost < 0)
 	    continue;
 
 	if ((land.lnd_ship >= 0) && (sect.sct_type != SCT_HARBR))
