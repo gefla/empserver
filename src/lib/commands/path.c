@@ -47,7 +47,7 @@ path(void)
     struct natstr *natp;
     struct range absrange;
     struct range relrange;
-    struct sctstr sect, dsect;
+    struct sctstr sect;
     coord cx, cy;
     int i;
     int y;
@@ -57,7 +57,6 @@ path(void)
        around */
     static char *mapbuf = NULL;
     static char **map = NULL;
-    double move_cost;
     char buf[1024];
 
     if (!(p = getstarg(player->argp[1], "from sector : ", buf)) ||
@@ -67,28 +66,19 @@ path(void)
 	pr("Not yours\n");
 	return RET_FAIL;
     }
-    getsect(sect.sct_dist_x, sect.sct_dist_y, &dsect);
-    buf[0] = 0;
-    move_cost = path_find(sect.sct_x, sect.sct_y, dsect.sct_x, dsect.sct_y,
-			  sect.sct_own, MOB_MOVE);
-    if (move_cost < 0) {
-	move_cost = 0;
-	pp = NULL;
-    } else {
-	len = path_find_route(buf, 1024,
-			      sect.sct_x, sect.sct_y,
-			      dsect.sct_x, dsect.sct_y);
-	if (len + 1 >= 1024)
-	    pp = NULL;
-	else {
-	    strcpy(buf + len, "h");
-	    pp = buf;
-	}
-    }
-    if (!pp) {
+    if (path_find(sect.sct_x, sect.sct_y, sect.sct_dist_x, sect.sct_dist_y,
+		  player->cnum, MOB_MOVE) < 0) {
 	pr("No path possible from %s to distribution sector %s\n",
 	   xyas(sect.sct_x, sect.sct_y, player->cnum),
-	   xyas(dsect.sct_x, dsect.sct_y, player->cnum));
+	   xyas(sect.sct_dist_x, sect.sct_dist_y, player->cnum));
+	return RET_FAIL;
+    }
+    len = path_find_route(buf, sizeof(buf), sect.sct_x, sect.sct_y,
+			  sect.sct_dist_x, sect.sct_dist_y);
+    if (len >= sizeof(buf)) {
+	pr("Can't handle path from %s to distribution sector %s, it's too long, sorry.\n",
+	   xyas(sect.sct_x, sect.sct_y, player->cnum),
+	   xyas(sect.sct_dist_x, sect.sct_dist_y, player->cnum));
 	return RET_FAIL;
     }
     if (!mapbuf)
@@ -108,14 +98,14 @@ path(void)
 	logerror("malloc failed in path\n");
 	return RET_FAIL;
     }
-    pathrange(cx, cy, pp, 1, &absrange);
+    pathrange(cx, cy, buf, 1, &absrange);
     snxtsct_area(&ns, &absrange);
     natp = getnatp(player->cnum);
     xyrelrange(natp, &absrange, &relrange);
     blankfill(mapbuf, &ns.range, 3);
-    for (; *pp; ++pp) {
+    for (pp = buf; *pp; ++pp) {
 	i = diridx(*pp);
-	if (i == DIR_STOP)
+	if (CANT_HAPPEN(i == DIR_STOP))
 	    break;
 	memcpy(&map[delty(&ns.range, cy)][deltx(&ns.range, cx) * 2],
 	       routech[i], 3);
