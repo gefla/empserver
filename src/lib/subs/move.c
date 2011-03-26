@@ -49,8 +49,8 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	    int (*map)(coord, coord, char *), int exploring,
 	    int *dam)
 {
-    struct sctstr sect, ending_sect;
-    struct sctstr next, dsect;
+    struct sctstr sect;
+    struct sctstr next;
     coord curx, cury, oldx, oldy;
     coord tmpx, tmpy;
     coord dx, dy;
@@ -64,8 +64,6 @@ move_ground(struct sctstr *start, struct sctstr *end,
     int intcost;
     int takedam = *dam;
     int out = 0;
-    char bpath[1024];
-    char buf2[1024];
     char prompt[128];
     char buf[1024];
 
@@ -73,44 +71,38 @@ move_ground(struct sctstr *start, struct sctstr *end,
     if (mobility <= 0.0)
 	return -1;
     *dam = 0;
-    if (path && sarg_xy(path, &dx, &dy) && getsect(dx, dy, &ending_sect)) {
-	if ((ending_sect.sct_x == start->sct_x) &&
-	    (ending_sect.sct_y == start->sct_y)) {
+    if (path && sarg_xy(path, &dx, &dy)) {
+	if (dx == start->sct_x && dy == start->sct_y) {
 	    pr("Start sector is ending sector!\n");
 	    return -1;
 	}
 	pr("Looking for best path to %s\n", path);
-	buf2[0] = 0;
-	total_mcost = path_find(start->sct_x, start->sct_y,
-				ending_sect.sct_x, ending_sect.sct_y,
-				start->sct_own, MOB_MOVE);
-	if (total_mcost < 0) {
-	    total_mcost = 0;
-	    path = NULL;
-	} else {
-	    len = path_find_route(buf2, 1024,
-				  start->sct_x, start->sct_y,
-				  ending_sect.sct_x, ending_sect.sct_y);
-	    if (len + 1 >= 1024)
-		path = NULL;
-	    else {
-		strcpy(buf2 + len, "h");
-		path = buf2;
-	    }
-	}
-	if (exploring && path)	/* take off the 'h' */
-	    path[strlen(path) - 1] = '\0';
-	if (!path)
+	total_mcost = path_find(start->sct_x, start->sct_y, dx, dy,
+				player->cnum, MOB_MOVE);
+	path = NULL;
+	if (total_mcost < 0)
 	    pr("No owned path exists!\n");
 	else {
-	    pr("Using best path '%s', movement cost %1.3f\n",
-	       path, total_mcost);
-	    strncpy(bpath, path, sizeof(bpath));
-	    path = bpath;
-	}
-	if ((total_mcost * weight) > mobility) {
-	    pr("Not enough mobility to go all the way. Nothing moved.\n");
-	    return -1;
+	    len = path_find_route(buf, sizeof(buf),
+				  start->sct_x, start->sct_y, dx, dy);
+	    if (!exploring) {
+		if (len < sizeof(buf))
+		    strcpy(buf + len, "h");
+		len++;
+	    }
+	    if (len >= sizeof(buf))
+		pr("Can't handle path to %s, it's too long, sorry.\n",
+		   xyas(dx, dy, player->cnum));
+	    else {
+		path = buf;
+		pr("Using best path '%s', movement cost %1.3f\n",
+		   path, total_mcost);
+		if (total_mcost * weight > mobility) {
+		    pr("Not enough mobility to go all the way."
+		       " Nothing moved.\n");
+		    return -1;
+		}
+	    }
 	}
     }
     movstr = path;
@@ -136,49 +128,38 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	    movstr = getstring(prompt, buf);
 	}
 	if (movstr && sarg_xy(movstr, &dx, &dy)) {
-	    if (getsect(dx, dy, &dsect)) {
-		buf2[0] = 0;
-		mv_cost = path_find(sect.sct_x, sect.sct_y,
-				    dsect.sct_x, dsect.sct_y,
-				    sect.sct_own, MOB_MOVE);
-		if (mv_cost < 0) {
-		    mv_cost = 0;
-		    movstr = NULL;
-		} else {
-		    len = path_find_route(buf2, 1024,
-					  sect.sct_x, sect.sct_y,
-					  dsect.sct_x, dsect.sct_y);
-		    if (len + 1 >= 1024)
-			movstr = NULL;
-		    else {
-			strcpy(buf2 + len, "h");
-			movstr = buf2;
-		    }
-		}
-	    } else {
-		pr("Invalid destination sector!\n");
-		movstr = NULL;
-	    }
-
-	    if (movstr == NULL) {
+	    mv_cost = path_find(sect.sct_x, sect.sct_y, dx, dy,
+				player->cnum, MOB_MOVE);
+	    if (mv_cost < 0) {
 		pr("Can't get to %s from here!\n",
 		   xyas(dx, dy, player->cnum));
+		movstr = NULL;
 	    } else {
-		if ((mv_cost * weight) > mobility) {
-		    pr("Not enough mobility to go all the way. Nothing moved.\n");
+		len = path_find_route(buf, sizeof(buf),
+				      sect.sct_x, sect.sct_y, dx, dy);
+		if (len < sizeof(buf))
+		    strcpy(buf + len, "h");
+		len++;
+		if (len >= sizeof(buf)) {
+		    pr("Can't handle path to %s, it's too long, sorry.\n",
+		       xyas(dx, dy, player->cnum));
 		    movstr = NULL;
 		} else {
-		    pr("Using best path '%s', movement cost %1.3f\n",
-		       movstr, mv_cost);
-		    strncpy(bpath, movstr, sizeof(bpath));
-		    movstr = bpath;
+		    if ((mv_cost * weight) > mobility) {
+			pr("Not enough mobility to go all the way. Nothing moved.\n");
+			movstr = NULL;
+		    } else {
+			movstr = buf;
+			pr("Using best path '%s', movement cost %1.3f\n",
+			   movstr, mv_cost);
+		    }
 		}
 	    }
 	}
 	if (!movstr || *movstr == 0) {
-	    buf2[0] = dirch[DIR_STOP];
-	    buf2[1] = 0;
-	    movstr = buf2;
+	    buf[0] = dirch[DIR_STOP];
+	    buf[1] = 0;
+	    movstr = buf;
 	}
 	if ((dir = chkdir(*movstr, DIR_STOP, DIR_MAP)) < 0) {
 	    pr("\"%c\" is not legal...", *movstr);
