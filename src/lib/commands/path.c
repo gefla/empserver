@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     David Muir Sharnoff, 1986
  *     (unknown rewrite), 1989
+ *     Markus Armbruster, 2005-2011
  */
 
 #include <config.h>
@@ -51,6 +52,7 @@ path(void)
     int i;
     int y;
     char *pp, *p;
+    size_t len;
     /* Note this is not re-entrant anyway, so we keep the buffers
        around */
     static char *mapbuf = NULL;
@@ -66,7 +68,23 @@ path(void)
 	return RET_FAIL;
     }
     getsect(sect.sct_dist_x, sect.sct_dist_y, &dsect);
-    pp = BestDistPath(buf, &sect, &dsect, &move_cost);
+    buf[0] = 0;
+    move_cost = path_find(sect.sct_x, sect.sct_y, dsect.sct_x, dsect.sct_y,
+			  sect.sct_own, MOB_MOVE);
+    if (move_cost < 0) {
+	move_cost = 0;
+	pp = NULL;
+    } else {
+	len = path_find_route(buf, 1024,
+			      sect.sct_x, sect.sct_y,
+			      dsect.sct_x, dsect.sct_y);
+	if (len + 1 >= 1024)
+	    pp = NULL;
+	else {
+	    strcpy(buf + len, "h");
+	    pp = buf;
+	}
+    }
     if (!pp) {
 	pr("No path possible from %s to distribution sector %s\n",
 	   xyas(sect.sct_x, sect.sct_y, player->cnum),

@@ -44,46 +44,6 @@
 #include "xy.h"
 
 char *
-BestLandPath(char *path,
-	     struct sctstr *from,
-	     struct sctstr *to, double *cost, int mob_type)
-{
-    double c;
-    size_t len;
-
-    *cost = 0.0;
-    *path = 0;
-
-    /*
-     * Note: passing from->sct_own for actor is funny, but works: its
-     * only effect is to confine the search to that nation's land.  It
-     * doesn't affect mobility costs.  The real actor is different for
-     * marching in allied land, and passing it would break path
-     * finding there.
-     */
-    c = path_find(from->sct_x, from->sct_y, to->sct_x, to->sct_y,
-		  from->sct_own, mob_type);
-    if (c < 0)
-	return NULL;
-    len = path_find_route(path, 1024,
-			  from->sct_x, from->sct_y,
-			  to->sct_x, to->sct_y);
-    if (len + 1 >= 1024)
-	return NULL;
-    strcpy(path + len, "h");
-    *cost = c;
-    return path;
-}
-
-char *
-BestDistPath(char *path,
-	     struct sctstr *from,
-	     struct sctstr *to, double *cost)
-{
-    return BestLandPath(path, from, to, cost, MOB_MOVE);
-}
-
-char *
 BestShipPath(char *path, int fx, int fy, int tx, int ty, int owner)
 {
     size_t len;

@@ -139,8 +139,8 @@ unit_path(int together, struct empobj *unit, char *buf)
     coord destx;
     coord desty;
     struct sctstr d_sect, sect;
+    size_t len;
     char *cp;
-    double dummy;
     int mtype;
 
     if (CANT_HAPPEN(unit->ef_type != EF_LAND && unit->ef_type != EF_SHIP))
@@ -167,7 +167,28 @@ unit_path(int together, struct empobj *unit, char *buf)
     } else {
 	getsect(unit->x, unit->y, &sect);
 	mtype = lnd_mobtype((struct lndstr *)unit);
-	cp = BestLandPath(buf, &sect, &d_sect, &dummy, mtype);
+	buf[0] = 0;
+	/*
+	 * Note: passing sect.sct_own for actor is funny, but works:
+	 * its only effect is to confine the search to that nation's
+	 * land.  It doesn't affect mobility costs.  The real actor is
+	 * different for marching in allied land, and passing it would
+	 * break path finding there.
+	 */
+	if (path_find(sect.sct_x, sect.sct_y, d_sect.sct_x, d_sect.sct_y,
+		      sect.sct_own, mtype) < 0)
+	    cp = NULL;
+	else {
+	    len = path_find_route(buf, 1024,
+				  sect.sct_x, sect.sct_y,
+				  d_sect.sct_x, d_sect.sct_y);
+	    if (len + 1 >= 1024)
+		cp = NULL;
+	    else {
+		strcpy(buf + len, "h");
+		cp = buf;
+	    }
+	}
 	if (!cp) {
 	    pr("No owned %s from %s to %s!\n",
 	       mtype == MOB_RAIL ? "railway" : "path",

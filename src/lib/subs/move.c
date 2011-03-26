@@ -27,7 +27,7 @@
  *  move.c: Move something somewhere.
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -58,6 +58,7 @@ move_ground(struct sctstr *start, struct sctstr *end,
     double sect_mcost;
     double total_mcost;
     double mv_cost;
+    size_t len;
     double mobility = start->sct_mobil;
     int dir;
     int intcost;
@@ -79,8 +80,24 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	    return -1;
 	}
 	pr("Looking for best path to %s\n", path);
-	path = BestLandPath(buf2, start, &ending_sect, &total_mcost,
-			    MOB_MOVE);
+	buf2[0] = 0;
+	total_mcost = path_find(start->sct_x, start->sct_y,
+				ending_sect.sct_x, ending_sect.sct_y,
+				start->sct_own, MOB_MOVE);
+	if (total_mcost < 0) {
+	    total_mcost = 0;
+	    path = NULL;
+	} else {
+	    len = path_find_route(buf2, 1024,
+				  start->sct_x, start->sct_y,
+				  ending_sect.sct_x, ending_sect.sct_y);
+	    if (len + 1 >= 1024)
+		path = NULL;
+	    else {
+		strcpy(buf2 + len, "h");
+		path = buf2;
+	    }
+	}
 	if (exploring && path)	/* take off the 'h' */
 	    path[strlen(path) - 1] = '\0';
 	if (!path)
@@ -120,8 +137,24 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	}
 	if (movstr && sarg_xy(movstr, &dx, &dy)) {
 	    if (getsect(dx, dy, &dsect)) {
-		movstr = BestLandPath(buf2, &sect, &dsect, &mv_cost,
-				      MOB_MOVE);
+		buf2[0] = 0;
+		mv_cost = path_find(sect.sct_x, sect.sct_y,
+				    dsect.sct_x, dsect.sct_y,
+				    sect.sct_own, MOB_MOVE);
+		if (mv_cost < 0) {
+		    mv_cost = 0;
+		    movstr = NULL;
+		} else {
+		    len = path_find_route(buf2, 1024,
+					  sect.sct_x, sect.sct_y,
+					  dsect.sct_x, dsect.sct_y);
+		    if (len + 1 >= 1024)
+			movstr = NULL;
+		    else {
+			strcpy(buf2 + len, "h");
+			movstr = buf2;
+		    }
+		}
 	    } else {
 		pr("Invalid destination sector!\n");
 		movstr = NULL;

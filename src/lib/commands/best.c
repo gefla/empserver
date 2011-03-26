@@ -27,7 +27,7 @@
  *  best.c: Show the best path between two sectors
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2011
  */
 
 #include <config.h>
@@ -43,6 +43,7 @@ best(void)
     struct sctstr s1, s2;
     struct nstr_sect nstr, nstr2;
     char buf[1024];
+    size_t len;
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -57,7 +58,23 @@ best(void)
 	while (!player->aborted && nxtsct(&nstr2, &s2)) {
 	    if (!player->owner)
 		continue;
-	    path = BestLandPath(buf, &s1, &s2, &cost, MOB_MOVE);
+	    buf[0] = 0;
+	    cost = path_find(s1.sct_x, s1.sct_y, s2.sct_x, s2.sct_y,
+			     s1.sct_own, MOB_MOVE);
+	    if (cost < 0) {
+		cost = 0;
+		path = NULL;
+	    } else {
+		len = path_find_route(buf, 1024,
+				      s1.sct_x, s1.sct_y,
+				      s2.sct_x, s2.sct_y);
+		if (len + 1 >= 1024)
+		    path = NULL;
+		else {
+		    strcpy(buf + len, "h");
+		    path = buf;
+		}
+	    }
 	    if (path)
 		pr("Best path from %s to %s is %s (cost %1.3f)\n",
 		   xyas(s1.sct_x, s1.sct_y, player->cnum),

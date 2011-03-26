@@ -82,10 +82,6 @@ extern void path_find_print_stats(void);
 #endif
 
 /* src/lib/common/path.c */
-extern char *BestDistPath(char *, struct sctstr *, struct sctstr *,
-			  double *);
-extern char *BestLandPath(char *, struct sctstr *, struct sctstr *,
-			  double *, int);
 extern char *BestShipPath(char *, int, int, int, int, int);
 extern char *BestAirPath(char *, int, int, int, int);
 
