@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
- *     Markus Armbruster, 2009
+ *     Markus Armbruster, 2009-2011
  */
 
 #include <config.h>
@@ -138,9 +138,9 @@ unit_path(int together, struct empobj *unit, char *buf)
 {
     coord destx;
     coord desty;
-    struct sctstr d_sect, sect;
+    struct sctstr sect;
     size_t len;
-    char *cp;
+    double c;
     int mtype;
 
     if (CANT_HAPPEN(unit->ef_type != EF_LAND && unit->ef_type != EF_SHIP))
@@ -152,34 +152,17 @@ unit_path(int together, struct empobj *unit, char *buf)
 	pr("Cannot go to a destination sector if not all starting in the same sector\n");
 	return NULL;
     }
-    if (!getsect(destx, desty, &d_sect)) {
-	pr("%d,%d is not a sector\n", destx, desty);
-	return NULL;
-    }
     if (unit->ef_type == EF_SHIP) {
-	if (path_find(unit->x, unit->y, d_sect.sct_x, d_sect.sct_y,
-		      player->cnum, MOB_SAIL) < 0)
-	    cp = NULL;
-	else {
-	    len = path_find_route(buf, 100, unit->x, unit->y,
-				  d_sect.sct_x, d_sect.sct_y);
-	    if (len >= 100)
-		cp = NULL;
-	    else {
-		if (len == 0)
-		    strcpy(buf, "h");
-		cp = buf;
-	    }
-	}
-	if (!cp || unit->mobil <= 0) {
+	c = path_find(unit->x, unit->y, destx, desty,
+		      player->cnum, MOB_SAIL);
+	if (c < 0 || unit->mobil <= 0) {
 	    pr("Can't get to '%s' right now.\n",
-	       xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
+	       xyas(destx, desty, player->cnum));
 	    return NULL;
 	}
     } else {
 	getsect(unit->x, unit->y, &sect);
 	mtype = lnd_mobtype((struct lndstr *)unit);
-	buf[0] = 0;
 	/*
 	 * Note: passing sect.sct_own for actor is funny, but works:
 	 * its only effect is to confine the search to that nation's
@@ -187,30 +170,30 @@ unit_path(int together, struct empobj *unit, char *buf)
 	 * different for marching in allied land, and passing it would
 	 * break path finding there.
 	 */
-	if (path_find(sect.sct_x, sect.sct_y, d_sect.sct_x, d_sect.sct_y,
-		      sect.sct_own, mtype) < 0)
-	    cp = NULL;
-	else {
-	    len = path_find_route(buf, 1024,
-				  sect.sct_x, sect.sct_y,
-				  d_sect.sct_x, d_sect.sct_y);
-	    if (len + 1 >= 1024)
-		cp = NULL;
-	    else {
-		strcpy(buf + len, "h");
-		cp = buf;
-	    }
-	}
-	if (!cp) {
+	c = path_find(unit->x, unit->y, destx, desty, sect.sct_own, mtype);
+	if (c < 0) {
+	    buf[0] = 0;
 	    pr("No owned %s from %s to %s!\n",
 	       mtype == MOB_RAIL ? "railway" : "path",
 	       xyas(unit->x, unit->y, player->cnum),
-	       xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));
+	       xyas(destx, desty, player->cnum));
 	    return NULL;
 	}
-	pr("Using path '%s'\n", cp);
     }
-    return cp;
+    len = path_find_route(buf, sizeof(buf), unit->x, unit->y, destx, desty);
+    if (len == 0 || unit->ef_type == EF_LAND) {
+	if (len + 1 < sizeof(buf))
+	    strcpy(buf + len, "h");
+	len++;
+    }
+    if (len >= sizeof(buf)) {
+	pr("Can't handle path to %s, it's too long, sorry\n",
+	   xyas(destx, desty, player->cnum));
+	return NULL;
+    }
+    if (unit->ef_type == EF_LAND)
+	pr("Using path '%s'\n", buf);
+    return buf;
 }
 
 void
