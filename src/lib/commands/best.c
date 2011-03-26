@@ -39,7 +39,6 @@ int
 best(void)
 {
     double cost;
-    char *path;
     struct sctstr s1, s2;
     struct nstr_sect nstr, nstr2;
     char buf[1024];
@@ -58,31 +57,22 @@ best(void)
 	while (!player->aborted && nxtsct(&nstr2, &s2)) {
 	    if (!player->owner)
 		continue;
-	    buf[0] = 0;
 	    cost = path_find(s1.sct_x, s1.sct_y, s2.sct_x, s2.sct_y,
-			     s1.sct_own, MOB_MOVE);
-	    if (cost < 0) {
-		cost = 0;
-		path = NULL;
-	    } else {
-		len = path_find_route(buf, 1024,
-				      s1.sct_x, s1.sct_y,
-				      s2.sct_x, s2.sct_y);
-		if (len + 1 >= 1024)
-		    path = NULL;
-		else {
-		    strcpy(buf + len, "h");
-		    path = buf;
-		}
-	    }
-	    if (path)
-		pr("Best path from %s to %s is %s (cost %1.3f)\n",
-		   xyas(s1.sct_x, s1.sct_y, player->cnum),
-		   xyas(s2.sct_x, s2.sct_y, player->cnum), path, cost);
-	    else
+			     player->cnum, MOB_MOVE);
+	    if (cost < 0)
 		pr("No owned path from %s to %s exists!\n",
 		   xyas(s1.sct_x, s1.sct_y, player->cnum),
 		   xyas(s2.sct_x, s2.sct_y, player->cnum));
+	    else {
+		len = path_find_route(buf, sizeof(buf),
+				      s1.sct_x, s1.sct_y,
+				      s2.sct_x, s2.sct_y);
+		pr("Best path from %s to %s is %s%s (cost %1.3f)\n",
+		   xyas(s1.sct_x, s1.sct_y, player->cnum),
+		   xyas(s2.sct_x, s2.sct_y, player->cnum),
+		   buf, len < sizeof(buf) ? "h" : "...",
+		   cost);
+	    }
 	}
     }
     return 0;
