@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2003-2009
+ *     Markus Armbruster, 2003-2011
  */
 
 #include <config.h>
@@ -615,6 +615,7 @@ perform_mission_bomb(int dam, struct emp_qelem *bombers, coord x, coord y,
 	struct airport *air;
 	char buf[512];
 	char *pp;
+	size_t len;
 
 	air = (struct airport *)qp;
 	md = mapdist(x, y, air->x, air->y);
@@ -635,7 +636,18 @@ perform_mission_bomb(int dam, struct emp_qelem *bombers, coord x, coord y,
 
 	mission_pln_arm(&e, air->x, air->y, 2 * md, 'e', NULL);
 
-	pp = BestAirPath(buf, air->x, air->y, x, y);
+	if (path_find(air->x, air->y, x, y, 0, MOB_FLY) < 0)
+	    pp = NULL;
+	else {
+	    len = path_find_route(buf, 100, air->x, air->y, x, y);
+	    if (len >= 100)
+		pp = NULL;
+	    else {
+		if (len == 0)
+		    strcpy(buf, "h");
+		pp = buf;
+	    }
+	}
 	if (CANT_HAPPEN(!pp))
 	    continue;
 	performed = 1;

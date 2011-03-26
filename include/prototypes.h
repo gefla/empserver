@@ -281,8 +281,6 @@ extern int mapdist(int, int, int, int);
 /* in path.h */
 /* nstreval.c */
 /* in nsc.h */
-/* path.c */
-/* in path.h */
 /* rdsched.c */
 extern int read_schedule(char *, time_t[], int, time_t, time_t);
 /* res_pop.c */

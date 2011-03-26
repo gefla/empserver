@@ -81,10 +81,6 @@ extern void path_find_print_stats(void);
 #define path_find_print_stats() ((void)0)
 #endif
 
-/* src/lib/common/path.c */
-extern char *BestShipPath(char *, int, int, int, int, int);
-extern char *BestAirPath(char *, int, int, int, int);
-
 /* src/lib/subs/paths.c */
 extern char *getpath(char *, char *, coord, coord, int, int, enum p_mode);
 extern double fcost(struct sctstr *, natid);

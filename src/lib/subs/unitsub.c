@@ -157,8 +157,20 @@ unit_path(int together, struct empobj *unit, char *buf)
 	return NULL;
     }
     if (unit->ef_type == EF_SHIP) {
-	cp = BestShipPath(buf, unit->x, unit->y,
-			  d_sect.sct_x, d_sect.sct_y, player->cnum);
+	if (path_find(unit->x, unit->y, d_sect.sct_x, d_sect.sct_y,
+		      player->cnum, MOB_SAIL) < 0)
+	    cp = NULL;
+	else {
+	    len = path_find_route(buf, 100, unit->x, unit->y,
+				  d_sect.sct_x, d_sect.sct_y);
+	    if (len >= 100)
+		cp = NULL;
+	    else {
+		if (len == 0)
+		    strcpy(buf, "h");
+		cp = buf;
+	    }
+	}
 	if (!cp || unit->mobil <= 0) {
 	    pr("Can't get to '%s' right now.\n",
 	       xyas(d_sect.sct_x, d_sect.sct_y, player->cnum));

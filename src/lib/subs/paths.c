@@ -94,6 +94,7 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown,
     char buf2[1024];
     char *p = buf;
     char *bp;
+    size_t len;
     char prompt[128];
     coord dx, dy;
     struct sctstr sect;
@@ -118,10 +119,32 @@ more:
 		pr("Destination sectors not allowed here!\n");
 		break;
 	    case P_FLYING:
-		bp = BestAirPath(buf2, x, y, dx, dy);
+		if (path_find(x, y, dx, dy, 0, MOB_FLY) < 0)
+		    bp = NULL;
+		else {
+		    len = path_find_route(buf2, 100, x, y, dx, dy);
+		    if (len >= 100)
+			bp = NULL;
+		    else {
+			if (len == 0)
+			    strcpy(buf2, "h");
+			bp = buf2;
+		    }
+		}
 		break;
 	    case P_SAILING:
-		bp = BestShipPath(buf2, x, y, dx, dy, player->cnum);
+		if (path_find(x, y, dx, dy, player->cnum, MOB_SAIL) < 0)
+		    bp = NULL;
+		else {
+		    len = path_find_route(buf2, 100, x, y, dx, dy);
+		    if (len >= 100)
+			bp = NULL;
+		    else {
+			if (len == 0)
+			    strcpy(buf2, "h");
+			bp = buf2;
+		    }
+		}
 		break;
 	    }
 	    if (bp && p + strlen(bp) + 1 < buf + MAX_PATH_LEN) {

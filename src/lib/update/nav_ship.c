@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Chad Zabel, 1994
  *     Ken Stevens, 1995
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -242,6 +243,7 @@ int
 nav_ship(struct shpstr *sp)
 {
     char *cp;
+    size_t len;
     int stopping;
     int quit;
     int didsomething = 0;
@@ -274,9 +276,21 @@ nav_ship(struct shpstr *sp)
 	    if (QEMPTY(&ship_list))
 		return 0;
 
-	    cp = BestShipPath(buf, sp->shp_x, sp->shp_y,
-			      sp->shp_destx[0], sp->shp_desty[0],
-			      sp->shp_own);
+	    if (path_find(sp->shp_x, sp->shp_y,
+			  sp->shp_destx[0], sp->shp_desty[0],
+			  sp->shp_own, MOB_SAIL) < 0)
+		cp = NULL;
+	    else {
+		len = path_find_route(buf, 100, sp->shp_x, sp->shp_y,
+				      sp->shp_destx[0], sp->shp_desty[0]);
+		if (len >= 100)
+		    cp = NULL;
+		else {
+		    if (len == 0)
+			strcpy(buf, "h");
+		    cp = buf;
+		}
+	    }
 	    if (!cp) {
 		wu(0, sp->shp_own,
 		   "%s bad path, ship put on standby\n", prship(sp));
