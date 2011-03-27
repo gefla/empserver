@@ -147,7 +147,7 @@ unit_path(int together, struct empobj *unit, char *buf)
 	return NULL;
 
     if (!sarg_xy(buf, &destx, &desty))
-	return NULL;
+	return buf;
     if (!together) {
 	pr("Cannot go to a destination sector if not all starting in the same sector\n");
 	return NULL;
@@ -172,7 +172,6 @@ unit_path(int together, struct empobj *unit, char *buf)
 	 */
 	c = path_find(unit->x, unit->y, destx, desty, sect.sct_own, mtype);
 	if (c < 0) {
-	    buf[0] = 0;
 	    pr("No owned %s from %s to %s!\n",
 	       mtype == MOB_RAIL ? "railway" : "path",
 	       xyas(unit->x, unit->y, player->cnum),

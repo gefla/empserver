@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995 (rewritten)
  *     Ron Koenderink, 2006-2007
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>
@@ -92,8 +93,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 
     if (player->argp[2]) {
 	strcpy(buf, player->argp[2]);
-	if (!(cp = unit_path(*together, leader, buf)))
-	    cp = player->argp[2];
+	cp = unit_path(*together, leader, buf);
     }
 
     *pt = '\0';
@@ -152,8 +152,8 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 		stopping = 1;
 		continue;
 	    }
-	    if (!(cp = unit_path(*together, leader, buf)))
-		cp = buf;
+	    if (cp)
+		cp = unit_path(*together, leader, cp);
 	}
 	if (type == EF_SHIP) {
 	    rad_map_set(player->cnum, leader->x, leader->y, leader->effic,
