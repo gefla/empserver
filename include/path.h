@@ -55,12 +55,6 @@
 #define MOB_SAIL	3
 #define MOB_FLY		4
 
-enum p_mode {			/* How to find path to destination */
-    P_NONE,			/* don't */
-    P_FLYING,			/* use BestAirPath() */
-    P_SAILING			/* use BestShipPath() */
-};
-
 /* src/lib/global/dir.c */
 extern signed char dirindex['z'-'a'+1];
 extern int diroff[DIR_MAP+1][2];
@@ -82,7 +76,7 @@ extern void path_find_print_stats(void);
 #endif
 
 /* src/lib/subs/paths.c */
-extern char *getpath(char *, char *, coord, coord, int, int, enum p_mode);
+extern char *getpath(char *, char *, coord, coord, int, int, int);
 extern double fcost(struct sctstr *, natid);
 extern double ncost(struct sctstr *, natid);
 extern double pathtoxy(char *, coord *, coord *,

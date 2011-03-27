@@ -121,7 +121,7 @@ cmd_sail_ship(struct nstr_item *nstr)
 	pr("Ship #%d at %s\n", ship.shp_uid,
 	   xyas(ship.shp_x, ship.shp_y, player->cnum));
 	cp = getpath(navpath, player->argp[2],
-		     ship.shp_x, ship.shp_y, 0, 0, P_SAILING);
+		     ship.shp_x, ship.shp_y, 0, 0, MOB_SAIL);
 	if (!cp)
 	    return RET_FAIL;
 	if (!check_ship_ok(&ship))

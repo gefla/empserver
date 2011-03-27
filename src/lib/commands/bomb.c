@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -108,7 +108,7 @@ bomb(void)
 	return RET_SYN;
     ax = ap_sect.sct_x;
     ay = ap_sect.sct_y;
-    if (!getpath(flightpath, player->argp[5], ax, ay, 0, 0, P_FLYING)
+    if (!getpath(flightpath, player->argp[5], ax, ay, 0, 0, MOB_FLY)
 	|| *flightpath == 0)
 	return RET_SYN;
     tx = ax;

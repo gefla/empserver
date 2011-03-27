@@ -88,8 +88,8 @@ diridx(char dir)
  * which do not accept partial moves.
  */
 char *
-getpath(char *buf, char *arg, coord x, coord y, int onlyown,
-	int showdes, enum p_mode destinations)
+getpath(char *buf, char *arg, coord x, coord y, int onlyown, int showdes,
+	int mobtype)
 {
     char buf2[1024];
     char *p = buf;
@@ -114,11 +114,12 @@ more:
     while (*p) {
 	if (sarg_xy(p, &dx, &dy)) {
 	    bp = NULL;
-	    switch (destinations) {
-	    case P_NONE:
+	    switch (mobtype) {
+	    default:
+		CANT_REACH();
 		pr("Destination sectors not allowed here!\n");
 		break;
-	    case P_FLYING:
+	    case MOB_FLY:
 		if (path_find(x, y, dx, dy, 0, MOB_FLY) < 0)
 		    bp = NULL;
 		else {
@@ -132,7 +133,7 @@ more:
 		    }
 		}
 		break;
-	    case P_SAILING:
+	    case MOB_SAIL:
 		if (path_find(x, y, dx, dy, player->cnum, MOB_SAIL) < 0)
 		    bp = NULL;
 		else {

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -63,7 +63,7 @@ reco(void)
 	return RET_SYN;
     ax = ap_sect.sct_x;
     ay = ap_sect.sct_y;
-    if (!getpath(flightpath, player->argp[4], ax, ay, 0, 0, P_FLYING)
+    if (!getpath(flightpath, player->argp[4], ax, ay, 0, 0, MOB_FLY)
 	|| *flightpath == 0)
 	return RET_SYN;
     tx = ax;
