@@ -24,10 +24,10 @@
  *
  *  ---
  *
- *  path.c: Routines associated with paths, directions, etc.
+ *  paths.c: Routines associated with paths, directions, etc.
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2009
+ *     Markus Armbruster, 2005-2011
  */
 
 #include <config.h>
@@ -113,51 +113,20 @@ getpath(char *buf, char *arg, coord x, coord y, int onlyown, int showdes,
 more:
     while (*p) {
 	if (sarg_xy(p, &dx, &dy)) {
-	    bp = NULL;
-	    switch (mobtype) {
-	    default:
-		CANT_REACH();
-		pr("Destination sectors not allowed here!\n");
-		break;
-	    case MOB_FLY:
-		if (path_find(x, y, dx, dy, 0, MOB_FLY) < 0)
-		    bp = NULL;
-		else {
-		    len = path_find_route(buf2, 100, x, y, dx, dy);
-		    if (len >= 100)
-			bp = NULL;
-		    else {
-			if (len == 0)
-			    strcpy(buf2, "h");
-			bp = buf2;
-		    }
-		}
-		break;
-	    case MOB_SAIL:
-		if (path_find(x, y, dx, dy, player->cnum, MOB_SAIL) < 0)
-		    bp = NULL;
-		else {
-		    len = path_find_route(buf2, 100, x, y, dx, dy);
-		    if (len >= 100)
-			bp = NULL;
-		    else {
-			if (len == 0)
-			    strcpy(buf2, "h");
-			bp = buf2;
-		    }
-		}
-		break;
-	    }
-	    if (bp && p + strlen(bp) + 1 < buf + MAX_PATH_LEN) {
-		strcpy(p, bp);
-		pr("Using best path  '%s'\n", p);
-		pr("Using total path '%s'\n", buf);
-		return buf;
-	    } else {
+	    if (path_find(x, y, dx, dy, player->cnum, mobtype) < 0) {
 		pr("Can't get to %s from here!\n",
 		   xyas(dx, dy, player->cnum));
+		break;
 	    }
-	    break;
+	    len = path_find_route(p, buf + MAX_PATH_LEN - p, x, y, dx, dy);
+	    if (p + len >= buf + MAX_PATH_LEN) {
+		pr("Can't handle path to %s, it's too long, sorry.\n",
+		   xyas(dx, dy, player->cnum));
+		break;
+	    }
+	    pr("Using best path  '%s'\n", p);
+	    pr("Using total path '%s'\n", buf);
+	    return buf;
 	}
 	dir = chkdir(*p, DIR_STOP, DIR_LAST);
 	if (dir < 0) {
