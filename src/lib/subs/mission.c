@@ -578,7 +578,8 @@ perform_mission_bomb(int dam, struct emp_qelem *bombers, coord x, coord y,
 {
     struct emp_qelem *qp, *newqp, escorts, airp, b, e;
     struct plist *plp;
-    int plane_owner, performed, air_dam, md;
+    int plane_owner, performed, air_dam;
+    size_t md;
 
     emp_initque(&escorts);
     emp_initque(&airp);
@@ -613,12 +614,9 @@ perform_mission_bomb(int dam, struct emp_qelem *bombers, coord x, coord y,
     performed = air_dam = 0;
     for (qp = airp.q_forw; qp != (&airp); qp = qp->q_forw) {
 	struct airport *air;
-	char buf[512];
-	char *pp;
-	size_t len;
+	char buf[1024];
 
 	air = (struct airport *)qp;
-	md = mapdist(x, y, air->x, air->y);
 
 	emp_initque(&b);
 	emp_initque(&e);
@@ -629,27 +627,17 @@ perform_mission_bomb(int dam, struct emp_qelem *bombers, coord x, coord y,
 	/* Split off the escorts at this base into e */
 	divide(&escorts, &e, air->x, air->y);
 
-	mission_pln_arm(&b, air->x, air->y, 2 * md, 'p', NULL);
+	if (path_find(air->x, air->y, x, y, plane_owner, MOB_FLY) < 0)
+	    continue;
+	md = path_find_route(buf, sizeof(buf), air->x, air->y, x, y);
+	if (md >= sizeof(buf))
+	    continue;
 
+	mission_pln_arm(&b, air->x, air->y, 2 * md, 'p', NULL);
 	if (QEMPTY(&b))
 	    continue;
-
 	mission_pln_arm(&e, air->x, air->y, 2 * md, 'e', NULL);
 
-	if (path_find(air->x, air->y, x, y, 0, MOB_FLY) < 0)
-	    pp = NULL;
-	else {
-	    len = path_find_route(buf, 100, air->x, air->y, x, y);
-	    if (len >= 100)
-		pp = NULL;
-	    else {
-		if (len == 0)
-		    strcpy(buf, "h");
-		pp = buf;
-	    }
-	}
-	if (CANT_HAPPEN(!pp))
-	    continue;
 	performed = 1;
 	wu(0, plane_owner, "Flying %s mission from %s to %s\n",
 	   mission_name(mission),
@@ -662,7 +650,7 @@ perform_mission_bomb(int dam, struct emp_qelem *bombers, coord x, coord y,
 	       xyas(x, y, air->own));
 	}
 
-	ac_encounter(&b, &e, air->x, air->y, pp, 0);
+	ac_encounter(&b, &e, air->x, air->y, buf, 0);
 
 	if (!QEMPTY(&b))
 	    air_dam +=
