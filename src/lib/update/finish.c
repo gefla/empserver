@@ -98,13 +98,13 @@ finish_sects(int etu)
 
     logerror("importing...");
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
+	sp->sct_off = 0;
 	if (!sp->sct_own)
 	    continue;
 	np = getnatp(sp->sct_own);
 	if (np->nat_money < 0)
 	    continue;
 	dodistribute(sp, IMPORT, import_cost[n]);
-	sp->sct_off = 0;
     }
     logerror("done importing\n");
 
