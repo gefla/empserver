@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2008
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -187,7 +187,7 @@ int buil_bh = 100;		/* hcm required to build a bridge */
 double buil_bc = 1000.0;	/* cash required to build a bridge */
 
 double buil_tower_bt = 100.0;	/* tech level required to build a tower */
-int buil_tower_bh = 400;	/* hcm required to build a bridge tower */
+int buil_tower_bh = 300;	/* hcm required to build a bridge tower */
 double buil_tower_bc = 3000.0;	/* cash required to build a bridge tower */
 
 float drnuke_const = 0.0;	/* research must be at least drnuke_const*tech */
