@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Marc Olzheim, 2004
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2011
  */
 
 /*
@@ -142,6 +142,10 @@ EMPCF_OPT("BLITZ", opt_BLITZ,
     "Enable blitz mode")
 EMPCF_OPT("BRIDGETOWERS", opt_BRIDGETOWERS,
     "Allow bridge towers")
+EMPCF_COMMENT("# If you enable this, make sure that bridge spans can produce\n"
+    "# sufficient avail.  Depending on your etu_per_update, you may have\n"
+    "# to tweak buil_tower_bh, rollover_avail_max, or bridge span's maxpop.")
+// FIXME doc avail
 EMPCF_OPT("EASY_BRIDGES", opt_EASY_BRIDGES,
     "Allow bridge building without bridge heads")
 EMPCF_OPT("FALLOUT", opt_FALLOUT,

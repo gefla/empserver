@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *       Steve McClure, 1998
- *       Markus Armbruster, 2005-2009
+ *       Markus Armbruster, 2005-2011
  */
 
 #include <config.h>
@@ -38,7 +38,7 @@
 int opt_ALL_BLEED = 1;
 int opt_AUTO_POWER = 0;
 int opt_BLITZ = 1;
-int opt_BRIDGETOWERS = 1;
+int opt_BRIDGETOWERS = 0;
 int opt_EASY_BRIDGES = 1;
 int opt_FALLOUT = 1;
 int opt_GODNEWS = 1;
