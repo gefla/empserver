@@ -35,6 +35,7 @@
 
 #include "commands.h"
 #include "empobj.h"
+#include "news.h"
 #include "optlist.h"
 #include "retreat.h"
 

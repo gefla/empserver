@@ -37,19 +37,20 @@
 #include <ctype.h>
 #include <math.h>
 #include "combat.h"
+#include "empobj.h"
 #include "file.h"
 #include "map.h"
 #include "misc.h"
 #include "mission.h"
+#include "news.h"
 #include "nsc.h"
 #include "optlist.h"
 #include "path.h"
 #include "plague.h"
 #include "player.h"
 #include "prototypes.h"
-#include "xy.h"
-#include "empobj.h"
 #include "unit.h"
+#include "xy.h"
 
 #define CASUALTY_LUMP	1	/* How big casualty chunks should be */
 

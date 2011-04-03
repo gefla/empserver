@@ -38,17 +38,18 @@
 #include <stdlib.h>
 #include "combat.h"
 #include "damage.h"
+#include "empobj.h"
 #include "file.h"
 #include "misc.h"
 #include "mission.h"
+#include "news.h"
 #include "nsc.h"
 #include "optlist.h"
 #include "path.h"
 #include "player.h"
 #include "prototypes.h"
-#include "xy.h"
-#include "empobj.h"
 #include "unit.h"
+#include "xy.h"
 
 static void lnd_stays(natid, char *, struct ulist *);
 static int lnd_hit_mine(struct lndstr *);

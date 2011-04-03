@@ -40,6 +40,7 @@
 #include "item.h"
 #include "misc.h"
 #include "mission.h"
+#include "news.h"
 #include "nsc.h"
 #include "optlist.h"
 #include "path.h"

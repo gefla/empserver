@@ -41,6 +41,7 @@
 #include "empobj.h"
 #include "file.h"
 #include "optlist.h"
+#include "news.h"
 #include "nsc.h"
 #include "product.h"
 #include "unit.h"

@@ -36,10 +36,12 @@
 
 #include <stdlib.h>
 #include "damage.h"
+#include "empobj.h"
 #include "file.h"
 #include "map.h"
 #include "misc.h"
 #include "mission.h"
+#include "news.h"
 #include "nsc.h"
 #include "optlist.h"
 #include "path.h"
@@ -47,9 +49,8 @@
 #include "prototypes.h"
 #include "queue.h"
 #include "server.h"
-#include "xy.h"
-#include "empobj.h"
 #include "unit.h"
+#include "xy.h"
 
 static int shp_check_one_mines(struct ulist *);
 static int shp_hit_mine(struct shpstr *);

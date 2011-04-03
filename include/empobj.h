@@ -40,7 +40,6 @@
 #include "loan.h"
 #include "lost.h"
 #include "nat.h"
-#include "news.h"
 #include "nuke.h"
 #include "plane.h"
 #include "sect.h"
