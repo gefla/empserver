@@ -35,8 +35,9 @@
 
 #include "file.h"
 #include "nat.h"
+#include "nsc.h"
 #include "player.h"
-#include "sect.h"
 #include "prototypes.h"
+#include "sect.h"
 
 #endif

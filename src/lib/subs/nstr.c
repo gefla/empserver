@@ -38,6 +38,7 @@
 #include <limits.h>
 #include "file.h"
 #include "match.h"
+#include "nsc.h"
 #include "player.h"
 #include "prototypes.h"
 

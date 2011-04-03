@@ -34,6 +34,7 @@
 
 #include "file.h"
 #include "land.h"
+#include "nsc.h"
 #include "prototypes.h"
 #include "sect.h"
 

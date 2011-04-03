@@ -34,6 +34,7 @@
 
 #include "file.h"
 #include "nat.h"
+#include "nsc.h"
 #include "player.h"
 #include "prototypes.h"
 #include "treaty.h"

@@ -36,6 +36,7 @@
 #include "damage.h"
 #include "file.h"
 #include "map.h"
+#include "nsc.h"
 #include "path.h"
 #include "player.h"
 #include "prototypes.h"

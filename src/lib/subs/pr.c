@@ -62,6 +62,7 @@
 #include "prototypes.h"
 #include "server.h"
 #include "tel.h"
+#include "xy.h"
 
 static void pr_player(struct player *pl, int id, char *buf);
 static void upr_player(struct player *pl, int id, char *buf);

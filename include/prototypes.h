@@ -39,7 +39,6 @@
 #include <string.h>
 #include <time.h>
 #include "item.h"
-#include "nsc.h"
 #include "misc.h"
 #include "types.h"
 

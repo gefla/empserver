@@ -38,6 +38,7 @@
 #include "file.h"
 #include "player.h"
 #include "prototypes.h"
+#include "xy.h"
 
 /* Note that timestamps make things tricky.  And, we don't
  * really care about the timestamp, we just care about the rest

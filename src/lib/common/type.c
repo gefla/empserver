@@ -38,6 +38,7 @@
 #include "item.h"
 #include "land.h"
 #include "match.h"
+#include "nsc.h"
 #include "nuke.h"
 #include "plane.h"
 #include "product.h"
