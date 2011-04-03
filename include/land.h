@@ -38,7 +38,6 @@
 
 #include <time.h>
 #include "item.h"
-#include "queue.h"
 #include "retreat.h"
 #include "types.h"
 
