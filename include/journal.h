@@ -27,7 +27,7 @@
  *  journal.h: Log a journal of events to a file
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2008
+ *     Markus Armbruster, 2004-2011
  */
 
 #ifndef JOURNAL_H
@@ -40,6 +40,7 @@ void journal_login(void);
 void journal_logout(void);
 void journal_prng(unsigned);
 void journal_input(char *);
+void journal_command(char *);
 void journal_update(int);
 
 #endif
