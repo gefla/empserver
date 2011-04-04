@@ -92,7 +92,9 @@ journal_entry(char *fmt, ...)
 	va_end(ap);
 
 	for (p = (unsigned char *)buf; *p; p++) {
-	    if (isprint(*p))
+	    if (*p == '\\')
+		fprintf(journal, "\\\\");
+	    else if (isprint(*p) || *p == '\t')
 		putc(*p, journal);
 	    else
 		fprintf(journal, "\\%03o", *p);
