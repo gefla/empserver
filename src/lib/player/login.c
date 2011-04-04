@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2011
  *     Ron Koenderink, 2005-2009
  */
 
@@ -39,6 +39,7 @@
 #include "empio.h"
 #include "empthread.h"
 #include "file.h"
+#include "journal.h"
 #include "match.h"
 #include "misc.h"
 #include "nat.h"
@@ -96,6 +97,7 @@ player_login(void *ud)
 	    }
 	    continue;
 	}
+	journal_input(buf);
 	ac = parse(buf, space, player->argp, NULL, NULL, NULL);
 	if (ac <= 0) {
 	    pr_id(player, C_BADCMD, "Can't parse command\n");
