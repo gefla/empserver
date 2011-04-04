@@ -30,7 +30,7 @@
  *     Dave Pare, 1986, 1989
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2009
+ *     Markus Armbruster, 2005-2011
  */
 
 /*
@@ -55,6 +55,7 @@
 #include "com.h"
 #include "empio.h"
 #include "file.h"
+#include "journal.h"
 #include "misc.h"
 #include "nat.h"
 #include "player.h"
@@ -124,6 +125,7 @@ pr_id(struct player *p, int id, char *format, ...)
 
     if (p->curid >= 0) {
 	io_puts(p->iop, "\n");
+	journal_output(p, p->curid, "\n");
 	p->curid = -1;
     }
     va_start(ap, format);
@@ -222,6 +224,8 @@ pr_player(struct player *pl, int id, char *buf)
     char *bp;
     int len;
 
+    journal_output(pl, id, buf);
+
     bp = buf;
     while (*bp != '\0') {
 	if (pl->curid != -1 && pl->curid != id) {
@@ -262,6 +266,8 @@ upr_player(struct player *pl, int id, char *buf)
     int standout = 0;
     char printbuf[2];
     char ch;
+
+    journal_output(pl, id, buf);
 
     printbuf[0] = '\0';
     printbuf[1] = '\0';

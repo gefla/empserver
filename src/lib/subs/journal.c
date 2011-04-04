@@ -45,6 +45,7 @@
  *     logout CNUM
  *     command NAME
  *     input INPUT
+ *     output THREAD ID OUTPUT
  *     update ETU
  */
 
@@ -69,6 +70,7 @@ static void journal_entry_start(char *fmt, ...)
     ATTRIBUTE((format (printf, 1, 2)));
 static void journal_entry(char *fmt, ...)
     ATTRIBUTE((format (printf, 1, 2)));
+static void journal_output_start(struct player *, int);
 
 static FILE *
 journal_open(void)
@@ -118,10 +120,12 @@ journal_entry_pr(char *s, size_t n)
 }
 
 static void
-journal_entry_end(void)
+journal_entry_end(int newline, int flush)
 {
     if (!journal)
 	return;
+    if (!newline)
+	fputc('\\', journal);
     fputc('\n', journal);
     fflush(journal);
     if (ferror(journal)) {
@@ -138,7 +142,7 @@ journal_entry(char *fmt, ...)
     va_start(ap, fmt);
     journal_entry_vstart(fmt, ap);
     va_end(ap);
-    journal_entry_end();
+    journal_entry_end(1, 1);
 }
 
 int
@@ -203,11 +207,58 @@ journal_logout(void)
 }
 
 void
+journal_output(struct player *pl, int id, char *output)
+{
+    static char buf[1024];
+    static char *bp = buf;
+    static struct player *bpl;
+    static int bid;
+    char *s, *e;
+
+    if (keep_journal < 2)
+	return;
+
+    if (bp != buf && (pl != bpl || id != bid)) {
+	journal_output_start(bpl, bid);
+	journal_entry_pr(buf, bp - buf);
+	journal_entry_end(0, 0);
+	bp = buf;
+    }
+
+    for (s = output; (e = strchr(s, '\n')); s = e + 1) {
+	journal_output_start(pl, id);
+	journal_entry_pr(buf, bp - buf);
+	journal_entry_pr(s, e - s);
+	journal_entry_end(1, 0);
+	bp = buf;
+    }
+    e = strchr(s, 0);
+    if (bp + (e - s) <= buf + sizeof(buf)) {
+	memcpy(bp, s, e - s);
+	bp += e - s;
+	bpl = pl;
+	bid = id;
+    } else {
+	journal_output_start(pl, id);
+	journal_entry_pr(buf, bp - buf);
+	journal_entry_pr(s, e - s);
+	journal_entry_end(0, 0);
+	bp = buf;
+    }
+}
+
+static void
+journal_output_start(struct player *pl, int id)
+{
+    journal_entry_start("output %s %d ", empth_name(pl->proc), id);
+}
+
+void
 journal_input(char *input)
 {
     journal_entry_start("input ");
     journal_entry_pr(input, -1);
-    journal_entry_end();
+    journal_entry_end(1, 1);
 }
 
 void

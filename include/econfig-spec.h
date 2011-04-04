@@ -89,6 +89,9 @@ EMPCFBOTH("port", loginport, char *, NSC_STRING, KM_INTERNAL,
     "TCP port the server will bind")
 EMPCFBOTH("keep_journal", keep_journal, int, NSC_INT, KM_INTERNAL,
     "Enable journal log file")
+EMPCF_COMMENT("# 0 - Disabled\n"
+    "# 1 - Enabled, player output suppressed\n"
+    "# 2 - Enabled, log everything (big; rotating & compressing advised)\n")
 EMPCFBOTH("post_crash_dump_hook", post_crash_dump_hook, char *, NSC_STRING, KM_INTERNAL,
     "Shell command run right after a crash dump, in the game's data directory")
 EMPCFBOTH("privname", privname, char *, NSC_STRING, 0,

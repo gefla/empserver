@@ -33,12 +33,15 @@
 #ifndef JOURNAL_H
 #define JOURNAL_H
 
+#include "types.h"
+
 int journal_startup(void);
 void journal_shutdown(void);
 int journal_reopen(void);
 void journal_login(void);
 void journal_logout(void);
 void journal_prng(unsigned);
+void journal_output(struct player *, int, char *);
 void journal_input(char *);
 void journal_command(char *);
 void journal_update(int);
