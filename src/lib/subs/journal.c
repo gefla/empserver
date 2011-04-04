@@ -65,6 +65,8 @@
 static char journal_fname[] = "journal.log";
 static FILE *journal;
 
+static void journal_entry_start(char *fmt, ...)
+    ATTRIBUTE((format (printf, 1, 2)));
 static void journal_entry(char *fmt, ...)
     ATTRIBUTE((format (printf, 1, 2)));
 
@@ -75,37 +77,68 @@ journal_open(void)
 }
 
 static void
-journal_entry(char *fmt, ...)
+journal_entry_vstart(char *fmt, va_list ap)
 {
-    static char buf[1024];
-    va_list ap;
     time_t now;
+
+    if (!journal)
+	return;
+    time(&now);
+    fprintf(journal, "%.24s %10.10s ",
+	    ctime(&now), empth_name(empth_self()));
+    vfprintf(journal, fmt, ap);
+}
+
+static void
+journal_entry_start(char *fmt, ...)
+{
+    va_list ap;
+
+    va_start(ap, fmt);
+    journal_entry_vstart(fmt, ap);
+    va_end(ap);
+}
+
+static void
+journal_entry_pr(char *s, size_t n)
+{
     unsigned char *p;
 
-    if (journal) {
-	time(&now);
-	fprintf(journal, "%.24s %10.10s ",
-		ctime(&now), empth_name(empth_self()));
-
-	va_start(ap, fmt);
-	vsnprintf(buf, sizeof(buf) - 1, fmt, ap);
-	va_end(ap);
-
-	for (p = (unsigned char *)buf; *p; p++) {
-	    if (*p == '\\')
-		fprintf(journal, "\\\\");
-	    else if (isprint(*p) || *p == '\t')
-		putc(*p, journal);
-	    else
-		fprintf(journal, "\\%03o", *p);
-	}
-	fputs("\n", journal);
-	fflush(journal);
-	if (ferror(journal)) {
-	    logerror("Error writing journal (%s)", strerror(errno));
-	    clearerr(journal);
-	}
+    if (!journal)
+	return;
+    for (p = (unsigned char *)s; *p && n; p++) {
+	if (*p == '\\')
+	    fputs("\\\\", journal);
+	else if (isprint(*p))
+	    putc(*p, journal);
+	else
+	    fprintf(journal, "\\%03o", *p);
+	n--;
     }
+}
+
+static void
+journal_entry_end(void)
+{
+    if (!journal)
+	return;
+    fputc('\n', journal);
+    fflush(journal);
+    if (ferror(journal)) {
+	logerror("Error writing journal (%s)", strerror(errno));
+	clearerr(journal);
+    }
+}
+
+static void
+journal_entry(char *fmt, ...)
+{
+    va_list ap;
+
+    va_start(ap, fmt);
+    journal_entry_vstart(fmt, ap);
+    va_end(ap);
+    journal_entry_end();
 }
 
 int
@@ -172,7 +205,9 @@ journal_logout(void)
 void
 journal_input(char *input)
 {
-    journal_entry("input %s", input);
+    journal_entry_start("input ");
+    journal_entry_pr(input, -1);
+    journal_entry_end();
 }
 
 void
