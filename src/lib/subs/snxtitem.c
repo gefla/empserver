@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1989
- *     Markus Armbruster, 2009
+ *     Markus Armbruster, 2009-2011
  */
 
 #include <config.h>
@@ -125,12 +125,7 @@ snxtitem(struct nstr_item *np, int type, char *str, char *prompt)
     default:
 	return 0;
     }
-    if (!player->condarg)
-	return 1;
-    n = nstr_comp(np->cond, sizeof(np->cond) / sizeof(*np->cond), type,
-		  player->condarg);
-    np->ncond = n >= 0 ? n : 0;
-    return n >= 0;
+    return snxtitem_use_condarg(np);
 }
 
 void
@@ -238,4 +233,19 @@ snxtitem_cargo(struct nstr_item *np, int type,
     np->type = type;
     np->sel = NS_CARGO;
     np->next = unit_cargo_first(carrier_type, carrier_uid, type);
+}
+
+int
+snxtitem_use_condarg(struct nstr_item *np)
+{
+    int n;
+
+    if (!player->condarg)
+	return 1;
+    n = nstr_comp(np->cond, sizeof(np->cond) / sizeof(*np->cond),
+		  np->type, player->condarg);
+    if (n < 0)
+	return 0;
+    np->ncond = n;
+    return 1;
 }

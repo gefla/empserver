@@ -305,6 +305,7 @@ extern void snxtitem_group(struct nstr_item *, int, char);
 extern void snxtitem_rewind(struct nstr_item *);
 extern int snxtitem_list(struct nstr_item *, int, int *, int);
 extern void snxtitem_cargo(struct nstr_item *, int, int, int);
+extern int snxtitem_use_condarg(struct nstr_item *);
 /* src/lib/subs/snxtsct.c */
 extern int snxtsct(struct nstr_sect *, char *);
 extern void snxtsct_area(struct nstr_sect *, struct range *);
