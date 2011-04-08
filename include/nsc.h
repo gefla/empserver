@@ -283,10 +283,6 @@ extern struct symbol packing[];
 extern struct symbol resources[];
 extern struct symbol sector_navigation[];
 
-/* src/lib/subs/nstr.c */
-extern int nstr_comp(struct nscstr *np, int len, int type, char *str);
-extern char *nstr_comp_val(char *, struct valstr *, int);
-extern int nstr_exec(struct nscstr *, int, void *);
 /* src/lib/common/nstreval.c */
 extern struct valstr *nstr_mksymval(struct valstr *, struct castr *, int);
 extern struct valstr *nstr_exec_val(struct valstr *, natid, void *,
@@ -295,5 +291,31 @@ extern int nstr_promote(int);
 extern char *symbol_by_value(int, struct symbol *);
 /* src/lib/global/nsc.c */
 extern void nsc_init(void);
+/* src/lib/subs/nxtitem.c */
+extern int nxtitem(struct nstr_item *, void *);
+/* src/lib/subs/nxtsct.c */
+extern int nxtsct(struct nstr_sect *, struct sctstr *);
+/* src/lib/subs/snxtitem.c */
+extern int snxtitem(struct nstr_item *, int, char *, char *);
+extern void snxtitem_area(struct nstr_item *, int, struct range *);
+extern void snxtitem_dist(struct nstr_item *, int, int, int, int);
+extern void snxtitem_xy(struct nstr_item *, int, coord, coord);
+extern void snxtitem_all(struct nstr_item *, int);
+extern void snxtitem_group(struct nstr_item *, int, char);
+extern void snxtitem_rewind(struct nstr_item *);
+extern int snxtitem_list(struct nstr_item *, int, int *, int);
+extern void snxtitem_cargo(struct nstr_item *, int, int, int);
+/* src/lib/subs/snxtsct.c */
+extern int snxtsct(struct nstr_sect *, char *);
+extern void snxtsct_area(struct nstr_sect *, struct range *);
+extern void snxtsct_all(struct nstr_sect *);
+extern void snxtsct_rewind(struct nstr_sect *);
+extern void snxtsct_dist(struct nstr_sect *, coord, coord, int);
+/* src/lib/subs/nstr.c */
+extern int nstr_comp(struct nscstr *np, int len, int type, char *str);
+extern char *nstr_comp_val(char *, struct valstr *, int);
+extern int nstr_exec(struct nscstr *, int, void *);
+/* src/lib/update/nxtitemp.c */
+extern void *nxtitemp(struct nstr_item *);
 
 #endif

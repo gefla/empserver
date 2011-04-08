@@ -497,9 +497,8 @@ extern void nuk_oninit(void *);
 extern void nuk_postread(int, void *);
 extern void nuk_prewrite(int, void *, void *);
 /* nxtitem.c */
-extern int nxtitem(struct nstr_item *, void *);
 /* nxtsct.c */
-extern int nxtsct(struct nstr_sect *, struct sctstr *);
+/* in nsc.h */
 /* onearg.c */
 extern int onearg(char *, char *);
 /* plane.c */
@@ -563,7 +562,6 @@ extern size_t copy_ascii_no_funny(char *, char *);
 extern size_t copy_utf8_no_funny(char *, char *);
 extern size_t copy_utf8_to_ascii_no_funny(char *, char *);
 extern int ufindpfx(char *, int);
-
 /* radmap.c */
 extern int deltx(struct range *, coord);
 extern int delty(struct range *, coord);
@@ -636,21 +634,8 @@ extern void shp_missdef(struct shpstr *, natid);
 extern double shp_mobcost(struct shpstr *);
 extern void shp_set_tech(struct shpstr *, int);
 /* snxtitem.c */
-extern int snxtitem(struct nstr_item *, int, char *, char *);
-extern void snxtitem_area(struct nstr_item *, int, struct range *);
-extern void snxtitem_dist(struct nstr_item *, int, int, int, int);
-extern void snxtitem_xy(struct nstr_item *, int, coord, coord);
-extern void snxtitem_all(struct nstr_item *, int);
-extern void snxtitem_group(struct nstr_item *, int, char);
-extern void snxtitem_rewind(struct nstr_item *);
-extern int snxtitem_list(struct nstr_item *, int, int *, int);
-extern void snxtitem_cargo(struct nstr_item *, int, int, int);
 /* snxtsct.c */
-extern int snxtsct(struct nstr_sect *, char *);
-extern void snxtsct_area(struct nstr_sect *, struct range *);
-extern void snxtsct_all(struct nstr_sect *);
-extern void snxtsct_rewind(struct nstr_sect *);
-extern void snxtsct_dist(struct nstr_sect *, coord, coord, int);
+/* in nsc.h */
 /* supply.c */
 extern int sct_supply(struct sctstr *, i_type, int);
 extern int shp_supply(struct shpstr *, i_type, int);
@@ -720,7 +705,7 @@ extern int nav_ship(struct shpstr *);
 extern int load_it(struct shpstr *, struct sctstr *, int);
 extern void unload_it(struct shpstr *);
 /* nxtitemp.c */
-extern void *nxtitemp(struct nstr_item *);
+/* in nsc.h */
 /* plague.c */
 extern void do_plague(struct sctstr *, struct natstr *, int);
 extern int plague_people(struct natstr *, short *, int *, int *, int);
