@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -50,7 +51,7 @@
 static char **rad;
 static char *radbuf;
 
-void
+int
 satmap(int x, int y, int eff, int range, int flags, int type)
 {
     struct sctstr sect;
@@ -68,7 +69,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
     char selection[1024];
 
     if (!eff)
-	return;
+	return RET_OK;
 
     if (!radbuf)
 	radbuf = malloc(WORLD_Y * MAPWIDTH(1));
@@ -82,7 +83,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 
     if (!radbuf || !rad) {
 	pr("Memory error in satmap, tell the deity.\n");
-	return;
+	return RET_FAIL;
     }
 
     range = range * (eff / 100.0);
@@ -100,9 +101,10 @@ satmap(int x, int y, int eff, int range, int flags, int type)
     sprintf(selection, "@%s:%d", xyas(x, y, player->cnum), range);
 
     if (type == EF_BAD || type == EF_SECTOR) {
-	if (type == EF_SECTOR)	/* Use ?conditionals */
-	    snxtsct(&ns, selection);
-	else
+	if (type == EF_SECTOR) { /* Use ?conditionals */
+	    if (!snxtsct(&ns, selection))
+		return RET_SYN;
+	} else
 	    snxtsct_dist(&ns, x, y, range);
 
 	blankfill(radbuf, &ns.range, 1);
@@ -143,9 +145,10 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 
     if ((type == EF_BAD || type == EF_SHIP) &&
 	(flags & P_S || flags & P_I)) {
-	if (type == EF_SHIP)
-	    snxtitem(&ni, EF_SHIP, selection, NULL);
-	else
+	if (type == EF_SHIP) {
+	    if (!snxtitem(&ni, EF_SHIP, selection, NULL))
+		return RET_SYN;
+	} else
 	    snxtitem_dist(&ni, EF_SHIP, x, y, range);
 
 	crackle = count = 0;
@@ -188,9 +191,10 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 
     if ((type == EF_BAD || type == EF_LAND) &&
 	(flags & P_S || flags & P_I)) {
-	if (type == EF_LAND)
-	    snxtitem(&ni, EF_LAND, selection, NULL);
-	else
+	if (type == EF_LAND) {
+	    if (!snxtitem(&ni, EF_LAND, selection, NULL))
+		return RET_SYN;
+	} else
 	    snxtitem_dist(&ni, EF_LAND, x, y, range);
 
 	crackle = count = 0;
@@ -247,6 +251,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	    pr("%s\n", rad[row]);
 	pr("\n(c) 1989 Imaginative Images Inc.\n");
     }
+    return RET_OK;
 }
 
 void

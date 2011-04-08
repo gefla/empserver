@@ -86,8 +86,6 @@ sate(void)
 	pr("Satellite Map Report:\n");
     pr("%s at ", prplane(&plane));
     tech = techfact(plane.pln_tech, 20.0);
-    satmap(plane.pln_x, plane.pln_y, plane.pln_effic,
-	   (int)tech, plchr[(int)plane.pln_type].pl_flags, type);
-
-    return RET_OK;
+    return satmap(plane.pln_x, plane.pln_y, plane.pln_effic,
+		  (int)tech, plchr[(int)plane.pln_type].pl_flags, type);
 }

@@ -585,7 +585,7 @@ extern int sarg_list(char *, int *, int);
 /* satmap.c */
 extern void satdisp_sect(struct sctstr *, int);
 extern void satdisp_units(coord, coord);
-extern void satmap(int, int, int, int, int, int);
+extern int satmap(int, int, int, int, int, int);
 extern void sathead(void);
 /* sect.c */
 extern void sct_postread(int, void *);
