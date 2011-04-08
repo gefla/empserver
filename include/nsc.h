@@ -312,6 +312,7 @@ extern void snxtsct_area(struct nstr_sect *, struct range *);
 extern void snxtsct_all(struct nstr_sect *);
 extern void snxtsct_rewind(struct nstr_sect *);
 extern void snxtsct_dist(struct nstr_sect *, coord, coord, int);
+extern int snxtsct_use_condarg(struct nstr_sect *);
 /* src/lib/subs/nstr.c */
 extern int nstr_comp(struct nscstr *np, int len, int type, char *str);
 extern char *nstr_comp_val(char *, struct valstr *, int);

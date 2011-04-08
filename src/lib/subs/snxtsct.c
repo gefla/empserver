@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1989
- *     Markus Armbruster, 2006-2009
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>
@@ -57,7 +57,7 @@ snxtsct(struct nstr_sect *np, char *str)
     struct range range;
     struct natstr *natp;
     coord cx, cy;
-    int dist, n;
+    int dist;
     char buf[1024];
 
     if (!str || !*str) {
@@ -91,12 +91,7 @@ snxtsct(struct nstr_sect *np, char *str)
     default:
 	return 0;
     }
-    if (!player->condarg)
-	return 1;
-    n = nstr_comp(np->cond, sizeof(np->cond) / sizeof(*np->cond),
-		  EF_SECTOR, player->condarg);
-    np->ncond = n >= 0 ? n : 0;
-    return n >= 0;
+    return snxtsct_use_condarg(np);
 }
 
 void
@@ -123,6 +118,21 @@ snxtsct_area(struct nstr_sect *np, struct range *range)
     np->y = np->range.ly;
     np->dx = -1;
     np->dy = 0;
+}
+
+int
+snxtsct_use_condarg(struct nstr_sect *np)
+{
+    int n;
+
+    if (!player->condarg)
+	return 1;
+    n = nstr_comp(np->cond, sizeof(np->cond) / sizeof(*np->cond),
+		  EF_SECTOR, player->condarg);
+    if (n < 0)
+	return 0;
+    np->ncond = n;
+    return 1;
 }
 
 void
