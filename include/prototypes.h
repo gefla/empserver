@@ -648,8 +648,6 @@ extern void snxtitem_cargo(struct nstr_item *, int, int, int);
 /* snxtsct.c */
 extern int snxtsct(struct nstr_sect *, char *);
 extern void snxtsct_area(struct nstr_sect *, struct range *);
-extern void xydist_range(coord, coord, int, struct range *);
-extern void xysize_range(struct range *);
 extern void snxtsct_all(struct nstr_sect *);
 extern void snxtsct_rewind(struct nstr_sect *);
 extern void snxtsct_dist(struct nstr_sect *, coord, coord, int);

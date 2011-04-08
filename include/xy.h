@@ -60,6 +60,8 @@ extern void xyrelrange(struct natstr *np, struct range *src,
 		       struct range *dst);
 extern void xyabsrange(struct natstr *np, struct range *src,
 		       struct range *dst);
+extern void xydist_range(coord, coord, int, struct range *);
+extern void xysize_range(struct range *);
 extern coord strtox(char *str, char **end);
 extern coord strtoy(char *str, char **end);
 extern coord xabs(struct natstr *np, coord relx);
