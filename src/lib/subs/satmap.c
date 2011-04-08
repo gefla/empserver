@@ -66,7 +66,6 @@ satmap(int x, int y, int eff, int range, int flags, int type)
     int changed = 0;
     long crackle;
     signed char noise[100];
-    char selection[1024];
 
     if (!eff)
 	return RET_OK;
@@ -96,16 +95,11 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	    noise[100 * n / (100 - eff)] = 1;
     }
 
-    /* Have to convert to player coords, since it gets converted
-       back from there */
-    sprintf(selection, "@%s:%d", xyas(x, y, player->cnum), range);
-
     if (type == EF_BAD || type == EF_SECTOR) {
-	if (type == EF_SECTOR) { /* Use ?conditionals */
-	    if (!snxtsct(&ns, selection))
-		return RET_SYN;
-	} else
-	    snxtsct_dist(&ns, x, y, range);
+	snxtsct_dist(&ns, x, y, range);
+	if (type == EF_SECTOR && !snxtsct_use_condarg(&ns))
+	    return RET_SYN;
+	    
 
 	blankfill(radbuf, &ns.range, 1);
 	if (flags & P_S) {
@@ -145,11 +139,9 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 
     if ((type == EF_BAD || type == EF_SHIP) &&
 	(flags & P_S || flags & P_I)) {
-	if (type == EF_SHIP) {
-	    if (!snxtitem(&ni, EF_SHIP, selection, NULL))
-		return RET_SYN;
-	} else
-	    snxtitem_dist(&ni, EF_SHIP, x, y, range);
+	snxtitem_dist(&ni, EF_SHIP, x, y, range);
+	if (type == EF_SHIP && !snxtitem_use_condarg(&ni))
+	    return RET_SYN;
 
 	crackle = count = 0;
 	if (flags & P_S) {
@@ -191,11 +183,9 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 
     if ((type == EF_BAD || type == EF_LAND) &&
 	(flags & P_S || flags & P_I)) {
-	if (type == EF_LAND) {
-	    if (!snxtitem(&ni, EF_LAND, selection, NULL))
-		return RET_SYN;
-	} else
-	    snxtitem_dist(&ni, EF_LAND, x, y, range);
+	snxtitem_dist(&ni, EF_LAND, x, y, range);
+	if (type == EF_LAND && !snxtitem_use_condarg(&ni))
+	    return RET_SYN;
 
 	crackle = count = 0;
 	if (flags & P_S) {
