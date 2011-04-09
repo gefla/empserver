@@ -141,7 +141,7 @@ static int
 revert_bmap(struct nstr_sect *nsp)
 {
     if (!confirm("Are you sure you want to revert your bmap? "))
-	return RET_OK;
+	return RET_FAIL;
     while (bmnxtsct(nsp))
 	player->bmap[nsp->id] = player->map[nsp->id];
     ef_write(EF_BMAP, player->cnum, player->bmap);
