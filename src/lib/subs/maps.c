@@ -53,6 +53,16 @@
 #include "ship.h"
 #include "xy.h"
 
+/* Flags for draw_map() */
+/* whether to put ships, planes, land units or nukes on the map */
+#define MAP_SHIP	bit(0)
+#define MAP_PLANE	bit(1)
+#define MAP_LAND	bit(2)
+#define MAP_NUKE	bit(3)
+#define MAP_ALL		(MAP_SHIP | MAP_PLANE | MAP_LAND | MAP_NUKE)
+/* whether to highlight own sectors */
+#define MAP_HIGH	bit(4)
+
 static int draw_map(int, char, int, struct nstr_sect *);
 static int bmnxtsct(struct nstr_sect *);
 static char map_char(int, natid, int);
