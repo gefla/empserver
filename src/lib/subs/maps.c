@@ -193,19 +193,19 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	    CANT_REACH();
 	    /* fall through */
 	case 'b':
-	    while (bmnxtsct(nsp) && !player->aborted) {
+	    while (bmnxtsct(nsp)) {
 		if (0 != (c = player->bmap[nsp->id]))
 		    wmap[nsp->dy][nsp->dx] = c;
 	    }
 	    break;
 	case 't':
-	    while (bmnxtsct(nsp) && !player->aborted) {
+	    while (bmnxtsct(nsp)) {
 		if (0 != (c = player->map[nsp->id]))
 		    wmap[nsp->dy][nsp->dx] = c;
 	    }
 	    break;
 	case 'r':
-	    while (bmnxtsct(nsp) && !player->aborted) {
+	    while (bmnxtsct(nsp)) {
 		player->bmap[nsp->id] =
 		    player->map[nsp->id];
 		if (0 != (c = player->bmap[nsp->id]))
@@ -221,7 +221,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 		    memset(bitmap, 0, (WORLD_SZ() + 7) / 8);
 		    bitinit2(nsp, bitmap, player->cnum);
 		}
-		while (nxtsct(nsp, &sect) && !player->aborted) {
+		while (nxtsct(nsp, &sect)) {
 		    if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
 			continue;
 		    wmap[nsp->dy][nsp->dx]
@@ -240,7 +240,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	    memset(bitmap, 0, (WORLD_SZ() + 7) / 8);
 	    bitinit2(nsp, bitmap, player->cnum);
 	}
-	while (nxtsct(nsp, &sect) && !player->aborted) {
+	while (nxtsct(nsp, &sect)) {
 	    if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
 		continue;
 	    mapch = map_char(sect.sct_type, sect.sct_own, player->owner);
@@ -250,8 +250,6 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	if (changed)
 	    writemap(player->cnum);
     }
-    if (player->aborted)
-	return RET_OK;
 
     i = 0;
     while (ef_mappable[i] != EF_BAD) {
@@ -280,7 +278,7 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	struct sctstr sect;
 
 	snxtsct_rewind(nsp);
-	while (nxtsct(nsp, &sect) && !player->aborted) {
+	while (nxtsct(nsp, &sect)) {
 	    if (sect.sct_own == player->cnum)
 		 wmap[nsp->dy][nsp->dx] |= 0x80;
 	}
