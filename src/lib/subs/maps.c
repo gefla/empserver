@@ -120,7 +120,7 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
 	default:
 	bad_flag:
 	    pr("Bad flag %c!\n", *b);
-	    break;
+	    return RET_SYN;
 	}
     }
     return draw_map(bmap, origin, map_flags, &ns);
