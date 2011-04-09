@@ -60,9 +60,9 @@ extern void writemap(natid);
 extern void blankfill(char *, struct range *, int);
 extern void border(struct range *, char *, char *);
 
-#define MAP_PLANE	bit(0) /* this order must match */
-#define MAP_SHIP	bit(1) /* priority of the map and */
-#define MAP_LAND	bit(2) /* ef_unit_list */
+#define MAP_SHIP	bit(0)
+#define MAP_LAND	bit(1)
+#define MAP_PLANE	bit(2)
 #define MAP_NUKE	bit(3)
 #define MAP_HIGH	bit(4)
 #define MAP_ALL		MAP_SHIP | MAP_LAND | MAP_PLANE | MAP_NUKE
