@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *      Steve McClure, 1998-2000
- *      Markus Armbruster, 2004-2009
+ *      Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -92,10 +92,8 @@ buil(void)
 	return RET_SYN;
     what = *p;
 
-    if (!snxtsct(&nstr, player->argp[2])) {
-	pr("Bad sector specification.\n");
+    if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
-    }
     tlev = (int)natp->nat_level[NAT_TLEV];
     rlev = (int)natp->nat_level[NAT_RLEV];
 

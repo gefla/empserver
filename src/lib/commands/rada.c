@@ -86,10 +86,8 @@ radar(int type)
     case NS_LIST:
     case NS_GROUP:
 	/* assumes a NS_LIST return is a unit no */
-	if (!snxtitem(&ni, type, cp, NULL)) {
-	    pr("Specify at least one %s\n", ef_nameof(type));
+	if (!snxtitem(&ni, type, cp, NULL))
 	    return RET_SYN;
-	}
 	while (nxtitem(&ni, &item)) {
 	    if (!player->owner)
 		continue;
