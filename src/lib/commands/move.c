@@ -35,6 +35,7 @@
 #include "commands.h"
 #include "item.h"
 #include "land.h"
+#include "map.h"
 #include "optlist.h"
 #include "path.h"
 #include "plague.h"

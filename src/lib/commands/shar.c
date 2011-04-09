@@ -33,6 +33,7 @@
 #include <config.h>
 
 #include "commands.h"
+#include "map.h"
 
 int
 shar(void)

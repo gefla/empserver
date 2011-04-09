@@ -35,6 +35,7 @@
 
 #include "commands.h"
 #include "land.h"
+#include "map.h"
 #include "nuke.h"
 #include "plane.h"
 #include "ship.h"
