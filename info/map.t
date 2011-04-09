@@ -1,11 +1,7 @@
 .TH Command MAP
 .NA map "Generate a map showing sector types, seas, etc"
 .LV Basic
-.SY "map <SECTS | SHIP> <s|p|l|n|*|h>"
-.SY "nmap <SECTS | NUKE> <s|p|l|n|*|h>"
-.SY "smap <SECTS | SHIP> <s|p|l|n|*|h>"
-.SY "lmap <SECTS | LAND UNIT> <s|p|l|n|*|h>"
-.SY "pmap <SECTS | PLANE> <s|p|l|n|*|h>"
+.SY "map <SECTS|SHIP> [<MAP-FLAGS>]"
 A map gives you a graphic representation of all or part of your country.
 .s1
 Your own sectors as well as sea, mountains, wasteland and unowned
@@ -58,6 +54,7 @@ If you use nmap, you can get a map around a nuke.
 .s1
 .L "MAP FLAGS"
 .s1
+Optional argument <MAP-FLAGS> consists of map flag characters.
 If you specify an 's' flag, map will put your ships on the map.
 If you specify an 'l' flag, map will put your land units on the map.
 If you specify an 'p' flag, map will put your planes on the map.

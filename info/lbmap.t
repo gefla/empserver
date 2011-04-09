@@ -1,11 +1,7 @@
 .TH Command LBMAP
 .NA lbmap "Big map of all your worldly knowledge around a land unit"
 .LV Basic
-.SY "bmap [<SECTS> | <SHIP>] <s|p|l|n|r|t|*|h>"
-.SY "lbmap [<SECTS> | <LAND UNIT>] <s|p|l|n|*|h>"
-.SY "nbmap [<SECTS> | <NUKE>] <s|p|l|n|*|h>"
-.SY "pbmap [<SECTS> | <PLANE>] <s|p|l|n|*|h>"
-.SY "sbmap [<SECTS> | <SHIP>] <s|p|l|n|*|h>"
+.SY "lbmap <SECTS|LAND UNIT> [<BMAP-FLAGS>]"
 A bmap gives you a graphic representation of all or part of your country.
 .s1
 Bmap differs from map in that it reflects everything you've learned
@@ -74,6 +70,7 @@ If you use nbmap, you can get a bmap around a nuke.
 .s1
 .L "BMAP FLAGS"
 .s1
+Optional argument <BMAP-FLAGS> consists of bmap flag characters.
 If you specify an 's' flag, bmap will put your ships on the map.
 If you specify an 'l' flag, bmap will put your land units on the map.
 If you specify an 'p' flag, bmap will put your planes on the map.
@@ -86,7 +83,7 @@ To highlight sectors you own, specify the 'h' flag.
 You actually have two bmaps.  One which is created by the server; this
 one is called your 'true' bmap.  You can view your true bmap at any
 time using the
-.SY "bmap <SECTS> true"
+.SY "lbmap <SECTS|LAND UNIT> true"
 command.  However, usually when you view your bmap, you are looking at
 your 'working' bmap.  The only difference between your working bmap
 and your true bmap is that your working bmap also contains
@@ -94,6 +91,6 @@ designations put on there by you using the 'bdes' command, and by your
 friends using the "sharebmap" command.  If somehow your bmap gets
 corrupted, you can revert your working bmap back to your true bmap
 using the command:
-.SY "bmap <SECTS> revert"
+.SY "lbmap <SECTS|LAND UNIT> revert"
 .s1
 .SA "bdes, map, navigate, fly, bomb, recon, paradrop, drop, lookout, coastwatch, radar, sharebmap, LandUnits, Maps"
