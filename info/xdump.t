@@ -83,10 +83,6 @@ The table \*Qtable\*U is the table of (non-meta-)tables.  It contains
 table names and numbers.  xdump accepts table numbers as well as
 names.
 .s1
-There's a special pseudo-table \*Qver\*U, which collects configuration
-parameters in a single record.  It is not listed in \*Qtable\*U, it
-doesn't have a table number, but it does have a meta-table.
-.s1
 .L BUGS:
 Still missing are game state files power, map, bmap; the list of
 commands; foreign levels, contact
