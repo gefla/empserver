@@ -27,7 +27,7 @@
  *  xdump.c: Extended dump
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2008
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -211,7 +211,5 @@ xdump(void)
 	pr("Access to table %s denied\n", ef_nameof(type));
 	return RET_FAIL;
     }
-    if (type == EF_VERSION && !player->argp[2])
-	return xditem(&xd, type, "*"); /* backward compatibility */
     return xditem(&xd, type, player->argp[2]);
 }
