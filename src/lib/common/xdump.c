@@ -307,35 +307,3 @@ xdftr(struct xdstr *xd, int n)
     else
 	xd->pr("/%d\n", n);
 }
-
-/*
- * Dump meta-data for items of type TYPE to XD.
- * Return RET_SYN when TYPE doesn't have meta-data, else RET_OK.
- */
-int
-xdmeta(struct xdstr *xd, int type)
-{
-    struct castr *ca = ef_cadef(type);
-    int i;
-    int n = 0;
-
-    if (!ca)
-	return RET_SYN;
-
-    xdhdr(xd, ef_nameof(type), 1);
-    xdcolhdr(xd, ca);
-
-    for (i = 0; ca[i].ca_name; i++) {
-	if (ca[i].ca_flags & NSC_DEITY && !xd->divine)
-	    continue;
-	if (ca[i].ca_flags & NSC_EXTRA)
-	    continue;
-	xdflds(xd, mdchr_ca, &ca[i]);
-	xd->pr("\n");
-	n++;
-    }
-
-    xdftr(xd, n);
-
-    return RET_OK;
-}

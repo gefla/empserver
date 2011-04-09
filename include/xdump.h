@@ -51,7 +51,6 @@ extern void xdhdr(struct xdstr *, char *, int);
 extern void xdcolhdr(struct xdstr *, struct castr[]);
 extern void xdflds(struct xdstr *, struct castr[], void *);
 extern void xdftr(struct xdstr *, int);
-extern int xdmeta(struct xdstr *, int);
 extern int xundump(FILE *, char *, int *, int);
 
 #endif
