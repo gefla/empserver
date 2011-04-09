@@ -61,8 +61,8 @@ You can also supply additional parameters:
 is equivalent to a \*Qlmap\*U command. like
 this:
 .EX lmap 3 ls
-The \*Qbmap\*U command works in the same way,
-you get a bmap instead.
+The \*Qbmap\*U command works in the same way, it is equivalent to a
+\*Qlbmap\*U command.
 .s1
 The \*Qleader\*U command will the change the leader.
 By default, it will select next unit in the list, but you may also

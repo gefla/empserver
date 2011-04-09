@@ -28,9 +28,6 @@ this:
 .s1
 or it is equivalent to a \*Qnmap\*U command when transporting nukes.
 .s1
-If the optional argument selects sectors rather than nukes or planes,
-it is equivalent to a \*Qmap\*U command.
-.s1
 Note that while transporting, you may run into any landmines the
 enemy has left in your sectors. In that case, the planes being
 transported will take damage. See info \*Qlmine\*U for details.

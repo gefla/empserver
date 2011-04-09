@@ -59,11 +59,11 @@ By default, it will be around the flagship.
 You can also supply additional parameters:
 .EX <32.3: g 6,2>M 3 ls
 .s1
-is equivalent to a \*Qmap\*U command. like
+is equivalent to a \*Qsmap\*U command. like
 this:
 .EX map 3 ls
-The \*Qbmap\*U command works in the same way,
-you get a bmap instead.
+The \*Qbmap\*U command works in the same way, it is equivalent to a
+\*Qsbmap\*U command.
 .s1
 The \*Qflagship\*U command will the change the flagship.
 By default, it will select next ship in the list, but you may also
