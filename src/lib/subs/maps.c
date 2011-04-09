@@ -76,7 +76,14 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
     char *b;
     int map_flags = 0;
 
-    if (!snxtsct(&ns, arg)) {
+    switch (sarg_type(arg)) {
+    case NS_DIST:
+    case NS_AREA:
+    case NS_ALL:
+	if (!snxtsct(&ns, arg))
+	    return RET_SYN;
+	break;
+    default:
 	if (unit_map(unit_type, atoi(arg), &ns, &origin))
 	    return RET_FAIL;
     }

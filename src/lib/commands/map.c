@@ -73,7 +73,7 @@ map(void)
 	}
     }
 
-    if (player->argp[1] == NULL) {
+    if (!player->argp[1] || !*player->argp[1]) {
 	if (unit_type == EF_BAD) {
 	    str = getstring("(sects)? ", buf);
 	} else {
