@@ -94,7 +94,6 @@ int buil(void);
 int buy(void);
 int capi(void);
 int carg(void);
-int cede(void);
 int cens(void);
 int chan(void);
 int coas(void);

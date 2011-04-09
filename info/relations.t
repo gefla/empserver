@@ -48,9 +48,8 @@ When you accept a country as a trustworthy trading partner, then you
 establish friendly relations towards them.  This allows them to sail
 ships into your harbours, load and unload goods, and have their
 ships repaired there.  You are allowed to "tend" and "follow" friendly
-ships.  You are allowed to cede sectors to a friendly
-nation, and may send them "flash" messages (see info flash).  You will
-be warned, however, if they overfly
+ships.  You may send "flash" messages (see info flash) to friendly nations.
+You will be warned, however, if they overfly
 your territory.  And if they do it enough times, your diplomatic
 relations towards them will be automatically downgraded.  You may
 "spy" on a friendly nation with no consequences.

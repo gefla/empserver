@@ -32,7 +32,7 @@
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -70,9 +70,6 @@ struct cmndstr player_coms[] = {
     {"bye", 0, quit, 0, VIS},
     {"capital <SECT>", 0, capi, C_MOD, NORM},
     {"cargo <SHIPS>", 0, carg, 0, NORM},
-#ifdef CEDE_IS_ALLOWED
-    {"cede <SECTS|SHIPS> <COUNTRY> [se|sh]", 639, cede, C_MOD, NORM},
-#endif /* CEDE_IS_ALLOWED */
     {"census <SECTS>", 0, cens, 0, VIS},
     {"change <country|representative> <NAME>", 0, chan, C_MOD, VIS},
     {"coastwatch <SECTS>", 1, coas, C_MOD, NORM + CAP},
