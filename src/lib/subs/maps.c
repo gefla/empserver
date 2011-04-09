@@ -63,6 +63,7 @@
 /* whether to highlight own sectors */
 #define MAP_HIGH	bit(4)
 
+static int revert_bmap(struct nstr_sect *);
 static int draw_map(int, char, int, struct nstr_sect *);
 static int bmnxtsct(struct nstr_sect *);
 static char map_char(int, natid, int);
@@ -130,7 +131,21 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
 	    return RET_SYN;
 	}
     }
+
+    if (bmap == 'r')
+	return revert_bmap(&ns);
     return draw_map(bmap, origin, map_flags, &ns);
+}
+
+static int
+revert_bmap(struct nstr_sect *nsp)
+{
+    if (!confirm("Are you sure you want to revert your bmap? "))
+	return RET_OK;
+    while (bmnxtsct(nsp))
+	player->bmap[nsp->id] = player->map[nsp->id];
+    ef_write(EF_BMAP, player->cnum, player->bmap);
+    return RET_OK;
 }
 
 static int
@@ -171,10 +186,6 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 	return RET_FAIL;
     }
 
-    if (bmap == 'r') {
-	if (!confirm("Are you sure you want to revert your bmap? "))
-	    return RET_OK;
-    }
     if (!(player->command->c_flags & C_MOD)) {
 	logerror("%s command needs C_MOD flag set",
 		 player->command->c_form);
@@ -203,15 +214,6 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
 		if (0 != (c = player->map[nsp->id]))
 		    wmap[nsp->dy][nsp->dx] = c;
 	    }
-	    break;
-	case 'r':
-	    while (bmnxtsct(nsp)) {
-		player->bmap[nsp->id] =
-		    player->map[nsp->id];
-		if (0 != (c = player->bmap[nsp->id]))
-		    wmap[nsp->dy][nsp->dx] = c;
-	    }
-	    ef_write(EF_BMAP, player->cnum, player->bmap);
 	    break;
 	case 'n':
 	    {
