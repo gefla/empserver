@@ -69,6 +69,7 @@
 /* whether to revert bmap, internal to do_map() */
 #define MAP_BMAP_REVERT	bit(7)
 
+static int parse_map_flags(int, char *);
 static int revert_bmap(struct nstr_sect *);
 static int draw_map(char, int, struct nstr_sect *);
 static int bmnxtsct(struct nstr_sect *);
@@ -80,7 +81,6 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
 {
     struct nstr_sect ns;
     char origin = '\0';
-    char *b;
     int map_flags;
 
     switch (sarg_type(arg)) {
@@ -95,6 +95,21 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
 	    return RET_FAIL;
     }
 
+    map_flags = parse_map_flags(bmap, map_flags_arg);
+    if (map_flags < 0) 
+	return RET_SYN;
+
+    if (map_flags & MAP_BMAP_REVERT)
+	return revert_bmap(&ns);
+    return draw_map(origin, map_flags, &ns);
+}
+
+static int
+parse_map_flags(int bmap, char *str)
+{
+    int map_flags;
+    char *p;
+
     switch (bmap) {
     default: CANT_REACH();
 	/* fall through */
@@ -103,8 +118,11 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
     case 0:   map_flags = 0;
     }
 
-    for (b = map_flags_arg; b && *b; b++) {
-	switch (*b) {
+    if (!str)
+	return map_flags;
+
+    for (p = str; *p; p++) {
+	switch (*p) {
 	case 's':
 	case 'S':
 	    map_flags |= MAP_SHIP;
@@ -131,25 +149,19 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
 	case 't':
 	    if (bmap != 'b')
 		goto bad_flag;
-	    map_flags |= MAP_ALT;
-	    *(b + 1) = 0;
-	    break;
+	    return map_flags | MAP_ALT;
 	case 'r':
 	    if (bmap != 'b')
 		goto bad_flag;
-	    map_flags = MAP_BMAP_REVERT;
-	    *(b + 1) = 0;
-	    break;
+	    return MAP_BMAP_REVERT;
 	default:
 	bad_flag:
-	    pr("Bad flag %c!\n", *b);
-	    return RET_SYN;
+	    pr("Bad flag %c!\n", *p);
+	    return -1;
 	}
     }
 
-    if (map_flags & MAP_BMAP_REVERT)
-	return revert_bmap(&ns);
-    return draw_map(origin, map_flags, &ns);
+    return map_flags;
 }
 
 static int
