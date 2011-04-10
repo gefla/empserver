@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2011
  *     Ron Koenderink, 2004-2009
  */
 
@@ -218,10 +218,7 @@ execute(void)
 
     failed = 0;
 
-    if (player->comtail[1])
-	p = player->comtail[1];
-    else
-	p = getstring("File? ", buf);
+    p = getstarg(player->comtail[1], "File? ", buf);
     if (p == NULL || *p == '\0')
 	return RET_SYN;
     prexec(p);
