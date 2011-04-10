@@ -195,8 +195,8 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	     * fall through
 	     */
 	case 'M':
-	    do_map(bmap_flag, leader->ef_type, player->argp[1],
-		   player->argp[2]);
+	    display_region_map(bmap_flag, type, leader->x, leader->y,
+			       player->argp[1], player->argp[2]);
 	    skip = 1;
 	    continue;
 	case 'f':
