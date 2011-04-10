@@ -168,10 +168,10 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	    *movstr = 0;
 	    continue;
 	}
-	do  movstr++; while (isspace(*movstr));
+	movstr++;
 	if (dir == DIR_MAP) {
 	    if (!exploring)
-		map(curx, cury, movstr);
+		map(curx, cury, movstr + 1);
 	    *movstr = 0;
 	    continue;
 	} else if (dir == DIR_STOP)
