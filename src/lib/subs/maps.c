@@ -70,6 +70,7 @@
 /* whether to revert bmap, internal to do_map() */
 #define MAP_BMAP_REVERT	bit(7)
 
+static int parse_map_arg(int, char *, struct nstr_sect *, char *);
 static int parse_map_flags(int, char *);
 static int revert_bmap(struct nstr_sect *);
 static int draw_map(char, int, struct nstr_sect *);
@@ -78,33 +79,44 @@ static char map_char(int, natid, int);
 static int unit_map(int, int, struct nstr_sect *, char *);
 
 int
-do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
+do_map(int bmap, int unit_type, char *arg1, char *arg2)
 {
     struct nstr_sect ns;
-    char origin = '\0';
-    int map_flags;
+    char origin;
+    int res, map_flags;
 
-    switch (sarg_type(arg)) {
-    case NS_DIST:
-    case NS_AREA:
-    case NS_ALL:
-	if (!snxtsct(&ns, arg))
-	    return RET_SYN;
-	break;
-    default:
-	if (unit_map(unit_type, atoi(arg), &ns, &origin) < 0) {
-	    pr("No such %s\n", ef_nameof(unit_type));
-	    return RET_FAIL;
-	}
-    }
+    res = parse_map_arg(unit_type, arg1, &ns, &origin);
+    if (res != RET_OK)
+	return res;
 
-    map_flags = parse_map_flags(bmap, map_flags_arg);
+    map_flags = parse_map_flags(bmap, arg2);
     if (map_flags < 0) 
 	return RET_SYN;
 
     if (map_flags & MAP_BMAP_REVERT)
 	return revert_bmap(&ns);
     return draw_map(origin, map_flags, &ns);
+}
+
+static int
+parse_map_arg(int unit_type, char *arg,
+	      struct nstr_sect *nsp, char *originp)
+{
+    switch (sarg_type(arg)) {
+    case NS_DIST:
+    case NS_AREA:
+    case NS_ALL:
+	if (!snxtsct(nsp, arg))
+	    return RET_SYN;
+	*originp = 0;
+	break;
+    default:
+	if (unit_map(unit_type, atoi(arg), nsp, originp) < 0) {
+	    pr("No such %s\n", ef_nameof(unit_type));
+	    return RET_FAIL;
+	}
+    }
+    return RET_OK;
 }
 
 static void
