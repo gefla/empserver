@@ -92,8 +92,10 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
 	    return RET_SYN;
 	break;
     default:
-	if (unit_map(unit_type, atoi(arg), &ns, &origin) < 0)
+	if (unit_map(unit_type, atoi(arg), &ns, &origin) < 0) {
+	    pr("No such %s\n", ef_nameof(unit_type));
 	    return RET_FAIL;
+	}
     }
 
     map_flags = parse_map_flags(bmap, map_flags_arg);
