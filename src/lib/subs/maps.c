@@ -62,9 +62,15 @@
 #define MAP_ALL		(MAP_SHIP | MAP_PLANE | MAP_LAND | MAP_NUKE)
 /* whether to highlight own sectors */
 #define MAP_HIGH	bit(4)
+/* whether to draw a map or a bmap */
+#define MAP_BMAP	bit(5)
+/* whether to draw an alternate map: newdes for map, true bmap for bmap */
+#define MAP_ALT		bit(6)
+/* whether to revert bmap, internal to do_map() */
+#define MAP_BMAP_REVERT	bit(7)
 
 static int revert_bmap(struct nstr_sect *);
-static int draw_map(int, char, int, struct nstr_sect *);
+static int draw_map(char, int, struct nstr_sect *);
 static int bmnxtsct(struct nstr_sect *);
 static char map_char(int, natid, int);
 static int unit_map(int, int, struct nstr_sect *, char *);
@@ -75,7 +81,7 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
     struct nstr_sect ns;
     char origin = '\0';
     char *b;
-    int map_flags = 0;
+    int map_flags;
 
     switch (sarg_type(arg)) {
     case NS_DIST:
@@ -88,6 +94,15 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
 	if (unit_map(unit_type, atoi(arg), &ns, &origin))
 	    return RET_FAIL;
     }
+
+    switch (bmap) {
+    default: CANT_REACH();
+	/* fall through */
+    case 'b': map_flags = MAP_BMAP; break;
+    case 'n': map_flags = MAP_ALT; break;
+    case 0:   map_flags = 0;
+    }
+
     for (b = map_flags_arg; b && *b; b++) {
 	switch (*b) {
 	case 's':
@@ -116,13 +131,13 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
 	case 't':
 	    if (bmap != 'b')
 		goto bad_flag;
-	    bmap = 't';
+	    map_flags |= MAP_ALT;
 	    *(b + 1) = 0;
 	    break;
 	case 'r':
 	    if (bmap != 'b')
 		goto bad_flag;
-	    bmap = 'r';
+	    map_flags = MAP_BMAP_REVERT;
 	    *(b + 1) = 0;
 	    break;
 	default:
@@ -132,9 +147,9 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
 	}
     }
 
-    if (bmap == 'r')
+    if (map_flags & MAP_BMAP_REVERT)
 	return revert_bmap(&ns);
-    return draw_map(bmap, origin, map_flags, &ns);
+    return draw_map(origin, map_flags, &ns);
 }
 
 static int
@@ -149,7 +164,7 @@ revert_bmap(struct nstr_sect *nsp)
 }
 
 static int
-draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
+draw_map(char origin, int map_flags, struct nstr_sect *nsp)
 {
     struct natstr *np;
     struct range range;
@@ -197,60 +212,51 @@ draw_map(int bmap, char origin, int map_flags, struct nstr_sect *nsp)
     xyrelrange(np, &nsp->range, &range);
     border(&range, "     ", "");
     blankfill(wmapbuf, &nsp->range, 1);
-    if (bmap) {
+
+    if (map_flags & MAP_BMAP) {
 	int c;
-	switch (bmap) {
-	default:
-	    CANT_REACH();
-	    /* fall through */
-	case 'b':
-	    while (bmnxtsct(nsp)) {
-		if (0 != (c = player->bmap[nsp->id]))
-		    wmap[nsp->dy][nsp->dx] = c;
-	    }
-	    break;
-	case 't':
+
+	if (map_flags & MAP_ALT) {
 	    while (bmnxtsct(nsp)) {
 		if (0 != (c = player->map[nsp->id]))
 		    wmap[nsp->dy][nsp->dx] = c;
 	    }
-	    break;
-	case 'n':
-	    {
-		struct sctstr sect;
-
-		if (!player->god) {
-		    memset(bitmap, 0, (WORLD_SZ() + 7) / 8);
-		    bitinit2(nsp, bitmap, player->cnum);
-		}
-		while (nxtsct(nsp, &sect)) {
-		    if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
-			continue;
-		    wmap[nsp->dy][nsp->dx]
-			= map_char(sect.sct_newtype, sect.sct_own,
-				   player->owner);
-		}
-		break;
+	} else {
+	    while (bmnxtsct(nsp)) {
+		if (0 != (c = player->bmap[nsp->id]))
+		    wmap[nsp->dy][nsp->dx] = c;
 	    }
 	}
     } else {
 	struct sctstr sect;
-	char mapch;
-	int changed = 0;
 
 	if (!player->god) {
 	    memset(bitmap, 0, (WORLD_SZ() + 7) / 8);
 	    bitinit2(nsp, bitmap, player->cnum);
 	}
-	while (nxtsct(nsp, &sect)) {
-	    if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
-		continue;
-	    mapch = map_char(sect.sct_type, sect.sct_own, player->owner);
-	    wmap[nsp->dy][nsp->dx] = mapch;
-	    changed |= map_set(player->cnum, nsp->x, nsp->y, mapch, 0);
+	if (map_flags & MAP_ALT) {	
+	    while (nxtsct(nsp, &sect)) {
+		if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
+		    continue;
+		wmap[nsp->dy][nsp->dx]
+		    = map_char(sect.sct_newtype, sect.sct_own,
+			       player->owner);
+	    }
+	} else {
+	    struct sctstr sect;
+	    char mapch;
+	    int changed = 0;
+
+	    while (nxtsct(nsp, &sect)) {
+		if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
+		    continue;
+		mapch = map_char(sect.sct_type, sect.sct_own, player->owner);
+		wmap[nsp->dy][nsp->dx] = mapch;
+		changed |= map_set(player->cnum, nsp->x, nsp->y, mapch, 0);
+	    }
+	    if (changed)
+		writemap(player->cnum);
 	}
-	if (changed)
-	    writemap(player->cnum);
     }
 
     i = 0;
