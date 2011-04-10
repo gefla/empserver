@@ -92,7 +92,7 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
 	    return RET_SYN;
 	break;
     default:
-	if (unit_map(unit_type, atoi(arg), &ns, &origin))
+	if (unit_map(unit_type, atoi(arg), &ns, &origin) < 0)
 	    return RET_FAIL;
     }
 
@@ -408,12 +408,12 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
 
     if (CANT_HAPPEN((ef_flags(unit_type) & (EFF_OWNER | EFF_XY))
 		    != (EFF_OWNER | EFF_XY)))
-	return RET_FAIL;
+	return -1;
 
     if (!get_empobj(unit_type, uid, &unit))
-	return RET_FAIL;
+	return -1;
     if (!player->owner || unit.gen.own == 0)
-	return RET_FAIL;
+	return -1;
 
     if (unit_type == EF_NUKE)
 	*originp = 'n';
@@ -428,7 +428,7 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
     range.hy = ynorm(unit.gen.y + 5);
     xysize_range(&range);
     snxtsct_area(nsp, &range);
-    return RET_OK;
+    return 0;
 }
 
 int
