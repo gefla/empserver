@@ -77,12 +77,15 @@ A '*' will put all on the map.
 When multiple unit types are selected they are displayed
 in the following priority order: nukes, land units, ships, planes.
 To highlight sectors you own, specify the 'h' flag.
+With the 't' flag, the command shows your true bmap rather than your
+working bmap.
+.s1
+.L "Working and true bmap"
 .s1
 You actually have two bmaps.  One which is created by the server; this
 one is called your 'true' bmap.  You can view your true bmap at any
-time using the
-.SY "bmap <SECTS|SHIP> true"
-command.  However, usually when you view your bmap, you are looking at
+time using the 't' bmap flag.
+However, usually when you view your bmap, you are looking at
 your 'working' bmap.  The only difference between your working bmap
 and your true bmap is that your working bmap also contains
 designations put on there by you using the 'bdes' command, and by your

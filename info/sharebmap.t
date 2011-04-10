@@ -29,7 +29,7 @@ not lose any information in this exchange.
 .s1
 Note that the sharebmap command only changes your 'working' bmap and
 so you can delete sharebmap information from your bmap by typing:
-.EX "bmap revert"
+.EX "bmap <SECTS> revert"
 See 'info bmap' for more details.
 .s1
 .SA "bdes, bmap, Communication, Maps"

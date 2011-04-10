@@ -41,6 +41,7 @@
 #include "file.h"
 #include "land.h"
 #include "map.h"
+#include "match.h"
 #include "misc.h"
 #include "nat.h"
 #include "nsc.h"
@@ -104,11 +105,21 @@ do_map(int bmap, int unit_type, char *arg, char *map_flags_arg)
     return draw_map(origin, map_flags, &ns);
 }
 
+static void
+warn_deprecated_arg(char *what, char *arg, char *use)
+{
+    pr("%s '%s' is deprecated and will go away in a future release.\n"
+       "Use %s instead.\n",
+       what, arg, use);
+}
+
 static int
 parse_map_flags(int bmap, char *str)
 {
     int map_flags;
     char *p;
+    int tflags = 0;
+    char *tp = NULL;
 
     switch (bmap) {
     default: CANT_REACH();
@@ -120,6 +131,10 @@ parse_map_flags(int bmap, char *str)
 
     if (!str)
 	return map_flags;
+
+    /* special case "revert" */
+    if (bmap == 'b' && mineq(str, "revert") != ME_MISMATCH)
+	return MAP_BMAP_REVERT;
 
     for (p = str; *p; p++) {
 	switch (*p) {
@@ -149,13 +164,29 @@ parse_map_flags(int bmap, char *str)
 	case 't':
 	    if (bmap != 'b')
 		goto bad_flag;
-	    return map_flags | MAP_ALT;
+	    map_flags |= MAP_ALT;
+	    /*
+	     * Flags following 't' used to be ignored.  That breaks
+	     * perfectly sensible "ts".  Try to continue, but save
+	     * state for when a bad flag is found.
+	     */
+	    if (!tflags) {
+		tflags = map_flags;
+		tp = p;
+	    }
+	    break;
 	case 'r':
-	    if (bmap != 'b')
+	    if (bmap != 'b' || tflags)
 		goto bad_flag;
+	    warn_deprecated_arg("Map flag", "r", "argument 'revert'");
 	    return MAP_BMAP_REVERT;
 	default:
 	bad_flag:
+	    if (tflags) {
+		/* ignore bad flags following 't' */
+		warn_deprecated_arg("Argument", tp, "map flag 't'");
+		return tflags;
+	    }
 	    pr("Bad flag %c!\n", *p);
 	    return -1;
 	}
