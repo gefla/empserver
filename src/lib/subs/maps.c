@@ -420,29 +420,21 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
 
 int
 display_region_map(int bmap, int unit_type, coord curx, coord cury,
-		   char *arg)
+		   char *arg1, char *arg2)
 {
     char coordinates[80];
-    char *map_flag_arg;
 
-    if (!arg || !*arg) {
+    if (!arg1 || !*arg1) {
 	struct natstr *np;
 
 	np = getnatp(player->cnum);
 	sprintf(coordinates, "%d:%d,%d:%d",
 	    xrel(np, curx - 10), xrel(np, curx + 10),
 	    yrel(np, cury - 5), yrel(np, cury + 5));
-	arg = coordinates;
-	map_flag_arg = NULL;
-    } else {
-	map_flag_arg = strchr(arg, ' ');
-	if (map_flag_arg != NULL) {
-	    *map_flag_arg++  = '\0';
-	    while (isspace(*map_flag_arg)) map_flag_arg++;
-	}
+	arg1 = coordinates;
     }
     player->condarg = NULL;
-    return do_map(bmap, unit_type, arg, map_flag_arg);
+    return do_map(bmap, unit_type, arg1, arg2);
 }
 
 int

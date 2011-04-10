@@ -47,8 +47,8 @@ static int move_map(coord curx, coord cury, char *arg);
 int
 move_ground(struct sctstr *start, struct sctstr *end,
 	    double weight, char *path,
-	    int (*map)(coord, coord, char *), int exploring,
-	    int *dam)
+	    int (*map)(coord, coord, char *, char *),
+	    int exploring, int *dam)
 {
     struct sctstr sect;
     struct sctstr next;
@@ -62,6 +62,9 @@ move_ground(struct sctstr *start, struct sctstr *end,
     size_t len;
     double mobility = start->sct_mobil;
     int dir;
+    char scanspace[1024];
+    char *argp[128];
+    int ac;
     int intcost;
     int takedam = *dam;
     int out = 0;
@@ -119,7 +122,7 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	oldy = cury;
 	if (!movstr || *movstr == 0) {
 	    if (exploring) {
-		map(curx, cury, NULL);
+		map(curx, cury, NULL, NULL);
 	    } else {
 		move_map(curx, cury, NULL);
 	    }
@@ -168,15 +171,23 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	    *movstr = 0;
 	    continue;
 	}
-	movstr++;
 	if (dir == DIR_MAP) {
+	    ac = parse(movstr, scanspace, argp, NULL, NULL, NULL);
+	    if (ac == 1) {
+		pr("Use of '%c' without a space before its argument is deprecated.\n"
+		   "Support for it will go away in a future release\n",
+		   *movstr);
+		argp[1] = argp[0] + 1;
+	    }
 	    if (!exploring)
-		map(curx, cury, movstr + 1);
+		map(curx, cury, argp[1], argp[2]);
 	    *movstr = 0;
 	    continue;
-	} else if (dir == DIR_STOP)
+	}
+	movstr++;
+	if (dir == DIR_STOP)
 	    break;
-	else if (dir == DIR_VIEW) {
+	if (dir == DIR_VIEW) {
 	    pr("%d%% %s with %d civilians.\n", sect.sct_effic,
 	       dchr[sect.sct_type].d_name, sect.sct_item[I_CIVIL]);
 	    continue;

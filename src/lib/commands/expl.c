@@ -39,7 +39,7 @@
 #include "optlist.h"
 #include "plague.h"
 
-static int explore_map(coord curx, coord cury, char *arg);
+static int explore_map(coord, coord, char *, char *);
 
 int
 explore(void)
@@ -274,7 +274,7 @@ explore(void)
 
 /*ARGSUSED*/
 static int
-explore_map(coord curx, coord cury, char *arg)
+explore_map(coord curx, coord cury, char *arg1, char *arg2)
 {
     struct nstr_sect ns;
     struct sctstr sect;

@@ -464,7 +464,7 @@ extern int cando(int, int);
 extern int check_lmines(coord, coord, double);
 extern int move_ground(struct sctstr *, struct sctstr *,
 		       double, char *,
-		       int (*)(coord, coord, char *),
+		       int (*)(coord, coord, char *, char *),
 		       int, int *);
 extern int fly_map(coord, coord);
 /* mslsub.c */

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2006-2009
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>
@@ -40,8 +40,8 @@
 #include "plane.h"
 #include "ship.h"
 
-static int tran_pmap(coord curx, coord cury, char *arg);
-static int tran_nmap(coord curx, coord cury, char *arg);
+static int tran_pmap(coord, coord, char *, char *);
+static int tran_nmap(coord, coord, char *, char *);
 static int tran_nuke(void);
 static int tran_plane(void);
 
@@ -245,13 +245,13 @@ tran_plane(void)
  */
 /*ARGSUSED*/
 static int
-tran_pmap(coord curx, coord cury, char *arg)
+tran_pmap(coord curx, coord cury, char *arg1, char *arg2)
 {
-    return display_region_map(0, EF_PLANE, curx, cury, arg);
+    return display_region_map(0, EF_PLANE, curx, cury, arg1, arg2);
 }
 
 static int
-tran_nmap(coord curx, coord cury, char *arg)
+tran_nmap(coord curx, coord cury, char *arg1, char *arg2)
 {
-    return display_region_map(0, EF_NUKE, curx, cury, arg);
+    return display_region_map(0, EF_NUKE, curx, cury, arg1, arg2);
 }

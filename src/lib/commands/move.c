@@ -41,7 +41,7 @@
 #include "plague.h"
 
 
-static int cmd_move_map(coord curx, coord cury, char *arg);
+static int cmd_move_map(coord, coord, char *, char *);
 
 int
 move(void)
@@ -341,9 +341,9 @@ move(void)
  */
 /*ARGSUSED*/
 static int
-cmd_move_map(coord curx, coord cury, char *arg)
+cmd_move_map(coord curx, coord cury, char *arg1, char *arg2)
 {
-    return display_region_map(0, EF_SHIP, curx, cury, arg);
+    return display_region_map(0, EF_SHIP, curx, cury, arg1, arg2);
 }
 
 int
