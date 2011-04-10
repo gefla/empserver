@@ -259,49 +259,34 @@ draw_map(char origin, int map_flags, struct nstr_sect *nsp)
     blankfill(wmapbuf, &nsp->range, 1);
 
     if (map_flags & MAP_BMAP) {
-	int c;
+	char *map = map_flags & MAP_ALT ? player->map : player->bmap;
 
-	if (map_flags & MAP_ALT) {
-	    while (bmnxtsct(nsp)) {
-		if (0 != (c = player->map[nsp->id]))
-		    wmap[nsp->dy][nsp->dx] = c;
-	    }
-	} else {
-	    while (bmnxtsct(nsp)) {
-		if (0 != (c = player->bmap[nsp->id]))
-		    wmap[nsp->dy][nsp->dx] = c;
-	    }
+	while (bmnxtsct(nsp)) {
+	    if (map[nsp->id])
+		wmap[nsp->dy][nsp->dx] = map[nsp->id];
 	}
     } else {
 	struct sctstr sect;
+	char mapch;
+	int changed = 0;
 
 	if (!player->god) {
 	    memset(bitmap, 0, (WORLD_SZ() + 7) / 8);
 	    bitinit2(nsp, bitmap, player->cnum);
 	}
-	if (map_flags & MAP_ALT) {	
-	    while (nxtsct(nsp, &sect)) {
-		if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
-		    continue;
-		wmap[nsp->dy][nsp->dx]
-		    = map_char(sect.sct_newtype, sect.sct_own,
-			       player->owner);
-	    }
-	} else {
-	    struct sctstr sect;
-	    char mapch;
-	    int changed = 0;
 
-	    while (nxtsct(nsp, &sect)) {
-		if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
-		    continue;
-		mapch = map_char(sect.sct_type, sect.sct_own, player->owner);
-		wmap[nsp->dy][nsp->dx] = mapch;
+	while (nxtsct(nsp, &sect)) {
+	    if (!player->god && !emp_getbit(nsp->x, nsp->y, bitmap))
+		continue;
+	    mapch = map_char(map_flags & MAP_ALT
+			     ? sect.sct_newtype : sect.sct_type,
+			     sect.sct_own, player->owner);
+	    wmap[nsp->dy][nsp->dx] = mapch;
+	    if (!(map_flags & MAP_ALT))
 		changed |= map_set(player->cnum, nsp->x, nsp->y, mapch, 0);
-	    }
-	    if (changed)
-		writemap(player->cnum);
 	}
+	if (changed)
+	    writemap(player->cnum);
     }
 
     i = 0;
