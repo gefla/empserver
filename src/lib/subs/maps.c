@@ -77,6 +77,7 @@ static int draw_map(char, int, struct nstr_sect *);
 static int bmnxtsct(struct nstr_sect *);
 static char map_char(int, natid, int);
 static int unit_map(int, int, struct nstr_sect *, char *);
+static void snxtsct_around(struct nstr_sect *, coord, coord);
 
 int
 do_map(int bmap, int unit_type, char *arg1, char *arg2)
@@ -402,7 +403,6 @@ static int
 unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
 {
     union empobj_storage unit;
-    struct range range;
     char *name;
 
     if (CANT_HAPPEN((ef_flags(unit_type) & (EFF_OWNER | EFF_XY))
@@ -421,32 +421,48 @@ unit_map(int unit_type, int uid, struct nstr_sect *nsp, char *originp)
 	*originp = *name;
     }
 
-    range.lx = xnorm(unit.gen.x - 10);
-    range.hx = xnorm(unit.gen.x + 10);
-    range.ly = ynorm(unit.gen.y - 5);
-    range.hy = ynorm(unit.gen.y + 5);
+    snxtsct_around(nsp, unit.gen.x, unit.gen.y);
+    return 0;
+}
+
+static void
+snxtsct_around(struct nstr_sect *nsp, coord x, coord y)
+{
+    struct range range;
+
+    range.lx = xnorm(x - 10);
+    range.hx = xnorm(x + 10);
+    range.ly = ynorm(y - 5);
+    range.hy = ynorm(y + 5);
     xysize_range(&range);
     snxtsct_area(nsp, &range);
-    return 0;
 }
 
 int
 display_region_map(int bmap, int unit_type, coord curx, coord cury,
 		   char *arg1, char *arg2)
 {
-    char coordinates[80];
+    struct nstr_sect ns;
+    char origin;
+    int res, map_flags;
 
-    if (!arg1 || !*arg1) {
-	struct natstr *np;
+    if (arg1 && *arg1) {
+	res = parse_map_arg(unit_type, arg1, &ns, &origin);
+	if (res != RET_OK)
+	    return res;
 
-	np = getnatp(player->cnum);
-	sprintf(coordinates, "%d:%d,%d:%d",
-	    xrel(np, curx - 10), xrel(np, curx + 10),
-	    yrel(np, cury - 5), yrel(np, cury + 5));
-	arg1 = coordinates;
+	map_flags = parse_map_flags(bmap, arg2);
+	if (map_flags < 0) 
+	    return RET_SYN;
+    } else {
+	snxtsct_around(&ns, curx, cury);
+	map_flags = 0;
+	origin = 0;
     }
-    player->condarg = NULL;
-    return do_map(bmap, unit_type, arg1, arg2);
+
+    if (map_flags & MAP_BMAP_REVERT)
+	return revert_bmap(&ns);
+    return draw_map(origin, map_flags, &ns);
 }
 
 int
