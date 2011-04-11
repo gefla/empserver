@@ -202,6 +202,36 @@ status(void)
     return 1;
 }
 
+/* Is ARG one of the player's last command's arguments?  */
+static int
+is_command_arg(char *arg)
+{
+    int i;
+
+    for (i = 1; i < 128 && player->argp[i]; i++) {
+	if (arg == player->argp[i])
+	    return 1;
+    }
+    return 0;
+}
+
+/*
+ * Make all objects stale if ARG is one of the player's command arguments.
+ * See ef_make_stale() for what "making stale" means.
+ * Useful for functions that prompt for missing arguments.
+ * These can yield the processor, so we'd like to call ef_make_stale()
+ * there.  Except that leads to false positives when the caller passes
+ * an argument that is never null, and relies on the fact that the
+ * function doesn't yield then.  We can't know that in general.  But
+ * we do know in the common special case of command arguments.
+ */
+void
+make_stale_if_command_arg(char *arg)
+{
+    if (is_command_arg(arg))
+	ef_make_stale();
+}
+
 /*
  * XXX This whole mess should be redone; execute block should
  * start with "exec start", and should end with "exec end".

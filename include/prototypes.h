@@ -363,6 +363,7 @@ extern int natpass(natid, char *);
 extern struct player *player;	/* current player's context */
 extern char *praddr(struct player *);
 extern void player_main(struct player *);
+extern void make_stale_if_command_arg(char *);
 /* more under Commands */
 /* recvclient.c */
 extern int recvclient(char *, int);

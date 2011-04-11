@@ -34,6 +34,7 @@
 
 #include <string.h>
 #include "misc.h"
+#include "prototypes.h"
 
 /*
  * Get string argument.
@@ -50,6 +51,7 @@ getstarg(char *input, char *prompt, char *buf)
 	    return NULL;
     } else {
 	strcpy(buf, input);
+	make_stale_if_command_arg(input);
     }
     return buf;
 }

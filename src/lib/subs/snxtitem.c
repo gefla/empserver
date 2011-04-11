@@ -73,9 +73,9 @@ snxtitem(struct nstr_item *np, int type, char *str, char *prompt)
 	str = getstring(prompt, buf);
 	if (!str)
 	    return 0;
-    }
+    } else
+	make_stale_if_command_arg(str);
     if (*str == 0) {
-	/* empty string passed by player */
 	return 0;
     }
     if (type == EF_NATION && isalpha(*str)) {

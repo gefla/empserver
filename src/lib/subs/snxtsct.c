@@ -44,7 +44,7 @@
 
 /*
  * setup the nstr_sect structure for sector selection.
- * can select on either NS_ALL, NS_AREA, or NS_RANGE
+ * can select on either NS_ALL, NS_AREA, or NS_DIST
  * iterate thru the "condarg" string looking
  * for arguments to compile into the nstr.
  * Using this function for anything but command arguments is usually
@@ -63,7 +63,8 @@ snxtsct(struct nstr_sect *np, char *str)
     if (!str || !*str) {
 	if (!(str = getstring("(sects)? ", buf)))
 	    return 0;
-    }
+    } else
+	make_stale_if_command_arg(str);
     switch (sarg_type(str)) {
     case NS_AREA:
 	if (!sarg_area(str, &range))

@@ -43,7 +43,8 @@ onearg(char *arg, char *prompt)
     if (!arg || !*arg) {
 	if (!(arg = getstring(prompt, buf)))
 	    return -1;
-    }
+    } else
+	make_stale_if_command_arg(arg);
     n = atoi(arg);
     if (n < 0)
 	return -1;
