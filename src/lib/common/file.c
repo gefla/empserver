@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 2000
- *     Markus Armbruster, 2005-2009
+ *     Markus Armbruster, 2005-2011
  */
 
 #include <config.h>
@@ -336,6 +336,7 @@ ef_ptr(int type, int id)
 /*
  * Read element ID from table TYPE into buffer INTO.
  * FIXME pass buffer size!
+ * INTO is marked fresh with ef_mark_fresh().
  * Return non-zero on success, zero on failure.
  */
 int
@@ -503,6 +504,7 @@ do_write(struct empfile *ep, void *buf, int id, int count)
  * cache straight to disk.
  * Cannot write beyond the end of fully cached table (flags & EFF_MEM).
  * Can write at the end of partially cached table.
+ * FROM must be fresh; see ef_make_stale().
  * Return non-zero on success, zero on failure.
  */
 int
@@ -598,6 +600,8 @@ get_seqno(struct empfile *ep, int id)
  * Increment sequence number in BUF, which is about to be written to EP.
  * Do nothing if table is not EFF_TYPED (it has no sequence number
  * then).
+ * Else, BUF's sequence number must match the one in EP's cache.  If
+ * it doesn't, we're about to clobber a previous write.
  */
 static void
 new_seqno(struct empfile *ep, void *buf)
@@ -612,12 +616,22 @@ new_seqno(struct empfile *ep, void *buf)
     elt->seqno = old_seqno + 1;
 }
 
+/*
+ * Make all copies stale.
+ * Only fresh copies may be written back to the cache.
+ * To be called by functions that may yield the processor.
+ * Writing an copy when there has been a yield since it was read is
+ * unsafe, because we could clobber another thread's write then.
+ * Robust code must assume the that any function that may yield does
+ * yield.  Marking copies stale there lets us catch unsafe writes.
+ */
 void
 ef_make_stale(void)
 {
     ef_generation++;
 }
 
+/* Mark copy of an element of table TYPE in BUF fresh.  */
 void
 ef_mark_fresh(int type, void *buf)
 {
@@ -703,6 +717,7 @@ ef_extend(int type, int count)
 /*
  * Initialize element ID for EP in BUF.
  * FIXME pass buffer size!
+ * BUF is marked fresh with ef_mark_fresh().
  */
 void
 ef_blank(int type, int id, void *buf)
