@@ -29,6 +29,8 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
+ *     Marc Olzheim, 2004
+ *     Markus Armbruster, 2005-2011
  */
 
 #include <config.h>
@@ -44,9 +46,9 @@ map(void)
 {
     int unit_type = EF_BAD;
     int bmap = 0;
-    char *str;
+    char *str, *prompt;
     char buf[1024];
-    char prompt[128];
+    char prompt_buf[128];
 
     if (**player->argp != 'm') {
 	if (**player->argp == 'b')
@@ -73,18 +75,15 @@ map(void)
 	}
     }
 
-    if (!player->argp[1] || !*player->argp[1]) {
-	if (unit_type == EF_BAD) {
-	    str = getstring("(sects)? ", buf);
-	} else {
-	    sprintf(prompt, "(sects, %s)? ", ef_nameof(unit_type));
-	    str = getstring(prompt, buf);
-	}
-
-	if (!str || !*str)
-	    return RET_SYN;
-    } else
-	str = player->argp[1];
+    if (unit_type == EF_BAD)
+	prompt = "(sects)? ";
+    else {
+	sprintf(prompt_buf, "(sects, %s)? ", ef_nameof(unit_type));
+	prompt = prompt_buf;
+    }
+    str = getstarg(player->argp[1], prompt, buf);
+    if (!str || !*str)
+	return RET_SYN;
 
     if (unit_type == EF_BAD)
 	unit_type = EF_SHIP;
