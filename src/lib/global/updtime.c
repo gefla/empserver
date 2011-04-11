@@ -27,7 +27,7 @@
  *  updtime.c: Scheduled update times
  *
  *  Known contributors to this file:
- *       Markus Armbruster, 2007
+ *     Markus Armbruster, 2007
  */
 
 #include <config.h>

@@ -33,7 +33,7 @@
  *     Ken Stevens
  *     Steve McClure
  *     Ron Koenderink, 2005-2006
- *     Markus Armbruster, 2005-2008
+ *     Markus Armbruster, 2005-2010
  */
 
 #include <config.h>

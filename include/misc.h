@@ -28,7 +28,7 @@
  *          but have to go somewhere!
  *
  *  Known contributors to this file:
- *       Doug Hay, 1998
+ *     Doug Hay, 1998
  */
 
 #ifndef MISC_H

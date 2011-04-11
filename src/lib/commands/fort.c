@@ -27,7 +27,7 @@
  *  fort.c: Increase the fortification value of land units
  *
  *  Known contributors to this file:
- *    Steve McClure, 1999
+ *     Steve McClure, 1999
  */
 
 #include <config.h>

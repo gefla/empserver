@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Sasha Mikheev
  *     Steve McClure, 1998
- *     Markus Armbruster, 2005-2009
+ *     Markus Armbruster, 2005-2010
  *     Ron Koenderink, 2007-2009
  */
 

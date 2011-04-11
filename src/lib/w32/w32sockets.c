@@ -27,8 +27,8 @@
  *  w32sockets.c: POSIX socket emulation layer for Windows
  *
  *  Known contributors to this file:
- *     Ron Koenderink, 2007
- *     Markus Armbruster, 2007-2009
+ *     Ron Koenderink, 2007-2010
+ *     Markus Armbruster, 2007-2010
  */
 
 /*

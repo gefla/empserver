@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Shelley Louie, 1988
- *     Markus Armbruster, 2006
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>

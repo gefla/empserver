@@ -27,7 +27,7 @@
  *  trechk.c: Check to see if an actor has violated a treaty.
  *
  *  Known contributors to this file:
- *      Steve McClure, 1998-1999
+ *     Steve McClure, 1998-1999
  */
 
 /*

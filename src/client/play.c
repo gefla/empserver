@@ -27,7 +27,7 @@
  *  play.c: Playing the game
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2009
+ *     Markus Armbruster, 2007-2010
  *     Ron Koenderink, 2007-2009
  */
 

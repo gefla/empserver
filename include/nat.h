@@ -31,7 +31,7 @@
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2005-2008
- *     Markus Armbruster, 2005-2008
+ *     Markus Armbruster, 2005-2011
  */
 
 #ifndef NAT_H

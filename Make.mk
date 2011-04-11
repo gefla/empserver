@@ -27,7 +27,7 @@
 #   Make.mk: The real Makefile, included by GNUmakefile
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2009
+#      Markus Armbruster, 2005-2011
 #
 
 # This makefile was inspired by `Recursive Make Considered Harmful',

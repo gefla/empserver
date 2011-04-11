@@ -27,7 +27,7 @@
 #   configure.ac: Autoconf input file
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2009
+#      Markus Armbruster, 2005-2010
 #
 # Process this file with autoconf to produce a configure script.
 

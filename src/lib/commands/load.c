@@ -30,7 +30,7 @@
  *     David Sharnoff, 1987
  *     Ken Stevens, 1995 (rewritten)
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>

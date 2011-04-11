@@ -27,7 +27,7 @@
  *  xdump.h: Extended dumps
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2008
+ *     Markus Armbruster, 2008-2011
  */
 
 #ifndef XDUMP_H

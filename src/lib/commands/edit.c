@@ -31,7 +31,7 @@
  *     Chad Zabel, 1994
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2003-2009
- *     Markus Armbruster, 2003-2009
+ *     Markus Armbruster, 2003-2010
  */
 
 #include <config.h>

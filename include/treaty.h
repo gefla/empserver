@@ -27,7 +27,7 @@
  *  treaty.h: Definitions for treaties
  *
  *  Known contributors to this file:
- *      Steve McClure, 1998
+ *     Steve McClure, 1998
  */
 
 #ifndef TREATY_H

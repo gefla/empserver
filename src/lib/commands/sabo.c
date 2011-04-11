@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     John Yockey, 2001
- *     Markus Armbruster, 2003-2009
+ *     Markus Armbruster, 2003-2010
  */
 
 #include <config.h>

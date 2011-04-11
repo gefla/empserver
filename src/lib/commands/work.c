@@ -27,7 +27,7 @@
  *  work.c: Implementation of the work command
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2009
+ *     Markus Armbruster, 2009-2010
  */
 
 #include <config.h>

@@ -27,9 +27,10 @@
  *  io.c: Arrange for input and output on a file descriptor to be queued.
  *
  *  Known contributors to this file:
- *      Doug Hay, 1998
- *      Steve McClure, 1998
- *      Ron Koenderink, 2009
+ *     Doug Hay, 1998
+ *     Steve McClure, 1998
+ *     Markus Armbruster, 2004-2010
+ *     Ron Koenderink, 2009
  */
 
 /*

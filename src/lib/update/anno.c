@@ -31,7 +31,7 @@
  *     Doug Hay, 1998
  *     Steve McClure, 2000
  *     Ron Koenderink, 2004-2006
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2010
  */
 
 #include <config.h>

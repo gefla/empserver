@@ -27,7 +27,7 @@
  *  empsched.c: Show the update schedule
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2010
  */
 
 #include <config.h>
