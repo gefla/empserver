@@ -27,12 +27,13 @@
  *  path.h: Definitions for directions, paths, etc.
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2005-2011
  */
 
 #ifndef PATH_H
 #define PATH_H
 
+#include <stddef.h>
 #include "types.h"
 
 	/* direction indices */
@@ -51,6 +52,8 @@
 #define MOB_MOVE	0
 #define MOB_MARCH	1
 #define MOB_RAIL	2
+#define MOB_SAIL	3
+#define MOB_FLY		4
 
 enum p_mode {			/* How to find path to destination */
     P_NONE,			/* don't */
@@ -66,6 +69,20 @@ extern char *routech[DIR_LAST+1];
 
 /* src/lib/common/bestpath.c */
 extern char *bestownedpath(char *, char *, int, int, int, int, int);
+
+/* src/lib/common/findpath.c */
+extern void path_find_from(coord, coord, natid, int);
+extern double path_find_to(coord, coord);
+extern double path_find(coord, coord, coord, coord, natid, int);
+extern size_t path_find_route(char *, size_t, coord, coord, coord, coord);
+#ifdef PATH_FIND_DEBUG
+extern void path_find_visualize(coord, coord, coord, coord);
+#endif
+#ifdef PATH_FIND_STATS
+extern void path_find_print_stats(void);
+#else
+#define path_find_print_stats() ((void)0)
+#endif
 
 /* src/lib/common/path.c */
 extern void bp_enable_cachepath(void);

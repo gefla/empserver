@@ -24,13 +24,14 @@
  *
  *  ---
  *
- *  path.c: Empire/A* Interface code.
+ *  path.c: Path finding interface code
  *
  *  Known contributors to this file:
  *     Phil Lapsley, 1991
  *     Dave Pare, 1991
  *     Thomas Ruschak, 1993
  *     Steve McClure, 1997
+ *     Markus Armbruster, 2011
  */
 
 /*
@@ -47,16 +48,101 @@
 
 #include <config.h>
 
-#include <stdio.h>
+#include <string.h>
 #include "../as/as.h"
 #include "file.h"
-#include "misc.h"
 #include "optlist.h"
 #include "path.h"
 #include "prototypes.h"
 #include "sect.h"
 #include "xy.h"
 
+#ifdef USE_PATH_FIND
+void
+bp_enable_cachepath(void)
+{
+}
+
+void
+bp_disable_cachepath(void)
+{
+}
+
+void
+bp_clear_cachepath(void)
+{
+}
+
+char *
+BestLandPath(char *path,
+	     struct sctstr *from,
+	     struct sctstr *to, double *cost, int mob_type)
+{
+    double c;
+    size_t len;
+
+    *cost = 0.0;
+    *path = 0;
+
+    /*
+     * Note: passing from->sct_own for actor is funny, but works: its
+     * only effect is to confine the search to that nation's land.  It
+     * doesn't affect mobility costs.  The real actor is different for
+     * marching in allied land, and passing it would break path
+     * finding there.
+     */
+    c = path_find(from->sct_x, from->sct_y, to->sct_x, to->sct_y,
+		  from->sct_own, mob_type);
+    if (c < 0)
+	return NULL;
+    len = path_find_route(path, 1024,
+			  from->sct_x, from->sct_y,
+			  to->sct_x, to->sct_y);
+    if (len + 1 >= 1024)
+	return NULL;
+    strcpy(path + len, "h");
+    *cost = c;
+    return path;
+}
+
+char *
+BestDistPath(char *path,
+	     struct sctstr *from,
+	     struct sctstr *to, double *cost)
+{
+    return BestLandPath(path, from, to, cost, MOB_MOVE);
+}
+
+char *
+BestShipPath(char *path, int fx, int fy, int tx, int ty, int owner)
+{
+    size_t len;
+
+    if (path_find(fx, fy, tx, ty, owner, MOB_SAIL) < 0)
+	return NULL;
+    len = path_find_route(path, 100, fx, fy, tx, ty);
+    if (len >= 100)
+	return NULL;
+    if (len == 0)
+	strcpy(path, "h");
+    return path;
+}
+
+char *
+BestAirPath(char *path, int fx, int fy, int tx, int ty)
+{
+    size_t len;
+
+    if (path_find(fx, fy, tx, ty, 0, MOB_FLY) < 0)
+	return NULL;
+    len = path_find_route(path, 100, fx, fy, tx, ty);
+    if (len >= 100)
+	return NULL;
+    if (len == 0)
+	strcpy(path, "h");
+    return path;
+}
+#else	/* !USE_PATH_FIND */
 #define BP_ASHASHSIZE	128	/* A* queue hash table size */
 #define BP_NEIGHBORS	6	/* max number of neighbors */
 
@@ -397,3 +483,4 @@ BestAirPath(char *path, int fx, int fy, int tx, int ty)
 {
     return bestownedpath(path, NULL, fx, fy, tx, ty, -1);
 }
+#endif	/* !USE_PATH_FIND */
