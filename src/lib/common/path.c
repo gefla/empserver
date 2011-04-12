@@ -25,13 +25,24 @@
  *  ---
  *
  *  path.c: Empire/A* Interface code.
- *          Define AS_STATS for A* statistics.
  *
  *  Known contributors to this file:
  *     Phil Lapsley, 1991
  *     Dave Pare, 1991
  *     Thomas Ruschak, 1993
  *     Steve McClure, 1997
+ */
+
+/*
+ * Define AS_STATS for A* statistics on stderr.
+ *
+ * Define AS_NO_PATH_CACHE to disable the path cache.  The path cache
+ * saves a lot of work, but uses lots of memory.  It should be a
+ * significant net win, unless you run out of memory.
+ *
+ * Define AS_NO_NEIGHBOR_CACHE to disable the neighbor cache.  The
+ * neighbor cache trades a modest amount of memory to save a bit of
+ * work.  In its current form, it doesn't really make a difference.
  */
 
 #include <config.h>
@@ -50,8 +61,6 @@
 #define BP_NEIGHBORS	6	/* max number of neighbors */
 
 struct bestp {
-    int sctcache_hits;
-    int sctcache_misses;
     int bp_mobtype;
     struct as_data *adp;
 };
@@ -81,8 +90,10 @@ bp_init(void)
     if (bp->adp == NULL)
 	return NULL;
 
+#ifndef AS_NO_NEIGHBOR_CACHE
     if (neighsects == NULL)
 	neighsects = calloc(WORLD_SZ() * 6, sizeof(struct sctstr *));
+#endif
 
     return bp;
 }
@@ -99,11 +110,16 @@ best_path(struct sctstr *from, struct sctstr *to, char *path, int mob_type)
     static struct bestp *mybestpath;
     struct as_data *adp;
     struct as_path *ap;
+    int res;
 
     if (!mybestpath)
 	mybestpath = bp_init();
     adp = mybestpath->adp;
+#ifdef AS_NO_PATH_CACHE
+    ap = NULL;
+#else
     ap = as_find_cachepath(from->sct_x, from->sct_y, to->sct_x, to->sct_y);
+#endif
     if (ap == NULL) {
 	adp->from.x = from->sct_x;
 	adp->from.y = from->sct_y;
@@ -111,22 +127,21 @@ best_path(struct sctstr *from, struct sctstr *to, char *path, int mob_type)
 	adp->to.y = to->sct_y;
 	mybestpath->bp_mobtype = mob_type;
 
-	if (as_search(adp) < 0)
+	res = as_search(adp);
+#ifdef AS_STATS
+	as_stats(adp, stderr);
+#ifndef AS_NO_NEIGHBOR_CACHE
+	fprintf(stderr, "neighbor cache %zu bytes\n",
+		WORLD_SZ() * 6 * sizeof(struct sctstr *));
+#endif
+#endif
+	if (res < 0)
 	    return -1;
 	ap = adp->path;
     }
 
     if (bp_path(ap, path) < 0)
 	return -1;
-
-#ifdef AS_STATS
-    as_stats(adp, stderr);
-#endif /* AS_STATS */
-#ifdef BP_STATS
-    fprintf(stderr, "best path %s\n", path);
-    fprintf(stderr, "cache hits/misses: %d/%d\n",
-	    bp->sctcache_hits, bp->sctcache_misses);
-#endif /* BP_STATS */
     return 0;
 }
 
@@ -211,8 +226,8 @@ bp_neighbors(struct as_coord c, struct as_coord *cp, void *pp)
 	    *ssp = sp;
 	} else {
 	    sp = *ssp;
-	    sx = XNORM(sp->sct_x);
-	    sy = YNORM(sp->sct_y);
+	    sx = sp->sct_x;
+	    sy = sp->sct_y;
 	}
 	/* No need to calculate cost each time, just make sure we can
 	   move through it.  We calculate it later. */
@@ -281,19 +296,25 @@ bp_coord_hash(struct as_coord c)
 void
 bp_enable_cachepath(void)
 {
+#ifndef AS_NO_PATH_CACHE
     as_enable_cachepath();
+#endif
 }
 
 void
 bp_disable_cachepath(void)
 {
+#ifndef AS_NO_PATH_CACHE
     as_disable_cachepath();
+#endif
 }
 
 void
 bp_clear_cachepath(void)
 {
+#ifndef AS_NO_PATH_CACHE
     as_clear_cachepath();
+#endif
 }
 
 double

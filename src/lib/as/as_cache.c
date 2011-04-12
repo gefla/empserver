@@ -58,6 +58,15 @@ static struct as_frompath **fromhead = (struct as_frompath **)0;
 
 static int as_cachepath_on = 0;	/* Default to off */
 
+#ifdef AS_STATS
+unsigned as_cache_tries, as_cache_hits;
+#define as_cache_try() ((void)as_cache_tries++)
+#define as_cache_hit() ((void)as_cache_hits++)
+#else
+#define as_cache_try() ((void)0)
+#define as_cache_hit() ((void)0)
+#endif
+
 void
 as_enable_cachepath(void)
 {
@@ -142,6 +151,13 @@ as_clear_cachepath(void)
     struct as_frompath *from, *from2;
     struct as_topath *to, *to2;
     int i, j;
+#ifdef AS_STATS
+    size_t index_sz = 0;
+    unsigned index_nb = 0, paths_nb = 0, paths = 0;
+#define stats_index(sz) ((void)(index_sz += (sz), index_nb++))
+#else
+#define stats_index(sz) ((void)0)
+#endif
 
     /* Cache not used yet :) */
     if (fromhead == NULL)
@@ -153,22 +169,43 @@ as_clear_cachepath(void)
 		for (to = from->tolist[i]; to; to = to2) {
 		    to2 = to->next;
 		    /* Free this path */
+#ifdef AS_STATS
+		    {
+			struct as_path *pp;
+			for (pp = to->path; pp; pp = pp->next)
+			    paths_nb++;
+			paths++;
+		    }
+#endif
 		    as_free_path(to->path);
 		    /* Free this node */
 		    free(to);
+		    stats_index(sizeof(*to));
 		}
 	    }
 	    /* Now, free the list of lists */
 	    free(from->tolist);
+	    stats_index(WORLD_Y * sizeof(*from->tolist));
 	    /* Save the next pointer */
 	    from2 = from->next;
 	    /* now, free this from node */
 	    free(from);
+	    stats_index(sizeof(*from));
 	}
     }
     /* Note we don't free the fromhead here, we just zero it.  That way,
        we can use it next time without mallocing int */
     memset(fromhead, 0, (sizeof(struct as_frompath *) * WORLD_Y));
+    stats_index(WORLD_Y * sizeof(*fromhead));
+#ifdef AS_STATS
+    fprintf(stderr, "as_cache %u searches, %u hits, %u entries,"
+	    " index %zu bytes %u blocks, paths %zu bytes %u blocks\n",
+	    as_cache_tries, as_cache_hits,
+	    paths,
+	    index_sz, index_nb,
+	    paths_nb * sizeof(struct as_path), paths_nb);
+    as_cache_hits = as_cache_tries = 0;
+#endif
 }
 
 struct as_path *
@@ -177,6 +214,7 @@ as_find_cachepath(coord fx, coord fy, coord tx, coord ty)
     struct as_frompath *from;
     struct as_topath *to;
 
+    as_cache_try();
     /* Is the cache on?  if not, return NULL */
     if (as_cachepath_on == 0)
 	return NULL;
@@ -189,8 +227,10 @@ as_find_cachepath(coord fx, coord fy, coord tx, coord ty)
     for (from = fromhead[fy]; from; from = from->next) {
 	if (from->x == fx) {
 	    for (to = from->tolist[ty]; to; to = to->next) {
-		if (to->x == tx)
+		if (to->x == tx) {
+		    as_cache_hit();
 		    return to->path;
+		}
 	    }
 	}
     }
