@@ -438,11 +438,13 @@ getin(char *buf, char **valp)
     return thing;
 }
 
+#if 0	/* not needed right now */
 static void
 warn_deprecated(char key)
 {
     pr("Key <%c> is deprecated and will go away in a future release\n", key);
 }
+#endif
 
 static int
 doland(char op, int arg, char *p, struct sctstr *sect)
@@ -795,9 +797,6 @@ doship(char op, int arg, char *p, struct shpstr *ship)
     case 'M':
 	ship->shp_mobil = arg;
 	break;
-    case 'B':
-	warn_deprecated(op);
-	break;
     case 'F':
 	if (p[0] == '~')
 	    ship->shp_fleet = 0;
@@ -909,14 +908,8 @@ dounit(char op, int arg, char *p, struct lndstr *land)
     case 'F':
 	land->lnd_harden = errcheck(arg, 0, 255);
 	break;
-    case 'B':
-	warn_deprecated(op);
-	break;
     case 'S':
 	land->lnd_ship = arg;
-	break;
-    case 'P':
-	warn_deprecated(op);
 	break;
     case 'Z':
 	land->lnd_retreat = arg;
@@ -980,9 +973,6 @@ doplane(char op, int arg, char *p, struct plnstr *plane)
     coord newx, newy;
 
     switch (op) {
-    case 'n':
-	warn_deprecated(op);
-	break;
     case 'U':
 	ef_set_uid(EF_PLANE, plane, arg);
 	break;
