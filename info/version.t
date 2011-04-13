@@ -12,7 +12,7 @@ For example:
 .s1
 .EX version
 .NF
-Wolfpack Empire 4.3.26
+Wolfpack Empire 4.3.27
 
 The following parameters have been set for this game:
 World size is 64 by 32.
@@ -20,7 +20,7 @@ There can be up to 99 countries.
 By default, countries use their own coordinate system.
 
 Use the 'show' command to find out the time of the next update.
-The current time is Sat May 22 15:03:58.
+The current time is Wed Apr 13 07:09:54.
 An update consists of 60 empire time units.
 Each country is allowed to be logged in 1440 minutes a day.
 It takes 8.33 civilians to produce a BTU in one time unit.
@@ -75,13 +75,13 @@ You can have at most 640 BTUs.
 You are disconnected after 15 minutes of idle time.
 
 Options enabled in this game:
-	ALL_BLEED, BLITZ, BRIDGETOWERS, EASY_BRIDGES, FALLOUT, GODNEWS,
-	INTERDICT_ATT, LANDSPIES, NOFOOD, NOMOBCOST, NO_PLAGUE, RAILWAYS, SAIL,
-	TREATIES
+	ALL_BLEED, BLITZ, EASY_BRIDGES, FALLOUT, GODNEWS, INTERDICT_ATT,
+	LANDSPIES, NOFOOD, NOMOBCOST, NO_PLAGUE, RAILWAYS, SAIL, TREATIES
 
 Options disabled in this game:
-	AUTO_POWER, GO_RENEW, GUINEA_PIGS, HIDDEN, LOANS, LOSE_CONTACT, MARKET,
-	MOB_ACCESS, NO_FORT_FIRE, RES_POP, SUPER_BARS, TECH_POP, TRADESHIPS
+	AUTO_POWER, BRIDGETOWERS, GO_RENEW, GUINEA_PIGS, HIDDEN, LOANS,
+	LOSE_CONTACT, MARKET, MOB_ACCESS, NO_FORT_FIRE, RES_POP, SUPER_BARS,
+	TECH_POP, TRADESHIPS
 
 See "info Options" for a detailed list of options and descriptions.
 
@@ -91,8 +91,8 @@ The person to annoy if something goes wrong is:
 
 You can get your own copy of the source from http://www.wolfpackempire.com/
 
-Copyright (C) 1986-2010, Dave Pare, Jeff Bailey, Thomas Ruschak,
-                         Ken Stevens, Steve McClure
+Copyright (C) 1986-2011, Dave Pare, Jeff Bailey, Thomas Ruschak,
+              Ken Stevens, Steve McClure, Markus Armbruster
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 .FI
