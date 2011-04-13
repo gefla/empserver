@@ -39,25 +39,29 @@
 
 use strict;
 use warnings;
+use File::stat;
 
 # The chapters, in order
 our @Chapters = qw/Introduction Concept Command Server/;
 
 our $filename;
-my (%subject, %level, %desc);
+my (%subject, %level, %desc, %long);
 my $largest = "";
 
 my $out = shift @ARGV;
 $out =~ /([^\/]*)\.t$/
     or die "Strange subject file name $out";
 my $subj = $1;
+my $any_long = 0;
 
 for (@ARGV) {
-    my ($topic, $chap, $lvl, $desc) = parse_file($_);
+    my ($topic, $chap, $lvl, $desc, $long) = parse_file($_);
     $largest = $topic if length $topic > length $largest;
     $subject{$chap} .= "$topic\n";
     $level{$topic} = $lvl;
     $desc{$topic} = $desc;
+    $long{$topic} = $long;
+    $any_long = 1 if $long;
 }
 
 open(SUBJ, ">$out")
@@ -72,12 +76,11 @@ for my $chap (@Chapters) {
     next unless exists $subject{$chap};
     print SUBJ ".s1\n";
     for (split(/\n/, $subject{$chap})) {
-	print SUBJ ".L \"$_ ";
-	if ($level{$_} eq 'Basic') {
-	    print SUBJ "* \"\n";
-	} else {
-	    print SUBJ "  \"\n";
-	}
+	my $flags = "";
+	$flags .= "*" if $level{$_} eq 'Basic';
+	$flags .= "!" if $long{$_};
+	$flags = sprintf("%-2s", $flags);
+	print SUBJ ".L \"$_ $flags\"\n";
 	print SUBJ "$desc{$_}\n";
     }
 }
@@ -89,15 +92,22 @@ For info on a particular subject, type "info <subject>" where <subject> is
 one of the subjects listed above.  Subjects marked by * are the most
 important and should be read by new players.
 EOF
+print SUBJ <<EOF if $any_long;
+Unusually long subjects are marked with a !.
+EOF
 close SUBJ;
 
 
 sub parse_file {
     ($filename) = @_;
-    my ($topic, $chap, $lvl, $desc);
+    my ($topic, $chap, $lvl, $desc, $long, $st);
 
     $topic = $filename;
     $topic =~ s,.*/([^/]*)\.t$,$1,;
+
+    $st = stat $filename
+	or die "Can't stat $filename: $!";
+    $long = $st->size > 9999;
 
     open(F, "<$filename")
 	or die "Can't open $filename: $!";
@@ -137,7 +147,7 @@ sub parse_file {
 
     close F;
 
-    return ($topic, $chap, $lvl, $desc);
+    return ($topic, $chap, $lvl, $desc, $long);
 }
 
 # Print an integrity error message and exit with code 1
