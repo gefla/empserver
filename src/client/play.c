@@ -432,11 +432,11 @@ recv_input(int fd, struct ring *inbuf)
 	assert(ch != EOF);
 	if (ch != '\r' && lbuf_putc(&cmdbuf, ch) > 0) {
 	    line = lbuf_line(&cmdbuf);
-	    if (auxfp)
-		fputs(line, auxfp);
 	    save_input(line);
 	    lbuf_init(&cmdbuf);
 	}
+	if (auxfp)
+	    putc(ch, auxfp);
     }
 
     return res;
