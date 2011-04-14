@@ -1,3 +1,151 @@
+Changes to Empire 4.3.27 - Thu Apr 14 18:52:05 UTC 2011
+ * License upgrade to GPL version 3 or later
+ * Fix client to log long input lines untruncated
+ * Fix client crash for long input lines
+ * info subject pages now mark unusually long pages with a !.
+ * The edit command keys deprecated in 4.3.15, 4.3.17 and 4.3.20 are
+   now gone.
+ * Fix give not to wipe out concurrent updates.
+ * Fix explore, move, test, transport not to ignore spaces in path
+   arguments.  Broken in 4.3.7.
+ * Improvements to map drawing commands:
+   - Don't fail silently when asked to draw a map around an invalid
+     unit, explain the problem.
+   - Deprecate bmap flag "r".  Use (a prefix of) "revert" instead.
+   - bmap flags following "t" are no longer ignored.  However, info
+     pages previously documented an argument "true" in addition to
+     flag "t".  To keep that working, keep ignoring flags following
+     "t" when they're bad.  But deprecate that usage.
+   - Reverting the bmap no longer draws a map.
+   - Bad conditionals could make the commands misinterpret their first
+     argument.
+   - The commands now fail when they reject their second argument.
+ * The xdump syntax deprecated in 4.3.12 is now gone.
+ * Fix satellite to fail on bad conditionals instead of ignoring them.
+ * Journal improvements:
+   - Optional logging of output.
+   - Long lines are no longer truncated.
+   - Login phase input is now logged, too.
+   - Commands are now logged.  Allows making sense of input without
+     context.
+ * Option BRIDGETOWERS is now disabled by default.
+ * Bridge towers now take 300 hcms to build, down from 400.
+ * Fix stop orders to expire even when the country is broke.  Broken
+   in 4.3.8.
+ * Fix march and navigate not to advise on "legal directions" when
+   path finding fails.
+ * New path finder:
+   - Much faster, especially for distribution, i.e. where it matters
+     most.  Speedups in excess of 30x have been observed for updates
+     taken from real games.
+   - Old land path finder leaked memory occasionally.
+   - Old land path finder overran buffers for very long paths.  A
+     malicious player can arrange sufficiently long paths, but it
+     takes a lot of land.  Distribution, the distribute command, land
+     unit reaction, and automatic supply now handle arbitrary long
+     paths.  Commands explore, move, test, transport, march, navigate
+     and path now handle paths up to 1023 characters.  Command
+     bestpath shows paths longer than 1023 characters with the tail
+     replaced by "...".
+   - Old sea and air path finder treated destinations as unreachable
+     when the best path was longer than 99 characters.  Command sorder
+     now handles arbitrary long paths.  Commands bomb, drop, fly,
+     paradrop, recon, sweep and sail now handle paths up to 1023
+     characters.  Autonav considers up to 1023 characters at the
+     update.  Planes can fly missions up to 1023 sectors from their
+     base.
+ * Automatic supply charged mobility for the path back to the source
+   instead forward to the sink.
+ * Make bestpath work for deities in foreign land.
+ * More robust savecore example script.
+ * Fix buffer overruns in the lookout, spy, map and nmap commands when
+   WORLD_X * WORLD_Y not a multiple of 16.
+ * The path command's maps weren't always fitted to the path
+   correctly.  Broken in 4.3.17.
+ * Land units no longer hit allied mines.
+ * Change sharebmap with yourself to do nothing instead of telling you
+   you're not friendly to yourself.
+ * You can now flash yourself.  Enjoy!
+ * A race condition could make the flash command claim an ally was not
+   logged on when he was.  Hard to trigger outside the lab.
+ * The flash command no longer prints "Flash sent" for deities.  It's
+   annoying.  It never did that for mortals.
+ * Plug memory leaks in mission code on a number of conditions:
+   - Submarines moving where own planes would interdict hostile
+     submarines
+   - Ground combat where countries hostile to one of the parties would
+     support if relations were right (allied to one party, at war with
+     the other)
+   - Ships or land units moving within hostile missile mission op
+     areas
+   - Any player action within marine missile mission op areas that
+     could trigger the missile owners' missions.
+ * Attack fixes:
+   - When you ordered a sector to attack with military, but lost the
+     sector before the attack was executed, and the new owner was
+     allied to you, the server got confused: it let the military
+     attack even though they were already dead, but not occupy.
+   - When you ordered a land unit to attack from an allied sector, and
+     the sector got lost before the attack was executed, the server
+     reported things as if you had owned the sector yourself.  The
+     land unit still attacked when the new owner was also allied to
+     you.  No more.
+   - When a land unit attacked out of an allied sector, its mobility
+     cost was computed as if the ally owned the land unit.  Attacking
+     sectors old-owned by that ally was too cheap, and taking back
+     one's own was too expensive.
+ * Fix trade ships to pay off in own harbor.  Broken in 4.3.17.
+ * Remove option SLOW_WAR.  It hasn't been enabled in a public game
+   for years, and the code implementing it was buggy.
+ * Fix a bug in sail that limited the sail path to 27 instead of the
+   intended 28 characters.
+ * Fix race condition in transmission of flash and telegram
+   information messages that could double output and possibly crash
+   the server.
+ * Planes get to sweep and sonar only after flak and interception.
+ * Don't limit the radar command's range to fit its output into a
+   world map without clipping.  The limiting goes back to Chainsaw 2.
+ * Make flak vs. pinpoint bombing consistent with ordinary flak:
+   - 4.3.6 reduced the plane abort chance on damage, but missed the
+     additional flak vs. pinpoint bombing.  Fix that.
+   - Fix to charge mobility appropriate for damage.
+ * Prettier flak damage reporting.
+ * Fix bugs that could cause bmap updates from recon and satellite to
+   be lost.
+ * Fix lookout to properly report sector ownership to deities.
+ * Suppress bogus messages deities with non-zero country number got
+   when attempting to navigate foreign ships or march foreign land
+   units.  Such deity use hasn't worked since Empire 2.
+ * Deities can no longer fly foreign planes.  It didn't fully work
+   since Chainsaw 3, and can trigger internal errors since 4.3.11.
+ * Don't split lines over several bulletins.  The read command
+   normally merges these bulletins, but if they are more than five
+   seconds apart (clock jumped somehow), we get a bulletin header in
+   the middle of a line.  Broken since Empire 2.
+ * Don't beep when plane, land unit or nuke die on a collapsing
+   bridge.  Not nice, because it could beep many times, and could put
+   beeps in bulletins.  Beeping was added in 4.0.18.
+ * Minor improvements to nuclear damage reporting.
+ * When a deity dropped a foreign nuke, parts of the output went to
+   the owner of the nuke instead of the deity.
+ * When a player triggered a foreign missile launch (mission or
+   interception), and the missile exploded on launch, part of the
+   report went to the player instead of the missile owner.  This
+   disclosed the missile owner's origin.  Broken in Empire 2.
+ * When autonav reported to a ship owner that it can't load or unload
+   foreign civilians, it used the sector owner's coordinate system.
+   This disclosed the sector owner's origin.  Abusable.
+ * When nuclear damage bounced off a sanctuary, the bulletin to the
+   sanctuary owner used the attacker's coordinate system.  This
+   disclosed the attacker's origin.
+ * When a deity used sweep, lmine, sail or sabotage with a foreign
+   plane, land unit or ship, its location was reported in the foreign
+   coordinate system.
+ * When a deity asked for a foreign nation report, the capital
+   location was reported in the foreign coordinate system.
+ * Code refactoring and cleanup.
+ * Info file improvements.
+
 Changes to Empire 4.3.26 - Mon May 24 16:37:40 UTC 2010
  * Land units loaded on ships or land units can no longer fight che.
  * When foreign land units were present, a che revolt could damage
@@ -353,7 +501,8 @@ Changes to Empire 4.3.20 - Fri Feb 20 18:14:20 UTC 2009
  * Reserve and escort missions now have an op-area, like all the other
    missions.
  * Land units now react only when on a reserve mission.  The lrange
-   command is gone.
+   command is gone.  The edit command still accepts and ignores the
+   land unit key 'P' for compatibility, but it is deprecated.
  * Fix a bug that could mess up mission op-area when the range of
    ship, plane or land unit on the mission decreases, e.g. through the
    range command.
@@ -461,6 +610,8 @@ Changes to Empire 4.3.17 - Sat Sep 20 16:07:44 UTC 2008
    state, because they duplicate information already there.  Same for
    the type of nuke loaded on a plane.  Remove field nuketype from
    xdump plane.  Clients can simply find the plane's nuke instead.
+   The edit command still accepts and ignores the plane key 'n' for
+   compatibility, but it is deprecated.
  * Ship and land unit load counts as displayed by ship, sdump, land,
    ldump, ship selectors nplane, nxlight, nchoppers, nland, and land
    selectors nxlight, nland are now reliable.  They used to get out of
