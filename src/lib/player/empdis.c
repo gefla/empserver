@@ -80,7 +80,7 @@ getcommand(char *combufp)
     do {
 	prprompt(natp->nat_timeused / 60, natp->nat_btu);
 	buf[0] = 0;
-	if (recvclient(buf, 1024) < 0) {
+	if (recvclient(buf, sizeof(buf)) < 0) {
 	    return -1;
 	}
     } while (buf[0] == 0);
