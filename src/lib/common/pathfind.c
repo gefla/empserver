@@ -371,8 +371,7 @@ pf_set_source(coord sx, coord sy, natid actor, double (*cost)(natid, int))
 double
 path_find_to(coord dx, coord dy)
 {
-    int duid;
-    int uid, nuid, i;
+    int duid, nuid, i;
     double cost, c1;
     coord x, y, nx, ny;
 
@@ -385,7 +384,7 @@ path_find_to(coord dx, coord dy)
 	return pf_map[duid].cost;
     }
 
-    while (pf_nheap > 0 && (uid = pf_heap[0].uid) != duid) {
+    while (pf_nheap > 0 && pf_heap[0].uid != duid) {
 	x = pf_heap[0].x;
 	y = pf_heap[0].y;
 	cost = pf_heap[0].cost;
