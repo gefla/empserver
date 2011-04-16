@@ -110,8 +110,8 @@ journal_entry_pr(char *s, size_t n)
 	return;
     for (p = (unsigned char *)s; *p && n; p++) {
 	if (*p == '\\')
-	    fputs("\\\\", journal);
-	else if (isprint(*p))
+	    fprintf(journal, "\\\\");
+	else if (isprint(*p) || *p == '\t')
 	    putc(*p, journal);
 	else
 	    fprintf(journal, "\\%03o", *p);
