@@ -61,15 +61,15 @@ setsector(void)
     char0 = what[0];
     char1 = what[1];
 
-    switch (char0) {
-    case 'i':
-	if (!snxtsct(&nstr, player->argp[2]))
+    if (!snxtsct(&nstr, player->argp[2]))
+	return RET_SYN;
+    while (nxtsct(&nstr, &sect) > 0) {
+	p = getstarg(player->argp[3], "What value : ", buf);
+	if (!p || !*p)
 	    return RET_SYN;
-	while (nxtsct(&nstr, &sect) > 0) {
-	    p = getstarg(player->argp[3], "What value : ", buf);
-	    if (!p || !*p)
-		return RET_SYN;
-	    amt = atoi(p);
+	amt = atoi(p);
+	switch (char0) {
+	case 'i':
 	    current = sect.sct_min;
 	    current += amt;
 	    if (current < 0)
@@ -80,17 +80,8 @@ setsector(void)
 		resnoise(&sect, 1, "Iron ore content",
 			 (int)sect.sct_min, current);
 	    sect.sct_min = (unsigned char)current;
-	    putsect(&sect);
-	}
-	break;
-    case 'g':
-	if (!snxtsct(&nstr, player->argp[2]))
-	    return RET_SYN;
-	while (nxtsct(&nstr, &sect) > 0) {
-	    p = getstarg(player->argp[3], "What value : ", buf);
-	    if (!p || !*p)
-		return RET_SYN;
-	    amt = atoi(p);
+	    break;
+	case 'g':
 	    current = sect.sct_gmin;
 	    current += amt;
 	    if (current < 0)
@@ -101,19 +92,10 @@ setsector(void)
 		resnoise(&sect, 1, "Gold content",
 			 (int)sect.sct_gmin, current);
 	    sect.sct_gmin = (unsigned char)current;
-	    putsect(&sect);
-	}
-	break;
-    case 'o':
-	switch (char1) {
-	case 'i':
-	    if (!snxtsct(&nstr, player->argp[2]))
-		return RET_SYN;
-	    while (nxtsct(&nstr, &sect) > 0) {
-		p = getstarg(player->argp[3], "What value : ", buf);
-		if (!p || !*p)
-		    return RET_SYN;
-		amt = atoi(p);
+	    break;
+	case 'o':
+	    switch (char1) {
+	    case 'i':
 		current = sect.sct_oil;
 		current += amt;
 		if (current < 0)
@@ -124,17 +106,8 @@ setsector(void)
 		    resnoise(&sect, 1, "Oil content",
 			     (int)sect.sct_oil, current);
 		sect.sct_oil = (unsigned char)current;
-		putsect(&sect);
-	    }
-	    break;
-	case 'w':
-	    if (!snxtsct(&nstr, player->argp[2]))
-		return RET_SYN;
-	    while (nxtsct(&nstr, &sect) > 0) {
-		p = getstarg(player->argp[3], "What value : ", buf);
-		if (!p || !*p)
-		    return RET_SYN;
-		amt = atoi(p);
+		break;
+	    case 'w':
 		if ((amt < 0) || (amt > MAXNOC - 1))
 		    return RET_SYN;
 		pr("Owner of %s changed from %s (#%d) to %s (#%d).\n",
@@ -150,17 +123,8 @@ setsector(void)
 		       "Sector %s gained from deity intervention\n",
 		       xyas(sect.sct_x, sect.sct_y, amt));
 		sect.sct_own = (natid)amt;
-		putsect(&sect);
-	    }
-	    break;
-	case 'l':
-	    if (!snxtsct(&nstr, player->argp[2]))
-		return RET_SYN;
-	    while (nxtsct(&nstr, &sect) > 0) {
-		p = getstarg(player->argp[3], "What value : ", buf);
-		if (!p || !*p)
-		    return RET_SYN;
-		amt = atoi(p);
+		break;
+	    case 'l':
 		if ((amt < 0) || (amt > MAXNOC - 1))
 		    return RET_SYN;
 		pr("Old owner of %s changed from %s (#%d) to %s (#%d).\n",
@@ -168,22 +132,13 @@ setsector(void)
 		   cname(sect.sct_oldown),
 		   sect.sct_oldown, cname(amt), amt);
 		sect.sct_oldown = (natid)amt;
-		putsect(&sect);
+		break;
+	    default:
+		pr("huh?\n");
+		return RET_SYN;
 	    }
 	    break;
-	default:
-	    pr("huh?\n");
-	    return RET_SYN;
-	}
-	break;
-    case 'e':
-	if (!snxtsct(&nstr, player->argp[2]))
-	    return RET_SYN;
-	while (nxtsct(&nstr, &sect) > 0) {
-	    p = getstarg(player->argp[3], "What value : ", buf);
-	    if (!p || !*p)
-		return RET_SYN;
-	    amt = atoi(p);
+	case 'e':
 	    current = sect.sct_effic;
 	    current += amt;
 	    if (current < 0)
@@ -193,19 +148,10 @@ setsector(void)
 	    pr("Efficiency in %s changed to %d.\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
 	    sect.sct_effic = current;
-	    putsect(&sect);
-	}
-	break;
-    case 'm':
-	switch (char1) {
-	case 'i':
-	    if (!snxtsct(&nstr, player->argp[2]))
-		return RET_SYN;
-	    while (nxtsct(&nstr, &sect) > 0) {
-		p = getstarg(player->argp[3], "What value : ", buf);
-		if (!p || !*p)
-		    return RET_SYN;
-		amt = atoi(p);
+	    break;
+	case 'm':
+	    switch (char1) {
+	    case 'i':
 		current = sect.sct_mines;
 		current += amt;
 		if (current < 0)
@@ -215,17 +161,8 @@ setsector(void)
 		if (sect.sct_own != 0)
 		    resnoise(&sect, 1, "Mines", sect.sct_mines, current);
 		sect.sct_mines = current;
-		putsect(&sect);
-	    }
-	    break;
-	case 'o':
-	    if (!snxtsct(&nstr, player->argp[2]))
-		return RET_SYN;
-	    while (nxtsct(&nstr, &sect) > 0) {
-		p = getstarg(player->argp[3], "What value : ", buf);
-		if (!p || !*p)
-		    return RET_SYN;
-		amt = atoi(p);
+		break;
+	    case 'o':
 		current = sect.sct_mobil;
 		current += amt;
 		if (current < -127)
@@ -235,22 +172,13 @@ setsector(void)
 		pr("Mobility in %s changed to %d.\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum), current);
 		sect.sct_mobil = current;
-		putsect(&sect);
+		break;
+	    default:
+		pr("huh?\n");
+		return RET_SYN;
 	    }
 	    break;
-	default:
-	    pr("huh?\n");
-	    return RET_SYN;
-	}
-	break;
-    case 'a':
-	if (!snxtsct(&nstr, player->argp[2]))
-	    return RET_SYN;
-	while (nxtsct(&nstr, &sect) > 0) {
-	    p = getstarg(player->argp[3], "What value : ", buf);
-	    if (!p || !*p)
-		return RET_SYN;
-	    amt = atoi(p);
+	case 'a':
 	    current = sect.sct_avail;
 	    current += amt;
 	    if (current < 0)
@@ -260,17 +188,8 @@ setsector(void)
 	    pr("Available in %s changed to %d.\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
 	    sect.sct_avail = (short)current;
-	    putsect(&sect);
-	}
-	break;
-    case 'w':
-	if (!snxtsct(&nstr, player->argp[2]))
-	    return RET_SYN;
-	while (nxtsct(&nstr, &sect) > 0) {
-	    p = getstarg(player->argp[3], "What value : ", buf);
-	    if (!p || !*p)
-		return RET_SYN;
-	    amt = atoi(p);
+	    break;
+	case 'w':
 	    current = sect.sct_work;
 	    current += amt;
 	    if (current < 0)
@@ -280,17 +199,8 @@ setsector(void)
 	    pr("Work in %s changed to %d.\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
 	    sect.sct_work = (unsigned char)current;
-	    putsect(&sect);
-	}
-	break;
-    case 'f':
-	if (!snxtsct(&nstr, player->argp[2]))
-	    return RET_SYN;
-	while (nxtsct(&nstr, &sect) > 0) {
-	    p = getstarg(player->argp[3], "What value : ", buf);
-	    if (!p || !*p)
-		return RET_SYN;
-	    amt = atoi(p);
+	    break;
+	case 'f':
 	    current = sect.sct_fertil;
 	    current += amt;
 	    if (current < 0)
@@ -301,17 +211,8 @@ setsector(void)
 		resnoise(&sect, 1, "Fertility content",
 			 (int)sect.sct_fertil, current);
 	    sect.sct_fertil = (unsigned char)current;
-	    putsect(&sect);
-	}
-	break;
-    case 'u':
-	if (!snxtsct(&nstr, player->argp[2]))
-	    return RET_SYN;
-	while (nxtsct(&nstr, &sect) > 0) {
-	    p = getstarg(player->argp[3], "What value : ", buf);
-	    if (!p || !*p)
-		return RET_SYN;
-	    amt = atoi(p);
+	    break;
+	case 'u':
 	    current = sect.sct_uran;
 	    current += amt;
 	    if (current < 0)
@@ -322,12 +223,12 @@ setsector(void)
 		resnoise(&sect, 1, "Uranium content",
 			 (int)sect.sct_uran, current);
 	    sect.sct_uran = (unsigned char)current;
-	    putsect(&sect);
+	    break;
+	default:
+	    pr("huh?\n");
+	    return RET_SYN;
 	}
-	break;
-    default:
-	pr("huh?\n");
-	return RET_SYN;
+	putsect(&sect);
     }
     return RET_OK;
 }
