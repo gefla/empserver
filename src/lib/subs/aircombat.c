@@ -778,6 +778,10 @@ getilists(struct emp_qelem *list, unsigned char *rel, natid intruder)
 	    continue;
 	if (plane.pln_effic < 40)
 	    continue;
+	if (opt_MARKET) {
+	    if (ontradingblock(EF_PLANE, &plane))
+		continue;
+	}
 	if (!pln_airbase_ok(&plane, 0, 0))
 	    continue;
 	/* got one! */
