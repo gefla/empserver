@@ -43,4 +43,7 @@ as possible. Include a transcript of the output of the problem,
 if available. The more information you provide, the easier it is
 for the deity to give you a quick & fair fix for the problem.
 .s1
-.SA "telegram, Communication, Playing"
+If you prefer e-mail, the \*Qversion\*U command shows the deity's
+e-mail address.
+.s1
+.SA "flash, telegram, version, Communication, Playing"
