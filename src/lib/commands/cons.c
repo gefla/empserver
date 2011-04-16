@@ -229,7 +229,7 @@ loan_accept(struct ltcomstr *ltcp)
     player->dolcost -= lp->l_amtdue;
     lp->l_amtpaid = 0;
     (void)time(&lp->l_lastpay);
-    lp->l_duedate = lp->l_ldur * 86400 + lp->l_lastpay;
+    lp->l_duedate = lp->l_ldur * SECS_PER_DAY + lp->l_lastpay;
     lp->l_status = LS_SIGNED;
     if (!putloan(ltcp->num, lp)) {
 	pr("Problem writing lp->to disk; get help!\n");
