@@ -68,6 +68,7 @@ setres(void)
 	    amt = 100;
 	if (amt < 0)
 	    amt = 0;
+	check_sect_ok(&sect);
 	switch (char0) {
 	case 'i':
 	    if (sect.sct_own != 0)

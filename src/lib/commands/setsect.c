@@ -68,6 +68,7 @@ setsector(void)
 	if (!p || !*p)
 	    return RET_SYN;
 	amt = atoi(p);
+	check_sect_ok(&sect);
 	switch (char0) {
 	case 'i':
 	    current = sect.sct_min;
