@@ -148,7 +148,6 @@ EMPCF_OPT("BRIDGETOWERS", opt_BRIDGETOWERS,
 EMPCF_COMMENT("# If you enable this, make sure that bridge spans can produce\n"
     "# sufficient avail.  Depending on your etu_per_update, you may have\n"
     "# to tweak buil_tower_bh, rollover_avail_max, or bridge span's maxpop.")
-// FIXME doc avail
 EMPCF_OPT("EASY_BRIDGES", opt_EASY_BRIDGES,
     "Allow bridge building without bridge heads")
 EMPCF_OPT("FALLOUT", opt_FALLOUT,
