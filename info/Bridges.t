@@ -2,8 +2,6 @@
 .NA Bridges "Building and destroying bridges"
 .LV Expert
 .s1
-BRIDGES
-.s1
 Normally bridges can only be built from bridge-heads. (See info
 \*QSector-types\*U). If the EASY_BRIDGES option is in use,
 bridges can be built from any sector
