@@ -7,14 +7,19 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.27 - Thu Apr 14 18:52:05 UTC 2011
- * License upgrade to GPL version 3 or later
+Changes to Empire 4.3.27 - Sun Apr 17 11:36:29 UTC 2011
+ * License upgrade to GPL version 3 or later.
+ * Fix buy not to wipe out concurrent updates.  Can be abused to
+   duplicate commodities.
+ * Don't let fighters, SAMs and ABMs intercept while on trading block.
+ * Don't let missiles interdict ships or land units while on trading
+   block.
  * Fix client to log long input lines untruncated
  * Fix client crash for long input lines
  * info subject pages now mark unusually long pages with a !.
  * The edit command keys deprecated in 4.3.15, 4.3.17 and 4.3.20 are
    now gone.
- * Fix give not to wipe out concurrent updates.
+ * Fix give, setsector and setres not to wipe out concurrent updates.
  * Fix explore, move, test, transport not to ignore spaces in path
    arguments.  Broken in 4.3.7.
  * Improvements to map drawing commands:
@@ -341,7 +346,7 @@ Changes to Empire 4.3.22 - Sat Apr 25 11:56:29 UTC 2009
  * Really fix bomb not to wipe out plane updates made while it asked
    for pinpoint targets.  The fix in 4.3.21 didn't cover escorts.
  * Fix tend land not to wipe out concurrent updates.
- * Fix a bug in automatic supply:
+ * Automatic supply fixes:
    - Ships with just two shells could fire a torpedo to return fire or
      interdict.
    - Ships with just one shell could use their anti-missile defense.
@@ -556,9 +561,9 @@ Changes to Empire 4.3.18 - Sat Oct 18 18:39:17 UTC 2008
 
 Changes to Empire 4.3.17 - Sat Sep 20 16:07:44 UTC 2008
  * Fix standalone client build for Windows.  Broken in 4.3.11.
- * Disable automatic supply of land units on load for now, it's broken
-   in a highly abusable way.
- * Make trade show exactly what's on sale, remove option SHOW_PLANE.
+ * Disable automatic supply of land units on load for now, it's
+   broken, and can be abused to duplicate supplies.
+ * Make trade show exactly what's on sale, remove option SHOWPLANE.
  * Stop ships, planes, land units and nukes on violent takeover, just
    like sectors.
  * Wipe orders when ships, planes, land units and nukes are taken over
@@ -819,7 +824,8 @@ Changes to Empire 4.3.14 - Mon May  5 04:57:03 UTC 2008
      command in that case lets players find out whether the target is
      a submarine.  Loophole opened in 4.3.12.
    - Detect when the firing sector, ship or land unit changes across
-     the target prompt.  Abusable.
+     the target prompt.  Can be abused to duplicate commodities, and
+     more.
  * Fix parsing of anchor-relative time in update schedule.  Broken in
    4.3.13.
  * Fix logging of player input in the journal to include command
@@ -1533,7 +1539,8 @@ Changes to Empire 4.3.1 - Sat Apr 15 11:40:47 UTC 2006
    ~p before the first line of text never worked.
  * Fix ancient bridge building race condition that could break the
    test whether the player can afford the bridge.
- * Fix trade lot change detection in set command.  Probably abusable.
+ * Fix trade lot change detection in set command.  Can probably be
+   abused to defraud sellers.
  * The pthread code now compiles under Solaris.
  * navigate and march now permit any whitespace between route and
    optional argument for radar, lookout, sonar, not just spaces.
@@ -1730,7 +1737,8 @@ Changes to Empire 4.2.22 - Tue Oct 11 20:23:51 UTC 2005
  * The country command's `temporary' state of disorder ended after
    ten years.
  * Telegram notifications could get lost in exotic circumstances,
-   e.g. while a second client attempted to connect.  Abusable.
+   e.g. while a second client attempted to connect.  Can be abused for
+   stealthy attacks.
  * Remove option SNEAK_ATTACK.
  * Fix lboard not to let you board dead land units.
  * Fix stack smash in bomb, drop, fly, paradrop, recon and sail.
