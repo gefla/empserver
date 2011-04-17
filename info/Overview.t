@@ -216,6 +216,7 @@ and partly on the Unix system at Davis Polk & Wardwell,
 by Peter Langston with invaluable goading from
 Joe Stetson, Robert Bradbury, Nat Howard, Brian Redman, Adam Buchsbaum,
 and a myriad of others.
+.s1
 Since Langston never released source code for his version,
 Dave Pare and friends de-compiled it in that same year and have
 created this version
@@ -226,9 +227,11 @@ code, most notably, Dave Pare added plane units in 1986, Jeff Bailey
 added many configurable options in the KSU distribution, Thomas
 Ruschak added land units and missions in 1992-1993 and released the
 "Chainsaw" server, and Ken Stevens rewrote much of the server code in
-1995 and released the "Empire2" server, and Steve McClure and the Wolfpack
-made lots
+1995 and released the "Empire2" server.
+Steve McClure and the Wolfpack made lots
 of other changes and released the "Empire4" server in August of 1996.
+The game is still maintained by the Wolfpack team.  Markus Armbruster
+serves as technical lead since 2004.
 .in
 .s1
 .SA "Novice, Expert, Introduction"

@@ -207,7 +207,7 @@ following people:
                         Yannick Trembley
                         John Yockey
 
-1998 Empire 4.2, Wolfpack (http://www.wolfpackempire.com)
+1998 Empire 4.2, Wolfpack
 
 The above authors (Dave Pare, Jeff Bailey, Thomas Ruschack, Ken Stevens
 and Steve McClure) agreed to re-release the source code under the GNU
@@ -222,7 +222,31 @@ WORLD_X and WORLD_Y) so that you didn't have to re-build an entire server
 each time you changed an option (you just have to rebuild the world 
 sometimes. ;-) )
 
-The source is still managed by the Wolfpack team.
+2006 Empire 4.3, Wolfpack
 
+Markus Armbruster took over technical leadership in 2004.  The code
+was put under version control, first CVS, then Git.  Countless bugs
+got squashed.  Significant effort went into improved maintainability
+and portability.  Thanks to Ron Koenderink, this includes Windows.
+Server and client support IPv6 and UTF-8.
+
+New tools for the deity include crash dumps, extensive logging,
+automatic backups, game export to and import from portable text files,
+even more game customization without recompile, and flexible update
+schedule configuration.  New configuration choices include AUTO_POWER,
+RAILWAYS and rollover_avail.  Options SHOWPLANE, SHIPNAMES, NEWPOWER,
+NEW_STARVE, NEW_WORK, ORBIT and PLANENAMES are no longer configurable.
+Options NUKEFAILDETONATE, SLOW_WAR, SNEAK_ATTACK, FUEL, GRAB_THINGS
+and SHIP_DECAY are gone.  Options PINPOINTMISSILE, DEMANDUPDATE,
+UPDATESCHED, DRNUKE, NONUKES, NEUTRON, BIG_CITY, DEFENSE_INFRA,
+NO_LCMS, NO_HCMS and NO_OIL got replaced by more flexible
+configuration.
+
+The xdump command lets client writers access more game more easily.
+
+Changes affecting players include extended start/stop commands
+(replacing budget priorities), radically reduced bridge population,
+somewhat reduced land unit penetration depth, fusing of interception
+with air defense, and limiting nukes to strategic roles again.
 .FI
 .SA "Server"
