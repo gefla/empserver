@@ -18,8 +18,6 @@
 .\" Start out correctly
 .nr CS 0
 .\" Special strings for special characters, including smart quotes.
-.ds <= \(<=
-.ds >= \(>=
 .ds Q ``
 .ds U ''
 .pl 11i                 \" Page length - environment 0

@@ -146,14 +146,14 @@ Collect the taxes, pay the military
 /* plague */
 If p_stage = \*Qthird\*U kill off a bunch of people,
    alert the owner and the news and decrement p_time by dt.
-   If p_time \*(<= 0 set p_stage = zero (plague has burned itself out).
+   If p_time \(<= 0 set p_stage = zero (plague has burned itself out).
 If p_stage = \*Qsecond\*U report
    to the owner and the news and decrement p_time by dt.
-   If p_time \*(<= 0 set p_stage = \*Qthird\*U
+   If p_time \(<= 0 set p_stage = \*Qthird\*U
       and randomly reset p_time in the range of etu_per_update to
       (etu_per_update * 2).
 If p_stage = \*Qfirst\*U decrement p_time by dt.
-   If p_time \*(<= 0 set p_stage = \*Qsecond\*U
+   If p_time \(<= 0 set p_stage = \*Qsecond\*U
       and randomly reset p_time in the range of etu_per_update to
       (etu_per_update * 2).
 If p_stage = zero and a random number in the range 0-99
