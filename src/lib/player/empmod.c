@@ -85,7 +85,7 @@ struct cmndstr player_coms[] = {
     {"deliver <COMM> <SECTS> [q|<THRESH>] [<DIR>]", 1, deli, C_MOD, NORM},
     {"demobilize <SECTS> <NUM> <active-reserve?>", 1, demo, C_MOD,
      NORM + MONEY + CAP},
-    {"designate <SECTS> <type> [sure?]", 1, desi, C_MOD, NORM},
+    {"designate <SECTS> <type>", 1, desi, C_MOD, NORM},
     {"disable", 0, disa, C_MOD, GOD},
     {"disarm <PLANE>", 2, disarm, C_MOD, NORM + MONEY + CAP},
     {"distribute <SECTS> <DISTSECT|.|h>", 1, dist, C_MOD, NORM},
