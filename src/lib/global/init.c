@@ -37,6 +37,7 @@
 #include "plane.h"
 #include "product.h"
 #include "prototypes.h"
+#include "sect.h"
 #include "ship.h"
 
 static void init_mchr(void);
@@ -46,6 +47,8 @@ static void init_plchr(void);
 void
 global_init(void)
 {
+    if (opt_RAILWAYS)
+	intrchr[INT_RAIL].in_enable = 0;
     init_pchr();
     init_mchr();
     init_plchr();
