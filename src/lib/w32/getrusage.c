@@ -47,19 +47,19 @@ getrusage(int who, struct rusage *rus)
     if (who == RUSAGE_SELF) {
 	HANDLE hProcess;
 	FILETIME ftCreation, ftExit, ftUser, ftKernel;
-	_int64 itmp;
+	__int64 itmp;
 
 	hProcess = GetCurrentProcess ();
 
 	GetProcessTimes (hProcess, &ftCreation, &ftExit, &ftKernel, &ftUser);
 
-	itmp = (_int64)ftUser.dwLowDateTime +
-	    ((_int64)ftUser.dwHighDateTime * (_int64)0x100000000);
+	itmp = (__int64)ftUser.dwLowDateTime +
+	    ((__int64)ftUser.dwHighDateTime * 0x100000000LL);
 	rus->ru_utime.tv_sec = (long)(itmp / 10000000U);
 	rus->ru_utime.tv_usec = (long)((itmp % 10000000U) / 10.);
 
-	itmp = (_int64)ftKernel.dwLowDateTime +
-	    ((_int64)ftKernel.dwHighDateTime * (_int64)0x100000000);
+	itmp = (__int64)ftKernel.dwLowDateTime +
+	    ((__int64)ftKernel.dwHighDateTime * 0x100000000LL);
 	rus->ru_stime.tv_sec = (long)(itmp / 10000000U);
 	rus->ru_stime.tv_usec = (long)((itmp % 10000000U) / 10.);
     } else {
