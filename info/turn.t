@@ -5,7 +5,7 @@
 \*Qturn off\*U turns the game off: mortal players can't log in, and
 mortals already logged will be booted at the next command prompt.  The
 command lets you enter a message to the players explaining the
-downtime.
+downtime.  Updates are \*(iFnot\*(pF disabled.
 .s1
 \*Qturn on\*U reverts the effect of \*Qturn off\*U.
 .s1
