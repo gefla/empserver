@@ -55,7 +55,6 @@ buy(void)
     struct sctstr sect;
     struct natstr *natp;
     struct comstr comm;
-    struct comstr ncomm;
     struct comstr comt;
     struct trdstr tmpt;
     struct ichrstr *ip;
@@ -127,7 +126,7 @@ buy(void)
 	}
     }
     canspend = natp->nat_money - tally;
-    getcomm(o, &comm);
+    check_comm_ok(&comm);
     if (bid * comm.com_amount * buytax > canspend) {
 	pr("You have overextended yourself in the market\n");
 	pr("You can not bid on the current items at that price.\n");
@@ -161,11 +160,8 @@ buy(void)
 	pr("You don't have that much to spend!\n");
 	return RET_FAIL;
     }
-    getcomm(o, &ncomm);
-    if (!ncomm.com_owner) {
-	pr("That lot has been taken off the market.\n");
+    if (!check_comm_ok(&comm))
 	return RET_FAIL;
-    }
     if (bid > 0.04 + comm.com_price) {
 	comm.com_price = bid;
 	/* Add five minutes to the time if less than 5 minutes */
