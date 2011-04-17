@@ -51,7 +51,7 @@ mark(void)
 	return RET_FAIL;
     }
 
-    if (player->argp[1] && player->argp[1]) {
+    if (player->argp[1]) {
 	p = getstarg(player->argp[1], "What commodity (or 'all')? ", buf);
 	if (!p)
 	    return RET_SYN;
