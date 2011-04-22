@@ -54,6 +54,7 @@
 #include "ship.h"
 
 static char *fmttime2822(time_t);
+static void show_load(short[]);
 static void show_capab(int, struct symbol *);
 
 struct look_list {
@@ -263,7 +264,6 @@ void
 show_ship_capab(int tlev)
 {
     struct mchrstr *mp;
-    i_type i;
     int scount;
 
     pr("%25s cargos & capabilities\n", "");
@@ -276,10 +276,7 @@ show_ship_capab(int tlev)
 	    continue;
 
 	pr("%-25.25s ", mp->m_name);
-
-	for (i = I_NONE + 1; i <= I_MAX; ++i)
-	    if (mp->m_item[i])
-		pr(" %d%c", mp->m_item[i], ichr[i].i_mnem);
+	show_load(mp->m_item);
 	show_capab(mp->m_flags, ship_chr_flags);
 	pr("\n");
     }
@@ -363,7 +360,6 @@ show_land_capab(int tlev)
 {
     struct lchrstr *lcp;
     int lcount;
-    i_type i;
 
     pr("%25s capabilities\n", "");
 
@@ -374,10 +370,7 @@ show_land_capab(int tlev)
 	    continue;
 
 	pr("%-25s ", lcp->l_name);
-
-	for (i = I_NONE + 1; i <= I_MAX; ++i)
-	    if (lcp->l_item[i])
-		pr(" %d%c", lcp->l_item[i], ichr[i].i_mnem);
+	show_load(lcp->l_item);
 	show_capab(lcp->l_flags, land_chr_flags);
 	pr("\n");
     }
@@ -652,6 +645,17 @@ fmttime2822(time_t t)
 	buf[0] = 0;
 #endif
     return buf;
+}
+
+static void
+show_load(short item[])
+{
+    i_type i;
+
+    for (i = I_NONE + 1; i <= I_MAX; ++i) {
+	if (item[i])
+	    pr(" %d%c", item[i], ichr[i].i_mnem);
+    }
 }
 
 static void
