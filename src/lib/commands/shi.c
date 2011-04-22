@@ -55,8 +55,7 @@ shi(void)
 	    if (player->god)
 		pr("own ");
 	    pr("shp#     ship type       x,y   fl   eff civ mil  uw  fd pn"
-	       " he xl ln mob");
-	    pr(" tech\n");
+	       " he xl ln mob tech\n");
 	}
 	if (ship.shp_off)
 	    noff++;

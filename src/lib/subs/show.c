@@ -230,15 +230,9 @@ show_ship_stats(int tlev)
     struct mchrstr *mp;
     int scount;
 
-    pr("%25s      s  v  s  r  f  l  p  h  x", "");
-    pr("\n");
-
-    pr("%25s      p  i  p  n  i  n  l  e  p", "");
-    pr("\n");
-
-    pr("%25s def  d  s  y  g  r  d  n  l  l", "");
-    pr("\n");
-
+    pr("%25s      s  v  s  r  f  l  p  h  x\n", "");
+    pr("%25s      p  i  p  n  i  n  l  e  p\n", "");
+    pr("%25s def  d  s  y  g  r  d  n  l  l\n", "");
 
     make_new_list(tlev, EF_SHIP);
     for (scount = 0; scount < lookup_list_cnt; scount++) {

@@ -55,8 +55,8 @@ land(void)
 	if (nunits++ == 0) {
 	    if (player->god)
 		pr("own ");
-	    pr("   # unit type          x,y   a   eff mil frt  mu  fd");
-	    pr(" tch retr xl ln carry\n");
+	    pr("   # unit type          x,y   a   eff mil frt  mu  fd"
+	       " tch retr xl ln carry\n");
 	}
 	if (land.lnd_off)
 	    noff++;
