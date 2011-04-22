@@ -400,6 +400,8 @@ show_land_stats(int tlev)
 	pr("%2d %2d %2d %2d %2d ",
 	   l_frg(lcp, tlev), l_acc(lcp, tlev), l_dam(lcp, tlev),
 	   lcp->l_ammo, lcp->l_aaf);
+	pr("%2d %2d ",
+	   lcp->l_nxlight, lcp->l_nland);
 	pr("\n");
     }
 }
