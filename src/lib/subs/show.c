@@ -241,16 +241,11 @@ show_ship_stats(int tlev)
 	if ((mp->m_flags & M_TRADE) && !opt_TRADESHIPS)
 	    continue;
 
-	pr("%-25.25s %3d %2d %2d %2d %2d %2d ",
+	pr("%-25.25s %3d %2d %2d %2d %2d %2d %2d %2d %2d %2d\n",
 	   mp->m_name, m_armor(mp, tlev), m_speed(mp, tlev),
 	   m_visib(mp, tlev), mp->m_vrnge,
-	   m_frnge(mp, tlev), m_glim(mp, tlev));
-
-	pr("%2d ", mp->m_nland);
-	pr("%2d ", mp->m_nplanes);
-	pr("%2d ", mp->m_nchoppers);
-	pr("%2d ", mp->m_nxlight);
-	pr("\n");
+	   m_frnge(mp, tlev), m_glim(mp, tlev),
+	   mp->m_nland, mp->m_nplanes, mp->m_nchoppers, mp->m_nxlight);
     }
 }
 
@@ -286,12 +281,10 @@ show_plane_stats(int tlev)
     make_new_list(tlev, EF_PLANE);
     for (pcount = 0; pcount < lookup_list_cnt; pcount++) {
 	pp = (struct plchrstr *)lookup_list[pcount].l_u.pp;
-	pr("%-25.25s %3d %4d %3d %3d %3d %4d ",
+	pr("%-25.25s %3d %4d %3d %3d %3d %4d %4d%%\n",
 	   pp->pl_name, pl_acc(pp, tlev), pl_load(pp, tlev),
 	   pl_att(pp, tlev), pl_def(pp, tlev), pl_range(pp, tlev),
-	   pp->pl_fuel);
-	pr("%4d%% ", pp->pl_stealth);
-	pr("\n");
+	   pp->pl_fuel, pp->pl_stealth);
     }
 }
 
@@ -386,17 +379,13 @@ show_land_stats(int tlev)
 	if ((lcp->l_flags & L_SPY) && !opt_LANDSPIES)
 	    continue;
 
-	pr("%-25s %1.1f %1.1f %3d ",
+	pr("%-25s %1.1f %1.1f %3d %2d %2d %2d %2d %2d %2d %2d %2d %2d"
+	   " %2d %2d\n",
 	   lcp->l_name,
-	   l_att(lcp, tlev), l_def(lcp, tlev), l_vul(lcp, tlev));
-	pr("%2d %2d %2d %2d ",
-	   l_spd(lcp, tlev), lcp->l_vis, lcp->l_spy, lcp->l_rad);
-	pr("%2d %2d %2d %2d %2d ",
+	   l_att(lcp, tlev), l_def(lcp, tlev), l_vul(lcp, tlev),
+	   l_spd(lcp, tlev), lcp->l_vis, lcp->l_spy, lcp->l_rad,
 	   l_frg(lcp, tlev), l_acc(lcp, tlev), l_dam(lcp, tlev),
-	   lcp->l_ammo, lcp->l_aaf);
-	pr("%2d %2d ",
-	   lcp->l_nxlight, lcp->l_nland);
-	pr("\n");
+	   lcp->l_ammo, lcp->l_aaf, lcp->l_nxlight, lcp->l_nland);
     }
 }
 
