@@ -57,79 +57,79 @@ static char *fmttime2822(time_t);
 static void show_load(short[]);
 static void show_capab(int, struct symbol *);
 
-struct look_list {
-    union {
-	struct lchrstr *lp;
-	struct plchrstr *pp;
-	struct mchrstr *mp;
-    } l_u;
+struct chr_index {
+    int type;
     int tech;
 };
 
-/*
- * Change this if there are ever more than 200 ships, plane or land
- * unit types.
- */
-static struct look_list lookup_list[200];
-static int lookup_list_cnt = 0;
-
-static void
-sort_lookup_list(void)
+static int
+chr_index_cmp(const void *a, const void *b)
 {
-    struct natstr *np = getnatp(player->cnum);
-    struct look_list tmp;
-    int i;
-    int j;
-
-    if (!(np->nat_flags & NF_TECHLISTS))
-	return;
-    for (i = 0; i < lookup_list_cnt; i++) {
-	for (j = i; j < lookup_list_cnt; j++) {
-	    if (lookup_list[j].tech < lookup_list[i].tech) {
-		tmp = lookup_list[j];
-		lookup_list[j] = lookup_list[i];
-		lookup_list[i] = tmp;
-	    }
-	}
-    }
+    const struct chr_index *ca = a, *cb = b;
+    if (ca->tech == cb->tech)
+	return ca->type - cb->type;
+    return ca->tech - cb->tech;
 }
 
-static void
-make_new_list(int tlev, int type)
+static int
+make_mchr_index(struct chr_index chridx[], int tlev)
 {
-    struct plchrstr *pp;
-    struct lchrstr *lp;
-    struct mchrstr *mp;
+    struct natstr *natp = getnatp(player->cnum);
+    int i, n;
 
-    lookup_list_cnt = 0;
-    if (type == EF_PLANE) {
-	for (pp = plchr; pp->pl_name; pp++) {
-	    if (pp->pl_tech > tlev)
-		continue;
-	    lookup_list[lookup_list_cnt].l_u.pp = pp;
-	    lookup_list[lookup_list_cnt].tech = pp->pl_tech;
-	    lookup_list_cnt++;
-	}
-    } else if (type == EF_SHIP) {
-	for (mp = mchr; mp->m_name; mp++) {
-	    if (mp->m_tech > tlev)
-		continue;
-	    lookup_list[lookup_list_cnt].l_u.mp = mp;
-	    lookup_list[lookup_list_cnt].tech = mp->m_tech;
-	    lookup_list_cnt++;
-	}
-    } else if (type == EF_LAND) {
-	for (lp = lchr; lp->l_name; lp++) {
-	    if (lp->l_tech > tlev)
-		continue;
-	    lookup_list[lookup_list_cnt].l_u.lp = lp;
-	    lookup_list[lookup_list_cnt].tech = lp->l_tech;
-	    lookup_list_cnt++;
-	}
-    } else
-	return;
+    n = 0;
+    for (i = 0; mchr[i].m_name; i++) {
+	if (mchr[i].m_tech > tlev)
+	    continue;
+	if ((mchr[i].m_flags & M_TRADE) && !opt_TRADESHIPS)
+	    continue;
+	chridx[n].type = i;
+	chridx[n].tech = mchr[i].m_tech;
+	n++;
+    }
+    if (natp->nat_flags & NF_TECHLISTS)
+	qsort(chridx, n, sizeof(*chridx), chr_index_cmp);
+    return n;
+}
 
-    sort_lookup_list();
+static int
+make_plchr_index(struct chr_index chridx[], int tlev)
+{
+    struct natstr *natp = getnatp(player->cnum);
+    int i, n;
+
+    n = 0;
+    for (i = 0; plchr[i].pl_name; i++) {
+	if (plchr[i].pl_tech > tlev)
+	    continue;
+	chridx[n].type = i;
+	chridx[n].tech = plchr[i].pl_tech;
+	n++;
+    }
+    if (natp->nat_flags & NF_TECHLISTS)
+	qsort(chridx, n, sizeof(*chridx), chr_index_cmp);
+    return n;
+}
+
+static int
+make_lchr_index(struct chr_index chridx[], int tlev)
+{
+    struct natstr *natp = getnatp(player->cnum);
+    int i, n;
+
+    n = 0;
+    for (i = 0; lchr[i].l_name; i++) {
+	if (lchr[i].l_tech > tlev)
+	    continue;
+	if ((lchr[i].l_flags & L_SPY) && !opt_LANDSPIES)
+	    continue;
+	chridx[n].type = i;
+	chridx[n].tech = lchr[i].l_tech;
+	n++;
+    }
+    if (natp->nat_flags & NF_TECHLISTS)
+	qsort(chridx, n, sizeof(*chridx), chr_index_cmp);
+    return n;
 }
 
 void
@@ -207,17 +207,14 @@ show_nuke_capab(int tlev)
 void
 show_ship_build(int tlev)
 {
+    struct chr_index chridx[sizeof(mchr) / sizeof(*mchr)];
+    int n = make_mchr_index(chridx, tlev);
+    int i;
     struct mchrstr *mp;
-    int n;
 
     pr("%25s lcm hcm avail tech $\n", "");
-    make_new_list(tlev, EF_SHIP);
-    for (n = 0; n < lookup_list_cnt; n++) {
-	mp = (struct mchrstr *)lookup_list[n].l_u.mp;
-	/* Can't show trade ships unless it's turned on */
-	if ((mp->m_flags & M_TRADE) && !opt_TRADESHIPS)
-	    continue;
-
+    for (i = 0; i < n; i++) {
+	mp = &mchr[chridx[i].type];
 	pr("%-25.25s %3d %3d %5d %4d $%d\n",
 	   mp->m_name, mp->m_lcm, mp->m_hcm,
 	   SHP_BLD_WORK(mp->m_lcm, mp->m_hcm), mp->m_tech, mp->m_cost);
@@ -227,20 +224,16 @@ show_ship_build(int tlev)
 void
 show_ship_stats(int tlev)
 {
+    struct chr_index chridx[sizeof(mchr) / sizeof(*mchr)];
+    int n = make_mchr_index(chridx, tlev);
+    int i;
     struct mchrstr *mp;
-    int scount;
 
     pr("%25s      s  v  s  r  f  l  p  h  x\n", "");
     pr("%25s      p  i  p  n  i  n  l  e  p\n", "");
     pr("%25s def  d  s  y  g  r  d  n  l  l\n", "");
-
-    make_new_list(tlev, EF_SHIP);
-    for (scount = 0; scount < lookup_list_cnt; scount++) {
-	mp = (struct mchrstr *)lookup_list[scount].l_u.mp;
-	/* Can't show trade ships unless it's turned on */
-	if ((mp->m_flags & M_TRADE) && !opt_TRADESHIPS)
-	    continue;
-
+    for (i = 0; i < n; i++) {
+	mp = &mchr[chridx[i].type];
 	pr("%-25.25s %3d %2d %2d %2d %2d %2d %2d %2d %2d %2d\n",
 	   mp->m_name, m_armor(mp, tlev), m_speed(mp, tlev),
 	   m_visib(mp, tlev), mp->m_vrnge,
@@ -252,18 +245,14 @@ show_ship_stats(int tlev)
 void
 show_ship_capab(int tlev)
 {
+    struct chr_index chridx[sizeof(mchr) / sizeof(*mchr)];
+    int n = make_mchr_index(chridx, tlev);
+    int i;
     struct mchrstr *mp;
-    int scount;
 
     pr("%25s cargos & capabilities\n", "");
-
-    make_new_list(tlev, EF_SHIP);
-    for (scount = 0; scount < lookup_list_cnt; scount++) {
-	mp = (struct mchrstr *)lookup_list[scount].l_u.mp;
-	/* Can't show trade ships unless it's turned on */
-	if ((mp->m_flags & M_TRADE) && !opt_TRADESHIPS)
-	    continue;
-
+    for (i = 0; i < n; i++) {
+	mp = &mchr[chridx[i].type];
 	pr("%-25.25s ", mp->m_name);
 	show_load(mp->m_item);
 	show_capab(mp->m_flags, ship_chr_flags);
@@ -274,13 +263,14 @@ show_ship_capab(int tlev)
 void
 show_plane_stats(int tlev)
 {
+    struct chr_index chridx[sizeof(plchr) / sizeof(*plchr)];
+    int n = make_plchr_index(chridx, tlev);
+    int i;
     struct plchrstr *pp;
-    int pcount;
 
     pr("%25s acc load att def ran fuel stlth\n", "");
-    make_new_list(tlev, EF_PLANE);
-    for (pcount = 0; pcount < lookup_list_cnt; pcount++) {
-	pp = (struct plchrstr *)lookup_list[pcount].l_u.pp;
+    for (i = 0; i < n; i++) {
+	pp = &plchr[chridx[i].type];
 	pr("%-25.25s %3d %4d %3d %3d %3d %4d %4d%%\n",
 	   pp->pl_name, pl_acc(pp, tlev), pl_load(pp, tlev),
 	   pl_att(pp, tlev), pl_def(pp, tlev), pl_range(pp, tlev),
@@ -291,15 +281,15 @@ show_plane_stats(int tlev)
 void
 show_plane_capab(int tlev)
 {
+    struct chr_index chridx[sizeof(plchr) / sizeof(*plchr)];
+    int n = make_plchr_index(chridx, tlev);
+    int i;
     struct plchrstr *pp;
-    int pcount;
 
     pr("%25s capabilities\n", "");
-    make_new_list(tlev, EF_PLANE);
-    for (pcount = 0; pcount < lookup_list_cnt; pcount++) {
-	pp = (struct plchrstr *)lookup_list[pcount].l_u.pp;
+    for (i = 0; i < n; i++) {
+	pp = &plchr[chridx[i].type];
 	pr("%-25.25s ", pp->pl_name);
-
 	show_capab(pp->pl_flags, plane_chr_flags);
 	pr("\n");
     }
@@ -308,13 +298,14 @@ show_plane_capab(int tlev)
 void
 show_plane_build(int tlev)
 {
+    struct chr_index chridx[sizeof(plchr) / sizeof(*plchr)];
+    int n = make_plchr_index(chridx, tlev);
+    int i;
     struct plchrstr *pp;
-    int pcount;
 
     pr("%25s lcm hcm crew avail tech $\n", "");
-    make_new_list(tlev, EF_PLANE);
-    for (pcount = 0; pcount < lookup_list_cnt; pcount++) {
-	pp = (struct plchrstr *)lookup_list[pcount].l_u.pp;
+    for (i = 0; i < n; i++) {
+	pp = &plchr[chridx[i].type];
 	pr("%-25.25s %3d %3d %4d %5d %4d $%d\n",
 	   pp->pl_name, pp->pl_lcm,
 	   pp->pl_hcm, pp->pl_crew,
@@ -325,15 +316,14 @@ show_plane_build(int tlev)
 void
 show_land_build(int tlev)
 {
+    struct chr_index chridx[sizeof(lchr) / sizeof(*lchr)];
+    int n = make_lchr_index(chridx, tlev);
+    int i;
     struct lchrstr *lp;
-    int n;
 
     pr("%25s lcm hcm guns avail tech $\n", "");
-    make_new_list(tlev, EF_LAND);
-    for (n = 0; n < lookup_list_cnt; n++) {
-	lp = (struct lchrstr *)lookup_list[n].l_u.lp;
-	if ((lp->l_flags & L_SPY) && !opt_LANDSPIES)
-	    continue;
+    for (i = 0; i < n; i++) {
+	lp = &lchr[chridx[i].type];
 	pr("%-25.25s %3d %3d %4d %5d %4d $%d\n",
 	   lp->l_name, lp->l_lcm,
 	   lp->l_hcm,
@@ -345,17 +335,14 @@ show_land_build(int tlev)
 void
 show_land_capab(int tlev)
 {
+    struct chr_index chridx[sizeof(lchr) / sizeof(*lchr)];
+    int n = make_lchr_index(chridx, tlev);
+    int i;
     struct lchrstr *lcp;
-    int lcount;
 
     pr("%25s capabilities\n", "");
-
-    make_new_list(tlev, EF_LAND);
-    for (lcount = 0; lcount < lookup_list_cnt; lcount++) {
-	lcp = (struct lchrstr *)lookup_list[lcount].l_u.lp;
-	if ((lcp->l_flags & L_SPY) && !opt_LANDSPIES)
-	    continue;
-
+    for (i = 0; i < n; i++) {
+	lcp = &lchr[chridx[i].type];
 	pr("%-25s ", lcp->l_name);
 	show_load(lcp->l_item);
 	show_capab(lcp->l_flags, land_chr_flags);
@@ -366,19 +353,16 @@ show_land_capab(int tlev)
 void
 show_land_stats(int tlev)
 {
+    struct chr_index chridx[sizeof(lchr) / sizeof(*lchr)];
+    int n = make_lchr_index(chridx, tlev);
+    int i;
     struct lchrstr *lcp;
-    int lcount;
 
     pr("%25s              s  v  s  r  r  a  f  a  a  x  l\n", "");
     pr("%25s              p  i  p  a  n  c  i  m  a  p  n\n", "");
     pr("%25s att def vul  d  s  y  d  g  c  r  m  f  l  d\n", "");
-
-    make_new_list(tlev, EF_LAND);
-    for (lcount = 0; lcount < lookup_list_cnt; lcount++) {
-	lcp = (struct lchrstr *)lookup_list[lcount].l_u.lp;
-	if ((lcp->l_flags & L_SPY) && !opt_LANDSPIES)
-	    continue;
-
+    for (i = 0; i < n; i++) {
+	lcp = &lchr[chridx[i].type];
 	pr("%-25s %1.1f %1.1f %3d %2d %2d %2d %2d %2d %2d %2d %2d %2d"
 	   " %2d %2d\n",
 	   lcp->l_name,
