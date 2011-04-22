@@ -657,17 +657,14 @@ fmttime2822(time_t t)
 static void
 show_capab(int flags, struct symbol *table)
 {
-    int i, n;
+    int i;
     char *p;
 
-    pr(" ");
-    for (i = n = 0; i < 32; i++) {
+    for (i = 0; i < 32; i++) {
 	if (!(flags & bit(i)))
 	    continue;
-	if (NULL != (p = symbol_by_value(bit(i), table))) {
-	    if (n++ > 0)
-		pr(" ");
-	    pr("%s", p);
-	}
+	p = symbol_by_value(bit(i), table);
+	if (p)
+	    pr(" %s", p);
     }
 }
