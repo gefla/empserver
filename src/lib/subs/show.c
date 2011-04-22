@@ -31,7 +31,7 @@
  *     Jeff Bailey, 1990
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005-2009
- *     Markus Armbruster, 2006-2010
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>
@@ -54,6 +54,7 @@
 #include "ship.h"
 
 static char *fmttime2822(time_t);
+static void show_capab(int, struct symbol *);
 
 struct look_list {
     union {
@@ -185,29 +186,19 @@ void
 show_nuke_capab(int tlev)
 {
     struct nchrstr *np;
-    int i, j;
-    char *p;
 
     pr("%13s blst dam lbs tech res $%7s abilities\n", "", "");
 
     for (np = nchr; np->n_name; np++) {
 	if (np->n_tech > tlev)
 	    continue;
-	pr("%-13.13s %4d %3d %3d %4d %3.0f $%7d ",
+	pr("%-13.13s %4d %3d %3d %4d %3.0f $%7d",
 	   np->n_name, np->n_blast, np->n_dam,
 	   np->n_weight, np->n_tech,
 	   drnuke_const > MIN_DRNUKE_CONST ?
 		ceil(np->n_tech * drnuke_const) : 0.0,
 	   np->n_cost);
-	for (i = j = 0; i < 32; i++) {
-	    if (!(np->n_flags & bit(i)))
-		continue;
-	    if (NULL != (p = symbol_by_value(bit(i), nuke_chr_flags))) {
-		if (j++ > 0)
-		    pr(" ");
-		pr("%s", p);
-	    }
-	}
+	show_capab(np->n_flags, nuke_chr_flags);
 	pr("\n");
     }
 }
@@ -273,10 +264,7 @@ show_ship_capab(int tlev)
 {
     struct mchrstr *mp;
     i_type i;
-    int j;
     int scount;
-    int n;
-    char *p;
 
     pr("%25s cargos & capabilities\n", "");
 
@@ -292,16 +280,7 @@ show_ship_capab(int tlev)
 	for (i = I_NONE + 1; i <= I_MAX; ++i)
 	    if (mp->m_item[i])
 		pr(" %d%c", mp->m_item[i], ichr[i].i_mnem);
-	pr(" ");
-	for (j = n = 0; j < 32; j++) {
-	    if (!(mp->m_flags & bit(j)))
-		continue;
-	    if (NULL != (p = symbol_by_value(bit(j), ship_chr_flags))) {
-		if (n++ > 0)
-		    pr(" ");
-		pr("%s", p);
-	    }
-	}
+	show_capab(mp->m_flags, ship_chr_flags);
 	pr("\n");
     }
 }
@@ -329,26 +308,15 @@ void
 show_plane_capab(int tlev)
 {
     struct plchrstr *pp;
-    int i;
     int pcount;
-    int n;
-    char *p;
 
     pr("%25s capabilities\n", "");
     make_new_list(tlev, EF_PLANE);
     for (pcount = 0; pcount < lookup_list_cnt; pcount++) {
 	pp = (struct plchrstr *)lookup_list[pcount].l_u.pp;
-	pr("%-25.25s  ", pp->pl_name);
+	pr("%-25.25s ", pp->pl_name);
 
-	for (i = n = 0; i < 32; i++) {
-	    if (!(pp->pl_flags & bit(i)))
-		continue;
-	    if (NULL != (p = symbol_by_value(bit(i), plane_chr_flags))) {
-		if (n++ > 0)
-		    pr(" ");
-		pr("%s", p);
-	    }
-	}
+	show_capab(pp->pl_flags, plane_chr_flags);
 	pr("\n");
     }
 }
@@ -396,8 +364,6 @@ show_land_capab(int tlev)
     struct lchrstr *lcp;
     int lcount;
     i_type i;
-    int j, n;
-    char *p;
 
     pr("%25s capabilities\n", "");
 
@@ -412,16 +378,7 @@ show_land_capab(int tlev)
 	for (i = I_NONE + 1; i <= I_MAX; ++i)
 	    if (lcp->l_item[i])
 		pr(" %d%c", lcp->l_item[i], ichr[i].i_mnem);
-	pr(" ");
-	for (j = n = 0; j < 32; j++) {
-	    if (!(lcp->l_flags & bit(j)))
-		continue;
-	    if (NULL != (p = symbol_by_value(bit(j), land_chr_flags))) {
-		if (n++ > 0)
-		    pr(" ");
-		pr("%s", p);
-	    }
-	}
+	show_capab(lcp->l_flags, land_chr_flags);
 	pr("\n");
     }
 }
@@ -695,4 +652,22 @@ fmttime2822(time_t t)
 	buf[0] = 0;
 #endif
     return buf;
+}
+
+static void
+show_capab(int flags, struct symbol *table)
+{
+    int i, n;
+    char *p;
+
+    pr(" ");
+    for (i = n = 0; i < 32; i++) {
+	if (!(flags & bit(i)))
+	    continue;
+	if (NULL != (p = symbol_by_value(bit(i), table))) {
+	    if (n++ > 0)
+		pr(" ");
+	    pr("%s", p);
+	}
+    }
 }
