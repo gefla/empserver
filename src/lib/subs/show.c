@@ -132,6 +132,25 @@ make_lchr_index(struct chr_index chridx[], int tlev)
     return n;
 }
 
+static int
+make_nchr_index(struct chr_index chridx[], int tlev)
+{
+    struct natstr *natp = getnatp(player->cnum);
+    int i, n;
+
+    n = 0;
+    for (i = 0; nchr[i].n_name; i++) {
+	if (nchr[i].n_tech > tlev)
+	    continue;
+	chridx[n].type = i;
+	chridx[n].tech = nchr[i].n_tech;
+	n++;
+    }
+    if (natp->nat_flags & NF_TECHLISTS)
+	qsort(chridx, n, sizeof(*chridx), chr_index_cmp);
+    return n;
+}
+
 void
 show_bridge(int tlev)
 {
@@ -165,15 +184,17 @@ show_nuke_stats(int tlev)
 void
 show_nuke_build(int tlev)
 {
+    struct chr_index chridx[sizeof(nchr) / sizeof(*nchr)];
+    int n = make_nchr_index(chridx, tlev);
+    int i;
     struct nchrstr *np;
     int avail;
 
     pr("%13s lcm hcm  oil  rad avail tech res $\n", "");
 
-    for (np = nchr; np->n_name; np++) {
+    for (i = 0; i < n; i++) {
+	np = &nchr[chridx[i].type];
 	avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
-	if (np->n_tech > tlev)
-	    continue;
 	pr("%-13.13s %3d %3d %4d %4d %5d %4d %3.0f $%6d\n",
 	   np->n_name, np->n_lcm, np->n_hcm, np->n_oil,
 	   np->n_rad, avail, np->n_tech,
@@ -186,13 +207,14 @@ show_nuke_build(int tlev)
 void
 show_nuke_capab(int tlev)
 {
+    struct chr_index chridx[sizeof(nchr) / sizeof(*nchr)];
+    int n = make_nchr_index(chridx, tlev);
+    int i;
     struct nchrstr *np;
 
     pr("%13s blst dam lbs tech res $%7s abilities\n", "", "");
-
-    for (np = nchr; np->n_name; np++) {
-	if (np->n_tech > tlev)
-	    continue;
+    for (i = 0; i < n; i++) {
+	np = &nchr[chridx[i].type];
 	pr("%-13.13s %4d %3d %3d %4d %3.0f $%7d",
 	   np->n_name, np->n_blast, np->n_dam,
 	   np->n_weight, np->n_tech,
