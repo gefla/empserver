@@ -56,6 +56,7 @@ static int build_land(struct sctstr *sp,
 		      struct lchrstr *lp, short *vec, int tlev);
 static int build_plane(struct sctstr *sp,
 		       struct plchrstr *pp, short *vec, int tlev);
+static int build_bridge(char);
 static int build_bspan(struct sctstr *sp, short *vec);
 static int build_btower(struct sctstr *sp, short *vec);
 static int build_can_afford(double, char *);
@@ -93,22 +94,8 @@ buil(void)
     what = *p;
     switch (what) {
     case 'b':
-	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_bt) {
-	    pr("Building a span requires a tech of %.0f\n", buil_bt);
-	    return RET_FAIL;
-	}
-	break;
     case 't':
-	if (!opt_BRIDGETOWERS) {
-	    pr("Bridge tower building is disabled.\n");
-	    return RET_FAIL;
-	}
-	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_tower_bt) {
-	    pr("Building a tower requires a tech of %.0f\n",
-	       buil_tower_bt);
-	    return RET_FAIL;
-	}
-	break;
+	return build_bridge(what);
     case 's':
     case 'p':
     case 'l':
@@ -188,9 +175,6 @@ buil(void)
 	    return RET_FAIL;
 	}
 	break;
-    case 'b':
-    case 't':
-	break;
     case 'n':
 	p = getstarg(player->argp[3], "Nuke type? ", buf);
 	if (!p || !*p)
@@ -221,22 +205,20 @@ buil(void)
     }
 
     number = 1;
-    if (what != 'b' && what != 't') {
-	if (player->argp[4]) {
-	    number = atoi(player->argp[4]);
-	    if (number > 20) {
-		char bstr[80];
-		sprintf(bstr,
-			"Are you sure that you want to build %s of them? ",
-			player->argp[4]);
-		p = getstarg(player->argp[6], bstr, buf);
-		if (!p || *p != 'y')
-		    return RET_SYN;
-	    }
+    if (player->argp[4]) {
+	number = atoi(player->argp[4]);
+	if (number > 20) {
+	    char bstr[80];
+	    sprintf(bstr,
+		    "Are you sure that you want to build %s of them? ",
+		    player->argp[4]);
+	    p = getstarg(player->argp[6], bstr, buf);
+	    if (!p || *p != 'y')
+		return RET_SYN;
 	}
     }
 
-    if (what != 'b' && what != 'n' && what != 't') {
+    if (what != 'n') {
 	if (player->argp[5]) {
 	    tlev = atoi(player->argp[5]);
 	    if (tlev > natp->nat_level[NAT_TLEV] && !player->god) {
@@ -263,12 +245,6 @@ buil(void)
 		break;
 	    case 's':
 		built = build_ship(&sect, mp, sect.sct_item, tlev);
-		break;
-	    case 'b':
-		built = build_bspan(&sect, sect.sct_item);
-		break;
-	    case 't':
-		built = build_btower(&sect, sect.sct_item);
 		break;
 	    case 'n':
 		built = build_nuke(&sect, np, sect.sct_item, tlev);
@@ -660,6 +636,61 @@ build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
     pr("%s built in sector %s\n", prplane(&plane),
        xyas(sp->sct_x, sp->sct_y, player->cnum));
     return 1;
+}
+
+static int
+build_bridge(char what)
+{
+    struct natstr *natp = getnatp(player->cnum);
+    struct nstr_sect nstr;
+    int gotsect, built;
+    struct sctstr sect;
+
+    switch (what) {
+    case 'b':
+	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_bt) {
+	    pr("Building a span requires a tech of %.0f\n", buil_bt);
+	    return RET_FAIL;
+	}
+	break;
+    case 't':
+	if (!opt_BRIDGETOWERS) {
+	    pr("Bridge tower building is disabled.\n");
+	    return RET_FAIL;
+	}
+	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_tower_bt) {
+	    pr("Building a tower requires a tech of %.0f\n",
+	       buil_tower_bt);
+	    return RET_FAIL;
+	}
+	break;
+    default:
+	CANT_REACH();
+	return RET_FAIL;
+    }
+
+    if (!snxtsct(&nstr, player->argp[2]))
+	return RET_SYN;
+    gotsect = 0;
+    while (nxtsct(&nstr, &sect)) {
+	gotsect++;
+	if (!player->owner)
+	    continue;
+	switch (what) {
+	case 'b':
+	    built = build_bspan(&sect, sect.sct_item);
+	    break;
+	case 't':
+	    built = build_btower(&sect, sect.sct_item);
+	    break;
+	}
+	if (built)
+	    putsect(&sect);
+    }
+    if (!gotsect) {
+	pr("Bad sector specification.\n");
+    }
+    return RET_OK;
 }
 
 static int
