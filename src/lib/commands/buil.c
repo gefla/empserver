@@ -183,19 +183,16 @@ buil(void)
 	if (type >= 0) {
 	    np = &nchr[type];
 	    rqtech = np->n_tech;
-	    if (rqtech > tlev
-		|| (drnuke_const > MIN_DRNUKE_CONST &&
-		    np->n_tech * drnuke_const > rlev))
+	    if (drnuke_const > MIN_DRNUKE_CONST)
+		tlev = (tlev < (rlev / drnuke_const) ? (int)tlev :
+			(int)(rlev / drnuke_const));
+	    if (rqtech > tlev)
 		type = -1;
 	}
 	if (type < 0) {
-	    int tt = tlev;
-	    if (drnuke_const > MIN_DRNUKE_CONST)
-		tt = (tlev < (rlev / drnuke_const) ? (int)tlev :
-		      (int)(rlev / drnuke_const));
 	    pr("You can't build that!\n");
 	    pr("Use `show nuke build %d' to show types you can build.\n",
-	       tt);
+	       tlev);
 	    return RET_FAIL;
 	}
 	break;
