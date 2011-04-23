@@ -48,13 +48,13 @@
 #include "treaty.h"
 #include "unit.h"
 
-static int build_ship(struct sctstr *sp, int type, short *vec, int tlev);
-static int build_land(struct sctstr *sp, int type, short *vec, int tlev);
-static int build_nuke(struct sctstr *sp, int type, short *vec, int tlev);
-static int build_plane(struct sctstr *sp, int type, short *vec, int tlev);
+static int build_ship(struct sctstr *sp, int type, int tlev);
+static int build_land(struct sctstr *sp, int type, int tlev);
+static int build_nuke(struct sctstr *sp, int type, int tlev);
+static int build_plane(struct sctstr *sp, int type, int tlev);
 static int build_bridge(char);
-static int build_bspan(struct sctstr *sp, short *vec);
-static int build_btower(struct sctstr *sp, short *vec);
+static int build_bspan(struct sctstr *sp);
+static int build_btower(struct sctstr *sp);
 static int build_can_afford(double, char *);
 
 /*
@@ -69,7 +69,7 @@ buil(void)
     struct nstr_sect nstr;
     int rqtech, type, number, val, gotsect;
     char *p, *what, *prompt;
-    int (*build_it)(struct sctstr *, int, short[], int);
+    int (*build_it)(struct sctstr *, int, int);
     char buf[1024];
 
     p = getstarg(player->argp[1],
@@ -196,7 +196,7 @@ buil(void)
 	    if (!player->owner)
 		continue;
 	    gotsect = 1;
-	    if (build_it(&sect, type, sect.sct_item, tlev))
+	    if (build_it(&sect, type, tlev))
 		putsect(&sect);
 	}
 	snxtsct_rewind(&nstr);
@@ -207,8 +207,9 @@ buil(void)
 }
 
 static int
-build_ship(struct sctstr *sp, int type, short *vec, int tlev)
+build_ship(struct sctstr *sp, int type, int tlev)
 {
+    short *vec = sp->sct_item;
     struct mchrstr *mp = &mchr[type];
     struct shpstr ship;
     struct nstr_item nstr;
@@ -295,8 +296,9 @@ build_ship(struct sctstr *sp, int type, short *vec, int tlev)
 }
 
 static int
-build_land(struct sctstr *sp, int type, short *vec, int tlev)
+build_land(struct sctstr *sp, int type, int tlev)
 {
+    short *vec = sp->sct_item;
     struct lchrstr *lp = &lchr[type];
     struct lndstr land;
     struct nstr_item nstr;
@@ -409,8 +411,9 @@ build_land(struct sctstr *sp, int type, short *vec, int tlev)
 }
 
 static int
-build_nuke(struct sctstr *sp, int type, short *vec, int tlev)
+build_nuke(struct sctstr *sp, int type, int tlev)
 {
+    short *vec = sp->sct_item;
     struct nchrstr *np = &nchr[type];
     struct nukstr nuke;
     struct nstr_item nstr;
@@ -487,8 +490,9 @@ build_nuke(struct sctstr *sp, int type, short *vec, int tlev)
 }
 
 static int
-build_plane(struct sctstr *sp, int type, short *vec, int tlev)
+build_plane(struct sctstr *sp, int type, int tlev)
 {
+    short *vec = sp->sct_item;
     struct plchrstr *pp = &plchr[type];
     struct plnstr plane;
     struct nstr_item nstr;
@@ -585,7 +589,7 @@ build_bridge(char what)
 {
     struct natstr *natp = getnatp(player->cnum);
     struct nstr_sect nstr;
-    int (*build_it)(struct sctstr *, short[]);
+    int (*build_it)(struct sctstr *);
     int gotsect;
     struct sctstr sect;
 
@@ -621,7 +625,7 @@ build_bridge(char what)
 	if (!player->owner)
 	    continue;
 	gotsect = 1;
-	if (build_it(&sect, sect.sct_item))
+	if (build_it(&sect))
 	    putsect(&sect);
     }
     if (!gotsect)
@@ -630,8 +634,9 @@ build_bridge(char what)
 }
 
 static int
-build_bspan(struct sctstr *sp, short *vec)
+build_bspan(struct sctstr *sp)
 {
+    short *vec = sp->sct_item;
     struct sctstr sect;
     int val;
     int newx, newy;
@@ -738,8 +743,9 @@ build_bspan(struct sctstr *sp, short *vec)
 }
 
 static int
-build_btower(struct sctstr *sp, short *vec)
+build_btower(struct sctstr *sp)
 {
+    short *vec = sp->sct_item;
     struct sctstr sect;
     int val;
     int newx, newy;
