@@ -114,8 +114,8 @@ verify_row(int type, int row)
     }
 
     for (i = 0; ca[i].ca_name; ++i) {
-	if (ca[i].ca_flags & NSC_EXTRA)
-	    continue;
+	if (ca[i].ca_get)
+	    continue;		/* virtual */
 	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
 	j = 0;
 	do {
