@@ -70,7 +70,7 @@ buil(void)
     int tlev;
     int type;
     char what;
-    char *p;
+    char *p, *prompt;
     int gotsect = 0;
     int (*build_it)(struct sctstr *, int, short[], int);
     int number;
@@ -90,12 +90,15 @@ buil(void)
     case 't':
 	return build_bridge(what);
     case 's':
+	prompt = "Ship type? ";
 	build_it = build_ship;
 	break;
     case 'p':
+	prompt = "Plane type? ";
 	build_it = build_plane;
 	break;
     case 'l':
+	prompt = "Land unit type? ";
 	build_it = build_land;
 	break;
     case 'n':
@@ -106,6 +109,7 @@ buil(void)
 	if (drnuke_const > MIN_DRNUKE_CONST)
 	    tlev = MIN(tlev,
 		       (int)(natp->nat_level[NAT_RLEV] / drnuke_const));
+	prompt = "Nuke type? ";
 	build_it = build_nuke;
 	break;
     default:
@@ -116,11 +120,12 @@ buil(void)
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
 
+    p = getstarg(player->argp[3], prompt, buf);
+    if (!p || !*p)
+	return RET_SYN;
+
     switch (what) {
     case 'p':
-	p = getstarg(player->argp[3], "Plane type? ", buf);
-	if (!p || !*p)
-	    return RET_SYN;
 	type = ef_elt_byname(EF_PLANE_CHR, p);
 	if (type >= 0) {
 	    rqtech = plchr[type].pl_tech;
@@ -135,9 +140,6 @@ buil(void)
 	}
 	break;
     case 's':
-	p = getstarg(player->argp[3], "Ship type? ", buf);
-	if (!p || !*p)
-	    return RET_SYN;
 	type = ef_elt_byname(EF_SHIP_CHR, p);
 	if (type >= 0) {
 	    rqtech = mchr[type].m_tech;
@@ -154,9 +156,6 @@ buil(void)
 	}
 	break;
     case 'l':
-	p = getstarg(player->argp[3], "Land unit type? ", buf);
-	if (!p || !*p)
-	    return RET_SYN;
 	type = ef_elt_byname(EF_LAND_CHR, p);
 	if (type >= 0) {
 	    rqtech = lchr[type].l_tech;
@@ -173,9 +172,6 @@ buil(void)
 	}
 	break;
     case 'n':
-	p = getstarg(player->argp[3], "Nuke type? ", buf);
-	if (!p || !*p)
-	    return RET_SYN;
 	type = ef_elt_byname(EF_NUKE_CHR, p);
 	if (type >= 0) {
 	    rqtech = nchr[type].n_tech;
