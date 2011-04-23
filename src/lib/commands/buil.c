@@ -69,8 +69,7 @@ buil(void)
     int rqtech;
     int tlev;
     int type;
-    char what;
-    char *p, *prompt;
+    char *p, *what, *prompt;
     int gotsect = 0;
     int (*build_it)(struct sctstr *, int, short[], int);
     int number;
@@ -84,20 +83,22 @@ buil(void)
 		 buf);
     if (!p)
 	return RET_SYN;
-    what = *p;
-    switch (what) {
+    switch (*p) {
     case 'b':
     case 't':
-	return build_bridge(what);
+	return build_bridge(*p);
     case 's':
+	what = "ship";
 	prompt = "Ship type? ";
 	build_it = build_ship;
 	break;
     case 'p':
+	what = "plane";
 	prompt = "Plane type? ";
 	build_it = build_plane;
 	break;
     case 'l':
+	what = "land";
 	prompt = "Land unit type? ";
 	build_it = build_land;
 	break;
@@ -109,6 +110,7 @@ buil(void)
 	if (drnuke_const > MIN_DRNUKE_CONST)
 	    tlev = MIN(tlev,
 		       (int)(natp->nat_level[NAT_RLEV] / drnuke_const));
+	what = "nuke";
 	prompt = "Nuke type? ";
 	build_it = build_nuke;
 	break;
@@ -124,69 +126,43 @@ buil(void)
     if (!p || !*p)
 	return RET_SYN;
 
-    switch (what) {
+    rqtech = 0;
+    switch (*what) {
     case 'p':
 	type = ef_elt_byname(EF_PLANE_CHR, p);
-	if (type >= 0) {
+	if (type >= 0)
 	    rqtech = plchr[type].pl_tech;
-	    if (rqtech > tlev)
-		type = -1;
-	}
-	if (type < 0) {
-	    pr("You can't build that!\n");
-	    pr("Use `show plane build %d' to show types you can build.\n",
-	       tlev);
-	    return RET_FAIL;
-	}
 	break;
     case 's':
 	type = ef_elt_byname(EF_SHIP_CHR, p);
 	if (type >= 0) {
 	    rqtech = mchr[type].m_tech;
-	    if (rqtech > tlev)
-		type = -1;
 	    if ((mchr[type].m_flags & M_TRADE) && !opt_TRADESHIPS)
 		type = -1;
-	}
-	if (type < 0) {
-	    pr("You can't build that!\n");
-	    pr("Use `show ship build %d' to show types you can build.\n",
-	       tlev);
-	    return RET_FAIL;
 	}
 	break;
     case 'l':
 	type = ef_elt_byname(EF_LAND_CHR, p);
 	if (type >= 0) {
 	    rqtech = lchr[type].l_tech;
-	    if (rqtech > tlev)
-		type = -1;
 	    if ((lchr[type].l_flags & L_SPY) && !opt_LANDSPIES)
 		type = -1;
-	}
-	if (type < 0) {
-	    pr("You can't build that!\n");
-	    pr("Use `show land build %d' to show types you can build.\n",
-	       tlev);
-	    return RET_FAIL;
 	}
 	break;
     case 'n':
 	type = ef_elt_byname(EF_NUKE_CHR, p);
-	if (type >= 0) {
+	if (type >= 0)
 	    rqtech = nchr[type].n_tech;
-	    if (rqtech > tlev)
-		type = -1;
-	}
-	if (type < 0) {
-	    pr("You can't build that!\n");
-	    pr("Use `show nuke build %d' to show types you can build.\n",
-	       tlev);
-	    return RET_FAIL;
-	}
 	break;
     default:
 	CANT_REACH();
+	return RET_FAIL;
+    }
+
+    if (type < 0 || tlev < rqtech) {
+	pr("You can't build that!\n");
+	pr("Use `show %s build %d' to show types you can build.\n",
+	   what, tlev);
 	return RET_FAIL;
     }
 
@@ -204,7 +180,7 @@ buil(void)
 	}
     }
 
-    if (what != 'n') {
+    if (*what != 'n') {
 	if (player->argp[5]) {
 	    tlev = atoi(player->argp[5]);
 	    if (tlev > natp->nat_level[NAT_TLEV] && !player->god) {
