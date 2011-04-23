@@ -123,8 +123,10 @@ verify_row(int type, int row)
 		continue;
 	    nstr_mksymval(&val, &ca[i], j);
 	    nstr_exec_val(&val, 0, row_ref, NSC_NOTYPE);
-	    if (val.val_type != NSC_LONG)
+	    if (CANT_HAPPEN(val.val_type != NSC_LONG)) {
+		ret_val = -1;
 		continue;
+	    }
 	    ca_sym = ef_cadef(ca[i].ca_table);
 	    if (ca[i].ca_flags & NSC_BITS) {
 		/* symbol set */
