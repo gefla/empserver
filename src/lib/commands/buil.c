@@ -193,17 +193,16 @@ buil(void)
     gotsect = 0;
     while (number-- > 0) {
 	while (nxtsct(&nstr, &sect)) {
-	    gotsect++;
 	    if (!player->owner)
 		continue;
+	    gotsect = 1;
 	    if (build_it(&sect, type, sect.sct_item, tlev))
 		putsect(&sect);
 	}
 	snxtsct_rewind(&nstr);
     }
-    if (!gotsect) {
-	pr("Bad sector specification.\n");
-    }
+    if (!gotsect)
+	pr("No sectors.\n");
     return RET_OK;
 }
 
@@ -619,15 +618,14 @@ build_bridge(char what)
 	return RET_SYN;
     gotsect = 0;
     while (nxtsct(&nstr, &sect)) {
-	gotsect++;
 	if (!player->owner)
 	    continue;
+	gotsect = 1;
 	if (build_it(&sect, sect.sct_item))
 	    putsect(&sect);
     }
-    if (!gotsect) {
-	pr("Bad sector specification.\n");
-    }
+    if (!gotsect)
+	pr("No sectors.\n");
     return RET_OK;
 }
 
