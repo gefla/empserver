@@ -72,7 +72,7 @@ buil(void)
     char *p, *what, *prompt;
     int gotsect = 0;
     int (*build_it)(struct sctstr *, int, short[], int);
-    int number;
+    int number, val;
     char buf[1024];
 
     natp = getnatp(player->cnum);
@@ -180,20 +180,20 @@ buil(void)
 	}
     }
 
-    if (*what != 'n') {
-	if (player->argp[5]) {
-	    tlev = atoi(player->argp[5]);
-	    if (tlev > natp->nat_level[NAT_TLEV] && !player->god) {
-		pr("Your tech level is only %d.\n",
-		   (int)natp->nat_level[NAT_TLEV]);
-		return RET_FAIL;
-	    }
-	    if (rqtech > tlev) {
-		pr("Required tech is %d.\n", rqtech);
-		return RET_FAIL;
-	    }
-	    pr("building with tech level %d.\n", tlev);
+    if (player->argp[5]) {
+	val = atoi(player->argp[5]);
+	if (val > tlev && !player->god) {
+	    pr("Your%s tech level is only %d.\n",
+	       *what == 'n' && drnuke_const > MIN_DRNUKE_CONST
+	       ? " effective" : "", tlev);
+	    return RET_FAIL;
 	}
+	if (rqtech > val) {
+	    pr("Required tech is %d.\n", rqtech);
+	    return RET_FAIL;
+	}
+	tlev = val;
+	pr("Building with tech level %d.\n", tlev);
     }
 
     while (number-- > 0) {
