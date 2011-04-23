@@ -54,10 +54,10 @@ static int build_ship(struct sctstr *sp,
 		      struct mchrstr *mp, short *vec, int tlev);
 static int build_land(struct sctstr *sp,
 		      struct lchrstr *lp, short *vec, int tlev);
-static int build_bridge(struct sctstr *sp, short *vec);
-static int build_tower(struct sctstr *sp, short *vec);
 static int build_plane(struct sctstr *sp,
 		       struct plchrstr *pp, short *vec, int tlev);
+static int build_bspan(struct sctstr *sp, short *vec);
+static int build_btower(struct sctstr *sp, short *vec);
 static int build_can_afford(double, char *);
 
 /*
@@ -265,10 +265,10 @@ buil(void)
 		built = build_ship(&sect, mp, sect.sct_item, tlev);
 		break;
 	    case 'b':
-		built = build_bridge(&sect, sect.sct_item);
+		built = build_bspan(&sect, sect.sct_item);
 		break;
 	    case 't':
-		built = build_tower(&sect, sect.sct_item);
+		built = build_btower(&sect, sect.sct_item);
 		break;
 	    case 'n':
 		built = build_nuke(&sect, np, sect.sct_item, tlev);
@@ -493,114 +493,6 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
 }
 
 static int
-build_bridge(struct sctstr *sp, short *vec)
-{
-    struct sctstr sect;
-    int val;
-    int newx, newy;
-    int avail;
-    int nx, ny, i, good = 0;
-    char *p;
-    char buf[1024];
-
-    if (opt_EASY_BRIDGES == 0) {	/* must have a bridge head or tower */
-	if (sp->sct_type != SCT_BTOWER) {
-	    if (sp->sct_type != SCT_BHEAD)
-		return 0;
-	    if (sp->sct_newtype != SCT_BHEAD)
-		return 0;
-	}
-    }
-
-    if (sp->sct_effic < 60 && !player->god) {
-	pr("Sector %s is not 60%% efficient.\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	return 0;
-    }
-
-    if (vec[I_HCM] < buil_bh) {
-	pr("%s only has %d unit%s of hcm,\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum),
-	   vec[I_HCM], vec[I_HCM] > 1 ? "s" : "");
-	pr("(a bridge span requires %d)\n", buil_bh);
-	return 0;
-    }
-
-    if (!build_can_afford(buil_bc, dchr[SCT_BSPAN].d_name))
-	return 0;
-    avail = (SCT_BLD_WORK(0, buil_bh) * SCT_MINEFF + 99) / 100;
-    if (sp->sct_avail < avail) {
-	pr("Not enough available work in %s to build a bridge\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	pr(" (%d available work required)\n", avail);
-	return 0;
-    }
-    if (!player->argp[3]) {
-	pr("Bridge head at %s\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	nav_map(sp->sct_x, sp->sct_y, 1);
-    }
-    p = getstarg(player->argp[3], "build span in what direction? ", buf);
-    if (!p || !*p) {
-	return 0;
-    }
-    /* Sanity check time */
-    if (!check_sect_ok(sp))
-	return 0;
-
-    if ((val = chkdir(*p, DIR_FIRST, DIR_LAST)) < 0) {
-	pr("'%c' is not a valid direction...\n", *p);
-	direrr(NULL, NULL, NULL);
-	return 0;
-    }
-    newx = sp->sct_x + diroff[val][0];
-    newy = sp->sct_y + diroff[val][1];
-    if (getsect(newx, newy, &sect) == 0 || sect.sct_type != SCT_WATER) {
-	pr("%s is not a water sector\n", xyas(newx, newy, player->cnum));
-	return 0;
-    }
-    if (opt_EASY_BRIDGES) {
-	good = 0;
-
-	for (i = 1; i <= 6; i++) {
-	    struct sctstr s2;
-	    nx = sect.sct_x + diroff[i][0];
-	    ny = sect.sct_y + diroff[i][1];
-	    getsect(nx, ny, &s2);
-	    if ((s2.sct_type != SCT_WATER) && (s2.sct_type != SCT_BSPAN))
-		good = 1;
-	}
-	if (!good) {
-	    pr("Bridges must be built adjacent to land or bridge towers.\n");
-	    pr("That sector is not adjacent to land or a bridge tower.\n");
-	    return 0;
-	}
-    }				/* end EASY_BRIDGES */
-    sp->sct_avail -= avail;
-    player->dolcost += buil_bc;
-    sect.sct_type = SCT_BSPAN;
-    sect.sct_newtype = SCT_BSPAN;
-    sect.sct_effic = SCT_MINEFF;
-    sect.sct_road = 0;
-    sect.sct_rail = 0;
-    sect.sct_defense = 0;
-    if (opt_MOB_ACCESS) {
-	game_tick_to_now(&sect.sct_access);
-	sect.sct_mobil = -(etu_per_update / sect_mob_neg_factor);
-    } else {
-	sect.sct_mobil = 0;
-    }
-    sect.sct_mines = 0;
-    map_set(player->cnum, sect.sct_x, sect.sct_y, dchr[SCT_BSPAN].d_mnem, 2);
-    writemap(player->cnum);
-    putsect(&sect);
-    pr("Bridge span built over %s\n",
-       xyas(sect.sct_x, sect.sct_y, player->cnum));
-    vec[I_HCM] -= buil_bh;
-    return 1;
-}
-
-static int
 build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec, int tlev)
 {
     struct nukstr nuke;
@@ -771,7 +663,115 @@ build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
 }
 
 static int
-build_tower(struct sctstr *sp, short *vec)
+build_bspan(struct sctstr *sp, short *vec)
+{
+    struct sctstr sect;
+    int val;
+    int newx, newy;
+    int avail;
+    int nx, ny, i, good = 0;
+    char *p;
+    char buf[1024];
+
+    if (opt_EASY_BRIDGES == 0) {	/* must have a bridge head or tower */
+	if (sp->sct_type != SCT_BTOWER) {
+	    if (sp->sct_type != SCT_BHEAD)
+		return 0;
+	    if (sp->sct_newtype != SCT_BHEAD)
+		return 0;
+	}
+    }
+
+    if (sp->sct_effic < 60 && !player->god) {
+	pr("Sector %s is not 60%% efficient.\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	return 0;
+    }
+
+    if (vec[I_HCM] < buil_bh) {
+	pr("%s only has %d unit%s of hcm,\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum),
+	   vec[I_HCM], vec[I_HCM] > 1 ? "s" : "");
+	pr("(a bridge span requires %d)\n", buil_bh);
+	return 0;
+    }
+
+    if (!build_can_afford(buil_bc, dchr[SCT_BSPAN].d_name))
+	return 0;
+    avail = (SCT_BLD_WORK(0, buil_bh) * SCT_MINEFF + 99) / 100;
+    if (sp->sct_avail < avail) {
+	pr("Not enough available work in %s to build a bridge\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	pr(" (%d available work required)\n", avail);
+	return 0;
+    }
+    if (!player->argp[3]) {
+	pr("Bridge head at %s\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	nav_map(sp->sct_x, sp->sct_y, 1);
+    }
+    p = getstarg(player->argp[3], "build span in what direction? ", buf);
+    if (!p || !*p) {
+	return 0;
+    }
+    /* Sanity check time */
+    if (!check_sect_ok(sp))
+	return 0;
+
+    if ((val = chkdir(*p, DIR_FIRST, DIR_LAST)) < 0) {
+	pr("'%c' is not a valid direction...\n", *p);
+	direrr(NULL, NULL, NULL);
+	return 0;
+    }
+    newx = sp->sct_x + diroff[val][0];
+    newy = sp->sct_y + diroff[val][1];
+    if (getsect(newx, newy, &sect) == 0 || sect.sct_type != SCT_WATER) {
+	pr("%s is not a water sector\n", xyas(newx, newy, player->cnum));
+	return 0;
+    }
+    if (opt_EASY_BRIDGES) {
+	good = 0;
+
+	for (i = 1; i <= 6; i++) {
+	    struct sctstr s2;
+	    nx = sect.sct_x + diroff[i][0];
+	    ny = sect.sct_y + diroff[i][1];
+	    getsect(nx, ny, &s2);
+	    if ((s2.sct_type != SCT_WATER) && (s2.sct_type != SCT_BSPAN))
+		good = 1;
+	}
+	if (!good) {
+	    pr("Bridges must be built adjacent to land or bridge towers.\n");
+	    pr("That sector is not adjacent to land or a bridge tower.\n");
+	    return 0;
+	}
+    }				/* end EASY_BRIDGES */
+    sp->sct_avail -= avail;
+    player->dolcost += buil_bc;
+    sect.sct_type = SCT_BSPAN;
+    sect.sct_newtype = SCT_BSPAN;
+    sect.sct_effic = SCT_MINEFF;
+    sect.sct_road = 0;
+    sect.sct_rail = 0;
+    sect.sct_defense = 0;
+    if (opt_MOB_ACCESS) {
+	game_tick_to_now(&sect.sct_access);
+	sect.sct_mobil = -(etu_per_update / sect_mob_neg_factor);
+    } else {
+	sect.sct_mobil = 0;
+    }
+    sect.sct_mines = 0;
+    map_set(player->cnum, sect.sct_x, sect.sct_y, dchr[SCT_BSPAN].d_mnem, 2);
+    writemap(player->cnum);
+    putsect(&sect);
+    pr("Bridge span built over %s\n",
+       xyas(sect.sct_x, sect.sct_y, player->cnum));
+    vec[I_HCM] -= buil_bh;
+    return 1;
+}
+
+static int
+build_btower(struct sctstr *sp, short *vec)
 {
     struct sctstr sect;
     int val;
