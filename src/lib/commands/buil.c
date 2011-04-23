@@ -643,7 +643,8 @@ build_bridge(char what)
 {
     struct natstr *natp = getnatp(player->cnum);
     struct nstr_sect nstr;
-    int gotsect, built;
+    int (*build_it)(struct sctstr *, short[]);
+    int gotsect;
     struct sctstr sect;
 
     switch (what) {
@@ -652,6 +653,7 @@ build_bridge(char what)
 	    pr("Building a span requires a tech of %.0f\n", buil_bt);
 	    return RET_FAIL;
 	}
+	build_it = build_bspan;
 	break;
     case 't':
 	if (!opt_BRIDGETOWERS) {
@@ -663,6 +665,7 @@ build_bridge(char what)
 	       buil_tower_bt);
 	    return RET_FAIL;
 	}
+	build_it = build_btower;
 	break;
     default:
 	CANT_REACH();
@@ -676,15 +679,7 @@ build_bridge(char what)
 	gotsect++;
 	if (!player->owner)
 	    continue;
-	switch (what) {
-	case 'b':
-	    built = build_bspan(&sect, sect.sct_item);
-	    break;
-	case 't':
-	    built = build_btower(&sect, sect.sct_item);
-	    break;
-	}
-	if (built)
+	if (build_it(&sect, sect.sct_item))
 	    putsect(&sect);
     }
     if (!gotsect) {
