@@ -91,6 +91,38 @@ buil(void)
     if (!p)
 	return RET_SYN;
     what = *p;
+    switch (what) {
+    case 'b':
+	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_bt) {
+	    pr("Building a span requires a tech of %.0f\n", buil_bt);
+	    return RET_FAIL;
+	}
+	break;
+    case 't':
+	if (!opt_BRIDGETOWERS) {
+	    pr("Bridge tower building is disabled.\n");
+	    return RET_FAIL;
+	}
+	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_tower_bt) {
+	    pr("Building a tower requires a tech of %.0f\n",
+	       buil_tower_bt);
+	    return RET_FAIL;
+	}
+	break;
+    case 's':
+    case 'p':
+    case 'l':
+	break;
+    case 'n':
+	if (!ef_nelem(EF_NUKE_CHR)) {
+	    pr("There are no nukes in this game.\n");
+	    return RET_FAIL;
+	}
+	break;
+    default:
+	pr("You can't build that!\n");
+	return RET_SYN;
+    }
 
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
@@ -157,27 +189,9 @@ buil(void)
 	}
 	break;
     case 'b':
-	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_bt) {
-	    pr("Building a span requires a tech of %.0f\n", buil_bt);
-	    return RET_FAIL;
-	}
-	break;
     case 't':
-	if (!opt_BRIDGETOWERS) {
-	    pr("Bridge tower building is disabled.\n");
-	    return RET_FAIL;
-	}
-	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_tower_bt) {
-	    pr("Building a tower requires a tech of %.0f\n",
-	       buil_tower_bt);
-	    return RET_FAIL;
-	}
 	break;
     case 'n':
-	if (!ef_nelem(EF_NUKE_CHR)) {
-	    pr("There are no nukes in this game.\n");
-	    return RET_FAIL;
-	}
 	p = getstarg(player->argp[3], "Nuke type? ", buf);
 	if (!p || !*p)
 	    return RET_SYN;
@@ -202,8 +216,8 @@ buil(void)
 	}
 	break;
     default:
-	pr("You can't build that!\n");
-	return RET_SYN;
+	CANT_REACH();
+	return RET_FAIL;
     }
 
     number = 1;
