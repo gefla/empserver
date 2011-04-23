@@ -63,20 +63,14 @@ static int build_can_afford(double, char *);
 int
 buil(void)
 {
+    struct natstr *natp = getnatp(player->cnum);
+    int tlev = (int)natp->nat_level[NAT_TLEV];
     struct sctstr sect;
     struct nstr_sect nstr;
-    struct natstr *natp;
-    int rqtech;
-    int tlev;
-    int type;
+    int rqtech, type, number, val, gotsect;
     char *p, *what, *prompt;
-    int gotsect = 0;
     int (*build_it)(struct sctstr *, int, short[], int);
-    int number, val;
     char buf[1024];
-
-    natp = getnatp(player->cnum);
-    tlev = (int)natp->nat_level[NAT_TLEV];
 
     p = getstarg(player->argp[1],
 		 "Build (ship, nuke, bridge, plane, land unit, tower)? ",
@@ -196,6 +190,7 @@ buil(void)
 	pr("Building with tech level %d.\n", tlev);
     }
 
+    gotsect = 0;
     while (number-- > 0) {
 	while (nxtsct(&nstr, &sect)) {
 	    gotsect++;
