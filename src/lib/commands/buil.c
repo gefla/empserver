@@ -72,7 +72,6 @@ buil(void)
     struct natstr *natp;
     int rqtech;
     int tlev;
-    int rlev;
     int type;
     char what;
     struct lchrstr *lp;
@@ -86,6 +85,8 @@ buil(void)
     char buf[1024];
 
     natp = getnatp(player->cnum);
+    tlev = (int)natp->nat_level[NAT_TLEV];
+
     p = getstarg(player->argp[1],
 		 "Build (ship, nuke, bridge, plane, land unit, tower)? ",
 		 buf);
@@ -105,6 +106,9 @@ buil(void)
 	    pr("There are no nukes in this game.\n");
 	    return RET_FAIL;
 	}
+	if (drnuke_const > MIN_DRNUKE_CONST)
+	    tlev = MIN(tlev,
+		       (int)(natp->nat_level[NAT_RLEV] / drnuke_const));
 	break;
     default:
 	pr("You can't build that!\n");
@@ -113,8 +117,6 @@ buil(void)
 
     if (!snxtsct(&nstr, player->argp[2]))
 	return RET_SYN;
-    tlev = (int)natp->nat_level[NAT_TLEV];
-    rlev = (int)natp->nat_level[NAT_RLEV];
 
     switch (what) {
     case 'p':
@@ -183,9 +185,6 @@ buil(void)
 	if (type >= 0) {
 	    np = &nchr[type];
 	    rqtech = np->n_tech;
-	    if (drnuke_const > MIN_DRNUKE_CONST)
-		tlev = (tlev < (rlev / drnuke_const) ? (int)tlev :
-			(int)(rlev / drnuke_const));
 	    if (rqtech > tlev)
 		type = -1;
 	}
