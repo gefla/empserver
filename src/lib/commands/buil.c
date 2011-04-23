@@ -649,7 +649,7 @@ build_bridge(char what)
 
     switch (what) {
     case 'b':
-	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_bt) {
+	if (natp->nat_level[NAT_TLEV] < buil_bt) {
 	    pr("Building a span requires a tech of %.0f\n", buil_bt);
 	    return RET_FAIL;
 	}
@@ -660,7 +660,7 @@ build_bridge(char what)
 	    pr("Bridge tower building is disabled.\n");
 	    return RET_FAIL;
 	}
-	if (natp->nat_level[NAT_TLEV] + 0.005 < buil_tower_bt) {
+	if (natp->nat_level[NAT_TLEV] < buil_tower_bt) {
 	    pr("Building a tower requires a tech of %.0f\n",
 	       buil_tower_bt);
 	    return RET_FAIL;
