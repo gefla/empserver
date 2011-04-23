@@ -48,14 +48,10 @@
 #include "treaty.h"
 #include "unit.h"
 
-static int build_nuke(struct sctstr *sp,
-		      struct nchrstr *np, short *vec, int tlev);
-static int build_ship(struct sctstr *sp,
-		      struct mchrstr *mp, short *vec, int tlev);
-static int build_land(struct sctstr *sp,
-		      struct lchrstr *lp, short *vec, int tlev);
-static int build_plane(struct sctstr *sp,
-		       struct plchrstr *pp, short *vec, int tlev);
+static int build_ship(struct sctstr *sp, int type, short *vec, int tlev);
+static int build_land(struct sctstr *sp, int type, short *vec, int tlev);
+static int build_nuke(struct sctstr *sp, int type, short *vec, int tlev);
+static int build_plane(struct sctstr *sp, int type, short *vec, int tlev);
 static int build_bridge(char);
 static int build_bspan(struct sctstr *sp, short *vec);
 static int build_btower(struct sctstr *sp, short *vec);
@@ -74,13 +70,9 @@ buil(void)
     int tlev;
     int type;
     char what;
-    struct lchrstr *lp;
-    struct mchrstr *mp;
-    struct plchrstr *pp;
-    struct nchrstr *np;
     char *p;
     int gotsect = 0;
-    int built;
+    int (*build_it)(struct sctstr *, int, short[], int);
     int number;
     char buf[1024];
 
@@ -98,8 +90,13 @@ buil(void)
     case 't':
 	return build_bridge(what);
     case 's':
+	build_it = build_ship;
+	break;
     case 'p':
+	build_it = build_plane;
+	break;
     case 'l':
+	build_it = build_land;
 	break;
     case 'n':
 	if (!ef_nelem(EF_NUKE_CHR)) {
@@ -109,6 +106,7 @@ buil(void)
 	if (drnuke_const > MIN_DRNUKE_CONST)
 	    tlev = MIN(tlev,
 		       (int)(natp->nat_level[NAT_RLEV] / drnuke_const));
+	build_it = build_nuke;
 	break;
     default:
 	pr("You can't build that!\n");
@@ -125,8 +123,7 @@ buil(void)
 	    return RET_SYN;
 	type = ef_elt_byname(EF_PLANE_CHR, p);
 	if (type >= 0) {
-	    pp = &plchr[type];
-	    rqtech = pp->pl_tech;
+	    rqtech = plchr[type].pl_tech;
 	    if (rqtech > tlev)
 		type = -1;
 	}
@@ -143,11 +140,10 @@ buil(void)
 	    return RET_SYN;
 	type = ef_elt_byname(EF_SHIP_CHR, p);
 	if (type >= 0) {
-	    mp = &mchr[type];
-	    rqtech = mp->m_tech;
+	    rqtech = mchr[type].m_tech;
 	    if (rqtech > tlev)
 		type = -1;
-	    if ((mp->m_flags & M_TRADE) && !opt_TRADESHIPS)
+	    if ((mchr[type].m_flags & M_TRADE) && !opt_TRADESHIPS)
 		type = -1;
 	}
 	if (type < 0) {
@@ -163,11 +159,10 @@ buil(void)
 	    return RET_SYN;
 	type = ef_elt_byname(EF_LAND_CHR, p);
 	if (type >= 0) {
-	    lp = &lchr[type];
-	    rqtech = lp->l_tech;
+	    rqtech = lchr[type].l_tech;
 	    if (rqtech > tlev)
 		type = -1;
-	    if ((lp->l_flags & L_SPY) && !opt_LANDSPIES)
+	    if ((lchr[type].l_flags & L_SPY) && !opt_LANDSPIES)
 		type = -1;
 	}
 	if (type < 0) {
@@ -183,8 +178,7 @@ buil(void)
 	    return RET_SYN;
 	type = ef_elt_byname(EF_NUKE_CHR, p);
 	if (type >= 0) {
-	    np = &nchr[type];
-	    rqtech = np->n_tech;
+	    rqtech = nchr[type].n_tech;
 	    if (rqtech > tlev)
 		type = -1;
 	}
@@ -235,26 +229,8 @@ buil(void)
 	    gotsect++;
 	    if (!player->owner)
 		continue;
-	    switch (what) {
-	    case 'l':
-		built = build_land(&sect, lp, sect.sct_item, tlev);
-		break;
-	    case 's':
-		built = build_ship(&sect, mp, sect.sct_item, tlev);
-		break;
-	    case 'n':
-		built = build_nuke(&sect, np, sect.sct_item, tlev);
-		break;
-	    case 'p':
-		built = build_plane(&sect, pp, sect.sct_item, tlev);
-		break;
-	    default:
-		CANT_REACH();
-		return RET_FAIL;
-	    }
-	    if (built) {
+	    if (build_it(&sect, type, sect.sct_item, tlev))
 		putsect(&sect);
-	    }
 	}
 	snxtsct_rewind(&nstr);
     }
@@ -265,8 +241,9 @@ buil(void)
 }
 
 static int
-build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
+build_ship(struct sctstr *sp, int type, short *vec, int tlev)
 {
+    struct mchrstr *mp = &mchr[type];
     struct shpstr ship;
     struct nstr_item nstr;
     int avail;
@@ -352,8 +329,9 @@ build_ship(struct sctstr *sp, struct mchrstr *mp, short *vec, int tlev)
 }
 
 static int
-build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
+build_land(struct sctstr *sp, int type, short *vec, int tlev)
 {
+    struct lchrstr *lp = &lchr[type];
     struct lndstr land;
     struct nstr_item nstr;
     int avail;
@@ -465,8 +443,9 @@ build_land(struct sctstr *sp, struct lchrstr *lp, short *vec, int tlev)
 }
 
 static int
-build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec, int tlev)
+build_nuke(struct sctstr *sp, int type, short *vec, int tlev)
 {
+    struct nchrstr *np = &nchr[type];
     struct nukstr nuke;
     struct nstr_item nstr;
     int avail;
@@ -542,8 +521,9 @@ build_nuke(struct sctstr *sp, struct nchrstr *np, short *vec, int tlev)
 }
 
 static int
-build_plane(struct sctstr *sp, struct plchrstr *pp, short *vec, int tlev)
+build_plane(struct sctstr *sp, int type, short *vec, int tlev)
 {
+    struct plchrstr *pp = &plchr[type];
     struct plnstr plane;
     struct nstr_item nstr;
     int avail;
