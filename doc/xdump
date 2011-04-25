@@ -311,12 +311,12 @@ its meta-data, and to make sense of that table, we need meta-meta
 data.  So we start with that:
 
     [14:640] Command : xdump meta meta
-    XDUMP meta meta 1139555204
+    XDUMP meta meta 1303706667
     "name" 3 4 0 -1
-    "type" 5 4 0 32
-    "flags" 6 12 0 33
-    "len" 8 4 0 -1
-    "table" 9 4 0 -1
+    "type" 4 4 0 34
+    "flags" 5 12 0 33
+    "len" 7 4 0 -1
+    "table" 8 4 0 27
     /5
 
 To interpret this table, we have to know the field names and their
@@ -340,8 +340,8 @@ know, namely the table of tables.  Let's dump that next, starting with
 its meta-data:
 
     [31:640] Command : xdump meta table
-    XDUMP meta table 1139556230
-    "uid" 9 0 0 26
+    XDUMP meta table 1303706678
+    "uid" 8 0 0 27
     "name" 3 4 0 -1
     /2
 
@@ -351,33 +351,33 @@ leftmost field's meta-data field table must be the table ID of xdump
 table itself.  Indeed, its value matches the one we got in xdump meta
 meta.  Let's try to dump the table:
 
-    [30:640] Command : xdump 26 *
-    XDUMP table 1139556210
+    [30:640] Command : xdump 27 *
+    XDUMP table 1303706692
     0 "sect"
     1 "ship"
 [...]
     9 "nat"
 [...]
-    16 "sect-chr"
-    17 "ship-chr"
+    19 "sect-chr"
+    20 "ship-chr"
 [...]
-    26 "table"
+    27 "table"
 [...]
-    /45
+    /49
 
 It worked!
 
 Now dump the two symbol tables we postponed.  Because xdump accepts
 table IDs as well as names, we don't have to know their names:
 
-    [14:640] Command : xdump meta 32
-    XDUMP meta meta-type 1139555298
-    "value" 9 4 0 -1
-    "name" 3 0 0 -1
+    [14:640] Command : xdump meta 34
+    XDUMP meta meta-type 1303706718
+    "value" 8 4 0 -1
+    "name" 3 4 0 -1
     /2
 
-    [15:640] Command : xdump 32 *
-    XDUMP meta-type 1139555826
+    [15:640] Command : xdump 34 *
+    XDUMP meta-type 1303706737
     1 "d"
     2 "g"
     3 "s"
@@ -395,13 +395,13 @@ table IDs as well as names, we don't have to know their names:
     /14
 
     [15:640] Command : xdump meta 33
-    XDUMP meta meta-flags 1139555303
-    "value" 9 4 0 -1
-    "name" 3 0 0 -1
+    XDUMP meta meta-flags 1303706753
+    "value" 8 4 0 -1
+    "name" 3 4 0 -1
     /2
 
     [24:640] Command : xdump 33 *
-    XDUMP meta-flags 1139555829
+    XDUMP meta-flags 1303706765
     1 "deity"
     2 "extra"
     4 "const"
@@ -422,13 +422,13 @@ Dumping the remaining tables is easy: just walk the table of tables.
 Here's the first one:
 
     [36:640] Command : xdump meta 0
-    XDUMP meta sect 1139556498
-    "owner" 6 0 0 9
-    "xloc" 10 0 0 -1
-    "yloc" 11 0 0 -1
-    "des" 4 0 0 16
+    XDUMP meta sect 1303706822
+    "owner" 5 0 0 9
+    "xloc" 9 4 0 -1
+    "yloc" 10 4 0 -1
+    "des" 4 0 0 19
 [...]
-    /69
+    /78
 
 A whole load of tables referenced!  Only one of them (not shown above)
 is a symbol table.
