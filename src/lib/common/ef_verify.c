@@ -86,12 +86,52 @@ verify_ca(int type)
 }
 
 static int
+verify_tabref(int type, int row, struct castr *ca, int idx, long val)
+{
+    int tabno = ca->ca_table;
+    struct castr *ca_sym = ef_cadef(tabno);
+    int i;
+
+    if (ca->ca_flags & NSC_BITS) {
+	/* symbol set */
+	if (CANT_HAPPEN(ca_sym != symbol_ca))
+	    return -1;
+	for (i = 0; i < (int)sizeof(long) * 8; i++) {
+	    if (val & (1L << i)) {
+		if (!symbol_by_value(1L << i, ef_ptr(tabno, 0))) {
+		    verify_fail(type, row, ca, idx,
+				"bit %d is not in symbol table %s",
+				i, ef_nameof(tabno));
+		    return -1;
+		}
+	    }
+	}
+    } else if (ca_sym == symbol_ca) {
+	/* symbol */
+	if (!symbol_by_value(val, ef_ptr(tabno, 0))) {
+	    verify_fail(type, row, ca, idx,
+			"value %ld is not in symbol table %s",
+			val, ef_nameof(tabno));
+	    return -1;
+	}
+    } else {
+	/* table index */
+	if (val >= ef_nelem(tabno) || val < -1) {
+	    verify_fail(type, row, ca, idx,
+			"value %ld indexes table %s out of bounds 0..%d",
+			val, ef_nameof(tabno), ef_nelem(tabno));
+	    return -1;
+	}
+    }
+    return 0;
+}
+
+static int
 verify_row(int type, int row)
 {
     struct castr *ca = ef_cadef(type);
     struct emptypedstr *row_ref;
-    int i, j, k, n;
-    struct castr *ca_sym;
+    int i, j, n;
     struct valstr val;
     int ret_val = 0;
     int flags = ef_flags(type);
@@ -124,24 +164,7 @@ verify_row(int type, int row)
 		ret_val = -1;
 		continue;
 	    }
-	    ca_sym = ef_cadef(ca[i].ca_table);
-	    if (ca[i].ca_flags & NSC_BITS) {
-		/* symbol set */
-		if (CANT_HAPPEN(ca_sym != symbol_ca)) {
-		    ret_val = -1;
-		    continue;
-		}
-		for (k = 0; k < (int)sizeof(long) * 8; k++) {
-		    if (val.val_as.lng & (1L << k))
-			if (!symbol_by_value(1L << k,
-					     ef_ptr(ca[i].ca_table, 0))) {
-			    verify_fail(type, row, &ca[i], j,
-					"bit %d is not in symbol table %s",
-					k, ef_nameof(ca[i].ca_table));
-			    ret_val = -1;
-			}
-		}
-	    } else if (ca[i].ca_table == type && i == 0) {
+	    if (ca[i].ca_table == type && i == 0) {
 		/* uid */
 		/* Some files contain zeroed records, cope */
 		/* TODO tighten this check */
@@ -153,26 +176,9 @@ verify_row(int type, int row)
 				val.val_as.lng, row);
 		    ret_val = -1;
 		}
-
-	    } else if (ca_sym == symbol_ca) {
-		/* symbol */
-		if (!symbol_by_value(val.val_as.lng,
-				     ef_ptr(ca[i].ca_table, 0))) {
-		    verify_fail(type, row, &ca[i], j,
-				"value %ld is not in symbol table %s",
-				val.val_as.lng, ef_nameof(ca[i].ca_table));
-		    ret_val = -1;
-		}
 	    } else {
-		/* table index */
-		if (val.val_as.lng >= ef_nelem(ca[i].ca_table)
-		    || val.val_as.lng < -1) {
-		    verify_fail(type, row, &ca[i], j,
-			"value %ld indexes table %s out of bounds 0..%d",
-			val.val_as.lng, ef_nameof(ca[i].ca_table),
-			ef_nelem(ca[i].ca_table));
+		if (verify_tabref(type, row, &ca[i], j, val.val_as.lng) < 0)
 		    ret_val = -1;
-		}
 	    }
 	} while (++j < n);
     }
