@@ -39,19 +39,22 @@
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
  * Each array element has a pointer to its name stored at offset OFFS.
- * Search stops when this name is a null pointer or empty.
+ * Search stops when this name is a null pointer.
  * NEEDLE is compared to element names with mineq(NEEDLE, NAME).
- * ELT_SIZE gives the size of an array element.
+ * SIZE gives the size of an array element.
  */
 int
-stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t elt_size)
+stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t size)
 {
-#define ELT_NAME(i) (*(char **)((char *)haystack + (i)*elt_size + offs))
     int i, res;
+    char *name;
 
     res = M_NOTFOUND;
-    for (i = 0; ELT_NAME(i) && ELT_NAME(i)[0] != 0; i++) {
-	switch (mineq(needle, ELT_NAME(i))) {
+    for (i = 0;; i++) {
+	name = *(char **)((char *)haystack + i * size + offs);
+	if (!name)
+	    break;
+	switch (mineq(needle, name)) {
 	case ME_MISMATCH:
 	    break;
 	case ME_PARTIAL:
@@ -65,7 +68,6 @@ stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t elt_size)
 	}
     }
     return res;
-#undef ELT_NAME
 }
 
 /*
