@@ -246,7 +246,7 @@ ef_open_view(int type, int base)
 }
 
 /*
- * Close the file-backed table TYPE (EF_SECTOR, ...).
+ * Close the open table TYPE (EF_SECTOR, ...).
  * Return non-zero on success, zero on failure.
  */
 int
@@ -715,7 +715,7 @@ ef_extend(int type, int count)
 }
 
 /*
- * Initialize element ID for EP in BUF.
+ * Initialize element ID for table TYPE in BUF.
  * FIXME pass buffer size!
  * BUF is marked fresh with ef_mark_fresh().
  */

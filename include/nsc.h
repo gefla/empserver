@@ -207,12 +207,12 @@ enum {
  * ca_len is zero), or an array of ca_len elements of that type.
  * If ca_get is not null, the selector is virtual.  Values can be
  * obtained by calling ca_get(VAL, NP, CTXO), where VAL has been
- * initialized my from the selector and an index by nstr_mksymval(),
+ * initialized from the selector and an index by nstr_mksymval(),
  * NP points to the country to use for coordinate translation and
  * access control (null for none), and CTXO is the context object.
  * See struct valstr for details.
  * Because virtual selectors don't have a setter method, xundump must
- * be made to ignore them, e.g. by setting NSC_EXTRA.
+ * be made to ignore them, by setting NSC_EXTRA.
  * If flag NSC_DEITY is set, only to deities can use this selector.
  * If flag NSC_EXTRA is set, xdump and xundump ignore this selector.
  * If flag NSC_CONST is set, the datum can't be changed from its

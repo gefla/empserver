@@ -61,6 +61,7 @@ struct empfile {
     /* User callbacks, may all be null */
     /*
      * Called after element initialization.  ELT is the element.
+     * May modify the element.
      */
     void (*oninit)(void *elt);
     /*
@@ -107,7 +108,7 @@ struct emptypedstr {
 #define EFF_XY		bit(1)
 #define EFF_OWNER	bit(2)
 #define EFF_GROUP	bit(3)
-/* Table is allocated statically */
+/* Table cache is allocated statically */
 #define EFF_STATIC	bit(4)
 /* Table has a sentinel (all zero, not counted as elt), implies EFF_MEM */
 #define EFF_SENTINEL	bit(5)
