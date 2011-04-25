@@ -35,10 +35,7 @@
 #include <ctype.h>
 #include "commands.h"
 #include "empobj.h"
-#include "news.h"
 #include "optlist.h"
-#include "product.h"
-#include "version.h"
 #include "xdump.h"
 
 /*
@@ -53,63 +50,45 @@ xdvisible(int type, void *p)
     struct lonstr *lp = p;
     struct natstr *natp;
     int tlev;
-    char *name;
+
+    if (!empobj_in_use(type, p))
+	return 0;
 
     switch (type) {
     case EF_SECTOR:
-	return gp->own == player->cnum || player->god;
     case EF_SHIP:
     case EF_PLANE:
     case EF_LAND:
     case EF_NUKE:
     case EF_LOST:
-	return gp->own != 0 && (gp->own == player->cnum || player->god);
-    case EF_NATION:
-	return ((struct natstr *)p)->nat_stat != STAT_UNUSED;
+    case EF_REALM:
+	return gp->own == player->cnum || player->god;
     case EF_COUNTRY:
 	return gp->own == player->cnum;
     case EF_NEWS:
-	return ((struct nwsstr *)p)->nws_vrb != 0
-	    && (!opt_HIDDEN || player->god); /* FIXME */
+	return !opt_HIDDEN || player->god; /* FIXME */
     case EF_TREATY:
-	return tp->trt_status != TS_FREE
-	    && (tp->trt_cna == player->cnum || tp->trt_cnb == player->cnum
-		|| player->god);
+	return tp->trt_cna == player->cnum
+	    || tp->trt_cnb == player->cnum
+	    || player->god;
     case EF_LOAN:
-	if (lp->l_status == LS_FREE)
-	    return 0;
 	if (lp->l_status == LS_SIGNED)
 	    return 1;
 	return lp->l_loner == player->cnum || lp->l_lonee == player->cnum
 	    || player->god;
-    case EF_TRADE:
-    case EF_COMM:
-	return gp->own != 0;
-    case EF_REALM:
-	natp = getnatp(((struct realmstr *)p)->r_cnum);
-	return (gp->own == player->cnum || player->god)
-	    && (natp->nat_stat != STAT_UNUSED);
-    case EF_PRODUCT:
-	return ((struct pchrstr *)p)->p_sname[0] != 0;
     case EF_SHIP_CHR:
 	tlev = ((struct mchrstr *)p)->m_tech;
-	name = ((struct mchrstr *)p)->m_name;
 	goto tech;
     case EF_PLANE_CHR:
 	tlev = ((struct plchrstr *)p)->pl_tech;
-	name = ((struct plchrstr *)p)->pl_name;
 	goto tech;
     case EF_LAND_CHR:
 	tlev = ((struct lchrstr *)p)->l_tech;
-	name = ((struct lchrstr *)p)->l_name;
     tech:
 	natp = getnatp(player->cnum);
-	if (!name[0])
-	    return 0;
 	return player->god || tlev <= (int)(1.25 * natp->nat_level[NAT_TLEV]);
     case EF_NUKE_CHR:
 	tlev = ((struct nchrstr *)p)->n_tech;
-	name = ((struct nchrstr *)p)->n_name;
 	if (drnuke_const > MIN_DRNUKE_CONST) {
 	    natp = getnatp(player->cnum);
 	    if (tlev > (int)((int)(1.25 * natp->nat_level[NAT_RLEV])
@@ -117,8 +96,6 @@ xdvisible(int type, void *p)
 		return player->god;
 	}
 	goto tech;
-    case EF_NEWS_CHR:
-	return ((struct rptstr *)p)->r_newspage != 0;
     case EF_TABLE:
 	return ((struct empfile *)p)->cadef != NULL;
     default:

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2006-2010
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>
@@ -36,10 +36,10 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "empobj.h"
 #include "file.h"
 #include "misc.h"
 #include "nsc.h"
-#include "plane.h"
 #include "product.h"
 
 static void verify_fail(int, int, struct castr *, int, char *, ...)
@@ -130,7 +130,7 @@ static int
 verify_row(int type, int row)
 {
     struct castr *ca = ef_cadef(type);
-    struct emptypedstr *row_ref;
+    struct empobj *row_ref;
     int i, j, n;
     struct valstr val;
     int ret_val = 0;
@@ -150,6 +150,9 @@ verify_row(int type, int row)
 	}
     }
 
+    if (!empobj_in_use(type, row_ref))
+	return ret_val;
+
     for (i = 0; ca[i].ca_name; ++i) {
 	if (ca[i].ca_get)
 	    continue;		/* virtual */
@@ -166,10 +169,6 @@ verify_row(int type, int row)
 	    }
 	    if (ca[i].ca_table == type && i == 0) {
 		/* uid */
-		/* Some files contain zeroed records, cope */
-		/* TODO tighten this check */
-		if (val.val_as.lng == 0)
-		    continue;
 		if (val.val_as.lng != row) {
 		    verify_fail(type, row, &ca[i], j,
 				"value is %ld instead of %d",

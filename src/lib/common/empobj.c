@@ -36,7 +36,9 @@
 
 #include "empobj.h"
 #include "file.h"
+#include "news.h"
 #include "optlist.h"
+#include "product.h"
 
 char *
 empobj_chr_name(struct empobj *gp)
@@ -72,4 +74,46 @@ get_empobj_mob_max(int type)
     }
     CANT_REACH();
     return -1;
+}
+
+int
+empobj_in_use(int type, void *p)
+{
+    switch (type) {
+    case EF_SHIP:
+    case EF_PLANE:
+    case EF_LAND:
+    case EF_NUKE:
+    case EF_TRADE:
+    case EF_COMM:
+    case EF_LOST:
+	return ((struct empobj *)p)->own != 0;
+    case EF_NATION:
+    case EF_COUNTRY:
+	return ((struct natstr *)p)->nat_stat != STAT_UNUSED;
+    case EF_NEWS:
+	return ((struct nwsstr *)p)->nws_vrb != 0;
+    case EF_TREATY:
+	return ((struct trtstr *)p)->trt_status != TS_FREE;
+    case EF_LOAN:
+	return ((struct lonstr *)p)->l_status != LS_FREE;
+    case EF_REALM:
+	return empobj_in_use(EF_NATION,
+			     ef_ptr(EF_NATION,
+				    ((struct realmstr *)p)->r_cnum));
+    case EF_PRODUCT:
+	return ((struct pchrstr *)p)->p_sname[0];
+    case EF_SHIP_CHR:
+	return ((struct mchrstr *)p)->m_name[0];
+    case EF_PLANE_CHR:
+	return ((struct plchrstr *)p)->pl_name[0];
+    case EF_LAND_CHR:
+	return ((struct lchrstr *)p)->l_name[0];
+    case EF_NUKE_CHR:
+	return ((struct nchrstr *)p)->n_name[0];
+    case EF_NEWS_CHR:
+	return ((struct rptstr *)p)->r_newspage != 0;
+    default:
+	return 1;
+    }
 }

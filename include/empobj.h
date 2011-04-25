@@ -100,5 +100,6 @@ struct empobj_chr;
 
 extern char *empobj_chr_name(struct empobj *gp);
 extern int get_empobj_mob_max(int type);
+extern int empobj_in_use(int, void *);
 
 #endif
