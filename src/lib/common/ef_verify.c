@@ -122,6 +122,13 @@ verify_tabref(int type, int row, struct castr *ca, int idx, long val)
 			val, ef_nameof(tabno), ef_nelem(tabno));
 	    return -1;
 	}
+	/* laziness: assumes TABNO is EFF_MEM */
+	if (val >= 0 && !empobj_in_use(tabno, ef_ptr(tabno, val))) {
+	    verify_fail(type, row, ca, idx,
+			"value %ld refers to missing element of table %s",
+			val, ef_nameof(tabno));
+	    return -1;
+	}
     }
     return 0;
 }
