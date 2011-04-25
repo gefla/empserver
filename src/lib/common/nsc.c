@@ -687,7 +687,7 @@ struct castr mdchr_ca[] = {
     {"flags", fldoff(ca_flags), NSC_UCHAR, 0, NULL,
      EF_META_FLAGS, NSC_CONST | NSC_BITS},
     {"len", fldoff(ca_len), NSC_USHORT, 0, NULL, EF_BAD, NSC_CONST},
-    {"table", fldoff(ca_table), NSC_INT, 0, NULL, EF_BAD, NSC_CONST},
+    {"table", fldoff(ca_table), NSC_INT, 0, NULL, EF_TABLE, NSC_CONST},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };

@@ -348,7 +348,8 @@ its meta-data:
 Because xdump table is referenced from elsewhere (xdump meta meta
 field table), the leftmost field must contain the key.  Thus, the
 leftmost field's meta-data field table must be the table ID of xdump
-table itself.  Let's try it:
+table itself.  Indeed, its value matches the one we got in xdump meta
+meta.  Let's try to dump the table:
 
     [30:640] Command : xdump 26 *
     XDUMP table 1139556210
@@ -415,7 +416,7 @@ We now have complete meta-meta information:
     type     d       (const)    0  meta-type
     flags    d  (bits const)    0  meta-flags
     len      d       (const)    0
-    table    d       (const)    0
+    table    d       (const)    0  table
 
 Dumping the remaining tables is easy: just walk the table of tables.
 Here's the first one:
