@@ -47,6 +47,7 @@ enum {
     NUMPKG = BPKG + 1
 };
 
+/* Item types, must match item.config */
 typedef enum {
     I_NONE = -1,
     I_CIVIL,
