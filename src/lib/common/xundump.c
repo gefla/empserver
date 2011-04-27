@@ -408,6 +408,10 @@ chkflds(void)
     struct castr *ca = ef_cadef(cur_type);
     int i, len, cafldsmax, res = 0;
 
+    /* Record index must come first, to make cur_id work, see setnum() */
+    if (ca[0].ca_table == cur_type && caflds[0] && fldca[0] != &ca[0])
+	res = gripe("Header field %s must come first", ca[0].ca_name);
+
     if (is_partial) {
 	/* Need a join field, use 0-th selector */
 	if (!caflds[0])
