@@ -114,7 +114,7 @@ struct emptypedstr {
 #define EFF_SENTINEL	bit(5)
 /* All the immutable flags */
 #define EFF_IMMUTABLE \
-    (EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP | EFF_STATIC)
+    (EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP | EFF_STATIC | EFF_SENTINEL)
 /* Flags set when table contents is mapped */
 /* Table is entirely in memory */
 #define EFF_MEM		bit(8)
