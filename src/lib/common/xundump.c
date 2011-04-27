@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2010
+ *     Markus Armbruster, 2005-2011
  */
 
 /*
@@ -411,12 +411,14 @@ chkflds(void)
     if (is_partial) {
 	/* Need a join field, use 0-th selector */
 	if (!caflds[0])
-	    return gripe("Header field %s required with ...", ca[0].ca_name);
+	    res = gripe("Header field %s required in each table part",
+			ca[0].ca_name);
     }
 
     if (ellipsis)
-	return 0;
+	return res;		/* table is split, another part expected */
 
+    /* Check for missing fields */
     for (i = 0; ca[i].ca_name; i++) {
 	cafldsmax = MAX(caflds[i], cafldspp[i]);
 	if (ca[i].ca_flags & NSC_EXTRA)
