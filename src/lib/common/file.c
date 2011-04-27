@@ -117,8 +117,8 @@ ef_open(int type, int how, int nelt)
 	/* ep->cache already points to space for ep->csize elements */
 	if (how & EFF_MEM) {
 	    if (ep->fids > ep->csize) {
-		logerror("Can't open %s: file larger than %d bytes",
-			 ep->file, ep->fids * ep->size);
+		logerror("Can't open %s (file larger than %d records)",
+			 ep->file, ep->csize);
 		close(fd);
 		return 0;
 	    }
