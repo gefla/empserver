@@ -145,7 +145,6 @@ ef_open(int type, int how, int nelt)
     if ((how & EFF_MEM) && ep->fids) {
 	if (fillcache(ep, 0) != ep->fids) {
 	    ep->cids = 0;	/* prevent cache flush */
-	    ep->flags &= EFF_IMMUTABLE; /* maintain invariant */
 	    ef_close(type);
 	    return 0;
 	}
@@ -264,7 +263,6 @@ ef_close(int type)
     else {
 	if (!ef_flush(type))
 	    retval = 0;
-	ep->flags &= EFF_IMMUTABLE;
 	if (!(ep->flags & EFF_STATIC)) {
 	    free(ep->cache);
 	    ep->cache = NULL;
@@ -275,6 +273,7 @@ ef_close(int type)
 	}
 	ep->fd = -1;
     }
+    ep->flags &= EFF_IMMUTABLE;
     ep->baseid = ep->cids = ep->fids = 0;
     if (ep->onresize && ep->onresize(type) < 0)
 	retval = 0;
