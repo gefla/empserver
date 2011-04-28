@@ -79,9 +79,8 @@ struct empfile {
     void (*prewrite)(int id, void *old, void *elt);
     /*
      * Called after table size changed, with file type as argument.
-     * Return -1 and set errno to make the operation fail.
      */
-    int (*onresize)(int type);
+    void (*onresize)(int type);
 };
 
 struct emptypedstr {

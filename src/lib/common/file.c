@@ -150,8 +150,8 @@ ef_open(int type, int how, int nelt)
 	}
     }
 
-    if (ep->onresize && ep->onresize(type) < 0)
-	return 0;
+    if (ep->onresize)
+	ep->onresize(type);
     return 1;
 }
 
@@ -275,8 +275,8 @@ ef_close(int type)
     }
     ep->flags &= EFF_IMMUTABLE;
     ep->baseid = ep->cids = ep->fids = 0;
-    if (ep->onresize && ep->onresize(type) < 0)
-	retval = 0;
+    if (ep->onresize)
+	ep->onresize(type);
     return retval;
 }
 
@@ -523,8 +523,8 @@ ef_write(int type, int id, void *from)
     if (id >= ep->fids) {
 	/* write beyond end of file extends it, take note */
 	ep->fids = id + 1;
-	if (ep->onresize && ep->onresize(type) < 0)
-	    return 0;
+	if (ep->onresize)
+	    ep->onresize(type);
     }
     if (id >= ep->baseid && id < ep->baseid + ep->cids) {
 	cachep = ep->cache + (id - ep->baseid) * ep->size;
@@ -708,8 +708,8 @@ ef_extend(int type, int count)
 	}
     }
     ep->fids = id + count;
-    if (ep->onresize && ep->onresize(type) < 0)
-	return 0;
+    if (ep->onresize)
+	ep->onresize(type);
     return 1;
 }
 
@@ -801,8 +801,8 @@ ef_truncate(int type, int count)
 	    ep->cids = count - ep->baseid;
     }
 
-    if (ep->onresize && ep->onresize(type) < 0)
-	return 0;
+    if (ep->onresize)
+	ep->onresize(type);
     return 1;
 }
 

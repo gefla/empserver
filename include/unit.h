@@ -52,7 +52,7 @@ extern int unit_cargo_first(int, int, int);
 extern int unit_cargo_next(int, int);
 extern int unit_cargo_count(int, int, int);
 extern int unit_nplane(int, int, int *, int *, int *);
-extern int unit_onresize(int);
+extern void unit_onresize(int);
 
 extern void unit_list(struct emp_qelem *);
 extern void unit_put(struct emp_qelem *list, natid actor);

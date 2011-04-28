@@ -276,14 +276,14 @@ unit_cargo_init(void)
  * Return 0 on success, -1 on error.
  * This is the struct empfile onresize callback for units.
  */
-int
+void
 unit_onresize(int type)
 {
     int n, i;
     struct clink *cl;
 
     if (CANT_HAPPEN(type < EF_SHIP || type > EF_NUKE))
-	return -1;
+	return;
 
     n = ef_nelem(type);
     cl = realloc(clink[type], n * sizeof(*clink[type]));
@@ -295,7 +295,6 @@ unit_onresize(int type)
     nclink[type] = n;
     if (ef_flags(type) & EFF_MEM)
 	clink_check(type);
-    return 0;
 }
 
 /*

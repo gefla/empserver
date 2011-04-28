@@ -44,7 +44,7 @@ struct fileinit {
     void (*oninit)(void *);
     void (*postread)(int, void *);
     void (*prewrite)(int, void *, void *);
-    int (*onresize)(int);
+    void (*onresize)(int);
 };
 
 static struct fileinit fileinit[] = {
