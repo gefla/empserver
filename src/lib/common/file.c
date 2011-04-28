@@ -258,14 +258,16 @@ ef_close(int type)
 	return 0;
     ep = &empfile[type];
 
-    if (EF_IS_VIEW(type))
+    if (EF_IS_VIEW(type)) {
 	ep->cache = NULL;
-    else {
+	ep->csize = 0;
+    } else {
 	if (!ef_flush(type))
 	    retval = 0;
 	if (!(ep->flags & EFF_STATIC)) {
 	    free(ep->cache);
 	    ep->cache = NULL;
+	    ep->csize = 0;
 	}
 	if (close(ep->fd) < 0) {
 	    logerror("Error closing %s (%s)", ep->file, strerror(errno));
