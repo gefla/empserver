@@ -74,7 +74,7 @@ int
 ef_open(int type, int how, int nelt)
 {
     struct empfile *ep;
-    int oflags, fd, fsiz, nslots;
+    int oflags, fd, fsiz, fids, nslots;
 
     if (ef_check(type) < 0)
 	return 0;
@@ -104,10 +104,10 @@ ef_open(int type, int how, int nelt)
 	close(fd);
 	return 0;
     }
-    ep->fids = fsiz / ep->size;
-    if (nelt >= 0 && nelt != ep->fids) {
+    fids = fsiz / ep->size;
+    if (nelt >= 0 && nelt != fids) {
 	logerror("Can't open %s (got %d records instead of %d)",
-		 ep->file, ep->fids, nelt);
+		 ep->file, fids, nelt);
 	close(fd);
 	return 0;
     }
@@ -116,7 +116,7 @@ ef_open(int type, int how, int nelt)
     if (ep->flags & EFF_STATIC) {
 	/* ep->cache already points to space for ep->csize elements */
 	if (how & EFF_MEM) {
-	    if (ep->fids > ep->csize) {
+	    if (fids > ep->csize) {
 		logerror("Can't open %s (file larger than %d records)",
 			 ep->file, ep->csize);
 		close(fd);
@@ -127,7 +127,7 @@ ef_open(int type, int how, int nelt)
 	if (CANT_HAPPEN(ep->cache))
 	    free(ep->cache);
 	if (how & EFF_MEM)
-	    nslots = ep->fids;
+	    nslots = fids;
 	else
 	    nslots = blksize(fd) / ep->size;
 	if (!ef_realloc_cache(ep, nslots)) {
@@ -138,12 +138,13 @@ ef_open(int type, int how, int nelt)
     }
     ep->baseid = 0;
     ep->cids = 0;
+    ep->fids = fids;
     ep->flags = (ep->flags & EFF_IMMUTABLE) | (how & ~EFF_CREATE);
     ep->fd = fd;
 
     /* map file into cache */
-    if ((how & EFF_MEM) && ep->fids) {
-	if (fillcache(ep, 0) != ep->fids) {
+    if ((how & EFF_MEM) && fids) {
+	if (fillcache(ep, 0) != fids) {
 	    ep->cids = 0;	/* prevent cache flush */
 	    ef_close(type);
 	    return 0;
