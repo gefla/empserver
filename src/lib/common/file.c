@@ -520,11 +520,12 @@ ef_write(int type, int id, void *from)
     ep = &empfile[type];
     if (CANT_HAPPEN((ep->flags & (EFF_MEM | EFF_PRIVATE)) == EFF_PRIVATE))
 	return 0;
-    if (CANT_HAPPEN((ep->flags & EFF_MEM) ? id >= ep->fids : id > ep->fids))
-	return 0;		/* not implemented */
     new_seqno(ep, from);
     if (id >= ep->fids) {
-	/* write beyond end of file extends it, take note */
+	/* beyond end of file */
+	if (CANT_HAPPEN((ep->flags & EFF_MEM) || id > ep->fids))
+	    return 0;		/* not implemented */
+	/* write at end of file extends it */
 	ep->fids = id + 1;
 	if (ep->onresize)
 	    ep->onresize(type);
