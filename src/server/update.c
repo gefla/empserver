@@ -41,6 +41,7 @@
 #endif
 #include <time.h>
 #include "empthread.h"
+#include "file.h"
 #include "game.h"
 #include "misc.h"
 #include "optlist.h"
@@ -97,15 +98,20 @@ static int
 update_get_schedule(void)
 {
     time_t now = time(NULL);
+    int n = sizeof(update_time) / sizeof(*update_time);
+    int i;
 
-    if (read_schedule(schedulefil, update_time,
-		      sizeof(update_time) / sizeof(*update_time),
+    ef_truncate(EF_UPDATES, 0);
+    ef_extend(EF_UPDATES, n - 1);
+    if (read_schedule(schedulefil, update_time, n,
 		      now + 30, update_schedule_anchor) < 0) {
 	logerror("No update schedule!");
-	update_time[0] = 0;
+	ef_truncate(EF_UPDATES, 0);
 	return -1;
     }
     logerror("Update schedule read");
+    for (i = 0; update_time[i]; i++) ;
+    ef_truncate(EF_UPDATES, i);
     return 0;
 }
 

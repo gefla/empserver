@@ -186,7 +186,7 @@ struct empfile empfile[] = {
      * Update schedule table.  Use read_schedule() to fill.
      */
     {EF_UPDATES, "updates", NULL, update_ca,
-     ARRAY_TABLE(update_time, EFF_CFG)},
+     ARRAY_CACHE(update_time, EFF_CFG)},
     /*
      * Special tables.  EF_META gets bogus size, cids and fids here.
      * Fixed up by empfile_init().  EF_VERSION's cadef is set by
