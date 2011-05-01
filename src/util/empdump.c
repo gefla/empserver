@@ -131,10 +131,13 @@ main(int argc, char *argv[])
     global_init();
 
     for (i = 0; i < EF_MAX; i++) {
-	if (!EF_IS_GAME_STATE(i))
-	    continue;
-	if (!ef_open(i, EFF_MEM | private, -1))
-	    exit(1);
+	if (EF_IS_GAME_STATE(i)) {
+	    if (!ef_open(i, EFF_MEM | private, -1))
+		exit(1);
+	} else if (EF_IS_VIEW(i)) {
+	    if (ef_open_view(i) < 0)
+		exit(1);
+	}
     }
 
     /* import from IMPORT */
