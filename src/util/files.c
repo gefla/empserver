@@ -136,7 +136,7 @@ main(int argc, char *argv[])
     for (i = 0; i < EF_MAX; i++) {
 	if (!EF_IS_GAME_STATE(i))
 	    continue;
-	if (!ef_open(i, EFF_CREATE | EFF_NOTIME, -1)) {
+	if (!ef_open(i, EFF_CREATE | EFF_NOTIME)) {
 	    perror("ef_open");
 	    exit(1);
 	}

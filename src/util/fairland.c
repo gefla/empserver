@@ -261,7 +261,7 @@ main(int argc, char *argv[])
 	fprintf(stderr, "Can't chdir to %s (%s)\n", gamedir, strerror(errno));
 	exit(EXIT_FAILURE);
     }
-    if (!ef_open(EF_SECTOR, EFF_MEM | EFF_NOTIME, WORLD_SZ())) {
+    if (!ef_open(EF_SECTOR, EFF_MEM | EFF_NOTIME)) {
 	perror("ef_open");
 	exit(1);
     }

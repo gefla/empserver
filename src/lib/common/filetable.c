@@ -60,30 +60,29 @@
 
 /* Initializers for members flags... */
 /* Unmapped cache */
-#define UNMAPPED_CACHE(type, flags) \
-    sizeof(type), (flags), NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL
+#define UNMAPPED_CACHE(type, nent, flags)	\
+    sizeof(type), (nent), (flags), NULL,	\
+    0, 0, 0, 0, -1, NULL, NULL, NULL, NULL
 /*
  * Mapped cache, array with known size.
  * Members cids, fids are not set.
  */
 #define ARRAY_CACHE(array, flags) \
-    sizeof(*(array)), (flags), (char *)(array), \
+    sizeof(*(array)), -1, (flags), (char *)(array),	\
     SZ((array)), 0, 0, 0, -1, NULL, NULL, NULL, NULL
 /*
  * Mapped cache, array with unknown size.
  * Members csize, cids, fids are not set.
  */
 #define PTR_CACHE(ptr, flags) \
-    sizeof(*(ptr)), (flags), (char *)(ptr), \
+    sizeof(*(ptr)), -1, (flags), (char *)(ptr),	\
     0, 0, 0, 0, -1, NULL, NULL, NULL, NULL
 /*
- * Array-backed table.
- * The array's last element is the sentinel.
+ * Array-backed table of fixed size.
  */
-#define ARRAY_TABLE(array, flags)				\
-    sizeof(*(array)), (flags), (char *)(array),			\
-    SZ((array)), 0, SZ((array)) - 1, SZ((array)) - 1, -1,	\
-    NULL, NULL, NULL, NULL
+#define ARRAY_TABLE(array, nent, flags)				\
+    sizeof(*(array)), (nent), (flags), (char *)(array),		\
+    SZ((array)), 0, (nent), (nent), -1, NULL, NULL, NULL, NULL
 
 /* Common configuration table flags */
 #define EFF_CFG (EFF_PRIVATE | EFF_MEM | EFF_STATIC | EFF_SENTINEL)
@@ -115,46 +114,48 @@ struct empfile empfile[] = {
     /*
      * Dynamic game data
      *
-     * All caches unmapped.  EF_MAP and EF_BMAP get a bogus size here.
-     * Fixed up by empfile_fixup().
+     * All caches unmapped.  EF_SECTOR gets bogus nent here.  EF_MAP
+     * and EF_BMAP get a bogus size here.  Fixed up by
+     * empfile_fixup().
      */
     {EF_SECTOR, "sect", "sector", sect_ca, EF_BAD,
-     UNMAPPED_CACHE(struct sctstr, EFF_TYPED | EFF_XY | EFF_OWNER)},
+     UNMAPPED_CACHE(struct sctstr, -1, EFF_TYPED | EFF_XY | EFF_OWNER)},
     {EF_SHIP, "ship", "ship", ship_ca, EF_BAD,
-     UNMAPPED_CACHE(struct shpstr,
+     UNMAPPED_CACHE(struct shpstr, -1,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP)},
     {EF_PLANE, "plane", "plane", plane_ca, EF_BAD,
-     UNMAPPED_CACHE(struct plnstr,
+     UNMAPPED_CACHE(struct plnstr, -1,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP)},
     {EF_LAND, "land", "land", land_ca, EF_BAD,
-     UNMAPPED_CACHE(struct lndstr,
+     UNMAPPED_CACHE(struct lndstr, -1,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP)},
     {EF_NUKE, "nuke", "nuke", nuke_ca, EF_BAD,
-     UNMAPPED_CACHE(struct nukstr, EFF_TYPED | EFF_XY | EFF_OWNER)},
+     UNMAPPED_CACHE(struct nukstr, -1, EFF_TYPED | EFF_XY | EFF_OWNER)},
     {EF_NEWS, "news", "news", news_ca, EF_BAD,
-     UNMAPPED_CACHE(struct nwsstr, 0)},
+     UNMAPPED_CACHE(struct nwsstr, -1, 0)},
     {EF_TREATY, "treaty", "treaty", treaty_ca, EF_BAD,
-     UNMAPPED_CACHE(struct trtstr, EFF_TYPED)},
+     UNMAPPED_CACHE(struct trtstr, -1, EFF_TYPED)},
     {EF_TRADE, "trade", "trade", trade_ca, EF_BAD,
-     UNMAPPED_CACHE(struct trdstr, EFF_TYPED | EFF_OWNER)},
+     UNMAPPED_CACHE(struct trdstr, -1, EFF_TYPED | EFF_OWNER)},
     {EF_POWER, "pow", "power", NULL, EF_BAD,
-     UNMAPPED_CACHE(struct powstr, 0)},
+     UNMAPPED_CACHE(struct powstr, -1, 0)},
     {EF_NATION, "nat", "nation", nat_ca, EF_BAD,
-     UNMAPPED_CACHE(struct natstr, EFF_TYPED | EFF_OWNER)},
+     UNMAPPED_CACHE(struct natstr, MAXNOC, EFF_TYPED | EFF_OWNER)},
     {EF_LOAN, "loan", "loan", loan_ca, EF_BAD,
-     UNMAPPED_CACHE(struct lonstr, EFF_TYPED)},
+     UNMAPPED_CACHE(struct lonstr, -1, EFF_TYPED)},
     {EF_MAP, "map", "map", NULL, EF_BAD,
-     0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
+     0, MAXNOC, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
     {EF_BMAP, "bmap", "bmap", NULL, EF_BAD,
-     0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
+     0, MAXNOC, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
     {EF_COMM, "commodity", "commodity", commodity_ca, EF_BAD,
-     UNMAPPED_CACHE(struct comstr, EFF_TYPED | EFF_OWNER)},
+     UNMAPPED_CACHE(struct comstr, -1, EFF_TYPED | EFF_OWNER)},
     {EF_LOST, "lost", "lostitems", lost_ca, EF_BAD,
-     UNMAPPED_CACHE(struct loststr, EFF_TYPED | EFF_OWNER)},
+     UNMAPPED_CACHE(struct loststr, -1, EFF_TYPED | EFF_OWNER)},
     {EF_REALM, "realm", "realms", realm_ca, EF_BAD,
-     UNMAPPED_CACHE(struct realmstr, EFF_TYPED | EFF_OWNER)},
+     UNMAPPED_CACHE(struct realmstr, MAXNOC * MAXNOR,
+		    EFF_TYPED | EFF_OWNER)},
     {EF_GAME, "game", "game", game_ca, EF_BAD,
-     UNMAPPED_CACHE(struct gamestr, EFF_TYPED)},
+     UNMAPPED_CACHE(struct gamestr, 1, EFF_TYPED)},
 
     /*
      * Static game data (configuration)
@@ -179,7 +180,7 @@ struct empfile empfile[] = {
     {EF_NUKE_CHR, "nuke-chr", "nuke.config", nchr_ca, EF_BAD,
      ARRAY_CACHE(nchr, EFF_CFG)},
     {EF_NEWS_CHR, "news-chr", NULL, rpt_ca, EF_BAD,
-     ARRAY_TABLE(rpt, EFF_CFG)},
+     ARRAY_TABLE(rpt, N_MAX_VERB + 1, EFF_CFG)},
     {EF_INFRASTRUCTURE, "infrastructure", "infra.config", intrchr_ca, EF_BAD,
      ARRAY_CACHE(intrchr, EFF_CFG)},
     /*
@@ -193,9 +194,9 @@ struct empfile empfile[] = {
      * nsc_init().
      */
     {EF_TABLE, "table", NULL, empfile_ca, EF_BAD,
-     ARRAY_TABLE(empfile, EFF_CFG)},
+     ARRAY_TABLE(empfile, EF_MAX, EFF_CFG)},
     {EF_VERSION, "version", NULL, NULL, EF_BAD,
-     sizeof(PACKAGE_STRING), EFF_STATIC, version, 1, 0, 1, 1, -1,
+     sizeof(PACKAGE_STRING), -1, EFF_STATIC, version, 1, 0, 1, 1, -1,
      NULL, NULL, NULL, NULL},
     {EF_META, "meta", NULL, mdchr_ca, EF_BAD,
      PTR_CACHE(mdchr_ca, EFF_CFG)},
@@ -232,17 +233,17 @@ struct empfile empfile[] = {
 
     /* Views */
     {EF_COUNTRY, "country", NULL, cou_ca, EF_NATION,
-     UNMAPPED_CACHE(struct natstr, EFF_TYPED | EFF_OWNER)},
+     UNMAPPED_CACHE(struct natstr, MAXNOC, EFF_TYPED | EFF_OWNER)},
 
     /* Sentinel */
     {EF_BAD, NULL, NULL, NULL, EF_BAD,
-     0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
+     0, -1, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
 };
 
 static void
 ef_fix_size(struct empfile *ep, int n)
 {
-    ep->cids = ep->fids = n;
+    ep->nent = ep->cids = ep->fids = n;
     ep->csize = n + 1;
 }
 
@@ -270,5 +271,6 @@ empfile_init(void)
 void
 empfile_fixup(void)
 {
+    empfile[EF_SECTOR].nent = WORLD_SZ();
     empfile[EF_MAP].size = empfile[EF_BMAP].size = WORLD_SZ();
 }

@@ -66,12 +66,11 @@ static unsigned ef_generation;
  * Open the file-backed table TYPE (EF_SECTOR, ...).
  * HOW are flags to control operation.  Naturally, immutable flags are
  * not permitted.
- * If NELT is non-negative, the table must have that many elements.
+ * The table must not be already open.
  * Return non-zero on success, zero on failure.
- * You must call ef_close() before the next ef_open().
  */
 int
-ef_open(int type, int how, int nelt)
+ef_open(int type, int how)
 {
     struct empfile *ep;
     int oflags, fd, fsiz, fids, nslots;
@@ -105,9 +104,9 @@ ef_open(int type, int how, int nelt)
 	return 0;
     }
     fids = fsiz / ep->size;
-    if (nelt >= 0 && nelt != fids) {
+    if (ep->nent >= 0 && ep->nent != fids && !(how & EFF_CREATE)) {
 	logerror("Can't open %s (got %d records instead of %d)",
-		 ep->file, fids, nelt);
+		 ep->file, fids, ep->nent);
 	close(fd);
 	return 0;
     }
@@ -117,6 +116,7 @@ ef_open(int type, int how, int nelt)
 	/* ep->cache already points to space for ep->csize elements */
 	if (how & EFF_MEM) {
 	    if (fids > ep->csize) {
+		CANT_HAPPEN(ep->nent >= 0); /* insufficient static cache */
 		logerror("Can't open %s (file larger than %d records)",
 			 ep->file, ep->csize);
 		close(fd);
@@ -239,7 +239,9 @@ ef_open_view(int type)
     if (ef_check(base) < 0)
 	return 0;
     if (CANT_HAPPEN(!(ef_flags(base) & EFF_MEM)
-		    || ep->file || ep->size != empfile[base].size
+		    || ep->file
+		    || ep->size != empfile[base].size
+		    || ep->nent != empfile[base].nent
 		    || ep->cache || ep->oninit || ep->postread
 		    || ep->prewrite || ep->onresize))
 	return -1;

@@ -132,7 +132,7 @@ main(int argc, char *argv[])
 
     for (i = 0; i < EF_MAX; i++) {
 	if (EF_IS_GAME_STATE(i)) {
-	    if (!ef_open(i, EFF_MEM | private, -1))
+	    if (!ef_open(i, EFF_MEM | private))
 		exit(1);
 	} else if (EF_IS_VIEW(i)) {
 	    if (ef_open_view(i) < 0)

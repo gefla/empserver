@@ -44,6 +44,7 @@ struct empfile {
     struct castr *cadef;	/* table column selectors (column meta-data) */
     int base;			/* view's base table, else EF_BAD */
     int size;			/* size of a table entry */
+    int nent;			/* #table entries, -1 if variable */
     int flags;			/* only EFF_IMMUTABLE immutable, see below
 				   for use of remaining bits */
 
@@ -209,7 +210,7 @@ extern void ef_mark_fresh(int, void *);
 extern void *ef_ptr(int, int);
 extern char *ef_nameof(int);
 extern time_t ef_mtime(int);
-extern int ef_open(int, int, int);
+extern int ef_open(int, int);
 extern int ef_open_view(int);
 extern int ef_close(int);
 extern int ef_flush(int);

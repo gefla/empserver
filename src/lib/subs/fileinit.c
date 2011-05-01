@@ -34,8 +34,7 @@
 #include <config.h>
 
 #include "file.h"
-#include "nat.h"
-#include "optlist.h"
+#include "nsc.h"
 #include "prototypes.h"
 #include "unit.h"
 
@@ -92,23 +91,23 @@ ef_open_srv(void)
 {
     int failed = 0;
 
-    failed |= !ef_open(EF_NATION, EFF_MEM, MAXNOC);
-    failed |= !ef_open(EF_SECTOR, EFF_MEM, WORLD_SZ());
-    failed |= !ef_open(EF_SHIP, EFF_MEM, -1);
-    failed |= !ef_open(EF_PLANE, EFF_MEM, -1);
-    failed |= !ef_open(EF_LAND, EFF_MEM, -1);
-    failed |= !ef_open(EF_GAME, EFF_MEM, 1);
-    failed |= !ef_open(EF_NEWS, 0, -1);
-    failed |= !ef_open(EF_LOAN, 0, -1);
-    failed |= !ef_open(EF_TREATY, 0, -1);
-    failed |= !ef_open(EF_NUKE, EFF_MEM, -1);
-    failed |= !ef_open(EF_POWER, 0, -1);
-    failed |= !ef_open(EF_TRADE, 0, -1);
-    failed |= !ef_open(EF_MAP, EFF_MEM, MAXNOC);
-    failed |= !ef_open(EF_BMAP, EFF_MEM, MAXNOC);
-    failed |= !ef_open(EF_COMM, 0, -1);
-    failed |= !ef_open(EF_LOST, 0, -1);
-    failed |= !ef_open(EF_REALM, EFF_MEM, MAXNOC * MAXNOR);
+    failed |= !ef_open(EF_NATION, EFF_MEM);
+    failed |= !ef_open(EF_SECTOR, EFF_MEM);
+    failed |= !ef_open(EF_SHIP, EFF_MEM);
+    failed |= !ef_open(EF_PLANE, EFF_MEM);
+    failed |= !ef_open(EF_LAND, EFF_MEM);
+    failed |= !ef_open(EF_GAME, EFF_MEM);
+    failed |= !ef_open(EF_NEWS, 0);
+    failed |= !ef_open(EF_LOAN, 0);
+    failed |= !ef_open(EF_TREATY, 0);
+    failed |= !ef_open(EF_NUKE, EFF_MEM);
+    failed |= !ef_open(EF_POWER, 0);
+    failed |= !ef_open(EF_TRADE, 0);
+    failed |= !ef_open(EF_MAP, EFF_MEM);
+    failed |= !ef_open(EF_BMAP, EFF_MEM);
+    failed |= !ef_open(EF_COMM, 0);
+    failed |= !ef_open(EF_LOST, 0);
+    failed |= !ef_open(EF_REALM, EFF_MEM);
     if (!failed)
 	failed |= ef_open_view(EF_COUNTRY);
     if (failed) {
