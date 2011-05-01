@@ -48,14 +48,11 @@ static void verify_fail(int, int, struct castr *, int, char *, ...)
 static void
 verify_fail(int type, int row, struct castr *ca, int idx, char *fmt, ...)
 {
-    int i;
+    int base = empfile[type].base < 0 ? type : empfile[type].base;
     va_list ap;
 
-    /* Find base table of view, if any */
-    for (i = 0; empfile[i].cache == empfile[type].cache; i++) ;
-
     fprintf(stderr, "%s %s uid %d",
-	    EF_IS_GAME_STATE(i) ? "File" : "Config",
+	    EF_IS_GAME_STATE(base) ? "File" : "Config",
 	    ef_nameof(type), row);
     if (ca) {
 	fprintf(stderr, " field %s", ca->ca_name);

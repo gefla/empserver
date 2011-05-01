@@ -83,7 +83,7 @@ ef_open(int type, int how, int nelt)
 
     /* open file */
     ep = &empfile[type];
-    if (CANT_HAPPEN(ep->fd >= 0))
+    if (CANT_HAPPEN(!ep->file || ep->base != EF_BAD || ep->fd >= 0))
 	return 0;
     oflags = O_RDWR;
     if (how & EFF_PRIVATE)
@@ -220,20 +220,28 @@ ef_realloc_cache(struct empfile *ep, int count)
 }
 
 /*
- * Open the table TYPE as view of table BASE.
+ * Open the table TYPE, which is a view of a base table
+ * The table must not be already open.
  * Return non-zero on success, zero on failure.
- * Beware: views work only as long as BASE doesn't change size!
- * You must call ef_close(TYPE) before closing BASE.
+ * Beware: views work only as long as the base table doesn't change size!
+ * You must close the view before closing its base table.
  */
 int
-ef_open_view(int type, int base)
+ef_open_view(int type)
 {
     struct empfile *ep;
+    int base;
 
-    if (CANT_HAPPEN(!EF_IS_VIEW(type)))
-	return -1;
+    if (ef_check(type) < 0)
+	return 0;
     ep = &empfile[type];
-    if (CANT_HAPPEN(!(ef_flags(base) & EFF_MEM)))
+    base = ep->base;
+    if (ef_check(base) < 0)
+	return 0;
+    if (CANT_HAPPEN(!(ef_flags(base) & EFF_MEM)
+		    || ep->file || ep->size != empfile[base].size
+		    || ep->cache || ep->oninit || ep->postread
+		    || ep->prewrite || ep->onresize))
 	return -1;
 
     ep->cache = empfile[base].cache;

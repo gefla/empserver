@@ -118,42 +118,42 @@ struct empfile empfile[] = {
      * All caches unmapped.  EF_MAP and EF_BMAP get a bogus size here.
      * Fixed up by empfile_fixup().
      */
-    {EF_SECTOR, "sect", "sector", sect_ca,
+    {EF_SECTOR, "sect", "sector", sect_ca, EF_BAD,
      UNMAPPED_CACHE(struct sctstr, EFF_TYPED | EFF_XY | EFF_OWNER)},
-    {EF_SHIP, "ship", "ship", ship_ca,
+    {EF_SHIP, "ship", "ship", ship_ca, EF_BAD,
      UNMAPPED_CACHE(struct shpstr,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP)},
-    {EF_PLANE, "plane", "plane", plane_ca,
+    {EF_PLANE, "plane", "plane", plane_ca, EF_BAD,
      UNMAPPED_CACHE(struct plnstr,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP)},
-    {EF_LAND, "land", "land", land_ca,
+    {EF_LAND, "land", "land", land_ca, EF_BAD,
      UNMAPPED_CACHE(struct lndstr,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP)},
-    {EF_NUKE, "nuke", "nuke", nuke_ca,
+    {EF_NUKE, "nuke", "nuke", nuke_ca, EF_BAD,
      UNMAPPED_CACHE(struct nukstr, EFF_TYPED | EFF_XY | EFF_OWNER)},
-    {EF_NEWS, "news", "news", news_ca,
+    {EF_NEWS, "news", "news", news_ca, EF_BAD,
      UNMAPPED_CACHE(struct nwsstr, 0)},
-    {EF_TREATY, "treaty", "treaty", treaty_ca,
+    {EF_TREATY, "treaty", "treaty", treaty_ca, EF_BAD,
      UNMAPPED_CACHE(struct trtstr, EFF_TYPED)},
-    {EF_TRADE, "trade", "trade", trade_ca,
+    {EF_TRADE, "trade", "trade", trade_ca, EF_BAD,
      UNMAPPED_CACHE(struct trdstr, EFF_TYPED | EFF_OWNER)},
-    {EF_POWER, "pow", "power", NULL,
+    {EF_POWER, "pow", "power", NULL, EF_BAD,
      UNMAPPED_CACHE(struct powstr, 0)},
-    {EF_NATION, "nat", "nation", nat_ca,
+    {EF_NATION, "nat", "nation", nat_ca, EF_BAD,
      UNMAPPED_CACHE(struct natstr, EFF_TYPED | EFF_OWNER)},
-    {EF_LOAN, "loan", "loan", loan_ca,
+    {EF_LOAN, "loan", "loan", loan_ca, EF_BAD,
      UNMAPPED_CACHE(struct lonstr, EFF_TYPED)},
-    {EF_MAP, "map", "map", NULL,
+    {EF_MAP, "map", "map", NULL, EF_BAD,
      0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
-    {EF_BMAP, "bmap", "bmap", NULL,
+    {EF_BMAP, "bmap", "bmap", NULL, EF_BAD,
      0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
-    {EF_COMM, "commodity", "commodity", commodity_ca,
+    {EF_COMM, "commodity", "commodity", commodity_ca, EF_BAD,
      UNMAPPED_CACHE(struct comstr, EFF_TYPED | EFF_OWNER)},
-    {EF_LOST, "lost", "lostitems", lost_ca,
+    {EF_LOST, "lost", "lostitems", lost_ca, EF_BAD,
      UNMAPPED_CACHE(struct loststr, EFF_TYPED | EFF_OWNER)},
-    {EF_REALM, "realm", "realms", realm_ca,
+    {EF_REALM, "realm", "realms", realm_ca, EF_BAD,
      UNMAPPED_CACHE(struct realmstr, EFF_TYPED | EFF_OWNER)},
-    {EF_GAME, "game", "game", game_ca,
+    {EF_GAME, "game", "game", game_ca, EF_BAD,
      UNMAPPED_CACHE(struct gamestr, EFF_TYPED)},
 
     /*
@@ -164,40 +164,40 @@ struct empfile empfile[] = {
      * member are compiled in.  The others are empty; use
      * read_builtin_tables() to fill them.
      */
-    {EF_ITEM, "item", "item.config", ichr_ca,
+    {EF_ITEM, "item", "item.config", ichr_ca, EF_BAD,
      ARRAY_CACHE(ichr, EFF_CFG)},
-    {EF_PRODUCT, "product", "product.config", pchr_ca,
+    {EF_PRODUCT, "product", "product.config", pchr_ca, EF_BAD,
      ARRAY_CACHE(pchr, EFF_CFG)},
-    {EF_SECTOR_CHR, "sect-chr", "sect.config", dchr_ca,
+    {EF_SECTOR_CHR, "sect-chr", "sect.config", dchr_ca, EF_BAD,
      ARRAY_CACHE(dchr, EFF_CFG)},
-    {EF_SHIP_CHR, "ship-chr", "ship.config", mchr_ca,
+    {EF_SHIP_CHR, "ship-chr", "ship.config", mchr_ca, EF_BAD,
      ARRAY_CACHE(mchr, EFF_CFG)},
-    {EF_PLANE_CHR, "plane-chr", "plane.config", plchr_ca,
+    {EF_PLANE_CHR, "plane-chr", "plane.config", plchr_ca, EF_BAD,
      ARRAY_CACHE(plchr, EFF_CFG)},
-    {EF_LAND_CHR, "land-chr", "land.config", lchr_ca,
+    {EF_LAND_CHR, "land-chr", "land.config", lchr_ca, EF_BAD,
      ARRAY_CACHE(lchr, EFF_CFG)},
-    {EF_NUKE_CHR, "nuke-chr", "nuke.config", nchr_ca,
+    {EF_NUKE_CHR, "nuke-chr", "nuke.config", nchr_ca, EF_BAD,
      ARRAY_CACHE(nchr, EFF_CFG)},
-    {EF_NEWS_CHR, "news-chr", NULL, rpt_ca,
+    {EF_NEWS_CHR, "news-chr", NULL, rpt_ca, EF_BAD,
      ARRAY_TABLE(rpt, EFF_CFG)},
-    {EF_INFRASTRUCTURE, "infrastructure", "infra.config", intrchr_ca,
+    {EF_INFRASTRUCTURE, "infrastructure", "infra.config", intrchr_ca, EF_BAD,
      ARRAY_CACHE(intrchr, EFF_CFG)},
     /*
      * Update schedule table.  Use read_schedule() to fill.
      */
-    {EF_UPDATES, "updates", NULL, update_ca,
+    {EF_UPDATES, "updates", NULL, update_ca, EF_BAD,
      ARRAY_CACHE(update_time, EFF_CFG)},
     /*
      * Special tables.  EF_META gets bogus size, cids and fids here.
      * Fixed up by empfile_init().  EF_VERSION's cadef is set by
      * nsc_init().
      */
-    {EF_TABLE, "table", NULL, empfile_ca,
+    {EF_TABLE, "table", NULL, empfile_ca, EF_BAD,
      ARRAY_TABLE(empfile, EFF_CFG)},
-    {EF_VERSION, "version", NULL, NULL,
+    {EF_VERSION, "version", NULL, NULL, EF_BAD,
      sizeof(PACKAGE_STRING), EFF_STATIC, version, 1, 0, 1, 1, -1,
      NULL, NULL, NULL, NULL},
-    {EF_META, "meta", NULL, mdchr_ca,
+    {EF_META, "meta", NULL, mdchr_ca, EF_BAD,
      PTR_CACHE(mdchr_ca, EFF_CFG)},
 
     /*
@@ -206,8 +206,8 @@ struct empfile empfile[] = {
      * These get bogus csize, cids and fids here.  Fixed up by
      * empfile_init().
      */
-#define SYMTAB(type, name, tab) \
-	{(type), (name), NULL, symbol_ca, PTR_CACHE((tab), EFF_CFG)}
+#define SYMTAB(type, name, tab) {(type), (name), NULL, symbol_ca, EF_BAD, \
+				 PTR_CACHE((tab), EFF_CFG)}
     SYMTAB(EF_AGREEMENT_STATUS, "agreement-status", agreement_statuses),
     SYMTAB(EF_LAND_CHR_FLAGS, "land-chr-flags", land_chr_flags),
     SYMTAB(EF_LEVEL, "level", level),
@@ -231,11 +231,11 @@ struct empfile empfile[] = {
     SYMTAB(EF_TREATY_FLAGS, "treaty-flags", treaty_flags),
 
     /* Views */
-    {EF_COUNTRY, "country", NULL, cou_ca,
+    {EF_COUNTRY, "country", NULL, cou_ca, EF_NATION,
      UNMAPPED_CACHE(struct natstr, EFF_TYPED | EFF_OWNER)},
 
     /* Sentinel */
-    {EF_BAD, NULL, NULL, NULL,
+    {EF_BAD, NULL, NULL, NULL, EF_BAD,
      0, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
 };
 

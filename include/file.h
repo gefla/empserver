@@ -42,6 +42,7 @@ struct empfile {
     char *file;			/* file name, relative to gamedir for
 				   game state, to builtindir for config */
     struct castr *cadef;	/* table column selectors (column meta-data) */
+    int base;			/* view's base table, else EF_BAD */
     int size;			/* size of a table entry */
     int flags;			/* only EFF_IMMUTABLE immutable, see below
 				   for use of remaining bits */
@@ -199,7 +200,7 @@ enum {
 };
 
 #define EF_IS_GAME_STATE(type) (EF_SECTOR <= (type) && (type) <= EF_DYNMAX)
-#define EF_IS_VIEW(type) (EF_COUNTRY <= (type) && (type) < EF_MAX)
+#define EF_IS_VIEW(type) (empfile[(type)].base != EF_BAD)
 
 extern struct castr *ef_cadef(int);
 extern int ef_read(int, int, void *);
@@ -209,7 +210,7 @@ extern void *ef_ptr(int, int);
 extern char *ef_nameof(int);
 extern time_t ef_mtime(int);
 extern int ef_open(int, int, int);
-extern int ef_open_view(int, int);
+extern int ef_open_view(int);
 extern int ef_close(int);
 extern int ef_flush(int);
 extern void ef_blank(int, int, void *);
