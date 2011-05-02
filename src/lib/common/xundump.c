@@ -784,7 +784,8 @@ xuheader(FILE *fp, int expected_table)
 	return gripe("Expected table `%s', not `%s'",
 		     ef_nameof(expected_table), name);
 
-    if (!ef_cadef(type) || !(ef_flags(type) & EFF_MEM)) {
+    if (!empfile[type].file
+	|| !ef_cadef(type) || !(ef_flags(type) & EFF_MEM)) {
 	CANT_HAPPEN(expected_table != EF_BAD);
 	return gripe("Table `%s' is not permitted here", name);
     }
