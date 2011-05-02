@@ -995,8 +995,9 @@ xubody(FILE *fp)
     if (CANT_HAPPEN(maxid > ep->fids))
 	maxid = ep->fids;
     if (maxid < ep->fids) {
-	if (EF_IS_GAME_STATE(cur_type)
-	    || (cur_type >= EF_SHIP_CHR && cur_type <= EF_NUKE_CHR)) {
+	if (ep->nent < 0
+	    && (EF_IS_GAME_STATE(cur_type)
+		|| (cur_type >= EF_SHIP_CHR && cur_type <= EF_NUKE_CHR))) {
 	    if (!ef_truncate(cur_type, maxid))
 		return -1;
 	} else
