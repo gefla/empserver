@@ -55,8 +55,6 @@
 #include "trade.h"
 #include "version.h"
 
-static void file_sct_init(coord, coord, struct sctstr *ptr);
-
 static void
 print_usage(char *program_name)
 {
@@ -74,13 +72,8 @@ main(int argc, char *argv[])
 {
     char buf[255];
     char *filename;
-    int x, y;
-    struct gamestr game;
     struct natstr nat;
-    struct realmstr realm;
-    struct sctstr sct;
-    int i, j;
-    char *map;
+    int i;
     int opt;
     char *config_file = NULL;
     int force = 0;
@@ -133,6 +126,7 @@ main(int argc, char *argv[])
 	if (!fgets(buf, sizeof(buf), stdin) || (*buf != 'y' && *buf != 'Y'))
 	    exit(1);
     }
+
     for (i = 0; i < EF_MAX; i++) {
 	if (!EF_IS_GAME_STATE(i))
 	    continue;
@@ -141,39 +135,19 @@ main(int argc, char *argv[])
 	    exit(1);
 	}
     }
-    memset(&game, 0, sizeof(game));
-    game.ef_type = EF_GAME;
-    game.game_turn = 1;
-    ef_write(EF_GAME, 0, &game);
-    memset(&nat, 0, sizeof(nat));
-    nat.ef_type = EF_NATION;
+
+    ef_extend(EF_GAME, 1);
+    ef_extend(EF_NATION, MAXNOC);
+    ef_read(EF_NATION, 0, &nat);
     strcpy(nat.nat_cnam, "POGO");
     strcpy(nat.nat_pnam, "peter");
     nat.nat_stat = STAT_GOD;
     nat.nat_btu = 255;
     nat.nat_money = 123456789;
-    nat.nat_cnum = 0;
     nat.nat_flags |= NF_FLASH;
-    putnat((&nat));
+    ef_write(EF_NATION, 0, &nat);
     printf("All praise to %s!\n", nat.nat_cnam);
-    memset(&nat, 0, sizeof(nat));
-    for (i = 1; i < MAXNOC; i++) {
-	nat.ef_type = EF_NATION;
-	nat.nat_cnum = nat.nat_uid = i;
-	nat.nat_seqno = 0;
-	putnat((&nat));
-    }
-    memset(&realm, 0, sizeof(realm));
-    realm.ef_type = EF_REALM;
-    for (i = 0; i < MAXNOC; i++) {
-	realm.r_cnum = i;
-	for (j = 0; j < MAXNOR; j++) {
-	    realm.r_realm = j;
-	    realm.r_uid = (i * MAXNOR) + j;
-	    realm.r_seqno = 0;
-	    putrealm(&realm);
-	}
-    }
+    ef_extend(EF_REALM, MAXNOC * MAXNOR);
     if (mkdir(teldir, S_IRWXU | S_IRWXG) < 0 && errno != EEXIST) {
 	perror(teldir);
 	printf("Can't make telegram directory\n");
@@ -185,21 +159,10 @@ main(int argc, char *argv[])
     }
     close(creat(annfil, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
 
-    /* create a zero-filled sector file */
-    memset(&sct, 0, sizeof(sct));
-    for (y = 0; y < WORLD_Y; y++) {
-	for (x = 0; x < WORLD_X / 2; x++) {
-	    file_sct_init(x * 2 + (y & 1), y, &sct);
-	    putsect(&sct);
-	}
-    }
-    map = calloc(WORLD_SZ(), sizeof(*map));
-    for (i = 0; i < MAXNOC; i++) {
-	ef_write(EF_MAP, i, map);
-    }
-    for (i = 0; i < MAXNOC; i++) {
-	ef_write(EF_BMAP, i, map);
-    }
+    ef_extend(EF_SECTOR, WORLD_SZ());
+    ef_extend(EF_MAP, MAXNOC);
+    ef_extend(EF_BMAP, MAXNOC);
+
     for (i = 0; i < EF_MAX; i++) {
 	if (!EF_IS_GAME_STATE(i))
 	    continue;
@@ -207,20 +170,4 @@ main(int argc, char *argv[])
     }
 
     exit(0);
-}
-
-static void
-file_sct_init(coord x, coord y, struct sctstr *ptr)
-{
-    struct sctstr *sp = (struct sctstr *)ptr;
-
-    sp->ef_type = EF_SECTOR;
-    sp->sct_uid = XYOFFSET(x, y);
-    sp->sct_seqno = 0;
-    sp->sct_x = x;
-    sp->sct_y = y;
-    sp->sct_dist_x = x;
-    sp->sct_dist_y = y;
-    sp->sct_newtype = sp->sct_type = SCT_WATER;
-    sp->sct_coastal = 1;
 }

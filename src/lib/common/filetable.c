@@ -55,6 +55,11 @@
 #include "version.h"
 #include "xy.h"
 
+static void sct_oninit(void *);
+static void nat_oninit(void *);
+static void realm_oninit(void *);
+static void game_oninit(void *);
+
 /* Number of elements in ARRAY.  */
 #define SZ(array) (sizeof(array) / sizeof((array)[0]))
 
@@ -121,7 +126,7 @@ struct empfile empfile[] = {
      */
     {EF_SECTOR, "sect", "sector", sect_ca, EF_BAD,
      UNMAPPED_CACHE(struct sctstr, -1, EFF_TYPED | EFF_XY | EFF_OWNER),
-     NULL, NULL, NULL, NULL},
+     sct_oninit, NULL, NULL, NULL},
     {EF_SHIP, "ship", "ship", ship_ca, EF_BAD,
      UNMAPPED_CACHE(struct shpstr, -1,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP),
@@ -151,7 +156,7 @@ struct empfile empfile[] = {
      NULL, NULL, NULL, NULL},
     {EF_NATION, "nat", "nation", nat_ca, EF_BAD,
      UNMAPPED_CACHE(struct natstr, MAXNOC, EFF_TYPED | EFF_OWNER),
-     NULL, NULL, NULL, NULL},
+     nat_oninit, NULL, NULL, NULL},
     {EF_LOAN, "loan", "loan", loan_ca, EF_BAD,
      UNMAPPED_CACHE(struct lonstr, -1, EFF_TYPED),
      NULL, NULL, NULL, NULL},
@@ -168,10 +173,10 @@ struct empfile empfile[] = {
     {EF_REALM, "realm", "realms", realm_ca, EF_BAD,
      UNMAPPED_CACHE(struct realmstr, MAXNOC * MAXNOR,
 		    EFF_TYPED | EFF_OWNER),
-     NULL, NULL, NULL, NULL},
+     realm_oninit, NULL, NULL, NULL},
     {EF_GAME, "game", "game", game_ca, EF_BAD,
      UNMAPPED_CACHE(struct gamestr, 1, EFF_TYPED),
-     NULL, NULL, NULL, NULL},
+     game_oninit, NULL, NULL, NULL},
 
     /*
      * Static game data (configuration)
@@ -260,6 +265,42 @@ struct empfile empfile[] = {
     {EF_BAD, NULL, NULL, NULL, EF_BAD,
      0, -1, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
 };
+
+static void
+sct_oninit(void *ptr)
+{
+    struct sctstr *sp = (struct sctstr *)ptr;
+
+    sp->sct_y = sp->sct_uid * 2 / WORLD_X;
+    sp->sct_x = sp->sct_uid * 2 % WORLD_X + sp->sct_y % 2;
+    sp->sct_dist_x = sp->sct_x;
+    sp->sct_dist_y = sp->sct_y;
+    sp->sct_newtype = sp->sct_type = SCT_WATER;
+    sp->sct_coastal = 1;
+}
+
+static void
+nat_oninit(void *ptr)
+{
+    struct natstr *np = ptr;
+
+    np->nat_cnum = np->nat_uid;
+}
+
+static void
+realm_oninit(void *ptr)
+{
+    struct realmstr *realm = ptr;
+
+    realm->r_cnum = realm->r_uid / MAXNOR;
+    realm->r_realm = realm->r_uid % MAXNOR;
+}
+
+static void
+game_oninit(void *ptr)
+{
+    ((struct gamestr *)ptr)->game_turn = 1;
+}
 
 static void
 ef_fix_size(struct empfile *ep, int n)
