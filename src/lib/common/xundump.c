@@ -487,16 +487,20 @@ static void *
 getobj(void)
 {
     struct empfile *ep = &empfile[cur_type];
+    int max_id;
 
     if (!cur_obj) {
 	cur_obj_is_blank = cur_id >= ep->fids;
 	if (cur_obj_is_blank) {
-	    if (ef_ensure_space(cur_type, cur_id, 1))
+	    max_id = ef_id_limit(cur_type);
+	    if (cur_id > max_id)
+		gripe("Can't put ID %d into table %s, it holds only 0..%d",
+		      cur_id, ep->name, max_id);
+	    else if (!ef_ensure_space(cur_type, cur_id, 1))
+		gripe("Can't put ID %d into table %s",
+		      cur_id, ep->name);
+	    else
 		cur_obj = ef_ptr(cur_type, cur_id);
-	    /* FIXME diagnose out of dynamic memory vs. static table full */
-	    if (!cur_obj)
-		gripe("Can't put ID %d into table %s, it holds only 0..%d.",
-		      cur_id, ep->name, ep->fids - 1);
 	} else
 	    cur_obj = ef_ptr(cur_type, cur_id);
     }

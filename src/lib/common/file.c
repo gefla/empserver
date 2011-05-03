@@ -36,6 +36,7 @@
 
 #include <errno.h>
 #include <fcntl.h>
+#include <limits.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -930,4 +931,25 @@ ef_ensure_space(int type, int id, int count)
 	    return 0;
     }
     return 1;
+}
+
+/*
+ * Return maximum ID acceptable for table TYPE.
+ * Assuming infinite memory and disk space.
+ */
+int
+ef_id_limit(int type)
+{
+    struct empfile *ep;
+
+    if (ef_check(type) < 0)
+	return -1;
+    ep = &empfile[type];
+    if (ep->nent >= 0)
+	return ep->nent - 1;
+    if (ep->flags & EFF_MEM) {
+	if (ep->flags & EFF_STATIC)
+	    return ep->csize - 1 - ((ep->flags & EFF_SENTINEL) != 0);
+    }
+    return INT_MAX;
 }

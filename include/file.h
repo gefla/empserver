@@ -219,6 +219,7 @@ extern int ef_write(int, int, void *);
 extern void ef_set_uid(int, void *, int);
 extern int ef_extend(int, int);
 extern int ef_ensure_space(int, int, int);
+extern int ef_id_limit(int);
 extern int ef_truncate(int, int);
 extern int ef_nelem(int);
 extern int ef_flags(int);
