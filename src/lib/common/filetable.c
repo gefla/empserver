@@ -56,6 +56,9 @@
 #include "xy.h"
 
 static void sct_oninit(void *);
+static void pln_oninit(void *);
+static void lnd_oninit(void *);
+static void nuk_oninit(void *);
 static void nat_oninit(void *);
 static void realm_oninit(void *);
 static void game_oninit(void *);
@@ -134,14 +137,14 @@ struct empfile empfile[] = {
     {EF_PLANE, "plane", "plane", plane_ca, EF_BAD,
      UNMAPPED_CACHE(struct plnstr, -1,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP),
-     NULL, NULL, NULL, NULL},
+     pln_oninit, NULL, NULL, NULL},
     {EF_LAND, "land", "land", land_ca, EF_BAD,
      UNMAPPED_CACHE(struct lndstr, -1,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP),
-     NULL, NULL, NULL, NULL},
+     lnd_oninit, NULL, NULL, NULL},
     {EF_NUKE, "nuke", "nuke", nuke_ca, EF_BAD,
      UNMAPPED_CACHE(struct nukstr, -1, EFF_TYPED | EFF_XY | EFF_OWNER),
-     NULL, NULL, NULL, NULL},
+     nuk_oninit, NULL, NULL, NULL},
     {EF_NEWS, "news", "news", news_ca, EF_BAD,
      UNMAPPED_CACHE(struct nwsstr, -1, 0),
      NULL, NULL, NULL, NULL},
@@ -277,6 +280,30 @@ sct_oninit(void *ptr)
     sp->sct_dist_y = sp->sct_y;
     sp->sct_newtype = sp->sct_type = SCT_WATER;
     sp->sct_coastal = 1;
+}
+
+static void
+pln_oninit(void *ptr)
+{
+    struct plnstr *pp = ptr;
+
+    pp->pln_ship = pp->pln_land = -1;
+}
+
+static void
+lnd_oninit(void *ptr)
+{
+    struct lndstr *lp = ptr;
+
+    lp->lnd_ship = lp->lnd_land = -1;
+}
+
+static void
+nuk_oninit(void *ptr)
+{
+    struct nukstr *np = ptr;
+
+    np->nuk_plane = -1;
 }
 
 static void

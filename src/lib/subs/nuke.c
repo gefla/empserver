@@ -77,14 +77,6 @@ nuk_prewrite(int n, void *old, void *new)
     np->nuk_own = own;
 }
 
-void
-nuk_oninit(void *ptr)
-{
-    struct nukstr *np = ptr;
-
-    np->nuk_plane = -1;
-}
-
 char *
 prnuke(struct nukstr *np)
 {

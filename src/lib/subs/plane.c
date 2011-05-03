@@ -87,14 +87,6 @@ pln_prewrite(int n, void *old, void *new)
 	unit_update_cargo((struct empobj *)pp);
 }
 
-void
-pln_oninit(void *ptr)
-{
-    struct plnstr *pp = ptr;
-
-    pp->pln_ship = pp->pln_land = -1;
-}
-
 char *
 prplane(struct plnstr *pp)
 {

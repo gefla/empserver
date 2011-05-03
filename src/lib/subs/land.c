@@ -88,14 +88,6 @@ lnd_prewrite(int n, void *old, void *new)
 	unit_update_cargo((struct empobj *)lp);
 }
 
-void
-lnd_oninit(void *ptr)
-{
-    struct lndstr *lp = ptr;
-
-    lp->lnd_ship = lp->lnd_land = -1;
-}
-
 char *
 prland(struct lndstr *lp)
 {

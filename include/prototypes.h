@@ -431,7 +431,6 @@ extern void bitinit2(struct nstr_sect *, unsigned char *, int);
 extern int getele(char *, char *);
 /* land.c */
 extern char *prland(struct lndstr *);
-extern void lnd_oninit(void *);
 extern void lnd_postread(int, void *);
 extern void lnd_prewrite(int, void *, void *);
 /* landgun.c */
@@ -489,7 +488,6 @@ extern void init_nreport(void);
 extern void nreport(natid, int, natid, int);
 /* nuke.c */
 extern char *prnuke(struct nukstr *);
-extern void nuk_oninit(void *);
 extern void nuk_postread(int, void *);
 extern void nuk_prewrite(int, void *, void *);
 /* nxtitem.c */
@@ -499,7 +497,6 @@ extern void nuk_prewrite(int, void *, void *);
 extern int onearg(char *, char *);
 /* plane.c */
 extern char *prplane(struct plnstr *);
-extern void pln_oninit(void *);
 extern void pln_postread(int, void *);
 extern void pln_prewrite(int, void *, void *);
 /* plnsub.c */
