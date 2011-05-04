@@ -543,6 +543,8 @@ ef_write(int type, int id, void *from)
     ep = &empfile[type];
     if (CANT_HAPPEN((ep->flags & (EFF_MEM | EFF_PRIVATE)) == EFF_PRIVATE))
 	return 0;
+    if (CANT_HAPPEN(ep->nent >= 0 && id >= ep->nent))
+	return 0;		/* beyond fixed size */
     new_seqno(ep, from);
     if (id >= ep->fids) {
 	/* beyond end of file */
@@ -694,6 +696,10 @@ ef_extend(int type, int count)
     if (ef_check(type) < 0)
 	return 0;
     ep = &empfile[type];
+    if (ep->nent >= 0) {
+	logerror("Can't extend %s, its size is fixed", ep->name);
+	return 0;
+    }
     if (!do_extend(ep, count))
 	return 0;
     if (ep->onresize)
@@ -806,6 +812,10 @@ ef_truncate(int type, int count)
     if (ef_check(type) < 0 || CANT_HAPPEN(EF_IS_VIEW(type)))
 	return 0;
     ep = &empfile[type];
+    if (ep->nent >= 0) {
+	logerror("Can't truncate %s, its size is fixed", ep->name);
+	return 0;
+    }
     if (CANT_HAPPEN(count < 0 || count > ep->fids))
 	return 0;
 
