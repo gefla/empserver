@@ -136,8 +136,6 @@ main(int argc, char *argv[])
 	}
     }
 
-    ef_extend(EF_GAME, 1);
-    ef_extend(EF_NATION, MAXNOC);
     ef_read(EF_NATION, 0, &nat);
     strcpy(nat.nat_cnam, "POGO");
     strcpy(nat.nat_pnam, "peter");
@@ -147,7 +145,6 @@ main(int argc, char *argv[])
     nat.nat_flags |= NF_FLASH;
     ef_write(EF_NATION, 0, &nat);
     printf("All praise to %s!\n", nat.nat_cnam);
-    ef_extend(EF_REALM, MAXNOC * MAXNOR);
     if (mkdir(teldir, S_IRWXU | S_IRWXG) < 0 && errno != EEXIST) {
 	perror(teldir);
 	printf("Can't make telegram directory\n");
@@ -158,10 +155,6 @@ main(int argc, char *argv[])
 	close(creat(filename, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
     }
     close(creat(annfil, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
-
-    ef_extend(EF_SECTOR, WORLD_SZ());
-    ef_extend(EF_MAP, MAXNOC);
-    ef_extend(EF_BMAP, MAXNOC);
 
     for (i = 0; i < EF_MAX; i++) {
 	if (!EF_IS_GAME_STATE(i))

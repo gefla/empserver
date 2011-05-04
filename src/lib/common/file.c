@@ -58,6 +58,7 @@ static int do_write(struct empfile *, void *, int, int);
 static unsigned get_seqno(struct empfile *, int);
 static void new_seqno(struct empfile *, void *);
 static void must_be_fresh(struct empfile *, void *);
+static int do_extend(struct empfile *, int);
 static void do_blank(struct empfile *, void *, int, int);
 static int ef_check(int);
 
@@ -74,7 +75,7 @@ int
 ef_open(int type, int how)
 {
     struct empfile *ep;
-    int oflags, fd, fsiz, fids, nslots;
+    int oflags, fd, fsiz, fids, nslots, fail;
 
     if (ef_check(type) < 0)
 	return 0;
@@ -97,19 +98,23 @@ ef_open(int type, int how)
     }
 
     /* get file size */
-    fsiz = fsize(fd);
-    if (fsiz % ep->size) {
-	logerror("Can't open %s (file size not a multiple of record size %d)",
-		 ep->file, ep->size);
-	close(fd);
-	return 0;
-    }
-    fids = fsiz / ep->size;
-    if (ep->nent >= 0 && ep->nent != fids && !(how & EFF_CREATE)) {
-	logerror("Can't open %s (got %d records instead of %d)",
-		 ep->file, fids, ep->nent);
-	close(fd);
-	return 0;
+    if (how & EFF_CREATE) {
+	fids = ep->nent >= 0 ? ep->nent : 0;
+    } else {
+	fsiz = fsize(fd);
+	if (fsiz % ep->size) {
+	    logerror("Can't open %s (file size not a multiple of record size %d)",
+		     ep->file, ep->size);
+	    close(fd);
+	    return 0;
+	}
+	fids = fsiz / ep->size;
+	if (ep->nent >= 0 && ep->nent != fids) {
+	    logerror("Can't open %s (got %d records instead of %d)",
+		     ep->file, fids, ep->nent);
+	    close(fd);
+	    return 0;
+	}
     }
 
     /* allocate cache */
@@ -139,17 +144,24 @@ ef_open(int type, int how)
     }
     ep->baseid = 0;
     ep->cids = 0;
-    ep->fids = fids;
     ep->flags = (ep->flags & EFF_IMMUTABLE) | (how & ~EFF_CREATE);
     ep->fd = fd;
 
-    /* map file into cache */
-    if ((how & EFF_MEM) && fids) {
-	if (fillcache(ep, 0) != fids) {
-	    ep->cids = 0;	/* prevent cache flush */
-	    ef_close(type);
-	    return 0;
-	}
+    if (how & EFF_CREATE) {
+	/* populate new file */
+	ep->fids = 0;
+	fail = !do_extend(ep, fids);
+    } else {
+	ep->fids = fids;
+	if ((how & EFF_MEM) && fids)
+	    fail = fillcache(ep, 0) != fids;
+	else
+	    fail = 0;
+    }
+    if (fail) {
+	ep->cids = 0;	/* prevent cache flush */
+	ef_close(type);
+	return 0;
     }
 
     if (ep->onresize)
@@ -678,13 +690,24 @@ int
 ef_extend(int type, int count)
 {
     struct empfile *ep;
+
+    if (ef_check(type) < 0)
+	return 0;
+    ep = &empfile[type];
+    if (!do_extend(ep, count))
+	return 0;
+    if (ep->onresize)
+	ep->onresize(type);
+    return 1;
+}
+
+static int
+do_extend(struct empfile *ep, int count)
+{
     char *p;
     int need_sentinel, i, id;
 
-    if (ef_check(type) < 0 || CANT_HAPPEN(EF_IS_VIEW(type)))
-	return 0;
-    ep = &empfile[type];
-    if (CANT_HAPPEN(count < 0))
+    if (CANT_HAPPEN(EF_IS_VIEW(ep->uid)) || count < 0)
 	return 0;
 
     id = ep->fids;
@@ -723,8 +746,6 @@ ef_extend(int type, int count)
 	}
     }
     ep->fids = id + count;
-    if (ep->onresize)
-	ep->onresize(type);
     return 1;
 }
 
