@@ -67,13 +67,15 @@
 
 static char *fname;		/* Name of file being read */
 static int lineno;		/* Current line number */
-static int human;		/* Reading human-readable syntax? */
-static int ellipsis;		/* Header ended with ...? */
-static int is_partial;		/* Is input split into parts? */
+
 static int cur_type;		/* Current table's file type */
 static void *cur_obj;		/* The object being read into */
 static int cur_id;		/* and its index in the table */
 static int cur_obj_is_blank;
+
+static int human;		/* Reading human-readable syntax? */
+static int ellipsis;		/* Header ended with ...? */
+static int is_partial;		/* Is input split into parts? */
 static int nflds;		/* #fields in input records */
 static struct castr **fldca;	/* Map field number to selector */
 static int *fldidx;		/* Map field number to index */
@@ -108,6 +110,95 @@ gripe(char *fmt, ...)
     putc('\n', stderr);
 
     return -1;
+}
+
+/* Make TYPE the current table.  */
+static void
+tbl_start(int type)
+{
+    cur_type = type;
+    cur_id = -1;
+    cur_obj = NULL;
+}
+
+/* End the current table.  */
+static void
+tbl_end(void)
+{
+    tbl_start(EF_BAD);
+}
+
+/*
+ * Seek to current table's ID-th record.
+ * ID must be acceptable.
+ * Store it in cur_obj, and set cur_id and cur_obj_is_blank accordingly.
+ * Return 0 on success, -1 on failure.
+ */
+static int
+tbl_seek(int id)
+{
+    struct empfile *ep = &empfile[cur_type];
+
+    cur_obj_is_blank = id >= ep->fids;
+
+    if (id >= ef_nelem(cur_type)) {
+	if (!ef_ensure_space(cur_type, id, 1))
+	    return gripe("Can't put ID %d into table %s", id, ep->name);
+    }
+
+    cur_obj = ef_ptr(cur_type, id);
+    if (CANT_HAPPEN(!cur_obj))
+	return -1;
+    cur_id = id;
+    return 0;
+}
+
+/*
+ * Get the next object.
+ * Must not have a record index.
+ * Store it in cur_obj, and set cur_id and cur_obj_is_blank accordingly.
+ * Return 0 on success, -1 on failure.
+ */
+static int
+tbl_next_obj(void)
+{
+    int max_id = ef_id_limit(cur_type);
+
+    if (cur_id >= max_id)
+	return gripe("Too many rows");
+    return tbl_seek(cur_id + 1);
+}
+
+/*
+ * Get the next object, it has record index ID.
+ * Store it in cur_obj, and set cur_id and cur_obj_is_blank accordingly.
+ * Return 0 on success, -1 on failure.
+ */
+static int
+tbl_skip_to_obj(int id)
+{
+    int max_id;
+
+    if (id < 0)
+	return gripe("Field %d must be >= 0", 1);
+    max_id = ef_id_limit(cur_type);
+    if (id > max_id)
+	return gripe("Field %d must be <= %d", 1, max_id);
+
+    if (tbl_seek(id) < 0)
+	return -1;
+    return 0;
+}
+
+/*
+ * Finish table part.
+ * If the table has variable length, truncate it.
+ */
+static void
+tbl_part_done(void)
+{
+    cur_id = -1;
+    cur_obj = NULL;
 }
 
 /*
@@ -479,36 +570,6 @@ fldval_must_match(int fldno)
 }
 
 /*
- * Get the current object.
- * Store it in cur_obj, and set cur_obj_is_blank accordingly.
- * Return cur_obj, which is null on error.
- */
-static void *
-getobj(void)
-{
-    struct empfile *ep = &empfile[cur_type];
-    int max_id;
-
-    if (!cur_obj) {
-	cur_obj_is_blank = cur_id >= ep->fids;
-	if (cur_obj_is_blank) {
-	    max_id = ef_id_limit(cur_type);
-	    if (cur_id > max_id)
-		gripe("Can't put ID %d into table %s, it holds only 0..%d",
-		      cur_id, ep->name, max_id);
-	    else if (!ef_ensure_space(cur_type, cur_id, 1))
-		gripe("Can't put ID %d into table %s",
-		      cur_id, ep->name);
-	    else
-		cur_obj = ef_ptr(cur_type, cur_id);
-	} else
-	    cur_obj = ef_ptr(cur_type, cur_id);
-    }
-
-    return cur_obj;
-}
-
-/*
  * Set value of field FLDNO in current object to DBL.
  * Return 1 on success, -1 on error.
  */
@@ -516,7 +577,7 @@ static int
 setnum(int fldno, double dbl)
 {
     struct castr *ca;
-    int idx;
+    int next_id, idx;
     char *memb_ptr;
     double old, new;
 
@@ -524,18 +585,20 @@ setnum(int fldno, double dbl)
     if (!ca)
 	return -1;
 
-    /*
-     * If this is the record index, put it into cur_id.
-     */
-    if (fldno == 0 && ca->ca_table == cur_type) {
-	if (dbl < 0 || (int)dbl != dbl)
-	    return gripe("Field %d can't hold this value", fldno + 1);
-	cur_id = (int)dbl;
+    if (fldno == 0) {
+	if (ca->ca_table == cur_type) {
+	    /* Got record index */
+	    next_id = (int)dbl;
+	    if (next_id != dbl)
+		return gripe("Field %d can't hold this value", fldno + 1);
+	    if (tbl_skip_to_obj(next_id) < 0)
+		return -1;
+	} else {
+	    if (tbl_next_obj() < 0)
+		return -1;
+	}
     }
-
-    memb_ptr = getobj();
-    if (!memb_ptr)
-	return -1;
+    memb_ptr = cur_obj;
     memb_ptr += ca->ca_off;
 
     switch (ca->ca_type) {
@@ -624,9 +687,11 @@ setstr(int fldno, char *str)
     if (!ca)
 	return -1;
 
-    memb_ptr = getobj();
-    if (!memb_ptr)
-	return -1;
+    if (fldno == 0) {
+	if (tbl_next_obj() < 0)
+	    return -1;
+    }
+    memb_ptr = cur_obj;
     memb_ptr += ca->ca_off;
     must_match = fldval_must_match(fldno);
 
@@ -883,6 +948,7 @@ xufooter(FILE *fp, struct castr ca[], int recs)
     }
     if (skipfs(fp) != '\n')
 	return gripe("Junk after table footer");
+    tbl_part_done();
     lineno++;
 
     for (i = 0; ca[i].ca_name; i++) {
@@ -928,10 +994,11 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
     fldidx = malloc(nf * sizeof(*fldidx));
     caflds = malloc(nca * sizeof(*caflds));
     cafldspp = calloc(nca, sizeof(*cafldspp));
-    cur_type = type;
 
+    tbl_start(type);
     if (xutail(fp, ca) < 0)
 	type = EF_BAD;
+    tbl_end();
 
     free(cafldspp);
     free(caflds);
@@ -989,8 +1056,6 @@ xubody(FILE *fp)
 	if (ch == '/')
 	    break;
 	ungetc(ch, fp);
-	cur_obj = NULL;
-	cur_id = i;
 	if (xuflds(fp, xufld) < 0)
 	    return -1;
 	maxid = MAX(maxid, cur_id + 1);
