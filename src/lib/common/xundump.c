@@ -514,7 +514,7 @@ setnum(int fldno, double dbl)
     struct castr *ca;
     int idx;
     char *memb_ptr;
-    double old;
+    double old, new;
 
     ca = getfld(fldno, &idx);
     if (!ca)
@@ -531,58 +531,63 @@ setnum(int fldno, double dbl)
 	return -1;
     memb_ptr += ca->ca_off;
 
-    /* FIXME check assignment preserves value */
     switch (ca->ca_type) {
     case NSC_CHAR:
 	old = ((signed char *)memb_ptr)[idx];
-	((signed char *)memb_ptr)[idx] = (signed char)dbl;
+	new = ((signed char *)memb_ptr)[idx] = (signed char)dbl;
 	break;
     case NSC_UCHAR:
     case NSC_HIDDEN:
 	old = ((unsigned char *)memb_ptr)[idx];
-	((unsigned char *)memb_ptr)[idx] = (unsigned char)dbl;
+	new = ((unsigned char *)memb_ptr)[idx] = (unsigned char)dbl;
 	break;
     case NSC_SHORT:
 	old = ((short *)memb_ptr)[idx];
-	((short *)memb_ptr)[idx] = (short)dbl;
+	new = ((short *)memb_ptr)[idx] = (short)dbl;
 	break;
     case NSC_USHORT:
 	old = ((unsigned short *)memb_ptr)[idx];
-	((unsigned short *)memb_ptr)[idx] = (unsigned short)dbl;
+	new = ((unsigned short *)memb_ptr)[idx] = (unsigned short)dbl;
 	break;
     case NSC_INT:
 	old = ((int *)memb_ptr)[idx];
-	((int *)memb_ptr)[idx] = (int)dbl;
+	new = ((int *)memb_ptr)[idx] = (int)dbl;
 	break;
     case NSC_LONG:
 	old = ((long *)memb_ptr)[idx];
-	((long *)memb_ptr)[idx] = (long)dbl;
+	new = ((long *)memb_ptr)[idx] = (long)dbl;
 	break;
     case NSC_XCOORD:
 	old = ((coord *)memb_ptr)[idx];
 	/* FIXME use variant of xrel() that takes orig instead of nation */
 	if (old >= WORLD_X / 2)
 	    old -= WORLD_X;
-	((coord *)memb_ptr)[idx] = XNORM((coord)dbl);
+	new = ((coord *)memb_ptr)[idx] = XNORM((coord)dbl);
+	if (new >= WORLD_X / 2)
+	    new -= WORLD_X;
 	break;
     case NSC_YCOORD:
 	old = ((coord *)memb_ptr)[idx];
 	/* FIXME use variant of yrel() that takes orig instead of nation */
 	if (old >= WORLD_Y / 2)
 	    old -= WORLD_Y;
-	((coord *)memb_ptr)[idx] = YNORM((coord)dbl);
+	new = ((coord *)memb_ptr)[idx] = YNORM((coord)dbl);
+	if (new >= WORLD_Y / 2)
+	    new -= WORLD_Y;
 	break;
     case NSC_FLOAT:
 	old = ((float *)memb_ptr)[idx];
 	((float *)memb_ptr)[idx] = (float)dbl;
+	new = dbl;		/* suppress new != dbl check */
 	break;
     case NSC_DOUBLE:
 	old = ((double *)memb_ptr)[idx];
 	((double *)memb_ptr)[idx] = dbl;
+	new = dbl;		/* suppress new != dbl check */
 	break;
     case NSC_TIME:
 	old = ((time_t *)memb_ptr)[idx];
-	((time_t *)memb_ptr)[idx] = (time_t)dbl;
+	new = ((time_t *)memb_ptr)[idx] = (time_t)dbl;
 	break;
     default:
 	return gripe("Field %d doesn't take numbers", fldno + 1);
@@ -590,6 +595,8 @@ setnum(int fldno, double dbl)
 
     if (fldval_must_match(fldno) && old != dbl)
 	return gripe("Value for field %d must be %g", fldno + 1, old);
+    if (new != dbl)
+	return gripe("Field %d can't hold this value", fldno + 1);
 
     return 1;
 }
