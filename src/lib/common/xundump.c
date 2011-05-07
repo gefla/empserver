@@ -180,8 +180,8 @@ tbl_skip_to_obj(int id)
 {
     int max_id;
 
-    if (id < 0)
-	return gripe("Field %d must be >= 0", 1);
+    if (id <= cur_id)
+	return gripe("Field %d must be > %d", 1, cur_id);
     max_id = ef_id_limit(cur_type);
     if (id > max_id)
 	return gripe("Field %d must be <= %d", 1, max_id);
@@ -194,12 +194,25 @@ tbl_skip_to_obj(int id)
 /*
  * Finish table part.
  * If the table has variable length, truncate it.
+ * Return 0 on success, -1 on failure.
  */
-static void
+static int
 tbl_part_done(void)
 {
+    struct empfile *ep = &empfile[cur_type];
+
+    if (cur_id + 1 < ep->fids) {
+	if (may_trunc) {
+	    if (!ef_truncate(cur_type, cur_id + 1))
+		return -1;
+	} else
+	    return gripe("Table %s requires %d rows, got %d",
+			 ef_nameof(cur_type), ep->fids, cur_id + 1);
+    }
+
     cur_id = -1;
     cur_obj = NULL;
+    return 0;
 }
 
 /*
@@ -949,7 +962,8 @@ xufooter(FILE *fp, struct castr ca[], int recs)
     }
     if (skipfs(fp) != '\n')
 	return gripe("Junk after table footer");
-    tbl_part_done();
+    if (tbl_part_done() < 0)
+	return -1;
     lineno++;
 
     for (i = 0; ca[i].ca_name; i++) {
@@ -1051,10 +1065,8 @@ xutail(FILE *fp, struct castr *ca)
 static int
 xubody(FILE *fp)
 {
-    struct empfile *ep = &empfile[cur_type];
-    int i, maxid, ch;
+    int i, ch;
 
-    maxid = 0;
     for (i = 0;; ++i) {
 	while ((ch = skipfs(fp)) == '\n')
 	    lineno++;
@@ -1063,19 +1075,6 @@ xubody(FILE *fp)
 	ungetc(ch, fp);
 	if (xuflds(fp, xufld) < 0)
 	    return -1;
-	maxid = MAX(maxid, cur_id + 1);
     }
-
-    if (CANT_HAPPEN(maxid > ep->fids))
-	maxid = ep->fids;
-    if (maxid < ep->fids) {
-	if (may_trunc) {
-	    if (!ef_truncate(cur_type, maxid))
-		return -1;
-	} else
-	    return gripe("Table %s requires %d rows, got %d",
-			 ef_nameof(cur_type), ep->fids, maxid);
-    }
-
     return i;
 }
