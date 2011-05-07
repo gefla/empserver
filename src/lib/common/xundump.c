@@ -523,8 +523,11 @@ setnum(int fldno, double dbl)
     /*
      * If this is the record index, put it into cur_id.
      */
-    if (fldno == 0 && ca->ca_table == cur_type)
+    if (fldno == 0 && ca->ca_table == cur_type) {
+	if (dbl < 0 || (int)dbl != dbl)
+	    return gripe("Field %d can't hold this value", fldno + 1);
 	cur_id = (int)dbl;
+    }
 
     memb_ptr = getobj();
     if (!memb_ptr)
