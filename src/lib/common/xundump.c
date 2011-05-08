@@ -392,7 +392,7 @@ defellipsis(void)
 {
     struct castr *ca = ef_cadef(cur_type);
 
-    if (ca[0].ca_table != cur_type)
+    if (ca[0].ca_table != cur_type || (ca[0].ca_flags & NSC_EXTRA))
 	return gripe("Table %s doesn't support ...", ef_nameof(cur_type));
     ellipsis = is_partial = 1;
     return 0;
