@@ -43,7 +43,6 @@
  * - Normalize terminology: table/rows/columns or file/records/fields
  * - Loading tables with NSC_STRING elements more than once leaks memory
  * TODO:
- * - Check each partial table supplies the same rows
  * - Check EFF_CFG tables are dense
  * - Symbolic array indexes
  * - Option to treat missing and unknown fields as warning, not error
@@ -69,13 +68,15 @@ static char *fname;		/* Name of file being read */
 static int lineno;		/* Current line number */
 
 static int cur_type;		/* Current table's file type */
+static int partno;		/* Counts from 0..#parts-1 */
 static void *cur_obj;		/* The object being read into */
 static int cur_id;		/* and its index in the table */
 static int cur_obj_is_blank;
+static unsigned char *idgap;	/* idgap && idgap[ID] iff part#0 lacks ID */
+static int idgap_max;		/* FIXME */
 
 static int human;		/* Reading human-readable syntax? */
 static int ellipsis;		/* Header ended with ...? */
-static int is_partial;		/* Is input split into parts? */
 static int nflds;		/* #fields in input records */
 static struct castr **fldca;	/* Map field number to selector */
 static int *fldidx;		/* Map field number to index */
@@ -118,14 +119,18 @@ static void
 tbl_start(int type)
 {
     cur_type = type;
+    partno = 0;
     cur_id = -1;
     cur_obj = NULL;
+    idgap = NULL;
+    idgap_max = 0;
 }
 
 /* End the current table.  */
 static void
 tbl_end(void)
 {
+    free(idgap);
     tbl_start(EF_BAD);
 }
 
@@ -171,45 +176,108 @@ tbl_next_obj(void)
 }
 
 /*
+ * Omit ID1..ID2-1.
+ */
+static void
+omit_ids(int id1, int id2)
+{
+    int i;
+
+    if (id1 >= id2)
+	return;
+
+    idgap = realloc(idgap, (id2 + 1) * sizeof(*idgap));
+    for (i = idgap_max; i < id1; i++)
+	idgap[i] = 0;
+    for (i = id1; i < id2; i++)
+	idgap[i] = 1;
+    idgap[id2] = 0;
+    idgap_max = id2;
+}
+
+/*
+ * Return the smallest non-omitted ID in ID1..ID2-1 if any, else -1.
+ */
+static int
+expected_id(int id1, int id2)
+{
+    int i;
+
+    for (i = id1; i < id2; i++) {
+	if (i >= idgap_max || !idgap[i])
+	    return i;
+    }
+    return -1;
+}
+
+/*
  * Get the next object, it has record index ID.
  * Store it in cur_obj, and set cur_id and cur_obj_is_blank accordingly.
+ * Ensure we're omitting the same objects as the previous parts.
  * Return 0 on success, -1 on failure.
  */
 static int
 tbl_skip_to_obj(int id)
 {
-    int max_id;
+    struct empfile *ep = &empfile[cur_type];
+    int prev_id = cur_id;
+    int max_id, exp_id;
 
-    if (id <= cur_id)
-	return gripe("Field %d must be > %d", 1, cur_id);
-    max_id = ef_id_limit(cur_type);
-    if (id > max_id)
-	return gripe("Field %d must be <= %d", 1, max_id);
+    if (partno == 0) {
+	if (id <= cur_id)
+	    return gripe("Field %d must be > %d", 1, cur_id);
+	max_id = ef_id_limit(cur_type);
+	if (id > max_id)
+	    return gripe("Field %d must be <= %d", 1, max_id);
+    } else {
+	exp_id = expected_id(cur_id + 1, ep->fids);
+	if (exp_id < 0)
+	    return gripe("Table's first part doesn't have this row");
+	else if (id != exp_id)
+	    return gripe("Expected %d in field %d,"
+			 " like in table's first part",
+			 exp_id, 1);
+    }
 
     if (tbl_seek(id) < 0)
 	return -1;
+
+    if (partno == 0)
+	omit_ids(prev_id + 1, id);
     return 0;
 }
 
 /*
  * Finish table part.
  * If the table has variable length, truncate it.
+ * Else ensure we're omitting the same objects as the previous parts.
  * Return 0 on success, -1 on failure.
  */
 static int
 tbl_part_done(void)
 {
     struct empfile *ep = &empfile[cur_type];
+    int exp_id;
 
     if (cur_id + 1 < ep->fids) {
-	if (may_trunc) {
-	    if (!ef_truncate(cur_type, cur_id + 1))
-		return -1;
-	} else
-	    return gripe("Table %s requires %d rows, got %d",
-			 ef_nameof(cur_type), ep->fids, cur_id + 1);
+	if (partno == 0) {
+	    if (may_trunc) {
+		if (!ef_truncate(cur_type, cur_id + 1))
+		    return -1;
+	    } else {
+		return gripe("Expected %d more rows",
+			     ep->fids - (cur_id + 1));
+	    }
+	} else {
+	    exp_id = expected_id(cur_id + 1, ep->fids);
+	    if (exp_id >= 0)
+		return gripe("Expected row with %d in field %d,"
+			     " like in table's first part",
+			     exp_id, 1);
+	}
     }
 
+    partno++;
     cur_id = -1;
     cur_obj = NULL;
     return 0;
@@ -499,8 +567,15 @@ defellipsis(void)
 
     if (ca[0].ca_table != cur_type || (ca[0].ca_flags & NSC_EXTRA))
 	return gripe("Table %s doesn't support ...", ef_nameof(cur_type));
-    ellipsis = is_partial = 1;
+    ellipsis = 1;
     return 0;
+}
+
+/* Is table split into parts? */
+static int
+is_partial(void)
+{
+    return ellipsis || partno;
 }
 
 /*
@@ -517,7 +592,7 @@ chkflds(void)
     if (ca[0].ca_table == cur_type && caflds[0] && fldca[0] != &ca[0])
 	res = gripe("Header field %s must come first", ca[0].ca_name);
 
-    if (is_partial) {
+    if (is_partial()) {
 	/* Need a join field, use 0-th selector */
 	if (!caflds[0])
 	    res = gripe("Header field %s required in each table part",
@@ -1043,7 +1118,6 @@ xutail(FILE *fp, struct castr *ca)
 {
     int recs;
 
-    is_partial = 0;
     for (;;) {
 	if (xufldhdr(fp, ca) < 0)
 	    return -1;
