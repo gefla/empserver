@@ -79,6 +79,8 @@ make_mchr_index(struct chr_index chridx[], int tlev)
 
     n = 0;
     for (i = 0; mchr[i].m_name; i++) {
+	if (!mchr[i].m_name[0])
+	    continue;
 	if (mchr[i].m_tech > tlev)
 	    continue;
 	if ((mchr[i].m_flags & M_TRADE) && !opt_TRADESHIPS)
@@ -100,6 +102,8 @@ make_plchr_index(struct chr_index chridx[], int tlev)
 
     n = 0;
     for (i = 0; plchr[i].pl_name; i++) {
+	if (!plchr[i].pl_name[0])
+	    continue;
 	if (plchr[i].pl_tech > tlev)
 	    continue;
 	chridx[n].type = i;
@@ -119,6 +123,8 @@ make_lchr_index(struct chr_index chridx[], int tlev)
 
     n = 0;
     for (i = 0; lchr[i].l_name; i++) {
+	if (!lchr[i].l_name[0])
+	    continue;
 	if (lchr[i].l_tech > tlev)
 	    continue;
 	if ((lchr[i].l_flags & L_SPY) && !opt_LANDSPIES)
@@ -140,6 +146,8 @@ make_nchr_index(struct chr_index chridx[], int tlev)
 
     n = 0;
     for (i = 0; nchr[i].n_name; i++) {
+	if (!nchr[i].n_name[0])
+	    continue;
 	if (nchr[i].n_tech > tlev)
 	    continue;
 	chridx[n].type = i;
@@ -506,6 +514,8 @@ show_product(int tlev)
     pr("product    cost  raw materials  reso dep  level p.e.\n");
 
     for (pp = pchr; pp->p_sname; pp++) {
+	if (!pp->p_sname[0])
+	    continue;
 	pr("%7.7s %c  $%-3d ",
 	   pp->p_sname,
 	   pp->p_type < 0 ? ' ' : ichr[pp->p_type].i_mnem,

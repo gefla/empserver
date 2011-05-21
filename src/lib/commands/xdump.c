@@ -37,6 +37,7 @@
 #include "empobj.h"
 #include "news.h"
 #include "optlist.h"
+#include "product.h"
 #include "version.h"
 #include "xdump.h"
 
@@ -52,6 +53,7 @@ xdvisible(int type, void *p)
     struct lonstr *lp = p;
     struct natstr *natp;
     int tlev;
+    char *name;
 
     switch (type) {
     case EF_SECTOR:
@@ -84,19 +86,27 @@ xdvisible(int type, void *p)
     case EF_TRADE:
     case EF_COMM:
 	return gp->own != 0;
+    case EF_PRODUCT:
+	return ((struct pchrstr *)p)->p_sname[0] != 0;
     case EF_SHIP_CHR:
 	tlev = ((struct mchrstr *)p)->m_tech;
+	name = ((struct mchrstr *)p)->m_name;
 	goto tech;
     case EF_PLANE_CHR:
 	tlev = ((struct plchrstr *)p)->pl_tech;
+	name = ((struct plchrstr *)p)->pl_name;
 	goto tech;
     case EF_LAND_CHR:
 	tlev = ((struct lchrstr *)p)->l_tech;
+	name = ((struct lchrstr *)p)->l_name;
     tech:
 	natp = getnatp(player->cnum);
+	if (!name[0])
+	    return 0;
 	return player->god || tlev <= (int)(1.25 * natp->nat_level[NAT_TLEV]);
     case EF_NUKE_CHR:
 	tlev = ((struct nchrstr *)p)->n_tech;
+	name = ((struct nchrstr *)p)->n_name;
 	if (drnuke_const > MIN_DRNUKE_CONST) {
 	    natp = getnatp(player->cnum);
 	    if (tlev > (int)((int)(1.25 * natp->nat_level[NAT_RLEV])

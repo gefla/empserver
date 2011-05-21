@@ -60,6 +60,8 @@ init_mchr(void)
     struct mchrstr *mp;
 
     for (mp = mchr; mp->m_name; mp++) {
+	if (!mp->m_name[0])
+	    continue;
 	if (mp->m_nplanes && !(mp->m_flags & M_MSL || mp->m_flags & M_FLY))
 	    mp->m_flags |= M_MSL;
     }
@@ -71,6 +73,8 @@ init_plchr(void)
     struct plchrstr *pp;
 
     for (pp = plchr; pp->pl_name; pp++) {
+	if (!pp->pl_name[0])
+	    continue;
 	if (pp->pl_flags & P_M)
 	    pp->pl_flags |= P_V;
     }
@@ -81,7 +85,9 @@ init_pchr(void)
 {
     struct pchrstr *p;
 
-    for (p = pchr; p->p_name; p++) {
+    for (p = pchr; p->p_sname; p++) {
+	if (!p->p_sname[0])
+	    continue;
 	if (opt_GO_RENEW) {
 	    if (p->p_type == I_DUST || p->p_type == I_OIL)
 		p->p_nrdep = 0;

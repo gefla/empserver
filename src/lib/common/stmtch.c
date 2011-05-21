@@ -40,6 +40,7 @@
  * several.
  * Each array element has a pointer to its name stored at offset OFFS.
  * Search stops when this name is a null pointer.
+ * It ignores elements with an empty name.
  * NEEDLE is compared to element names with mineq(NEEDLE, NAME).
  * SIZE gives the size of an array element.
  */
@@ -54,6 +55,8 @@ stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t size)
 	name = *(char **)((char *)haystack + i * size + offs);
 	if (!name)
 	    break;
+	if (!*name)
+	    continue;
 	switch (mineq(needle, name)) {
 	case ME_MISMATCH:
 	    break;

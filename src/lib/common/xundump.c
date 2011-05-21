@@ -43,7 +43,6 @@
  * - Normalize terminology: table/rows/columns or file/records/fields
  * - Loading tables with NSC_STRING elements more than once leaks memory
  * TODO:
- * - Check EFF_CFG tables are dense
  * - Symbolic array indexes
  * - Option to treat missing and unknown fields as warning, not error
  * TODO, but hardly worth the effort:

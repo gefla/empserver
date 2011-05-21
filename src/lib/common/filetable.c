@@ -62,6 +62,11 @@ static void nuk_oninit(void *);
 static void nat_oninit(void *);
 static void realm_oninit(void *);
 static void game_oninit(void *);
+static void pchr_oninit(void *);
+static void mchr_oninit(void *);
+static void plchr_oninit(void *);
+static void lchr_oninit(void *);
+static void nchr_oninit(void *);
 
 /* Number of elements in ARRAY.  */
 #define SZ(array) (sizeof(array) / sizeof((array)[0]))
@@ -192,17 +197,17 @@ struct empfile empfile[] = {
     {EF_ITEM, "item", "item.config", ichr_ca, EF_BAD,
      ARRAY_CACHE(ichr, EFF_CFG), NULL, NULL, NULL, NULL},
     {EF_PRODUCT, "product", "product.config", pchr_ca, EF_BAD,
-     ARRAY_CACHE(pchr, EFF_CFG), NULL, NULL, NULL, NULL},
+     ARRAY_CACHE(pchr, EFF_CFG), pchr_oninit, NULL, NULL, NULL},
     {EF_SECTOR_CHR, "sect-chr", "sect.config", dchr_ca, EF_BAD,
      ARRAY_CACHE(dchr, EFF_CFG), NULL, NULL, NULL, NULL},
     {EF_SHIP_CHR, "ship-chr", "ship.config", mchr_ca, EF_BAD,
-     ARRAY_CACHE(mchr, EFF_CFG), NULL, NULL, NULL, NULL},
+     ARRAY_CACHE(mchr, EFF_CFG), mchr_oninit, NULL, NULL, NULL},
     {EF_PLANE_CHR, "plane-chr", "plane.config", plchr_ca, EF_BAD,
-     ARRAY_CACHE(plchr, EFF_CFG), NULL, NULL, NULL, NULL},
+     ARRAY_CACHE(plchr, EFF_CFG), plchr_oninit, NULL, NULL, NULL},
     {EF_LAND_CHR, "land-chr", "land.config", lchr_ca, EF_BAD,
-     ARRAY_CACHE(lchr, EFF_CFG), NULL, NULL, NULL, NULL},
+     ARRAY_CACHE(lchr, EFF_CFG), lchr_oninit, NULL, NULL, NULL},
     {EF_NUKE_CHR, "nuke-chr", "nuke.config", nchr_ca, EF_BAD,
-     ARRAY_CACHE(nchr, EFF_CFG), NULL, NULL, NULL, NULL},
+     ARRAY_CACHE(nchr, EFF_CFG), nchr_oninit, NULL, NULL, NULL},
     {EF_NEWS_CHR, "news-chr", NULL, rpt_ca, EF_BAD,
      ARRAY_TABLE(rpt, N_MAX_VERB + 1, EFF_CFG), NULL, NULL, NULL, NULL},
     {EF_INFRASTRUCTURE, "infrastructure", "infra.config", intrchr_ca, EF_BAD,
@@ -327,6 +332,36 @@ static void
 game_oninit(void *ptr)
 {
     ((struct gamestr *)ptr)->game_turn = 1;
+}
+
+static void
+pchr_oninit(void *ptr)
+{
+    ((struct pchrstr *)ptr)->p_sname = "";
+}
+
+static void
+mchr_oninit(void *ptr)
+{
+    ((struct mchrstr *)ptr)->m_name = "";
+}
+
+static void
+plchr_oninit(void *ptr)
+{
+    ((struct plchrstr *)ptr)->pl_name = "";
+}
+
+static void
+lchr_oninit(void *ptr)
+{
+    ((struct lchrstr *)ptr)->l_name = "";
+}
+
+static void
+nchr_oninit(void *ptr)
+{
+    ((struct nchrstr *)ptr)->n_name = "";
 }
 
 static void

@@ -226,6 +226,8 @@ ef_verify(void)
 
     /* Special checks */
     for (i = 0; pchr[i].p_sname; i++) {
+	if (!pchr[i].p_sname[0])
+	    continue;
 	if ((pchr[i].p_type >= 0) == (pchr[i].p_level >= 0)) {
 	    fprintf(stderr,
 		"Config %s uid %d field level doesn't match field type\n",
