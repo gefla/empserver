@@ -56,25 +56,6 @@ obj_nameof(struct empobj *gp)
     return "The Beast #666";
 }
 
-struct empobj_chr *
-get_empobj_chr(struct empobj *gp)
-{
-    switch (gp->ef_type) {
-    case EF_LAND:
-	return (struct empobj_chr *)&lchr[(int)gp->type];
-    case EF_SHIP:
-	return (struct empobj_chr *)&mchr[(int)gp->type];
-    case EF_PLANE:
-	return (struct empobj_chr *)&plchr[(int)gp->type];
-    case EF_NUKE:
-	return (struct empobj_chr *)&nchr[(int)gp->type];
-    case EF_SECTOR:
-	return (struct empobj_chr *)&dchr[(int)gp->type];
-    }
-    CANT_REACH();
-    return NULL;
-}
-
 char *
 empobj_chr_name(struct empobj *gp)
 {
