@@ -33,13 +33,29 @@
 
 #include <config.h>
 
-#include "empobj.h"
 #include "file.h"
 #include "path.h"
 #include "player.h"
 #include "optlist.h"
 #include "prototypes.h"
 #include "unit.h"
+
+char *
+unit_nameof(struct empobj *gp)
+{
+    switch (gp->ef_type) {
+    case EF_SHIP:
+	return prship((struct shpstr *)gp);
+    case EF_PLANE:
+	return prplane((struct plnstr *)gp);
+    case EF_LAND:
+	return prland((struct lndstr *)gp);
+    case EF_NUKE:
+	return prnuke((struct nukstr *)gp);
+    }
+    CANT_REACH();
+    return "The Beast #666";
+}
 
 void
 unit_list(struct emp_qelem *unit_list)
@@ -115,7 +131,7 @@ unit_put(struct emp_qelem *list, natid actor)
 			&& unit->ef_type != EF_SHIP))
 	    continue;
 	if (actor) {
-	    mpr(actor, "%s stopped at %s\n", obj_nameof(unit),
+	    mpr(actor, "%s stopped at %s\n", unit_nameof(unit),
 		xyas(unit->x, unit->y, actor));
 	    if (unit->ef_type == EF_LAND) {
 		if (ulp->mobil < -127)
@@ -215,7 +231,7 @@ unit_view(struct emp_qelem *list)
 	    if (((struct mchrstr *)ulp->chrp)->m_flags & M_OIL)
 		pr("[oil:%d] ", sect.sct_oil);
 	}
-	pr("%s @ %s %d%% %s\n", obj_nameof(&ulp->unit.gen),
+	pr("%s @ %s %d%% %s\n", unit_nameof(&ulp->unit.gen),
 	   xyas(ulp->unit.gen.x, ulp->unit.gen.y, player->cnum),
 	   sect.sct_effic, dchr[sect.sct_type].d_name);
     }
@@ -239,7 +255,7 @@ unit_update_cargo(struct empobj *carrier)
 	snxtitem_cargo(&ni, cargo_type, carrier->ef_type, carrier->uid);
 	while (nxtitem(&ni, &obj)) {
 	    if (!carrier->own) {
-		mpr(obj.gen.own, "%s lost!\n", obj_nameof(&obj.gen));
+		mpr(obj.gen.own, "%s lost!\n", unit_nameof(&obj.gen));
 		obj.gen.effic = 0;
 	    } else {
 		/* mission op-area centered on the obj travels with it */
@@ -281,7 +297,7 @@ unit_drop_cargo(struct empobj *unit, natid newown)
 		break;
 	    }
 	    mpr(cargo.gen.own, "%s transferred off %s %d to %s\n",
-		obj_nameof(&cargo.gen),
+		unit_nameof(&cargo.gen),
 		ef_nameof(unit->ef_type), unit->uid,
 		xyas(cargo.gen.x, cargo.gen.y, cargo.gen.own));
 	    if (newown)
@@ -309,9 +325,9 @@ unit_give_away(struct empobj *unit, natid recipient, natid giver)
 
     if (giver) {
 	mpr(unit->own, "%s given to %s\n",
-	    obj_nameof(unit), cname(recipient));
+	    unit_nameof(unit), cname(recipient));
 	mpr(recipient, "%s given to you by %s\n",
-	    obj_nameof(unit), cname(giver));
+	    unit_nameof(unit), cname(giver));
     }
 
     unit->own = recipient;

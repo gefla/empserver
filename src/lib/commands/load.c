@@ -37,7 +37,6 @@
 
 #include <ctype.h>
 #include "commands.h"
-#include "empobj.h"
 #include "item.h"
 #include "land.h"
 #include "optlist.h"
@@ -363,7 +362,7 @@ void
 gift(natid givee, natid giver, void *ptr, char *mesg)
 {
     if (giver != givee)
-	wu(0, givee, "%s %s %s\n", cname(giver), obj_nameof(ptr), mesg);
+	wu(0, givee, "%s %s %s\n", cname(giver), unit_nameof(ptr), mesg);
     unit_give_away(ptr, givee, 0);
 }
 

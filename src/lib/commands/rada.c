@@ -34,7 +34,7 @@
 
 #include "commands.h"
 #include "optlist.h"
-#include "empobj.h"
+#include "unit.h"
 
 int
 rada(void)
@@ -108,7 +108,7 @@ radar(int type)
 		spy = lchr[item.land.lnd_type].l_spy;
 	    }
 
-	    pr("%s at ", obj_nameof(&item.gen));
+	    pr("%s at ", unit_nameof(&item.gen));
 	    radmap(item.gen.x, item.gen.y, item.gen.effic,
 		   item.gen.tech, spy, tf);
 	}

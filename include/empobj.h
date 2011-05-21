@@ -98,7 +98,6 @@ struct empobj_chr;
 #define put_empobj(type, n, p) ef_write((type), (n), (p))
 #define get_empobjp(type, n) ((struct empobj *)ef_ptr((type), (n)))
 
-extern char *obj_nameof(struct empobj *gp);
 extern char *empobj_chr_name(struct empobj *gp);
 extern int get_empobj_mob_max(int type);
 

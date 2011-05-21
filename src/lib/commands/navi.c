@@ -38,7 +38,6 @@
 #include "map.h"
 #include "optlist.h"
 #include "path.h"
-#include "empobj.h"
 #include "unit.h"
 
 static void pr_leader_change(struct empobj *leader);
@@ -89,7 +88,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
     type = leader->ef_type;
     pr("%s is %s\n",
 	type == EF_SHIP ? "Flagship" : "Leader",
-	obj_nameof(leader));
+	unit_nameof(leader));
 
     if (player->argp[2]) {
 	strcpy(buf, player->argp[2]);
@@ -335,7 +334,7 @@ pr_leader_change(struct empobj *leader)
 {
     pr("Changing %s to %s\n",
 	leader->ef_type == EF_SHIP ? "flagship" : "leader",
-	obj_nameof(leader));
+	unit_nameof(leader));
 }
 
 static struct empobj *

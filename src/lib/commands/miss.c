@@ -35,10 +35,10 @@
 #include <config.h>
 
 #include "commands.h"
-#include "empobj.h"
 #include "mission.h"
 #include "optlist.h"
 #include "path.h"
+#include "unit.h"
 
 static int clear_mission(struct nstr_item *);
 static int show_mission(struct nstr_item *);
@@ -175,24 +175,24 @@ mission(void)
 	if (mission == MI_RESERVE) {
 	    if (!lnd_can_attack((struct lndstr *)gp)) {
 		pr("%s is not designed to fight ground troops\n",
-		   obj_nameof(gp));
+		   unit_nameof(gp));
 		continue;
 	    }
 	    if (!lchr[gp->type].l_rad) {
-		pr("%s cannot react anywhere!\n", obj_nameof(gp));
+		pr("%s cannot react anywhere!\n", unit_nameof(gp));
 		continue;
 	    }
 	}
 
 	if ((mission == MI_INTERDICT) && (type == EF_SHIP))
 	    if (mchr[(int)gp->type].m_glim == 0) {
-		pr("%s: cannot fire at range!\n", obj_nameof(gp));
+		pr("%s: cannot fire at range!\n", unit_nameof(gp));
 		continue;
 	    }
 
 	if ((mission == MI_INTERDICT) && (type == EF_LAND))
 	    if (lchr[(int)gp->type].l_dam == 0) {
-		pr("%s: cannot fire at range!\n", obj_nameof(gp));
+		pr("%s: cannot fire at range!\n", unit_nameof(gp));
 		continue;
 	    }
 
@@ -247,7 +247,7 @@ mission(void)
 
 	if (type == EF_PLANE && nuk_on_plane((struct plnstr *)gp) >= 0) {
 	    pr("%s can't perform a mission while it carries a nuclear weapon",
-	       obj_nameof(gp));
+	       unit_nameof(gp));
 	    continue;
 	}
 
@@ -260,7 +260,7 @@ mission(void)
 	range = oprange(gp);
 	if (range < mapdist(gp->x, gp->y, x, y)) {
 	    pr("%s: out of range! (range %d)\n",
-	       obj_nameof(gp), range);
+	       unit_nameof(gp), range);
 	    continue;
 	}
 	gp->opx = x;
@@ -270,7 +270,7 @@ mission(void)
 	num++;
 
 	pr("%s on %s mission, centered on %s, radius %d\n",
-	   obj_nameof(gp), mission_name(mission),
+	   unit_nameof(gp), mission_name(mission),
 	   xyas(x, y, player->cnum), gp->radius);
     }
     if (num == 0) {
@@ -310,7 +310,7 @@ show_mission(struct nstr_item *np)
 	    pr("Thing                         x,y   op-sect rad mission\n");
 	    first = 0;
 	}
-	pr("%-25s", obj_nameof(gp));
+	pr("%-25s", unit_nameof(gp));
 	prxy(" %3d,%-3d", gp->x, gp->y);
 	switch (gp->mission) {
 	case MI_INTERDICT:

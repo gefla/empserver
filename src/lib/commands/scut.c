@@ -34,7 +34,6 @@
 
 #include <ctype.h>
 #include "commands.h"
-#include "empobj.h"
 #include "news.h"
 #include "optlist.h"
 #include "unit.h"
@@ -138,7 +137,7 @@ scut(void)
 	    }
 	}
 	pr("%s scuttled in %s\n",
-	   obj_nameof(&item.gen),
+	   unit_nameof(&item.gen),
 	   xyas(item.gen.x, item.gen.y, player->cnum));
 	getsect(item.gen.x, item.gen.y, &sect);
 	if (sect.sct_own == item.gen.own)

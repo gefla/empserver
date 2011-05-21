@@ -37,24 +37,6 @@
 #include "empobj.h"
 #include "file.h"
 #include "optlist.h"
-#include "prototypes.h"
-
-char *
-obj_nameof(struct empobj *gp)
-{
-    switch (gp->ef_type) {
-    case EF_SHIP:
-	return prship((struct shpstr *)gp);
-    case EF_PLANE:
-	return prplane((struct plnstr *)gp);
-    case EF_LAND:
-	return prland((struct lndstr *)gp);
-    case EF_NUKE:
-	return prnuke((struct nukstr *)gp);
-    }
-    CANT_REACH();
-    return "The Beast #666";
-}
 
 char *
 empobj_chr_name(struct empobj *gp)

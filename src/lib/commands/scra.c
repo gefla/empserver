@@ -35,7 +35,6 @@
 
 #include <ctype.h>
 #include "commands.h"
-#include "empobj.h"
 #include "optlist.h"
 #include "unit.h"
 
@@ -159,7 +158,7 @@ scra(void)
 	    if (!player->owner
 		&& relations_with(sect.sct_own, player->cnum) != ALLIED) {
 		pr("%s is not in an allied sector!\n",
-		   obj_nameof(&item.gen));
+		   unit_nameof(&item.gen));
 		continue;
 	    }
 	    if (type == EF_PLANE
@@ -171,7 +170,7 @@ scra(void)
 	}
 
 	pr("%s scrapped in %s\n",
-	   obj_nameof(&item.gen),
+	   unit_nameof(&item.gen),
 	   xyas(item.gen.x, item.gen.y, player->cnum));
 	unit_drop_cargo(&item.gen, sect.sct_own);
 	if (type == EF_SHIP) {
