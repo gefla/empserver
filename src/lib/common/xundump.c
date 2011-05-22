@@ -177,6 +177,7 @@ tbl_next_obj(void)
 
 /*
  * Omit ID1..ID2-1.
+ * Reset the omitted objects to default state.
  */
 static void
 omit_ids(int id1, int id2)
@@ -189,8 +190,10 @@ omit_ids(int id1, int id2)
     idgap = realloc(idgap, (id2 + 1) * sizeof(*idgap));
     for (i = idgap_max; i < id1; i++)
 	idgap[i] = 0;
-    for (i = id1; i < id2; i++)
+    for (i = id1; i < id2; i++) {
+	ef_blank(cur_type, i, ef_ptr(cur_type, i));
 	idgap[i] = 1;
+    }
     idgap[id2] = 0;
     idgap_max = id2;
 }
@@ -214,6 +217,7 @@ expected_id(int id1, int id2)
  * Get the next object, it has record index ID.
  * Store it in cur_obj, and set cur_id and cur_obj_is_blank accordingly.
  * Ensure we're omitting the same objects as the previous parts.
+ * Reset any omitted objects to default state.
  * Return 0 on success, -1 on failure.
  */
 static int
@@ -253,6 +257,7 @@ tbl_skip_to_obj(int id)
  * Finish table part.
  * If the table has variable length, truncate it.
  * Else ensure we're omitting the same objects as the previous parts.
+ * Reset any omitted objects to default state.
  * Return 0 on success, -1 on failure.
  */
 static int
