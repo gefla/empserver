@@ -207,7 +207,7 @@ the number of guns the ship can fire at once
 .L lnd
 The number of land units the ship can carry.  No ship can carry 'heavy'
 units.  Only surface supply ships can carry units that are not 'light'.
-If option LANDSPIES is enabled, submarines that can't normally carry
+Submarines that can't normally carry
 land units can carry up to two spies.
 .L pln
 The number of 'light' planes the ship can carry.

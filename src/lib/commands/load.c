@@ -518,16 +518,14 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     int load_spy = 0;
 
     if (load_unload == LOAD) {
-	if (opt_LANDSPIES) {
-	    if ((mchr[(int)sp->shp_type].m_flags & M_SUB) &&
-		(mchr[(int)sp->shp_type].m_nland == 0)) {
-		if (shp_nland(sp) >= 2) {
-		    pr("Non-land unit carrying subs can only carry up to two spy units.\n");
-		    return 0;
-		}
-		/* Eh, let 'em load a spy only */
-		load_spy = 1;
+	if ((mchr[(int)sp->shp_type].m_flags & M_SUB) &&
+	    (mchr[(int)sp->shp_type].m_nland == 0)) {
+	    if (shp_nland(sp) >= 2) {
+		pr("Non-land unit carrying subs can only carry up to two spy units.\n");
+		return 0;
 	    }
+	    /* Eh, let 'em load a spy only */
+	    load_spy = 1;
 	}
 	if (!load_spy && shp_nland(sp) >= mchr[sp->shp_type].m_nland) {
 	    if (noisy) {
@@ -612,16 +610,14 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	/* Fit unit on ship */
 	if (load_unload == LOAD) {
 	    /* We have to check again, since it may have changed */
-	    if (opt_LANDSPIES) {
-		if ((mchr[(int)sp->shp_type].m_flags & M_SUB) &&
-		    (mchr[(int)sp->shp_type].m_nland == 0)) {
-		    if (shp_nland(sp) >= 2) {
-			pr("Non-land unit carrying subs can only carry up to two spy units.\n");
-			return 0;
-		    }
-		    /* Eh, let 'em load a spy only */
-		    load_spy = 1;
+	    if ((mchr[(int)sp->shp_type].m_flags & M_SUB) &&
+		(mchr[(int)sp->shp_type].m_nland == 0)) {
+		if (shp_nland(sp) >= 2) {
+		    pr("Non-land unit carrying subs can only carry up to two spy units.\n");
+		    return 0;
 		}
+		/* Eh, let 'em load a spy only */
+		load_spy = 1;
 	    }
 	    if (!load_spy && shp_nland(sp) >= mchr[sp->shp_type].m_nland) {
 		if (noisy) {

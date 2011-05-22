@@ -239,7 +239,7 @@ NEW_STARVE, NEW_WORK, ORBIT and PLANENAMES are no longer configurable.
 Options NUKEFAILDETONATE, SLOW_WAR, SNEAK_ATTACK, FUEL, GRAB_THINGS
 and SHIP_DECAY are gone.  Options PINPOINTMISSILE, DEMANDUPDATE,
 UPDATESCHED, DRNUKE, TRADESHIPS, NONUKES, NEUTRON, BIG_CITY,
-DEFENSE_INFRA, NO_LCMS, NO_HCMS and NO_OIL
+DEFENSE_INFRA, LANDSPIES, NO_LCMS, NO_HCMS and NO_OIL
 got replaced by more flexible configuration.
 
 The xdump command lets client writers access more game more easily.

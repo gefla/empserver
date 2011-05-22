@@ -162,8 +162,6 @@ EMPCF_OPT("HIDDEN", opt_HIDDEN,
     "Hide information between players")
 EMPCF_OPT("INTERDICT_ATT", opt_INTERDICT_ATT,
     "Interdict post-attack move in")
-EMPCF_OPT("LANDSPIES", opt_LANDSPIES,
-    "Enable the land unit type spies")
 EMPCF_OPT("LOANS", opt_LOANS,
     "Allow bailing out of other countries via S&L scandals")
 EMPCF_OPT("LOSE_CONTACT", opt_LOSE_CONTACT,

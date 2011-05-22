@@ -46,7 +46,6 @@ int opt_GO_RENEW = 0;
 int opt_GUINEA_PIGS = 0;
 int opt_HIDDEN = 0;
 int opt_INTERDICT_ATT = 1;
-int opt_LANDSPIES = 1;
 int opt_LOANS = 0;
 int opt_LOSE_CONTACT = 0;
 int opt_MARKET = 0;

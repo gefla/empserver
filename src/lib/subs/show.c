@@ -125,8 +125,6 @@ make_lchr_index(struct chr_index chridx[], int tlev)
 	    continue;
 	if (lchr[i].l_tech > tlev)
 	    continue;
-	if ((lchr[i].l_flags & L_SPY) && !opt_LANDSPIES)
-	    continue;
 	chridx[n].type = i;
 	chridx[n].tech = lchr[i].l_tech;
 	n++;

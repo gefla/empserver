@@ -134,11 +134,8 @@ buil(void)
 	break;
     case 'l':
 	type = ef_elt_byname(EF_LAND_CHR, p);
-	if (type >= 0) {
+	if (type >= 0)
 	    rqtech = lchr[type].l_tech;
-	    if ((lchr[type].l_flags & L_SPY) && !opt_LANDSPIES)
-		type = -1;
-	}
 	break;
     case 'n':
 	type = ef_elt_byname(EF_NUKE_CHR, p);
