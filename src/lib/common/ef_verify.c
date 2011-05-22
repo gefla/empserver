@@ -203,6 +203,14 @@ verify_planes(int may_put)
     /* laziness: assumes plane file is EFF_MEM */
     for (i = 0; (pp = getplanep(i)); i++) {
 	if (pp->pln_own) {
+	    if (pp->pln_flags & PLN_LAUNCHED
+		&& (plchr[pp->pln_type].pl_flags & (P_M | P_O)) != P_O) {
+		pp->pln_flags &= ~PLN_LAUNCHED;
+		/* FIXME missile should be destroyed instead */
+		if (may_put)
+		    putplane(i, pp);
+		verify_fail(EF_PLANE, i, NULL, 0, "stuck in the air (fixed)");
+	    }
 	    if (pp->pln_ship >= 0 && pp->pln_land >= 0) {
 		verify_fail(EF_PLANE, i, NULL, 0, "on two carriers");
 		retval = -1;
@@ -269,27 +277,6 @@ verify_nukes(int may_put)
     return retval;
 }
 
-static void
-pln_zap_transient_flags(int may_put)
-{
-    int i;
-    struct plnstr *pp;
-
-    /* laziness: assumes plane file is EFF_MEM */
-    for (i = 0; (pp = getplanep(i)) != NULL; i++) {
-	if (!pp->pln_own)
-	    continue;
-	if (pp->pln_flags & PLN_LAUNCHED
-	    && (plchr[pp->pln_type].pl_flags & (P_M | P_O)) != P_O) {
-	    pp->pln_flags &= ~PLN_LAUNCHED;
-	    /* FIXME missile should be destroyed instead */
-	    if (may_put)
-		putplane(i, pp);
-	    verify_fail(EF_PLANE, i, NULL, 0, "stuck in the air (fixed)");
-	}
-    }
-}
-
 /*
  * Verify game state and configuration are sane.
  * Correct minor problems, but write corrections to backing files only
@@ -327,6 +314,5 @@ ef_verify(int may_put)
 	}
     }
 
-    pln_zap_transient_flags(may_put);
     return retval;
 }
