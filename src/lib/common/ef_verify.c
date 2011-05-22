@@ -198,7 +198,6 @@ pln_zap_transient_flags(int may_put)
 {
     int i;
     struct plnstr *pp;
-    int dirty = 0;
 
     /* laziness: assumes plane file is EFF_MEM */
     for (i = 0; (pp = getplanep(i)) != NULL; i++) {
@@ -208,16 +207,11 @@ pln_zap_transient_flags(int may_put)
 	    && (plchr[pp->pln_type].pl_flags & (P_M | P_O)) != P_O) {
 	    pp->pln_flags &= ~PLN_LAUNCHED;
 	    /* FIXME missile should be destroyed instead */
-	    dirty = 1;
+	    if (may_put)
+		putplane(i, pp);
 	    verify_fail(EF_PLANE, i, NULL, 0, "stuck in the air (fixed)");
-	    /*
-	     * Can't putplane() here, because pln_prewrite() crashes
-	     * without a valid player.
-	     */
 	}
     }
-    if (dirty && may_put)
-	ef_flush(EF_PLANE);	/* pretty wasteful */
 }
 
 /*
