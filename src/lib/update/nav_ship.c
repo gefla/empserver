@@ -53,12 +53,9 @@ scuttle_it(struct shpstr *sp)
 	   sp->shp_x, sp->shp_y, sp->shp_uid);
 	return;
     }
-    if (opt_TRADESHIPS) {
-	if (!(mchr[(int)sp->shp_type].m_flags & M_TRADE)) {
-	    wu(0, sp->shp_own, "You can only autoscuttle trade ships!\n");
-	    return;
-	}
-    }
+    if (CANT_HAPPEN(!opt_TRADESHIPS
+		    || !(mchr[sp->shp_type].m_flags & M_TRADE)))
+	return;
     if (!scuttle_tradeship(sp, 0)) {
 	wu(0, sp->shp_own,
 	   "%s doesn't pay here!  Not scuttled.\n", prship(sp));
