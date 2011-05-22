@@ -81,6 +81,7 @@ static struct castr **fldca;	/* Map field number to selector */
 static int *fldidx;		/* Map field number to index */
 static int *caflds;		/* Map selector number to #fields seen */
 static int *cafldspp;		/* ditto, in previous parts */
+static int may_trunc;		/* Okay to truncate? */
 
 static int gripe(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 static int deffld(int, char *, int);
@@ -985,10 +986,14 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
 	return -1;
 
     nca = nf = 0;
+    may_trunc = empfile[type].nent < 0;
     for (i = 0; ca[i].ca_name; i++) {
 	nca++;
-	if (!(ca[i].ca_flags & NSC_EXTRA))
+	if (!(ca[i].ca_flags & NSC_EXTRA)) {
 	    nf += MAX(1, ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0);
+	    if (ca[i].ca_flags & NSC_CONST)
+		may_trunc = 0;
+	}
     }
     fldca = malloc(nf * sizeof(*fldca));
     fldidx = malloc(nf * sizeof(*fldidx));
@@ -1064,9 +1069,7 @@ xubody(FILE *fp)
     if (CANT_HAPPEN(maxid > ep->fids))
 	maxid = ep->fids;
     if (maxid < ep->fids) {
-	if (ep->nent < 0
-	    && (EF_IS_GAME_STATE(cur_type)
-		|| (cur_type >= EF_SHIP_CHR && cur_type <= EF_NUKE_CHR))) {
+	if (may_trunc) {
 	    if (!ef_truncate(cur_type, maxid))
 		return -1;
 	} else
