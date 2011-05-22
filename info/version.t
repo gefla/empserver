@@ -81,7 +81,7 @@ Options enabled in this game:
 Options disabled in this game:
 	AUTO_POWER, BRIDGETOWERS, GO_RENEW, GUINEA_PIGS, HIDDEN, LOANS,
 	LOSE_CONTACT, MARKET, MOB_ACCESS, NO_FORT_FIRE, RES_POP, SUPER_BARS,
-	TECH_POP, TRADESHIPS
+	TECH_POP
 
 See "info Options" for a detailed list of options and descriptions.
 

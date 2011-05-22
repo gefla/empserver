@@ -125,7 +125,7 @@ scut(void)
 
 	if (type == EF_SHIP) {
 	    mp = &mchr[(int)item.ship.shp_type];
-	    if (opt_TRADESHIPS && (mp->m_flags & M_TRADE)) {
+	    if (mp->m_flags & M_TRADE) {
 		if (!scuttle_tradeship(&item.ship, 1))
 		    continue;
 	    }

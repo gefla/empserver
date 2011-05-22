@@ -195,7 +195,7 @@ float drnuke_const = 0.0;	/* research must be at least drnuke_const*tech */
 				 * drnuke_const is .25, you need a 75 res to
 				 * build a nuke that takes 300 tech
 				 */
-/* opt_TRADESHIPS */
+/* trade ships */
 int trade_1_dist = 8;		/* less than this gets no money */
 int trade_2_dist = 14;		/* less than this gets trade_1 money */
 int trade_3_dist = 25;		/* less than this gets trade_2 money */
@@ -204,7 +204,6 @@ float trade_2 = 0.035;		/* return on trade_2 distance */
 float trade_3 = 0.050;		/* return on trade_3 distance */
 float trade_ally_bonus = 0.20;	/* 20% bonus for trading with allies */
 float trade_ally_cut = 0.10;	/* 10% bonus for ally you trade with */
-/* end opt_TRADESHIPS */
 
 int torpedo_damage = 40;	/* damage is X + 1dX + 1dX, so 40+1d40+1d40 */
 

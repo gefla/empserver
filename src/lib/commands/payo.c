@@ -47,10 +47,6 @@ payo(void)
     int dist;
     float cash = 0.0;
 
-    if (!opt_TRADESHIPS) {
-	pr("Tradeships are not enabled.\n");
-	return RET_FAIL;
-    }
     if (!snxtitem(&ni, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
 

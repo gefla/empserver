@@ -60,5 +60,4 @@ int opt_RES_POP = 0;
 int opt_SAIL = 1;
 int opt_SUPER_BARS = 0;
 int opt_TECH_POP = 0;
-int opt_TRADESHIPS = 0;
 int opt_TREATIES = 1;

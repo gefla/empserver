@@ -256,7 +256,7 @@ The vessel can be used as a semi-landing craft. (see info assault)
 .L sub-torp
 The vessel can torpedo submarines
 .L trade
-The vessel is a trade ship. (only if TRADESHIPS are enabled)
+The vessel is a trade ship.
 .L supply
 The vessel can supply other units.
 Unless the vessel is a submarine, it can load non-light land units.

@@ -83,8 +83,6 @@ make_mchr_index(struct chr_index chridx[], int tlev)
 	    continue;
 	if (mchr[i].m_tech > tlev)
 	    continue;
-	if ((mchr[i].m_flags & M_TRADE) && !opt_TRADESHIPS)
-	    continue;
 	chridx[n].type = i;
 	chridx[n].tech = mchr[i].m_tech;
 	n++;

@@ -143,8 +143,7 @@ scra(void)
 		   prship(&item.ship));
 		continue;
 	    }
-	    if (opt_TRADESHIPS
-		&& (mchr[item.ship.shp_type].m_flags & M_TRADE)) {
+	    if (mchr[item.ship.shp_type].m_flags & M_TRADE) {
 		pr("WARNING: You only collect money from trade ships if you \"scuttle\" them!\n");
 		sprintf(prompt,
 			"Are you really sure that you want to scrap %s (n)? ",

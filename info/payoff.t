@@ -35,6 +35,4 @@ shp#     ship type  orig x,y       x,y    dist $$
 1 ship
 .FI
 .s1
-Note that this command is only enabled if the TRADESHIPS option is in use.
-.s1
 .SA "Trade-ships, sonar, torpedo, upgrade, Ships"

@@ -129,11 +129,8 @@ buil(void)
 	break;
     case 's':
 	type = ef_elt_byname(EF_SHIP_CHR, p);
-	if (type >= 0) {
+	if (type >= 0)
 	    rqtech = mchr[type].m_tech;
-	    if ((mchr[type].m_flags & M_TRADE) && !opt_TRADESHIPS)
-		type = -1;
-	}
 	break;
     case 'l':
 	type = ef_elt_byname(EF_LAND_CHR, p);

@@ -12,7 +12,6 @@ EASY_BRIDGES:	bridges can be built from any sector
 SUPER_BARS:	gold bars aren't destroyed by shelling or bombing
 ALL_BLEED:	you get tech bleed from all countries, not just allies
 NOMOBCOST:	ships pay 0 mob to fire. Subs pay 1/2 a sect's movement cost
-TRADESHIPS:	you can build/nav/scuttle trade ships to make money
 RES_POP:	Research affects max sector population.
 NOFOOD:		No food is required.
 BLITZ:		Players get infinite BTU's.

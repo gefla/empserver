@@ -2,7 +2,7 @@
 .NA Trade-ships "How to use trade ships"
 .LV Basic
 Trade ships are special ships, with a different function than most Empire
-ships. They are in the game only if the TRADESHIPS option is enabled.
+ships. They are in the game only if the deity enabled them.
 .s1
 Trade ships simulate internal or external trade. In the real world, countries
 make goods that they can make cheaply, ship them somewhere they're expensive,

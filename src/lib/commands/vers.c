@@ -33,7 +33,7 @@
  *     Ken Stevens
  *     Steve McClure
  *     Ron Koenderink, 2005-2006
- *     Markus Armbruster, 2005-2010
+ *     Markus Armbruster, 2005-2011
  */
 
 #include <config.h>
@@ -44,6 +44,7 @@
 #include "ship.h"
 #include "version.h"
 
+static int have_trade_ships(void);
 static void show_custom(void);
 static void show_opts(int val);
 static char *prwrap(char *, char *, int *);
@@ -156,7 +157,7 @@ vers(void)
 	   -(etu_per_update / sect_mob_neg_factor));
     pr("\n");
     pr("Ships on autonavigation may use %i cargo holds per ship.\n", TMAX);
-    if (opt_TRADESHIPS) {
+    if (have_trade_ships()) {
 	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n",
 	   trade_1_dist, trade_1 * 100.0);
 	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n",
@@ -229,6 +230,18 @@ vers(void)
        "http://www.wolfpackempire.com/\n\n");
     pr("%s", legal);
     return RET_OK;
+}
+
+static int
+have_trade_ships(void)
+{
+    int i;
+
+    for (i = ef_nelem(EF_SHIP_CHR) - 1; i >= 0; i--) {
+	if (mchr[i].m_flags & M_TRADE)
+	    return 1;
+    }
+    return 0;
 }
 
 static void

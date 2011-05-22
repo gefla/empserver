@@ -13,7 +13,7 @@ be transferred to land (if a unit, or if the ship is in a harbor), or will die
 .s1
 Units on ships may not be scuttled.
 .s1
-Scuttling trade-ships (if the TRADESHIPS option is enabled) has other effects.
+Scuttling trade-ships has other effects.
 See info Trade-ships.
 .s1
 .SA "scrap, Trade-ships, build, ship, plane, land, Ships, Planes, LandUnits"

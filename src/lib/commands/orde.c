@@ -131,12 +131,7 @@ orde(void)
 	    if (!*p || !strcmp(p, "-")) {
 		pr("A one-way order has been accepted.\n");
 	    } else if (!strncmp(p, "s", 1)) {
-		if (opt_TRADESHIPS) {
-		    if (!(mchr[(int)ship.shp_type].m_flags & M_TRADE)) {
-			pr("You can't auto-scuttle that ship!\n");
-			return RET_SYN;
-		    }
-		} else {
+		if (!(mchr[(int)ship.shp_type].m_flags & M_TRADE)) {
 		    pr("You can't auto-scuttle that ship!\n");
 		    return RET_SYN;
 		}
