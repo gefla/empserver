@@ -193,6 +193,82 @@ verify_row(int type, int row)
     return ret_val;
 }
 
+static int
+verify_planes(int may_put)
+{
+    int retval = 0;
+    int i;
+    struct plnstr *pp;
+
+    /* laziness: assumes plane file is EFF_MEM */
+    for (i = 0; (pp = getplanep(i)); i++) {
+	if (pp->pln_own) {
+	    if (pp->pln_ship >= 0 && pp->pln_land >= 0) {
+		verify_fail(EF_PLANE, i, NULL, 0, "on two carriers");
+		retval = -1;
+	    }
+	} else {
+	    if (pp->pln_ship >= 0 || pp->pln_land >= 0) {
+		pp->pln_ship = pp->pln_land = -1;
+		if (may_put)
+		    putplane(i, pp);
+		verify_fail(EF_PLANE, i, NULL, 0,
+			    "ghost stuck on carrier (fixed)");
+	    }
+	}
+    }
+    return retval;
+}
+
+static int
+verify_lands(int may_put)
+{
+    int retval = 0;
+    int i;
+    struct lndstr *lp;
+
+    /* laziness: assumes land file is EFF_MEM */
+    for (i = 0; (lp = getlandp(i)); i++) {
+	if (lp->lnd_own) {
+	    if (lp->lnd_ship >= 0 && lp->lnd_land >= 0) {
+		verify_fail(EF_LAND, i, NULL, 0, "on two carriers");
+		retval = -1;
+	    }
+	} else {
+	    if (lp->lnd_ship >= 0 || lp->lnd_land >= 0) {
+		lp->lnd_ship = lp->lnd_land = -1;
+		if (may_put)
+		    putland(i, lp);
+		verify_fail(EF_LAND, i, NULL, 0,
+			    "ghost stuck on carrier (fixed)");
+	    }
+	}
+    }
+    return retval;
+}
+
+static int
+verify_nukes(int may_put)
+{
+    int retval = 0;
+    int i;
+    struct nukstr *np;
+
+    /* laziness: assumes nuke file is EFF_MEM */
+    for (i = 0; (np = getnukep(i)); i++) {
+	if (!np->nuk_own) {
+	    if (np->nuk_plane >= 0) {
+		np->nuk_plane = -1;
+		if (may_put)
+		    putnuke(i, np);
+		verify_fail(EF_NUKE, i, NULL, 0,
+			    "ghost stuck on carrier (fixed)");
+	    }
+	}
+    }
+    return retval;
+}
+
 static void
 pln_zap_transient_flags(int may_put)
 {
@@ -237,6 +313,9 @@ ef_verify(int may_put)
     }
 
     /* Special checks */
+    retval |= verify_planes(may_put);
+    retval |= verify_lands(may_put);
+    retval |= verify_nukes(may_put);
     for (i = 0; pchr[i].p_sname; i++) {
 	if (!pchr[i].p_sname[0])
 	    continue;
