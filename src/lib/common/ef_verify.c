@@ -277,6 +277,26 @@ verify_nukes(int may_put)
     return retval;
 }
 
+static int
+verify_products(void)
+{
+    int retval = 0;
+    int i;
+
+    /* product makes either level or item, not both */
+    for (i = 0; pchr[i].p_sname; i++) {
+	if (!pchr[i].p_sname[0])
+	    continue;
+	if ((pchr[i].p_type >= 0) == (pchr[i].p_level >= 0)) {
+	    fprintf(stderr,
+		"Config %s uid %d field level doesn't match field type\n",
+		ef_nameof(EF_PRODUCT), i);
+	    retval = -1;
+	}
+    }
+    return retval;
+}
+
 /*
  * Verify game state and configuration are sane.
  * Correct minor problems, but write corrections to backing files only
@@ -303,16 +323,6 @@ ef_verify(int may_put)
     retval |= verify_planes(may_put);
     retval |= verify_lands(may_put);
     retval |= verify_nukes(may_put);
-    for (i = 0; pchr[i].p_sname; i++) {
-	if (!pchr[i].p_sname[0])
-	    continue;
-	if ((pchr[i].p_type >= 0) == (pchr[i].p_level >= 0)) {
-	    fprintf(stderr,
-		"Config %s uid %d field level doesn't match field type\n",
-		ef_nameof(EF_PRODUCT), i);
-	    retval = -1;
-	}
-    }
-
+    retval |= verify_products();
     return retval;
 }
