@@ -150,7 +150,7 @@ main(int argc, char *argv[])
 	    exit(1);
     }
 
-    if (ef_verify() < 0)
+    if (ef_verify(0) < 0)
 	exit(1);
 
     /* export to stdout */

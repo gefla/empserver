@@ -194,7 +194,7 @@ verify_row(int type, int row)
 }
 
 static void
-pln_zap_transient_flags(void)
+pln_zap_transient_flags(int may_put)
 {
     int i;
     struct plnstr *pp;
@@ -216,12 +216,18 @@ pln_zap_transient_flags(void)
 	     */
 	}
     }
-    if (dirty)
+    if (dirty && may_put)
 	ef_flush(EF_PLANE);	/* pretty wasteful */
 }
 
+/*
+ * Verify game state and configuration are sane.
+ * Correct minor problems, but write corrections to backing files only
+ * if MAY_PUT is non-zero.
+ * Return -1 if uncorrected problems remain, else 0.
+ */
 int
-ef_verify(void)
+ef_verify(int may_put)
 {
     struct empfile *ep;
     int retval = 0;
@@ -248,6 +254,6 @@ ef_verify(void)
 	}
     }
 
-    pln_zap_transient_flags();
+    pln_zap_transient_flags(may_put);
     return retval;
 }

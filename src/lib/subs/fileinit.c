@@ -72,7 +72,7 @@ ef_init_srv(void)
 
     nsc_init();
     ef_open_srv();
-    if (ef_verify() < 0)
+    if (ef_verify(1) < 0)
 	exit(EXIT_FAILURE);
     global_init();
     unit_cargo_init();
