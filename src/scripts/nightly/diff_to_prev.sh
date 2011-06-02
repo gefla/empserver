@@ -32,4 +32,4 @@ esac
 
 cd "${LOGDIR}" || err "Could not cd to ${LOGDIR}"
 
-diff -u $(ls "${EMPTARGET}.${ARCH}."* | tail -2)
+diff -u $(ls "${INSTANCE}."* | tail -2)
