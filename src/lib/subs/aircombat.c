@@ -62,6 +62,7 @@ static void ac_combat_headers(natid, natid);
 static void ac_airtoair(struct emp_qelem *, struct emp_qelem *);
 static void ac_dog(struct plist *, struct plist *);
 static void ac_planedamage(struct plist *, natid, int, int, char *);
+static void ac_putplane(struct plist *, int);
 static void ac_doflak(struct emp_qelem *, struct sctstr *);
 static void ac_landflak(struct emp_qelem *, coord, coord);
 static void ac_shipflak(struct emp_qelem *, coord, coord);
@@ -528,12 +529,10 @@ static void
 ac_planedamage(struct plist *plp, natid from, int dam, int flak,
 	       char *mesg)
 {
-    int disp = ac_damage_plane(&plp->plane, from, dam, flak, mesg);
+    int disp;
 
-    if (disp) {
-	pln_put1(plp);
-    } else
-	putplane(plp->plane.pln_uid, &plp->plane);
+    disp = ac_damage_plane(&plp->plane, from, dam, flak, mesg);
+    ac_putplane(plp, disp);
 }
 
 int
@@ -569,6 +568,15 @@ ac_damage_plane(struct plnstr *pp, natid from, int dam, int flak,
     if (disp == 1 && from != 0 && !(plchr[pp->pln_type].pl_flags & P_M))
 	nreport(from, N_DOWN_PLANE, pp->pln_own, 1);
     return disp;
+}
+
+static void
+ac_putplane(struct plist *plp, int disp)
+{
+    if (disp)
+	pln_put1(plp);
+    else
+	putplane(plp->plane.pln_uid, &plp->plane);
 }
 
 static void
@@ -695,7 +703,7 @@ static void
 ac_fireflak(struct emp_qelem *list, natid from, int guns)
 {
     struct plist *plp;
-    int n;
+    int n, disp;
     struct emp_qelem *qp;
     struct emp_qelem *next;
     char msg[14];
@@ -704,9 +712,10 @@ ac_fireflak(struct emp_qelem *list, natid from, int guns)
 	next = qp->q_forw;
 	plp = (struct plist *)qp;
 	n = ac_flak_dam(guns, pln_def(&plp->plane), plp->pcp->pl_flags);
-	ac_planedamage(plp, from, n, 1, msg);
+	disp = ac_damage_plane(&plp->plane, from, n, 1, msg);
 	mpr(plp->plane.pln_own, "    %s takes %d%s%s.\n",
 	    prplane(&plp->plane), n, *msg ? " --" : "", msg);
+	ac_putplane(plp, disp);
     }
 }
 
