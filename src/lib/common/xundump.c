@@ -268,8 +268,10 @@ tbl_part_done(void)
 		if (!ef_truncate(cur_type, cur_id + 1))
 		    return -1;
 	    } else {
-		return gripe("Expected %d more rows",
-			     ep->fids - (cur_id + 1));
+		if (!may_omit_id)
+		    return gripe("Expected %d more rows",
+				 ep->fids - (cur_id + 1));
+		omit_ids(cur_id + 1, ep->fids);
 	    }
 	} else {
 	    exp_id = expected_id(cur_id + 1, ep->fids);
