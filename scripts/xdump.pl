@@ -122,20 +122,6 @@ for my $tab (@{$table_by_name{table}}) {
     parse_xdump(send_cmd("xdump $tab->{uid} *"), $tab->{uid});
 }
 
-# xdump ver
-{
-    # pick an unused tuid:
-    my $tuid = $#meta_by_uid + 1;
-    # hack the table of tables:
-    push @{$table_by_name{table}}, {uid => $tuid, name => 'version'};
-    # xdump meta ver
-    $meta_by_uid[$tuid] = $meta_by_name{version} = [];
-    parse_xdump(send_cmd('xdump meta ver'), $tuid);
-    # xdump ver
-    $table_by_uid[$tuid] = $table_by_name{version} = [];
-    parse_xdump(send_cmd('xdump ver'), $tuid);
-}
-
 $dumper->dumpValue(\@table_by_uid);
 
 
