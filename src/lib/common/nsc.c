@@ -112,7 +112,7 @@ struct castr pchr_ca[] = {
 #define CURSTR struct pchrstr
     {"uid", fldoff(p_uid), NSC_INT, 0, NULL, EF_PRODUCT, 0},
     {"name", fldoff(p_name), NSC_STRING, 0, NULL, EF_BAD, 0},
-    {"sname", fldoff(p_sname), NSC_STRING, 0, NULL, EF_BAD, NSC_CONST},
+    {"sname", fldoff(p_sname), NSC_STRING, 0, NULL, EF_BAD, 0},
     {"ctype", fldoff(p_ctype), NSC_SITYPE(i_type), MAXPRCON, NULL,
      EF_ITEM, 0},
     {"camt", fldoff(p_camt), NSC_USHORT, MAXPRCON, NULL, EF_BAD, 0},
