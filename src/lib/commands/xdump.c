@@ -57,7 +57,6 @@ xdvisible(int type, void *p)
 
     switch (type) {
     case EF_SECTOR:
-    case EF_REALM:
 	return gp->own == player->cnum || player->god;
     case EF_SHIP:
     case EF_PLANE:
@@ -86,6 +85,10 @@ xdvisible(int type, void *p)
     case EF_TRADE:
     case EF_COMM:
 	return gp->own != 0;
+    case EF_REALM:
+	natp = getnatp(((struct realmstr *)p)->r_cnum);
+	return (gp->own == player->cnum || player->god)
+	    && (natp->nat_stat != STAT_UNUSED);
     case EF_PRODUCT:
 	return ((struct pchrstr *)p)->p_sname[0] != 0;
     case EF_SHIP_CHR:
