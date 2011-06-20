@@ -70,7 +70,7 @@ static int cur_type;		/* Current table's file type */
 static int partno;		/* Counts from 0..#parts-1 */
 static void *cur_obj;		/* The object being read into */
 static int cur_id;		/* and its index in the table */
-static int cur_obj_is_blank;
+static int old_nelem;
 static unsigned char *idgap;	/* idgap && idgap[ID] iff part#0 lacks ID */
 static int idgap_max;		/* FIXME */
 
@@ -122,6 +122,7 @@ tbl_start(int type)
     partno = 0;
     cur_id = -1;
     cur_obj = NULL;
+    old_nelem = type == EF_BAD ? 0 : ef_nelem(type);
     idgap = NULL;
     idgap_max = 0;
 }
@@ -137,15 +138,13 @@ tbl_end(void)
 /*
  * Seek to current table's ID-th record.
  * ID must be acceptable.
- * Store it in cur_obj, and set cur_id and cur_obj_is_blank accordingly.
+ * Store it in cur_obj, and set cur_id accordingly.
  * Return 0 on success, -1 on failure.
  */
 static int
 tbl_seek(int id)
 {
     struct empfile *ep = &empfile[cur_type];
-
-    cur_obj_is_blank = id >= ep->fids;
 
     if (id >= ef_nelem(cur_type)) {
 	if (!ef_ensure_space(cur_type, id, 1))
@@ -162,7 +161,7 @@ tbl_seek(int id)
 /*
  * Get the next object.
  * Must not have a record index.
- * Store it in cur_obj, and set cur_id and cur_obj_is_blank accordingly.
+ * Store it in cur_obj, and set cur_id accordingly.
  * Return 0 on success, -1 on failure.
  */
 static int
@@ -215,7 +214,7 @@ expected_id(int id1, int id2)
 
 /*
  * Get the next object, it has record index ID.
- * Store it in cur_obj, and set cur_id and cur_obj_is_blank accordingly.
+ * Store it in cur_obj, and set cur_id accordingly.
  * Ensure we're omitting the same objects as the previous parts.
  * Reset any omitted objects to default state.
  * Return 0 on success, -1 on failure.
@@ -663,7 +662,7 @@ fldval_must_match(int fldno)
      * it's for a const selector, unless the object is still blank, or
      * it was already given in a previous part of a split table.
      */
-    return (!cur_obj_is_blank && (fldca[fldno]->ca_flags & NSC_CONST))
+    return (cur_id < old_nelem && (fldca[fldno]->ca_flags & NSC_CONST))
 	|| fldidx[fldno] < cafldspp[i];
 }
 
