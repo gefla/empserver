@@ -72,11 +72,6 @@ getcommand(char *combufp)
     struct natstr *natp = getnatp(player->cnum);
     char buf[1024];		/* user text */
 
-    if (++player_commands_index >= KEEP_COMMANDS)
-	player_commands_index = 0;
-    sprintf(player_commands[player_commands_index], "%3d %3d [prompt]",
-	    player_commands_index, player->cnum);
-
     prprompt(natp->nat_timeused / 60, natp->nat_btu);
     if (recvclient(buf, sizeof(buf)) < 0)
 	return -1;
