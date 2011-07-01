@@ -69,10 +69,8 @@ static void disable_coms(void);
 int
 getcommand(char *combufp)
 {
-    struct natstr *natp = getnatp(player->cnum);
     char buf[1024];		/* user text */
 
-    prprompt(natp->nat_timeused / 60, natp->nat_btu);
     if (recvclient(buf, sizeof(buf)) < 0)
 	return -1;
 

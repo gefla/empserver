@@ -115,16 +115,18 @@ player_main(struct player *p)
 static int
 command(void)
 {
+    struct natstr *natp = getnatp(player->cnum);
     char *redir;		/* UTF-8 */
     char scanspace[1024];
     time_t now;
 
+    prprompt(natp->nat_timeused / 60, natp->nat_btu);
     if (getcommand(player->combuf) < 0)
 	return player->aborted;
 
     now = time(NULL);
     update_timeused(now);
-    if (!player->god && !may_play_now(getnatp(player->cnum), now))
+    if (!player->god && !may_play_now(natp, now))
 	return 0;
 
     if (parse(player->combuf, scanspace, player->argp, player->comtail,
@@ -255,7 +257,7 @@ execute(void)
 
     while (!failed && status()) {
 	player->nstat &= ~EXEC;
-	if (recvclient(buf, sizeof(buf)) < 0)
+	if (getcommand(buf) < 0)
 	    break;
 	if (parse(buf, scanspace, player->argp, player->comtail,
 		  &player->condarg, &redir) < 0) {
