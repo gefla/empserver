@@ -77,13 +77,9 @@ getcommand(char *combufp)
     sprintf(player_commands[player_commands_index], "%3d %3d [prompt]",
 	    player_commands_index, player->cnum);
 
-    do {
-	prprompt(natp->nat_timeused / 60, natp->nat_btu);
-	buf[0] = 0;
-	if (recvclient(buf, sizeof(buf)) < 0) {
-	    return -1;
-	}
-    } while (buf[0] == 0);
+    prprompt(natp->nat_timeused / 60, natp->nat_btu);
+    if (recvclient(buf, sizeof(buf)) < 0)
+	return -1;
 
     if (++player_commands_index >= KEEP_COMMANDS)
 	player_commands_index = 0;
