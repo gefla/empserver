@@ -159,7 +159,8 @@ ring_search(struct ring *r, char *s)
     size_t i, j;
 
     for (i = r->cons; i + len <= r->prod; i++) {
-	for (j = 0; j < len && s[j] == r->buf[(i + j) % RING_SIZE]; j++) ;
+	for (j = 0; s[j] && s[j] == (char)r->buf[(i + j) % RING_SIZE]; j++)
+	    ;
 	if (!s[j])
 	    return i - r->cons;
     }
