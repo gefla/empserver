@@ -262,7 +262,9 @@ execute(void)
 	    failed = 1;
 	    continue;
 	}
-	pr("\nExecute : %s\n", buf);
+	pr("\nExecute : ");
+	uprnf(buf);
+	pr("\n");
 	if (redir) {
 	    pr("Execute : redirection not supported\n");
 	    failed = 1;
