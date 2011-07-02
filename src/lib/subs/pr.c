@@ -346,7 +346,7 @@ prredir(char *redir)
 
 /*
  * Send script execute request FILE to the current player.
- * REDIR is UTF-8, but non-ASCII characters can occur only if the
+ * FILE is UTF-8, but non-ASCII characters can occur only if the
  * player sent them.  Therefore, it is also user text.
  */
 void
