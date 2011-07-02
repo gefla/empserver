@@ -250,7 +250,10 @@ execute(void)
 
     failed = 0;
 
-    p = getstarg(player->comtail[1], "File? ", buf);
+    if (player->comtail[1])
+	p = player->comtail[1];
+    else
+	p = getstring("File? ", buf);
     if (p == NULL || *p == '\0')
 	return RET_SYN;
     prexec(p);
