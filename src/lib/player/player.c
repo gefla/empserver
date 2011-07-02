@@ -242,18 +242,17 @@ make_stale_if_command_arg(char *arg)
 int
 execute(void)
 {
-    char buf[1024];
+    char buf[1024];		/* UTF-8 */
     int failed;
-    char *p;
+    char *p;			/* UTF-8 */
     char *redir;		/* UTF-8 */
     char scanspace[1024];
 
     failed = 0;
 
-    if (player->comtail[1])
-	p = player->comtail[1];
-    else
-	p = getstring("File? ", buf);
+    p = player->comtail[1];
+    if (!p)
+	p = ugetstring("File? ", buf);
     if (p == NULL || *p == '\0')
 	return RET_SYN;
     prexec(p);
