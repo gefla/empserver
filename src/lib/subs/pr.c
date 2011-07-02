@@ -563,7 +563,8 @@ copy_utf8_to_ascii_no_funny(char *dst, char *src)
 	    ;			/* ignore funny control */
 	else if (ch > 0x7f) {
 	    *p++ = '?';		/* replace non-ASCII */
-	    while ((*src++ & 0xc0) == 0x80) ;
+	    while ((*src & 0xc0) == 0x80)
+		src++;
 	} else
 	    *p++ = ch;
     }
