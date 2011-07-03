@@ -117,7 +117,6 @@ command(void)
 {
     struct natstr *natp = getnatp(player->cnum);
     char *redir;		/* UTF-8 */
-    char scanspace[1024];
     time_t now;
 
     prprompt(natp->nat_timeused / 60, natp->nat_btu);
@@ -129,8 +128,8 @@ command(void)
     if (!player->god && !may_play_now(natp, now))
 	return 0;
 
-    if (parse(player->combuf, scanspace, player->argp, player->comtail,
-	      &player->condarg, &redir) < 0) {
+    if (parse(player->combuf, player->argbuf, player->argp,
+	      player->comtail, &player->condarg, &redir) < 0) {
 	pr("See \"info Syntax\"?\n");
     } else {
 	if (dispatch(player->combuf, redir) < 0)
@@ -204,19 +203,6 @@ status(void)
     return 1;
 }
 
-/* Is ARG one of the player's last command's arguments?  */
-static int
-is_command_arg(char *arg)
-{
-    int i;
-
-    for (i = 1; i < 128 && player->argp[i]; i++) {
-	if (arg == player->argp[i])
-	    return 1;
-    }
-    return 0;
-}
-
 /*
  * Make all objects stale if ARG is one of the player's command arguments.
  * See ef_make_stale() for what "making stale" means.
@@ -230,7 +216,8 @@ is_command_arg(char *arg)
 void
 make_stale_if_command_arg(char *arg)
 {
-    if (is_command_arg(arg))
+    if (player->argbuf <= arg
+	&& arg <= player->argbuf + sizeof(player->argbuf))
 	ef_make_stale();
 }
 
@@ -246,7 +233,6 @@ execute(void)
     int failed;
     char *p;			/* UTF-8 */
     char *redir;		/* UTF-8 */
-    char scanspace[1024];
 
     failed = 0;
 
@@ -259,10 +245,10 @@ execute(void)
 
     while (!failed && status()) {
 	player->nstat &= ~EXEC;
-	if (getcommand(buf) < 0)
+	if (getcommand(player->combuf) < 0)
 	    break;
-	if (parse(buf, scanspace, player->argp, player->comtail,
-		  &player->condarg, &redir) < 0) {
+	if (parse(player->combuf, player->argbuf, player->argp,
+		  player->comtail, &player->condarg, &redir) < 0) {
 	    failed = 1;
 	    continue;
 	}

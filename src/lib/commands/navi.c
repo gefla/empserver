@@ -76,7 +76,6 @@ do_unit_move(struct emp_qelem *ulist, int *together,
     int skip = 0;
     char buf[1024];
     char prompt[128];
-    char scanspace[1024];
     char pathtaken[1024];  /* Doubtful we'll have a path longer than this */
     char *pt = pathtaken;
     char bmap_flag;
@@ -176,7 +175,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    cp++;
 	    continue;
 	}
-	ac = parse(cp, scanspace, player->argp, NULL, NULL, NULL);
+	ac = parse(cp, player->argbuf, player->argp, NULL, NULL, NULL);
 	if (ac <= 0) {
 	    player->argp[0] = "";
 	    cp = NULL;

@@ -68,6 +68,7 @@ struct player {
     struct cmndstr *command;	/* currently executing command */
     struct iop *iop;
     char combuf[1024];		/* command input buffer, UTF-8 */
+    char argbuf[1024];		/* argument buffer, ASCII */
     char *argp[128];		/* arguments, ASCII, valid if command */
     char *condarg;		/* conditional, ASCII, valid if command */
     char *comtail[128];		/* start of args in combuf[] */
