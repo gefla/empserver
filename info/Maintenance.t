@@ -22,8 +22,8 @@ to maintain the item.
 Also note that engineering land units costs 3 times what
 normal units cost, after the tech is figured in.
 .s1
-If you can not afford to pay maintenance costs or you choose not to
-pay them (see info budget) then your unit will lose ETU/5 points of
+If you can not afford to pay maintenance costs then your unit will
+lose ETU/5 points of
 efficiency.  Thus, if you were playing in a 60 ETU game, and you did
 not pay your maintenance costs for a 50% frigate, then the frigate
 would drop to 38% efficiency.
