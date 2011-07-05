@@ -94,11 +94,8 @@ upd_land(struct lndstr *lp, int etus,
 {
     struct lchrstr *lcp;
     int pstage, ptime;
-    int n;
     int min = morale_base - (int)np->nat_level[NAT_HLEV];
-    int mult;
-    int cost;
-    int eff;
+    int n, mult, cost, eff_lost;
 
     if (!player->simulation)
 	if (lp->lnd_retreat < min)
@@ -118,19 +115,14 @@ upd_land(struct lndstr *lp, int etus,
 	    mult *= 3;
 	cost = -(mult * etus * MIN(0.0, money_land * lcp->l_cost));
 	if (np->nat_money < cost && !player->simulation) {
-	    if ((eff = lp->lnd_effic - etus / 5) < LAND_MINEFF) {
-		wu(0, lp->lnd_own,
-		   "%s lost to lack of maintenance\n", prland(lp));
-		makelost(EF_LAND, lp->lnd_own, lp->lnd_uid,
-			 lp->lnd_x, lp->lnd_y);
-		lp->lnd_own = 0;
-		lp->lnd_ship = lp->lnd_land = -1;
-		return;
+	    eff_lost = etus / 5;
+	    if (lp->lnd_effic - eff_lost < LAND_MINEFF)
+		eff_lost = lp->lnd_effic - LAND_MINEFF;
+	    if (eff_lost > 0) {
+		wu(0, lp->lnd_own, "%s lost %d%% to lack of maintenance\n",
+		   prland(lp), eff_lost);
+		lp->lnd_effic -= eff_lost;
 	    }
-	    wu(0, lp->lnd_own,
-	       "%s lost %d%% to lack of maintenance\n",
-	       prland(lp), lp->lnd_effic - eff);
-	    lp->lnd_effic = eff;
 	} else {
 	    np->nat_money -= cost;
 	}

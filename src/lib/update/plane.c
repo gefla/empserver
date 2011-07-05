@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1998
- *     Markus Armbruster, 2006-2010
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>
@@ -90,7 +90,7 @@ upd_plane(struct plnstr *pp, int etus,
 	  struct natstr *np, struct bp *bp, int build)
 {
     struct plchrstr *pcp = &plchr[(int)pp->pln_type];
-    int mult, cost, eff;
+    int mult, cost, eff_lost;
 
     if (build == 1) {
 	if (!pp->pln_off && np->nat_money >= 0)
@@ -103,19 +103,14 @@ upd_plane(struct plnstr *pp, int etus,
 	    mult = 2;
 	cost = -(mult * etus * MIN(0.0, pcp->pl_cost * money_plane));
 	if (np->nat_money < cost && !player->simulation) {
-	    if ((eff = pp->pln_effic - etus / 5) < PLANE_MINEFF) {
-		wu(0, pp->pln_own,
-		   "%s lost to lack of maintenance\n", prplane(pp));
-		makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
-			 pp->pln_x, pp->pln_y);
-		pp->pln_own = 0;
-		pp->pln_ship = pp->pln_land = -1;
-		return;
+	    eff_lost = etus / 5;
+	    if (pp->pln_effic - eff_lost < PLANE_MINEFF)
+		eff_lost = pp->pln_effic - PLANE_MINEFF;
+	    if (eff_lost > 0) {
+		wu(0, pp->pln_own, "%s lost %d%% to lack of maintenance\n",
+		   prplane(pp), eff_lost);
+		pp->pln_effic -= eff_lost;
 	    }
-	    wu(0, pp->pln_own,
-	       "%s lost %d%% to lack of maintenance\n",
-	       prplane(pp), pp->pln_effic - eff);
-	    pp->pln_effic = eff;
 	} else {
 	    np->nat_money -= cost;
 	}

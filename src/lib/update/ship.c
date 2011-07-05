@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Steve McClure, 1996
  *     Ron Koenderink, 2004
- *     Markus Armbruster, 2006-2010
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>
@@ -104,10 +104,7 @@ upd_ship(struct shpstr *sp, int etus,
     struct pchrstr *product;
     unsigned char *resource;
     int dep;
-    int n;
-    int mult;
-    int cost;
-    int eff;
+    int n, mult, cost, eff_lost;
 
     mp = &mchr[(int)sp->shp_type];
     if (build == 1) {
@@ -121,18 +118,14 @@ upd_ship(struct shpstr *sp, int etus,
 	    mult = 2;
 	cost = -(mult * etus * MIN(0.0, money_ship * mp->m_cost));
 	if (np->nat_money < cost && !player->simulation) {
-	    if ((eff = sp->shp_effic - etus / 5) < SHIP_MINEFF) {
-		wu(0, sp->shp_own,
-		   "%s lost to lack of maintenance\n", prship(sp));
-		makelost(EF_SHIP, sp->shp_own, sp->shp_uid,
-			 sp->shp_x, sp->shp_y);
-		sp->shp_own = 0;
-		return;
+	    eff_lost = etus / 5;
+	    if (sp->shp_effic - eff_lost < SHIP_MINEFF)
+		eff_lost = sp->shp_effic - SHIP_MINEFF;
+	    if (eff_lost > 0) {
+		wu(0, sp->shp_own, "%s lost %d%% to lack of maintenance\n",
+		   prship(sp), eff_lost);
+		sp->shp_effic -= eff_lost;
 	    }
-	    wu(0, sp->shp_own,
-	       "%s lost %d%% to lack of maintenance\n",
-	       prship(sp), sp->shp_effic - eff);
-	    sp->shp_effic = eff;
 	} else {
 	    np->nat_money -= cost;
 	}
