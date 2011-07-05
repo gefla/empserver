@@ -243,13 +243,15 @@ unit_view(struct emp_qelem *list)
  * nukes).
  * Else update their location to the carrier's.  Any op sectors equal
  * to location get updated, too.
+ * Return number of units updated.
  */
-void
+int
 unit_update_cargo(struct empobj *carrier)
 {
     int cargo_type;
     struct nstr_item ni;
     union empobj_storage obj;
+    int n = 0;
 
     for (cargo_type = EF_PLANE; cargo_type <= EF_NUKE; cargo_type++) {
 	snxtitem_cargo(&ni, cargo_type, carrier->ef_type, carrier->uid);
@@ -267,8 +269,10 @@ unit_update_cargo(struct empobj *carrier)
 		obj.gen.y = carrier->y;
 	    }
 	    put_empobj(cargo_type, obj.gen.uid, &obj);
+	    n++;
 	}
     }
+    return n;
 }
 
 /*

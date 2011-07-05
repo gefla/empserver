@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2008
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -79,9 +79,12 @@ lnd_prewrite(int n, void *old, void *new)
 	lnd_carrier_change(lp, EF_LAND, oldlp->lnd_land, lp->lnd_land);
 
     /* We've avoided assigning to lp->lnd_own, in case oldlp == lp */
-    if (oldlp->lnd_own != own)
+    if (oldlp->lnd_own != own) {
 	lost_and_found(EF_LAND, oldlp->lnd_own, own,
 		       lp->lnd_uid, lp->lnd_x, lp->lnd_y);
+	CANT_HAPPEN(!oldlp->lnd_own
+		    && unit_update_cargo((struct empobj *)oldlp));
+    }
 
     lp->lnd_own = own;
     if (!own || lp->lnd_x != oldlp->lnd_x || lp->lnd_y != oldlp->lnd_y)

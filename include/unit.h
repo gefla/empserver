@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2006-2007
- *     Markus Armbruster, 2006
+ *     Markus Armbruster, 2006-2011
  */
 
 #ifndef UNIT_H
@@ -59,7 +59,7 @@ extern void unit_list(struct emp_qelem *);
 extern void unit_put(struct emp_qelem *list, natid actor);
 extern char *unit_path(int, struct empobj *, char *);
 extern void unit_view(struct emp_qelem *);
-extern void unit_update_cargo(struct empobj *);
+extern int unit_update_cargo(struct empobj *);
 extern void unit_drop_cargo(struct empobj *, natid);
 extern void unit_give_away(struct empobj *, natid, natid);
 extern void unit_wipe_orders(struct empobj *);

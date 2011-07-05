@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2008
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -74,9 +74,12 @@ shp_prewrite(int n, void *old, void *new)
     item_prewrite(sp->shp_item);
 
     /* We've avoided assigning to sp->shp_own, in case oldsp == sp */
-    if (oldsp->shp_own != own)
+    if (oldsp->shp_own != own) {
 	lost_and_found(EF_SHIP, oldsp->shp_own, own,
 		       sp->shp_uid, sp->shp_x, sp->shp_y);
+	CANT_HAPPEN(!oldsp->shp_own
+		    && unit_update_cargo((struct empobj *)oldsp));
+    }
 
     sp->shp_own = own;
     if (!own || sp->shp_x != oldsp->shp_x || sp->shp_y != oldsp->shp_y)

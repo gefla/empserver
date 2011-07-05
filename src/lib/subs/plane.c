@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996
- *     Markus Armbruster, 2006-2008
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>
@@ -78,9 +78,12 @@ pln_prewrite(int n, void *old, void *new)
 	pln_carrier_change(pp, EF_LAND, oldpp->pln_land, pp->pln_land);
 
     /* We've avoided assigning to pp->pln_own, in case oldpp == pp */
-    if (oldpp->pln_own != own)
+    if (oldpp->pln_own != own) {
 	lost_and_found(EF_PLANE, oldpp->pln_own, own,
 		       pp->pln_uid, pp->pln_x, pp->pln_y);
+	CANT_HAPPEN(!oldpp->pln_own
+		    && unit_update_cargo((struct empobj *)oldpp));
+    }
 
     pp->pln_own = own;
     if (!own || pp->pln_x != oldpp->pln_x || pp->pln_y != oldpp->pln_y)
