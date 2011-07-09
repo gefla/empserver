@@ -42,6 +42,7 @@
 #include "update.h"
 
 static void take_casualties(struct sctstr *, int);
+static void lnd_dies_fighting_che(struct lndstr *);
 
 void
 revolt(struct sctstr *sp)
@@ -519,12 +520,7 @@ take_casualties(struct sctstr *sp, int mc)
 	    continue;
 
 	mc -= (lp->lnd_effic / 100.0) * lp->lnd_item[I_MILIT];
-	lp->lnd_effic = 0;
-	lnd_submil(lp, 1000);	/* Remove 'em all */
-	wu(0, lp->lnd_own, "%s dies fighting guerrillas in %s\n",
-	   prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
-	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
-	lp->lnd_own = 0;
+	lnd_dies_fighting_che(lp);
 	if (mc <= 0)
 	    return;
     }
@@ -541,15 +537,21 @@ take_casualties(struct sctstr *sp, int mc)
 	    continue;
 
 	mc -= (lp->lnd_effic / 100.0) * lp->lnd_item[I_MILIT] * 2.0;
-	lp->lnd_effic = 0;
-	lnd_submil(lp, 1000);	/* Kill 'em all */
-	wu(0, lp->lnd_own, "%s dies fighting guerrillas in %s\n",
-	   prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
-	makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
-	lp->lnd_own = 0;
+	lnd_dies_fighting_che(lp);
 	if (mc <= 0)
 	    return;
     }
 
     /* Hmm.. everyone dead.. too bad */
+}
+
+static void
+lnd_dies_fighting_che(struct lndstr *lp)
+{
+    lp->lnd_effic = 0;
+    lnd_submil(lp, 1000);	/* Remove 'em all */
+    wu(0, lp->lnd_own, "%s dies fighting guerrillas in %s\n",
+       prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
+    makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
+    lp->lnd_own = 0;
 }
