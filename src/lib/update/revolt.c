@@ -162,7 +162,7 @@ guerrilla(struct sctstr *sp)
     while (NULL != (lp = nxtitemp(&ni))) {
 	if (lp->lnd_own != sp->sct_own)
 	    continue;
-	if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
+	if (lp->lnd_ship >= 0)
 	    continue;
 
 	mil += lp->lnd_item[I_MILIT];
@@ -440,7 +440,7 @@ take_casualties(struct sctstr *sp, int mc)
     while (NULL != (lp = nxtitemp(&ni))) {
 	if (lp->lnd_own != sp->sct_own)
 	    continue;
-	if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
+	if (lp->lnd_ship >= 0)
 	    continue;
 	nunits++;
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
@@ -457,7 +457,7 @@ take_casualties(struct sctstr *sp, int mc)
     while (NULL != (lp = nxtitemp(&ni))) {
 	if (lp->lnd_own != sp->sct_own)
 	    continue;
-	if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
+	if (lp->lnd_ship >= 0)
 	    continue;
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
@@ -486,7 +486,7 @@ take_casualties(struct sctstr *sp, int mc)
     while (NULL != (lp = nxtitemp(&ni))) {
 	if (lp->lnd_own != sp->sct_own)
 	    continue;
-	if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
+	if (lp->lnd_ship >= 0)
 	    continue;
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
@@ -516,7 +516,7 @@ take_casualties(struct sctstr *sp, int mc)
     while (NULL != (lp = nxtitemp(&ni))) {
 	if (lp->lnd_own != sp->sct_own)
 	    continue;
-	if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
+	if (lp->lnd_ship >= 0)
 	    continue;
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
@@ -533,7 +533,7 @@ take_casualties(struct sctstr *sp, int mc)
     while (NULL != (lp = nxtitemp(&ni))) {
 	if (lp->lnd_own != sp->sct_own)
 	    continue;
-	if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
+	if (lp->lnd_ship >= 0)
 	    continue;
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
@@ -561,6 +561,12 @@ lnd_dies_fighting_che(struct lndstr *lp)
        prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
     makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
     lp->lnd_own = 0;
+
+    /* Take dead lp off its carrier */
+    if (lp->lnd_land >= 0) {
+	lnd_carrier_change(lp, EF_LAND, lp->lnd_land, -1);
+	lp->lnd_land = -1;
+    }
 
     /* Unload lp's land unit cargo */
     for (i = lnd_first_on_land(lp); i >= 0; i = lnd_next_on_unit(i)) {
