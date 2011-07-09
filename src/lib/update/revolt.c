@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1997-2000
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -37,6 +38,7 @@
 #include "lost.h"
 #include "news.h"
 #include "nsc.h"
+#include "nuke.h"
 #include "path.h"
 #include "plane.h"
 #include "update.h"
@@ -548,10 +550,50 @@ take_casualties(struct sctstr *sp, int mc)
 static void
 lnd_dies_fighting_che(struct lndstr *lp)
 {
+    int i, j;
+    struct lndstr *clp;
+    struct plnstr *cpp;
+    struct nukstr *cnp;
+
     lp->lnd_effic = 0;
     lnd_submil(lp, 1000);	/* Remove 'em all */
     wu(0, lp->lnd_own, "%s dies fighting guerrillas in %s\n",
        prland(lp), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
     makelost(EF_LAND, lp->lnd_own, lp->lnd_uid, lp->lnd_x, lp->lnd_y);
     lp->lnd_own = 0;
+
+    /* Unload lp's land unit cargo */
+    for (i = lnd_first_on_land(lp); i >= 0; i = lnd_next_on_unit(i)) {
+	clp = getlandp(i);
+	if (CANT_HAPPEN(!clp))
+	    continue;
+	lnd_carrier_change(clp, EF_LAND, clp->lnd_land, -1);
+	clp->lnd_land = -1;
+    }
+
+    /* Destroy lp's plane cargo */
+    for (i = pln_first_on_land(lp); i >= 0; i = pln_next_on_unit(i)) {
+	cpp = getplanep(i);
+	if (CANT_HAPPEN(!cpp))
+	    continue;
+	pln_carrier_change(cpp, EF_LAND, cpp->pln_land, -1);
+	makelost(EF_PLANE, cpp->pln_own, i, cpp->pln_x, cpp->pln_y);
+	wu(0, cpp->pln_own, "%s lost!\n", prplane(cpp));
+	cpp->pln_own = 0;
+	cpp->pln_effic = 0;
+	cpp->pln_land = -1;
+
+	j = nuk_on_plane(cpp);
+	if (j >= 0) {
+	    cnp = getnukep(j);
+	    if (CANT_HAPPEN(!cnp))
+		continue;
+	    nuk_carrier_change(cnp, EF_PLANE, cnp->nuk_plane, -1);
+	    makelost(EF_NUKE, cnp->nuk_own, j, cnp->nuk_x, cnp->nuk_y);
+	    wu(0, cnp->nuk_own, "%s lost!\n", prnuke(cnp));
+	    cnp->nuk_own = 0;
+	    cnp->nuk_effic = 0;
+	    cnp->nuk_plane = -1;
+	}
+    }
 }
