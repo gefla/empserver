@@ -315,7 +315,7 @@ ef_verify(int may_put)
 	    continue;
 	verify_ca(ep->uid);
 	for (i = 0; i < ef_nelem(ep->uid); i++) {
-	    retval += verify_row(ep->uid, i);
+	    retval |= verify_row(ep->uid, i);
 	}
     }
 
