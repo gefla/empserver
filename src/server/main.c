@@ -71,6 +71,7 @@
 
 static void ignore(void);
 static void crash_dump(void);
+static void init_server(unsigned);
 static void create_pidfile(char *, pid_t);
 
 #if defined(_WIN32)
@@ -340,7 +341,7 @@ crash_dump(void)
 /*
  * Initialize for serving, acquire resources.
  */
-void
+static void
 init_server(unsigned seed)
 {
     srandom(seed);
