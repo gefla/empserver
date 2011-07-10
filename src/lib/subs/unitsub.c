@@ -77,7 +77,7 @@ unit_list(struct emp_qelem *unit_list)
 	return;
 
     if (type == EF_LAND)
-	pr("lnd#     land type       x,y    a  eff  sh gun xl  mu tech retr\n");
+	pr("lnd#     land type       x,y    a  eff mil  sh gun xl ln  mu tech retr\n");
     else
 	pr("shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech\n");
 
@@ -95,9 +95,10 @@ unit_list(struct emp_qelem *unit_list)
 	pr("%1.1s", &unit->group);
 	pr("%4d%%", unit->effic);
 	if (type == EF_LAND) {
+	    pr("%4d", lnd->lnd_item[I_MILIT]);
 	    pr("%4d", lnd->lnd_item[I_SHELL]);
 	    pr("%4d", lnd->lnd_item[I_GUN]);
-	    pr("%3d", lnd_nxlight(lnd));
+	    pr("%3d%3d", lnd_nxlight(lnd), lnd_nland(lnd));
 	} else {
 	    pr("%4d", shp->shp_item[I_MILIT]);
 	    pr("%4d", shp->shp_item[I_SHELL]);
