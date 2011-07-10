@@ -225,7 +225,8 @@ extern int ef_nelem(int);
 extern int ef_flags(int);
 extern int ef_byname(char *);
 extern int ef_byname_from(char *, int *);
-extern int ef_verify(int);
+extern int ef_verify_config(void);
+extern int ef_verify_state(int);
 extern int ef_elt_byname(int, char *);
 
 extern struct empfile empfile[EF_MAX + 1];

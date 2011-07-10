@@ -312,24 +312,45 @@ verify_products(void)
 }
 
 /*
- * Verify game state and configuration are sane.
+ * Verify game configuration is sane.
+ * Return 0 on success, -1 on failure.
+ */
+int
+ef_verify_config(void)
+{
+    int retval = 0;
+    int i;
+
+    for (i = 0; i < EF_MAX; i++) {
+	if (!EF_IS_GAME_STATE(i) && !EF_IS_VIEW(i))
+	    retval |= verify_table(i);
+    }
+
+    /* Special checks */
+    retval |= verify_products();
+    return retval;
+}
+
+/*
+ * Verify game state is sane.
  * Correct minor problems, but write corrections to backing files only
  * if MAY_PUT is non-zero.
  * Return -1 if uncorrected problems remain, else 0.
  */
 int
-ef_verify(int may_put)
+ef_verify_state(int may_put)
 {
-    struct empfile *ep;
     int retval = 0;
+    int i;
 
-    for (ep = empfile; ep->name; ep++)
-	retval |= verify_table(ep->uid);
+    for (i = 0; i < EF_MAX; i++) {
+	if (EF_IS_GAME_STATE(i) || EF_IS_VIEW(i))
+	    retval |= verify_table(i);
+    }
 
     /* Special checks */
     retval |= verify_planes(may_put);
     retval |= verify_lands(may_put);
     retval |= verify_nukes(may_put);
-    retval |= verify_products();
     return retval;
 }
