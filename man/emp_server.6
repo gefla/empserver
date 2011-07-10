@@ -7,7 +7,7 @@ emp_server \- Empire server
 .SH SYNOPSIS
 .B emp_server
 [
-.B \-dhpsv
+.B \-dFhpsv
 ]
 [
 .BI \-e " configfile"
@@ -58,6 +58,13 @@ What to do on recoverable internal error ("oops"): \fBabort\fP,
 \fBcrash\-dump\fP (but continue), \fBnothing\fP (default).
 .ie \nw \fBcrash-dump\fP is not implemented for Windows.
 .el \fBcrash-dump\fP works by aborting a fork of the server process.
+.TP
+.B \-F
+Force
+.B emp_server
+to start even when game state looks bad.  Risks crashes and further
+corruption; use this only for attempting to fix up problems.  Better
+make a backup first, and lock out players.
 .TP
 .B \-h
 Help.  Print brief usage information and exit.

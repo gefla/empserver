@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2008
+ *     Markus Armbruster, 2005-2011
  */
 
 #include <config.h>
@@ -60,7 +60,7 @@ static void ef_close_srv(void);
  * Initialize empfile for full server operations.
  */
 void
-ef_init_srv(void)
+ef_init_srv(int force_bad_state)
 {
     unsigned i;
 
@@ -71,11 +71,14 @@ ef_init_srv(void)
     }
 
     nsc_init();
-    ef_open_srv();
     if (ef_verify_config() < 0)
 	exit(EXIT_FAILURE);
-    if (ef_verify_state(1) < 0)
+    ef_open_srv();
+    if (ef_verify_state(1) < 0 && !force_bad_state) {
+	fprintf(stderr, "You can try -F to force running anyway,"
+		" but that's risky; see the manual page\n");
 	exit(EXIT_FAILURE);
+    }
     global_init();
     unit_cargo_init();
 }

@@ -31,7 +31,7 @@
  *     Steve McClure, 1996, 1998
  *     Doug Hay, 1998
  *     Ron Koenderink, 2004-2009
- *     Markus Armbruster, 2005-2010
+ *     Markus Armbruster, 2005-2011
  */
 
 #include <config.h>
@@ -71,7 +71,7 @@
 
 static void ignore(void);
 static void crash_dump(void);
-static void init_server(unsigned);
+static void init_server(unsigned, int);
 static void create_pidfile(char *, pid_t);
 
 #if defined(_WIN32)
@@ -138,6 +138,7 @@ main(int argc, char **argv)
     int remove_service_set = 0;
 #endif
     char *config_file = NULL;
+    int force_bad_state = 0;
     int op, idx, sig;
     unsigned seed = time(NULL);
 
@@ -148,7 +149,7 @@ main(int argc, char **argv)
 #else
 # define XOPTS
 #endif
-    while ((op = getopt(argc, argv, "de:E:hpsR:v" XOPTS)) != EOF) {
+    while ((op = getopt(argc, argv, "de:E:FhpsR:v" XOPTS)) != EOF) {
 	switch (op) {
 	case 'p':
 	    flags |= EMPTH_PRINT;
@@ -167,6 +168,9 @@ main(int argc, char **argv)
 		return EXIT_FAILURE;
 	    }
 	    oops_handler = oops_hndlr[idx];
+	    break;
+	case 'F':
+	    force_bad_state = 1;
 	    break;
 #if defined(_WIN32)
 	case 'I':
@@ -247,7 +251,7 @@ main(int argc, char **argv)
 	return install_service(program_name, service_name, config_file);
 #endif	/* _WIN32 */
 
-    init_server(seed);
+    init_server(seed, force_bad_state);
 
 #if defined(_WIN32)
     if (daemonize != 0) {
@@ -342,14 +346,14 @@ crash_dump(void)
  * Initialize for serving, acquire resources.
  */
 static void
-init_server(unsigned seed)
+init_server(unsigned seed, int force_bad_state)
 {
     srandom(seed);
 #if defined(_WIN32)
     loc_NTInit();
 #endif
     player_init();
-    ef_init_srv();
+    ef_init_srv(force_bad_state);
     io_init();
     init_nreport();
 
