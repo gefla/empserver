@@ -27,7 +27,7 @@
  *  empdump.c: Export/import Empire game state
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2008-2010
+ *     Markus Armbruster, 2008-2011
  */
 
 #include <config.h>
@@ -56,7 +56,7 @@ main(int argc, char *argv[])
     int export = 0;
     int private = 0;
     int human = 1;
-    int opt, i, lineno, type;
+    int opt, i, lineno, type, verified;
     FILE *impf = NULL;
     int dirty[EF_MAX];
 
@@ -128,6 +128,8 @@ main(int argc, char *argv[])
 		argv[0], gamedir, strerror(errno));
 	exit(1);
     }
+    if (ef_verify_config() < 0)
+	exit(1);
     global_init();
 
     for (i = 0; i < EF_MAX; i++) {
@@ -150,10 +152,7 @@ main(int argc, char *argv[])
 	    exit(1);
     }
 
-    if (ef_verify_config() < 0)
-	exit(1);
-    if (ef_verify_state(0) < 0)
-	exit(1);
+    verified = ef_verify_state(0) >= 0;
 
     /* export to stdout */
     if (export) {
@@ -168,6 +167,13 @@ main(int argc, char *argv[])
 	    exit(1);
 	}
     }
+
+    if (!verified && export)
+	fprintf(stderr,
+		"%s: warning: export has errors, not importable as is\n",
+		argv[0]);
+    if (!verified && import)
+	exit(1);
 
     /* write out imported data */
     for (i = 0; i < EF_MAX; i++) {
