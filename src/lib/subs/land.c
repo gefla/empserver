@@ -64,21 +64,24 @@ lnd_prewrite(int n, void *old, void *new)
     struct lndstr *oldlp = old;
     struct lndstr *lp = new;
     natid own = lp->lnd_effic < LAND_MINEFF ? 0 : lp->lnd_own;
+    int ship = lp->lnd_ship;
+    int land = lp->lnd_land;
+
+    /* Be careful with writing to *lp, in case oldlp == lp */
 
     if (!own) {
 	lp->lnd_effic = 0;
-	lp->lnd_ship = lp->lnd_land = -1;
+	ship = land = -1;
     }
     item_prewrite(lp->lnd_item);
 
-    if (CANT_HAPPEN(lp->lnd_ship >= 0 && lp->lnd_land >= 0))
-	lp->lnd_land = -1;
-    if (oldlp->lnd_ship != lp->lnd_ship)
-	lnd_carrier_change(lp, EF_SHIP, oldlp->lnd_ship, lp->lnd_ship);
-    if (oldlp->lnd_land != lp->lnd_land)
-	lnd_carrier_change(lp, EF_LAND, oldlp->lnd_land, lp->lnd_land);
+    if (CANT_HAPPEN(ship >= 0 && land >= 0))
+	land = -1;
+    if (oldlp->lnd_ship != ship)
+	lnd_carrier_change(lp, EF_SHIP, oldlp->lnd_ship, ship);
+    if (oldlp->lnd_land != land)
+	lnd_carrier_change(lp, EF_LAND, oldlp->lnd_land, land);
 
-    /* We've avoided assigning to lp->lnd_own, in case oldlp == lp */
     if (oldlp->lnd_own != own) {
 	lost_and_found(EF_LAND, oldlp->lnd_own, own,
 		       lp->lnd_uid, lp->lnd_x, lp->lnd_y);
@@ -87,6 +90,8 @@ lnd_prewrite(int n, void *old, void *new)
     }
 
     lp->lnd_own = own;
+    lp->lnd_ship = ship;
+    lp->lnd_land = land;
     if (!own || lp->lnd_x != oldlp->lnd_x || lp->lnd_y != oldlp->lnd_y)
 	unit_update_cargo((struct empobj *)lp);
 }

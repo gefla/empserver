@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996
- *     Markus Armbruster, 2006-2008
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>
@@ -60,21 +60,24 @@ nuk_prewrite(int n, void *old, void *new)
     struct nukstr *oldnp = old;
     struct nukstr *np = new;
     natid own = np->nuk_effic == 0 ? 0 : np->nuk_own;
+    int plane = np->nuk_plane;
+
+    /* Be careful with writing to *np, in case oldnp == np */
 
     if (!own) {
 	np->nuk_effic = 0;
-	np->nuk_plane = -1;
+	plane = -1;
     }
 
-    if (oldnp->nuk_plane != np->nuk_plane)
-	nuk_carrier_change(np, EF_PLANE, oldnp->nuk_plane, np->nuk_plane);
+    if (oldnp->nuk_plane != plane)
+	nuk_carrier_change(np, EF_PLANE, oldnp->nuk_plane, plane);
 
-    /* We've avoided assigning to np->nuk_own, in case oldnp == np */
     if (oldnp->nuk_own != own)
 	lost_and_found(EF_NUKE, oldnp->nuk_own, own,
 		       np->nuk_uid, np->nuk_x, np->nuk_y);
 
     np->nuk_own = own;
+    np->nuk_plane = plane;
 }
 
 char *

@@ -64,20 +64,23 @@ pln_prewrite(int n, void *old, void *new)
     struct plnstr *oldpp = old;
     struct plnstr *pp = new;
     natid own = pp->pln_effic < PLANE_MINEFF ? 0 : pp->pln_own;
+    int ship = pp->pln_ship;
+    int land = pp->pln_land;
+
+    /* Be careful with writing to *pp, in case oldpp == pp */
 
     if (!own) {
 	pp->pln_effic = 0;
-	pp->pln_ship = pp->pln_land = -1;
+	ship = land = -1;
     }
 
-    if (CANT_HAPPEN(pp->pln_ship >= 0 && pp->pln_land >= 0))
-	pp->pln_land = -1;
-    if (oldpp->pln_ship != pp->pln_ship)
-	pln_carrier_change(pp, EF_SHIP, oldpp->pln_ship, pp->pln_ship);
-    if (oldpp->pln_land != pp->pln_land)
-	pln_carrier_change(pp, EF_LAND, oldpp->pln_land, pp->pln_land);
+    if (CANT_HAPPEN(ship >= 0 && land >= 0))
+	land = -1;
+    if (oldpp->pln_ship != ship)
+	pln_carrier_change(pp, EF_SHIP, oldpp->pln_ship, ship);
+    if (oldpp->pln_land != land)
+	pln_carrier_change(pp, EF_LAND, oldpp->pln_land, land);
 
-    /* We've avoided assigning to pp->pln_own, in case oldpp == pp */
     if (oldpp->pln_own != own) {
 	lost_and_found(EF_PLANE, oldpp->pln_own, own,
 		       pp->pln_uid, pp->pln_x, pp->pln_y);
@@ -86,6 +89,8 @@ pln_prewrite(int n, void *old, void *new)
     }
 
     pp->pln_own = own;
+    pp->pln_ship = ship;
+    pp->pln_land = land;
     if (!own || pp->pln_x != oldpp->pln_x || pp->pln_y != oldpp->pln_y)
 	unit_update_cargo((struct empobj *)pp);
 }
