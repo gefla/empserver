@@ -194,6 +194,20 @@ verify_row(int type, int row)
 }
 
 static int
+verify_table(int type)
+{
+    int retval = 0;
+    int i;
+
+    if (!ef_cadef(type))
+	return 0;
+    verify_ca(type);
+    for (i = 0; i < ef_nelem(type); i++)
+	retval |= verify_row(type, i);
+    return retval;
+}
+
+static int
 verify_planes(int may_put)
 {
     int retval = 0;
@@ -308,16 +322,9 @@ ef_verify(int may_put)
 {
     struct empfile *ep;
     int retval = 0;
-    int i;
 
-    for (ep = empfile; ep->name; ep++) {
-	if (!ef_cadef(ep->uid))
-	    continue;
-	verify_ca(ep->uid);
-	for (i = 0; i < ef_nelem(ep->uid); i++) {
-	    retval |= verify_row(ep->uid, i);
-	}
-    }
+    for (ep = empfile; ep->name; ep++)
+	retval |= verify_table(ep->uid);
 
     /* Special checks */
     retval |= verify_planes(may_put);
