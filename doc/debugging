@@ -4,10 +4,9 @@ elements are strings of the form:
 
   "%3d %3d %s", index, player->cnum, command
 
-When the player is prompted, then [prompt] is inserted as command.
-
 The server tries to log the most recent player commands when it
-crashes.
+crashes.  If you need better logs after a crash, consider enabling the
+journal log file.
 
 When the server detects a problem, it logs it and tries to recover.
 The code is being converted to call oops() for this purpose, commonly
