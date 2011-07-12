@@ -57,7 +57,7 @@ extern void unit_onresize(int);
 extern char *unit_nameof(struct empobj *);
 extern void unit_list(struct emp_qelem *);
 extern void unit_put(struct emp_qelem *list, natid actor);
-extern char *unit_path(int, struct empobj *, char *);
+extern char *unit_path(int, struct empobj *, char *, size_t);
 extern void unit_view(struct emp_qelem *);
 extern int unit_update_cargo(struct empobj *);
 extern void unit_drop_cargo(struct empobj *, natid);

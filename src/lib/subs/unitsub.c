@@ -151,7 +151,7 @@ unit_put(struct emp_qelem *list, natid actor)
 }
 
 char *
-unit_path(int together, struct empobj *unit, char *buf)
+unit_path(int together, struct empobj *unit, char *buf, size_t bufsz)
 {
     coord destx;
     coord desty;
@@ -196,13 +196,13 @@ unit_path(int together, struct empobj *unit, char *buf)
 	    return NULL;
 	}
     }
-    len = path_find_route(buf, sizeof(buf), unit->x, unit->y, destx, desty);
+    len = path_find_route(buf, bufsz, unit->x, unit->y, destx, desty);
     if (len == 0 || unit->ef_type == EF_LAND) {
-	if (len + 1 < sizeof(buf))
+	if (len + 1 < bufsz)
 	    strcpy(buf + len, "h");
 	len++;
     }
-    if (len >= sizeof(buf)) {
+    if (len >= bufsz) {
 	pr("Can't handle path to %s, it's too long, sorry\n",
 	   xyas(destx, desty, player->cnum));
 	return NULL;
