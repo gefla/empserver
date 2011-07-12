@@ -1,0 +1,2 @@
+Longer than sizeof(char *) - 1, actually.  7 on 64 bit machines, 3 on
+32 bit machines.
