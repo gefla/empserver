@@ -102,7 +102,13 @@ radar(int type)
 		    continue;
 		}
 		if (item.land.lnd_ship >= 0) {
-		    pr("Units on ships can't use radar!\n");
+		    pr("%s is stowed on ship #%d, and can't use radar!\n",
+		       prland(&item.land), item.land.lnd_ship);
+		    continue;
+		}
+		if (item.land.lnd_land >= 0) {
+		    pr("%s is stowed on land #%d, and can't use radar!\n",
+		       prland(&item.land), item.land.lnd_land);
 		    continue;
 		}
 		spy = lchr[item.land.lnd_type].l_spy;
