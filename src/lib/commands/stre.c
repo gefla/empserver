@@ -135,7 +135,7 @@ units_in_sector(struct combat *def)
 	    continue;
 	if (land.lnd_own != def->own)
 	    continue;
-	if (land.lnd_ship >= 0)
+	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
 	    continue;
 	d_unit = defense_val(&land);
 	if (!lnd_could_be_supplied(&land))
