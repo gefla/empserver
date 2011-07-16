@@ -170,7 +170,12 @@ tran_plane(void)
 	    continue;
 	type = plane.pln_type;
 	if (plane.pln_ship >= 0) {
-	    pr("%s is at sea and can't be transported\n", prplane(&plane));
+	    pr("%s is stowed on ship #%d, and can't be transported\n",
+	       prplane(&plane), plane.pln_ship);
+	    return RET_FAIL;
+	} else if (plane.pln_land >= 0) {
+	    pr("%s is stowed on land #%d, and can't be transported\n",
+	       prplane(&plane), plane.pln_land);
 	    return RET_FAIL;
 	} else if (plane.pln_harden != 0) {
 	    pr("%s has been hardened and can't be transported\n",
