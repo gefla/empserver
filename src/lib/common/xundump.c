@@ -72,7 +72,7 @@ static void *cur_obj;		/* The object being read into */
 static int cur_id;		/* and its index in the table */
 static int old_nelem;
 static unsigned char *idgap;	/* idgap && idgap[ID] iff part#0 lacks ID */
-static int idgap_max;		/* FIXME */
+static int idgap_len;		/* #elements in idgap[] */
 
 static int human;		/* Reading human-readable syntax? */
 static int ellipsis;		/* Header ended with ...? */
@@ -124,7 +124,7 @@ tbl_start(int type)
     cur_obj = NULL;
     old_nelem = type == EF_BAD ? 0 : ef_nelem(type);
     idgap = NULL;
-    idgap_max = 0;
+    idgap_len = 0;
 }
 
 /* End the current table.  */
@@ -186,15 +186,14 @@ omit_ids(int id1, int id2)
     if (id1 >= id2)
 	return;
 
-    idgap = realloc(idgap, (id2 + 1) * sizeof(*idgap));
-    for (i = idgap_max; i < id1; i++)
+    idgap = realloc(idgap, id2 * sizeof(*idgap));
+    for (i = idgap_len; i < id1; i++)
 	idgap[i] = 0;
     for (i = id1; i < id2; i++) {
 	ef_blank(cur_type, i, ef_ptr(cur_type, i));
 	idgap[i] = 1;
     }
-    idgap[id2] = 0;
-    idgap_max = id2;
+    idgap_len = id2;
 }
 
 /*
@@ -206,7 +205,7 @@ expected_id(int id1, int id2)
     int i;
 
     for (i = id1; i < id2; i++) {
-	if (i >= idgap_max || !idgap[i])
+	if (i >= idgap_len || !idgap[i])
 	    return i;
     }
     return -1;
