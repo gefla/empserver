@@ -7,6 +7,108 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.28 - Sat Jul 16 11:30:53 UTC 2011
+ * Don't let POGO (#0) navigate dead ships, and march dead land units.
+   The ghosts even got sighted and interdicted, and could hit mines.
+   Has always been that way.
+ * llook can't see land units and planes loaded on land units anymore.
+ * Fix board to ignore land units loaded on land units when testing
+   whether a sector can board.  Broken in 4.0.17.
+ * Fix transport to reject planes loaded on land units.  The plane
+   remained on its carrier.  When the land unit moved, the plane was
+   teleported right back to it.  Broken since Chainsaw 3 added land
+   units.
+ * Fix lradar not to let land units loaded on land units use radar.
+   Broken since 4.0.0 added trains.
+ * Fix strength to ignore land units loaded on land units.  Broken in
+   4.2.0.
+ * Fix navigate and march to find paths longer than a few sectors
+   again (7 for 64 bit hosts, 3 for 32 bit hosts).  Broken in 4.3.27.
+ * march sub-command 'i' now shows number of military and land units
+   loaded.
+ * New server option -F to force start even when state looks bad.
+   Risks crashes and further corruption, but gives deities a chance to
+   fix up a bad game state with edit commands and such.
+ * empdump -x no longer refuses to export game state that looks bad.
+   Gives deities another tool to fix up a bad game state.
+ * Land units loaded on land units fight che again, as they used to
+   before 4.3.26.
+ * When a land unit dies fighting che, land units loaded on it get
+   unloaded, and planes loaded on it die.  Before, the update left
+   them stuck on their dead carrier.  Impact like the next item.
+   Abusable.  Broken since Chainsaw 3 added land units.
+ * The update no longer destroys ships, planes and land units for lack
+   of maintenance.  Before, it left any embarked planes, land units
+   and nukes on their dead carrier.  In this state, units behaved as
+   if their carrier was still alive, with additional protection from
+   the fact that a dead carrier can't be damaged or boarded.  If
+   another unit with the same number got built, it picked up the stuck
+   cargo.  The cargo got teleported to its new carrier when the
+   carrier moved.  Abusable, but it involves going broke, so it's
+   rarely practical.  Slightly more practical before 4.3.6 removed
+   budget priorities.  Broken for ships and land units when Empire 2
+   added their maintenance cost, and for planes when v4.3.3 replaced
+   nuclear stockpiles by nuke units.
+ * Fix bogus internal error triggered by navigate and march
+   sub-commands 'r', 'l' and 's'.  Broken in 4.3.27.
+ * Fix client not to reject redirections and execute containing
+   non-ASCII characters with a bogus scary warning when using UTF-8.
+ * Fix execute not to mangle non-ASCII characters in the argument when
+   prompting for it while login option utf-8 is on.
+ * Fix handling of non-ASCII and control characters in batch files.
+ * Conversion from UTF-8 to ASCII ate the character following a
+   replaced non-ASCII character.  Buffer overrun possible if the
+   terminating zero gets eaten.  Could happen in players, read, flash,
+   wall, and execute.
+ * Fix handling of empty commands:
+   - Time used was not updated.
+   - Mortal player wasn't logged off for game hours, game down, and
+     time limit.
+   - Notifications were delayed: going broke, becoming solvent, new
+     telegrams (toggle inform off only), new announcements, capital
+     lost.
+ * Minor tweaks to nightly build.
+ * Server's and empdump's sanity checking of configuration and game
+   state is now more rigorous.
+ * Deity xdump no longer dumps unused countries' realms.
+ * Remove option LANDSPIES.  Deities can customize the land table to
+   disable spy units.
+ * Remove option TRADESHIPS.  Deities can customize the ship table to
+   enable trade ships.
+ * Configuration table changes (builtin and custom):
+   - Rows must be in ascending uid order.
+   - Omitting rows in tables item, sect-chr and infrastructure is no
+     longer permitted.
+   - Custom tables now replace the builtin table completely.  Before,
+     omitted rows defaulted to the builtin version, except at the end
+     of a table.  Commenting out unwanted stuff just works now.
+   - Permit custom table product having fewer than 14 entries.
+   - Reject custom tables where customization has no effect (updates,
+     table, meta, all symbol tables) or where it's unsafe (news-chr).
+   - Input is checked more rigorously.
+ * empdump -i fixes:
+   - Don't touch plane file when import fails.
+   - Refuse import of incorrectly sized table instead of silently
+     creating one the server will reject.
+   - Replace old state completely.  Before, omitted rows in the dump
+     defaulted to the old state, except at the end of a table.
+   - Input is checked more rigorously.
+ * Fix xdump updates not to dump bogus extra updates.
+ * Fix use-after-free when a plane got shot down or aborted by flak.
+   Broken in 4.3.27.
+ * Friendlier diagnostics in the build command.
+ * Fix build to set nuke's tech exactly like for ships, planes and
+   land units.  It's not currently used for anything.
+ * Research required for nukes was slightly off sometimes due to
+   incorrect rounding.
+ * Bridge building required 0.005 tech less than advertised, fix.
+ * "show nuke" now obeys toggle techlists.
+ * Fix "show land s" to show columns xpl and lnd again.  Broken in
+   4.3.15.
+ * Code refactoring and cleanup.
+ * Documentation on custom tables, xdump updated.
+ * Info file fixes.
+
 Changes to Empire 4.3.27 - Sun Apr 17 11:36:29 UTC 2011
  * License upgrade to GPL version 3 or later.
  * Fix buy not to wipe out concurrent updates.  Can be abused to
@@ -14,8 +116,8 @@ Changes to Empire 4.3.27 - Sun Apr 17 11:36:29 UTC 2011
  * Don't let fighters, SAMs and ABMs intercept while on trading block.
  * Don't let missiles interdict ships or land units while on trading
    block.
- * Fix client to log long input lines untruncated
- * Fix client crash for long input lines
+ * Fix client to log long input lines untruncated.
+ * Fix client crash for long input lines.
  * info subject pages now mark unusually long pages with a !.
  * The edit command keys deprecated in 4.3.15, 4.3.17 and 4.3.20 are
    now gone.
@@ -73,7 +175,7 @@ Changes to Empire 4.3.27 - Sun Apr 17 11:36:29 UTC 2011
  * Make bestpath work for deities in foreign land.
  * More robust savecore example script.
  * Fix buffer overruns in the lookout, spy, map and nmap commands when
-   WORLD_X * WORLD_Y not a multiple of 16.
+   WORLD_X * WORLD_Y is not a multiple of 16.
  * The path command's maps weren't always fitted to the path
    correctly.  Broken in 4.3.17.
  * Land units no longer hit allied mines.
@@ -1831,7 +1933,7 @@ Changes to Empire 4.2.21 - Sat Jul 16 17:51:01 UTC 2005
    messages.  See new doc/unicode for technical details.
  * New login command `options' for client/server option negotiation.
    See new doc/clients-howto for technical details.  The only option
-   so far is UTF-8.
+   so far is utf-8.
  * emp_client -u now requests UTF-8.  This requires a terminal that
    understands UTF-8.
  * Fix news for land unit defensive support.
