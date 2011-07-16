@@ -90,7 +90,7 @@ boar(void)
 	    while (nxtitem(&ni, &land)) {
 		if (land.lnd_own != player->cnum)
 		    continue;
-		if (land.lnd_ship >= 0)
+		if (land.lnd_ship >= 0 || land.lnd_land >= 0)
 		    continue;
 		if (land.lnd_mobil <= 0)
 		    continue;
