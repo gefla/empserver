@@ -222,7 +222,7 @@ look_land(struct lndstr *lookland)
     for (i = 0; NULL != (lp = getlandp(i)); i++) {
 	if (lp->lnd_own == player->cnum || lp->lnd_own == 0)
 	    continue;
-	if (lp->lnd_ship >= 0)
+	if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
 	    continue;
 	/* Don't always see spies */
 	if (lchr[(int)lp->lnd_type].l_flags & L_SPY) {
@@ -249,7 +249,7 @@ look_land(struct lndstr *lookland)
     for (i = 0; NULL != (pp = getplanep(i)); i++) {
 	if (pp->pln_own == player->cnum || pp->pln_own == 0)
 	    continue;
-	if (pp->pln_ship >= 0)
+	if (pp->pln_ship >= 0 || pp->pln_land >= 0)
 	    continue;
 	if (pp->pln_flags & PLN_LAUNCHED)
 	    continue;
