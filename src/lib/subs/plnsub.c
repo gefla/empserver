@@ -538,7 +538,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	 * much of the code assumes that only the plane's owner can
 	 * fly it.
 	 */
-	if (plane.pln_own != player->cnum)
+	if (!plane.pln_own || plane.pln_own != player->cnum)
 	    continue;
 	if (plane.pln_mobil <= 0)
 	    continue;

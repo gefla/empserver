@@ -70,7 +70,7 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 	 * much of the code assumes that only the ship's owner can
 	 * navigate it.
 	 */
-	if (ship.shp_own != player->cnum)
+	if (!ship.shp_own || ship.shp_own != player->cnum)
 	    continue;
 	mcp = &mchr[(int)ship.shp_type];
 	if (opt_MARKET) {
