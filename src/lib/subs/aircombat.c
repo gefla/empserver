@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992
  *     Steve McClure, 1996
- *     Markus Armbruster, 2006-2010
+ *     Markus Armbruster, 2006-2011
  */
 
 #include <config.h>
@@ -61,7 +61,6 @@ static void ac_intercept(struct emp_qelem *, struct emp_qelem *,
 static void ac_combat_headers(natid, natid);
 static void ac_airtoair(struct emp_qelem *, struct emp_qelem *);
 static void ac_dog(struct plist *, struct plist *);
-static void ac_planedamage(struct plist *, natid, int, int, char *);
 static void ac_putplane(struct plist *, int);
 static void ac_doflak(struct emp_qelem *, struct sctstr *);
 static void ac_landflak(struct emp_qelem *, coord, coord);
@@ -450,7 +449,7 @@ ac_dog(struct plist *ap, struct plist *dp)
     double odds;
     int intensity, i;
     natid att_own, def_own;
-    int adam, ddam;
+    int adam, ddam, adisp, ddisp;
     char adam_mesg[14], ddam_mesg[14];
 
     att_own = ap->plane.pln_own;
@@ -501,38 +500,21 @@ ac_dog(struct plist *ap, struct plist *dp)
     if (dp->pcp->pl_flags & P_M)
 	ddam = 100;
 
-    ac_planedamage(ap, def_own, adam, 0, adam_mesg);
-    ac_planedamage(dp, att_own, ddam, 0, ddam_mesg);
+    adisp = ac_damage_plane(&ap->plane, def_own, adam, 0, adam_mesg);
+    ddisp = ac_damage_plane(&dp->plane, att_own, ddam, 0, ddam_mesg);
     ac_dog_report(att_own, intensity, odds,
 		  ap, att, adam, adam_mesg,
 		  dp, def, ddam, ddam_mesg);
     ac_dog_report(def_own, intensity, odds,
 		  dp, def, ddam, ddam_mesg,
 		  ap, att, adam, adam_mesg);
+    ac_putplane(ap, adisp);
+    ac_putplane(dp, ddisp);
 
     if (opt_HIDDEN) {
 	setcont(att_own, def_own, FOUND_FLY);
 	setcont(def_own, att_own, FOUND_FLY);
     }
-}
-
-/*
- * zap plane associated with plp.
- * Damaging country is "from", damage is "dam".
- *
- * NOTE: This routine removes the appropriate plane element from the
- * queue if it gets destroyed.  That means that the caller must assume
- * that the current queue pointer is invalid on return from the ac_planedamage
- * call.  (this has caused bugs in the past)
- */
-static void
-ac_planedamage(struct plist *plp, natid from, int dam, int flak,
-	       char *mesg)
-{
-    int disp;
-
-    disp = ac_damage_plane(&plp->plane, from, dam, flak, mesg);
-    ac_putplane(plp, disp);
 }
 
 int
@@ -570,6 +552,12 @@ ac_damage_plane(struct plnstr *pp, natid from, int dam, int flak,
     return disp;
 }
 
+/*
+ * NOTE: This routine may remove the appropriate plane element from the
+ * queue if it gets destroyed.  That means that the caller must assume
+ * that the current queue pointer is invalid on return from the
+ * call.  (this has caused bugs in the past)
+ */
 static void
 ac_putplane(struct plist *plp, int disp)
 {
