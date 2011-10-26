@@ -1,13 +1,13 @@
 .TH Command SELL
 .NA sell "Sell commodities on the world market"
 .LV Expert
-.SY "sell <COMMODITY> <SECTS> <AMOUNT> <PRICE>"
+.SY "sell <COMMODITY> <SECT> <AMOUNT> <PRICE>"
 The sell command allows nations to sell commodities on the open market.
 Not all commodities can be traded --
 notably civilians and military.
 .s1
 The <COMMODITY> is the type of commodity you are selling,
-<SECTS> represents the range of sectors which will be selling items.
+<SECT> represents the sector which will be selling items.
 Only harbors and warehouses
 which are at least 60% efficient may sell goods.
 .s1
