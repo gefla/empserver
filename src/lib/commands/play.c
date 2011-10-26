@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2005-2011
  */
 
 #include <config.h>
@@ -105,17 +106,13 @@ play_list(struct player *joe)
        (long)(now - joe->curup));
 
     if (player->god) {
-	if (!joe->combuf || !*joe->combuf)
-	    pr(" NULL\n");
-	else {
-	    n = ufindpfx(joe->combuf, 20);
-	    if (CANT_HAPPEN(n + 3u > sizeof(com))) {
-		pr(" BUGGY\n");
-		return 1;
-	    }
-	    sprintf(com, " %.*s\n", n, joe->combuf);
-	    uprnf(com);
+	n = ufindpfx(joe->combuf, 20);
+	if (CANT_HAPPEN(n + 3u > sizeof(com))) {
+	    pr(" BUGGY\n");
+	    return 1;
 	}
+	sprintf(com, " %.*s\n", n, joe->combuf);
+	uprnf(com);
     } else
 	pr("\n");
 
