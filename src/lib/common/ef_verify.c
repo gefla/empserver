@@ -158,7 +158,7 @@ verify_row(int type, int row)
     }
 
     if (!empobj_in_use(type, row_ref))
-	return ret_val;
+	goto out;
 
     for (i = 0; ca[i].ca_name; ++i) {
 	if (ca[i].ca_get)
@@ -188,6 +188,8 @@ verify_row(int type, int row)
 	    }
 	} while (++j < n);
     }
+
+out:
     if (!(flags & EFF_MEM))
 	free(row_ref);
     return ret_val;
