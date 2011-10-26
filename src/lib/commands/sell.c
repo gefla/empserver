@@ -136,29 +136,25 @@ sell(void)
        xyas(sect.sct_x, sect.sct_y, player->cnum), amt);
     sect.sct_item[ip->i_uid] = amt;
     putsect(&sect);
-    if (totalcom > 0) {
-	for (ii = 0; getcomm(ii, &comm); ii++) {
-	    if (comm.com_owner == 0)
-		break;
-	}
-	(void)time(&now);
-	ef_blank(EF_COMM, ii, &comm);
-	comm.com_type = ip->i_uid;
-	comm.com_owner = player->cnum;
-	comm.com_price = price;
-	comm.com_maxbidder = player->cnum;
-	comm.com_markettime = now;
-	comm.com_amount = totalcom;
-	comm.com_x = 0;
-	comm.com_y = 0;
-	comm.sell_x = sect.sct_x;
-	comm.sell_y = sect.sct_y;
-	if (!putcomm(ii, &comm)) {
-	    pr("Problems with the commodities file, call the Deity\n");
-	    return RET_FAIL;
-	}
-    } else {
-	pr("No eligible %s for sale\n", ip->i_name);
+
+    for (ii = 0; getcomm(ii, &comm); ii++) {
+	if (comm.com_owner == 0)
+	    break;
+    }
+    (void)time(&now);
+    ef_blank(EF_COMM, ii, &comm);
+    comm.com_type = ip->i_uid;
+    comm.com_owner = player->cnum;
+    comm.com_price = price;
+    comm.com_maxbidder = player->cnum;
+    comm.com_markettime = now;
+    comm.com_amount = totalcom;
+    comm.com_x = 0;
+    comm.com_y = 0;
+    comm.sell_x = sect.sct_x;
+    comm.sell_y = sect.sct_y;
+    if (!putcomm(ii, &comm)) {
+	pr("Problems with the commodities file, call the Deity\n");
 	return RET_FAIL;
     }
     return RET_OK;
