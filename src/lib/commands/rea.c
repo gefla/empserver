@@ -209,6 +209,7 @@ int
 show_first_tel(char *fname)
 {
     FILE *fp;
+    int ret;
     struct telstr tgm;
 
     if ((fp = fopen(fname, "rb")) == NULL) {
@@ -219,12 +220,15 @@ show_first_tel(char *fname)
 	    return -1;
 	}
     }
-    if (tel_read_header(fp, fname, &tgm) < 0)
-	return -1;
-    if (tel_read_body(fp, fname, &tgm, print_sink, NULL) < 0)
-	return -1;
+
+    ret = tel_read_header(fp, fname, &tgm);
+    if (ret < 0)
+	goto out;
+    ret = tel_read_body(fp, fname, &tgm, print_sink, NULL);
+
+out:
     fclose(fp);
-    return 0;
+    return ret;
 }
 
 static int
