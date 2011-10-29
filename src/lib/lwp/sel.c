@@ -29,7 +29,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1994
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2011
  *     Ron Koenderink, 2009
  */
 
@@ -81,7 +81,7 @@ lwpSleepFd(int fd, int mask, struct timeval *timeout)
 {
     lwpStatus(LwpCurrent, "sleeping on fd %d for %d", fd, mask);
 
-    if (CANT_HAPPEN(fd > FD_SETSIZE)) {
+    if (CANT_HAPPEN(fd < 0 || fd >= FD_SETSIZE)) {
 	errno = EBADF;
 	return -1;
     }
