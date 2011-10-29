@@ -27,7 +27,7 @@
  *  rdsched.c: Read update schedule
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2010
+ *     Markus Armbruster, 2007-2011
  */
 
 #define _XOPEN_SOURCE 500
@@ -74,10 +74,8 @@ read_schedule(char *fname, time_t sched[], int n, time_t t0, time_t anchor)
 		     fname, strerror(errno));
 	    return -1;
 	}
-    } else {
+    } else
 	fp = stdin;
-	fname = "<stdin>";
-    }
 
     ret = lno = 0;
     sched[0] = 0;
@@ -86,13 +84,15 @@ read_schedule(char *fname, time_t sched[], int n, time_t t0, time_t anchor)
 	endp = strchr(buf, '#');
 	if (endp)
 	    *endp = 0;
-	if (parse_schedule_line(buf, sched, n, t0, &anchor, fname, lno)) {
+	if (parse_schedule_line(buf, sched, n, t0, &anchor,
+				fname ? fname : "<stdin>", lno)) {
 	    ret = -1;
 	    break;
 	}
     }
 
-    fclose(fp);
+    if (fname)
+	fclose(fp);
     return ret;
 }
 
