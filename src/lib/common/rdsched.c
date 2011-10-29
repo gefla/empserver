@@ -63,7 +63,7 @@ int
 read_schedule(char *fname, time_t sched[], int n, time_t t0, time_t anchor)
 {
     FILE *fp;
-    int lno = 0;
+    int ret, lno;
     char buf[1024];
     char *endp;
 
@@ -79,18 +79,21 @@ read_schedule(char *fname, time_t sched[], int n, time_t t0, time_t anchor)
 	fname = "<stdin>";
     }
 
+    ret = lno = 0;
     sched[0] = 0;
     while (fgets(buf, sizeof(buf), fp) != NULL) {
 	++lno;
 	endp = strchr(buf, '#');
 	if (endp)
 	    *endp = 0;
-	if (parse_schedule_line(buf, sched, n, t0, &anchor, fname, lno))
-	    return -1;
+	if (parse_schedule_line(buf, sched, n, t0, &anchor, fname, lno)) {
+	    ret = -1;
+	    break;
+	}
     }
 
     fclose(fp);
-    return 0;
+    return ret;
 }
 
 /*
