@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Julian Onions, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2011
  */
 
 /*
@@ -178,6 +178,8 @@ set_paths(char *econfig)
     if (p[0] != '/') {
 	fprintf(stderr, "Can't get current working directory (%s)\n",
 		strerror(errno));
+	if (p != econfig)
+	    free(p);
 	return -1;
     }
     if (p == econfig)
