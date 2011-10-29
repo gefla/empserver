@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Sasha Mikheev
  *     Steve McClure, 1998
- *     Markus Armbruster, 2005-2010
+ *     Markus Armbruster, 2005-2011
  *     Ron Koenderink, 2007-2009
  */
 
@@ -288,6 +288,11 @@ empth_select(int fd, int flags, struct timeval *timeout)
     int n;
     empth_t *ctx;
     int res = 0;
+
+    if (CANT_HAPPEN(fd < 0 || fd >= FD_SETSIZE)) {
+	errno = EBADF;
+	return -1;
+    }
 
     ef_make_stale();
     pthread_mutex_unlock(&mtx_ctxsw);
