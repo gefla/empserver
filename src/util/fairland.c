@@ -152,7 +152,7 @@ static const char *numletter =
 static void help(char *);
 static void usage(void);
 static void parse_args(int argc, char *argv[]);
-static int allocate_memory(void);
+static void allocate_memory(void);
 static void init(void);
 static int drift(void);
 static void grow_continents(void);
@@ -227,8 +227,7 @@ main(int argc, char *argv[])
 	exit(1);
     empfile_fixup();
 
-    if (allocate_memory() == -1)
-	exit(-1);
+    allocate_memory();
     print_vars();
 
     do {
@@ -430,7 +429,7 @@ parse_args(int argc, char *argv[])
   VARIABLE INITIALIZATION
 ****************************************************************************/
 
-static int
+static void
 allocate_memory(void)
 {
     int i;
@@ -463,7 +462,6 @@ allocate_memory(void)
 	sectc[i] = calloc(is * 2, sizeof(int));
     }
 
-    return 0;
 }
 
 static void
