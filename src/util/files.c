@@ -110,12 +110,13 @@ main(int argc, char *argv[])
     empfile_fixup();
 
     if (mkdir(gamedir, S_IRWXU | S_IRWXG) < 0 && errno != EEXIST) {
-	perror(gamedir);
-	printf("Can't make game directory\n");
+	fprintf(stderr, "Can't make game directory %s (%s)\n",
+		gamedir, strerror(errno));
 	exit(1);
     }
     if (chdir(gamedir)) {
-	fprintf(stderr, "Can't chdir to %s (%s)\n", gamedir, strerror(errno));
+	fprintf(stderr, "Can't chdir to %s (%s)\n",
+		gamedir, strerror(errno));
 	exit(EXIT_FAILURE);
     }
 
@@ -144,8 +145,8 @@ main(int argc, char *argv[])
     ef_write(EF_NATION, 0, &nat);
     printf("All praise to %s!\n", nat.nat_cnam);
     if (mkdir(teldir, S_IRWXU | S_IRWXG) < 0 && errno != EEXIST) {
-	perror(teldir);
-	printf("Can't make telegram directory\n");
+	fprintf(stderr, "Can't make telegram directory %s (%s)\n",
+		teldir, strerror(errno));
 	exit(1);
     }
     for (i = 0; i < MAXNOC; i++) {
