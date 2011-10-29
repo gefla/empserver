@@ -260,10 +260,8 @@ main(int argc, char *argv[])
 	fprintf(stderr, "Can't chdir to %s (%s)\n", gamedir, strerror(errno));
 	exit(EXIT_FAILURE);
     }
-    if (!ef_open(EF_SECTOR, EFF_MEM | EFF_NOTIME)) {
-	perror("ef_open");
+    if (!ef_open(EF_SECTOR, EFF_MEM | EFF_NOTIME))
 	exit(1);
-    }
     write_sects();
     qprint("writing to sectors file...\n");
     if (!ef_close(EF_SECTOR))
