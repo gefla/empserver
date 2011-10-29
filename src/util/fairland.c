@@ -267,7 +267,7 @@ main(int argc, char *argv[])
     write_sects();
     qprint("writing to sectors file...\n");
     if (!ef_close(EF_SECTOR))
-	exit(-1);
+	exit(1);
 
     output();
     qprint("\n\nA script for adding all the countries can be found in \"%s\".\n",
