@@ -86,7 +86,7 @@ add(void)
     }
     strcpy(pname, p);
     p = getstarg(player->argp[4],
-		 "Status? (visitor, new, god, delete) ", buf);
+		 "Status? (visitor, player, god, delete) ", buf);
     if (!p || !*p)
 	return RET_SYN;
     switch (*p) {
@@ -94,6 +94,10 @@ add(void)
 	stat = STAT_VIS;
 	break;
     case 'n':
+	pr("Argument 'new' is deprecated and will go away in a future release.\n"
+	   "Use 'player' instead.\n");
+	/* fall through */
+    case 'p':
 	stat = STAT_NEW;
 	break;
     case 'g':

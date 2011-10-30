@@ -1153,7 +1153,7 @@ write_newcap_script(void)
     }
 
     for (c = 0; c < nc; ++c) {
-	fprintf(script, "add %d %d %d n\n", c + 1, c + 1, c + 1);
+	fprintf(script, "add %d %d %d p\n", c + 1, c + 1, c + 1);
 	if (AIRPORT_MARKER)
 	    fprintf(script, "des %d,%d -\n", capx[c], capy[c]);
 	fprintf(script, "newcap %d %d,%d\n", c + 1, capx[c], capy[c]);
