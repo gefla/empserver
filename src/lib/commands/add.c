@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -84,7 +85,7 @@ add(void)
     p = getstarg(player->argp[2], "Country name? ", buf);
     if (!p)
 	return RET_SYN;
-    if (!check_nat_name(p))
+    if (!check_nat_name(p, coun))
 	return RET_FAIL;
     strcpy(cntryname, p);
     p = getstarg(player->argp[3], "Representative? ", buf);

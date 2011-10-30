@@ -31,7 +31,7 @@
  *     Chad Zabel, 1994
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2003-2009
- *     Markus Armbruster, 2003-2010
+ *     Markus Armbruster, 2003-2011
  */
 
 #include <config.h>
@@ -657,7 +657,7 @@ docountry(char op, int arg, char *p, struct natstr *np)
 
     switch (op) {
     case 'n':
-	if (!check_nat_name(p))
+	if (!check_nat_name(p, nat))
 	    return RET_SYN;
 	pr("Country name changed from %s to %s\n", np->nat_cnam, p);
 	strcpy(np->nat_cnam, p);

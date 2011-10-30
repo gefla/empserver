@@ -77,7 +77,7 @@ chan(void)
 	p = getstarg(player->argp[2], "New country name -- ", buf);
 	if (!p)
 	    return RET_SYN;
-	if (!check_nat_name(p))
+	if (!check_nat_name(p, player->cnum))
 	    return RET_FAIL;
 	player->dolcost += charge;
 	player->btused += btucost;

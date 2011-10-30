@@ -27,7 +27,7 @@
  *  nat.c: Nation subroutines
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2009
+ *     Markus Armbruster, 2009-2011
  *     Ron Koenderink, 2008-2009
  */
 
@@ -117,7 +117,7 @@ nat_reset(struct natstr *natp, enum nat_status stat, coord x, coord y)
 }
 
 int
-check_nat_name(char *cname)
+check_nat_name(char *cname, natid cnum)
 {
     struct natstr *natp;
     natid cn;
@@ -143,7 +143,7 @@ check_nat_name(char *cname)
     }
 
     for (cn = 0; NULL != (natp = getnatp(cn)); cn++) {
-	if (!strcmp(cname, natp->nat_cnam)) {
+	if (cn != cnum && !strcmp(cname, natp->nat_cnam)) {
 	    pr("Country #%d is already called `%s'\n", cn, cname);
 	    return 0;
 	}
