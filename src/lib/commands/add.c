@@ -38,7 +38,6 @@
 #include <sys/stat.h>
 
 #include "commands.h"
-#include "land.h"
 #include "optlist.h"
 #include "plague.h"
 
@@ -57,8 +56,6 @@ add(void)
     char buf[1024];
     char *p;
     int stat;
-    struct nstr_item ni;
-    struct lndstr land;
 
     for (freecn = 0; NULL != (natp = getnatp(freecn)); freecn++) {
 	if (natp->nat_stat == STAT_UNUSED)
@@ -124,14 +121,6 @@ add(void)
 		 "Check, wipe, or ignore existing sectors (c|w|i) ", buf);
     if (!p)
 	return RET_SYN;
-    snxtitem_all(&ni, EF_LAND);
-    while (nxtitem(&ni, &land)) {
-	if (land.lnd_own == coun) {
-	    land.lnd_effic = 0;
-	    pr("Land unit %d wiped\n", land.lnd_uid);
-	    putland(land.lnd_uid, &land);
-	}
-    }
     strcpy(natp->nat_cnam, cntryname);
     strcpy(natp->nat_pnam, pname);
     if (*p != 'w' && *p != 'c') {
