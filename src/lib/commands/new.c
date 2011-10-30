@@ -55,7 +55,8 @@ new(void)
 
     natp = getnatp(player->cnum);
     if (natp->nat_xorg != 0 || natp->nat_yorg != 0) {
-	pr("Must be at 0,0 to add a new country\n");
+	pr("Origin must be reset to add a new country.\n");
+	pr("Use `origin ~' to reset it.\n");
 	return RET_FAIL;
     }
     if (!(natp = natargp(player->argp[1], "Country? ")))
