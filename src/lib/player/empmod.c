@@ -44,7 +44,7 @@
 struct cmndstr player_coms[] = {
 /*  command form                       cost	addr    permit */
     {"accept  [as-COUNTRY]", 0, acce, C_MOD, NORM},
-    {"add <NAT> <NAME> <REP> <STATUS> <c|w|i>", 0, add, C_MOD, GOD},
+    {"add <NAT> <NAME> <REP> <STATUS>", 0, add, C_MOD, GOD},
     {"announce", 0, tele, C_MOD, VIS},
     {"anti <SECT>", 3, anti, C_MOD, NORM + MONEY + CAP},
     {"apropos <topic>", 0, apro, 0, VIS},

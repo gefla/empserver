@@ -33,20 +33,12 @@
 
 #include <config.h>
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
-
 #include "commands.h"
-#include "optlist.h"
-#include "plague.h"
 
 int
 add(void)
 {
     struct natstr *natp;
-    struct sctstr sect;
-    struct nstr_sect nstr;
     int i;
     char cntryname[sizeof(natp->nat_cnam)];
     char pname[sizeof(natp->nat_pnam)];
@@ -117,50 +109,8 @@ add(void)
 	pr("Illegal status\n");
 	return RET_SYN;
     }
-    p = getstarg(player->argp[5],
-		 "Check, wipe, or ignore existing sectors (c|w|i) ", buf);
-    if (!p)
-	return RET_SYN;
     strcpy(natp->nat_cnam, cntryname);
     strcpy(natp->nat_pnam, pname);
-    if (*p != 'w' && *p != 'c') {
-	pr("Any existing sectors ignored\n");
-    } else {
-	pr("Checking sectors...\n");
-	snxtsct_all(&nstr);
-	while (nxtsct(&nstr, &sect)) {
-	    if (sect.sct_own != coun)
-		continue;
-	    pr("%s ", xyas(nstr.x, nstr.y, player->cnum));
-	    if (*p == 'w') {
-		sect.sct_mobil = 0;
-		sect.sct_effic = 0;
-		sect.sct_road = 0;
-		sect.sct_rail = 0;
-		sect.sct_defense = 0;
-		sect.sct_own = 0;
-		sect.sct_oldown = 0;
-		sect.sct_newtype = sect.sct_type
-		    = dchr[sect.sct_type].d_terrain;
-		sect.sct_dist_x = sect.sct_x;
-		sect.sct_dist_y = sect.sct_y;
-		memset(sect.sct_item, 0, sizeof(sect.sct_item));
-		memset(sect.sct_del, 0, sizeof(sect.sct_del));
-		memset(sect.sct_dist, 0, sizeof(sect.sct_dist));
-		sect.sct_mines = 0;
-		sect.sct_pstage = PLG_HEALTHY;
-		sect.sct_ptime = 0;
-		sect.sct_che = 0;
-		sect.sct_che_target = 0;
-		sect.sct_fallout = 0;
-		putsect(&sect);
-		pr("wiped\n");
-	    } else {
-		pr("\n");
-	    }
-	}
-    }
-
     if (stat == STAT_NEW || stat == STAT_VIS)
 	nat_reset(natp, stat, 0, 0);
     else {
