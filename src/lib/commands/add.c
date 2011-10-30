@@ -112,12 +112,7 @@ add(void)
     }
     strcpy(natp->nat_cnam, cntryname);
     strcpy(natp->nat_pnam, pname);
-    if (stat == STAT_NEW || stat == STAT_VIS)
-	nat_reset(natp, stat, 0, 0);
-    else {
-	natp->nat_stat = stat;
-	pr("No special initializations done...\n");
-    }
+    nat_reset(natp, stat, 0, 0);
     putnat(natp);
     return 0;
 }
