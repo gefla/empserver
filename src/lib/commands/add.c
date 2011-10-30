@@ -86,7 +86,7 @@ add(void)
     }
     strcpy(pname, p);
     p = getstarg(player->argp[4],
-		 "Status? (visitor, new, active, god, delete) ", buf);
+		 "Status? (visitor, new, god, delete) ", buf);
     if (!p || !*p)
 	return RET_SYN;
     switch (*p) {
@@ -95,9 +95,6 @@ add(void)
 	break;
     case 'n':
 	stat = STAT_NEW;
-	break;
-    case 'a':
-	stat = STAT_ACTIVE;
 	break;
     case 'g':
 	stat = STAT_GOD;
