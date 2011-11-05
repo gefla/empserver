@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -36,20 +37,22 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include "commands.h"
-#include "land.h"
+#include "game.h"
 #include "optlist.h"
-#include "path.h"
-#include "prototypes.h"
 
 static void init_sanct(struct natstr *, coord, coord);
 
 int
 new(void)
 {
+    static struct range defrealm = { -8, -5, 10, 5, 0, 0 };
     struct sctstr sect;
     struct natstr *natp;
+    struct realmstr newrealm;
+    struct range absrealm;
     natid num;
     coord x, y;
+    int i;
     char *p;
     char buf[1024];
 
@@ -83,10 +86,28 @@ new(void)
     }
 
     pr("added country %d at %s\n", num, xyas(x, y, player->cnum));
-    nat_reset(natp, STAT_SANCT, x, y);
+    natp->nat_btu = max_btus;
+    game_tick_to_now(&natp->nat_access);
+    natp->nat_stat = STAT_SANCT;
+    natp->nat_xcap = natp->nat_xorg = x;
+    natp->nat_ycap = natp->nat_yorg = y;
+    xyabsrange(natp, &defrealm, &absrealm);
+    for (i = 0; i < MAXNOR; i++) {
+	ef_blank(EF_REALM, i + natp->nat_cnum * MAXNOR, &newrealm);
+	newrealm.r_xl = absrealm.lx;
+	newrealm.r_xh = absrealm.hx;
+	newrealm.r_yl = absrealm.ly;
+	newrealm.r_yh = absrealm.hy;
+	putrealm(&newrealm);
+    }
+    if (players_at_00) {
+	natp->nat_xorg = 0;
+	natp->nat_yorg = 0;
+    }
+    natp->nat_money = start_cash;
+    putnat(natp);
     init_sanct(natp, x, y);
     init_sanct(natp, x + 2, y);
-    putnat(natp);
     return RET_OK;
 }
 
