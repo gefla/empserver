@@ -148,7 +148,6 @@ main(int argc, char *argv[])
 
     nat_reset(&nat, 0, "POGO", "peter", STAT_GOD);
     nat.nat_btu = 255;
-    nat.nat_money = 123456789;
     putnat(&nat);
     printf("All praise to %s!\n", nat.nat_cnam);
 

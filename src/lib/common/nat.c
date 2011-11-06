@@ -202,6 +202,8 @@ nat_reset(struct natstr *natp, natid cnum, char *name, char *rep,
     natp->nat_stat = stat;
     strncpy(natp->nat_cnam, name, sizeof(natp->nat_cnam) - 1);
     strncpy(natp->nat_pnam, rep, sizeof(natp->nat_pnam) - 1);
+    if (stat == STAT_GOD)
+	natp->nat_money = 123456789;
     for (i = 0; i < MAXNOR; i++) {
 	ef_blank(EF_REALM, i + cnum * MAXNOR, &newrealm);
 	putrealm(&newrealm);
