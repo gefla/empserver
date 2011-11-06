@@ -177,7 +177,8 @@ extern void putreject(struct natstr *np, natid them, int how, int what);
 extern void putcontact(struct natstr *np, natid them, int contact);
 extern void agecontact(struct natstr *np);
 extern int influx(struct natstr *np);
-extern struct natstr *nat_reset(struct natstr *, natid, enum nat_status);
+extern struct natstr *nat_reset(struct natstr *, natid, char *, char *,
+				enum nat_status);
 
 extern int check_nat_name(char *, natid);
 

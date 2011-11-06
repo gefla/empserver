@@ -191,7 +191,8 @@ influx(struct natstr *np)
  * Also wipe realms and telegrams.
  */
 struct natstr *
-nat_reset(struct natstr *natp, natid cnum, enum nat_status stat)
+nat_reset(struct natstr *natp, natid cnum, char *name, char *rep,
+	  enum nat_status stat)
 {
     struct realmstr newrealm;
     char buf[1024];
@@ -199,6 +200,8 @@ nat_reset(struct natstr *natp, natid cnum, enum nat_status stat)
 
     ef_blank(EF_NATION, cnum, natp);
     natp->nat_stat = stat;
+    strncpy(natp->nat_cnam, name, sizeof(natp->nat_cnam) - 1);
+    strncpy(natp->nat_pnam, rep, sizeof(natp->nat_pnam) - 1);
     for (i = 0; i < MAXNOR; i++) {
 	ef_blank(EF_REALM, i + cnum * MAXNOR, &newrealm);
 	putrealm(&newrealm);

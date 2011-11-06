@@ -146,9 +146,7 @@ main(int argc, char *argv[])
     }
     close(creat(annfil, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
 
-    nat_reset(&nat, 0, STAT_GOD);
-    strcpy(nat.nat_cnam, "POGO");
-    strcpy(nat.nat_pnam, "peter");
+    nat_reset(&nat, 0, "POGO", "peter", STAT_GOD);
     nat.nat_btu = 255;
     nat.nat_money = 123456789;
     putnat(&nat);
