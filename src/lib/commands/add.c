@@ -108,6 +108,16 @@ add(void)
 	pr("Illegal status\n");
 	return RET_SYN;
     }
+    if (stat == STAT_UNUSED
+	? natp->nat_stat >= STAT_SANCT : natp->nat_stat != STAT_UNUSED) {
+	pr("Country %s (#%d) status is %s.\n"
+	   "%s it in this state is normally a bad idea.",
+	   natp->nat_cnam, natp->nat_cnum,
+	   symbol_by_value(natp->nat_stat, nation_status),
+	   stat == STAT_UNUSED ? "Deleting" : "Replacing");
+	if (!askyn("Are you sure? "))
+	    return RET_FAIL;
+    }
     if (getplayer(natp->nat_cnum)) {
 	pr("%s (#%d) is logged in!\n",
 	   natp->nat_cnam, natp->nat_cnum);
