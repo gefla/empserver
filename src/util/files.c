@@ -135,16 +135,6 @@ main(int argc, char *argv[])
 	    exit(1);
     }
 
-    ef_read(EF_NATION, 0, &nat);
-    strcpy(nat.nat_cnam, "POGO");
-    strcpy(nat.nat_pnam, "peter");
-    nat.nat_stat = STAT_GOD;
-    nat.nat_btu = 255;
-    nat.nat_money = 123456789;
-    nat.nat_flags =
-	NF_FLASH | NF_BEEP | NF_COASTWATCH | NF_SONAR | NF_TECHLISTS;
-    ef_write(EF_NATION, 0, &nat);
-    printf("All praise to %s!\n", nat.nat_cnam);
     if (mkdir(teldir, S_IRWXU | S_IRWXG) < 0 && errno != EEXIST) {
 	fprintf(stderr, "Can't make telegram directory %s (%s)\n",
 		teldir, strerror(errno));
@@ -155,6 +145,14 @@ main(int argc, char *argv[])
 	close(creat(filename, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
     }
     close(creat(annfil, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
+
+    nat_reset(&nat, 0, STAT_GOD);
+    strcpy(nat.nat_cnam, "POGO");
+    strcpy(nat.nat_pnam, "peter");
+    nat.nat_btu = 255;
+    nat.nat_money = 123456789;
+    putnat(&nat);
+    printf("All praise to %s!\n", nat.nat_cnam);
 
     for (i = 0; i < EF_MAX; i++) {
 	if (!EF_IS_GAME_STATE(i))

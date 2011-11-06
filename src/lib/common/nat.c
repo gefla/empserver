@@ -34,10 +34,16 @@
 
 #include <config.h>
 
+#include <fcntl.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include "file.h"
 #include "misc.h"
 #include "nat.h"
+#include "optlist.h"
 #include "sect.h"
+#include "tel.h"
 
 char *relates[] = {
     /* must follow nation relation defines in nat.h */
@@ -177,4 +183,36 @@ influx(struct natstr *np)
 	return 1;
     else
 	return 0;
+}
+
+/*
+ * Initialize NATP for country #CNUM in status STAT.
+ * STAT must be STAT_UNUSED, STAT_NEW, STAT_VIS or STAT_GOD.
+ * Also wipe realms and telegrams.
+ */
+struct natstr *
+nat_reset(struct natstr *natp, natid cnum, enum nat_status stat)
+{
+    struct realmstr newrealm;
+    char buf[1024];
+    int i;
+
+    ef_blank(EF_NATION, cnum, natp);
+    natp->nat_stat = stat;
+    for (i = 0; i < MAXNOR; i++) {
+	ef_blank(EF_REALM, i + cnum * MAXNOR, &newrealm);
+	putrealm(&newrealm);
+    }
+    close(creat(mailbox(buf, cnum),
+		S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
+    /* FIXME natp->nat_ann = #annos */
+    natp->nat_level[NAT_HLEV] = start_happiness;
+    natp->nat_level[NAT_RLEV] = start_research;
+    natp->nat_level[NAT_TLEV] = start_technology;
+    natp->nat_level[NAT_ELEV] = start_education;
+    for (i = 0; i < MAXNOC; i++)
+	natp->nat_relate[i] = NEUTRAL;
+    natp->nat_flags =
+	NF_FLASH | NF_BEEP | NF_COASTWATCH | NF_SONAR | NF_TECHLISTS;
+    return natp;
 }
