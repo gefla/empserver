@@ -42,7 +42,6 @@ add(void)
     int i;
     char cntryname[sizeof(natp->nat_cnam)];
     char pname[sizeof(natp->nat_pnam)];
-    natid coun;
     natid freecn;
     char prompt[128];
     char buf[1024];
@@ -61,20 +60,19 @@ add(void)
     if (!p || !*p)
 	return RET_SYN;
     i = atoi(p);
-    if (i >= MAXNOC) {
-	pr("Max # countries is %d\n", MAXNOC);
-	return RET_FAIL;
-    }
-    coun = i;
-    if (coun == 0) {
+    if (i == 0) {
 	pr("Not allowed to add country #0\n");
 	return RET_FAIL;
     }
-    natp = getnatp(coun);
+    natp = getnatp(i);
+    if (!natp) {
+	pr("Can't add country #%d\n", i);
+	return RET_FAIL;
+    }
     p = getstarg(player->argp[2], "Country name? ", buf);
     if (!p)
 	return RET_SYN;
-    if (!check_nat_name(p, coun))
+    if (!check_nat_name(p, natp->nat_cnum))
 	return RET_FAIL;
     strcpy(cntryname, p);
     p = getstarg(player->argp[3], "Representative? ", buf);
