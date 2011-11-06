@@ -110,9 +110,9 @@ add(void)
 	pr("Illegal status\n");
 	return RET_SYN;
     }
+    nat_reset(natp, natp->nat_cnum, stat);
     strcpy(natp->nat_cnam, cntryname);
     strcpy(natp->nat_pnam, pname);
-    nat_reset(natp, stat, 0, 0);
     putnat(natp);
     return 0;
 }

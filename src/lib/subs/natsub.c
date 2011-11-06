@@ -39,80 +39,40 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include "file.h"
-#include "game.h"
 #include "nat.h"
 #include "optlist.h"
 #include "prototypes.h"
 #include "tel.h"
-#include "xy.h"
 
 /*
- * Reset NATP for status STAT with origin/capital at X,Y.
- * Wipes everything but nat_cnum, nat_cnam and nat_pnam.
- * Also wipes realms and telegrams.
+ * Initialize NATP for country #CNUM in status STAT.
+ * STAT must be STAT_UNUSED, STAT_NEW, STAT_VIS or STAT_GOD.
+ * Also wipe realms and telegrams.
  */
 struct natstr *
-nat_reset(struct natstr *natp, enum nat_status stat, coord x, coord y)
+nat_reset(struct natstr *natp, natid cnum, enum nat_status stat)
 {
-    static struct range defrealm = { -8, -5, 10, 5, 0, 0 };
     struct realmstr newrealm;
-    struct range absrealm;
     char buf[1024];
     int i;
 
+    ef_blank(EF_NATION, cnum, natp);
     natp->nat_stat = stat;
-    *natp->nat_hostaddr = '\0';
-    *natp->nat_hostname = '\0';
-    *natp->nat_userid = '\0';
-
-    natp->nat_xcap = natp->nat_xorg = x;
-    natp->nat_ycap = natp->nat_yorg = y;
-    if (stat == STAT_SANCT)
-	xyabsrange(natp, &defrealm, &absrealm);
-    else
-	memset(&absrealm, 0, sizeof(absrealm));
     for (i = 0; i < MAXNOR; i++) {
-	ef_blank(EF_REALM, i + natp->nat_cnum * MAXNOR, &newrealm);
-	newrealm.r_cnum = natp->nat_cnum;
-	newrealm.r_realm = i;
-	newrealm.r_xl = absrealm.lx;
-	newrealm.r_xh = absrealm.hx;
-	newrealm.r_yl = absrealm.ly;
-	newrealm.r_yh = absrealm.hy;
+	ef_blank(EF_REALM, i + cnum * MAXNOR, &newrealm);
 	putrealm(&newrealm);
     }
-    if (players_at_00) {
-	natp->nat_xorg = 0;
-	natp->nat_yorg = 0;
-    }
-
-    natp->nat_timeused = 0;
-    natp->nat_update = 0;
-
-    natp->nat_tgms = 0;
-    close(creat(mailbox(buf, natp->nat_cnum),
+    close(creat(mailbox(buf, cnum),
 		S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
-    natp->nat_ann = 0;		/* FIXME number of annos */
-
-    natp->nat_btu = stat == STAT_SANCT ? max_btus : 0;
-    natp->nat_access = 0;
-    game_tick_to_now(&natp->nat_access);
-    natp->nat_reserve = 0;
-    natp->nat_money = stat == STAT_SANCT ? start_cash : 0;
-    natp->nat_last_login = natp->nat_last_logout = 0;
-    natp->nat_newstim = 0;
-    natp->nat_annotim = 0;
+    /* FIXME natp->nat_ann = #annos */
     natp->nat_level[NAT_HLEV] = start_happiness;
     natp->nat_level[NAT_RLEV] = start_research;
     natp->nat_level[NAT_TLEV] = start_technology;
     natp->nat_level[NAT_ELEV] = start_education;
     for (i = 0; i < MAXNOC; i++)
 	natp->nat_relate[i] = NEUTRAL;
-    memset(natp->nat_contact, 0, sizeof(natp->nat_rejects));
-    memset(natp->nat_rejects, 0, sizeof(natp->nat_rejects));
     natp->nat_flags =
 	NF_FLASH | NF_BEEP | NF_COASTWATCH | NF_SONAR | NF_TECHLISTS;
-
     return natp;
 }
 
