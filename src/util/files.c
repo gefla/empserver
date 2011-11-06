@@ -30,7 +30,7 @@
  *     Thomas Ruschak
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2011
  */
 
 #include <config.h>
@@ -141,7 +141,8 @@ main(int argc, char *argv[])
     nat.nat_stat = STAT_GOD;
     nat.nat_btu = 255;
     nat.nat_money = 123456789;
-    nat.nat_flags |= NF_FLASH;
+    nat.nat_flags =
+	NF_FLASH | NF_BEEP | NF_COASTWATCH | NF_SONAR | NF_TECHLISTS;
     ef_write(EF_NATION, 0, &nat);
     printf("All praise to %s!\n", nat.nat_cnam);
     if (mkdir(teldir, S_IRWXU | S_IRWXG) < 0 && errno != EEXIST) {
