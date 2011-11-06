@@ -108,6 +108,11 @@ add(void)
 	pr("Illegal status\n");
 	return RET_SYN;
     }
+    if (getplayer(natp->nat_cnum)) {
+	pr("%s (#%d) is logged in!\n",
+	   natp->nat_cnam, natp->nat_cnum);
+	return RET_FAIL;
+    }
     nat_reset(natp, natp->nat_cnum, cntryname, pname, stat);
     putnat(natp);
     return 0;
