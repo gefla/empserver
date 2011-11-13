@@ -107,7 +107,6 @@ rea(void)
 	return RET_FAIL;
     }
     teles = 0;
-    fseek(telfp, 0L, SEEK_SET);
     size = fsize(fileno(telfp));
   more:
     lastdate = 0;
