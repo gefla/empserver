@@ -51,7 +51,7 @@ void
 clear_telegram_is_new(natid to)
 {
     last_tel[to].tel_type = 0;
-    last_tel[to].tel_from = 0;
+    last_tel[to].tel_from = NATID_BAD;
     last_tel[to].tel_date = 0;
 }
 
