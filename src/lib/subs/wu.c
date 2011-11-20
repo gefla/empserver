@@ -120,7 +120,6 @@ typed_wu(natid from, natid to, char *message, int type)
     struct iovec iov[2];
     int fd;
     char box[1024];
-    int write_ok = 0;
     int new_tele = 0;
     struct player *other;
 
@@ -137,9 +136,10 @@ typed_wu(natid from, natid to, char *message, int type)
 #else
     if ((fd = open(box, O_WRONLY | O_APPEND | O_BINARY, 0)) < 0) {
 #endif
-	logerror("telegram 'open' of %s (#%d) failed", box, to);
+	logerror("telegram 'open' of %s failed", box);
 	return -1;
     }
+
     memset(&tel, 0, sizeof(tel));
     tel.tel_from = from;
     (void)time(&tel.tel_date);
@@ -151,13 +151,16 @@ typed_wu(natid from, natid to, char *message, int type)
     iov[1].iov_base = message;
     iov[1].iov_len = len;
     if (writev(fd, iov, 2) < (int)(iov[0].iov_len + iov[1].iov_len)) {
-	logerror("telegram 'write' to #%d failed", to);
-    } else
-	write_ok = 1;
+	logerror("telegram 'write' to %s failed", box);
+	close(fd);
+	return -1;
+    }
+    if (close(fd) < 0) {
+	logerror("telegram 'write' to %s failed to close.", box);
+	return -1;
+    }
 
-    if (close(fd) == -1) {
-	logerror("telegram 'write' to #%d failed to close.", to);
-    } else if (write_ok && type == TEL_ANNOUNCE) {
+    if (type == TEL_ANNOUNCE) {
 	for (to = 0; NULL != (np = getnatp(to)); to++) {
 	    if (np->nat_stat < STAT_SANCT)
 		continue;
@@ -166,7 +169,7 @@ typed_wu(natid from, natid to, char *message, int type)
 	    np->nat_ann++;
 	    putnat(np);
 	}
-    } else if (write_ok) {
+    } else {
 	new_tele = telegram_is_new(to, &tel);
 	np->nat_tgms += new_tele || np->nat_tgms == 0;
 	putnat(np);
