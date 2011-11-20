@@ -99,7 +99,6 @@ rea(void)
 	    may_delete = 0;
 	}
 	mbox = mailbox(mbox_buf, num);
-	clear_telegram_is_new(player->cnum);
     }
 
     if (!(telfp = fopen(mbox, "rb+"))) {

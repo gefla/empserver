@@ -120,7 +120,6 @@ typed_wu(natid from, natid to, char *message, int type)
     struct iovec iov[2];
     int fd;
     char box[1024];
-    int new_tele = 0;
     struct player *other;
 
     if (type == TEL_ANNOUNCE)
@@ -170,16 +169,17 @@ typed_wu(natid from, natid to, char *message, int type)
 	    putnat(np);
 	}
     } else {
-	new_tele = telegram_is_new(to, &tel);
-	np->nat_tgms += new_tele || np->nat_tgms == 0;
-	putnat(np);
-
-	if (new_tele && np->nat_flags & NF_INFORM) {
-	    if (NULL != (other = getplayer(to))) {
-		if (np->nat_tgms == 1)
-		    pr_inform(other, "[new tele]\n");
-		else
-		    pr_inform(other, "[%d new teles]\n", np->nat_tgms);
+	if (!np->nat_tgms || telegram_is_new(to, &tel)) {
+	    np->nat_tgms++;
+	    putnat(np);
+	    if (np->nat_flags & NF_INFORM) {
+		other = getplayer(to);
+		if (other) {
+		    if (np->nat_tgms == 1)
+			pr_inform(other, "[new tele]\n");
+		    else
+			pr_inform(other, "[%d new teles]\n", np->nat_tgms);
+		}
 	    }
 	}
     }
