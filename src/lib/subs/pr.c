@@ -482,7 +482,7 @@ mpr(int cn, char *format, ...)
     (void)vsprintf(buf, format, ap);
     va_end(ap);
     if (update_running || cn != player->cnum)
-	typed_wu(0, cn, buf, TEL_BULLETIN);
+	wu(0, cn, "%s", buf);
     else
 	pr_player(player, C_DATA, buf);
 }
