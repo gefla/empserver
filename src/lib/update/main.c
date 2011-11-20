@@ -60,13 +60,15 @@ update_main(void)
     int n;
     int i;
     struct bp *bp;
-    int cn;
     struct natstr *np;
 
     logerror("production update (%d etus)", etu);
     getrusage(RUSAGE_SELF, &rus1);
     game_record_update(time(NULL));
     journal_update(etu);
+    /* Ensure back-to-back production reports are separate: */
+    for (n = 0; n < MAXNOC; n++)
+	clear_telegram_is_new(n);
 
     /* First, make sure all mobility is updated correctly. */
     if (opt_MOB_ACCESS) {
@@ -153,9 +155,6 @@ update_main(void)
     delete_old_announcements();
     delete_old_news();
     delete_old_lostitems();
-    /* Clear all the telegram flags */
-    for (cn = 0; cn < MAXNOC; cn++)
-	clear_telegram_is_new(cn);
     getrusage(RUSAGE_SELF, &rus2);
     logerror("End update %g user %g system",
 	     rus2.ru_utime.tv_sec + rus2.ru_utime.tv_usec / 1e6
