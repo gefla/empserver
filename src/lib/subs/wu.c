@@ -67,7 +67,7 @@ telegram_is_new(natid to, struct telstr *tel)
 
     is_new |= tel->tel_type != last_tel[to].tel_type;
     is_new |= tel->tel_from != last_tel[to].tel_from;
-    is_new |= !update_running && /* updates can take a long time */
+    is_new |= tel->tel_type != TEL_UPDATE &&
 	abs(tel->tel_date - last_tel[to].tel_date) > TEL_SECONDS;
 
     last_tel[to].tel_type = tel->tel_type;
