@@ -132,6 +132,14 @@ rea(void)
     if (res < 0)
 	pr("\n> Mailbox corrupt, tell the deity.\n");
 
+    if (*kind != 'a') {
+	if (np->nat_flags & NF_INFORM) {
+	    pr_inform(player, "\n");
+	    np->nat_tgms = 0;
+	    putnat(np);
+	}
+    }
+
     if (teles > 0 && player->cnum == num && may_delete) {
 	pr("\n");
 	if (teles == 1) {
@@ -174,13 +182,6 @@ rea(void)
 	    pr("No %ss for %s at the moment...\n", kind, cname(num));
     }
     (void)fclose(telfp);
-    if (*kind != 'a') {
-	if (np->nat_flags & NF_INFORM) {
-	    pr_inform(player, "\n");
-	    np->nat_tgms = 0;
-	    putnat(np);
-	}
-    }
     return RET_OK;
 }
 
