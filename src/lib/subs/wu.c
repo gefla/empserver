@@ -167,8 +167,10 @@ typed_wu(natid from, natid to, char *message, int type)
 		continue;
 	    if (!player->god && (getrejects(from, np) & REJ_ANNO))
 		continue;
-	    np->nat_ann++;
-	    putnat(np);
+	    if (!np->nat_ann || !tel.tel_cont) {
+		np->nat_ann++;
+		putnat(np);
+	    }
 	}
     } else {
 	if (!np->nat_tgms || !tel.tel_cont) {
