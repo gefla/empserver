@@ -174,10 +174,12 @@ rea(void)
 	    pr("No %ss for %s at the moment...\n", kind, cname(num));
     }
     (void)fclose(telfp);
-    if (np->nat_flags & NF_INFORM) {
-	pr_inform(player, "\n");
-	np->nat_tgms = 0;
-	putnat(np);
+    if (*kind != 'a') {
+	if (np->nat_flags & NF_INFORM) {
+	    pr_inform(player, "\n");
+	    np->nat_tgms = 0;
+	    putnat(np);
+	}
     }
     return RET_OK;
 }
