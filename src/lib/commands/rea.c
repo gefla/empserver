@@ -132,13 +132,15 @@ rea(void)
     if (res < 0)
 	pr("\n> Mailbox corrupt, tell the deity.\n");
 
-    if (*kind != 'a') {
+    if (*kind == 'a')
+	np->nat_ann = 0;
+    else {
+	np->nat_tgms = 0;
 	if (np->nat_flags & NF_INFORM) {
 	    pr_inform(player, "\n");
-	    np->nat_tgms = 0;
-	    putnat(np);
 	}
     }
+    putnat(np);
 
     if (teles > 0 && player->cnum == num && may_delete) {
 	pr("\n");
