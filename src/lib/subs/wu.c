@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
+ *     Markus Armbruster, 2005-2011
  */
 
 #include <config.h>
@@ -145,6 +146,7 @@ typed_wu(natid from, natid to, char *message, int type)
     len = strlen(message);
     tel.tel_length = len;
     tel.tel_type = type;
+    tel.tel_cont = !telegram_is_new(to, &tel);
     iov[0].iov_base = &tel;
     iov[0].iov_len = sizeof(tel);
     iov[1].iov_base = message;
@@ -169,7 +171,7 @@ typed_wu(natid from, natid to, char *message, int type)
 	    putnat(np);
 	}
     } else {
-	if (!np->nat_tgms || telegram_is_new(to, &tel)) {
+	if (!np->nat_tgms || !tel.tel_cont) {
 	    np->nat_tgms++;
 	    putnat(np);
 	    if (np->nat_flags & NF_INFORM) {

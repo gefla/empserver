@@ -27,7 +27,7 @@
  *  tel.h: Definitions for things having to do with telegrams
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2009-2010
+ *     Markus Armbruster, 2009-2011
  */
 
 #ifndef TEL_H
@@ -50,6 +50,7 @@
 struct telstr {
     natid tel_from;		/* sender */
     unsigned char tel_type;
+    signed char tel_cont;	/* squash into prev. telegram? */
     unsigned tel_length;	/* how long */
     time_t tel_date;		/* when sent */
 };

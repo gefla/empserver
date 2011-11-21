@@ -31,7 +31,7 @@
  *     Doug Hay, 1998
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2005-2007
- *     Markus Armbruster, 2009
+ *     Markus Armbruster, 2009-2011
  */
 
 #include <config.h>
@@ -62,10 +62,6 @@ rea(void)
     int teles;
     int size;
     char buf[1024];
-    int lasttype;
-    int lastcnum;
-    time_t lastdate;
-    int header;
     int filelen;
     char *kind;
     int n, res;
@@ -74,7 +70,6 @@ rea(void)
     time_t now;
     time_t then;
     time_t delta;
-    int first = 1;
     int may_delete = 1; /* may messages be deleted? */
 
     now = time(NULL);
@@ -108,9 +103,6 @@ rea(void)
     teles = 0;
     size = fsize(fileno(telfp));
   more:
-    lastdate = 0;
-    lastcnum = -1;
-    lasttype = -1;
     while ((res = tel_read_header(telfp, mbox, &tgm)) > 0) {
 	if (*kind == 'a') {
 	    if ((!player->god && (getrejects(tgm.tel_from, np) & REJ_ANNO))
@@ -121,26 +113,16 @@ rea(void)
 		continue;
 	    }
 	}
-	if (first && *kind == 'a') {
+	if (!teles && *kind == 'a')
 	    pr("\nAnnouncements since %s", ctime(&then));
-	    first = 0;
-	}
-	header = 0;
-	if (tgm.tel_type != lasttype || tgm.tel_from != lastcnum)
-	    header++;
-	if (abs((int)(tgm.tel_date - (long)lastdate)) > TEL_SECONDS)
-	    header++;
-	if (header) {
+	if (!teles || !tgm.tel_cont) {
 	    pr("\n> ");
-	    lastcnum = tgm.tel_from;
-	    lasttype = tgm.tel_type;
 	    pr("%s ", telnames[tgm.tel_type]);
 	    if ((tgm.tel_type == TEL_NORM) ||
 		(tgm.tel_type == TEL_ANNOUNCE) ||
 		(tgm.tel_type == TEL_BULLETIN))
 		pr("from %s, (#%d)", cname(tgm.tel_from), tgm.tel_from);
 	    pr("  dated %s", ctime(&tgm.tel_date));
-	    lastdate = tgm.tel_date;
 	}
 	teles++;
 	res = tel_read_body(telfp, mbox, &tgm, print_sink, NULL);
