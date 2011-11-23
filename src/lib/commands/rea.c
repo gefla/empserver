@@ -157,19 +157,19 @@ rea(void)
 	}
 	p = getstarg(player->argp[1], p, buf);
 	if (p && *p == 'y') {
-	    if ((filelen = fsize(fileno(telfp))) > size) {
-		pr("Wait a sec!  A new %s has arrived...\n", kind);
-		/* force stdio to re-read tel file */
-		(void)fflush(telfp);
-		(void)fseek(telfp, (long)size, SEEK_SET);
-		size = filelen;
-		now = time(NULL);
-		goto more;
-	    }
 	    if (*kind == 'a') {
 		np->nat_annotim = now;
 		putnat(np);
 	    } else {
+		if ((filelen = fsize(fileno(telfp))) > size) {
+		    pr("Wait a sec!  A new %s has arrived...\n", kind);
+		    /* force stdio to re-read tel file */
+		    (void)fflush(telfp);
+		    (void)fseek(telfp, (long)size, SEEK_SET);
+		    size = filelen;
+		    now = time(NULL);
+		    goto more;
+		}
 		/* Here, we just re-open the file for "w" only,
 		   and that will wipe the file clean automatically */
 		(void)fclose(telfp);
