@@ -60,9 +60,7 @@ rea(void)
     struct telstr tgm;
     FILE *telfp;
     int teles;
-    int size;
     char buf[1024];
-    int filelen;
     char *kind;
     int n, res;
     int num = player->cnum;
@@ -101,9 +99,11 @@ rea(void)
 	return RET_FAIL;
     }
     teles = 0;
-    size = fsize(fileno(telfp));
-  more:
-    while ((res = tel_read_header(telfp, mbox, &tgm)) > 0) {
+    for (;;) {
+	res = tel_read_header(telfp, mbox, &tgm);
+    more:
+	if (res <= 0)
+	    break;
 	if (*kind == 'a') {
 	    if ((!player->god && (getrejects(tgm.tel_from, np) & REJ_ANNO))
 		|| tgm.tel_date < then) {
@@ -161,13 +161,12 @@ rea(void)
 		np->nat_annotim = now;
 		putnat(np);
 	    } else {
-		if ((filelen = fsize(fileno(telfp))) > size) {
+		/* force stdio to re-read tel file */
+		fflush(telfp);
+		fseek(telfp, 0, SEEK_CUR);
+		res = tel_read_header(telfp, mbox, &tgm);
+		if (res != 0) {
 		    pr("Wait a sec!  A new %s has arrived...\n", kind);
-		    /* force stdio to re-read tel file */
-		    (void)fflush(telfp);
-		    (void)fseek(telfp, (long)size, SEEK_SET);
-		    size = filelen;
-		    now = time(NULL);
 		    goto more;
 		}
 		/* Here, we just re-open the file for "w" only,
