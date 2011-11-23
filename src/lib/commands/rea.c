@@ -68,7 +68,7 @@ rea(void)
     time_t now;
     time_t then;
     time_t delta;
-    int may_delete = 1; /* may messages be deleted? */
+    int may_delete = 1;
 
     now = time(NULL);
 
@@ -129,8 +129,10 @@ rea(void)
 	if (res < 0)
 	    break;
     }
-    if (res < 0)
+    if (res < 0) {
 	pr("\n> Mailbox corrupt, tell the deity.\n");
+	may_delete = 0;
+    }
 
     if (*kind == 'a')
 	np->nat_ann = 0;
