@@ -75,7 +75,7 @@ static void journal_output_start(struct player *, int);
 static FILE *
 journal_open(void)
 {
-    return fopen(journal_fname, "a+");
+    return fopen(journal_fname, "a");
 }
 
 static void
