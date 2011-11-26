@@ -139,9 +139,11 @@ main(int argc, char *argv[])
 	exit(1);
     }
     for (i = 0; i < MAXNOC; i++) {
-	mailbox_create(mailbox(buf, i));
+	if (mailbox_create(mailbox(buf, i)) < 0)
+	    exit(1);
     }
-    mailbox_create(annfil);
+    if (mailbox_create(annfil) < 0)
+	exit(1);
 
     nat_reset(&nat, 0, "POGO", "peter", STAT_GOD);
     putnat(&nat);

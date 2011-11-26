@@ -27,12 +27,13 @@
  *  mailbox.c: Mailbox file access
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2009
+ *     Markus Armbruster, 2009-2011
  */
 
 #include <config.h>
 
 #include <stdio.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -49,11 +50,18 @@ mailbox(char *buf, natid cn)
 
 /*
  * Create an empty telegram file named MBOX.
+ * Return 0 on success, -1 on failure.
  */
 int
 mailbox_create(char *mbox)
 {
-    close(creat(mbox, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
+    int fd;
+
+    fd = creat(mbox, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
+    if (fd < 0 || close(fd) < 0) {
+	logerror("Can't create mailbox %s (%s)", mbox, strerror(errno));
+	return -1;
+    }
     return 0;
 }
 
