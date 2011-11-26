@@ -94,7 +94,7 @@ rea(void)
 	mbox = mailbox(mbox_buf, num);
     }
 
-    if (!(telfp = fopen(mbox, "rb+"))) {
+    if (!(telfp = fopen(mbox, "rb"))) {
 	logerror("telegram file %s", mbox);
 	return RET_FAIL;
     }
