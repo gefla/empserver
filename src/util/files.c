@@ -36,7 +36,6 @@
 #include <config.h>
 
 #include <errno.h>
-#include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include "file.h"
@@ -71,7 +70,6 @@ int
 main(int argc, char *argv[])
 {
     char buf[255];
-    char *filename;
     struct natstr nat;
     int i;
     int opt;
@@ -141,10 +139,9 @@ main(int argc, char *argv[])
 	exit(1);
     }
     for (i = 0; i < MAXNOC; i++) {
-	filename = mailbox(buf, i);
-	close(creat(filename, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
+	mailbox_create(mailbox(buf, i));
     }
-    close(creat(annfil, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
+    mailbox_create(annfil);
 
     nat_reset(&nat, 0, "POGO", "peter", STAT_GOD);
     putnat(&nat);

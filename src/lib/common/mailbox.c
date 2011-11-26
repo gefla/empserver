@@ -33,6 +33,9 @@
 #include <config.h>
 
 #include <stdio.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include "optlist.h"
 #include "tel.h"
 #include "prototypes.h"
@@ -42,6 +45,16 @@ mailbox(char *buf, natid cn)
 {
     sprintf(buf, "%s/tel%d", teldir, cn);
     return buf;
+}
+
+/*
+ * Create an empty telegram file named MBOX.
+ */
+int
+mailbox_create(char *mbox)
+{
+    close(creat(mbox, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
+    return 0;
 }
 
 /*

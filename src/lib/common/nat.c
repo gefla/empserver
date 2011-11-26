@@ -34,10 +34,7 @@
 
 #include <config.h>
 
-#include <fcntl.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <unistd.h>
 #include "file.h"
 #include "misc.h"
 #include "nat.h"
@@ -208,8 +205,7 @@ nat_reset(struct natstr *natp, natid cnum, char *name, char *rep,
 	ef_blank(EF_REALM, i + cnum * MAXNOR, &newrealm);
 	putrealm(&newrealm);
     }
-    close(creat(mailbox(buf, cnum),
-		S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP));
+    mailbox_create(mailbox(buf, cnum));
     /* FIXME natp->nat_ann = #annos */
     natp->nat_level[NAT_HLEV] = start_happiness;
     natp->nat_level[NAT_RLEV] = start_research;

@@ -56,6 +56,7 @@ struct telstr {
 };
 
 extern char *mailbox(char *buf, natid cn);
+extern int mailbox_create(char *);
 extern int tel_read_header(FILE *, char *, struct telstr *);
 extern int tel_read_body(FILE *, char *, struct telstr *,
 			 int (*sink)(char *, size_t, void *),
