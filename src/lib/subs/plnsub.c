@@ -720,7 +720,10 @@ pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
 					 plp->plane.pln_y,
 					 I_SHELL, needed);
 #endif
-	abandon_needed = !!would_abandon(&sect, itype, needed, NULL);
+	if (pp->pln_ship >= 0 || pp->pln_land >= 0)
+	    abandon_needed = 0;
+	else
+	    abandon_needed = !!would_abandon(&sect, itype, needed, NULL);
 	if (item[itype] < needed + abandon_needed) {
 	    pr("Not enough %s for %s\n", ichr[itype].i_name, prplane(pp));
 	    return -1;
