@@ -7,6 +7,60 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.29 - Sun Jan 15 19:43:36 CET 2012
+ * drop and fly from carrier could fail to load last civilian or
+   military.
+ * Telegram and announcement changes:
+   - wire no longer loops to show announcements that arrived while
+     waiting for the player to confirm deletion.
+   - At most five seconds worth of messages are now squashed together
+     into one.  Before, only the time between adjacent telegrams was
+     limited, not the total time.
+   - When telegrams arrived while read was waiting for the player to
+     confirm deletion, and we then showed them, we nevertheless
+     claimed "you have new telegrams" before the next command prompt.
+     Only with toggle inform off.  Known bug since Empire 2.
+   - Fix read not to clobber asynchronous notification of telegrams
+     arriving while waiting for the player to confirm deletion.
+   - Fix wire not to reset number of pending telegrams with toggle
+     inform on.  Broken when Empire 2 introduced toggle inform.
+   - The number of pending announcements was off when announcements
+     were squashed together.
+   - More careful error handling and logging.
+ * Ensure all of an update's output goes into a single production
+   report:
+   - Avoid splitting it up when the update is slow.  Empire 2 already
+     did that for the number of pending telegrams, but not for read.
+   - Don't turn parts of it into BULLETINs.  Autonav and sail could do
+     that since Empire 2.
+ * files now creates POGO with user interface flags beep, coastwatch,
+   sonar and techlists set, for consistency with add.
+ * Change newcap back to not wiping the country (it wiped since
+   4.3.12).  Additionally, leave levels and telegrams alone.
+ * Changes to deity command add:
+   - Require confirmation for unadvisable actions.
+   - Refuse to touch a country while it's being played.
+   - Don't crash on negative country number.
+   - Create deities with money, just like files creates POGO.
+   - Always reset the country completely, not just when adding a
+     player or a visitor.
+   - Rename argument "new" to "player".  Keep recognizing "new" for
+     now, but deprecate it.
+   - Drop argument "active".  If you really want to create a player
+     country without a capital, add the player country normally, then
+     activate it with edit instead of newcap.
+   - Drop the obscure sector check and wipe option.  If you really
+     need to wipe out a country, there's much more to wipe than just
+     sectors.
+   - Drop the undocumented land unit destruction feature.
+ * Permit no-op country name change again.  Accidentally outlawed in
+   4.3.20.
+ * Plug a few minor memory and file descriptor leaks.
+ * Fix use-after-free when plane gets shot down in dogfight.  Broken
+   in 4.3.27.
+ * Code cleanup.
+ * Info page and manual page fixes.
+
 Changes to Empire 4.3.28 - Sat Jul 16 11:30:53 UTC 2011
  * Don't let POGO (#0) navigate dead ships, and march dead land units.
    The ghosts even got sighted and interdicted, and could hit mines.
