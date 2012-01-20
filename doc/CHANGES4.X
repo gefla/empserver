@@ -1,4 +1,4 @@
-Changes to Empire 4.3.29 - Sun Jan 15 19:43:36 CET 2012
+Changes to Empire 4.3.29 - Fri Jan 20 19:20:20 UTC 2012
  * drop and fly from carrier could fail to load last civilian or
    military.
  * Telegram and announcement changes:
@@ -47,8 +47,8 @@ Changes to Empire 4.3.29 - Sun Jan 15 19:43:36 CET 2012
  * Permit no-op country name change again.  Accidentally outlawed in
    4.3.20.
  * Plug a few minor memory and file descriptor leaks.
- * Fix use-after-free when plane gets shot down in dogfight.  Broken
-   in 4.3.27.
+ * Fix use-after-free when plane gets shot down or aborted in
+   dogfight.  Broken in 4.3.27.
  * Code cleanup.
  * Info page and manual page fixes.
 
