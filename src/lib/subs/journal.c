@@ -102,20 +102,19 @@ journal_entry_start(char *fmt, ...)
 }
 
 static void
-journal_entry_pr(char *s, size_t n)
+journal_entry_write(char *s, size_t n)
 {
-    unsigned char *p;
+    char *p;
 
     if (!journal)
 	return;
-    for (p = (unsigned char *)s; *p && n; p++) {
+    for (p = s; p < s + n; p++) {
 	if (*p == '\\')
 	    fprintf(journal, "\\\\");
-	else if (isprint(*p) || *p == '\t')
+	else if (isprint(*(unsigned char *)p) || *p == '\t')
 	    putc(*p, journal);
 	else
 	    fprintf(journal, "\\%03o", *p);
-	n--;
     }
 }
 
@@ -220,15 +219,15 @@ journal_output(struct player *pl, int id, char *output)
 
     if (bp != buf && (pl != bpl || id != bid)) {
 	journal_output_start(bpl, bid);
-	journal_entry_pr(buf, bp - buf);
+	journal_entry_write(buf, bp - buf);
 	journal_entry_end(0, 0);
 	bp = buf;
     }
 
     for (s = output; (e = strchr(s, '\n')); s = e + 1) {
 	journal_output_start(pl, id);
-	journal_entry_pr(buf, bp - buf);
-	journal_entry_pr(s, e - s);
+	journal_entry_write(buf, bp - buf);
+	journal_entry_write(s, e - s);
 	journal_entry_end(1, 0);
 	bp = buf;
     }
@@ -240,8 +239,8 @@ journal_output(struct player *pl, int id, char *output)
 	bid = id;
     } else {
 	journal_output_start(pl, id);
-	journal_entry_pr(buf, bp - buf);
-	journal_entry_pr(s, e - s);
+	journal_entry_write(buf, bp - buf);
+	journal_entry_write(s, e - s);
 	journal_entry_end(0, 0);
 	bp = buf;
     }
@@ -257,7 +256,7 @@ void
 journal_input(char *input)
 {
     journal_entry_start("input ");
-    journal_entry_pr(input, -1);
+    journal_entry_write(input, strlen(input));
     journal_entry_end(1, 1);
 }
 
