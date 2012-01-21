@@ -36,8 +36,9 @@
 # POSIX, and when something breaks on some oddball machine, see
 # whether it's worth fixing.
 
-AC_PREREQ(2.59)
-AC_INIT([Empire Client], [4.3.30], [wolfpack@wolfpackempire.com])
+AC_PREREQ(2.64)
+AC_INIT([Empire Client], [4.3.30], [wolfpack@wolfpackempire.com],,
+	[http://www.wolfpackempire.com/])
 AC_CONFIG_SRCDIR([empire.6])
 AC_CONFIG_HEADERS([config.h])
 
