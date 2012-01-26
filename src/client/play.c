@@ -465,7 +465,7 @@ play(int sock)
     struct sigaction sa;
     struct ring inbuf;		/* input buffer, draining to SOCK */
     int eof_fd0;		/* read fd 0 hit EOF? */
-    int input_eol;		/* input ends with '\n'? */
+    int partial_line_sent;	/* partial input line sent? */
     fd_set rdfd, wrfd;
     int n;
 
@@ -477,7 +477,7 @@ play(int sock)
     sigaction(SIGPIPE, &sa, NULL);
 
     ring_init(&inbuf);
-    eof_fd0 = input_eol = send_eof = send_intr = 0;
+    eof_fd0 = partial_line_sent = send_eof = send_intr = 0;
     input_fd = 0;
     sysdep_stdin_init();
 
@@ -506,13 +506,13 @@ play(int sock)
 	    }
 	}
 
-	if ((send_eof || send_intr) && !input_eol
+	if ((send_eof || send_intr) && partial_line_sent
 	    && ring_putc(&inbuf, '\n') != EOF)
-	    input_eol = 1;
-	if (send_eof && input_eol
+	    partial_line_sent = 0;
+	if (send_eof && !partial_line_sent
 	    && ring_putm(&inbuf, EOF_COOKIE, sizeof(EOF_COOKIE) - 1) >= 0)
 	    send_eof--;
-	if (send_intr && input_eol
+	if (send_intr && !partial_line_sent
 	    && ring_putm(&inbuf, INTR_COOKIE, sizeof(INTR_COOKIE) - 1) >= 0) {
 	    send_intr = 0;
 	    if (input_fd) {
@@ -547,7 +547,7 @@ play(int sock)
 		    sigaction(SIGINT, &sa, NULL);
 		}
 	    } else
-		input_eol = ring_peek(&inbuf, -1) == '\n';
+		partial_line_sent = ring_peek(&inbuf, -1) != '\n';
 	}
 
 	/* send it to the server */
