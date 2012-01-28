@@ -41,17 +41,16 @@
 
 /*
  * Receive a line of input from the current player.
- * If the player's eof flag is set, return -1 without receiving input.
- * If the player's aborted flag is set, return -2 without receiving
+ * If the player's aborted flag is set, return -1 without receiving
  * input.
  * Else receive one line and store it in CMD[SIZE].
  * This may block for input, yielding the processor.  Flush buffered
  * output when blocking, to make sure player sees the prompt.
  * If the player's connection has the I/O error or EOF indicator set,
- * or the line is "ctld", set the player's eof and aborted flag and
- * return -1.
+ * or we block and time out, or the line is "ctld", set the player's
+ * eof and aborted flag and return -1.
  * If the line is "aborted", set the player's aborted flag and return
- * -2.
+ * -1.
  * Else return the length of the line.
  * Design bug: there is no way to indicate truncation of a long line.
  */
@@ -83,7 +82,7 @@ recvclient(char *cmd, int size)
 	    ;
 
 	/*
-	 * If io_output_all() blocked and got unblocked by command
+	 * If io_output() blocked and got unblocked by command
 	 * abortion, we must return without blocking in io_input().
 	 */
 	if (player->aborted)
@@ -112,7 +111,7 @@ recvclient(char *cmd, int size)
 	    CANT_HAPPEN(player->recvfail == 256);
 	    empth_sleep(time(NULL) + 60);
 	}
-	return player->eof ? -1 : -2;
+	return -1;
     }
 
     player->recvfail = 0;
