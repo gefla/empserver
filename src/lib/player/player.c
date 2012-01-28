@@ -145,8 +145,6 @@ status(void)
     int old_nstat;
     char buf[128];
 
-    if (player->eof || player->state == PS_SHUTDOWN)
-	return 0;
     natp = getnatp(player->cnum);
     if (player->dolcost > 100.0)
 	pr("That just cost you $%.2f\n", player->dolcost);
@@ -173,8 +171,10 @@ status(void)
 
     time(&player->curup);
     update_timeused(player->curup);
-    if (!may_play_now(natp, player->curup))
+    if (player->eof || player->state == PS_SHUTDOWN
+	|| !may_play_now(natp, player->curup))
 	return 0;
+
     if (player->btused) {
 	natp->nat_btu -= player->btused;
 	player->btused = 0;
