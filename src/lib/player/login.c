@@ -382,6 +382,6 @@ kill_cmd(void)
 static int
 quit_cmd(void)
 {
-    io_shutdown(player->iop, IO_READ);
+    io_set_eof(player->iop);
     return RET_OK;
 }
