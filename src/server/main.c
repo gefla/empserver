@@ -419,9 +419,9 @@ shutdwn(int sig)
 	if (p->state != PS_PLAYING)
 	    continue;
 	pr_flash(p, "Server shutting down...\n");
-	p->state = PS_SHUTDOWN;
+	io_set_eof(p->iop);
+	p->aborted = 1;
 	p->may_sleep = PLAYER_SLEEP_NEVER;
-	p->aborted++;
 	if (p->command) {
 	    pr_flash(p, "Shutdown aborting command\n");
 	}

@@ -86,7 +86,7 @@ player_login(void *ud)
 
     pr_id(player, C_INIT, "Empire server ready\n");
 
-    while (player->state != PS_SHUTDOWN) {
+    for (;;) {
 	io_output(player->iop, 1);
 	if (io_gets(player->iop, buf, sizeof(buf)) < 0) {
 	    res = io_input(player->iop, 1);
@@ -355,9 +355,11 @@ play_cmd(void)
     empth_set_name(empth_self(), buf);
     logerror("%s logged in as country #%d", praddr(player), player->cnum);
     pr_id(player, C_INIT, "%d\n", CLIENTPROTO);
+    player->state = PS_PLAYING;
     player_main(player);
     logerror("%s logged out, country #%d", praddr(player), player->cnum);
-    player->state = PS_SHUTDOWN;
+    if (CANT_HAPPEN(!io_eof(player->iop)))
+	io_set_eof(player->iop);
     return RET_OK;
 }
 

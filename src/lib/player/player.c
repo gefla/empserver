@@ -59,7 +59,6 @@ player_main(struct player *p)
     struct natstr *natp;
     char buf[128];
 
-    p->state = PS_PLAYING;
     player = p;
     time(&player->curup);
     update_timeused_login(player->curup);
@@ -174,7 +173,6 @@ status(void)
     time(&player->curup);
     update_timeused(player->curup);
     if (io_error(player->iop) || io_eof(player->iop)
-	|| player->state == PS_SHUTDOWN
 	|| !may_play_now(natp, player->curup))
 	return 0;
 
@@ -284,7 +282,7 @@ show_motd(void)
 int
 quit(void)
 {
-    player->state = PS_SHUTDOWN;
+    io_set_eof(player->iop);
     return RET_OK;
 }
 
