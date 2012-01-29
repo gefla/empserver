@@ -260,6 +260,7 @@ execute(void)
 	    failed = 1;
 	} else if (dispatch(buf, NULL) < 0)
 	    failed = 1;
+	empth_yield();
     }
     if (failed) {
 	while (recvclient(buf, sizeof(buf)) >= 0) ;
