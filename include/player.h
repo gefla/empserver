@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Doug Hay, 1998
- *     Markus Armbruster, 2005-2010
+ *     Markus Armbruster, 2005-2012
  */
 
 #ifndef PLAYER_H
@@ -81,8 +81,8 @@ struct player {
     double dolcost;
     time_t curup;		/* when last input was received */
     enum player_sleep may_sleep; /* when may thread sleep? */
-    int aborted;		/* interrupt cookie or EOF received? */
-    int eof;			/* EOF (cookie or real) received? */
+    int aborted;		/* command aborted? */
+    int got_ctld;		/* EOF cookie received? */
     int recvfail;		/* #recvclient() failures */
     int curid;			/* for pr, cur. line's id, -1 none */
     char *map;			/* pointer to in-mem map */

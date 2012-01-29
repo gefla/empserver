@@ -57,6 +57,7 @@ extern int io_puts(struct iop *, char *);
 extern int io_shutdown(struct iop *, int);
 extern int io_error(struct iop *);
 extern int io_eof(struct iop *);
+extern void io_set_eof(struct iop *);
 extern int io_fileno(struct iop *);
 
 #endif

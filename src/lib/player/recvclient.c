@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2006-2009
+ *     Markus Armbruster, 2006-2012
  *     Ron Koenderink, 2009
  */
 
@@ -47,10 +47,12 @@
  * This may block for input, yielding the processor.  Flush buffered
  * output when blocking, to make sure player sees the prompt.
  * If the player's connection has the I/O error or EOF indicator set,
- * or we block and time out, or the line is "ctld", set the player's
- * eof and aborted flag and return -1.
- * If the line is "aborted", set the player's aborted flag and return
+ * or the line is "aborted", set the player's aborted flag and return
  * -1.
+ * If we block and time out, set the EOF indicator on the player's
+ * connection, set the player's aborted flag, and return -1.
+ * If the line is "ctld", set the player's eof and aborted flag and
+ * return -1.
  * Else return the length of the line.
  * Design bug: there is no way to indicate truncation of a long line.
  */
@@ -66,7 +68,7 @@ recvclient(char *cmd, int size)
 	if (count >= 0) {
 	    /* got it */
 	    if (strcmp(cmd, "ctld") == 0)
-		player->aborted = player->eof = 1;
+		player->aborted = player->got_ctld = 1;
 	    if (strcmp(cmd, "aborted") == 0)
 		player->aborted = 1;
 	    journal_input(cmd);
@@ -92,12 +94,13 @@ recvclient(char *cmd, int size)
 	if (res > 0)
 	    ;
 	else if (res < 0)
-	    player->aborted = player->eof = 1;
+	    player->aborted = 1;
 	else if (io_eof(player->iop))
-	    player->aborted = player->eof = 1;
+	    player->aborted = 1;
 	else if (!player->aborted) {
 	    pr_flash(player, "idle connection terminated\n");
-	    player->aborted = player->eof = 1;
+	    io_set_eof(player->iop);
+	    player->aborted = 1;
 	}
     }
 

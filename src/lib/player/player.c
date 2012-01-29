@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  *     Ron Koenderink, 2004-2009
  */
 
@@ -99,7 +99,9 @@ player_main(struct player *p)
     }
 
     while (status() && command()) {
-	player->aborted = player->eof;
+	if (player->got_ctld)
+	    io_set_eof(player->iop);
+	player->aborted = 0;
 	empth_yield();
     }
     /* #*# I put the following line in to prevent server crash -KHS */
@@ -171,7 +173,8 @@ status(void)
 
     time(&player->curup);
     update_timeused(player->curup);
-    if (player->eof || player->state == PS_SHUTDOWN
+    if (io_error(player->iop) || io_eof(player->iop)
+	|| player->state == PS_SHUTDOWN
 	|| !may_play_now(natp, player->curup))
 	return 0;
 
@@ -243,7 +246,7 @@ execute(void)
 	return RET_SYN;
     prexec(p);
 
-    while (!failed && status()) {
+    while (!failed && status() && !player->got_ctld) {
 	player->nstat &= ~EXEC;
 	if (getcommand(player->combuf) < 0)
 	    break;
@@ -267,7 +270,7 @@ execute(void)
     }
 
     pr("Execute : %s\n", failed ? "aborted" : "terminated");
-    player->eof = 0;
+    player->got_ctld = 0;
     return RET_OK;
 }
 

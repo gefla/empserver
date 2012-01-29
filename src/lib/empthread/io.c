@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Doug Hay, 1998
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2012
  *     Ron Koenderink, 2009
  */
 
@@ -131,16 +131,17 @@ io_input(struct iop *iop, int waitforinput)
     int cc;
     int res;
 
-    /* Not a read IOP */
     if ((iop->flags & IO_READ) == 0) {
 	errno = EBADF;
 	return -1;
     }
-    /* IOP is markes as in error. */
     if (iop->flags & IO_ERROR) {
 	errno = EBADF;
 	return -1;
     }
+    if (iop->flags & IO_EOF)
+	return 0;
+
     /* Wait for the file to have input. */
     if (waitforinput) {
 	res = empth_select(iop->fd, EMPTH_FD_READ, &iop->input_timeout);
@@ -257,7 +258,6 @@ io_output_if_queue_long(struct iop *iop, int wait)
     return io_output(iop, wait);
 }
 
-
 int
 io_peek(struct iop *iop, char *buf, int nbytes)
 {
@@ -332,6 +332,17 @@ int
 io_eof(struct iop *iop)
 {
     return iop->flags & IO_EOF;
+}
+
+/*
+ * Discard IOP's buffered input and set its EOF flag.
+ * No more input can be read from IOP.
+ */
+void
+io_set_eof(struct iop *iop)
+{
+    ioq_drain(iop->input);
+    iop->flags |= IO_EOF;
 }
 
 int
