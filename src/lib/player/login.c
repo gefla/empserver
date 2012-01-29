@@ -122,7 +122,6 @@ player_login(void *ud)
     }
     player->state = PS_SHUTDOWN;
     pr_id(player, C_EXIT, "so long...\n");
-    while (io_output(player->iop, 1) > 0) ;
     player_delete(player);
     empth_exit();
     /*NOTREACHED*/

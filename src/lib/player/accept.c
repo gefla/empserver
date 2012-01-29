@@ -100,14 +100,14 @@ player_delete(struct player *lp)
 {
     struct player *back;
 
-    back = (struct player *)lp->queue.q_back;
-    if (back)
-	emp_remque(&lp->queue);
     if (lp->iop) {
 	/* it's a real player */
 	io_close(lp->iop);
 	lp->iop = NULL;
     }
+    back = (struct player *)lp->queue.q_back;
+    if (back)
+	emp_remque(&lp->queue);
     free(lp);
     /* XXX may need to free bigmap here */
     return back;

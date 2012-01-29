@@ -108,7 +108,16 @@ io_open(int fd, int flags, int bufsize, struct timeval timeout)
 void
 io_close(struct iop *iop)
 {
+    char buf[IO_BUFSIZE];
+    int ret;
 
+    while (io_output(iop, 1) > 0) ;
+    shutdown(iop->fd, SHUT_WR);
+    while (empth_select(iop->fd, EMPTH_FD_READ, &iop->input_timeout) > 0) {
+	ret = read(iop->fd, buf, sizeof(buf));
+	if (ret <= 0)
+	    break;
+    }
     if (iop->input)
 	ioq_destroy(iop->input);
     if (iop->output)
@@ -201,14 +210,14 @@ io_output(struct iop *iop, int wait)
     if (wait)
 	ef_make_stale();
 
-    if (!ioq_qsize(iop->output))
-	return 0;
-
     if ((iop->flags & IO_WRITE) == 0)
 	return -1;
 
     if (iop->flags & IO_ERROR)
 	return -1;
+
+    if (!ioq_qsize(iop->output))
+	return 0;
 
     if (wait) {
 	res = empth_select(iop->fd, EMPTH_FD_WRITE, NULL);
