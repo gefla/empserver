@@ -283,6 +283,7 @@ check_trade(void)
     double tleft;
     float price;
     int saveid;
+    natid seller;
 
     for (n = 0; gettrade(n, &trade); n++) {
 	if (trade.trd_unitid < 0)
@@ -315,6 +316,7 @@ check_trade(void)
 	    continue;
 
 	saveid = trade.trd_unitid;
+	seller = trade.trd_owner;
 	trade.trd_owner = 0;
 	trade.trd_unitid = -1;
 	if (!puttrade(n, &trade)) {
@@ -325,17 +327,17 @@ check_trade(void)
 	price = trade.trd_price;
 	natp = getnatp(trade.trd_maxbidder);
 	if (natp->nat_money < price) {
-	    nreport(trade.trd_maxbidder, N_WELCH_DEAL, trade.trd_owner, 1);
-	    wu(0, trade.trd_owner,
+	    nreport(trade.trd_maxbidder, N_WELCH_DEAL, seller, 1);
+	    wu(0, seller,
 	       "%s tried to buy a %s #%d from you for $%.2f\n",
 	       cname(trade.trd_maxbidder), trade_nameof(&trade, &tg),
 	       saveid, price * tradetax);
-	    wu(0, trade.trd_owner, "   but couldn't afford it.\n");
-	    wu(0, trade.trd_owner,
+	    wu(0, seller, "   but couldn't afford it.\n");
+	    wu(0, seller,
 	       "   Your item was taken off the market.\n");
 	    wu(0, trade.trd_maxbidder,
 	       "You tried to buy %s #%d from %s for $%.2f\n",
-	       trade_nameof(&trade, &tg), saveid, cname(trade.trd_owner),
+	       trade_nameof(&trade, &tg), saveid, cname(seller),
 	       price);
 	    wu(0, trade.trd_maxbidder, "but couldn't afford it.\n");
 	    continue;
@@ -346,7 +348,7 @@ check_trade(void)
 	natp->nat_money -= price;
 	putnat(natp);
 
-	natp = getnatp(trade.trd_owner);
+	natp = getnatp(seller);
 	natp->nat_money += roundavg(price * tradetax);
 	putnat(natp);
 
@@ -394,13 +396,13 @@ check_trade(void)
 	unit_give_away(&tg.gen, trade.trd_maxbidder, 0);
 	put_empobj(trade.trd_type, saveid, &tg.gen);
 
-	nreport(trade.trd_owner, N_MAKE_SALE, trade.trd_maxbidder, 1);
-	wu(0, trade.trd_owner, "%s bought a %s #%d from you for $%.2f\n",
+	nreport(seller, N_MAKE_SALE, trade.trd_maxbidder, 1);
+	wu(0, seller, "%s bought a %s #%d from you for $%.2f\n",
 	   cname(trade.trd_maxbidder), trade_nameof(&trade, &tg),
 	   saveid, price * tradetax);
 	wu(0, trade.trd_maxbidder,
 	   "The bidding is over & you bought %s #%d from %s for $%.2f\n",
-	   trade_nameof(&trade, &tg), saveid, cname(trade.trd_owner),
+	   trade_nameof(&trade, &tg), saveid, cname(seller),
 	   price);
     }
     return RET_OK;
