@@ -49,7 +49,7 @@ clients.  Likewise, overlong or malformed UTF-8 sequences should not
 occur and may be ignored.
 
 The server prompts for input.  Each prompt `consumes' one line of
-input (except for C_EXECUTE, and when the update aborts a command, as
+input (except for C_EXECUTE, and when a command is aborted, as
 described below).  Input lines are arbitrary text, terminated by line
 feed, which is optionally preceded by carriage return (decimal 13).
 Lines should not contain ASCII control characters other than
@@ -198,8 +198,12 @@ The following ids occur:
 * Argument prompt C_FLUSH
 
   The server consumes a line of input and passes it to the currently
-  executing command.  Commands usually fail on interrupt.  The server
-  terminates the session on EOF (but see C_EXECUTE for an exception).
+  executing command.
+
+  The server aborts the command on interrupt and EOF.  Any argument
+  prompts it may send before the next command prompt do not consume
+  input.  On EOF, the server then terminates the session (but see
+  C_EXECUTE for an exception).
 
   If an update runs while the server waits for the line of input to
   arrive, the current command is aborted.  Whether the server consumes
