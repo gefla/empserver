@@ -147,7 +147,7 @@ struct cmndstr player_coms[] = {
      1, lload, C_MOD, NORM + CAP},
     {"map <SECTS|SHIP> [s|l|n|p|*|h]", 0, map, C_MOD, VIS},
     {"march <UNITS> <PATH|DESTINATION>", 1, march, C_MOD, NORM + CAP},
-    {"market <COMM|\"all\">", 0, mark, 0, VIS},
+    {"market <COMM|\"all\">", 0, mark, C_MOD, NORM},
     {"mine <SHIPS>", 2, mine, C_MOD, NORM + MONEY + CAP},
     {"mission <TYPE> <PLANES|SHIPS|UNITS> <mission type> <op sect> [<radius>]",
      2, mission, C_MOD, NORM + CAP},
