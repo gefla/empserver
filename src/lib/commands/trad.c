@@ -397,7 +397,7 @@ check_trade(void)
 	put_empobj(trade.trd_type, saveid, &tg.gen);
 
 	nreport(seller, N_MAKE_SALE, trade.trd_maxbidder, 1);
-	wu(0, seller, "%s bought a %s #%d from you for $%.2f\n",
+	wu(0, seller, "%s bought %s #%d from you for $%.2f\n",
 	   cname(trade.trd_maxbidder), trade_nameof(&trade, &tg),
 	   saveid, price * tradetax);
 	wu(0, trade.trd_maxbidder,
