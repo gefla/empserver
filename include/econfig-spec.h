@@ -353,7 +353,7 @@ EMPCFBOTH("MARK_DELAY", MARK_DELAY, int, NSC_INT, 0,
 EMPCFBOTH("TRADE_DELAY", TRADE_DELAY, int, NSC_INT, 0,
     "Time ships, planes, lands and nukes stay on the market for bidding (seconds)")
 EMPCFBOTH("buytax", buytax, double, NSC_DOUBLE, 0,
-    "Tax (in percentage points) charged to the buyer on market purchases")
+    "Multiple of the bid charged to the buyer on market purchases")
 EMPCFBOTH("tradetax", tradetax, double, NSC_DOUBLE, 0,
     "Amount of a trade transaction the seller makes (the rest is tax)")
 
