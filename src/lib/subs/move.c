@@ -64,7 +64,6 @@ move_ground(struct sctstr *start, struct sctstr *end,
     int dir;
     char scanspace[1024];
     char *argp[128];
-    int ac;
     int intcost;
     int takedam = *dam;
     int out = 0;
@@ -172,11 +171,12 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	    continue;
 	}
 	if (dir == DIR_MAP) {
-	    ac = parse(movstr, scanspace, argp, NULL, NULL, NULL);
-	    if (ac == 1) {
+	    parse(movstr, scanspace, argp, NULL, NULL, NULL);
+	    if (argp[0][1]) {
 		pr("Use of '%c' without a space before its argument is deprecated.\n"
 		   "Support for it will go away in a future release\n",
 		   *movstr);
+		argp[2] = argp[1];
 		argp[1] = argp[0] + 1;
 	    }
 	    if (!exploring)
