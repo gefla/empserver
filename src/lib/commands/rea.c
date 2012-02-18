@@ -59,7 +59,7 @@ rea(void)
     char mbox_buf[256];		/* Maximum path length */
     struct telstr tgm;
     FILE *telfp;
-    int teles;
+    int teles, need_hdr;
     char buf[1024];
     char *kind;
     int n, res;
@@ -99,6 +99,7 @@ rea(void)
 	return RET_FAIL;
     }
     teles = 0;
+    need_hdr = 1;
     for (;;) {
 	res = tel_read_header(telfp, mbox, &tgm);
     more:
@@ -115,7 +116,7 @@ rea(void)
 	}
 	if (!teles && *kind == 'a')
 	    pr("\nAnnouncements since %s", ctime(&then));
-	if (!teles || !tgm.tel_cont) {
+	if (need_hdr || !tgm.tel_cont) {
 	    pr("\n> ");
 	    pr("%s ", telnames[tgm.tel_type]);
 	    if ((tgm.tel_type == TEL_NORM) ||
@@ -125,6 +126,7 @@ rea(void)
 	    pr("  dated %s", ctime(&tgm.tel_date));
 	}
 	teles++;
+	need_hdr = 0;
 	res = tel_read_body(telfp, mbox, &tgm, print_sink, NULL);
 	if (res < 0)
 	    break;
@@ -169,6 +171,7 @@ rea(void)
 		res = tel_read_header(telfp, mbox, &tgm);
 		if (res != 0) {
 		    pr("Wait a sec!  A new %s has arrived...\n", kind);
+		    need_hdr = 1;
 		    goto more;
 		}
 		/* Here, we just re-open the file for "w" only,
