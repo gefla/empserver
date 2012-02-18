@@ -70,7 +70,7 @@ player_set_nstat(struct player *pl, struct natstr *np)
 {
     static int nstat[] = {
 	/* must match nat_status */
-	0, VIS, VIS, SANCT, NORM, GOD | CAP | MONEY
+	0, 0, 0, SANCT, NORM, GOD | CAP | MONEY
     };
 
     if (CANT_HAPPEN(pl->cnum != np->nat_cnum))

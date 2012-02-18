@@ -42,10 +42,9 @@
 #include "types.h"
 
 	/* nstat values */
-#define VIS		bit(0)
-#define SANCT		(bit(1) | VIS)
-#define NORM		(bit(2) | VIS)
-#define GOD		(bit(3) | NORM | VIS)
+#define SANCT		bit(1)
+#define NORM		bit(2)
+#define GOD		(bit(3) | NORM)
 #define EXEC		bit(5)
 #define CAP		bit(6)
 #define MONEY		bit(7)
