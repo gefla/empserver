@@ -41,13 +41,13 @@
 #include "queue.h"
 #include "types.h"
 
-	/* nstat values */
-#define SANCT		bit(1)
-#define NORM		bit(2)
-#define GOD		(bit(3) | NORM)
-#define EXEC		bit(5)
-#define CAP		bit(6)
-#define MONEY		bit(7)
+	/* player command capabilities */
+#define SANCT	bit(1)	/* can execute commands available in sanctuary */
+#define NORM	bit(2)	/* can execute active player commands */
+#define GOD	bit(3)	/* can execute deity commands */
+#define EXEC	bit(5)	/* can execute the execute command */
+#define CAP	bit(6)	/* has capital */
+#define MONEY	bit(7)	/* isn't broke */
 
 enum player_sleep {
     PLAYER_SLEEP_NEVER, PLAYER_SLEEP_ON_INPUT, PLAYER_SLEEP_FREELY
