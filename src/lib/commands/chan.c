@@ -49,10 +49,6 @@ chan(void)
     if (!p)
 	return RET_SYN;
     us = getnatp(player->cnum);
-    if (us->nat_stat == STAT_VIS) {
-	pr("Visitor countries can't change their country name or representative.\n");
-	return RET_FAIL;
-    }
     switch (*p) {
     case 'n':
     case 'c':

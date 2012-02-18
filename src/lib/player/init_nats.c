@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 2000
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2012
  */
 
 #include <config.h>
@@ -70,7 +70,8 @@ player_set_nstat(struct player *pl, struct natstr *np)
 {
     static int nstat[] = {
 	/* must match nat_status */
-	0, 0, 0, SANCT, NORM, GOD | NORM | CAP | MONEY
+	0, NONVIS, 0, SANCT | NONVIS, NORM | NONVIS,
+	GOD | NORM | NONVIS | CAP | MONEY
     };
 
     if (CANT_HAPPEN(pl->cnum != np->nat_cnum))

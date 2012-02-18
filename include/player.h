@@ -42,6 +42,7 @@
 #include "types.h"
 
 	/* player command capabilities */
+#define NONVIS	bit(0)	/* can execute common commands (visitors can't) */
 #define SANCT	bit(1)	/* can execute commands available in sanctuary */
 #define NORM	bit(2)	/* can execute active player commands */
 #define GOD	bit(3)	/* can execute deity commands */
