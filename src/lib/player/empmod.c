@@ -35,6 +35,12 @@
  *     Markus Armbruster, 2004-2012
  */
 
+/*
+ * Fun fact: named empmod for historical reasons --- Empire used to be
+ * broken into seven modules on the venerable PDP-11 so it could fit
+ * in 64k I/D space.
+ */
+
 #include <config.h>
 
 #include "com.h"
