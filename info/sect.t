@@ -7,9 +7,7 @@ of your country, similar to map.
 Only sectors owned by you show up, however.
 The rest of the world is simply blank.
 .s1
-If your terminal is of the proper type,
-any sectors selected by the \*Q?cond\*U operator
-will show up in reverse video.
+Any sectors selected by the \*Q?cond\*U operator will be highlighted.
 .s1
 Examples:
 .EX sect -9:18,-8:5
