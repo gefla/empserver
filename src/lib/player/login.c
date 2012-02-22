@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  *     Ron Koenderink, 2005-2009
  */
 
@@ -357,7 +357,7 @@ play_cmd(void)
     player->state = PS_PLAYING;
     player_main(player);
     logerror("%s logged out, country #%d", praddr(player), player->cnum);
-    if (CANT_HAPPEN(!io_eof(player->iop)))
+    if (!io_eof(player->iop) && !io_error(player->iop))
 	io_set_eof(player->iop);
     return RET_OK;
 }
