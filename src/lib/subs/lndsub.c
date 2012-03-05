@@ -169,7 +169,6 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
     char buf[1024];
     int taken;
     int nowhere_to_go = 0;
-    struct sctstr rsect;
     double mobcost, bmcost;
     signed char orig;
     int mob;
@@ -237,7 +236,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 		    continue;
 		if (sect.sct_type == SCT_MOUNT)
 		    continue;
-		mobcost = lnd_mobcost(&llp->unit.land, &rsect);
+		mobcost = lnd_mobcost(&llp->unit.land, &sect);
 		if (mobcost < 0)
 		    continue;
 		++nowned;
@@ -256,7 +255,6 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 		llp->unit.land.lnd_x = bx;
 		llp->unit.land.lnd_y = by;
 		/* FIXME landmines */
-		getsect(bx, by, &rsect);
 		mob = llp->unit.land.lnd_mobil - (int)bmcost;
 		if (mob < -127)
 		    mob = -127;
