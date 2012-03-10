@@ -128,9 +128,8 @@ io_close(struct iop *iop)
 
 /*
  * Return number of bytes read on success, zero on timeout, early
- * wakeup or EOF, -1 on error, with errno set appropriately.  In
- * particular, return -1 with errno set to EAGAIN or EWOULDBLOCK when
- * no data is available for non-blocking input (WAITFORINPUT false).
+ * wakeup or EOF, -1 on error.  In particular, return 0 when no data
+ * is available for non-blocking input (WAITFORINPUT false).
  * Use io_eof() to distinguish timeout and early wakeup from EOF.
  */
 int
@@ -140,14 +139,10 @@ io_input(struct iop *iop, int waitforinput)
     int cc;
     int res;
 
-    if ((iop->flags & IO_READ) == 0) {
-	errno = EBADF;
+    if ((iop->flags & IO_READ) == 0)
 	return -1;
-    }
-    if (iop->flags & IO_ERROR) {
-	errno = EBADF;
+    if (iop->flags & IO_ERROR)
 	return -1;
-    }
     if (iop->flags & IO_EOF)
 	return 0;
 
@@ -164,9 +159,9 @@ io_input(struct iop *iop, int waitforinput)
     /* Do the actual read. */
     cc = read(iop->fd, buf, sizeof(buf));
     if (cc < 0) {
-	if (errno != EAGAIN && errno != EWOULDBLOCK)
-	    /* Some form of file error occurred... */
-	    iop->flags |= IO_ERROR;
+	if (errno == EAGAIN || errno == EWOULDBLOCK)
+	    return 0;
+	iop->flags |= IO_ERROR;
 	return -1;
     }
 
