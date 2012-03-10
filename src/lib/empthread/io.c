@@ -124,6 +124,24 @@ io_close(struct iop *iop, struct timeval *timeout)
     free(iop);
 }
 
+void
+io_timeout(struct timeval *timeout, time_t deadline)
+{
+    struct timeval now;
+
+    gettimeofday(&now, NULL);
+    if (now.tv_sec >= deadline) {
+	/* deadline reached already */
+	timeout->tv_sec = 0;
+	timeout->tv_usec = 0;
+    } else {
+	/* deadline in future */
+	timeout->tv_sec = deadline - now.tv_sec - 1;
+	timeout->tv_usec = 999999 - now.tv_usec;
+	/* yes, this is 1usec early; sue me */
+    }
+}
+
 /*
  * Read input from IOP and enqueue it.
  * If TIMEOUT is non-null, wait at most that long for input to arrive.

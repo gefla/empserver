@@ -100,8 +100,7 @@ player_delete(struct player *lp)
 
     if (lp->iop) {
 	/* it's a real player */
-	timeout.tv_sec = minutes(max_idle);
-	timeout.tv_usec = 0;
+	io_timeout(&timeout, player->curup + minutes(max_idle));
 	io_close(lp->iop, &timeout);
 	lp->iop = NULL;
     }

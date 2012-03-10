@@ -90,8 +90,7 @@ player_login(void *ud)
     for (;;) {
 	io_output(player->iop, 1);
 	if (io_gets(player->iop, buf, sizeof(buf)) < 0) {
-	    timeout.tv_sec = minutes(max_idle);
-	    timeout.tv_usec = 0;
+	    io_timeout(&timeout, player->curup + minutes(max_idle));
 	    res = io_input(player->iop, &timeout);
 	    if (res <= 0) {
 		if (res == 0 && !io_eof(player->iop))

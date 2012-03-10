@@ -92,8 +92,7 @@ recvclient(char *cmd, int size)
 	if (player->aborted)
 	    break;
 
-	timeout.tv_sec = minutes(max_idle);
-	timeout.tv_usec = 0;
+	io_timeout(&timeout, player->curup + minutes(max_idle));
 	res = io_input(player->iop, &timeout);
 	if (res > 0)
 	    ;

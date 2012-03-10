@@ -44,6 +44,7 @@
 extern struct iop *io_open(int, int, int);
 extern void io_init(void);
 extern void io_close(struct iop *, struct timeval *);
+extern void io_timeout(struct timeval *, time_t);
 extern int io_input(struct iop *, struct timeval *);
 extern int io_inputwaiting(struct iop *);
 extern int io_outputwaiting(struct iop *);
