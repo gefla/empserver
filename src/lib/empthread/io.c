@@ -63,7 +63,6 @@ struct iop {
     int flags;
     int bufsize;
     int last_out;
-    struct timeval input_timeout;
 };
 
 void
@@ -72,7 +71,7 @@ io_init(void)
 }
 
 struct iop *
-io_open(int fd, int flags, int bufsize, struct timeval timeout)
+io_open(int fd, int flags, int bufsize)
 {
     int fdfl;
     struct iop *iop;
@@ -97,7 +96,6 @@ io_open(int fd, int flags, int bufsize, struct timeval timeout)
     iop->flags = flags;
     iop->last_out = 0;
     iop->bufsize = bufsize;
-    iop->input_timeout = timeout;
     if (flags & IO_READ)
 	iop->input = ioq_create(bufsize);
     if (flags & IO_WRITE)
@@ -106,14 +104,14 @@ io_open(int fd, int flags, int bufsize, struct timeval timeout)
 }
 
 void
-io_close(struct iop *iop)
+io_close(struct iop *iop, struct timeval *timeout)
 {
     char buf[IO_BUFSIZE];
     int ret;
 
     while (io_output(iop, 1) > 0) ;
     shutdown(iop->fd, SHUT_WR);
-    while (empth_select(iop->fd, EMPTH_FD_READ, &iop->input_timeout) > 0) {
+    while (empth_select(iop->fd, EMPTH_FD_READ, timeout) > 0) {
 	ret = read(iop->fd, buf, sizeof(buf));
 	if (ret <= 0)
 	    break;
@@ -127,13 +125,16 @@ io_close(struct iop *iop)
 }
 
 /*
- * Return number of bytes read on success, zero on timeout, early
- * wakeup or EOF, -1 on error.  In particular, return 0 when no data
- * is available for non-blocking input (WAITFORINPUT false).
- * Use io_eof() to distinguish timeout and early wakeup from EOF.
+ * Read input from IOP and enqueue it.
+ * If TIMEOUT is non-null, wait at most that long for input to arrive.
+ * Does not yield the processor when timeout is zero.
+ * A wait for input can be cut short by empth_wakeup().
+ * Return number of bytes read on success, -1 on error.
+ * In particular, return zero on timeout, early wakeup or EOF.  Use
+ * io_eof() to distinguish timeout and early wakeup from EOF.
  */
 int
-io_input(struct iop *iop, int waitforinput)
+io_input(struct iop *iop, struct timeval *timeout)
 {
     char buf[IO_BUFSIZE];
     int cc;
@@ -146,9 +147,8 @@ io_input(struct iop *iop, int waitforinput)
     if (iop->flags & IO_EOF)
 	return 0;
 
-    /* Wait for the file to have input. */
-    if (waitforinput) {
-	res = empth_select(iop->fd, EMPTH_FD_READ, &iop->input_timeout);
+    if (!timeout || timeout->tv_sec || timeout->tv_usec) {
+	res = empth_select(iop->fd, EMPTH_FD_READ, timeout);
 	if (res < 0) {
 	    iop->flags |= IO_ERROR;
 	    return -1;
@@ -156,7 +156,6 @@ io_input(struct iop *iop, int waitforinput)
 	    return 0;
     }
 
-    /* Do the actual read. */
     cc = read(iop->fd, buf, sizeof(buf));
     if (cc < 0) {
 	if (errno == EAGAIN || errno == EWOULDBLOCK)
@@ -164,14 +163,11 @@ io_input(struct iop *iop, int waitforinput)
 	iop->flags |= IO_ERROR;
 	return -1;
     }
-
-    /* We eof'd */
     if (cc == 0) {
 	iop->flags |= IO_EOF;
 	return 0;
     }
 
-    /* Append the input to the IOQ. */
     ioq_append(iop->input, buf, cc);
     return cc;
 }

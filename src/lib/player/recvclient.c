@@ -36,6 +36,7 @@
 
 #include "empio.h"
 #include "journal.h"
+#include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
 
@@ -60,6 +61,7 @@ int
 recvclient(char *cmd, int size)
 {
     int count, res;
+    struct timeval timeout;
 
     count = -1;
     while (!player->aborted) {
@@ -90,7 +92,9 @@ recvclient(char *cmd, int size)
 	if (player->aborted)
 	    break;
 
-	res = io_input(player->iop, 1);
+	timeout.tv_sec = minutes(max_idle);
+	timeout.tv_usec = 0;
+	res = io_input(player->iop, &timeout);
 	if (res > 0)
 	    ;
 	else if (res < 0)

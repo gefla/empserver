@@ -27,7 +27,7 @@
  *  empio.h: Describes io pointers used in Empire
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2012
  */
 
 #ifndef EMPIO_H
@@ -41,10 +41,10 @@
 
 #define IO_BUFSIZE	4096
 
-extern struct iop *io_open(int, int, int, struct timeval);
+extern struct iop *io_open(int, int, int);
 extern void io_init(void);
-extern void io_close(struct iop *);
-extern int io_input(struct iop *, int);
+extern void io_close(struct iop *, struct timeval *);
+extern int io_input(struct iop *, struct timeval *);
 extern int io_inputwaiting(struct iop *);
 extern int io_outputwaiting(struct iop *);
 extern int io_output(struct iop *, int);
