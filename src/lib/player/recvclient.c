@@ -87,13 +87,14 @@ recvclient(char *cmd, int size)
 	    ;
 
 	/*
-	 * If io_output() blocked and got unblocked by command
-	 * abortion, we must return without blocking in io_input().
+	 * Try to receive some input.  Need to check player->may_sleep
+	 * again; command abortion during io_output() might have
+	 * changed it.
 	 */
-	if (player->aborted)
-	    break;
-
-	res = io_input(player->iop, player->curup + minutes(max_idle));
+	deadline = player->curup + minutes(max_idle);
+	if (player->may_sleep < PLAYER_SLEEP_ON_INPUT)
+	    deadline = 0;
+	res = io_input(player->iop, deadline);
 	if (res > 0)
 	    ;
 	else if (res < 0)
