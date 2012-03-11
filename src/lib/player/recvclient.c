@@ -81,8 +81,9 @@ recvclient(char *cmd, int size)
 	 * Flush all queued output before potentially sleeping in
 	 * io_input(), to make sure player sees the prompt.
 	 */
-	deadline = (time_t)(player->may_sleep >= PLAYER_SLEEP_ON_INPUT
-			    ? -1 : 0);
+	deadline = player->curup + minutes(max_idle);
+	if (player->may_sleep < PLAYER_SLEEP_ON_INPUT)
+	    deadline = 0;
 	while (io_output(player->iop, deadline) > 0)
 	    ;
 
