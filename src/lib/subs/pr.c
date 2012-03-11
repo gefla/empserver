@@ -58,6 +58,7 @@
 #include "journal.h"
 #include "misc.h"
 #include "nat.h"
+#include "optlist.h"
 #include "player.h"
 #include "proto.h"
 #include "prototypes.h"
@@ -333,7 +334,9 @@ player_output_some(void)
 {
     time_t deadline;
 
-    deadline = (time_t)(player->may_sleep == PLAYER_SLEEP_FREELY ? -1 : 0);
+    deadline = player->curup + minutes(max_idle);
+    if (player->may_sleep != PLAYER_SLEEP_FREELY)
+	deadline = 0;
     while (io_output_if_queue_long(player->iop, deadline) > 0)
 	;
 }
