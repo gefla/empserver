@@ -105,6 +105,16 @@ io_open(int fd, int flags, int bufsize)
     return iop;
 }
 
+/*
+ * Close IOP.
+ * Flush output and wait for the client to close the connection.
+ * Wait at most until DEADLINE.  (time_t)-1 means wait as long as it
+ * takes (no timeout).
+ * Both the flush and the wait can be separately cut short by
+ * empth_wakeup().  This is almost certainly not what you want.  If
+ * you need early wakeup, better fix this function not to go to sleep
+ * after wakeup during flush.
+ */
 void
 io_close(struct iop *iop, time_t deadline)
 {
@@ -112,7 +122,7 @@ io_close(struct iop *iop, time_t deadline)
     char buf[IO_BUFSIZE];
     int ret;
 
-    while (io_output(iop, (time_t)-1) > 0) ;
+    while (io_output(iop, deadline) > 0) ;
     shutdown(iop->fd, SHUT_WR);
     while (empth_select(iop->fd, EMPTH_FD_READ,
 			io_timeout(&timeout, deadline)) > 0) {
