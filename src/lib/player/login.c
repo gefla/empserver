@@ -76,6 +76,7 @@ static struct cmndstr login_coms[] = {
 void
 player_login(void *ud)
 {
+    time_t deadline;
     char buf[128];
     char space[128];
     int ac;
@@ -87,13 +88,14 @@ player_login(void *ud)
     pr_id(player, C_INIT, "Empire server ready\n");
 
     for (;;) {
+	deadline = player->curup + minutes(max_idle);
 	if (io_outputwaiting(player->iop)) {
-	    if (io_output(player->iop, (time_t)-1) <= 0)
+	    if (io_output(player->iop, deadline) <= 0)
 		break;
 	    continue;
 	}
 	if (io_gets(player->iop, buf, sizeof(buf)) < 0) {
-	    res = io_input(player->iop, player->curup + minutes(max_idle));
+	    res = io_input(player->iop, deadline);
 	    if (res <= 0) {
 		if (res == 0 && !io_eof(player->iop))
 		    pr_id(player, C_DATA, "idle connection terminated\n");
