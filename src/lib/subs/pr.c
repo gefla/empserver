@@ -68,6 +68,7 @@
 static void pr_player(struct player *pl, int id, char *buf);
 static void upr_player(struct player *pl, int id, char *buf);
 static void outid(struct player *pl, int n);
+static void player_output_some(void);
 
 /*
  * Print to current player similar to printf().
@@ -223,7 +224,6 @@ pr_player(struct player *pl, int id, char *buf)
     char *p;
     char *bp;
     int len;
-    time_t deadline;
 
     journal_output(pl, id, buf);
 
@@ -247,12 +247,8 @@ pr_player(struct player *pl, int id, char *buf)
 	}
     }
 
-    if (player == pl) {
-	deadline = (time_t)(pl->may_sleep == PLAYER_SLEEP_FREELY
-			    ? -1 : 0);
-	while (io_output_if_queue_long(pl->iop, deadline) > 0)
-	    ;
-    }
+    if (player == pl)
+	player_output_some();
 }
 
 /*
@@ -268,7 +264,6 @@ upr_player(struct player *pl, int id, char *buf)
     int standout = 0;
     char printbuf[2];
     char ch;
-    time_t deadline;
 
     journal_output(pl, id, buf);
 
@@ -307,12 +302,8 @@ upr_player(struct player *pl, int id, char *buf)
 	}
     }
 
-    if (player == pl) {
-	deadline = (time_t)(pl->may_sleep == PLAYER_SLEEP_FREELY
-			    ? -1 : 0);
-	while (io_output_if_queue_long(pl->iop, deadline) > 0)
-	    ;
-    }
+    if (player == pl)
+	player_output_some();
 }
 
 /*
@@ -335,6 +326,16 @@ outid(struct player *pl, int n)
     buf[2] = '\0';
     io_puts(pl->iop, buf);
     pl->curid = n;
+}
+
+static void
+player_output_some(void)
+{
+    time_t deadline;
+
+    deadline = (time_t)(player->may_sleep == PLAYER_SLEEP_FREELY ? -1 : 0);
+    while (io_output_if_queue_long(player->iop, deadline) > 0)
+	;
 }
 
 /*
