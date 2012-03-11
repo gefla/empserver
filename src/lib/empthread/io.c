@@ -65,6 +65,8 @@ struct iop {
     int last_out;
 };
 
+static struct timeval *io_timeout(struct timeval *, time_t);
+
 void
 io_init(void)
 {
@@ -104,14 +106,16 @@ io_open(int fd, int flags, int bufsize)
 }
 
 void
-io_close(struct iop *iop, struct timeval *timeout)
+io_close(struct iop *iop, time_t deadline)
 {
+    struct timeval timeout;
     char buf[IO_BUFSIZE];
     int ret;
 
     while (io_output(iop, 1) > 0) ;
     shutdown(iop->fd, SHUT_WR);
-    while (empth_select(iop->fd, EMPTH_FD_READ, timeout) > 0) {
+    while (empth_select(iop->fd, EMPTH_FD_READ,
+			io_timeout(&timeout, deadline)) > 0) {
 	ret = read(iop->fd, buf, sizeof(buf));
 	if (ret <= 0)
 	    break;
@@ -124,10 +128,13 @@ io_close(struct iop *iop, struct timeval *timeout)
     free(iop);
 }
 
-void
+static struct timeval *
 io_timeout(struct timeval *timeout, time_t deadline)
 {
     struct timeval now;
+
+    if (deadline == (time_t)-1)
+	return NULL;		/* no deadline */
 
     gettimeofday(&now, NULL);
     if (now.tv_sec >= deadline) {
@@ -140,20 +147,24 @@ io_timeout(struct timeval *timeout, time_t deadline)
 	timeout->tv_usec = 999999 - now.tv_usec;
 	/* yes, this is 1usec early; sue me */
     }
+
+    return timeout;
 }
 
 /*
  * Read input from IOP and enqueue it.
- * If TIMEOUT is non-null, wait at most that long for input to arrive.
- * Does not yield the processor when timeout is zero.
+ * Wait at most until DEADLINE for input to arrive.  (time_t)-1 means
+ * wait as long as it takes (no timeout).
+ * Does not yield the processor when DEADLINE is zero.
  * A wait for input can be cut short by empth_wakeup().
  * Return number of bytes read on success, -1 on error.
  * In particular, return zero on timeout, early wakeup or EOF.  Use
  * io_eof() to distinguish timeout and early wakeup from EOF.
  */
 int
-io_input(struct iop *iop, struct timeval *timeout)
+io_input(struct iop *iop, time_t deadline)
 {
+    struct timeval timeout;
     char buf[IO_BUFSIZE];
     int cc;
     int res;
@@ -165,8 +176,9 @@ io_input(struct iop *iop, struct timeval *timeout)
     if (iop->flags & IO_EOF)
 	return 0;
 
-    if (!timeout || timeout->tv_sec || timeout->tv_usec) {
-	res = empth_select(iop->fd, EMPTH_FD_READ, timeout);
+    if (deadline) {
+	res = empth_select(iop->fd, EMPTH_FD_READ,
+			   io_timeout(&timeout, deadline));
 	if (res < 0) {
 	    iop->flags |= IO_ERROR;
 	    return -1;

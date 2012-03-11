@@ -32,7 +32,7 @@
 
 #ifndef EMPIO_H
 #define EMPIO_H
-#include <sys/time.h>
+#include <time.h>
 
 #define IO_READ		0x1
 #define IO_WRITE	0x2
@@ -43,9 +43,8 @@
 
 extern struct iop *io_open(int, int, int);
 extern void io_init(void);
-extern void io_close(struct iop *, struct timeval *);
-extern void io_timeout(struct timeval *, time_t);
-extern int io_input(struct iop *, struct timeval *);
+extern void io_close(struct iop *, time_t);
+extern int io_input(struct iop *, time_t);
 extern int io_inputwaiting(struct iop *);
 extern int io_outputwaiting(struct iop *);
 extern int io_output(struct iop *, int);

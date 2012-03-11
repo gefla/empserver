@@ -76,7 +76,6 @@ static struct cmndstr login_coms[] = {
 void
 player_login(void *ud)
 {
-    struct timeval timeout;
     char buf[128];
     char space[128];
     int ac;
@@ -90,8 +89,7 @@ player_login(void *ud)
     for (;;) {
 	io_output(player->iop, 1);
 	if (io_gets(player->iop, buf, sizeof(buf)) < 0) {
-	    io_timeout(&timeout, player->curup + minutes(max_idle));
-	    res = io_input(player->iop, &timeout);
+	    res = io_input(player->iop, player->curup + minutes(max_idle));
 	    if (res <= 0) {
 		if (res == 0 && !io_eof(player->iop))
 		    pr_id(player, C_DATA, "idle connection terminated\n");

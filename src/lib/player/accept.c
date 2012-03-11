@@ -95,13 +95,11 @@ player_new(int s)
 struct player *
 player_delete(struct player *lp)
 {
-    struct timeval timeout;
     struct player *back;
 
     if (lp->iop) {
 	/* it's a real player */
-	io_timeout(&timeout, player->curup + minutes(max_idle));
-	io_close(lp->iop, &timeout);
+	io_close(lp->iop, player->curup + minutes(max_idle));
 	lp->iop = NULL;
     }
     back = (struct player *)lp->queue.q_back;

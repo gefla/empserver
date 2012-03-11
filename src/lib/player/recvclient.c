@@ -61,7 +61,6 @@ int
 recvclient(char *cmd, int size)
 {
     int count, res;
-    struct timeval timeout;
 
     count = -1;
     while (!player->aborted) {
@@ -92,8 +91,7 @@ recvclient(char *cmd, int size)
 	if (player->aborted)
 	    break;
 
-	io_timeout(&timeout, player->curup + minutes(max_idle));
-	res = io_input(player->iop, &timeout);
+	res = io_input(player->iop, player->curup + minutes(max_idle));
 	if (res > 0)
 	    ;
 	else if (res < 0)
