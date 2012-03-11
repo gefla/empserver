@@ -87,7 +87,11 @@ player_login(void *ud)
     pr_id(player, C_INIT, "Empire server ready\n");
 
     for (;;) {
-	io_output(player->iop, (time_t)-1);
+	if (io_outputwaiting(player->iop)) {
+	    if (io_output(player->iop, (time_t)-1) <= 0)
+		break;
+	    continue;
+	}
 	if (io_gets(player->iop, buf, sizeof(buf)) < 0) {
 	    res = io_input(player->iop, player->curup + minutes(max_idle));
 	    if (res <= 0) {
