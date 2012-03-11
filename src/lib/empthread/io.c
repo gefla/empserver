@@ -112,7 +112,7 @@ io_close(struct iop *iop, time_t deadline)
     char buf[IO_BUFSIZE];
     int ret;
 
-    while (io_output(iop, 1) > 0) ;
+    while (io_output(iop, (time_t)-1) > 0) ;
     shutdown(iop->fd, SHUT_WR);
     while (empth_select(iop->fd, EMPTH_FD_READ,
 			io_timeout(&timeout, deadline)) > 0) {
@@ -216,19 +216,24 @@ io_outputwaiting(struct iop *iop)
 
 /*
  * Write output queued in IOP.
- * If WAIT, writing may put the thread to sleep.
+ * Wait at most until DEADLINE for input to arrive.  (time_t)-1 means
+ * wait as long as it takes (no timeout).
+ * Does not yield the processor when DEADLINE is zero.
+ * A wait for output can be cut short by empth_wakeup().
  * Return number of bytes written on success, -1 on error.
  * In particular, return zero when nothing was written because the
- * queue was empty, or because the write slept and got woken up (only
- * if WAIT), or because the write refused to sleep (only if !WAIT).
+ * queue is empty, and on timeout or early wakeup.  Use
+ * io_outputwaiting() to distinguish timeout and early wakeup from
+ * empty queue.
  */
 int
-io_output(struct iop *iop, int wait)
+io_output(struct iop *iop, time_t deadline)
 {
+    struct timeval timeout;
     struct iovec iov[16];
     int n, res, cc;
 
-    if (wait)
+    if (deadline)
 	ef_make_stale();
 
     if ((iop->flags & IO_WRITE) == 0)
@@ -240,8 +245,9 @@ io_output(struct iop *iop, int wait)
     if (!ioq_qsize(iop->output))
 	return 0;
 
-    if (wait) {
-	res = empth_select(iop->fd, EMPTH_FD_WRITE, NULL);
+    if (deadline) {
+	res = empth_select(iop->fd, EMPTH_FD_WRITE,
+			   io_timeout(&timeout, deadline));
 	if (res == 0)
 	    return 0;
 	if (res < 0) {
@@ -267,25 +273,27 @@ io_output(struct iop *iop, int wait)
 /*
  * Write output queued in IOP if enough have been enqueued.
  * Write if at least one buffer has been filled since the last write.
- * If WAIT, writing may put the thread to sleep.
+ * Wait at most until DEADLINE for output to be accepted.  (time_t)-1
+ * means wait as long as it takes (no timeout).
+ * Does not yield the processor when DEADLINE is zero.
+ * A wait for output can be cut short by empth_wakeup().
  * Return number of bytes written on success, -1 on error.
  * In particular, return zero when nothing was written because the
- * queue was not long, or the write slept and got woken up (only if
- * WAIT), or the write refused to sleep (only if !WAIT).
+ * queue isn't long, and on timeout or early wakeup.
  */
 int
-io_output_if_queue_long(struct iop *iop, int wait)
+io_output_if_queue_long(struct iop *iop, time_t deadline)
 {
     int len = ioq_qsize(iop->output);
 
     if (CANT_HAPPEN(iop->last_out > len))
 	iop->last_out = 0;
     if (len - iop->last_out < iop->bufsize) {
-	if (wait)
+	if (deadline)
 	    ef_make_stale();
 	return 0;
     }
-    return io_output(iop, wait);
+    return io_output(iop, deadline);
 }
 
 int

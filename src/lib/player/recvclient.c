@@ -61,6 +61,7 @@ int
 recvclient(char *cmd, int size)
 {
     int count, res;
+    time_t deadline;
 
     count = -1;
     while (!player->aborted) {
@@ -80,8 +81,9 @@ recvclient(char *cmd, int size)
 	 * Flush all queued output before potentially sleeping in
 	 * io_input(), to make sure player sees the prompt.
 	 */
-	while (io_output(player->iop,
-			 player->may_sleep >= PLAYER_SLEEP_ON_INPUT) > 0)
+	deadline = (time_t)(player->may_sleep >= PLAYER_SLEEP_ON_INPUT
+			    ? -1 : 0);
+	while (io_output(player->iop, deadline) > 0)
 	    ;
 
 	/*

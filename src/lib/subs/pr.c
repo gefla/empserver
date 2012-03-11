@@ -30,7 +30,7 @@
  *     Dave Pare, 1986, 1989
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2012
  */
 
 /*
@@ -223,6 +223,7 @@ pr_player(struct player *pl, int id, char *buf)
     char *p;
     char *bp;
     int len;
+    time_t deadline;
 
     journal_output(pl, id, buf);
 
@@ -247,8 +248,9 @@ pr_player(struct player *pl, int id, char *buf)
     }
 
     if (player == pl) {
-	while (io_output_if_queue_long(pl->iop,
-			pl->may_sleep == PLAYER_SLEEP_FREELY) > 0)
+	deadline = (time_t)(pl->may_sleep == PLAYER_SLEEP_FREELY
+			    ? -1 : 0);
+	while (io_output_if_queue_long(pl->iop, deadline) > 0)
 	    ;
     }
 }
@@ -266,6 +268,7 @@ upr_player(struct player *pl, int id, char *buf)
     int standout = 0;
     char printbuf[2];
     char ch;
+    time_t deadline;
 
     journal_output(pl, id, buf);
 
@@ -305,8 +308,9 @@ upr_player(struct player *pl, int id, char *buf)
     }
 
     if (player == pl) {
-	while (io_output_if_queue_long(pl->iop,
-			pl->may_sleep == PLAYER_SLEEP_FREELY) > 0)
+	deadline = (time_t)(pl->may_sleep == PLAYER_SLEEP_FREELY
+			    ? -1 : 0);
+	while (io_output_if_queue_long(pl->iop, deadline) > 0)
 	    ;
     }
 }
