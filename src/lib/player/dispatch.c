@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 1998
- *     Markus Armbruster, 2007-2011
+ *     Markus Armbruster, 2007-2012
  */
 
 #include <config.h>
@@ -112,6 +112,8 @@ dispatch(char *buf, char *redir)
     }
     empth_rwlock_unlock(play_lock);
     player->command = NULL;
-    player->may_sleep = PLAYER_SLEEP_FREELY;
+    if (player->may_sleep != PLAYER_SLEEP_NEVER || !io_eof(player->iop))
+	player->may_sleep = PLAYER_SLEEP_FREELY;
+    /* else we're being kicked out */
     return 0;
 }
