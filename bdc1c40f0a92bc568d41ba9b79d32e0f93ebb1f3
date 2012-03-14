@@ -28,3 +28,5 @@ Commands build ship, build plane, build land, build nuke, change,
 collect, consider accept, convert, demobilize, harden, repay, shark,
 upgrade, and work, are believed not to prompt after messing with
 dolcost.
+
+Already broken in BSD Empire 1.1.
