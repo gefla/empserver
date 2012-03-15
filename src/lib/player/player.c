@@ -254,12 +254,12 @@ execute(void)
 	    continue;
 	}
 	pr("\nExecute : ");
-	uprnf(buf);
+	uprnf(player->combuf);
 	pr("\n");
 	if (redir) {
 	    pr("Execute : redirection not supported\n");
 	    failed = 1;
-	} else if (dispatch(buf, NULL) < 0)
+	} else if (dispatch(player->combuf, NULL) < 0)
 	    failed = 1;
 	empth_yield();
     }
