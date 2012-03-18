@@ -99,7 +99,7 @@ player_delete(struct player *lp)
 
     if (lp->iop) {
 	/* it's a real player */
-	io_close(lp->iop, player->curup + minutes(max_idle));
+	io_close(lp->iop, player->curup + login_grace_time);
 	lp->iop = NULL;
     }
     back = (struct player *)lp->queue.q_back;
@@ -150,6 +150,16 @@ getplayer(natid cnum)
     }
 
     return NULL;
+}
+
+time_t
+player_io_deadline(struct player *pl, int write)
+{
+    if (pl->may_sleep < (write ? PLAYER_SLEEP_FREELY : PLAYER_SLEEP_ON_INPUT))
+	return 0;
+    if (pl->state != PS_PLAYING)
+	return pl->curup + login_grace_time;
+    return pl->curup + minutes(max_idle);
 }
 
 /*ARGSUSED*/

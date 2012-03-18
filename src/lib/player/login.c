@@ -88,7 +88,7 @@ player_login(void *ud)
     pr_id(player, C_INIT, "Empire server ready\n");
 
     for (;;) {
-	deadline = player->curup + minutes(max_idle);
+	deadline = player_io_deadline(player, 0);
 	if (io_outputwaiting(player->iop)) {
 	    if (io_output(player->iop, deadline) <= 0)
 		break;

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Marc Olzheim, 2004
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 /*
@@ -200,6 +200,8 @@ EMPCFBOTH("max_btus", max_btus, int, NSC_INT, 0,
     "Maximum number of BTUs a country can have")
 EMPCFBOTH("max_idle", max_idle, int, NSC_INT, 0,
     "Maximum number of minutes a player can sit idle while logged in")
+EMPCFBOTH("login_grace_time", login_grace_time, int, NSC_INT, 0,
+    "Grace time for clients to complete login and logout (seconds)")
 EMPCFBOTH("players_at_00", players_at_00, int, NSC_INT, 0,
     "Players have their coordinate system at deity 0,0 (0 - no, 1 - yes)")
 EMPCFBOTH("at_least_one_100", at_least_one_100, int, NSC_INT, KM_INTERNAL,

@@ -36,7 +36,6 @@
 
 #include "empio.h"
 #include "journal.h"
-#include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
 
@@ -81,20 +80,15 @@ recvclient(char *cmd, int size)
 	 * Flush all queued output before potentially sleeping in
 	 * io_input(), to make sure player sees the prompt.
 	 */
-	deadline = player->curup + minutes(max_idle);
-	if (player->may_sleep < PLAYER_SLEEP_ON_INPUT)
-	    deadline = 0;
+	deadline = player_io_deadline(player, 0);
 	while (io_output(player->iop, deadline) > 0)
 	    ;
 
 	/*
-	 * Try to receive some input.  Need to check player->may_sleep
-	 * again; command abortion during io_output() might have
-	 * changed it.
+	 * Try to receive some input.  Need to recompute deadline;
+	 * command abortion during io_output() might have changed it.
 	 */
-	deadline = player->curup + minutes(max_idle);
-	if (player->may_sleep < PLAYER_SLEEP_ON_INPUT)
-	    deadline = 0;
+	deadline = player_io_deadline(player, 0);
 	res = io_input(player->iop, deadline);
 	if (res > 0)
 	    ;

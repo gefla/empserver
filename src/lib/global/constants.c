@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -65,6 +65,7 @@ char *game_days = "";		/* days game is running */
 char *game_hours = "";		/* hours game is running */
 char *pre_update_hook = "";
 int max_idle = 15;		/* session dies after max_idle minutes idle */
+int login_grace_time = 120;	/* Grace time for completing login (sec) */
 
 int sect_mob_max = 127;		/* sector mobility limits */
 float sect_mob_scale = 1.0;	/* accumulation multiplier */

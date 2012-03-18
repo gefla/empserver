@@ -58,7 +58,6 @@
 #include "journal.h"
 #include "misc.h"
 #include "nat.h"
-#include "optlist.h"
 #include "player.h"
 #include "proto.h"
 #include "prototypes.h"
@@ -332,11 +331,8 @@ outid(struct player *pl, int n)
 static void
 player_output_some(void)
 {
-    time_t deadline;
+    time_t deadline = player_io_deadline(player, 1);
 
-    deadline = player->curup + minutes(max_idle);
-    if (player->may_sleep != PLAYER_SLEEP_FREELY)
-	deadline = 0;
     while (io_output_if_queue_long(player->iop, deadline) > 0)
 	;
 }

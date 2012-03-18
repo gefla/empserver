@@ -338,6 +338,7 @@ extern struct player *player_next(struct player *);
 extern struct player *player_prev(struct player *);
 extern struct player *getplayer(natid);
 extern void player_accept(void *);
+extern time_t player_io_deadline(struct player *, int);
 /* dispatch.c */
 extern int dispatch(char *, char *);
 /* empdis.c */
