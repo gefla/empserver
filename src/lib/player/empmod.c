@@ -83,7 +83,7 @@ struct cmndstr player_coms[] = {
     {"commodity <SECTS>", 0, comm, 0, NONVIS},
     {"consider <loan|treaty> <LOAN/TREATY> <acc|decl|post>",
      1, cons, C_MOD, NORM + CAP},
-    {"convert <SECTS> <NUM> [sure?]", 2, conv, C_MOD, NORM + MONEY + CAP},
+    {"convert <SECTS> <NUM>", 2, conv, C_MOD, NORM + MONEY + CAP},
     {"country <NATS>", 0, coun, 0, 0},
     {"cutoff <SECTS>", 0, cuto, 0, NORM},
     {"declare <all|friend|neut|hos|war> <NATS>",
