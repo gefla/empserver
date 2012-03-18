@@ -381,8 +381,12 @@ kill_cmd(void)
 	return RET_FAIL;
     }
     logerror("%s killed country #%d", praddr(player), player->cnum);
-    io_shutdown(other->iop, IO_READ | IO_WRITE);
-    pr_id(player, C_EXIT, "closed socket of offending job\n");
+    pr_flash(other, "Disconnected by %s\n", praddr(player));
+    io_set_eof(other->iop);
+    other->aborted = 1;
+    other->may_sleep = PLAYER_SLEEP_NEVER;
+    empth_wakeup(other->proc);
+    pr_id(player, C_EXIT, "terminated %s's connection\n", praddr(other));
     return RET_OK;
 }
 
