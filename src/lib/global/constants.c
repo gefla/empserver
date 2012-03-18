@@ -65,6 +65,7 @@ char *game_days = "";		/* days game is running */
 char *game_hours = "";		/* hours game is running */
 char *pre_update_hook = "";
 int max_idle = 15;		/* session dies after max_idle minutes idle */
+int max_idle_visitor = 5;	/* same for visitors */
 int login_grace_time = 120;	/* Grace time for completing login (sec) */
 
 int sect_mob_max = 127;		/* sector mobility limits */

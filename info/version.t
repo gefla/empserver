@@ -12,7 +12,7 @@ For example:
 .s1
 .EX version
 .NF
-Wolfpack Empire 4.3.27
+Wolfpack Empire 4.3.30
 
 The following parameters have been set for this game:
 World size is 64 by 32.
@@ -20,7 +20,7 @@ There can be up to 99 countries.
 By default, countries use their own coordinate system.
 
 Use the 'show' command to find out the time of the next update.
-The current time is Wed Apr 13 07:09:54.
+The current time is Sun Mar 18 18:22:49.
 An update consists of 60 empire time units.
 Each country is allowed to be logged in 1440 minutes a day.
 It takes 8.33 civilians to produce a BTU in one time unit.
@@ -73,6 +73,7 @@ Land units	 10%	  0%	100%	 --	  0%	  0%
 
 You can have at most 640 BTUs.
 You are disconnected after 15 minutes of idle time.
+Visitors are disconnected after 5 minutes of idle time.
 
 Options enabled in this game:
 	ALL_BLEED, BLITZ, EASY_BRIDGES, FALLOUT, GODNEWS, INTERDICT_ATT,

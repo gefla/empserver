@@ -159,7 +159,8 @@ player_io_deadline(struct player *pl, int write)
 	return 0;
     if (pl->state != PS_PLAYING)
 	return pl->curup + login_grace_time;
-    return pl->curup + minutes(max_idle);
+    return pl->curup
+	+ minutes(pl->nstat & NONVIS ? max_idle: max_idle_visitor);
 }
 
 /*ARGSUSED*/

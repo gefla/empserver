@@ -33,7 +33,7 @@
  *     Ken Stevens
  *     Steve McClure
  *     Ron Koenderink, 2005-2006
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2012
  */
 
 #include <config.h>
@@ -217,7 +217,12 @@ vers(void)
        collateral_dam * 100.0);
     pr("\n");
     pr("You can have at most %d BTUs.\n", max_btus);
-    pr("You are disconnected after %d minutes of idle time.\n", max_idle);
+    pr("%s are disconnected after %d minute%s of idle time.\n",
+       player->nstat & NONVIS ? "You" : "Players",
+       max_idle, splur(max_idle));
+    pr("%s are disconnected after %d minute%s of idle time.\n",
+       player->nstat & NONVIS ? "Visitors" : "You",
+       max_idle_visitor, splur(max_idle_visitor));
     pr("\nOptions enabled in this game:\n");
     show_opts(1);
     pr("\n\nOptions disabled in this game:\n");

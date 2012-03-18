@@ -200,6 +200,8 @@ EMPCFBOTH("max_btus", max_btus, int, NSC_INT, 0,
     "Maximum number of BTUs a country can have")
 EMPCFBOTH("max_idle", max_idle, int, NSC_INT, 0,
     "Maximum number of minutes a player can sit idle while logged in")
+EMPCFBOTH("max_idle_visitor", max_idle_visitor, int, NSC_INT, 0,
+    "Maximum number of minutes a visitor can sit idle while logged in")
 EMPCFBOTH("login_grace_time", login_grace_time, int, NSC_INT, 0,
     "Grace time for clients to complete login and logout (seconds)")
 EMPCFBOTH("players_at_00", players_at_00, int, NSC_INT, 0,
