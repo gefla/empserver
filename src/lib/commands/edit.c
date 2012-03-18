@@ -41,7 +41,6 @@
 #include "commands.h"
 #include "item.h"
 #include "land.h"
-#include "lost.h"
 #include "news.h"
 #include "optlist.h"
 #include "plague.h"

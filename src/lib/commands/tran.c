@@ -34,11 +34,9 @@
 #include <config.h>
 
 #include "commands.h"
-#include "land.h"
 #include "map.h"
 #include "nuke.h"
 #include "plane.h"
-#include "ship.h"
 
 static int tran_pmap(coord, coord, char *, char *);
 static int tran_nmap(coord, coord, char *, char *);

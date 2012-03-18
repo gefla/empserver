@@ -33,7 +33,6 @@
 #include <config.h>
 
 #include "commands.h"
-#include "land.h"
 #include "ship.h"
 
 int

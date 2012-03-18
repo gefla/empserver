@@ -37,7 +37,6 @@
 #include "budg.h"
 #include "item.h"
 #include "land.h"
-#include "path.h"
 #include "player.h"
 #include "ship.h"
 #include "update.h"

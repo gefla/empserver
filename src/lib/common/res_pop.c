@@ -35,7 +35,6 @@
 
 #include "item.h"
 #include "misc.h"
-#include "nat.h"
 #include "optlist.h"
 #include "prototypes.h"
 #include "sect.h"

@@ -39,11 +39,8 @@
 #include "budg.h"
 #include "commands.h"
 #include "item.h"
-#include "land.h"
 #include "optlist.h"
-#include "plane.h"
 #include "product.h"
-#include "ship.h"
 
 static void calc_all(long (*p_sect)[2], int *taxes, int *Ncivs,
 		     int *Nuws, int *bars, int *Nbars, int *mil,

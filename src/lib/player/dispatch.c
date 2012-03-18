@@ -43,7 +43,6 @@
 #include "nat.h"
 #include "optlist.h"
 #include "player.h"
-#include "proto.h"
 #include "prototypes.h"
 #include "server.h"
 

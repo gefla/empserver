@@ -36,7 +36,6 @@
 #include "commands.h"
 #include "map.h"
 #include "optlist.h"
-#include "path.h"
 
 int
 desi(void)

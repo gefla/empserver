@@ -34,7 +34,6 @@
 
 #include <config.h>
 
-#include "player.h"
 #include "prototypes.h"
 #include "tel.h"
 

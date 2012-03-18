@@ -37,7 +37,6 @@
 #include "land.h"
 #include "misc.h"
 #include "nsc.h"
-#include "player.h"
 #include "prototypes.h"
 #include "ship.h"
 #include "unit.h"

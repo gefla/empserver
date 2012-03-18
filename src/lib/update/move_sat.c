@@ -34,7 +34,6 @@
 
 #include <math.h>
 #include "nsc.h"
-#include "path.h"
 #include "plane.h"
 #include "update.h"
 

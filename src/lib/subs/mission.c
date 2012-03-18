@@ -44,7 +44,6 @@
 #include "nsc.h"
 #include "optlist.h"
 #include "path.h"
-#include "player.h"
 #include "prototypes.h"
 #include "queue.h"
 #include "xy.h"

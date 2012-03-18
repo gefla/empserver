@@ -41,7 +41,6 @@
 #include "optlist.h"
 #include "plane.h"
 #include "prototypes.h"
-#include "sect.h"
 #include "ship.h"
 
 void

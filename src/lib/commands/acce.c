@@ -33,7 +33,6 @@
 #include <config.h>
 
 #include "commands.h"
-#include "optlist.h"
 
 /*
  * report rejection status of telegrams and treaties.

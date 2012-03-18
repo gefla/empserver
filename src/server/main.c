@@ -54,11 +54,8 @@
 #include "empthread.h"
 #include "file.h"
 #include "journal.h"
-#include "land.h"
 #include "match.h"
 #include "misc.h"
-#include "nat.h"
-#include "nuke.h"
 #include "optlist.h"
 #include "plane.h"
 #include "player.h"
@@ -66,7 +63,6 @@
 #include "prototypes.h"
 #include "sect.h"
 #include "server.h"
-#include "ship.h"
 #include "version.h"
 
 static void ignore(void);

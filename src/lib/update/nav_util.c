@@ -33,11 +33,8 @@
 #include <config.h>
 
 #include "item.h"
-#include "land.h"
 #include "nsc.h"
-#include "path.h"
 #include "plague.h"
-#include "plane.h"
 #include "ship.h"
 #include "update.h"
 

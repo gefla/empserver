@@ -42,7 +42,6 @@
 #include "nsc.h"
 #include "optlist.h"
 #include "path.h"
-#include "player.h"
 #include "prototypes.h"
 #include "retreat.h"
 #include "sect.h"

@@ -38,7 +38,6 @@
 #include <stdio.h>
 #include <time.h>
 #include "com.h"
-#include "empio.h"
 #include "file.h"
 #include "game.h"
 #include "match.h"
@@ -46,7 +45,6 @@
 #include "nat.h"
 #include "optlist.h"
 #include "player.h"
-#include "proto.h"
 #include "prototypes.h"
 
 

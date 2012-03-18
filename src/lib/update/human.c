@@ -35,7 +35,6 @@
 #include <config.h>
 
 #include <math.h>
-#include "budg.h"
 #include "item.h"
 #include "news.h"
 #include "player.h"

@@ -35,8 +35,6 @@
 
 #include "combat.h"
 #include "commands.h"
-#include "mission.h"
-#include "path.h"
 #include "empobj.h"
 #include "unit.h"
 

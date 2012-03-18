@@ -35,7 +35,6 @@
 
 #include "file.h"
 #include "land.h"
-#include "lost.h"
 #include "map.h"
 #include "misc.h"
 #include "nat.h"

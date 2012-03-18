@@ -34,7 +34,6 @@
 #include <config.h>
 
 #include "empthread.h"
-#include "file.h"
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"

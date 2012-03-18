@@ -50,7 +50,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "file.h"
 #include "misc.h"
 #include "optlist.h"
 #include "prototypes.h"

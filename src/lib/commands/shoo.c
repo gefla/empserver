@@ -36,7 +36,6 @@
 #include "item.h"
 #include "land.h"
 #include "news.h"
-#include "path.h"
 
 int
 shoo(void)

@@ -36,10 +36,7 @@
 #include <config.h>
 
 #include "commands.h"
-#include "land.h"
 #include "map.h"
-#include "optlist.h"
-#include "ship.h"
 
 int
 map(void)

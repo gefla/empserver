@@ -33,8 +33,6 @@
 #include <config.h>
 
 #include "commands.h"
-#include "optlist.h"
-#include "path.h"
 
 int
 improve(void)

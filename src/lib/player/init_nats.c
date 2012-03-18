@@ -41,7 +41,6 @@
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
-#include "sect.h"
 
 int
 init_nats(void)

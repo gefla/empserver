@@ -35,9 +35,7 @@
 
 #include "file.h"
 #include "land.h"
-#include "lost.h"
 #include "misc.h"
-#include "nat.h"
 #include "nsc.h"
 #include "nuke.h"
 #include "optlist.h"

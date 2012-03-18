@@ -40,7 +40,6 @@
 #include "lost.h"
 #include "path.h"
 #include "player.h"
-#include "product.h"
 #include "ship.h"
 #include "update.h"
 

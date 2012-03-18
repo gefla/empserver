@@ -40,7 +40,6 @@
 #include "empthread.h"
 #include "game.h"
 #include "journal.h"
-#include "player.h"
 #include "server.h"
 #include "unit.h"
 #include "update.h"

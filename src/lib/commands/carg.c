@@ -34,7 +34,6 @@
 
 #include "commands.h"
 #include "land.h"
-#include "optlist.h"
 #include "ship.h"
 
 int

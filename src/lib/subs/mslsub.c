@@ -36,17 +36,13 @@
 
 #include <stdlib.h>
 #include "file.h"
-#include "land.h"
 #include "misc.h"
-#include "mission.h"
 #include "nat.h"
 #include "news.h"
 #include "nsc.h"
 #include "nuke.h"
 #include "optlist.h"
-#include "path.h"
 #include "plane.h"
-#include "player.h"
 #include "prototypes.h"
 #include "queue.h"
 #include "sect.h"

@@ -34,7 +34,6 @@
 
 #include "commands.h"
 #include "land.h"
-#include "optlist.h"
 
 int
 land(void)

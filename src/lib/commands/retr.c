@@ -38,7 +38,6 @@
 #include "commands.h"
 #include "empobj.h"
 #include "land.h"
-#include "path.h"
 #include "retreat.h"
 #include "ship.h"
 

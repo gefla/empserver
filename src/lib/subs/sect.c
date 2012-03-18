@@ -36,13 +36,10 @@
 
 #include <ctype.h>
 #include "file.h"
-#include "land.h"
 #include "lost.h"
 #include "misc.h"
-#include "nat.h"
 #include "nsc.h"
 #include "optlist.h"
-#include "plane.h"
 #include "player.h"
 #include "prototypes.h"
 #include "sect.h"

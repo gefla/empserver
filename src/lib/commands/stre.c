@@ -36,7 +36,6 @@
 #include "combat.h"
 #include "commands.h"
 #include "land.h"
-#include "path.h"
 #include "ship.h"
 
 static double units_in_sector(struct combat *def);

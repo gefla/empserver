@@ -38,7 +38,6 @@
 #include "file.h"
 #include "land.h"
 #include "misc.h"
-#include "nat.h"
 #include "nsc.h"
 #include "optlist.h"
 #include "plane.h"

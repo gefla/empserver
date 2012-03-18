@@ -34,8 +34,6 @@
 
 #include "misc.h"
 #include "nat.h"
-#include "nsc.h"
-#include "player.h"
 #include "prototypes.h"
 #include "xy.h"
 

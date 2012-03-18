@@ -71,10 +71,7 @@ static int quiet = 0;
 #include <stdio.h>
 #include <unistd.h>
 #include "file.h"
-#include "misc.h"
-#include "nat.h"
 #include "optlist.h"
-#include "power.h"
 #include "prototypes.h"
 #include "sect.h"
 #include "version.h"

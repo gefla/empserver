@@ -35,7 +35,6 @@
 #include "commands.h"
 #include "item.h"
 #include "plane.h"
-#include "ship.h"
 
 /*
  * harden <PLANE> <LEVEL>

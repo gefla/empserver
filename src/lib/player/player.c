@@ -34,7 +34,6 @@
 
 #include <config.h>
 
-#include "com.h"
 #include "empio.h"
 #include "empthread.h"
 #include "file.h"
@@ -43,9 +42,7 @@
 #include "nat.h"
 #include "optlist.h"
 #include "player.h"
-#include "proto.h"
 #include "prototypes.h"
-#include "tel.h"
 
 
 static int command(void);

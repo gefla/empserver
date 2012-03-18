@@ -47,7 +47,6 @@
 #include "file.h"
 #include "match.h"
 #include "misc.h"
-#include "nsc.h"
 #include "prototypes.h"
 
 static int open_locked(char *, int, mode_t);

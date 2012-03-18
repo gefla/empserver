@@ -46,7 +46,6 @@
 #include "file.h"
 #include "game.h"
 #include "optlist.h"
-#include "prototypes.h"
 #include "server.h"
 
 /*

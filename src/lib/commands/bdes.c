@@ -35,7 +35,6 @@
 #include <ctype.h>
 #include "commands.h"
 #include "map.h"
-#include "path.h"
 
 int
 bdes(void)

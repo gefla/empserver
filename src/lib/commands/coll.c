@@ -36,7 +36,6 @@
 #include "commands.h"
 #include "item.h"
 #include "loan.h"
-#include "lost.h"
 #include "news.h"
 #include "optlist.h"
 

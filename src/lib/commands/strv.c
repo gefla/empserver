@@ -37,7 +37,6 @@
 #include "item.h"
 #include "land.h"
 #include "optlist.h"
-#include "path.h"
 #include "ship.h"
 
 static void starv_sects(char *range);

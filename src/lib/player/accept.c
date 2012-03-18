@@ -44,13 +44,11 @@
 
 #include "empio.h"
 #include "empthread.h"
-#include "file.h"
 #include "misc.h"
 #include "nat.h"
 #include "optlist.h"
 #include "player.h"
 #include "power.h"
-#include "proto.h"
 #include "prototypes.h"
 
 static struct emp_qelem Players;

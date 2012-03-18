@@ -38,7 +38,6 @@
 #include "item.h"
 #include "path.h"
 #include "plane.h"
-#include "ship.h"
 
 int
 fly(void)

@@ -38,7 +38,6 @@
 
 #include "commands.h"
 #include "news.h"
-#include "optlist.h"
 #include "retreat.h"
 #include "ship.h"
 

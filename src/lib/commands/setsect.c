@@ -34,7 +34,6 @@
 #include <config.h>
 
 #include "commands.h"
-#include "lost.h"
 #include "news.h"
 #include "optlist.h"
 

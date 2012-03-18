@@ -41,8 +41,6 @@
 #include <time.h>
 #include <unistd.h>
 #include "misc.h"
-#include "optlist.h"
-#include "player.h"
 #include "prototypes.h"
 
 void (*oops_handler)(void) = abort;

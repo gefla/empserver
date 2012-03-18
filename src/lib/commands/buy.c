@@ -37,12 +37,8 @@
 #include "commands.h"
 #include "commodity.h"
 #include "item.h"
-#include "land.h"
-#include "loan.h"
 #include "news.h"
 #include "optlist.h"
-#include "plane.h"
-#include "ship.h"
 #include "trade.h"
 
 /*

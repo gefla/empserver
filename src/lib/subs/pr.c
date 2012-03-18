@@ -52,7 +52,6 @@
 
 #include <stdarg.h>
 #include <stdlib.h>
-#include "com.h"
 #include "empio.h"
 #include "file.h"
 #include "journal.h"
@@ -62,7 +61,6 @@
 #include "proto.h"
 #include "prototypes.h"
 #include "server.h"
-#include "tel.h"
 #include "xy.h"
 
 static void pr_player(struct player *pl, int id, char *buf);

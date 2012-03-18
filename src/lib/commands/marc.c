@@ -36,10 +36,7 @@
 
 #include "commands.h"
 #include "file.h"
-#include "map.h"
-#include "path.h"
 #include "empobj.h"
-#include "unit.h"
 
 int
 march(void)

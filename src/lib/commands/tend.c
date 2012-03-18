@@ -39,7 +39,6 @@
 #include "item.h"
 #include "land.h"
 #include "plague.h"
-#include "plane.h"
 #include "ship.h"
 
 static void expose_ship(struct shpstr *s1, struct shpstr *s2);

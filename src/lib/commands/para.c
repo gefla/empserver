@@ -37,8 +37,6 @@
 #include "combat.h"
 #include "commands.h"
 #include "item.h"
-#include "land.h"
-#include "mission.h"
 #include "path.h"
 #include "plane.h"
 #include "ship.h"

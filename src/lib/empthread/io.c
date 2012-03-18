@@ -54,7 +54,6 @@
 #include "file.h"
 #include "ioqueue.h"
 #include "misc.h"
-#include "queue.h"
 
 struct iop {
     int fd;

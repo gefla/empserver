@@ -35,7 +35,6 @@
 
 #include "commands.h"
 #include "item.h"
-#include "lost.h"
 #include "optlist.h"
 
 /*

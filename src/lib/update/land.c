@@ -42,7 +42,6 @@
 #include "news.h"
 #include "plague.h"
 #include "player.h"
-#include "ship.h"
 #include "update.h"
 
 static void landrepair(struct lndstr *, struct natstr *, struct bp *, int);

@@ -39,19 +39,10 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include "file.h"
-#include "game.h"
-#include "land.h"
-#include "misc.h"
 #include "nat.h"
-#include "nuke.h"
 #include "optlist.h"
-#include "plane.h"
-#include "power.h"
 #include "prototypes.h"
-#include "sect.h"
-#include "ship.h"
 #include "tel.h"
-#include "trade.h"
 #include "version.h"
 
 static void

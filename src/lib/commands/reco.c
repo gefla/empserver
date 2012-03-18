@@ -36,7 +36,6 @@
 #include "commands.h"
 #include "path.h"
 #include "plane.h"
-#include "ship.h"
 
 int
 reco(void)

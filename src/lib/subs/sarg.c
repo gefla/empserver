@@ -38,7 +38,6 @@
 #include "misc.h"
 #include "nat.h"
 #include "nsc.h"
-#include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
 #include "xy.h"

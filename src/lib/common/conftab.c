@@ -36,7 +36,6 @@
 #include <stdio.h>
 #include "file.h"
 #include "optlist.h"
-#include "product.h"
 #include "prototypes.h"
 #include "xdump.h"
 

@@ -36,7 +36,6 @@
 
 #include "commands.h"
 #include "nuke.h"
-#include "optlist.h"
 #include "plane.h"
 
 int

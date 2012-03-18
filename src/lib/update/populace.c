@@ -32,9 +32,7 @@
 
 #include <config.h>
 
-#include "land.h"
 #include "lost.h"
-#include "path.h"
 #include "update.h"
 
 void

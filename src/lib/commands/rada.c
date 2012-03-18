@@ -33,7 +33,6 @@
 #include <config.h>
 
 #include "commands.h"
-#include "optlist.h"
 #include "unit.h"
 
 int

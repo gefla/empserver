@@ -36,8 +36,6 @@
 
 #include "commands.h"
 #include "mission.h"
-#include "optlist.h"
-#include "path.h"
 #include "unit.h"
 
 static int clear_mission(struct nstr_item *);

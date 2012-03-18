@@ -33,7 +33,6 @@
 #include <config.h>
 
 #include "commands.h"
-#include "path.h"
 
 int
 leve(void)
