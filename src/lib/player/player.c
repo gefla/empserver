@@ -261,6 +261,7 @@ execute(void)
 	    failed = 1;
 	} else if (dispatch(player->combuf, NULL) < 0)
 	    failed = 1;
+	/* player->aborted not reset; makes next getcommand() fail */
 	empth_yield();
     }
     if (failed) {
