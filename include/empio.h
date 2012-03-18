@@ -54,7 +54,6 @@ extern int io_read(struct iop *, char *, int);
 extern int io_write(struct iop *, char *, int);
 extern int io_gets(struct iop *, char *, int);
 extern int io_puts(struct iop *, char *);
-extern int io_shutdown(struct iop *, int);
 extern int io_error(struct iop *);
 extern int io_eof(struct iop *);
 extern void io_set_eof(struct iop *);

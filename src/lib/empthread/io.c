@@ -353,24 +353,6 @@ io_puts(struct iop *iop, char *buf)
 }
 
 int
-io_shutdown(struct iop *iop, int flags)
-{
-    flags &= (IO_READ | IO_WRITE);
-    if ((iop->flags & flags) != flags)
-	return -1;
-    if (flags & IO_READ) {
-	shutdown(iop->fd, 0);
-	ioq_drain(iop->input);
-    }
-    if (flags & IO_WRITE) {
-	shutdown(iop->fd, 1);
-	ioq_drain(iop->output);
-	iop->last_out = 0;
-    }
-    return 0;
-}
-
-int
 io_error(struct iop *iop)
 {
     return iop->flags & IO_ERROR;
