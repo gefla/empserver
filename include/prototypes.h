@@ -351,6 +351,7 @@ extern void enforce_minimum_session_time(void);
 extern int may_play_now(struct natstr *, time_t);
 /* more under Commands */
 /* empmod.c */
+/* in com.h */
 /* init_nats.c */
 extern int init_nats(void);
 extern int player_set_nstat(struct player *, struct natstr *);
@@ -642,6 +643,7 @@ extern void takeover(struct sctstr *, natid);
 extern void takeover_ship(struct shpstr *, natid);
 extern void takeover_plane(struct plnstr *, natid);
 /* trdsub.c */
+/* in trade.h */
 /* trechk.c */
 extern int trechk(natid, natid, int);
 /* whatitem.c */
