@@ -27,7 +27,7 @@
  *  scut.c: Scuttle ships, planes or land units
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -43,7 +43,7 @@ scut(void)
 {
     struct nstr_item ni;
     union empobj_storage item;
-    int type;
+    int type, n;
     struct mchrstr *mp;
     char *p;
     char prompt[128];
@@ -66,53 +66,21 @@ scut(void)
 	pr("Ships, land units, or planes only! (s, l, p)\n");
 	return RET_SYN;
     }
-    sprintf(prompt, "%s(s)? ", ef_nameof(type));
-    if (!(p = getstarg(player->argp[2], prompt, buf)))
-	return RET_SYN;
-    if (!snxtitem(&ni, type, p, NULL))
-	return RET_SYN;
-    if (p && (isalpha(*p) || (*p == '*') || (*p == '~') || issector(p)
-	      || islist(p))) {
-	char y_or_n[80], bbuf[80];
 
-	if (type == EF_SHIP) {
-	    if (*p == '*')
-		sprintf(bbuf, "all ships");
-	    else if (*p == '~')
-		sprintf(bbuf, "all unassigned ships");
-	    else if (issector(p))
-		sprintf(bbuf, "all ships in %s", p);
-	    else if (isalpha(*p))
-		sprintf(bbuf, "fleet %c", *p);
-	    else
-		sprintf(bbuf, "ships %s", p);
-	} else if (type == EF_LAND) {
-	    if (*p == '*')
-		sprintf(bbuf, "all land units");
-	    else if (*p == '~')
-		sprintf(bbuf, "all unassigned land units");
-	    else if (issector(p))
-		sprintf(bbuf, "all units in %s", p);
-	    else if (isalpha(*p))
-		sprintf(bbuf, "army %c", *p);
-	    else
-		sprintf(bbuf, "units %s", p);
-	} else {
-	    if (*p == '*')
-		sprintf(bbuf, "all planes");
-	    else if (*p == '~')
-		sprintf(bbuf, "all unassigned planes");
-	    else if (issector(p))
-		sprintf(bbuf, "all planes in %s", p);
-	    else if (isalpha(*p))
-		sprintf(bbuf, "wing %c", *p);
-	    else
-		sprintf(bbuf, "planes %s", p);
-	}
-	sprintf(y_or_n, "Really scuttle %s? ", bbuf);
-	if (!confirm(y_or_n))
-	    return RET_FAIL;
+    if (!snxtitem(&ni, type, player->argp[2], NULL))
+	return RET_SYN;
+    n = 0;
+    while (nxtitem(&ni, &item)) {
+	if (!player->owner)
+	    continue;
+	n++;
     }
+    snprintf(prompt, sizeof(prompt), "Really scuttle %d %s%s [n]? ",
+			    n, ef_nameof(type), splur(n));
+    if (!confirm(prompt))
+	return RET_FAIL;
+
+    snxtitem_rewind(&ni);
     while (nxtitem(&ni, &item)) {
 	if (!player->owner)
 	    continue;
