@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -160,8 +160,8 @@ buil(void)
 	if (number > 20) {
 	    char bstr[80];
 	    sprintf(bstr,
-		    "Are you sure that you want to build %s of them? ",
-		    player->argp[4]);
+		    "Are you sure that you want to build %d of them? ",
+		    number);
 	    p = getstarg(player->argp[6], bstr, buf);
 	    if (!p || *p != 'y')
 		return RET_SYN;
