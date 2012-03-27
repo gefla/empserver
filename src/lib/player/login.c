@@ -48,6 +48,7 @@
 #include "player.h"
 #include "proto.h"
 #include "prototypes.h"
+#include "server.h"
 
 static int client_cmd(void);
 static int coun_cmd(void);
@@ -79,9 +80,7 @@ player_login(void *ud)
     time_t deadline;
     char buf[128];
     char space[128];
-    int ac;
-    int cmd;
-    int res;
+    int res, ac, cmd, prev_state;
 
     player->proc = empth_self();
 
@@ -126,7 +125,10 @@ player_login(void *ud)
 	    break;
 	}
     }
+    prev_state = player->state;
     player->state = PS_SHUTDOWN;
+    if (prev_state == PS_PLAYING)
+	empth_rwlock_unlock(shutdown_lock);
     pr_id(player, C_EXIT, "so long...\n");
     player_delete(player);
     empth_exit();
@@ -360,6 +362,7 @@ play_cmd(void)
     empth_set_name(empth_self(), buf);
     logerror("%s logged in as country #%d", praddr(player), player->cnum);
     pr_id(player, C_INIT, "%d\n", CLIENTPROTO);
+    empth_rwlock_rdlock(shutdown_lock);
     player->state = PS_PLAYING;
     player_main(player);
     logerror("%s logged out, country #%d", praddr(player), player->cnum);

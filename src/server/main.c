@@ -75,10 +75,16 @@ static void loc_NTInit(void);
 #endif
 
 /*
- * Lock to synchronize player threads with update and shutdown.
- * Update and shutdown takes it exclusive, commands take it shared.
+ * Lock to synchronize player threads with update.
+ * Update holds it exclusive, commands hold it shared.
  */
 empth_rwlock_t *play_lock;
+/*
+ * Lock to synchronize player threads with shutdown.
+ * Shutdown holds it exclusive, player threads in state PS_PLAYING
+ * hold it shared.
+ */
+empth_rwlock_t *shutdown_lock;
 
 static char pidfname[] = "server.pid";
 
@@ -374,6 +380,10 @@ start_server(int flags)
     if (journal_startup() < 0)
 	exit(1);
 
+    shutdown_lock = empth_rwlock_create("Shutdown");
+    if (!shutdown_lock)
+	exit_nomem();
+
     market_init();
     update_init();
     empth_create(player_accept, 50 * 1024, flags, "AcceptPlayers", NULL);
@@ -423,9 +433,10 @@ shutdwn(int sig)
 	}
 	empth_wakeup(p->proc);
     }
-    empth_rwlock_wrlock(play_lock);
 
+    empth_rwlock_wrlock(shutdown_lock);
     empth_yield();
+
     for (i = 1; i <= 3 && player_next(NULL); i++) {
 	logerror("Waiting for player threads to terminate\n");
 	empth_sleep(now + i);
