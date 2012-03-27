@@ -74,10 +74,6 @@ update_init(void)
     if (update_get_schedule() < 0)
 	exit(1);
 
-    play_lock = empth_rwlock_create("Update");
-    if (!play_lock)
-	exit_nomem();
-
     dp = player_new(-1);
     if (!dp)
 	exit_nomem();
@@ -207,17 +203,17 @@ update_run(void)
 	    empth_wakeup(p->proc);
 	}
     }
-    empth_rwlock_wrlock(play_lock);
+    empth_rwlock_wrlock(update_lock);
     if (*pre_update_hook) {
 	if (run_hook(pre_update_hook, "pre-update")) {
-	    empth_rwlock_unlock(play_lock);
+	    empth_rwlock_unlock(update_lock);
 	    return;
 	}
     }
     update_running = 1;
     update_main();
     update_running = 0;
-    empth_rwlock_unlock(play_lock);
+    empth_rwlock_unlock(update_lock);
 }
 
 int

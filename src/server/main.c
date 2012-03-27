@@ -78,7 +78,7 @@ static void loc_NTInit(void);
  * Lock to synchronize player threads with update.
  * Update holds it exclusive, commands hold it shared.
  */
-empth_rwlock_t *play_lock;
+empth_rwlock_t *update_lock;
 /*
  * Lock to synchronize player threads with shutdown.
  * Shutdown holds it exclusive, player threads in state PS_PLAYING
@@ -380,8 +380,9 @@ start_server(int flags)
     if (journal_startup() < 0)
 	exit(1);
 
+    update_lock = empth_rwlock_create("Update");
     shutdown_lock = empth_rwlock_create("Shutdown");
-    if (!shutdown_lock)
+    if (!update_lock || !shutdown_lock)
 	exit_nomem();
 
     market_init();

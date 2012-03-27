@@ -87,7 +87,7 @@ dispatch(char *buf, char *redir)
     player->may_sleep = command->c_flags & C_MOD
 	? PLAYER_SLEEP_ON_INPUT : PLAYER_SLEEP_FREELY;
     player->command = command;
-    empth_rwlock_rdlock(play_lock);
+    empth_rwlock_rdlock(update_lock);
     if (redir) {
 	prredir(redir);
 	uprnf(buf);
@@ -109,7 +109,7 @@ dispatch(char *buf, char *redir)
 	CANT_REACH();
 	break;
     }
-    empth_rwlock_unlock(play_lock);
+    empth_rwlock_unlock(update_lock);
     player->command = NULL;
     if (player->may_sleep != PLAYER_SLEEP_NEVER || !io_eof(player->iop))
 	player->may_sleep = PLAYER_SLEEP_FREELY;
