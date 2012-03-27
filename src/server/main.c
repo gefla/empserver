@@ -406,7 +406,7 @@ void
 shutdwn(int sig)
 {
     struct player *p;
-    time_t now;
+    time_t now = time(NULL);
     int i;
 
     logerror("Shutdown commencing (cleaning up threads.)");
@@ -425,7 +425,6 @@ shutdwn(int sig)
     }
     empth_rwlock_wrlock(play_lock);
 
-    now = time(NULL);
     empth_yield();
     for (i = 1; i <= 3 && player_next(NULL); i++) {
 	logerror("Waiting for player threads to terminate\n");
