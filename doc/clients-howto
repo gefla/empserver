@@ -65,9 +65,10 @@ output until the server reads more input.  That may never happen,
 because the server may well block on output, which then deadlocks the
 session.
 
-An Empire session consists of two phases: login and playing.
-empire-client is synchronous during the former and asynchronous during
-the latter.  Versions before 4.3.11 could deadlock as described above.
+An Empire session consists of three phases: login, playing, and
+shutdown.  empire-client is synchronous in the login phase, and
+asynchronous afterwards.  Versions before 4.3.11 could deadlock as
+described above.
 
 Login phase
 -----------
@@ -76,7 +77,7 @@ In the login phase, the server prompts for login commands.
 
 The server starts with a C_INIT prompt.  The login phase ends when the
 server sends another C_INIT prompt, which starts the playing phase, or
-when it closes the connection.
+when it enters the shutdown phase, as described below
 
 The server replies to a login command with another prompt.  Except as
 noted below, the server replies C_BADCMD for syntax errors, C_CMDERR
@@ -96,8 +97,9 @@ Login commands are:
 
 * kill
 
-  If another connection is open for this country, forcibly close it,
-  else do nothing.  Country must be authenticated.
+  If another connection for this country is in the playing phase,
+  force it into the shutdown phase, else do nothing.  Country must be
+  authenticated.
 
   Reply is C_EXIT regardless of success.
 
@@ -151,8 +153,8 @@ Login commands are:
 
 * quit
 
-  Terminate the session.  The server replies with C_EXIT and closes
-  the connection.
+  Terminate the session.  The server replies with C_EXIT and enters
+  the shutdown phase.
 
 * sanc
 
@@ -164,6 +166,9 @@ Login commands are:
 * user NAME
 
   Set the user name.  This is optional and defaults to "".
+
+If the login phase takes more than login_grace_time (default 120s),
+the server enters the shutdown phase.
 
 Playing phase
 -------------
@@ -183,9 +188,9 @@ The following ids occur:
 
 * Command prompt C_PROMPT
 
-  The server consumes a line of input.  On EOF, the server terminates
-  the session.  Interrupt is ignored.  Anything else is interpreted as
-  Empire command.
+  The server consumes a line of input.  On EOF, the server enters the
+  shutdown phase.  Interrupt is ignored.  Anything else is interpreted
+  as Empire command.
 
   Text is minutes used, space, BTUs left.  Both numbers are in
   decimal.  Clients shall ignore additional text separated by another
@@ -202,7 +207,7 @@ The following ids occur:
 
   The server aborts the command on interrupt and EOF.  Any argument
   prompts it may send before the next command prompt do not consume
-  input.  On EOF, the server then terminates the session (but see
+  input.  On EOF, the server then enters the shutdown phase (but see
   C_EXECUTE for an exception).
 
   If an update runs while the server waits for the line of input to
@@ -272,13 +277,6 @@ The following ids occur:
 
   Clients are not required to support C_EXECUTE.  Clients are
   encouraged to offer alternative means for scripting.
-
-* Control C_EXIT
-
-  End of session.  The server is about to close the connection.  Text
-  is a human-readable farewell.
-
-  empire-client prints this text prepended with "Exit: ".
 
 * Control C_FLASH
 
@@ -361,6 +359,31 @@ The following ids occur:
   4.3.11 prepend "Aborted\n" to C_ABORT lines, and "Error; " to
   C_CMDERR and C_BADCMD lines for historical reasons.
 
+Shutdown phase
+--------------
+
+In the shutdown phase, the server first sends a C_EXIT message.  Its
+text is a human-readable farewell.
+
+empire-client prints this text prepended with "Exit: ".
+
+The server then waits for the output queue to drain, then shuts down
+the output direction of the connection.  This makes the client detect
+an end-of-file condition after it received all output.  The client
+should then close its end of the connection.  The server continues to
+read and ignore input until it detects an end-of-file condition.  It
+then closes its end of the connection, and the session terminates.
+
+If the server closed its end of the connection without waiting for the
+client to close the other end first, asynchronous clients could lose
+output: an attempt to send input after the server closed its end would
+fail with a connection reset error even when some output is still in
+flight.  Versions before 4.3.30 could misbehave like that in certain
+circumstances.
+
+If the shutdown phase doesn't complete within login_grace_time
+(default 120s), the server closes the connection immediately.  Output
+may be lost.
 
 Session Options
 ===============
