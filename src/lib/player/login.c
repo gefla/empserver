@@ -95,11 +95,8 @@ player_login(void *ud)
 	}
 	if (io_gets(player->iop, buf, sizeof(buf)) < 0) {
 	    res = io_input(player->iop, deadline);
-	    if (res <= 0) {
-		if (res == 0 && !io_eof(player->iop))
-		    pr_id(player, C_DATA, "idle connection terminated\n");
+	    if (res <= 0)
 		break;
-	    }
 	    continue;
 	}
 	journal_input(buf);
