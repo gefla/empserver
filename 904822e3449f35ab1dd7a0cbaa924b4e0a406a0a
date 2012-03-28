@@ -1,0 +1,17 @@
+Login command quit has the same problem.  I believe it could always
+lose output.
+
+Before Empire 2, quit_cmd() tried to flush output, threw away anything
+it couldn't flush, then closed the connection.
+
+Empire 2's quit_cmd() shut down the input direction of the connection
+right away.  This terminated the command loop, and led to connection
+close.  I believe it also made client input sends fail with ECONNRESET
+right away.
+
+Since commit 0a7306a5, the input shutdown is gone.  We get behavior
+similar to server shutdown: command loop terminates, which leads to
+close of the server's end of the connection.
+
+In all cases, client sending input after input shutdown or connection
+close fails with ECONNRESET, and remaining output is lost.
