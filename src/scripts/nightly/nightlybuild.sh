@@ -184,7 +184,9 @@ then
 sed "$n"'a\
 #include "emptime.h"\
 #undef time\
-#define time(timer) emp_time((timer), __FUNCTION__)' $f >$f.patched
+#define time(timer) emp_time((timer), __FUNCTION__)\
+#undef gettimeofday\
+#define gettimeofday(tv, tz) emp_gettimeofday((tv), (tz))' $f >$f.patched
 mv $f.patched $f
 fi
 done

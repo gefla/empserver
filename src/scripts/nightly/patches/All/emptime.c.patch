@@ -1,9 +1,9 @@
 diff --git a/include/emptime.h b/include/emptime.h
 new file mode 100644
-index 0000000..a83b29d
+index 0000000..3c1eb7b
 --- /dev/null
 +++ b/include/emptime.h
-@@ -0,0 +1,40 @@
+@@ -0,0 +1,43 @@
 +/*
 + *  Empire - A multi-player, client/server Internet based war game.
 + *  Copyright (C) 1986-2011, Dave Pare, Jeff Bailey, Thomas Ruschak,
@@ -30,26 +30,29 @@ index 0000000..a83b29d
 + *
 + *  ---
 + *
-+ *  emptime.h: Time functions for regression testing and
-+ *             replaying journals.
++ *  emptime.h: Time functions for regression testing
 + *
 + *  Known contributors to this file:
 + *     Ron Koenderink, 2008
++ *     Markus Armbruster, 2012
 + */
 +
 +#ifndef EMPTIME_H
 +#define EMPTIME_H
 +
++#include <sys/time.h>
 +#include <time.h>
 +
 +extern time_t emp_time(time_t *, const char []);
++extern int emp_gettimeofday(struct timeval *, void *);
++
 +#endif
 diff --git a/src/lib/gen/emptime.c b/src/lib/gen/emptime.c
 new file mode 100644
-index 0000000..855de99
+index 0000000..4461093
 --- /dev/null
 +++ b/src/lib/gen/emptime.c
-@@ -0,0 +1,50 @@
+@@ -0,0 +1,60 @@
 +/*
 + *  Empire - A multi-player, client/server Internet based war game.
 + *  Copyright (C) 1986-2011, Dave Pare, Jeff Bailey, Thomas Ruschak,
@@ -76,22 +79,22 @@ index 0000000..855de99
 + *
 + *  ---
 + *
-+ *  emptime.c: Time functions for regression testing and
-+ *             replaying journals.
++ *  emptime.c: Time functions for regression testing
 + *
 + *  Known contributors to this file:
 + *     Ron Koenderink, 2008
++ *     Markus Armbruster, 2012
 + */
 +
 +#include <stdio.h>
 +#include <string.h>
 +#include "emptime.h"
 +
++static time_t now = (time_t)100L;
++
 +time_t
 +emp_time(time_t * time_ptr, const char function[])
 +{
-+    static time_t now = (time_t)100L;
-+
 +    if (strcmp(function, "update_main") == 0)
 +	now += 100L;
 +
@@ -99,4 +102,14 @@ index 0000000..855de99
 +	*time_ptr = now;
 +
 +    return now;
++}
++
++int
++emp_gettimeofday(struct timeval *tv, void *tz)
++{
++    if (tv) {
++	tv->tv_sec = now;
++	tv->tv_usec = 0;
++    }
++    return 0;
 +}
