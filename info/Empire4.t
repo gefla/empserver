@@ -7,6 +7,104 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.30 - Thu Apr 26 18:14:49 UTC 2012
+ * Change login command kill (used by client option -k) to kill less
+   ruthlessly: send a flash message and try to flush output, exactly
+   like a server shutdown does.
+ * Fix server shutdown to wait for player threads to reach a safe
+   state.  Without that, we could fail to update the treasury, record
+   play time, and write log entries.  The old code is racy.  It goes
+   back to Empire 2.  It was patched in 4.2.10, 4.2.12, 4.2.20, 4.3.6,
+   4.3.10 and 4.3.23, but the core problem remained unaddressed.
+ * When shutdown aborts a command, the terminating player thread could
+   still get stuck sending output, and thus lose the race just
+   mentioned.  Broken in 4.3.23.
+ * Idle timeout changes:
+   - The grace period for clients to complete login and logout is now
+     separate from the idle timeout.  Configurable with new econfig
+     key login_grace_time, default is 120 seconds.
+   - The idle timeout for visitors is now separate from the one for
+     players.  Configurable with new econfig key max_idle_visitor,
+     default is five minutes.
+   - Fix the idle timeout when the connection gets stuck sending
+     output.  Broken in 4.3.20.
+   - Idle timeout during execute now terminates the connection, not
+     just the execute command.
+ * Fix stack smash in build.  Remote hole!  Broken when Empire 2 added
+   the confirmation prompt.
+ * Fix stack smash in scrap and scuttle.  Remote hole!  Broken when
+   Chainsaw added the confirmation prompt.  Additionally, the
+   confirmation prompt is misleading when the player supplies
+   conditionals.  Redesign the flawed prompt.
+ * Fix execute's echo of the command.  Broken in 4.3.28.
+ * The mobility cost of retreating a defending land unit was
+   calculated for an uninitialized sector.  This could charge
+   incorrect mobility, prevent retreat, or, if the stars align just
+   right, crash the server.  Broken in 4.3.6.
+ * Commands cutoff, headlines, land, lstat, motd, neweff, payoff,
+   qorder, sorder, and wall now behave like the other information
+   query commands when the player's connection can't take more output:
+   they pause to let other code run.
+ * Revised command permissions:
+   - arm and disarm no longer require money, for consistency with the
+     other commands to move stuff around.
+   - satellite no longer requires money, for consistency with lookout,
+     radar, sonar and skywatch.
+   - qorder, sorder, survey and test no longer require a capital, for
+     consistency with the other commands that report on stuff the
+     player owns.
+   - start and stop no longer require a capital, for consistency with
+     the other commands to control production.
+   - fortify now requires a capital, for consistency with mission,
+     morale and range.
+   - Anybody may now use country, echo and financial.
+   - Visitors can no longer use census, commodity, map, nmap,
+     sinfrastructure (useless without sectors), read (visitors don't
+     get any telegrams), and change (always failed).
+   - Players can no longer use map and nmap before break.  This is
+     consistent with all the other commands to examine the
+     environment.  It also prevents people from trying multiple
+     unbroken countries in a blitz to find the one with the nicest
+     vicinity.
+   - Players can now use resource before break, just like census.
+ * read could swallow the first telegram header when showing the
+   telegrams that arrived while waiting for the player to confirm
+   deletion.  Broken in 4.3.29.
+ * Fix 'm' in path argument of explore, move, transport:
+   - Don't moan about deprecated argument syntax ('m' without a space
+     before its argument) even when there's no argument.
+   - Recognize the flags argument again.
+   Broken in 4.3.27.
+ * Market fixes:
+   - Command market is no longer available to visitors, because it
+     triggers execution of trades that have become ready.
+   - Fix a race condition that could cause commodity trades to be
+     executed multiple times.  Abusing this to duplicate commodities
+     seems tricky, but possible.  Broken in Empire 3.
+   - Don't expropriate sellers of units.  POGO got the the money, the
+     telegrams and made the news, the seller got nothing.  Broken in
+     4.3.17.
+ * Login command quit and server shutdown could lose player output.
+   4.3.23 tried to fix the shutdown case, but the fix was incomplete.
+ * Fix login command quit to really quit.  It sometimes just swallowed
+   buffered input, at least on some systems.
+ * 4.2.22's fairer command scheduling failed to cover the execute
+   command.  Fix that.
+ * When a client shuts down input transmission to log out, output
+   could get lost.  Our client never does that.
+ * Don't skip post command treasury update and status notification on
+   EOF from player, after quit command, and when command is aborted by
+   server shutdown.  An unluckily timed EOF or shutdown can deprive a
+   player of money gained from scuttling tradeships or sacking a
+   capital.  Can be abused to build bridges and infrastructure free of
+   charge.  Can also be abused to designate sectors for free, but the
+   stock game's sector types are all free anyway.  Has always been
+   broken.
+ * Fix client not to send an empty line on player interrupt (normally
+   ^C) before the first command.  This was missed in 4.3.26.
+ * Code and info page cleanup.
+ * Documentation fixes.
+
 Changes to Empire 4.3.29 - Fri Jan 20 19:20:20 UTC 2012
  * drop and fly from carrier could fail to load last civilian or
    military.
@@ -101,7 +199,7 @@ Changes to Empire 4.3.28 - Sat Jul 16 11:30:53 UTC 2011
    carrier moved.  Abusable, but it involves going broke, so it's
    rarely practical.  Slightly more practical before 4.3.6 removed
    budget priorities.  Broken for ships and land units when Empire 2
-   added their maintenance cost, and for planes when v4.3.3 replaced
+   added their maintenance cost, and for planes when 4.3.3 replaced
    nuclear stockpiles by nuke units.
  * Fix bogus internal error triggered by navigate and march
    sub-commands 'r', 'l' and 's'.  Broken in 4.3.27.
@@ -160,7 +258,7 @@ Changes to Empire 4.3.28 - Sat Jul 16 11:30:53 UTC 2011
  * Fix "show land s" to show columns xpl and lnd again.  Broken in
    4.3.15.
  * Code refactoring and cleanup.
- * Documentation on custom tables, xdump updated.
+ * Documentation on custom tables and xdump updated.
  * Info file fixes.
 
 Changes to Empire 4.3.27 - Sun Apr 17 11:36:29 UTC 2011
@@ -177,7 +275,8 @@ Changes to Empire 4.3.27 - Sun Apr 17 11:36:29 UTC 2011
    now gone.
  * Fix give, setsector and setres not to wipe out concurrent updates.
  * Fix explore, move, test, transport not to ignore spaces in path
-   arguments.  Broken in 4.3.7.
+   arguments.  Broken in 4.3.7.  Deprecate use of 'm' without space
+   before its argument.
  * Improvements to map drawing commands:
    - Don't fail silently when asked to draw a map around an invalid
      unit, explain the problem.
