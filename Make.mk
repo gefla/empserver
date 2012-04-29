@@ -355,6 +355,8 @@ dist-info: info html
 	$(tarball) $(TARNAME)-info-text-$(VERSION) -C info.nr $(info)
 	$(tarball) $(TARNAME)-info-html-$(VERSION) -C info.html $(addsuffix .html, $(info))
 
+# Dependencies
+
 ifneq ($(deps),)
 -include $(deps)
 endif
