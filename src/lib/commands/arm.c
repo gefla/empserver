@@ -102,6 +102,11 @@ arm(void)
 	       prnuke(&nuke), nuke.nuk_plane);
 	    return RET_FAIL;
 	}
+	if (nuke.nuk_x != pl.pln_x || nuke.nuk_y != pl.pln_y) {
+	    pr("%s isn't in the same sector as %s!\n",
+	       prnuke(&nuke), prplane(&pl));
+	    return RET_FAIL;
+	}
 
 	if (*p == 'y' || *p == 'Y')
 	    pl.pln_flags |= PLN_AIRBURST;
