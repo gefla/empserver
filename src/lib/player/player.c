@@ -37,7 +37,6 @@
 #include "empio.h"
 #include "empthread.h"
 #include "file.h"
-#include "journal.h"
 #include "misc.h"
 #include "nat.h"
 #include "optlist.h"
@@ -84,7 +83,6 @@ player_main(struct player *p)
     strcpy(natp->nat_hostaddr, player->hostaddr);
     natp->nat_last_login = player->curup;
     putnat(natp);
-    journal_login();
     if (natp->nat_flags & NF_INFORM && natp->nat_tgms > 0) {
 	if (natp->nat_tgms == 1)
 	    pr("You have a new telegram waiting ...\n");
@@ -107,7 +105,6 @@ player_main(struct player *p)
     update_timeused(natp->nat_last_logout);
     enforce_minimum_session_time();
     pr("Bye-bye\n");
-    journal_logout();
 }
 
 static int

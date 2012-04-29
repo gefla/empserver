@@ -356,12 +356,14 @@ play_cmd(void)
 	return RET_FAIL;
     }
     snprintf(buf, sizeof(buf), "Play#%d", player->cnum);
-    empth_set_name(empth_self(), buf);
     logerror("%s logged in as country #%d", praddr(player), player->cnum);
+    journal_login();
+    empth_set_name(empth_self(), buf);
     pr_id(player, C_INIT, "%d\n", CLIENTPROTO);
     empth_rwlock_rdlock(shutdown_lock);
     player->state = PS_PLAYING;
     player_main(player);
+    journal_logout();
     logerror("%s logged out, country #%d", praddr(player), player->cnum);
     if (!io_eof(player->iop) && !io_error(player->iop))
 	io_set_eof(player->iop);
