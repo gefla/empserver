@@ -7,18 +7,21 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.30 - Thu Apr 26 18:14:49 UTC 2012
+Changes to Empire 4.3.30 - Sun Apr 29 18:27:41 UTC 2012
+ * Fix arm to require nuke and plane to be in the same sector.  A
+   remote nuke got teleported to its plane when the plane moved.
+   Broken in 4.3.3.
  * Change login command kill (used by client option -k) to kill less
    ruthlessly: send a flash message and try to flush output, exactly
    like a server shutdown does.
  * Fix server shutdown to wait for player threads to reach a safe
-   state.  Without that, we could fail to update the treasury, record
-   play time, and write log entries.  The old code is racy.  It goes
-   back to Empire 2.  It was patched in 4.2.10, 4.2.12, 4.2.20, 4.3.6,
-   4.3.10 and 4.3.23, but the core problem remained unaddressed.
- * When shutdown aborts a command, the terminating player thread could
-   still get stuck sending output, and thus lose the race just
-   mentioned.  Broken in 4.3.23.
+   state.  Before, player threads raced with shutdown, and failed to
+   update the treasury, record play time, and write log entries when
+   they lost.  Bug goes back to Empire 2.  Patched partially or
+   unsuccessfully in 4.2.10, 4.2.12, 4.2.20, 4.3.6, 4.3.10 and 4.3.23.
+   The race was hard to lose in practice, until an unrelated
+   "simplification" in 4.3.32 could get player threads stuck sending
+   output after shutdown aborted a command.
  * Idle timeout changes:
    - The grace period for clients to complete login and logout is now
      separate from the idle timeout.  Configurable with new econfig
