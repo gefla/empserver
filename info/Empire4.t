@@ -7,7 +7,8 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.30 - Sun Apr 29 18:27:41 UTC 2012
+Changes to Empire 4.3.30 - Sat May  5 14:12:11 UTC 2012
+ * Fix some buffer overruns in fairland.  Has always been broken.
  * Fix arm to require nuke and plane to be in the same sector.  A
    remote nuke got teleported to its plane when the plane moved.
    Broken in 4.3.3.
