@@ -368,8 +368,8 @@ parse_args(int argc, char *argv[])
 	is = atoi(argv[3]);
     else
 	is = sc / 2;
-    if (is < 0)
-	is = 0;
+    if (is < 1)
+	is = 1;
 
     if (argc > 4)
 	sp = atoi(argv[4]);
