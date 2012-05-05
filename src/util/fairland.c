@@ -953,10 +953,10 @@ elevate_land(void)
 		else
 		    ELEV = HIGHMIN + rnd((256 - HIGHMIN) / 2) +
 		      rnd((256 - HIGHMIN) / 2);
-	    } else if ((c < nc &&
-			((capx[c] == sectx[c][i] && capy[c] == secty[c][i]))) ||
-		       ((new_x(capx[c] + 2) == sectx[c][i] &&
-			 capy[c] == secty[c][i])))
+	    } else if (c < nc &&
+		       (((capx[c] == sectx[c][i] && capy[c] == secty[c][i])) ||
+			((new_x(capx[c] + 2) == sectx[c][i] &&
+			  capy[c] == secty[c][i]))))
 		ELEV = PLATMIN;
 	}
     }
