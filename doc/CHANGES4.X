@@ -11,7 +11,7 @@ Changes to Empire 4.3.30 - Sun Apr 29 18:27:41 UTC 2012
    they lost.  Bug goes back to Empire 2.  Patched partially or
    unsuccessfully in 4.2.10, 4.2.12, 4.2.20, 4.3.6, 4.3.10 and 4.3.23.
    The race was hard to lose in practice, until an unrelated
-   "simplification" in 4.3.32 could get player threads stuck sending
+   "simplification" in 4.3.23 could get player threads stuck sending
    output after shutdown aborted a command.
  * Idle timeout changes:
    - The grace period for clients to complete login and logout is now
