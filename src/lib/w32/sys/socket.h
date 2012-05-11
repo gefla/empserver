@@ -67,4 +67,8 @@ extern SOCKET w32_fd2socket(int fd);
 extern void w32_set_winsock_errno(void);
 extern int w32_socket_init(void);
 
+#ifndef SHUT_WR
+#define SHUT_WR SD_SEND
+#endif
+
 #endif /* SYS_SOCKET_H */

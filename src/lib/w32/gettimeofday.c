@@ -24,18 +24,28 @@
  *
  *  ---
  *
- *  sys/time.h: POSIX emulation for WIN32
+ *  gettimeofday.c: WIN32 equivalent for UNIX gettimeofday()
  *
  *  Known contributors to this file:
- *     Ron Koenderink, 2009
+ *     Ron Koenderink, 2012
+ *     Markus Armbruster, 2012
  */
 
-#ifndef SYS_TIME_H
-#define SYS_TIME_H
+#ifdef _MSC_VER
 
-/* include winsock2.h thru sys/socket.h to get struct timeval */
-#include "sys/socket.h"
+#include <sys/types.h>
+#include <sys/timeb.h>
+#include <sys/time.h>
 
-extern int gettimeofday(struct timeval *tv, void *tz);
+int
+gettimeofday (struct timeval *tv, void *tz)
+{
+  struct _timeb timebuf;
+  _ftime_s(&timebuf);
+  tv->tv_sec = timebuf.time;
+  tv->tv_usec = timebuf.millitm * 1000;
 
-#endif /* SYS_TIME_H */
+  return 0;
+}
+
+#endif /* _MSC_VER */
