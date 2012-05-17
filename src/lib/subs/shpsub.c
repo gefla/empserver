@@ -100,8 +100,8 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct ulist *mlp;
+    struct shpstr *sp;
     struct sctstr sect;
-    struct shpstr ship;
     coord allx;
     coord ally;
     int first = 1;
@@ -112,31 +112,32 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
-	getship(mlp->unit.ship.shp_uid, &ship);
-	if (ship.shp_own != actor) {
+	sp = &mlp->unit.ship;
+	getship(sp->shp_uid, sp);
+	if (sp->shp_own != actor) {
 	    mpr(actor, "%s was sunk at %s\n",
-		prship(&ship), xyas(ship.shp_x, ship.shp_y, actor));
+		prship(sp), xyas(sp->shp_x, sp->shp_y, actor));
 	    emp_remque((struct emp_qelem *)mlp);
 	    free(mlp);
 	    continue;
 	}
 	if (opt_SAIL) {
-	    if (*ship.shp_path && !update_running) {
+	    if (*sp->shp_path && !update_running) {
 		shp_stays(actor, "has a sail path", mlp);
 		mpr(actor, "Use `sail <#> -' to reset\n");
 		continue;
 	    }
 	}
 	/* check crew - uws don't count */
-	if (ship.shp_item[I_MILIT] == 0 && ship.shp_item[I_CIVIL] == 0) {
+	if (sp->shp_item[I_MILIT] == 0 && sp->shp_item[I_CIVIL] == 0) {
 	    shp_stays(actor, "is crewless", mlp);
 	    continue;
 	}
-	if (!getsect(ship.shp_x, ship.shp_y, &sect)) {
+	if (!getsect(sp->shp_x, sp->shp_y, &sect)) {
 	    shp_stays(actor, "was sucked into the sky by a strange looking spaceship", mlp);	/* heh -KHS */
 	    continue;
 	}
-	switch (shp_check_nav(&sect, &ship)) {
+	switch (shp_check_nav(&sect, sp)) {
 	case CN_CONSTRUCTION:
 	    shp_stays(actor, "is caught in a construction zone", mlp);
 	    continue;
@@ -151,20 +152,19 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    continue;
 	}
 	if (first) {
-	    allx = ship.shp_x;
-	    ally = ship.shp_y;
+	    allx = sp->shp_x;
+	    ally = sp->shp_y;
 	    first = 0;
 	}
-	if (ship.shp_x != allx || ship.shp_y != ally)
+	if (sp->shp_x != allx || sp->shp_y != ally)
 	    *togetherp = 0;
-	if (ship.shp_mobil + 1 < (int)mlp->mobil) {
-	    mlp->mobil = ship.shp_mobil;
+	if (sp->shp_mobil + 1 < (int)mlp->mobil) {
+	    mlp->mobil = sp->shp_mobil;
 	}
 	if (mlp->mobil < *minmobp)
 	    *minmobp = mlp->mobil;
 	if (mlp->mobil > *maxmobp)
 	    *maxmobp = mlp->mobil;
-	mlp->unit.ship = ship;
     }
 }
 
