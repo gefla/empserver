@@ -460,8 +460,8 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct ulist *llp;
+    struct lndstr *lp;
     struct sctstr sect;
-    struct lndstr land;
     coord allx;
     coord ally;
     int first = 1;
@@ -473,54 +473,54 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
-	getland(llp->unit.land.lnd_uid, &land);
-	if (land.lnd_own != actor) {
+	lp = &llp->unit.land;
+	getland(lp->lnd_uid, lp);
+	if (lp->lnd_own != actor) {
 	    mpr(actor, "%s was disbanded at %s\n",
-		prland(&land), xyas(land.lnd_x, land.lnd_y, actor));
+		prland(lp), xyas(lp->lnd_x, lp->lnd_y, actor));
 	    emp_remque((struct emp_qelem *)llp);
 	    free(llp);
 	    continue;
 	}
-	if (land.lnd_ship >= 0) {
+	if (lp->lnd_ship >= 0) {
 	    lnd_stays(actor, "is on a ship", llp);
 	    continue;
 	}
-	if (land.lnd_land >= 0) {
+	if (lp->lnd_land >= 0) {
 	    lnd_stays(actor, "is on a unit", llp);
 	    continue;
 	}
-	if (!getsect(land.lnd_x, land.lnd_y, &sect)) {
+	if (!getsect(lp->lnd_x, lp->lnd_y, &sect)) {
 	    lnd_stays(actor, "was sucked into the sky by a strange looking spaceland", llp);	/* heh -KHS */
 	    continue;
 	}
-	if (!(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY) &&
-	    !(lchr[(int)llp->unit.land.lnd_type].l_flags & L_TRAIN) &&
-	    llp->unit.land.lnd_item[I_MILIT] == 0) {
+	if (!(lchr[lp->lnd_type].l_flags & L_SPY) &&
+	    !(lchr[lp->lnd_type].l_flags & L_TRAIN) &&
+	    lp->lnd_item[I_MILIT] == 0) {
 	    lnd_stays(actor, "has no mil on it to guide it", llp);
 	    continue;
 	}
 	if (relations_with(sect.sct_own, actor) != ALLIED &&
-	    !(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY) &&
+	    !(lchr[lp->lnd_type].l_flags & L_SPY) &&
 	    sect.sct_own) {
 	    sprintf(mess, "has been kidnapped by %s", cname(sect.sct_own));
 	    lnd_stays(actor, mess, llp);
 	    continue;
 	}
 	if (first) {
-	    allx = land.lnd_x;
-	    ally = land.lnd_y;
+	    allx = lp->lnd_x;
+	    ally = lp->lnd_y;
 	    first = 0;
 	}
-	if (land.lnd_x != allx || land.lnd_y != ally)
+	if (lp->lnd_x != allx || lp->lnd_y != ally)
 	    *togetherp = 0;
-	if (land.lnd_mobil + 1 < (int)llp->mobil) {
-	    llp->mobil = land.lnd_mobil;
+	if (lp->lnd_mobil + 1 < (int)llp->mobil) {
+	    llp->mobil = lp->lnd_mobil;
 	}
 	if (llp->mobil < *minmobp)
 	    *minmobp = llp->mobil;
 	if (llp->mobil > *maxmobp)
 	    *maxmobp = llp->mobil;
-	llp->unit.land = land;
     }
 }
 
