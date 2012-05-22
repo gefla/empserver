@@ -55,10 +55,8 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 {
     struct shpstr ship;
     struct nukstr nuke;
-    struct sctstr sect;
     int sublaunch = 0;
     char *base, *in_or_at, *from;
-    int dam;
 
     mpr(pp->pln_own, "Preparing to launch %s at %s %s %s%s\n",
 	prplane(pp),
@@ -100,7 +98,20 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 	    nuke.nuk_effic = 0;
 	    putnuke(nuke.nuk_uid, &nuke);
 	}
+#if 0
+	/*
+	 * Disabled for now, because it breaks callers that call
+	 * msl_launch() for each member of a list of planes, created
+	 * by msl_sel() or perform_mission().  Damage to the base can
+	 * damage other planes.  Any copies of them in the list become
+	 * stale.  When msl_launch() modifies and writes back such a
+	 * stale copy, the damage gets wiped out, triggering a seqno
+	 * oops.
+	 */
 	if (chance(0.33)) {
+	    struct sctstr sect;
+	    int dam;
+
 	    dam = pln_damage(pp, 'p', 0) / 2;
 	    if (pp->pln_ship >= 0) {
 		shipdamage(&ship, dam);
@@ -113,6 +124,7 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 		putsect(&sect);
 	    }
 	}
+#endif
 	return -1;
     }
 
