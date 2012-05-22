@@ -7,7 +7,12 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.30 - Sat May  5 14:12:11 UTC 2012
+Changes to Empire 4.3.30 - Tue May 22 18:34:52 UTC 2012
+ * Disable damage to base sector or ship when missile explodes on
+   launch for now, because damage done to other missiles there can be
+   wiped out in some cases.  Broken in Empire 2.
+ * Fix navigate and march not to wipe out concurrent updates.
+   Abusable, but probably not worthwhile.
  * Fix some buffer overruns in fairland.  Has always been broken.
  * Fix arm to require nuke and plane to be in the same sector.  A
    remote nuke got teleported to its plane when the plane moved.
