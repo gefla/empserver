@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 #   Empire - A multi-player, client/server Internet based war game.
-#   Copyright (C) 1986-2011, Dave Pare, Jeff Bailey, Thomas Ruschak,
+#   Copyright (C) 1986-2012, Dave Pare, Jeff Bailey, Thomas Ruschak,
 #                 Ken Stevens, Steve McClure, Markus Armbruster
 #
 #   Empire is free software: you can redistribute it and/or modify
