@@ -144,7 +144,7 @@ parse_map_flags(int bmap, char *str)
     case 0:   map_flags = 0;
     }
 
-    if (!str)
+    if (!str || !*str)
 	return map_flags;
 
     /* special case "revert" */
