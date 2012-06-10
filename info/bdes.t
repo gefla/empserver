@@ -17,11 +17,11 @@ change them back, the sector will be updated normally by nav, march, etc.
 (The normal use for these is to record minefields, so that you can march
 adjacent to the minefield without eliminating the information)
 .s1
-Unlike normal designation, with bdes, you may use any character.
-If you wish to use a space, surround it with double quotes:
-bdes # " "
-.s1
-You can't bdesignate something to a ?
+You may use any character with bdes, not just sector designations.
+However, certain characters need to be surrounded with double quotes
+on the command line, like this:
+.EX bdes # \(dq \(dq
+.EX bdes 47,11 \(dq?\(dq
 .s1
 Conditionals do not work with bdes (i.e. bdes # ?des=c C) unless
 you own the sector.
