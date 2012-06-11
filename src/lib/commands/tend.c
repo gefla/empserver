@@ -140,6 +140,8 @@ tend(void)
 	    if (tender.shp_x != target.shp_x ||
 		tender.shp_y != target.shp_y)
 		continue;
+	    if (ip->i_uid == I_CIVIL && tender.shp_own != target.shp_own)
+		continue;
 	    ontarget = target.shp_item[ip->i_uid];
 	    vbase = &mchr[(int)target.shp_type];
 	    maxtarget = vbase->m_item[ip->i_uid];
