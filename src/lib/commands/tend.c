@@ -141,16 +141,16 @@ tend(void)
 		tender.shp_y != target.shp_y)
 		continue;
 	    ontarget = target.shp_item[ip->i_uid];
-	    if (ontarget == 0 && amt < 0) {
-		pr("No %s on %s\n", ip->i_name, prship(&target));
-		continue;
-	    }
 	    vbase = &mchr[(int)target.shp_type];
 	    maxtarget = vbase->m_item[ip->i_uid];
 	    if (amt < 0) {
 		/* take from target and give to tender */
 		if (!player->owner)
 		    continue;
+		if (ontarget == 0) {
+		    pr("No %s on %s\n", ip->i_name, prship(&target));
+		    continue;
+		}
 		transfer = MIN(ontarget, -amt);
 		transfer = MIN(maxtender - ontender, transfer);
 		if (transfer == 0)
