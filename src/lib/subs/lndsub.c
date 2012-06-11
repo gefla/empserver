@@ -549,10 +549,10 @@ lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
 	    continue;
 	}
 	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
-	if (sect.sct_oldown == llp->unit.land.lnd_own) {
+	if (relations_with(sect.sct_oldown, actor) == ALLIED) {
 	    if (verbose)
 		mpr(actor,
-		    "%s is in a sector completely owned by you.  Don't bother digging up mines there!\n",
+		    "%s is in a sector completely owned by you or an ally.  Don't bother digging up mines there!\n",
 		    prland(&llp->unit.land));
 	    continue;
 	}
