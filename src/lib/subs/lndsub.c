@@ -524,8 +524,14 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
     }
 }
 
+/*
+ * Sweep landmines with engineers in LAND_LIST for ACTOR.
+ * If EXPLICIT is non-zero, this is for an explicit sweep command from
+ * a player.  Else it's an automatic "on the move" sweep.
+ * If TAKEMOB is non-zero, require and charge mobility.
+ */
 void
-lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
+lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
 	  natid actor)
 {
     struct emp_qelem *qp;
@@ -538,26 +544,21 @@ lnd_sweep(struct emp_qelem *land_list, int verbose, int takemob,
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
 	if (!(((struct lchrstr *)llp->chrp)->l_flags & L_ENGINEER)) {
-	    if (verbose)
+	    if (explicit)
 		mpr(actor, "%s is not an engineer!\n",
 		    prland(&llp->unit.land));
 	    continue;
 	}
 	if (takemob && llp->mobil < 0.0) {
-	    if (verbose)
+	    if (explicit)
 		lnd_stays(actor, "is out of mobility", llp);
 	    continue;
 	}
 	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
-	if (relations_with(sect.sct_oldown, actor) == ALLIED) {
-	    if (verbose)
-		mpr(actor,
-		    "%s is in a sector completely owned by you or an ally.  Don't bother digging up mines there!\n",
-		    prland(&llp->unit.land));
+	if (!explicit && relations_with(sect.sct_oldown, actor) == ALLIED)
 	    continue;
-	}
 	if (SCT_MINES_ARE_SEAMINES(&sect)) {
-	    if (verbose)
+	    if (explicit)
 		mpr(actor, "%s is in a %s sector.  No landmines there!\n",
 		    prland(&llp->unit.land), dchr[sect.sct_type].d_name);
 	    continue;
