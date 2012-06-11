@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -148,10 +148,9 @@ tend(void)
 	    vbase = &mchr[(int)target.shp_type];
 	    maxtarget = vbase->m_item[ip->i_uid];
 	    if (amt < 0) {
-		if (!player->owner)
-		    amt = 0;
-
 		/* take from target and give to tender */
+		if (!player->owner)
+		    continue;
 		transfer = MIN(ontarget, -amt);
 		transfer = MIN(maxtender - ontender, transfer);
 		if (transfer == 0)
