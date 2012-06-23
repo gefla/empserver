@@ -184,17 +184,16 @@ pln_where_to_land(coord x, coord y,
 }
 
 int
-pln_oneway_to_carrier_ok(struct emp_qelem *bomb_list,
-			 struct emp_qelem *esc_list, int cno)
+pln_can_land_on_carrier(struct emp_qelem *bomb_list,
+			struct emp_qelem *esc_list,
+			struct shpstr *sp)
+
 {
     int n, nch, nxl, nmsl;
     struct emp_qelem *list, *qp;
     struct plist *plp;
-    struct shpstr ship;
 
-    if (cno < 0 || !getship(cno, &ship))
-	return 0;
-    n = shp_nplane(&ship, &nch, &nxl, &nmsl);
+    n = shp_nplane(sp, &nch, &nxl, &nmsl);
 
     /* for both lists */
     for (list = bomb_list;
@@ -202,14 +201,14 @@ pln_oneway_to_carrier_ok(struct emp_qelem *bomb_list,
 	 list = list == bomb_list ? esc_list : NULL) {
 	for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	    plp = (struct plist *)qp;
-	    if (plp->plane.pln_ship == ship.shp_uid)
+	    if (plp->plane.pln_ship == sp->shp_uid)
 		continue;
 	    n++;
 	    if (!inc_shp_nplane(&plp->plane, &nch, &nxl, &nmsl))
 		return 0;
 	}
     }
-    return ship_can_carry(&ship, n, nch, nxl, nmsl);
+    return ship_can_carry(sp, n, nch, nxl, nmsl);
 }
 
 void

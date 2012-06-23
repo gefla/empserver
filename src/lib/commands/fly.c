@@ -98,7 +98,8 @@ fly(void)
 	    wantflags, P_M | P_O);
     pln_sel(&ni_esc, &esc_list, &ap_sect, ap_to_target, 1,
 	    wantflags | P_ESC | P_F, P_M | P_O);
-    if (cno >= 0 && !pln_oneway_to_carrier_ok(&bomb_list, &esc_list, cno)) {
+    if (cno >= 0
+	&& !pln_can_land_on_carrier(&bomb_list, &esc_list, &target.ship)) {
 	pr("Not enough room on ship #%d!\n", cno);
 	return RET_FAIL;
     }

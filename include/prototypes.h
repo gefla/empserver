@@ -505,8 +505,8 @@ extern int get_planes(struct nstr_item *, struct nstr_item *,
 		      char *, char *);
 extern struct sctstr *get_assembly_point(char *, struct sctstr *, char *);
 extern int pln_where_to_land(coord, coord, union empobj_storage *, int *);
-extern int pln_oneway_to_carrier_ok(struct emp_qelem *,
-				    struct emp_qelem *, int);
+extern int pln_can_land_on_carrier(struct emp_qelem *, struct emp_qelem *,
+				   struct shpstr *);
 extern void pln_newlanding(struct emp_qelem *, coord, coord, int);
 extern int could_be_on_ship(struct plnstr *, struct shpstr *);
 extern int put_plane_on_ship(struct plnstr *, struct shpstr *);
