@@ -80,7 +80,8 @@ fly(void)
     if (pln_onewaymission(&target, &cno, &wantflags) < 0)
 	return RET_SYN;
 
-    if (ip && ip->i_uid == I_CIVIL && target.sct_own != target.sct_oldown) {
+    if (ip && ip->i_uid == I_CIVIL
+	&& cno < 0 && target.sct_own != target.sct_oldown) {
 	pr("Can't fly civilians into occupied sectors.\n");
 	return RET_FAIL;
     }
