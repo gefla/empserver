@@ -879,27 +879,16 @@ could_be_on_ship(struct plnstr *pp, struct shpstr *sp,
     return ship_can_carry(sp, n + 1, nch, nxl, nmsl);
 }
 
-/*
- * Fit a plane of PP's type on ship SP.
- * Updating the plane accordingly is the caller's job.
- * Return whether it fits.
- */
-static int
-fit_plane_on_ship(struct plnstr *pp, struct shpstr *sp)
-{
-    int n, nch, nxl, nmsl;
-
-    n = shp_nplane(sp, &nch, &nxl, &nmsl);
-    return could_be_on_ship(pp, sp, n, nch, nxl, nmsl);
-}
-
 int
 put_plane_on_ship(struct plnstr *plane, struct shpstr *ship)
 {
+    int n, nch, nxl, nmsl;
+
     if (plane->pln_ship == ship->shp_uid)
 	return 1;		/* Already on ship */
 
-    if (!fit_plane_on_ship(plane, ship))
+    n = shp_nplane(ship, &nch, &nxl, &nmsl);
+    if (!could_be_on_ship(plane, ship, n, nch, nxl, nmsl))
 	return 0;
 
     plane->pln_x = ship->shp_x;
@@ -909,27 +898,14 @@ put_plane_on_ship(struct plnstr *plane, struct shpstr *ship)
     return 1;
 }
 
-/*
- * Fit a plane of PP's type on land unit LP.
- * Updating the plane accordingly is the caller's job.
- * Return whether it fits.
- */
-static int
-fit_plane_on_land(struct plnstr *pp, struct lndstr *lp)
-{
-    struct plchrstr *pcp = plchr + pp->pln_type;
-    struct lchrstr *lcp = lchr + lp->lnd_type;
-
-    return (pcp->pl_flags & P_E) && lnd_nxlight(lp) < lcp->l_nxlight;
-}
-
 int
 put_plane_on_land(struct plnstr *plane, struct lndstr *land)
 {
     if (plane->pln_land == land->lnd_uid)
 	return 1;		/* Already on unit */
-
-    if (!fit_plane_on_land(plane, land))
+    if (!(plchr[plane->pln_type].pl_flags & P_E))
+	return 0;
+    if (lnd_nxlight(land) >= lchr[land->lnd_type].l_nxlight)
 	return 0;
 
     plane->pln_x = land->lnd_x;
