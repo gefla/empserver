@@ -51,7 +51,8 @@
 #include "ship.h"
 #include "xy.h"
 
-static int fit_plane_on_ship(struct plnstr *, struct shpstr *);
+static int ship_can_carry(struct shpstr *, int, int, int, int);
+static int inc_shp_nplane(struct plnstr *, int *, int *, int *);
 
 /*
  * Get planes and escorts argument.
@@ -188,12 +189,14 @@ int
 pln_oneway_to_carrier_ok(struct emp_qelem *bomb_list,
 			 struct emp_qelem *esc_list, int cno)
 {
+    int n, nch, nxl, nmsl;
     struct emp_qelem *list, *qp;
     struct plist *plp;
     struct shpstr ship;
 
     if (cno < 0 || !getship(cno, &ship))
 	return 0;
+    n = shp_nplane(&ship, &nch, &nxl, &nmsl);
 
     /* for both lists */
     for (list = bomb_list;
@@ -203,11 +206,12 @@ pln_oneway_to_carrier_ok(struct emp_qelem *bomb_list,
 	    plp = (struct plist *)qp;
 	    if (plp->plane.pln_ship == ship.shp_uid)
 		continue;
-	    if (!fit_plane_on_ship(&plp->plane, &ship))
+	    n++;
+	    if (!inc_shp_nplane(&plp->plane, &nch, &nxl, &nmsl))
 		return 0;
 	}
     }
-    return 1;
+    return ship_can_carry(&ship, n, nch, nxl, nmsl);
 }
 
 void
