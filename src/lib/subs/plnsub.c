@@ -35,6 +35,7 @@
 
 #include <config.h>
 
+#include "empobj.h"
 #include "file.h"
 #include "item.h"
 #include "land.h"
@@ -116,20 +117,25 @@ get_assembly_point(char *input, struct sctstr *ap_sect, char *buf)
     return NULL;
 }
 
+/*
+ * Find out whether planes can fly one-way to X,Y.
+ * Offer the player any carriers there.  If he chooses one, read it
+ * into TARGET->ship.  Else read the target sector into TARGET->sect.
+ * If planes can land there, set required plane flags in *FLAGSP, and
+ * return 0.  Else return -1.
+ */
 int
-pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
+pln_where_to_land(coord x, coord y,
+		  union empobj_storage *target, int *flagsp)
 {
     int nships;
     int cno;
-    int flags, fl;
-    struct shpstr ship;
+    int fl;
     char buf[1024];
     char *p;
 
-    flags = *flagp;
-
     /* offer carriers */
-    nships = carriersatxy(target->sct_x, target->sct_y, player->cnum);
+    nships = carriersatxy(x, y, player->cnum);
     if (nships) {
 	for (;;) {
 	    p = getstring("Carrier #? ", buf);
@@ -138,50 +144,42 @@ pln_onewaymission(struct sctstr *target, int *shipno, int *flagp)
 	    if (!*p)
 		break;
 	    cno = atoi(p);
-	    if (cno < 0
-		|| !getship(cno, &ship)
+	    if (!getship(cno, &target->ship)
 		|| (!player->owner
-		    && (relations_with(ship.shp_own, player->cnum)
+		    && (relations_with(target->ship.shp_own, player->cnum)
 			!= ALLIED))) {
 		pr("Not yours\n");
 		continue;
 	    }
-	    if (ship.shp_x != target->sct_x || ship.shp_y != target->sct_y) {
-		pr("Ship #%d not in %s\n", cno,
-		   xyas(target->sct_x, target->sct_y, player->cnum));
+	    if (target->ship.shp_x != x || target->ship.shp_y != y) {
+		pr("Ship #%d not in %s\n", cno, xyas(x, y, player->cnum));
 		continue;
 	    }
-	    fl = carrier_planes(&ship, 0);
+	    fl = carrier_planes(&target->ship, 0);
 	    if (fl == 0) {
-		pr("Can't land on %s.\n", prship(&ship));
+		pr("Can't land on %s.\n", prship(&target->ship));
 		continue;
 	    }
 	    /* clear to land on ship#CNO */
 	    pr("landing on carrier %d\n", cno);
-	    flags |= fl;
-	    *shipno = cno;
-	    *flagp = flags;
+	    *flagsp |= fl;
 	    return 0;
 	}
     }
 
     /* try to land at sector */
-    if (relations_with(target->sct_own, player->cnum) != ALLIED) {
-	pr("Nowhere to land at sector %s!\n",
-	   xyas(target->sct_x, target->sct_y, player->cnum));
+    getsect(x, y, &target->sect);
+    if (relations_with(target->sect.sct_own, player->cnum) != ALLIED) {
+	pr("Nowhere to land at sector %s!\n", xyas(x, y, player->cnum));
 	return -1;
     }
-    if (target->sct_type == SCT_MOUNT) {
-	pr("Nowhere to land at sector %s!\n",
-	   xyas(target->sct_x, target->sct_y, player->cnum));
+    if (target->sect.sct_type == SCT_MOUNT) {
+	pr("Nowhere to land at sector %s!\n", xyas(x, y, player->cnum));
 	return -1;
     }
-    if (target->sct_type != SCT_AIRPT || target->sct_effic < 60)
-	flags |= P_V;
-
     /* clear to land at sector */
-    *shipno = -1;
-    *flagp = flags;
+    if (target->sect.sct_type != SCT_AIRPT || target->sect.sct_effic < 60)
+	*flagsp |= P_V;
     return 0;
 }
 

@@ -28,12 +28,13 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
 
 #include "commands.h"
+#include "empobj.h"
 #include "path.h"
 #include "plane.h"
 
@@ -48,7 +49,7 @@ reco(void)
     int cno;
     struct nstr_item ni_bomb;
     struct nstr_item ni_esc;
-    struct sctstr target;
+    union empobj_storage target;
     struct emp_qelem bomb_list;
     struct emp_qelem esc_list;
     int wantflags;
@@ -69,10 +70,11 @@ reco(void)
     ty = ay;
     (void)pathtoxy(flightpath, &tx, &ty, fcost);
     pr("target is %s\n", xyas(tx, ty, player->cnum));
-    getsect(tx, ty, &target);
-    cno = -1;
-    if (pln_onewaymission(&target, &cno, &wantflags) < 0)
+
+    if (pln_where_to_land(tx, ty, &target, &wantflags) < 0)
 	return RET_SYN;
+    cno = target.gen.ef_type == EF_SHIP ? target.gen.uid : -1;
+
     ap_to_target = strlen(flightpath);
     if (flightpath[ap_to_target - 1] == 'h')
 	ap_to_target--;

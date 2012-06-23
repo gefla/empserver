@@ -29,12 +29,13 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
 
 #include "commands.h"
+#include "empobj.h"
 #include "item.h"
 #include "path.h"
 #include "plane.h"
@@ -50,7 +51,7 @@ fly(void)
     int cno;
     struct nstr_item ni_bomb;
     struct nstr_item ni_esc;
-    struct sctstr target;
+    union empobj_storage target;
     struct emp_qelem bomb_list;
     struct emp_qelem esc_list;
     int wantflags;
@@ -74,14 +75,14 @@ fly(void)
     ip = whatitem(player->argp[5], "transport what? ");
     if (player->aborted)
 	return RET_SYN;
-    getsect(tx, ty, &target);
 
-    cno = -1;
-    if (pln_onewaymission(&target, &cno, &wantflags) < 0)
+    if (pln_where_to_land(tx, ty, &target, &wantflags) < 0)
 	return RET_SYN;
+    cno = target.gen.ef_type == EF_SHIP ? target.gen.uid : -1;
 
     if (ip && ip->i_uid == I_CIVIL
-	&& cno < 0 && target.sct_own != target.sct_oldown) {
+	&& target.gen.ef_type == EF_SECTOR
+	&& target.sect.sct_own != target.sect.sct_oldown) {
 	pr("Can't fly civilians into occupied sectors.\n");
 	return RET_FAIL;
     }
