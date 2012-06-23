@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -814,29 +814,16 @@ pln_put1(struct plist *plp)
 }
 
 /*
- * Can PP be loaded on a ship of SP's type?
- * Assume that it already carries N planes, of which NCH are choppers,
- * NXL xlight, NMSL light missiles, and the rest are light fixed-wing
+ * Can a carrier of SP's type carry this load of planes?
+ * The load consists of N planes, of which NCH are choppers, NXL
+ * xlight, NMSL light missiles, and the rest are light fixed-wing
  * planes.
  */
-int
-could_be_on_ship(struct plnstr *pp, struct shpstr *sp,
-		 int n, int nch, int nxl, int nmsl)
+static int
+ship_can_carry(struct shpstr *sp, int n, int nch, int nxl, int nmsl)
 {
-    struct plchrstr *pcp = &plchr[pp->pln_type];
     struct mchrstr *mcp = &mchr[sp->shp_type];
-    int nfw;
-
-    if (pcp->pl_flags & P_K)
-	nch++;
-    else if (pcp->pl_flags & P_E)
-	nxl++;
-    else if (!(pcp->pl_flags & P_L))
-	return 0;
-    else if (pcp->pl_flags & P_M)
-	nmsl++;
-    n++;
-    nfw = n - nch - nxl - nmsl;
+    int nfw = n - nch - nxl - nmsl;
 
     if (nch > mcp->m_nchoppers) /* overflow into fixed-wing slots */
 	nfw += nch - mcp->m_nchoppers;
@@ -847,6 +834,30 @@ could_be_on_ship(struct plnstr *pp, struct shpstr *sp,
     if (nfw && !(mcp->m_flags & M_FLY))
 	return 0;		/* fixed-wing slots wanted */
     return nfw + nmsl <= mcp->m_nplanes;
+}
+
+/*
+ * Can PP be loaded on a ship of SP's type?
+ * Assume that it already carries N planes, of which NCH are choppers,
+ * NXL xlight, NMSL light missiles, and the rest are light fixed-wing
+ * planes.
+ */
+int
+could_be_on_ship(struct plnstr *pp, struct shpstr *sp,
+		 int n, int nch, int nxl, int nmsl)
+{
+    struct plchrstr *pcp = &plchr[pp->pln_type];
+
+    if (pcp->pl_flags & P_K)
+	nch++;
+    else if (pcp->pl_flags & P_E)
+	nxl++;
+    else if (!(pcp->pl_flags & P_L))
+	return 0;
+    else if (pcp->pl_flags & P_M)
+	nmsl++;
+
+    return ship_can_carry(sp, n + 1, nch, nxl, nmsl);
 }
 
 /*
