@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -74,9 +74,15 @@ drop(void)
 
     if (relations_with(target.sct_own, player->cnum) == ALLIED) {
 	/* own or allied sector: cargo drop */
-	if (ip->i_uid == I_CIVIL && target.sct_own != target.sct_oldown) {
-	    pr("Can't drop civilians into occupied sectors.\n");
-	    return RET_FAIL;
+	if (ip->i_uid == I_CIVIL) {
+	    if (target.sct_own != player->cnum) {
+		pr("Your civilians refuse to board a flight abroad!\n");
+		return RET_FAIL;
+	    }
+	    if (target.sct_own != target.sct_oldown) {
+		pr("Can't drop civilians into occupied sectors.\n");
+		return RET_FAIL;
+	    }
 	}
 	wantflags = P_C;
     } else {

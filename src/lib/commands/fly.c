@@ -80,11 +80,16 @@ fly(void)
 	return RET_SYN;
     cno = target.gen.ef_type == EF_SHIP ? target.gen.uid : -1;
 
-    if (ip && ip->i_uid == I_CIVIL
-	&& target.gen.ef_type == EF_SECTOR
-	&& target.sect.sct_own != target.sect.sct_oldown) {
-	pr("Can't fly civilians into occupied sectors.\n");
-	return RET_FAIL;
+    if (ip && ip->i_uid == I_CIVIL) {
+	if (target.gen.own != player->cnum) {
+	    pr("Your civilians refuse to board a flight abroad!\n");
+	    return RET_FAIL;
+	}
+	if (target.gen.ef_type == EF_SECTOR
+	    && target.sect.sct_own != target.sect.sct_oldown) {
+	    pr("Can't fly civilians into occupied sectors.\n");
+	    return RET_FAIL;
+	}
     }
 
     ap_to_target = strlen(flightpath);
