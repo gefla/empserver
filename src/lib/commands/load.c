@@ -30,7 +30,7 @@
  *     David Sharnoff, 1987
  *     Ken Stevens, 1995 (rewritten)
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -461,7 +461,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	} else if (sp->shp_x != pln.pln_x || sp->shp_y != pln.pln_y)
 	    continue;
 
-	if (!could_be_on_ship(&pln, sp, 0, 0, 0, 0)) {
+	if (!could_be_on_ship(&pln, sp)) {
 	    if (noisy) {
 		if (plchr[(int)pln.pln_type].pl_flags & P_K)
 		    p = "choppers";

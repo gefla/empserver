@@ -227,7 +227,7 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
     for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
 	plp = (struct plist *)qp;
 	if (cno >= 0) {
-	    if (!could_be_on_ship(&plp->plane, &ship, 0, 0, 0, 0))
+	    if (!could_be_on_ship(&plp->plane, &ship))
 		pr("\t%s cannot land on ship #%d! %s aborts!\n",
 		   prplane(&plp->plane), cno, prplane(&plp->plane));
 	    else if (!put_plane_on_ship(&plp->plane, &ship))
@@ -865,18 +865,15 @@ inc_shp_nplane(struct plnstr *pp, int *nch, int *nxl, int *nmsl)
 
 /*
  * Can PP be loaded on a ship of SP's type?
- * Assume that it already carries N planes, of which NCH are choppers,
- * NXL xlight, NMSL light missiles, and the rest are light fixed-wing
- * planes.
  */
 int
-could_be_on_ship(struct plnstr *pp, struct shpstr *sp,
-		 int n, int nch, int nxl, int nmsl)
+could_be_on_ship(struct plnstr *pp, struct shpstr *sp)
 {
+    int nch = 0, nxl = 0, nmsl = 0;
+
     if (!inc_shp_nplane(pp, &nch, &nxl, &nmsl))
 	return 0;
-
-    return ship_can_carry(sp, n + 1, nch, nxl, nmsl);
+    return ship_can_carry(sp, 1, nch, nxl, nmsl);
 }
 
 int
@@ -888,8 +885,10 @@ put_plane_on_ship(struct plnstr *plane, struct shpstr *ship)
 	return 1;		/* Already on ship */
 
     n = shp_nplane(ship, &nch, &nxl, &nmsl);
-    if (!could_be_on_ship(plane, ship, n, nch, nxl, nmsl))
-	return 0;
+    if (!inc_shp_nplane(plane, &nch, &nxl, &nmsl))
+	return 0;		/* not a carrier plane */
+    if (!ship_can_carry(ship, n + 1, nch, nxl, nmsl))
+	return 0;		/* no space */
 
     plane->pln_x = ship->shp_x;
     plane->pln_y = ship->shp_y;

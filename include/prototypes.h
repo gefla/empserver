@@ -508,8 +508,7 @@ extern int pln_onewaymission(struct sctstr *, int *, int *);
 extern int pln_oneway_to_carrier_ok(struct emp_qelem *,
 				    struct emp_qelem *, int);
 extern void pln_newlanding(struct emp_qelem *, coord, coord, int);
-extern int could_be_on_ship(struct plnstr *, struct shpstr *,
-			    int, int, int, int);
+extern int could_be_on_ship(struct plnstr *, struct shpstr *);
 extern int put_plane_on_ship(struct plnstr *, struct shpstr *);
 extern void pln_dropoff(struct emp_qelem *, struct ichrstr *,
 			coord, coord, int);
