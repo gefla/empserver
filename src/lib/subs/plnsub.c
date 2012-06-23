@@ -837,6 +837,29 @@ ship_can_carry(struct shpstr *sp, int n, int nch, int nxl, int nmsl)
 }
 
 /*
+ * Increment carrier plane counters for PP.
+ * If it's a chopper, increment *NCH.
+ * Else, if it's x-light, increment *NXL.
+ * Else, if it's a light missile, increment *MSL.
+ * Return non-zero if it's a chopper, x-light or light.
+ */
+static int
+inc_shp_nplane(struct plnstr *pp, int *nch, int *nxl, int *nmsl)
+{
+    struct plchrstr *pcp = &plchr[pp->pln_type];
+
+    if (pcp->pl_flags & P_K)
+	(*nch)++;
+    else if (pcp->pl_flags & P_E)
+	(*nxl)++;
+    else if (!(pcp->pl_flags & P_L))
+	return 0;
+    else if (pcp->pl_flags & P_M)
+	(*nmsl)++;
+    return 1;
+}
+
+/*
  * Can PP be loaded on a ship of SP's type?
  * Assume that it already carries N planes, of which NCH are choppers,
  * NXL xlight, NMSL light missiles, and the rest are light fixed-wing
@@ -846,16 +869,8 @@ int
 could_be_on_ship(struct plnstr *pp, struct shpstr *sp,
 		 int n, int nch, int nxl, int nmsl)
 {
-    struct plchrstr *pcp = &plchr[pp->pln_type];
-
-    if (pcp->pl_flags & P_K)
-	nch++;
-    else if (pcp->pl_flags & P_E)
-	nxl++;
-    else if (!(pcp->pl_flags & P_L))
+    if (!inc_shp_nplane(pp, &nch, &nxl, &nmsl))
 	return 0;
-    else if (pcp->pl_flags & P_M)
-	nmsl++;
 
     return ship_can_carry(sp, n + 1, nch, nxl, nmsl);
 }
