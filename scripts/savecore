@@ -1,6 +1,6 @@
 #!/bin/sh -e
 # Script to save core files, to be run from post_crash_dump_hook
-# Written by Markus Armbruster, 2008-2011
+# Written by Markus Armbruster, 2008-2012
 # This script is in the public domain.
 
 # Use: edit configuration variables below to taste, then set
@@ -37,7 +37,6 @@ privlog=
 
 # Program to send mail
 mailx=mailx
-#mailx=mail
 
 # End of configuration
 

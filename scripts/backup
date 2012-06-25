@@ -1,6 +1,6 @@
 #!/bin/sh -e
 # Backup script to be run from pre_update_hook
-# Written by Markus Armbruster, 2005
+# Written by Markus Armbruster, 2005-2012
 # This script is in the public domain.
 
 # Use: edit configuration variables below to taste, then set
@@ -63,7 +63,7 @@ tar czf $arc .
 # user's privileges are carefully limited.
 if [ "$remote_host" ]
 then
-    nohup sh -c "scp -qBp '$arc' '$remote_host:$remote_dir' 2>&1 | mail -e -s 'Empire backup save failed' '$email'" </dev/null >/dev/null 2>&1 &
+    nohup sh -c "scp -qBp '$arc' '$remote_host:$remote_dir' 2>&1 | mailx -s 'Empire backup save failed' '$email'" </dev/null >/dev/null 2>&1 &
 fi
 #
 # A more secure alternative is to replace the scp command by something like
