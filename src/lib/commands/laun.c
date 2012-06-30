@@ -357,5 +357,6 @@ msl_equip(struct plnstr *pp, char mission)
     memset(&pl, 0, sizeof(struct plist));
     pl.pcp = plchr + pp->pln_type;
     pl.plane = *pp;
+    emp_initque(&pl.queue);
     return pln_equip(&pl, NULL, mission);
 }
