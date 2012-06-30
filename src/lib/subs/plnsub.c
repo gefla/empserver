@@ -45,6 +45,7 @@
 #include "nsc.h"
 #include "nuke.h"
 #include "optlist.h"
+#include "plague.h"
 #include "plane.h"
 #include "player.h"
 #include "prototypes.h"
@@ -236,6 +237,9 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 		       cname(player->cnum), prplane(&plp->plane),
 		       prship(&ship));
 		}
+		if (plp->pcp->pl_crew && plp->pstage == PLG_INFECT
+		    && ship.shp_pstage == PLG_HEALTHY)
+		    ship.shp_pstage = PLG_EXPOSED;
 	    }
 	} else {
 	    plp->plane.pln_x = tx;
@@ -247,6 +251,9 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 		   cname(player->cnum),
 		   prplane(&plp->plane), xyas(tx, ty, sect.sct_own));
 	    }
+	    if (plp->pcp->pl_crew && plp->pstage == PLG_INFECT
+		&& sect.sct_pstage == PLG_HEALTHY)
+		sect.sct_pstage = PLG_EXPOSED;
 	    plp->plane.pln_ship = cno;
 	}
     }
@@ -263,14 +270,10 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
     struct shpstr ship;
     int there;
     int max;
+    int pstage;
 
     if (!ip)
 	return;
-    amt = 0;
-    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
-	plp = (struct plist *)qp;
-	amt += plp->load;
-    }
     if (cno < 0) {
 	getsect(tx, ty, &sect);
 	if (!sect.sct_own) {
@@ -292,11 +295,23 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	}
 	there = sect.sct_item[ip->i_uid];
 	max = ITEM_MAX;
+	pstage = sect.sct_pstage;
     } else {
 	getship(cno, &ship);
 	there = ship.shp_item[ip->i_uid];
 	max = mchr[ship.shp_type].m_item[ip->i_uid];
+	pstage = ship.shp_pstage;
     }
+
+    amt = 0;
+    for (qp = list->q_forw; qp != list; qp = qp->q_forw) {
+	plp = (struct plist *)qp;
+	amt += plp->load;
+	if (plp->load
+	    && plp->pstage == PLG_INFECT && pstage == PLG_HEALTHY)
+	    pstage = PLG_EXPOSED;
+    }
+
     there += amt;
     if (there > max) {
 	pr("%d excess %s discarded\n", there - max, ip->i_name);
@@ -306,6 +321,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
     pr("%d %s landed safely", amt, ip->i_name);
     if (cno < 0) {
 	sect.sct_item[ip->i_uid] = there;
+	sect.sct_pstage = pstage;
 	if (sect.sct_own != player->cnum)
 	    wu(0, sect.sct_own, "%s planes drop %d %s in %s\n",
 	       cname(player->cnum), amt, ip->i_name,
@@ -314,6 +330,7 @@ pln_dropoff(struct emp_qelem *list, struct ichrstr *ip, coord tx, coord ty,
 	putsect(&sect);
     } else {
 	ship.shp_item[ip->i_uid] = there;
+	ship.shp_pstage = pstage;
 	if (ship.shp_own != player->cnum)
 	    wu(0, ship.shp_own, "%s planes land %d %s on carrier %d\n",
 	       cname(player->cnum), amt, ip->i_name, ship.shp_uid);
@@ -576,6 +593,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	putplane(plane.pln_uid, &plane);
 	plp = malloc(sizeof(struct plist));
 	plp->load = 0;
+	plp->pstage = PLG_HEALTHY;
 	plp->pcp = pcp;
 	plp->plane = plane;
 	emp_insque(&plp->queue, list);
@@ -626,14 +644,17 @@ pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
     pcp = plp->pcp;
     if (pp->pln_ship >= 0) {
 	getship(pp->pln_ship, &ship);
+	plp->pstage = ship.shp_pstage;
 	item = ship.shp_item;
 	own = ship.shp_own;
     } else if (pp->pln_land >= 0) {
 	getland(pp->pln_land, &land);
+	plp->pstage = land.lnd_pstage;
 	item = land.lnd_item;
 	own = land.lnd_own;
     } else {
 	getsect(pp->pln_x, pp->pln_y, &sect);
+	plp->pstage = sect.sct_pstage;
 	item = sect.sct_item;
 	own = sect.sct_oldown;
     }

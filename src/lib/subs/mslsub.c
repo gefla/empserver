@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -42,6 +42,7 @@
 #include "nsc.h"
 #include "nuke.h"
 #include "optlist.h"
+#include "plague.h"
 #include "plane.h"
 #include "prototypes.h"
 #include "queue.h"
@@ -224,6 +225,7 @@ msl_sel(struct emp_qelem *list, coord x, coord y, natid victim,
 	/* got a valid interceptor */
 	irv = malloc(sizeof(*irv));
 	irv->load = 0;
+	irv->pstage = PLG_HEALTHY;
 	irv->pcp = &plchr[(int)plane.pln_type];
 	irv->plane = plane;
 	emp_insque(&irv->queue, list);

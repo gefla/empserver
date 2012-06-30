@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992
  *     Steve McClure, 1996
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2012
  */
 
 #include <config.h>
@@ -45,6 +45,7 @@
 #include "nsc.h"
 #include "optlist.h"
 #include "path.h"
+#include "plague.h"
 #include "plane.h"
 #include "player.h"
 #include "prototypes.h"
@@ -784,6 +785,7 @@ getilists(struct emp_qelem *list, unsigned char *rel, natid intruder)
 	/* got one! */
 	ip = malloc(sizeof(*ip));
 	ip->load = 0;
+	ip->pstage = PLG_HEALTHY;
 	ip->pcp = &plchr[(int)plane.pln_type];
 	ip->plane = plane;
 	emp_insque(&ip->queue, &list[plane.pln_own]);

@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2003-2011
+ *     Markus Armbruster, 2003-2012
  */
 
 #include <config.h>
@@ -44,6 +44,7 @@
 #include "nsc.h"
 #include "optlist.h"
 #include "path.h"
+#include "plague.h"
 #include "prototypes.h"
 #include "queue.h"
 #include "xy.h"
@@ -330,6 +331,7 @@ find_escorts(coord x, coord y, natid cn, struct emp_qelem *escorts)
 	    continue;
 	plp = malloc(sizeof(struct plist));
 	plp->load = 0;
+	plp->pstage = PLG_HEALTHY;
 	plp->pcp = &plchr[(int)plane.pln_type];
 	plp->plane = plane;
 	emp_insque(&plp->queue, escorts);
@@ -372,6 +374,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 		/* save planes for later */
 		plp = malloc(sizeof(struct plist));
 		plp->load = 0;
+		plp->pstage = PLG_HEALTHY;
 		plp->pcp = pcp;
 		memcpy(&plp->plane, glp->thing, sizeof(struct plnstr));
 		if (plp->pcp->pl_flags & P_M)
@@ -893,12 +896,15 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
     pcp = plp->pcp;
     if (pp->pln_ship >= 0) {
 	getship(pp->pln_ship, &ship);
+	plp->pstage = ship.shp_pstage;
 	item = ship.shp_item;
     } else if (pp->pln_land >= 0) {
 	getland(pp->pln_land, &land);
+	plp->pstage = land.lnd_pstage;
 	item = land.lnd_item;
     } else {
 	getsect(pp->pln_x, pp->pln_y, &sect);
+	plp->pstage = sect.sct_pstage;
 	item = sect.sct_item;
     }
     if (pcp->pl_fuel > item[I_PETROL]) {

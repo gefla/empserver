@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2012
  */
 
 #include <config.h>
@@ -42,6 +42,7 @@
 #include "nuke.h"
 #include "optlist.h"
 #include "path.h"
+#include "plague.h"
 #include "plane.h"
 #include "ship.h"
 
@@ -355,6 +356,7 @@ msl_equip(struct plnstr *pp, char mission)
     struct plist pl;
 
     pl.load = 0;
+    pl.pstage = PLG_HEALTHY;
     pl.pcp = plchr + pp->pln_type;
     pl.plane = *pp;
     emp_initque(&pl.queue);

@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2012
  */
 
 #ifndef PLANE_H
@@ -125,6 +125,7 @@ struct plchrstr {
 struct plist {
     struct emp_qelem queue;	/* list of planes */
     int load;			/* number of bombs or items carried */
+    short pstage;		/* plague stage */
     struct plchrstr *pcp;	/* pointer to desc of plane */
     struct plnstr plane;	/* struct plane */
 };

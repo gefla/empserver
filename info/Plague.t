@@ -97,11 +97,12 @@ has been spotted.
 .s1
 This includes preventing any loading and unloading of ships and land
 units (since they can, of course, carry plague), explorations out of the
-sector, moving commodities out of the sector, distribution or
-delivery, etc.  Basically, any people or commodities
+sector, moving commodities out of the sector, even by air,
+distribution or delivery, etc.  Basically, any people or commodities
 that originate from a sector, ship or land unit actively battling
 plague will cause the destination sector, ship or land unit to become
 infected.
+Beware, "people" includes pilots.
 .s1
 Once an outbreak has been spotted, the plague takes on an infectious
 state at the next update.  There is very little time to isolate the
