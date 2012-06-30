@@ -354,7 +354,7 @@ msl_equip(struct plnstr *pp, char mission)
 {
     struct plist pl;
 
-    memset(&pl, 0, sizeof(struct plist));
+    pl.load = 0;
     pl.pcp = plchr + pp->pln_type;
     pl.plane = *pp;
     emp_initque(&pl.queue);

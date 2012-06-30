@@ -329,7 +329,7 @@ find_escorts(coord x, coord y, natid cn, struct emp_qelem *escorts)
 	if (!in_oparea((struct empobj *)&plane, x, y))
 	    continue;
 	plp = malloc(sizeof(struct plist));
-	memset(plp, 0, sizeof(struct plist));
+	plp->load = 0;
 	plp->pcp = &plchr[(int)plane.pln_type];
 	plp->plane = plane;
 	emp_insque(&plp->queue, escorts);
@@ -371,8 +371,7 @@ perform_mission(coord x, coord y, natid victim, struct emp_qelem *list,
 	    else {
 		/* save planes for later */
 		plp = malloc(sizeof(struct plist));
-
-		memset(plp, 0, sizeof(struct plist));
+		plp->load = 0;
 		plp->pcp = pcp;
 		memcpy(&plp->plane, glp->thing, sizeof(struct plnstr));
 		if (plp->pcp->pl_flags & P_M)
