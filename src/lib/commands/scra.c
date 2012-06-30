@@ -36,6 +36,7 @@
 #include <ctype.h>
 #include "commands.h"
 #include "optlist.h"
+#include "plague.h"
 #include "unit.h"
 
 int
@@ -148,6 +149,9 @@ scra(void)
 	    }
 	    sect.sct_item[I_LCM] += mp->m_lcm * 2 / 3 * eff;
 	    sect.sct_item[I_HCM] += mp->m_hcm * 2 / 3 * eff;
+	    if (item.ship.shp_pstage == PLG_INFECT
+		&& sect.sct_pstage == PLG_HEALTHY)
+		sect.sct_pstage = PLG_EXPOSED;
 	} else if (type == EF_LAND) {
 	    eff = item.land.lnd_effic / 100.0;
 	    lp = &lchr[(int)item.land.lnd_type];
@@ -158,6 +162,9 @@ scra(void)
 	    }
 	    sect.sct_item[I_LCM] += lp->l_lcm * 2 / 3 * eff;
 	    sect.sct_item[I_HCM] += lp->l_hcm * 2 / 3 * eff;
+	    if (item.land.lnd_pstage == PLG_INFECT
+		&& sect.sct_pstage == PLG_HEALTHY)
+		sect.sct_pstage = PLG_EXPOSED;
 	} else {
 	    eff = item.land.lnd_effic / 100.0;
 	    pp = &plchr[(int)item.plane.pln_type];
