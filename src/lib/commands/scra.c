@@ -142,7 +142,9 @@ scra(void)
 	    eff = item.ship.shp_effic / 100.0;
 	    mp = &mchr[(int)item.ship.shp_type];
 	    for (i = I_NONE + 1; i <= I_MAX; i++) {
-		sect.sct_item[i] += item.ship.shp_item[i];
+		if (load_comm_ok(&sect, item.ship.shp_own, i,
+				 -item.ship.shp_item[i]))
+		    sect.sct_item[i] += item.ship.shp_item[i];
 	    }
 	    sect.sct_item[I_LCM] += mp->m_lcm * 2 / 3 * eff;
 	    sect.sct_item[I_HCM] += mp->m_hcm * 2 / 3 * eff;
@@ -150,7 +152,9 @@ scra(void)
 	    eff = item.land.lnd_effic / 100.0;
 	    lp = &lchr[(int)item.land.lnd_type];
 	    for (i = I_NONE + 1; i <= I_MAX; i++) {
-		sect.sct_item[i] += item.land.lnd_item[i];
+		if (load_comm_ok(&sect, item.land.lnd_own, i,
+				 -item.land.lnd_item[i]))
+		    sect.sct_item[i] += item.land.lnd_item[i];
 	    }
 	    sect.sct_item[I_LCM] += lp->l_lcm * 2 / 3 * eff;
 	    sect.sct_item[I_HCM] += lp->l_hcm * 2 / 3 * eff;

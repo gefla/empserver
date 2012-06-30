@@ -337,7 +337,7 @@ move_amount(int sect_amt, int unit_amt, int unit_max,
     return move_amt;
 }
 
-static int
+int
 load_comm_ok(struct sctstr *sectp, natid unit_own,
 	     i_type item, int move_amt)
 {
