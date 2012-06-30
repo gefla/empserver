@@ -23,8 +23,8 @@ In so doing the plague goes through three stages:
 .ti -3
 Stage I -- The gestation or incubation phase
 in which no symptoms appear.
-Sectors or ships that are in this stage of the plague
-are indistinguishable from healthy sectors or ships.
+Sectors, ships and land units that are in this stage of the plague
+are indistinguishable from healthy ones.
 This stage lasts 32 to 63 time units,
 (less than a day and a half).
 .s1
@@ -89,18 +89,19 @@ max (0, -------------- * ------------------------------------------- - 1)
 Many researchers have commented on the surprising lack of correlation
 between food supply and plague outbreak.
 .s1
-Fortunately, the plague is only infectious while the sector is
+Fortunately, the plague is only infectious while a sector, ship or
+land unit is
 actively battling the plague (Stage II).  The most effective method
-for curing plague has been to isolate the sector by stopping all
-distribution, deliveries, movement, etc.  originating from the sector
-once an outbreak has been spotted.
+for curing plague has been to isolate the sick as soon as an outbreak
+has been spotted.
 .s1
-This includes loading and unloading of ships and land units (since
-they can, of course, carry plague), allowing explorations out of the
+This includes preventing any loading and unloading of ships and land
+units (since they can, of course, carry plague), explorations out of the
 sector, moving commodities out of the sector, distribution or
-deliveries from the sector, etc.  Basically, any people or commodities
-that originate from a sector actively battling plague will cause the
-destination sector (or ship or land unit) to become infected.
+delivery, etc.  Basically, any people or commodities
+that originate from a sector, ship or land unit actively battling
+plague will cause the destination sector, ship or land unit to become
+infected.
 .s1
 Once an outbreak has been spotted, the plague takes on an infectious
 state at the next update.  There is very little time to isolate the
