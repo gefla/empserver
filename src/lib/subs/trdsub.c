@@ -48,6 +48,7 @@
 #include "sect.h"
 #include "ship.h"
 #include "trade.h"
+#include "unit.h"
 #include "xy.h"
 
 int
@@ -169,6 +170,38 @@ trade_desc(struct empobj *tgp)
 	break;
     }
     return 1;
+}
+
+int
+trade_has_unsalable_cargo(struct empobj *tgp, int noisy)
+{
+    int ret, i, type;
+    short *item;
+    struct nstr_item ni;
+    union empobj_storage cargo;
+
+    ret = 0;
+    if (tgp->ef_type == EF_SHIP || tgp->ef_type == EF_LAND) {
+	item = tgp->ef_type == EF_SHIP
+	    ? ((struct shpstr *)tgp)->shp_item
+	    : ((struct lndstr *)tgp)->lnd_item;
+	for (i = I_NONE + 1; i <= I_MAX; i++) {
+	    if (item[i] && !ichr[i].i_sell) {
+		if (noisy)
+		    pr("%s carries %s, which you can't sell.\n",
+		       unit_nameof(tgp), ichr[i].i_name);
+		ret = 1;
+	    }
+	}
+    }
+
+    for (type = EF_PLANE; type <= EF_NUKE; type++) {
+	snxtitem_cargo(&ni, type, tgp->ef_type, tgp->uid);
+	while (nxtitem(&ni, &cargo))
+	    ret |= trade_has_unsalable_cargo(&cargo.gen, noisy);
+    }
+
+    return ret;
 }
 
 int

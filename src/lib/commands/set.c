@@ -116,6 +116,8 @@ set(void)
 		puttrade(ni_trade.cur, &trade);
 	    }
 	} else {
+	    if (trade_has_unsalable_cargo(&item.gen, 1))
+		return RET_FAIL;
 	    if (foundslot >= 0)
 		id = foundslot;
 	    else if (freeslot >= 0)
