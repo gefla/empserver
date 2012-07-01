@@ -33,6 +33,7 @@
 
 #include <config.h>
 
+#include <ctype.h>
 #include "commodity.h"
 #include "empobj.h"
 #include "file.h"
@@ -64,82 +65,67 @@ obj_changed(struct empobj *obj)
 }
 
 int
-check_sect_ok(struct sctstr *sectp)
+check_obj_ok(struct empobj *obj)
 {
-    if (obj_changed((struct empobj *)sectp)) {
-	pr("Sector %s has changed!\n",
-	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));
+    char *s;
+
+    if (obj_changed(obj)) {
+	if (obj->ef_type == EF_SECTOR)
+	    pr("Sector %s has changed!\n",
+	       xyas(obj->x, obj->y, player->cnum));
+	else {
+	    s = ef_nameof_pretty(obj->ef_type);
+	    pr("%c%s %d has changed!\n", toupper(*s), s + 1, obj->uid);
+	}
 	return 0;
     }
     return 1;
+}
+
+int
+check_sect_ok(struct sctstr *sectp)
+{
+    return check_obj_ok((struct empobj *)sectp);
 }
 
 int
 check_ship_ok(struct shpstr *shipp)
 {
-    if (obj_changed((struct empobj *)shipp)) {
-	pr("Ship #%d has changed!\n", shipp->shp_uid);
-	return 0;
-    }
-    return 1;
+    return check_obj_ok((struct empobj *)shipp);
 }
 
 int
 check_plane_ok(struct plnstr *planep)
 {
-    if (obj_changed((struct empobj *)planep)) {
-	pr("Plane #%d has changed!\n", planep->pln_uid);
-	return 0;
-    }
-    return 1;
+    return check_obj_ok((struct empobj *)planep);
 }
 
 int
 check_land_ok(struct lndstr *landp)
 {
-    if (obj_changed((struct empobj *)landp)) {
-	pr("Land unit #%d has changed!\n", landp->lnd_uid);
-	return 0;
-    }
-    return 1;
+    return check_obj_ok((struct empobj *)landp);
 }
 
 int
 check_nuke_ok(struct nukstr *nukep)
 {
-    if (obj_changed((struct empobj *)nukep)) {
-	pr("Nuke %d has changed!\n", nukep->nuk_uid);
-	return 0;
-    }
-    return 1;
+    return check_obj_ok((struct empobj *)nukep);
 }
 
 int
 check_loan_ok(struct lonstr *loanp)
 {
-    if (obj_changed((struct empobj *)loanp)) {
-	pr("Loan %d has changed!\n", loanp->l_uid);
-	return 0;
-    }
-    return 1;
+    return check_obj_ok((struct empobj *)loanp);
 }
 
 int
 check_comm_ok(struct comstr *commp)
 {
-    if (obj_changed((struct empobj *)commp)) {
-	pr("Commodity %d has changed!\n", commp->com_uid);
-	return 0;
-    }
-    return 1;
+    return check_obj_ok((struct empobj *)commp);
 }
 
 int
 check_trade_ok(struct trdstr *tp)
 {
-    if (obj_changed((struct empobj *)tp)) {
-	pr("Trade lot #%d has changed!\n", tp->trd_uid);
-	return 0;
-    }
-    return 1;
+    return check_obj_ok((struct empobj *)tp);
 }

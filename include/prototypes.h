@@ -388,6 +388,7 @@ extern void bsanct(void);
 /* caploss.c */
 extern void caploss(struct sctstr *, natid, char *);
 /* check.c */
+extern int check_obj_ok(struct empobj *);
 extern int check_sect_ok(struct sctstr *);
 extern int check_ship_ok(struct shpstr *);
 extern int check_land_ok(struct lndstr *);
