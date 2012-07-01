@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -50,7 +50,8 @@ obj_changed(struct empobj *obj, size_t sz)
 {
     union empobj_storage old, tobj;
 
-    get_empobj(obj->ef_type, obj->uid, &old);
+    if (!get_empobj(obj->ef_type, obj->uid, &old))
+	return 0;
     memcpy(&tobj, obj, sz);
     old.gen.timestamp = tobj.gen.timestamp = 0;
     old.gen.generation = tobj.gen.generation = 0;
