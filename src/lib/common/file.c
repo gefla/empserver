@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 2000
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2012
  */
 
 #include <config.h>
@@ -928,12 +928,26 @@ ef_byname_from(char *name, int choices[])
     return res;
 }
 
+/*
+ * Return name of table TYPE.  Always a single, short word.
+ */
 char *
 ef_nameof(int type)
 {
     if (ef_check(type) < 0)
-	return "bad ef_type";
+	return "bad";
     return empfile[type].name;
+}
+
+/*
+ * Return "pretty" name of table TYPE.
+ */
+char *
+ef_nameof_pretty(int type)
+{
+    if (ef_check(type) < 0)
+	return "bad";
+    return empfile[type].pretty_name;
 }
 
 static int

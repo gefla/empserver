@@ -27,7 +27,7 @@
  *  filetable.c: Empire game data file descriptions.
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2008
+ *     Markus Armbruster, 2005-2012
  */
 
 #include <config.h>
@@ -132,57 +132,57 @@ struct empfile empfile[] = {
      * and EF_BMAP get a bogus size here.  Fixed up by
      * empfile_fixup().
      */
-    {EF_SECTOR, "sect", "sector", sect_ca, EF_BAD,
+    {EF_SECTOR, "sect", "sector", "sector", sect_ca, EF_BAD,
      UNMAPPED_CACHE(struct sctstr, -1, EFF_TYPED | EFF_XY | EFF_OWNER),
      sct_oninit, NULL, NULL, NULL},
-    {EF_SHIP, "ship", "ship", ship_ca, EF_BAD,
+    {EF_SHIP, "ship", NULL, "ship", ship_ca, EF_BAD,
      UNMAPPED_CACHE(struct shpstr, -1,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP),
      NULL, NULL, NULL, NULL},
-    {EF_PLANE, "plane", "plane", plane_ca, EF_BAD,
+    {EF_PLANE, "plane", NULL, "plane", plane_ca, EF_BAD,
      UNMAPPED_CACHE(struct plnstr, -1,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP),
      pln_oninit, NULL, NULL, NULL},
-    {EF_LAND, "land", "land", land_ca, EF_BAD,
+    {EF_LAND, "land", "land unit", "land", land_ca, EF_BAD,
      UNMAPPED_CACHE(struct lndstr, -1,
 		    EFF_TYPED | EFF_XY | EFF_OWNER | EFF_GROUP),
      lnd_oninit, NULL, NULL, NULL},
-    {EF_NUKE, "nuke", "nuke", nuke_ca, EF_BAD,
+    {EF_NUKE, "nuke", NULL, "nuke", nuke_ca, EF_BAD,
      UNMAPPED_CACHE(struct nukstr, -1, EFF_TYPED | EFF_XY | EFF_OWNER),
      nuk_oninit, NULL, NULL, NULL},
-    {EF_NEWS, "news", "news", news_ca, EF_BAD,
+    {EF_NEWS, "news", NULL, "news", news_ca, EF_BAD,
      UNMAPPED_CACHE(struct nwsstr, -1, 0),
      NULL, NULL, NULL, NULL},
-    {EF_TREATY, "treaty", "treaty", treaty_ca, EF_BAD,
+    {EF_TREATY, "treaty", NULL, "treaty", treaty_ca, EF_BAD,
      UNMAPPED_CACHE(struct trtstr, -1, EFF_TYPED),
      NULL, NULL, NULL, NULL},
-    {EF_TRADE, "trade", "trade", trade_ca, EF_BAD,
+    {EF_TRADE, "trade", "trade lot", "trade", trade_ca, EF_BAD,
      UNMAPPED_CACHE(struct trdstr, -1, EFF_TYPED | EFF_OWNER),
      NULL, NULL, NULL, NULL},
-    {EF_POWER, "pow", "power", NULL, EF_BAD,
+    {EF_POWER, "pow", NULL, "power", NULL, EF_BAD,
      UNMAPPED_CACHE(struct powstr, -1, 0),
      NULL, NULL, NULL, NULL},
-    {EF_NATION, "nat", "nation", nat_ca, EF_BAD,
+    {EF_NATION, "nat", "nation", "nation", nat_ca, EF_BAD,
      UNMAPPED_CACHE(struct natstr, MAXNOC, EFF_TYPED | EFF_OWNER),
      nat_oninit, NULL, NULL, NULL},
-    {EF_LOAN, "loan", "loan", loan_ca, EF_BAD,
+    {EF_LOAN, "loan", NULL, "loan", loan_ca, EF_BAD,
      UNMAPPED_CACHE(struct lonstr, -1, EFF_TYPED),
      NULL, NULL, NULL, NULL},
-    {EF_MAP, "map", "map", NULL, EF_BAD,
+    {EF_MAP, "map", NULL, "map", NULL, EF_BAD,
      0, MAXNOC, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
-    {EF_BMAP, "bmap", "bmap", NULL, EF_BAD,
+    {EF_BMAP, "bmap", NULL, "bmap", NULL, EF_BAD,
      0, MAXNOC, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
-    {EF_COMM, "commodity", "commodity", commodity_ca, EF_BAD,
+    {EF_COMM, "commodity", NULL, "commodity", commodity_ca, EF_BAD,
      UNMAPPED_CACHE(struct comstr, -1, EFF_TYPED | EFF_OWNER),
      NULL, NULL, NULL, NULL},
-    {EF_LOST, "lost", "lostitems", lost_ca, EF_BAD,
+    {EF_LOST, "lost", "lost item", "lostitems", lost_ca, EF_BAD,
      UNMAPPED_CACHE(struct loststr, -1, EFF_TYPED | EFF_OWNER),
      NULL, NULL, NULL, NULL},
-    {EF_REALM, "realm", "realms", realm_ca, EF_BAD,
+    {EF_REALM, "realm", NULL, "realms", realm_ca, EF_BAD,
      UNMAPPED_CACHE(struct realmstr, MAXNOC * MAXNOR,
 		    EFF_TYPED | EFF_OWNER),
      realm_oninit, NULL, NULL, NULL},
-    {EF_GAME, "game", "game", game_ca, EF_BAD,
+    {EF_GAME, "game", NULL, "game", game_ca, EF_BAD,
      UNMAPPED_CACHE(struct gamestr, 1, EFF_TYPED),
      game_oninit, NULL, NULL, NULL},
 
@@ -194,28 +194,29 @@ struct empfile empfile[] = {
      * member are compiled in.  The others are empty; use
      * read_builtin_tables() to fill them.
      */
-    {EF_ITEM, "item", "item.config", ichr_ca, EF_BAD,
+    {EF_ITEM, "item", NULL, "item.config", ichr_ca, EF_BAD,
      ARRAY_CACHE(ichr, EFF_CFG), NULL, NULL, NULL, NULL},
-    {EF_PRODUCT, "product", "product.config", pchr_ca, EF_BAD,
+    {EF_PRODUCT, "product", NULL, "product.config", pchr_ca, EF_BAD,
      ARRAY_CACHE(pchr, EFF_CFG), pchr_oninit, NULL, NULL, NULL},
-    {EF_SECTOR_CHR, "sect-chr", "sect.config", dchr_ca, EF_BAD,
+    {EF_SECTOR_CHR, "sect-chr", NULL, "sect.config", dchr_ca, EF_BAD,
      ARRAY_CACHE(dchr, EFF_CFG), NULL, NULL, NULL, NULL},
-    {EF_SHIP_CHR, "ship-chr", "ship.config", mchr_ca, EF_BAD,
+    {EF_SHIP_CHR, "ship-chr", NULL, "ship.config", mchr_ca, EF_BAD,
      ARRAY_CACHE(mchr, EFF_CFG), mchr_oninit, NULL, NULL, NULL},
-    {EF_PLANE_CHR, "plane-chr", "plane.config", plchr_ca, EF_BAD,
+    {EF_PLANE_CHR, "plane-chr", NULL, "plane.config", plchr_ca, EF_BAD,
      ARRAY_CACHE(plchr, EFF_CFG), plchr_oninit, NULL, NULL, NULL},
-    {EF_LAND_CHR, "land-chr", "land.config", lchr_ca, EF_BAD,
+    {EF_LAND_CHR, "land-chr", NULL, "land.config", lchr_ca, EF_BAD,
      ARRAY_CACHE(lchr, EFF_CFG), lchr_oninit, NULL, NULL, NULL},
-    {EF_NUKE_CHR, "nuke-chr", "nuke.config", nchr_ca, EF_BAD,
+    {EF_NUKE_CHR, "nuke-chr", NULL, "nuke.config", nchr_ca, EF_BAD,
      ARRAY_CACHE(nchr, EFF_CFG), nchr_oninit, NULL, NULL, NULL},
-    {EF_NEWS_CHR, "news-chr", NULL, rpt_ca, EF_BAD,
+    {EF_NEWS_CHR, "news-chr", NULL, NULL, rpt_ca, EF_BAD,
      ARRAY_TABLE(rpt, N_MAX_VERB + 1, EFF_CFG), NULL, NULL, NULL, NULL},
-    {EF_INFRASTRUCTURE, "infrastructure", "infra.config", intrchr_ca, EF_BAD,
+    {EF_INFRASTRUCTURE, "infrastructure", NULL, "infra.config",
+     intrchr_ca, EF_BAD,
      ARRAY_CACHE(intrchr, EFF_CFG), NULL, NULL, NULL, NULL},
     /*
      * Update schedule table.  Use read_schedule() to fill.
      */
-    {EF_UPDATES, "updates", NULL, update_ca, EF_BAD,
+    {EF_UPDATES, "updates", NULL, NULL, update_ca, EF_BAD,
      ARRAY_CACHE(update_time, EFF_CFG),
      NULL, NULL, NULL, NULL},
     /*
@@ -223,13 +224,13 @@ struct empfile empfile[] = {
      * Fixed up by empfile_init().  EF_VERSION's cadef is set by
      * nsc_init().
      */
-    {EF_TABLE, "table", NULL, empfile_ca, EF_BAD,
+    {EF_TABLE, "table", NULL, NULL, empfile_ca, EF_BAD,
      ARRAY_TABLE(empfile, EF_MAX, EFF_CFG),
      NULL, NULL, NULL, NULL},
-    {EF_VERSION, "version", NULL, NULL, EF_BAD,
+    {EF_VERSION, "version", NULL, NULL, NULL, EF_BAD,
      sizeof(PACKAGE_STRING), -1, EFF_STATIC, version, 1, 0, 1, 1, -1,
      NULL, NULL, NULL, NULL},
-    {EF_META, "meta", NULL, mdchr_ca, EF_BAD,
+    {EF_META, "meta", NULL, NULL, mdchr_ca, EF_BAD,
      PTR_CACHE(mdchr_ca, EFF_CFG),
      NULL, NULL, NULL, NULL},
 
@@ -239,9 +240,10 @@ struct empfile empfile[] = {
      * These get bogus csize, cids and fids here.  Fixed up by
      * empfile_init().
      */
-#define SYMTAB(type, name, tab) {(type), (name), NULL, symbol_ca, EF_BAD, \
-				 PTR_CACHE((tab), EFF_CFG),		\
-				 NULL, NULL, NULL, NULL}
+#define SYMTAB(type, name, tab)				\
+    {(type), (name), NULL, NULL, symbol_ca, EF_BAD,	\
+     PTR_CACHE((tab), EFF_CFG), NULL, NULL, NULL, NULL}
+
     SYMTAB(EF_AGREEMENT_STATUS, "agreement-status", agreement_statuses),
     SYMTAB(EF_LAND_CHR_FLAGS, "land-chr-flags", land_chr_flags),
     SYMTAB(EF_LEVEL, "level", level),
@@ -265,12 +267,12 @@ struct empfile empfile[] = {
     SYMTAB(EF_TREATY_FLAGS, "treaty-flags", treaty_flags),
 
     /* Views */
-    {EF_COUNTRY, "country", NULL, cou_ca, EF_NATION,
+    {EF_COUNTRY, "country", NULL, NULL, cou_ca, EF_NATION,
      UNMAPPED_CACHE(struct natstr, MAXNOC, EFF_TYPED | EFF_OWNER),
      NULL, NULL, NULL, NULL},
 
     /* Sentinel */
-    {EF_BAD, NULL, NULL, NULL, EF_BAD,
+    {EF_BAD, NULL, NULL, NULL, NULL, EF_BAD,
      0, -1, 0, NULL, 0, 0, 0, 0, -1, NULL, NULL, NULL, NULL},
 };
 
@@ -384,6 +386,8 @@ empfile_init(void)
     ef_fix_size(&empfile[EF_META], i);
 
     for (ep = empfile; ep->uid >= 0; ep++) {
+	if (!ep->pretty_name)
+	    ep->pretty_name = ep->name;
 	if (ep->cadef == symbol_ca) {
 	    lup = (struct symbol *)ep->cache;
 	    for (i = 0; lup[i].name; i++) ;

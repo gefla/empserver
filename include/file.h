@@ -27,7 +27,7 @@
  *  file.h: Describes Empire tables (`files' for historical reasons)
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2010
+ *     Markus Armbruster, 2005-2012
  */
 
 #ifndef FILE_H
@@ -39,6 +39,7 @@ struct empfile {
     /* Members with immutable values */
     int uid;			/* Table ID */
     char *name;			/* Empire name (e.g., "treaty") */
+    char *pretty_name;		/* prettier name, e.g. "land unit" */
     char *file;			/* file name, relative to gamedir for
 				   game state, to builtindir for config */
     struct castr *cadef;	/* table column selectors (column meta-data) */
@@ -209,6 +210,7 @@ extern void ef_make_stale(void);
 extern void ef_mark_fresh(int, void *);
 extern void *ef_ptr(int, int);
 extern char *ef_nameof(int);
+extern char *ef_nameof_pretty(int);
 extern time_t ef_mtime(int);
 extern int ef_open(int, int);
 extern int ef_open_view(int);
