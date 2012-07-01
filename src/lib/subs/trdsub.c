@@ -94,16 +94,14 @@ trade_desc(struct trdstr *tp, struct empobj *tgp)
     switch (tp->trd_type) {
     case EF_NUKE:
 	np = (struct nukstr *)tgp;
-	tp->trd_owner = np->nuk_own;
 	pr("(%3d)  tech %d %d%% %s #%d",
-	   tp->trd_owner, np->nuk_tech, np->nuk_effic,
+	   np->nuk_own, np->nuk_tech, np->nuk_effic,
 	   nchr[(int)np->nuk_type].n_name, tp->trd_unitid);
 	break;
     case EF_SHIP:
 	sp = (struct shpstr *)tgp;
-	tp->trd_owner = sp->shp_own;
 	pr("(%3d)  tech %d %d%% %s [",
-	   tp->trd_owner, sp->shp_tech, sp->shp_effic, prship(sp));
+	   sp->shp_own, sp->shp_tech, sp->shp_effic, prship(sp));
 
 	for (it = I_NONE + 1; it <= I_MAX; ++it) {
 	    if (sp->shp_item[it])
@@ -147,9 +145,8 @@ trade_desc(struct trdstr *tp, struct empobj *tgp)
 	break;
     case EF_LAND:
 	lp = (struct lndstr *)tgp;
-	tp->trd_owner = lp->lnd_own;
 	pr("(%3d)  tech %d %d%% %s [",
-	   tp->trd_owner,
+	   lp->lnd_own,
 	   lp->lnd_tech, lp->lnd_effic, lchr[(int)lp->lnd_type].l_name);
 	for (it = I_NONE + 1; it <= I_MAX; ++it) {
 	    if (lp->lnd_item[it])
@@ -159,9 +156,8 @@ trade_desc(struct trdstr *tp, struct empobj *tgp)
 	break;
     case EF_PLANE:
 	pp = (struct plnstr *)tgp;
-	tp->trd_owner = pp->pln_own;
 	pr("(%3d)  tech %d %d%% %s #%d",
-	   tp->trd_owner,
+	   pp->pln_own,
 	   pp->pln_tech,
 	   pp->pln_effic,
 	   plchr[(int)pp->pln_type].pl_name, tp->trd_unitid);
