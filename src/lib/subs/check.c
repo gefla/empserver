@@ -46,12 +46,14 @@
  * in both copies, and then compare. */
 
 static int
-obj_changed(struct empobj *obj, size_t sz)
+obj_changed(struct empobj *obj)
 {
     union empobj_storage old, tobj;
+    size_t sz;
 
     if (!get_empobj(obj->ef_type, obj->uid, &old))
 	return 0;
+    sz = empfile[obj->ef_type].size;
     memcpy(&tobj, obj, sz);
     old.gen.timestamp = tobj.gen.timestamp = 0;
     old.gen.generation = tobj.gen.generation = 0;
@@ -64,7 +66,7 @@ obj_changed(struct empobj *obj, size_t sz)
 int
 check_sect_ok(struct sctstr *sectp)
 {
-    if (obj_changed((struct empobj *)sectp, sizeof(*sectp))) {
+    if (obj_changed((struct empobj *)sectp)) {
 	pr("Sector %s has changed!\n",
 	   xyas(sectp->sct_x, sectp->sct_y, player->cnum));
 	return 0;
@@ -75,7 +77,7 @@ check_sect_ok(struct sctstr *sectp)
 int
 check_ship_ok(struct shpstr *shipp)
 {
-    if (obj_changed((struct empobj *)shipp, sizeof(*shipp))) {
+    if (obj_changed((struct empobj *)shipp)) {
 	pr("Ship #%d has changed!\n", shipp->shp_uid);
 	return 0;
     }
@@ -85,7 +87,7 @@ check_ship_ok(struct shpstr *shipp)
 int
 check_plane_ok(struct plnstr *planep)
 {
-    if (obj_changed((struct empobj *)planep, sizeof(*planep))) {
+    if (obj_changed((struct empobj *)planep)) {
 	pr("Plane #%d has changed!\n", planep->pln_uid);
 	return 0;
     }
@@ -95,7 +97,7 @@ check_plane_ok(struct plnstr *planep)
 int
 check_land_ok(struct lndstr *landp)
 {
-    if (obj_changed((struct empobj *)landp, sizeof(*landp))) {
+    if (obj_changed((struct empobj *)landp)) {
 	pr("Land unit #%d has changed!\n", landp->lnd_uid);
 	return 0;
     }
@@ -105,7 +107,7 @@ check_land_ok(struct lndstr *landp)
 int
 check_nuke_ok(struct nukstr *nukep)
 {
-    if (obj_changed((struct empobj *)nukep, sizeof(*nukep))) {
+    if (obj_changed((struct empobj *)nukep)) {
 	pr("Nuke %d has changed!\n", nukep->nuk_uid);
 	return 0;
     }
@@ -115,7 +117,7 @@ check_nuke_ok(struct nukstr *nukep)
 int
 check_loan_ok(struct lonstr *loanp)
 {
-    if (obj_changed((struct empobj *)loanp, sizeof(*loanp))) {
+    if (obj_changed((struct empobj *)loanp)) {
 	pr("Loan %d has changed!\n", loanp->l_uid);
 	return 0;
     }
@@ -125,7 +127,7 @@ check_loan_ok(struct lonstr *loanp)
 int
 check_comm_ok(struct comstr *commp)
 {
-    if (obj_changed((struct empobj *)commp, sizeof(*commp))) {
+    if (obj_changed((struct empobj *)commp)) {
 	pr("Commodity %d has changed!\n", commp->com_uid);
 	return 0;
     }
@@ -135,7 +137,7 @@ check_comm_ok(struct comstr *commp)
 int
 check_trade_ok(struct trdstr *tp)
 {
-    if (obj_changed((struct empobj *)tp, sizeof(*tp))) {
+    if (obj_changed((struct empobj *)tp)) {
 	pr("Trade lot #%d has changed!\n", tp->trd_uid);
 	return 0;
     }
