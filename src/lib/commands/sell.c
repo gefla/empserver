@@ -94,6 +94,10 @@ sell(void)
 	pr("Sectors need at least 1 mobility to sell goods.\n");
 	return RET_FAIL;
     }
+    if (ip->i_uid == I_CIVIL && sect.sct_oldown != sect.sct_own) {
+	pr("You can't sell conquered populace!\n");
+	return RET_FAIL;
+    }
     p = getstarg(player->argp[3], "Quantity: ", buf);
     if (!p || !*p)
 	return RET_SYN;
