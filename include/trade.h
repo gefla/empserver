@@ -58,7 +58,6 @@ struct trdstr {
 };
 
 extern int trade_check_ok(struct trdstr *, union empobj_storage *);
-extern int trade_check_item_ok(union empobj_storage *);
 extern char *trade_nameof(struct trdstr *, union empobj_storage *);
 extern int trade_desc(struct trdstr *, union empobj_storage *);
 extern int trade_getitem(struct trdstr *, union empobj_storage *);

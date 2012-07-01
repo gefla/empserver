@@ -93,7 +93,7 @@ set(void)
 		trade_nameof(&trade, &item), ni.cur);
 	if (!(p = getstarg(player->argp[3], prompt, buf)))
 	    return RET_FAIL;
-	if (!trade_check_item_ok(&item))
+	if (!check_obj_ok(&item.gen))
 	    return RET_FAIL;
 	if ((price = atoi(p)) < 0)
 	    continue;

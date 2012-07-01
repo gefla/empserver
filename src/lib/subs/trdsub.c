@@ -53,23 +53,7 @@
 int
 trade_check_ok(struct trdstr *tp, union empobj_storage *tgp)
 {
-    return check_trade_ok(tp) && trade_check_item_ok(tgp);
-}
-
-int
-trade_check_item_ok(union empobj_storage *tgp)
-{
-    if (tgp->gen.ef_type == EF_LAND)
-	return check_land_ok(&tgp->land);
-    if (tgp->gen.ef_type == EF_PLANE)
-	return check_plane_ok(&tgp->plane);
-    if (tgp->gen.ef_type == EF_SHIP)
-	return check_ship_ok(&tgp->ship);
-    if (tgp->gen.ef_type == EF_NUKE)
-	return check_nuke_ok(&tgp->nuke);
-    CANT_REACH();
-    pr("Trade lot went bad!\n");
-    return 0;
+    return check_trade_ok(tp) && check_obj_ok(&tgp->gen);
 }
 
 char *
