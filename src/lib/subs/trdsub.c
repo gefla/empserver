@@ -51,23 +51,23 @@
 #include "xy.h"
 
 int
-trade_check_ok(struct trdstr *tp, union empobj_storage *tgp)
+trade_check_ok(struct trdstr *tp, struct empobj *tgp)
 {
-    return check_trade_ok(tp) && check_obj_ok(&tgp->gen);
+    return check_trade_ok(tp) && check_obj_ok(tgp);
 }
 
 char *
-trade_nameof(struct trdstr *tp, union empobj_storage *tgp)
+trade_nameof(struct trdstr *tp, struct empobj *tgp)
 {
     switch (tp->trd_type) {
     case EF_NUKE:
-	return nchr[(int)tgp->nuke.nuk_type].n_name;
+	return nchr[tgp->type].n_name;
     case EF_PLANE:
-	return plchr[(int)tgp->plane.pln_type].pl_name;
+	return plchr[tgp->type].pl_name;
     case EF_SHIP:
-	return mchr[(int)tgp->ship.shp_type].m_name;
+	return mchr[tgp->type].m_name;
     case EF_LAND:
-	return lchr[(int)tgp->land.lnd_type].l_name;
+	return lchr[tgp->type].l_name;
     }
     return "Bad trade type, get help";
 }
@@ -78,7 +78,7 @@ trade_nameof(struct trdstr *tp, union empobj_storage *tgp)
  * Return 1 on success, 0 on error
  */
 int
-trade_desc(struct trdstr *tp, union empobj_storage *tgp)
+trade_desc(struct trdstr *tp, struct empobj *tgp)
 {
     i_type it;
     struct sctstr sect;
@@ -93,14 +93,14 @@ trade_desc(struct trdstr *tp, union empobj_storage *tgp)
 
     switch (tp->trd_type) {
     case EF_NUKE:
-	np = &tgp->nuke;
+	np = (struct nukstr *)tgp;
 	tp->trd_owner = np->nuk_own;
 	pr("(%3d)  tech %d %d%% %s #%d",
 	   tp->trd_owner, np->nuk_tech, np->nuk_effic,
 	   nchr[(int)np->nuk_type].n_name, tp->trd_unitid);
 	break;
     case EF_SHIP:
-	sp = &tgp->ship;
+	sp = (struct shpstr *)tgp;
 	tp->trd_owner = sp->shp_own;
 	pr("(%3d)  tech %d %d%% %s [",
 	   tp->trd_owner, sp->shp_tech, sp->shp_effic, prship(sp));
@@ -146,7 +146,7 @@ trade_desc(struct trdstr *tp, union empobj_storage *tgp)
 	    pr(" at sea");
 	break;
     case EF_LAND:
-	lp = &tgp->land;
+	lp = (struct lndstr *)tgp;
 	tp->trd_owner = lp->lnd_own;
 	pr("(%3d)  tech %d %d%% %s [",
 	   tp->trd_owner,
@@ -158,7 +158,7 @@ trade_desc(struct trdstr *tp, union empobj_storage *tgp)
 	pr("] #%d", tp->trd_unitid);
 	break;
     case EF_PLANE:
-	pp = &tgp->plane;
+	pp = (struct plnstr *)tgp;
 	tp->trd_owner = pp->pln_own;
 	pr("(%3d)  tech %d %d%% %s #%d",
 	   tp->trd_owner,

@@ -90,7 +90,7 @@ set(void)
 	}
 	trade.trd_type = type;
 	sprintf(prompt, "%s #%d; price? ",
-		trade_nameof(&trade, &item), ni.cur);
+		trade_nameof(&trade, &item.gen), ni.cur);
 	if (!(p = getstarg(player->argp[3], prompt, buf)))
 	    return RET_FAIL;
 	if (!check_obj_ok(&item.gen))
@@ -111,7 +111,7 @@ set(void)
 	if (price <= 0) {
 	    if (foundslot >= 0) {
 		pr("%s #%d (lot #%d) removed from trading\n",
-		   trade_nameof(&trade, &item), ni.cur, foundslot);
+		   trade_nameof(&trade, &item.gen), ni.cur, foundslot);
 		trade.trd_owner = 0;
 		puttrade(ni_trade.cur, &trade);
 	    }
@@ -134,7 +134,7 @@ set(void)
 	    trade.trd_maxbidder = player->cnum;
 	    puttrade(id, &trade);
 	    pr("%s #%d (lot #%d) price %s to $%d\n",
-	       trade_nameof(&trade, &item), ni.cur,
+	       trade_nameof(&trade, &item.gen), ni.cur,
 	       id, foundslot >= 0 ? "reset" : "set", price);
 	}
     }

@@ -103,7 +103,7 @@ trad(void)
 	    tleft = 0.0;
 	pr("$%7ld  %2d %5.2f hrs ",
 	   trade.trd_price, trade.trd_maxbidder, tleft);
-	(void)trade_desc(&trade, &tg);	/* XXX */
+	trade_desc(&trade, &tg.gen);	/* XXX */
 	pr("\n");
 	if (trade.trd_owner == player->cnum && !player->god)
 	    pr(" (your own lot)\n");
@@ -182,7 +182,7 @@ trad(void)
 	|| (trade.trd_type == EF_NUKE)) {
 	while (1) {
 	    p = getstring("Destination sector: ", buf);
-	    if (!trade_check_ok(&trade, &tg))
+	    if (!trade_check_ok(&trade, &tg.gen))
 		return RET_FAIL;
 	    if (!p) {
 		return RET_FAIL;
@@ -210,7 +210,7 @@ trad(void)
     } else if (trade.trd_type == EF_LAND) {
 	while (1) {
 	    p = getstring("Destination sector: ", buf);
-	    if (!trade_check_ok(&trade, &tg))
+	    if (!trade_check_ok(&trade, &tg.gen))
 		return RET_FAIL;
 	    if (!p) {
 		return RET_FAIL;
@@ -242,7 +242,7 @@ trad(void)
     p = getstring("How much do you bid: ", buf);
     if (!p || !*p)
 	return RET_OK;
-    if (!trade_check_ok(&trade, &tg))
+    if (!trade_check_ok(&trade, &tg.gen))
 	return RET_FAIL;
     bid = atoi(p);
     if (bid < price)
@@ -330,14 +330,14 @@ check_trade(void)
 	    nreport(trade.trd_maxbidder, N_WELCH_DEAL, seller, 1);
 	    wu(0, seller,
 	       "%s tried to buy a %s #%d from you for $%.2f\n",
-	       cname(trade.trd_maxbidder), trade_nameof(&trade, &tg),
+	       cname(trade.trd_maxbidder), trade_nameof(&trade, &tg.gen),
 	       saveid, price * tradetax);
 	    wu(0, seller, "   but couldn't afford it.\n");
 	    wu(0, seller,
 	       "   Your item was taken off the market.\n");
 	    wu(0, trade.trd_maxbidder,
 	       "You tried to buy %s #%d from %s for $%.2f\n",
-	       trade_nameof(&trade, &tg), saveid, cname(seller),
+	       trade_nameof(&trade, &tg.gen), saveid, cname(seller),
 	       price);
 	    wu(0, trade.trd_maxbidder, "but couldn't afford it.\n");
 	    continue;
@@ -398,11 +398,11 @@ check_trade(void)
 
 	nreport(seller, N_MAKE_SALE, trade.trd_maxbidder, 1);
 	wu(0, seller, "%s bought %s #%d from you for $%.2f\n",
-	   cname(trade.trd_maxbidder), trade_nameof(&trade, &tg),
+	   cname(trade.trd_maxbidder), trade_nameof(&trade, &tg.gen),
 	   saveid, price * tradetax);
 	wu(0, trade.trd_maxbidder,
 	   "The bidding is over & you bought %s #%d from %s for $%.2f\n",
-	   trade_nameof(&trade, &tg), saveid, cname(seller),
+	   trade_nameof(&trade, &tg.gen), saveid, cname(seller),
 	   price);
     }
     return RET_OK;
