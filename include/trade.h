@@ -59,7 +59,7 @@ struct trdstr {
 
 extern int trade_check_ok(struct trdstr *, struct empobj *);
 extern char *trade_nameof(struct trdstr *, struct empobj *);
-extern int trade_desc(struct trdstr *, struct empobj *);
+extern int trade_desc(struct empobj *);
 extern int trade_getitem(struct trdstr *, union empobj_storage *);
 
 #define gettrade(n, p) ef_read(EF_TRADE, (n), (p))

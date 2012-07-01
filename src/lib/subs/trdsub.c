@@ -78,7 +78,7 @@ trade_nameof(struct trdstr *tp, struct empobj *tgp)
  * Return 1 on success, 0 on error
  */
 int
-trade_desc(struct trdstr *tp, struct empobj *tgp)
+trade_desc(struct empobj *tgp)
 {
     i_type it;
     struct sctstr sect;
@@ -91,12 +91,12 @@ trade_desc(struct trdstr *tp, struct empobj *tgp)
     struct lndstr land;
     struct nukstr nuke;
 
-    switch (tp->trd_type) {
+    switch (tgp->ef_type) {
     case EF_NUKE:
 	np = (struct nukstr *)tgp;
 	pr("(%3d)  tech %d %d%% %s #%d",
 	   np->nuk_own, np->nuk_tech, np->nuk_effic,
-	   nchr[(int)np->nuk_type].n_name, tp->trd_unitid);
+	   nchr[(int)np->nuk_type].n_name, np->nuk_uid);
 	break;
     case EF_SHIP:
 	sp = (struct shpstr *)tgp;
@@ -107,7 +107,7 @@ trade_desc(struct trdstr *tp, struct empobj *tgp)
 	    if (sp->shp_item[it])
 		pr("%c:%d ", ichr[it].i_mnem, sp->shp_item[it]);
 	}
-	pr("] #%d", tp->trd_unitid);
+	pr("] #%d", sp->shp_uid);
 	snxtitem_cargo(&ni, EF_PLANE, EF_SHIP, sp->shp_uid);
 	while (nxtitem(&ni, &plane)) {
 	    pr("\n\t\t\t\t    tech %3d %3d%% %s #%d",
@@ -152,7 +152,7 @@ trade_desc(struct trdstr *tp, struct empobj *tgp)
 	    if (lp->lnd_item[it])
 		pr("%c:%d ", ichr[it].i_mnem, lp->lnd_item[it]);
 	}
-	pr("] #%d", tp->trd_unitid);
+	pr("] #%d", lp->lnd_uid);
 	break;
     case EF_PLANE:
 	pp = (struct plnstr *)tgp;
@@ -160,12 +160,12 @@ trade_desc(struct trdstr *tp, struct empobj *tgp)
 	   pp->pln_own,
 	   pp->pln_tech,
 	   pp->pln_effic,
-	   plchr[(int)pp->pln_type].pl_name, tp->trd_unitid);
+	   plchr[(int)pp->pln_type].pl_name, pp->pln_uid);
 	if (getnuke(nuk_on_plane(pp), &nuke))
 	    pr("(%s)", nchr[nuke.nuk_type].n_name);
 	break;
     default:
-	pr("flaky unit type %d", tp->trd_type);
+	pr("flaky unit type %d", tgp->uid);
 	break;
     }
     return 1;

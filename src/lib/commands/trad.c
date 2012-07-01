@@ -103,7 +103,7 @@ trad(void)
 	    tleft = 0.0;
 	pr("$%7ld  %2d %5.2f hrs ",
 	   trade.trd_price, trade.trd_maxbidder, tleft);
-	trade_desc(&trade, &tg.gen);	/* XXX */
+	trade_desc(&tg.gen);	/* XXX */
 	pr("\n");
 	if (trade.trd_owner == player->cnum && !player->god)
 	    pr(" (your own lot)\n");
