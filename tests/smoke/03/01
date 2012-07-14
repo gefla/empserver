@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 1 << EOF
 cen *
 map #
 read y
@@ -28,4 +25,3 @@ thres d 4,-2 10
 thres d -1,-1 50
 thres c 1,1 768
 prod *
-EOF

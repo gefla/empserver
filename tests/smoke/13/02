@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 2 << EOF
 explore c 2,0  1 uh
 explore c 2,0  1 jh
 explore c 2,0  1 bh
@@ -90,4 +87,3 @@ cen *
 map #
 read y
 prod *
-EOF

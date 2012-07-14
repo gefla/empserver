@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 1 << EOF
 lload m 4/5 5
 lload s 5 200
 lload g 5 20
@@ -27,4 +24,3 @@ plane *
 map #
 read y
 prod *
-EOF

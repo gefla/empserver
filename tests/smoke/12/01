@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 1 << EOF
 build l 10,2 cav 5
 build sh 5,-1 cs 3
 thres m 10,2 25
@@ -13,4 +10,3 @@ land *
 map #
 read y
 prod *
-EOF

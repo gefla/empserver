@@ -1,10 +1,6 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 1 << EOF
 real 0 -8:16,-4:4
 cen *
 ship *
 map #
 read y
 prod *
-EOF

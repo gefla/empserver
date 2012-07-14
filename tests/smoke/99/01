@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 1 1 << EOF
 xdump sect 0,0
 xdump ship *
 xdump plane *
@@ -50,4 +47,3 @@ xdump retreat-flags *
 xdump ship-chr-flags *
 xdump treaty-flags *
 xdump country *
-EOF

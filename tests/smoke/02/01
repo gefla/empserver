@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 1 << EOF
 desi -1,-1 b
 mov i 2,0 200 4,0
 mov i 1,-1 4 jh
@@ -16,4 +13,3 @@ dist # 5,-1
 thre h 4,0 1
 thre l 3,-1 1
 desi 5,-1 h
-EOF

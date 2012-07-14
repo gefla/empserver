@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 1 << EOF
 cen *
 ship *
 map #
@@ -16,4 +13,3 @@ h
 assault 11,-1 0
 25
 prod *
-EOF

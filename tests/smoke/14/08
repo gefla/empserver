@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 8 << EOF
 thres c * 769
 thres i -2:0,-2 1
 des -2:0,-2 m
@@ -17,4 +14,3 @@ cen *
 map #
 read y
 prod *
-EOF

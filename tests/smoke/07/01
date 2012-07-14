@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 1 << EOF
 build bridge 5,-1 j
 explore c 5,-1 1 jh
 mov c 5,-1 76 7,-1
@@ -30,4 +27,3 @@ ship *
 map #
 read y
 prod *
-EOF

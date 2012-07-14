@@ -87,7 +87,7 @@ EOF
 	then c=POGO r=peter
 	else c="${p#0}"; r="$c"
 	fi
-	sed '1,3d;$d' <$j | src/client/empire "$c" "$r" >&3
+	src/client/empire "$c" "$r" <$j >&3
 	echo "Player $p Turn $t completed successfully" >&3
     done
     need_update=y

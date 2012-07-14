@@ -1,8 +1,4 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 8 << EOF
 cen *
 map #
 read y
 lost *
-EOF

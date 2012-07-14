@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 2 << EOF
 break
 expl c 0,0 1 uh
 desi 1,-1 +
@@ -56,4 +53,3 @@ xdump meta retreat-flags
 xdump meta ship-chr-flags
 xdump meta treaty-flags
 xdump meta country
-EOF

@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 8 << EOF
 exp c 0,0 1 gh
 exp c 0,0 1 yh
 exp c 0,0 1 ygh
@@ -31,4 +28,3 @@ cen *
 map #
 read y
 prod *
-EOF

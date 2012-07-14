@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 8 << EOF
 des 7,-1 c
 capital 7,-1
 des * ?gold>1 g
@@ -28,4 +25,3 @@ cen *
 map #
 read y
 prod *
-EOF

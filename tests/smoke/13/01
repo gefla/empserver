@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 1 << EOF
 des -2,-2 j
 thres l -2,-2 1
 des -4,-2 k
@@ -59,4 +56,3 @@ land *
 map #
 read y
 prod *
-EOF

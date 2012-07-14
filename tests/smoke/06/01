@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed 1 << EOF
 real 1 -16:24,-8:8
 convert 11,-1 76
 thres c -2,2 769
@@ -34,4 +31,3 @@ ship *
 map #
 read y
 prod *
-EOF

@@ -1,6 +1,3 @@
-#!/bin/sh
-. "${SCRIPTDIR}"/common.sh
-runfeed POGO peter << EOF
 xdump meta sect
 xdump meta ship
 xdump meta plane
@@ -50,4 +47,3 @@ xdump meta retreat-flags
 xdump meta ship-chr-flags
 xdump meta treaty-flags
 xdump meta country
-EOF
