@@ -1,0 +1,519 @@
+Thu Jan  1 00:00:00 1970 ------------------------------------------------------
+Thu Jan  1 00:00:00 1970 Empire server (pid 42) started
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #3
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #3
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #3
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #4
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #4
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #4
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #5
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #5
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #5
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #6
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #6
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #6
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #7
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #7
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #7
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #9
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #9
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #9
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #10
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #10
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #10
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 First update since reboot, allocating buffer
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 0 announcements deleted; 0 announcements saved
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #2
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #8
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 Triggering unscheduled update
+Thu Jan  1 00:00:00 1970 production update (60 etus)
+Thu Jan  1 00:00:00 1970 preparing sectors...
+Thu Jan  1 00:00:00 1970 done preparing sectors.
+Thu Jan  1 00:00:00 1970 producing for countries...
+Thu Jan  1 00:00:00 1970 done producing for countries.
+Thu Jan  1 00:00:00 1970 delivering...
+Thu Jan  1 00:00:00 1970 done delivering
+Thu Jan  1 00:00:00 1970 assembling paths...
+Thu Jan  1 00:00:00 1970 done assembling paths 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 exporting...
+Thu Jan  1 00:00:00 1970 done exporting
+Thu Jan  1 00:00:00 1970 importing...
+Thu Jan  1 00:00:00 1970 done importing
+Thu Jan  1 00:00:00 1970 Deleting annos older than Thu Jan  1 00:00:00 1970
+Thu Jan  1 00:00:00 1970 End update 0.0 user 0.0 system
+Thu Jan  1 00:00:00 1970 Update schedule read
+Thu Jan  1 00:00:00 1970 No update scheduled
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #0
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 using country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged in as country #1
+Thu Jan  1 00:00:00 1970 tester@127.0.0.1 logged out, country #1
+Thu Jan  1 00:00:00 1970 Shutdown commencing (cleaning up threads.)
+Thu Jan  1 00:00:00 1970 Server shutting down on signal 15

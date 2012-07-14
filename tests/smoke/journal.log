@@ -1,0 +1,2786 @@
+Thu Jan  1 00:00:00 1970       Main startup
+Thu Jan  1 00:00:00 1970       Main prng BSD 1
+Thu Jan  1 00:00:00 1970      Conn0 input user tester
+Thu Jan  1 00:00:00 1970      Conn0 input coun red
+Thu Jan  1 00:00:00 1970      Conn1 input user tester
+Thu Jan  1 00:00:00 1970      Conn1 input coun POGO
+Thu Jan  1 00:00:00 1970      Conn1 input pass peter
+Thu Jan  1 00:00:00 1970      Conn1 input play 
+Thu Jan  1 00:00:00 1970      Conn1 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input add 1 1 1 p
+Thu Jan  1 00:00:00 1970     Play#0 command add
+Thu Jan  1 00:00:00 1970     Play#0 input newcap 1 5,19
+Thu Jan  1 00:00:00 1970     Play#0 command newcap
+Thu Jan  1 00:00:00 1970     Play#0 input add 2 2 2 p
+Thu Jan  1 00:00:00 1970     Play#0 command add
+Thu Jan  1 00:00:00 1970     Play#0 input newcap 2 16,10
+Thu Jan  1 00:00:00 1970     Play#0 command newcap
+Thu Jan  1 00:00:00 1970     Play#0 input add 3 3 3 p
+Thu Jan  1 00:00:00 1970     Play#0 command add
+Thu Jan  1 00:00:00 1970     Play#0 input newcap 3 60,10
+Thu Jan  1 00:00:00 1970     Play#0 command newcap
+Thu Jan  1 00:00:00 1970     Play#0 input add 4 4 4 p
+Thu Jan  1 00:00:00 1970     Play#0 command add
+Thu Jan  1 00:00:00 1970     Play#0 input newcap 4 49,1
+Thu Jan  1 00:00:00 1970     Play#0 command newcap
+Thu Jan  1 00:00:00 1970     Play#0 input add 5 5 5 p
+Thu Jan  1 00:00:00 1970     Play#0 command add
+Thu Jan  1 00:00:00 1970     Play#0 input newcap 5 34,8
+Thu Jan  1 00:00:00 1970     Play#0 command newcap
+Thu Jan  1 00:00:00 1970     Play#0 input add 6 6 6 p
+Thu Jan  1 00:00:00 1970     Play#0 command add
+Thu Jan  1 00:00:00 1970     Play#0 input newcap 6 2,30
+Thu Jan  1 00:00:00 1970     Play#0 command newcap
+Thu Jan  1 00:00:00 1970     Play#0 input add 7 7 7 p
+Thu Jan  1 00:00:00 1970     Play#0 command add
+Thu Jan  1 00:00:00 1970     Play#0 input newcap 7 24,0
+Thu Jan  1 00:00:00 1970     Play#0 command newcap
+Thu Jan  1 00:00:00 1970     Play#0 input add 8 8 8 p
+Thu Jan  1 00:00:00 1970     Play#0 command add
+Thu Jan  1 00:00:00 1970     Play#0 input newcap 8 23,21
+Thu Jan  1 00:00:00 1970     Play#0 command newcap
+Thu Jan  1 00:00:00 1970     Play#0 input add 9 9 9 p
+Thu Jan  1 00:00:00 1970     Play#0 command add
+Thu Jan  1 00:00:00 1970     Play#0 input newcap 9 38,26
+Thu Jan  1 00:00:00 1970     Play#0 command newcap
+Thu Jan  1 00:00:00 1970     Play#0 input add 10 10 10 p
+Thu Jan  1 00:00:00 1970     Play#0 command add
+Thu Jan  1 00:00:00 1970     Play#0 input newcap 10 52,22
+Thu Jan  1 00:00:00 1970     Play#0 command newcap
+Thu Jan  1 00:00:00 1970     Play#0 input add 11 visitor visitor v
+Thu Jan  1 00:00:00 1970     Play#0 command add
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970      Conn2 input user tester
+Thu Jan  1 00:00:00 1970      Conn2 input coun POGO
+Thu Jan  1 00:00:00 1970      Conn2 input pass peter
+Thu Jan  1 00:00:00 1970      Conn2 input play 
+Thu Jan  1 00:00:00 1970      Conn2 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta sect
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta ship
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta plane
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta land
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta nuke
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta news
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta treaty
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta trade
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta nat
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta loan
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta commodity
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta lost
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta realm
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta game
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta item
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta product
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta sect-chr
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta ship-chr
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta plane-chr
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta land-chr
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta nuke-chr
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta news-chr
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta infrastructure
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta updates
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta table
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta version
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta meta
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta sector
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta agreement-status
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta land-chr-flags
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta level
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta meta-flags
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta meta-type
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta missions
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta nation-flags
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta nation-rejects
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta nation-relationships
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta nation-status
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta nuke-chr-flags
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta packing
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta page-headings
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta plague-stages
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta plane-chr-flags
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta plane-flags
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta resources
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta retreat-flags
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta ship-chr-flags
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta treaty-flags
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta country
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970      Conn3 input user tester
+Thu Jan  1 00:00:00 1970      Conn3 input coun 1
+Thu Jan  1 00:00:00 1970      Conn3 input pass 1
+Thu Jan  1 00:00:00 1970      Conn3 input play 
+Thu Jan  1 00:00:00 1970      Conn3 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input xdump sect 0,0
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input break
+Thu Jan  1 00:00:00 1970     Play#1 command break
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 uh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 jh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 uh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 nh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 bh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 yh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 gh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 bh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input desi * ?ne=- +
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 njh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 nnh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 bnh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 bbh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 yyh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 yuh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 bnh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 yuh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 uuh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 juh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input desi * ?ne=- +
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 nnnh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 nnjh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 njjh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 uujh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 bbnh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 bnnh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 yygh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 0,0 1 yuuh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input desi * ?ne=- +
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 nnjjh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input desi * ?ne=- +
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input expl c 2,0 1 nnjjjh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input desi * ?ne=- +
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input mov u 0,0 75 jh
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input demob 0:2,0 55 y
+Thu Jan  1 00:00:00 1970     Play#1 command demobilize
+Thu Jan  1 00:00:00 1970     Play#1 input desi 2,0 m
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 0,0 600 -1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input desi -1,-1 g
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 0,0 275 1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 2,0 274 1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input desi 1,-1 m
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input deliver i 2,0 230 u
+Thu Jan  1 00:00:00 1970     Play#1 command deliver
+Thu Jan  1 00:00:00 1970     Play#1 input deliver i 1,-1 0 j
+Thu Jan  1 00:00:00 1970     Play#1 command deliver
+Thu Jan  1 00:00:00 1970     Play#1 input dist 4,0 2,0
+Thu Jan  1 00:00:00 1970     Play#1 command distribute
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 2,0 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 0,-2 c
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input capital 0,-2
+Thu Jan  1 00:00:00 1970     Play#1 command capital
+Thu Jan  1 00:00:00 1970     Play#1 input des 0,0 g
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 0,0 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970      Conn4 input user tester
+Thu Jan  1 00:00:00 1970      Conn4 input coun 2
+Thu Jan  1 00:00:00 1970      Conn4 input pass 2
+Thu Jan  1 00:00:00 1970      Conn4 input play 
+Thu Jan  1 00:00:00 1970      Conn4 login 2 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#2 input break
+Thu Jan  1 00:00:00 1970     Play#2 command break
+Thu Jan  1 00:00:00 1970     Play#2 input expl c 0,0 1 uh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input desi 1,-1 +
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input mov c 0,0 205 uh
+Thu Jan  1 00:00:00 1970     Play#2 command move
+Thu Jan  1 00:00:00 1970     Play#2 input desi 1,-1 g
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input cen *
+Thu Jan  1 00:00:00 1970     Play#2 command census
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta sect
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta ship
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta plane
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta land
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta nuke
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta news
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta treaty
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta trade
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta nat
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta loan
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta commodity
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta lost
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta realm
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta game
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta item
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta product
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta sect-chr
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta ship-chr
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta plane-chr
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta land-chr
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta nuke-chr
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta news-chr
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta infrastructure
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta updates
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta table
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta version
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta meta
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta sector
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta agreement-status
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta land-chr-flags
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta level
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta meta-flags
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta meta-type
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta missions
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta nation-flags
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta nation-rejects
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta nation-relationships
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta nation-status
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta nuke-chr-flags
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta packing
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta page-headings
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta plague-stages
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta plane-chr-flags
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta plane-flags
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta resources
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta retreat-flags
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta ship-chr-flags
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta treaty-flags
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input xdump meta country
+Thu Jan  1 00:00:00 1970     Play#2 command xdump
+Thu Jan  1 00:00:00 1970     Play#2 input ctld
+Thu Jan  1 00:00:00 1970     Play#2 logout 2
+Thu Jan  1 00:00:00 1970      Conn5 input user tester
+Thu Jan  1 00:00:00 1970      Conn5 input coun 3
+Thu Jan  1 00:00:00 1970      Conn5 input pass 3
+Thu Jan  1 00:00:00 1970      Conn5 input play 
+Thu Jan  1 00:00:00 1970      Conn5 login 3 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#3 input break
+Thu Jan  1 00:00:00 1970     Play#3 command break
+Thu Jan  1 00:00:00 1970     Play#3 input expl c 0,0 1 uh
+Thu Jan  1 00:00:00 1970     Play#3 command explore
+Thu Jan  1 00:00:00 1970     Play#3 input desi 1,-1 +
+Thu Jan  1 00:00:00 1970     Play#3 command designate
+Thu Jan  1 00:00:00 1970     Play#3 input mov c 0,0 205 uh
+Thu Jan  1 00:00:00 1970     Play#3 command move
+Thu Jan  1 00:00:00 1970     Play#3 input desi 1,-1 g
+Thu Jan  1 00:00:00 1970     Play#3 command designate
+Thu Jan  1 00:00:00 1970     Play#3 input cen *
+Thu Jan  1 00:00:00 1970     Play#3 command census
+Thu Jan  1 00:00:00 1970     Play#3 input ctld
+Thu Jan  1 00:00:00 1970     Play#3 logout 3
+Thu Jan  1 00:00:00 1970      Conn6 input user tester
+Thu Jan  1 00:00:00 1970      Conn6 input coun 4
+Thu Jan  1 00:00:00 1970      Conn6 input pass 4
+Thu Jan  1 00:00:00 1970      Conn6 input play 
+Thu Jan  1 00:00:00 1970      Conn6 login 4 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#4 input break
+Thu Jan  1 00:00:00 1970     Play#4 command break
+Thu Jan  1 00:00:00 1970     Play#4 input expl c 0,0 1 uh
+Thu Jan  1 00:00:00 1970     Play#4 command explore
+Thu Jan  1 00:00:00 1970     Play#4 input desi 1,-1 +
+Thu Jan  1 00:00:00 1970     Play#4 command designate
+Thu Jan  1 00:00:00 1970     Play#4 input mov c 0,0 205 uh
+Thu Jan  1 00:00:00 1970     Play#4 command move
+Thu Jan  1 00:00:00 1970     Play#4 input desi 1,-1 g
+Thu Jan  1 00:00:00 1970     Play#4 command designate
+Thu Jan  1 00:00:00 1970     Play#4 input cen *
+Thu Jan  1 00:00:00 1970     Play#4 command census
+Thu Jan  1 00:00:00 1970     Play#4 input ctld
+Thu Jan  1 00:00:00 1970     Play#4 logout 4
+Thu Jan  1 00:00:00 1970      Conn7 input user tester
+Thu Jan  1 00:00:00 1970      Conn7 input coun 5
+Thu Jan  1 00:00:00 1970      Conn7 input pass 5
+Thu Jan  1 00:00:00 1970      Conn7 input play 
+Thu Jan  1 00:00:00 1970      Conn7 login 5 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#5 input break
+Thu Jan  1 00:00:00 1970     Play#5 command break
+Thu Jan  1 00:00:00 1970     Play#5 input expl c 0,0 1 uh
+Thu Jan  1 00:00:00 1970     Play#5 command explore
+Thu Jan  1 00:00:00 1970     Play#5 input desi 1,-1 +
+Thu Jan  1 00:00:00 1970     Play#5 command designate
+Thu Jan  1 00:00:00 1970     Play#5 input mov c 0,0 205 uh
+Thu Jan  1 00:00:00 1970     Play#5 command move
+Thu Jan  1 00:00:00 1970     Play#5 input desi 1,-1 g
+Thu Jan  1 00:00:00 1970     Play#5 command designate
+Thu Jan  1 00:00:00 1970     Play#5 input cen *
+Thu Jan  1 00:00:00 1970     Play#5 command census
+Thu Jan  1 00:00:00 1970     Play#5 input ctld
+Thu Jan  1 00:00:00 1970     Play#5 logout 5
+Thu Jan  1 00:00:00 1970      Conn8 input user tester
+Thu Jan  1 00:00:00 1970      Conn8 input coun 6
+Thu Jan  1 00:00:00 1970      Conn8 input pass 6
+Thu Jan  1 00:00:00 1970      Conn8 input play 
+Thu Jan  1 00:00:00 1970      Conn8 login 6 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#6 input break
+Thu Jan  1 00:00:00 1970     Play#6 command break
+Thu Jan  1 00:00:00 1970     Play#6 input expl c 0,0 1 uh
+Thu Jan  1 00:00:00 1970     Play#6 command explore
+Thu Jan  1 00:00:00 1970     Play#6 input desi 1,-1 +
+Thu Jan  1 00:00:00 1970     Play#6 command designate
+Thu Jan  1 00:00:00 1970     Play#6 input mov c 0,0 205 uh
+Thu Jan  1 00:00:00 1970     Play#6 command move
+Thu Jan  1 00:00:00 1970     Play#6 input desi 1,-1 g
+Thu Jan  1 00:00:00 1970     Play#6 command designate
+Thu Jan  1 00:00:00 1970     Play#6 input cen *
+Thu Jan  1 00:00:00 1970     Play#6 command census
+Thu Jan  1 00:00:00 1970     Play#6 input ctld
+Thu Jan  1 00:00:00 1970     Play#6 logout 6
+Thu Jan  1 00:00:00 1970      Conn9 input user tester
+Thu Jan  1 00:00:00 1970      Conn9 input coun 7
+Thu Jan  1 00:00:00 1970      Conn9 input pass 7
+Thu Jan  1 00:00:00 1970      Conn9 input play 
+Thu Jan  1 00:00:00 1970      Conn9 login 7 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#7 input break
+Thu Jan  1 00:00:00 1970     Play#7 command break
+Thu Jan  1 00:00:00 1970     Play#7 input expl c 0,0 1 uh
+Thu Jan  1 00:00:00 1970     Play#7 command explore
+Thu Jan  1 00:00:00 1970     Play#7 input desi 1,-1 +
+Thu Jan  1 00:00:00 1970     Play#7 command designate
+Thu Jan  1 00:00:00 1970     Play#7 input mov c 0,0 205 uh
+Thu Jan  1 00:00:00 1970     Play#7 command move
+Thu Jan  1 00:00:00 1970     Play#7 input desi 1,-1 g
+Thu Jan  1 00:00:00 1970     Play#7 command designate
+Thu Jan  1 00:00:00 1970     Play#7 input cen *
+Thu Jan  1 00:00:00 1970     Play#7 command census
+Thu Jan  1 00:00:00 1970     Play#7 input ctld
+Thu Jan  1 00:00:00 1970     Play#7 logout 7
+Thu Jan  1 00:00:00 1970     Conn10 input user tester
+Thu Jan  1 00:00:00 1970     Conn10 input coun 8
+Thu Jan  1 00:00:00 1970     Conn10 input pass 8
+Thu Jan  1 00:00:00 1970     Conn10 input play 
+Thu Jan  1 00:00:00 1970     Conn10 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input break
+Thu Jan  1 00:00:00 1970     Play#8 command break
+Thu Jan  1 00:00:00 1970     Play#8 input expl c 0,0 1 uh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input desi 1,-1 +
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input mov c 0,0 205 uh
+Thu Jan  1 00:00:00 1970     Play#8 command move
+Thu Jan  1 00:00:00 1970     Play#8 input desi 1,-1 g
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn11 input user tester
+Thu Jan  1 00:00:00 1970     Conn11 input coun 9
+Thu Jan  1 00:00:00 1970     Conn11 input pass 9
+Thu Jan  1 00:00:00 1970     Conn11 input play 
+Thu Jan  1 00:00:00 1970     Conn11 login 9 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#9 input break
+Thu Jan  1 00:00:00 1970     Play#9 command break
+Thu Jan  1 00:00:00 1970     Play#9 input expl c 0,0 1 uh
+Thu Jan  1 00:00:00 1970     Play#9 command explore
+Thu Jan  1 00:00:00 1970     Play#9 input desi 1,-1 +
+Thu Jan  1 00:00:00 1970     Play#9 command designate
+Thu Jan  1 00:00:00 1970     Play#9 input mov c 0,0 205 uh
+Thu Jan  1 00:00:00 1970     Play#9 command move
+Thu Jan  1 00:00:00 1970     Play#9 input desi 1,-1 g
+Thu Jan  1 00:00:00 1970     Play#9 command designate
+Thu Jan  1 00:00:00 1970     Play#9 input cen *
+Thu Jan  1 00:00:00 1970     Play#9 command census
+Thu Jan  1 00:00:00 1970     Play#9 input ctld
+Thu Jan  1 00:00:00 1970     Play#9 logout 9
+Thu Jan  1 00:00:00 1970     Conn12 input user tester
+Thu Jan  1 00:00:00 1970     Conn12 input coun 10
+Thu Jan  1 00:00:00 1970     Conn12 input pass 10
+Thu Jan  1 00:00:00 1970     Conn12 input play 
+Thu Jan  1 00:00:00 1970     Conn12 login 10 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970    Play#10 input break
+Thu Jan  1 00:00:00 1970    Play#10 command break
+Thu Jan  1 00:00:00 1970    Play#10 input expl c 0,0 1 uh
+Thu Jan  1 00:00:00 1970    Play#10 command explore
+Thu Jan  1 00:00:00 1970    Play#10 input desi 1,-1 +
+Thu Jan  1 00:00:00 1970    Play#10 command designate
+Thu Jan  1 00:00:00 1970    Play#10 input mov c 0,0 205 uh
+Thu Jan  1 00:00:00 1970    Play#10 command move
+Thu Jan  1 00:00:00 1970    Play#10 input desi 1,-1 g
+Thu Jan  1 00:00:00 1970    Play#10 command designate
+Thu Jan  1 00:00:00 1970    Play#10 input cen *
+Thu Jan  1 00:00:00 1970    Play#10 command census
+Thu Jan  1 00:00:00 1970    Play#10 input ctld
+Thu Jan  1 00:00:00 1970    Play#10 logout 10
+Thu Jan  1 00:00:00 1970     Conn13 input user tester
+Thu Jan  1 00:00:00 1970     Conn13 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn13 input pass peter
+Thu Jan  1 00:00:00 1970     Conn13 input play 
+Thu Jan  1 00:00:00 1970     Conn13 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn14 input user tester
+Thu Jan  1 00:00:00 1970     Conn14 input coun 1
+Thu Jan  1 00:00:00 1970     Conn14 input pass 1
+Thu Jan  1 00:00:00 1970     Conn14 input play 
+Thu Jan  1 00:00:00 1970     Conn14 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input real 0 -8:12,-4:4
+Thu Jan  1 00:00:00 1970     Play#1 command realm
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn15 input user tester
+Thu Jan  1 00:00:00 1970     Conn15 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn15 input pass peter
+Thu Jan  1 00:00:00 1970     Conn15 input play 
+Thu Jan  1 00:00:00 1970     Conn15 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn16 input user tester
+Thu Jan  1 00:00:00 1970     Conn16 input coun 1
+Thu Jan  1 00:00:00 1970     Conn16 input pass 1
+Thu Jan  1 00:00:00 1970     Conn16 input play 
+Thu Jan  1 00:00:00 1970     Conn16 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input desi -1,-1 b
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input mov i 2,0 200 4,0
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input mov i 1,-1 4 jh
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input mov c -1,-1 300 4,0
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input mov c -1,-1 300 3,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 1,-1 175 3,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input deli i 2,0 0 j
+Thu Jan  1 00:00:00 1970     Play#1 command deliver
+Thu Jan  1 00:00:00 1970     Play#1 input deli i 1,-1 0 j
+Thu Jan  1 00:00:00 1970     Play#1 command deliver
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 2,0 230 5,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input desi 4,0 k
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input desi 3,-1 j
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input dist # 5,-1
+Thu Jan  1 00:00:00 1970     Play#1 command distribute
+Thu Jan  1 00:00:00 1970     Play#1 input thre h 4,0 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thre l 3,-1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input desi 5,-1 h
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn17 input user tester
+Thu Jan  1 00:00:00 1970     Conn17 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn17 input pass peter
+Thu Jan  1 00:00:00 1970     Conn17 input play 
+Thu Jan  1 00:00:00 1970     Conn17 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn18 input user tester
+Thu Jan  1 00:00:00 1970     Conn18 input coun 1
+Thu Jan  1 00:00:00 1970     Conn18 input pass 1
+Thu Jan  1 00:00:00 1970     Conn18 input play 
+Thu Jan  1 00:00:00 1970     Conn18 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input build sh 5,-1 frg
+Thu Jan  1 00:00:00 1970     Play#1 command build
+Thu Jan  1 00:00:00 1970     Play#1 input mov l 5,-1 102 6,-2
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 4,0 255 6,-2
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input desi 6,-2 l
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thre l 6,-2 150
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 2,0 370 -2,2
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input deliver i 2,0 0 j
+Thu Jan  1 00:00:00 1970     Play#1 command deliver
+Thu Jan  1 00:00:00 1970     Play#1 input deliver i 1,-1 0 j
+Thu Jan  1 00:00:00 1970     Play#1 command deliver
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 1,1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres o -2,2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 2,0 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 1,-1 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input desi -2,2 o
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input desi 1,1 g
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres c -1:5,-1 768
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c -2:4,0 768
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 6,-2 250
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 4,-2 300
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 4,-2 100
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres o 4,-2 50
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 4,-2 10
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres d -1,-1 50
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 1,1 768
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn19 input user tester
+Thu Jan  1 00:00:00 1970     Conn19 input coun 8
+Thu Jan  1 00:00:00 1970     Conn19 input pass 8
+Thu Jan  1 00:00:00 1970     Conn19 input play 
+Thu Jan  1 00:00:00 1970     Conn19 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 50 gyyygh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input des -7,-3 )
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input lost *
+Thu Jan  1 00:00:00 1970     Play#8 command lost
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn20 input user tester
+Thu Jan  1 00:00:00 1970     Conn20 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn20 input pass peter
+Thu Jan  1 00:00:00 1970     Conn20 input play 
+Thu Jan  1 00:00:00 1970     Conn20 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn21 input user tester
+Thu Jan  1 00:00:00 1970     Conn21 input coun 1
+Thu Jan  1 00:00:00 1970     Conn21 input pass 1
+Thu Jan  1 00:00:00 1970     Conn21 input play 
+Thu Jan  1 00:00:00 1970     Conn21 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input des 4,-2 t
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input enlist 3,-1 50
+Thu Jan  1 00:00:00 1970     Play#1 command enlist
+Thu Jan  1 00:00:00 1970     Play#1 input mov m 3,-1 50 5,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input load m 0 50
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input nav 0
+Thu Jan  1 00:00:00 1970     Play#1 command navigate
+Thu Jan  1 00:00:00 1970     Play#1 input j
+Thu Jan  1 00:00:00 1970     Play#1 input j
+Thu Jan  1 00:00:00 1970     Play#1 input h
+Thu Jan  1 00:00:00 1970     Play#1 input assault 11,-1 0
+Thu Jan  1 00:00:00 1970     Play#1 command assault
+Thu Jan  1 00:00:00 1970     Play#1 input 25
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn22 input user tester
+Thu Jan  1 00:00:00 1970     Conn22 input coun 8
+Thu Jan  1 00:00:00 1970     Conn22 input pass 8
+Thu Jan  1 00:00:00 1970     Conn22 input play 
+Thu Jan  1 00:00:00 1970     Conn22 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input lost *
+Thu Jan  1 00:00:00 1970     Play#8 command lost
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn23 input user tester
+Thu Jan  1 00:00:00 1970     Conn23 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn23 input pass peter
+Thu Jan  1 00:00:00 1970     Conn23 input play 
+Thu Jan  1 00:00:00 1970     Conn23 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn24 input user tester
+Thu Jan  1 00:00:00 1970     Conn24 input coun 1
+Thu Jan  1 00:00:00 1970     Conn24 input pass 1
+Thu Jan  1 00:00:00 1970     Conn24 input play 
+Thu Jan  1 00:00:00 1970     Conn24 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input real 0 -8:16,-4:4
+Thu Jan  1 00:00:00 1970     Play#1 command realm
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn25 input user tester
+Thu Jan  1 00:00:00 1970     Conn25 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn25 input pass peter
+Thu Jan  1 00:00:00 1970     Conn25 input play 
+Thu Jan  1 00:00:00 1970     Conn25 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn26 input user tester
+Thu Jan  1 00:00:00 1970     Conn26 input coun 1
+Thu Jan  1 00:00:00 1970     Conn26 input pass 1
+Thu Jan  1 00:00:00 1970     Conn26 input play 
+Thu Jan  1 00:00:00 1970     Conn26 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input real 1 -16:24,-8:8
+Thu Jan  1 00:00:00 1970     Play#1 command realm
+Thu Jan  1 00:00:00 1970     Play#1 input convert 11,-1 76
+Thu Jan  1 00:00:00 1970     Play#1 command convert
+Thu Jan  1 00:00:00 1970     Play#1 input thres c -2,2 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov c -2,2 47 0,2
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input des 0:2,2 g
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 0:2,2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 0:2,2 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 3,1 g
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 3,1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 3,1 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 0,0 m
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input deliver i 0,0 0 g
+Thu Jan  1 00:00:00 1970     Play#1 command deliver
+Thu Jan  1 00:00:00 1970     Play#1 input thres d -1,-1 300
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 0,0 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov d 0,0 1 -1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 0,-2 100
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 4:6,-2 210
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c -1,-1 100
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 4,0 999
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 3,-1 999
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des -2,0 j
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres c -2,0 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres l -2,0 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#1 command bmap
+Thu Jan  1 00:00:00 1970     Play#1 input nav 0 njnh
+Thu Jan  1 00:00:00 1970     Play#1 command navigate
+Thu Jan  1 00:00:00 1970     Play#1 input look 0
+Thu Jan  1 00:00:00 1970     Play#1 command lookout
+Thu Jan  1 00:00:00 1970     Play#1 input radar 0
+Thu Jan  1 00:00:00 1970     Play#1 command radar
+Thu Jan  1 00:00:00 1970     Play#1 input radar 11,-1
+Thu Jan  1 00:00:00 1970     Play#1 command radar
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn27 input user tester
+Thu Jan  1 00:00:00 1970     Conn27 input coun 8
+Thu Jan  1 00:00:00 1970     Conn27 input pass 8
+Thu Jan  1 00:00:00 1970     Conn27 input play 
+Thu Jan  1 00:00:00 1970     Conn27 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 gh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 yh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 ygh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 yyh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 yyyh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 yyyyh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 yygh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 yygyh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 yygyyh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 bh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 bgh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 nh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 njh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 yuh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 yuyh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 yuuh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 0,0 1 yuuyh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 2,0 1 jh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 2,0 1 jjh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 2,0 1 jjjh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 2,0 1 uh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 2,0 1 ujh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 2,0 1 ujjh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 2,0 1 uyh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 2,0 1 uuh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input exp c 2,0 1 uujh
+Thu Jan  1 00:00:00 1970     Play#8 command explore
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input prod *
+Thu Jan  1 00:00:00 1970     Play#8 command production
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn28 input user tester
+Thu Jan  1 00:00:00 1970     Conn28 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn28 input pass peter
+Thu Jan  1 00:00:00 1970     Conn28 input play 
+Thu Jan  1 00:00:00 1970     Conn28 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn29 input user tester
+Thu Jan  1 00:00:00 1970     Conn29 input coun 1
+Thu Jan  1 00:00:00 1970     Conn29 input pass 1
+Thu Jan  1 00:00:00 1970     Conn29 input play 
+Thu Jan  1 00:00:00 1970     Conn29 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input build bridge 5,-1 j
+Thu Jan  1 00:00:00 1970     Play#1 command build
+Thu Jan  1 00:00:00 1970     Play#1 input explore c 5,-1 1 jh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 5,-1 76 7,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 7,-1 77
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input dist * 5,-1
+Thu Jan  1 00:00:00 1970     Play#1 command distribute
+Thu Jan  1 00:00:00 1970     Play#1 input des 1,1 m
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input deliver i 1,1 0 g
+Thu Jan  1 00:00:00 1970     Play#1 command deliver
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 1,1 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov d 1,1 1 -1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input des -1,1 k
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres h -1,1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c -1,1 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des -4:-2,-2 o
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres o -4:-2,-2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c -4:-2,-2 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 1,-3 o
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres o 1,-3 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 1,-3 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 4:8,2 g
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 4:8,2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 4:8,2 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c * ?c_dist=768 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#1 command bmap
+Thu Jan  1 00:00:00 1970     Play#1 input radar 11,-1
+Thu Jan  1 00:00:00 1970     Play#1 command radar
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn30 input user tester
+Thu Jan  1 00:00:00 1970     Conn30 input coun 8
+Thu Jan  1 00:00:00 1970     Conn30 input pass 8
+Thu Jan  1 00:00:00 1970     Conn30 input play 
+Thu Jan  1 00:00:00 1970     Conn30 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input des 7,-1 c
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input capital 7,-1
+Thu Jan  1 00:00:00 1970     Play#8 command capital
+Thu Jan  1 00:00:00 1970     Play#8 input des * ?gold>1 g
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres d * ?newdes=g 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d * ?des=g 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d 4,0 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d 1,-1 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des -5,-3 o
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres o -5,-3 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des -6,-4 o
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres o -6,-4 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des 1,-1 m
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres i 1,-1 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des 3,1 w
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input dist * 3,1
+Thu Jan  1 00:00:00 1970     Play#8 command distribute
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 0:2,0 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 1,-1 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 4,0 350
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 3,-1 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input mov c 2,0 231 jh
+Thu Jan  1 00:00:00 1970     Play#8 command move
+Thu Jan  1 00:00:00 1970     Play#8 input mov c 0,0 231 jjh
+Thu Jan  1 00:00:00 1970     Play#8 command move
+Thu Jan  1 00:00:00 1970     Play#8 input mov c 1,-1 231 jh
+Thu Jan  1 00:00:00 1970     Play#8 command move
+Thu Jan  1 00:00:00 1970     Play#8 input bmap #
+Thu Jan  1 00:00:00 1970     Play#8 command bmap
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input prod *
+Thu Jan  1 00:00:00 1970     Play#8 command production
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn31 input user tester
+Thu Jan  1 00:00:00 1970     Conn31 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn31 input pass peter
+Thu Jan  1 00:00:00 1970     Conn31 input play 
+Thu Jan  1 00:00:00 1970     Conn31 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn32 input user tester
+Thu Jan  1 00:00:00 1970     Conn32 input coun 1
+Thu Jan  1 00:00:00 1970     Conn32 input pass 1
+Thu Jan  1 00:00:00 1970     Conn32 input play 
+Thu Jan  1 00:00:00 1970     Conn32 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input des 0,2 m
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input deliver i 0,2 0 j
+Thu Jan  1 00:00:00 1970     Play#1 command deliver
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 0,2 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov d 0,2 1 -1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input des 3,1 m
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input deliver i 3,1 0 j
+Thu Jan  1 00:00:00 1970     Play#1 command deliver
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 3,1 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov d 3,1 1 -1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input des 2,2 k
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres h 2,2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 2,2 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov d 2,2 1 -1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 4,-2 15
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres o 4,-2 75
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 4,-2 150
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 5:7,1 g
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 5:7,1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 5:7,1 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 10,2 g
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 10,2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 10,2 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input radar 11,-1
+Thu Jan  1 00:00:00 1970     Play#1 command radar
+Thu Jan  1 00:00:00 1970     Play#1 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#1 command bmap
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn33 input user tester
+Thu Jan  1 00:00:00 1970     Conn33 input coun 8
+Thu Jan  1 00:00:00 1970     Conn33 input pass 8
+Thu Jan  1 00:00:00 1970     Conn33 input play 
+Thu Jan  1 00:00:00 1970     Conn33 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input thres c -3:-1,-1 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des 0:2,0 m
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres i 0:2,0 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input bmap #
+Thu Jan  1 00:00:00 1970     Play#8 command bmap
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input prod *
+Thu Jan  1 00:00:00 1970     Play#8 command production
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn34 input user tester
+Thu Jan  1 00:00:00 1970     Conn34 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn34 input pass peter
+Thu Jan  1 00:00:00 1970     Conn34 input play 
+Thu Jan  1 00:00:00 1970     Conn34 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn35 input user tester
+Thu Jan  1 00:00:00 1970     Conn35 input coun 1
+Thu Jan  1 00:00:00 1970     Conn35 input pass 1
+Thu Jan  1 00:00:00 1970     Conn35 input play 
+Thu Jan  1 00:00:00 1970     Conn35 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input mov u 2,0 10 7,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input des -2,2 i
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres l -2,2 600
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres h -2,2 300
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres s -2,2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres o -2,2 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov o -2,2 1 4,-2
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input thres c * ?des#= 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c -1:1,3 100
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#1 command bmap
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn36 input user tester
+Thu Jan  1 00:00:00 1970     Conn36 input coun 8
+Thu Jan  1 00:00:00 1970     Conn36 input pass 8
+Thu Jan  1 00:00:00 1970     Conn36 input play 
+Thu Jan  1 00:00:00 1970     Conn36 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input thres d 1,-1 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input mov d 1,-1 1 4,0
+Thu Jan  1 00:00:00 1970     Play#8 command move
+Thu Jan  1 00:00:00 1970     Play#8 input des 3,-1 m
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres i 3,-1 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d 3,-1 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input mov d 3,-1 1 4,0
+Thu Jan  1 00:00:00 1970     Play#8 command move
+Thu Jan  1 00:00:00 1970     Play#8 input thres c -6,-4 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 6,-2 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 1,-3 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des 4,0 b
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres d 4,0 300
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d 0:2,0 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input mov d 0,0 1 4,0
+Thu Jan  1 00:00:00 1970     Play#8 command move
+Thu Jan  1 00:00:00 1970     Play#8 input mov d 2,0 1 4,0
+Thu Jan  1 00:00:00 1970     Play#8 command move
+Thu Jan  1 00:00:00 1970     Play#8 input thres i -3,-1 999
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input bmap #
+Thu Jan  1 00:00:00 1970     Play#8 command bmap
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input prod *
+Thu Jan  1 00:00:00 1970     Play#8 command production
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn37 input user tester
+Thu Jan  1 00:00:00 1970     Conn37 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn37 input pass peter
+Thu Jan  1 00:00:00 1970     Conn37 input play 
+Thu Jan  1 00:00:00 1970     Conn37 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn38 input user tester
+Thu Jan  1 00:00:00 1970     Conn38 input coun 1
+Thu Jan  1 00:00:00 1970     Conn38 input pass 1
+Thu Jan  1 00:00:00 1970     Conn38 input play 
+Thu Jan  1 00:00:00 1970     Conn38 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input mov h 5,-1 100 7,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input build bridge 7,-1 j
+Thu Jan  1 00:00:00 1970     Play#1 command build
+Thu Jan  1 00:00:00 1970     Play#1 input explore c 7,-1 1 jh
+Thu Jan  1 00:00:00 1970     Play#1 command explore
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 9,-1 77
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov u 7,-1 12 4,0
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input thres u 2,0 579
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres u 4,0 869
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 4,0 1200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres u 11,-1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 6,-2 250
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 7,1 d
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 7,1 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres h 7,1 100
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres o 7,1 20
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres g 7,1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 7,1 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov d 7,1 1 -1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input des 5,1 j
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 5,1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 5,1 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov d 5,1 1 -1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input des 4,2 r
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 4,2 100
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres o 4,2 50
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 4,2 10
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 6,2 w
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 6,2 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov d 6,2 1 -1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input des 8,2 e
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 8,2 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov d 8,2 1 -1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input thres m 8,2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 10,2 !
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 10,2 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres h 10,2 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres s 10,2 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres g 10,2 25
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 10,2 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input mov d 10,2 1 -1,-1
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input des 5,3 p
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 5,3 75
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input dist #1 5,-1
+Thu Jan  1 00:00:00 1970     Play#1 command distribute
+Thu Jan  1 00:00:00 1970     Play#1 input thres c -1:1,3 769
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input spy 11,-1
+Thu Jan  1 00:00:00 1970     Play#1 command spy
+Thu Jan  1 00:00:00 1970     Play#1 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#1 command bmap
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn39 input user tester
+Thu Jan  1 00:00:00 1970     Conn39 input coun 8
+Thu Jan  1 00:00:00 1970     Conn39 input pass 8
+Thu Jan  1 00:00:00 1970     Conn39 input play 
+Thu Jan  1 00:00:00 1970     Conn39 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input des -3,-1 j
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres i -3,-1 999
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres l -3,-1 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 6,0 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d -3,-1 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input mov d -3,-1 1 4,0
+Thu Jan  1 00:00:00 1970     Play#8 command move
+Thu Jan  1 00:00:00 1970     Play#8 input thres l 1,-3 300
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres i -1,1 999
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres i 0,-4 999
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input bmap #
+Thu Jan  1 00:00:00 1970     Play#8 command bmap
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input prod *
+Thu Jan  1 00:00:00 1970     Play#8 command production
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn40 input user tester
+Thu Jan  1 00:00:00 1970     Conn40 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn40 input pass peter
+Thu Jan  1 00:00:00 1970     Conn40 input play 
+Thu Jan  1 00:00:00 1970     Conn40 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn41 input user tester
+Thu Jan  1 00:00:00 1970     Conn41 input coun 1
+Thu Jan  1 00:00:00 1970     Conn41 input pass 1
+Thu Jan  1 00:00:00 1970     Conn41 input play 
+Thu Jan  1 00:00:00 1970     Conn41 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 6,-2 300
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 5,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres h 5,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 5,-1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres o 5,-1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 5,-1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input dist #1 6,2
+Thu Jan  1 00:00:00 1970     Play#1 command distribute
+Thu Jan  1 00:00:00 1970     Play#1 input build l 10,2 cav
+Thu Jan  1 00:00:00 1970     Play#1 command build
+Thu Jan  1 00:00:00 1970     Play#1 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#1 command bmap
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn42 input user tester
+Thu Jan  1 00:00:00 1970     Conn42 input coun 8
+Thu Jan  1 00:00:00 1970     Conn42 input pass 8
+Thu Jan  1 00:00:00 1970     Conn42 input play 
+Thu Jan  1 00:00:00 1970     Conn42 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input des -1,-1 m
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres i -1,-1 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d -1,-1 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input mov d -1,-1 1 4,0
+Thu Jan  1 00:00:00 1970     Play#8 command move
+Thu Jan  1 00:00:00 1970     Play#8 input des 1,-3 l
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input des -1,1 j
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres l -1,1 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des 0,-4 k
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres h 0,-4 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d 1,-3 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres l 6,-2 300
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres o 6,-2 150
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d 6,-2 30
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres l 8,0 600
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres h 8,0 300
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c -3:-1,1 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 0,-4 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 8,0 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input bmap #
+Thu Jan  1 00:00:00 1970     Play#8 command bmap
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input prod *
+Thu Jan  1 00:00:00 1970     Play#8 command production
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn43 input user tester
+Thu Jan  1 00:00:00 1970     Conn43 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn43 input pass peter
+Thu Jan  1 00:00:00 1970     Conn43 input play 
+Thu Jan  1 00:00:00 1970     Conn43 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn44 input user tester
+Thu Jan  1 00:00:00 1970     Conn44 input coun 1
+Thu Jan  1 00:00:00 1970     Conn44 input pass 1
+Thu Jan  1 00:00:00 1970     Conn44 input play 
+Thu Jan  1 00:00:00 1970     Conn44 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input build l 10,2 cav 5
+Thu Jan  1 00:00:00 1970     Play#1 command build
+Thu Jan  1 00:00:00 1970     Play#1 input build sh 5,-1 cs 3
+Thu Jan  1 00:00:00 1970     Play#1 command build
+Thu Jan  1 00:00:00 1970     Play#1 input thres m 10,2 25
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres i -4:-2,-2 999
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 1,-3 999
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#1 command bmap
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input land *
+Thu Jan  1 00:00:00 1970     Play#1 command land
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn45 input user tester
+Thu Jan  1 00:00:00 1970     Conn45 input coun 8
+Thu Jan  1 00:00:00 1970     Conn45 input pass 8
+Thu Jan  1 00:00:00 1970     Conn45 input play 
+Thu Jan  1 00:00:00 1970     Conn45 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input des 6,-2 t
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input des 6,0 h
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres d 6,0 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres l 6,0 200
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres h 6,0 200
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des 8,0 i
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres s 8,0 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 4,0 400
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c -2:4,-2 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres i 4,-2 999
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des 4,-2 j
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres i -3,1 999
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input bmap #
+Thu Jan  1 00:00:00 1970     Play#8 command bmap
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input prod *
+Thu Jan  1 00:00:00 1970     Play#8 command production
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn46 input user tester
+Thu Jan  1 00:00:00 1970     Conn46 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn46 input pass peter
+Thu Jan  1 00:00:00 1970     Conn46 input play 
+Thu Jan  1 00:00:00 1970     Conn46 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn47 input user tester
+Thu Jan  1 00:00:00 1970     Conn47 input coun 1
+Thu Jan  1 00:00:00 1970     Conn47 input pass 1
+Thu Jan  1 00:00:00 1970     Conn47 input play 
+Thu Jan  1 00:00:00 1970     Conn47 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input des -2,-2 j
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres l -2,-2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des -4,-2 k
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres h -4,-2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres o -4:-2,-2 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 1,-3 j
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 1,-3 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres o 1,-3 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des -1,3 o
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres o -1,3 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 2,2 m
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 2,2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres h 2,2 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 3,-1 m
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 3,-1 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 3,-1 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 6,-2 400
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input radar 11,-1
+Thu Jan  1 00:00:00 1970     Play#1 command radar
+Thu Jan  1 00:00:00 1970     Play#1 input lload m 0 20
+Thu Jan  1 00:00:00 1970     Play#1 command lload
+Thu Jan  1 00:00:00 1970     Play#1 input lload m 1/2/3 1
+Thu Jan  1 00:00:00 1970     Play#1 command lload
+Thu Jan  1 00:00:00 1970     Play#1 input march 0/1/2/3 5,-1
+Thu Jan  1 00:00:00 1970     Play#1 command march
+Thu Jan  1 00:00:00 1970     Play#1 input load m 1 25
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input load c 1 300
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input load l 1 100
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input load h 1 100
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input load c 2 10
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input load c 3 10
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input load land 1 0
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input load land 2 1
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input load land 3 2
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input load land 3 3
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input build l 10,2 art
+Thu Jan  1 00:00:00 1970     Play#1 command build
+Thu Jan  1 00:00:00 1970     Play#1 input nav 2 nh
+Thu Jan  1 00:00:00 1970     Play#1 command navigate
+Thu Jan  1 00:00:00 1970     Play#1 input scrap l 1
+Thu Jan  1 00:00:00 1970     Play#1 command scrap
+Thu Jan  1 00:00:00 1970     Play#1 input y
+Thu Jan  1 00:00:00 1970     Play#1 input scrap s 2
+Thu Jan  1 00:00:00 1970     Play#1 command scrap
+Thu Jan  1 00:00:00 1970     Play#1 input y
+Thu Jan  1 00:00:00 1970     Play#1 input scuttle l 1
+Thu Jan  1 00:00:00 1970     Play#1 command scuttle
+Thu Jan  1 00:00:00 1970     Play#1 input y
+Thu Jan  1 00:00:00 1970     Play#1 input scuttle s 2
+Thu Jan  1 00:00:00 1970     Play#1 command scuttle
+Thu Jan  1 00:00:00 1970     Play#1 input y
+Thu Jan  1 00:00:00 1970     Play#1 input comm 5,-1
+Thu Jan  1 00:00:00 1970     Play#1 command commodity
+Thu Jan  1 00:00:00 1970     Play#1 input scrap l 2
+Thu Jan  1 00:00:00 1970     Play#1 command scrap
+Thu Jan  1 00:00:00 1970     Play#1 input y
+Thu Jan  1 00:00:00 1970     Play#1 input comm 5,-1
+Thu Jan  1 00:00:00 1970     Play#1 command commodity
+Thu Jan  1 00:00:00 1970     Play#1 input scrap s 3
+Thu Jan  1 00:00:00 1970     Play#1 command scrap
+Thu Jan  1 00:00:00 1970     Play#1 input y
+Thu Jan  1 00:00:00 1970     Play#1 input comm 5,-1
+Thu Jan  1 00:00:00 1970     Play#1 command commodity
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 5,-1 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres d 5,-1 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres o 5,-1 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#1 command bmap
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input land *
+Thu Jan  1 00:00:00 1970     Play#1 command land
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn48 input user tester
+Thu Jan  1 00:00:00 1970     Conn48 input coun 2
+Thu Jan  1 00:00:00 1970     Conn48 input pass 2
+Thu Jan  1 00:00:00 1970     Conn48 input play 
+Thu Jan  1 00:00:00 1970     Conn48 login 2 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 uh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 jh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 nh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input des * ?des=- +
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 yuh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 ygh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 juh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 ggh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bgh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bbh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bnh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input des * ?des=- +
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 jujh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 gggh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bggh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bbgh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bbbh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bbnh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bnnh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input des * ?des=- +
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 gggyh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 ggggh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bgggh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bbggh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 bbbgh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input des * ?des=- +
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 2,0  1 gggyuh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input des * ?des=- +
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 yh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 gh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 bh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 nh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input des * ?des=- +
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 uuh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 juh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 ggh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 jjh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 bgh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 jnh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 bbh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 bnh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 nnh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input des * ?des=- +
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 ggyh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 jjuh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 gggh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 bggh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 bbgh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 bbbh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 bbnh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 bnnh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 nnnh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input des * ?des=- +
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 ggyyh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 ggyuh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 ggygh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 jjujh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input explore c 0,0  1 bgggh
+Thu Jan  1 00:00:00 1970     Play#2 command explore
+Thu Jan  1 00:00:00 1970     Play#2 input des * ?des=- +
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input designate 2,-2 c
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input capital 2,-2
+Thu Jan  1 00:00:00 1970     Play#2 command capital
+Thu Jan  1 00:00:00 1970     Play#2 input des * ?gold>10 g
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input thres d * ?gold>10 1
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input des  -1,-1 o
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input thres o -1,-1 1
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input des 1,-1 b
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input thres d 1,-1 300
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres c * ?des#+ 769
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres c -4,-2 230
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres c 2,-2 50
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres c 1,-1 385
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres c 3,-1 300
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres c 5,-1 600
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input des -4,-2 w
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input distr * 1,-1
+Thu Jan  1 00:00:00 1970     Play#2 command distribute
+Thu Jan  1 00:00:00 1970     Play#2 input mov c 1,1 231 -4,-2
+Thu Jan  1 00:00:00 1970     Play#2 command move
+Thu Jan  1 00:00:00 1970     Play#2 input demob 0:2,0 55
+Thu Jan  1 00:00:00 1970     Play#2 command demobilize
+Thu Jan  1 00:00:00 1970     Play#2 input y
+Thu Jan  1 00:00:00 1970     Play#2 input mov c 0,0 260 3,-1
+Thu Jan  1 00:00:00 1970     Play#2 command move
+Thu Jan  1 00:00:00 1970     Play#2 input mov c 2,0 165 3,-1
+Thu Jan  1 00:00:00 1970     Play#2 command move
+Thu Jan  1 00:00:00 1970     Play#2 input mov c 2,0 100 5,-1
+Thu Jan  1 00:00:00 1970     Play#2 command move
+Thu Jan  1 00:00:00 1970     Play#2 input thres u 0:2,0 579
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres u -5,-1 579
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#2 command bmap
+Thu Jan  1 00:00:00 1970     Play#2 input cen *
+Thu Jan  1 00:00:00 1970     Play#2 command census
+Thu Jan  1 00:00:00 1970     Play#2 input map #
+Thu Jan  1 00:00:00 1970     Play#2 command map
+Thu Jan  1 00:00:00 1970     Play#2 input read y
+Thu Jan  1 00:00:00 1970     Play#2 command read
+Thu Jan  1 00:00:00 1970     Play#2 input prod *
+Thu Jan  1 00:00:00 1970     Play#2 command production
+Thu Jan  1 00:00:00 1970     Play#2 input ctld
+Thu Jan  1 00:00:00 1970     Play#2 logout 2
+Thu Jan  1 00:00:00 1970     Conn49 input user tester
+Thu Jan  1 00:00:00 1970     Conn49 input coun 8
+Thu Jan  1 00:00:00 1970     Conn49 input pass 8
+Thu Jan  1 00:00:00 1970     Conn49 input play 
+Thu Jan  1 00:00:00 1970     Conn49 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input thres c -2,0 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 1,1 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c 5,-1 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c -5,-3 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c -4,-2 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres c -1,-3 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres u -1:3,-1 512
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres u 0:2,0 512
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d -3,1 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres l -3,1 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres i 2,-2 999
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des 2,-2 k
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres h 2,-2 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des -3,1 j
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input bmap #
+Thu Jan  1 00:00:00 1970     Play#8 command bmap
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input prod *
+Thu Jan  1 00:00:00 1970     Play#8 command production
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn50 input user tester
+Thu Jan  1 00:00:00 1970     Conn50 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn50 input pass peter
+Thu Jan  1 00:00:00 1970     Conn50 input play 
+Thu Jan  1 00:00:00 1970     Conn50 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn51 input user tester
+Thu Jan  1 00:00:00 1970     Conn51 input coun 1
+Thu Jan  1 00:00:00 1970     Conn51 input pass 1
+Thu Jan  1 00:00:00 1970     Conn51 input play 
+Thu Jan  1 00:00:00 1970     Conn51 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input lload m 4/5 5
+Thu Jan  1 00:00:00 1970     Play#1 command lload
+Thu Jan  1 00:00:00 1970     Play#1 input lload s 5 200
+Thu Jan  1 00:00:00 1970     Play#1 command lload
+Thu Jan  1 00:00:00 1970     Play#1 input lload g 5 20
+Thu Jan  1 00:00:00 1970     Play#1 command lload
+Thu Jan  1 00:00:00 1970     Play#1 input march 4/5 ggyyh
+Thu Jan  1 00:00:00 1970     Play#1 command march
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 6,-2 450
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 11,-1 *
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 11,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres h 11,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres p 11,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres u 3:5,1 579
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 2,-2 o
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input build s 5,-1 tk
+Thu Jan  1 00:00:00 1970     Play#1 command build
+Thu Jan  1 00:00:00 1970     Play#1 input load c 2 200
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input telegram 2
+Thu Jan  1 00:00:00 1970     Play#1 command telegram
+Thu Jan  1 00:00:00 1970     Play#1 input Want an alliance?
+Thu Jan  1 00:00:00 1970     Play#1 input .
+Thu Jan  1 00:00:00 1970     Play#1 input declare war 8
+Thu Jan  1 00:00:00 1970     Play#1 command declare
+Thu Jan  1 00:00:00 1970     Play#1 input declare alliance 2
+Thu Jan  1 00:00:00 1970     Play#1 command declare
+Thu Jan  1 00:00:00 1970     Play#1 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#1 command bmap
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input land *
+Thu Jan  1 00:00:00 1970     Play#1 command land
+Thu Jan  1 00:00:00 1970     Play#1 input plane *
+Thu Jan  1 00:00:00 1970     Play#1 command plane
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn52 input user tester
+Thu Jan  1 00:00:00 1970     Conn52 input coun 2
+Thu Jan  1 00:00:00 1970     Conn52 input pass 2
+Thu Jan  1 00:00:00 1970     Conn52 input play 
+Thu Jan  1 00:00:00 1970     Conn52 login 2 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#2 input des 0:2,0 m
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input thres i 0:2,0 1
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres i -5,-1 999
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input dist * -4,-2
+Thu Jan  1 00:00:00 1970     Play#2 command distribute
+Thu Jan  1 00:00:00 1970     Play#2 input thres o 4,0 1
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input wall
+Thu Jan  1 00:00:00 1970     Play#2 command wall
+Thu Jan  1 00:00:00 1970     Play#2 input Sure
+Thu Jan  1 00:00:00 1970     Play#2 input .
+Thu Jan  1 00:00:00 1970     Play#2 input declare alliance 1
+Thu Jan  1 00:00:00 1970     Play#2 command declare
+Thu Jan  1 00:00:00 1970     Play#2 input declare hostile 8
+Thu Jan  1 00:00:00 1970     Play#2 command declare
+Thu Jan  1 00:00:00 1970     Play#2 input wire y
+Thu Jan  1 00:00:00 1970     Play#2 command wire
+Thu Jan  1 00:00:00 1970     Play#2 input announce
+Thu Jan  1 00:00:00 1970     Play#2 command announce
+Thu Jan  1 00:00:00 1970     Play#2 input Hello World
+Thu Jan  1 00:00:00 1970     Play#2 input .
+Thu Jan  1 00:00:00 1970     Play#2 input wire y
+Thu Jan  1 00:00:00 1970     Play#2 command wire
+Thu Jan  1 00:00:00 1970     Play#2 input flash 1 Testing Flash
+Thu Jan  1 00:00:00 1970     Play#2 command flash
+Thu Jan  1 00:00:00 1970     Play#2 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#2 command bmap
+Thu Jan  1 00:00:00 1970     Play#2 input cen *
+Thu Jan  1 00:00:00 1970     Play#2 command census
+Thu Jan  1 00:00:00 1970     Play#2 input map #
+Thu Jan  1 00:00:00 1970     Play#2 command map
+Thu Jan  1 00:00:00 1970     Play#2 input read y
+Thu Jan  1 00:00:00 1970     Play#2 command read
+Thu Jan  1 00:00:00 1970     Play#2 input prod *
+Thu Jan  1 00:00:00 1970     Play#2 command production
+Thu Jan  1 00:00:00 1970     Play#2 input ctld
+Thu Jan  1 00:00:00 1970     Play#2 logout 2
+Thu Jan  1 00:00:00 1970     Conn53 input user tester
+Thu Jan  1 00:00:00 1970     Conn53 input coun 8
+Thu Jan  1 00:00:00 1970     Conn53 input pass 8
+Thu Jan  1 00:00:00 1970     Conn53 input play 
+Thu Jan  1 00:00:00 1970     Conn53 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input thres c * 769
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres i -2:0,-2 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des -2:0,-2 m
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres d -2:2,-2 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres o 5,-1 10
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres l 5,-1 50
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres h 5,-1 100
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres h -6,-4 100
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input declare war 1
+Thu Jan  1 00:00:00 1970     Play#8 command declare
+Thu Jan  1 00:00:00 1970     Play#8 input declare hostile 2
+Thu Jan  1 00:00:00 1970     Play#8 command declare
+Thu Jan  1 00:00:00 1970     Play#8 input wire y
+Thu Jan  1 00:00:00 1970     Play#8 command wire
+Thu Jan  1 00:00:00 1970     Play#8 input bmap #
+Thu Jan  1 00:00:00 1970     Play#8 command bmap
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input prod *
+Thu Jan  1 00:00:00 1970     Play#8 command production
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn54 input user tester
+Thu Jan  1 00:00:00 1970     Conn54 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn54 input pass peter
+Thu Jan  1 00:00:00 1970     Conn54 input play 
+Thu Jan  1 00:00:00 1970     Conn54 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn55 input user tester
+Thu Jan  1 00:00:00 1970     Conn55 input coun 1
+Thu Jan  1 00:00:00 1970     Conn55 input pass 1
+Thu Jan  1 00:00:00 1970     Conn55 input play 
+Thu Jan  1 00:00:00 1970     Conn55 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input build p 11,-1 f1 3
+Thu Jan  1 00:00:00 1970     Play#1 command build
+Thu Jan  1 00:00:00 1970     Play#1 input thres s 11,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres p 11,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input des 2,-2 %
+Thu Jan  1 00:00:00 1970     Play#1 command designate
+Thu Jan  1 00:00:00 1970     Play#1 input thres p 2,-2 1
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres s 5,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres g 5,-1 10
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres d -1,-1 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres c * 0
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input march 4/5 ujjjh
+Thu Jan  1 00:00:00 1970     Play#1 command march
+Thu Jan  1 00:00:00 1970     Play#1 input build s 5,-1 od
+Thu Jan  1 00:00:00 1970     Play#1 command build
+Thu Jan  1 00:00:00 1970     Play#1 input load c 3 200
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input build s 5,-1 ft
+Thu Jan  1 00:00:00 1970     Play#1 command build
+Thu Jan  1 00:00:00 1970     Play#1 input load c 4 200
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#1 command bmap
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input land *
+Thu Jan  1 00:00:00 1970     Play#1 command land
+Thu Jan  1 00:00:00 1970     Play#1 input plane *
+Thu Jan  1 00:00:00 1970     Play#1 command plane
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn56 input user tester
+Thu Jan  1 00:00:00 1970     Conn56 input coun 2
+Thu Jan  1 00:00:00 1970     Conn56 input pass 2
+Thu Jan  1 00:00:00 1970     Conn56 input play 
+Thu Jan  1 00:00:00 1970     Conn56 login 2 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#2 input des -5,-1 j
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input thres l -5,-1 1
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres l 3,-1 300
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres c 5,-1 769
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres i 5,-1 999
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres c 7,-1 400
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#2 command bmap
+Thu Jan  1 00:00:00 1970     Play#2 input cen *
+Thu Jan  1 00:00:00 1970     Play#2 command census
+Thu Jan  1 00:00:00 1970     Play#2 input map #
+Thu Jan  1 00:00:00 1970     Play#2 command map
+Thu Jan  1 00:00:00 1970     Play#2 input read y
+Thu Jan  1 00:00:00 1970     Play#2 command read
+Thu Jan  1 00:00:00 1970     Play#2 input prod *
+Thu Jan  1 00:00:00 1970     Play#2 command production
+Thu Jan  1 00:00:00 1970     Play#2 input ctld
+Thu Jan  1 00:00:00 1970     Play#2 logout 2
+Thu Jan  1 00:00:00 1970     Conn57 input user tester
+Thu Jan  1 00:00:00 1970     Conn57 input coun 8
+Thu Jan  1 00:00:00 1970     Conn57 input pass 8
+Thu Jan  1 00:00:00 1970     Conn57 input play 
+Thu Jan  1 00:00:00 1970     Conn57 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input des 5,-1 d
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres g 5,-1 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des -6,-4 f
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres g -6,-4 7
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres s -6,-4 200
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des -4,-2 *
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres l -4,-2 200
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres h -4,-2 200
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres s -4,-2 200
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d -4,-2 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des -1,-3 !
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres l -1,-3 200
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres h -1,-3 200
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres s -1,-3 200
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres g -1,-3 10
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres d -1,-3 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des -2,0 p
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres d -2,0 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres l -2,0 75
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input des 1,1 k
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres i 1,1 999
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres h 1,1 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres l 1,-3 400
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input mov m 0,0 55 -6,-4
+Thu Jan  1 00:00:00 1970     Play#8 command move
+Thu Jan  1 00:00:00 1970     Play#8 input bmap #
+Thu Jan  1 00:00:00 1970     Play#8 command bmap
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input prod *
+Thu Jan  1 00:00:00 1970     Play#8 command production
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn58 input user tester
+Thu Jan  1 00:00:00 1970     Conn58 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn58 input pass peter
+Thu Jan  1 00:00:00 1970     Conn58 input play 
+Thu Jan  1 00:00:00 1970     Conn58 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn59 input user tester
+Thu Jan  1 00:00:00 1970     Conn59 input coun 1
+Thu Jan  1 00:00:00 1970     Conn59 input pass 1
+Thu Jan  1 00:00:00 1970     Conn59 input play 
+Thu Jan  1 00:00:00 1970     Conn59 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 1,-1 230 jjh
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 3,-1 230 jh
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 2,-2 230 njh
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 4,-2 230 nh
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 6,-2 230 bh
+Thu Jan  1 00:00:00 1970     Play#1 command move
+Thu Jan  1 00:00:00 1970     Play#1 input load c 3/4 999
+Thu Jan  1 00:00:00 1970     Play#1 command load
+Thu Jan  1 00:00:00 1970     Play#1 input nav 3 6,0
+Thu Jan  1 00:00:00 1970     Play#1 command navigate
+Thu Jan  1 00:00:00 1970     Play#1 input h
+Thu Jan  1 00:00:00 1970     Play#1 input nav 3 vh
+Thu Jan  1 00:00:00 1970     Play#1 command navigate
+Thu Jan  1 00:00:00 1970     Play#1 input order 3 des 5,-1 6,0
+Thu Jan  1 00:00:00 1970     Play#1 command order
+Thu Jan  1 00:00:00 1970     Play#1 input order 3 level 1 end oil 1
+Thu Jan  1 00:00:00 1970     Play#1 command order
+Thu Jan  1 00:00:00 1970     Play#1 input nav 4 nvh
+Thu Jan  1 00:00:00 1970     Play#1 command navigate
+Thu Jan  1 00:00:00 1970     Play#1 input order 4 des 5,-1 6,0
+Thu Jan  1 00:00:00 1970     Play#1 command order
+Thu Jan  1 00:00:00 1970     Play#1 input order 4 level 1 start food 30
+Thu Jan  1 00:00:00 1970     Play#1 command order
+Thu Jan  1 00:00:00 1970     Play#1 input order 4 level 1 end food 30
+Thu Jan  1 00:00:00 1970     Play#1 command order
+Thu Jan  1 00:00:00 1970     Play#1 input reco 0 . 11,-1 ujbgh
+Thu Jan  1 00:00:00 1970     Play#1 command recon
+Thu Jan  1 00:00:00 1970     Play#1 input bomb 1 . stat 11,-1 ujh
+Thu Jan  1 00:00:00 1970     Play#1 command bomb
+Thu Jan  1 00:00:00 1970     Play#1 input mission p 2 o . 2
+Thu Jan  1 00:00:00 1970     Play#1 command mission
+Thu Jan  1 00:00:00 1970     Play#1 input fire l 5 12,-2
+Thu Jan  1 00:00:00 1970     Play#1 command fire
+Thu Jan  1 00:00:00 1970     Play#1 input attack 12,-2 0 0 0 0
+Thu Jan  1 00:00:00 1970     Play#1 command attack
+Thu Jan  1 00:00:00 1970     Play#1 input 0
+Thu Jan  1 00:00:00 1970     Play#1 input N
+Thu Jan  1 00:00:00 1970     Play#1 input attack 12,-2
+Thu Jan  1 00:00:00 1970     Play#1 command attack
+Thu Jan  1 00:00:00 1970     Play#1 input 1
+Thu Jan  1 00:00:00 1970     Play#1 input y
+Thu Jan  1 00:00:00 1970     Play#1 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#1 command bmap
+Thu Jan  1 00:00:00 1970     Play#1 input cen *
+Thu Jan  1 00:00:00 1970     Play#1 command census
+Thu Jan  1 00:00:00 1970     Play#1 input ship *
+Thu Jan  1 00:00:00 1970     Play#1 command ship
+Thu Jan  1 00:00:00 1970     Play#1 input land *
+Thu Jan  1 00:00:00 1970     Play#1 command land
+Thu Jan  1 00:00:00 1970     Play#1 input plane *
+Thu Jan  1 00:00:00 1970     Play#1 command plane
+Thu Jan  1 00:00:00 1970     Play#1 input map #
+Thu Jan  1 00:00:00 1970     Play#1 command map
+Thu Jan  1 00:00:00 1970     Play#1 input read y
+Thu Jan  1 00:00:00 1970     Play#1 command read
+Thu Jan  1 00:00:00 1970     Play#1 input prod *
+Thu Jan  1 00:00:00 1970     Play#1 command production
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970     Conn60 input user tester
+Thu Jan  1 00:00:00 1970     Conn60 input coun 2
+Thu Jan  1 00:00:00 1970     Conn60 input pass 2
+Thu Jan  1 00:00:00 1970     Conn60 input play 
+Thu Jan  1 00:00:00 1970     Conn60 login 2 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#2 input des 3,-1 l
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input thres d 3,-1 0
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input des 5,-1 k
+Thu Jan  1 00:00:00 1970     Play#2 command designate
+Thu Jan  1 00:00:00 1970     Play#2 input thres d 5,-1 0
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres h 5,-1 1
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres c 7,-1 769
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres i 7,-1 999
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres l -6,0 300
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres o -6,0 150
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres d -6,0 30
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input thres c -6,0 400
+Thu Jan  1 00:00:00 1970     Play#2 command threshold
+Thu Jan  1 00:00:00 1970     Play#2 input bmap #1
+Thu Jan  1 00:00:00 1970     Play#2 command bmap
+Thu Jan  1 00:00:00 1970     Play#2 input cen *
+Thu Jan  1 00:00:00 1970     Play#2 command census
+Thu Jan  1 00:00:00 1970     Play#2 input map #
+Thu Jan  1 00:00:00 1970     Play#2 command map
+Thu Jan  1 00:00:00 1970     Play#2 input read y
+Thu Jan  1 00:00:00 1970     Play#2 command read
+Thu Jan  1 00:00:00 1970     Play#2 input prod *
+Thu Jan  1 00:00:00 1970     Play#2 command production
+Thu Jan  1 00:00:00 1970     Play#2 input ctld
+Thu Jan  1 00:00:00 1970     Play#2 logout 2
+Thu Jan  1 00:00:00 1970     Conn61 input user tester
+Thu Jan  1 00:00:00 1970     Conn61 input coun 8
+Thu Jan  1 00:00:00 1970     Conn61 input pass 8
+Thu Jan  1 00:00:00 1970     Conn61 input play 
+Thu Jan  1 00:00:00 1970     Conn61 login 8 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#8 input des -4,-4 o
+Thu Jan  1 00:00:00 1970     Play#8 command designate
+Thu Jan  1 00:00:00 1970     Play#8 input thres o -4,-4 1
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input thres o -5,-3 0
+Thu Jan  1 00:00:00 1970     Play#8 command threshold
+Thu Jan  1 00:00:00 1970     Play#8 input bmap #
+Thu Jan  1 00:00:00 1970     Play#8 command bmap
+Thu Jan  1 00:00:00 1970     Play#8 input cen *
+Thu Jan  1 00:00:00 1970     Play#8 command census
+Thu Jan  1 00:00:00 1970     Play#8 input map #
+Thu Jan  1 00:00:00 1970     Play#8 command map
+Thu Jan  1 00:00:00 1970     Play#8 input read y
+Thu Jan  1 00:00:00 1970     Play#8 command read
+Thu Jan  1 00:00:00 1970     Play#8 input prod *
+Thu Jan  1 00:00:00 1970     Play#8 command production
+Thu Jan  1 00:00:00 1970     Play#8 input ctld
+Thu Jan  1 00:00:00 1970     Play#8 logout 8
+Thu Jan  1 00:00:00 1970     Conn62 input user tester
+Thu Jan  1 00:00:00 1970     Conn62 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn62 input pass peter
+Thu Jan  1 00:00:00 1970     Conn62 input play 
+Thu Jan  1 00:00:00 1970     Conn62 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input power new
+Thu Jan  1 00:00:00 1970     Play#0 command power
+Thu Jan  1 00:00:00 1970     Play#0 input report *
+Thu Jan  1 00:00:00 1970     Play#0 command report
+Thu Jan  1 00:00:00 1970     Play#0 input cen * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command census
+Thu Jan  1 00:00:00 1970     Play#0 input comm * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command commodity
+Thu Jan  1 00:00:00 1970     Play#0 input reso * ?own#0
+Thu Jan  1 00:00:00 1970     Play#0 command resource
+Thu Jan  1 00:00:00 1970     Play#0 input force
+Thu Jan  1 00:00:00 1970     Play#0 command force
+Thu Jan  1 00:00:00 1970     Update update 60
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn63 input user tester
+Thu Jan  1 00:00:00 1970     Conn63 input coun POGO
+Thu Jan  1 00:00:00 1970     Conn63 input pass peter
+Thu Jan  1 00:00:00 1970     Conn63 input play 
+Thu Jan  1 00:00:00 1970     Conn63 login 0 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#0 input xdump sect 0,0
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump ship *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump plane *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump land *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump nuke *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump news *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump treaty *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump trade *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump nat *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump loan *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump commodity *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump lost *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump realm 0
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump game *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump item *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump product *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump sect-chr *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump ship-chr *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump plane-chr *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump land-chr *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump nuke-chr *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump news-chr *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump infrastructure *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump updates *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump table *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump version *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump sector *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump agreement-status *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump land-chr-flags *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump level *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta-flags *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump meta-type *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump missions *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump nation-flags *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump nation-rejects *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump nation-relationships *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump nation-status *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump nuke-chr-flags *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump packing *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump page-headings *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump plague-stages *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump plane-chr-flags *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump plane-flags *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump resources *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump retreat-flags *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump ship-chr-flags *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump treaty-flags *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input xdump country *
+Thu Jan  1 00:00:00 1970     Play#0 command xdump
+Thu Jan  1 00:00:00 1970     Play#0 input ctld
+Thu Jan  1 00:00:00 1970     Play#0 logout 0
+Thu Jan  1 00:00:00 1970     Conn64 input user tester
+Thu Jan  1 00:00:00 1970     Conn64 input coun 1
+Thu Jan  1 00:00:00 1970     Conn64 input pass 1
+Thu Jan  1 00:00:00 1970     Conn64 input play 
+Thu Jan  1 00:00:00 1970     Conn64 login 1 127.0.0.1 tester
+Thu Jan  1 00:00:00 1970     Play#1 input xdump sect 0,0
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump ship *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump plane *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump land *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump nuke *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump news *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump treaty *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump trade *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump nat *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump loan *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump commodity *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump lost *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump realm *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump game *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump item *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump product *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump sect-chr *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump ship-chr *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump plane-chr *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump land-chr *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump nuke-chr *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump news-chr *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump infrastructure *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump updates *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump table *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump version *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump meta *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump sector *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump agreement-status *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump land-chr-flags *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump level *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump meta-flags *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump meta-type *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump missions *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump nation-flags *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump nation-rejects *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump nation-relationships *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump nation-status *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump nuke-chr-flags *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump packing *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump page-headings *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump plague-stages *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump plane-chr-flags *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump plane-flags *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump resources *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump retreat-flags *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump ship-chr-flags *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump treaty-flags *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input xdump country *
+Thu Jan  1 00:00:00 1970     Play#1 command xdump
+Thu Jan  1 00:00:00 1970     Play#1 input ctld
+Thu Jan  1 00:00:00 1970     Play#1 logout 1
+Thu Jan  1 00:00:00 1970       Main shutdown

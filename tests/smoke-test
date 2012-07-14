@@ -1,0 +1,132 @@
+#!/bin/sh -e
+# Smoke test for Empire
+
+if [ $# -ne 1 ]
+then echo "Usage: $0 SRCDIR" >&2; exit 1
+fi
+
+srcdir="$1"
+
+export EMPIREHOST=127.0.0.1 LOGNAME=tester
+
+if [ -x ./config.status ] && ./config.status --version | grep -q '^Wolfpack Empire'
+then :
+else echo "$0: Must be run in root of build tree" >&2; exit 1
+fi
+
+#
+# Currently expected to work only with thread package LWP and a
+# random() that behaves exactly like the one on my development system,
+# because:
+# 
+# - Thread scheduling is reliably deterministic only with LWP
+# - The PRN sequence produced by random() isn't portable
+# - Shell builtin kill appears not to do the job in MinGW
+# - The Windows server tries to run as service when -d isn't
+#   specified
+#
+# TODO address these shortcomings.
+#
+if [ "`uname -s`" != "Linux" ]	# lame approx. of "random() behaves like mine"
+then echo "Warning: smoke test not expected to work on this system!" >&2
+elif [ `sed -n 's/empthread *:= *\(.*\)/\1/p' <GNUmakefile` != LWP ]
+then echo "Warning: smoke test not expected to work with this thread package!" >&2
+fi
+
+# Create sandbox
+rm -rf sandbox
+mkdir -p sandbox/etc/empire sandbox/share/empire/builtin sandbox/var/empire
+touch sandbox/etc/empire/schedule
+cat >sandbox/etc/empire/econfig <<EOF
+data "../../var/empire"
+info "../../../../info.nr"
+builtin "../../share/empire/builtin"
+listen_addr "$EMPIREHOST"
+keep_journal 1
+EOF
+cp "$srcdir"/src/lib/global/*.config sandbox/share/empire/builtin
+
+exec 3>sandbox/smoke.out
+
+pid=
+trap 'if [ "$pid" ]; then kill "$pid" 2>/dev/null || true; fi' EXIT
+
+# Create world and start server
+src/util/files -e sandbox/etc/empire/econfig -f >&3
+src/util/fairland -e sandbox/etc/empire/econfig -q -s sandbox/newcap_script -R 1 10 30
+src/server/emp_server -e sandbox/etc/empire/econfig -R 1
+while src/client/empire red herring 2>&1 | grep -q "Connection refused"
+do :				# FIXME hangs here if server crashes on startup
+done
+pid=`cat sandbox/var/empire/server.pid`
+src/client/empire POGO peter <sandbox/newcap_script >/dev/null
+
+# Feed player input
+need_update=
+for i in "$srcdir"/tests/smoke/[0-9]*
+do
+    t="${i##*/}"
+    if [ "$need_update" ]
+    then
+	echo "Update Turn $t starting" >&3
+	src/client/empire POGO peter <<EOF >&3
+power new
+report *
+cen * ?own#0
+comm * ?own#0
+reso * ?own#0
+force
+EOF
+	echo "Update Turn $t completed successfully" >&3
+    fi
+    for j in "$i"/*
+    do
+	p="${j##*/}"
+	echo "Player $p Turn $t starting" >&3
+	if [ $p -eq 0 ]
+	then c=POGO r=peter
+	else c="${p#0}"; r="$c"
+	fi
+	sed '1,3d;$d' <$j | src/client/empire "$c" "$r" >&3
+	echo "Player $p Turn $t completed successfully" >&3
+    done
+    need_update=y
+done
+
+# Stop server
+kill "$pid"
+while kill -0 "$pid" 2>/dev/null
+do :				# FIXME hangs here if server fails to exit
+done
+
+exec 3>&-
+
+# Smoke test completed; compare results
+
+cmp_out()
+{
+    local opt exp act nrm msg ret=0
+    for i
+    do
+	case "$i" in
+	    */journal.log) opt=-j ;;
+	    */server.log)  opt=-s ;;
+	    *)             opt= ;;
+	esac
+	exp="$srcdir/tests/smoke/${i##*/}"
+	act="sandbox/$i"
+	nrm="sandbox/normalized-${i##*/}"
+	perl "$srcdir"/tests/normalize.pl $opt "$act" >"$nrm"
+	if msg=`diff -q "$exp" "$nrm"`
+	then
+	    echo "$exp OK"
+	else
+	    ret=$?
+	    echo "$exp FAIL"
+	    echo $msg
+	fi
+    done
+    return $ret
+}
+
+cmp_out smoke.out var/empire/server.log var/empire/journal.log

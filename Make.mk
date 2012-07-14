@@ -27,7 +27,7 @@
 #   Make.mk: The real Makefile, included by GNUmakefile
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2011
+#      Markus Armbruster, 2005-2012
 #
 
 # This makefile was inspired by `Recursive Make Considered Harmful',
@@ -131,6 +131,8 @@ ttop := info/TOP.t
 info.nr := $(addprefix info.nr/, $(info))
 info.html := $(addprefix info.html/, $(addsuffix .html, $(info)))
 info.all := $(info.nr) $(info.html) info.ps
+# Tests
+# sandbox
 
 # Conditionally generated files:
 empth_obj := src/lib/empthread/io.o
@@ -155,7 +157,7 @@ endif
 # Each generated file should be in one of the following sets.
 # Removed by clean:
 clean := $(obj) $(deps) $(libs) $(util) $(client) $(server) $(tsubj)	\
-$(ttop) $(info.all) $(empth_obj) $(empth_lib)
+$(ttop) $(info.all) $(empth_obj) $(empth_lib) sandbox
 # Removed by distclean:
 distclean := $(ac) $(mk)
 # Distributed by dist-source from $(srcdir):
@@ -178,6 +180,10 @@ endif
 $(client): LDLIBS := $(LIBS_client)
 $(server): LDLIBS := $(LIBS_server)
 
+# Self-tests
+checks := check-smoke
+
+
 ### Advertized goals
 
 .PHONY: all
@@ -189,7 +195,7 @@ html: $(info.html)
 
 .PHONY: clean
 clean:
-	$(call quiet-command,rm -f $(clean),CLEAN)
+	$(call quiet-command,rm -rf $(clean),CLEAN)
 
 .PHONY: distclean
 distclean: clean
@@ -243,6 +249,17 @@ uninstall:
 
 .PHONY: dist
 dist: dist-source dist-client dist-info
+
+.PHONY: check $(checks)
+check: $(checks)
+$(checks): all
+check-smoke:
+	@echo "Warning: smoke test is immature and needs work." >&2
+ifeq ($(empthread),LWP)
+	$(srcdir)/tests/smoke-test $(srcdir)
+else
+	@echo "$(srcdir)/tests/smoke-test SKIPPED"
+endif
 
 
 ### Implicit rules

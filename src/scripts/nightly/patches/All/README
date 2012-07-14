@@ -1,5 +1,0 @@
-Nota Bene:
-
-The patches in these directories are executed in alphabetical order. One
-patch could influence the other, by patching the same files for
-instance.
