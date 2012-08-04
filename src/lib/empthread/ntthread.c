@@ -467,9 +467,7 @@ bad:
 empth_t *
 empth_self(void)
 {
-    empth_t *pThread = TlsGetValue(dwTLSIndex);
-
-    return pThread;
+    return ppvUserData ? TlsGetValue(dwTLSIndex) : NULL;
 }
 
 /************************

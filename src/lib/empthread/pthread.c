@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Sasha Mikheev
  *     Steve McClure, 1998
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2012
  *     Ron Koenderink, 2007-2009
  */
 
@@ -240,7 +240,7 @@ empth_restorectx(void)
 empth_t *
 empth_self(void)
 {
-    return pthread_getspecific(ctx_key);
+    return udata ? pthread_getspecific(ctx_key) : NULL;
 }
 
 char *

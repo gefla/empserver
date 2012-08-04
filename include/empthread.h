@@ -30,7 +30,7 @@
  *     Sasha Mikheev
  *     Doug Hay, 1998
  *     Steve McClure, 1998
- *     Markus Armbruster, 2005-2009
+ *     Markus Armbruster, 2005-2012
  *     Ron Koenderink, 2005-2009
  */
 
@@ -125,7 +125,8 @@ empth_t *empth_create(void (*entry)(void *),
 		      int size, int flags, char *name, void *ud);
 
 /*
- * Return the current thread.
+ * Return the current thread, NULL before empth_init().
+ * This is the only function that may be called before empth_init().
  */
 empth_t *empth_self(void);
 
