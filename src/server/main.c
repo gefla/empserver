@@ -31,7 +31,7 @@
  *     Steve McClure, 1996, 1998
  *     Doug Hay, 1998
  *     Ron Koenderink, 2004-2009
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2012
  */
 
 #include <config.h>
@@ -286,7 +286,6 @@ main(int argc, char **argv)
     }
 #endif /* !_WIN32 */
     start_server(flags);
-    journal_prng(seed);
 
     for (;;) {
 	sig = empth_wait_for_signal();
@@ -359,6 +358,9 @@ init_server(unsigned seed, int force_bad_state)
     io_init();
     init_nreport();
 
+    if (journal_startup() < 0)
+	exit(1);
+    journal_prng(seed);
     loginit("server");
 }
 
@@ -376,9 +378,6 @@ start_server(int flags)
     logerror("Empire server (pid %d) started", (int)pid);
 
     empth_init((void **)&player, flags);
-
-    if (journal_startup() < 0)
-	exit(1);
 
     update_lock = empth_rwlock_create("Update");
     shutdown_lock = empth_rwlock_create("Shutdown");

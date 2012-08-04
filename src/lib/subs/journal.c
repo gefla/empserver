@@ -27,7 +27,7 @@
  *  journal.c: Log a journal of events to a file
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  *     Ron Koenderink, 2008
  */
 
@@ -82,12 +82,14 @@ static void
 journal_entry_vstart(char *fmt, va_list ap)
 {
     time_t now;
+    empth_t *self;
 
     if (!journal)
 	return;
     time(&now);
+    self = empth_self();
     fprintf(journal, "%.24s %10.10s ",
-	    ctime(&now), empth_name(empth_self()));
+	    ctime(&now), self ? empth_name(self) : "Main");
     vfprintf(journal, fmt, ap);
 }
 
