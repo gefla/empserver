@@ -23,7 +23,7 @@ a harbour are visible to all ships (including subs) in adjacent sectors.
 (see also \*Qinfo sonar\*U)
 .in
 .s1
-SHIP to SHIP
+SHIP to SECTOR
 .s1
 .in +0.2i
 This range is effectively 1.0.
