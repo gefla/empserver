@@ -165,6 +165,7 @@ player_io_deadline(struct player *pl, int write)
 void
 player_accept(void *unused)
 {
+    static int conn_cnt;
     struct sockaddr *sap;
     void *inaddr;
     int s = player_socket;
@@ -222,7 +223,7 @@ player_accept(void *unused)
 	stacksize = 100000
 /* budget */  + MAX(WORLD_SZ() * sizeof(int) * 7,
 /* power */ MAXNOC * sizeof(struct powstr));
-	sprintf(buf, "Conn%d", ns);
+	sprintf(buf, "Conn%d", conn_cnt++);
 	empth_create(player_login, stacksize, 0, buf, np);
     }
 }
