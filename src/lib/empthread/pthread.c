@@ -172,7 +172,6 @@ empth_init(void **ctx_ptr, int flags)
     ctx->wakeup = 0;
     pthread_setspecific(ctx_key, ctx);
     pthread_mutex_lock(&mtx_ctxsw);
-    logerror("pthreads initialized");
     return 0;
 }
 

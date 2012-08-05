@@ -397,7 +397,6 @@ empth_init(void **ctx_ptr, int flags)
     /* Make this the running thread. */
     loc_RunThisThread(NULL);
 
-    logerror("NT pthreads initialized");
     return 0;
 }
 
