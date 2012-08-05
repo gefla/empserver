@@ -131,12 +131,12 @@ empth_t *empth_create(void (*entry)(void *),
 empth_t *empth_self(void);
 
 /*
- * Return the name THREAD.
+ * Return THREAD's name.
  */
 char *empth_name(empth_t *thread);
 
 /*
- * Set the name of THREAD to NAME.
+ * Set THREAD's name to NAME.
  */
 void empth_set_name(empth_t *thread, char *name);
 
@@ -182,7 +182,8 @@ void empth_wakeup(empth_t *thread);
 int empth_sleep(time_t until);
 
 /*
- * Wait for signal, return the signal number.
+ * Put current thread to sleep until SIGHUP, SIGINT or SIGTERM is received.
+ * Return the signal number.
  */
 int empth_wait_for_signal(void);
 
