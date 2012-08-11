@@ -108,8 +108,7 @@ bomb(void)
 	return RET_SYN;
     ax = ap_sect.sct_x;
     ay = ap_sect.sct_y;
-    if (!getpath(flightpath, player->argp[5], ax, ay, 0, 0, MOB_FLY)
-	|| *flightpath == 0)
+    if (!getpath(flightpath, player->argp[5], ax, ay, 0, 0, MOB_FLY))
 	return RET_SYN;
     tx = ax;
     ty = ay;

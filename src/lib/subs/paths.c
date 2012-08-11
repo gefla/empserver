@@ -143,7 +143,7 @@ more:
 	    break;
 	}
 	if (dir == DIR_STOP) {
-	    p[1] = 0;
+	    *p = 0;
 	    return buf;
 	}
 	++p;
@@ -170,7 +170,7 @@ more:
     strcpy(p, bp);
     if (*bp)
 	goto more;
-    return buf;
+    return buf[0] ? buf : NULL;
 }
 
 /*
