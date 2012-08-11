@@ -3,7 +3,7 @@ AC_DEFUN([MY_WINDOWS_API],
 	AC_MSG_CHECKING([whether compiling for Windows API])
 	AC_COMPILE_IFELSE(
 		[AC_LANG_SOURCE([[#ifdef _WIN32
-#Here's a nickel, kid
+{ /* Here's a nickel, kid */
 #endif]])],
 		[Windows_API=no],
 		[Windows_API=yes])
