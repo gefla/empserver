@@ -101,6 +101,8 @@ done
 
 exec 3>&-
 
+src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/smoke.xdump
+
 # Smoke test completed; compare results
 
 cmp_out()
@@ -129,4 +131,4 @@ cmp_out()
     return $ret
 }
 
-cmp_out smoke.out var/empire/server.log var/empire/journal.log
+cmp_out smoke.out var/empire/server.log var/empire/journal.log smoke.xdump

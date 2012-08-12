@@ -120,8 +120,8 @@ while (<>) {
 
     print "$pfx$_\n";
 
-    if (/XDUMP (meta )?([-a-z0-9]+)/) {
-	$dump = $2;
+    if (/(XDUMP|^config) (meta )?([-a-z0-9]+)/) {
+	$dump = $3;
 	die unless $dump =~ /^[a-z]/;
     } elsif (/DUMP (SECTOR|SHIPS|PLANES|LAND UNITS|NUKES|LOST ITEMS) /) {
 	$dump = $1;
