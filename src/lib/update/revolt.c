@@ -77,7 +77,7 @@ revolt(struct sctstr *sp)
     che += che_civ;
     if (che < CHE_MAX) {
 	/* che due to uw unrest */
-	n = 10 + roll0(30);
+	n = 9 + roll(30);
 	che_uw = 5 + (uw * n / 500);
 	if (che_uw > uw)
 	    che_uw = uw;
@@ -327,9 +327,9 @@ guerrilla(struct sctstr *sp)
 	/* loyalty drops during recruitment efforts */
 	n = sp->sct_loyal;
 	if (n < 30)
-	    n += roll0(5) + 1;
+	    n += roll(5);
 	else if (n < 70)
-	    n += roll0(10) + 4;
+	    n += roll(10) + 3;
 	if (n > 127)
 	    n = 127;
 	sp->sct_loyal = n;
@@ -375,7 +375,7 @@ domove:
 	    val = roundintby(val, 10);
 	    /* inject a modicum of indeterminism; also
 	     * avoids che preferring certain directions */
-	    val += roll0(10) - 5;
+	    val += roll(10) - 6;
 	    if (val >= min_mil)
 		continue;
 	    nicest_sp = nsp;

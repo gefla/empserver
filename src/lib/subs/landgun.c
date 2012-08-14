@@ -48,7 +48,7 @@ fortgun(int effic, int guns)
     double d;
     double g = MIN(guns, 7);
 
-    d = (roll0(30) + 20.0) * (g / 7.0);
+    d = (roll(30) + 19.0) * (g / 7.0);
     d *= effic / 100.0;
     return d;
 }
@@ -60,7 +60,7 @@ seagun(int effic, int guns)
 
     d = 0.0;
     while (guns--)
-	d += 10.0 + roll0(6);
+	d += 9.0 + roll(6);
     d *= effic * 0.01;
     return d;
 }
@@ -72,7 +72,7 @@ landunitgun(int effic, int guns)
 
     d = 0.0;
     while (guns--)
-	d += 5.0 + roll0(6);
+	d += 4.0 + roll(6);
     d *= effic * 0.01;
     return d;
 }

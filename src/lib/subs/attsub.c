@@ -1837,12 +1837,12 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
      * since a single dead guy normally wouldn't cause a commander to
      * rethink his strategies, but 50 dead guys might.
      */
-    odds += (roll0(11) - 5) / 100.0;
+    odds += (roll(11) - 6) / 100.0;
     if (odds < 0.0)
 	odds = 0.1;
     if (odds > 1.0)
 	odds = 1.0;
-    recalctime = 8 + roll0(43);
+    recalctime = 7 + roll(43);
     while (!success && ototal) {
 	if (chance(odds)) {
 	    pr("!");
@@ -1858,9 +1858,9 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	if (((a_cas + d_cas) % 70) == 69)
 	    pr("\n");
 	if (recalctime-- <= 0) {
-	    recalctime = 8 + roll0(43);
+	    recalctime = 7 + roll(43);
 	    odds = att_calcodds(ototal, dtotal);
-	    odds += (roll0(11) - 5) / 100.0;
+	    odds += (roll(11) - 6) / 100.0;
 	    if (odds < 0.0)
 		odds = 0.1;
 	    if (odds > 1.0)

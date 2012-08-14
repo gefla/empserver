@@ -810,7 +810,7 @@ grow_islands(void)
 	secs = 0;
 	if (!place_island(c, &x, &y))
 	    return;
-	isiz = 1 + roll0(2 * is - 1);
+	isiz = roll(2 * is - 1);
 	do {
 	    ++secs;
 	    find_coast(c);
@@ -973,7 +973,7 @@ elevate_sea(void)
     for (y = 0; y < WORLD_Y; ++y) {
 	for (x = y % 2; x < WORLD_X; x += 2) {
 	    if (elev[x][y] == -INFINITY)
-		elev[x][y] = -roll0((distance_to_land() * 20 + 27)) - 1;
+		elev[x][y] = -roll(distance_to_land() * 20 + 27);
 	}
     }
 }
