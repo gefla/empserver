@@ -33,6 +33,7 @@
 #include <config.h>
 
 #include "budg.h"
+#include "chance.h"
 #include "player.h"
 #include "product.h"
 #include "update.h"

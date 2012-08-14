@@ -32,6 +32,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "commands.h"
 #include "empobj.h"
 #include "map.h"

@@ -36,6 +36,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "commands.h"
 #include "news.h"
 #include "retreat.h"

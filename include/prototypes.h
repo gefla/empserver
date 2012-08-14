@@ -306,9 +306,6 @@ extern int fsize(int);
 extern int blksize(int);
 extern time_t fdate(int);
 
-extern int roll(int);
-extern int roundavg(double);
-extern int chance(double);
 extern int disassoc(void);
 extern char *effadv(int);
 extern int parse(char *, char *, char **, char **, char **, char **);

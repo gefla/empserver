@@ -33,6 +33,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "combat.h"
 #include "commands.h"
 #include "empobj.h"

@@ -33,6 +33,7 @@
 #include <config.h>
 
 #include <math.h>
+#include "chance.h"
 #include "empobj.h"
 #include "file.h"
 #include "land.h"

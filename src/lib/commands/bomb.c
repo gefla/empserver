@@ -36,6 +36,7 @@
 #include <config.h>
 
 #include <ctype.h>
+#include "chance.h"
 #include "commands.h"
 #include "damage.h"
 #include "item.h"

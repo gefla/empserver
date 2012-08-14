@@ -33,6 +33,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "damage.h"
 #include "land.h"
 #include "misc.h"

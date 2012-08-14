@@ -34,6 +34,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "empio.h"
 #include "empthread.h"
 #include "file.h"

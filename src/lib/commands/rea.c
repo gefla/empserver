@@ -39,6 +39,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
+#include "chance.h"
 #include "commands.h"
 #include "match.h"
 #include "misc.h"

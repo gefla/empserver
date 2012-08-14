@@ -32,6 +32,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "commands.h"
 #include "treaty.h"
 

@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include <limits.h>
+#include "chance.h"
 #include "commands.h"
 #include "game.h"
 #include "land.h"

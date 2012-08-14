@@ -33,6 +33,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "commands.h"
 #include "map.h"
 #include "optlist.h"

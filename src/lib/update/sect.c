@@ -35,6 +35,7 @@
 #include <config.h>
 
 #include "budg.h"
+#include "chance.h"
 #include "item.h"
 #include "land.h"
 #include "lost.h"

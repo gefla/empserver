@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include "budg.h"
+#include "chance.h"
 #include "player.h"
 #include "update.h"
 

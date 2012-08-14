@@ -35,6 +35,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "empobj.h"
 #include "file.h"
 #include "item.h"

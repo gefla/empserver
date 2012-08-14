@@ -35,6 +35,7 @@
 #include <config.h>
 
 #include "budg.h"
+#include "chance.h"
 #include "lost.h"
 #include "plane.h"
 #include "player.h"

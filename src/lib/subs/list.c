@@ -33,6 +33,7 @@
 #include <config.h>
 
 #include <ctype.h>
+#include "chance.h"
 #include "file.h"
 #include "land.h"
 #include "misc.h"

@@ -35,6 +35,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "commands.h"
 #include "damage.h"
 #include "mission.h"

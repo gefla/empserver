@@ -34,6 +34,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "land.h"
 #include "lost.h"
 #include "news.h"

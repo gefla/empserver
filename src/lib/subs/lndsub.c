@@ -36,6 +36,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include "chance.h"
 #include "combat.h"
 #include "damage.h"
 #include "empobj.h"

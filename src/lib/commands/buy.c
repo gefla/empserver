@@ -34,6 +34,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "commands.h"
 #include "commodity.h"
 #include "item.h"

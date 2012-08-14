@@ -1,6 +1,6 @@
 /*
  *  Empire - A multi-player, client/server Internet based war game.
- *  Copyright (C) 1986-2013, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *  Copyright (C) 1986-2012, Dave Pare, Jeff Bailey, Thomas Ruschak,
  *                Ken Stevens, Steve McClure, Markus Armbruster
  *
  *  Empire is free software: you can redistribute it and/or modify
@@ -24,37 +24,17 @@
  *
  *  ---
  *
- *  chance.c: return 1 if "roll" is under the chance.
+ *  chance.h: Roll dice
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2012
  */
 
-#include <config.h>
+#ifndef CHANCE_H
+#define CHANCE_H
 
-#include <math.h>
-#include <stdlib.h>
-#include "chance.h"
+extern int chance(double);
+extern int roll(int);
+extern int roundavg(double);
 
-int
-chance(double d)
-{
-    return d > (random() % 32768) / 32768.0;
-}
-
-int
-roll(int n)
-{
-    return 1 + random() % n;
-}
-
-/*
- * round value to nearest int (on the average). E.g. rounds up
- * with a chance proportional to the size of the fractional part.
- */
-int
-roundavg(double val)
-{
-    double flr = floor(val);
-    return (int)(flr + chance(val - flr));
-}
+#endif

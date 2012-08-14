@@ -35,6 +35,7 @@
 
 #include <config.h>
 
+#include "chance.h"
 #include "file.h"
 #include "land.h"
 #include "map.h"

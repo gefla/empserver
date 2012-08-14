@@ -35,6 +35,7 @@
 #include <config.h>
 
 #include <math.h>
+#include "chance.h"
 #include "item.h"
 #include "news.h"
 #include "player.h"
