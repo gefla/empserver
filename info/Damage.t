@@ -4,39 +4,39 @@
 .nf
 It is possible to be damaged by shells, bombs, land mines, sea mines,
 and nuclear blasts.  This info page shows you how much damage each of
-these things does.  In the following formulas, random(x) means a
-random number from 1 to x.  Once the damage has been calculated, then
-it is applied.  Damage applies to different kinds of things in
-different ways (see below).
+these things does.  In the following formulas, 1dN means a random
+number from 1 to N (rolling n-sided die).  Once the damage has been
+calculated, then it is applied.  Damage applies to different kinds of
+things in different ways (see below).
 
 
 1. Calculating the damage
 
 Shelling
 You can be shelled by a fort, artillery unit, ship, depth-charge, or torpedo:
-       fort damage = guns * eff * (random(30) + 19) / 7
-       unit damage = guns * eff * (4 + random(6))
-       ship damage = guns * eff * (9 + random(6))
-      depth damage =    3 * eff * (9 + random(6))
-       torp damage = 38 + random(40) + random(40)
+       fort damage = guns * eff * (1d30 + 19) / 7
+       unit damage = guns * eff * (4 + 1d6)
+       ship damage = guns * eff * (9 + 1d6)
+      depth damage =    3 * eff * (9 + 1d6)
+       torp damage = 38 + 1d40 + 1d40
 Note that for forts, a maximum of 7 guns may be fired.
 
 Bombs
 A plane drops a number of bombs equal to the "load" the plane can carry.
 Each bomb does the following damage:
-     blam: 1 + random(6)
-     Blam: 5 + random(6)
-     BLAM: 8 + random(6)
+     blam: 1 + 1d6
+     Blam: 5 + 1d6
+     BLAM: 8 + 1d6
 When pinbombing a ship, plane, or land unit, damage is doubled.
 Whether you get a blam, Blam, or a BLAM depends on the accuracy of the
 plane and the difficulty of the target (see info bomb).
 
 Land mines
-Land mines damage commodities by random(20) and land units by 10 + random(20).
+Land mines damage commodities by 1d20 and land units by 10 + 1d20.
 If the land unit is an engineer, then the damags is cut in half.
 
 Sea mines
-Sea mines damage ships 21 + random(21).  If the ship can sweep, then
+Sea mines damage ships 21 + 1d21.  If the ship can sweep, then
 the damage is cut in half.
 
 Nuclear Detonation
