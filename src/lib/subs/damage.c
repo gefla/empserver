@@ -163,16 +163,9 @@ nukedamage(struct nchrstr *ncp, int range, int airburst)
 int
 damage(int amt, int pct)
 {
-    int tmp;
-    int lost;
-
     if (amt <= 0)
 	return 0;
-    tmp = amt * pct;
-    lost = tmp / 100;
-    if (roll0(100) < tmp % 100)
-	lost++;
-    return amt - lost;
+    return amt - roundavg(amt * (pct / 100.0));
 }
 
 /* asymptotic damage to commodities, efficiency, and sectors */
