@@ -330,7 +330,7 @@ launch_sat(struct plnstr *pp)
     }
     i = pp->pln_tech + pp->pln_effic;
     if (chance(1.0 - (i / (i + 50.0)))) {
-	dir = (random() % 6) + 1;
+	dir = DIR_FIRST + random() % 6;
 	sx = xnorm(sx + diroff[dir][0]);
 	sy = ynorm(sy + diroff[dir][1]);
 	pr("Your trajectory was a little off.\n");
