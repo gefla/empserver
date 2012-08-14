@@ -117,7 +117,6 @@ static char *program_name;
 
 #define new_x(newx) (((newx) + WORLD_X) % WORLD_X)
 #define new_y(newy) (((newy) + WORLD_Y) % WORLD_Y)
-#define rnd(x) roll0((x))
 
 static int secs;		/* number of sectors grown */
 static int ctot;		/* total number of continents and islands grown */
@@ -560,7 +559,7 @@ fl_move(int j)
 {
     int i, n, newx, newy;
 
-    for (i = rnd(6), n = 0; n < 6; i = (i + 1) % 6, ++n) {
+    for (i = roll0(6), n = 0; n < 6; i = (i + 1) % 6, ++n) {
 	newx = new_x(capx[j] + dirx[i]);
 	newy = new_y(capy[j] + diry[i]);
 	if (iso(j, newx, newy) >= iso(j, capx[j], capy[j])) {
@@ -677,7 +676,7 @@ new_try(int c)
 	if (sectc[c][0])
 	    return 0;
     } else {
-	i = starti = (spike && sectc[c][secs - 1]) ? secs - 1 : rnd(secs);
+	i = starti = (spike && sectc[c][secs - 1]) ? secs - 1 : roll0(secs);
 	do {
 	    if (sectc[c][i])
 		return i;
@@ -697,7 +696,7 @@ grow_one_sector(int c)
 {
     int done, coast_search, try1, x, y, newx, newy, i, n, sx, sy;
 
-    spike = rnd(100) < sp;
+    spike = roll0(100) < sp;
     if ((try1 = new_try(c)) == -1)
 	return 0;
     x = sx = sectx[c][try1];
@@ -706,7 +705,7 @@ grow_one_sector(int c)
     done = 0;
     do {
 	if (spike) {
-	    for (i = rnd(6), n = 0; n < 12 && !done; i = (i + 1) % 6, ++n) {
+	    for (i = roll0(6), n = 0; n < 12 && !done; i = (i + 1) % 6, ++n) {
 		newx = new_x(x + dirx[i]);
 		newy = new_y(y + diry[i]);
 		if (own[newx][newy] == -1 &&
@@ -717,7 +716,7 @@ grow_one_sector(int c)
 			done = 1;
 	    }
 	} else
-	    for (i = rnd(6), n = 0; n < 6 && !done; i = (i + 1) % 6, ++n) {
+	    for (i = roll0(6), n = 0; n < 6 && !done; i = (i + 1) % 6, ++n) {
 		newx = new_x(x + dirx[i]);
 		newy = new_y(y + diry[i]);
 		if (own[newx][newy] == -1)
@@ -776,8 +775,8 @@ static int
 place_island(int c, int *xp, int *yp)
 {
     int d, sx, sy;
-    int ssy = rnd(WORLD_Y);
-    int ssx = new_x(rnd(WORLD_X / 2) * 2 + ssy % 2);
+    int ssy = roll0(WORLD_Y);
+    int ssx = new_x(roll0(WORLD_X / 2) * 2 + ssy % 2);
 
     if (ssx > WORLD_X - 2)
 	ssx = new_x(ssx + 2);
@@ -811,7 +810,7 @@ grow_islands(void)
 	secs = 0;
 	if (!place_island(c, &x, &y))
 	    return;
-	isiz = 1 + rnd(2 * is - 1);
+	isiz = 1 + roll0(2 * is - 1);
 	do {
 	    ++secs;
 	    find_coast(c);
@@ -897,7 +896,7 @@ elevate_land(void)
 	for (k = nm, mountain_search = 0;
 	     k && mountain_search < MOUNTAIN_SEARCH_MAX;
 	     ++mountain_search) {
-	    r = rnd(total);
+	    r = roll0(total);
 	    for (i = 0; i < ns; ++i)
 		if (r < weight[i] && ELEV == -INFINITY &&
 		    (c >= nc ||
@@ -951,10 +950,10 @@ elevate_land(void)
 	for (i = 0; i < ns; ++i) {
 	    if (ELEV == INFINITY) {
 		if (dsea[i] == 1)
-		    ELEV = HILLMIN + rnd(PLATMIN - HILLMIN);
+		    ELEV = HILLMIN + roll0(PLATMIN - HILLMIN);
 		else
-		    ELEV = HIGHMIN + rnd((256 - HIGHMIN) / 2) +
-		      rnd((256 - HIGHMIN) / 2);
+		    ELEV = HIGHMIN + roll0((256 - HIGHMIN) / 2) +
+		      roll0((256 - HIGHMIN) / 2);
 	    } else if (c < nc &&
 		       (((capx[c] == sectx[c][i] && capy[c] == secty[c][i])) ||
 			((new_x(capx[c] + 2) == sectx[c][i] &&
@@ -974,7 +973,7 @@ elevate_sea(void)
     for (y = 0; y < WORLD_Y; ++y) {
 	for (x = y % 2; x < WORLD_X; x += 2) {
 	    if (elev[x][y] == -INFINITY)
-		elev[x][y] = -rnd((distance_to_land() * 20 + 27)) - 1;
+		elev[x][y] = -roll0((distance_to_land() * 20 + 27)) - 1;
 	}
     }
 }
@@ -1001,7 +1000,7 @@ set_oil(int e)
 {
     int oil = 0;
     if (e < LANDMIN)
-	oil = (LANDMIN - e) * 2 + rnd(2);
+	oil = (LANDMIN - e) * 2 + roll0(2);
     else if (e <= OIL_MAX)
 	oil = (120 * (OIL_MAX - e + 1)) / (OIL_MAX - LANDMIN + 1);
     if (oil > 100)
