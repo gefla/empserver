@@ -14,11 +14,11 @@ different ways (see below).
 
 Shelling
 You can be shelled by a fort, artillery unit, ship, depth-charge, or torpedo:
-       fort damage = guns * eff * (random(30) + 20) / 7
-       unit damage = guns * eff * (5 + random(6))
-       ship damage = guns * eff * (10 + random(6))
-      depth damage =    3 * eff * (10 + random(6))
-       torp damage = 40 + random(40) + random(40)
+       fort damage = guns * eff * (random(30) + 19) / 7
+       unit damage = guns * eff * (4 + random(6))
+       ship damage = guns * eff * (9 + random(6))
+      depth damage =    3 * eff * (9 + random(6))
+       torp damage = 38 + random(40) + random(40)
 Note that for forts, a maximum of 7 guns may be fired.
 
 Bombs
