@@ -24,7 +24,7 @@
  *
  *  ---
  *
- *  chance.c: return 1 if "roll" is under the chance.
+ *  chance.c: Roll dice
  *
  *  Known contributors to this file:
  *
@@ -36,12 +36,27 @@
 #include <stdlib.h>
 #include "chance.h"
 
+/*
+ * Return non-zero with probability D.
+ */
 int
 chance(double d)
 {
     return d > (random() % 32768) / 32768.0;
 }
 
+/*
+ * Return a random number in [0..N-1].
+ */
+int
+roll0(int n)
+{
+    return random() % n;
+}
+
+/*
+ * Return a random number in [1..N].
+ */
 int
 roll(int n)
 {
@@ -49,12 +64,23 @@ roll(int n)
 }
 
 /*
- * round value to nearest int (on the average). E.g. rounds up
- * with a chance proportional to the size of the fractional part.
+ * Round VAL to nearest integer (on the average).
+ * VAL's fractional part is chance to round up.
  */
 int
 roundavg(double val)
 {
     double flr = floor(val);
     return (int)(flr + chance(val - flr));
+}
+
+/*
+ * Seed the pseudo-random number generator with SEED.
+ * The sequence of pseudo-random numbers is repeatable by seeding it
+ * with the same value.
+ */
+void
+seed_prng(unsigned seed)
+{
+    srandom(seed);
 }

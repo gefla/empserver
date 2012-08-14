@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Pat Loney, 1992
  *     Steve McClure, 1997
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -123,7 +124,7 @@ anti(void)
 		    sect.sct_mobil = 0;
 		}
 		sect.sct_loyal = sect.sct_loyal * 0.5;
-		n_cheleft = (random() % 4);
+		n_cheleft = roll0(4);
 		/* 75% chance some che will get left */
 		if (n_cheleft) {
 		    /* Ok, now leave anywhere from 16% to 25% of the che */

@@ -34,7 +34,9 @@
 #define CHANCE_H
 
 extern int chance(double);
+extern int roll0(int);
 extern int roll(int);
 extern int roundavg(double);
+extern void seed_prng(unsigned);
 
 #endif

@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1997-2000
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -66,7 +66,7 @@ revolt(struct sctstr *sp)
 	return;
     che_uw = 0;
     /* che due to civilian unrest */
-    n = 10 - (random() % 20);
+    n = 10 - roll0(20);
     che_civ = 3 + (civ * n / 500);
     if (che_civ < 0)
 	che_civ = 0;
@@ -77,7 +77,7 @@ revolt(struct sctstr *sp)
     che += che_civ;
     if (che < CHE_MAX) {
 	/* che due to uw unrest */
-	n = 10 + (random() % 30);
+	n = 10 + roll0(30);
 	che_uw = 5 + (uw * n / 500);
 	if (che_uw > uw)
 	    che_uw = uw;
@@ -240,7 +240,7 @@ guerrilla(struct sctstr *sp)
 	}
 	if (mil > 0) {
 	    /* military won.  */
-	    n = sp->sct_loyal - (random() % 15);
+	    n = sp->sct_loyal - roll0(15);
 	    if (n < 0)
 		n = 0;
 	    sp->sct_loyal = n;
@@ -254,7 +254,7 @@ guerrilla(struct sctstr *sp)
 	 * guerrillas have to resort to blowing things up.
 	 * Note this disrupts work in the sector.
 	 */
-	n = (random() % 10) + (random() % che);
+	n = roll0(10) + roll0(che);
 	if (n > 100)
 	    n = 100;
 	tmp = sp->sct_work - n;
@@ -327,14 +327,14 @@ guerrilla(struct sctstr *sp)
 	/* loyalty drops during recruitment efforts */
 	n = sp->sct_loyal;
 	if (n < 30)
-	    n += (random() % 5) + 1;
+	    n += roll0(5) + 1;
 	else if (n < 70)
-	    n += (random() % 10) + 4;
+	    n += roll0(10) + 4;
 	if (n > 127)
 	    n = 127;
 	sp->sct_loyal = n;
 	if (sp->sct_oldown != sp->sct_own || n > 100) {
-	    n = civ * (random() % 3) / 200;
+	    n = civ * roll0(3) / 200;
 	    n /= hap_fact(tnat, getnatp(sp->sct_oldown));
 	    if (n + che > CHE_MAX)
 		n = CHE_MAX - che;
@@ -342,7 +342,7 @@ guerrilla(struct sctstr *sp)
 	    civ -= n;
 	    sp->sct_item[I_CIVIL] = civ;
 	}
-	n = uw * (random() % 3) / 200;
+	n = uw * roll0(3) / 200;
 	if (n + che > CHE_MAX)
 	    n = CHE_MAX - che;
 	che += n;
@@ -375,7 +375,7 @@ domove:
 	    val = roundintby(val, 10);
 	    /* inject a modicum of indeterminism; also
 	     * avoids che preferring certain directions */
-	    val += random() % 10 - 5;
+	    val += roll0(10) - 5;
 	    if (val >= min_mil)
 		continue;
 	    nicest_sp = nsp;

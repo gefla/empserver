@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -95,12 +95,12 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 			nreport(sp->sct_own, N_DIE_FAMINE, 0, 1);
 		}
 		sp->sct_work = 0;
-		sp->sct_loyal += (random() % 8) + 2;
+		sp->sct_loyal += roll0(8) + 2;
 	    }
 	    sctwork = 0;
 	} else {
 	    if (sp->sct_work < 100)
-		sctwork = sp->sct_work + 8 + (random() % 15);
+		sctwork = sp->sct_work + 8 + roll0(15);
 	    if (sctwork > 100)
 		sctwork = 100;
 	    if (!player->simulation)

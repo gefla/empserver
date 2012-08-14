@@ -27,7 +27,7 @@
  *  landgun.c: Fire weapons
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2006-2009
+ *     Markus Armbruster, 2006-2012
  */
 
 #include <config.h>
@@ -48,7 +48,7 @@ fortgun(int effic, int guns)
     double d;
     double g = MIN(guns, 7);
 
-    d = (random() % 30 + 20.0) * (g / 7.0);
+    d = (roll0(30) + 20.0) * (g / 7.0);
     d *= effic / 100.0;
     return d;
 }
@@ -60,7 +60,7 @@ seagun(int effic, int guns)
 
     d = 0.0;
     while (guns--)
-	d += 10.0 + random() % 6;
+	d += 10.0 + roll0(6);
     d *= effic * 0.01;
     return d;
 }
@@ -72,7 +72,7 @@ landunitgun(int effic, int guns)
 
     d = 0.0;
     while (guns--)
-	d += 5.0 + random() % 6;
+	d += 5.0 + roll0(6);
     d *= effic * 0.01;
     return d;
 }
@@ -221,9 +221,9 @@ lnd_sabo(struct lndstr *lp, short item[])
     lp->lnd_item[I_SHELL]--;
     dam = fortgun(3 * lp->lnd_effic, 7);
     if (item[I_SHELL] > 20)
-	dam += seagun(lp->lnd_effic, random() % (item[I_SHELL] / 10));
+	dam += seagun(lp->lnd_effic, roll0(item[I_SHELL] / 10));
     if (item[I_PETROL] > 100)
-	dam += seagun(lp->lnd_effic, random() % (item[I_PETROL] / 50));
+	dam += seagun(lp->lnd_effic, roll0(item[I_PETROL] / 50));
     return dam;
 }
 

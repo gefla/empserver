@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -70,6 +71,7 @@ static int quiet = 0;
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "chance.h"
 #include "file.h"
 #include "optlist.h"
 #include "prototypes.h"
@@ -115,7 +117,7 @@ static char *program_name;
 
 #define new_x(newx) (((newx) + WORLD_X) % WORLD_X)
 #define new_y(newy) (((newy) + WORLD_Y) % WORLD_Y)
-#define rnd(x) (random() % (x))
+#define rnd(x) roll0((x))
 
 static int secs;		/* number of sectors grown */
 static int ctot;		/* total number of continents and islands grown */
@@ -218,7 +220,7 @@ main(int argc, char *argv[])
     }
     parse_args(argc - optind, argv + optind);
 
-    srandom(rnd_seed);
+    seed_prng(rnd_seed);
     empfile_init();
     if (emp_config(config_file) < 0)
 	exit(1);

@@ -27,11 +27,12 @@
  *  news.c: Show current Empire news
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2006-2012
  */
 
 #include <config.h>
 
+#include "chance.h"
 #include "commands.h"
 #include "news.h"
 #include "optlist.h"
@@ -186,7 +187,7 @@ preport(struct nwsstr *np)
     /*
      * vary the order of the printing of "%d times "
      */
-    if ((random() & 3) == 0 && np->nws_ntm > 1) {
+    if (roll0(4) == 0 && np->nws_ntm > 1) {
 	sprintf(cp, "%s times ", ptr);
 	cp += strlen(cp);
 	np->nws_ntm = 1;
@@ -194,7 +195,7 @@ preport(struct nwsstr *np)
     strcpy(cp, cname(np->nws_ano));
     cp += strlen(cp);
     *cp++ = ' ';
-    sprintf(cp, rpt[(int)np->nws_vrb].r_newstory[random() % NUM_RPTS],
+    sprintf(cp, rpt[(int)np->nws_vrb].r_newstory[roll0(NUM_RPTS)],
 	    cname(np->nws_vno));
     cp += strlen(cp);
     if (np->nws_ntm != 1) {

@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2007-2010
+ *     Markus Armbruster, 2007-2012
  */
 
 #include <config.h>
@@ -100,7 +100,7 @@ takeover(struct sctstr *sp, natid newown)
 	    if (!(chance(LND_SPY_DETECT_CHANCE(lp->lnd_effic))))
 		continue;
 	}
-	n = lp->lnd_effic - (30 + (random() % 100));
+	n = lp->lnd_effic - (30 + roll0(100));
 	if (n < 0)
 	    n = 0;
 	lp->lnd_effic = n;
@@ -129,7 +129,7 @@ takeover(struct sctstr *sp, natid newown)
      * how spunky are these guys?
      * n: random number from -25:75 + (50 - loyalty)
      */
-    n = (50 - sp->sct_loyal) + ((random() % 100) - 25);
+    n = (50 - sp->sct_loyal) + (roll0(100) - 25);
     if (n > 0 && sp->sct_own == sp->sct_oldown) {
 	che_count = (civ * n / 3000) + 5;
 	if (che_count * 2 > civ)
@@ -186,7 +186,7 @@ takeover_plane(struct plnstr *pp, natid newown)
      * XXX If this was done right, planes could escape,
      * flying to a nearby friendly airport.
      */
-    n = pp->pln_effic - (30 + (random() % 100));
+    n = pp->pln_effic - (30 + roll0(100));
     if (n < 0)
 	n = 0;
     pp->pln_effic = n;

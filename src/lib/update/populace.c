@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -72,7 +73,7 @@ populace(struct natstr *np, struct sctstr *sp, int etu)
 	n = roundavg(etu * 0.125);
 	if (n == 0)
 	    n = 1;
-	n = sp->sct_loyal + (random() % n) + 1;
+	n = sp->sct_loyal + roll0(n) + 1;
 	if (n > 127)
 	    n = 127;
 	sp->sct_loyal = n;
@@ -80,7 +81,7 @@ populace(struct natstr *np, struct sctstr *sp, int etu)
     if (sp->sct_loyal > 65 && mil < civ / 20) {
 	int work_red;
 
-	work_red = sp->sct_loyal - (50 + (random() % 15));
+	work_red = sp->sct_loyal - (50 + roll0(15));
 	n = sp->sct_work - work_red;
 	if (n < 0)
 	    n = 0;

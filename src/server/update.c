@@ -30,7 +30,7 @@
  *     Dave Pare, 1994
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2007-2010
+ *     Markus Armbruster, 2007-2012
  */
 
 #include <config.h>
@@ -40,6 +40,7 @@
 #include <sys/wait.h>
 #endif
 #include <time.h>
+#include "chance.h"
 #include "empthread.h"
 #include "file.h"
 #include "game.h"
@@ -129,7 +130,7 @@ update_sched(void *unused)
 	next_update = update_time[0];
 	if (next_update) {
 	    if (update_window > 0)
-		next_update += random() % update_window;
+		next_update += roll0(update_window);
 	    logerror("Next update at %s", ctime(&next_update));
 	    /* sleep until update is scheduled to go off */
 	    empth_sleep(next_update);

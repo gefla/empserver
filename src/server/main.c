@@ -50,6 +50,7 @@
 #include "sys/socket.h"
 #endif
 
+#include "chance.h"
 #include "empio.h"
 #include "empthread.h"
 #include "file.h"
@@ -349,7 +350,7 @@ crash_dump(void)
 static void
 init_server(unsigned seed, int force_bad_state)
 {
-    srandom(seed);
+    seed_prng(seed);
 #if defined(_WIN32)
     loc_NTInit();
 #endif

@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -182,7 +183,7 @@ plague_people(struct natstr *np, short *vec,
     }
     if (*ptime <= 0) {
 	*pstage -= 1;
-	*ptime = etus / 2 + random() % etus;
+	*ptime = etus / 2 + roll0(etus);
     }
     return stage;
 }

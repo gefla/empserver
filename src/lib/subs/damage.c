@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1997
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -169,7 +170,7 @@ damage(int amt, int pct)
 	return 0;
     tmp = amt * pct;
     lost = tmp / 100;
-    if (random() % 100 < tmp % 100)
+    if (roll0(100) < tmp % 100)
 	lost++;
     return amt - lost;
 }

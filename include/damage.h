@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2006-2012
  */
 
 #ifndef DAMAGE_H
@@ -38,11 +39,11 @@
 #define DPERCENT_DAMAGE(x) (100.0 * (x) / ((x) + 100.0))
 #define DMINE_HITCHANCE(x) ((x) / ((x) + 20.0))
 #define DMINE_LHITCHANCE(x) ((x) / ((x) + 35.0))
-#define MINE_DAMAGE() (22 + random()%21)
-#define MINE_LDAMAGE() (11 + random()%20)
+#define MINE_DAMAGE() (22 + roll0(21))
+#define MINE_LDAMAGE() (11 + roll0(20))
 #define DTORP_HITCHANCE(range, vis) \
     (0.9 / ((range)+1) + (((vis) < 6) ? (5-(vis)) * 0.03 : 0.0))
-#define TORP_DAMAGE() (torpedo_damage + (random() % torpedo_damage) + \
-		       (random() % torpedo_damage))
+#define TORP_DAMAGE() (torpedo_damage + roll0(torpedo_damage) + \
+		       roll0(torpedo_damage))
 
 #endif
