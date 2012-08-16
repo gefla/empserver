@@ -280,7 +280,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    continue;
 	if ((damage = nukedamage(ncp, ni.curdist, airburst)) <= 0)
 	    continue;
-	if (roll(100) > damage)
+	if (!pct_chance(damage))
 	    continue;
 	nuke.nuk_effic = 0;
 	if (own == player->cnum) {

@@ -212,7 +212,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
     /* Have to make a retreat check */
 
     ret_chance = llp->unit.land.lnd_retreat - llp->unit.land.lnd_effic;
-    if (roll(100) <= ret_chance) {
+    if (pct_chance(ret_chance)) {
 	pr("\n");
 	lnd_print(llp->unit.land.lnd_own, llp, "fails morale check!");
 	llp->unit.land.lnd_mission = 0;
@@ -1099,7 +1099,7 @@ lnd_support(natid victim, natid attacker, coord x, coord y, int defending)
 	    nreport(land.lnd_own, N_FIRE_BACK, victim, 1);
 	else
 	    nreport(land.lnd_own, N_FIRE_L_ATTACK, victim, 1);
-	if (roll(100) < lnd_acc(&land))
+	if (pct_chance(lnd_acc(&land) - 1))
 	    dam2 /= 2;
 	dam += dam2;
 	if (land.lnd_own != attacker)

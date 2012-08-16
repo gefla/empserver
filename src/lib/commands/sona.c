@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Jim Griffith, 1989
  *     Ken Stevens, 1995
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -250,8 +251,8 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 	    tmcp = &mchr[(int)targ->shp_type];
 	    if (!(tmcp->m_flags & M_SUB))
 		continue;
-	    if (roll(100) > pln_identchance(pp, shp_hardtarget(targ),
-					    EF_SHIP))
+	    if (!pct_chance(pln_identchance(pp, shp_hardtarget(targ),
+					    EF_SHIP)))
 		continue;
 	    vis = shp_visib(targ);
 	    pingrange = MAX(vis, 10) * range / 10;
@@ -276,10 +277,10 @@ plane_sona(struct emp_qelem *plane_list, int x, int y,
 		found = 1;
 	    }
 	    if (relations_with(targ->shp_own, pp->pln_own) < FRIENDLY &&
-		roll(100) > pln_identchance(pp, shp_hardtarget(targ),
-					    EF_SHIP))
-		if (roll(100) > pln_identchance(pp, shp_hardtarget(targ),
-						EF_SHIP))
+		!pct_chance(pln_identchance(pp, shp_hardtarget(targ),
+					    EF_SHIP)))
+		if (!pct_chance(pln_identchance(pp, shp_hardtarget(targ),
+						EF_SHIP)))
 		    pr("sub #%d %s\n", targ->shp_uid,
 		       xyas(targ->shp_x, targ->shp_y, player->cnum));
 		else

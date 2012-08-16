@@ -835,7 +835,7 @@ mission_pln_sel(struct emp_qelem *list, int wantflags, int nowantflags,
 	}
 
 	if (pcp->pl_flags & P_A) {
-	    if (roll(100) > pln_identchance(pp, hardtarget, EF_SHIP)) {
+	    if (!pct_chance(pln_identchance(pp, hardtarget, EF_SHIP))) {
 		emp_remque(qp);
 		free(qp);
 		continue;
@@ -1040,7 +1040,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	    continue;
 
 	if (plp->pcp->pl_flags & P_A) {
-	    if (roll(100) > pln_identchance(pp, hardtarget, EF_SHIP)) {
+	    if (!pct_chance(pln_identchance(pp, hardtarget, EF_SHIP))) {
 		wu(0, pp->pln_own,
 		   "\t%s detects sub movement in %s\n",
 		   prplane(pp), xyas(x, y, pp->pln_own));
@@ -1065,7 +1065,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	    hitchance = 100;
 	else if (hardtarget != SECT_HARDTARGET)
 	    wu(0, pp->pln_own, "\t\t%d%% hitchance...", hitchance);
-	if (roll(100) <= hitchance) {
+	if (pct_chance(hitchance)) {
 	    newdam = pln_damage(&plp->plane, 'p', 1);
 	    wu(0, pp->pln_own,
 	       "\t\thit %s %s for %d damage\n",

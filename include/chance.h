@@ -34,6 +34,7 @@
 #define CHANCE_H
 
 extern int chance(double);
+extern int pct_chance(int);
 extern int roll0(int);
 extern int roll(int);
 extern int roundavg(double);

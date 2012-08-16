@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2006-2010
+ *     Markus Armbruster, 2006-2012
  */
 
 #include <config.h>
@@ -875,7 +875,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	    hitchance = 0;
 	if (hitchance > 100)
 	    hitchance = 100;
-	hit = roll(100) <= hitchance;
+	hit = pct_chance(hitchance);
 
 	mpr(bombown, "%s anti-missile system activated...%s\n",
 	    cname(ship.shp_own),

@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -455,7 +455,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 				      shp_hardtarget(&ship), EF_SHIP);
 	    pr("%d%% hitchance...", hitchance);
 	}
-	if (roll(100) <= hitchance) {
+	if (pct_chance(hitchance)) {
 	    /* pinbombing is more accurate than normal bombing */
 	    dam = 2 * pln_damage(&plp->plane, 'p', 1);
 	} else {
@@ -555,7 +555,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	    hitchance = pln_hitchance(&plp->plane, 0, EF_PLANE);
 	    pr("%d%% hitchance...", hitchance);
 	}
-	if (roll(100) <= hitchance) {
+	if (pct_chance(hitchance)) {
 	    /* pinbombing is more accurate than normal bombing */
 	    dam = 2 * pln_damage(&plp->plane, 'p', 1);
 	} else {
@@ -664,7 +664,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 				      lnd_hardtarget(&land), EF_LAND);
 	    pr("%d%% hitchance...", hitchance);
 	}
-	if (roll(100) <= hitchance) {
+	if (pct_chance(hitchance)) {
 	    dam = 2 * pln_damage(&plp->plane, 'p', 1);
 	} else {
 	    pr("thud\n");

@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
+ *     Markus Armbruster, 2003-2012
  */
 
 #include <config.h>
@@ -229,8 +230,8 @@ asw_shipsatxy(coord x, coord y, int wantflags, int nowantflags,
 		continue;
 	}
 	if (mp->m_flags & M_SUB) {
-	    if (roll(100) > pln_hitchance(pp,
-					  shp_hardtarget(&ship), EF_SHIP))
+	    if (!pct_chance(pln_hitchance(pp,
+					  shp_hardtarget(&ship), EF_SHIP)))
 		continue;
 	}
 	add_shiplist(ship.shp_uid, head);

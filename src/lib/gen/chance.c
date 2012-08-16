@@ -27,7 +27,7 @@
  *  chance.c: Roll dice
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2006-2012
  */
 
 #include <config.h>
@@ -43,6 +43,15 @@ int
 chance(double d)
 {
     return d > (random() % 32768) / 32768.0;
+}
+
+/*
+ * Return non-zero with probability PCT%.
+ */
+int
+pct_chance(int pct)
+{
+    return roll(100) <= pct;
 }
 
 /*
