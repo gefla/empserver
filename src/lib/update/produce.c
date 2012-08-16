@@ -214,7 +214,7 @@ materials_charge(struct pchrstr *pp, short *vec, int count)
 }
 
 /*
- * Return level p.e. for sector type TYPE.
+ * Return p.e. for sector type TYPE.
  * Zero means level is too low for production.
  * LEVEL is the affecting production of PP; it must match PP->p_nlndx.
  */
