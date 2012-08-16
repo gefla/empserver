@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -211,7 +211,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
     /* Have to make a retreat check */
 
     ret_chance = llp->unit.land.lnd_retreat - llp->unit.land.lnd_effic;
-    if (roll(100) < ret_chance) {
+    if (roll(100) <= ret_chance) {
 	pr("\n");
 	lnd_print(llp->unit.land.lnd_own, llp, "fails morale check!");
 	llp->unit.land.lnd_mission = 0;

@@ -5,11 +5,9 @@
 The \*Qmorale\*U command is used to set the retreat percentage of land
 units.
 .s1
-Normally, a land unit must start making morale checks during combat
-when its efficiency is less than or equal to its retreat percentage.
-(The chance of failing a morale check is: sqrt(100-effic)%/(men in unit).
-Example: a 25 man unit is at 75% efficiency. Its chance of failing is
-sqrt(100-75)%/25 = sqrt(25)%/25 = 20%)
+Whenever a land unit takes a hit in combat, it may break off combat
+and attempt to retreat.  This is called \*Qfailing a morale check\*U.
+The chance for it to happen is unit's retreat percentage - efficiency.
 .s1
 The morale command
 allows you to adjust this percentage within a range. If, for example, you
@@ -19,8 +17,8 @@ the enemy down a bit. Or, you could set your retreat percentage to the minimum,
 and make the unit stick around and fight more, but at the cost of more
 casualties.
 .s1
-The maximum allowed value is 100% (i.e. start making morale checks after
-any casualties). The minimum value is based on happiness:
+The maximum allowed value is 100%.  The minimum value is based on
+happiness:
 .ti 3
 (morale_base) - happiness
 .s1
