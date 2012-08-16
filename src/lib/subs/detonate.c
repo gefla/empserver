@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -279,7 +279,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
 	    continue;
 	if ((damage = nukedamage(ncp, ni.curdist, airburst)) <= 0)
 	    continue;
-	if (roll(100) >= damage)
+	if (roll(100) > damage)
 	    continue;
 	nuke.nuk_effic = 0;
 	if (own == player->cnum) {

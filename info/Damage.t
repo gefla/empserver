@@ -87,6 +87,10 @@ Land unit
 Plane
 %damage = damage
 
+Nuke
+can't be damaged by conventional weapons
+nuclear damage may destroy it (chance in percent equal to damage)
+
 Sector
 sectdamage = damage / ((sectdef - 2) * eff + 2)
 %damage = (100 * sectdamage / (sectdamage + 100))
@@ -96,6 +100,9 @@ planes take 1/7 of the damage done to land units
 
 Commodity
 %damage = (100 * damage / (damage + 50))
+
+Note: when a ship, plane, land unit or bridge is destroyed, its
+contents is lost.  This includes nukes.
 
 .fi
 .SA "fire, launch, torpedo, lmine, bomb, Hitchance, Attacking, Combat"
