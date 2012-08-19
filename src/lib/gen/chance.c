@@ -54,22 +54,43 @@ pct_chance(int pct)
     return roll(100) <= pct;
 }
 
+static unsigned
+round_up_to_pow2(unsigned val)
+{
+    val--;
+    val |= val >> 1;
+    val |= val >> 2;
+    val |= val >> 4;
+    val |= val >> 8;
+    val |= val >> 16;
+    val++;
+    return val;
+}
+
 /*
  * Return a random number in [0..N-1].
+ * N must be in [1..2^31-1].
  */
 int
 roll0(int n)
 {
-    return random() % n;
+    unsigned pow2 = round_up_to_pow2(n);
+    int r;
+
+    do
+	r = random() & (pow2 - 1);
+    while (r >= n);
+    return r;
 }
 
 /*
  * Return a random number in [1..N].
+ * N must be in [0..2^31-1].
  */
 int
 roll(int n)
 {
-    return 1 + random() % n;
+    return 1 + roll0(n);
 }
 
 /*
