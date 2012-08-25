@@ -10,21 +10,16 @@ srcdir="$1"
 . "$srcdir"/tests/test-common.sh
 
 #
-# Currently expected to work only with thread package LWP and a
-# random() that behaves exactly like the one on my development system,
-# because:
+# Currently expected to work only with thread package LWP, because:
 # 
 # - Thread scheduling is reliably deterministic only with LWP
-# - The PRN sequence produced by random() isn't portable
 # - Shell builtin kill appears not to do the job in MinGW
 # - The Windows server tries to run as service when -d isn't
 #   specified
 #
 # TODO address these shortcomings.
 #
-if [ "`uname -s`" != "Linux" ]	# lame approx. of "random() behaves like mine"
-then echo "Warning: smoke test not expected to work on this system!" >&2
-elif [ `sed -n 's/empthread *:= *\(.*\)/\1/p' <GNUmakefile` != LWP ]
+if [ `sed -n 's/empthread *:= *\(.*\)/\1/p' <GNUmakefile` != LWP ]
 then echo "Warning: smoke test not expected to work with this thread package!" >&2
 fi
 

@@ -1,5 +1,5 @@
 Thu Jan  1 00:00:00 1970       Main startup
-Thu Jan  1 00:00:00 1970       Main prng BSD 1
+Thu Jan  1 00:00:00 1970       Main prng MT19937 1
 Thu Jan  1 00:00:00 1970      Conn0 input user tester
 Thu Jan  1 00:00:00 1970      Conn0 input coun red
 Thu Jan  1 00:00:00 1970      Conn1 input user tester

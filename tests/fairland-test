@@ -9,14 +9,6 @@ srcdir="$1"
 
 . "$srcdir"/tests/test-common.sh
 
-#
-# Currently expected to work only with a random() that behaves exactly
-# like the one on my development system.
-#
-if [ "`uname -s`" != "Linux" ]	# lame approx. of "random() behaves like mine"
-then echo "Warning: fairland test not expected to work on this system!" >&2
-fi
-
 create_sandbox
 
 exec 3>sandbox/fairland.out

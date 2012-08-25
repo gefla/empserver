@@ -17,44 +17,44 @@ World dimensions: 64x32
 seed is 1
 placing capitals...
 growing continents...
-growing islands: 1(22) 2(21) 3(16) 4(18) 5(25) 6(18) 7(10) 8(17) 9(19) 10(21)
+growing islands: 1(22) 2(25) 3(21) 4(15) 5(21) 6(13) 7(29) 8(15) 9(12) 10(15)
 elevating land...
 designating sectors...
 adding resources...
 setting coastal flags...
 writing to sectors file...
 
-. . . h h h h . . . . . . . . . . e e e e e e . % . . . a . . . 
- . . . h h h h . . . g g . % % % . e e e . e . % . . . a . a . . 
-. . . . h . h . . g g g g . % % % . . e . . . % % . . a a a . . 
- . . . . . . . % . g g g g . . % % % . . % % % % % . . a a a . a 
-a . . . . % % % . g g g g g g . % % % . % % % % % % . a a a a a 
- . . . . % % % . g g # # g g . % % % % . . % % % % . . a # # a . 
-. . . . % % % % . g g g g g g . % % . . j . % % % . . a a a a a 
- . . % . % % % % . . . g g . . % . . j j j . . . . . . . a a a . 
-. % % . . % % % % % . . . . . . . j j j j . . . . . % % . . a a 
- % % . . % % % . . . . % . . j j j j j j j . . . . . % . . . . . 
-% % % . % % . . . . % % % % . . j j # # j j . . % % % . . . % % 
- % % . . . . . % % . . % % . . . . j j j j . . % % % % . . . % % 
-% % . . . . % % % % . % % . . . j j j j j . % % % % % . . . . % 
- % . . . . . % % % % . % . . . . . . . . . % % % . . . d . . . . 
-. . . . . . % % % % % . . . . . . . . . . . . . . d d d d d . . 
- . % . . . . % % . . . . . . . . . i i i . . . d d d d d d . % % 
-% % . . . f . . . . . . . . . . i i i i . . . . d d # # d d . % 
- % % . f f f f . . . . . % . . . i i i i . . . . . d d d d . % % 
-% % . f f f f f . % % % % . % % . . i i i . . . . d d d d d . % 
- % . f f f f f . % % % % . % % % . i i i i . . . . . . d d . % % 
-% . f # # f f . % % % % . % % % . i # # i i . . . . . . d . . % 
- . f f f f f f . % % % % . % % % . i i i i . . . . . . . . . % % 
-. . . f f f . . . % % % . % % % % . i . . . . . . . . . . . . % 
- . . . . f . . . % . . . . . . . % . i . . . . . . . . . . . . . 
-. . . . . . . . . . b b b b b . . . i . . . . . . . . c c c . . 
- . . . . . . . . . b b b b b b . . . . . . . . . . c c c c . . . 
-. . . . . . . . . b b # # b b b . . . . . . . . c c c # # c c . 
- . . h . . . . . . b b b b b . . . . . e e . . . c c c c c . . . 
-. h h h h . . . . . b b b . . . . . . e e e . . . c c c c c . . 
- . h h h h . . . . b b b b . . . . . e e e . . . . c c c c . . . 
-. . h # # h h h . . . . . . . . e e e e e e . . . . c . . . . . 
- . . h h h h h . . . . . . . . . . e # # e e . . . c . . . . . . 
+. e e e e e . . % % % % . # # i i . . . . . . . % . % . . % % % 
+ . e e e . e . % % % % . i i i i . . . . . . . . % % % . . % % % 
+% . . . . . . . % % % . i i i i . . g g g . . . % % % % % . % % 
+ % . % % % % . % . . % . i i i . . g g g g . . . % % % % . . . . 
+. . % % % % . % . . . . . i i . . g g g g g g . . % . . . . . . 
+ . . % % % . . . . . . . i i . . g g g # # g g . . . . . . . b . 
+b . % . . . a . . a a . . . . . . g g g g g . . . . . . . . b b 
+ b . . % . a a a a a . . . . . % . g g g g . . % % . . b b b b b 
+b b . % . a a # # . . . . . . % % . . . . g . . % % . b b # # b 
+ b . % . a a a a a a . . . % % % % % % % . . % . % . b b b b b b 
+. . % % . . a a a a a a . . . % % % % % % % % . % % . b b b b . 
+ . . % % . a a a a a a . . . . . . % % % % . . % % % . . b b . . 
+. % % % % . . . . . . . . % . % . % % . . . d . % % % % . . . . 
+ % % % % % % % % % % . . % % % % . . . . . . d . . . % . . . . . 
+% % . . % % % % % . . % % % % % . . . . . d . d d d . . . . . . 
+ . . j . . . . . . . . % % % % . . . . . d d d d d . . . . . . % 
+. j j j j j j . . . . . % % % % . . . . d d d # # d . . . . . . 
+ j j j j j j . . . . . . . . . % . . . . d d d d d d . . . . . . 
+j j j # # j j j . . . . . . . . % . . . . d d d d d . . h h . . 
+ j j j j j . . . . . f f . . . . . . . . . d . . d . . . h h . . 
+. j j j j . % % . . . f f f f f . . . . . . . . . . . . . h h . 
+ . . . . . % % . f f f f f f f . . . . . . . . . . . . . . h h . 
+. . . . % % % % . . f f f f . . . . . c c . . . . . . . . h h h 
+ h h h . % % % % . f f # # f . . . . . c c c c . . . . . # # h h 
+h . . . . . . . % . f f f f f . . . . . c c c . . . . . . h h h 
+ . . . . . . . % % . . . . f f . . . c # # c . . . . % . h h h h 
+h . . . . . . . . . . . . . . . . . c c c c c c . . % % . h h h 
+ . . . . e e . . . . . . . . . . . . c c c c c . . % % % . . . . 
+. . . e e e e . . . . . . . . . . . . c c c c . % % % % % % . . 
+ . . e # # e . . % % . . . . i . . . . . c c . % % % % % % . . . 
+. . e e e e e . % % . . i i i i i . . . . . . . . % % % % . % . 
+ e e e e e e . . % % % . i i i i i . . . . . . . . . . . . % % . 
 
 A script for adding all the countries can be found in "sandbox/newcap_script".

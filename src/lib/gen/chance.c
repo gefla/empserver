@@ -35,6 +35,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "chance.h"
+#include "mt19937ar.h"
 
 /*
  * Return non-zero with probability D.
@@ -42,7 +43,7 @@
 int
 chance(double d)
 {
-    return d > (random() % 32768) / 32768.0;
+    return d > genrand_real2();
 }
 
 /*
@@ -78,7 +79,7 @@ roll0(int n)
     int r;
 
     do
-	r = random() & (pow2 - 1);
+	r = genrand_int32() & (pow2 - 1);
     while (r >= n);
     return r;
 }
@@ -112,5 +113,5 @@ roundavg(double val)
 void
 seed_prng(unsigned seed)
 {
-    srandom(seed);
+    init_genrand(seed);
 }

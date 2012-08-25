@@ -191,7 +191,7 @@ journal_reopen(void)
 void
 journal_prng(unsigned seed)
 {
-    journal_entry("prng BSD %d", seed);
+    journal_entry("prng MT19937 %u", seed);
 }
 
 void
