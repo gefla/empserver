@@ -1,0 +1,22 @@
+#!/bin/sh -e
+# Basic files test
+
+if [ $# -ne 1 ]
+then echo "Usage: $0 SRCDIR" >&2; exit 1
+fi
+
+srcdir="$1"
+
+. "$srcdir"/tests/test-common.sh
+
+create_sandbox
+
+exec 3>sandbox/files.out
+
+src/util/files -e sandbox/etc/empire/econfig -f >&3
+
+exec 3>&-
+
+src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/files.xdump
+
+cmp_out files.out files.xdump

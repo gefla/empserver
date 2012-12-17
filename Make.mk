@@ -255,6 +255,7 @@ check: $(checks)
 $(checks): all
 check-smoke:
 	@echo "Warning: smoke test is immature and needs work." >&2
+	$(srcdir)/tests/files-test $(srcdir)
 ifeq ($(empthread),LWP)
 	$(srcdir)/tests/smoke-test $(srcdir)
 else
