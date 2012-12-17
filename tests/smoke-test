@@ -7,12 +7,7 @@ fi
 
 srcdir="$1"
 
-export EMPIREHOST=127.0.0.1 LOGNAME=tester
-
-if [ -x ./config.status ] && ./config.status --version | grep -q '^Wolfpack Empire'
-then :
-else echo "$0: Must be run in root of build tree" >&2; exit 1
-fi
+. "$srcdir"/tests/test-common.sh
 
 #
 # Currently expected to work only with thread package LWP and a
@@ -33,32 +28,14 @@ elif [ `sed -n 's/empthread *:= *\(.*\)/\1/p' <GNUmakefile` != LWP ]
 then echo "Warning: smoke test not expected to work with this thread package!" >&2
 fi
 
-# Create sandbox
-rm -rf sandbox
-mkdir -p sandbox/etc/empire sandbox/share/empire/builtin sandbox/var/empire
-touch sandbox/etc/empire/schedule
-cat >sandbox/etc/empire/econfig <<EOF
-data "../../var/empire"
-info "../../../../info.nr"
-builtin "../../share/empire/builtin"
-listen_addr "$EMPIREHOST"
-keep_journal 1
-EOF
-cp "$srcdir"/src/lib/global/*.config sandbox/share/empire/builtin
+create_sandbox
 
 exec 3>sandbox/smoke.out
-
-pid=
-trap 'if [ "$pid" ]; then kill "$pid" 2>/dev/null || true; fi' EXIT
 
 # Create world and start server
 src/util/files -e sandbox/etc/empire/econfig -f >&3
 src/util/fairland -e sandbox/etc/empire/econfig -q -s sandbox/newcap_script -R 1 10 30
-src/server/emp_server -e sandbox/etc/empire/econfig -R 1
-while src/client/empire red herring 2>&1 | grep -q "Connection refused"
-do :				# FIXME hangs here if server crashes on startup
-done
-pid=`cat sandbox/var/empire/server.pid`
+start_server
 src/client/empire POGO peter <sandbox/newcap_script >/dev/null
 
 # Feed player input
@@ -94,41 +71,11 @@ EOF
 done
 
 # Stop server
-kill "$pid"
-while kill -0 "$pid" 2>/dev/null
-do :				# FIXME hangs here if server fails to exit
-done
+stop_server
 
 exec 3>&-
 
 src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/smoke.xdump
 
 # Smoke test completed; compare results
-
-cmp_out()
-{
-    local opt exp act nrm msg ret=0
-    for i
-    do
-	case "$i" in
-	    */journal.log) opt=-j ;;
-	    */server.log)  opt=-s ;;
-	    *)             opt= ;;
-	esac
-	exp="$srcdir/tests/smoke/${i##*/}"
-	act="sandbox/$i"
-	nrm="sandbox/normalized-${i##*/}"
-	perl "$srcdir"/tests/normalize.pl $opt "$act" >"$nrm"
-	if msg=`diff -q "$exp" "$nrm"`
-	then
-	    echo "$exp OK"
-	else
-	    ret=$?
-	    echo "$exp FAIL"
-	    echo $msg
-	fi
-    done
-    return $ret
-}
-
 cmp_out smoke.out var/empire/server.log var/empire/journal.log smoke.xdump
