@@ -34,9 +34,9 @@ exec 3>sandbox/smoke.out
 
 # Create world and start server
 src/util/files -e sandbox/etc/empire/econfig -f >&3
-src/util/fairland -e sandbox/etc/empire/econfig -q -s sandbox/newcap_script -R 1 10 30
+src/util/empdump -e sandbox/etc/empire/econfig -i "$srcdir"/tests/smoke/fairland.xdump
 start_server
-src/client/empire POGO peter <sandbox/newcap_script >/dev/null
+src/client/empire POGO peter <"$srcdir"/tests/smoke/newcap_script >/dev/null
 
 # Feed player input
 need_update=
