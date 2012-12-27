@@ -41,7 +41,7 @@
 #include "optlist.h"
 #include "prototypes.h"
 
-#define SLOTS	5
+#define SLOTS 8
 
 struct newscache {
     struct nwsstr news;
