@@ -30,7 +30,7 @@
  *     Dave Pare, 1994
  *     Steve McClure, 1997
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -49,6 +49,7 @@ struct newscache {
 };
 
 static struct newscache cache[MAXNOC][SLOTS];
+static unsigned char cache_oldest[MAXNOC];
 static int news_tail;
 
 static struct newscache *
@@ -157,18 +158,12 @@ ncache(int actor, int event, int victim, int times)
 {
     struct newscache *np;
     int i;
-    int oldslot;
-    time_t oldtime, dur;
+    unsigned oldslot;
+    time_t dur;
     time_t now = time(NULL);
 
-    oldslot = -1;
-    oldtime = 0x7fffffff;
     for (i = 0; i < SLOTS; i++) {
 	np = &cache[actor][i];
-	if (np->news.nws_when < oldtime) {
-	    oldslot = i;
-	    oldtime = np->news.nws_when;
-	}
 	if (np->news.nws_vrb == 0)
 	    continue;
 	dur = now - np->news.nws_when;
@@ -181,11 +176,13 @@ ncache(int actor, int event, int victim, int times)
 	    return np;
 	}
     }
-    if (CANT_HAPPEN(oldslot < 0))
-	oldslot = 0;
     if (CANT_HAPPEN(!strstr(rpt[event].r_newstory[0], "%s") && victim != 0))
 	victim = 0;
+    oldslot = cache_oldest[actor];
+    if (CANT_HAPPEN(oldslot >= SLOTS))
+	oldslot = 0;
     np = &cache[actor][oldslot];
+    cache_oldest[actor] = (oldslot + 1) % SLOTS;
     ef_blank(EF_NEWS, news_tail, &np->news);
     np->news.nws_ano = actor;
     np->news.nws_vrb = event;
