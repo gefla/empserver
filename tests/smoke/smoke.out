@@ -8735,16 +8735,14 @@ You have a new telegram waiting ...
 [0:631] Command : 
 [0:630] Command : 
 [0:629] Command : 
-[0:628] Command : 2,2 old threshold 1
+[0:628] Command : 
+[0:627] Command : 3,-1 old threshold 1
 
-[0:627] Command : 
-[0:626] Command : 3,-1 old threshold 1
+[0:626] Command : 3,-1 old threshold 999
 
-[0:625] Command : 3,-1 old threshold 999
+[0:625] Command : 6,-2 old threshold 300
 
-[0:624] Command : 6,-2 old threshold 300
-
-[0:623] Command : 11,-1 efficiency 100%, max range 5
+[0:624] Command : 11,-1 efficiency 100%, max range 5
      . ? ? ? ? .     
     . . . . . . .    
    . . . . . . . .   
@@ -8758,98 +8756,98 @@ m j C = = 0 o ? ? ? .
      . . . . . .     
 
 
-[0:622] Command : 20 military loaded onto cav  cavalry #0 at 10,2
+[0:623] Command : 20 military loaded onto cav  cavalry #0 at 10,2
 1 unit loaded
 
-[0:621] Command : 1 military loaded onto cav  cavalry #1 at 10,2
+[0:622] Command : 1 military loaded onto cav  cavalry #1 at 10,2
 1 military loaded onto cav  cavalry #2 at 10,2
 1 military loaded onto cav  cavalry #3 at 10,2
 3 units loaded
 
-[0:620] Command : Leader is cav  cavalry #0
+[0:621] Command : Leader is cav  cavalry #0
 Using path 'gygyuh'
 cav  cavalry #0 stopped at 5,-1
 cav  cavalry #1 stopped at 5,-1
 cav  cavalry #2 stopped at 5,-1
 cav  cavalry #3 stopped at 5,-1
 
-[0:619] Command : 25 military loaded onto cs   cargo ship (#1) at 5,-1
+[0:620] Command : 25 military loaded onto cs   cargo ship (#1) at 5,-1
 1 ship loaded
 
-[0:618] Command : 300 civilians loaded onto cs   cargo ship (#1) at 5,-1
+[0:619] Command : 300 civilians loaded onto cs   cargo ship (#1) at 5,-1
 1 ship loaded
 
-[0:617] Command : 100 light products loaded onto cs   cargo ship (#1) at 5,-1
+[0:618] Command : 100 light products loaded onto cs   cargo ship (#1) at 5,-1
 1 ship loaded
 
-[0:616] Command : 100 heavy products loaded onto cs   cargo ship (#1) at 5,-1
+[0:617] Command : 100 heavy products loaded onto cs   cargo ship (#1) at 5,-1
 1 ship loaded
 
-[0:615] Command : 10 civilians loaded onto cs   cargo ship (#2) at 5,-1
+[0:616] Command : 10 civilians loaded onto cs   cargo ship (#2) at 5,-1
 1 ship loaded
 
-[0:614] Command : 10 civilians loaded onto cs   cargo ship (#3) at 5,-1
+[0:615] Command : 10 civilians loaded onto cs   cargo ship (#3) at 5,-1
 1 ship loaded
 
-[0:613] Command : cav  cavalry #0 loaded onto cs   cargo ship (#1) at 5,-1.
+[0:614] Command : cav  cavalry #0 loaded onto cs   cargo ship (#1) at 5,-1.
 1 ship loaded
 
-[0:612] Command : cav  cavalry #1 loaded onto cs   cargo ship (#2) at 5,-1.
+[0:613] Command : cav  cavalry #1 loaded onto cs   cargo ship (#2) at 5,-1.
 1 ship loaded
 
-[0:611] Command : cav  cavalry #2 loaded onto cs   cargo ship (#3) at 5,-1.
+[0:612] Command : cav  cavalry #2 loaded onto cs   cargo ship (#3) at 5,-1.
 1 ship loaded
 
-[0:610] Command : cav  cavalry #3 loaded onto cs   cargo ship (#3) at 5,-1.
+[0:611] Command : cav  cavalry #3 loaded onto cs   cargo ship (#3) at 5,-1.
 1 ship loaded
 
-[0:609] Command : art  artillery #5 built in sector 10,2
+[0:610] Command : art  artillery #5 built in sector 10,2
 
-[0:608] Command : Flagship is cs   cargo ship (#2)
+[0:609] Command : Flagship is cs   cargo ship (#2)
 cs   cargo ship (#2) stopped at 6,0
 Path taken: n
 
-[0:607] Command : Really scrap 1 land [n]? cav  cavalry #1 is not in an allied sector!
+[0:608] Command : Really scrap 1 land [n]? cav  cavalry #1 is not in an allied sector!
 
-[0:605] Command : Really scrap 1 ship [n]? cs   cargo ship (#2) is not in a friendly harbor!
+[0:606] Command : Really scrap 1 ship [n]? cs   cargo ship (#2) is not in a friendly harbor!
 
-[0:603] Command : Really scuttle 1 land [n]? cav  cavalry #1 is on a ship, and cannot be scuttled!
+[0:604] Command : Really scuttle 1 land [n]? cav  cavalry #1 is on a ship, and cannot be scuttled!
 
-[0:598] Command : Really scuttle 1 ship [n]? cs   cargo ship (#2) scuttled in 6,0
+[0:599] Command : Really scuttle 1 ship [n]? cs   cargo ship (#2) scuttled in 6,0
 	cs   cargo ship (#2) sunk!
 cav  cavalry #1 lost!
 
-[0:593] Command : Thu Jan  1 00:00:00 1970
+[0:594] Command : Thu Jan  1 00:00:00 1970
 COMMODITIES deliver--  distribute
   sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
    5,-1   h .......... ...00.022.   0   0    0    1    1   0    1  100  100   0
 1 sector
 
-[0:593] Command : Really scrap 1 land [n]? cav  cavalry #2 scrapped in 5,-1
+[0:594] Command : Really scrap 1 land [n]? cav  cavalry #2 scrapped in 5,-1
 
-[0:591] Command : Thu Jan  1 00:00:00 1970
+[0:592] Command : Thu Jan  1 00:00:00 1970
 COMMODITIES deliver--  distribute
   sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
    5,-1   h .......... ...00.022.   0   0    0    1    1   0    1  106  103   0
 1 sector
 
-[0:591] Command : Really scrap 1 ship [n]? cs   cargo ship (#3) scrapped in 5,-1
+[0:592] Command : Really scrap 1 ship [n]? cs   cargo ship (#3) scrapped in 5,-1
 cav  cavalry #3 transferred off ship 3 to 5,-1
 	cs   cargo ship (#3) sunk!
 
-[0:589] Command : Thu Jan  1 00:00:00 1970
+[0:590] Command : Thu Jan  1 00:00:00 1970
 COMMODITIES deliver--  distribute
   sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
    5,-1   h .......... ...00.022.   0   0    0    1    1   0    1  146  129   0
 1 sector
 
+[0:590] Command : 5,-1 old threshold 1
+
 [0:589] Command : 5,-1 old threshold 1
 
 [0:588] Command : 5,-1 old threshold 1
 
-[0:587] Command : 5,-1 old threshold 1
-
-[0:586] Command :      1111111---------0000000000111111111122222
+[0:587] Command :      1111111---------0000000000111111111122222
      65432109876543210123456789012345678901234
   -8                                           -8  
   -7                                           -7  
@@ -8871,7 +8869,7 @@ COMMODITIES deliver--  distribute
      1111111---------0000000000111111111122222
      65432109876543210123456789012345678901234
 
-[0:586] Command : Thu Jan  1 00:00:00 1970
+[0:587] Command : Thu Jan  1 00:00:00 1970
 CENSUS                   del dst
   sect        eff prd mob uf uf old  civ  mil   uw food work avail ter fall coa
    1,-3   oj 100%     127 .. ..      769    0    0    0 100%    0        0   1
@@ -8899,7 +8897,7 @@ CENSUS                   del dst
    7,1    d  100%     127 .. ..      769    0    0    0 100%  439        0   1
   -2,2    i  100%     127 .. ..      769    0    0    0 100%    0        0   1
    0,2    m  100%     127 .. ..      769    0    0    0 100%    0        0
-   2,2    km 100%     127 .. ..      769    0    0    0 100%    0        0   1
+   2,2    k  100%     127 .. ..      769    0    0    0 100%    0        0   1
    4,2    r  100%     127 .. ..      769    0    0    0 100%  439        0   1
    6,2    w  100%     127 .. ..     7704   41    0    0 100%  607        0   1
    8,2    e  100%     127 .. ..      769    1    0    0 100%  599        0   1
@@ -8909,19 +8907,19 @@ CENSUS                   del dst
    5,3    p  100%     127 .. ..      769    0    0    0 100%  524        0   1
 33 sectors
 
-[0:586] Command : shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
+[0:587] Command : shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
    0 frg  frigate       13,1       100%   0  25   0   0  0  0  0  0 127    0
    1 cs   cargo ship     5,-1      100% 300  25   0   0  0  0  0  1  90   30
 2 ships
 
-[0:586] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
+[0:587] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
    0 cav  cavalry       5,-1     100%  20   0   4   0  30  42%  0  0    1S
    3 cav  cavalry       5,-1     100%   1   0   4   0  30  42%  0  0
    4 cav  cavalry      10,2      100%   0   0  60   0  30  42%  0  0
    5 art  artillery    10,2       10%   0   0   0   0  37  42%  0  0
 4 units
 
-[0:586] Command :      --------00000000001111111
+[0:587] Command :      --------00000000001111111
      8765432101234567890123456
   -4 - . . . . . . . . . . .   -4  
   -3  - . . . o . . . . . . .  -3  
@@ -8935,7 +8933,7 @@ CENSUS                   del dst
      --------00000000001111111
      8765432101234567890123456
 
-[0:586] Command : 
+[0:587] Command : 
 > Production Report   dated Thu Jan  1 00:00:00 1970
 technological breakthroughs (11.14) produced in 4,-2
 a class of graduates (300.00) produced in 6,-2
@@ -8948,7 +8946,7 @@ Army delta $-2400, Navy delta $-1326, Air force delta $0
 money delta was $3548 for this update
 
 
-[0:586] Command : Thu Jan  1 00:00:00 1970
+[0:587] Command : Thu Jan  1 00:00:00 1970
 PRODUCTION SIMULATION
    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
    1,-3   j 100%   474  391l 0.82 $0     474i            474i             391
@@ -8970,14 +8968,14 @@ PRODUCTION SIMULATION
    7,1    d 100%   599    6g 0.63 $300    10o  50l 100h   37o 185l 370h    23
   -2,2    i 100%   599  126s 0.63 $600   400l 200h       400l 200h        126
    0,2    m 100%   599  599i 1.00 $0                                      599
-   2,2    m  91%   474  431i 1.00 $0                                      431
+   2,2    k 100%   599  247h 0.82 $0     600i            600i             247
    4,2    r 100%   599  7.42 0.74 $900    10d  50o 100l   37d 185o 370l 27.45
    8,2    e 100%   599   33m 1.00 $99     33c             33c             498
   -1,3    o 100%   474  391o 0.82 $0                                      391
    5,3    p 100%   599   75  1.00 $675    75l            599l             599
 24 sectors
 
-[0:586] Command : Bye-bye
+[0:587] Command : Bye-bye
 Exit: so long...
 Player 01 Turn 13 completed successfully
 Player 02 Turn 13 starting
@@ -9639,7 +9637,7 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
  10  -11,-11  g  100%     127 .. ..     1000    0    0    0 100%  600    0   1
   1    3,-11  i  100%     127 .. ..      769    0    0    0 100%    0    0   1
   1    5,-11  m  100%     127 .. ..      769    0    0    0 100%    0    0
-  1    7,-11  km 100%     127 .. ..      769    0    0    0 100%    0    0   1
+  1    7,-11  k  100%     127 .. ..      769    0    0    0 100%    0    0   1
   1    9,-11  r  100%     127 .. ..      769    0    0    0 100%  439    0   1
   1   11,-11  w  100%     127 .. ..     7704   41    0    0 100%  607    0   1
   1   13,-11  e  100%     127 .. ..      769    1    0    0 100%  599    0   1
@@ -9756,8 +9754,8 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   8  30,-12  c .......... ..........   0   0    0    0    0   0    0    0    0   0
  10 -11,-11  g .......... ..........   0   0    0    0  231   0    0    0    0   0
   1   3,-11  i .......... 0......63.   1   0    0    0    0   0    0  600  300   0
-  1   5,-11  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
-  1   7,-11  k .......... ...0......   0   0    0  600    0   0    0    0    1   0
+  1   5,-11  m .......... ...0......   0   0    0    0    0   0    0    0    0   0
+  1   7,-11  k .......... ........0.   0   0    0  600    0   0    0    0    1   0
   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
   1  11,-11  w .......... ..........  17   0    0 1376 1222   0  480 1494 1976   0
   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -9875,7 +9873,7 @@ own   sect        eff  min gold fert oil uran
  10  -11,-11  g  100%   78    0    0   0   45
   1    3,-11  i  100%    0    0  100   2    0
   1    5,-11  m  100%  100    0    0   0  100
-  1    7,-11  km 100%   91    0    0   0   68
+  1    7,-11  k  100%   91    0    0   0   68
   1    9,-11  r  100%   85    0    0   0   57
   1   11,-11  w  100%   78    0    0   0   45
   1   13,-11  e  100%   67    0    0   0   25
@@ -9974,27 +9972,29 @@ art  artillery #5 stopped at 4,0
 
 [0:635] Command : 
 [0:634] Command : 
-[0:633] Command : 
+[0:633] Command : 2,2 old threshold 1
+
 [0:632] Command : 
 [0:631] Command : 
 [0:630] Command : 
-[0:629] Command : tk   tanker (#2) built in sector 5,-1
+[0:629] Command : 
+[0:628] Command : tk   tanker (#2) built in sector 5,-1
 That just cost you $120.00
 
-[0:628] Command : 30 civilians loaded onto tk   tanker (#2) at 5,-1
+[0:627] Command : 30 civilians loaded onto tk   tanker (#2) at 5,-1
 1 ship loaded
 
-[0:627] Command : Enter telegram for 2
+[0:626] Command : Enter telegram for 2
 undo last line with ~u, print with ~p, abort with ~q, end with .
 1024 left: 1006 left: 
 
-[0:627] Command : Declaration made (give 'em hell).
+[0:626] Command : Declaration made (give 'em hell).
 Diplomatic relations with 8 downgraded to "At War".
 
-[0:625] Command : Congratulations!
+[0:624] Command : Congratulations!
 Diplomatic relations with 2 upgraded to "Allied".
 
-[0:623] Command :      1111111---------0000000000111111111122222
+[0:622] Command :      1111111---------0000000000111111111122222
      65432109876543210123456789012345678901234
   -8                                           -8  
   -7                                           -7  
@@ -10016,7 +10016,7 @@ Diplomatic relations with 2 upgraded to "Allied".
      1111111---------0000000000111111111122222
      65432109876543210123456789012345678901234
 
-[0:623] Command : Thu Jan  1 00:00:00 1970
+[0:622] Command : Thu Jan  1 00:00:00 1970
 CENSUS                   del dst
   sect        eff prd mob uf uf old  civ  mil   uw food work avail ter fall coa
    1,-3   j  100%     127 .. ..      769    0    0    0 100%    0        0   1
@@ -10032,7 +10032,7 @@ CENSUS                   del dst
    5,-1   h  100%     127 .. ..      739    5    0    0 100%  326        0   1
    7,-1   =  100%     127 .. ..       77    0    0    0 100%   59        0   1
    9,-1   =  100%     127 .. ..       77    0    0    0 100%   37        0   1
-  11,-1   )* 100%     127 .. 0.   8  181   21    1    0 100%  114        0   1
+  11,-1   )  100%     127 .. 0.   8  181   21    1    0 100%  114        0   1
   -2,0    j  100%     127 .. ..      769    0    0    0 100%    0        0   1
    0,0    m  100%     127 .. ..      769    0    0    0 100%    0        0
    2,0    m  100%     127 .. 5.      769    0  579    0 100%    0        0
@@ -10044,7 +10044,7 @@ CENSUS                   del dst
    7,1    d  100%     127 .. ..      769    0    0    0 100%  439        0   1
   -2,2    i  100%     127 .. ..      769    0    0    0 100%    0        0   1
    0,2    m  100%     127 .. ..      769    0    0    0 100%    0        0
-   2,2    m  100%     127 .. ..      769    0    0    0 100%    0        0   1
+   2,2    k* 100%     127 .. ..      769    0    0    0 100%    0        0   1
    4,2    r  100%     127 .. ..      769    0    0    0 100%  439        0   1
    6,2    w  100%     127 .. ..     7301   51    0    0 100%  609        0   1
    8,2    e  100%     127 .. ..      769    1    0    0 100%  599        0   1
@@ -10054,23 +10054,23 @@ CENSUS                   del dst
    5,3    p  100%     127 .. ..      769    0    0    0 100%  524        0   1
 33 sectors
 
-[0:623] Command : shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
+[0:622] Command : shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
    0 frg  frigate       13,1       100%   0  25   0   0  0  0  0  0 127    0
    1 cs   cargo ship     5,-1      100% 300  25   0   0  0  0  0  1 127   30
    2 tk   tanker         5,-1       20%  30   0   0   0  0  0  0  0   0   44
 3 ships
 
-[0:623] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
+[0:622] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
    0 cav  cavalry       5,-1     100%  20   0  64   0  30  42%  0  0    1S
    3 cav  cavalry       5,-1     100%   1   0  64   0  30  42%  0  0
    4 cav  cavalry       4,0      100%   5   0  75   0  30  42%  0  0
    5 art  artillery     4,0      100%   5   0 -18   0  37  42%  0  0
 4 units
 
-[0:623] Command : *: No plane(s)
+[0:622] Command : *: No plane(s)
 command failed
 
-[0:623] Command :      --------00000000001111111
+[0:622] Command :      --------00000000001111111
      8765432101234567890123456
   -4 - . . . . . . . . . . .   -4  
   -3  - . . . j . . . . . . .  -3  
@@ -10078,13 +10078,13 @@ command failed
   -1  - . . b m m h = = ) ? ?  -1  
    0 - - . j m m k . . . . ? ? 0   
    1  - - . k m m j d . . . ?  1   
-   2 - - . i m m r w e ! . . ? 2   
+   2 - - . i m k r w e ! . . ? 2   
    3  - - . o + . p . . . . ?  3   
    4   - - . . . . . . . . .   4   
      --------00000000001111111
      8765432101234567890123456
 
-[0:623] Command : 
+[0:622] Command : 
 > Production Report   dated Thu Jan  1 00:00:00 1970
 technological breakthroughs (11.13) produced in 4,-2
 a class of graduates (300.00) produced in 6,-2
@@ -10094,10 +10094,10 @@ happy strollers (75.00) produced in 5,3
 total pop was 30149, yielding 12.47 hap, 33.54 edu
 7.2041 technology (4.4763 + 2.7278), 3.6891 research (3.6891 + 0.0000) produced
 Army delta $-858, Navy delta $-66, Air force delta $0
-money delta was $6225 for this update
+money delta was $6350 for this update
 
 
-[0:623] Command : Thu Jan  1 00:00:00 1970
+[0:622] Command : Thu Jan  1 00:00:00 1970
 PRODUCTION SIMULATION
    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
    1,-3   j 100%   599  505l 0.84 $0     599i            599i             505
@@ -10120,14 +10120,13 @@ PRODUCTION SIMULATION
    7,1    d 100%   599    7g 0.71 $300    10o  50l 100h   37o 185l 370h    26
   -2,2    i 100%   599  141s 0.71 $600   400l 200h       400l 200h        141
    0,2    m 100%   599  599i 1.00 $0                                      599
-   2,2    m  91%   599  545i 1.00 $0                                      545
    4,2    r 100%   599  7.42 0.74 $900    10d  50o 100l   37d 185o 370l 27.44
    8,2    e 100%   599   33m 1.00 $99     33c             33c             498
   -1,3    o  52%   599  262o 0.84 $0                                      262
    5,3    p 100%   599   75  1.00 $675    75l            599l             599
-25 sectors
+24 sectors
 
-[0:623] Command : Bye-bye
+[0:622] Command : Bye-bye
 Exit: so long...
 Player 01 Turn 14 completed successfully
 Player 02 Turn 14 starting
@@ -10528,8 +10527,8 @@ You have a new announcement waiting ...
       as of Thu Jan  1 00:00:00 1970
 
          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-        1  33  100%  30K 174  344   15    0   10K 1.2K 885    0    3    4   39K
-   500.12
+        1  33  100%  30K 174  344   15    0  9.2K 1.2K 885    0    3    4   39K
+   503.67
         8  29   71%  19K 110    0    0    0   13K 2.2K 359    0    0    0   24K
    201.80
         2  30   15% 3.7K   0    0    0    0    0  1.1K   0    0    0    0   34K
@@ -10549,7 +10548,7 @@ You have a new announcement waiting ...
         9   3  100% 3.0K 110    0    0    0    0   29    0    0    0    0   35K
     27.69
           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-worldwide 113   70%  74K 1.1K 344   15    0   23K 6.6K 1.2K   0    3    4  344K
+worldwide 113   70%  74K 1.1K 344   15    0   22K 6.6K 1.2K   0    3    4  345K
 
 
 [0:630] Command : Thu Jan  1 00:00:00 1970
@@ -10586,7 +10585,7 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   1   10,-14  h  100%     127 .. ..      739    5    0    0 100%  326    0   1
   1   12,-14  =  100%     127 .. ..       77    0    0    0 100%   59    0   1
   1   14,-14  =  100%     127 .. ..       77    0    0    0 100%   37    0   1
-  1   16,-14  )* 100%     127 .. 0.   8  181   21    1    0 100%  114    0   1
+  1   16,-14  )  100%     127 .. 0.   8  181   21    1    0 100%  114    0   1
   8   18,-14  o    9%     127 .. ..      769    0    0    0 100%    4    0   1
   8   20,-14  -    6%     127 .. ..       10    0    0    0 100%    3    0   1
   8   22,-14  g    5%     127 .. ..      769    0    0    0 100%    3    0   1
@@ -10615,7 +10614,7 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
  10  -11,-11  g  100%     127 .. ..     1000    0    0    0 100%  600    0   1
   1    3,-11  i  100%     127 .. ..      769    0    0    0 100%    0    0   1
   1    5,-11  m  100%     127 .. ..      769    0    0    0 100%    0    0
-  1    7,-11  m  100%     127 .. ..      769    0    0    0 100%    0    0   1
+  1    7,-11  k* 100%     127 .. ..      769    0    0    0 100%    0    0   1
   1    9,-11  r  100%     127 .. ..      769    0    0    0 100%  439    0   1
   1   11,-11  w  100%     127 .. ..     7301   51    0    0 100%  609    0   1
   1   13,-11  e  100%     127 .. ..      769    1    0    0 100%  599    0   1
@@ -10704,7 +10703,7 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   1  10,-14  h .......... .......22.   0   0    0    1    1   0    1  188  192   0
   1  12,-14  = .......... ..........   0   0    0    0    0   0    0    0    0   0
   1  14,-14  = .......... ..........   0   0    0    0    0   0    0    0    0   0
-  1  16,-14  ) .......... ..2....22.   0   0    0    0    0   0    0    0    0   0
+  1  16,-14  ) .......... ..........   0   0    0    0    0   0    0    0    0   0
   8  18,-14  o .......... ......0...   0   0    0    0    0   0    1    0    0   0
   8  20,-14  - .......... ..........   0   0    0    0    0   0    0    0    0   0
   8  22,-14  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
@@ -10732,10 +10731,10 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   8  30,-12  c .......... ..........   0   0    0    0    0   0    0    0    0   0
  10 -11,-11  g .......... ..........   0   0    0    0  231   0    0    0    0   0
   1   3,-11  i .......... 0......63.   1   0    0    0    0   0    0  600  300   0
-  1   5,-11  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
-  1   7,-11  m .......... ...0......   0   0    0    1    0   0    0    0    1   0
+  1   5,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
+  1   7,-11  k .......... ..2....22.   0   0    0    0    0   0    0    0    1   0
   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-  1  11,-11  w .......... .......... 143   0    0 3658  897   0  735 2013 2439   0
+  1  11,-11  w .......... .......... 143   0    0 2626  897   0  735 2013 2686   0
   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
   1  15,-11  ! .......... 20.....22. 160   4    0    0    0   0    0  200  200   0
   8  21,-11  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
@@ -10822,7 +10821,7 @@ own   sect        eff  min gold fert oil uran
   1   10,-14  h  100%   45   19   13   0    0
   1   12,-14  =  100%    0    0   45  11    0
   1   14,-14  =  100%    0    0   63  46    0
-  1   16,-14  )* 100%    0    0  100  98    0
+  1   16,-14  )  100%    0    0  100  98    0
   8   18,-14  o    9%    0    0   91  72    0
   8   20,-14  -    6%    0    0   82  58    0
   8   22,-14  g    5%   50   23    6   0    0
@@ -10851,7 +10850,7 @@ own   sect        eff  min gold fert oil uran
  10  -11,-11  g  100%   78    0    0   0   45
   1    3,-11  i  100%    0    0  100   2    0
   1    5,-11  m  100%  100    0    0   0  100
-  1    7,-11  m  100%   91    0    0   0   68
+  1    7,-11  k* 100%   91    0    0   0   68
   1    9,-11  r  100%   85    0    0   0   57
   1   11,-11  w  100%   78    0    0   0   45
   1   13,-11  e  100%   67    0    0   0   25
@@ -10933,20 +10932,21 @@ Player 01 Turn 15 starting
 You have two new telegrams waiting ...
 You have a new announcement waiting ...
 
-[0:640] Command : Sector 11,-1 is not 60% efficient.
-Sector 11,-1 is not 60% efficient.
-Sector 11,-1 is not 60% efficient.
+[0:640] Command : f1   Sopwith Camel #0 built in sector 2,2
+f1   Sopwith Camel #1 built in sector 2,2
+f1   Sopwith Camel #2 built in sector 2,2
+That just cost you $120.00
 
 [0:639] Command : 
-[0:638] Command : 11,-1 threshold unchanged (left at 200)
-
+[0:638] Command : 
 [0:637] Command : 
 [0:636] Command : 
 [0:635] Command : 
 [0:634] Command : 
-[0:633] Command : -1,-1 old threshold 300
+[0:633] Command : 
+[0:632] Command : -1,-1 old threshold 300
 
-[0:632] Command : 1,-3 old threshold 769
+[0:631] Command : 1,-3 old threshold 769
 -4,-2 old threshold 769
 -2,-2 old threshold 769
 0,-2 old threshold 769
@@ -10980,22 +10980,22 @@ Sector 11,-1 is not 60% efficient.
 1,3 old threshold 769
 5,3 old threshold 769
 
-[0:631] Command : Leader is cav  cavalry #4
+[0:630] Command : Leader is cav  cavalry #4
 cav  cavalry #4 stopped at 11,-1
 art  artillery #5 stopped at 11,-1
 
-[0:630] Command : od   oil derrick (#3) built in sector 5,-1
+[0:629] Command : od   oil derrick (#3) built in sector 5,-1
 That just cost you $300.00
 
-[0:629] Command : 200 civilians loaded onto od   oil derrick (#3) at 5,-1
+[0:628] Command : 200 civilians loaded onto od   oil derrick (#3) at 5,-1
 1 ship loaded
 
-[0:628] Command : ft   fishing trawler (#4) built in sector 5,-1
+[0:627] Command : ft   fishing trawler (#4) built in sector 5,-1
 
-[0:627] Command : 200 civilians loaded onto ft   fishing trawler (#4) at 5,-1
+[0:626] Command : 200 civilians loaded onto ft   fishing trawler (#4) at 5,-1
 1 ship loaded
 
-[0:626] Command :      1111111---------0000000000111111111122222
+[0:625] Command :      1111111---------0000000000111111111122222
      65432109876543210123456789012345678901234
   -8                                           -8  
   -7                                           -7  
@@ -11007,7 +11007,7 @@ That just cost you $300.00
   -1          - . . b m m h = = ) o ? ? ? .    -1  
    0         - - . j m m k . . . . ? ? ? ?     0   
    1          - - . k m m j d . . . ? ? ?      1   
-   2         - - . i m m r w e ! . . ? ?       2   
+   2         - - . i m k r w e ! . . ? ?       2   
    3          - - . o + . p . . . . ? ?        3   
    4           - - . . . . . . . . . .         4   
    5                                           5   
@@ -11017,7 +11017,7 @@ That just cost you $300.00
      1111111---------0000000000111111111122222
      65432109876543210123456789012345678901234
 
-[0:626] Command : Thu Jan  1 00:00:00 1970
+[0:625] Command : Thu Jan  1 00:00:00 1970
 CENSUS                   del dst
   sect        eff prd mob uf uf old  civ  mil   uw food work avail ter fall coa
    1,-3   j  100%     127 .. ..      769    0    0    0 100%    0        0   1
@@ -11033,7 +11033,7 @@ CENSUS                   del dst
    5,-1   h  100%     127 .. ..      369    5    0    0 100%  402        0   1
    7,-1   =  100%     127 .. ..       77    0    0    0 100%   59        0   1
    9,-1   =  100%     127 .. ..       77    0    0    0 100%   59        0   1
-  11,-1   *   48%     127 .. 0.      769   21    1    0 100%   74        0   1
+  11,-1   )  100%     127 .. 0.      769   21    1    0 100%  147        0   1
   -2,0    j  100%     127 .. ..      769    0    0    0 100%    0        0   1
    0,0    m  100%     127 .. ..      769    0    0    0 100%    0        0
    2,0    m  100%     127 .. 5.      769    0  579    0 100%    0        0
@@ -11045,17 +11045,17 @@ CENSUS                   del dst
    7,1    d  100%     127 .. ..      769    0    0    0 100%  439        0   1
   -2,2    i  100%     127 .. ..      769    0    0    0 100%    0        0   1
    0,2    m  100%     127 .. ..      769    0    0    0 100%    0        0
-   2,2    m  100%     127 .. ..      769    0    0    0 100%    1        0   1
+   2,2    *  100%     127 .. ..      769   27    0    0 100%  462        0   1
    4,2    r  100%     127 .. ..      769    0    0    0 100%  439        0   1
-   6,2    w  100%     127 .. ..     7127   74    0    0 100%  612        0   1
+   6,2    w  100%     127 .. ..     7126   44    0    0 100%  612        0   1
    8,2    e  100%     127 .. ..      769    1    0    0 100%  599        0   1
   10,2    !  100%     127 .. ..      769   25    0    0 100%  603        0   1
-  -1,3    o  100%     127 .. ..      769    0    0    0 100%    0        0   1
+  -1,3    o  100%     127 .. ..      769    0    0    0 100%    1        0   1
    1,3    +  100%     127 .. ..      769    0    0    0 100%  599        0   1
    5,3    p  100%     127 .. ..      769    0    0    0 100%  524        0   1
 33 sectors
 
-[0:626] Command : shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
+[0:625] Command : shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
    0 frg  frigate       13,1       100%   0  25   0   0  0  0  0  0 127    0
    1 cs   cargo ship     5,-1      100% 300  25   0   0  0  0  0  1 127   30
    2 tk   tanker         5,-1      100%  30   0   0   0  0  0  0  0  90   44
@@ -11063,31 +11063,34 @@ CENSUS                   del dst
    4 ft   fishing tra    5,-1       20% 200   0   0   0  0  0  0  0   0   50
 5 ships
 
-[0:626] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
+[0:625] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
    0 cav  cavalry       5,-1     100%  20   0 124   0  30  42%  0  0    1S
    3 cav  cavalry       5,-1     100%   1   0 124   0  30  42%  0  0
-   4 cav  cavalry      11,-1     100%   5   0  96   0  30  42%  0  0
-   5 art  artillery    11,-1     100%   5   0 -11   0  37  42%  0  0
+   4 cav  cavalry      11,-1     100%   5   0 102   0  30  42%  0  0
+   5 art  artillery    11,-1     100%   5   0   0   0  37  42%  0  0
 4 units
 
-[0:626] Command : *: No plane(s)
-command failed
+[0:625] Command :    #    type                x,y    w   eff  mu def tech ran hard carry special
+   0 f1   Sopwith Camel     2,2        10%   0   1   50   4    0      
+   1 f1   Sopwith Camel     2,2        10%   0   1   50   4    0      
+   2 f1   Sopwith Camel     2,2        10%   0   1   50   4    0      
+3 planes
 
-[0:626] Command :      --------00000000001111111
+[0:625] Command :      --------00000000001111111
      8765432101234567890123456
-  -4 - . . . . . . . . . .     -4  
-  -3  - . . . j . . . . . .    -3  
-  -2 . . k j c o t l . . ? ?   -2  
-  -1  - . . b m m h = = * ? ?  -1  
-   0 - - . j m m k . . . . ?   0   
+  -4 - . . . . . . . . . . .   -4  
+  -3  - . . . j . . . . . . .  -3  
+  -2 . . k j c o t l . . ? ? . -2  
+  -1  - . . b m m h = = ) ? ?  -1  
+   0 - - . j m m k . . . . ? ? 0   
    1  - - . k m m j d . . . ?  1   
-   2 - - . i m m r w e ! . . ? 2   
+   2 - - . i m * r w e ! . . ? 2   
    3  - - . o + . p . . . . ?  3   
    4   - - . . . . . . . . .   4   
      --------00000000001111111
      8765432101234567890123456
 
-[0:626] Command : 
+[0:625] Command : 
 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
 Country 2 (#2) has upgraded their relations with you to "Allied"!
 Country 8 (#8) has downgraded their relations with you to "At War"!
@@ -11102,10 +11105,10 @@ happy strollers (75.00) produced in 5,3
 total pop was 30237, yielding 12.45 hap, 41.18 edu
 7.2389 technology (4.4756 + 2.7632), 3.6885 research (3.6885 + 0.0000) produced
 Army delta $-138, Navy delta $-582, Air force delta $0
-money delta was $6875 for this update
+money delta was $6823 for this update
 
 
-[0:626] Command : Thu Jan  1 00:00:00 1970
+[0:625] Command : Thu Jan  1 00:00:00 1970
 PRODUCTION SIMULATION
    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
    1,-3   j 100%   599  515l 0.86 $0     599i            599i             515
@@ -11128,14 +11131,13 @@ PRODUCTION SIMULATION
    7,1    d 100%   599    8g 0.76 $300    10o  50l 100h   37o 185l 370h    28
   -2,2    i 100%   599  151s 0.76 $600   400l 200h       400l 200h        151
    0,2    m 100%   599  599i 1.00 $0                                      599
-   2,2    m  91%   599  545i 1.00 $0                                      545
    4,2    r 100%   599  7.53 0.75 $900    10d  50o 100l   37d 185o 370l 27.86
    8,2    e 100%   599   33m 1.00 $99     33c             33c             498
-  -1,3    o  21%   599  108o 0.86 $0                                      108
+  -1,3    o  20%   599  103o 0.86 $0                                      103
    5,3    p 100%   599   75  1.00 $675    75l            599l             599
-25 sectors
+24 sectors
 
-[0:626] Command : Bye-bye
+[0:625] Command : Bye-bye
 Exit: so long...
 Player 01 Turn 15 completed successfully
 Player 02 Turn 15 starting
@@ -11171,34 +11173,34 @@ You have two new telegrams waiting ...
 [0:614] Command : Thu Jan  1 00:00:00 1970
 CENSUS                   del dst
   sect        eff prd mob uf uf old  civ  mil   uw food work avail ter fall coa
-  -6,-2   +    0%     120 .. ..        3    0    0    0 100%    1        0   1
+  -6,-2   +    0%     120 .. ..        2    0    0    0 100%    1        0   1
   -4,-2   w   89%      96 .. ..        1    0    0    0 100%   90        0   1
    2,-2   c   19%     120 .. ..       50    0    0    0 100%   20        0   1
-  -7,-1   +    0%     120 .. ..        3    0    0    0 100%    1        0   1
-  -5,-1   gj 100%     119 .. 5.      769    0   73    0 100%    3        0   1
+  -7,-1   +    0%     120 .. ..        2    0    0    0 100%    1        0   1
+  -5,-1   gj 100%     119 .. 5.      769    0   73    0 100%    0        0   1
   -1,-1   o  100%     118 .. ..      769    0    0    0 100%    0        0   1
    1,-1   b  100%     127 .. ..      385    0    0    0 100%    0        0   1
    3,-1   g  100%      97 .. ..      300    0    0    0 100%    0        0   1
    5,-1   g   90%     119 .. ..      600    0    0    0 100%    0        0   1
    7,-1   g    0%     120 .. ..      389    0    0    0 100%    1        0   1
-  -6,0    g    0%     120 .. ..        2    0    0    0 100%    1        0   1
+  -6,0    g    0%     120 .. ..        3    0    0    0 100%    1        0   1
   -4,0    g    0%     120 .. ..        4    0    0    0 100%    1        0   1
-  -2,0    g    0%     120 .. ..        2    0    0    0 100%    1        0   1
+  -2,0    g    0%     120 .. ..        3    0    0    0 100%    1        0   1
    0,0    m  100%     127 .. 5.      769    0  579    0 100%    0        0
    2,0    m  100%     127 .. 5.      769    0  579    0 100%    0        0
    4,0    +    0%     120 .. ..        4    0    0    0 100%    1        0   1
   -7,1    +    0%     120 .. ..        2    0    0    0 100%    1        0   1
   -5,1    +    0%     120 .. ..        4    0    0    0 100%    1        0   1
-  -3,1    g    0%     120 .. ..        3    0    0    0 100%    1        0
+  -3,1    g    0%     120 .. ..        2    0    0    0 100%    1        0
   -1,1    g    0%     120 .. ..        4    0    0    0 100%    1        0
    1,1    g    0%     120 .. ..        4    0    0    0 100%    1        0
-   3,1    +    0%     120 .. ..        2    0    0    0 100%    1        0   1
-  -4,2    g    0%     120 .. ..        3    0    0    0 100%    1        0   1
-  -2,2    g    0%     120 .. ..        3    0    0    0 100%    1        0
-   0,2    g    0%     120 .. ..        3    0    0    0 100%    1        0
+   3,1    +    0%     120 .. ..        3    0    0    0 100%    1        0   1
+  -4,2    g    0%     120 .. ..        2    0    0    0 100%    1        0   1
+  -2,2    g    0%     120 .. ..        4    0    0    0 100%    1        0
+   0,2    g    0%     120 .. ..        4    0    0    0 100%    1        0
    2,2    g    0%     120 .. ..        4    0    0    0 100%    1        0   1
   -3,3    +    0%     120 .. ..        4    0    0    0 100%    1        0   1
-  -1,3    +    0%     120 .. ..        2    0    0    0 100%    1        0   1
+  -1,3    +    0%     120 .. ..        3    0    0    0 100%    1        0   1
    1,3    +    0%     120 .. ..        3    0    0    0 100%    1        0   1
    3,3    g    0%     120 .. ..        2    0    0    0 100%    1        0   1
 30 sectors
@@ -11304,8 +11306,8 @@ Total movement cost = 55
 CENSUS                   del dst
   sect        eff prd mob uf uf old  civ  mil   uw food work avail ter fall coa
   -6,-4   of 100%     127 .. ..      769   55    0    0 100%    0        0   1
-  -4,-4   -    1%     127 .. ..      769    0    0    0 100%    1        0   1
-   0,-4   k  100%     127 .. ..      769    0    0    0 100%    1        0   1
+  -4,-4   -    1%     127 .. ..      769    0    0    0 100%    2        0   1
+   0,-4   k  100%     127 .. ..      769    0    0    0 100%    0        0   1
   -5,-3   o  100%     127 .. ..      769    0    0    0 100%    2        0   1
   -3,-3   -    9%     127 .. ..      769    0    0    0 100%    4        0   1
   -1,-3   g! 100%     127 .. ..      769    0    0    0 100%    4        0   1
@@ -11317,7 +11319,7 @@ CENSUS                   del dst
    4,-2   j  100%     127 .. ..      769    0    0    0 100%    0        0   1
    6,-2   t  100%     127 .. ..      769    0    0    0 100%  119        0   1
   -3,-1   j  100%     127 .. ..      769    0    0    0 100%    0        0   1
-  -1,-1   m  100%     127 .. 5.      769    0  191    0 100%    0        0
+  -1,-1   m  100%     127 .. 5.      769    0  190    0 100%    0        0
    1,-1   m  100%     127 .. 5.      769    0    0    0 100%    0        0
    3,-1   m  100%     127 .. 5.      769    0    0    0 100%    0        0
    5,-1   gd 100%     127 .. ..      769    0    0    0 100%    1        0
@@ -11331,7 +11333,7 @@ CENSUS                   del dst
   -3,1    j  100%     127 .. ..      769    0    0    0 100%    0        0   1
   -1,1    j  100%     127 .. ..      769    0    0    0 100%    0        0   1
    1,1    gk 100%     127 .. ..      769    0    0    0 100%    8        0   1
-   3,1    w  100%     106 .. ..     3225    0    0    0 100%  122        0   1
+   3,1    w  100%     105 .. ..     3223    0    0    0 100%  122        0   1
 29 sectors
 
 [0:616] Command :      --------00000000001
@@ -11364,7 +11366,7 @@ money delta was $-3369 for this update
 PRODUCTION SIMULATION
    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
    0,-4   k 100%   599  247h 0.82 $0     600i            600i             247
-  -5,-3   o  35%   599  173o 0.82 $0                                      173
+  -5,-3   o  36%   599  178o 0.82 $0                                      178
    1,-3   l 100%   599  300  1.00 $2700  300l            599l             599
   -2,-2   m  96%   599  575i 1.00 $0                                      575
    0,-2   m 100%   599  599i 1.00 $0                                      599
@@ -11398,12 +11400,12 @@ Update Turn 16 starting
       as of Thu Jan  1 00:00:00 1970
 
          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-        1  33   98%  31K 207  485   22    0   11K 898  1.2K   0    5    4   46K
-   617.11
-        8  29   91%  25K 110   96    0    0   14K 2.8K 514    0    0    0   21K
-   324.72
+        1  33  100%  31K 204  485   22    0  9.1K 898  1.2K   3    5    4   46K
+   620.99
+        8  29   91%  25K 110   95    0    0   14K 2.8K 514    0    0    0   21K
+   324.71
         2  30   27% 4.9K   0    0    0    0  1.7K 1.4K 167    0    0    0   35K
-    54.72
+    54.74
         6   3  100% 3.0K 110    0    0    0    0  397    0    0    0    0   36K
     34.67
         3   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   36K
@@ -11419,7 +11421,7 @@ Update Turn 16 starting
         9   3  100% 3.0K 110    0    0    0    0   29    0    0    0    0   36K
     31.41
           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-worldwide 113   78%  81K 1.1K 581   22    0   26K 7.1K 1.9K   0    5    4  355K
+worldwide 113   78%  81K 1.1K 580   22    0   25K 7.1K 1.9K   3    5    4  355K
 
 
 [0:630] Command : Thu Jan  1 00:00:00 1970
@@ -11448,15 +11450,15 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   1    9,-15  t  100%     127 .. ..      769    0    0    0 100%  359    0   1
   1   11,-15  l  100%     127 .. ..      769    0    0    0 100%  199    0   1
   8   17,-15  of 100%     127 .. ..      769   55    0    0 100%    0    0   1
-  8   19,-15  -    1%     127 .. ..      769    0    0    0 100%    1    0   1
-  8   23,-15  k  100%     127 .. ..      769    0    0    0 100%    1    0   1
+  8   19,-15  -    1%     127 .. ..      769    0    0    0 100%    2    0   1
+  8   23,-15  k  100%     127 .. ..      769    0    0    0 100%    0    0   1
   1    4,-14  b  100%     127 .. ..      769    0    0    0 100%  299    0   1
   1    6,-14  m  100%     127 .. ..      769    0    0    0 100%    0    0
   1    8,-14  m  100%     127 .. ..      769    0    0    0 100%    1    0
   1   10,-14  h  100%     127 .. ..      369    5    0    0 100%  402    0   1
   1   12,-14  =  100%     127 .. ..       77    0    0    0 100%   59    0   1
   1   14,-14  =  100%     127 .. ..       77    0    0    0 100%   59    0   1
-  1   16,-14  *   48%     127 .. 0.      769   21    1    0 100%   74    0   1
+  1   16,-14  )  100%     127 .. 0.      769   21    1    0 100%  147    0   1
   8   18,-14  o  100%     127 .. ..      769    0    0    0 100%    2    0   1
   8   20,-14  -    9%     127 .. ..      769    0    0    0 100%    4    0   1
   8   22,-14  g! 100%     127 .. ..      769    0    0    0 100%    4    0   1
@@ -11477,7 +11479,7 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   1   10,-12  j  100%     127 .. 5.      769    0    0    0 100%    0    0   1
   1   12,-12  d  100%     127 .. ..      769    0    0    0 100%  439    0   1
   8   20,-12  j  100%     127 .. ..      769    0    0    0 100%    0    0   1
-  8   22,-12  m  100%     127 .. 5.      769    0  191    0 100%    0    0
+  8   22,-12  m  100%     127 .. 5.      769    0  190    0 100%    0    0
   8   24,-12  m  100%     127 .. 5.      769    0    0    0 100%    0    0
   8   26,-12  m  100%     127 .. 5.      769    0    0    0 100%    0    0
   8   28,-12  gd 100%     127 .. ..      769    0    0    0 100%    1    0
@@ -11485,9 +11487,9 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
  10  -11,-11  g  100%     127 .. ..     1000    0    0    0 100%  600    0   1
   1    3,-11  i  100%     127 .. ..      769    0    0    0 100%    0    0   1
   1    5,-11  m  100%     127 .. ..      769    0    0    0 100%    0    0
-  1    7,-11  m  100%     127 .. ..      769    0    0    0 100%    1    0   1
+  1    7,-11  *  100%     127 .. ..      769   27    0    0 100%  462    0   1
   1    9,-11  r  100%     127 .. ..      769    0    0    0 100%  439    0   1
-  1   11,-11  w  100%     127 .. ..     7127   74    0    0 100%  612    0   1
+  1   11,-11  w  100%     127 .. ..     7126   44    0    0 100%  612    0   1
   1   13,-11  e  100%     127 .. ..      769    1    0    0 100%  599    0   1
   1   15,-11  !  100%     127 .. ..      769   25    0    0 100%  603    0   1
   8   21,-11  gp 100%     127 .. ..      769    0    0    0 100%    0    0   1
@@ -11497,19 +11499,19 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   8   29,-11  h  100%     127 .. ..      769    0    0    0 100%  599    0   1
   8   31,-11  i  100%     127 .. ..      769    0    0    0 100%    0    0   1
  10  -12,-10  c  100%     127 .. ..     1000   55  620    0 100%  984    0
- 10  -10,-10  c  100%     127 .. ..     1000   55  607    0 100%  977    0   1
-  1    4,-10  o  100%     127 .. ..      769    0    0    0 100%    0    0   1
+ 10  -10,-10  c  100%     127 .. ..     1000   55  606    0 100%  976    0   1
+  1    4,-10  o  100%     127 .. ..      769    0    0    0 100%    1    0   1
   1    6,-10  +  100%     127 .. ..      769    0    0    0 100%  599    0   1
   1   10,-10  p  100%     127 .. ..      769    0    0    0 100%  524    0   1
   8   20,-10  j  100%     127 .. ..      769    0    0    0 100%    0    0   1
   8   22,-10  j  100%     127 .. ..      769    0    0    0 100%    0    0   1
   8   24,-10  gk 100%     127 .. ..      769    0    0    0 100%    8    0   1
-  8   26,-10  w  100%     106 .. ..     3225    0    0    0 100%  122    0   1
+  8   26,-10  w  100%     105 .. ..     3223    0    0    0 100%  122    0   1
   9  -25,-7   g  100%     127 .. ..     1000    0    0    0 100%  600    0   1
   9  -26,-6   c  100%     127 .. ..     1000   55  616    0 100%  982    0
-  9  -24,-6   c  100%     127 .. ..     1000   55  602    0 100%  973    0
+  9  -24,-6   c  100%     127 .. ..     1000   55  603    0 100%  974    0
   6    3,-3   g  100%     127 .. ..     1000    0    0    0 100%  600    0
-  6    2,-2   c  100%     127 .. ..     1000   55  601    0 100%  973    0
+  6    2,-2   c  100%     127 .. ..     1000   55  602    0 100%  974    0
   6    4,-2   c  100%     127 .. ..     1000   55  610    0 100%  979    0
   7   25,-1   g  100%     127 .. ..     1000    0    0    0 100%  600    0
   4  -14,0    g  100%     127 .. ..     1000    0    0    0 100%  600    0
@@ -11520,12 +11522,12 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   5  -29,7    g  100%     127 .. ..     1000    0    0    0 100%  600    0
   5  -30,8    c  100%     127 .. ..     1000   55  606    0 100%  976    0   1
   5  -28,8    c  100%     127 .. ..     1000   55  614    0 100%  981    0
-  2   10,8    +    0%     120 .. ..        3    0    0    0 100%    1    0   1
+  2   10,8    +    0%     120 .. ..        2    0    0    0 100%    1    0   1
   2   12,8    w   89%      96 .. ..        1    0    0    0 100%   90    0   1
   2   18,8    c   19%     120 .. ..       50    0    0    0 100%   20    0   1
   3   -3,9    g  100%     127 .. ..     1000    0    0    0 100%  600    0
-  2    9,9    +    0%     120 .. ..        3    0    0    0 100%    1    0   1
-  2   11,9    gj 100%     119 .. 5.      769    0   73    0 100%    3    0   1
+  2    9,9    +    0%     120 .. ..        2    0    0    0 100%    1    0   1
+  2   11,9    gj 100%     119 .. 5.      769    0   73    0 100%    0    0   1
   2   15,9    o  100%     118 .. ..      769    0    0    0 100%    0    0   1
   2   17,9    b  100%     127 .. ..      385    0    0    0 100%    0    0   1
   2   19,9    g  100%      97 .. ..      300    0    0    0 100%    0    0   1
@@ -11533,24 +11535,24 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   2   23,9    g    0%     120 .. ..      389    0    0    0 100%    1    0   1
   3   -4,10   c  100%     127 .. ..     1000   55  599    0 100%  971    0
   3   -2,10   c  100%     127 .. ..     1000   55  613    0 100%  981    0
-  2   10,10   g    0%     120 .. ..        2    0    0    0 100%    1    0   1
+  2   10,10   g    0%     120 .. ..        3    0    0    0 100%    1    0   1
   2   12,10   g    0%     120 .. ..        4    0    0    0 100%    1    0   1
-  2   14,10   g    0%     120 .. ..        2    0    0    0 100%    1    0   1
+  2   14,10   g    0%     120 .. ..        3    0    0    0 100%    1    0   1
   2   16,10   m  100%     127 .. 5.      769    0  579    0 100%    0    0
   2   18,10   m  100%     127 .. 5.      769    0  579    0 100%    0    0
   2   20,10   +    0%     120 .. ..        4    0    0    0 100%    1    0   1
   2    9,11   +    0%     120 .. ..        2    0    0    0 100%    1    0   1
   2   11,11   +    0%     120 .. ..        4    0    0    0 100%    1    0   1
-  2   13,11   g    0%     120 .. ..        3    0    0    0 100%    1    0
+  2   13,11   g    0%     120 .. ..        2    0    0    0 100%    1    0
   2   15,11   g    0%     120 .. ..        4    0    0    0 100%    1    0
   2   17,11   g    0%     120 .. ..        4    0    0    0 100%    1    0
-  2   19,11   +    0%     120 .. ..        2    0    0    0 100%    1    0   1
-  2   12,12   g    0%     120 .. ..        3    0    0    0 100%    1    0   1
-  2   14,12   g    0%     120 .. ..        3    0    0    0 100%    1    0
-  2   16,12   g    0%     120 .. ..        3    0    0    0 100%    1    0
+  2   19,11   +    0%     120 .. ..        3    0    0    0 100%    1    0   1
+  2   12,12   g    0%     120 .. ..        2    0    0    0 100%    1    0   1
+  2   14,12   g    0%     120 .. ..        4    0    0    0 100%    1    0
+  2   16,12   g    0%     120 .. ..        4    0    0    0 100%    1    0
   2   18,12   g    0%     120 .. ..        4    0    0    0 100%    1    0   1
   2   13,13   +    0%     120 .. ..        4    0    0    0 100%    1    0   1
-  2   15,13   +    0%     120 .. ..        2    0    0    0 100%    1    0   1
+  2   15,13   +    0%     120 .. ..        3    0    0    0 100%    1    0   1
   2   17,13   +    0%     120 .. ..        3    0    0    0 100%    1    0   1
   2   19,13   g    0%     120 .. ..        2    0    0    0 100%    1    0   1
 113 sectors
@@ -11574,7 +11576,7 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   1  10,-14  h .......... 20.....22.   0   0    0    1    1   0    1  183  185   0
   1  12,-14  = .......... ..........   0   0    0    0    0   0    0    0    0   0
   1  14,-14  = .......... ..........   0   0    0    0    0   0    0    0    0   0
-  1  16,-14  * .......... 2.2....22.   0   0    0    0    0   0    0  200  200   0
+  1  16,-14  ) .......... 0.0.......   0   0    0    0    0   0    0    0    0   0
   8  18,-14  o .......... ......0...   0   0    0    0    0   0    1    0    0   0
   8  20,-14  - .......... ..........   0   0    0    0    0   0    0    0    0   0
   8  22,-14  g .......... 20.....22.   0   0    0    0    1   0    0    0    0   0
@@ -11602,10 +11604,10 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   8  30,-12  c .......... ..........   0   0    0    0    0   0    0    0    0   0
  10 -11,-11  g .......... ..........   0   0    0    0  231   0    0    0    0   0
   1   3,-11  i .......... 0......63.   1   0    0    0    0   0    0  600  300   0
-  1   5,-11  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
-  1   7,-11  m .......... ...0......   0   0    0    1    0   0    0    0    1   0
+  1   5,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
+  1   7,-11  * .......... 1.2....22.   0   0    0    0    0   0    0  197  199   0
   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-  1  11,-11  w .......... .......... 244   0    0 4084  572   0  863 2548 2865   0
+  1  11,-11  w .......... .......... 244   0    0 2507  572   0  863 2548 3113   0
   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
   1  15,-11  ! .......... 20.....22. 200  11    0    0    0   0    0  200  200   0
   8  21,-11  g .......... .......0..   0   0    0    0    1   0    0    0    0   0
@@ -11613,7 +11615,7 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   8  25,-11  m .......... ...0......   0   0    0 1704    0   0    0    0    0   0
   8  27,-11  b .......... ....3.....   0   0    0    0  300 295    0    0    0   0
   8  29,-11  h .......... .......22.   0   0    0    0    1   0    0  200  200   0
-  8  31,-11  i .......... 0......63.   1   0    0    0    0   0    0  600  282   0
+  8  31,-11  i .......... 0......63.   1   0    0    0    0   0    0  600  283   0
  10 -12,-10  c .......... ..........   0   0    0    0    0   0    0    0    0   0
  10 -10,-10  c .......... ..........   0   0    0    0    0   0    0    0    0   0
   1   4,-10  o .......... ......0...   0   0    0    0    0   0    1    0    0   0
@@ -11622,7 +11624,7 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   8  20,-10  j .......... ...9...0..   0   0    0  999    1   0    0    1    0   0
   8  22,-10  j .......... ...9...0..   0   0    0  999    0   0    0    1    0   0
   8  24,-10  g .......... ...90...0.   0   0    0    0    1   0    0    0    0   0
-  8  26,-10  w .......... ..........  95   0    0 6405 2495   0  352  437    0   0
+  8  26,-10  w .......... ..........  94   0    0 6403 2495   0  352  437    0   0
   9 -25,-7   g .......... ..........   0   0    0    0   29   0    0    0    0   0
   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -11639,7 +11641,7 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
   2  10,8    + .......... ..........   0   0    0    0    0   0    0    0    0   0
-  2  12,8    w .......... ..........   0   0    0  686 1059   0  165    0    0   0
+  2  12,8    w .......... ..........   0   0    0  686 1060   0  165    0    0   0
   2  18,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
   3  -3,9    g .......... ..........   0   0    0    0  366   0    0    0    0   0
   2   9,9    + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -11692,8 +11694,8 @@ own   sect        eff  min gold fert oil uran
   1   10,-14  h  100%   45   19   13   0    0
   1   12,-14  =  100%    0    0   45  11    0
   1   14,-14  =  100%    0    0   63  46    0
-  1   16,-14  *   48%    0    0  100  98    0
-  8   18,-14  o  100%    0    0   91  35    0
+  1   16,-14  )  100%    0    0  100  98    0
+  8   18,-14  o  100%    0    0   91  36    0
   8   20,-14  -    9%    0    0   82  58    0
   8   22,-14  g! 100%   50    0    6   0    0
   8   24,-14  l  100%   45    1   13   0    0
@@ -11721,7 +11723,7 @@ own   sect        eff  min gold fert oil uran
  10  -11,-11  g  100%   78    0    0   0   45
   1    3,-11  i  100%    0    0  100   2    0
   1    5,-11  m  100%  100    0    0   0  100
-  1    7,-11  m  100%   91    0    0   0   68
+  1    7,-11  *  100%   91    0    0   0   68
   1    9,-11  r  100%   85    0    0   0   57
   1   11,-11  w  100%   78    0    0   0   45
   1   13,-11  e  100%   67    0    0   0   25
@@ -11734,7 +11736,7 @@ own   sect        eff  min gold fert oil uran
   8   31,-11  i  100%    0    0  100 100    0
  10  -12,-10  c  100%  100  100  100 100  100
  10  -10,-10  c  100%  100  100  100 100  100
-  1    4,-10  o  100%    0    0  100  21    0
+  1    4,-10  o  100%    0    0  100  20    0
   1    6,-10  +  100%    0    0  100 100    0
   1   10,-10  p  100%    0    0  100  98    0
   8   20,-10  j  100%   78    0    0   0   45
@@ -11847,47 +11849,73 @@ Path taken: n
 
 [0:627] Command : Order set
 
-[0:626] Command : No escorts...
+[0:626] Command : Looking for best path to 11,-1
+Using best path 'uuujjjh', movement cost 0.802
+Total movement cost = 28
+
+[0:625] Command : No escorts...
 target is 11,-1
 range to target is 4
-No planes could be equipped for the mission.
-command failed
+f1   Sopwith Camel #0 standing by
+f1   Sopwith Camel #0 equipped
 
-[0:623] Command : No escorts...
+Reconnaissance report
+Thu Jan  1 00:00:00 1970
+Your radar installation 100% efficient with 999 civ with 21 mil @ 11,-1
+8 (#8) fortress 100% efficient with approx 775 civ with approx 50 mil @ 12,-2
+firing 5 flak guns in 12,-2...
+    f1   Sopwith Camel #0 takes 3.
+8 (#8) wilderness 100% efficient with approx 775 civ @ 14,-2
+8 (#8) oil field 100% efficient with approx 775 civ @ 13,-1
+Your radar installation 100% efficient with 999 civ with 21 mil @ 11,-1
+
+[0:622] Command : No escorts...
 target sector is 14,-2
 range to target is 2
-No planes could be equipped for the mission.
-command failed
+f1   Sopwith Camel #1 standing by
+f1   Sopwith Camel #1 equipped
+flying over radar installation at 11,-1
+flying over fortress at 12,-2
+firing 4 flak guns in 12,-2...
+    f1   Sopwith Camel #1 takes 5.
+flying over wilderness at 14,-2
+Blam
+did 9 damage in 14,-2
 
-[0:621] Command : No planes
-command failed
+[0:620] Command : f1   Sopwith Camel #2 on an offensive support mission, centered on 11,-1, radius 2
+1 plane
 
-[0:619] Command : range is 1.00 (1.47)
+[0:618] Command : range is 1.00 (1.47)
 Kaboom!!!
-Shells hit sector 12,-2 for 35 damage.
+Shells hit sector 12,-2 for 45 damage.
 
 Defenders fire back!
-Return fire hit sector 11,-1 for 23 damage.
-	cav  cavalry #4 takes 3
-	art  artillery #5 takes 3
+Return fire hit sector 11,-1 for 32 damage.
+	cav  cavalry #4 takes 4
+	art  artillery #5 takes 4
 
-[0:618] Command : 12,-2 is a 90% 8 fortress with approximately 50 military.
-Number of mil from airfield at 11,-1 (max 17) : cav  cavalry #4 has a base attack value of 6
-attack with cav  cavalry #4 in 11,-1 (~ 97%) [ynYNq?] No troops for attack...
+[0:617] Command : 12,-2 is a 90% 8 fortress with approximately 50 military.
+Number of mil from radar installation at 11,-1 (max 17) : cav  cavalry #4 has a base attack value of 6
+attack with cav  cavalry #4 in 11,-1 (~ 96%) [ynYNq?] No troops for attack...
 Attack aborted
 No troops for attack...
 
-[0:615] Command : 12,-2 is a 90% 8 fortress with approximately 50 military.
-Number of mil from airfield at 11,-1 (max 17) : cav  cavalry #4 has a base attack value of 6
-attack with cav  cavalry #4 in 11,-1 (~ 97%) [ynYNq?] art  artillery #5 has no offensive strength
+[0:614] Command : 12,-2 is a 90% 8 fortress with approximately 50 military.
+Number of mil from radar installation at 11,-1 (max 17) : cav  cavalry #4 has a base attack value of 6
+attack with cav  cavalry #4 in 11,-1 (~ 96%) [ynYNq?] art  artillery #5 has no offensive strength
 
              Initial attack strength:        7
+flying over radar installation at 11,-1
+flying over fortress at 12,-2
+firing 3 flak guns in 12,-2...
+    f1   Sopwith Camel #2 takes 6.
+blam
 
 		support values
 		forts	ships	units	planes
-attacker	0.00	0.00	0.17	0.00
-               Final attack strength:        8
-              Final defense strength:      192
+attacker	0.00	0.00	0.33	0.06
+               Final attack strength:        9
+              Final defense strength:      187
                           Final odds:        4%
 @@@@@@
 - Casualties -
@@ -11895,9 +11923,10 @@ attacker	0.00	0.00	0.17	0.00
     Theirs: 0
 Papershuffling ... 0.9 B.T.U
 You have been defeated!
-cav  cavalry #4 damaged from 97% to 72%
+cav  cavalry #4 damaged from 96% to 71%
+You have a new telegram waiting ...
 
-[0:612] Command :      1111111---------0000000000111111111122222
+[0:611] Command :      1111111---------0000000000111111111122222
      65432109876543210123456789012345678901234
   -8                                           -8  
   -7                                           -7  
@@ -11905,11 +11934,11 @@ cav  cavalry #4 damaged from 97% to 72%
   -5                      . . . . . . .        -5  
   -4         - . . . . . . . . . . . . .       -4  
   -3          - . . . j . . . . . . . . .      -3  
-  -2         . . k j c o t l . . f ? . ? .     -2  
-  -1          - . . b m m h = = * o ? ? ? .    -1  
+  -2         . . k j c o t l . . f - . ? .     -2  
+  -1          - . . b m m h = = ) o ? ? ? .    -1  
    0         - - . j m m k . . . . ? ? ? ?     0   
    1          - - . k m m j d . . . ? ? ?      1   
-   2         - - . i m m r w e ! . . ? ?       2   
+   2         - - . i m * r w e ! . . ? ?       2   
    3          - - . o + . p . . . . ? ?        3   
    4           - - . . . . . . . . . .         4   
    5                                           5   
@@ -11919,7 +11948,7 @@ cav  cavalry #4 damaged from 97% to 72%
      1111111---------0000000000111111111122222
      65432109876543210123456789012345678901234
 
-[0:612] Command : Thu Jan  1 00:00:00 1970
+[0:611] Command : Thu Jan  1 00:00:00 1970
 CENSUS                   del dst
   sect        eff prd mob uf uf old  civ  mil   uw food work avail ter fall coa
    1,-3   j  100%     127 .. ..     1000    0    0    0 100%    0        0   1
@@ -11930,34 +11959,34 @@ CENSUS                   del dst
    4,-2   t  100%     122 .. ..      770    0    0    0 100%  359        0   1
    6,-2   l  100%     122 .. ..      769    0    0    0 100%  149        0   1
   -1,-1   b  100%     127 .. ..     1000    0    0    0 100%  299        0   1
-   1,-1   m  100%     118 .. ..      770    0    0    0 100%    0        0
+   1,-1   m  100%     118 .. ..      769    0    0    0 100%    0        0
    3,-1   m  100%     122 .. ..      769    0    0    0 100%    1        0
-   5,-1   h  100%     127 .. ..      739    5    0    0 100%  188        0   1
+   5,-1   h  100%     127 .. ..      740    5    0    0 100%  188        0   1
    7,-1   =  100%     127 .. ..      100    0    0    0 100%   59        0   1
    9,-1   =  100%     127 .. ..      100    0    0    0 100%   59        0   1
-  11,-1   *   85%     101 .. 0.      850   17    1    0 100%  470        0   1
-  -2,0    j  100%     127 .. ..     1000    0    0    0 100%    0        0   1
+  11,-1   )   83%     100 .. 0.      829   17    0    0 100%  502        0   1
+  -2,0    j  100%     127 .. ..      999    0    0    0 100%    0        0   1
    0,0    m  100%     127 .. ..     1000    0    0    0 100%    0        0
-   2,0    m  100%     127 .. 5.      999    0  579    0 100%    0        0
+   2,0    m  100%     127 .. 5.     1000    0  579    0 100%    0        0
    4,0    k  100%     127 .. 8.     1000    0  869    0 100%    1        0   1
-  -1,1    k  100%     127 .. ..     1000    0    0    0 100%    1        0   1
+  -1,1    k  100%     127 .. ..     1000    0    0    0 100%    0        0   1
    1,1    m  100%     127 .. ..     1000    0    0    0 100%    0        0
-   3,1    m  100%     127 .. 5.      999    0  266    0 100%    0        0
+   3,1    m  100%     127 .. 5.      999    0  267    0 100%    0        0
    5,1    j  100%     127 .. 5.     1000    0    0    0 100%    0        0   1
-   7,1    d  100%     127 .. ..     1000    0    0    0 100%  439        0   1
+   7,1    d  100%     127 .. ..      999    0    0    0 100%  439        0   1
   -2,2    i  100%     127 .. ..     1000    0    0    0 100%    2        0   1
    0,2    m  100%     127 .. ..     1000    0    0    0 100%    0        0
-   2,2    m  100%     127 .. ..     1000    0    0    0 100%    1        0   1
-   4,2    r  100%     127 .. ..      999    0    0    0 100%  439        0   1
-   6,2    w  100%     127 .. ..     1000  107    0    0 100%  617        0   1
+   2,2    *  100%      99 .. ..     1000   30    0    0 100%  518        0   1
+   4,2    r  100%     127 .. ..     1000    0    0    0 100%  439        0   1
+   6,2    w  100%     127 .. ..     1000   71    0    0 100%  610        0   1
    8,2    e  100%     127 .. ..      967    1    0    0 100%  599        0   1
-  10,2    !  100%     127 .. ..      999   25    0    0 100%  605        0   1
+  10,2    !  100%     127 .. ..     1000   25    0    0 100%  605        0   1
   -1,3    o  100%     127 .. ..     1000    0    0    0 100%    0        0   1
    1,3    +  100%     127 .. ..     1000    0    0    0 100%  599        0   1
-   5,3    p  100%     127 .. ..      999    0    0    0 100%  524        0   1
+   5,3    p  100%     127 .. ..     1000    0    0    0 100%  524        0   1
 33 sectors
 
-[0:612] Command : shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
+[0:611] Command : shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
    0 frg  frigate       13,1       100%   0  25   0   0  0  0  0  0 127    0
    1 cs   cargo ship     5,-1      100% 300  25   0   0  0  0  0  1 127   30
    2 tk   tanker         5,-1      100%  30   0   0   0  0  0  0  0 127   44
@@ -11965,44 +11994,52 @@ CENSUS                   del dst
    4 ft   fishing tra    6,0       100% 300   0   0   0  0  0  0  0  76   50
 5 ships
 
-[0:612] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
+[0:611] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
    0 cav  cavalry       5,-1     100%  20   0 127   0  30  42%  0  0    1S
    3 cav  cavalry       5,-1     100%   1  57 127   0  30  42%  0  0
-   4 cav  cavalry      11,-1      72%   0   0  95   0  30  42%  0  0
-   5 art  artillery    11,-1      97%   5   0  48   0  37  42%  0  0
+   4 cav  cavalry      11,-1      71%   0   0  94   0  30  42%  0  0
+   5 art  artillery    11,-1      96%   5   0  58   0  37  42%  0  0
 4 units
 
-[0:612] Command : *: No plane(s)
-command failed
+[0:611] Command :    #    type                x,y    w   eff  mu def tech ran hard carry special
+   0 f1   Sopwith Camel    11,-1       97%  34   1   50   4    0      
+   1 f1   Sopwith Camel    11,-1       95%  33   1   50   4    0      
+   2 f1   Sopwith Camel    11,-1       94%  42   1   50   4    0      
+3 planes
 
-[0:612] Command :      --------00000000001111111
+[0:611] Command :      --------00000000001111111
      8765432101234567890123456
   -4 - . . . . . . . . . . .   -4  
   -3  - . . . j . . . . . . .  -3  
   -2 . . k j c % t l . . ? ? . -2  
-  -1  - . . b m m h = = * ? ?  -1  
+  -1  - . . b m m h = = ) ? ?  -1  
    0 - - . j m m k . . . . ? ? 0   
    1  - - . k m m j d . . . ?  1   
-   2 - - . i m m r w e ! . . ? 2   
+   2 - - . i m * r w e ! . . ? 2   
    3  - - . o + . p . . . . ?  3   
    4   - - . . . . . . . . .   4   
      --------00000000001111111
      8765432101234567890123456
 
-[0:612] Command : 
+[0:611] Command : 
 > Production Report   dated Thu Jan  1 00:00:00 1970
 technological breakthroughs (11.29) produced in 4,-2
 a class of graduates (450.00) produced in 6,-2
 medical discoveries (7.53) produced in 4,2
 happy strollers (75.00) produced in 5,3
  75 happiness, 450 education produced
-total pop was 30681, yielding 12.26 hap, 44.43 edu
+total pop was 30680, yielding 12.26 hap, 44.43 edu
 7.2707 technology (4.4976 + 2.7731), 3.7097 research (3.7097 + 0.0000) produced
-Army delta $-138, Navy delta $-1650, Air force delta $0
-money delta was $5829 for this update
+Army delta $-138, Navy delta $-1650, Air force delta $-1227
+money delta was $4869 for this update
+
+> BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+Flying a support mission from 11,-1 to 12,-2
+	f1   Sopwith Camel #2 pinbombing 8  in 12,-2
+		hit 8  for 6 damage
 
 
-[0:612] Command : Thu Jan  1 00:00:00 1970
+[0:611] Command : Thu Jan  1 00:00:00 1970
 PRODUCTION SIMULATION
    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
    1,-3   j 100%   600  523l 0.87 $0     600i            600i             523
@@ -12012,27 +12049,26 @@ PRODUCTION SIMULATION
    4,-2   t 100%   600 11.48 0.77 $4500   15d  75o 150l   38d 190o 380l 29.08
    6,-2   l 100%   599  450  1.00 $4050  450l            599l             599
   -1,-1   b 100%   600    0b 1.00 $0       0d            600d             120
-   1,-1   m 100%   600  600i 1.00 $0                                      600
+   1,-1   m 100%   599  599i 1.00 $0                                      599
    3,-1   m  96%   599  575i 1.00 $0                                      575
   -2,0    j 100%   600  522l 0.87 $0     599i            600i             523
    0,0    m 100%   600  600i 1.00 $0                                      600
    2,0    m 100%   999  999i 1.00 $0                                      999
    4,0    k 100%  1199  523h 0.87 $0    1200i           1200i             523
-  -1,1    k 100%   600  261h 0.87 $0     600i            600i             261
+  -1,1    k 100%   600  261h 0.87 $0     598i            600i             261
    1,1    m 100%   600  600i 1.00 $0                                      600
-   3,1    m 100%   783  783i 1.00 $0                                      783
+   3,1    m 100%   784  784i 1.00 $0                                      784
    5,1    j 100%   600  523l 0.87 $0     600i            600i             523
    7,1    d 100%   600    8g 0.79 $300    10o  50l 100h   38o 190l 380h    30
   -2,2    i 100%   600  158s 0.79 $600   400l 200h       400l 200h        158
    0,2    m 100%   600  600i 1.00 $0                                      600
-   2,2    m  91%   600  546i 1.00 $0                                      546
    4,2    r 100%   600  7.65 0.77 $900    10d  50o 100l   38d 190o 380l 29.08
    8,2    e 100%   600   33m 1.00 $99     33c             33c             499
   -1,3    o   8%   600   42o 0.87 $0                                       42
    5,3    p 100%   600   75  1.00 $675    75l            600l             600
-25 sectors
+24 sectors
 
-[0:612] Command : Bye-bye
+[0:611] Command : Bye-bye
 Exit: so long...
 Player 01 Turn 16 completed successfully
 Player 02 Turn 16 starting
@@ -12076,34 +12112,34 @@ You have a new telegram waiting ...
 [0:629] Command : Thu Jan  1 00:00:00 1970
 CENSUS                   del dst
   sect        eff prd mob uf uf old  civ  mil   uw food work avail ter fall coa
-  -6,-2   +    0%     127 .. ..        4    0    0    0 100%    1        0   1
+  -6,-2   +    0%     127 .. ..        3    0    0    0 100%    1        0   1
   -4,-2   w   89%     105 .. ..        1    0    0    0 100%    0        0   1
    2,-2   c   38%     127 .. ..       50    0    0    0 100%   20        0   1
-  -7,-1   +    0%     127 .. ..        4    0    0    0 100%    1        0   1
+  -7,-1   +    0%     127 .. ..        2    0    0    0 100%    1        0   1
   -5,-1   j  100%     127 .. 5.      769    0  258    0 100%    0        0   1
-  -1,-1   o  100%     127 .. ..      769    0    0    0 100%    0        0   1
+  -1,-1   o  100%     127 .. ..      769    0    0    0 100%    1        0   1
    1,-1   b  100%     127 .. ..      385    0    0    0 100%    0        0   1
    3,-1   gl 100%     127 .. ..      300    0    0    0 100%    1        0   1
    5,-1   gk 100%     127 .. ..      769    0    0    0 100%    1        0   1
    7,-1   g  100%     127 .. ..      400    0    0    0 100%    0        0   1
   -6,0    g    0%     127 .. ..      769    0    0    0 100%    1        0   1
-  -4,0    g    1%     127 .. ..      501    0    0    0 100%    1        0   1
-  -2,0    g    0%     127 .. ..        3    0    0    0 100%    1        0   1
+  -4,0    g    1%     127 .. ..      502    0    0    0 100%    1        0   1
+  -2,0    g    0%     127 .. ..        4    0    0    0 100%    1        0   1
    0,0    m  100%     127 .. 5.      769    0  579    0 100%    0        0
    2,0    m  100%     127 .. 5.      769    0  579    0 100%    0        0
    4,0    +    1%     127 .. ..        5    0    0    0 100%    1        0   1
-  -7,1    +    0%     127 .. ..        3    0    0    0 100%    1        0   1
+  -7,1    +    0%     127 .. ..        2    0    0    0 100%    1        0   1
   -5,1    +    1%     127 .. ..        5    0    0    0 100%    1        0   1
-  -3,1    g    0%     127 .. ..        4    0    0    0 100%    1        0
-  -1,1    g    1%     127 .. ..        6    0    0    0 100%    2        0
-   1,1    g    1%     127 .. ..        5    0    0    0 100%    1        0
-   3,1    +    0%     127 .. ..        2    0    0    0 100%    1        0   1
-  -4,2    g    0%     127 .. ..        4    0    0    0 100%    1        0   1
-  -2,2    g    0%     127 .. ..        3    0    0    0 100%    1        0
-   0,2    g    0%     127 .. ..        4    0    0    0 100%    1        0
-   2,2    g    1%     127 .. ..        5    0    0    0 100%    1        0   1
+  -3,1    g    0%     127 .. ..        3    0    0    0 100%    1        0
+  -1,1    g    1%     127 .. ..        5    0    0    0 100%    1        0
+   1,1    g    1%     127 .. ..        6    0    0    0 100%    2        0
+   3,1    +    0%     127 .. ..        4    0    0    0 100%    1        0   1
+  -4,2    g    0%     127 .. ..        2    0    0    0 100%    1        0   1
+  -2,2    g    1%     127 .. ..        5    0    0    0 100%    1        0
+   0,2    g    1%     127 .. ..        5    0    0    0 100%    1        0
+   2,2    g    1%     127 .. ..        6    0    0    0 100%    2        0   1
   -3,3    +    1%     127 .. ..        5    0    0    0 100%    1        0   1
-  -1,3    +    0%     127 .. ..        2    0    0    0 100%    1        0   1
+  -1,3    +    0%     127 .. ..        4    0    0    0 100%    1        0   1
    1,3    +    0%     127 .. ..        4    0    0    0 100%    1        0   1
    3,3    g    0%     127 .. ..        2    0    0    0 100%    1        0   1
 30 sectors
@@ -12127,22 +12163,22 @@ CENSUS                   del dst
 [0:629] Command : 
 > Production Report   dated Thu Jan  1 00:00:00 1970
   0 happiness,   0 education produced
-total pop was 4862, yielding 0.00 hap, 0.00 edu
+total pop was 4864, yielding 0.00 hap, 0.00 edu
 2.5110 technology (0.0000 + 2.5110), 1.8549 research (0.0000 + 1.8549) produced
-money delta was $1478 for this update
+money delta was $1476 for this update
 
 
 [0:629] Command : Thu Jan  1 00:00:00 1970
 PRODUCTION SIMULATION
    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
   -5,-1   j 100%   777  602l 0.78 $0     777i            777i             602
-  -1,-1   o  31%   599  144o 0.78 $0                                      144
+  -1,-1   o  32%   599  149o 0.78 $0                                      149
    1,-1   b 100%   300   60b 1.00 $600   300d            300d              60
    3,-1   l  92%   117  108  1.00 $972   108l            108l             108
    5,-1   k 100%   474  184h 0.78 $0     474i            474i             184
    7,-1   g   8%   312   25d 1.00 $0                                       25
   -6,0    g  19%   499   95d 1.00 $0                                       95
-  -4,0    g  33%   291   96d 1.00 $0                                       96
+  -4,0    g  33%   292   96d 1.00 $0                                       96
    0,0    m 100%   998  998i 1.00 $0                                      998
    2,0    m 100%   998  998i 1.00 $0                                      998
 10 sectors
@@ -12179,9 +12215,9 @@ You have two new telegrams waiting ...
 [0:637] Command : Thu Jan  1 00:00:00 1970
 CENSUS                   del dst
   sect        eff prd mob uf uf old  civ  mil   uw food work avail ter fall coa
-  -6,-4   f   92%     117 .. ..      707   51    0    0 100%  448        0   1
-  -4,-4   -o 100%     127 .. ..      769    0    0    0 100%  500        0   1
-   0,-4   k  100%     127 .. ..      769    0    0    0 100%    1        0   1
+  -6,-4   f   91%     116 .. ..      699   50    0    0 100%  443        0   1
+  -4,-4   -o  96%     122 .. ..      739    0    0    0 100%  480        0   1
+   0,-4   k  100%     127 .. ..      769    0    0    0 100%    0        0   1
   -5,-3   o  100%     127 .. ..      769    0    0    0 100%    0        0   1
   -3,-3   -  100%     127 .. ..      769    0    0    0 100%  508        0   1
   -1,-3   !  100%     127 .. ..      769    0    0    0 100%  474        0   1
@@ -12189,11 +12225,11 @@ CENSUS                   del dst
   -4,-2   *  100%     127 .. ..      769    0    0    0 100%  474        0   1
   -2,-2   m  100%     127 .. ..      769    0    0    0 100%    1        0
    0,-2   m  100%     127 .. ..      769    0    0    0 100%    0        0
-   2,-2   k  100%     127 .. ..      769    0    0    0 100%    1        0   1
+   2,-2   k  100%     127 .. ..      769    0    0    0 100%    0        0   1
    4,-2   j  100%     127 .. ..      769    0    0    0 100%    0        0   1
    6,-2   t  100%     127 .. ..      769    0    0    0 100%  119        0   1
   -3,-1   j  100%     127 .. ..      769    0    0    0 100%    0        0   1
-  -1,-1   m  100%     127 .. 5.      769    0  373    0 100%    0        0
+  -1,-1   m  100%     127 .. 5.      769    0  371    0 100%    0        0
    1,-1   m  100%     127 .. 5.      769    0    0    0 100%    0        0
    3,-1   m  100%     127 .. 5.      769    0    0    0 100%    0        0
    5,-1   d  100%     127 .. ..      769    0    0    0 100%  314        0
@@ -12207,7 +12243,7 @@ CENSUS                   del dst
   -3,1    j  100%     127 .. ..      769    0    0    0 100%    0        0   1
   -1,1    j  100%     127 .. ..      769    0    0    0 100%    0        0   1
    1,1    k  100%     127 .. ..      769    0    0    0 100%  474        0   1
-   3,1    w  100%     119 .. ..     7457    0    0    0 100%  600        0   1
+   3,1    w  100%     117 .. ..     7463    0    0    0 100%  600        0   1
 29 sectors
 
 [0:637] Command :      --------00000000001
@@ -12231,23 +12267,33 @@ CENSUS                   del dst
 a class of graduates (300.00) produced in 1,-3
 technological breakthroughs (23.37) produced in 6,-2
   0 happiness, 300 education produced
-total pop was 24757, yielding 0.00 hap, 38.63 edu
+total pop was 24755, yielding 0.00 hap, 38.63 edu
 7.7951 technology (5.5463 + 2.2488), 1.8549 research (0.0000 + 1.8549) produced
-money delta was $830 for this update
+money delta was $829 for this update
 
 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
-Country #1 shelled sector -6,-4 for 35 damage.
-Return fire hit sector -7,-3 for 23 damage.
+1 planes spotted over -6,-4
+firing 5 flak guns in -6,-4...
+1 planes spotted over -4,-4
+1 planes spotted over -5,-3
+1 planes spotted over -6,-4
+firing 4 flak guns in -6,-4...
+1 planes spotted over -4,-4
+1 bombing raid did 9 damage in -4,-4
+Country #1 shelled sector -6,-4 for 45 damage.
+Return fire hit sector -7,-3 for 32 damage.
 1 (#1) considered attacking you @-6,-4
 1 (#1) considered attacking you @-6,-4
-Scouts report attacking unit: cav  cavalry #4 (eff 95, mil 10, tech 21)
+Scouts report attacking unit: cav  cavalry #4 (eff 95, mil 10, tech 47)
+1 planes spotted over -6,-4
+firing 3 flak guns in -6,-4...
 
 Odds are good for us...support cancelled.
 
 
 		support values
 		forts	ships	units	planes
-attacker	0.00	0.00	0.17	0.00
+attacker	0.00	0.00	0.33	0.06
 1 (#1) lost 6 troops attacking -6,-4
 We lost 0 troops defending
 
@@ -12255,9 +12301,9 @@ We lost 0 troops defending
 [0:637] Command : Thu Jan  1 00:00:00 1970
 PRODUCTION SIMULATION
    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
-  -4,-4   o 100%   474  400o 0.84 $0                                      400
+  -4,-4   o 100%   452  382o 0.84 $0                                      382
    0,-4   k 100%   599  253h 0.84 $0     600i            600i             253
-  -5,-3   o  14%   599   71o 0.84 $0                                       71
+  -5,-3   o  15%   599   76o 0.84 $0                                       76
    1,-3   l 100%   599  400  1.00 $3600  400l            599l             599
   -2,-2   m  96%   599  575i 1.00 $0                                      575
    0,-2   m 100%   599  599i 1.00 $0                                      599
@@ -12265,7 +12311,7 @@ PRODUCTION SIMULATION
    4,-2   j 100%   599  506l 0.84 $0     599i            599i             506
    6,-2   t 100%   599 23.31 0.78 $9000   30d 150o 300l   37d 185o 370l 28.75
   -3,-1   j 100%   599  506l 0.84 $0     599i            599i             506
-  -1,-1   m 100%   856  856i 1.00 $0                                      856
+  -1,-1   m 100%   855  855i 1.00 $0                                      855
    1,-1   m 100%   599  599i 1.00 $0                                      599
    3,-1   m 100%   599  599i 1.00 $0                                      599
    5,-1   d 100%   599    0g 0.71 $0       0o   0l   0h   37o 185l 370h    26
@@ -12273,7 +12319,7 @@ PRODUCTION SIMULATION
    0,0    m 100%   952  952i 1.00 $0                                      952
    2,0    m 100%   965  965i 1.00 $0                                      965
    4,0    b 100%   599   60b 1.00 $600   300d            600d             120
-   8,0    i 100%   599   58s 0.71 $246   164l  82h       400l 200h        141
+   8,0    i 100%   599   59s 0.71 $249   166l  83h       400l 200h        141
   -3,1    j 100%   599  506l 0.84 $0     599i            599i             506
   -1,1    j 100%   599  506l 0.84 $0     599i            599i             506
    1,1    k 100%   599  253h 0.84 $0     600i            600i             253
@@ -12291,12 +12337,12 @@ Update Turn 99 starting
       as of Thu Jan  1 00:00:00 1970
 
          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-        1  33  100%  31K 231  602   29  969   11K 573  1.0K   0    5    4   51K
-   740.29
-        8  29  100%  29K 106  204    6    0   16K 2.5K 527    0    0    0   22K
-   442.67
+        1  33   99%  31K 225  624   30  993  8.9K 573  1.0K   3    5    4   50K
+   743.62
+        8  29  100%  29K 105  201    6    0   16K 2.5K 532    0    0    0   22K
+   442.37
         2  30   31% 6.3K   0    0    0    0  3.2K 1.3K 524    0    0    0   36K
-    75.58
+    75.61
         6   3  100% 3.0K 110    0    0    0    0  397    0    0    0    0   37K
     38.83
         3   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   37K
@@ -12312,7 +12358,7 @@ Update Turn 99 starting
         9   3  100% 3.0K 110    0    0    0    0   29    0    0    0    0   37K
     35.22
           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-worldwide 113   82%  87K 1.1K 806   35  969   30K 6.4K 2.1K   0    5    4  370K
+worldwide 113   81%  87K 1.1K 825   36  993   28K 6.4K 2.1K   3    5    4  369K
 
 
 [0:630] Command : Thu Jan  1 00:00:00 1970
@@ -12340,37 +12386,37 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   1    7,-15  %  100%     118 .. ..      770    0    0    0 100%  342    0   1
   1    9,-15  t  100%     122 .. ..      770    0    0    0 100%  359    0   1
   1   11,-15  l  100%     122 .. ..      769    0    0    0 100%  149    0   1
-  8   17,-15  f   92%     117 .. ..      707   51    0    0 100%  448    0   1
-  8   19,-15  -o 100%     127 .. ..      769    0    0    0 100%  500    0   1
-  8   23,-15  k  100%     127 .. ..      769    0    0    0 100%    1    0   1
+  8   17,-15  f   91%     116 .. ..      699   50    0    0 100%  443    0   1
+  8   19,-15  -o  96%     122 .. ..      739    0    0    0 100%  480    0   1
+  8   23,-15  k  100%     127 .. ..      769    0    0    0 100%    0    0   1
   1    4,-14  b  100%     127 .. ..     1000    0    0    0 100%  299    0   1
-  1    6,-14  m  100%     118 .. ..      770    0    0    0 100%    0    0
+  1    6,-14  m  100%     118 .. ..      769    0    0    0 100%    0    0
   1    8,-14  m  100%     122 .. ..      769    0    0    0 100%    1    0
-  1   10,-14  h  100%     127 .. ..      739    5    0    0 100%  188    0   1
+  1   10,-14  h  100%     127 .. ..      740    5    0    0 100%  188    0   1
   1   12,-14  =  100%     127 .. ..      100    0    0    0 100%   59    0   1
   1   14,-14  =  100%     127 .. ..      100    0    0    0 100%   59    0   1
-  1   16,-14  *   85%     101 .. 0.      850   17    1    0 100%  470    0   1
+  1   16,-14  )   83%     100 .. 0.      829   17    0    0 100%  502    0   1
   8   18,-14  o  100%     127 .. ..      769    0    0    0 100%    0    0   1
   8   20,-14  -  100%     127 .. ..      769    0    0    0 100%  508    0   1
   8   22,-14  !  100%     127 .. ..      769    0    0    0 100%  474    0   1
   8   24,-14  l  100%     127 .. ..      769    0    0    0 100%  299    0   1
-  1    3,-13  j  100%     127 .. ..     1000    0    0    0 100%    0    0   1
+  1    3,-13  j  100%     127 .. ..      999    0    0    0 100%    0    0   1
   1    5,-13  m  100%     127 .. ..     1000    0    0    0 100%    0    0
-  1    7,-13  m  100%     127 .. 5.      999    0  579    0 100%    0    0
+  1    7,-13  m  100%     127 .. 5.     1000    0  579    0 100%    0    0
   1    9,-13  k  100%     127 .. 8.     1000    0  869    0 100%    1    0   1
   8   19,-13  *  100%     127 .. ..      769    0    0    0 100%  474    0   1
   8   21,-13  m  100%     127 .. ..      769    0    0    0 100%    1    0
   8   23,-13  m  100%     127 .. ..      769    0    0    0 100%    0    0
-  8   25,-13  k  100%     127 .. ..      769    0    0    0 100%    1    0   1
+  8   25,-13  k  100%     127 .. ..      769    0    0    0 100%    0    0   1
   8   27,-13  j  100%     127 .. ..      769    0    0    0 100%    0    0   1
   8   29,-13  t  100%     127 .. ..      769    0    0    0 100%  119    0   1
-  1    4,-12  k  100%     127 .. ..     1000    0    0    0 100%    1    0   1
+  1    4,-12  k  100%     127 .. ..     1000    0    0    0 100%    0    0   1
   1    6,-12  m  100%     127 .. ..     1000    0    0    0 100%    0    0
-  1    8,-12  m  100%     127 .. 5.      999    0  266    0 100%    0    0
+  1    8,-12  m  100%     127 .. 5.      999    0  267    0 100%    0    0
   1   10,-12  j  100%     127 .. 5.     1000    0    0    0 100%    0    0   1
-  1   12,-12  d  100%     127 .. ..     1000    0    0    0 100%  439    0   1
+  1   12,-12  d  100%     127 .. ..      999    0    0    0 100%  439    0   1
   8   20,-12  j  100%     127 .. ..      769    0    0    0 100%    0    0   1
-  8   22,-12  m  100%     127 .. 5.      769    0  373    0 100%    0    0
+  8   22,-12  m  100%     127 .. 5.      769    0  371    0 100%    0    0
   8   24,-12  m  100%     127 .. 5.      769    0    0    0 100%    0    0
   8   26,-12  m  100%     127 .. 5.      769    0    0    0 100%    0    0
   8   28,-12  d  100%     127 .. ..      769    0    0    0 100%  314    0
@@ -12378,11 +12424,11 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
  10  -11,-11  g  100%     127 .. ..     1000    0    0    0 100%  600    0   1
   1    3,-11  i  100%     127 .. ..     1000    0    0    0 100%    2    0   1
   1    5,-11  m  100%     127 .. ..     1000    0    0    0 100%    0    0
-  1    7,-11  m  100%     127 .. ..     1000    0    0    0 100%    1    0   1
-  1    9,-11  r  100%     127 .. ..      999    0    0    0 100%  439    0   1
-  1   11,-11  w  100%     127 .. ..     1000  107    0    0 100%  617    0   1
+  1    7,-11  *  100%      99 .. ..     1000   30    0    0 100%  518    0   1
+  1    9,-11  r  100%     127 .. ..     1000    0    0    0 100%  439    0   1
+  1   11,-11  w  100%     127 .. ..     1000   71    0    0 100%  610    0   1
   1   13,-11  e  100%     127 .. ..      967    1    0    0 100%  599    0   1
-  1   15,-11  !  100%     127 .. ..      999   25    0    0 100%  605    0   1
+  1   15,-11  !  100%     127 .. ..     1000   25    0    0 100%  605    0   1
   8   21,-11  p  100%     127 .. ..      769    0    0    0 100%  474    0   1
   8   23,-11  m  100%     127 .. 5.      769    0  512    0 100%    0    0
   8   25,-11  m  100%     127 .. 5.      769   55  512    0 100%    0    0
@@ -12390,60 +12436,60 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   8   29,-11  h  100%     127 .. ..      769    0    0    0 100%  599    0   1
   8   31,-11  i  100%     127 .. ..      769    0    0    0 100%    0    0   1
  10  -12,-10  c  100%     127 .. ..     1000   55  713    0 100% 1040    0
- 10  -10,-10  c  100%     127 .. ..     1000   55  698    0 100% 1031    0   1
+ 10  -10,-10  c  100%     127 .. ..     1000   55  697    0 100% 1030    0   1
   1    4,-10  o  100%     127 .. ..     1000    0    0    0 100%    0    0   1
   1    6,-10  +  100%     127 .. ..     1000    0    0    0 100%  599    0   1
-  1   10,-10  p  100%     127 .. ..      999    0    0    0 100%  524    0   1
+  1   10,-10  p  100%     127 .. ..     1000    0    0    0 100%  524    0   1
   8   20,-10  j  100%     127 .. ..      769    0    0    0 100%    0    0   1
   8   22,-10  j  100%     127 .. ..      769    0    0    0 100%    0    0   1
   8   24,-10  k  100%     127 .. ..      769    0    0    0 100%  474    0   1
-  8   26,-10  w  100%     119 .. ..     7457    0    0    0 100%  600    0   1
+  8   26,-10  w  100%     117 .. ..     7463    0    0    0 100%  600    0   1
   9  -25,-7   g  100%     127 .. ..     1000    0    0    0 100%  600    0   1
   9  -26,-6   c  100%     127 .. ..     1000   55  709    0 100% 1037    0
-  9  -24,-6   c  100%     127 .. ..     1000   55  693    0 100% 1028    0
+  9  -24,-6   c  100%     127 .. ..     1000   55  693    0 100% 1029    0
   6    3,-3   g  100%     127 .. ..     1000    0    0    0 100%  600    0
-  6    2,-2   c  100%     127 .. ..     1000   55  691    0 100% 1027    0
-  6    4,-2   c  100%     127 .. ..     1000   55  702    0 100% 1034    0
+  6    2,-2   c  100%     127 .. ..     1000   55  693    0 100% 1028    0
+  6    4,-2   c  100%     127 .. ..     1000   55  701    0 100% 1033    0
   7   25,-1   g  100%     127 .. ..     1000    0    0    0 100%  600    0
   4  -14,0    g  100%     127 .. ..     1000    0    0    0 100%  600    0
   7   24,0    c  100%     127 .. ..     1000   55  692    0 100% 1028    0
   7   26,0    c  100%     127 .. ..     1000   55  705    0 100% 1036    0
   4  -15,1    c  100%     127 .. ..     1000   55  703    0 100% 1034    0
-  4  -13,1    c  100%     127 .. ..     1000   55  688    0 100% 1026    0
+  4  -13,1    c  100%     127 .. ..     1000   55  687    0 100% 1025    0
   5  -29,7    g  100%     127 .. ..     1000    0    0    0 100%  600    0
   5  -30,8    c  100%     127 .. ..     1000   55  697    0 100% 1030    0   1
   5  -28,8    c  100%     127 .. ..     1000   55  706    0 100% 1036    0
-  2   10,8    +    0%     127 .. ..        4    0    0    0 100%    1    0   1
+  2   10,8    +    0%     127 .. ..        3    0    0    0 100%    1    0   1
   2   12,8    w   89%     105 .. ..        1    0    0    0 100%    0    0   1
   2   18,8    c   38%     127 .. ..       50    0    0    0 100%   20    0   1
   3   -3,9    g  100%     127 .. ..     1000    0    0    0 100%  600    0
-  2    9,9    +    0%     127 .. ..        4    0    0    0 100%    1    0   1
+  2    9,9    +    0%     127 .. ..        2    0    0    0 100%    1    0   1
   2   11,9    j  100%     127 .. 5.      769    0  258    0 100%    0    0   1
-  2   15,9    o  100%     127 .. ..      769    0    0    0 100%    0    0   1
+  2   15,9    o  100%     127 .. ..      769    0    0    0 100%    1    0   1
   2   17,9    b  100%     127 .. ..      385    0    0    0 100%    0    0   1
   2   19,9    gl 100%     127 .. ..      300    0    0    0 100%    1    0   1
   2   21,9    gk 100%     127 .. ..      769    0    0    0 100%    1    0   1
   2   23,9    g  100%     127 .. ..      400    0    0    0 100%    0    0   1
-  3   -4,10   c  100%     127 .. ..     1000   55  688    0 100% 1025    0
+  3   -4,10   c  100%     127 .. ..     1000   55  689    0 100% 1026    0
   3   -2,10   c  100%     127 .. ..     1000   55  705    0 100% 1036    0
   2   10,10   g    0%     127 .. ..      769    0    0    0 100%    1    0   1
-  2   12,10   g    1%     127 .. ..      501    0    0    0 100%    1    0   1
-  2   14,10   g    0%     127 .. ..        3    0    0    0 100%    1    0   1
+  2   12,10   g    1%     127 .. ..      502    0    0    0 100%    1    0   1
+  2   14,10   g    0%     127 .. ..        4    0    0    0 100%    1    0   1
   2   16,10   m  100%     127 .. 5.      769    0  579    0 100%    0    0
   2   18,10   m  100%     127 .. 5.      769    0  579    0 100%    0    0
   2   20,10   +    1%     127 .. ..        5    0    0    0 100%    1    0   1
-  2    9,11   +    0%     127 .. ..        3    0    0    0 100%    1    0   1
+  2    9,11   +    0%     127 .. ..        2    0    0    0 100%    1    0   1
   2   11,11   +    1%     127 .. ..        5    0    0    0 100%    1    0   1
-  2   13,11   g    0%     127 .. ..        4    0    0    0 100%    1    0
-  2   15,11   g    1%     127 .. ..        6    0    0    0 100%    2    0
-  2   17,11   g    1%     127 .. ..        5    0    0    0 100%    1    0
-  2   19,11   +    0%     127 .. ..        2    0    0    0 100%    1    0   1
-  2   12,12   g    0%     127 .. ..        4    0    0    0 100%    1    0   1
-  2   14,12   g    0%     127 .. ..        3    0    0    0 100%    1    0
-  2   16,12   g    0%     127 .. ..        4    0    0    0 100%    1    0
-  2   18,12   g    1%     127 .. ..        5    0    0    0 100%    1    0   1
+  2   13,11   g    0%     127 .. ..        3    0    0    0 100%    1    0
+  2   15,11   g    1%     127 .. ..        5    0    0    0 100%    1    0
+  2   17,11   g    1%     127 .. ..        6    0    0    0 100%    2    0
+  2   19,11   +    0%     127 .. ..        4    0    0    0 100%    1    0   1
+  2   12,12   g    0%     127 .. ..        2    0    0    0 100%    1    0   1
+  2   14,12   g    1%     127 .. ..        5    0    0    0 100%    1    0
+  2   16,12   g    1%     127 .. ..        5    0    0    0 100%    1    0
+  2   18,12   g    1%     127 .. ..        6    0    0    0 100%    2    0   1
   2   13,13   +    1%     127 .. ..        5    0    0    0 100%    1    0   1
-  2   15,13   +    0%     127 .. ..        2    0    0    0 100%    1    0   1
+  2   15,13   +    0%     127 .. ..        4    0    0    0 100%    1    0   1
   2   17,13   +    0%     127 .. ..        4    0    0    0 100%    1    0   1
   2   19,13   g    0%     127 .. ..        2    0    0    0 100%    1    0   1
 113 sectors
@@ -12458,34 +12504,34 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   1   7,-15  % .......... ..0.......   0   0    1    0    0   0   55    0    0   0
   1   9,-15  t .......... ....0.01..   0   0    0    0   15   0   75  150    0   0
   1  11,-15  l .......... .......4..   0   0    0    0    0   0    0  450    0   0
-  8  17,-15  f .......... 20....0.1. 183   5    0    0    0   0    1    0   92   0
+  8  17,-15  f .......... 20....0.1. 181   5    0    0    0   0    1    0   91   0
   8  19,-15  - .......... ......0...   0   0    0    0    0   0    0    0    0   0
   8  23,-15  k .......... ...9....0.   0   0    0  999    0   0    0    0    1   0
   1   4,-14  b .......... ..........   0   0    0    0    0 449    0    0    0   0
   1   6,-14  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
   1   8,-14  m .......... ...0......   0   0    0    1    0   0    0    1    0   0
-  1  10,-14  h .......... 20.....22. 200   7    0    1    1   0    1  200  200   0
+  1  10,-14  h .......... 20.....22. 200   8    0    1    1   0    1  200  200   0
   1  12,-14  = .......... ..........   0   0    0    0    0   0    0    0    0   0
   1  14,-14  = .......... ..........   0   0    0    0    0   0    0    0    0   0
-  1  16,-14  * .......... 2.2....22. 166   0  170    0    0   0    0  170  170   0
+  1  16,-14  ) .......... 0.0.......  14   0   14    0    0   0    0    0    0   0
   8  18,-14  o .......... ..........   0   0    0    0    0   0    1    0    0   0
   8  20,-14  - .......... ..........   0   0    0    0    0   0    0    0    0   0
-  8  22,-14  ! .......... 20.....22.  20   0    0    0    1   0    0  200  200   0
+  8  22,-14  ! .......... 20.....22.  19   0    0    0    1   0    0  200  200   0
   8  24,-14  l .......... .......4..   0   0    0    0    1   0    0  400    0   0
   1   3,-13  j .......... .......0..   0   0    0  599    0   0    0    1    0   0
   1   5,-13  m ...g...... ..........   0   0    0    0    0   0    0    0    0   0
   1   7,-13  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
   1   9,-13  k .......... ...a....0.   0   0    0 1200    0   0    0    0    1   0
-  8  19,-13  * .......... 2......22.   0   0    0    0    1   0    0  200  192   0
+  8  19,-13  * .......... 2......22.   0   0    0    0    1   0    0  200  194   0
   8  21,-13  m .......... ...0......   0   0    0    1    1   0    0    0    0   0
   8  23,-13  m .......... ...0......   0   0    0    1    1   0    0    0    0   0
   8  25,-13  k .......... ...9....0.   0   0    0  999    1   0    0    0    1   0
   8  27,-13  j .......... ...9......   0   0    0  999    0   0    0 1350    0   0
   8  29,-13  t .......... ....0.13..   0   0    0    0   30   0  150  300    0   0
-  1   4,-12  k .......... ........0.   0   0    0  601    0   0    0    0    1   0
+  1   4,-12  k .......... ........0.   0   0    0  599    0   0    0    0    1   0
   1   6,-12  m ...g...... ..........   0   0    0    0    0   0    0    0    0   0
   1   8,-12  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
-  1  10,-12  j .......... .......0..   0   0    0 1226    0   0    0    1    0   0
+  1  10,-12  j .......... .......0..   0   0    0 1227    0   0    0    1    0   0
   1  12,-12  d .......... .0....021.   0   1    0    0    0   0   20  200  100   0
   8  20,-12  j .......... ...9...0..   0   0    0  999    0   0    0    1    0   0
   8  22,-12  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
@@ -12495,18 +12541,18 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   8  30,-12  c .......... ..........   0   0    0    0    0   0    0    0    0   0
  10 -11,-11  g .......... ..........   0   0    0    0  231   0    0    0    0   0
   1   3,-11  i .......... 0......63.   1   0    0    0    0   0    0  600  300   0
-  1   5,-11  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
-  1   7,-11  m .......... ...0......   0   0    0    1    0   0    0    0    1   0
+  1   5,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
+  1   7,-11  * .......... 1.2....22. 174   0  200    0    0   0    0  200  200   0
   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-  1  11,-11  w .......... ..........   0   0  798 4404  547   0  836 3299 3521   0
+  1  11,-11  w .......... ..........   0   0  778 2282  547   0  832 3272 3763   0
   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
   1  15,-11  ! .......... 20.....22. 200  11    0    0    0   0    0  200  200   0
   8  21,-11  p .......... .......0..   0   0    0    0    1   0    0   75    0   0
-  8  23,-11  m .......... ...0......   0   0    0  462    0   0    0    0    0   0
+  8  23,-11  m .......... ...0......   0   0    0  459    0   0    0    0    0   0
   8  25,-11  m .......... ...0......   0   0    0 2669    0   0    0    0    0   0
   8  27,-11  b .......... ....3.....   0   0    0    0  300 355    0    0    0   0
   8  29,-11  h .......... .......22.   0   0    0    0    1   0    0  200  200   0
-  8  31,-11  i .......... 0......63.   1   0    0    0    0   0    0  600   82   0
+  8  31,-11  i .......... 0......63.   1   0    0    0    0   0    0  600   83   0
  10 -12,-10  c .......... ..........   0   0    0    0    0   0    0    0    0   0
  10 -10,-10  c .......... ..........   0   0    0    0    0   0    0    0    0   0
   1   4,-10  o .......... ......0...   0   0    0    0    0   0    1    0    0   0
@@ -12515,7 +12561,7 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   8  20,-10  j .......... ...9...0..   0   0    0  999    1   0    0    1    0   0
   8  22,-10  j .......... ...9...0..   0   0    0  999    0   0    0    1    0   0
   8  24,-10  k .......... ...90...0.   0   0    0  999    1   0    0    0    0   0
-  8  26,-10  w .......... ..........   0   0    0 5408 2165   0  365  293    0   0
+  8  26,-10  w .......... ..........   0   0    0 5404 2165   0  370  291    0   0
   9 -25,-7   g .......... ..........   0   0    0    0   29   0    0    0    0   0
   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -12532,7 +12578,7 @@ own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
   2  10,8    + .......... ..........   0   0    0    0    0   0    0    0    0   0
-  2  12,8    w .......... ..........   0   0    0 1158  969   0  522  100    0   0
+  2  12,8    w .......... ..........   0   0    0 1158  970   0  522   99    0   0
   2  18,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
   3  -3,9    g .......... ..........   0   0    0    0  366   0    0    0    0   0
   2   9,9    + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -12576,8 +12622,8 @@ own   sect        eff  min gold fert oil uran
   1    7,-15  %  100%    0    0   76  25    0
   1    9,-15  t  100%   39   14   21   0    0
   1   11,-15  l  100%    0    0   91  72    0
-  8   17,-15  f   92%    0    0  100   1    0
-  8   19,-15  -o 100%    0    0  100 100    0
+  8   17,-15  f   91%    0    0  100   1    0
+  8   19,-15  -o  96%    0    0  100 100    0
   8   23,-15  k  100%   11    0   61  21    0
   1    4,-14  b  100%   34    0   28   0    0
   1    6,-14  m  100%  100   69    0   0   97
@@ -12585,8 +12631,8 @@ own   sect        eff  min gold fert oil uran
   1   10,-14  h  100%   45   19   13   0    0
   1   12,-14  =  100%    0    0   45  11    0
   1   14,-14  =  100%    0    0   63  46    0
-  1   16,-14  *   85%    0    0  100  98    0
-  8   18,-14  o  100%    0    0   91  14    0
+  1   16,-14  )   83%    0    0  100  98    0
+  8   18,-14  o  100%    0    0   91  15    0
   8   20,-14  -  100%    0    0   82  58    0
   8   22,-14  !  100%   50    0    6   0    0
   8   24,-14  l  100%   45    1   13   0    0
@@ -12614,7 +12660,7 @@ own   sect        eff  min gold fert oil uran
  10  -11,-11  g  100%   78    0    0   0   45
   1    3,-11  i  100%    0    0  100   2    0
   1    5,-11  m  100%  100    0    0   0  100
-  1    7,-11  m  100%   91    0    0   0   68
+  1    7,-11  *  100%   91    0    0   0   68
   1    9,-11  r  100%   85    0    0   0   57
   1   11,-11  w  100%   78    0    0   0   45
   1   13,-11  e  100%   67    0    0   0   25
@@ -12655,10 +12701,10 @@ own   sect        eff  min gold fert oil uran
   3   -3,9    g  100%  100    0    0   0  100
   2    9,9    +    0%    6    0   67  32    0
   2   11,9    j  100%   56    0    0   0    5
-  2   15,9    o  100%    0    0  100  31    0
+  2   15,9    o  100%    0    0  100  32    0
   2   17,9    b  100%   34    0   28   0    0
-  2   19,9    gl 100%   78    1    0   0   45
-  2   21,9    gk 100%   74    3    0   0   37
+  2   19,9    gl 100%   78    2    0   0   45
+  2   21,9    gk 100%   74    4    0   0   37
   2   23,9    g  100%   39    8   21   0    0
   3   -4,10   c  100%  100  100  100 100  100
   3   -2,10   c  100%  100  100  100 100  100
@@ -12675,8 +12721,8 @@ own   sect        eff  min gold fert oil uran
   2   17,11   g    1%  100   80    0   0  100
   2   19,11   +    0%    0    0  100  98    0
   2   12,12   g    0%   67   37    0   0   25
-  2   14,12   g    0%  100   65    0   0   88
-  2   16,12   g    0%   96   60    0   0   77
+  2   14,12   g    1%  100   65    0   0   88
+  2   16,12   g    1%   96   60    0   0   77
   2   18,12   g    1%   85   51    0   0   57
   2   13,13   +    1%    0    0   91  72    0
   2   15,13   +    0%   28    5   37   0    0
@@ -12695,7 +12741,7 @@ Player 00 Turn 99 starting
 	-=O=-
 
 [0:640] Command : XDUMP sect 0
-0 0 0 4 0 0 0 0 0 0 0 0 0 0 0 0 21 75 1 4 0 0 76 47 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 4 0 0 0 0 0 0 0 0 0 0 0 0 21 72 1 4 0 0 76 47 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 /1
 
 [0:640] Command : XDUMP ship 0
@@ -12707,13 +12753,16 @@ Player 00 Turn 99 starting
 /5
 
 [0:640] Command : XDUMP plane 0
-/0
+0 1 16 -14 0 97 94 0 50 0 0 0 0 "" 4 -1 -1 0 0 0 0.00000
+1 1 16 -14 0 95 93 0 50 0 0 0 0 "" 4 -1 -1 0 0 0 0.00000
+2 1 16 -14 0 94 102 0 50 16 -14 8 2 "" 4 -1 -1 0 0 0 0.00000
+/3
 
 [0:640] Command : XDUMP land 0
 0 1 10 -14 0 100 127 0 30 0 0 0 0 "" 1 0 42 0 "" 0 20 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
 3 1 10 -14 0 100 127 0 30 0 0 0 0 "" -1 117 42 0 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
-4 1 16 -14 0 81 127 0 30 0 0 0 0 "" -1 28 42 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
-5 1 16 -14 11 98 108 0 37 0 0 0 0 "" -1 0 42 0 "" 0 5 35 10 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
+4 1 16 -14 0 71 127 0 30 0 0 0 0 "" -1 27 42 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
+5 1 16 -14 11 96 118 0 37 0 0 0 0 "" -1 0 42 0 "" 0 5 35 10 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
 /4
 
 [0:640] Command : XDUMP nuke 0
@@ -12739,11 +12788,13 @@ Player 00 Turn 99 starting
 2 66 8 1 0 0
 8 28 1 1 0 0
 8 66 2 1 0 0
+1 9 8 6 0 0
+1 16 8 2 0 0
 1 10 8 1 0 0
 8 14 1 1 0 0
 1 58 8 1 0 0
 1 2 8 1 0 0
-/23
+/25
 
 [0:640] Command : XDUMP treaty 0
 /0
@@ -12753,14 +12804,14 @@ Player 00 Turn 99 starting
 
 [0:640] Command : XDUMP nat 0
 0 5 "POGO" "peter" "127.0.0.1" "" "tester" 0 0 0 0 0 0 0 255 640 0 0 123456789 0 0 0 0 0.00000 0.00000 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
-1 4 "1" "1" "127.0.0.1" "" "tester" 5 -15 5 -13 0 1 0 255 640 0 36 60242 0 0 0 0 64.7274 21.7309 39.0988 12.0882 2 2 4 2 2 2 2 2 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
-2 4 "2" "2" "127.0.0.1" "" "tester" 18 8 16 10 0 1 0 255 640 0 99 37950 0 0 0 0 26.8560 10.8655 11.8503 0.00000 2 4 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
+1 4 "1" "1" "127.0.0.1" "" "tester" 5 -15 5 -13 0 1 0 255 640 0 36 59155 0 0 0 0 64.7274 21.7309 39.1036 12.0909 2 2 4 2 2 2 2 2 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
+2 4 "2" "2" "127.0.0.1" "" "tester" 18 8 16 10 0 1 0 255 640 0 98 37953 0 0 0 0 26.8560 10.8655 11.7637 0.00000 2 4 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
 3 4 "3" "3" "127.0.0.1" "" "tester" -4 10 -4 10 0 17 1 255 640 0 0 38153 0 0 0 0 26.8560 10.8655 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
 4 4 "4" "4" "127.0.0.1" "" "tester" -15 1 -15 1 0 17 1 255 640 0 0 38147 0 0 0 0 26.8560 10.8655 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
 5 4 "5" "5" "127.0.0.1" "" "tester" -30 8 -30 8 0 17 1 255 640 0 0 38156 0 0 0 0 26.8560 10.8655 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
 6 4 "6" "6" "127.0.0.1" "" "tester" 2 -2 2 -2 0 17 1 255 640 0 0 38152 0 0 0 0 26.8560 10.8655 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
 7 4 "7" "7" "127.0.0.1" "" "tester" 24 0 24 0 0 17 1 255 640 0 0 38161 0 0 0 0 26.8560 10.8655 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
-8 4 "8" "8" "127.0.0.1" "" "tester" 30 -12 23 -11 0 1 0 255 640 0 0 26692 0 0 0 0 51.6318 10.8655 40.4815 6.98864 2 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
+8 4 "8" "8" "127.0.0.1" "" "tester" 30 -12 23 -11 0 1 0 255 640 0 0 26656 0 0 0 0 51.6318 10.8655 40.4902 6.99367 2 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
 9 4 "9" "9" "127.0.0.1" "" "tester" -26 -6 -26 -6 0 17 1 255 640 0 0 38158 0 0 0 0 26.8560 10.8655 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
 10 4 "10" "10" "127.0.0.1" "" "tester" -12 -10 -12 -10 0 17 1 255 640 0 0 38158 0 0 0 0 26.8560 10.8655 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
 11 2 "visitor" "visitor" "" "" "" 0 0 0 0 0 0 0 255 640 0 0 0 0 0 0 0 0.00000 0.00000 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 62
@@ -13370,13 +13421,16 @@ You have a new telegram waiting ...
 /5
 
 [0:640] Command : XDUMP plane 0
-/0
+0 1 11 -1 0 97 94 0 50 -5 13 0 0 "" 4 -1 -1 0 0 0 0.00000
+1 1 11 -1 0 95 93 0 50 -5 13 0 0 "" 4 -1 -1 0 0 0 0.00000
+2 1 11 -1 0 94 102 0 50 11 -1 8 2 "" 4 -1 -1 0 0 0 0.00000
+/3
 
 [0:640] Command : XDUMP land 0
 0 1 5 -1 0 100 127 0 30 -5 13 0 0 "" 1 0 42 0 "" 0 20 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
 3 1 5 -1 0 100 127 0 30 -5 13 0 0 "" -1 117 42 0 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
-4 1 11 -1 0 81 127 0 30 -5 13 0 0 "" -1 28 42 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
-5 1 11 -1 11 98 108 0 37 -5 13 0 0 "" -1 0 42 0 "" 0 5 35 10 0 0 0 0 0 0 0 0 0 0 -1 0
+4 1 11 -1 0 71 127 0 30 -5 13 0 0 "" -1 27 42 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
+5 1 11 -1 11 96 118 0 37 -5 13 0 0 "" -1 0 42 0 "" 0 5 35 10 0 0 0 0 0 0 0 0 0 0 -1 0
 /4
 
 [0:640] Command : XDUMP nuke 0
@@ -13402,11 +13456,13 @@ You have a new telegram waiting ...
 2 66 8 1 0 0
 8 28 1 1 0 0
 8 66 2 1 0 0
+1 9 8 6 0 0
+1 16 8 2 0 0
 1 10 8 1 0 0
 8 14 1 1 0 0
 1 58 8 1 0 0
 1 2 8 1 0 0
-/23
+/25
 
 [0:640] Command : XDUMP treaty 0
 /0
@@ -13985,7 +14041,7 @@ You have a new telegram waiting ...
 /11
 
 [0:640] Command : XDUMP country 0
-1 "127.0.0.1" "" "tester" 0 -2 0 0 0 255 640 0 36 60242 0 0 0 0 64.7274 21.7309 39.0988 12.0882 62
+1 "127.0.0.1" "" "tester" 0 -2 0 0 0 255 640 0 36 59155 0 0 0 0 64.7274 21.7309 39.1036 12.0909 62
 /1
 
 [0:640] Command : Bye-bye

@@ -8,9 +8,8 @@ thres l 1,-3 1
 thres o 1,-3 0
 des -1,3 o
 thres o -1,3 1
-des 2,2 m
-thres i 2,2 1
-thres h 2,2 0
+deli i 0,2 0 h
+thres i 0,2 1
 des 3,-1 m
 thres l 3,-1 0
 thres i 3,-1 1

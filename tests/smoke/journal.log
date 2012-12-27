@@ -1756,11 +1756,9 @@ Thu Jan  1 00:00:00 1970     Play#1 input des -1,3 o
 Thu Jan  1 00:00:00 1970     Play#1 command designate
 Thu Jan  1 00:00:00 1970     Play#1 input thres o -1,3 1
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
-Thu Jan  1 00:00:00 1970     Play#1 input des 2,2 m
-Thu Jan  1 00:00:00 1970     Play#1 command designate
-Thu Jan  1 00:00:00 1970     Play#1 input thres i 2,2 1
-Thu Jan  1 00:00:00 1970     Play#1 command threshold
-Thu Jan  1 00:00:00 1970     Play#1 input thres h 2,2 0
+Thu Jan  1 00:00:00 1970     Play#1 input deli i 0,2 0 h
+Thu Jan  1 00:00:00 1970     Play#1 command deliver
+Thu Jan  1 00:00:00 1970     Play#1 input thres i 0,2 1
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
 Thu Jan  1 00:00:00 1970     Play#1 input des 3,-1 m
 Thu Jan  1 00:00:00 1970     Play#1 command designate
@@ -2112,13 +2110,15 @@ Thu Jan  1 00:00:00 1970     Play#1 input march 4/5 ggyyh
 Thu Jan  1 00:00:00 1970     Play#1 command march
 Thu Jan  1 00:00:00 1970     Play#1 input thres l 6,-2 450
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
-Thu Jan  1 00:00:00 1970     Play#1 input des 11,-1 *
+Thu Jan  1 00:00:00 1970     Play#1 input des 2,2 *
 Thu Jan  1 00:00:00 1970     Play#1 command designate
-Thu Jan  1 00:00:00 1970     Play#1 input thres l 11,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 input thres l 2,2 200
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
-Thu Jan  1 00:00:00 1970     Play#1 input thres h 11,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 input thres h 2,2 200
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
-Thu Jan  1 00:00:00 1970     Play#1 input thres p 11,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 input thres p 2,2 200
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres m 2,2 30
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
 Thu Jan  1 00:00:00 1970     Play#1 input thres u 3:5,1 579
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
@@ -2263,11 +2263,13 @@ Thu Jan  1 00:00:00 1970     Conn55 input coun 1
 Thu Jan  1 00:00:00 1970     Conn55 input pass 1
 Thu Jan  1 00:00:00 1970     Conn55 input play 
 Thu Jan  1 00:00:00 1970     Conn55 login 1 127.0.0.1 tester
-Thu Jan  1 00:00:00 1970     Play#1 input build p 11,-1 f1 3
+Thu Jan  1 00:00:00 1970     Play#1 input build p 2,2 f1 3
 Thu Jan  1 00:00:00 1970     Play#1 command build
-Thu Jan  1 00:00:00 1970     Play#1 input thres s 11,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 input thres s 2,2 180
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
-Thu Jan  1 00:00:00 1970     Play#1 input thres p 11,-1 200
+Thu Jan  1 00:00:00 1970     Play#1 input thres s 11,-1 20
+Thu Jan  1 00:00:00 1970     Play#1 command threshold
+Thu Jan  1 00:00:00 1970     Play#1 input thres p 11,-1 20
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
 Thu Jan  1 00:00:00 1970     Play#1 input des 2,-2 %
 Thu Jan  1 00:00:00 1970     Play#1 command designate
@@ -2457,6 +2459,8 @@ Thu Jan  1 00:00:00 1970     Play#1 input order 4 level 1 start food 30
 Thu Jan  1 00:00:00 1970     Play#1 command order
 Thu Jan  1 00:00:00 1970     Play#1 input order 4 level 1 end food 30
 Thu Jan  1 00:00:00 1970     Play#1 command order
+Thu Jan  1 00:00:00 1970     Play#1 input tran p 0/1/2 11,-1
+Thu Jan  1 00:00:00 1970     Play#1 command transport
 Thu Jan  1 00:00:00 1970     Play#1 input reco 0 . 11,-1 ujbgh
 Thu Jan  1 00:00:00 1970     Play#1 command recon
 Thu Jan  1 00:00:00 1970     Play#1 input bomb 1 . stat 11,-1 ujh

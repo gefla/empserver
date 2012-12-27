@@ -13,6 +13,7 @@ nav 4 nvh
 order 4 des 5,-1 6,0
 order 4 level 1 start food 30
 order 4 level 1 end food 30
+tran p 0/1/2 11,-1
 reco 0 . 11,-1 ujbgh
 bomb 1 . stat 11,-1 ujh
 mission p 2 o . 2
