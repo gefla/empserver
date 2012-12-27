@@ -27,7 +27,7 @@
  *  move.c: Move something somewhere.
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2012
  */
 
 #include <config.h>
@@ -65,7 +65,6 @@ move_ground(struct sctstr *start, struct sctstr *end,
     int dir;
     char scanspace[1024];
     char *argp[128];
-    int intcost;
     int takedam = *dam;
     int out = 0;
     char prompt[128];
@@ -256,16 +255,11 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	    break;
     }
     *end = sect;
-    intcost = (int)total_mcost;
-    if (intcost < 0)
-	return -1;
     if ((start->sct_x == end->sct_x) && (start->sct_y == end->sct_y)
 	&& !out)
 	return -1;
 
-    if (chance(total_mcost - intcost))
-	intcost++;
-    return intcost;
+    return roundavg(total_mcost);
 }
 
 
