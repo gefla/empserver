@@ -3,13 +3,13 @@ ship *
 map #
 read y
 des 4,-2 t
-enlist 3,-1 50
-mov m 3,-1 50 5,-1
-load m 0 50
+enlist -2,0 60
+mov m -2,0 60 5,-1
+load m 0 60
 nav 0
 j
 j
 h
 assault 11,-1 0
-25
+35
 prod *
