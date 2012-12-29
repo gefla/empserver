@@ -232,7 +232,7 @@ main(int argc, char *argv[])
     allocate_memory();
     print_vars();
 
-    qprint("\n\n        #*# ...fairland rips open a rift in the datumplane... #*#\n\n");
+    qprint("\n        #*# ...fairland rips open a rift in the datumplane... #*#\n\n");
     qprint("seed is %lu\n", rnd_seed);
     do {
 	init();
