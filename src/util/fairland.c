@@ -179,9 +179,10 @@ main(int argc, char *argv[])
     int opt;
     char *config_file = NULL;
     int i = 0;
+    int seed_set = 0;
 
     program_name = argv[0];
-    rnd_seed = time(NULL);
+    rnd_seed = 0;
 
     while ((opt = getopt(argc, argv, "ae:hioqR:s:v")) != EOF) {
 	switch (opt) {
@@ -202,6 +203,7 @@ main(int argc, char *argv[])
 	    break;
 	case 'R':
 	    rnd_seed = strtoul(optarg, NULL, 10);
+	    seed_set = 1;
 	    break;
 	case 's':
 	    outfile = optarg;
@@ -219,6 +221,8 @@ main(int argc, char *argv[])
     }
     parse_args(argc - optind, argv + optind);
 
+    if (!seed_set)
+	rnd_seed = pick_seed();
     seed_prng(rnd_seed);
     empfile_init();
     if (emp_config(config_file) < 0)

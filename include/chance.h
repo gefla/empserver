@@ -39,5 +39,6 @@ extern int roll0(int);
 extern int roll(int);
 extern int roundavg(double);
 extern void seed_prng(unsigned);
+extern unsigned pick_seed(void);
 
 #endif

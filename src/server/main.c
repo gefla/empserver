@@ -143,7 +143,8 @@ main(int argc, char **argv)
     char *config_file = NULL;
     int force_bad_state = 0;
     int op, idx, sig;
-    unsigned seed = time(NULL);
+    unsigned seed = 0;
+    int seed_set = 0;
 
     oops_handler = ignore;
 
@@ -194,6 +195,7 @@ main(int argc, char **argv)
 	    break;
 	case 'R':
 	    seed = strtoul(optarg, NULL, 10);
+	    seed_set = 1;
 	    break;
 	case 'v':
 	    printf("%s\n\n%s", version, legal);
@@ -254,6 +256,8 @@ main(int argc, char **argv)
 	return install_service(program_name, service_name, config_file);
 #endif	/* _WIN32 */
 
+    if (!seed_set)
+	seed = pick_seed();
     init_server(seed, force_bad_state);
 
 #if defined(_WIN32)

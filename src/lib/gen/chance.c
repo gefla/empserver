@@ -32,8 +32,12 @@
 
 #include <config.h>
 
+#include <fcntl.h>
 #include <math.h>
+#include <stdint.h>
 #include <stdlib.h>
+#include <sys/time.h>
+#include <unistd.h>
 #include "chance.h"
 #include "mt19937ar.h"
 
@@ -114,4 +118,57 @@ void
 seed_prng(unsigned seed)
 {
     init_genrand(seed);
+}
+
+static uint32_t
+djb_hash(uint32_t hash, void *buf, size_t sz)
+{
+    unsigned char *bp;
+
+    for (bp = buf; bp < (unsigned char *)buf + sz; bp++)
+	hash = hash * 33 ^ *bp;
+
+    return hash;
+}
+
+/*
+ * Pick a reasonably random seed for the pseudo-random number generator.
+ */
+unsigned
+pick_seed(void)
+{
+    int fd;
+    uint32_t seed;
+    int got_seed = 0;
+    struct timeval tv;
+    pid_t pid;
+
+    /*
+     * Modern systems provide random number devices, but the details
+     * vary.  On many systems, /dev/random blocks when the kernel
+     * entropy pool has been depleted, while /dev/urandom doesn't.
+     * The former should only be used for generating long-lived
+     * cryptographic keys.  On other systems, both devices behave
+     * exactly the same, or only /dev/random exists.
+     *
+     * Try /dev/urandom first, and if it can't be opened, blindly try
+     * /dev/random.
+     */
+    fd = open("/dev/urandom", O_RDONLY | O_NONBLOCK);
+    if (fd < 0)
+	fd = open("/dev/random", O_RDONLY | O_NONBLOCK);
+    if (fd >= 0) {
+	got_seed = read(fd, &seed, sizeof(seed)) == sizeof(seed);
+	close(fd);
+    }
+
+    if (!got_seed) {
+	/* Kernel didn't provide, fall back to hashing time and PID */
+	gettimeofday(&tv, NULL);
+	seed = djb_hash(5381, &tv, sizeof(tv));
+	pid = getpid();
+	seed = djb_hash(seed, &pid, sizeof(pid));
+    }
+
+    return seed;
 }
