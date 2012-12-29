@@ -232,12 +232,12 @@ main(int argc, char *argv[])
     allocate_memory();
     print_vars();
 
+    qprint("\n\n        #*# ...fairland rips open a rift in the datumplane... #*#\n\n");
+    qprint("seed is %lu\n", rnd_seed);
     do {
 	init();
 	if (i)
-	    qprint("\ntry #%d (out of %d)...", i + 1, NUMTRIES);
-	qprint("\n\n        #*# ...fairland rips open a rift in the datumplane... #*#\n\n");
-	qprint("seed is %lu\n", rnd_seed);
+	    qprint("\ntry #%d (out of %d)...\n", i + 1, NUMTRIES);
 	qprint("placing capitals...\n");
 	if (!drift())
 	    qprint("fairland: unstable drift -- try increasisg DRIFT_MAX\n");
