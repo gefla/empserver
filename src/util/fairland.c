@@ -123,7 +123,6 @@ static int ctot;		/* total number of continents and islands grown */
 static int *isecs;		/* array of how large each island is */
 
 static int nc, sc, di, sp, pm, ni, is, id; /* the 8 args to this program */
-static unsigned long rnd_seed;	/* optional seed argument */
 static int *capx, *capy;	/* location of the nc capitals */
 static int *mc, mcc;		/* array and counter used for stability
 				   check when perturbing */
@@ -179,10 +178,10 @@ main(int argc, char *argv[])
     int opt;
     char *config_file = NULL;
     int i = 0;
+    unsigned rnd_seed = 0;
     int seed_set = 0;
 
     program_name = argv[0];
-    rnd_seed = 0;
 
     while ((opt = getopt(argc, argv, "ae:hioqR:s:v")) != EOF) {
 	switch (opt) {
@@ -233,7 +232,7 @@ main(int argc, char *argv[])
     print_vars();
 
     qprint("\n        #*# ...fairland rips open a rift in the datumplane... #*#\n\n");
-    qprint("seed is %lu\n", rnd_seed);
+    qprint("seed is %u\n", rnd_seed);
     do {
 	init();
 	if (i)
