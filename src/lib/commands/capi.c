@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 2000
+ *     Markus Armbruster, 2013
  */
 
 #include <config.h>
@@ -38,22 +39,20 @@
 int
 capi(void)
 {
+    char buf[1024];
+    char *p;
+    coord x, y;
     struct sctstr sect;
     struct natstr *np;
-    struct nstr_sect nstr;
-    int found;
 
-    if (!snxtsct(&nstr, player->argp[1]))
+    if (!(p = getstarg(player->argp[1], "Sector? ", buf)) ||
+	!sarg_xy(p, &x, &y) || !getsect(x, y, &sect))
 	return RET_SYN;
-    np = getnatp(player->cnum);
-    found = 0;
-    while (!found && nxtsct(&nstr, &sect)) {
-	if (player->owner && (sect.sct_type == SCT_CAPIT ||
-			      sect.sct_type == SCT_MOUNT))
-	    found++;
-    }
-    if (!found)
+    if (!player->owner
+	|| (sect.sct_type != SCT_CAPIT && sect.sct_type != SCT_MOUNT)) {
 	return RET_FAIL;
+    }
+    np = getnatp(player->cnum);
     if (!(np->nat_flags & NF_SACKED) &&
 	sect.sct_x == np->nat_xcap && sect.sct_y == np->nat_ycap) {
 	pr("%s is already your capital.\n",
