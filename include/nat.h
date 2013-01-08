@@ -93,7 +93,7 @@ struct natstr {
     enum nat_status nat_stat;
     char nat_cnam[20];		/* country name */
     char nat_pnam[20];		/* representative */
-    char nat_hostaddr[32];	/* host addr of last user */
+    char nat_hostaddr[46];	/* host addr of last user */
     char nat_hostname[512];	/* hostname of last user, may be empty */
     char nat_userid[32];	/* userid of last user, may be empty */
     coord nat_xcap, nat_ycap;	/* cap location in abs coords */
