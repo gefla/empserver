@@ -62,7 +62,8 @@ give(void)
 	    return RET_SYN;
 	if ((amt = atoi(p)) == 0)
 	    return RET_SYN;
-	check_sect_ok(&sect);
+	if (!check_sect_ok(&sect))
+	    return RET_FAIL;
 	n = sect.sct_item[ip->i_uid];
 	if (amt < 0 && -amt > n) {
 	    m = 0;
