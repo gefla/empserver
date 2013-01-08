@@ -50,6 +50,9 @@ capi(void)
 	return RET_SYN;
     if (!player->owner
 	|| (sect.sct_type != SCT_CAPIT && sect.sct_type != SCT_MOUNT)) {
+	pr("%s is not a %s or %s owned by you.\n",
+	   xyas(sect.sct_x, sect.sct_y, player->cnum),
+	   dchr[SCT_CAPIT].d_name, dchr[SCT_MOUNT].d_name);
 	return RET_FAIL;
     }
     np = getnatp(player->cnum);
