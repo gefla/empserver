@@ -158,7 +158,7 @@ setsector(void)
 		    current = 0;
 		if (current > MINES_MAX)
 		    current = MINES_MAX;
-		if (sect.sct_own != 0)
+		if (sect.sct_own != 0 && sect.sct_own == sect.sct_oldown)
 		    resnoise(&sect, 1, "Mines", sect.sct_mines, current);
 		sect.sct_mines = current;
 		break;
