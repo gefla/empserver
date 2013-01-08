@@ -449,7 +449,7 @@ most_valuable_ship(struct emp_qelem *list, coord x, coord y)
 	    continue;
 	}
 	if (((struct mchrstr *)mlp->chrp)->m_cost * mlp->unit.ship.shp_effic >
-	    ((struct mchrstr *)mlp->chrp)->m_cost * mvs->unit.ship.shp_effic)
+	    ((struct mchrstr *)mvs->chrp)->m_cost * mvs->unit.ship.shp_effic)
 	    mvs = mlp;
     }
     return mvs;
