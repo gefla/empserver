@@ -77,8 +77,7 @@ setsector(void)
 	    if (current > 100)
 		current = 100;
 	    if (sect.sct_own != 0)
-		resnoise(&sect, 1, "Iron ore content",
-			 (int)sect.sct_min, current);
+		resnoise(&sect, "Iron ore content", sect.sct_min, current);
 	    sect.sct_min = (unsigned char)current;
 	    break;
 	case 'g':
@@ -89,8 +88,7 @@ setsector(void)
 	    if (current > 100)
 		current = 100;
 	    if (sect.sct_own != 0)
-		resnoise(&sect, 1, "Gold content",
-			 (int)sect.sct_gmin, current);
+		resnoise(&sect, "Gold content", sect.sct_gmin, current);
 	    sect.sct_gmin = (unsigned char)current;
 	    break;
 	case 'o':
@@ -103,8 +101,7 @@ setsector(void)
 		if (current > 100)
 		    current = 100;
 		if (sect.sct_own != 0)
-		    resnoise(&sect, 1, "Oil content",
-			     (int)sect.sct_oil, current);
+		    resnoise(&sect, "Oil content", sect.sct_oil, current);
 		sect.sct_oil = (unsigned char)current;
 		break;
 	    case 'w':
@@ -159,7 +156,7 @@ setsector(void)
 		if (current > MINES_MAX)
 		    current = MINES_MAX;
 		if (sect.sct_own != 0 && sect.sct_own == sect.sct_oldown)
-		    resnoise(&sect, 1, "Mines", sect.sct_mines, current);
+		    resnoise(&sect, "Mines", sect.sct_mines, current);
 		sect.sct_mines = current;
 		break;
 	    case 'o':
@@ -208,8 +205,7 @@ setsector(void)
 	    if (current > 100)
 		current = 100;
 	    if (sect.sct_own != 0)
-		resnoise(&sect, 1, "Fertility content",
-			 (int)sect.sct_fertil, current);
+		resnoise(&sect, "Fertility content", sect.sct_fertil, current);
 	    sect.sct_fertil = (unsigned char)current;
 	    break;
 	case 'u':
@@ -220,8 +216,7 @@ setsector(void)
 	    if (current > 100)
 		current = 100;
 	    if (sect.sct_own != 0)
-		resnoise(&sect, 1, "Uranium content",
-			 (int)sect.sct_uran, current);
+		resnoise(&sect, "Uranium content", sect.sct_uran, current);
 	    sect.sct_uran = (unsigned char)current;
 	    break;
 	default:
@@ -249,21 +244,14 @@ resbenefit(natid who, int good)
 }
 
 void
-resnoise(struct sctstr *sptr, int public_amt, char *name, int old,
-	 int new)
+resnoise(struct sctstr *sptr, char *name, int old, int new)
 {
-    char p[100];
-
     pr("%s of %s changed from %d to %d\n",
        name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);
-    if (public_amt)
-	(void)sprintf(p, "changed from %d to %d", old, new);
-    else
-	(void)sprintf(p, "%s", old < new ? "increased" : "decreased");
     if (sptr->sct_own)
 	wu(0, sptr->sct_own,
-	   "%s in %s was %s by an act of %s\n",
+	   "%s in %s was changed from %d to %d by an act of %s\n",
 	   name, xyas(sptr->sct_x, sptr->sct_y, sptr->sct_own),
-	   p, cname(player->cnum));
+	   old, new, cname(player->cnum));
     resbenefit(sptr->sct_own, (old < new));
 }
