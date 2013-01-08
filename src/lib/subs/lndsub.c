@@ -161,7 +161,6 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
     int n;
     int biggest;
     int civs;
-    int nowned;
     coord ret_x, ret_y;
     coord bx, by;
     struct sctstr sect;
@@ -227,7 +226,6 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 	     * owner. Charge mob..
 	     */
 	    biggest = -1;
-	    nowned = 0;
 	    for (n = 1; n <= 6; ++n) {
 		ret_x = llp->unit.land.lnd_x + diroff[n][0];
 		ret_y = llp->unit.land.lnd_y + diroff[n][1];
@@ -239,7 +237,6 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 		mobcost = lnd_mobcost(&llp->unit.land, &sect);
 		if (mobcost < 0)
 		    continue;
-		++nowned;
 		civs = sect.sct_item[I_CIVIL];
 		if (civs > biggest) {
 		    biggest = civs;
@@ -248,7 +245,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 		    bmcost = mobcost;
 		}
 	    }
-	    if (!nowned)
+	    if (biggest < 0)
 		nowhere_to_go = 1;
 	    else {
 		/* retreat to bx,by */
