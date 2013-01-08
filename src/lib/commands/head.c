@@ -137,18 +137,10 @@ head_printscoop(struct histstr (*hist)[MAXNOC], natid ano, natid vno)
 static char *
 head_meanwhile(int val)
 {
-    switch (val & 03) {
-    case 0:
-	return "Meanwhile";
-    case 1:
-	return "On the other hand";
-    case 2:
-	return "At the same time";
-    case 3:
-	return "Although";
-    }
-    /*NOTREACHED*/
-    return "";
+    static char *meanwhile[4] = {
+	"Meanwhile", "On the other hand", "At the same time", "Although"
+    };
+    return meanwhile[val % 4];
 }
 
 static void
