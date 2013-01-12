@@ -1,0 +1,8 @@
+# Travis CI configuration
+language: c
+# Test with both gcc and clang:
+compiler:
+  - gcc
+  - clang
+# How to build:
+script: ./bootstrap && ./configure && make check
