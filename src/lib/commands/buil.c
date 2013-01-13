@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -260,7 +260,7 @@ build_ship(struct sctstr *sp, int type, int tlev)
     ef_blank(EF_SHIP, nstr.cur, &ship);
     ship.shp_x = sp->sct_x;
     ship.shp_y = sp->sct_y;
-    ship.shp_own = player->cnum;
+    ship.shp_own = sp->sct_own;
     ship.shp_type = mp - mchr;
     ship.shp_effic = SHIP_MINEFF;
     if (opt_MOB_ACCESS) {
@@ -273,7 +273,7 @@ build_ship(struct sctstr *sp, int type, int tlev)
     ship.shp_pstage = PLG_HEALTHY;
     ship.shp_ptime = 0;
     ship.shp_name[0] = 0;
-    ship.shp_orig_own = player->cnum;
+    ship.shp_orig_own = sp->sct_own;
     ship.shp_orig_x = sp->sct_x;
     ship.shp_orig_y = sp->sct_y;
     shp_set_tech(&ship, tlev);
@@ -373,7 +373,7 @@ build_land(struct sctstr *sp, int type, int tlev)
     ef_blank(EF_LAND, nstr.cur, &land);
     land.lnd_x = sp->sct_x;
     land.lnd_y = sp->sct_y;
-    land.lnd_own = player->cnum;
+    land.lnd_own = sp->sct_own;
     land.lnd_type = lp - lchr;
     land.lnd_effic = LAND_MINEFF;
     if (opt_MOB_ACCESS) {
