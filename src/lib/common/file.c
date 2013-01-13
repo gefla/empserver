@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 2000
- *     Markus Armbruster, 2005-2012
+ *     Markus Armbruster, 2005-2013
  */
 
 #include <config.h>
@@ -85,6 +85,8 @@ ef_open(int type, int how)
     ep = &empfile[type];
     if (CANT_HAPPEN(!ep->file || ep->base != EF_BAD || ep->fd >= 0))
 	return 0;
+    if (CANT_HAPPEN(ep->prewrite && !(how & EFF_MEM)))
+	return 0;		/* not implemented */
     oflags = O_RDWR;
     if (how & EFF_PRIVATE)
 	oflags = O_RDONLY;
@@ -542,6 +544,8 @@ ef_write(int type, int id, void *from)
     ep = &empfile[type];
     if (CANT_HAPPEN((ep->flags & (EFF_MEM | EFF_PRIVATE)) == EFF_PRIVATE))
 	return 0;
+    if (CANT_HAPPEN(id < 0))
+	return 0;
     if (CANT_HAPPEN(ep->nent >= 0 && id >= ep->nent))
 	return 0;		/* beyond fixed size */
     new_seqno(ep, from);
@@ -966,9 +970,8 @@ ef_check(int type)
 int
 ef_ensure_space(int type, int id, int count)
 {
-    if (ef_check(type) < 0)
+    if (ef_check(type) < 0 || CANT_HAPPEN(id < 0))
 	return 0;
-    CANT_HAPPEN(id < 0);
 
     while (id >= empfile[type].fids) {
 	if (!ef_extend(type, count))
