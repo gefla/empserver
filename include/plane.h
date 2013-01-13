@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2013
  */
 
 #ifndef PLANE_H
@@ -65,10 +65,10 @@ struct plnstr {
     short pln_radius;		/* mission radius */
     /* end of part matching struct empobj */
     unsigned char pln_range;	/* total distance, not radius */
+    signed char pln_harden;	/* for missiles */
     int pln_ship;		/* uid of carrier, or -1 */
     int pln_land;		/* uid of transporting land unit, or -1 */
-    signed char pln_harden;	/* for missiles */
-    signed char pln_flags;	/* State of the plane */
+    int pln_flags;		/* State of the plane */
     short pln_access;		/* Last tick mob was updated (MOB_ACCESS) */
     float pln_theta;		/* position in orbital sine wave */
 };
