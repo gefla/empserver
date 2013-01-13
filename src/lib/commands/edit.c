@@ -291,7 +291,7 @@ prnat(struct natstr *np)
     pr("Name <n>: %-20s\t", np->nat_cnam);
     pr("Representative <r>: %-20s\n", np->nat_pnam);
     pr("BTUs <b>: %3d\t\t\t", np->nat_btu);
-    pr("Reserves <m>: %5ld\n", np->nat_reserve);
+    pr("Reserves <m>: %5d\n", np->nat_reserve);
     pr("Capital <c>: %s\t\t",
        xyas(np->nat_xcap, np->nat_ycap, player->cnum));
     pr("Origin <o>: %3s\n",
@@ -674,10 +674,10 @@ docountry(char op, int arg, char *p, struct natstr *np)
 	break;
     case 'm':
 	benefit(nat, np->nat_reserve < arg);
-	pr("Military reserves changed from %ld to %d\n",
+	pr("Military reserves changed from %d to %d\n",
 	   np->nat_reserve, arg);
 	wu(player->cnum, nat,
-	   "Military reserves changed from %ld to %d by divine intervention.\n",
+	   "Military reserves changed from %d to %d by divine intervention.\n",
 	   np->nat_reserve, arg);
 	np->nat_reserve = arg;
 	break;

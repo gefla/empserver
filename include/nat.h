@@ -105,7 +105,7 @@ struct natstr {
     int nat_timeused;		/* number of seconds used today */
     short nat_btu;		/* bureaucratic time units */
     short nat_access;		/* The tick when BTUs were last updated */
-    long nat_reserve;		/* military reserves */
+    int nat_reserve;		/* military reserves */
     long nat_money;		/* moola */
     time_t nat_last_login;	/* time of last login, 0 menas never */
     time_t nat_last_logout;	/* time of last logout, 0 means never */

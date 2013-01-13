@@ -79,7 +79,7 @@ nati(void)
 	}
     }
     pr(" The treasury has $%.2f", (double)natp->nat_money);
-    pr("     Military reserves: %ld\n", natp->nat_reserve);
+    pr("     Military reserves: %d\n", natp->nat_reserve);
     pr("Education..........%6.2f       Happiness.......%6.2f\n",
        natp->nat_level[NAT_ELEV], natp->nat_level[NAT_HLEV]);
     pr("Technology.........%6.2f       Research........%6.2f\n",

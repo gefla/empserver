@@ -47,7 +47,7 @@ enli(void)
     int newmil;
     int milwant;
     int totalmil;
-    long reserve;
+    int reserve;
     char *p;
     int quota;
     char prompt[128];
@@ -123,7 +123,7 @@ enli(void)
 	}
     }
     pr("Total new enlistment : %d\n", totalmil);
-    pr("Military reserves stand at %ld\n", reserve);
+    pr("Military reserves stand at %d\n", reserve);
     if (totalmil) {
 	natp->nat_reserve -= totalmil;
 	putnat(natp);

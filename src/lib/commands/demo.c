@@ -105,7 +105,7 @@ demo(void)
     }
     pr("Total new civilians : %d\n", mil_demob);
     if (*p == 'y')
-	pr("Military reserve stands at %ld (up %d)\n",
+	pr("Military reserve stands at %d (up %d)\n",
 	   natp->nat_reserve + reserves, reserves);
     if (reserves > 0) {
 	natp->nat_reserve += reserves;

@@ -144,7 +144,7 @@ budg(void)
     }
     if (mil) {
 	n = (mil - np->nat_reserve * money_res * etu) / (etu * money_mil);
-	sprintf(in, "%d mil, %d res", n, (int)np->nat_reserve);
+	sprintf(in, "%d mil, %d res", n, np->nat_reserve);
 	pr("Military payroll\t\t%-32s%8d\n", in, -mil);
 	expenses -= mil;
     }
