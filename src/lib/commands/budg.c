@@ -30,7 +30,7 @@
  *     Thomas Ruschak, 1992
  *     Ville Virrankoski, 1995
  *     Steve McClure, 1997-2000
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -180,7 +180,7 @@ calc_all(long p_sect[][2],
 {
     struct natstr *np;
     struct bp *bp;
-    long pop = 0;
+    int pop = 0;
     int n, civ_tax, uw_tax, mil_pay;
     struct sctstr *sp;
     int etu = etu_per_update;

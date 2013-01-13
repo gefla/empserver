@@ -122,7 +122,7 @@ prod_nat(int etu)
     float hap;
     float edu;
     float hap_edu;
-    long pop;
+    int pop;
     double rlev;
     double tlev;
     double tech[MAXNOC];
@@ -173,7 +173,7 @@ prod_nat(int etu)
 	    limit_level(levels[n][NAT_TLEV] / 1, NAT_TLEV, 0) * 1;
 	levels[n][NAT_RLEV] =
 	    limit_level(levels[n][NAT_RLEV] / 1, NAT_RLEV, 0) * 1;
-	wu(0, n, "total pop was %ld, yielding %4.2f hap, %4.2f edu\n",
+	wu(0, n, "total pop was %d, yielding %4.2f hap, %4.2f edu\n",
 	   pop - 1, hap, edu);
     }
     if (ally_factor > 0.0)

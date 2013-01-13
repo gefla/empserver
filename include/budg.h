@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ville Virrankoski, 1995
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2013
  */
 
 #ifndef BUDG_H
@@ -52,11 +52,11 @@ void bp_put_avail(struct bp *, struct sctstr *, int);
 int get_materials(struct sctstr *, struct bp *, int *, int);
 
 extern long money[MAXNOC];
-extern long pops[MAXNOC];
+extern int pops[MAXNOC];
 extern long sea_money[MAXNOC];
 extern long lnd_money[MAXNOC];
 extern long air_money[MAXNOC];
-extern long tpops[MAXNOC];
+extern int tpops[MAXNOC];
 extern float levels[MAXNOC][4];
 
 #endif

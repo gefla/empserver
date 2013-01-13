@@ -94,7 +94,7 @@ prepare_sects(int etu, struct bp *bp)
 }
 
 void
-tax(struct sctstr *sp, struct natstr *np, int etu, long *pop, int *civ_tax,
+tax(struct sctstr *sp, struct natstr *np, int etu, int *pop, int *civ_tax,
     int *uw_tax, int *mil_pay)
 {
     *civ_tax = 0;

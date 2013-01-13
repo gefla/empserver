@@ -30,7 +30,7 @@
  *     Dave Pare, 1994
  *     Steve McClure, 1996
  *     Doug Hay, 1998
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2013
  */
 
 #include <config.h>
@@ -45,11 +45,11 @@
 #include "update.h"
 
 long money[MAXNOC];
-long pops[MAXNOC];
+int pops[MAXNOC];
 long sea_money[MAXNOC];
 long lnd_money[MAXNOC];
 long air_money[MAXNOC];
-long tpops[MAXNOC];
+int tpops[MAXNOC];
 
 void
 update_main(void)
