@@ -159,7 +159,7 @@ meltitems(int etus, int fallout, int own, short *vec,
     int melt;
 
     for (n = I_NONE + 1; n <= I_MAX; n++) {
-	melt = roundavg(vec[n] * etus * (long)fallout
+	melt = roundavg(vec[n] * etus * (double)fallout
 			/ (1000.0 * ichr[n].i_melt_denom));
 	if (melt > vec[n])
 	    melt = vec[n];
