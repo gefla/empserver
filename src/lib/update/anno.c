@@ -44,8 +44,7 @@
 #include "tel.h"
 #include "update.h"
 
-static int copy_and_expire(FILE *annfp, FILE *tmpfp,
-			   char *tmp_filename, time_t expiry_time);
+static int copy_and_expire(FILE *, FILE *, char *, time_t);
 static int copy_sink(char *, size_t, void *);
 
 void

@@ -53,8 +53,7 @@ static struct newscache cache[MAXNOC][SLOTS];
 static unsigned char cache_oldest[MAXNOC];
 static int news_tail;
 
-static struct newscache *
-ncache(int actor, int event, int victim, int times);
+static struct newscache *ncache(int, int, int, int);
 
 void
 nreport(natid actor, int event, natid victim, int times)
