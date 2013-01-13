@@ -91,11 +91,11 @@ while (<>) {
     # TODO don't do that, use xdump meta instead
     s/(^| )[0-9]{10,}/${1}0/g
 	if $dump =~ /^[a-z]/;
-    # timeused in xdump country (column 9)
-    s/^(($xdfld_re ){9})([0-9]+) /${1}255 /
+    # timeused in xdump country timeused (column 10)
+    s/^(($xdfld_re ){10})([0-9]+) /${1}255 /
 	if $dump eq 'country';
-    # timeused in xdump nat (column 14)
-    s/^(($xdfld_re ){14})([0-9]+) /${1}255 /
+    # timeused in xdump nat (column 15)
+    s/^(($xdfld_re ){15})([0-9]+) /${1}255 /
 	if $dump eq 'nat';
     # duration in xdump news (column 4)
     s/^(($xdfld_re ){4})([0-9]+) /${1}0 /

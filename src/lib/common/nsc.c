@@ -27,7 +27,7 @@
  *  nsc.c: Empire selection global structures
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2013
  */
 
 /*
@@ -288,7 +288,7 @@ struct castr mchr_ca[] = {
     {"nchoppers", fldoff(m_nchoppers), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"tech", fldoff(m_tech), NSC_INT, 0, NULL, EF_BAD, 0},
     {"cost", fldoff(m_cost), NSC_INT, 0, NULL, EF_BAD, 0},
-    {"flags", fldoff(m_flags), NSC_LONG, 0, NULL,
+    {"flags", fldoff(m_flags), NSC_INT, 0, NULL,
      EF_SHIP_CHR_FLAGS, NSC_BITS},
     {"nplanes", fldoff(m_nplanes), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"nland", fldoff(m_nland), NSC_UCHAR, 0, NULL, EF_BAD, 0},
@@ -396,10 +396,10 @@ struct castr lchr_ca[] = {
     {"dam", fldoff(l_dam), NSC_INT, 0, NULL, EF_BAD, 0},
     {"ammo", fldoff(l_ammo), NSC_INT, 0, NULL, EF_BAD, 0},
     {"aaf", fldoff(l_aaf), NSC_INT, 0, NULL, EF_BAD, 0},
+    {"flags", fldoff(l_flags), NSC_INT, 0, NULL,
+     EF_LAND_CHR_FLAGS, NSC_BITS},
     {"nxlight", fldoff(l_nxlight), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"nland", fldoff(l_nland), NSC_UCHAR, 0, NULL, EF_BAD, 0},
-    {"flags", fldoff(l_flags), NSC_LONG, 0, NULL,
-     EF_LAND_CHR_FLAGS, NSC_BITS},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };
@@ -554,6 +554,8 @@ struct castr cou_ca[] = {
      EF_BAD, NSC_EXTRA},
     {"stat", fldoff(nat_stat), NSC_SITYPE(enum nat_status), 0, NULL,
      EF_NATION_STATUS, NSC_EXTRA},
+    {"flags", fldoff(nat_flags), NSC_INT, 0, NULL,
+     EF_NATION_FLAGS, NSC_BITS},
     {"cname", fldoff(nat_cnam), NSC_STRINGY, 20, NULL, EF_BAD, NSC_EXTRA},
     {"passwd", fldoff(nat_pnam), NSC_STRINGY, 20, NULL,
      EF_BAD, NSC_DEITY | NSC_EXTRA},
@@ -592,8 +594,6 @@ struct castr cou_ca[] = {
      EF_BAD, NSC_DEITY | NSC_EXTRA},
     {"rejects", fldoff(nat_rejects), NSC_UCHAR, MAXNOC, NULL,
      EF_NATION_REJECTS, NSC_EXTRA | NSC_BITS},
-    {"flags", fldoff(nat_flags), NSC_LONG, 0, NULL,
-     EF_NATION_FLAGS, NSC_BITS},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR
 };

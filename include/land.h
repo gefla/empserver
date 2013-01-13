@@ -30,7 +30,7 @@
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2013
  */
 
 #ifndef LAND_H
@@ -100,10 +100,10 @@ struct lchrstr {
     int l_dam;			/* # of guns firing */
     int l_ammo;			/* firing ammu used per shot */
     int l_aaf;			/* aa fire */
+    int l_flags;		/* what special things can this unit do */
     unsigned char l_nxlight;	/* maximum number of xlight planes */
     unsigned char l_nland;	/* maximum number of units */
     signed char l_type;		/* index in lchr[] */
-    long l_flags;		/* what special things can this unit do */
 };
 
 /* Land unit ability flags */

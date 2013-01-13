@@ -31,7 +31,7 @@
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2005-2008
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2013
  */
 
 #ifndef NAT_H
@@ -91,6 +91,7 @@ struct natstr {
     natid nat_cnum;		/* our country number */
     /* end of part matching struct empobj */
     enum nat_status nat_stat;
+    int nat_flags;		/* nation flags */
     char nat_cnam[20];		/* country name */
     char nat_pnam[20];		/* representative */
     char nat_hostaddr[46];	/* host addr of last user */
@@ -114,7 +115,6 @@ struct natstr {
     unsigned char nat_relate[MAXNOC];
     unsigned char nat_contact[MAXNOC];
     unsigned char nat_rejects[MAXNOC];
-    long nat_flags;		/* nation flags */
 };
 
 	/* nation relation codes */

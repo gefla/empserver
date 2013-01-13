@@ -31,7 +31,7 @@
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2013
  */
 
 #ifndef SHIP_H
@@ -116,7 +116,7 @@ struct mchrstr {
     char *m_name;		/* full name of type of ship */
     int m_tech;			/* tech required to build */
     int m_cost;			/* how much it costs to build */
-    long m_flags;		/* what special things can this ship do */
+    int m_flags;		/* what special things can this ship do */
     unsigned char m_nplanes;	/* maximum number of planes this ship holds */
     unsigned char m_nland;	/* maximum number of units this ship holds */
     signed char m_type;		/* index in mchr[] */
