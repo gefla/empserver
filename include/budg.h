@@ -51,11 +51,11 @@ void bp_put_avail(struct bp *, struct sctstr *, int);
 
 int get_materials(struct sctstr *, struct bp *, int *, int);
 
-extern long money[MAXNOC];
+extern int money[MAXNOC];
 extern int pops[MAXNOC];
-extern long sea_money[MAXNOC];
-extern long lnd_money[MAXNOC];
-extern long air_money[MAXNOC];
+extern int sea_money[MAXNOC];
+extern int lnd_money[MAXNOC];
+extern int air_money[MAXNOC];
 extern int tpops[MAXNOC];
 extern float levels[MAXNOC][4];
 

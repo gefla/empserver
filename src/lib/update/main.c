@@ -44,11 +44,11 @@
 #include "unit.h"
 #include "update.h"
 
-long money[MAXNOC];
+int money[MAXNOC];
 int pops[MAXNOC];
-long sea_money[MAXNOC];
-long lnd_money[MAXNOC];
-long air_money[MAXNOC];
+int sea_money[MAXNOC];
+int lnd_money[MAXNOC];
+int air_money[MAXNOC];
 int tpops[MAXNOC];
 
 void
@@ -103,7 +103,7 @@ update_main(void)
     logerror("done preparing sectors.");
     logerror("producing for countries...");
     for (i = 0; i < MAXNOC; i++) {
-	long p_sect[SCT_BUDG_MAX+1][2];
+	int p_sect[SCT_BUDG_MAX+1][2];
 
 	memset(p_sect, 0, sizeof(p_sect));
 	if (!(np = getnatp(i)))

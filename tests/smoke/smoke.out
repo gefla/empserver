@@ -242,7 +242,7 @@ Player 00 Turn 00 starting
 "owner" 5 0 0 9
 "type" 4 0 0 27
 "unitid" 8 0 0 -1
-"price" 1 0 0 -1
+"price" 8 0 0 -1
 "maxbidder" 8 0 0 9
 "markettime" 12 0 0 -1
 "xloc" 9 1 0 -1
@@ -269,7 +269,7 @@ Player 00 Turn 00 starting
 "btu" 6 1 0 -1
 "access" 6 1 0 -1
 "milreserve" 8 1 0 -1
-"money" 1 1 0 -1
+"money" 8 1 0 -1
 "login" 12 1 0 -1
 "logout" 12 1 0 -1
 "newstim" 12 1 0 -1
@@ -290,8 +290,8 @@ Player 00 Turn 00 starting
 "status" 4 0 0 30
 "irate" 8 0 0 -1
 "ldur" 8 0 0 -1
-"amtpaid" 1 0 0 -1
-"amtdue" 1 0 0 -1
+"amtpaid" 8 0 0 -1
+"amtdue" 8 0 0 -1
 "lastpay" 12 0 0 -1
 "duedate" 12 0 0 -1
 /10
@@ -758,7 +758,7 @@ Player 00 Turn 00 starting
 "btu" 6 0 0 -1
 "access" 6 0 0 -1
 "milreserve" 8 0 0 -1
-"money" 1 0 0 -1
+"money" 8 0 0 -1
 "login" 12 0 0 -1
 "logout" 12 0 0 -1
 "newstim" 12 0 0 -1
@@ -1163,7 +1163,7 @@ CENSUS                   del dst
 "owner" 5 0 0 9
 "type" 4 0 0 27
 "unitid" 8 0 0 -1
-"price" 1 0 0 -1
+"price" 8 0 0 -1
 "maxbidder" 8 0 0 9
 "markettime" 12 0 0 -1
 /7
@@ -1183,8 +1183,8 @@ CENSUS                   del dst
 "status" 4 0 0 30
 "irate" 8 0 0 -1
 "ldur" 8 0 0 -1
-"amtpaid" 1 0 0 -1
-"amtdue" 1 0 0 -1
+"amtpaid" 8 0 0 -1
+"amtdue" 8 0 0 -1
 "lastpay" 12 0 0 -1
 "duedate" 12 0 0 -1
 /10
@@ -1645,7 +1645,7 @@ CENSUS                   del dst
 "btu" 6 0 0 -1
 "access" 6 0 0 -1
 "milreserve" 8 0 0 -1
-"money" 1 0 0 -1
+"money" 8 0 0 -1
 "login" 12 0 0 -1
 "logout" 12 0 0 -1
 "newstim" 12 0 0 -1

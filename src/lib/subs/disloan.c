@@ -67,7 +67,7 @@ disloan(int n, struct lonstr *loan)
     pr("\nLoan #%d from %s to", n, cname(loan->l_loner));
     pr(" %s\n", cname(loan->l_lonee));
     if (loan->l_status == LS_PROPOSED) {
-	pr("(proposed) principal=$%ld interest rate=%d%%",
+	pr("(proposed) principal=$%d interest rate=%d%%",
 	   loan->l_amtdue, loan->l_irate);
 	pr(" duration(days)=%d\n", loan->l_ldur);
 	if (loan->l_duedate < now) {
@@ -81,7 +81,7 @@ disloan(int n, struct lonstr *loan)
 	return 1;
     }
 
-    pr("Amount paid to date $%ld\n", loan->l_amtpaid);
+    pr("Amount paid to date $%d\n", loan->l_amtpaid);
     pr("Amount due (if paid now) $%.2f", loan_owed(loan, now));
     if (now <= loan->l_duedate) {
 	pr(" (if paid on due date) $%.2f\n",

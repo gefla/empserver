@@ -46,7 +46,7 @@ repa(void)
     struct natstr *loaner;
     int loan_num;
     int payment;
-    long newdue;
+    int newdue;
     char *cp;
     time_t now;
     char buf[1024];
@@ -75,13 +75,13 @@ repa(void)
     if (payment <= 0)
 	return RET_SYN;
 
-    newdue = (long)ceil(loan_owed(&loan, time(&now)) - payment);
+    newdue = (int)ceil(loan_owed(&loan, time(&now)) - payment);
     if (newdue < 0) {
 	pr("You don't owe that much.\n");
 	return RET_FAIL;
     }
     if (natp->nat_money < payment) {
-	pr("You only have $%ld.\n", natp->nat_money);
+	pr("You only have $%d.\n", natp->nat_money);
 	return RET_FAIL;
     }
     player->dolcost += payment;

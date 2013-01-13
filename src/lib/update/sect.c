@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -257,7 +257,7 @@ decay_fallout(struct sctstr *sp, int etus)
  * Produce for a specific nation
  */
 void
-produce_sect(int natnum, int etu, struct bp *bp, long p_sect[][2])
+produce_sect(int natnum, int etu, struct bp *bp, int p_sect[][2])
 {
     struct sctstr *sp;
     struct natstr *np;

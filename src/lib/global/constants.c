@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -209,7 +209,7 @@ float trade_ally_cut = 0.10;	/* 10% bonus for ally you trade with */
 
 int torpedo_damage = 40;	/* damage is X + 1dX + 1dX, so 40+1d40+1d40 */
 
-long start_cash = 25000;
+int start_cash = 25000;
 
 /* initial levels */
 float start_education = 0.0;

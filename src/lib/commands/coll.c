@@ -136,9 +136,9 @@ coll(void)
     } else {
 	(void)time(&loan.l_lastpay);
 	owed -= pay;
-	loan.l_amtdue = (long)owed;
+	loan.l_amtdue = (int)owed;
 	pay += loan.l_amtpaid;
-	loan.l_amtpaid = pay;
+	loan.l_amtpaid = (int)pay;
 	wu(0, loan.l_lonee,
 	   "%s seized %s in partial payment of loan %d.\n",
 	   cname(player->cnum),

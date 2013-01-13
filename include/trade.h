@@ -50,7 +50,7 @@ struct trdstr {
     /* end of part matching struct empobj */
     short trd_type;
     int trd_unitid;
-    long trd_price;
+    int trd_price;
     int trd_maxbidder;
     time_t trd_markettime;
     coord trd_x;		/* destination for teleporting trade */

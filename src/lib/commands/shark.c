@@ -48,7 +48,7 @@ shark(void)
     struct natstr *natp;
     struct natstr *oldie;
     double owed;
-    long payment;
+    int payment;
     char buf[1024];
 
     if (!opt_LOANS) {
@@ -78,7 +78,7 @@ shark(void)
     }
     pr("That loan is worth $%.2f.\n", owed);
     natp = getnatp(player->cnum);
-    payment = (long)ceil(owed * (1.0 + loan.l_irate / 100.0));
+    payment = (int)ceil(owed * (1.0 + loan.l_irate / 100.0));
     if (payment > natp->nat_money - 100.0) {
 	pr("You do not have enough to cover that loan\n");
 	return RET_FAIL;
@@ -87,7 +87,7 @@ shark(void)
 	   "%s bought loan #%d.  You now owe him!\n",
 	   cname(player->cnum), arg);
 	wu(0, loan.l_loner,
-	   "%s bought loan #%d out from under you for %ld\n",
+	   "%s bought loan #%d out from under you for %d\n",
 	   cname(player->cnum), arg, payment);
 	pr("You now own loan #%d.  Go break some legs.\n", arg);
     }

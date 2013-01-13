@@ -31,7 +31,7 @@
  *     Chad Zabel, 1994
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2003-2009
- *     Markus Armbruster, 2003-2011
+ *     Markus Armbruster, 2003-2013
  */
 
 #include <config.h>
@@ -302,7 +302,7 @@ prnat(struct natstr *np)
     pr("Research <R>: %.2f\n", np->nat_level[NAT_RLEV]);
     pr("Education <E>: %.2f\t\t", np->nat_level[NAT_ELEV]);
     pr("Happiness <H>: %.2f\n", np->nat_level[NAT_HLEV]);
-    pr("Money <M>: $%6ld\n", np->nat_money);
+    pr("Money <M>: $%6d\n", np->nat_money);
     pr("Telegrams <t>: %6d\n", np->nat_tgms);
     if (opt_HIDDEN) {
 	pr("Countries contacted: ");
@@ -709,9 +709,9 @@ docountry(char op, int arg, char *p, struct natstr *np)
 	np->nat_timeused = arg;
 	break;
     case 'M':
-	pr("Money changed from %ld to %d\n", np->nat_money, arg);
+	pr("Money changed from %d to %d\n", np->nat_money, arg);
 	wu(player->cnum, nat,
-	   "Money changed from %ld to %d by divine intervention.\n",
+	   "Money changed from %d to %d by divine intervention.\n",
 	   np->nat_money, arg);
 	np->nat_money = arg;
 	break;

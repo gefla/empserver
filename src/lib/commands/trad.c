@@ -30,6 +30,7 @@
  *     Dave Pare, 1986
  *     Pat Loney, 1992
  *     Steve McClure, 1996-2000
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -102,7 +103,7 @@ trad(void)
 	    TRADE_DELAY / 3600.0 - (now - trade.trd_markettime) / 3600.0;
 	if (tleft < 0.0)
 	    tleft = 0.0;
-	pr("$%7ld  %2d %5.2f hrs ",
+	pr("$%7d  %2d %5.2f hrs ",
 	   trade.trd_price, trade.trd_maxbidder, tleft);
 	trade_desc(&tg.gen);	/* XXX */
 	pr("\n");

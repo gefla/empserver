@@ -52,8 +52,8 @@ struct lonstr {
     signed char l_status;	/* loan status */
     int l_irate;		/* interest rate */
     int l_ldur;			/* intended duration */
-    long l_amtpaid;		/* amount paid so far */
-    long l_amtdue;		/* amount still owed */
+    int l_amtpaid;		/* amount paid so far */
+    int l_amtdue;		/* amount still owed */
     time_t l_lastpay;		/* date of most recent payment */
     time_t l_duedate;		/* date after which interest doubles, etc */
 };

@@ -83,7 +83,7 @@ lupgr(void)
     int n;
     int tlev;
     int avail, cost;
-    long cash;
+    int cash;
 
     if (!snxtitem(&ni, EF_LAND, player->argp[2], NULL))
 	return RET_SYN;
@@ -163,7 +163,7 @@ supgr(void)
     int n;
     int tlev;
     int avail, cost;
-    long cash;
+    int cash;
 
     if (!snxtitem(&ni, EF_SHIP, player->argp[2], NULL))
 	return RET_SYN;
@@ -242,7 +242,7 @@ pupgr(void)
     int n;
     int tlev;
     int avail, cost;
-    long cash;
+    int cash;
 
     if (!snxtitem(&ni, EF_PLANE, player->argp[2], NULL))
 	return RET_SYN;

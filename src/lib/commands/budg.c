@@ -42,7 +42,7 @@
 #include "optlist.h"
 #include "product.h"
 
-static void calc_all(long (*p_sect)[2], int *taxes, int *Ncivs,
+static void calc_all(int (*p_sect)[2], int *taxes, int *Ncivs,
 		     int *Nuws, int *bars, int *Nbars, int *mil,
 		     int *ships, int *sbuild, int *nsbuild, int *smaint,
 		     int *units, int *lbuild, int *nlbuild, int *lmaint,
@@ -53,7 +53,7 @@ int
 budg(void)
 {
     int i;
-    long p_sect[SCT_BUDG_MAX+1][2];
+    int p_sect[SCT_BUDG_MAX+1][2];
     int taxes, Ncivs, Nuws, bars, Nbars, mil;
     int ships, sbuild, nsbuild, smaint;
     int units, lbuild, nlbuild, lmaint;
@@ -84,12 +84,12 @@ budg(void)
 	    continue;
 	pr("%-17s\t\t", dchr[i].d_name);
 	if (i == SCT_ENLIST)
-	    pr("%ld mil    \t", p_sect[i][0]);
+	    pr("%d mil    \t", p_sect[i][0]);
 	else if (dchr[i].d_prd >= 0)
-	    pr("%ld %-7s\t", p_sect[i][0], pchr[dchr[i].d_prd].p_sname);
+	    pr("%d %-7s\t", p_sect[i][0], pchr[dchr[i].d_prd].p_sname);
 	else
 	    pr("\t\t");
-	pr("\t\t%8ld\n", p_sect[i][1]);
+	pr("\t\t%8d\n", p_sect[i][1]);
 	expenses += p_sect[i][1];
     }
 
@@ -129,16 +129,16 @@ budg(void)
     }
 
     if (p_sect[SCT_EFFIC][1]) {
-	sprintf(buf, "%ld sector%s",
+	sprintf(buf, "%d sector%s",
 		p_sect[SCT_EFFIC][0], splur(p_sect[SCT_EFFIC][0]));
-	pr("Sector building\t\t\t%-16s\t\t%8ld\n",
+	pr("Sector building\t\t\t%-16s\t\t%8d\n",
 	   buf, p_sect[SCT_EFFIC][1]);
 	expenses += p_sect[SCT_EFFIC][1];
     }
     if (p_sect[SCT_MAINT][0]) {
-	sprintf(buf, "%ld sector%s",
+	sprintf(buf, "%d sector%s",
 		p_sect[SCT_MAINT][0], splur(p_sect[SCT_MAINT][0]));
-	pr("Sector maintenance\t\t%-16s\t\t%8ld\n",
+	pr("Sector maintenance\t\t%-16s\t\t%8d\n",
 	   buf, p_sect[SCT_MAINT][1]);
 	expenses += p_sect[SCT_MAINT][1];
     }
@@ -159,7 +159,7 @@ budg(void)
 	pr("Income from bars\t\t%-32s%+8d\n", in, bars);
     }
     pr("Total income%s\n", dotsprintf(buf, "%+60d", income));
-    pr("Balance forward\t\t\t\t\t\t      %10ld\n", np->nat_money);
+    pr("Balance forward\t\t\t\t\t\t      %10d\n", np->nat_money);
     pr("Estimated delta\t\t\t\t\t\t      %+10d\n", income - expenses);
     pr("Estimated new treasury%s\n",
        dotsprintf(buf, "%50d", np->nat_money + income - expenses));
@@ -172,7 +172,7 @@ budg(void)
 }
 
 static void
-calc_all(long p_sect[][2],
+calc_all(int p_sect[][2],
 	 int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars, int *mil,
 	 int *ships, int *sbuild, int *nsbuild, int *smaint,
 	 int *units, int *lbuild, int *nlbuild, int *lmaint,

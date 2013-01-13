@@ -51,7 +51,7 @@ hard(void)
     struct nstr_item ni;
     struct sctstr sect;
     char buf[1024];
-    long cash;
+    int cash;
     struct natstr *natp;
 
     if (!snxtitem(&ni, EF_PLANE, player->argp[1], NULL))

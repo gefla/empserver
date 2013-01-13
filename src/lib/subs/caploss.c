@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2007-2008
+ *     Markus Armbruster, 2007-2013
  */
 
 #include <config.h>
@@ -49,8 +49,7 @@ caploss(struct sctstr *sp, natid coun, char *msg)
     struct natstr *natp;
     struct lonstr loan;
     struct comstr comm;
-    long lose;
-    long gain;
+    int lose, gain;
     char *verb;
     int loan_num, comm_num;
 
@@ -81,9 +80,9 @@ caploss(struct sctstr *sp, natid coun, char *msg)
     verb = sp->sct_own ? "sacked" : "obliterated";
     wu(0, coun, "* %s just %s your capital! *\n",
        cname(player->cnum), verb);
-    wu(0, coun, "You lost $%ld and they gained $%ld\n", lose, gain);
+    wu(0, coun, "You lost $%d and they gained $%d\n", lose, gain);
     wu(0, coun, "You need to use 'capital' to activate a new capital.\n");
-    wu(0, 0, "%s just %s %s's capital and gained $%ld\n",
+    wu(0, 0, "%s just %s %s's capital and gained $%d\n",
        cname(player->cnum), verb, cname(coun), gain);
 
     if (opt_LOANS && sp->sct_own) {

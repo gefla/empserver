@@ -222,7 +222,7 @@ loan_accept(struct ltcomstr *ltcp)
 	pr("%s no longer has the funds.\n", cname(ltcp->proposer));
 	if (lp->l_amtdue <= 0)
 	    return RET_FAIL;
-	pr("You may borrow $%ld at the same terms.\n", lp->l_amtdue);
+	pr("You may borrow $%d at the same terms.\n", lp->l_amtdue);
     }
     lender->nat_money -= lp->l_amtdue;
     putnat(lender);
@@ -236,7 +236,7 @@ loan_accept(struct ltcomstr *ltcp)
 	return RET_FAIL;
     }
     accpt(ltcp);
-    pr("You are now $%ld richer (sort of).\n", lp->l_amtdue);
+    pr("You are now $%d richer (sort of).\n", lp->l_amtdue);
     return RET_OK;
 }
 

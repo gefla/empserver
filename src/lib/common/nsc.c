@@ -460,8 +460,8 @@ struct castr loan_ca[] = {
      EF_AGREEMENT_STATUS, 0},
     {"irate", fldoff(l_irate), NSC_INT, 0, NULL, EF_BAD, 0},
     {"ldur", fldoff(l_ldur), NSC_INT, 0, NULL, EF_BAD, 0},
-    {"amtpaid", fldoff(l_amtpaid), NSC_LONG, 0, NULL, EF_BAD, 0},
-    {"amtdue", fldoff(l_amtdue), NSC_LONG, 0, NULL, EF_BAD, 0},
+    {"amtpaid", fldoff(l_amtpaid), NSC_INT, 0, NULL, EF_BAD, 0},
+    {"amtdue", fldoff(l_amtdue), NSC_INT, 0, NULL, EF_BAD, 0},
     {"lastpay", fldoff(l_lastpay), NSC_TIME, 0, NULL, EF_BAD, 0},
     {"duedate", fldoff(l_duedate), NSC_TIME, 0, NULL, EF_BAD, 0},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
@@ -526,7 +526,7 @@ struct castr trade_ca[] = {
     {"type", fldoff(trd_type), NSC_CHAR, 0, NULL, EF_TABLE, 0},
     /* unitid's ca_table given by type, but can't express that: */
     {"unitid", fldoff(trd_unitid), NSC_INT, 0, NULL, EF_BAD, 0},
-    {"price", fldoff(trd_price), NSC_LONG, 0, NULL, EF_BAD, 0},
+    {"price", fldoff(trd_price), NSC_INT, 0, NULL, EF_BAD, 0},
     {"maxbidder", fldoff(trd_maxbidder), NSC_INT, 0, NULL, EF_NATION, 0},
     {"markettime", fldoff(trd_markettime), NSC_TIME, 0, NULL, EF_BAD, 0},
     /* should let maxbidder access xloc, yloc, but can't express that: */
@@ -575,7 +575,7 @@ struct castr cou_ca[] = {
     {"btu", fldoff(nat_btu), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"access", fldoff(nat_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
     {"milreserve", fldoff(nat_reserve), NSC_INT, 0, NULL, EF_BAD, 0},
-    {"money", fldoff(nat_money), NSC_LONG, 0, NULL, EF_BAD, 0},
+    {"money", fldoff(nat_money), NSC_INT, 0, NULL, EF_BAD, 0},
     {"login", fldoff(nat_last_login), NSC_TIME, 0, NULL, EF_BAD, 0},
     {"logout", fldoff(nat_last_logout), NSC_TIME, 0, NULL, EF_BAD, 0},
     {"newstim", fldoff(nat_newstim), NSC_TIME, 0, NULL, EF_BAD, 0},

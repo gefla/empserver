@@ -203,9 +203,9 @@ prod_nat(int etu)
 	if ((sea_money[n] != 0) || (air_money[n] != 0) ||
 	    (lnd_money[n] != 0))
 	    wu(0, n,
-	       "Army delta $%ld, Navy delta $%ld, Air force delta $%ld\n",
+	       "Army delta $%d, Navy delta $%d, Air force delta $%d\n",
 	       lnd_money[n], sea_money[n], air_money[n]);
-	wu(0, n, "money delta was $%ld for this update\n",
+	wu(0, n, "money delta was $%d for this update\n",
 	   np->nat_money - money[n]);
 	if (opt_LOSE_CONTACT) {
 	    for (cn = 1; cn < MAXNOC; cn++) {

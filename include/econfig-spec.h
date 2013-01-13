@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Marc Olzheim, 2004
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2013
  */
 
 /*
@@ -208,7 +208,7 @@ EMPCFBOTH("players_at_00", players_at_00, int, NSC_INT, 0,
     "Players have their coordinate system at deity 0,0 (0 - no, 1 - yes)")
 EMPCFBOTH("at_least_one_100", at_least_one_100, int, NSC_INT, KM_INTERNAL,
     "Initialize new countries with at least one sector with 100 of all resource")
-EMPCFBOTH("start_cash", start_cash, long, NSC_LONG, KM_INTERNAL,
+EMPCFBOTH("start_cash", start_cash, int, NSC_INT, KM_INTERNAL,
     "Starting cash for new countries")
 
 EMPCF_COMMENT("\n\n### Technology/Research/Education/Happiness")

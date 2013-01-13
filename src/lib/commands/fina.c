@@ -66,7 +66,7 @@ fina(void)
 	pr(" %-2d  (%3d) %-8.8s  (%3d) %-8.8s  ", ni.cur,
 	   loan.l_loner, cname(loan.l_loner),
 	   loan.l_lonee, cname(loan.l_lonee));
-	pr("%3d%%   %3d    %5ld    %7.0f",
+	pr("%3d%%   %3d    %5d    %7.0f",
 	   loan.l_irate, loan.l_ldur, loan.l_amtpaid,
 	   ceil(loan_owed(&loan, now)));
 	if (now > loan.l_duedate)
