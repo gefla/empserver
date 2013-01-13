@@ -42,7 +42,6 @@
 #include "prototypes.h"
 
 static char *weekday(char *str, int *wday);
-static char *daytime(char *str, int *min);
 static char *daytime_range(char *str, int *from_min, int *to_min);
 
 /*

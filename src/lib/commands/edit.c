@@ -49,14 +49,12 @@
 
 #define END -1
 
-static void benefit(natid, int);
 static int docountry(char, int, char *, struct natstr *);
 static int doland(char, int, char *, struct sctstr *);
 static int doplane(char, int, char *, struct plnstr *);
 static int doship(char, int, char *, struct shpstr *);
 static int dounit(char, int, char *, struct lndstr *);
 static int getin(char *, char **);
-static void noise(struct sctstr *, char *, int, int);
 static void pr_land(struct lndstr *);
 static void pr_plane(struct plnstr *);
 static void pr_ship(struct shpstr *);

@@ -90,7 +90,6 @@ static int defellipsis(void);
 static int chkflds(void);
 static int setnum(int, double);
 static int setstr(int, char *);
-static int xunsymbol(char *, struct castr *, int);
 static int setsym(int, char *);
 static int mtsymset(int, long *);
 static int add2symset(int, long *, char *);

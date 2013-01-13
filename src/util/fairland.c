@@ -165,7 +165,6 @@ static void set_coastal_flags(void);
 
 static void print_vars(void);
 static void fl_move(int);
-static void next_coast(int c, int x, int y, int *xp, int *yp);
 static void grow_islands(void);
 
 /****************************************************************************

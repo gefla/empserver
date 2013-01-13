@@ -56,8 +56,6 @@
 
 #define FLAK_GUN_MAX 14
 
-static void sam_intercept(struct emp_qelem *, struct emp_qelem *,
-			  natid, natid, coord, coord, int);
 static void ac_intercept(struct emp_qelem *, struct emp_qelem *,
 			 struct emp_qelem *, natid, coord, coord, int);
 static void ac_combat_headers(natid, natid);
