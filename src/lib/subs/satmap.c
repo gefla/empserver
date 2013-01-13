@@ -58,14 +58,13 @@ satmap(int x, int y, int eff, int range, int flags, int type)
     struct sctstr sect;
     struct shpstr ship;
     struct lndstr land;
-    int count;
+    int count, crackle;
     struct nstr_item ni;
     struct nstr_sect ns;
     int rx, ry;
     int row;
     int n;
     int changed = 0;
-    long crackle;
     signed char noise[100];
 
     if (!eff)
