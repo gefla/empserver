@@ -161,16 +161,10 @@ buy(void)
 	return RET_FAIL;
     if (bid > 0.04 + comm.com_price) {
 	comm.com_price = bid;
-	/* Add five minutes to the time if less than 5 minutes */
 	time(&now);
-	if (((MARK_DELAY - (now - comm.com_markettime)) < 300) &&
-	    comm.com_maxbidder != player->cnum) {
-	    comm.com_markettime += 300;
-	    /* Special case - what if so much time has gone by?  Well,
-	       Just reset the markettime  so that only 5 minutes are left */
-	    if ((MARK_DELAY - (now - comm.com_markettime)) < 0)
-		comm.com_markettime = (now - (MARK_DELAY - 300));
-	}
+	if (comm.com_markettime + MARK_DELAY - now < minutes(5) &&
+	    comm.com_maxbidder != player->cnum)
+	    comm.com_markettime = now + minutes(5) - MARK_DELAY;
 	comm.com_maxbidder = player->cnum;
 	comm.com_x = x;
 	comm.com_y = y;

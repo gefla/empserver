@@ -254,11 +254,10 @@ trad(void)
 	return RET_OK;
     }
     if (bid > trade.trd_price) {
-	/* Add five minutes to the time if less than 5 minutes left. */
 	time(&now);
-	if (((TRADE_DELAY - (now - trade.trd_markettime)) < 300) &&
+	if (trade.trd_markettime  + TRADE_DELAY - now < minutes(5) &&
 	    trade.trd_maxbidder != player->cnum)
-	    trade.trd_markettime += 300;
+	    trade.trd_markettime = now + minutes(5) - TRADE_DELAY;
 	trade.trd_price = bid;
 	trade.trd_maxbidder = player->cnum;
 	trade.trd_x = sx;
