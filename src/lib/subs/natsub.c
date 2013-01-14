@@ -82,5 +82,9 @@ prnat(struct natstr *np)
 char *
 prnatid(natid cnum)
 {
-    return prbuf("%s (#%d)", cname(cnum), cnum);
+    struct natstr *np = getnatp(cnum);
+
+    if (CANT_HAPPEN(!np))
+	return prbuf("%d (#%d)", cnum, cnum);
+    return prnat(np);
 }
