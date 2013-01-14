@@ -283,7 +283,7 @@ check_trade(void)
     union empobj_storage tg;
     time_t now;
     double tleft;
-    float price;
+    int price;
     int saveid;
     natid seller;
 
@@ -338,7 +338,7 @@ check_trade(void)
 	    wu(0, seller,
 	       "   Your item was taken off the market.\n");
 	    wu(0, trade.trd_maxbidder,
-	       "You tried to buy %s #%d from %s for $%.2f\n",
+	       "You tried to buy %s #%d from %s for $%d\n",
 	       trade_nameof(&trade, &tg.gen), saveid, cname(seller),
 	       price);
 	    wu(0, trade.trd_maxbidder, "but couldn't afford it.\n");
@@ -403,7 +403,7 @@ check_trade(void)
 	   cname(trade.trd_maxbidder), trade_nameof(&trade, &tg.gen),
 	   saveid, price * tradetax);
 	wu(0, trade.trd_maxbidder,
-	   "The bidding is over & you bought %s #%d from %s for $%.2f\n",
+	   "The bidding is over & you bought %s #%d from %s for $%d\n",
 	   trade_nameof(&trade, &tg.gen), saveid, cname(seller),
 	   price);
     }
