@@ -47,20 +47,17 @@
 #include "plane.h"
 #include "ship.h"
 
-#define END -1
-
-static int docountry(char, int, char *, struct natstr *);
-static int doland(char, int, char *, struct sctstr *);
-static int doplane(char, int, char *, struct plnstr *);
-static int doship(char, int, char *, struct shpstr *);
-static int dounit(char, int, char *, struct lndstr *);
+static void print_sect(struct sctstr *);
+static void print_nat(struct natstr *);
+static void print_plane(struct plnstr *);
+static void print_land(struct lndstr *);
+static void print_ship(struct shpstr *);
 static int getin(char *, char **);
-static void pr_land(struct lndstr *);
-static void pr_plane(struct plnstr *);
-static void pr_ship(struct shpstr *);
-static void prnat(struct natstr *);
-static void prsect(struct sctstr *);
-
+static int edit_sect(struct sctstr *, char, int, char *);
+static int edit_nat(struct natstr *, char, int, char *);
+static int edit_ship(struct shpstr *, char, int, char *);
+static int edit_land(struct lndstr *, char, int, char *);
+static int edit_plane(struct plnstr *, char, int, char *);
 
 int
 edit(void)
@@ -129,19 +126,19 @@ edit(void)
     if (!player->argp[3]) {
 	switch (ewhat) {
 	case 'l':
-	    prsect(&sect);
+	    print_sect(&sect);
 	    break;
 	case 'c':
-	    prnat(np);
+	    print_nat(np);
 	    break;
 	case 'p':
-	    pr_plane(&plane);
+	    print_plane(&plane);
 	    break;
 	case 's':
-	    pr_ship(&ship);
+	    print_ship(&ship);
 	    break;
 	case 'u':
-	    pr_land(&land);
+	    print_land(&land);
 	    break;
 	}
     }
@@ -160,19 +157,19 @@ edit(void)
 	    if (err == 0) {
 		switch (ewhat) {
 		case 'c':
-		    prnat(np);
+		    print_nat(np);
 		    break;
 		case 'l':
-		    prsect(&sect);
+		    print_sect(&sect);
 		    break;
 		case 's':
-		    pr_ship(&ship);
+		    print_ship(&ship);
 		    break;
 		case 'u':
-		    pr_land(&land);
+		    print_land(&land);
 		    break;
 		case 'p':
-		    pr_plane(&plane);
+		    print_plane(&plane);
 		    break;
 		}
 		return RET_OK;
@@ -184,13 +181,13 @@ edit(void)
 
 	switch (ewhat) {
 	case 'c':
-	    if ((err = docountry(thing, arg, ptr, np)) != RET_OK)
+	    if ((err = edit_nat(np, thing, arg, ptr)) != RET_OK)
 		return err;
 	    break;
 	case 'l':
 	    if (!check_sect_ok(&sect))
 		return RET_FAIL;
-	    if ((err = doland(thing, arg, ptr, &sect)) != RET_OK)
+	    if ((err = edit_sect(&sect, thing, arg, ptr)) != RET_OK)
 		return err;
 	    if (!putsect(&sect))
 		return RET_FAIL;
@@ -198,7 +195,7 @@ edit(void)
 	case 's':
 	    if (!check_ship_ok(&ship))
 		return RET_FAIL;
-	    if ((err = doship(thing, arg, ptr, &ship)) != RET_OK)
+	    if ((err = edit_ship(&ship, thing, arg, ptr)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_SHIP, ship.shp_uid, 50))
 		return RET_FAIL;
@@ -208,7 +205,7 @@ edit(void)
 	case 'u':
 	    if (!check_land_ok(&land))
 		return RET_FAIL;
-	    if ((err = dounit(thing, arg, ptr, &land)) != RET_OK)
+	    if ((err = edit_land(&land, thing, arg, ptr)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_LAND, land.lnd_uid, 50))
 		return RET_FAIL;
@@ -218,7 +215,7 @@ edit(void)
 	case 'p':
 	    if (!check_plane_ok(&plane))
 		return RET_FAIL;
-	    if ((err = doplane(thing, arg, ptr, &plane)) != RET_OK)
+	    if ((err = edit_plane(&plane, thing, arg, ptr)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_PLANE, plane.pln_uid, 50))
 		return RET_FAIL;
@@ -258,7 +255,7 @@ noise(struct sctstr *sptr, char *name, int old, int new)
 }
 
 static void
-prsect(struct sctstr *sect)
+print_sect(struct sctstr *sect)
 {
     pr("Location <L>: %s\t", xyas(sect->sct_x, sect->sct_y, player->cnum));
     pr("Distribution sector <D>: %s\n",
@@ -281,9 +278,8 @@ prsect(struct sctstr *sect)
     pr("Defense %% <d>: %d\n", sect->sct_defense);
 }
 
-
 static void
-prnat(struct natstr *np)
+print_nat(struct natstr *np)
 {
     int i;
 
@@ -315,7 +311,7 @@ prnat(struct natstr *np)
 }
 
 static void
-pr_plane(struct plnstr *plane)
+print_plane(struct plnstr *plane)
 {
     pr("UID <U>: %d\t\t", plane->pln_uid);
     pr("Owner <O>: %d\t\t", plane->pln_own);
@@ -332,7 +328,7 @@ pr_plane(struct plnstr *plane)
 }
 
 static void
-pr_land(struct lndstr *land)
+print_land(struct lndstr *land)
 {
     pr("UID <U>: %d\n", land->lnd_uid);
     pr("Owner <O>: %d\n", land->lnd_own);
@@ -366,7 +362,7 @@ pr_land(struct lndstr *land)
 }
 
 static void
-pr_ship(struct shpstr *ship)
+print_ship(struct shpstr *ship)
 {
     struct natstr *natp;
 
@@ -434,7 +430,7 @@ warn_deprecated(char key)
 #endif
 
 static int
-doland(char op, int arg, char *p, struct sctstr *sect)
+edit_sect(struct sctstr *sect, char op, int arg, char *p)
 {
     natid newown, oldown;
     coord newx, newy;
@@ -625,9 +621,8 @@ doland(char op, int arg, char *p, struct sctstr *sect)
     return RET_OK;
 }
 
-
 static int
-docountry(char op, int arg, char *p, struct natstr *np)
+edit_nat(struct natstr *np, char op, int arg, char *p)
 {
     coord newx, newy;
     natid nat = np->nat_cnum;
@@ -724,9 +719,8 @@ docountry(char op, int arg, char *p, struct natstr *np)
     return RET_OK;
 }
 
-
 static int
-doship(char op, int arg, char *p, struct shpstr *ship)
+edit_ship(struct shpstr *ship, char op, int arg, char *p)
 {
     coord newx, newy;
 
@@ -831,7 +825,7 @@ doship(char op, int arg, char *p, struct shpstr *ship)
 }
 
 static int
-dounit(char op, int arg, char *p, struct lndstr *land)
+edit_land(struct lndstr *land, char op, int arg, char *p)
 {
     coord newx, newy;
 
@@ -942,9 +936,8 @@ dounit(char op, int arg, char *p, struct lndstr *land)
     return RET_OK;
 }
 
-
 static int
-doplane(char op, int arg, char *p, struct plnstr *plane)
+edit_plane(struct plnstr *plane, char op, int arg, char *p)
 {
     coord newx, newy;
 
