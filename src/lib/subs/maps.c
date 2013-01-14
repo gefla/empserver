@@ -45,7 +45,6 @@
 #include "misc.h"
 #include "nat.h"
 #include "nsc.h"
-#include "nuke.h"
 #include "optlist.h"
 #include "plane.h"
 #include "player.h"
