@@ -69,9 +69,8 @@ trad(void)
     struct trdstr tmpt;
     union empobj_storage tg;
     double canspend;
-    time_t now;
+    time_t now, tleft;
     int bid;
-    double tleft;
     double tally;
     int i;
     char buf[1024];
@@ -99,12 +98,11 @@ trad(void)
 	};
 	pr(" %3d ", ni.cur);
 	(void)time(&now);
-	tleft =
-	    TRADE_DELAY / 3600.0 - (now - trade.trd_markettime) / 3600.0;
-	if (tleft < 0.0)
-	    tleft = 0.0;
+	tleft = trade.trd_markettime + TRADE_DELAY - now;
+	if (tleft < 0)
+	    tleft = 0;
 	pr("$%7d  %2d %5.2f hrs ",
-	   trade.trd_price, trade.trd_maxbidder, tleft);
+	   trade.trd_price, trade.trd_maxbidder, tleft / 3600.0);
 	trade_desc(&tg.gen);	/* XXX */
 	pr("\n");
 	if (trade.trd_owner == player->cnum && !player->god)
@@ -281,7 +279,6 @@ check_trade(void)
     struct trdstr trade;
     union empobj_storage tg;
     time_t now;
-    double tleft;
     int price;
     int saveid;
     natid seller;
@@ -309,11 +306,7 @@ check_trade(void)
 	    continue;
 
 	(void)time(&now);
-	tleft =
-	    TRADE_DELAY / 3600.0 - (now - trade.trd_markettime) / 3600.0;
-	if (tleft < 0.0)
-	    tleft = 0.0;
-	if (tleft > 0.0)
+	if (trade.trd_markettime + TRADE_DELAY > now)
 	    continue;
 
 	saveid = trade.trd_unitid;

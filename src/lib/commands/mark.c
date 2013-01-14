@@ -30,6 +30,7 @@
  *     Dave Pare, 1986
  *     Pat Loney, 1992
  *     Steve McClure, 1996
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -70,15 +71,14 @@ mark(void)
 static void
 pr_mark(struct comstr *comm)
 {
-    time_t now;
-    double tleft;
+    time_t now, tleft;
 
     (void)time(&now);
-    tleft = MARK_DELAY / 3600.0 - (now - comm->com_markettime) / 3600.0;
-    if (tleft < 0.0)
-	tleft = 0.0;
+    tleft = comm->com_markettime + MARK_DELAY - now;
+    if (tleft < 0)
+	tleft = 0;
     pr(" %3d  $%12.2f  %2d  %5.2f hrs  (%3d)   %c    %6d  ",
-       comm->com_uid, comm->com_price, comm->com_maxbidder, tleft,
+       comm->com_uid, comm->com_price, comm->com_maxbidder, tleft / 3600.0,
        comm->com_owner, ichr[comm->com_type].i_mnem, comm->com_amount);
     if (comm->com_owner == player->cnum || player->god)
 	pr("%s", xyas(comm->sell_x, comm->sell_y, player->cnum));

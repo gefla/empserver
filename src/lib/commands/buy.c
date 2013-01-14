@@ -30,6 +30,7 @@
  *     Dave Pare, 1986
  *     Pat Loney, 1992
  *     Steve McClure, 1996-2000
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -190,7 +191,6 @@ check_market(void)
     int m;
     int n;
     time_t now;
-    double tleft;
     double gain;
     double price;
 
@@ -198,10 +198,7 @@ check_market(void)
 	if (comm.com_maxbidder == comm.com_owner || comm.com_owner == 0)
 	    continue;
 	(void)time(&now);
-	tleft = MARK_DELAY / 3600.0 - (now - comm.com_markettime) / 3600.0;
-	if (tleft < 0)
-	    tleft = 0;
-	if (tleft > 0.0)
+	if (comm.com_markettime + MARK_DELAY > now)
 	    continue;
 	if (CANT_HAPPEN(comm.com_type <= I_NONE || comm.com_type > I_MAX))
 	    continue;
