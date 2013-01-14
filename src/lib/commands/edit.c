@@ -364,11 +364,7 @@ print_land(struct lndstr *land)
 static void
 print_ship(struct shpstr *ship)
 {
-    struct natstr *natp;
-
-    if (!(natp = getnatp(ship->shp_own)))
-	return;
-    pr("%s %s\n", prnat(natp), prship(ship));
+    pr("%s %s\n", prnatid(ship->shp_own), prship(ship));
     pr("UID <U>: %d\n", ship->shp_uid);
     pr("Owner <O>: %d\t\t\t", ship->shp_own);
     pr("Location <L>: %s\n", xyas(ship->shp_x, ship->shp_y, player->cnum));
