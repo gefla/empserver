@@ -29,6 +29,7 @@
  *
  *  Known contributors to this file:
  *     Doug Hay, 1998
+ *     Markus Armbruster, 2004-2013
  */
 
 #ifndef MISC_H
@@ -36,6 +37,9 @@
 
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
+
+#define LIMIT_TO(val, min, max) \
+    ((val) < (min) ? (min) : (val) > (max) ? (max) : (val))
 
 #ifdef _WIN32
 #include "w32misc.h"

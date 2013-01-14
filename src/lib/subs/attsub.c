@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2006-2012
+ *     Markus Armbruster, 2006-2013
  */
 
 #include <config.h>
@@ -2587,9 +2587,5 @@ sector_strength(struct sctstr *sp)
     double base = sp->sct_type == SCT_MOUNT ? 2.0 : 1.0;
     double d = base + (dchr[sp->sct_type].d_dstr - base) * def;
 
-    if (d > dchr[sp->sct_type].d_dstr)
-	d = dchr[sp->sct_type].d_dstr;
-    if (d < base)
-	d = base;
-    return d;
+    return LIMIT_TO(d, base, dchr[sp->sct_type].d_dstr);
 }

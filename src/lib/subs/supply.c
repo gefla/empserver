@@ -27,7 +27,7 @@
  *  supply.c: Supply subroutines
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -201,11 +201,7 @@ s_commod(struct empobj *sink, short *vec,
 
 	    /* take off mobility for delivering sect */
 	    n = roundavg(wanted * weight * move_cost);
-	    if (n < 0)
-		n = 0;
-	    if (n > sect.sct_mobil)
-		n = sect.sct_mobil;
-	    sect.sct_mobil -= n;
+	    sect.sct_mobil -= LIMIT_TO(n, 0, sect.sct_mobil);
 	    if (actually_doit) {
 		vec[type] += wanted;
 		putsect(&sect);
@@ -219,11 +215,7 @@ s_commod(struct empobj *sink, short *vec,
 
 	    /* take off mobility for delivering sect */
 	    n = roundavg(can_move * weight * move_cost);
-	    if (n < 0)
-		n = 0;
-	    if (n > sect.sct_mobil)
-		n = sect.sct_mobil;
-	    sect.sct_mobil -= n;
+	    sect.sct_mobil -= LIMIT_TO(n, 0, sect.sct_mobil);
 	    if (actually_doit) {
 		vec[type] += can_move;
 		putsect(&sect);
@@ -271,11 +263,7 @@ s_commod(struct empobj *sink, short *vec,
 	    ship.shp_item[type] -= wanted;
 
 	    n = roundavg(wanted * weight * move_cost);
-	    if (n < 0)
-		n = 0;
-	    if (n > sect.sct_mobil)
-		n = sect.sct_mobil;
-	    sect.sct_mobil -= n;
+	    sect.sct_mobil -= LIMIT_TO(n, 0, sect.sct_mobil);
 	    if (actually_doit) {
 		vec[type] += can_move;
 		putship(ship.shp_uid, &ship);
@@ -289,11 +277,7 @@ s_commod(struct empobj *sink, short *vec,
 	    ship.shp_item[type] -= can_move;
 
 	    n = roundavg(can_move * weight * move_cost);
-	    if (n < 0)
-		n = 0;
-	    if (n > sect.sct_mobil)
-		n = sect.sct_mobil;
-	    sect.sct_mobil -= n;
+	    sect.sct_mobil -= LIMIT_TO(n, 0, sect.sct_mobil);
 	    if (actually_doit) {
 		vec[type] += can_move;
 		putship(ship.shp_uid, &ship);

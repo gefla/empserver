@@ -102,11 +102,7 @@ populace(struct natstr *np, struct sctstr *sp, int etu)
 	    n -= roundavg(etu * 0.25);
 	else
 	    n += roundavg(etu * 0.125);
-	if (n < 0)
-	    n = 0;
-	else if (n > 127)
-	    n = 127;
-	sp->sct_loyal = n;
+	sp->sct_loyal = LIMIT_TO(n, 0, 127);
 	if (sp->sct_loyal == 0) {
 	    if (sp->sct_oldown != sp->sct_own) {
 		wu(0, sp->sct_own,

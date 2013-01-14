@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     David Muir Sharnoff
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -73,10 +74,7 @@ setsector(void)
 	case 'i':
 	    current = sect.sct_min;
 	    current += amt;
-	    if (current < 0)
-		current = 0;
-	    if (current > 100)
-		current = 100;
+	    current = LIMIT_TO(current, 0, 100);
 	    if (sect.sct_own != 0)
 		resnoise(&sect, "Iron ore content", sect.sct_min, current);
 	    sect.sct_min = (unsigned char)current;
@@ -84,10 +82,7 @@ setsector(void)
 	case 'g':
 	    current = sect.sct_gmin;
 	    current += amt;
-	    if (current < 0)
-		current = 0;
-	    if (current > 100)
-		current = 100;
+	    current = LIMIT_TO(current, 0, 100);
 	    if (sect.sct_own != 0)
 		resnoise(&sect, "Gold content", sect.sct_gmin, current);
 	    sect.sct_gmin = (unsigned char)current;
@@ -97,10 +92,7 @@ setsector(void)
 	    case 'i':
 		current = sect.sct_oil;
 		current += amt;
-		if (current < 0)
-		    current = 0;
-		if (current > 100)
-		    current = 100;
+		current = LIMIT_TO(current, 0, 100);
 		if (sect.sct_own != 0)
 		    resnoise(&sect, "Oil content", sect.sct_oil, current);
 		sect.sct_oil = (unsigned char)current;
@@ -139,10 +131,7 @@ setsector(void)
 	case 'e':
 	    current = sect.sct_effic;
 	    current += amt;
-	    if (current < 0)
-		current = 0;
-	    if (current > 100)
-		current = 100;
+	    current = LIMIT_TO(current, 0, 100);
 	    pr("Efficiency in %s changed to %d.\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
 	    sect.sct_effic = current;
@@ -152,10 +141,7 @@ setsector(void)
 	    case 'i':
 		current = sect.sct_mines;
 		current += amt;
-		if (current < 0)
-		    current = 0;
-		if (current > MINES_MAX)
-		    current = MINES_MAX;
+		current = LIMIT_TO(current, 0, MINES_MAX);
 		if (sect.sct_own != 0 && sect.sct_own == sect.sct_oldown)
 		    resnoise(&sect, "Mines", sect.sct_mines, current);
 		sect.sct_mines = current;
@@ -163,10 +149,7 @@ setsector(void)
 	    case 'o':
 		current = sect.sct_mobil;
 		current += amt;
-		if (current < -127)
-		    current = -127;
-		if (current > 127)
-		    current = 127;
+		current = LIMIT_TO(current, -127, 127);
 		pr("Mobility in %s changed to %d.\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum), current);
 		sect.sct_mobil = current;
@@ -179,10 +162,7 @@ setsector(void)
 	case 'a':
 	    current = sect.sct_avail;
 	    current += amt;
-	    if (current < 0)
-		current = 0;
-	    if (current > 9999)
-		current = 9999;
+	    current = LIMIT_TO(current, 0, 9999);
 	    pr("Available in %s changed to %d.\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
 	    sect.sct_avail = (short)current;
@@ -190,10 +170,7 @@ setsector(void)
 	case 'w':
 	    current = sect.sct_work;
 	    current += amt;
-	    if (current < 0)
-		current = 0;
-	    if (current > 100)
-		current = 100;
+	    current = LIMIT_TO(current, 0, 100);
 	    pr("Work in %s changed to %d.\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
 	    sect.sct_work = (unsigned char)current;
@@ -201,10 +178,7 @@ setsector(void)
 	case 'f':
 	    current = sect.sct_fertil;
 	    current += amt;
-	    if (current < 0)
-		current = 0;
-	    if (current > 100)
-		current = 100;
+	    current = LIMIT_TO(current, 0, 100);
 	    if (sect.sct_own != 0)
 		resnoise(&sect, "Fertility content", sect.sct_fertil, current);
 	    sect.sct_fertil = (unsigned char)current;
@@ -212,10 +186,7 @@ setsector(void)
 	case 'u':
 	    current = sect.sct_uran;
 	    current += amt;
-	    if (current < 0)
-		current = 0;
-	    if (current > 100)
-		current = 100;
+	    current = LIMIT_TO(current, 0, 100);
 	    if (sect.sct_own != 0)
 		resnoise(&sect, "Uranium content", sect.sct_uran, current);
 	    sect.sct_uran = (unsigned char)current;

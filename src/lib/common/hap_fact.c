@@ -51,11 +51,7 @@ hap_fact(struct natstr *tnat, struct natstr *vnat)
 	hap_fact = 2.0;
     else			/* Target has no happy, worse fighting */
 	hap_fact = 0.8;
-    if (hap_fact > 2.0)
-	hap_fact = 2.0;
-    if (hap_fact < 0.8)
-	hap_fact = 0.8;
-    return hap_fact;
+    return LIMIT_TO(hap_fact, 0.8, 2.0);
 }
 
 /* Return happiness required to keep NP's citizens happy.  */

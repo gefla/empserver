@@ -30,7 +30,7 @@
  *     David Sharnoff, 1987
  *     Ken Stevens, 1995 (rewritten)
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -326,14 +326,8 @@ move_amount(int sect_amt, int unit_amt, int unit_max,
 	move_amt = -amount - unit_amt;
     else
 	move_amt = load_unload == LOAD ? amount : -amount;
-    if (move_amt > unit_max - unit_amt)
-	move_amt = unit_max - unit_amt;
-    if (move_amt < -unit_amt)
-	move_amt = -unit_amt;
-    if (move_amt > sect_amt)
-	move_amt = sect_amt;
-    if (move_amt < sect_amt - ITEM_MAX)
-	move_amt = sect_amt - ITEM_MAX;
+    move_amt = LIMIT_TO(move_amt, -unit_amt, unit_max - unit_amt);
+    move_amt = LIMIT_TO(move_amt, sect_amt - ITEM_MAX, sect_amt);
     return move_amt;
 }
 

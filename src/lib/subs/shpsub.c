@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2006-2012
+ *     Markus Armbruster, 2006-2013
  */
 
 #include <config.h>
@@ -871,10 +871,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	teff = ship.shp_tech / (ship.shp_tech + 200.0);
 	/* raise 4.5 for better interception -KHS */
 	hitchance = (int)(gun * eff * teff * 4.5) - hardtarget;
-	if (hitchance < 0)
-	    hitchance = 0;
-	if (hitchance > 100)
-	    hitchance = 100;
+	hitchance = LIMIT_TO(hitchance, 0, 100);
 	hit = pct_chance(hitchance);
 
 	mpr(bombown, "%s anti-missile system activated...%s\n",

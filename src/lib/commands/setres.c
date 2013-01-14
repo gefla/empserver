@@ -30,6 +30,7 @@
  *     David Muir Sharnoff
  *     Karl Hagen
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2010-2013
  */
 
 #include <config.h>
@@ -64,10 +65,7 @@ setres(void)
 	if (!p || !*p)
 	    return RET_SYN;
 	amt = atoi(p);
-	if (amt > 100)
-	    amt = 100;
-	if (amt < 0)
-	    amt = 0;
+	amt = LIMIT_TO(amt, 0, 100);
 	if (!check_sect_ok(&sect))
 	    return RET_FAIL;
 	switch (char0) {

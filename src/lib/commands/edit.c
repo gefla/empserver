@@ -403,16 +403,6 @@ pr_ship(struct shpstr *ship)
 }
 
 static int
-errcheck(int num, int min, int max)
-{
-    if (num < min)
-	return min;
-    else if (num > max)
-	return max;
-    return num;
-}
-
-static int
 getin(char *buf, char **valp)
 {
     char *p;
@@ -454,7 +444,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
     case 'o':
 	if (arg < 0)
 	    return RET_SYN;
-	newown = (natid)errcheck(arg, 0, MAXNOC - 1);
+	newown = (natid)LIMIT_TO(arg, 0, MAXNOC - 1);
 	pr("Owner of %s changed from %s (#%d) to %s (#%d).\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   cname(sect->sct_own), sect->sct_own, cname(newown), newown);
@@ -475,7 +465,7 @@ doland(char op, int arg, char *p, struct sctstr *sect)
     case 'O':
 	if (arg < 0)
 	    return RET_SYN;
-	oldown = (natid)errcheck(arg, 0, MAXNOC - 1);
+	oldown = (natid)LIMIT_TO(arg, 0, MAXNOC - 1);
 	pr("Old owner of %s changed from %s (#%d) to %s (#%d).\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   cname(sect->sct_oldown),
@@ -483,47 +473,47 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	sect->sct_oldown = oldown;
 	break;
     case 'e':
-	new = errcheck(arg, 0, 100);
+	new = LIMIT_TO(arg, 0, 100);
 	noise(sect, "Efficiency", sect->sct_effic, new);
 	sect->sct_effic = new;
 	break;
     case 'm':
-	new = errcheck(arg, -127, 255);
+	new = LIMIT_TO(arg, -127, 255);
 	noise(sect, "Mobility", sect->sct_mobil, new);
 	sect->sct_mobil = new;
 	break;
     case 'i':
-	new = errcheck(arg, 0, 127);
+	new = LIMIT_TO(arg, 0, 127);
 	noise(sect, "Iron ore content", sect->sct_min, new);
 	sect->sct_min = (unsigned char)new;
 	break;
     case 'g':
-	new = errcheck(arg, 0, 127);
+	new = LIMIT_TO(arg, 0, 127);
 	noise(sect, "Gold content", sect->sct_gmin, new);
 	sect->sct_gmin = (unsigned char)new;
 	break;
     case 'f':
-	new = errcheck(arg, 0, 127);
+	new = LIMIT_TO(arg, 0, 127);
 	noise(sect, "Fertility", sect->sct_fertil, new);
 	sect->sct_fertil = (unsigned char)new;
 	break;
     case 'c':
-	new = errcheck(arg, 0, 127);
+	new = LIMIT_TO(arg, 0, 127);
 	noise(sect, "Oil content", sect->sct_oil, new);
 	sect->sct_oil = (unsigned char)new;
 	break;
     case 'u':
-	new = errcheck(arg, 0, 127);
+	new = LIMIT_TO(arg, 0, 127);
 	noise(sect, "Uranium content", sect->sct_uran, new);
 	sect->sct_uran = (unsigned char)new;
 	break;
     case 'w':
-	new = errcheck(arg, 0, 100);
+	new = LIMIT_TO(arg, 0, 100);
 	noise(sect, "Workforce percentage", sect->sct_work, new);
 	sect->sct_work = (unsigned char)new;
 	break;
     case 'l':
-	new = errcheck(arg, 0, 127);
+	new = LIMIT_TO(arg, 0, 127);
 	pr("Loyalty of %s changed from %d to %d%%\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   sect->sct_loyal, new);
@@ -531,14 +521,14 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	break;
     case 'x':
 	old = sect->sct_che;
-	new = errcheck(arg, 0, CHE_MAX);
+	new = LIMIT_TO(arg, 0, CHE_MAX);
 	pr("Guerillas in %s changed from %d to %d\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
 	sect->sct_che = new;
 	break;
     case 'X':
 	old = sect->sct_che_target;
-	new = errcheck(arg, 0, MAXNOC - 1);
+	new = LIMIT_TO(arg, 0, MAXNOC - 1);
 	pr("Che target of %s changed from %s (#%d) to %s (#%d).\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   cname(old), old, cname(new), new);
@@ -548,32 +538,32 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	break;
     case 'p':
 	old = sect->sct_pstage;
-	new = errcheck(arg, 0, PLG_EXPOSED);
+	new = LIMIT_TO(arg, 0, PLG_EXPOSED);
 	pr("Plague stage of %s changed from %d to %d%%\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
 	sect->sct_pstage = new;
 	break;
     case 't':
 	old = sect->sct_ptime;
-	new = errcheck(arg, 0, 255);
+	new = LIMIT_TO(arg, 0, 255);
 	pr("Plague time of %s changed from %d to %d%%\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
 	sect->sct_ptime = new;
 	break;
     case 'F':
 	old = sect->sct_fallout;
-	new = errcheck(arg, 0, FALLOUT_MAX);
+	new = LIMIT_TO(arg, 0, FALLOUT_MAX);
 	pr("Fallout for sector %s changed from %d to %d\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
 	sect->sct_fallout = new;
 	break;
     case 'a':
-	new = errcheck(arg, 0, 9999);
+	new = LIMIT_TO(arg, 0, 9999);
 	noise(sect, "Available workforce", sect->sct_avail, new);
 	sect->sct_avail = new;
 	break;
     case 'M':
-	new = errcheck(arg, 0, MINES_MAX);
+	new = LIMIT_TO(arg, 0, MINES_MAX);
 	sect->sct_mines = new;
 	pr("Mines changed to %d\n", new);
 	break;
@@ -614,28 +604,19 @@ doland(char op, int arg, char *p, struct sctstr *sect)
 	sect->sct_newtype = des;
 	break;
     case 'R':
-	if (arg > 100)
-	    arg = 100;
-	if (arg < 0)
-	    arg = 0;
-	noise(sect, "Road percentage", sect->sct_road, arg);
-	sect->sct_road = arg;
+	new = LIMIT_TO(arg, 0, 100);
+	noise(sect, "Road percentage", sect->sct_road, new);
+	sect->sct_road = new;
 	break;
     case 'r':
-	if (arg > 100)
-	    arg = 100;
-	if (arg < 0)
-	    arg = 0;
-	noise(sect, "Rail percentage", sect->sct_rail, arg);
-	sect->sct_rail = arg;
+	new = LIMIT_TO(arg, 0, 100);
+	noise(sect, "Rail percentage", sect->sct_rail, new);
+	sect->sct_rail = new;
 	break;
     case 'd':
-	if (arg > 100)
-	    arg = 100;
-	if (arg < 0)
-	    arg = 0;
-	noise(sect, "Defense percentage", sect->sct_defense, arg);
-	sect->sct_defense = arg;
+	new = LIMIT_TO(arg, 0, 100);
+	noise(sect, "Defense percentage", sect->sct_defense, new);
+	sect->sct_defense = new;
 	break;
     default:
 	pr("huh? (%c)\n", op);
@@ -668,7 +649,7 @@ docountry(char op, int arg, char *p, struct natstr *np)
 	np->nat_tgms = arg;
 	break;
     case 'b':
-	arg = errcheck(arg, 0, 1024);
+	arg = LIMIT_TO(arg, 0, 1024);
 	pr("BTU's changed from %d to %d\n", np->nat_btu, arg);
 	np->nat_btu = arg;
 	break;
@@ -700,10 +681,10 @@ docountry(char op, int arg, char *p, struct natstr *np)
 	np->nat_yorg = newy;
 	break;
     case 's':
-	np->nat_stat = errcheck(arg, STAT_UNUSED, STAT_GOD);
+	np->nat_stat = LIMIT_TO(arg, STAT_UNUSED, STAT_GOD);
 	break;
     case 'u':
-	arg = errcheck(arg, 0, m_m_p_d * 60);
+	arg = LIMIT_TO(arg, 0, m_m_p_d * 60);
 	pr("Number of seconds used changed from %d to %d.\n",
 	   np->nat_timeused, arg);
 	np->nat_timeused = arg;
@@ -784,12 +765,11 @@ doship(char op, int arg, char *p, struct shpstr *ship)
 	ship->shp_y = newy;
 	break;
     case 'T':
-	shp_set_tech(ship,
-		     errcheck(arg,
-			      mchr[(int)ship->shp_type].m_tech, SHRT_MAX));
+	arg = LIMIT_TO(arg, mchr[(int)ship->shp_type].m_tech, SHRT_MAX);
+	shp_set_tech(ship, arg);
 	break;
     case 'E':
-	ship->shp_effic = errcheck(arg, SHIP_MINEFF, 100);
+	ship->shp_effic = LIMIT_TO(arg, SHIP_MINEFF, 100);
 	break;
     case 'M':
 	ship->shp_mobil = arg;
@@ -882,15 +862,14 @@ dounit(char op, int arg, char *p, struct lndstr *land)
 	land->lnd_y = newy;
 	break;
     case 'e':
-	land->lnd_effic = errcheck(arg, LAND_MINEFF, 100);
+	land->lnd_effic = LIMIT_TO(arg, LAND_MINEFF, 100);
 	break;
     case 'M':
 	land->lnd_mobil = arg;
 	break;
     case 't':
-	lnd_set_tech(land,
-		     errcheck(arg,
-			      lchr[(int)land->lnd_type].l_tech, SHRT_MAX));
+	arg = LIMIT_TO(arg, lchr[(int)land->lnd_type].l_tech, SHRT_MAX);
+	lnd_set_tech(land, arg);
 	break;
     case 'a':
 	if (p[0] == '~')
@@ -903,7 +882,7 @@ dounit(char op, int arg, char *p, struct lndstr *land)
 	}
 	break;
     case 'F':
-	land->lnd_harden = errcheck(arg, 0, 255);
+	land->lnd_harden = LIMIT_TO(arg, 0, 255);
 	break;
     case 'S':
 	land->lnd_ship = arg;
@@ -992,15 +971,14 @@ doplane(char op, int arg, char *p, struct plnstr *plane)
 	    plane->pln_effic = 0;
 	break;
     case 'e':
-	plane->pln_effic = errcheck(arg, PLANE_MINEFF, 100);
+	plane->pln_effic = LIMIT_TO(arg, PLANE_MINEFF, 100);
 	break;
     case 'm':
-	plane->pln_mobil = errcheck(arg, -127, 255);
+	plane->pln_mobil = LIMIT_TO(arg, -127, 255);
 	break;
     case 't':
-	pln_set_tech(plane,
-		     errcheck(arg,
-			      plchr[(int)plane->pln_type].pl_tech, SHRT_MAX));
+	arg = LIMIT_TO(arg, plchr[(int)plane->pln_type].pl_tech, SHRT_MAX);
+	pln_set_tech(plane, arg);
 	break;
     case 'w':
 	if (p[0] == '~')

@@ -378,10 +378,7 @@ parse_args(int argc, char *argv[])
 	sp = atoi(argv[4]);
     else
 	sp = DEFAULT_SPIKE;
-    if (sp < 0)
-	sp = 0;
-    if (sp > 100)
-	sp = 100;
+    sp = LIMIT_TO(sp, 0, 100);
 
     if (argc > 5)
 	pm = atoi(argv[5]);
