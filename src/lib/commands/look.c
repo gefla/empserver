@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2006-2007
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -120,11 +121,9 @@ void look_at_sect(struct sctstr *sp, int mult)
     int civ, mil;
     int ours = player->god || sp->sct_own == player->cnum;
 
-    if (sp->sct_own == player->cnum)
-	pr("Your ");
-    else
-	pr("%s (#%d) ", cname(sp->sct_own), sp->sct_own);
-    pr("%s", dchr[sp->sct_type].d_name);
+    pr("%s %s",
+       sp->sct_own == player->cnum ? "Your" : prnatid(sp->sct_own),
+       dchr[sp->sct_type].d_name);
     pr(" %d%% efficient ",
        ours ? sp->sct_effic : roundintby(sp->sct_effic, mult));
     civ = sp->sct_item[I_CIVIL];
@@ -194,8 +193,8 @@ look_ship(struct shpstr *lookship)
 	/* subs at sea only seen by sonar */
 	if (tmcp->m_flags & M_SUB && sect.sct_type == SCT_WATER)
 	    continue;
-	pr("%s (#%d) %s @ %s\n",
-	   cname(sp->shp_own), sp->shp_own, prship(sp),
+	pr("%s %s @ %s\n",
+	   prnatid(sp->shp_own), prship(sp),
 	   xyas(sp->shp_x, sp->shp_y, player->cnum));
 	if (opt_HIDDEN)
 	    setcont(player->cnum, sp->shp_own, FOUND_LOOK);
@@ -240,9 +239,9 @@ look_land(struct lndstr *lookland)
 	if (dist > vrange)
 	    continue;
 
-	pr("%s (#%d) %s (approx %d mil) @ %s\n",
-	   cname(lp->lnd_own), lp->lnd_own,
-	   prland(lp), roundintby(lp->lnd_item[I_MILIT], 20),
+	pr("%s %s (approx %d mil) @ %s\n",
+	   prnatid(lp->lnd_own), prland(lp),
+	   roundintby(lp->lnd_item[I_MILIT], 20),
 	   xyas(lp->lnd_x, lp->lnd_y, player->cnum));
 	if (opt_HIDDEN)
 	    setcont(player->cnum, lp->lnd_own, FOUND_LOOK);
@@ -260,9 +259,9 @@ look_land(struct lndstr *lookland)
 	if (dist > vrange)
 	    continue;
 
-	pr("%s (#%d) %s @ %s\n",
-	   cname(pp->pln_own), pp->pln_own,
-	   prplane(pp), xyas(pp->pln_x, pp->pln_y, player->cnum));
+	pr("%s %s @ %s\n",
+	   prnatid(pp->pln_own), prplane(pp),
+	   xyas(pp->pln_x, pp->pln_y, player->cnum));
 	if (opt_HIDDEN)
 	    setcont(player->cnum, pp->pln_own, FOUND_LOOK);
     }

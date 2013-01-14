@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2013
  */
 
 #include <config.h>
@@ -138,18 +138,16 @@ spy(void)
 		    pr("Spy deported from %s\n",
 		       xyas(nx, ny, player->cnum));
 		    if (own != 0)
-			wu(0, own, "%s (#%d) spy deported from %s\n",
-			   cname(player->cnum), player->cnum,
-			   xyas(nx, ny, own));
+			wu(0, own, "%s spy deported from %s\n",
+			   prnat(natp), xyas(nx, ny, own));
 		} else {
 		    /* execute spy */
 		    pr("BANG!! A spy was shot in %s\n",
 		       xyas(nx, ny, player->cnum));
 		    military--;
 		    if (own != 0)
-			wu(0, own, "%s (#%d) spy caught in %s\n",
-			   cname(player->cnum), player->cnum,
-			   xyas(nx, ny, own));
+			wu(0, own, "%s spy caught in %s\n",
+			   prnat(natp), xyas(nx, ny, own));
 		    nreport(player->cnum, N_SPY_SHOT, own, 1);
 		}
 		if (opt_HIDDEN)

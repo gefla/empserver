@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1994
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2013
  */
 
 #include <config.h>
@@ -91,8 +91,8 @@ setrel(natid us, natid them, int rel)
 	cname(them), whichway, relates[rel]);
     if (!(getrejects(us, themnp) & REJ_TELE))
 	mpr(them,
-	    "Country %s (#%d) has %s their relations with you to \"%s\"!\n",
-	    cname(us), us, whichway, relates[rel]);
+	    "Country %s has %s their relations with you to \"%s\"!\n",
+	    prnat(mynp), whichway, relates[rel]);
 
     putrel(mynp, them, rel);
     putnat(mynp);

@@ -368,7 +368,7 @@ print_ship(struct shpstr *ship)
 
     if (!(natp = getnatp(ship->shp_own)))
 	return;
-    pr("%s (#%d) %s\n", natp->nat_cnam, ship->shp_own, prship(ship));
+    pr("%s %s\n", prnat(natp), prship(ship));
     pr("UID <U>: %d\n", ship->shp_uid);
     pr("Owner <O>: %d\t\t\t", ship->shp_own);
     pr("Location <L>: %s\n", xyas(ship->shp_x, ship->shp_y, player->cnum));
@@ -441,9 +441,9 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
 	if (arg < 0)
 	    return RET_SYN;
 	newown = (natid)LIMIT_TO(arg, 0, MAXNOC - 1);
-	pr("Owner of %s changed from %s (#%d) to %s (#%d).\n",
+	pr("Owner of %s changed from %s to %s.\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   cname(sect->sct_own), sect->sct_own, cname(newown), newown);
+	   prnatid(sect->sct_own), prnatid(newown));
 	if (sect->sct_own) {
 	    wu(player->cnum, sect->sct_own,
 	       "Sector %s lost to deity intervention\n",
@@ -462,10 +462,9 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
 	if (arg < 0)
 	    return RET_SYN;
 	oldown = (natid)LIMIT_TO(arg, 0, MAXNOC - 1);
-	pr("Old owner of %s changed from %s (#%d) to %s (#%d).\n",
+	pr("Old owner of %s changed from %s to %s.\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   cname(sect->sct_oldown),
-	   sect->sct_oldown, cname(oldown), oldown);
+	   prnatid(sect->sct_oldown), prnatid(oldown));
 	sect->sct_oldown = oldown;
 	break;
     case 'e':
@@ -525,9 +524,9 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
     case 'X':
 	old = sect->sct_che_target;
 	new = LIMIT_TO(arg, 0, MAXNOC - 1);
-	pr("Che target of %s changed from %s (#%d) to %s (#%d).\n",
+	pr("Che target of %s changed from %s to %s.\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   cname(old), old, cname(new), new);
+	   prnatid(old), prnatid(new));
 	sect->sct_che_target = new;
 	if (new == 0)
 	    sect->sct_che = 0;

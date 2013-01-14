@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -110,17 +110,15 @@ add(void)
     }
     if (stat == STAT_UNUSED
 	? natp->nat_stat >= STAT_SANCT : natp->nat_stat != STAT_UNUSED) {
-	pr("Country %s (#%d) status is %s.\n"
+	pr("Country %s status is %s.\n"
 	   "%s it in this state is normally a bad idea.",
-	   natp->nat_cnam, natp->nat_cnum,
-	   symbol_by_value(natp->nat_stat, nation_status),
+	   prnat(natp), symbol_by_value(natp->nat_stat, nation_status),
 	   stat == STAT_UNUSED ? "Deleting" : "Replacing");
 	if (!askyn("Are you sure? "))
 	    return RET_FAIL;
     }
     if (getplayer(natp->nat_cnum)) {
-	pr("%s (#%d) is logged in!\n",
-	   natp->nat_cnam, natp->nat_cnum);
+	pr("%s is logged in!\n", prnat(natp));
 	return RET_FAIL;
     }
     nat_reset(natp, natp->nat_cnum, cntryname, pname, stat);

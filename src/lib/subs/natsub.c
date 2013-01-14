@@ -27,7 +27,7 @@
  *  nat.c: Nation subroutines
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2009-2011
+ *     Markus Armbruster, 2009-2013
  *     Ron Koenderink, 2008-2009
  */
 
@@ -71,4 +71,16 @@ check_nat_name(char *cname, natid cnum)
 	}
     }
     return 1;
+}
+
+char *
+prnat(struct natstr *np)
+{
+    return prbuf("%s (#%d)", np->nat_cnam, np->nat_cnum);
+}
+
+char *
+prnatid(natid cnum)
+{
+    return prbuf("%s (#%d)", cname(cnum), cnum);
 }

@@ -550,8 +550,8 @@ board_abort(struct combat *off, struct combat *def)
 	    pr("Victim ship moves faster than you do!\n");
 	    if (def->own)
 		wu(0, def->own,
-		   "%s (#%d) %s failed to catch %s\n",
-		   cname(aship.shp_own), aship.shp_own,
+		   "%s %s failed to catch %s\n",
+		   prnatid(aship.shp_own),
 		   pr_com(0, off, def->own), pr_com(0, def, def->own));
 	    return abort_attack();
 	}
@@ -1982,8 +1982,8 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
     nreport(player->cnum, news_item, def->own, 1);
     if (def->own) {
 	wu(0, def->own,
-	   "%s (#%d) lost %d troops %s %s\nWe lost %d troops defending\n",
-	   cname(player->cnum), player->cnum, a_cas,
+	   "%s lost %d troops %s %s\nWe lost %d troops defending\n",
+	   prnatid(player->cnum), a_cas,
 	   action, pr_com(0, def, def->own), d_cas);
     }
 
@@ -2155,8 +2155,8 @@ att_empty_attack(int combat_mode, int ototal, struct combat *def)
     if (ototal <= 0) {
 	if (def->own && player->cnum != def->own) {
 	    wu(0, def->own,
-	       "%s (#%d) considered %sing you @%s\n",
-	       cname(player->cnum), player->cnum,
+	       "%s considered %sing you @%s\n",
+	       prnatid(player->cnum),
 	       att_mode[combat_mode], xyas(def->x, def->y, def->own));
 	}
 	pr("No troops for %s...\n", att_mode[combat_mode]);

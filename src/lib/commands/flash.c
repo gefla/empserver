@@ -30,7 +30,7 @@
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -150,17 +150,17 @@ sendmessage(struct natstr *to, char *message, int verbose)
 
 	if (verbose)
 	    if (to)
-		pr_flash(other, "FLASH from %s (#%d) @ %02d:%02d%s\n",
-			 cname(player->cnum), player->cnum, tm->tm_hour,
-			 tm->tm_min, message);
+		pr_flash(other, "FLASH from %s @ %02d:%02d%s\n",
+			 prnatid(player->cnum),
+			 tm->tm_hour, tm->tm_min, message);
 	    else
-		pr_flash(other, "BROADCAST from %s (#%d) @ %02d:%02d%s\n",
-			 cname(player->cnum), player->cnum, tm->tm_hour,
-			 tm->tm_min, message);
+		pr_flash(other, "BROADCAST from %s @ %02d:%02d%s\n",
+			 prnatid(player->cnum),
+			 tm->tm_hour, tm->tm_min, message);
 
 	else
-	    pr_flash(other, "%s (#%d): %s\n",
-		     cname(player->cnum), player->cnum, message);
+	    pr_flash(other, "%s: %s\n",
+		     prnatid(player->cnum), message);
 	sent++;
     }
 

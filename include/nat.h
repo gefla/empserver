@@ -181,6 +181,8 @@ extern struct natstr *nat_reset(struct natstr *, natid, char *, char *,
 				enum nat_status);
 
 extern int check_nat_name(char *, natid);
+extern char *prnat(struct natstr *);
+extern char *prnatid(natid);
 
 extern int grant_btus(struct natstr *, int);
 

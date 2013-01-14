@@ -100,9 +100,9 @@ setsector(void)
 	    case 'w':
 		if ((amt < 0) || (amt > MAXNOC - 1))
 		    return RET_SYN;
-		pr("Owner of %s changed from %s (#%d) to %s (#%d).\n",
+		pr("Owner of %s changed from %s to %s.\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum),
-		   cname(sect.sct_own), sect.sct_own, cname(amt), amt);
+		   prnatid(sect.sct_own), prnatid(amt));
 		if (sect.sct_own) {
 		    wu(player->cnum, sect.sct_own,
 		       "Sector %s lost to deity intervention\n",
@@ -117,10 +117,9 @@ setsector(void)
 	    case 'l':
 		if ((amt < 0) || (amt > MAXNOC - 1))
 		    return RET_SYN;
-		pr("Old owner of %s changed from %s (#%d) to %s (#%d).\n",
+		pr("Old owner of %s changed from %s to %s.\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum),
-		   cname(sect.sct_oldown),
-		   sect.sct_oldown, cname(amt), amt);
+		   prnatid(sect.sct_oldown), prnatid(amt));
 		sect.sct_oldown = (natid)amt;
 		break;
 	    default:
