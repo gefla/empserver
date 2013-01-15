@@ -486,19 +486,19 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 l 0
     Play#0 command edit
-    Play#0 output Play#0 1 Loyalty of 1,1 changed from 0 to 0%
+    Play#0 output Play#0 1 Loyalty of 1,1 changed from 0 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 l -1
     Play#0 command edit
-    Play#0 output Play#0 1 Loyalty of 3,1 changed from 0 to 0%
+    Play#0 output Play#0 1 Loyalty of 3,1 changed from 0 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 l 127
     Play#0 command edit
-    Play#0 output Play#0 1 Loyalty of 5,1 changed from 0 to 127%
+    Play#0 output Play#0 1 Loyalty of 5,1 changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 l 128
     Play#0 command edit
-    Play#0 output Play#0 1 Loyalty of 7,1 changed from 0 to 127%
+    Play#0 output Play#0 1 Loyalty of 7,1 changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 x 0
     Play#0 command edit
@@ -518,35 +518,35 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 p 0
     Play#0 command edit
-    Play#0 output Play#0 1 Plague stage of 1,1 changed from 0 to 0%
+    Play#0 output Play#0 1 Plague stage of 1,1 changed from 0 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 p -1
     Play#0 command edit
-    Play#0 output Play#0 1 Plague stage of 3,1 changed from 0 to 0%
+    Play#0 output Play#0 1 Plague stage of 3,1 changed from 0 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 p 4
     Play#0 command edit
-    Play#0 output Play#0 1 Plague stage of 5,1 changed from 0 to 4%
+    Play#0 output Play#0 1 Plague stage of 5,1 changed from 0 to 4
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 p 5
     Play#0 command edit
-    Play#0 output Play#0 1 Plague stage of 7,1 changed from 0 to 4%
+    Play#0 output Play#0 1 Plague stage of 7,1 changed from 0 to 4
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 t 0
     Play#0 command edit
-    Play#0 output Play#0 1 Plague time of 1,1 changed from 0 to 0%
+    Play#0 output Play#0 1 Plague time of 1,1 changed from 0 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 t -1
     Play#0 command edit
-    Play#0 output Play#0 1 Plague time of 3,1 changed from 0 to 0%
+    Play#0 output Play#0 1 Plague time of 3,1 changed from 0 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 t 32767
     Play#0 command edit
-    Play#0 output Play#0 1 Plague time of 5,1 changed from 0 to 255%
+    Play#0 output Play#0 1 Plague time of 5,1 changed from 0 to 255
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 t 32768
     Play#0 command edit
-    Play#0 output Play#0 1 Plague time of 7,1 changed from 0 to 255%
+    Play#0 output Play#0 1 Plague time of 7,1 changed from 0 to 255
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 F 0
     Play#0 command edit

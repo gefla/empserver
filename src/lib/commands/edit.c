@@ -507,7 +507,7 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
 	break;
     case 'l':
 	new = LIMIT_TO(arg, 0, 127);
-	pr("Loyalty of %s changed from %d to %d%%\n",
+	pr("Loyalty of %s changed from %d to %d\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   sect->sct_loyal, new);
 	sect->sct_loyal = (unsigned char)new;
@@ -532,14 +532,14 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
     case 'p':
 	old = sect->sct_pstage;
 	new = LIMIT_TO(arg, 0, PLG_EXPOSED);
-	pr("Plague stage of %s changed from %d to %d%%\n",
+	pr("Plague stage of %s changed from %d to %d\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
 	sect->sct_pstage = new;
 	break;
     case 't':
 	old = sect->sct_ptime;
 	new = LIMIT_TO(arg, 0, 255);
-	pr("Plague time of %s changed from %d to %d%%\n",
+	pr("Plague time of %s changed from %d to %d\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
 	sect->sct_ptime = new;
 	break;
