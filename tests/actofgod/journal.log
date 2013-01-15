@@ -51,7 +51,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 o 99
     Play#0 command edit
-    Play#0 output Play#0 1 Owner of 3,7 changed from 98 (#98) to 98 (#98).
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 O 0
     Play#0 command edit
@@ -67,7 +67,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 O 99
     Play#0 command edit
-    Play#0 output Play#0 1 Old owner of 3,7 changed from 98 (#98) to 98 (#98).
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 X 0
     Play#0 command edit
@@ -75,7 +75,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 X -1
     Play#0 command edit
-    Play#0 output Play#0 1 Che target of 1,7 changed from POGO (#0) to POGO (#0).
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 X 98
     Play#0 command edit
@@ -83,7 +83,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 X 99
     Play#0 command edit
-    Play#0 output Play#0 1 Che target of 3,7 changed from 98 (#98) to 98 (#98).
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,7 o 2
     Play#0 command edit
@@ -788,12 +788,14 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 0 O -1
     Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 1 O 98
     Play#0 command edit
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 1 O 99
     Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 O 2
     Play#0 command edit
@@ -821,12 +823,14 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0 O -1
     Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 1 O 98
     Play#0 command edit
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 1 O 99
     Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 O 2
     Play#0 command edit
@@ -854,12 +858,14 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0 O -1
     Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 1 O 98
     Play#0 command edit
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 1 O 99
     Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 O 2
     Play#0 command edit
@@ -1577,15 +1583,10 @@
     Play#0 output Play#0 1 
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Sector 3,7 gained from deity intervention
-    Play#0 output Play#0 1 Sector 3,7 lost to deity intervention
-    Play#0 output Play#0 1 Sector 3,7 gained from deity intervention
     Play#0 output Play#0 1 Sector 9,7 gained from deity intervention
     Play#0 output Play#0 1 cs   cargo ship (#1) given to you by deity intervention!
-    Play#0 output Play#0 1 cs   cargo ship (#1) taken from you by deity intervention!
     Play#0 output Play#0 1 f1   Sopwith Camel #1 given to you by deity intervention!
-    Play#0 output Play#0 1 f1   Sopwith Camel #1 taken from you by deity intervention!
     Play#0 output Play#0 1 sup  supply #1 given to you by deity intervention!
-    Play#0 output Play#0 1 sup  supply #1 taken from you by deity intervention!
     Play#0 output Play#0 6 0 640
     Play#0 input ctld
     Play#0 output Play#0 1 Bye-bye

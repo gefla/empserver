@@ -430,40 +430,37 @@ warn_deprecated(char key)
 static int
 edit_sect(struct sctstr *sect, char op, int arg, char *p)
 {
-    natid newown, oldown;
     coord newx, newy;
     int new, old;
     int des;
     switch (op) {
     case 'o':
-	if (arg < 0)
+	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
-	newown = (natid)LIMIT_TO(arg, 0, MAXNOC - 1);
 	pr("Owner of %s changed from %s to %s.\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   prnatid(sect->sct_own), prnatid(newown));
+	   prnatid(sect->sct_own), prnatid(arg));
 	if (sect->sct_own) {
 	    wu(player->cnum, sect->sct_own,
 	       "Sector %s lost to deity intervention\n",
 	       xyas(sect->sct_x, sect->sct_y, sect->sct_own));
 	}
 	benefit(sect->sct_own, 0);
-	sect->sct_own = newown;
-	if (newown) {
-	    wu(player->cnum, newown,
+	sect->sct_own = arg;
+	if (arg) {
+	    wu(player->cnum, arg,
 	       "Sector %s gained from deity intervention\n",
-	       xyas(sect->sct_x, sect->sct_y, newown));
+	       xyas(sect->sct_x, sect->sct_y, arg));
 	}
-	benefit(newown, 1);
+	benefit(arg, 1);
 	break;
     case 'O':
-	if (arg < 0)
+	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
-	oldown = (natid)LIMIT_TO(arg, 0, MAXNOC - 1);
 	pr("Old owner of %s changed from %s to %s.\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   prnatid(sect->sct_oldown), prnatid(oldown));
-	sect->sct_oldown = oldown;
+	   prnatid(sect->sct_oldown), prnatid(arg));
+	sect->sct_oldown = arg;
 	break;
     case 'e':
 	new = LIMIT_TO(arg, 0, 100);
@@ -520,13 +517,13 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
 	sect->sct_che = new;
 	break;
     case 'X':
-	old = sect->sct_che_target;
-	new = LIMIT_TO(arg, 0, MAXNOC - 1);
+	if (arg < 0 || arg >= MAXNOC)
+	    return RET_SYN;
 	pr("Che target of %s changed from %s to %s.\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   prnatid(old), prnatid(new));
-	sect->sct_che_target = new;
-	if (new == 0)
+	   prnatid(sect->sct_che_target), prnatid(arg));
+	sect->sct_che_target = arg;
+	if (arg == 0)
 	    sect->sct_che = 0;
 	break;
     case 'p':
@@ -739,14 +736,16 @@ edit_ship(struct shpstr *ship, char op, int arg, char *p)
 	ef_set_uid(EF_SHIP, ship, arg);
 	break;
     case 'O':
+	if (arg < 0 || arg >= MAXNOC)
+	    return RET_SYN;
 	if (ship->shp_own)
 	    wu(player->cnum, ship->shp_own,
 	       "%s taken from you by deity intervention!\n", prship(ship));
-	if (arg && arg < MAXNOC) {
+	if (arg) {
 	    wu(player->cnum, (natid)arg,
 	       "%s given to you by deity intervention!\n", prship(ship));
 	    ship->shp_own = (natid)arg;
-	} else if (!arg)
+	} else
 	    ship->shp_effic = 0;
 	break;
     case 'L':
@@ -835,15 +834,16 @@ edit_land(struct lndstr *land, char op, int arg, char *p)
 	ef_set_uid(EF_LAND, land, arg);
 	break;
     case 'O':
+	if (arg < 0 || arg >= MAXNOC)
+	    return RET_SYN;
 	if (land->lnd_own)
 	    wu(player->cnum, land->lnd_own,
 	       "%s taken from you by deity intervention!\n", prland(land));
-
-	if (arg && arg < MAXNOC) {
+	if (arg) {
 	    wu(player->cnum, (natid)arg,
 	       "%s given to you by deity intervention!\n", prland(land));
 	    land->lnd_own = (natid)arg;
-	} else if (!arg)
+	} else
 	    land->lnd_effic = 0;
 	break;
     case 'L':
@@ -949,15 +949,17 @@ edit_plane(struct plnstr *plane, char op, int arg, char *p)
 	plane->pln_y = newy;
 	break;
     case 'O':
+	if (arg < 0 || arg >= MAXNOC)
+	    return RET_SYN;
 	if (plane->pln_own)
 	    wu(player->cnum, plane->pln_own,
 	       "%s taken from you by deity intervention!\n",
 	       prplane(plane));
-	if (arg && arg < MAXNOC) {
+	if (arg) {
 	    plane->pln_own = (natid)arg;
 	    wu(player->cnum, plane->pln_own,
 	       "%s given to you by deity intervention!\n", prplane(plane));
-	} else if (!arg)
+	} else
 	    plane->pln_effic = 0;
 	break;
     case 'e':
