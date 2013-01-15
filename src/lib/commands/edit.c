@@ -431,8 +431,8 @@ static int
 edit_sect(struct sctstr *sect, char op, int arg, char *p)
 {
     coord newx, newy;
-    int new, old;
-    int des;
+    int new;
+
     switch (op) {
     case 'o':
 	if (arg < 0 || arg >= MAXNOC)
@@ -510,10 +510,10 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
 	sect->sct_loyal = (unsigned char)new;
 	break;
     case 'x':
-	old = sect->sct_che;
 	new = LIMIT_TO(arg, 0, CHE_MAX);
 	pr("Guerillas in %s changed from %d to %d\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
+	   xyas(sect->sct_x, sect->sct_y, player->cnum),
+	   sect->sct_che, new);
 	sect->sct_che = new;
 	break;
     case 'X':
@@ -527,24 +527,24 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
 	    sect->sct_che = 0;
 	break;
     case 'p':
-	old = sect->sct_pstage;
 	new = LIMIT_TO(arg, 0, PLG_EXPOSED);
 	pr("Plague stage of %s changed from %d to %d\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
+	   xyas(sect->sct_x, sect->sct_y, player->cnum),
+	   sect->sct_pstage, new);
 	sect->sct_pstage = new;
 	break;
     case 't':
-	old = sect->sct_ptime;
 	new = LIMIT_TO(arg, 0, 255);
 	pr("Plague time of %s changed from %d to %d\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
+	   xyas(sect->sct_x, sect->sct_y, player->cnum),
+	   sect->sct_ptime, new);
 	sect->sct_ptime = new;
 	break;
     case 'F':
-	old = sect->sct_fallout;
 	new = LIMIT_TO(arg, 0, FALLOUT_MAX);
 	pr("Fallout for sector %s changed from %d to %d\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum), old, new);
+	   xyas(sect->sct_x, sect->sct_y, player->cnum),
+	   sect->sct_fallout, new);
 	sect->sct_fallout = new;
 	break;
     case 'a':
@@ -575,23 +575,23 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
 	sect->sct_dist_y = newy;
 	break;
     case 's':
-	des = sct_typematch(p);
-	if (des < 0)
+	new = sct_typematch(p);
+	if (new < 0)
 	    return RET_SYN;
 	pr("Designation for sector %s changed from %c to %c\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   dchr[sect->sct_type].d_mnem, dchr[des].d_mnem);
-	set_coastal(sect, sect->sct_type, des);
-	sect->sct_type = des;
+	   dchr[sect->sct_type].d_mnem, dchr[new].d_mnem);
+	set_coastal(sect, sect->sct_type, new);
+	sect->sct_type = new;
 	break;
     case 'S':
-	des = sct_typematch(p);
-	if (des < 0)
+	new = sct_typematch(p);
+	if (new < 0)
 	    return RET_SYN;
 	pr("New designation for sector %s changed from %c to %c\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   dchr[sect->sct_newtype].d_mnem, dchr[des].d_mnem);
-	sect->sct_newtype = des;
+	   dchr[sect->sct_newtype].d_mnem, dchr[new].d_mnem);
+	sect->sct_newtype = new;
 	break;
     case 'R':
 	new = LIMIT_TO(arg, 0, 100);
