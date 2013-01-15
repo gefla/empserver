@@ -313,6 +313,7 @@ print_nat(struct natstr *np)
 static void
 print_plane(struct plnstr *plane)
 {
+    pr("%s %s\n", prnatid(plane->pln_own), prplane(plane));
     pr("UID <U>: %d\t\t", plane->pln_uid);
     pr("Owner <O>: %d\t\t", plane->pln_own);
     pr("Location <l>: %s\n",
@@ -330,6 +331,7 @@ print_plane(struct plnstr *plane)
 static void
 print_land(struct lndstr *land)
 {
+    pr("%s %s\n", prnatid(land->lnd_own), prland(land));
     pr("UID <U>: %d\n", land->lnd_uid);
     pr("Owner <O>: %d\n", land->lnd_own);
     pr("Location <L>: %s\n", xyas(land->lnd_x, land->lnd_y, player->cnum));

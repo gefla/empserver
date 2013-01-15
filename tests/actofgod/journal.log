@@ -1165,6 +1165,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0
     Play#0 command edit
+    Play#0 output Play#0 1 POGO (#0) f1   Sopwith Camel #0
     Play#0 output Play#0 1 UID <U>: 0		Owner <O>: 0		Location <l>: 1,-1
     Play#0 output Play#0 1 Efficiency <e>: 0	Mobility <m>: 0
     Play#0 output Play#0 1 Tech <t>: 100		Wing <w>: 
@@ -1176,6 +1177,7 @@
     Play#0 input y -1
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
+    Play#0 output Play#0 1 POGO (#0) f1   Sopwith Camel #0
     Play#0 output Play#0 1 UID <U>: 0		Owner <O>: 0		Location <l>: 1,-1
     Play#0 output Play#0 1 Efficiency <e>: 0	Mobility <m>: 2
     Play#0 output Play#0 1 Tech <t>: 100		Wing <w>: 
@@ -1184,6 +1186,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0
     Play#0 command edit
+    Play#0 output Play#0 1 POGO (#0) sup  supply #0
     Play#0 output Play#0 1 UID <U>: 0
     Play#0 output Play#0 1 Owner <O>: 0
     Play#0 output Play#0 1 Location <L>: 1,-1
@@ -1201,6 +1204,7 @@
     Play#0 input Y -1
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
+    Play#0 output Play#0 1 POGO (#0) sup  supply #0
     Play#0 output Play#0 1 UID <U>: 0
     Play#0 output Play#0 1 Owner <O>: 0
     Play#0 output Play#0 1 Location <L>: 1,-1
