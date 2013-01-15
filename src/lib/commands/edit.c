@@ -741,12 +741,10 @@ edit_ship(struct shpstr *ship, char op, int arg, char *p)
 	if (ship->shp_own)
 	    wu(player->cnum, ship->shp_own,
 	       "%s taken from you by deity intervention!\n", prship(ship));
-	if (arg) {
+	if (arg)
 	    wu(player->cnum, (natid)arg,
 	       "%s given to you by deity intervention!\n", prship(ship));
-	    ship->shp_own = (natid)arg;
-	} else
-	    ship->shp_effic = 0;
+	ship->shp_own = arg;
 	break;
     case 'L':
 	if (!sarg_xy(p, &newx, &newy))
@@ -839,12 +837,10 @@ edit_land(struct lndstr *land, char op, int arg, char *p)
 	if (land->lnd_own)
 	    wu(player->cnum, land->lnd_own,
 	       "%s taken from you by deity intervention!\n", prland(land));
-	if (arg) {
+	if (arg)
 	    wu(player->cnum, (natid)arg,
 	       "%s given to you by deity intervention!\n", prland(land));
-	    land->lnd_own = (natid)arg;
-	} else
-	    land->lnd_effic = 0;
+	land->lnd_own = arg;
 	break;
     case 'L':
 	if (!sarg_xy(p, &newx, &newy))
@@ -955,12 +951,10 @@ edit_plane(struct plnstr *plane, char op, int arg, char *p)
 	    wu(player->cnum, plane->pln_own,
 	       "%s taken from you by deity intervention!\n",
 	       prplane(plane));
-	if (arg) {
-	    plane->pln_own = (natid)arg;
-	    wu(player->cnum, plane->pln_own,
+	if (arg)
+	    wu(player->cnum, arg,
 	       "%s given to you by deity intervention!\n", prplane(plane));
-	} else
-	    plane->pln_effic = 0;
+	plane->pln_own = arg;
 	break;
     case 'e':
 	plane->pln_effic = LIMIT_TO(arg, PLANE_MINEFF, 100);
