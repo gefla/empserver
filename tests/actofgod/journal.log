@@ -180,7 +180,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 m 128
     Play#0 command edit
-    Play#0 output Play#0 1 Mobility of 7,1 changed from 0 to 128
+    Play#0 output Play#0 1 Mobility of 7,1 changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input setsect mo 1,3 -2147483648
     Play#0 command setsector
@@ -542,11 +542,11 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 t 32767
     Play#0 command edit
-    Play#0 output Play#0 1 Plague time of 5,1 changed from 0 to 255
+    Play#0 output Play#0 1 Plague time of 5,1 changed from 0 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 t 32768
     Play#0 command edit
-    Play#0 output Play#0 1 Plague time of 7,1 changed from 0 to 255
+    Play#0 output Play#0 1 Plague time of 7,1 changed from 0 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 F 0
     Play#0 command edit
@@ -1122,6 +1122,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 s -1 s 9999
     Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 s 3
     Play#0 command edit
@@ -1131,6 +1132,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 S -1 S 9999
     Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 S 3
     Play#0 command edit
@@ -1241,7 +1243,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 4 b 641
     Play#0 command edit
-    Play#0 output Play#0 1 BTU's changed from 0 to 641
+    Play#0 output Play#0 1 BTU's changed from 0 to 640
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 m 0
     Play#0 command edit
@@ -1249,7 +1251,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 m -1
     Play#0 command edit
-    Play#0 output Play#0 1 Military reserves changed from 0 to -1
+    Play#0 output Play#0 1 Military reserves changed from 0 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 m 2147483647
     Play#0 command edit
@@ -1295,7 +1297,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 T -1
     Play#0 command edit
-    Play#0 output Play#0 1 Tech changed from 0.00 to -1.00.
+    Play#0 output Play#0 1 Tech changed from 0.00 to 0.00.
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 R 3.14
     Play#0 command edit
@@ -1307,7 +1309,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 R -1
     Play#0 command edit
-    Play#0 output Play#0 1 Research changed from 0.00 to -1.00.
+    Play#0 output Play#0 1 Research changed from 0.00 to 0.00.
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 E 3.14
     Play#0 command edit
@@ -1319,7 +1321,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 E -1
     Play#0 command edit
-    Play#0 output Play#0 1 Education changed from 0.00 to -1.00.
+    Play#0 output Play#0 1 Education changed from 0.00 to 0.00.
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 H 3.14
     Play#0 command edit
@@ -1331,7 +1333,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 H -1
     Play#0 command edit
-    Play#0 output Play#0 1 Happiness changed from 0.00 to -1.00.
+    Play#0 output Play#0 1 Happiness changed from 0.00 to 0.00.
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 n POGO
     Play#0 command edit
@@ -1432,7 +1434,7 @@
     Play#0 output Play#0 1 Mobility in 1,1 was changed from 0 to -127 by an act of POGO
     Play#0 output Play#0 1 Mobility in 3,1 was changed from 0 to -127 by an act of POGO
     Play#0 output Play#0 1 Mobility in 5,1 was changed from 0 to 127 by an act of POGO
-    Play#0 output Play#0 1 Mobility in 7,1 was changed from 0 to 128 by an act of POGO
+    Play#0 output Play#0 1 Mobility in 7,1 was changed from 0 to 127 by an act of POGO
     Play#0 output Play#0 1 Iron ore content in 1,1 was changed from 0 to 0 by an act of POGO
     Play#0 output Play#0 1 Iron ore content in 3,1 was changed from 0 to 0 by an act of POGO
     Play#0 output Play#0 1 Iron ore content in 5,1 was changed from 0 to 127 by an act of POGO
@@ -1551,7 +1553,7 @@
     Play#0 output Play#0 1 cs   cargo ship (#2) given to you by deity intervention!
     Play#0 output Play#0 1 f1   Sopwith Camel #2 given to you by deity intervention!
     Play#0 output Play#0 1 sup  supply #2 given to you by deity intervention!
-    Play#0 output Play#0 1 Military reserves changed from 0 to -1 by divine intervention.
+    Play#0 output Play#0 1 Military reserves changed from 0 to 0 by divine intervention.
     Play#0 output Play#0 6 0 640
     Play#0 input read 3
     Play#0 command read

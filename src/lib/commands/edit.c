@@ -468,7 +468,7 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
 	sect->sct_effic = new;
 	break;
     case 'm':
-	new = LIMIT_TO(arg, -127, 255);
+	new = LIMIT_TO(arg, -127, 127);
 	noise(sect, "Mobility", sect->sct_mobil, new);
 	sect->sct_mobil = new;
 	break;
@@ -534,7 +534,7 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
 	sect->sct_pstage = new;
 	break;
     case 't':
-	new = LIMIT_TO(arg, 0, 255);
+	new = LIMIT_TO(arg, 0, 32767);
 	pr("Plague time of %s changed from %d to %d\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   sect->sct_ptime, new);
@@ -635,14 +635,16 @@ edit_nat(struct natstr *np, char op, int arg, char *p)
 	strncpy(np->nat_pnam, p, sizeof(np->nat_pnam) - 1);
 	break;
     case 't':
+	arg = LIMIT_TO(arg, 0, USHRT_MAX);
 	np->nat_tgms = arg;
 	break;
     case 'b':
-	arg = LIMIT_TO(arg, 0, 1024);
+	arg = LIMIT_TO(arg, 0, max_btus);
 	pr("BTU's changed from %d to %d\n", np->nat_btu, arg);
 	np->nat_btu = arg;
 	break;
     case 'm':
+	arg = LIMIT_TO(arg, 0, INT_MAX);
 	benefit(nat, np->nat_reserve < arg);
 	pr("Military reserves changed from %d to %d\n",
 	   np->nat_reserve, arg);
@@ -686,21 +688,25 @@ edit_nat(struct natstr *np, char op, int arg, char *p)
 	np->nat_money = arg;
 	break;
     case 'T':
+	farg = MAX(0.0, farg);
 	pr("Tech changed from %.2f to %.2f.\n",
 	   np->nat_level[NAT_TLEV], farg);
 	np->nat_level[NAT_TLEV] = farg;
 	break;
     case 'R':
+	farg = MAX(0.0, farg);
 	pr("Research changed from %.2f to %.2f.\n",
 	   np->nat_level[NAT_RLEV], farg);
 	np->nat_level[NAT_RLEV] = farg;
 	break;
     case 'E':
+	farg = MAX(0.0, farg);
 	pr("Education changed from %.2f to %.2f.\n",
 	   np->nat_level[NAT_ELEV], farg);
 	np->nat_level[NAT_ELEV] = farg;
 	break;
     case 'H':
+	farg = MAX(0.0, farg);
 	pr("Happiness changed from %.2f to %.2f.\n",
 	   np->nat_level[NAT_HLEV], farg);
 	np->nat_level[NAT_HLEV] = farg;
@@ -716,14 +722,17 @@ edit_nat(struct natstr *np, char op, int arg, char *p)
 static int
 edit_ship(struct shpstr *ship, char op, int arg, char *p)
 {
+    struct mchrstr *mcp = &mchr[ship->shp_type];
     coord newx, newy;
 
     newx = newy = 0;
     switch (op) {
     case 'a':
+	arg = LIMIT_TO(arg, 0, PLG_EXPOSED);
 	ship->shp_pstage = arg;
 	break;
     case 'b':
+	arg = LIMIT_TO(arg, 0, 32767);
 	ship->shp_ptime = arg;
 	break;
     case 'R':
@@ -753,13 +762,14 @@ edit_ship(struct shpstr *ship, char op, int arg, char *p)
 	ship->shp_y = newy;
 	break;
     case 'T':
-	arg = LIMIT_TO(arg, mchr[(int)ship->shp_type].m_tech, SHRT_MAX);
+	arg = LIMIT_TO(arg, mcp->m_tech, SHRT_MAX);
 	shp_set_tech(ship, arg);
 	break;
     case 'E':
 	ship->shp_effic = LIMIT_TO(arg, SHIP_MINEFF, 100);
 	break;
     case 'M':
+	arg = LIMIT_TO(arg, -127, 127);
 	ship->shp_mobil = arg;
 	break;
     case 'F':
@@ -773,42 +783,55 @@ edit_ship(struct shpstr *ship, char op, int arg, char *p)
 	}
 	break;
     case 'c':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_CIVIL]);
 	ship->shp_item[I_CIVIL] = arg;
 	break;
     case 'm':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_MILIT]);
 	ship->shp_item[I_MILIT] = arg;
 	break;
     case 'u':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_UW]);
 	ship->shp_item[I_UW] = arg;
 	break;
     case 'f':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_FOOD]);
 	ship->shp_item[I_FOOD] = arg;
 	break;
     case 's':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_SHELL]);
 	ship->shp_item[I_SHELL] = arg;
 	break;
     case 'g':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_GUN]);
 	ship->shp_item[I_GUN] = arg;
 	break;
     case 'p':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_PETROL]);
 	ship->shp_item[I_PETROL] = arg;
 	break;
     case 'i':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_IRON]);
 	ship->shp_item[I_IRON] = arg;
 	break;
     case 'd':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_DUST]);
 	ship->shp_item[I_DUST] = arg;
 	break;
     case 'o':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_OIL]);
 	ship->shp_item[I_OIL] = arg;
 	break;
     case 'l':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_LCM]);
 	ship->shp_item[I_LCM] = arg;
 	break;
     case 'h':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_HCM]);
 	ship->shp_item[I_HCM] = arg;
 	break;
     case 'r':
+	arg = LIMIT_TO(arg, 0, mcp->m_item[I_RAD]);
 	ship->shp_item[I_RAD] = arg;
 	break;
     default:
@@ -821,11 +844,14 @@ edit_ship(struct shpstr *ship, char op, int arg, char *p)
 static int
 edit_land(struct lndstr *land, char op, int arg, char *p)
 {
+    struct lchrstr *lcp = &lchr[land->lnd_type];
     coord newx, newy;
 
     newx = newy = 0;
     switch (op) {
     case 'Y':
+	if (arg < -1 || arg >= ef_nelem(EF_LAND))
+	    return RET_SYN;
 	land->lnd_land = arg;
 	break;
     case 'U':
@@ -852,10 +878,11 @@ edit_land(struct lndstr *land, char op, int arg, char *p)
 	land->lnd_effic = LIMIT_TO(arg, LAND_MINEFF, 100);
 	break;
     case 'M':
+	arg = LIMIT_TO(arg, -127, 127);
 	land->lnd_mobil = arg;
 	break;
     case 't':
-	arg = LIMIT_TO(arg, lchr[(int)land->lnd_type].l_tech, SHRT_MAX);
+	arg = LIMIT_TO(arg, lcp->l_tech, SHRT_MAX);
 	lnd_set_tech(land, arg);
 	break;
     case 'a':
@@ -869,12 +896,15 @@ edit_land(struct lndstr *land, char op, int arg, char *p)
 	}
 	break;
     case 'F':
-	land->lnd_harden = LIMIT_TO(arg, 0, 255);
+	land->lnd_harden = LIMIT_TO(arg, 0, 127);
 	break;
     case 'S':
+	if (arg < -1 || arg >= ef_nelem(EF_SHIP))
+	    return RET_SYN;
 	land->lnd_ship = arg;
 	break;
     case 'Z':
+	arg = LIMIT_TO(arg, 0, 100);
 	land->lnd_retreat = arg;
 	break;
     case 'R':
@@ -884,42 +914,55 @@ edit_land(struct lndstr *land, char op, int arg, char *p)
 	land->lnd_rflags = arg;
 	break;
     case 'c':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_CIVIL]);
 	land->lnd_item[I_CIVIL] = arg;
 	break;
     case 'm':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_MILIT]);
 	land->lnd_item[I_MILIT] = arg;
 	break;
     case 'u':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_UW]);
 	land->lnd_item[I_UW] = arg;
 	break;
     case 'f':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_FOOD]);
 	land->lnd_item[I_FOOD] = arg;
 	break;
     case 's':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_SHELL]);
 	land->lnd_item[I_SHELL] = arg;
 	break;
     case 'g':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_GUN]);
 	land->lnd_item[I_GUN] = arg;
 	break;
     case 'p':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_PETROL]);
 	land->lnd_item[I_PETROL] = arg;
 	break;
     case 'i':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_IRON]);
 	land->lnd_item[I_IRON] = arg;
 	break;
     case 'd':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_DUST]);
 	land->lnd_item[I_DUST] = arg;
 	break;
     case 'o':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_OIL]);
 	land->lnd_item[I_OIL] = arg;
 	break;
     case 'l':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_LCM]);
 	land->lnd_item[I_LCM] = arg;
 	break;
     case 'h':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_HCM]);
 	land->lnd_item[I_HCM] = arg;
 	break;
     case 'r':
+	arg = LIMIT_TO(arg, 0, lcp->l_item[I_RAD]);
 	land->lnd_item[I_RAD] = arg;
 	break;
     default:
@@ -932,6 +975,7 @@ edit_land(struct lndstr *land, char op, int arg, char *p)
 static int
 edit_plane(struct plnstr *plane, char op, int arg, char *p)
 {
+    struct plchrstr *pcp = &plchr[plane->pln_type];
     coord newx, newy;
 
     switch (op) {
@@ -960,10 +1004,10 @@ edit_plane(struct plnstr *plane, char op, int arg, char *p)
 	plane->pln_effic = LIMIT_TO(arg, PLANE_MINEFF, 100);
 	break;
     case 'm':
-	plane->pln_mobil = LIMIT_TO(arg, -127, 255);
+	plane->pln_mobil = LIMIT_TO(arg, -127, 127);
 	break;
     case 't':
-	arg = LIMIT_TO(arg, plchr[(int)plane->pln_type].pl_tech, SHRT_MAX);
+	arg = LIMIT_TO(arg, pcp->pl_tech, SHRT_MAX);
 	pln_set_tech(plane, arg);
 	break;
     case 'w':
@@ -977,12 +1021,17 @@ edit_plane(struct plnstr *plane, char op, int arg, char *p)
 	}
 	break;
     case 'r':
+	arg = LIMIT_TO(arg, 0, pl_range(pcp, plane->pln_tech));
 	plane->pln_range = (unsigned char)arg;
 	break;
     case 's':
+	if (arg < -1 || arg >= ef_nelem(EF_SHIP))
+	    return RET_SYN;
 	plane->pln_ship = arg;
 	break;
     case 'y':
+	if (arg < -1 || arg >= ef_nelem(EF_LAND))
+	    return RET_SYN;
 	plane->pln_land = arg;
 	break;
     case 'f':
