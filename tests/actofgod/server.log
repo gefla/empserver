@@ -10,8 +10,6 @@ tester@127.0.0.1 logged in as country #0
 Oops: id < 0 in ../src/lib/common/file.c:973
 Oops: id < 0 in ../src/lib/common/file.c:973
 Oops: id < 0 in ../src/lib/common/file.c:973
-Oops: ship >= 0 && land >= 0 in ../src/lib/subs/plane.c:77
-Oops: ship >= 0 && land >= 0 in ../src/lib/subs/land.c:78
 tester@127.0.0.1 logged out, country #0
 Shutdown commencing (cleaning up threads.)
 Server shutting down on signal 15

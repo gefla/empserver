@@ -852,6 +852,8 @@ edit_land(struct lndstr *land, char op, int arg, char *p)
     case 'Y':
 	if (arg < -1 || arg >= ef_nelem(EF_LAND))
 	    return RET_SYN;
+	if (arg >= 0 && arg != land->lnd_land)
+	    land->lnd_ship = -1;
 	land->lnd_land = arg;
 	break;
     case 'U':
@@ -901,6 +903,8 @@ edit_land(struct lndstr *land, char op, int arg, char *p)
     case 'S':
 	if (arg < -1 || arg >= ef_nelem(EF_SHIP))
 	    return RET_SYN;
+	if (arg >= 0 && arg != land->lnd_ship)
+	    land->lnd_land = -1;
 	land->lnd_ship = arg;
 	break;
     case 'Z':
@@ -1027,11 +1031,15 @@ edit_plane(struct plnstr *plane, char op, int arg, char *p)
     case 's':
 	if (arg < -1 || arg >= ef_nelem(EF_SHIP))
 	    return RET_SYN;
+	if (arg >= 0 && arg != plane->pln_ship)
+	    plane->pln_land = -1;
 	plane->pln_ship = arg;
 	break;
     case 'y':
 	if (arg < -1 || arg >= ef_nelem(EF_LAND))
 	    return RET_SYN;
+	if (arg >= 0 && arg != plane->pln_land)
+	    plane->pln_ship = -1;
 	plane->pln_land = arg;
 	break;
     case 'f':
