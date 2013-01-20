@@ -207,6 +207,7 @@ edit('sect', '1,5', 'm', 1, 'a', 1);
 
 # interactive edit
 iedit('sect', '3,5', 'm 2', 'a 1');
+iedit('sect', '5,5', ' ');
 
 # give
 give('2,6', 'l', $INT_MIN);

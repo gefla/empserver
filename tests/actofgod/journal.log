@@ -750,6 +750,27 @@
     Play#0 output Play#0 1 Mines <M>: 0
     Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,5
+    Play#0 command edit
+    Play#0 output Play#0 1 Location <L>: 5,5	Distribution sector <D>: 5,5
+    Play#0 output Play#0 1 Designation <s>: -	New designation <S>: -
+    Play#0 output Play#0 1 own  oo eff mob min gld frt oil urn wrk lty che ctg plg ptime fall avail
+    Play#0 output Play#0 1   o   O   e   m   i   g   f   c   u   w   l   x   X   p     t    F     a
+    Play#0 output Play#0 1   1   1   0   0   0   0   0   0   0 100   0   0   0   0     0    0     0
+    Play#0 output Play#0 1 Mines <M>: 0
+    Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input  
+    Play#0 output Play#0 1 Location <L>: 5,5	Distribution sector <D>: 5,5
+    Play#0 output Play#0 1 Designation <s>: -	New designation <S>: -
+    Play#0 output Play#0 1 own  oo eff mob min gld frt oil urn wrk lty che ctg plg ptime fall avail
+    Play#0 output Play#0 1   o   O   e   m   i   g   f   c   u   w   l   x   X   p     t    F     a
+    Play#0 output Play#0 1   1   1   0   0   0   0   0   0   0 100   0   0   0   0     0    0     0
+    Play#0 output Play#0 1 Mines <M>: 0
+    Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input 
+    Play#0 output Play#0 6 0 640
     Play#0 input give l 2,6 -2147483648
     Play#0 command give
     Play#0 output Play#0 1 Only 0 given in 2,6

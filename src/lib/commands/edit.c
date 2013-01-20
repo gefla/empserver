@@ -405,11 +405,9 @@ getin(char *buf, char **valp)
     p = getstarg(NULL, "%c xxxxx -- thing value : ", buf);
     if (!p)
 	return -1;
-    if (!*p)
-	return 0;
     for (; isspace(*p); p++) ;
     if (!*p)
-	return -1;
+	return 0;
     thing = *p;
     for (; *p && !isspace(*p); p++) ;
     for (; isspace(*p); p++) ;
