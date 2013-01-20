@@ -89,6 +89,10 @@ give(void)
 		   xyas(sect.sct_x, sect.sct_y, sect.sct_own));
 	    }
 	}
+	if (m - n != amt)
+	    pr("Only %d %s in %s\n", abs(m - n),
+	       m - n >= 0 ? "given" : "taken",
+	       xyas(sect.sct_x, sect.sct_y, player->cnum));
 	pr("%d %s in %s\n", m, ip->i_name,
 	   xyas(sect.sct_x, sect.sct_y, player->cnum));
     }

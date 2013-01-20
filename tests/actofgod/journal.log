@@ -752,6 +752,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input give l 2,6 -2147483648
     Play#0 command give
+    Play#0 output Play#0 1 Only 0 given in 2,6
     Play#0 output Play#0 1 0 light products in 2,6
     Play#0 output Play#0 6 0 640
     Play#0 input give c 4:8,6 1
@@ -762,6 +763,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input give c 6,6 2147483647
     Play#0 command give
+    Play#0 output Play#0 1 Only 9997 given in 6,6
     Play#0 output Play#0 1 9999 civilians in 6,6
     Play#0 output Play#0 6 0 640
     Play#0 input give c 8,6 -1
