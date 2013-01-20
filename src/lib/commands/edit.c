@@ -52,12 +52,12 @@ static void print_nat(struct natstr *);
 static void print_plane(struct plnstr *);
 static void print_land(struct lndstr *);
 static void print_ship(struct shpstr *);
-static int getin(char *, char **);
-static int edit_sect(struct sctstr *, char, int, char *);
-static int edit_nat(struct natstr *, char, int, char *);
-static int edit_ship(struct shpstr *, char, int, char *);
-static int edit_land(struct lndstr *, char, int, char *);
-static int edit_plane(struct plnstr *, char, int, char *);
+static char *getin(char *, char **);
+static int edit_sect(struct sctstr *, char *, int, char *);
+static int edit_nat(struct natstr *, char *, int, char *);
+static int edit_ship(struct shpstr *, char *, int, char *);
+static int edit_land(struct lndstr *, char *, int, char *);
+static int edit_plane(struct plnstr *, char *, int, char *);
 
 int
 edit(void)
@@ -67,8 +67,7 @@ edit(void)
     struct shpstr ship;
     struct lndstr land;
     char *what;
-    char *ptr;
-    char thing;
+    char *key, *ptr;
     int num;
     int arg;
     int err;
@@ -145,16 +144,16 @@ edit(void)
     for (;;) {
 	if (player->argp[arg_index]) {
 	    if (player->argp[arg_index+1]) {
-		thing = player->argp[arg_index++][0];
+		key = player->argp[arg_index++];
 		ptr = player->argp[arg_index++];
 		arg = atoi(ptr);
 	    } else
 		return RET_SYN;
 	} else if (arg_index == 3) {
-	    err = getin(buf, &ptr);
-	    if (err < 0)
+	    key = getin(buf, &ptr);
+	    if (!key)
 		return RET_SYN;
-	    if (err == 0) {
+	    if (!*key) {
 		switch (ewhat) {
 		case 'c':
 		    print_nat(np);
@@ -174,20 +173,19 @@ edit(void)
 		}
 		return RET_OK;
 	    }
-	    thing = err;
 	    arg = atoi(ptr);
 	} else
 	    return RET_OK;
 
 	switch (ewhat) {
 	case 'c':
-	    if ((err = edit_nat(np, thing, arg, ptr)) != RET_OK)
+	    if ((err = edit_nat(np, key, arg, ptr)) != RET_OK)
 		return err;
 	    break;
 	case 'l':
 	    if (!check_sect_ok(&sect))
 		return RET_FAIL;
-	    if ((err = edit_sect(&sect, thing, arg, ptr)) != RET_OK)
+	    if ((err = edit_sect(&sect, key, arg, ptr)) != RET_OK)
 		return err;
 	    if (!putsect(&sect))
 		return RET_FAIL;
@@ -195,7 +193,7 @@ edit(void)
 	case 's':
 	    if (!check_ship_ok(&ship))
 		return RET_FAIL;
-	    if ((err = edit_ship(&ship, thing, arg, ptr)) != RET_OK)
+	    if ((err = edit_ship(&ship, key, arg, ptr)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_SHIP, ship.shp_uid, 50))
 		return RET_FAIL;
@@ -205,7 +203,7 @@ edit(void)
 	case 'u':
 	    if (!check_land_ok(&land))
 		return RET_FAIL;
-	    if ((err = edit_land(&land, thing, arg, ptr)) != RET_OK)
+	    if ((err = edit_land(&land, key, arg, ptr)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_LAND, land.lnd_uid, 50))
 		return RET_FAIL;
@@ -215,7 +213,7 @@ edit(void)
 	case 'p':
 	    if (!check_plane_ok(&plane))
 		return RET_FAIL;
-	    if ((err = edit_plane(&plane, thing, arg, ptr)) != RET_OK)
+	    if ((err = edit_plane(&plane, key, arg, ptr)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_PLANE, plane.pln_uid, 50))
 		return RET_FAIL;
@@ -396,24 +394,25 @@ print_ship(struct shpstr *ship)
     pr("\n");
 }
 
-static int
+static char *
 getin(char *buf, char **valp)
 {
     char line[1024];
     char *argp[128];
     char *p;
 
+    *valp = NULL;
     p = getstarg(NULL, "%c xxxxx -- thing value : ", line);
     if (!p)
-	return -1;
+	return NULL;
     switch (parse(p, buf, argp, NULL, NULL, NULL)) {
     case 0:
-	return 0;
+	return "";
     case 1:
-	return -1;
+	return NULL;
     default:
 	*valp = argp[1];
-	return argp[0][0];
+	return argp[0];
     }
 }
 
@@ -426,12 +425,12 @@ warn_deprecated(char key)
 #endif
 
 static int
-edit_sect(struct sctstr *sect, char op, int arg, char *p)
+edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 {
     coord newx, newy;
     int new;
 
-    switch (op) {
+    switch (*key) {
     case 'o':
 	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
@@ -607,20 +606,20 @@ edit_sect(struct sctstr *sect, char op, int arg, char *p)
 	sect->sct_defense = new;
 	break;
     default:
-	pr("huh? (%c)\n", op);
+	pr("huh? (%s)\n", key);
 	return RET_SYN;
     }
     return RET_OK;
 }
 
 static int
-edit_nat(struct natstr *np, char op, int arg, char *p)
+edit_nat(struct natstr *np, char *key, int arg, char *p)
 {
     coord newx, newy;
     natid nat = np->nat_cnum;
     float farg = (float)atof(p);
 
-    switch (op) {
+    switch (*key) {
     case 'n':
 	if (!check_nat_name(p, nat))
 	    return RET_SYN;
@@ -710,7 +709,7 @@ edit_nat(struct natstr *np, char op, int arg, char *p)
 	np->nat_level[NAT_HLEV] = farg;
 	break;
     default:
-	pr("huh? (%c)\n", op);
+	pr("huh? (%s)\n", key);
 	break;
     }
     putnat(np);
@@ -718,13 +717,13 @@ edit_nat(struct natstr *np, char op, int arg, char *p)
 }
 
 static int
-edit_ship(struct shpstr *ship, char op, int arg, char *p)
+edit_ship(struct shpstr *ship, char *key, int arg, char *p)
 {
     struct mchrstr *mcp = &mchr[ship->shp_type];
     coord newx, newy;
 
     newx = newy = 0;
-    switch (op) {
+    switch (*key) {
     case 'a':
 	arg = LIMIT_TO(arg, 0, PLG_EXPOSED);
 	ship->shp_pstage = arg;
@@ -833,20 +832,20 @@ edit_ship(struct shpstr *ship, char op, int arg, char *p)
 	ship->shp_item[I_RAD] = arg;
 	break;
     default:
-	pr("huh? (%c)\n", op);
+	pr("huh? (%s)\n", key);
 	return RET_FAIL;
     }
     return RET_OK;
 }
 
 static int
-edit_land(struct lndstr *land, char op, int arg, char *p)
+edit_land(struct lndstr *land, char *key, int arg, char *p)
 {
     struct lchrstr *lcp = &lchr[land->lnd_type];
     coord newx, newy;
 
     newx = newy = 0;
-    switch (op) {
+    switch (*key) {
     case 'Y':
 	if (arg < -1 || arg >= ef_nelem(EF_LAND))
 	    return RET_SYN;
@@ -968,19 +967,19 @@ edit_land(struct lndstr *land, char op, int arg, char *p)
 	land->lnd_item[I_RAD] = arg;
 	break;
     default:
-	pr("huh? (%c)\n", op);
+	pr("huh? (%s)\n", key);
 	return RET_FAIL;
     }
     return RET_OK;
 }
 
 static int
-edit_plane(struct plnstr *plane, char op, int arg, char *p)
+edit_plane(struct plnstr *plane, char *key, int arg, char *p)
 {
     struct plchrstr *pcp = &plchr[plane->pln_type];
     coord newx, newy;
 
-    switch (op) {
+    switch (*key) {
     case 'U':
 	ef_set_uid(EF_PLANE, plane, arg);
 	break;
@@ -1044,7 +1043,7 @@ edit_plane(struct plnstr *plane, char op, int arg, char *p)
 	plane->pln_flags = arg;
 	break;
     default:
-	pr("huh? (%c)\n", op);
+	pr("huh? (%s)\n", key);
 	return RET_FAIL;
     }
     return RET_OK;
