@@ -399,22 +399,22 @@ print_ship(struct shpstr *ship)
 static int
 getin(char *buf, char **valp)
 {
+    char line[1024];
+    char *argp[128];
     char *p;
-    unsigned char thing;
 
-    p = getstarg(NULL, "%c xxxxx -- thing value : ", buf);
+    p = getstarg(NULL, "%c xxxxx -- thing value : ", line);
     if (!p)
 	return -1;
-    for (; isspace(*p); p++) ;
-    if (!*p)
+    switch (parse(p, buf, argp, NULL, NULL, NULL)) {
+    case 0:
 	return 0;
-    thing = *p;
-    for (; *p && !isspace(*p); p++) ;
-    for (; isspace(*p); p++) ;
-    if (!*p)
+    case 1:
 	return -1;
-    *valp = p;
-    return thing;
+    default:
+	*valp = argp[1];
+	return argp[0][0];
+    }
 }
 
 #if 0	/* not needed right now */

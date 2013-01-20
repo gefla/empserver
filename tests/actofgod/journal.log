@@ -1194,6 +1194,35 @@
     Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
     Play#0 output Play#0 1   0   1   0    1   0   0    0    0    0    0    0    0   0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 0
+    Play#0 command edit
+    Play#0 output Play#0 1 POGO (#0) cs   cargo ship (#0)
+    Play#0 output Play#0 1 UID <U>: 0
+    Play#0 output Play#0 1 Owner <O>: 0			Location <L>: 1,-1
+    Play#0 output Play#0 1 Tech <T>: 100			Efficiency <E>: 0
+    Play#0 output Play#0 1 Mobility <M>: 2		Fleet <F>: 
+    Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
+    Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
+    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
+    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
+    Play#0 output Play#0 1   0   1   0    1   0   0    0    0    0    0    0    0   0
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input R n
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input R ""
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input 
+    Play#0 output Play#0 1 POGO (#0) cs   cargo ship (#0)
+    Play#0 output Play#0 1 UID <U>: 0
+    Play#0 output Play#0 1 Owner <O>: 0			Location <L>: 1,-1
+    Play#0 output Play#0 1 Tech <T>: 100			Efficiency <E>: 0
+    Play#0 output Play#0 1 Mobility <M>: 2		Fleet <F>: 
+    Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
+    Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
+    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
+    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
+    Play#0 output Play#0 1   0   1   0    1   0   0    0    0    0    0    0    0   0
+    Play#0 output Play#0 6 0 640
     Play#0 input edit p 0
     Play#0 command edit
     Play#0 output Play#0 1 POGO (#0) f1   Sopwith Camel #0

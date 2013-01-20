@@ -301,6 +301,7 @@ unit_carrier('land', 'S', 'Y');
 
 # interactive edit
 iedit('ship', 0, 'M 2', 'm 1', 'f 1');
+iedit('ship', 0, 'R n', 'R ""');
 iedit('plane', 0, 'm 2', 'y -1');
 iedit('land', 0, 'M 2', 'Y -1');
 
