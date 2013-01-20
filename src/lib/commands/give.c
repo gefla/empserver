@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     David Muir Sharnoff
  *     Steve McClure, 1997
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -65,11 +66,11 @@ give(void)
 	if (!check_sect_ok(&sect))
 	    return RET_FAIL;
 	n = sect.sct_item[ip->i_uid];
-	if (amt < 0 && -amt > n) {
+	if (amt < 0 && n + amt < 0)
 	    m = 0;
-	} else if (amt > 0 && amt + n > ITEM_MAX) {
+	else if (amt > 0 && n > ITEM_MAX - amt)
 	    m = ITEM_MAX;
-	} else
+	else
 	    m = n + amt;
 	sect.sct_item[ip->i_uid] = m;
 	putsect(&sect);

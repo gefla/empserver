@@ -752,7 +752,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input give l 2,6 -2147483648
     Play#0 command give
-    Play#0 output Play#0 1 -2147483648 light products in 2,6
+    Play#0 output Play#0 1 0 light products in 2,6
     Play#0 output Play#0 6 0 640
     Play#0 input give c 4:8,6 1
     Play#0 command give
@@ -762,7 +762,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input give c 6,6 2147483647
     Play#0 command give
-    Play#0 output Play#0 1 -2147483647 civilians in 6,6
+    Play#0 output Play#0 1 9999 civilians in 6,6
     Play#0 output Play#0 6 0 640
     Play#0 input give c 8,6 -1
     Play#0 command give
@@ -1535,11 +1535,10 @@
     Play#0 output Play#0 1 Available workforce in 1,5 was changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Mobility in 3,5 was changed from 0 to 2 by an act of POGO
     Play#0 output Play#0 1 Available workforce in 3,5 was changed from 0 to 1 by an act of POGO
-    Play#0 output Play#0 1 POGO stole -2147483648 light products from 2,6
     Play#0 output Play#0 1 POGO gave you 1 civilians in 4,6
     Play#0 output Play#0 1 POGO gave you 1 civilians in 6,6
     Play#0 output Play#0 1 POGO gave you 1 civilians in 8,6
-    Play#0 output Play#0 1 POGO stole -2147483647 civilians from 6,6
+    Play#0 output Play#0 1 POGO gave you 9997 civilians in 6,6
     Play#0 output Play#0 1 POGO stole 1 civilians from 8,6
     Play#0 output Play#0 1 Military reserves changed from 0 to 0 by divine intervention.
     Play#0 output Play#0 1 Money changed from 0 to -2147483648 by divine intervention.
