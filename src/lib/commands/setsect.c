@@ -145,8 +145,14 @@ setsector(void)
 		current = sect.sct_mines;
 		current += amt;
 		current = LIMIT_TO(current, 0, MINES_MAX);
-		if (sect.sct_own != 0)
-		    resnoise(&sect, "Mines", sect.sct_mines, current);
+		if (sect.sct_own != 0) {
+		    if (sect.sct_own == sect.sct_oldown)
+			resnoise(&sect, "Mines", sect.sct_mines, current);
+		    else
+			pr("Mines of %s changed from %d to %d\n",
+			   xyas(sect.sct_x, sect.sct_y, player->cnum),
+			   sect.sct_mines, current);
+		}
 		sect.sct_mines = current;
 		break;
 	    case 'o':

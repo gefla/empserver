@@ -190,6 +190,11 @@ sect_int(
     ['d', 0, 100],
 );
 
+# special case: mines in occupied sector
+setsect('1:3,-3', 'ol', 1);
+setsect('1,-3', 'mi', 1);
+edit('sect', '3,-3', 'M', 1);
+
 # dist
 edit('sect', '2,4', 'D', '4,4');
 edit('sect', '4,4', 'D', '4,4');
