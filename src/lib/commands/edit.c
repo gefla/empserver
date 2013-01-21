@@ -721,6 +721,7 @@ edit_ship(struct shpstr *ship, char *key, int arg, char *p)
 {
     struct mchrstr *mcp = &mchr[ship->shp_type];
     coord newx, newy;
+    struct ichrstr *ip;
 
     newx = newy = 0;
     switch (*key) {
@@ -780,56 +781,21 @@ edit_ship(struct shpstr *ship, char *key, int arg, char *p)
 	}
 	break;
     case 'c':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_CIVIL]);
-	ship->shp_item[I_CIVIL] = arg;
-	break;
     case 'm':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_MILIT]);
-	ship->shp_item[I_MILIT] = arg;
-	break;
     case 'u':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_UW]);
-	ship->shp_item[I_UW] = arg;
-	break;
     case 'f':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_FOOD]);
-	ship->shp_item[I_FOOD] = arg;
-	break;
     case 's':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_SHELL]);
-	ship->shp_item[I_SHELL] = arg;
-	break;
     case 'g':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_GUN]);
-	ship->shp_item[I_GUN] = arg;
-	break;
     case 'p':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_PETROL]);
-	ship->shp_item[I_PETROL] = arg;
-	break;
     case 'i':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_IRON]);
-	ship->shp_item[I_IRON] = arg;
-	break;
     case 'd':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_DUST]);
-	ship->shp_item[I_DUST] = arg;
-	break;
     case 'o':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_OIL]);
-	ship->shp_item[I_OIL] = arg;
-	break;
     case 'l':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_LCM]);
-	ship->shp_item[I_LCM] = arg;
-	break;
     case 'h':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_HCM]);
-	ship->shp_item[I_HCM] = arg;
-	break;
     case 'r':
-	arg = LIMIT_TO(arg, 0, mcp->m_item[I_RAD]);
-	ship->shp_item[I_RAD] = arg;
+	ip = item_by_name(key);
+	arg = LIMIT_TO(arg, 0, mchr[ship->shp_type].m_item[ip->i_uid]);
+	ship->shp_item[ip->i_uid] = arg;
 	break;
     default:
 	pr("huh? (%s)\n", key);
@@ -843,6 +809,7 @@ edit_land(struct lndstr *land, char *key, int arg, char *p)
 {
     struct lchrstr *lcp = &lchr[land->lnd_type];
     coord newx, newy;
+    struct ichrstr *ip;
 
     newx = newy = 0;
     switch (*key) {
@@ -915,56 +882,21 @@ edit_land(struct lndstr *land, char *key, int arg, char *p)
 	land->lnd_rflags = arg;
 	break;
     case 'c':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_CIVIL]);
-	land->lnd_item[I_CIVIL] = arg;
-	break;
     case 'm':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_MILIT]);
-	land->lnd_item[I_MILIT] = arg;
-	break;
     case 'u':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_UW]);
-	land->lnd_item[I_UW] = arg;
-	break;
     case 'f':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_FOOD]);
-	land->lnd_item[I_FOOD] = arg;
-	break;
     case 's':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_SHELL]);
-	land->lnd_item[I_SHELL] = arg;
-	break;
     case 'g':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_GUN]);
-	land->lnd_item[I_GUN] = arg;
-	break;
     case 'p':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_PETROL]);
-	land->lnd_item[I_PETROL] = arg;
-	break;
     case 'i':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_IRON]);
-	land->lnd_item[I_IRON] = arg;
-	break;
     case 'd':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_DUST]);
-	land->lnd_item[I_DUST] = arg;
-	break;
     case 'o':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_OIL]);
-	land->lnd_item[I_OIL] = arg;
-	break;
     case 'l':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_LCM]);
-	land->lnd_item[I_LCM] = arg;
-	break;
     case 'h':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_HCM]);
-	land->lnd_item[I_HCM] = arg;
-	break;
     case 'r':
-	arg = LIMIT_TO(arg, 0, lcp->l_item[I_RAD]);
-	land->lnd_item[I_RAD] = arg;
+	ip = item_by_name(key);
+	arg = LIMIT_TO(arg, 0, lchr[land->lnd_type].l_item[ip->i_uid]);
+	land->lnd_item[ip->i_uid] = arg;
 	break;
     default:
 	pr("huh? (%s)\n", key);
