@@ -78,13 +78,13 @@ give(void)
 	    if (m > n) {
 		if (opt_GODNEWS)
 		    nreport(player->cnum, N_GIFT, sect.sct_own, 1);
-		wu(player->cnum, sect.sct_own, "%s gave you %d %s in %s\n",
+		wu(0, sect.sct_own, "%s gave you %d %s in %s\n",
 		   cname(player->cnum), m - n, ip->i_name,
 		   xyas(sect.sct_x, sect.sct_y, sect.sct_own));
 	    } else {
 		if (opt_GODNEWS)
 		    nreport(sect.sct_own, N_TAKE, player->cnum, 1);
-		wu(player->cnum, sect.sct_own, "%s stole %d %s from %s\n",
+		wu(0, sect.sct_own, "%s stole %d %s from %s\n",
 		   cname(player->cnum), n - m, ip->i_name,
 		   xyas(sect.sct_x, sect.sct_y, sect.sct_own));
 	    }

@@ -245,7 +245,7 @@ noise(struct sctstr *sptr, char *name, int old, int new)
     pr("%s of %s changed from %d to %d\n",
        name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);
     if (sptr->sct_own)
-	wu(player->cnum, sptr->sct_own,
+	wu(0, sptr->sct_own,
 	   "%s in %s was changed from %d to %d by an act of %s\n",
 	   name, xyas(sptr->sct_x, sptr->sct_y, sptr->sct_own),
 	   old, new, cname(player->cnum));
@@ -438,16 +438,18 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   prnatid(sect->sct_own), prnatid(arg));
 	if (sect->sct_own) {
-	    wu(player->cnum, sect->sct_own,
-	       "Sector %s lost to deity intervention\n",
-	       xyas(sect->sct_x, sect->sct_y, sect->sct_own));
+	    wu(0, sect->sct_own,
+	       "Sector %s taken from you by an act of %s!\n",
+	       xyas(sect->sct_x, sect->sct_y, sect->sct_own),
+	       cname(player->cnum));
 	}
 	benefit(sect->sct_own, 0);
 	sect->sct_own = arg;
 	if (arg) {
-	    wu(player->cnum, arg,
-	       "Sector %s gained from deity intervention\n",
-	       xyas(sect->sct_x, sect->sct_y, arg));
+	    wu(0, arg,
+	       "Sector %s given to you by an act of %s!\n",
+	       xyas(sect->sct_x, sect->sct_y, arg),
+	       cname(player->cnum));
 	}
 	benefit(arg, 1);
 	break;
@@ -645,9 +647,9 @@ edit_nat(struct natstr *np, char *key, int arg, char *p)
 	benefit(nat, np->nat_reserve < arg);
 	pr("Military reserves changed from %d to %d\n",
 	   np->nat_reserve, arg);
-	wu(player->cnum, nat,
-	   "Military reserves changed from %d to %d by divine intervention.\n",
-	   np->nat_reserve, arg);
+	wu(0, nat,
+	   "Military reserves changed from %d to %d by an act of %s\n",
+	   np->nat_reserve, arg, cname(player->cnum));
 	np->nat_reserve = arg;
 	break;
     case 'c':
@@ -679,9 +681,8 @@ edit_nat(struct natstr *np, char *key, int arg, char *p)
 	break;
     case 'M':
 	pr("Money changed from %d to %d\n", np->nat_money, arg);
-	wu(player->cnum, nat,
-	   "Money changed from %d to %d by divine intervention.\n",
-	   np->nat_money, arg);
+	wu(0, nat, "Money changed from %d to %d by an act of %s\n",
+	   np->nat_money, arg, cname(player->cnum));
 	np->nat_money = arg;
 	break;
     case 'T':
@@ -746,11 +747,11 @@ edit_ship(struct shpstr *ship, char *key, int arg, char *p)
 	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
 	if (ship->shp_own)
-	    wu(player->cnum, ship->shp_own,
-	       "%s taken from you by deity intervention!\n", prship(ship));
+	    wu(0, ship->shp_own, "%s taken from you by an act of %s!\n",
+	       prship(ship), cname(player->cnum));
 	if (arg)
-	    wu(player->cnum, (natid)arg,
-	       "%s given to you by deity intervention!\n", prship(ship));
+	    wu(0, arg, "%s given to you by an act of %s!\n",
+	       prship(ship), cname(player->cnum));
 	ship->shp_own = arg;
 	break;
     case 'L':
@@ -827,11 +828,11 @@ edit_land(struct lndstr *land, char *key, int arg, char *p)
 	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
 	if (land->lnd_own)
-	    wu(player->cnum, land->lnd_own,
-	       "%s taken from you by deity intervention!\n", prland(land));
+	    wu(0, land->lnd_own, "%s taken from you by an act of %s!\n",
+	       prland(land), cname(player->cnum));
 	if (arg)
-	    wu(player->cnum, (natid)arg,
-	       "%s given to you by deity intervention!\n", prland(land));
+	    wu(0, arg, "%s given to you by an act of %s!\n",
+	       prland(land), cname(player->cnum));
 	land->lnd_own = arg;
 	break;
     case 'L':
@@ -925,12 +926,11 @@ edit_plane(struct plnstr *plane, char *key, int arg, char *p)
 	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
 	if (plane->pln_own)
-	    wu(player->cnum, plane->pln_own,
-	       "%s taken from you by deity intervention!\n",
-	       prplane(plane));
+	    wu(0, plane->pln_own, "%s taken from you by an act of %s!\n",
+	       prplane(plane), cname(player->cnum));
 	if (arg)
-	    wu(player->cnum, arg,
-	       "%s given to you by deity intervention!\n", prplane(plane));
+	    wu(0, arg, "%s given to you by an act of %s!\n",
+	       prplane(plane), cname(player->cnum));
 	plane->pln_own = arg;
 	break;
     case 'e':

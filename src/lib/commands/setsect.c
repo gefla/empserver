@@ -104,14 +104,16 @@ setsector(void)
 		   xyas(sect.sct_x, sect.sct_y, player->cnum),
 		   prnatid(sect.sct_own), prnatid(amt));
 		if (sect.sct_own) {
-		    wu(player->cnum, sect.sct_own,
-		       "Sector %s lost to deity intervention\n",
-		       xyas(sect.sct_x, sect.sct_y, sect.sct_own));
+		    wu(0, sect.sct_own,
+		       "Sector %s taken from you by an act of %s!\n",
+		       xyas(sect.sct_x, sect.sct_y, sect.sct_own),
+		       cname(player->cnum));
 		}
 		if (amt)
-		    wu(player->cnum, amt,
-		       "Sector %s gained from deity intervention\n",
-		       xyas(sect.sct_x, sect.sct_y, amt));
+		    wu(0, amt,
+		       "Sector %s given to you by an act of %s!\n",
+		       xyas(sect.sct_x, sect.sct_y, amt),
+		       cname(player->cnum));
 		sect.sct_own = (natid)amt;
 		break;
 	    case 'l':
