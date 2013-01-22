@@ -103,6 +103,8 @@ setsector(void)
 		pr("Owner of %s changed from %s to %s.\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum),
 		   prnatid(sect.sct_own), prnatid(amt));
+		if (amt == sect.sct_own)
+		    break;
 		if (sect.sct_own) {
 		    wu(0, sect.sct_own,
 		       "Sector %s taken from you by an act of %s!\n",
@@ -202,18 +204,10 @@ setsector(void)
 }
 
 static void
-resbenefit(natid who, int good)
+resbenefit(natid who, int goodness)
 {
-    if (!opt_GODNEWS)
-	return;
-
-    if (good) {
-	if (who)
-	    nreport(player->cnum, N_AIDS, who, 1);
-    } else {
-	if (who)
-	    nreport(player->cnum, N_HURTS, who, 1);
-    }
+    if (opt_GODNEWS && who && goodness)
+	nreport(player->cnum, goodness > 0 ? N_AIDS : N_HURTS, who, 1);
 }
 
 void
@@ -221,10 +215,10 @@ resnoise(struct sctstr *sptr, char *name, int old, int new)
 {
     pr("%s of %s changed from %d to %d\n",
        name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);
-    if (sptr->sct_own)
+    if (sptr->sct_own && new != old)
 	wu(0, sptr->sct_own,
 	   "%s in %s was changed from %d to %d by an act of %s\n",
 	   name, xyas(sptr->sct_x, sptr->sct_y, sptr->sct_own),
 	   old, new, cname(player->cnum));
-    resbenefit(sptr->sct_own, (old < new));
+    resbenefit(sptr->sct_own, new - old);
 }
