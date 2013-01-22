@@ -206,7 +206,7 @@ setsector(void)
 static void
 resbenefit(natid who, int goodness)
 {
-    if (opt_GODNEWS && who && goodness)
+    if (opt_GODNEWS && getnatp(who)->nat_stat != STAT_GOD && goodness)
 	nreport(player->cnum, goodness > 0 ? N_AIDS : N_HURTS, who, 1);
 }
 
