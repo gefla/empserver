@@ -74,7 +74,7 @@ give(void)
 	    m = n + amt;
 	sect.sct_item[ip->i_uid] = m;
 	putsect(&sect);
-	if (sect.sct_own != 0 && m != n) {
+	if (sect.sct_own != 0 && sect.sct_own != player->cnum && m != n) {
 	    if (m > n) {
 		if (opt_GODNEWS
 		    && getnatp(sect.sct_own)->nat_stat != STAT_GOD)

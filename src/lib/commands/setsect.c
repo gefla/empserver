@@ -105,13 +105,13 @@ setsector(void)
 		   prnatid(sect.sct_own), prnatid(amt));
 		if (amt == sect.sct_own)
 		    break;
-		if (sect.sct_own) {
+		if (sect.sct_own && sect.sct_own != player->cnum) {
 		    wu(0, sect.sct_own,
 		       "Sector %s taken from you by an act of %s!\n",
 		       xyas(sect.sct_x, sect.sct_y, sect.sct_own),
 		       cname(player->cnum));
 		}
-		if (amt)
+		if (amt && amt != player->cnum)
 		    wu(0, amt,
 		       "Sector %s given to you by an act of %s!\n",
 		       xyas(sect.sct_x, sect.sct_y, amt),
@@ -215,7 +215,7 @@ resnoise(struct sctstr *sptr, char *name, int old, int new)
 {
     pr("%s of %s changed from %d to %d\n",
        name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);
-    if (sptr->sct_own && new != old)
+    if (sptr->sct_own && sptr->sct_own != player->cnum && new != old)
 	wu(0, sptr->sct_own,
 	   "%s in %s was changed from %d to %d by an act of %s\n",
 	   name, xyas(sptr->sct_x, sptr->sct_y, sptr->sct_own),

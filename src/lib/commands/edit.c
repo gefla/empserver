@@ -236,7 +236,7 @@ noise(struct sctstr *sptr, char *name, int old, int new)
 {
     pr("%s of %s changed from %d to %d\n",
        name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);
-    if (sptr->sct_own && new != old)
+    if (sptr->sct_own && sptr->sct_own != player->cnum && new != old)
 	wu(0, sptr->sct_own,
 	   "%s in %s was changed from %d to %d by an act of %s\n",
 	   name, xyas(sptr->sct_x, sptr->sct_y, sptr->sct_own),
@@ -431,7 +431,7 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	   prnatid(sect->sct_own), prnatid(arg));
 	if (arg == sect->sct_own)
 	    break;
-	if (sect->sct_own) {
+	if (sect->sct_own && sect->sct_own != player->cnum) {
 	    wu(0, sect->sct_own,
 	       "Sector %s taken from you by an act of %s!\n",
 	       xyas(sect->sct_x, sect->sct_y, sect->sct_own),
@@ -439,7 +439,7 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	}
 	benefit(sect->sct_own, -1);
 	sect->sct_own = arg;
-	if (arg) {
+	if (arg && arg != player->cnum) {
 	    wu(0, arg,
 	       "Sector %s given to you by an act of %s!\n",
 	       xyas(sect->sct_x, sect->sct_y, arg),
@@ -643,9 +643,10 @@ edit_nat(struct natstr *np, char *key, int arg, char *p)
 	   np->nat_reserve, arg);
 	if (arg == np->nat_reserve)
 	    break;
-	wu(0, nat,
-	   "Military reserves changed from %d to %d by an act of %s\n",
-	   np->nat_reserve, arg, cname(player->cnum));
+	if (nat != player->cnum)
+	    wu(0, nat,
+	       "Military reserves changed from %d to %d by an act of %s\n",
+	       np->nat_reserve, arg, cname(player->cnum));
 	np->nat_reserve = arg;
 	break;
     case 'c':
@@ -679,8 +680,9 @@ edit_nat(struct natstr *np, char *key, int arg, char *p)
 	pr("Money changed from %d to %d\n", np->nat_money, arg);
 	if (arg == np->nat_money)
 	    break;
-	wu(0, nat, "Money changed from %d to %d by an act of %s\n",
-	   np->nat_money, arg, cname(player->cnum));
+	if (nat != player->cnum)
+	    wu(0, nat, "Money changed from %d to %d by an act of %s\n",
+	       np->nat_money, arg, cname(player->cnum));
 	np->nat_money = arg;
 	break;
     case 'T':
@@ -746,10 +748,10 @@ edit_ship(struct shpstr *ship, char *key, int arg, char *p)
 	    return RET_SYN;
 	if (arg == ship->shp_own)
 	    break;
-	if (ship->shp_own)
+	if (ship->shp_own && ship->shp_own != player->cnum)
 	    wu(0, ship->shp_own, "%s taken from you by an act of %s!\n",
 	       prship(ship), cname(player->cnum));
-	if (arg)
+	if (arg && arg != player->cnum)
 	    wu(0, arg, "%s given to you by an act of %s!\n",
 	       prship(ship), cname(player->cnum));
 	ship->shp_own = arg;
@@ -829,10 +831,10 @@ edit_land(struct lndstr *land, char *key, int arg, char *p)
 	    return RET_SYN;
 	if (arg == land->lnd_own)
 	    break;
-	if (land->lnd_own)
+	if (land->lnd_own && land->lnd_own != player->cnum)
 	    wu(0, land->lnd_own, "%s taken from you by an act of %s!\n",
 	       prland(land), cname(player->cnum));
-	if (arg)
+	if (arg && arg != player->cnum)
 	    wu(0, arg, "%s given to you by an act of %s!\n",
 	       prland(land), cname(player->cnum));
 	land->lnd_own = arg;
@@ -929,10 +931,10 @@ edit_plane(struct plnstr *plane, char *key, int arg, char *p)
 	    return RET_SYN;
 	if (arg == plane->pln_own)
 	    break;
-	if (plane->pln_own)
+	if (plane->pln_own && plane->pln_own != player->cnum)
 	    wu(0, plane->pln_own, "%s taken from you by an act of %s!\n",
 	       prplane(plane), cname(player->cnum));
-	if (arg)
+	if (arg && arg != player->cnum)
 	    wu(0, arg, "%s given to you by an act of %s!\n",
 	       prplane(plane), cname(player->cnum));
 	plane->pln_own = arg;
