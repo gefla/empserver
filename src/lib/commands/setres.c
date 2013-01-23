@@ -70,28 +70,23 @@ setres(void)
 	    return RET_FAIL;
 	switch (char0) {
 	case 'i':
-	    if (sect.sct_own != 0)
-		resnoise(&sect, "Iron ore content", sect.sct_min, amt);
+	    resnoise(&sect, "Iron ore content", sect.sct_min, amt);
 	    sect.sct_min = (unsigned char)amt;
 	    break;
 	case 'g':
-	    if (sect.sct_own != 0)
-		resnoise(&sect, "Gold content", sect.sct_gmin, amt);
+	    resnoise(&sect, "Gold content", sect.sct_gmin, amt);
 	    sect.sct_gmin = (unsigned char)amt;
 	    break;
 	case 'o':
-	    if (sect.sct_own != 0)
-		resnoise(&sect, "Oil content", sect.sct_oil, amt);
+	    resnoise(&sect, "Oil content", sect.sct_oil, amt);
 	    sect.sct_oil = (unsigned char)amt;
 	    break;
 	case 'f':
-	    if (sect.sct_own != 0)
-		resnoise(&sect, "Fertility content", sect.sct_fertil, amt);
+	    resnoise(&sect, "Fertility content", sect.sct_fertil, amt);
 	    sect.sct_fertil = (unsigned char)amt;
 	    break;
 	case 'u':
-	    if (sect.sct_own != 0)
-		resnoise(&sect, "Uranium content", sect.sct_uran, amt);
+	    resnoise(&sect, "Uranium content", sect.sct_uran, amt);
 	    sect.sct_uran = (unsigned char)amt;
 	    break;
 	default:

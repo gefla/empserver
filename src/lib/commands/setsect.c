@@ -75,16 +75,14 @@ setsector(void)
 	    current = sect.sct_min;
 	    current += amt;
 	    current = LIMIT_TO(current, 0, 100);
-	    if (sect.sct_own != 0)
-		resnoise(&sect, "Iron ore content", sect.sct_min, current);
+	    resnoise(&sect, "Iron ore content", sect.sct_min, current);
 	    sect.sct_min = (unsigned char)current;
 	    break;
 	case 'g':
 	    current = sect.sct_gmin;
 	    current += amt;
 	    current = LIMIT_TO(current, 0, 100);
-	    if (sect.sct_own != 0)
-		resnoise(&sect, "Gold content", sect.sct_gmin, current);
+	    resnoise(&sect, "Gold content", sect.sct_gmin, current);
 	    sect.sct_gmin = (unsigned char)current;
 	    break;
 	case 'o':
@@ -93,8 +91,7 @@ setsector(void)
 		current = sect.sct_oil;
 		current += amt;
 		current = LIMIT_TO(current, 0, 100);
-		if (sect.sct_own != 0)
-		    resnoise(&sect, "Oil content", sect.sct_oil, current);
+		resnoise(&sect, "Oil content", sect.sct_oil, current);
 		sect.sct_oil = (unsigned char)current;
 		break;
 	    case 'w':
@@ -145,14 +142,12 @@ setsector(void)
 		current = sect.sct_mines;
 		current += amt;
 		current = LIMIT_TO(current, 0, MINES_MAX);
-		if (sect.sct_own != 0) {
-		    if (sect.sct_own == sect.sct_oldown)
-			resnoise(&sect, "Mines", sect.sct_mines, current);
-		    else
-			pr("Mines of %s changed from %d to %d\n",
-			   xyas(sect.sct_x, sect.sct_y, player->cnum),
-			   sect.sct_mines, current);
-		}
+		if (sect.sct_own == sect.sct_oldown)
+		    resnoise(&sect, "Mines", sect.sct_mines, current);
+		else
+		    pr("Mines of %s changed from %d to %d\n",
+		       xyas(sect.sct_x, sect.sct_y, player->cnum),
+		       sect.sct_mines, current);
 		sect.sct_mines = current;
 		break;
 	    case 'o':
@@ -188,16 +183,14 @@ setsector(void)
 	    current = sect.sct_fertil;
 	    current += amt;
 	    current = LIMIT_TO(current, 0, 100);
-	    if (sect.sct_own != 0)
-		resnoise(&sect, "Fertility content", sect.sct_fertil, current);
+	    resnoise(&sect, "Fertility content", sect.sct_fertil, current);
 	    sect.sct_fertil = (unsigned char)current;
 	    break;
 	case 'u':
 	    current = sect.sct_uran;
 	    current += amt;
 	    current = LIMIT_TO(current, 0, 100);
-	    if (sect.sct_own != 0)
-		resnoise(&sect, "Uranium content", sect.sct_uran, current);
+	    resnoise(&sect, "Uranium content", sect.sct_uran, current);
 	    sect.sct_uran = (unsigned char)current;
 	    break;
 	default:

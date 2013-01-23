@@ -190,6 +190,11 @@ sect_int(
     ['d', 0, 100],
 );
 
+# special case: unowned sector
+edit('sect', '-1,-1', 'i', 50);
+setres('-1,-1', 'g', 50);
+setsect('-1,-1', 'f', 50);
+
 # special case: mines in occupied sector
 setsect('1:3,-3', 'ol', 1);
 setsect('1,-3', 'mi', 1);
