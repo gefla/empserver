@@ -268,11 +268,6 @@ extern double hap_req(struct natstr *np);
 extern int is_wday_allowed(int, char *);
 extern int is_daytime_allowed(int, char *);
 extern int gamehours(time_t);
-/* log.c */
-extern int loginit(char *);
-extern int logreopen(void);
-extern void logerror(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
-/* more in misc.h */
 /* mapdist.c */
 extern int mapdist(int, int, int, int);
 /* move.c */
@@ -298,6 +293,8 @@ extern int demandupdatecheck(void);
 /*
  * src/lib/gen/ *.c
  */
+/* disassoc.c */
+extern int disassoc(void);
 /* fnameat.c */
 extern char *fnameat(const char *, const char *);
 extern FILE *fopenat(const char *, const char *, const char *);
@@ -305,19 +302,32 @@ extern FILE *fopenat(const char *, const char *, const char *);
 extern int fsize(int);
 extern int blksize(int);
 extern time_t fdate(int);
-
-extern int disassoc(void);
+/* ioqueue.c */
+/* in ioqueue.h */
+/* log.c */
+extern int loginit(char *);
+extern int logreopen(void);
+extern void logerror(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
+/* more in misc.h */
+/* in  */
+/* numstr.c */
 extern char *effadv(int);
-extern int parse(char *, char *, char **, char **, char **, char **);
-extern int ldround(double, int);
-extern int roundintby(int, int);
-extern int scthash(int, int, int);
-extern int tcp_listen(char *, char *, size_t *);
 extern char *numstr(char buf[], int n);
+/* parse.c */
+extern int parse(char *, char *, char **, char **, char **, char **);
 /* plur.c */
 extern char *esplur(int n);
 extern char *splur(int n);
 extern char *iesplur(int n);
+/* queue.c */
+/* in queue.h */
+/* round.c */
+extern int ldround(double, int);
+extern int roundintby(int, int);
+/* scthash.c */
+extern int scthash(int, int, int);
+/* tcp_listen.c */
+extern int tcp_listen(char *, char *, size_t *);
 
 /*
  * src/lib/global/ *.c
