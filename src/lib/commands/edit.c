@@ -466,27 +466,27 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	sect->sct_mobil = new;
 	break;
     case 'i':
-	new = LIMIT_TO(arg, 0, 127);
+	new = LIMIT_TO(arg, 0, 100);
 	noise(sect, "Iron ore content", sect->sct_min, new);
 	sect->sct_min = (unsigned char)new;
 	break;
     case 'g':
-	new = LIMIT_TO(arg, 0, 127);
+	new = LIMIT_TO(arg, 0, 100);
 	noise(sect, "Gold content", sect->sct_gmin, new);
 	sect->sct_gmin = (unsigned char)new;
 	break;
     case 'f':
-	new = LIMIT_TO(arg, 0, 127);
+	new = LIMIT_TO(arg, 0, 100);
 	noise(sect, "Fertility", sect->sct_fertil, new);
 	sect->sct_fertil = (unsigned char)new;
 	break;
     case 'c':
-	new = LIMIT_TO(arg, 0, 127);
+	new = LIMIT_TO(arg, 0, 100);
 	noise(sect, "Oil content", sect->sct_oil, new);
 	sect->sct_oil = (unsigned char)new;
 	break;
     case 'u':
-	new = LIMIT_TO(arg, 0, 127);
+	new = LIMIT_TO(arg, 0, 100);
 	noise(sect, "Uranium content", sect->sct_uran, new);
 	sect->sct_uran = (unsigned char)new;
 	break;

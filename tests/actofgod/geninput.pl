@@ -154,7 +154,6 @@ sub sect_int {
 	edit_int1('sect', '1,1', $key, $lob, $upb);
 	my $rkey = $edit2setres{$key};
 	if (defined $rkey) {
-	    $upb = 100;
 	    setres('2,2', $rkey, $lob);
 	    setres('4,2', $rkey, $lob - 1);
 	    setres('6,2', $rkey, $upb);
@@ -172,11 +171,11 @@ sub sect_int {
 sect_int(
     ['e', 0, 100],
     ['m', -127, 127],
-    ['i', 0, 127],
-    ['g', 0, 127],
-    ['f', 0, 127],
-    ['c', 0, 127],
-    ['u', 0, 127],
+    ['i', 0, 100],
+    ['g', 0, 100],
+    ['f', 0, 100],
+    ['c', 0, 100],
+    ['u', 0, 100],
     ['w', 0, 100],
     ['l', 0, 127],
     ['x', 0, 255],

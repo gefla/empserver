@@ -208,13 +208,13 @@
     Play#0 command edit
     Play#0 output Play#0 1 Iron ore content of 3,1 changed from 0 to 0
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 5,1 i 127
+    Play#0 input edit l 5,1 i 100
     Play#0 command edit
-    Play#0 output Play#0 1 Iron ore content of 5,1 changed from 0 to 127
+    Play#0 output Play#0 1 Iron ore content of 5,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 7,1 i 128
+    Play#0 input edit l 7,1 i 101
     Play#0 command edit
-    Play#0 output Play#0 1 Iron ore content of 7,1 changed from 0 to 127
+    Play#0 output Play#0 1 Iron ore content of 7,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input setres i 2,2 0
     Play#0 command setresource
@@ -258,13 +258,13 @@
     Play#0 command edit
     Play#0 output Play#0 1 Gold content of 3,1 changed from 0 to 0
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 5,1 g 127
+    Play#0 input edit l 5,1 g 100
     Play#0 command edit
-    Play#0 output Play#0 1 Gold content of 5,1 changed from 0 to 127
+    Play#0 output Play#0 1 Gold content of 5,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 7,1 g 128
+    Play#0 input edit l 7,1 g 101
     Play#0 command edit
-    Play#0 output Play#0 1 Gold content of 7,1 changed from 0 to 127
+    Play#0 output Play#0 1 Gold content of 7,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input setres g 2,2 0
     Play#0 command setresource
@@ -308,13 +308,13 @@
     Play#0 command edit
     Play#0 output Play#0 1 Fertility of 3,1 changed from 0 to 0
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 5,1 f 127
+    Play#0 input edit l 5,1 f 100
     Play#0 command edit
-    Play#0 output Play#0 1 Fertility of 5,1 changed from 0 to 127
+    Play#0 output Play#0 1 Fertility of 5,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 7,1 f 128
+    Play#0 input edit l 7,1 f 101
     Play#0 command edit
-    Play#0 output Play#0 1 Fertility of 7,1 changed from 0 to 127
+    Play#0 output Play#0 1 Fertility of 7,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input setres f 2,2 0
     Play#0 command setresource
@@ -358,13 +358,13 @@
     Play#0 command edit
     Play#0 output Play#0 1 Oil content of 3,1 changed from 0 to 0
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 5,1 c 127
+    Play#0 input edit l 5,1 c 100
     Play#0 command edit
-    Play#0 output Play#0 1 Oil content of 5,1 changed from 0 to 127
+    Play#0 output Play#0 1 Oil content of 5,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 7,1 c 128
+    Play#0 input edit l 7,1 c 101
     Play#0 command edit
-    Play#0 output Play#0 1 Oil content of 7,1 changed from 0 to 127
+    Play#0 output Play#0 1 Oil content of 7,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input setres o 2,2 0
     Play#0 command setresource
@@ -408,13 +408,13 @@
     Play#0 command edit
     Play#0 output Play#0 1 Uranium content of 3,1 changed from 0 to 0
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 5,1 u 127
+    Play#0 input edit l 5,1 u 100
     Play#0 command edit
-    Play#0 output Play#0 1 Uranium content of 5,1 changed from 0 to 127
+    Play#0 output Play#0 1 Uranium content of 5,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 7,1 u 128
+    Play#0 input edit l 7,1 u 101
     Play#0 command edit
-    Play#0 output Play#0 1 Uranium content of 7,1 changed from 0 to 127
+    Play#0 output Play#0 1 Uranium content of 7,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input setres u 2,2 0
     Play#0 command setresource
@@ -1510,8 +1510,8 @@
     Play#0 output Play#0 1 Mobility in 3,1 was changed from 0 to -127 by an act of POGO
     Play#0 output Play#0 1 Mobility in 5,1 was changed from 0 to 127 by an act of POGO
     Play#0 output Play#0 1 Mobility in 7,1 was changed from 0 to 127 by an act of POGO
-    Play#0 output Play#0 1 Iron ore content in 5,1 was changed from 0 to 127 by an act of POGO
-    Play#0 output Play#0 1 Iron ore content in 7,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 5,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 7,1 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Iron ore content in 6,2 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Iron ore content in 8,2 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Iron ore content in 3,3 was changed from 0 to 1 by an act of POGO
@@ -1519,8 +1519,8 @@
     Play#0 output Play#0 1 Iron ore content in 7,3 was changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Iron ore content in 5,3 was changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Iron ore content in 7,3 was changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Gold content in 5,1 was changed from 0 to 127 by an act of POGO
-    Play#0 output Play#0 1 Gold content in 7,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 5,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 7,1 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Gold content in 6,2 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Gold content in 8,2 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Gold content in 3,3 was changed from 0 to 1 by an act of POGO
@@ -1528,8 +1528,8 @@
     Play#0 output Play#0 1 Gold content in 7,3 was changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Gold content in 5,3 was changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Gold content in 7,3 was changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Fertility in 5,1 was changed from 0 to 127 by an act of POGO
-    Play#0 output Play#0 1 Fertility in 7,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Fertility in 5,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Fertility in 7,1 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Fertility content in 6,2 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Fertility content in 8,2 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Fertility content in 3,3 was changed from 0 to 1 by an act of POGO
@@ -1537,8 +1537,8 @@
     Play#0 output Play#0 1 Fertility content in 7,3 was changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Fertility content in 5,3 was changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Fertility content in 7,3 was changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Oil content in 5,1 was changed from 0 to 127 by an act of POGO
-    Play#0 output Play#0 1 Oil content in 7,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 5,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 7,1 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Oil content in 6,2 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Oil content in 8,2 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Oil content in 3,3 was changed from 0 to 1 by an act of POGO
@@ -1546,8 +1546,8 @@
     Play#0 output Play#0 1 Oil content in 7,3 was changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Oil content in 5,3 was changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Oil content in 7,3 was changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Uranium content in 5,1 was changed from 0 to 127 by an act of POGO
-    Play#0 output Play#0 1 Uranium content in 7,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 5,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 7,1 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Uranium content in 6,2 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Uranium content in 8,2 was changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Uranium content in 3,3 was changed from 0 to 1 by an act of POGO
