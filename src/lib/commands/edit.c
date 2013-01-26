@@ -38,6 +38,7 @@
 
 #include <ctype.h>
 #include <limits.h>
+#include "actofgod.h"
 #include "commands.h"
 #include "item.h"
 #include "land.h"
@@ -421,6 +422,7 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 {
     coord newx, newy;
     int new;
+    struct sctstr newsect;
 
     switch (*key) {
     case 'o':
@@ -431,21 +433,13 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	   prnatid(sect->sct_own), prnatid(arg));
 	if (arg == sect->sct_own)
 	    break;
-	if (sect->sct_own && sect->sct_own != player->cnum) {
-	    wu(0, sect->sct_own,
-	       "Sector %s taken from you by an act of %s!\n",
-	       xyas(sect->sct_x, sect->sct_y, sect->sct_own),
-	       cname(player->cnum));
-	}
-	benefit(sect->sct_own, -1);
+	report_god_takes("Sector ",
+			 xyas(sect->sct_x, sect->sct_y, sect->sct_own),
+			 sect->sct_own);
+	report_god_gives("Sector ",
+			 xyas(sect->sct_x, sect->sct_y, arg),
+			 arg);
 	sect->sct_own = arg;
-	if (arg && arg != player->cnum) {
-	    wu(0, arg,
-	       "Sector %s given to you by an act of %s!\n",
-	       xyas(sect->sct_x, sect->sct_y, arg),
-	       cname(player->cnum));
-	}
-	benefit(arg, 1);
 	break;
     case 'O':
 	if (arg < 0 || arg >= MAXNOC)
@@ -553,6 +547,14 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
     case 'L':
 	if (!sarg_xy(p, &newx, &newy))
 	    return RET_SYN;
+	getsect(newx, newy, &newsect);
+	pr("Sector %s duplicated to %s\n",
+	   xyas(sect->sct_x, sect->sct_y, player->cnum),
+	   xyas(newx, newy, player->cnum));
+	report_god_takes("Sector ", xyas(newx, newy, newsect.sct_own),
+			 newsect.sct_own);
+	report_god_gives("Sector ", xyas(newx, newy, sect->sct_own),
+			 sect->sct_own);
 	sect->sct_x = newx;
 	sect->sct_y = newy;
 	ef_set_uid(EF_SECTOR, &sect, XYOFFSET(newx, newy));

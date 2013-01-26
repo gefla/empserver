@@ -127,9 +127,11 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 L 1,-7
     Play#0 command edit
+    Play#0 output Play#0 1 Sector 1,7 duplicated to 1,-7
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,-7 L 3,-7 L 1,0
     Play#0 command edit
+    Play#0 output Play#0 1 Sector 3,-7 duplicated to 3,-7
     Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 e 0
@@ -1595,6 +1597,9 @@
     Play#0 command read
     Play#0 output Play#0 1 
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Sector 1,-7 taken from you by an act of POGO!
+    Play#0 output Play#0 1 Sector 3,-7 taken from you by an act of POGO!
+    Play#0 output Play#0 1 Sector 3,-7 given to you by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#0) taken from you by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#1) taken from you by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#2) taken from you by an act of POGO!

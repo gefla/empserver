@@ -384,6 +384,8 @@ extern void stop_service(void);
 /*
  * src/lib/subs/ *.c
  */
+/* actofgod.c */
+/* in actofgod.h */
 /* askyn.c */
 extern int confirm(char *);
 extern int askyn(char *);
