@@ -1617,6 +1617,7 @@
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Sector 5,7 given to you by an act of POGO!
     Play#0 output Play#0 1 Sector 11,7 given to you by an act of POGO!
+    Play#0 output Play#0 1 Sector -2,2 swapped with 2,-2 by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#2) given to you by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #2 given to you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #2 given to you by an act of POGO!
@@ -1630,6 +1631,7 @@
     Play#0 output Play#0 1 Sector 3,-7 given to you by an act of POGO!
     Play#0 output Play#0 1 Old owner of 1,-3 changed from 3 (#3) to 1 (#1) by an act of POGO
     Play#0 output Play#0 1 Old owner of 3,-3 changed from 3 (#3) to 1 (#1) by an act of POGO
+    Play#0 output Play#0 1 Sector -2,2 swapped with 2,-2 by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#0) taken from you by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#1) taken from you by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#2) taken from you by an act of POGO!

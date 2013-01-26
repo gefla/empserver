@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
- *     Markus Armbruster, 2006-2010
+ *     Markus Armbruster, 2006-2013
  */
 
 #include <config.h>
@@ -46,6 +46,8 @@ swaps(void)
     struct sctstr secta, sectb, tmp;
     char buf[1024];
     char *p;
+    int i;
+    natid to;
 
     if (!(p = getstarg(player->argp[1], "First sector : ", buf)) ||
 	!sarg_xy(p, &secta.sct_x, &secta.sct_y) ||
@@ -61,6 +63,15 @@ swaps(void)
 	return RET_FAIL;
     if (!check_sect_ok(&secta) || !check_sect_ok(&sectb))
 	return RET_FAIL;
+    for (i = 0; i <= (secta.sct_own != sectb.sct_own); i++) {
+	to = i == 0 ? secta.sct_own : sectb.sct_own;
+	if (to && to != player->cnum)
+	    wu(0, to,
+	       "Sector %s swapped with %s by an act of %s!\n",
+	       xyas(secta.sct_x, secta.sct_y, to),
+	       xyas(sectb.sct_x, sectb.sct_y, to),
+	       cname(player->cnum));
+    }
     tmp = secta;
     /* change the location of secta to that of sectb */
     secta.sct_x = sectb.sct_x;
