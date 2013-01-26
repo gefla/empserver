@@ -93,7 +93,6 @@ coastal_land_to_sea(coord x, coord y)
 /*
  * Compute coastal flags for a change of SP from OLDDES to NEWDES.
  * Update adjacent sectors, but don't touch SP.
- * Return new coastal flag for SP.
  */
 void
 set_coastal(struct sctstr *sp, int olddes, int newdes)
