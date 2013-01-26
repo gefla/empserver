@@ -45,7 +45,7 @@ setres(void)
 {
     struct sctstr sect;
     char *what;
-    int amt;
+    int ret;
     char *p;
     struct nstr_sect nstr;
     char buf[1024];
@@ -64,35 +64,30 @@ setres(void)
 	p = getstarg(player->argp[3], "What value : ", buf);
 	if (!p || !*p)
 	    return RET_SYN;
-	amt = atoi(p);
-	amt = LIMIT_TO(amt, 0, 100);
 	if (!check_sect_ok(&sect))
 	    return RET_FAIL;
 	switch (char0) {
 	case 'i':
-	    resnoise(&sect, "Iron ore content", sect.sct_min, amt);
-	    sect.sct_min = (unsigned char)amt;
+	    ret = edit_sect(&sect, "i", p);
 	    break;
 	case 'g':
-	    resnoise(&sect, "Gold content", sect.sct_gmin, amt);
-	    sect.sct_gmin = (unsigned char)amt;
+	    ret = edit_sect(&sect, "g", p);
 	    break;
 	case 'o':
-	    resnoise(&sect, "Oil content", sect.sct_oil, amt);
-	    sect.sct_oil = (unsigned char)amt;
+	    ret = edit_sect(&sect, "c", p);
 	    break;
 	case 'f':
-	    resnoise(&sect, "Fertility content", sect.sct_fertil, amt);
-	    sect.sct_fertil = (unsigned char)amt;
+	    ret = edit_sect(&sect, "f", p);
 	    break;
 	case 'u':
-	    resnoise(&sect, "Uranium content", sect.sct_uran, amt);
-	    sect.sct_uran = (unsigned char)amt;
+	    ret = edit_sect(&sect, "u", p);
 	    break;
 	default:
 	    pr("huh?\n");
-	    return RET_SYN;
+	    ret = RET_SYN;
 	}
+	if (ret != RET_OK)
+	    return ret;
 	putsect(&sect);
     }
     return RET_OK;

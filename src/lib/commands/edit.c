@@ -54,8 +54,6 @@ static void print_plane(struct plnstr *);
 static void print_land(struct lndstr *);
 static void print_ship(struct shpstr *);
 static char *getin(char *, char **);
-static int edit_sect(struct sctstr *, char *, char *);
-static int edit_sect_i(struct sctstr *, char *, int);
 static int edit_nat(struct natstr *, char *, char *);
 static int edit_ship(struct shpstr *, char *, char *);
 static int edit_land(struct lndstr *, char *, char *);
@@ -415,7 +413,7 @@ warn_deprecated(char key)
 }
 #endif
 
-static int
+int
 edit_sect_i(struct sctstr *sect, char *key, int arg)
 {
     int new;
@@ -573,7 +571,7 @@ edit_sect_i(struct sctstr *sect, char *key, int arg)
     return RET_OK;
 }
 
-static int
+int
 edit_sect(struct sctstr *sect, char *key, char *p)
 {
     coord newx, newy;

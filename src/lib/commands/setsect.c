@@ -35,10 +35,6 @@
 #include <config.h>
 
 #include "commands.h"
-#include "news.h"
-#include "optlist.h"
-
-static void resbenefit(natid, int);
 
 /*
  * format: setres thing <sect> <#>
@@ -48,7 +44,7 @@ setsector(void)
 {
     struct sctstr sect;
     char *what;
-    int amt, current;
+    int amt, ret;
     char *p;
     struct nstr_sect nstr;
     char buf[1024];
@@ -73,68 +69,22 @@ setsector(void)
 	    return RET_FAIL;
 	switch (char0) {
 	case 'i':
-	    current = sect.sct_min;
-	    current += amt;
-	    current = LIMIT_TO(current, 0, 100);
-	    resnoise(&sect, "Iron ore content", sect.sct_min, current);
-	    sect.sct_min = (unsigned char)current;
+	    ret = edit_sect_i(&sect, "i", sect.sct_min + amt);
 	    break;
 	case 'g':
-	    current = sect.sct_gmin;
-	    current += amt;
-	    current = LIMIT_TO(current, 0, 100);
-	    resnoise(&sect, "Gold content", sect.sct_gmin, current);
-	    sect.sct_gmin = (unsigned char)current;
+	    ret = edit_sect_i(&sect, "g", sect.sct_gmin + amt);
 	    break;
 	case 'o':
 	    switch (char1) {
 	    case 'i':
-		current = sect.sct_oil;
-		current += amt;
-		current = LIMIT_TO(current, 0, 100);
-		resnoise(&sect, "Oil content", sect.sct_oil, current);
-		sect.sct_oil = (unsigned char)current;
+		ret = edit_sect_i(&sect, "c", sect.sct_oil + amt);
+		break;
 		break;
 	    case 'w':
-		if ((amt < 0) || (amt > MAXNOC - 1))
-		    return RET_SYN;
-		pr("Owner of %s changed from %s to %s.\n",
-		   xyas(sect.sct_x, sect.sct_y, player->cnum),
-		   prnatid(sect.sct_own), prnatid(amt));
-		if (amt == sect.sct_own)
-		    break;
-		if (sect.sct_own && sect.sct_own != player->cnum) {
-		    wu(0, sect.sct_own,
-		       "Sector %s taken from you by an act of %s!\n",
-		       xyas(sect.sct_x, sect.sct_y, sect.sct_own),
-		       cname(player->cnum));
-		    resbenefit(sect.sct_own, -1);
-		}
-		if (amt && amt != player->cnum) {
-		    wu(0, amt,
-		       "Sector %s given to you by an act of %s!\n",
-		       xyas(sect.sct_x, sect.sct_y, amt),
-		       cname(player->cnum));
-		    resbenefit(amt, 1);
-		}
-		sect.sct_own = (natid)amt;
+		ret = edit_sect(&sect, "o", p);
 		break;
 	    case 'l':
-		if ((amt < 0) || (amt > MAXNOC - 1))
-		    return RET_SYN;
-		pr("Old owner of %s changed from %s to %s.\n",
-		   xyas(sect.sct_x, sect.sct_y, player->cnum),
-		   prnatid(sect.sct_oldown), prnatid(amt));
-		if (amt == sect.sct_oldown)
-		    break;
-		if (sect.sct_own && sect.sct_own != player->cnum)
-		    wu(0, sect.sct_own,
-		       "Old owner of %s changed from %s to %s"
-		       " by an act of %s\n",
-		       xyas(sect.sct_x, sect.sct_y, player->cnum),
-		       prnatid(sect.sct_oldown), prnatid(amt),
-		       cname(player->cnum));
-		sect.sct_oldown = (natid)amt;
+		ret = edit_sect(&sect, "O", p);
 		break;
 	    default:
 		pr("huh?\n");
@@ -142,32 +92,15 @@ setsector(void)
 	    }
 	    break;
 	case 'e':
-	    current = sect.sct_effic;
-	    current += amt;
-	    current = LIMIT_TO(current, 0, 100);
-	    resnoise(&sect, "Efficiency", sect.sct_effic, current);
-	    sect.sct_effic = current;
+	    ret = edit_sect_i(&sect, "e", sect.sct_effic + amt);
 	    break;
 	case 'm':
 	    switch (char1) {
 	    case 'i':
-		current = sect.sct_mines;
-		current += amt;
-		current = LIMIT_TO(current, 0, MINES_MAX);
-		if (sect.sct_own == sect.sct_oldown)
-		    resnoise(&sect, "Mines", sect.sct_mines, current);
-		else
-		    pr("Mines of %s changed from %d to %d\n",
-		       xyas(sect.sct_x, sect.sct_y, player->cnum),
-		       sect.sct_mines, current);
-		sect.sct_mines = current;
+		ret = edit_sect_i(&sect, "M", sect.sct_mines + amt);
 		break;
 	    case 'o':
-		current = sect.sct_mobil;
-		current += amt;
-		current = LIMIT_TO(current, -127, 127);
-		resnoise(&sect, "Mobility", sect.sct_mobil, current);
-		sect.sct_mobil = current;
+		ret = edit_sect_i(&sect, "m", sect.sct_mobil + amt);
 		break;
 	    default:
 		pr("huh?\n");
@@ -175,58 +108,24 @@ setsector(void)
 	    }
 	    break;
 	case 'a':
-	    current = sect.sct_avail;
-	    current += amt;
-	    current = LIMIT_TO(current, 0, 9999);
-	    resnoise(&sect, "Available workforce", sect.sct_avail, current);
-	    sect.sct_avail = (short)current;
+	    ret = edit_sect_i(&sect, "a", sect.sct_avail + amt);
 	    break;
 	case 'w':
-	    current = sect.sct_work;
-	    current += amt;
-	    current = LIMIT_TO(current, 0, 100);
-	    resnoise(&sect, "Workforce percentage", sect.sct_work, current);
-	    sect.sct_work = (unsigned char)current;
+	    ret = edit_sect_i(&sect, "w", sect.sct_work + amt);
 	    break;
 	case 'f':
-	    current = sect.sct_fertil;
-	    current += amt;
-	    current = LIMIT_TO(current, 0, 100);
-	    resnoise(&sect, "Fertility content", sect.sct_fertil, current);
-	    sect.sct_fertil = (unsigned char)current;
+	    ret = edit_sect_i(&sect, "f", sect.sct_fertil + amt);
 	    break;
 	case 'u':
-	    current = sect.sct_uran;
-	    current += amt;
-	    current = LIMIT_TO(current, 0, 100);
-	    resnoise(&sect, "Uranium content", sect.sct_uran, current);
-	    sect.sct_uran = (unsigned char)current;
+	    ret = edit_sect_i(&sect, "u", sect.sct_uran + amt);
 	    break;
 	default:
 	    pr("huh?\n");
-	    return RET_SYN;
+	    ret = RET_SYN;
 	}
+	if (ret != RET_OK)
+	    return ret;
 	putsect(&sect);
     }
     return RET_OK;
-}
-
-static void
-resbenefit(natid who, int goodness)
-{
-    if (opt_GODNEWS && getnatp(who)->nat_stat != STAT_GOD && goodness)
-	nreport(player->cnum, goodness > 0 ? N_AIDS : N_HURTS, who, 1);
-}
-
-void
-resnoise(struct sctstr *sptr, char *name, int old, int new)
-{
-    pr("%s of %s changed from %d to %d\n",
-       name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);
-    if (sptr->sct_own && sptr->sct_own != player->cnum && new != old)
-	wu(0, sptr->sct_own,
-	   "%s in %s was changed from %d to %d by an act of %s\n",
-	   name, xyas(sptr->sct_x, sptr->sct_y, sptr->sct_own),
-	   old, new, cname(player->cnum));
-    resbenefit(sptr->sct_own, new - old);
 }
