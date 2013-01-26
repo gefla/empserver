@@ -54,11 +54,12 @@ static void print_plane(struct plnstr *);
 static void print_land(struct lndstr *);
 static void print_ship(struct shpstr *);
 static char *getin(char *, char **);
-static int edit_sect(struct sctstr *, char *, int, char *);
-static int edit_nat(struct natstr *, char *, int, char *);
-static int edit_ship(struct shpstr *, char *, int, char *);
-static int edit_land(struct lndstr *, char *, int, char *);
-static int edit_plane(struct plnstr *, char *, int, char *);
+static int edit_sect(struct sctstr *, char *, char *);
+static int edit_sect_i(struct sctstr *, char *, int);
+static int edit_nat(struct natstr *, char *, char *);
+static int edit_ship(struct shpstr *, char *, char *);
+static int edit_land(struct lndstr *, char *, char *);
+static int edit_plane(struct plnstr *, char *, char *);
 
 int
 edit(void)
@@ -70,7 +71,6 @@ edit(void)
     char *what;
     char *key, *ptr;
     int num;
-    int arg;
     int err;
     int arg_index = 3;
     coord x, y;
@@ -147,7 +147,6 @@ edit(void)
 	    if (player->argp[arg_index+1]) {
 		key = player->argp[arg_index++];
 		ptr = player->argp[arg_index++];
-		arg = atoi(ptr);
 	    } else
 		return RET_SYN;
 	} else if (arg_index == 3) {
@@ -174,19 +173,18 @@ edit(void)
 		}
 		return RET_OK;
 	    }
-	    arg = atoi(ptr);
 	} else
 	    return RET_OK;
 
 	switch (ewhat) {
 	case 'c':
-	    if ((err = edit_nat(np, key, arg, ptr)) != RET_OK)
+	    if ((err = edit_nat(np, key, ptr)) != RET_OK)
 		return err;
 	    break;
 	case 'l':
 	    if (!check_sect_ok(&sect))
 		return RET_FAIL;
-	    if ((err = edit_sect(&sect, key, arg, ptr)) != RET_OK)
+	    if ((err = edit_sect(&sect, key, ptr)) != RET_OK)
 		return err;
 	    if (!putsect(&sect))
 		return RET_FAIL;
@@ -194,7 +192,7 @@ edit(void)
 	case 's':
 	    if (!check_ship_ok(&ship))
 		return RET_FAIL;
-	    if ((err = edit_ship(&ship, key, arg, ptr)) != RET_OK)
+	    if ((err = edit_ship(&ship, key, ptr)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_SHIP, ship.shp_uid, 50))
 		return RET_FAIL;
@@ -204,7 +202,7 @@ edit(void)
 	case 'u':
 	    if (!check_land_ok(&land))
 		return RET_FAIL;
-	    if ((err = edit_land(&land, key, arg, ptr)) != RET_OK)
+	    if ((err = edit_land(&land, key, ptr)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_LAND, land.lnd_uid, 50))
 		return RET_FAIL;
@@ -214,7 +212,7 @@ edit(void)
 	case 'p':
 	    if (!check_plane_ok(&plane))
 		return RET_FAIL;
-	    if ((err = edit_plane(&plane, key, arg, ptr)) != RET_OK)
+	    if ((err = edit_plane(&plane, key, ptr)) != RET_OK)
 		return err;
 	    if (!ef_ensure_space(EF_PLANE, plane.pln_uid, 50))
 		return RET_FAIL;
@@ -418,11 +416,9 @@ warn_deprecated(char key)
 #endif
 
 static int
-edit_sect(struct sctstr *sect, char *key, int arg, char *p)
+edit_sect_i(struct sctstr *sect, char *key, int arg)
 {
-    coord newx, newy;
     int new;
-    struct sctstr newsect;
 
     switch (*key) {
     case 'o':
@@ -555,6 +551,36 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	       sect->sct_mines, new);
 	sect->sct_mines = new;
 	break;
+    case 'R':
+	new = LIMIT_TO(arg, 0, 100);
+	noise(sect, "Road percentage", sect->sct_road, new);
+	sect->sct_road = new;
+	break;
+    case 'r':
+	new = LIMIT_TO(arg, 0, 100);
+	noise(sect, "Rail percentage", sect->sct_rail, new);
+	sect->sct_rail = new;
+	break;
+    case 'd':
+	new = LIMIT_TO(arg, 0, 100);
+	noise(sect, "Defense percentage", sect->sct_defense, new);
+	sect->sct_defense = new;
+	break;
+    default:
+	pr("huh? (%s)\n", key);
+	return RET_SYN;
+    }
+    return RET_OK;
+}
+
+static int
+edit_sect(struct sctstr *sect, char *key, char *p)
+{
+    coord newx, newy;
+    int new;
+    struct sctstr newsect;
+
+    switch (*key) {
     case 'L':
 	if (!sarg_xy(p, &newx, &newy))
 	    return RET_SYN;
@@ -627,33 +653,18 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	       cname(player->cnum));
 	sect->sct_newtype = new;
 	break;
-    case 'R':
-	new = LIMIT_TO(arg, 0, 100);
-	noise(sect, "Road percentage", sect->sct_road, new);
-	sect->sct_road = new;
-	break;
-    case 'r':
-	new = LIMIT_TO(arg, 0, 100);
-	noise(sect, "Rail percentage", sect->sct_rail, new);
-	sect->sct_rail = new;
-	break;
-    case 'd':
-	new = LIMIT_TO(arg, 0, 100);
-	noise(sect, "Defense percentage", sect->sct_defense, new);
-	sect->sct_defense = new;
-	break;
     default:
-	pr("huh? (%s)\n", key);
-	return RET_SYN;
+	return edit_sect_i(sect, key, atoi(p));
     }
     return RET_OK;
 }
 
 static int
-edit_nat(struct natstr *np, char *key, int arg, char *p)
+edit_nat(struct natstr *np, char *key, char *p)
 {
     coord newx, newy;
     natid nat = np->nat_cnum;
+    int arg = atoi(p);
     float farg = (float)atof(p);
 
     switch (*key) {
@@ -759,9 +770,10 @@ edit_nat(struct natstr *np, char *key, int arg, char *p)
 }
 
 static int
-edit_ship(struct shpstr *ship, char *key, int arg, char *p)
+edit_ship(struct shpstr *ship, char *key, char *p)
 {
     struct mchrstr *mcp = &mchr[ship->shp_type];
+    int arg = atoi(p);
     coord newx, newy;
     struct ichrstr *ip;
 
@@ -849,9 +861,10 @@ edit_ship(struct shpstr *ship, char *key, int arg, char *p)
 }
 
 static int
-edit_land(struct lndstr *land, char *key, int arg, char *p)
+edit_land(struct lndstr *land, char *key, char *p)
 {
     struct lchrstr *lcp = &lchr[land->lnd_type];
+    int arg = atoi(p);
     coord newx, newy;
     struct ichrstr *ip;
 
@@ -952,9 +965,10 @@ edit_land(struct lndstr *land, char *key, int arg, char *p)
 }
 
 static int
-edit_plane(struct plnstr *plane, char *key, int arg, char *p)
+edit_plane(struct plnstr *plane, char *key, char *p)
 {
     struct plchrstr *pcp = &plchr[plane->pln_type];
+    int arg = atoi(p);
     coord newx, newy;
 
     switch (*key) {
