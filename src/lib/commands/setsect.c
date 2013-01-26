@@ -38,6 +38,7 @@
 #include "news.h"
 #include "optlist.h"
 
+static void resbenefit(natid, int);
 
 /*
  * format: setres thing <sect> <#>
@@ -107,12 +108,15 @@ setsector(void)
 		       "Sector %s taken from you by an act of %s!\n",
 		       xyas(sect.sct_x, sect.sct_y, sect.sct_own),
 		       cname(player->cnum));
+		    resbenefit(sect.sct_own, -1);
 		}
-		if (amt && amt != player->cnum)
+		if (amt && amt != player->cnum) {
 		    wu(0, amt,
 		       "Sector %s given to you by an act of %s!\n",
 		       xyas(sect.sct_x, sect.sct_y, amt),
 		       cname(player->cnum));
+		    resbenefit(amt, 1);
+		}
 		sect.sct_own = (natid)amt;
 		break;
 	    case 'l':
@@ -121,6 +125,15 @@ setsector(void)
 		pr("Old owner of %s changed from %s to %s.\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum),
 		   prnatid(sect.sct_oldown), prnatid(amt));
+		if (amt == sect.sct_oldown)
+		    break;
+		if (sect.sct_own && sect.sct_own != player->cnum)
+		    wu(0, sect.sct_own,
+		       "Old owner of %s changed from %s to %s"
+		       " by an act of %s\n",
+		       xyas(sect.sct_x, sect.sct_y, player->cnum),
+		       prnatid(sect.sct_oldown), prnatid(amt),
+		       cname(player->cnum));
 		sect.sct_oldown = (natid)amt;
 		break;
 	    default:
@@ -132,8 +145,7 @@ setsector(void)
 	    current = sect.sct_effic;
 	    current += amt;
 	    current = LIMIT_TO(current, 0, 100);
-	    pr("Efficiency in %s changed to %d.\n",
-	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
+	    resnoise(&sect, "Efficiency", sect.sct_effic, current);
 	    sect.sct_effic = current;
 	    break;
 	case 'm':
@@ -154,8 +166,7 @@ setsector(void)
 		current = sect.sct_mobil;
 		current += amt;
 		current = LIMIT_TO(current, -127, 127);
-		pr("Mobility in %s changed to %d.\n",
-		   xyas(sect.sct_x, sect.sct_y, player->cnum), current);
+		resnoise(&sect, "Mobility", sect.sct_mobil, current);
 		sect.sct_mobil = current;
 		break;
 	    default:
@@ -167,16 +178,14 @@ setsector(void)
 	    current = sect.sct_avail;
 	    current += amt;
 	    current = LIMIT_TO(current, 0, 9999);
-	    pr("Available in %s changed to %d.\n",
-	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
+	    resnoise(&sect, "Available workforce", sect.sct_avail, current);
 	    sect.sct_avail = (short)current;
 	    break;
 	case 'w':
 	    current = sect.sct_work;
 	    current += amt;
 	    current = LIMIT_TO(current, 0, 100);
-	    pr("Work in %s changed to %d.\n",
-	       xyas(sect.sct_x, sect.sct_y, player->cnum), current);
+	    resnoise(&sect, "Workforce percentage", sect.sct_work, current);
 	    sect.sct_work = (unsigned char)current;
 	    break;
 	case 'f':

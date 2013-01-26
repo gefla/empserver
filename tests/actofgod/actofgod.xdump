@@ -357,16 +357,18 @@ uid owner xloc yloc type effic mobil off tech opx opy mission radius plane
 /config
 config news
 actor action victim times duration time
+0 43 1 39 0 0
+0 43 2 38 0 0
+0 43 3 46 0 0
 0 42 3 49 0 0
 0 42 2 38 0 0
 0 42 1 39 0 0
 0 44 3 1 0 0
-0 43 3 1 0 0
-0 44 1 19 0 0
-0 43 2 1 0 0
+0 44 1 32 0 0
+0 43 2 2 0 0
 0 44 3 2 0 0
 0 43 3 2 0 0
-0 43 1 54 0 0
+0 43 1 67 0 0
 0 42 1 4 0 0
 1 45 0 1 0 0
 /config

@@ -447,6 +447,14 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	pr("Old owner of %s changed from %s to %s.\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   prnatid(sect->sct_oldown), prnatid(arg));
+	if (arg == sect->sct_oldown)
+	    break;
+	if (sect->sct_own && sect->sct_own != player->cnum)
+	    wu(0, sect->sct_own,
+	       "Old owner of %s changed from %s to %s by an act of %s\n",
+	       xyas(sect->sct_x, sect->sct_y, player->cnum),
+	       prnatid(sect->sct_oldown), prnatid(arg),
+	       cname(player->cnum));
 	sect->sct_oldown = arg;
 	break;
     case 'e':
@@ -529,9 +537,7 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	break;
     case 'F':
 	new = LIMIT_TO(arg, 0, FALLOUT_MAX);
-	pr("Fallout for sector %s changed from %d to %d\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   sect->sct_fallout, new);
+	noise(sect, "Fallout", sect->sct_fallout, new);
 	sect->sct_fallout = new;
 	break;
     case 'a':
@@ -541,8 +547,13 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	break;
     case 'M':
 	new = LIMIT_TO(arg, 0, MINES_MAX);
+	if (sect->sct_own == sect->sct_oldown)
+	    noise(sect, "Mines", sect->sct_mines, new);
+	else
+	    pr("Mines of %s changed from %d to %d\n",
+	       xyas(sect->sct_x, sect->sct_y, player->cnum),
+	       sect->sct_mines, new);
 	sect->sct_mines = new;
-	pr("Mines changed to %d\n", new);
 	break;
     case 'L':
 	if (!sarg_xy(p, &newx, &newy))
@@ -562,10 +573,20 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
     case 'D':
 	if (!sarg_xy(p, &newx, &newy))
 	    return RET_SYN;
-	pr("Distribution location for sector %s changed from %s to %s\n",
+	pr("Distribution sector of sector %s changed from %s to %s\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum),
 	   xyas(newx, newy, player->cnum));
+	if (newx == sect->sct_dist_x && newy == sect->sct_dist_y)
+	    break;
+	if (sect->sct_own && sect->sct_own != player->cnum)
+	    wu(0, sect->sct_own,
+	       "Distribution sector of sector %s changed from %s to %s"
+	       " by an act of %s\n",
+	       xyas(sect->sct_x, sect->sct_y, player->cnum),
+	       xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum),
+	       xyas(newx, newy, player->cnum),
+	       cname(player->cnum));
 	sect->sct_dist_x = newx;
 	sect->sct_dist_y = newy;
 	break;
@@ -573,9 +594,18 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	new = sct_typematch(p);
 	if (new < 0)
 	    return RET_SYN;
-	pr("Designation for sector %s changed from %c to %c\n",
+	pr("Designation of sector %s changed from %c to %c\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   dchr[sect->sct_type].d_mnem, dchr[new].d_mnem);
+	if (new == sect->sct_type)
+	    break;
+	if (sect->sct_own && sect->sct_own != player->cnum)
+	    wu(0, sect->sct_own,
+	       "Designation of sector %s changed from %c to %c"
+	       " by an act of %s\n",
+	       xyas(sect->sct_x, sect->sct_y, player->cnum),
+	       dchr[sect->sct_type].d_mnem, dchr[new].d_mnem,
+	       cname(player->cnum));
 	set_coastal(sect, sect->sct_type, new);
 	sect->sct_type = new;
 	break;
@@ -583,9 +613,18 @@ edit_sect(struct sctstr *sect, char *key, int arg, char *p)
 	new = sct_typematch(p);
 	if (new < 0)
 	    return RET_SYN;
-	pr("New designation for sector %s changed from %c to %c\n",
+	pr("New designation of sector %s changed from %c to %c\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   dchr[sect->sct_newtype].d_mnem, dchr[new].d_mnem);
+	if (new == sect->sct_newtype)
+	    break;
+	if (sect->sct_own && sect->sct_own != player->cnum)
+	    wu(0, sect->sct_own,
+	       "New designation of sector %s changed from %c to %c"
+	       " by an act of %s\n",
+	       xyas(sect->sct_x, sect->sct_y, player->cnum),
+	       dchr[sect->sct_newtype].d_mnem, dchr[new].d_mnem,
+	       cname(player->cnum));
 	sect->sct_newtype = new;
 	break;
     case 'R':
