@@ -193,8 +193,6 @@ edit(void)
 		return RET_FAIL;
 	    if ((err = edit_ship(&ship, key, ptr)) != RET_OK)
 		return err;
-	    if (!ef_ensure_space(EF_SHIP, ship.shp_uid, 50))
-		return RET_FAIL;
 	    if (!putship(ship.shp_uid, &ship))
 		return RET_FAIL;
 	    break;
@@ -203,8 +201,6 @@ edit(void)
 		return RET_FAIL;
 	    if ((err = edit_land(&land, key, ptr)) != RET_OK)
 		return err;
-	    if (!ef_ensure_space(EF_LAND, land.lnd_uid, 50))
-		return RET_FAIL;
 	    if (!putland(land.lnd_uid, &land))
 		return RET_FAIL;
 	    break;
@@ -213,8 +209,6 @@ edit(void)
 		return RET_FAIL;
 	    if ((err = edit_plane(&plane, key, ptr)) != RET_OK)
 		return err;
-	    if (!ef_ensure_space(EF_PLANE, plane.pln_uid, 50))
-		return RET_FAIL;
 	    if (!putplane(plane.pln_uid, &plane))
 		return RET_FAIL;
 	    break;
@@ -749,6 +743,12 @@ edit_unit(struct empobj *unit, char *key, char *p,
  
     switch (toupper(*key)) {
     case 'U':
+	if (arg < 0)
+	    return RET_SYN;
+	if (!ef_ensure_space(unit->ef_type, arg, 50)) {
+	    pr("Can't copy to %s #%d\n", ef_nameof(unit->ef_type), arg);
+	    return RET_FAIL;
+	}
 	ef_set_uid(unit->ef_type, unit, arg);
 	break;
     case 'O':

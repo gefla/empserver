@@ -858,7 +858,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 0 U 0 U -1
     Play#0 command edit
-    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 L 3,-1
     Play#0 command edit
@@ -896,7 +896,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0 U 0 U -1
     Play#0 command edit
-    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 l 3,-1
     Play#0 command edit
@@ -934,7 +934,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0 U 0 U -1
     Play#0 command edit
-    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 L 3,-1
     Play#0 command edit
