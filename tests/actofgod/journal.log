@@ -855,9 +855,13 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 U 5 U 3
     Play#0 command edit
+    Play#0 output Play#0 1 cs   cargo ship (#3) duplicated to (#5)
+    Play#0 output Play#0 1 cs   cargo ship (#5) duplicated to (#3)
+    Play#0 output Play#0 1 Replacing cs   cargo ship (#3) of 3 (#3)
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 0 U 0 U -1
     Play#0 command edit
+    Play#0 output Play#0 1 cs   cargo ship (#0) unchanged
     Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 L 3,-1
@@ -893,9 +897,13 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 U 5 U 3
     Play#0 command edit
+    Play#0 output Play#0 1 f1   Sopwith Camel #3 duplicated to (#5)
+    Play#0 output Play#0 1 f1   Sopwith Camel #5 duplicated to (#3)
+    Play#0 output Play#0 1 Replacing f1   Sopwith Camel #3 of 3 (#3)
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0 U 0 U -1
     Play#0 command edit
+    Play#0 output Play#0 1 f1   Sopwith Camel #0 unchanged
     Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 l 3,-1
@@ -931,9 +939,13 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 U 5 U 3
     Play#0 command edit
+    Play#0 output Play#0 1 sup  supply #3 duplicated to (#5)
+    Play#0 output Play#0 1 sup  supply #5 duplicated to (#3)
+    Play#0 output Play#0 1 Replacing sup  supply #3 of 3 (#3)
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0 U 0 U -1
     Play#0 command edit
+    Play#0 output Play#0 1 sup  supply #0 unchanged
     Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 L 3,-1
@@ -1652,12 +1664,21 @@
     Play#0 output Play#0 1 cs   cargo ship (#0) taken from you by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#1) taken from you by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#2) taken from you by an act of POGO!
+    Play#0 output Play#0 1 cs   cargo ship (#5) given to you by an act of POGO!
+    Play#0 output Play#0 1 cs   cargo ship (#3) taken from you by an act of POGO!
+    Play#0 output Play#0 1 cs   cargo ship (#3) given to you by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #0 taken from you by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #1 taken from you by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #2 taken from you by an act of POGO!
+    Play#0 output Play#0 1 f1   Sopwith Camel #5 given to you by an act of POGO!
+    Play#0 output Play#0 1 f1   Sopwith Camel #3 taken from you by an act of POGO!
+    Play#0 output Play#0 1 f1   Sopwith Camel #3 given to you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #0 taken from you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #1 taken from you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #2 taken from you by an act of POGO!
+    Play#0 output Play#0 1 sup  supply #5 given to you by an act of POGO!
+    Play#0 output Play#0 1 sup  supply #3 taken from you by an act of POGO!
+    Play#0 output Play#0 1 sup  supply #3 given to you by an act of POGO!
     Play#0 output Play#0 1 POGO gave you 50 military in cs   cargo ship (#4)
     Play#0 output Play#0 1 POGO gave you 50 military in cs   cargo ship (#5)
     Play#0 output Play#0 1 POGO gave you 25 military in sup  supply #4

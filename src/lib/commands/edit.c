@@ -740,16 +740,29 @@ edit_unit(struct empobj *unit, char *key, char *p,
 {
     int arg = atoi(p);
     coord newx, newy;
+    union empobj_storage newunit;
  
     switch (toupper(*key)) {
     case 'U':
 	if (arg < 0)
 	    return RET_SYN;
+	if (arg == unit->uid) {
+	    pr("%s unchanged\n", unit_nameof(unit));
+	    break;
+	}
 	if (!ef_ensure_space(unit->ef_type, arg, 50)) {
 	    pr("Can't copy to %s #%d\n", ef_nameof(unit->ef_type), arg);
 	    return RET_FAIL;
 	}
+	pr("%s duplicated to (#%d)\n", unit_nameof(unit), arg);
 	ef_set_uid(unit->ef_type, unit, arg);
+	if (get_empobj(unit->ef_type, arg, &newunit) && newunit.gen.own) {
+	    pr("Replacing %s of %s\n",
+	       unit_nameof(&newunit.gen), prnatid(newunit.gen.own));
+	    report_god_takes("", unit_nameof(&newunit.gen),
+			     newunit.gen.own);
+	}
+	report_god_gives("", unit_nameof(unit), unit->own);
 	break;
     case 'O':
 	if (arg < 0 || arg >= MAXNOC)
