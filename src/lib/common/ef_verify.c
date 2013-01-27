@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2013
  */
 
 #include <config.h>
@@ -210,6 +210,27 @@ verify_table(int type)
 }
 
 static int
+verify_sectors(int may_put)
+{
+    int i;
+    struct sctstr *sp;
+    coord x, y;
+
+    /* laziness: assumes sector file is EFF_MEM */
+    for (i = 0; (sp = getsectid(i)); i++) {
+	sctoff2xy(&x, &y, sp->sct_uid);
+	if (sp->sct_x != x || sp->sct_y != y) {
+	    sp->sct_x = x;
+	    sp->sct_y = y;
+	    if (may_put)
+		putsect(sp);
+	    verify_fail(EF_SECTOR, i, NULL, 0, "bogus coordinates (fixed)");
+	}
+    }
+    return 0;
+}
+
+static int
 verify_planes(int may_put)
 {
     int retval = 0;
@@ -351,6 +372,7 @@ ef_verify_state(int may_put)
     }
 
     /* Special checks */
+    retval |= verify_sectors(may_put);
     retval |= verify_planes(may_put);
     retval |= verify_lands(may_put);
     retval |= verify_nukes(may_put);
