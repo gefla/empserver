@@ -592,7 +592,7 @@ edit_sect(struct sctstr *sect, char *key, char *p)
 			 sect->sct_own);
 	sect->sct_x = newx;
 	sect->sct_y = newy;
-	ef_set_uid(EF_SECTOR, &sect, XYOFFSET(newx, newy));
+	ef_set_uid(EF_SECTOR, sect, XYOFFSET(newx, newy));
 	break;
     case 'D':
 	if (!sarg_xy(p, &newx, &newy))
