@@ -164,9 +164,6 @@ struct dchrstr {
 #define getsectp(x, y) (struct sctstr *)ef_ptr(EF_SECTOR, sctoff((x), (y)))
 #define getsectid(id) (struct sctstr *)ef_ptr(EF_SECTOR, (id))
 
-/* things relating to sectors */
-extern int sctoff(coord x, coord y);
-
 extern struct dchrstr dchr[SCT_TYPE_MAX + 2];
 #define IS_BIG_CITY(type) (dchr[(type)].d_pkg == UPKG)
 

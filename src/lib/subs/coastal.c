@@ -36,6 +36,7 @@
 #include "path.h"
 #include "prototypes.h"
 #include "sect.h"
+#include "xy.h"
 
 static int
 update_coastal_flag(coord x, coord y, coord ign_x, coord ign_y)

@@ -36,6 +36,7 @@
 #include "path.h"
 #include "prototypes.h"
 #include "sect.h"
+#include "xy.h"
 
 int
 neigh(coord x, coord y, natid own)

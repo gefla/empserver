@@ -35,7 +35,7 @@
 
 #include "file.h"
 #include "map.h"
-#include "sect.h"
+#include "xy.h"
 
 /* values of only_bmap:
  * 0 = update both maps
