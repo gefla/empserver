@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -60,8 +60,15 @@ sct_prewrite(int id, void *old, void *new)
 {
     struct sctstr *oldsp = old;
     struct sctstr *sp = new;
+    coord x, y;
     int mil, civs;
     natid own, prev_own;
+
+    sctoff2xy(&x, &y, sp->sct_uid);
+    if (CANT_HAPPEN(sp->sct_x != x || sp->sct_y != y)) {
+	sp->sct_x = x;
+	sp->sct_y = y;
+    }
 
     bridge_damaged(sp);
     item_prewrite(sp->sct_item);
