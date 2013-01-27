@@ -47,6 +47,7 @@
 #include "plague.h"
 #include "plane.h"
 #include "ship.h"
+#include "unit.h"
 
 static void print_sect(struct sctstr *);
 static void print_nat(struct natstr *);
@@ -740,15 +741,81 @@ edit_nat(struct natstr *np, char *key, char *p)
 }
 
 static int
+edit_unit(struct empobj *unit, char *key, char *p,
+	  int mineff, char *group_name)
+{
+    int arg = atoi(p);
+    coord newx, newy;
+ 
+    switch (toupper(*key)) {
+    case 'U':
+	ef_set_uid(unit->ef_type, unit, arg);
+	break;
+    case 'O':
+	if (arg < 0 || arg >= MAXNOC)
+	    return RET_SYN;
+	if (arg == unit->own)
+	    break;
+	if (unit->own && unit->own != player->cnum)
+	    wu(0, unit->own, "%s taken from you by an act of %s!\n",
+	       unit_nameof(unit), cname(player->cnum));
+	if (arg && arg != player->cnum)
+	    wu(0, arg, "%s given to you by an act of %s!\n",
+	       unit_nameof(unit), cname(player->cnum));
+	unit->own = arg;
+	break;
+    case 'L':
+	if (!sarg_xy(p, &newx, &newy))
+	    return RET_SYN;
+	unit->x = newx;
+	unit->y = newy;
+	break;
+    case 'E':
+	arg = LIMIT_TO(arg, mineff, 100);
+	unit->effic = arg;
+	break;
+    case 'M':
+	arg = LIMIT_TO(arg, -127, 127);
+	unit->mobil = arg;
+	break;
+    case 'F':
+    case 'W':
+    case 'A':
+	if (p[0] == '~')
+	    unit->group = 0;
+	else if (isalpha(p[0]))
+	    unit->group = p[0];
+	else {
+	    pr("%c: invalid %s\n", p[0], group_name);
+	    return RET_FAIL;
+	}
+	break;
+    default:
+	CANT_REACH();
+    }
+    return RET_OK;
+}
+
+static int
 edit_ship(struct shpstr *ship, char *key, char *p)
 {
     struct mchrstr *mcp = &mchr[ship->shp_type];
     int arg = atoi(p);
-    coord newx, newy;
     struct ichrstr *ip;
 
-    newx = newy = 0;
     switch (*key) {
+    case 'U':
+    case 'O':
+    case 'L':
+    case 'E':
+    case 'M':
+    case 'F':
+	return edit_unit((struct empobj *)ship, key, p,
+			 SHIP_MINEFF, "fleet");
+    case 'T':
+	arg = LIMIT_TO(arg, mcp->m_tech, SHRT_MAX);
+	shp_set_tech(ship, arg);
+	break;
     case 'a':
 	arg = LIMIT_TO(arg, 0, PLG_EXPOSED);
 	ship->shp_pstage = arg;
@@ -762,49 +829,6 @@ edit_ship(struct shpstr *ship, char *key, char *p)
 	break;
     case 'W':
 	ship->shp_rflags = arg;
-	break;
-    case 'U':
-	ef_set_uid(EF_SHIP, ship, arg);
-	break;
-    case 'O':
-	if (arg < 0 || arg >= MAXNOC)
-	    return RET_SYN;
-	if (arg == ship->shp_own)
-	    break;
-	if (ship->shp_own && ship->shp_own != player->cnum)
-	    wu(0, ship->shp_own, "%s taken from you by an act of %s!\n",
-	       prship(ship), cname(player->cnum));
-	if (arg && arg != player->cnum)
-	    wu(0, arg, "%s given to you by an act of %s!\n",
-	       prship(ship), cname(player->cnum));
-	ship->shp_own = arg;
-	break;
-    case 'L':
-	if (!sarg_xy(p, &newx, &newy))
-	    return RET_SYN;
-	ship->shp_x = newx;
-	ship->shp_y = newy;
-	break;
-    case 'T':
-	arg = LIMIT_TO(arg, mcp->m_tech, SHRT_MAX);
-	shp_set_tech(ship, arg);
-	break;
-    case 'E':
-	ship->shp_effic = LIMIT_TO(arg, SHIP_MINEFF, 100);
-	break;
-    case 'M':
-	arg = LIMIT_TO(arg, -127, 127);
-	ship->shp_mobil = arg;
-	break;
-    case 'F':
-	if (p[0] == '~')
-	    ship->shp_fleet = 0;
-	else if (isalpha(p[0]))
-	    ship->shp_fleet = p[0];
-	else {
-	    pr("%c: invalid fleet\n", p[0]);
-	    return RET_FAIL;
-	}
 	break;
     case 'c':
     case 'm':
@@ -841,60 +865,20 @@ edit_land(struct lndstr *land, char *key, char *p)
 {
     struct lchrstr *lcp = &lchr[land->lnd_type];
     int arg = atoi(p);
-    coord newx, newy;
     struct ichrstr *ip;
 
-    newx = newy = 0;
     switch (*key) {
-    case 'Y':
-	if (arg < -1 || arg >= ef_nelem(EF_LAND))
-	    return RET_SYN;
-	if (arg >= 0 && arg != land->lnd_land)
-	    land->lnd_ship = -1;
-	land->lnd_land = arg;
-	break;
     case 'U':
-	ef_set_uid(EF_LAND, land, arg);
-	break;
     case 'O':
-	if (arg < 0 || arg >= MAXNOC)
-	    return RET_SYN;
-	if (arg == land->lnd_own)
-	    break;
-	if (land->lnd_own && land->lnd_own != player->cnum)
-	    wu(0, land->lnd_own, "%s taken from you by an act of %s!\n",
-	       prland(land), cname(player->cnum));
-	if (arg && arg != player->cnum)
-	    wu(0, arg, "%s given to you by an act of %s!\n",
-	       prland(land), cname(player->cnum));
-	land->lnd_own = arg;
-	break;
     case 'L':
-	if (!sarg_xy(p, &newx, &newy))
-	    return RET_SYN;
-	land->lnd_x = newx;
-	land->lnd_y = newy;
-	break;
     case 'e':
-	land->lnd_effic = LIMIT_TO(arg, LAND_MINEFF, 100);
-	break;
     case 'M':
-	arg = LIMIT_TO(arg, -127, 127);
-	land->lnd_mobil = arg;
-	break;
+    case 'a':
+	return edit_unit((struct empobj *)land, key, p,
+			 LAND_MINEFF, "army");
     case 't':
 	arg = LIMIT_TO(arg, lcp->l_tech, SHRT_MAX);
 	lnd_set_tech(land, arg);
-	break;
-    case 'a':
-	if (p[0] == '~')
-	    land->lnd_army = 0;
-	else if (isalpha(p[0]))
-	    land->lnd_army = p[0];
-	else {
-	    pr("%c: invalid army\n", p[0]);
-	    return RET_FAIL;
-	}
 	break;
     case 'F':
 	land->lnd_harden = LIMIT_TO(arg, 0, 127);
@@ -905,6 +889,13 @@ edit_land(struct lndstr *land, char *key, char *p)
 	if (arg >= 0 && arg != land->lnd_ship)
 	    land->lnd_land = -1;
 	land->lnd_ship = arg;
+	break;
+    case 'Y':
+	if (arg < -1 || arg >= ef_nelem(EF_LAND))
+	    return RET_SYN;
+	if (arg >= 0 && arg != land->lnd_land)
+	    land->lnd_ship = -1;
+	land->lnd_land = arg;
 	break;
     case 'Z':
 	arg = LIMIT_TO(arg, 0, 100);
@@ -951,50 +942,19 @@ edit_plane(struct plnstr *plane, char *key, char *p)
 {
     struct plchrstr *pcp = &plchr[plane->pln_type];
     int arg = atoi(p);
-    coord newx, newy;
 
     switch (*key) {
     case 'U':
-	ef_set_uid(EF_PLANE, plane, arg);
-	break;
-    case 'l':
-	if (!sarg_xy(p, &newx, &newy))
-	    return RET_SYN;
-	plane->pln_x = newx;
-	plane->pln_y = newy;
-	break;
     case 'O':
-	if (arg < 0 || arg >= MAXNOC)
-	    return RET_SYN;
-	if (arg == plane->pln_own)
-	    break;
-	if (plane->pln_own && plane->pln_own != player->cnum)
-	    wu(0, plane->pln_own, "%s taken from you by an act of %s!\n",
-	       prplane(plane), cname(player->cnum));
-	if (arg && arg != player->cnum)
-	    wu(0, arg, "%s given to you by an act of %s!\n",
-	       prplane(plane), cname(player->cnum));
-	plane->pln_own = arg;
-	break;
+    case 'l':
     case 'e':
-	plane->pln_effic = LIMIT_TO(arg, PLANE_MINEFF, 100);
-	break;
     case 'm':
-	plane->pln_mobil = LIMIT_TO(arg, -127, 127);
-	break;
+    case 'w':
+	return edit_unit((struct empobj *)plane, key, p,
+			 PLANE_MINEFF, "wing");
     case 't':
 	arg = LIMIT_TO(arg, pcp->pl_tech, SHRT_MAX);
 	pln_set_tech(plane, arg);
-	break;
-    case 'w':
-	if (p[0] == '~')
-	    plane->pln_wing = 0;
-	else if (isalpha(p[0]))
-	    plane->pln_wing = p[0];
-	else {
-	    pr("%c: invalid wing\n", p[0]);
-	    return RET_FAIL;
-	}
 	break;
     case 'r':
 	arg = LIMIT_TO(arg, 0, pl_range(pcp, plane->pln_tech));
