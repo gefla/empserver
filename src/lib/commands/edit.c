@@ -754,14 +754,13 @@ edit_unit(struct empobj *unit, char *key, char *p,
     case 'O':
 	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
-	if (arg == unit->own)
-	    break;
-	if (unit->own && unit->own != player->cnum)
-	    wu(0, unit->own, "%s taken from you by an act of %s!\n",
-	       unit_nameof(unit), cname(player->cnum));
-	if (arg && arg != player->cnum)
-	    wu(0, arg, "%s given to you by an act of %s!\n",
-	       unit_nameof(unit), cname(player->cnum));
+	divine_unit_change_quiet(unit, "Owner", arg != unit->own,
+				 "from %s to %s",
+				 prnatid(unit->own), prnatid(arg));
+	if (arg != unit->own) {
+	    report_god_takes("", unit_nameof(unit), unit->own);
+	    report_god_gives("", unit_nameof(unit), arg);
+	}
 	unit->own = arg;
 	break;
     case 'L':

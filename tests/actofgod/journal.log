@@ -835,6 +835,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 0 O 0
     Play#0 command edit
+    Play#0 output Play#0 1 Owner of cs   cargo ship (#0) changed from 3 (#3) to POGO (#0)
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 0 O -1
     Play#0 command edit
@@ -842,6 +843,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 1 O 98
     Play#0 command edit
+    Play#0 output Play#0 1 Owner of cs   cargo ship (#1) changed from 3 (#3) to 98 (#98)
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 1 O 99
     Play#0 command edit
@@ -849,6 +851,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 O 2
     Play#0 command edit
+    Play#0 output Play#0 1 Owner of cs   cargo ship (#2) changed from 3 (#3) to 2 (#2)
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 U 5 U 3
     Play#0 command edit
@@ -870,6 +873,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0 O 0
     Play#0 command edit
+    Play#0 output Play#0 1 Owner of f1   Sopwith Camel #0 changed from 3 (#3) to POGO (#0)
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0 O -1
     Play#0 command edit
@@ -877,6 +881,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 1 O 98
     Play#0 command edit
+    Play#0 output Play#0 1 Owner of f1   Sopwith Camel #1 changed from 3 (#3) to 98 (#98)
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 1 O 99
     Play#0 command edit
@@ -884,6 +889,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 O 2
     Play#0 command edit
+    Play#0 output Play#0 1 Owner of f1   Sopwith Camel #2 changed from 3 (#3) to 2 (#2)
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 U 5 U 3
     Play#0 command edit
@@ -905,6 +911,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0 O 0
     Play#0 command edit
+    Play#0 output Play#0 1 Owner of sup  supply #0 changed from 3 (#3) to POGO (#0)
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0 O -1
     Play#0 command edit
@@ -912,6 +919,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 1 O 98
     Play#0 command edit
+    Play#0 output Play#0 1 Owner of sup  supply #1 changed from 3 (#3) to 98 (#98)
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 1 O 99
     Play#0 command edit
@@ -919,6 +927,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 O 2
     Play#0 command edit
+    Play#0 output Play#0 1 Owner of sup  supply #2 changed from 3 (#3) to 2 (#2)
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 U 5 U 3
     Play#0 command edit
