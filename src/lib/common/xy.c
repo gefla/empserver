@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1989
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -206,6 +206,12 @@ sctoff(coord x, coord y)
     if (CANT_HAPPEN((x + y) & 1))
 	return -1;
     return XYOFFSET(XNORM(x), YNORM(y));
+}
+
+void sctoff2xy(coord *x, coord *y, int off)
+{
+    *y = off * 2 / WORLD_X;
+    *x = off * 2 % WORLD_X + *y % 2;
 }
 
 coord

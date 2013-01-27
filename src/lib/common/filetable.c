@@ -27,7 +27,7 @@
  *  filetable.c: Empire game data file descriptions.
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2012
+ *     Markus Armbruster, 2005-2013
  */
 
 #include <config.h>
@@ -281,8 +281,7 @@ sct_oninit(void *ptr)
 {
     struct sctstr *sp = (struct sctstr *)ptr;
 
-    sp->sct_y = sp->sct_uid * 2 / WORLD_X;
-    sp->sct_x = sp->sct_uid * 2 % WORLD_X + sp->sct_y % 2;
+    sctoff2xy(&sp->sct_x, &sp->sct_y, sp->sct_uid);
     sp->sct_dist_x = sp->sct_x;
     sp->sct_dist_y = sp->sct_y;
     sp->sct_newtype = sp->sct_type = SCT_WATER;
