@@ -624,13 +624,25 @@ edit_sect(struct sctstr *sect, char *key, char *p)
     return RET_OK;
 }
 
+static void
+edit_level(struct natstr *np, int lvl, char *name, char *p)
+{
+    float new = (float)atof(p);
+
+    new = MAX(0.0, new);
+    divine_nat_change(np, name,
+		      new != np->nat_level[lvl],
+		      (new > np->nat_level[lvl]) - (new < np->nat_level[lvl]),
+		      "from %.2f to %.2f", np->nat_level[lvl], new);
+    np->nat_level[lvl] = new;
+}
+
 static int
 edit_nat(struct natstr *np, char *key, char *p)
 {
     coord newx, newy;
     natid nat = np->nat_cnum;
     int arg = atoi(p);
-    float farg = (float)atof(p);
 
     switch (*key) {
     case 'n':
@@ -703,28 +715,16 @@ edit_nat(struct natstr *np, char *key, char *p)
 	np->nat_money = arg;
 	break;
     case 'T':
-	farg = MAX(0.0, farg);
-	pr("Tech changed from %.2f to %.2f.\n",
-	   np->nat_level[NAT_TLEV], farg);
-	np->nat_level[NAT_TLEV] = farg;
+	edit_level(np, NAT_TLEV, "Technology", p);
 	break;
     case 'R':
-	farg = MAX(0.0, farg);
-	pr("Research changed from %.2f to %.2f.\n",
-	   np->nat_level[NAT_RLEV], farg);
-	np->nat_level[NAT_RLEV] = farg;
+	edit_level(np, NAT_RLEV, "Research", p);
 	break;
     case 'E':
-	farg = MAX(0.0, farg);
-	pr("Education changed from %.2f to %.2f.\n",
-	   np->nat_level[NAT_ELEV], farg);
-	np->nat_level[NAT_ELEV] = farg;
+	edit_level(np, NAT_ELEV, "Education", p);
 	break;
     case 'H':
-	farg = MAX(0.0, farg);
-	pr("Happiness changed from %.2f to %.2f.\n",
-	   np->nat_level[NAT_HLEV], farg);
-	np->nat_level[NAT_HLEV] = farg;
+	edit_level(np, NAT_HLEV, "Happiness", p);
 	break;
     default:
 	pr("huh? (%s)\n", key);

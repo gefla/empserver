@@ -1510,51 +1510,51 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 T 3.14
     Play#0 command edit
-    Play#0 output Play#0 1 Tech changed from 0.00 to 3.14.
+    Play#0 output Play#0 1 Technology of 1 (#1) changed from 0.00 to 3.14
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 T 100
     Play#0 command edit
-    Play#0 output Play#0 1 Tech changed from 0.00 to 100.00.
+    Play#0 output Play#0 1 Technology of 2 (#2) changed from 0.00 to 100.00
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 T -1
     Play#0 command edit
-    Play#0 output Play#0 1 Tech changed from 0.00 to 0.00.
+    Play#0 output Play#0 1 Technology of 3 (#3) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 R 3.14
     Play#0 command edit
-    Play#0 output Play#0 1 Research changed from 0.00 to 3.14.
+    Play#0 output Play#0 1 Research of 1 (#1) changed from 0.00 to 3.14
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 R 100
     Play#0 command edit
-    Play#0 output Play#0 1 Research changed from 0.00 to 100.00.
+    Play#0 output Play#0 1 Research of 2 (#2) changed from 0.00 to 100.00
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 R -1
     Play#0 command edit
-    Play#0 output Play#0 1 Research changed from 0.00 to 0.00.
+    Play#0 output Play#0 1 Research of 3 (#3) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 E 3.14
     Play#0 command edit
-    Play#0 output Play#0 1 Education changed from 0.00 to 3.14.
+    Play#0 output Play#0 1 Education of 1 (#1) changed from 0.00 to 3.14
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 E 100
     Play#0 command edit
-    Play#0 output Play#0 1 Education changed from 0.00 to 100.00.
+    Play#0 output Play#0 1 Education of 2 (#2) changed from 0.00 to 100.00
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 E -1
     Play#0 command edit
-    Play#0 output Play#0 1 Education changed from 0.00 to 0.00.
+    Play#0 output Play#0 1 Education of 3 (#3) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 H 3.14
     Play#0 command edit
-    Play#0 output Play#0 1 Happiness changed from 0.00 to 3.14.
+    Play#0 output Play#0 1 Happiness of 1 (#1) changed from 0.00 to 3.14
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 H 100
     Play#0 command edit
-    Play#0 output Play#0 1 Happiness changed from 0.00 to 100.00.
+    Play#0 output Play#0 1 Happiness of 2 (#2) changed from 0.00 to 100.00
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 H -1
     Play#0 command edit
-    Play#0 output Play#0 1 Happiness changed from 0.00 to 0.00.
+    Play#0 output Play#0 1 Happiness of 3 (#3) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 n POGO
     Play#0 command edit
@@ -1621,7 +1621,7 @@
     Play#0 output Play#0 1 BTU's changed from 0 to 640
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input T 1
-    Play#0 output Play#0 1 Tech changed from 0.00 to 1.00.
+    Play#0 output Play#0 1 Technology of 5 (#5) changed from 0.00 to 1.00
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
     Play#0 output Play#0 1 Country #:  5
@@ -1632,7 +1632,7 @@
     Play#0 output Play#0 1 Technology <T>: 1.00		Research <R>: 0.00
     Play#0 output Play#0 1 Education <E>: 0.00		Happiness <H>: 0.00
     Play#0 output Play#0 1 Money <M>: $     0
-    Play#0 output Play#0 1 Telegrams <t>:      0
+    Play#0 output Play#0 1 Telegrams <t>:      1
     Play#0 output Play#0 6 0 640
     Play#0 input read 0
     Play#0 command read
@@ -1752,6 +1752,10 @@
     Play#0 output Play#0 1 POGO gave you 9997 civilians in 6,6
     Play#0 output Play#0 1 POGO stole 1 civilians from 8,6
     Play#0 output Play#0 1 Money changed from 0 to -2147483648 by an act of POGO
+    Play#0 output Play#0 1 Technology changed from 0.00 to 3.14 by an act of POGO!
+    Play#0 output Play#0 1 Research changed from 0.00 to 3.14 by an act of POGO!
+    Play#0 output Play#0 1 Education changed from 0.00 to 3.14 by an act of POGO!
+    Play#0 output Play#0 1 Happiness changed from 0.00 to 3.14 by an act of POGO!
     Play#0 output Play#0 6 0 640
     Play#0 input read 2
     Play#0 command read
@@ -1777,6 +1781,10 @@
     Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#2) changed by an act of POGO: group set
     Play#0 output Play#0 1 Retreat condition of sup  supply #2 changed by an act of POGO: group set
     Play#0 output Play#0 1 Flags of f1   Sopwith Camel #2 changed by an act of POGO: airburst set
+    Play#0 output Play#0 1 Technology changed from 0.00 to 100.00 by an act of POGO!
+    Play#0 output Play#0 1 Research changed from 0.00 to 100.00 by an act of POGO!
+    Play#0 output Play#0 1 Education changed from 0.00 to 100.00 by an act of POGO!
+    Play#0 output Play#0 1 Happiness changed from 0.00 to 100.00 by an act of POGO!
     Play#0 output Play#0 6 0 640
     Play#0 input read 3
     Play#0 command read
@@ -1871,7 +1879,9 @@
     Play#0 output Play#0 6 0 640
     Play#0 input read 5
     Play#0 command read
-    Play#0 output Play#0 1 No telegrams for 5 at the moment...
+    Play#0 output Play#0 1 
+    Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Technology changed from 0.00 to 1.00 by an act of POGO!
     Play#0 output Play#0 6 0 640
     Play#0 input read 98
     Play#0 command read
