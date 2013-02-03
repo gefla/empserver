@@ -38,6 +38,8 @@
 
 extern void report_god_takes(char *, char *, natid);
 extern void report_god_gives(char *, char *, natid);
+extern void divine_load(struct empobj *, int, int);
+extern void divine_unload(struct empobj *, int, int);
 extern void divine_sct_change(struct sctstr *, char *, int, int, char *, ...)
     ATTRIBUTE((format (printf, 5, 6)));
 #define divine_sct_change_quiet(sp, name, change, ...) \

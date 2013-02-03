@@ -138,6 +138,34 @@ divine_unit_change(struct empobj *unit, char *name,
     }
 }
 
+static void
+divine_load_unload(struct empobj *unit, int type, int uid, char *act)
+{
+    if (uid < 0)
+	return;
+
+    pr("%s %s %s #%d\n",
+       unit_nameof(unit), act, ef_nameof(type), uid);
+    if (unit->own && unit->own != player->cnum)
+	wu(0, unit->own,
+	   "%s %s %s #%d by an act of %s!\n",
+	   unit_nameof(unit), act, ef_nameof(type), uid,
+	   cname(player->cnum));
+    /* carrier owner could differ; can't be bothered to report to him */
+}
+
+void
+divine_load(struct empobj *unit, int type, int uid)
+{
+    divine_load_unload(unit, type, uid, "loaded onto");
+}
+
+void
+divine_unload(struct empobj *unit, int type, int uid)
+{
+    divine_load_unload(unit, type, uid, "unloaded from");
+}
+
 /*
  * Report deity giving/taking commodities to/from WHOM.
  * Give AMT of IP in PLACE.

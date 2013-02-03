@@ -1201,23 +1201,33 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 s -1 s 9999
     Play#0 command edit
+    Play#0 output Play#0 1 Ship of f1   Sopwith Camel #2 unchanged
     Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 s 3
     Play#0 command edit
+    Play#0 output Play#0 1 f1   Sopwith Camel #3 loaded onto ship #3
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 4 s 4 y 4
     Play#0 command edit
+    Play#0 output Play#0 1 f1   Sopwith Camel #4 loaded onto ship #4
+    Play#0 output Play#0 1 f1   Sopwith Camel #4 unloaded from ship #4
+    Play#0 output Play#0 1 f1   Sopwith Camel #4 loaded onto land #4
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 S -1 S 9999
     Play#0 command edit
+    Play#0 output Play#0 1 Ship of sup  supply #2 unchanged
     Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 S 3
     Play#0 command edit
+    Play#0 output Play#0 1 sup  supply #3 loaded onto ship #3
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 S 4 Y 4
     Play#0 command edit
+    Play#0 output Play#0 1 sup  supply #4 loaded onto ship #4
+    Play#0 output Play#0 1 sup  supply #4 unloaded from ship #4
+    Play#0 output Play#0 1 sup  supply #4 loaded onto land #4
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 0
     Play#0 command edit
@@ -1293,6 +1303,7 @@
     Play#0 input m 2
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input y -1
+    Play#0 output Play#0 1 Land unit of f1   Sopwith Camel #0 unchanged
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
     Play#0 output Play#0 1 POGO (#0) f1   Sopwith Camel #0
@@ -1320,6 +1331,7 @@
     Play#0 input M 2
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input Y -1
+    Play#0 output Play#0 1 Land unit of sup  supply #0 unchanged
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
     Play#0 output Play#0 1 POGO (#0) sup  supply #0
@@ -1683,6 +1695,14 @@
     Play#0 output Play#0 1 POGO gave you 50 military in cs   cargo ship (#5)
     Play#0 output Play#0 1 POGO gave you 25 military in sup  supply #4
     Play#0 output Play#0 1 POGO gave you 25 military in sup  supply #5
+    Play#0 output Play#0 1 f1   Sopwith Camel #3 loaded onto ship #3 by an act of POGO!
+    Play#0 output Play#0 1 f1   Sopwith Camel #4 loaded onto ship #4 by an act of POGO!
+    Play#0 output Play#0 1 f1   Sopwith Camel #4 unloaded from ship #4 by an act of POGO!
+    Play#0 output Play#0 1 f1   Sopwith Camel #4 loaded onto land #4 by an act of POGO!
+    Play#0 output Play#0 1 sup  supply #3 loaded onto ship #3 by an act of POGO!
+    Play#0 output Play#0 1 sup  supply #4 loaded onto ship #4 by an act of POGO!
+    Play#0 output Play#0 1 sup  supply #4 unloaded from ship #4 by an act of POGO!
+    Play#0 output Play#0 1 sup  supply #4 loaded onto land #4 by an act of POGO!
     Play#0 output Play#0 1 Military reserves changed from 0 to 2147483647 by an act of POGO
     Play#0 output Play#0 1 Money changed from 0 to 2147483647 by an act of POGO
     Play#0 output Play#0 6 0 640

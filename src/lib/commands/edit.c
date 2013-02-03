@@ -898,15 +898,31 @@ edit_land(struct lndstr *land, char *key, char *p)
     case 'S':
 	if (arg < -1 || arg >= ef_nelem(EF_SHIP))
 	    return RET_SYN;
-	if (arg >= 0 && arg != land->lnd_ship)
+	if (arg == land->lnd_ship) {
+	    pr("Ship of %s unchanged\n", prland(land));
+	    break;
+	}
+	divine_unload((struct empobj *)land, EF_SHIP, land->lnd_ship);
+	if (arg >= 0) {
+	    divine_unload((struct empobj *)land, EF_LAND, land->lnd_land);
 	    land->lnd_land = -1;
+	}
+	divine_load((struct empobj *)land, EF_SHIP, arg);
 	land->lnd_ship = arg;
 	break;
     case 'Y':
 	if (arg < -1 || arg >= ef_nelem(EF_LAND))
 	    return RET_SYN;
-	if (arg >= 0 && arg != land->lnd_land)
+	if (arg == land->lnd_land) {
+	    pr("Land unit of %s unchanged\n", prland(land));
+	    break;
+	}
+	divine_unload((struct empobj *)land, EF_LAND, land->lnd_land);
+	if (arg >= 0) {
+	    divine_unload((struct empobj *)land, EF_SHIP, land->lnd_ship);
 	    land->lnd_ship = -1;
+	}
+	divine_load((struct empobj *)land, EF_LAND, arg);
 	land->lnd_land = arg;
 	break;
     case 'Z':
@@ -975,15 +991,31 @@ edit_plane(struct plnstr *plane, char *key, char *p)
     case 's':
 	if (arg < -1 || arg >= ef_nelem(EF_SHIP))
 	    return RET_SYN;
-	if (arg >= 0 && arg != plane->pln_ship)
+	if (arg == plane->pln_ship) {
+	    pr("Ship of %s unchanged\n", prplane(plane));
+	    break;
+	}
+	divine_unload((struct empobj *)plane, EF_SHIP, plane->pln_ship);
+	if (arg >= 0) {
+	    divine_unload((struct empobj *)plane, EF_LAND, plane->pln_land);
 	    plane->pln_land = -1;
+	}
+	divine_load((struct empobj *)plane, EF_SHIP, arg);
 	plane->pln_ship = arg;
 	break;
     case 'y':
 	if (arg < -1 || arg >= ef_nelem(EF_LAND))
 	    return RET_SYN;
-	if (arg >= 0 && arg != plane->pln_land)
+	if (arg == plane->pln_land) {
+	    pr("Land unit of %s unchanged\n", prplane(plane));
+	    break;
+	}
+	divine_unload((struct empobj *)plane, EF_LAND, plane->pln_land);
+	if (arg >= 0) {
+	    divine_unload((struct empobj *)plane, EF_SHIP, plane->pln_ship);
 	    plane->pln_ship = -1;
+	}
+	divine_load((struct empobj *)plane, EF_LAND, arg);
 	plane->pln_land = arg;
 	break;
     case 'f':
