@@ -38,5 +38,7 @@
 
 extern void report_god_takes(char *, char *, natid);
 extern void report_god_gives(char *, char *, natid);
+extern void divine_sct_change(struct sctstr *, char *, int, int, char *, ...)
+    ATTRIBUTE((format (printf, 5, 6)));
 
 #endif

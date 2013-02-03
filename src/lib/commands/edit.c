@@ -231,14 +231,8 @@ benefit(natid who, int goodness)
 static void
 noise(struct sctstr *sptr, char *name, int old, int new)
 {
-    pr("%s of %s changed from %d to %d\n",
-       name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);
-    if (sptr->sct_own && sptr->sct_own != player->cnum && new != old)
-	wu(0, sptr->sct_own,
-	   "%s of %s changed from %d to %d by an act of %s\n",
-	   name, xyas(sptr->sct_x, sptr->sct_y, sptr->sct_own),
-	   old, new, cname(player->cnum));
-    benefit(sptr->sct_own, new - old);
+    divine_sct_change(sptr, name, new != old, new - old,
+		      "from %d to %d", old, new);
 }
 
 static void
@@ -438,17 +432,9 @@ edit_sect_i(struct sctstr *sect, char *key, int arg)
     case 'O':
 	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
-	pr("Old owner of %s changed from %s to %s\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   prnatid(sect->sct_oldown), prnatid(arg));
-	if (arg == sect->sct_oldown)
-	    break;
-	if (sect->sct_own && sect->sct_own != player->cnum)
-	    wu(0, sect->sct_own,
-	       "Old owner of %s changed from %s to %s by an act of %s\n",
-	       xyas(sect->sct_x, sect->sct_y, player->cnum),
-	       prnatid(sect->sct_oldown), prnatid(arg),
-	       cname(player->cnum));
+	divine_sct_change(sect, "Old owner", arg != sect->sct_oldown, 0,
+			  "from %s to %s",
+			  prnatid(sect->sct_oldown), prnatid(arg));
 	sect->sct_oldown = arg;
 	break;
     case 'e':
@@ -618,18 +604,9 @@ edit_sect(struct sctstr *sect, char *key, char *p)
 	new = sct_typematch(p);
 	if (new < 0)
 	    return RET_SYN;
-	pr("Designation of %s changed from %c to %c\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   dchr[sect->sct_type].d_mnem, dchr[new].d_mnem);
-	if (new == sect->sct_type)
-	    break;
-	if (sect->sct_own && sect->sct_own != player->cnum)
-	    wu(0, sect->sct_own,
-	       "Designation of %s changed from %c to %c"
-	       " by an act of %s\n",
-	       xyas(sect->sct_x, sect->sct_y, player->cnum),
-	       dchr[sect->sct_type].d_mnem, dchr[new].d_mnem,
-	       cname(player->cnum));
+	divine_sct_change(sect, "Designation",
+			  new != sect->sct_type, 0, "from %c to %c",
+			  dchr[sect->sct_type].d_mnem, dchr[new].d_mnem);
 	set_coastal(sect, sect->sct_type, new);
 	sect->sct_type = new;
 	break;
@@ -637,18 +614,9 @@ edit_sect(struct sctstr *sect, char *key, char *p)
 	new = sct_typematch(p);
 	if (new < 0)
 	    return RET_SYN;
-	pr("New designation of %s changed from %c to %c\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   dchr[sect->sct_newtype].d_mnem, dchr[new].d_mnem);
-	if (new == sect->sct_newtype)
-	    break;
-	if (sect->sct_own && sect->sct_own != player->cnum)
-	    wu(0, sect->sct_own,
-	       "New designation of %s changed from %c to %c"
-	       " by an act of %s\n",
-	       xyas(sect->sct_x, sect->sct_y, player->cnum),
-	       dchr[sect->sct_newtype].d_mnem, dchr[new].d_mnem,
-	       cname(player->cnum));
+	divine_sct_change(sect, "New designation",
+			  new != sect->sct_newtype, 0, "from %c to %c",
+			  dchr[sect->sct_newtype].d_mnem, dchr[new].d_mnem);
 	sect->sct_newtype = new;
 	break;
     default:
