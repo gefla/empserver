@@ -866,9 +866,11 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 L 3,-1
     Play#0 command edit
+    Play#0 output Play#0 1 Location of cs   cargo ship (#2) changed from 1,-1 to 3,-1
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 L 1,-1
     Play#0 command edit
+    Play#0 output Play#0 1 Location of cs   cargo ship (#3) changed from 1,-1 to 1,-1
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0 @ 0
     Play#0 command edit
@@ -908,9 +910,11 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 l 3,-1
     Play#0 command edit
+    Play#0 output Play#0 1 Location of f1   Sopwith Camel #2 changed from 1,-1 to 3,-1
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 l 1,-1
     Play#0 command edit
+    Play#0 output Play#0 1 Location of f1   Sopwith Camel #3 changed from 1,-1 to 1,-1
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0 @ 0
     Play#0 command edit
@@ -950,69 +954,91 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 L 3,-1
     Play#0 command edit
+    Play#0 output Play#0 1 Location of sup  supply #2 changed from 1,-1 to 3,-1
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 L 1,-1
     Play#0 command edit
+    Play#0 output Play#0 1 Location of sup  supply #3 changed from 1,-1 to 1,-1
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 E 0
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#2) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 E -1
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#3) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 E 100
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#4) changed from 20 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 E 101
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#5) changed from 20 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 M -127
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#2) changed from 0 to -127
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 M -128
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#3) changed from 0 to -127
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 M 127
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#4) changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 M 128
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#5) changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 T 0
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#2) changed from 100 to 20
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 T -1
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#3) changed from 100 to 20
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 T 32767
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#4) changed from 100 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 T 32768
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#5) changed from 100 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 a 0
     Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of cs   cargo ship (#2) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 a -1
     Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of cs   cargo ship (#3) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 a 4
     Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of cs   cargo ship (#4) changed from 0 to 4
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 a 5
     Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of cs   cargo ship (#5) changed from 0 to 4
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 b 0
     Play#0 command edit
+    Play#0 output Play#0 1 Plague time of cs   cargo ship (#2) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 b -1
     Play#0 command edit
+    Play#0 output Play#0 1 Plague time of cs   cargo ship (#3) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 b 32767
     Play#0 command edit
+    Play#0 output Play#0 1 Plague time of cs   cargo ship (#4) changed from 0 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 b 32768
     Play#0 command edit
+    Play#0 output Play#0 1 Plague time of cs   cargo ship (#5) changed from 0 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 m 0
     Play#0 command edit
@@ -1032,111 +1058,147 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 e 0
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #2 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 e -1
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #3 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 4 e 100
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #4 changed from 10 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 5 e 101
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #5 changed from 10 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 m -127
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #2 changed from 0 to -127
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 m -128
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #3 changed from 0 to -127
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 4 m 127
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #4 changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 5 m 128
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #5 changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 r 0
     Play#0 command edit
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #2 changed from 9 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 r -1
     Play#0 command edit
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #3 changed from 9 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 4 r 9
     Play#0 command edit
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #4 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 5 r 10
     Play#0 command edit
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #5 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 t 50
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #2 changed from 100 to 50
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 t 49
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #3 changed from 100 to 50
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 4 t 32767
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #4 changed from 100 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 5 t 32768
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #5 changed from 100 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 e 0
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of sup  supply #2 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 e -1
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of sup  supply #3 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 e 100
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of sup  supply #4 changed from 10 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 e 101
     Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of sup  supply #5 changed from 10 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 M -127
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of sup  supply #2 changed from 0 to -127
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 M -128
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of sup  supply #3 changed from 0 to -127
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 M 127
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of sup  supply #4 changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 M 128
     Play#0 command edit
+    Play#0 output Play#0 1 Mobility of sup  supply #5 changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 t 50
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of sup  supply #2 changed from 100 to 50
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 t 49
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of sup  supply #3 changed from 100 to 50
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 t 32767
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of sup  supply #4 changed from 100 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 t 32768
     Play#0 command edit
+    Play#0 output Play#0 1 Tech level of sup  supply #5 changed from 100 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 F 0
     Play#0 command edit
+    Play#0 output Play#0 1 Fortification of sup  supply #2 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 F -1
     Play#0 command edit
+    Play#0 output Play#0 1 Fortification of sup  supply #3 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 F 127
     Play#0 command edit
+    Play#0 output Play#0 1 Fortification of sup  supply #4 changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 F 128
     Play#0 command edit
+    Play#0 output Play#0 1 Fortification of sup  supply #5 changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 Z 0
     Play#0 command edit
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #2 changed from 42 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 Z -1
     Play#0 command edit
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #3 changed from 42 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 Z 100
     Play#0 command edit
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #4 changed from 42 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 Z 101
     Play#0 command edit
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #5 changed from 42 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 m 0
     Play#0 command edit
@@ -1156,27 +1218,35 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 F ~
     Play#0 command edit
+    Play#0 output Play#0 1 Assignment of cs   cargo ship (#2) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 F a
     Play#0 command edit
+    Play#0 output Play#0 1 Assignment of cs   cargo ship (#3) changed from fleet ~ to a
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 w ~
     Play#0 command edit
+    Play#0 output Play#0 1 Assignment of f1   Sopwith Camel #2 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 w a
     Play#0 command edit
+    Play#0 output Play#0 1 Assignment of f1   Sopwith Camel #3 changed from wing ~ to a
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 a ~
     Play#0 command edit
+    Play#0 output Play#0 1 Assignment of sup  supply #2 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 a a
     Play#0 command edit
+    Play#0 output Play#0 1 Assignment of sup  supply #3 changed from army ~ to a
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 R ""
     Play#0 command edit
+    Play#0 output Play#0 1 Retreat path of cs   cargo ship (#2) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 R jj
     Play#0 command edit
+    Play#0 output Play#0 1 Retreat path of cs   cargo ship (#3) changed from  to jj
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 W 0 W 1
     Play#0 command edit
@@ -1191,9 +1261,11 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 R ""
     Play#0 command edit
+    Play#0 output Play#0 1 Retreat path of sup  supply #2 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 R jj
     Play#0 command edit
+    Play#0 output Play#0 1 Retreat path of sup  supply #3 changed from  to jj
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 W 0 W 1
     Play#0 command edit
@@ -1265,6 +1337,7 @@
     Play#0 output Play#0 1   0   0   0    0   0   0    0    0    0    0    0    0   0
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input M 2
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#0) changed from 0 to 2
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input m 1
     Play#0 output Play#0 1 military of cs   cargo ship (#0) changed from 0 to 1
@@ -1298,8 +1371,10 @@
     Play#0 output Play#0 1   0   1   0    1   0   0    0    0    0    0    0    0   0
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input R n
+    Play#0 output Play#0 1 Retreat path of cs   cargo ship (#0) changed from  to n
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input R ""
+    Play#0 output Play#0 1 Retreat path of cs   cargo ship (#0) changed from n to 
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
     Play#0 output Play#0 1 POGO (#0) cs   cargo ship (#0)
@@ -1323,6 +1398,7 @@
     Play#0 output Play#0 1 Ship <s>: -1		Land Unit <y>: -1	
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input m 2
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #0 changed from 0 to 2
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input y -1
     Play#0 output Play#0 1 Land unit of f1   Sopwith Camel #0 unchanged
@@ -1351,6 +1427,7 @@
     Play#0 output Play#0 1   0   0   0    0   0   0    0    0    0    0    0    0   0
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input M 2
+    Play#0 output Play#0 1 Mobility of sup  supply #0 changed from 0 to 2
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input Y -1
     Play#0 output Play#0 1 Land unit of sup  supply #0 unchanged
@@ -1684,8 +1761,19 @@
     Play#0 output Play#0 1 Sector 11,7 given to you by an act of POGO!
     Play#0 output Play#0 1 Sector -2,2 swapped with 2,-2 by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#2) given to you by an act of POGO!
+    Play#0 output Play#0 1 Location of cs   cargo ship (#2) changed from 1,-1 to 3,-1 by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #2 given to you by an act of POGO!
+    Play#0 output Play#0 1 Location of f1   Sopwith Camel #2 changed from 1,-1 to 3,-1 by an act of POGO!
     Play#0 output Play#0 1 sup  supply #2 given to you by an act of POGO!
+    Play#0 output Play#0 1 Location of sup  supply #2 changed from 1,-1 to 3,-1 by an act of POGO!
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#2) changed from 0 to -127 by an act of POGO
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#2) changed from 100 to 20 by an act of POGO
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #2 changed from 0 to -127 by an act of POGO
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #2 changed from 9 to 0 by an act of POGO
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #2 changed from 100 to 50 by an act of POGO
+    Play#0 output Play#0 1 Mobility of sup  supply #2 changed from 0 to -127 by an act of POGO
+    Play#0 output Play#0 1 Tech level of sup  supply #2 changed from 100 to 50 by an act of POGO
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #2 changed from 42 to 0 by an act of POGO
     Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#2) changed by an act of POGO: group set
     Play#0 output Play#0 1 Retreat condition of sup  supply #2 changed by an act of POGO: group set
     Play#0 output Play#0 1 Flags of f1   Sopwith Camel #2 changed by an act of POGO: airburst set
@@ -1704,25 +1792,63 @@
     Play#0 output Play#0 1 cs   cargo ship (#5) given to you by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#3) taken from you by an act of POGO!
     Play#0 output Play#0 1 cs   cargo ship (#3) given to you by an act of POGO!
+    Play#0 output Play#0 1 Location of cs   cargo ship (#3) changed from 1,-1 to 1,-1 by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #0 taken from you by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #1 taken from you by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #2 taken from you by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #5 given to you by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #3 taken from you by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #3 given to you by an act of POGO!
+    Play#0 output Play#0 1 Location of f1   Sopwith Camel #3 changed from 1,-1 to 1,-1 by an act of POGO!
     Play#0 output Play#0 1 sup  supply #0 taken from you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #1 taken from you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #2 taken from you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #5 given to you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #3 taken from you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #3 given to you by an act of POGO!
+    Play#0 output Play#0 1 Location of sup  supply #3 changed from 1,-1 to 1,-1 by an act of POGO!
+    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#4) changed from 20 to 100 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#5) changed from 20 to 100 by an act of POGO
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#3) changed from 0 to -127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#4) changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#5) changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#3) changed from 100 to 20 by an act of POGO
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#4) changed from 100 to 32767 by an act of POGO
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#5) changed from 100 to 32767 by an act of POGO
     Play#0 output Play#0 1 POGO gave you 50 military in cs   cargo ship (#4)
     Play#0 output Play#0 1 POGO gave you 50 military in cs   cargo ship (#5)
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #4 changed from 10 to 100 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #5 changed from 10 to 100 by an act of POGO
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #3 changed from 0 to -127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #4 changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #5 changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #3 changed from 9 to 0 by an act of POGO
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #3 changed from 100 to 50 by an act of POGO
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #4 changed from 100 to 32767 by an act of POGO
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #5 changed from 100 to 32767 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of sup  supply #4 changed from 10 to 100 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of sup  supply #5 changed from 10 to 100 by an act of POGO
+    Play#0 output Play#0 1 Mobility of sup  supply #3 changed from 0 to -127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of sup  supply #4 changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of sup  supply #5 changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Tech level of sup  supply #3 changed from 100 to 50 by an act of POGO
+    Play#0 output Play#0 1 Tech level of sup  supply #4 changed from 100 to 32767 by an act of POGO
+    Play#0 output Play#0 1 Tech level of sup  supply #5 changed from 100 to 32767 by an act of POGO
+    Play#0 output Play#0 1 Fortification of sup  supply #4 changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Fortification of sup  supply #5 changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #3 changed from 42 to 0 by an act of POGO
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #4 changed from 42 to 100 by an act of POGO
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #5 changed from 42 to 100 by an act of POGO
     Play#0 output Play#0 1 POGO gave you 25 military in sup  supply #4
     Play#0 output Play#0 1 POGO gave you 25 military in sup  supply #5
+    Play#0 output Play#0 1 Assignment of cs   cargo ship (#3) changed from fleet ~ to a by an act of POGO
+    Play#0 output Play#0 1 Assignment of f1   Sopwith Camel #3 changed from wing ~ to a by an act of POGO
+    Play#0 output Play#0 1 Assignment of sup  supply #3 changed from army ~ to a by an act of POGO
+    Play#0 output Play#0 1 Retreat path of cs   cargo ship (#3) changed from  to jj by an act of POGO
     Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed by an act of POGO: group set
     Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed by an act of POGO: injured, torped set and group cleared
     Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed by an act of POGO: torped cleared
+    Play#0 output Play#0 1 Retreat path of sup  supply #3 changed from  to jj by an act of POGO
     Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed by an act of POGO: group set
     Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed by an act of POGO: injured, torped set and group cleared
     Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed by an act of POGO: torped cleared

@@ -741,6 +741,7 @@ edit_unit(struct empobj *unit, char *key, char *p,
     int arg = atoi(p);
     coord newx, newy;
     union empobj_storage newunit;
+    char newgroup;
  
     switch (toupper(*key)) {
     case 'U':
@@ -783,28 +784,50 @@ edit_unit(struct empobj *unit, char *key, char *p,
 	    pr("Can't move %s while it's loaded\n", unit_nameof(unit));
 	    return RET_FAIL;
 	}
+	divine_unit_change_quiet(unit, "Location",
+				 unit->own && unit->own != player->cnum,
+				 "from %s to %s",
+				 xyas(unit->x, unit->y, player->cnum),
+				 xyas(newx, newy, player->cnum));
+	if (unit->own && unit->own != player->cnum)
+	    wu(0, unit->own,
+	       "Location of %s changed from %s to %s by an act of %s!\n",
+	       unit_nameof(unit),
+	       xyas(unit->x, unit->y, unit->own),
+	       xyas(newx, newy, unit->own),
+	       cname(player->cnum));
 	unit->x = newx;
 	unit->y = newy;
 	break;
     case 'E':
 	arg = LIMIT_TO(arg, mineff, 100);
+	divine_unit_change(unit, "Efficiency",
+			   arg != unit->effic, arg - unit->effic,
+			   "from %d to %d", unit->effic, arg);
 	unit->effic = arg;
 	break;
     case 'M':
 	arg = LIMIT_TO(arg, -127, 127);
+	divine_unit_change(unit, "Mobility",
+			   arg != unit->mobil, arg - unit->mobil,
+			   "from %d to %d", unit->mobil, arg);
 	unit->mobil = arg;
 	break;
     case 'F':
     case 'W':
     case 'A':
 	if (p[0] == '~')
-	    unit->group = 0;
+	    newgroup = 0;
 	else if (isalpha(p[0]))
-	    unit->group = p[0];
+	    newgroup = p[0];
 	else {
 	    pr("%c: invalid %s\n", p[0], group_name);
 	    return RET_FAIL;
 	}
+	divine_unit_change(unit, "Assignment", newgroup != unit->group, 0,
+			   "from %s %c to %c", group_name,
+			   unit->group ? unit->group : '~', p[0]);
+	unit->group = newgroup;
 	break;
     default:
 	CANT_REACH();
@@ -830,17 +853,30 @@ edit_ship(struct shpstr *ship, char *key, char *p)
 			 SHIP_MINEFF, "fleet", 0);
     case 'T':
 	arg = LIMIT_TO(arg, mcp->m_tech, SHRT_MAX);
+	divine_unit_change((struct empobj *)ship, "Tech level",
+			   arg != ship->shp_tech, arg - ship->shp_tech,
+			   "from %d to %d", ship->shp_tech, arg);
 	shp_set_tech(ship, arg);
 	break;
     case 'a':
 	arg = LIMIT_TO(arg, 0, PLG_EXPOSED);
+	divine_unit_change_quiet((struct empobj *)ship, "Plague stage",
+				 arg != ship->shp_pstage,
+				 "from %d to %d", ship->shp_pstage, arg);
 	ship->shp_pstage = arg;
 	break;
     case 'b':
 	arg = LIMIT_TO(arg, 0, 32767);
+	divine_unit_change_quiet((struct empobj *)ship, "Plague time",
+				 arg != ship->shp_ptime,
+				 "from %d to %d", ship->shp_ptime, arg);
 	ship->shp_ptime = arg;
 	break;
     case 'R':
+	divine_unit_change((struct empobj *)ship, "Retreat path",
+		strncmp(p, ship->shp_rpath, sizeof(ship->shp_rpath) - 1),
+		0, "from %s to %.*s",
+		ship->shp_rpath, (int)sizeof(ship->shp_rpath) - 1, p);
 	strncpy(ship->shp_rpath, p, sizeof(ship->shp_rpath) - 1);
 	break;
     case 'W':
@@ -897,10 +933,17 @@ edit_land(struct lndstr *land, char *key, char *p)
 			 land->lnd_ship >= 0 || land->lnd_land >= 0);
     case 't':
 	arg = LIMIT_TO(arg, lcp->l_tech, SHRT_MAX);
+	divine_unit_change((struct empobj *)land, "Tech level",
+			   arg != land->lnd_tech, arg - land->lnd_tech,
+			   "from %d to %d", land->lnd_tech, arg);
 	lnd_set_tech(land, arg);
 	break;
     case 'F':
-	land->lnd_harden = LIMIT_TO(arg, 0, 127);
+	arg = LIMIT_TO(arg, 0, 127);
+	divine_unit_change((struct empobj *)land, "Fortification",
+			   arg != land->lnd_harden, arg - land->lnd_harden,
+			   "from %d to %d", land->lnd_harden, arg);
+	land->lnd_harden = arg;
 	break;
     case 'S':
 	if (arg < -1 || arg >= ef_nelem(EF_SHIP))
@@ -934,9 +977,16 @@ edit_land(struct lndstr *land, char *key, char *p)
 	break;
     case 'Z':
 	arg = LIMIT_TO(arg, 0, 100);
+	divine_unit_change((struct empobj *)land, "Retreat percentage",
+			   arg != land->lnd_retreat, 0,
+			   "from %d to %d", land->lnd_retreat, arg);
 	land->lnd_retreat = arg;
 	break;
     case 'R':
+	divine_unit_change((struct empobj *)land, "Retreat path",
+		strncmp(p, land->lnd_rpath, sizeof(land->lnd_rpath) - 1),
+		0, "from %s to %.*s",
+		land->lnd_rpath, (int)sizeof(land->lnd_rpath) - 1, p);
 	strncpy(land->lnd_rpath, p, sizeof(land->lnd_rpath) - 1);
 	break;
     case 'W':
@@ -992,10 +1042,16 @@ edit_plane(struct plnstr *plane, char *key, char *p)
 			 plane->pln_ship >= 0 || plane->pln_land >= 0);
     case 't':
 	arg = LIMIT_TO(arg, pcp->pl_tech, SHRT_MAX);
+	divine_unit_change((struct empobj *)plane, "Tech level",
+			   arg != plane->pln_tech, arg - plane->pln_tech,
+			   "from %d to %d", plane->pln_tech, arg);
 	pln_set_tech(plane, arg);
 	break;
     case 'r':
 	arg = LIMIT_TO(arg, 0, pl_range(pcp, plane->pln_tech));
+	divine_unit_change((struct empobj *)plane, "Range",
+			   arg != plane->pln_range, 0,
+			   "from %d to %d", plane->pln_range, arg);
 	plane->pln_range = (unsigned char)arg;
 	break;
     case 's':

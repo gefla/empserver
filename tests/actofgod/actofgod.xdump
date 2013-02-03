@@ -366,11 +366,12 @@ actor action victim times duration time
 0 44 3 1 0 0
 0 44 1 32 0 0
 0 43 2 5 0 0
-0 44 3 13 0 0
+0 44 3 19 0 0
 0 43 1 67 0 0
 0 42 1 4 0 0
 1 45 0 1 0 0
-0 43 3 7 0 0
+0 43 3 27 0 0
+0 44 2 6 0 0
 0 42 3 4 0 0
 /config
 config treaty
