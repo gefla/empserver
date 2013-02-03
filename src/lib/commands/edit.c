@@ -656,6 +656,9 @@ edit_nat(struct natstr *np, char *key, char *p)
 	break;
     case 't':
 	arg = LIMIT_TO(arg, 0, USHRT_MAX);
+	divine_nat_change_quiet(np, "Number of unread telegrams",
+				arg != np->nat_tgms,
+				"from %d to %d", np->nat_tgms, arg);
 	np->nat_tgms = arg;
 	break;
     case 'b':
@@ -709,7 +712,11 @@ edit_nat(struct natstr *np, char *key, char *p)
 	np->nat_yorg = newy;
 	break;
     case 's':
-	np->nat_stat = LIMIT_TO(arg, STAT_UNUSED, STAT_GOD);
+	arg = LIMIT_TO(arg, STAT_UNUSED, STAT_GOD);
+	divine_nat_change(np, "Status",
+			  (enum nat_status)arg != np->nat_stat,
+			  0, "to %s", nation_status[arg].name);
+	np->nat_stat = arg;
 	break;
     case 'u':
 	arg = LIMIT_TO(arg, 0, m_m_p_d * 60);

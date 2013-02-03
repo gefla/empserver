@@ -1504,9 +1504,11 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 6 t -1
     Play#0 command edit
+    Play#0 output Play#0 1 Number of unread telegrams of 6 (#6) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 7 t 65536
     Play#0 command edit
+    Play#0 output Play#0 1 Number of unread telegrams of 7 (#7) changed from 0 to 65535
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 T 3.14
     Play#0 command edit
@@ -1595,15 +1597,19 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 6 s 0
     Play#0 command edit
+    Play#0 output Play#0 1 Status of 6 (#6) changed to unused
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 7 s -1
     Play#0 command edit
+    Play#0 output Play#0 1 Status of 7 (#7) changed to unused
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 4 s 5
     Play#0 command edit
+    Play#0 output Play#0 1 Status of 4 (#4) changed to deity
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 5 s 6
     Play#0 command edit
+    Play#0 output Play#0 1 Status of 5 (#5) changed to deity
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 5
     Play#0 command edit
@@ -1615,7 +1621,7 @@
     Play#0 output Play#0 1 Technology <T>: 0.00		Research <R>: 0.00
     Play#0 output Play#0 1 Education <E>: 0.00		Happiness <H>: 0.00
     Play#0 output Play#0 1 Money <M>: $     0
-    Play#0 output Play#0 1 Telegrams <t>:      0
+    Play#0 output Play#0 1 Telegrams <t>:      1
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input b 640
     Play#0 output Play#0 1 BTUs of 5 (#5) changed from 0 to 640
@@ -1883,11 +1889,13 @@
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 BTUs changed from 0 to 640 by an act of POGO!
     Play#0 output Play#0 1 Number of seconds used changed from 0 to 86400 by an act of POGO!
+    Play#0 output Play#0 1 Status changed to deity by an act of POGO!
     Play#0 output Play#0 6 0 640
     Play#0 input read 5
     Play#0 command read
     Play#0 output Play#0 1 
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Status changed to deity by an act of POGO!
     Play#0 output Play#0 1 BTUs changed from 0 to 640 by an act of POGO!
     Play#0 output Play#0 1 Technology changed from 0.00 to 1.00 by an act of POGO!
     Play#0 output Play#0 6 0 640
