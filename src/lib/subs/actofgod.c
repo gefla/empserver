@@ -74,6 +74,7 @@ report_god_gives(char *prefix, char *what, natid to)
  * report news (sometimes).
  * NAME names what is being changed in the sector.
  * If CHANGE is zero, the meddling is a no-op (bulletin suppressed).
+ * If CHANGE is negative, it's secret (bulletin suppressed).
  * If a bulletin is sent, report N_AIDS news for positive GOODNESS,
  * N_HURTS news for negative GOODNESS
  * The bulletin's text is like "NAME of sector X,Y changed <how> by an
@@ -91,9 +92,15 @@ divine_sct_change(struct sctstr *sp, char *name,
     vsnprintf(buf, sizeof(buf), fmt, ap);
     va_end(ap);
 
+    if (!change) {
+	pr("%s of %s unchanged\n",
+	   name, xyas(sp->sct_x, sp->sct_y, player->cnum));
+	return;
+    }
+
     pr("%s of %s changed %s\n",
        name, xyas(sp->sct_x, sp->sct_y, player->cnum), buf);
-    if (change && sp->sct_own && sp->sct_own != player->cnum) {
+    if (change > 0 && sp->sct_own && sp->sct_own != player->cnum) {
 	wu(0, sp->sct_own, "%s of %s changed %s by an act of %s\n",
 	   name, xyas(sp->sct_x, sp->sct_y, sp->sct_own),
 	   buf, cname(player->cnum));

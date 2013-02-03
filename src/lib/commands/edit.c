@@ -416,9 +416,9 @@ edit_sect_i(struct sctstr *sect, char *key, int arg)
     case 'o':
 	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
-	pr("Owner of %s changed from %s to %s\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   prnatid(sect->sct_own), prnatid(arg));
+	divine_sct_change_quiet(sect, "Owner", arg != sect->sct_own,
+				"from %s to %s",
+				prnatid(sect->sct_own), prnatid(arg));
 	if (arg == sect->sct_own)
 	    break;
 	report_god_takes("Sector ",
@@ -479,40 +479,40 @@ edit_sect_i(struct sctstr *sect, char *key, int arg)
 	break;
     case 'l':
 	new = LIMIT_TO(arg, 0, 127);
-	pr("Loyalty of %s changed from %d to %d\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   sect->sct_loyal, new);
+	divine_sct_change_quiet(sect, "Loyalty", new != sect->sct_loyal,
+				"from %d to %d", sect->sct_loyal, new);
 	sect->sct_loyal = (unsigned char)new;
 	break;
     case 'x':
 	new = LIMIT_TO(arg, 0, CHE_MAX);
-	pr("Guerillas of %s changed from %d to %d\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   sect->sct_che, new);
+	divine_sct_change_quiet(sect, "Guerillas", new != sect->sct_che,
+				"from %d to %d", sect->sct_che, new);
 	sect->sct_che = new;
 	break;
     case 'X':
 	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
-	pr("Che target of %s changed from %s to %s\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   prnatid(sect->sct_che_target), prnatid(arg));
+	divine_sct_change_quiet(sect, "Che target",
+				arg != sect->sct_che_target,
+				"from %s to %s",
+				prnatid(sect->sct_che_target),
+				prnatid(arg));
 	sect->sct_che_target = arg;
 	if (arg == 0)
 	    sect->sct_che = 0;
 	break;
     case 'p':
 	new = LIMIT_TO(arg, 0, PLG_EXPOSED);
-	pr("Plague stage of %s changed from %d to %d\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   sect->sct_pstage, new);
+	divine_sct_change_quiet(sect, "Plague stage",
+				new != sect->sct_pstage,
+				"from %d to %d", sect->sct_pstage, new);
 	sect->sct_pstage = new;
 	break;
     case 't':
 	new = LIMIT_TO(arg, 0, 32767);
-	pr("Plague time of %s changed from %d to %d\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   sect->sct_ptime, new);
+	divine_sct_change_quiet(sect, "Plague time",
+				new != sect->sct_ptime,
+				"from %d to %d", sect->sct_ptime, new);
 	sect->sct_ptime = new;
 	break;
     case 'F':
@@ -530,9 +530,8 @@ edit_sect_i(struct sctstr *sect, char *key, int arg)
 	if (sect->sct_own == sect->sct_oldown)
 	    noise(sect, "Mines", sect->sct_mines, new);
 	else
-	    pr("Mines of %s changed from %d to %d\n",
-	       xyas(sect->sct_x, sect->sct_y, player->cnum),
-	       sect->sct_mines, new);
+	    divine_sct_change_quiet(sect, "Mines", new != sect->sct_mines,
+			      "from %d to %d", sect->sct_mines, new);
 	sect->sct_mines = new;
 	break;
     case 'R':
@@ -568,6 +567,10 @@ edit_sect(struct sctstr *sect, char *key, char *p)
     case 'L':
 	if (!sarg_xy(p, &newx, &newy))
 	    return RET_SYN;
+	if (newx == sect->sct_x && newy == sect->sct_y) {
+	    pr("Sector %s unchanged\n", xyas(newx, newy, player->cnum));
+	    break;
+	}
 	getsect(newx, newy, &newsect);
 	pr("Sector %s duplicated to %s\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
@@ -583,10 +586,11 @@ edit_sect(struct sctstr *sect, char *key, char *p)
     case 'D':
 	if (!sarg_xy(p, &newx, &newy))
 	    return RET_SYN;
-	pr("Distribution sector of %s changed from %s to %s\n",
-	   xyas(sect->sct_x, sect->sct_y, player->cnum),
-	   xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum),
-	   xyas(newx, newy, player->cnum));
+	divine_sct_change_quiet(sect, "Distribution sector",
+		newx != sect->sct_dist_x || newy != sect->sct_dist_y,
+		"from %s to %s",
+		xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum),
+		xyas(newx, newy, player->cnum));
 	if (newx == sect->sct_dist_x && newy == sect->sct_dist_y)
 	    break;
 	if (sect->sct_own && sect->sct_own != player->cnum)
