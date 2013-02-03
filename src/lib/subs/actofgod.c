@@ -110,6 +110,34 @@ divine_sct_change(struct sctstr *sp, char *name,
 }
 
 /*
+ * Report deity meddling with NP.
+ * Just like divine_sct_change(), only for nations.
+ */
+void
+divine_nat_change(struct natstr *np, char *name,
+		   int change, int goodness, char *fmt, ...)
+{
+    va_list ap;
+    char buf[4096];
+
+    va_start(ap, fmt);
+    vsnprintf(buf, sizeof(buf), fmt, ap);
+    va_end(ap);
+
+    if (!change) {
+	pr("%s of %s unchanged\n", name, prnat(np));
+	return;
+    }
+
+    pr("%s of %s changed %s\n", name, prnat(np), buf);
+    if (change > 0 && np->nat_cnum != player->cnum) {
+	wu(0, np->nat_cnum, "%s changed %s by an act of %s!\n",
+	   name, buf, cname(player->cnum));
+	nreport_divine_aid(np->nat_cnum, goodness);
+    }
+}
+
+/*
  * Report deity meddling with UNIT.
  * Just like divine_sct_change(), only for ships, planes, land units,
  * nukes.
