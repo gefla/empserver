@@ -736,7 +736,7 @@ edit_nat(struct natstr *np, char *key, char *p)
 
 static int
 edit_unit(struct empobj *unit, char *key, char *p,
-	  int mineff, char *group_name)
+	  int mineff, char *group_name, int on_carrier)
 {
     int arg = atoi(p);
     coord newx, newy;
@@ -779,6 +779,10 @@ edit_unit(struct empobj *unit, char *key, char *p,
     case 'L':
 	if (!sarg_xy(p, &newx, &newy))
 	    return RET_SYN;
+	if (on_carrier && (newx != unit->x || newy != unit->y)) {
+	    pr("Can't move %s while it's loaded\n", unit_nameof(unit));
+	    return RET_FAIL;
+	}
 	unit->x = newx;
 	unit->y = newy;
 	break;
@@ -823,7 +827,7 @@ edit_ship(struct shpstr *ship, char *key, char *p)
     case 'M':
     case 'F':
 	return edit_unit((struct empobj *)ship, key, p,
-			 SHIP_MINEFF, "fleet");
+			 SHIP_MINEFF, "fleet", 0);
     case 'T':
 	arg = LIMIT_TO(arg, mcp->m_tech, SHRT_MAX);
 	shp_set_tech(ship, arg);
@@ -887,7 +891,8 @@ edit_land(struct lndstr *land, char *key, char *p)
     case 'M':
     case 'a':
 	return edit_unit((struct empobj *)land, key, p,
-			 LAND_MINEFF, "army");
+			 LAND_MINEFF, "army",
+			 land->lnd_ship >= 0 || land->lnd_land >= 0);
     case 't':
 	arg = LIMIT_TO(arg, lcp->l_tech, SHRT_MAX);
 	lnd_set_tech(land, arg);
@@ -979,7 +984,8 @@ edit_plane(struct plnstr *plane, char *key, char *p)
     case 'm':
     case 'w':
 	return edit_unit((struct empobj *)plane, key, p,
-			 PLANE_MINEFF, "wing");
+			 PLANE_MINEFF, "wing",
+			 plane->pln_ship >= 0 || plane->pln_land >= 0);
     case 't':
 	arg = LIMIT_TO(arg, pcp->pl_tech, SHRT_MAX);
 	pln_set_tech(plane, arg);

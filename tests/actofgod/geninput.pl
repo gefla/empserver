@@ -308,6 +308,9 @@ sub unit_carrier {
 unit_carrier('plane', 's', 'y');
 unit_carrier('land', 'S', 'Y');
 
+# special case: move carrier's cargo away
+edit('plane', 4, 'l', '5,1');
+
 # interactive edit
 iedit('ship', 0, 'M 2', 'm 1', 'f 1');
 iedit('ship', 0, 'R n', 'R ""');

@@ -1229,6 +1229,11 @@
     Play#0 output Play#0 1 sup  supply #4 unloaded from ship #4
     Play#0 output Play#0 1 sup  supply #4 loaded onto land #4
     Play#0 output Play#0 6 0 640
+    Play#0 input edit p 4 l 5,1
+    Play#0 command edit
+    Play#0 output Play#0 1 Can't move f1   Sopwith Camel #4 while it's loaded
+    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 0
     Play#0 command edit
     Play#0 output Play#0 1 POGO (#0) cs   cargo ship (#0)
