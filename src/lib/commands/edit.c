@@ -235,7 +235,7 @@ noise(struct sctstr *sptr, char *name, int old, int new)
        name, xyas(sptr->sct_x, sptr->sct_y, player->cnum), old, new);
     if (sptr->sct_own && sptr->sct_own != player->cnum && new != old)
 	wu(0, sptr->sct_own,
-	   "%s in %s was changed from %d to %d by an act of %s\n",
+	   "%s of %s changed from %d to %d by an act of %s\n",
 	   name, xyas(sptr->sct_x, sptr->sct_y, sptr->sct_own),
 	   old, new, cname(player->cnum));
     benefit(sptr->sct_own, new - old);
@@ -422,7 +422,7 @@ edit_sect_i(struct sctstr *sect, char *key, int arg)
     case 'o':
 	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
-	pr("Owner of %s changed from %s to %s.\n",
+	pr("Owner of %s changed from %s to %s\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   prnatid(sect->sct_own), prnatid(arg));
 	if (arg == sect->sct_own)
@@ -438,7 +438,7 @@ edit_sect_i(struct sctstr *sect, char *key, int arg)
     case 'O':
 	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
-	pr("Old owner of %s changed from %s to %s.\n",
+	pr("Old owner of %s changed from %s to %s\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   prnatid(sect->sct_oldown), prnatid(arg));
 	if (arg == sect->sct_oldown)
@@ -500,7 +500,7 @@ edit_sect_i(struct sctstr *sect, char *key, int arg)
 	break;
     case 'x':
 	new = LIMIT_TO(arg, 0, CHE_MAX);
-	pr("Guerillas in %s changed from %d to %d\n",
+	pr("Guerillas of %s changed from %d to %d\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   sect->sct_che, new);
 	sect->sct_che = new;
@@ -508,7 +508,7 @@ edit_sect_i(struct sctstr *sect, char *key, int arg)
     case 'X':
 	if (arg < 0 || arg >= MAXNOC)
 	    return RET_SYN;
-	pr("Che target of %s changed from %s to %s.\n",
+	pr("Che target of %s changed from %s to %s\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   prnatid(sect->sct_che_target), prnatid(arg));
 	sect->sct_che_target = arg;
@@ -597,7 +597,7 @@ edit_sect(struct sctstr *sect, char *key, char *p)
     case 'D':
 	if (!sarg_xy(p, &newx, &newy))
 	    return RET_SYN;
-	pr("Distribution sector of sector %s changed from %s to %s\n",
+	pr("Distribution sector of %s changed from %s to %s\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum),
 	   xyas(newx, newy, player->cnum));
@@ -605,7 +605,7 @@ edit_sect(struct sctstr *sect, char *key, char *p)
 	    break;
 	if (sect->sct_own && sect->sct_own != player->cnum)
 	    wu(0, sect->sct_own,
-	       "Distribution sector of sector %s changed from %s to %s"
+	       "Distribution sector of %s changed from %s to %s"
 	       " by an act of %s\n",
 	       xyas(sect->sct_x, sect->sct_y, player->cnum),
 	       xyas(sect->sct_dist_x, sect->sct_dist_y, player->cnum),
@@ -618,14 +618,14 @@ edit_sect(struct sctstr *sect, char *key, char *p)
 	new = sct_typematch(p);
 	if (new < 0)
 	    return RET_SYN;
-	pr("Designation of sector %s changed from %c to %c\n",
+	pr("Designation of %s changed from %c to %c\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   dchr[sect->sct_type].d_mnem, dchr[new].d_mnem);
 	if (new == sect->sct_type)
 	    break;
 	if (sect->sct_own && sect->sct_own != player->cnum)
 	    wu(0, sect->sct_own,
-	       "Designation of sector %s changed from %c to %c"
+	       "Designation of %s changed from %c to %c"
 	       " by an act of %s\n",
 	       xyas(sect->sct_x, sect->sct_y, player->cnum),
 	       dchr[sect->sct_type].d_mnem, dchr[new].d_mnem,
@@ -637,14 +637,14 @@ edit_sect(struct sctstr *sect, char *key, char *p)
 	new = sct_typematch(p);
 	if (new < 0)
 	    return RET_SYN;
-	pr("New designation of sector %s changed from %c to %c\n",
+	pr("New designation of %s changed from %c to %c\n",
 	   xyas(sect->sct_x, sect->sct_y, player->cnum),
 	   dchr[sect->sct_newtype].d_mnem, dchr[new].d_mnem);
 	if (new == sect->sct_newtype)
 	    break;
 	if (sect->sct_own && sect->sct_own != player->cnum)
 	    wu(0, sect->sct_own,
-	       "New designation of sector %s changed from %c to %c"
+	       "New designation of %s changed from %c to %c"
 	       " by an act of %s\n",
 	       xyas(sect->sct_x, sect->sct_y, player->cnum),
 	       dchr[sect->sct_newtype].d_mnem, dchr[new].d_mnem,
