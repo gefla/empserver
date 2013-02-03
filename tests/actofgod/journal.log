@@ -1452,55 +1452,55 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 b 0
     Play#0 command edit
-    Play#0 output Play#0 1 BTU's changed from 0 to 0
+    Play#0 output Play#0 1 BTUs of 1 (#1) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 b -1
     Play#0 command edit
-    Play#0 output Play#0 1 BTU's changed from 0 to 0
+    Play#0 output Play#0 1 BTUs of 2 (#2) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 b 640
     Play#0 command edit
-    Play#0 output Play#0 1 BTU's changed from 0 to 640
+    Play#0 output Play#0 1 BTUs of 3 (#3) changed from 0 to 640
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 4 b 641
     Play#0 command edit
-    Play#0 output Play#0 1 BTU's changed from 0 to 640
+    Play#0 output Play#0 1 BTUs of 4 (#4) changed from 0 to 640
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 m 0
     Play#0 command edit
-    Play#0 output Play#0 1 Military reserves changed from 0 to 0
+    Play#0 output Play#0 1 Military reserves of 1 (#1) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 m -1
     Play#0 command edit
-    Play#0 output Play#0 1 Military reserves changed from 0 to 0
+    Play#0 output Play#0 1 Military reserves of 2 (#2) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 m 2147483647
     Play#0 command edit
-    Play#0 output Play#0 1 Military reserves changed from 0 to 2147483647
+    Play#0 output Play#0 1 Military reserves of 3 (#3) changed from 0 to 2147483647
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 u 0
     Play#0 command edit
-    Play#0 output Play#0 1 Number of seconds used changed from 0 to 0.
+    Play#0 output Play#0 1 Number of seconds used of 1 (#1) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 u -1
     Play#0 command edit
-    Play#0 output Play#0 1 Number of seconds used changed from 0 to 0.
+    Play#0 output Play#0 1 Number of seconds used of 2 (#2) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 u 86400
     Play#0 command edit
-    Play#0 output Play#0 1 Number of seconds used changed from 0 to 86400.
+    Play#0 output Play#0 1 Number of seconds used of 3 (#3) changed from 0 to 86400
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 4 u 86401
     Play#0 command edit
-    Play#0 output Play#0 1 Number of seconds used changed from 0 to 86400.
+    Play#0 output Play#0 1 Number of seconds used of 4 (#4) changed from 0 to 86400
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 M -2147483648
     Play#0 command edit
-    Play#0 output Play#0 1 Money changed from 0 to -2147483648
+    Play#0 output Play#0 1 Money of 1 (#1) changed from 0 to -2147483648
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 M 2147483647
     Play#0 command edit
-    Play#0 output Play#0 1 Money changed from 0 to 2147483647
+    Play#0 output Play#0 1 Money of 3 (#3) changed from 0 to 2147483647
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 6 t -1
     Play#0 command edit
@@ -1563,35 +1563,35 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 n 2
     Play#0 command edit
-    Play#0 output Play#0 1 Country name changed from 2 to 2
+    Play#0 output Play#0 1 Country name of 2 (#2) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 n drei
     Play#0 command edit
-    Play#0 output Play#0 1 Country name changed from 3 to drei
+    Play#0 output Play#0 1 Country name of 3 (#3) changed from 3 to drei
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 r 1
     Play#0 command edit
-    Play#0 output Play#0 1 Country representative changed from 1 to 1
+    Play#0 output Play#0 1 Country representative of 1 (#1) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 r 012345678901234567890123456789
     Play#0 command edit
-    Play#0 output Play#0 1 Country representative changed from 2 to 012345678901234567890123456789
+    Play#0 output Play#0 1 Country representative of 2 (#2) changed from 2 to 0123456789012345678
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 c 0,0
     Play#0 command edit
-    Play#0 output Play#0 1 Capital coordinates changed from 0,0 to 0,0
+    Play#0 output Play#0 1 Capital unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 c 2,0
     Play#0 command edit
-    Play#0 output Play#0 1 Capital coordinates changed from 0,0 to 2,0
+    Play#0 output Play#0 1 Capital moved from 0,0 to 2,0
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 o 0,0
     Play#0 command edit
-    Play#0 output Play#0 1 Origin coordinates changed from 0,0 to 0,0
+    Play#0 output Play#0 1 Origin unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 o 2,0
     Play#0 command edit
-    Play#0 output Play#0 1 Origin coordinates changed from 0,0 to 2,0
+    Play#0 output Play#0 1 Origin moved from 0,0 to 2,0
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 6 s 0
     Play#0 command edit
@@ -1618,7 +1618,7 @@
     Play#0 output Play#0 1 Telegrams <t>:      0
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input b 640
-    Play#0 output Play#0 1 BTU's changed from 0 to 640
+    Play#0 output Play#0 1 BTUs of 5 (#5) changed from 0 to 640
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input T 1
     Play#0 output Play#0 1 Technology of 5 (#5) changed from 0.00 to 1.00
@@ -1751,7 +1751,7 @@
     Play#0 output Play#0 1 POGO gave you 1 civilians in 8,6
     Play#0 output Play#0 1 POGO gave you 9997 civilians in 6,6
     Play#0 output Play#0 1 POGO stole 1 civilians from 8,6
-    Play#0 output Play#0 1 Money changed from 0 to -2147483648 by an act of POGO
+    Play#0 output Play#0 1 Money changed from 0 to -2147483648 by an act of POGO!
     Play#0 output Play#0 1 Technology changed from 0.00 to 3.14 by an act of POGO!
     Play#0 output Play#0 1 Research changed from 0.00 to 3.14 by an act of POGO!
     Play#0 output Play#0 1 Education changed from 0.00 to 3.14 by an act of POGO!
@@ -1785,6 +1785,8 @@
     Play#0 output Play#0 1 Research changed from 0.00 to 100.00 by an act of POGO!
     Play#0 output Play#0 1 Education changed from 0.00 to 100.00 by an act of POGO!
     Play#0 output Play#0 1 Happiness changed from 0.00 to 100.00 by an act of POGO!
+    Play#0 output Play#0 1 Capital moved from 0,0 to 2,0 by an act of POGO!
+    Play#0 output Play#0 1 Origin moved from 0,0 to 2,0 by an act of POGO!
     Play#0 output Play#0 6 0 640
     Play#0 input read 3
     Play#0 command read
@@ -1870,17 +1872,23 @@
     Play#0 output Play#0 1 sup  supply #4 loaded onto land #4 by an act of POGO!
     Play#0 output Play#0 1 sup  supply #4 unloaded from land #4 by an act of POGO!
     Play#0 output Play#0 1 sup  supply #4 loaded onto ship #2 by an act of POGO!
-    Play#0 output Play#0 1 Military reserves changed from 0 to 2147483647 by an act of POGO
-    Play#0 output Play#0 1 Money changed from 0 to 2147483647 by an act of POGO
+    Play#0 output Play#0 1 BTUs changed from 0 to 640 by an act of POGO!
+    Play#0 output Play#0 1 Military reserves changed from 0 to 2147483647 by an act of POGO!
+    Play#0 output Play#0 1 Number of seconds used changed from 0 to 86400 by an act of POGO!
+    Play#0 output Play#0 1 Money changed from 0 to 2147483647 by an act of POGO!
     Play#0 output Play#0 6 0 640
     Play#0 input read 4
     Play#0 command read
-    Play#0 output Play#0 1 No telegrams for 4 at the moment...
+    Play#0 output Play#0 1 
+    Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 BTUs changed from 0 to 640 by an act of POGO!
+    Play#0 output Play#0 1 Number of seconds used changed from 0 to 86400 by an act of POGO!
     Play#0 output Play#0 6 0 640
     Play#0 input read 5
     Play#0 command read
     Play#0 output Play#0 1 
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 BTUs changed from 0 to 640 by an act of POGO!
     Play#0 output Play#0 1 Technology changed from 0.00 to 1.00 by an act of POGO!
     Play#0 output Play#0 6 0 640
     Play#0 input read 98

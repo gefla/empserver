@@ -217,13 +217,6 @@ edit(void)
 }
 
 static void
-benefit(natid who, int goodness)
-{
-    if (opt_GODNEWS && getnatp(who)->nat_stat != STAT_GOD && goodness)
-	nreport(player->cnum, goodness > 0 ? N_AIDS : N_HURTS, who, 1);
-}
-
-static void
 noise(struct sctstr *sptr, char *name, int old, int new)
 {
     divine_sct_change(sptr, name, new != old, new - old,
@@ -648,12 +641,17 @@ edit_nat(struct natstr *np, char *key, char *p)
     case 'n':
 	if (!check_nat_name(p, nat))
 	    return RET_SYN;
-	pr("Country name changed from %s to %s\n", np->nat_cnam, p);
+	divine_nat_change(np, "Country name", strcmp(np->nat_cnam, p), 0,
+			  "from %s to %s", np->nat_cnam, p);
+	if (opt_GODNEWS)
+	    nreport(player->cnum, N_NAME_CHNG, 0, 1);
 	strcpy(np->nat_cnam, p);
 	break;
     case 'r':
-	pr("Country representative changed from %s to %s\n",
-	   np->nat_pnam, p);
+	divine_nat_change(np, "Country representative",
+		strncmp(p, np->nat_pnam, sizeof(np->nat_pnam) - 1), 0,
+		"from %s to %.*s",
+		np->nat_pnam, (int)sizeof(np->nat_pnam) - 1, p);
 	strncpy(np->nat_pnam, p, sizeof(np->nat_pnam) - 1);
 	break;
     case 't':
@@ -662,37 +660,51 @@ edit_nat(struct natstr *np, char *key, char *p)
 	break;
     case 'b':
 	arg = LIMIT_TO(arg, 0, max_btus);
-	pr("BTU's changed from %d to %d\n", np->nat_btu, arg);
+	divine_nat_change(np, "BTUs",
+			  arg != np->nat_btu, arg - np->nat_btu,
+			  "from %d to %d", np->nat_btu, arg);
 	np->nat_btu = arg;
 	break;
     case 'm':
 	arg = LIMIT_TO(arg, 0, INT_MAX);
-	benefit(nat, arg - np->nat_reserve);
-	pr("Military reserves changed from %d to %d\n",
-	   np->nat_reserve, arg);
-	if (arg == np->nat_reserve)
-	    break;
-	if (nat != player->cnum)
-	    wu(0, nat,
-	       "Military reserves changed from %d to %d by an act of %s\n",
-	       np->nat_reserve, arg, cname(player->cnum));
+	divine_nat_change(np, "Military reserves",
+			  arg != np->nat_reserve, arg - np->nat_reserve,
+			  "from %d to %d", np->nat_reserve, arg);
 	np->nat_reserve = arg;
 	break;
     case 'c':
 	if (!sarg_xy(p, &newx, &newy))
 	    return RET_SYN;
-	pr("Capital coordinates changed from %s to %s\n",
-	   xyas(np->nat_xcap, np->nat_ycap, player->cnum),
-	   xyas(newx, newy, player->cnum));
+	if (newx == np->nat_xcap && newy == np->nat_ycap)
+	    pr("Capital unchanged\n");
+	else {
+	    pr("Capital moved from %s to %s\n",
+	       xyas(np->nat_xcap, np->nat_ycap, player->cnum),
+	       xyas(newx, newy, player->cnum));
+	    if (nat != player->cnum)
+		wu(0, nat,
+		   "Capital moved from %s to %s by an act of %s!\n",
+		   xyas(np->nat_xcap, np->nat_ycap, nat),
+		   xyas(newx, newy, nat), cname(player->cnum));
+	}
 	np->nat_xcap = newx;
 	np->nat_ycap = newy;
 	break;
     case 'o':
 	if (!sarg_xy(p, &newx, &newy))
 	    return RET_SYN;
-	pr("Origin coordinates changed from %s to %s\n",
-	   xyas(np->nat_xorg, np->nat_yorg, player->cnum),
-	   xyas(newx, newy, player->cnum));
+	if (newx == np->nat_xorg && newy == np->nat_yorg)
+	    pr("Origin unchanged\n");
+	else {
+	    pr("Origin moved from %s to %s\n",
+	       xyas(np->nat_xorg, np->nat_yorg, player->cnum),
+	       xyas(newx, newy, player->cnum));
+	    if (nat != player->cnum)
+		wu(0, nat,
+		   "Origin moved from %s to %s by an act of %s!\n",
+		   xyas(np->nat_xorg, np->nat_yorg, nat),
+		   xyas(newx, newy, nat), cname(player->cnum));
+	}
 	np->nat_xorg = newx;
 	np->nat_yorg = newy;
 	break;
@@ -701,17 +713,15 @@ edit_nat(struct natstr *np, char *key, char *p)
 	break;
     case 'u':
 	arg = LIMIT_TO(arg, 0, m_m_p_d * 60);
-	pr("Number of seconds used changed from %d to %d.\n",
-	   np->nat_timeused, arg);
+	divine_nat_change(np, "Number of seconds used",
+			  arg != np->nat_timeused, arg - np->nat_timeused,
+			  "from %d to %d", np->nat_timeused, arg);
 	np->nat_timeused = arg;
 	break;
     case 'M':
-	pr("Money changed from %d to %d\n", np->nat_money, arg);
-	if (arg == np->nat_money)
-	    break;
-	if (nat != player->cnum)
-	    wu(0, nat, "Money changed from %d to %d by an act of %s\n",
-	       np->nat_money, arg, cname(player->cnum));
+	divine_nat_change(np, "Money",
+			  arg != np->nat_money, arg - np->nat_money,
+			  "from %d to %d", np->nat_money, arg);
 	np->nat_money = arg;
 	break;
     case 'T':
