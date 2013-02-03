@@ -821,6 +821,12 @@ edit_ship(struct shpstr *ship, char *key, char *p)
     case 'r':
 	ip = item_by_name(key);
 	arg = LIMIT_TO(arg, 0, mchr[ship->shp_type].m_item[ip->i_uid]);
+	divine_unit_change_quiet((struct empobj *)ship, ip->i_name,
+				 arg != ship->shp_item[ip->i_uid],
+				 "from %d to %d",
+				 ship->shp_item[ip->i_uid], arg);
+	report_divine_gift(ship->shp_own, ip,
+			   arg - ship->shp_item[ip->i_uid], prship(ship));
 	ship->shp_item[ip->i_uid] = arg;
 	break;
     default:
@@ -925,6 +931,12 @@ edit_land(struct lndstr *land, char *key, char *p)
     case 'r':
 	ip = item_by_name(key);
 	arg = LIMIT_TO(arg, 0, lchr[land->lnd_type].l_item[ip->i_uid]);
+	divine_unit_change_quiet((struct empobj *)land, ip->i_name,
+				 arg != land->lnd_item[ip->i_uid],
+				 "from %d to %d",
+				 land->lnd_item[ip->i_uid], arg);
+	report_divine_gift(land->lnd_own, ip,
+			   arg - land->lnd_item[ip->i_uid], prland(land));
 	land->lnd_item[ip->i_uid] = arg;
 	break;
     default:

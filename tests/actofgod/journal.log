@@ -995,15 +995,19 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 m 0
     Play#0 command edit
+    Play#0 output Play#0 1 military of cs   cargo ship (#2) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 m -1
     Play#0 command edit
+    Play#0 output Play#0 1 military of cs   cargo ship (#3) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 m 50
     Play#0 command edit
+    Play#0 output Play#0 1 military of cs   cargo ship (#4) changed from 0 to 50
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 m 51
     Play#0 command edit
+    Play#0 output Play#0 1 military of cs   cargo ship (#5) changed from 0 to 50
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 e 0
     Play#0 command edit
@@ -1115,15 +1119,19 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 m 0
     Play#0 command edit
+    Play#0 output Play#0 1 military of sup  supply #2 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 m -1
     Play#0 command edit
+    Play#0 output Play#0 1 military of sup  supply #3 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 m 25
     Play#0 command edit
+    Play#0 output Play#0 1 military of sup  supply #4 changed from 0 to 25
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 m 26
     Play#0 command edit
+    Play#0 output Play#0 1 military of sup  supply #5 changed from 0 to 25
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 F ~
     Play#0 command edit
@@ -1206,8 +1214,10 @@
     Play#0 input M 2
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input m 1
+    Play#0 output Play#0 1 military of cs   cargo ship (#0) changed from 0 to 1
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input f 1
+    Play#0 output Play#0 1 food of cs   cargo ship (#0) changed from 0 to 1
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
     Play#0 output Play#0 1 POGO (#0) cs   cargo ship (#0)
@@ -1639,6 +1649,10 @@
     Play#0 output Play#0 1 sup  supply #0 taken from you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #1 taken from you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #2 taken from you by an act of POGO!
+    Play#0 output Play#0 1 POGO gave you 50 military in cs   cargo ship (#4)
+    Play#0 output Play#0 1 POGO gave you 50 military in cs   cargo ship (#5)
+    Play#0 output Play#0 1 POGO gave you 25 military in sup  supply #4
+    Play#0 output Play#0 1 POGO gave you 25 military in sup  supply #5
     Play#0 output Play#0 1 Military reserves changed from 0 to 2147483647 by an act of POGO
     Play#0 output Play#0 1 Money changed from 0 to 2147483647 by an act of POGO
     Play#0 output Play#0 6 0 640
