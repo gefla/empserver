@@ -107,3 +107,25 @@ divine_sct_change(struct sctstr *sp, char *name,
 	nreport_divine_aid(sp->sct_own, goodness);
     }
 }
+
+/*
+ * Report deity giving/taking commodities to/from WHOM.
+ * Give AMT of IP in PLACE.
+ */
+void
+report_divine_gift(natid whom, struct ichrstr *ip, int amt, char *place)
+{
+    if (whom && whom != player->cnum && amt) {
+	if (amt > 0) {
+	    if (opt_GODNEWS && getnatp(whom)->nat_stat != STAT_GOD)
+		nreport(player->cnum, N_GIFT, whom, 1);
+	    wu(0, whom, "%s gave you %d %s in %s\n",
+	       cname(player->cnum), amt, ip->i_name, place);
+	} else {
+	    if (opt_GODNEWS && getnatp(whom)->nat_stat != STAT_GOD)
+		nreport(whom, N_TAKE, player->cnum, 1);
+	    wu(0, whom, "%s stole %d %s from %s\n",
+	       cname(player->cnum), -amt, ip->i_name, place);
+	}
+    }
+}

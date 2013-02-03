@@ -34,6 +34,7 @@
 
 #include <config.h>
 
+#include "actofgod.h"
 #include "commands.h"
 #include "item.h"
 #include "news.h"
@@ -74,23 +75,8 @@ give(void)
 	    m = n + amt;
 	sect.sct_item[ip->i_uid] = m;
 	putsect(&sect);
-	if (sect.sct_own != 0 && sect.sct_own != player->cnum && m != n) {
-	    if (m > n) {
-		if (opt_GODNEWS
-		    && getnatp(sect.sct_own)->nat_stat != STAT_GOD)
-		    nreport(player->cnum, N_GIFT, sect.sct_own, 1);
-		wu(0, sect.sct_own, "%s gave you %d %s in %s\n",
-		   cname(player->cnum), m - n, ip->i_name,
-		   xyas(sect.sct_x, sect.sct_y, sect.sct_own));
-	    } else {
-		if (opt_GODNEWS
-		    && getnatp(sect.sct_own)->nat_stat != STAT_GOD)
-		    nreport(sect.sct_own, N_TAKE, player->cnum, 1);
-		wu(0, sect.sct_own, "%s stole %d %s from %s\n",
-		   cname(player->cnum), n - m, ip->i_name,
-		   xyas(sect.sct_x, sect.sct_y, sect.sct_own));
-	    }
-	}
+	report_divine_gift(sect.sct_own, ip, m - n,
+			   xyas(sect.sct_x, sect.sct_y, sect.sct_own));
 	if (m - n != amt)
 	    pr("Only %d %s in %s\n", abs(m - n),
 	       m - n >= 0 ? "given" : "taken",
