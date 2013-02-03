@@ -40,6 +40,7 @@
 #include "player.h"
 #include "prototypes.h"
 #include "sect.h"
+#include "unit.h"
 
 static void
 nreport_divine_aid(natid whom, int goodness)
@@ -105,6 +106,35 @@ divine_sct_change(struct sctstr *sp, char *name,
 	   name, xyas(sp->sct_x, sp->sct_y, sp->sct_own),
 	   buf, cname(player->cnum));
 	nreport_divine_aid(sp->sct_own, goodness);
+    }
+}
+
+/*
+ * Report deity meddling with UNIT.
+ * Just like divine_sct_change(), only for ships, planes, land units,
+ * nukes.
+ */
+void
+divine_unit_change(struct empobj *unit, char *name,
+		   int change, int goodness, char *fmt, ...)
+{
+    va_list ap;
+    char buf[4096];
+
+    va_start(ap, fmt);
+    vsnprintf(buf, sizeof(buf), fmt, ap);
+    va_end(ap);
+
+    if (!change) {
+	pr("%s of %s unchanged\n", name, unit_nameof(unit));
+	return;
+    }
+
+    pr("%s of %s changed %s\n", name, unit_nameof(unit), buf);
+    if (change > 0 && unit->own && unit->own != player->cnum) {
+	wu(0, unit->own, "%s of %s changed %s by an act of %s\n",
+	   name, unit_nameof(unit), buf, cname(player->cnum));
+	nreport_divine_aid(unit->own, goodness);
     }
 }
 

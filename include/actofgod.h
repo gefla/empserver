@@ -42,6 +42,10 @@ extern void divine_sct_change(struct sctstr *, char *, int, int, char *, ...)
     ATTRIBUTE((format (printf, 5, 6)));
 #define divine_sct_change_quiet(sp, name, change, ...) \
     divine_sct_change((sp), (name), -(change), 0, __VA_ARGS__)
+extern void divine_unit_change(struct empobj *, char *, int, int, char *, ...)
+    ATTRIBUTE((format (printf, 5, 6)));
+#define divine_unit_change_quiet(unit, name, change, ...) \
+    divine_unit_change((unit), (name), -(change), 0, __VA_ARGS__)
 extern void report_divine_gift(natid, struct ichrstr *, int, char *);
 
 #endif
