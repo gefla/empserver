@@ -27,7 +27,7 @@
  *  types.h: Empire types
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2013
  */
 
 #ifndef TYPES_H
@@ -56,6 +56,7 @@ struct range;
 struct sctstr;
 struct shiplist;
 struct shpstr;
+struct symbol;
 struct trdstr;
 struct trtstr;
 struct comstr;

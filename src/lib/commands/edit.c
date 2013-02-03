@@ -844,6 +844,8 @@ edit_ship(struct shpstr *ship, char *key, char *p)
 	strncpy(ship->shp_rpath, p, sizeof(ship->shp_rpath) - 1);
 	break;
     case 'W':
+	divine_flag_change((struct empobj *)ship, "Retreat conditions",
+			   ship->shp_rflags, arg, retreat_flags);
 	ship->shp_rflags = arg;
 	break;
     case 'c':
@@ -938,6 +940,8 @@ edit_land(struct lndstr *land, char *key, char *p)
 	strncpy(land->lnd_rpath, p, sizeof(land->lnd_rpath) - 1);
 	break;
     case 'W':
+	divine_flag_change((struct empobj *)land, "Retreat condition",
+			   land->lnd_rflags, arg, retreat_flags);
 	land->lnd_rflags = arg;
 	break;
     case 'c':
@@ -1025,6 +1029,8 @@ edit_plane(struct plnstr *plane, char *key, char *p)
 	plane->pln_land = arg;
 	break;
     case 'f':
+	divine_flag_change((struct empobj *)plane, "Flags",
+			   plane->pln_flags, arg, plane_flags);
 	plane->pln_flags = arg;
 	break;
     default:

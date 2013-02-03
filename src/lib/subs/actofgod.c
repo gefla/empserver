@@ -175,6 +175,61 @@ divine_unload(struct empobj *unit, int type, int uid)
     divine_load_unload(unit, type, uid, "unloaded from");
 }
 
+static int
+fmtflags (char *buf, size_t sz, int flags, struct symbol symtab[], int all)
+{
+    char *sep = "";
+    int n, i;
+    char *p;
+
+    if (sz)
+	buf[0] = 0;
+    n = 0;
+    for (i = 0; i < 32; i++) {
+	if (!(flags & bit(i)))
+	    continue;
+	p = symbol_by_value(bit(i), symtab);
+	if (p)
+	    n += snprintf(buf + n, sz - n, "%s%s", sep, p);
+	else if (all)
+	    n += snprintf(buf + n, sz - n, "%s#%d", sep, i);
+	if (CANT_HAPPEN((size_t)n >= sz)) {
+	    buf = NULL;
+	    sz = n;
+	}
+	sep = ", ";
+    }
+    return n;
+}
+
+void
+divine_flag_change(struct empobj *unit, char *name,
+		   int old, int new, struct symbol sym[])
+{
+    char set[1024], clr[1024];
+
+    if (new == old) {
+	pr("%s of %s unchanged\n", name, unit_nameof(unit));
+	return;
+    }
+
+    fmtflags(set, sizeof(set), new & ~old, sym, 1);
+    fmtflags(clr, sizeof(clr), old & ~new, sym, 1);
+    pr("%s of %s changed: %s%s%s%s%s\n",
+       name, unit_nameof(unit),
+       set, set[0] ? " set" : "",
+       set[0] && clr[0] ? ", and " : "",
+       clr, clr[0] ? " cleared" : "");
+
+    if (fmtflags(set, sizeof(set), new & ~old, sym, 0)
+	+ fmtflags(clr, sizeof(clr), old & ~new, sym, 0))
+	wu(0, unit->own, "%s of %s changed by an act of %s: %s%s%s%s%s\n",
+	   name, unit_nameof(unit), cname(player->cnum),
+	   set, set[0] ? " set" : "",
+	   set[0] && clr[0] ? " and " : "",
+	   clr, clr[0] ? " cleared" : "");
+}
+
 /*
  * Report deity giving/taking commodities to/from WHOM.
  * Give AMT of IP in PLACE.
