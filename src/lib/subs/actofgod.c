@@ -157,7 +157,16 @@ divine_load_unload(struct empobj *unit, int type, int uid, char *act)
 void
 divine_load(struct empobj *unit, int type, int uid)
 {
+    union empobj_storage carrier;
+
     divine_load_unload(unit, type, uid, "loaded onto");
+    if (get_empobj(type, uid, &carrier)
+	&& (unit->x != carrier.gen.x || unit->y != carrier.gen.y)) {
+	pr("%s teleported from %s to %s!",
+	   unit_nameof(unit), xyas(unit->x, unit->y, player->cnum),
+	   xyas(carrier.gen.x, carrier.gen.y, player->cnum));
+	unit_teleport(unit, carrier.gen.x, carrier.gen.y);
+    }
 }
 
 void

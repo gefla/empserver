@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
- *     Markus Armbruster, 2009-2011
+ *     Markus Armbruster, 2009-2013
  */
 
 #include <config.h>
@@ -239,6 +239,21 @@ unit_view(struct emp_qelem *list)
 }
 
 /*
+ * Teleport UNIT to X,Y.
+ * If UNIT's mission op-area is centered on it, keep it centered.
+ */
+void
+unit_teleport(struct empobj *unit, coord x, coord y)
+{
+    if (unit->opx == unit->x && unit->opy == unit->y) {
+	unit->opx = x;
+	unit->opy = y;
+    }
+    unit->x = x;
+    unit->y = y;
+}
+
+/*
  * Update cargo of CARRIER for movement or destruction.
  * If the carrier is destroyed, destroy its cargo (planes, land units,
  * nukes).
@@ -257,17 +272,11 @@ unit_update_cargo(struct empobj *carrier)
     for (cargo_type = EF_PLANE; cargo_type <= EF_NUKE; cargo_type++) {
 	snxtitem_cargo(&ni, cargo_type, carrier->ef_type, carrier->uid);
 	while (nxtitem(&ni, &obj)) {
-	    if (!carrier->own) {
+	    if (carrier->own)
+		unit_teleport(&obj.gen, carrier->x, carrier->y);
+	    else {
 		mpr(obj.gen.own, "%s lost!\n", unit_nameof(&obj.gen));
 		obj.gen.effic = 0;
-	    } else {
-		/* mission op-area centered on the obj travels with it */
-		if (obj.gen.opx == obj.gen.x && obj.gen.opy == obj.gen.y) {
-		    obj.gen.opx = carrier->x;
-		    obj.gen.opy = carrier->y;
-		}
-		obj.gen.x = carrier->x;
-		obj.gen.y = carrier->y;
 	    }
 	    put_empobj(cargo_type, obj.gen.uid, &obj);
 	    n++;

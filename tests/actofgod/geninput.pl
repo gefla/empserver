@@ -311,6 +311,9 @@ unit_carrier('land', 'S', 'Y');
 # special case: move carrier's cargo away
 edit('plane', 4, 'l', '5,1');
 
+# special case: load teleports to carrier
+edit('land', 4, 'S', 2);
+
 # interactive edit
 iedit('ship', 0, 'M 2', 'm 1', 'f 1');
 iedit('ship', 0, 'R n', 'R ""');
