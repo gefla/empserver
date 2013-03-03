@@ -114,7 +114,7 @@ edit(void)
 	break;
     case 'n':
 	pr("Not implemented yet.\n");
-	break;
+	return RET_FAIL;
     default:
 	pr("huh?\n");
 	return RET_SYN;
@@ -136,6 +136,8 @@ edit(void)
 	case 'u':
 	    print_land(&item.land);
 	    break;
+	default:
+	    CANT_REACH();
 	}
     }
     for (;;) {
@@ -191,6 +193,8 @@ edit(void)
 	    if (!putplane(item.plane.pln_uid, &item.plane))
 		return RET_FAIL;
 	    break;
+	default:
+	    CANT_REACH();
 	}
     }
 }
