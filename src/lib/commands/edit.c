@@ -152,26 +152,8 @@ edit(void)
 	    key = getin(buf, &ptr);
 	    if (!key)
 		return RET_SYN;
-	    if (!*key) {
-		switch (ewhat) {
-		case 'c':
-		    print_nat(np);
-		    break;
-		case 'l':
-		    print_sect(&sect);
-		    break;
-		case 's':
-		    print_ship(&ship);
-		    break;
-		case 'u':
-		    print_land(&land);
-		    break;
-		case 'p':
-		    print_plane(&plane);
-		    break;
-		}
+	    if (!*key)
 		return RET_OK;
-	    }
 	} else
 	    return RET_OK;
 

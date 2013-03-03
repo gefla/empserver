@@ -769,13 +769,6 @@
     Play#0 output Play#0 1 Available workforce of 3,5 changed from 0 to 1
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
-    Play#0 output Play#0 1 Location <L>: 3,5	Distribution sector <D>: 3,5
-    Play#0 output Play#0 1 Designation <s>: -	New designation <S>: -
-    Play#0 output Play#0 1 own  oo eff mob min gld frt oil urn wrk lty che ctg plg ptime fall avail
-    Play#0 output Play#0 1   o   O   e   m   i   g   f   c   u   w   l   x   X   p     t    F     a
-    Play#0 output Play#0 1   1   1   0   2   0   0   0   0   0 100   0   0   0   0     0    0     1
-    Play#0 output Play#0 1 Mines <M>: 0
-    Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,5
     Play#0 command edit
@@ -788,13 +781,6 @@
     Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input  
-    Play#0 output Play#0 1 Location <L>: 5,5	Distribution sector <D>: 5,5
-    Play#0 output Play#0 1 Designation <s>: -	New designation <S>: -
-    Play#0 output Play#0 1 own  oo eff mob min gld frt oil urn wrk lty che ctg plg ptime fall avail
-    Play#0 output Play#0 1   o   O   e   m   i   g   f   c   u   w   l   x   X   p     t    F     a
-    Play#0 output Play#0 1   1   1   0   0   0   0   0   0   0 100   0   0   0   0     0    0     0
-    Play#0 output Play#0 1 Mines <M>: 0
-    Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
     Play#0 output Play#0 6 0 640
     Play#0 input 
     Play#0 output Play#0 6 0 640
@@ -1346,16 +1332,6 @@
     Play#0 output Play#0 1 food of cs   cargo ship (#0) changed from 0 to 1
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
-    Play#0 output Play#0 1 POGO (#0) cs   cargo ship (#0)
-    Play#0 output Play#0 1 UID <U>: 0
-    Play#0 output Play#0 1 Owner <O>: 0			Location <L>: 1,-1
-    Play#0 output Play#0 1 Tech <T>: 100			Efficiency <E>: 0
-    Play#0 output Play#0 1 Mobility <M>: 2		Fleet <F>: 
-    Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
-    Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
-    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
-    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
-    Play#0 output Play#0 1   0   1   0    1   0   0    0    0    0    0    0    0   0
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 0
     Play#0 command edit
@@ -1377,16 +1353,6 @@
     Play#0 output Play#0 1 Retreat path of cs   cargo ship (#0) changed from n to 
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
-    Play#0 output Play#0 1 POGO (#0) cs   cargo ship (#0)
-    Play#0 output Play#0 1 UID <U>: 0
-    Play#0 output Play#0 1 Owner <O>: 0			Location <L>: 1,-1
-    Play#0 output Play#0 1 Tech <T>: 100			Efficiency <E>: 0
-    Play#0 output Play#0 1 Mobility <M>: 2		Fleet <F>: 
-    Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
-    Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
-    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
-    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
-    Play#0 output Play#0 1   0   1   0    1   0   0    0    0    0    0    0    0   0
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0
     Play#0 command edit
@@ -1404,12 +1370,6 @@
     Play#0 output Play#0 1 Land unit of f1   Sopwith Camel #0 unchanged
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
-    Play#0 output Play#0 1 POGO (#0) f1   Sopwith Camel #0
-    Play#0 output Play#0 1 UID <U>: 0		Owner <O>: 0		Location <l>: 1,-1
-    Play#0 output Play#0 1 Efficiency <e>: 0	Mobility <m>: 2
-    Play#0 output Play#0 1 Tech <t>: 100		Wing <w>: 
-    Play#0 output Play#0 1 Range <r>: 9		Flags <f>: 0
-    Play#0 output Play#0 1 Ship <s>: -1		Land Unit <y>: -1	
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0
     Play#0 command edit
@@ -1433,18 +1393,6 @@
     Play#0 output Play#0 1 Land unit of sup  supply #0 unchanged
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
-    Play#0 output Play#0 1 POGO (#0) sup  supply #0
-    Play#0 output Play#0 1 UID <U>: 0
-    Play#0 output Play#0 1 Owner <O>: 0
-    Play#0 output Play#0 1 Location <L>: 1,-1
-    Play#0 output Play#0 1 Efficiency <e>: 0	Mobility <M>: 2
-    Play#0 output Play#0 1 Tech <t>: 100		Army <a>: 
-    Play#0 output Play#0 1 Fortification <F>: 0	Land unit <Y>: -1
-    Play#0 output Play#0 1 Ship <S>: -1		Retreat percentage <Z>: 42
-    Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
-    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
-    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
-    Play#0 output Play#0 1   0   0   0    0   0   0    0    0    0    0    0    0   0
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 0 @ 0
     Play#0 command edit
@@ -1630,15 +1578,6 @@
     Play#0 output Play#0 1 Technology of 5 (#5) changed from 0.00 to 1.00
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
-    Play#0 output Play#0 1 Country #:  5
-    Play#0 output Play#0 1 Name <n>: 5                   	Representative <r>: 5                   
-    Play#0 output Play#0 1 BTUs <b>: 640			Reserves <m>:     0
-    Play#0 output Play#0 1 Capital <c>: 0,0		Origin <o>: 0,0
-    Play#0 output Play#0 1 Status <s>: 0x5			Seconds Used <u>:   0
-    Play#0 output Play#0 1 Technology <T>: 1.00		Research <R>: 0.00
-    Play#0 output Play#0 1 Education <E>: 0.00		Happiness <H>: 0.00
-    Play#0 output Play#0 1 Money <M>: $     0
-    Play#0 output Play#0 1 Telegrams <t>:      1
     Play#0 output Play#0 6 0 640
     Play#0 input read 0
     Play#0 command read
