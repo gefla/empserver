@@ -63,10 +63,7 @@ static int edit_plane(struct plnstr *, char *, char *);
 int
 edit(void)
 {
-    struct sctstr sect;
-    struct plnstr plane;
-    struct shpstr ship;
-    struct lndstr land;
+    union empobj_storage item;
     char *what;
     char *key, *ptr;
     int num;
@@ -89,7 +86,7 @@ edit(void)
 	    return RET_FAIL;
 	if (!sarg_xy(ptr, &x, &y))
 	    return RET_FAIL;
-	if (!getsect(x, y, &sect))
+	if (!getsect(x, y, &item.sect))
 	    return RET_FAIL;
 	break;
     case 'c':
@@ -100,19 +97,19 @@ edit(void)
     case 'p':
 	if ((num = onearg(player->argp[2], "Plane number? ")) < 0)
 	    return RET_SYN;
-	if (!getplane(num, &plane))
+	if (!getplane(num, &item.plane))
 	    return RET_SYN;
 	break;
     case 's':
 	if ((num = onearg(player->argp[2], "Ship number? ")) < 0)
 	    return RET_SYN;
-	if (!getship(num, &ship))
+	if (!getship(num, &item.ship))
 	    return RET_SYN;
 	break;
     case 'u':
 	if ((num = onearg(player->argp[2], "Unit number? ")) < 0)
 	    return RET_SYN;
-	if (!getland(num, &land))
+	if (!getland(num, &item.land))
 	    return RET_SYN;
 	break;
     case 'n':
@@ -125,19 +122,19 @@ edit(void)
     if (!player->argp[3]) {
 	switch (ewhat) {
 	case 'l':
-	    print_sect(&sect);
+	    print_sect(&item.sect);
 	    break;
 	case 'c':
 	    print_nat(np);
 	    break;
 	case 'p':
-	    print_plane(&plane);
+	    print_plane(&item.plane);
 	    break;
 	case 's':
-	    print_ship(&ship);
+	    print_ship(&item.ship);
 	    break;
 	case 'u':
-	    print_land(&land);
+	    print_land(&item.land);
 	    break;
 	}
     }
@@ -163,35 +160,35 @@ edit(void)
 		return err;
 	    break;
 	case 'l':
-	    if (!check_sect_ok(&sect))
+	    if (!check_sect_ok(&item.sect))
 		return RET_FAIL;
-	    if ((err = edit_sect(&sect, key, ptr)) != RET_OK)
+	    if ((err = edit_sect(&item.sect, key, ptr)) != RET_OK)
 		return err;
-	    if (!putsect(&sect))
+	    if (!putsect(&item.sect))
 		return RET_FAIL;
 	    break;
 	case 's':
-	    if (!check_ship_ok(&ship))
+	    if (!check_ship_ok(&item.ship))
 		return RET_FAIL;
-	    if ((err = edit_ship(&ship, key, ptr)) != RET_OK)
+	    if ((err = edit_ship(&item.ship, key, ptr)) != RET_OK)
 		return err;
-	    if (!putship(ship.shp_uid, &ship))
+	    if (!putship(item.ship.shp_uid, &item.ship))
 		return RET_FAIL;
 	    break;
 	case 'u':
-	    if (!check_land_ok(&land))
+	    if (!check_land_ok(&item.land))
 		return RET_FAIL;
-	    if ((err = edit_land(&land, key, ptr)) != RET_OK)
+	    if ((err = edit_land(&item.land, key, ptr)) != RET_OK)
 		return err;
-	    if (!putland(land.lnd_uid, &land))
+	    if (!putland(item.land.lnd_uid, &item.land))
 		return RET_FAIL;
 	    break;
 	case 'p':
-	    if (!check_plane_ok(&plane))
+	    if (!check_plane_ok(&item.plane))
 		return RET_FAIL;
-	    if ((err = edit_plane(&plane, key, ptr)) != RET_OK)
+	    if ((err = edit_plane(&item.plane, key, ptr)) != RET_OK)
 		return err;
-	    if (!putplane(plane.pln_uid, &plane))
+	    if (!putplane(item.plane.pln_uid, &item.plane))
 		return RET_FAIL;
 	    break;
 	}
