@@ -23,22 +23,50 @@ EOF
     cp "$srcdir"/src/lib/global/*.config sandbox/share/empire/builtin
 }
 
+now()
+{
+    # date +%s isn't portable...
+    perl -e 'printf "%s\n", time'
+}
+
 start_server()
 {
+    local pidfile=sandbox/var/empire/server.pid
+    local timeout
     pid=
-    trap 'if [ "$pid" ]; then kill "$pid" 2>/dev/null || true; fi' EXIT
+    trap 'if [ "$pid" ]; then kill -9 "$pid" 2>/dev/null || true; fi' EXIT
     src/server/emp_server -e sandbox/etc/empire/econfig -R 1
-    while src/client/empire red herring 2>&1 | grep -q "Connection refused"
-    do :	       # FIXME hangs here if server crashes on startup
+    timeout=$((`now`+5))
+    until pid=`cat $pidfile 2>/dev/null` && [ -n "$pid" ]
+    do
+	if [ `now` -gt $timeout ]
+	then
+	    echo "Timed out waiting for server to create $pidfile" >&2
+	    exit 1
+	fi
     done
-    pid=`cat sandbox/var/empire/server.pid`
+    while src/client/empire red herring 2>&1 | grep -q "Connection refused"
+    do
+	if [ `now` -gt $timeout ]
+	then
+	    echo "Timed out waiting for server to accept connections" >&2
+	    exit 1
+	fi
+    done
 }
 
 stop_server()
 {
+    local timeout
     kill "$pid"
+    timeout=$((`now`+5))
     while kill -0 "$pid" 2>/dev/null
-    do :		    # FIXME hangs here if server fails to exit
+    do
+	if [ `now` -gt $timeout ]
+	then
+	    echo "Timed out waiting for server to terminate" >&2
+	    exit 1
+	fi
     done
 }
 
