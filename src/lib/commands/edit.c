@@ -161,6 +161,8 @@ edit(void)
 	    ret = edit_nat(np, key, ptr);
 	    if (ret != RET_OK)
 		return ret;
+	    if (!putnat(np))
+		return RET_FAIL;
 	    break;
 	case 'l':
 	    if (!check_sect_ok(&item.sect))
@@ -735,7 +737,6 @@ edit_nat(struct natstr *np, char *key, char *p)
 	pr("huh? (%s)\n", key);
 	break;
     }
-    putnat(np);
     return RET_OK;
 }
 
