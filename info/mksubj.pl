@@ -42,9 +42,9 @@ use warnings;
 use File::stat;
 
 # The chapters, in order
-our @Chapters = qw/Introduction Concept Command Server/;
+my @Chapters = qw/Introduction Concept Command Server/;
 
-our $filename;
+my $filename;
 my (%subject, %level, %desc, %long);
 my $largest = "";
 
@@ -137,8 +137,8 @@ sub parse_file {
 
     $_ = <F>;
     if (/^\.LV (\S+)$/) {
-	if ($1 ne 'Basic' && $1 ne 'Expert') {
-	    error("The argument to .LV was '$1' but it must be either 'Basic' or 'Expert'");
+	if ($1 ne 'Basic' && $1 ne 'Expert' && $1 ne 'Obsolete') {
+	    error("The argument to .LV was '$1' but it must be either 'Basic', 'Expert', or 'Obsolete'");
 	}
 	$lvl = $1;
     } else {

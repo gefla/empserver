@@ -63,11 +63,11 @@ use warnings;
 
 use Errno qw(ENOENT);
 
-our (%filename, %chapter, %see_also, %sanr);
-our ($filename, %subjfil);
+my (%filename, %chapter, %see_also, %sanr);
+my ($filename, %subjfil);
 
 # Get known subjects
-our @Subjects = split(' ', read_make_var("subjects", "subjects.mk", ""));
+my @Subjects = split(' ', read_make_var("subjects", "subjects.mk", ""));
 
 # Parse the .t files
 for my $f (@ARGV) {
