@@ -2,4 +2,4 @@
 .NA give "Give(take) Commodities"
 .LV Expert
 .SY "give <COMM> <SECTS> <NUM>"
-.SA "edit, Deity"
+.SA "edit, swapsector, Deity"
