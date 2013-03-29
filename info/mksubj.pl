@@ -44,6 +44,8 @@ use File::stat;
 # The chapters, in order
 my @Chapters = qw/Introduction Concept Command Server/;
 
+my @Levels = qw/Basic Expert Obsolete/;
+
 my $filename;
 my (%subject, %level, %desc, %long, %cnt);
 my $largest = "";
@@ -78,6 +80,7 @@ for my $chap (@Chapters) {
     for (split(/\n/, $subject{$chap})) {
 	my $flags = "";
 	$flags .= "*" if $level{$_} eq 'Basic';
+	$flags .= "+" if $level{$_} eq 'Obsolete';
 	$flags .= "!" if $long{$_};
 	$flags = sprintf("%-2s", $flags);
 	print SUBJ ".L \"$_ $flags\"\n";
@@ -94,6 +97,9 @@ EOF
 print SUBJ <<EOF if $cnt{'Basic'};
 Subjects marked by * are the most important and should be read by new
 players.
+EOF
+print SUBJ <<EOF if $cnt{'Obsolete'};
+Subjects marked by + are obsolete.
 EOF
 print SUBJ <<EOF if $cnt{'long'};
 Unusually long subjects are marked with a !.
@@ -140,8 +146,8 @@ sub parse_file {
 
     $_ = <F>;
     if (/^\.LV (\S+)$/) {
-	if ($1 ne 'Basic' && $1 ne 'Expert' && $1 ne 'Obsolete') {
-	    error("The argument to .LV was '$1' but it must be either 'Basic', 'Expert', or 'Obsolete'");
+	if (!grep(/^$1$/, @Levels)) {
+	    error("The argument to .LV was '$1', which is not a known level");
 	}
 	$lvl = $1;
     } else {

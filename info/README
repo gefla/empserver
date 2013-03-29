@@ -49,7 +49,7 @@ The second line must be a name header:
 
 The third line must be a level header:
 .LV arg
-  - arg must be a level, one of Basic, Expert
+  - arg must be a level, one of Basic, Expert, Obsolete
 
 The last line should be a see also:
 .SA "item1, item2, ..., subject1, subject2"

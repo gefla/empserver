@@ -1,6 +1,6 @@
 .TH Concept Innards
 .NA Innards "Some details about the inner workings of the server"
-.LV Expert
+.LV Obsolete
 .s1
 Much of this file is now out-of-date.  Correct information may be found
 in the files Update-sequence and build.
@@ -243,4 +243,4 @@ dependent on the efficiency and the work force in the capital sector.
 (see info BTU).
 .s1
 .s1
-.SA "Education, Happiness, Products, Research, Technology, Time, BTU, Obsolete"
+.SA "Education, Happiness, Products, Research, Technology, Time, BTU, Server"
