@@ -1,6 +1,7 @@
 .TH Command SETSECTOR
 .NA setsector "Change stats of a sector"
-.LV Expert
+.LV Obsolete
 .SY "setsector <TYPE> <SECTS> <NUM>"
-You can change anything that appears in dump or peek (I think).
-.SA "give, setresource, edit, dump, peek, Deity"
+This command is obsolete and will go away in a future version.  Use
+\*Qedit\*U instead.
+.SA "give, edit, Deity"

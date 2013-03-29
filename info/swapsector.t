@@ -12,4 +12,4 @@ island.  All aspects of the sector (e.g. resources, commodities) get
 transferred to the new location.  The only change that is made is that
 dist paths are wiped.
 
-.SA "give, setsector, setresource, Deity"
+.SA "give, edit, Deity"

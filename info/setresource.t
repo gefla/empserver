@@ -1,5 +1,7 @@
 .TH Command SETRESOURCE
 .NA setresource "Change resources of a sector"
-.LV Expert
+.LV Obsolete
 .SY "setresource <TYPE> <SECTS> <NUM>"
-.SA "swapsector, give, setsector, Deity"
+This command is obsolete and will go away in a future version.  Use
+\*Qedit\*U instead.
+.SA "swapsector, give, Deity"
