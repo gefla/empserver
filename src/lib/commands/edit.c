@@ -93,6 +93,7 @@ edit(void)
 	np = natargp(player->argp[2], "Country? ");
 	if (!np)
 	    return RET_SYN;
+	item.nat = *np;
 	break;
     case 'p':
 	if ((num = onearg(player->argp[2], "Plane number? ")) < 0)
@@ -158,11 +159,19 @@ edit(void)
 
 	switch (ewhat) {
 	case 'c':
+	    if (!check_obj_ok(&item.gen))
+		return RET_FAIL;
+	    /*
+	     * edit_nat() may update the edited country by sending it
+	     * bulletins.  Writing back item.nat would trigger a seqno
+	     * mismatch oops.  Workaround: edit in-place.
+	     */
 	    ret = edit_nat(np, key, ptr);
 	    if (ret != RET_OK)
 		return ret;
 	    if (!putnat(np))
 		return RET_FAIL;
+	    item.nat = *np;
 	    break;
 	case 'l':
 	    if (!check_sect_ok(&item.sect))
