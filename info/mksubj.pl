@@ -45,23 +45,23 @@ use File::stat;
 my @Chapters = qw/Introduction Concept Command Server/;
 
 my $filename;
-my (%subject, %level, %desc, %long);
+my (%subject, %level, %desc, %long, %cnt);
 my $largest = "";
 
 my $out = shift @ARGV;
 $out =~ /([^\/]*)\.t$/
     or die "Strange subject file name $out";
 my $subj = $1;
-my $any_long = 0;
 
 for (@ARGV) {
     my ($topic, $chap, $lvl, $desc, $long) = parse_file($_);
     $largest = $topic if length $topic > length $largest;
     $subject{$chap} .= "$topic\n";
     $level{$topic} = $lvl;
+    $cnt{$lvl}++;
     $desc{$topic} = $desc;
     $long{$topic} = $long;
-    $any_long = 1 if $long;
+    $cnt{'long'}++ if $long;
 }
 
 open(SUBJ, ">$out")
@@ -89,10 +89,13 @@ print SUBJ <<EOF;
 .s1
 .in 0
 For info on a particular subject, type "info <subject>" where <subject> is
-one of the subjects listed above.  Subjects marked by * are the most
-important and should be read by new players.
+one of the subjects listed above.
 EOF
-print SUBJ <<EOF if $any_long;
+print SUBJ <<EOF if $cnt{'Basic'};
+Subjects marked by * are the most important and should be read by new
+players.
+EOF
+print SUBJ <<EOF if $cnt{'long'};
 Unusually long subjects are marked with a !.
 EOF
 close SUBJ;
