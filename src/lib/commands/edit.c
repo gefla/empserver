@@ -65,134 +65,123 @@ edit(void)
 {
     union empobj_storage item;
     char *what;
+    struct nstr_item ni;
     char *key, *ptr;
-    int num;
-    int ret;
-    int arg_index = 3;
-    coord x, y;
     struct natstr *np;
+    int type, arg_index, ret;
     char buf[1024];
-    char ewhat;
 
     what = getstarg(player->argp[1],
 		    "Edit what (country, land, ship, plane, nuke, unit)? ",
 		    buf);
     if (!what)
 	return RET_SYN;
-    ewhat = what[0];
-    switch (ewhat) {
+    switch (what[0]) {
     case 'l':
-	if (!(ptr = getstarg(player->argp[2], "Sector : ", buf)))
-	    return RET_FAIL;
-	if (!sarg_xy(ptr, &x, &y))
-	    return RET_FAIL;
-	if (!getsect(x, y, &item.sect))
-	    return RET_FAIL;
-	break;
-    case 'c':
-	np = natargp(player->argp[2], "Country? ");
-	if (!np)
-	    return RET_SYN;
-	item.nat = *np;
+	type = EF_SECTOR;
 	break;
     case 'p':
-	if ((num = onearg(player->argp[2], "Plane number? ")) < 0)
-	    return RET_SYN;
-	if (!getplane(num, &item.plane))
-	    return RET_SYN;
+	type = EF_PLANE;
 	break;
     case 's':
-	if ((num = onearg(player->argp[2], "Ship number? ")) < 0)
-	    return RET_SYN;
-	if (!getship(num, &item.ship))
-	    return RET_SYN;
+	type = EF_SHIP;
 	break;
     case 'u':
-	if ((num = onearg(player->argp[2], "Unit number? ")) < 0)
-	    return RET_SYN;
-	if (!getland(num, &item.land))
-	    return RET_SYN;
+	type = EF_LAND;
 	break;
     case 'n':
 	pr("Not implemented yet.\n");
 	return RET_FAIL;
+    case 'c':
+	type = EF_NATION;
+	break;
     default:
 	pr("huh?\n");
 	return RET_SYN;
     }
-    if (!player->argp[3]) {
-	switch (ewhat) {
-	case 'l':
-	    print_sect(&item.sect);
-	    break;
-	case 'c':
-	    print_nat(np);
-	    break;
-	case 'p':
-	    print_plane(&item.plane);
-	    break;
-	case 's':
-	    print_ship(&item.ship);
-	    break;
-	case 'u':
-	    print_land(&item.land);
-	    break;
-	default:
-	    CANT_REACH();
-	}
-    }
-    for (;;) {
-	if (player->argp[arg_index]) {
-	    if (player->argp[arg_index+1]) {
-		key = player->argp[arg_index++];
-		ptr = player->argp[arg_index++];
-	    } else
-		return RET_SYN;
-	} else if (arg_index == 3) {
-	    key = getin(buf, &ptr);
-	    if (!key)
-		return RET_SYN;
-	    if (!*key)
-		return RET_OK;
-	} else
-	    return RET_OK;
 
-	if (!check_obj_ok(&item.gen))
-	    return RET_FAIL;
-	switch (ewhat) {
-	case 'c':
-	    /*
-	     * edit_nat() may update the edited country by sending it
-	     * bulletins.  Writing back item.nat would trigger a seqno
-	     * mismatch oops.  Workaround: edit in-place.
-	     */
-	    ret = edit_nat(np, key, ptr);
+    if (!snxtitem(&ni, type, player->argp[2], NULL))
+	return RET_SYN;
+    while (nxtitem(&ni, &item)) {
+	if (!player->argp[3]) {
+	    switch (type) {
+	    case EF_SECTOR:
+		print_sect(&item.sect);
+		break;
+	    case EF_SHIP:
+		print_ship(&item.ship);
+		break;
+	    case EF_PLANE:
+		print_plane(&item.plane);
+		break;
+	    case EF_LAND:
+		print_land(&item.land);
+		break;
+	    case EF_NATION:
+		print_nat(&item.nat);
+		break;
+	    default:
+		CANT_REACH();
+	    }
+	}
+
+	arg_index = 3;
+	for (;;) {
+	    if (player->argp[arg_index]) {
+		if (player->argp[arg_index+1]) {
+		    key = player->argp[arg_index++];
+		    ptr = player->argp[arg_index++];
+		} else
+		    return RET_SYN;
+	    } else if (arg_index == 3) {
+		key = getin(buf, &ptr);
+		if (!key)
+		    return RET_SYN;
+		if (!*key)
+		    break;
+	    } else
+		break;
+
+	    if (!check_obj_ok(&item.gen))
+		return RET_FAIL;
+	    switch (type) {
+	    case EF_NATION:
+		/*
+		 * edit_nat() may update the edited country by sending
+		 * it bulletins.  Writing back item.nat would trigger
+		 * a seqno mismatch oops.  Workaround: edit in-place.
+		 */
+		np = getnatp(item.nat.nat_cnum);
+		ret = edit_nat(np, key, ptr);
+		if (ret != RET_OK)
+		    return ret;
+		if (!putnat(np))
+		    return RET_FAIL;
+		item.nat = *np;
+		continue;
+	    case EF_SECTOR:
+		ret = edit_sect(&item.sect, key, ptr);
+		break;
+	    case EF_SHIP:
+		ret = edit_ship(&item.ship, key, ptr);
+		break;
+	    case EF_LAND:
+		ret = edit_land(&item.land, key, ptr);
+		break;
+	    case EF_PLANE:
+		ret = edit_plane(&item.plane, key, ptr);
+		break;
+	    default:
+		CANT_REACH();
+	    }
 	    if (ret != RET_OK)
 		return ret;
-	    if (!putnat(np))
+	    if (!put_empobj(type, item.gen.uid, &item.gen))
 		return RET_FAIL;
-	    item.nat = *np;
-	    continue;
-	case 'l':
-	    ret = edit_sect(&item.sect, key, ptr);
-	    break;
-	case 's':
-	    ret = edit_ship(&item.ship, key, ptr);
-	    break;
-	case 'u':
-	    ret = edit_land(&item.land, key, ptr);
-	    break;
-	case 'p':
-	    ret = edit_plane(&item.plane, key, ptr);
-	    break;
-	default:
-	    CANT_REACH();
 	}
-	if (ret != RET_OK)
-	    return ret;
-	if (!put_empobj(item.gen.ef_type, item.gen.uid, &item.gen))
-	    return RET_FAIL;
     }
+
+    return RET_OK;
 }
 
 static void

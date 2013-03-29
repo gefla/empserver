@@ -29,8 +29,4 @@ buil p 1,-1 f1 5 100
 des 1,-1 !
 buil l 1,-1 sup 5 100
 edit l 3,-1 L 1,-1
-edit c 1 t 0 s 4
-edit c 2 t 0 s 4
-edit c 3 t 0 s 4
-edit c 4 t 0 s 4
-edit c 5 t 0 s 4
+edit c 1/2/3/4/5 t 0 s 4

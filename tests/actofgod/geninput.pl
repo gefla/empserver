@@ -205,9 +205,8 @@ edit('sect', '4,4', 'D', '4,4');
 
 # des newdes
 for my $key ('s', 'S') {
+    edit('sect', '6:8,4', $key, '+');
     edit('sect', '6,4', $key, '+');
-    edit('sect', '6,4', $key, '+');
-    edit('sect', '8,4', $key, '+');
     edit('sect', '8,4', $key, ',');
 }
 
@@ -217,6 +216,7 @@ edit('sect', '1,5', 'm', 1, 'a', 1);
 # interactive edit
 iedit('sect', '3,5', 'm 2', 'a 1');
 iedit('sect', '5,5', ' ');
+iedit('sect', '7:9,5', 'e 1', '', 'e 2');
 
 # give
 give('2,6', 'l', $INT_MIN);

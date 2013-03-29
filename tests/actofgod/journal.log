@@ -20,7 +20,7 @@
     Play#0 input edit l 0,0 @ 0
     Play#0 command edit
     Play#0 output Play#0 1 huh? (@)
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input setres @ 0,0 0
     Play#0 command setresource
@@ -43,7 +43,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 o -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 o 98
     Play#0 command edit
@@ -51,7 +51,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 o 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 O 0
     Play#0 command edit
@@ -59,7 +59,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 O -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 O 98
     Play#0 command edit
@@ -67,7 +67,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 O 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 X 0
     Play#0 command edit
@@ -75,7 +75,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 X -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 X 98
     Play#0 command edit
@@ -83,7 +83,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 X 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,7 o 2
     Play#0 command edit
@@ -132,7 +132,7 @@
     Play#0 input edit l 3,-7 L 3,-7 L 1,0
     Play#0 command edit
     Play#0 output Play#0 1 Sector 3,-7 unchanged
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 e 0
     Play#0 command edit
@@ -715,37 +715,31 @@
     Play#0 command edit
     Play#0 output Play#0 1 Distribution sector of 4,4 unchanged
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 6,4 s +
+    Play#0 input edit l 6:8,4 s +
     Play#0 command edit
     Play#0 output Play#0 1 Designation of 6,4 changed from - to +
+    Play#0 output Play#0 1 Designation of 8,4 changed from - to +
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 6,4 s +
     Play#0 command edit
     Play#0 output Play#0 1 Designation of 6,4 unchanged
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 8,4 s +
-    Play#0 command edit
-    Play#0 output Play#0 1 Designation of 8,4 changed from - to +
-    Play#0 output Play#0 6 0 640
     Play#0 input edit l 8,4 s ,
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 6,4 S +
+    Play#0 input edit l 6:8,4 S +
     Play#0 command edit
     Play#0 output Play#0 1 New designation of 6,4 changed from - to +
+    Play#0 output Play#0 1 New designation of 8,4 changed from - to +
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 6,4 S +
     Play#0 command edit
     Play#0 output Play#0 1 New designation of 6,4 unchanged
     Play#0 output Play#0 6 0 640
-    Play#0 input edit l 8,4 S +
-    Play#0 command edit
-    Play#0 output Play#0 1 New designation of 8,4 changed from - to +
-    Play#0 output Play#0 6 0 640
     Play#0 input edit l 8,4 S ,
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,5 m 1 a 1
     Play#0 command edit
@@ -782,6 +776,33 @@
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input  
     Play#0 output Play#0 6 0 640
+    Play#0 input 
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7:9,5
+    Play#0 command edit
+    Play#0 output Play#0 1 Location <L>: 7,5	Distribution sector <D>: 7,5
+    Play#0 output Play#0 1 Designation <s>: -	New designation <S>: -
+    Play#0 output Play#0 1 own  oo eff mob min gld frt oil urn wrk lty che ctg plg ptime fall avail
+    Play#0 output Play#0 1   o   O   e   m   i   g   f   c   u   w   l   x   X   p     t    F     a
+    Play#0 output Play#0 1   1   1   0   0   0   0   0   0   0 100   0   0   0   0     0    0     0
+    Play#0 output Play#0 1 Mines <M>: 0
+    Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input e 1
+    Play#0 output Play#0 1 Efficiency of 7,5 changed from 0 to 1
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input 
+    Play#0 output Play#0 1 Location <L>: 9,5	Distribution sector <D>: 9,5
+    Play#0 output Play#0 1 Designation <s>: -	New designation <S>: -
+    Play#0 output Play#0 1 own  oo eff mob min gld frt oil urn wrk lty che ctg plg ptime fall avail
+    Play#0 output Play#0 1   o   O   e   m   i   g   f   c   u   w   l   x   X   p     t    F     a
+    Play#0 output Play#0 1   1   1   0   0   0   0   0   0   0 100   0   0   0   0     0    0     0
+    Play#0 output Play#0 1 Mines <M>: 0
+    Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input e 2
+    Play#0 output Play#0 1 Efficiency of 9,5 changed from 0 to 2
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
     Play#0 output Play#0 6 0 640
     Play#0 input give l 2,6 -2147483648
@@ -825,7 +846,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 0 O -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 1 O 98
     Play#0 command edit
@@ -833,7 +854,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 1 O 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 O 2
     Play#0 command edit
@@ -848,7 +869,7 @@
     Play#0 input edit s 0 U 0 U -1
     Play#0 command edit
     Play#0 output Play#0 1 cs   cargo ship (#0) unchanged
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 L 3,-1
     Play#0 command edit
@@ -869,7 +890,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0 O -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 1 O 98
     Play#0 command edit
@@ -877,7 +898,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 1 O 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 O 2
     Play#0 command edit
@@ -892,7 +913,7 @@
     Play#0 input edit p 0 U 0 U -1
     Play#0 command edit
     Play#0 output Play#0 1 f1   Sopwith Camel #0 unchanged
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 l 3,-1
     Play#0 command edit
@@ -913,7 +934,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0 O -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 1 O 98
     Play#0 command edit
@@ -921,7 +942,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 1 O 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 O 2
     Play#0 command edit
@@ -936,7 +957,7 @@
     Play#0 input edit u 0 U 0 U -1
     Play#0 command edit
     Play#0 output Play#0 1 sup  supply #0 unchanged
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 L 3,-1
     Play#0 command edit
@@ -1271,7 +1292,7 @@
     Play#0 input edit p 2 s -1 s 9999
     Play#0 command edit
     Play#0 output Play#0 1 Ship of f1   Sopwith Camel #2 unchanged
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 s 3
     Play#0 command edit
@@ -1286,7 +1307,7 @@
     Play#0 input edit u 2 S -1 S 9999
     Play#0 command edit
     Play#0 output Play#0 1 Ship of sup  supply #2 unchanged
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 S 3
     Play#0 command edit
@@ -1509,7 +1530,7 @@
     Play#0 input edit c 1 n POGO
     Play#0 command edit
     Play#0 output Play#0 1 Country #0 is already called `POGO'
-    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 n 2
     Play#0 command edit
@@ -1691,6 +1712,8 @@
     Play#0 output Play#0 1 Available workforce of 1,5 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Mobility of 3,5 changed from 0 to 2 by an act of POGO
     Play#0 output Play#0 1 Available workforce of 3,5 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of 7,5 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of 9,5 changed from 0 to 2 by an act of POGO
     Play#0 output Play#0 1 POGO gave you 1 civilians in 4,6
     Play#0 output Play#0 1 POGO gave you 1 civilians in 6,6
     Play#0 output Play#0 1 POGO gave you 1 civilians in 8,6

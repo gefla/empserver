@@ -1,9 +1,13 @@
 .TH Command EDIT
-.NA edit "Edit country, sector, ship, plane or land unit"
+.NA edit "Edit sectors, ships, planes, land units or countries"
 .LV Expert
-.SY "edit <country|land|unit|ship|plane> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]..."
-The \*Qedit\*U command allows deities to edit properties of a country,
-sector (confusingly called <land> here), ship, plane or land unit.
+.SY "edit land <SECTS> [<KEY> <VALUE>]..."
+.SY "edit ship <SHIPS> [<KEY> <VALUE>]..."
+.SY "edit plane <PLANES> [<KEY> <VALUE>]..."
+.SY "edit unit <LANDS> [<KEY> <VALUE>]..."
+.SY "edit country <NATS> [<KEY> <VALUE>]..."
+The \*Qedit\*U command allows deities to edit properties of a sector
+(confusingly called <land> here), ship, plane, land unit, or country.
 .s1
 If you don't specify any <KEY> <VALUE> pair, \*Qedit\*U enters
 interactive mode.  Editable properties are shown together with their
