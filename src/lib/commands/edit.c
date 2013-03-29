@@ -157,10 +157,10 @@ edit(void)
 	} else
 	    return RET_OK;
 
+	if (!check_obj_ok(&item.gen))
+	    return RET_FAIL;
 	switch (ewhat) {
 	case 'c':
-	    if (!check_obj_ok(&item.gen))
-		return RET_FAIL;
 	    /*
 	     * edit_nat() may update the edited country by sending it
 	     * bulletins.  Writing back item.nat would trigger a seqno
@@ -172,46 +172,26 @@ edit(void)
 	    if (!putnat(np))
 		return RET_FAIL;
 	    item.nat = *np;
-	    break;
+	    continue;
 	case 'l':
-	    if (!check_sect_ok(&item.sect))
-		return RET_FAIL;
 	    ret = edit_sect(&item.sect, key, ptr);
-	    if (ret != RET_OK)
-		return ret;
-	    if (!putsect(&item.sect))
-		return RET_FAIL;
 	    break;
 	case 's':
-	    if (!check_ship_ok(&item.ship))
-		return RET_FAIL;
 	    ret = edit_ship(&item.ship, key, ptr);
-	    if (ret != RET_OK)
-		return ret;
-	    if (!putship(item.ship.shp_uid, &item.ship))
-		return RET_FAIL;
 	    break;
 	case 'u':
-	    if (!check_land_ok(&item.land))
-		return RET_FAIL;
 	    ret = edit_land(&item.land, key, ptr);
-	    if (ret != RET_OK)
-		return ret;
-	    if (!putland(item.land.lnd_uid, &item.land))
-		return RET_FAIL;
 	    break;
 	case 'p':
-	    if (!check_plane_ok(&item.plane))
-		return RET_FAIL;
 	    ret = edit_plane(&item.plane, key, ptr);
-	    if (ret != RET_OK)
-		return ret;
-	    if (!putplane(item.plane.pln_uid, &item.plane))
-		return RET_FAIL;
 	    break;
 	default:
 	    CANT_REACH();
 	}
+	if (ret != RET_OK)
+	    return ret;
+	if (!put_empobj(item.gen.ef_type, item.gen.uid, &item.gen))
+	    return RET_FAIL;
     }
 }
 
