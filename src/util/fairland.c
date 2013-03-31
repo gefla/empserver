@@ -812,7 +812,7 @@ grow_islands(void)
 	secs = 0;
 	if (!place_island(c, &x, &y))
 	    return;
-	isiz = roll(2 * is - 1);
+	isiz = roll(is) + roll0(is);
 	do {
 	    ++secs;
 	    find_coast(c);
