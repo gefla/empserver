@@ -337,7 +337,7 @@ powcmp(const void *a, const void *b)
 	return -1;
     if (p1->p_power < p2->p_power)
 	return 1;
-    return 0;
+    return p1->p_nation - p2->p_nation;
 }
 
 static void
