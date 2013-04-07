@@ -86,7 +86,7 @@ tcp_connect(char *host, char *serv)
 	close(sockfd);		/* ignore this one */
     } while ((res = res->ai_next) != NULL);
 
-    if (res == NULL) {		/* errno set from final connect() */
+    if (res == NULL) {	  /* errno from final socket() or connect() */
 	fprintf(stderr, "Can't connect to %s:%s: %s\n",
 		host, serv, strerror(errno));
 	exit(1);
