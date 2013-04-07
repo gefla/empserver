@@ -81,8 +81,7 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
 	if (fd < 0)
 	    continue;		/* error, try next one */
 
-	if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
-	    cant_listen(host, serv, strerror(errno));
+	setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
 	if (bind(fd, ai->ai_addr, ai->ai_addrlen) == 0)
 	    break;		/* success */
 
@@ -127,8 +126,7 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
     }
     if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 	cant_listen(host, serv, strerror(errno));
-    if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
-	cant_listen(host, serv, strerror(errno));
+    setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
     if (bind(fd, (struct sockaddr *)&sin, sizeof(sin)) < 0)
 	cant_listen(host, serv, strerror(errno));
     if (listen(fd, SOMAXCONN) < 0)
