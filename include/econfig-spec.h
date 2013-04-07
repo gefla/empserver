@@ -88,7 +88,10 @@ EMPCF_COMMENT("# \"\" listens on all, localhost just on the loopback interface.\
     "# OpenBSD restriction: when the system has both IPv4 and IPv6\n"
     "# addresses configured, \"\" listens on all IPv4 addresses, and \"::\"\n"
     "# on all IPv6 addresses.  There is no way to listen both on all IPv4\n"
-    "# and on all IPv6 interfaces.")
+    "# and on all IPv6 interfaces.\n"
+    "# Systems using GNU libc such as Linux are frequently configured in a\n"
+    "# way that makes listen_addr "" listen only on all IPv4 addresses.\n"
+    "# You need to use \"::\" to listen on all IPv4 and IPv6 addresses.")
 EMPCFBOTH("port", loginport, char *, NSC_STRING, KM_INTERNAL,
     "TCP port the server will bind")
 EMPCFBOTH("keep_journal", keep_journal, int, NSC_INT, KM_INTERNAL,
