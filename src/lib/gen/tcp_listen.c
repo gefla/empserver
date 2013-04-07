@@ -81,6 +81,14 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
 	if (fd < 0)
 	    continue;		/* error, try next one */
 
+#ifdef IPV6_V6ONLY
+	if (ai->ai_family == AF_INET6) {
+	    int off = 0;
+
+	    setsockopt(fd, IPPROTO_IPV6, IPV6_V6ONLY, &off, sizeof(off));
+	}
+#endif
+
 	setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
 	if (bind(fd, ai->ai_addr, ai->ai_addrlen) == 0)
 	    break;		/* success */
