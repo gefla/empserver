@@ -214,6 +214,7 @@ player_accept(void *unused)
 	    player_delete(np);
 	    continue;
 	}
+	logerror("Connect from %s", np->hostaddr);
 #ifdef RESOLVE_IPADDRESS
 	hostp = gethostbyaddr(inaddr, player_addrlen, sap->sa_family);
 	if (NULL != hostp)
