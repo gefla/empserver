@@ -32,6 +32,7 @@
 
 #include <config.h>
 
+#include <assert.h>
 #include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
@@ -63,41 +64,41 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
      * Inspired by example code from W. Richard Stevens: UNIX Network
      * Programming, Vol. 1
      */
-    int n;
-    struct addrinfo hints, *res, *ressave;
+    int err;
+    struct addrinfo hints, *first_ai, *ai;
 
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_flags = AI_PASSIVE | AI_ADDRCONFIG;
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
 
-    if ((n = getaddrinfo(host, serv, &hints, &res)) != 0)
-	cant_listen(host, serv, gai_strerror(n));
-    ressave = res;
+    if ((err = getaddrinfo(host, serv, &hints, &first_ai)) != 0)
+	cant_listen(host, serv, gai_strerror(err));
+    assert(first_ai);
 
-    do {
-	fd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+    for (ai = first_ai; ai; ai = ai->ai_next) {
+	fd = socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
 	if (fd < 0)
 	    continue;		/* error, try next one */
 
 	if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
 	    cant_listen(host, serv, strerror(errno));
-	if (bind(fd, res->ai_addr, res->ai_addrlen) == 0)
+	if (bind(fd, ai->ai_addr, ai->ai_addrlen) == 0)
 	    break;		/* success */
 
 	close(fd);		/* error, close and try next one */
-    } while ((res = res->ai_next) != NULL);
+    }
 
-    if (res == NULL)	     /* errno from final socket() or bind() */
+    if (ai == NULL)	     /* errno from final socket() or bind() */
 	cant_listen(host, serv, strerror(errno));
 
     if (listen(fd, SOMAXCONN) < 0)
 	cant_listen(host, serv, strerror(errno));
 
     if (addrlenp)
-	*addrlenp = res->ai_addrlen;
+	*addrlenp = ai->ai_addrlen;
 
-    freeaddrinfo(ressave);
+    freeaddrinfo(first_ai);
 
 #else  /* !HAVE_GETADDRINFO */
     struct sockaddr_in sin;
