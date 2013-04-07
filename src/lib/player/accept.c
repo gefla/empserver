@@ -169,9 +169,9 @@ player_accept(void *unused)
 {
     static int conn_cnt;
     struct sockaddr *sap;
-    int s = player_socket;
     struct player *np;
     socklen_t len;
+    const char *p;
     int ns;
     int set = 1;
     int stacksize;
@@ -182,11 +182,20 @@ player_accept(void *unused)
 
     /* auto sockaddr_storage would be simpler, but less portable */
     sap = malloc(player_addrlen);
+    len = player_addrlen;
+    if (getsockname(player_socket, sap, &len)) {
+	logerror("getsockname() failed: %s", strerror(errno));
+	p = NULL;
+    } else {
+	p = sockaddr_ntop(sap, buf, sizeof(buf));
+	CANT_HAPPEN(!p);
+    }
+    logerror("Listening on %s", p ? buf : "unknown address");
 
     while (1) {
-	empth_select(s, EMPTH_FD_READ, NULL);
+	empth_select(player_socket, EMPTH_FD_READ, NULL);
 	len = player_addrlen;
-	ns = accept(s, sap, &len);
+	ns = accept(player_socket, sap, &len);
 	/* FIXME accept() can block on some systems (RST after select() reports ready) */
 	if (ns < 0) {
 	    logerror("new socket accept");
