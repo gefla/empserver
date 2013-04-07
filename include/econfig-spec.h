@@ -84,7 +84,11 @@ EMPCF_COMMENT("# Set this to your source tree's src/lib/global to run the server
 	      "# without installing it, else leave it alone.")
 EMPCFBOTH("listen_addr", listen_addr, char *, NSC_STRING, KM_INTERNAL,
     "Local IP address the server should listen on")
-EMPCF_COMMENT("# \"\" listens on all, localhost just on the loopback interface.")
+EMPCF_COMMENT("# \"\" listens on all, localhost just on the loopback interface.\n"
+    "# OpenBSD restriction: when the system has both IPv4 and IPv6\n"
+    "# addresses configured, \"\" listens on all IPv4 addresses, and \"::\"\n"
+    "# on all IPv6 addresses.  There is no way to listen both on all IPv4\n"
+    "# and on all IPv6 interfaces.")
 EMPCFBOTH("port", loginport, char *, NSC_STRING, KM_INTERNAL,
     "TCP port the server will bind")
 EMPCFBOTH("keep_journal", keep_journal, int, NSC_INT, KM_INTERNAL,

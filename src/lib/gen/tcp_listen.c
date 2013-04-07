@@ -66,6 +66,8 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
      */
     int err;
     struct addrinfo hints, *first_ai, *ai;
+    /* Crap necessary for OpenBSD, see below */
+    int try_v6only_off = 1, v6only_stuck = 0;
 
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_flags = AI_PASSIVE | AI_ADDRCONFIG;
@@ -76,17 +78,31 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
 	cant_listen(host, serv, gai_strerror(err));
     assert(first_ai);
 
+again:
     for (ai = first_ai; ai; ai = ai->ai_next) {
 	fd = socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
 	if (fd < 0)
 	    continue;		/* error, try next one */
 
 #ifdef IPV6_V6ONLY
-	if (ai->ai_family == AF_INET6) {
+	if (ai->ai_family == AF_INET6 && try_v6only_off) {
 	    int off = 0;
 
-	    setsockopt(fd, IPPROTO_IPV6, IPV6_V6ONLY, &off, sizeof(off));
+	    if (setsockopt(fd, IPPROTO_IPV6, IPV6_V6ONLY,
+			   &off, sizeof(off)) < 0) {
+		/*
+		 * IPV6_V6ONLY is stuck on, violating RFC 3493 (gee,
+		 * thanks, OpenBSD!).  Address is good only for IPv6,
+		 * not for IPv4.  Means we can't have both on this
+		 * system.  Continue looking for one that's good for
+		 * IPv4.
+		 */
+		v6only_stuck = 1;
+		continue;
+	    }
 	}
+#else
+	(void)try_v6only_off;
 #endif
 
 	setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
@@ -94,6 +110,17 @@ tcp_listen(char *host, char *serv, size_t *addrlenp)
 	    break;		/* success */
 
 	close(fd);		/* error, close and try next one */
+    }
+
+    /* More crap for OpenBSD */
+    if (ai == NULL && v6only_stuck) {
+	/*
+	 * No go.  But we skipped IPv6 addresses that don't work for
+	 * IPv4, but could for IPv6.  Try again without skipping
+	 * these.
+	 */
+	try_v6only_off = 0;
+	goto again;
     }
 
     if (ai == NULL)	     /* errno from final socket() or bind() */
