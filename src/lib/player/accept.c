@@ -55,6 +55,8 @@ static struct emp_qelem Players;
 static int player_socket;
 static size_t player_addrlen;
 
+static const char *sockaddr_ntop(struct sockaddr *, char *, size_t);
+
 void
 player_init(void)
 {
@@ -167,7 +169,6 @@ player_accept(void *unused)
 {
     static int conn_cnt;
     struct sockaddr *sap;
-    void *inaddr;
     int s = player_socket;
     struct player *np;
     socklen_t len;
@@ -199,21 +200,11 @@ player_accept(void *unused)
 	    close(ns);
 	    continue;
 	}
-#ifdef HAVE_GETADDRINFO
-	inaddr = sap->sa_family == AF_INET
-	    ? (void *)&((struct sockaddr_in *)sap)->sin_addr
-	    : (void *)&((struct sockaddr_in6 *)sap)->sin6_addr;
-	/* Assumes that if you got getaddrinfo(), you got inet_ntop() too */
-	if (!inet_ntop(sap->sa_family, inaddr,
-		       np->hostaddr, sizeof(np->hostaddr))) {
-	    logerror("inet_ntop() failed: %s", strerror(errno));
+	if (!sockaddr_ntop(sap, np->hostaddr, sizeof(np->hostaddr))) {
+	    CANT_REACH();
 	    player_delete(np);
 	    continue;
 	}
-#else
-	inaddr = &((struct sockaddr_in *)sap)->sin_addr;
-	strcpy(np->hostaddr, inet_ntoa(*(struct in_addr *)inaddr));
-#endif
 #ifdef RESOLVE_IPADDRESS
 	hostp = gethostbyaddr(inaddr, player_addrlen, sap->sa_family);
 	if (NULL != hostp)
@@ -226,4 +217,27 @@ player_accept(void *unused)
 	sprintf(buf, "Conn%d", conn_cnt++);
 	empth_create(player_login, stacksize, 0, buf, np);
     }
+}
+
+static const char *
+sockaddr_ntop(struct sockaddr *sap, char *buf, size_t bufsz)
+{
+#ifdef HAVE_GETADDRINFO
+    /* Assumes that if you got getaddrinfo(), you got inet_ntop() too */
+    void *inaddr;
+
+    inaddr = sap->sa_family == AF_INET
+	? (void *)&((struct sockaddr_in *)sap)->sin_addr
+	: (void *)&((struct sockaddr_in6 *)sap)->sin6_addr;
+    return inet_ntop(sap->sa_family, inaddr, buf, bufsz);
+#else
+    const char *p;
+
+    p = inet_ntoa(((struct sockaddr_in *)sap)->sin_addr);
+    if (strlen(p) >= bufsz) {
+	errno = ENOSPC;
+	return NULL;
+    }
+    return strcpy(buf, p);
+#endif
 }
