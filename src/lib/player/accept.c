@@ -234,12 +234,21 @@ sockaddr_ntop(struct sockaddr *sap, char *buf, size_t bufsz)
 {
 #ifdef HAVE_GETADDRINFO
     /* Assumes that if you got getaddrinfo(), you got inet_ntop() too */
-    void *inaddr;
+    sa_family_t af = sap->sa_family;
+    void *addr;
+    struct sockaddr_in6 *sap6;
 
-    inaddr = sap->sa_family == AF_INET
-	? (void *)&((struct sockaddr_in *)sap)->sin_addr
-	: (void *)&((struct sockaddr_in6 *)sap)->sin6_addr;
-    return inet_ntop(sap->sa_family, inaddr, buf, bufsz);
+    if (af == AF_INET)
+	addr = &((struct sockaddr_in *)sap)->sin_addr;
+    else {
+	sap6 = (struct sockaddr_in6 *)sap;
+	addr = &sap6->sin6_addr;
+	if (IN6_IS_ADDR_V4MAPPED(&sap6->sin6_addr)) {
+	    af = AF_INET;
+	    addr = sap6->sin6_addr.s6_addr + 12;
+	}
+    }
+    return inet_ntop(af, addr, buf, bufsz);
 #else
     const char *p;
 

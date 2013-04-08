@@ -36,6 +36,7 @@
 #include <winsock2.h>
 #undef NS_ALL
 
+typedef unsigned short sa_family_t;
 typedef int socklen_t;
 
 #define accept(fd, addr, addrlen) \
