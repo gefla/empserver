@@ -45,9 +45,10 @@
  * breaks if the system's declaration is included later.  Include them
  * here.  Major name space pollution, can't be helped.
  */
+#include <direct.h>
 #include <getopt.h>
 #include <io.h>
-#include <direct.h>
+#include <process.h>
 #include <sys/stat.h>
 #include "w32types.h"
 
