@@ -52,6 +52,7 @@
 #include "sys/socket.h"
 #include <sys/stat.h>
 #include <ws2tcpip.h>
+#include "arpa/inet.h"
 #include "unistd.h"
 
 #define W32_FD_TO_SOCKET(fd) ((SOCKET)_get_osfhandle((fd)))
