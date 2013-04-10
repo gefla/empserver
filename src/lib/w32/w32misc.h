@@ -50,7 +50,9 @@
 #endif /* _MSC_VER */
 
 /* errno.h */
+#ifndef EWOULDBLOCK
 #define EWOULDBLOCK EAGAIN
+#endif
 
 /* fcntl.h */
 #ifdef _MSC_VER
