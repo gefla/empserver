@@ -136,4 +136,3 @@ For the above, use this table:
 and a flakscale of 1.75
 .fi
 .SA "bomb, fly, recon, paradrop, nation, Planes, Interception, Combat"
-

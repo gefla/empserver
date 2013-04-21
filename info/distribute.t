@@ -12,7 +12,7 @@ will replace the existing distribution sector.
 For example,
 .EX distribute 2,0 8,4
 .NF
-highway at 2,0 delivers to 8,4. 
+highway at 2,0 delivers to 8,4.
 Distribution sector? 7,-1
 highway 2,0 new path distributes to 7,-1 (cost 0.200)
         Current best path is 'gguh'

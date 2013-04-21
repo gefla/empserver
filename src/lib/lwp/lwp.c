@@ -428,4 +428,3 @@ lwpSetName(struct lwpProc *proc, char *name)
 
     proc->name = strdup(name);
 }
-

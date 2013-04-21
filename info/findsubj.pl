@@ -26,7 +26,7 @@
 #   ---
 #
 #   findsubj.pl: Find info subjects, update subjects.mk
-#  
+#
 #   Known contributors to this file:
 #      Ken Stevens (when it was still info.pl)
 #      Markus Armbruster, 2006-2008
@@ -140,7 +140,7 @@ sub parse_file {
 
     open(F, "<$filename")
 	or die "Can't open $filename: $!";
-  
+
     $_ = <F>;
     if (/^\.TH (\S+) (\S.+\S)$/) {
 	$chapter{$topic} = $1;

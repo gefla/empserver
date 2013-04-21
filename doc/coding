@@ -622,5 +622,3 @@ These are all the things I fixed when changing the bad to the good:
 - There should always be a space on either side of a {
 - There should always be a new line after a ;
 - The closing function bracket should be on a line by itself
-
-

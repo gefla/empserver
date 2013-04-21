@@ -24,31 +24,31 @@ Which will print the news for the last two days.
 You can select whose news to see with the ?actor or ?victim selectors,
 and what news to see with the ?action selector.  Actions are:
 .nf
-     1)  Successful sector attack       
-     2)  Unsuccessful attack            
-     3)  Spy shot                       
-     4)  Telegram sent                  
-     5)  Treaty signing                 
-     6)  Loan made                      
-     7)  Loan repaid                    
-     8)  Goods sold                     
-     9)  Airspace violated              
-     10) Artillery fire on sectors      
-     11) Artillery fire on ships        
-     12) Attacking unowned land         
-     13) Ship torpedoed                 
-     14) Gunners firing in self-defense 
-     15) Breaking sanctuary             
-     16) Planes bombing sectors         
-     17) Planes bombing ships           
-     18) Successful boarding actions    
-     19) Unsuccessful boarding actions  
-     21) Collecting on loans            
-     22) Considering treaty violation   
-     23) Actual treaty violation        
-     25) Ships hitting mines            
-     26) Alliance declaration	          
-     28) War declarations               
+     1)  Successful sector attack
+     2)  Unsuccessful attack
+     3)  Spy shot
+     4)  Telegram sent
+     5)  Treaty signing
+     6)  Loan made
+     7)  Loan repaid
+     8)  Goods sold
+     9)  Airspace violated
+     10) Artillery fire on sectors
+     11) Artillery fire on ships
+     12) Attacking unowned land
+     13) Ship torpedoed
+     14) Gunners firing in self-defense
+     15) Breaking sanctuary
+     16) Planes bombing sectors
+     17) Planes bombing ships
+     18) Successful boarding actions
+     19) Unsuccessful boarding actions
+     21) Collecting on loans
+     22) Considering treaty violation
+     23) Actual treaty violation
+     25) Ships hitting mines
+     26) Alliance declaration
+     28) War declarations
      29) Alliance dissolving
      30) War ending
      31) Plague outbreaks

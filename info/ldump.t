@@ -45,7 +45,7 @@ shown here (no partial pattern matching is done.)
    fuel    obsolete, retained for backwards compatibility, always zero
    tech    technology of unit
    retr    retreat %age of unit
-   react   current reaction radius 
+   react   current reaction radius
    xl      # of x-light planes loaded onto unit
    nland   # of land units loaded onto unit
    land    land unit # this unit is loaded on

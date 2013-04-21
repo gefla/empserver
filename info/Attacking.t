@@ -63,7 +63,7 @@ Attack:  You are limited by the mobility of the attacking sector
          according to the mob-cost to move the mil into the target sector.
 Assault: If the target sector contains mil, then you may only attack with
          1/10th of your mil on board, unless your ship has "semi-land"
-         capability in which case it is 1/4th, -or- if your ship has 
+         capability in which case it is 1/4th, -or- if your ship has
          "land" capability in which case there is no limitation.
 Board:   When boarding from a sector, the sector must have mob.  When
          boarding from either a ship or a sector, the number of mil

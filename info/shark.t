@@ -12,4 +12,3 @@ of the switch.  After the loan is transfered you may collect on it as
 normal.
 .sp
 .SA "offer, consider, collect, financial, Loans"
-

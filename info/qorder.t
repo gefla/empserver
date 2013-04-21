@@ -15,7 +15,7 @@ The report indicates:
 shp#     ship type           [Starting]  ,  (Ending)
    6 cargo ship 1      [1-s:50 2-l:500]  ,  ( 1-g:50 )
   54 cargo ship 1                   [ ]  ,  (1-h:1000)
-1003 destroyer 2               [1-s:40]  ,  ( ) 
+1003 destroyer 2               [1-s:40]  ,  ( )
 .FI
 This report reads.
 Cargo Ship #6 will sail to its starting sector, displayed

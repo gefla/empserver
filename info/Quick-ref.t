@@ -11,7 +11,7 @@ Sector-types:
     -  wilderness            h  harbor                 l  library/school
     c  capital/city          w  warehouse              e  enlistment center
     p  park                  u  uranium mine           !  headquarters
-    COMMUNICATIONS           *  airfield               
+    COMMUNICATIONS           *  airfield
     +  highway               a  agribusiness           FINANCIAL
     )  radar installation    o  oil field              b  bank
                              j  light manufacturing

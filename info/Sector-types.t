@@ -10,13 +10,13 @@
  -  wilderness            h  harbor                 l  library/school
  ~  plains                w  warehouse              e  enlistment center
  c  capital/city          u  uranium mine           !  headquarters
- p  park                  *  airfield                        
+ p  park                  *  airfield
                           a  agribusiness           FINANCIAL
  COMMUNICATIONS           o  oil field              b  bank
- +  highway               j  light manufacturing    
+ +  highway               j  light manufacturing
  )  radar installation    k  heavy manufacturing
- #  bridge head           %  refinery            
- =  bridge span         
+ #  bridge head           %  refinery
+ =  bridge span
  @  bridge tower
 .FI
 .s1

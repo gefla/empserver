@@ -33,4 +33,3 @@ the unit or plane id.  So for example, to load ship #1 with land unit
 .EX "load land 1 2"
 .s1
 .SA "Mobility, Transportation"
-

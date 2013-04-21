@@ -15,7 +15,7 @@ report.
 
 	0) POGO                  Allied    Allied
 	1) 1                     Neutral   Neutral
-	2) Groonland		 At War    Hostile   
+	2) Groonland		 At War    Hostile
 
 .FI
 .EX relations 2
@@ -25,7 +25,7 @@ report.
 
 	0) POGO                  Neutral   Neutral
 	1) 1                     Allied    Neutral
-	3) MGM			 Hostile   At War   
+	3) MGM			 Hostile   At War
 
 .FI
 .s1

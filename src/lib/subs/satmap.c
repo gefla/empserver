@@ -99,7 +99,6 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	snxtsct_dist(&ns, x, y, range);
 	if (type == EF_SECTOR && !snxtsct_use_condarg(&ns))
 	    return RET_SYN;
-	    
 
 	blankfill(radbuf, &ns.range, 1);
 	if (flags & P_S) {

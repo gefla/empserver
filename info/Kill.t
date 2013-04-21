@@ -10,11 +10,11 @@ if you type in the following.
 .s1
 .nf
 .in +1i
-telnet your.local.empire.machine 6666 
-coun <NAME>  
-pass <PASSWORD> 
+telnet your.local.empire.machine 6666
+coun <NAME>
+pass <PASSWORD>
 kill
-quit  
+quit
 .in -1i
 .fi
 .s1

@@ -20,7 +20,7 @@ Capital is 100% efficient and has 87 civilians and 80 military
 Education..........  9.20       Happiness.......  2.01
 Technology......... 16.81       Research........  19.82
 Technology factor : 30.81%      Max population : 556
- 
+
 Plague factor :   1.05%
 Max safe population for civs/uws: 427/483
 Happiness needed is 4.385283

@@ -153,7 +153,7 @@ improvements to many commands, rewrote missile, navigation, and march
 code.  Consolidated launch/bomb and missile/plane interdiction so that
 hit chance and damage is the same whether it's a mission or done "by
 hand".  Added collateral damage, interdiction nuke detonation,
-"friendly" trade relations, BIG_CITY, ATT_INTERDICT, 
+"friendly" trade relations, BIG_CITY, ATT_INTERDICT,
 Consolidated sail, navi, and order.  Added toggle, flash, wall,
 shutdown, strength.  Other contributers:
 			Chad Zabel (ship anti-missile defense)
@@ -219,7 +219,7 @@ place to keep the server source free forever.  Yee-haw!
 
 In addition, the server was made run-time configurable (yes, including
 WORLD_X and WORLD_Y) so that you didn't have to re-build an entire server
-each time you changed an option (you just have to rebuild the world 
+each time you changed an option (you just have to rebuild the world
 sometimes. ;-) )
 
 2006 Empire 4.3, Wolfpack

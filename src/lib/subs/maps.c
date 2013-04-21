@@ -90,7 +90,7 @@ do_map(int bmap, int unit_type, char *arg1, char *arg2)
 	return res;
 
     map_flags = parse_map_flags(bmap, arg2);
-    if (map_flags < 0) 
+    if (map_flags < 0)
 	return RET_SYN;
 
     if (map_flags & MAP_BMAP_REVERT)
@@ -451,7 +451,7 @@ display_region_map(int bmap, int unit_type, coord curx, coord cury,
 	    return res;
 
 	map_flags = parse_map_flags(bmap, arg2);
-	if (map_flags < 0) 
+	if (map_flags < 0)
 	    return RET_SYN;
     } else {
 	snxtsct_around(&ns, curx, cury);

@@ -37,7 +37,7 @@ tip the balance in favour of the attacker.
 
 		6) Is it important?
 
-	If the change involves adding detail to the game, is the detail 
+	If the change involves adding detail to the game, is the detail
 important enough? Does the change go beyond the general level of Empire
 abstraction? For example, a change to allow you to name each of your mil
 would obviously be beyond Empire's general detail level. A command to name

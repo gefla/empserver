@@ -21,4 +21,3 @@ Note that ships are not \*Qdelivered\*U to the purchaser,
 but planes, land units and nukes are.
 .sp
 .SA "trade, Commerce"
-

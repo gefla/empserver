@@ -20,7 +20,7 @@
 .\"
 .\" pop off the enviornment
 .\"
-.de TH		
+.de TH
 .ds Ts \\$1\\\\0:\\\\0\\$2
 .ev 1
 .cs \\*N
@@ -39,7 +39,7 @@
 .de EX          \" Start of macro EX
 .nf
 .ti +0.3i       \" Temporary indent of 3/10 inch
-.\" Constant spacing for EF font = 26/36 ems 
+.\" Constant spacing for EF font = 26/36 ems
 .cs \*(EF 26
 .nr CS 1        \" Indicate constant spacing on
 .lg 0           \" Turn off ligature mode

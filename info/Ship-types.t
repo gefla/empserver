@@ -54,7 +54,7 @@ battleship	While the names change, the purpose remained the same: a ship
 		fighting men at any desired point. Small squadrons of these
 		ships could (and did) take over towns, attack fortresses by
 		surprise, and generally make life miserable for the defense).
-		
+
 		The pre-dreadnought was a battleship with a limited number
 		(usually 4) of heavy guns, numerous lighter guns ('secondary'
 		and 'tertiary' armament), and heavy armor on vital portions
@@ -77,7 +77,7 @@ battleship	While the names change, the purpose remained the same: a ship
 
 		The battleship of the 1918-1945 period was faster, and carried
 		a new AA capacity, especially in the latter years of the period.
-		
+
 		After 1945, the class died out (except for 4 ships)
 
 		For our purposes, a battleship 1 is a ship of the line, a
@@ -97,7 +97,7 @@ battlecruiser	These special ships existed in the 1905-1920 period, prior to
 		With this (and with the introduction of oil fuel, which made
 		battleships their equal in speed), they were phased out.
 
-ASW cruiser	These ships came into being in the 1965-present period in 
+ASW cruiser	These ships came into being in the 1965-present period in
 		response to a need for a large ASW ship to carry ASW helicopters
 		and command equipment. It typically carries full ASW armament,
 		as well as a minor ASuW capability.
@@ -113,7 +113,7 @@ missile cruiser	These ships range in size from 100t missile boats (the modern
 		The missile frigate and cruiser also serve as SAM ships.
 
 landing craft	These ships are relatively unique, being used mainly in the
-		1942-1950 period. Before that, landings were carried out by 
+		1942-1950 period. Before that, landings were carried out by
 		frigates, ships-of-the-line, light & heavy cruisers, &
 		pre-dreadnoughts, all of which could land a large number of
 		men. With the introduction of the concept of beach-defense by
@@ -144,7 +144,7 @@ escort carrier	These ships are designed for various purposes. At first,
 submarine	The submarine was originally intended, in the 1900-1910 period,
 		to fill the same role as the torpedo boat, using stealth to
 		get to the battleships instead of speed. It was a strictly
-		defensive weapon, without much speed or endurance. 
+		defensive weapon, without much speed or endurance.
 
 		In the 1910-1925 period, the sub was much enlarged, and use in
 		a combination anti-battleship (sank at least 20)/anti-commerce

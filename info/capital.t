@@ -38,7 +38,7 @@ Some effects happen right away, and last until you use
 the \*Qcapital\*U command to create a new capital. The effects are:
 
 .NF
-3) You will not be able to use many commands (use the 
+3) You will not be able to use many commands (use the
    'list of commands' command to see the pitiful few you may still use)
 
 4) The rate at which you gain BTUs will dramatically decrease (see

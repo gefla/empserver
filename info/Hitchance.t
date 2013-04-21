@@ -105,7 +105,7 @@ where
   mintech = min tech level required to build plane
 and
   placc = plane accuracy
-and if the target is a ship and the plane is an ASW plane, then 
+and if the target is a ship and the plane is an ASW plane, then
   placc = placc - 20
 and if the target is a ship and the plane does not have tactical capability
   placc = placc + 35

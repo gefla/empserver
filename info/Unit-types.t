@@ -60,7 +60,7 @@ mech artillery	but less damage. Hvy artillery has less mobility, but more
 		All artillery is bad at attacking, but can usually defend in
 		a not-horrible fashion. Artillery units are, however, pretty
 		vulnerable to shelling and bombing. (except for mech artillery)
-		
+
 engineers	Engineers are the most versatile unit. They can lay mines,
 mech engineers	clear mines, defend well, attack well, work on sectors, etc.
 		The drawbacks? Well, they're VERY expensive and not very

@@ -37,7 +37,7 @@ again.
 .s1
 To declare an order you have 3 options.
 .NF
-     1) Order a ship to any sector on the map.  
+     1) Order a ship to any sector on the map.
 	When it arrives it will clear its orders.
 
      2) Order a ship to any sector, load goods,
@@ -50,7 +50,7 @@ To declare an order you have 3 options.
 
 Example:  You have a cargo ship (#6) in your harbor at sector 6,0
 You want to move good between that harbor and another harbor at
-sector 14,0. 
+sector 14,0.
 
  order 6 d 6,0 14,0
 
@@ -80,7 +80,7 @@ scuttle themselves at sea.
 .EX order <SHIP/FLEET> l <hold> <start/end> <COMM> <amount>
 .s1
 Set cargo Levels.
-.NF 
+.NF
 Example: Cargo ship #109 is at your harbor in sector 10,0.
 You have agreed to trade 200 lcm and 100 hcm to your friend and
 he will give you 100 shells each update.  His harbor is at -10,2.
@@ -88,9 +88,9 @@ Using 'order declare' you set up your start point 10,0 and end point -10,2
 
 order 109 l 1 start lcm   200
 order 109 l 2 start hcm   100
-order 109 l 1 end   shell 100  
+order 109 l 1 end   shell 100
 
-When your finished the output would look like this. 
+When your finished the output would look like this.
 
 sorder 109
 shp #   type           x,y     start   end     len  eta
@@ -100,7 +100,7 @@ qorder 109
 shp #   type           [Starting]  (Ending)
   109   cargo ship 2   [1-l:200 2-h:100 ] , (1-s:100 )
 
-.FI 
+.FI
 .s1
 AutoNav Features.
 .s1

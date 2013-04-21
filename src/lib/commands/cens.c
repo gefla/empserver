@@ -131,4 +131,3 @@ cens_hdr(void)
 	pr("ter ");
     pr("fall coa\n");
 }
-

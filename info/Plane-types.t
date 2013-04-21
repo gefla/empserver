@@ -81,7 +81,7 @@ bombers  These were basically an intermediate stage between the light &
          These planes were essentially compromises, and were phased out
          as time went on. They could not bomb as precisely as a light
          bomber, nor as heavily as a heavy bomber.
-      
+
 transports
 
          Initially, these were basically similar to civilian airliners.

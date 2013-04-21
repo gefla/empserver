@@ -47,12 +47,12 @@ as your fishing grounds.
     You can also use a global '*' or a fleet letter here.
     "order * level 1 start food 30"
     "order * level 1 end   food 30"
-   
+
     "order F level 1 start food 30"
     "order F level 1 end   food 30"
 
     NOTE: You should set BOTH start and end fields to insure
-          autofish will work correctly and set them at the 
+          autofish will work correctly and set them at the
           same levels!
 
     NOTE: Fishing boats and oil derricks are a special case
@@ -75,7 +75,7 @@ For oil derricks, step 2b becomes:
 .nf
     "order 0 level 1 start food 30"
     "order 1 level 2 end   oil 1"
-    
+
     Note: If food is not required, food cargo levels can be zeroed.
 
     Note: In this configuration, the end oil level is not important
