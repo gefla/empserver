@@ -12,22 +12,18 @@ which generates a brief summary of each command.
 .NF
 		Current EMPIRE Command List
 		------- ------ ------- ----
-Initial number is cost in BTU's.
-The next 2 character (if present)
+Initial number is cost in B.T.U. units.
 Next 2 chars (if present) are:
-$ - must be non-broke c -- must have capital
-Text enclosed in {braces} is comment rather than part of the command.
-Args in [brackets] are optional, but can only appear on the command line.
-Args in <angle brackets> have the following meanings:
-  <CNUM/CNAME> :: a country number or name
-  <ITEM> :: commodity such as `ore', `guns', etc
-  <LOAN> :: loan number
-  <SECT> :: sector coordinates in the form:   x,y
-  <SECTS> :: sector(s) in the form:   lox:hix,loy:hiy/d ?cond&cond&...  
-  <SHIP> :: one ship number
-  <FLEET> :: fleet designation, or area
-2    announce                          2 arm <PLANE> <WARHEAD> <NUMBER>
-2 $c assault <SECT> {from ship}        2 attack <SECT> <move-in> {from sect}
+$ - must be non-broke	c -- must have capital
+Args in [brackets] are optional.
+All-caps args in <angle brackets> have the following meanings:
+  <NUM> :: a number in unspecified units
+  <COMM> :: a commodity such as `food', `guns', etc
+  <TYPE> :: an item type such as `ship', `plane', etc
+ 0    accept  [as-COUNTRY]
+ 0    add <NAT> <NAME> <REP> <STATUS>
+ 0    announce
+ 3 $c anti <SECTS>
      etc.
 .FI
 .SA "Syntax, Time, Bugs, Playing"
