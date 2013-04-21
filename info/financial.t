@@ -15,7 +15,7 @@ may be "sharked" up and collected upon.
 .s1
 .EX financial
 .NF
-             -= Empire Financial Status Report =- 
+             -= Empire Financial Status Report =-
                   Mon Oct  6 11:12:30 1986
 Loan      From            To      Rate   Dur    Paid    Total
  6   ( 2) Domino    ( 3) Oz         0%    10        0   5000

@@ -56,7 +56,7 @@ fina(void)
 	return RET_SYN;
     (void)time(&now);
     pr("\n");
-    pr("             -= Empire Financial Status Report =- \n");
+    pr("             -= Empire Financial Status Report =-\n");
     pr("                  ");
     prdate();
     pr("Loan       From            To        Rate   Dur     Paid      Total\n");
