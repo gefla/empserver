@@ -389,7 +389,7 @@ $(srcdir)/configure: configure.ac aclocal.m4
 	cd $(srcdir) && autoconf
 
 # autoheader might not change config.h.in, so touch a stamp file.
-$(srcdir)/config.h.in: stamp-h.in
+$(srcdir)/config.h.in: stamp-h.in ;
 $(srcdir)/stamp-h.in: configure.ac aclocal.m4
 	cd $(srcdir) && autoheader
 	touch $@
@@ -398,7 +398,7 @@ $(srcdir)/aclocal.m4: $(filter m4/%.m4, $(src))
 	cd $(srcdir) && aclocal -I m4
 
 # config.status might not change config.h; use the stamp file.
-config.h: stamp-h
+config.h: stamp-h ;
 stamp-h: config.h.in config.status
 	./config.status config.h stamp-h
 
