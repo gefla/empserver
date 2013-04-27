@@ -29,22 +29,13 @@
 #
 #   Known contributors to this file:
 #      Ken Stevens (when it was still info.pl)
-#      Markus Armbruster, 2006
+#      Markus Armbruster, 2006-2013
 #
 
-# Usage: mktop.pl OUTFILE SUBJECT-INDEX-FILE...
-# The SUBJECT-INDEX-FILE... contain all the subject indexes.  Derive
-# the subjects from the file names, write the index to OUTFILE.  Only
-# the file names are used, the files aren't accessed.
+# Usage: mktop.pl OUTFILE SUBJECT...
 
 my $out = shift @ARGV;
-my @subject = ();
-for (@ARGV) {
-    /([^\/]*)\.t$/
-	or die "Strange subject file name";
-    push @subject, $1;
-}
-@subject = sort @subject;
+my @subject = sort @ARGV;
 
 open(TOP, ">$out")
     or die "Can't open $out: $!";

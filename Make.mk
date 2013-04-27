@@ -331,8 +331,8 @@ subjects.mk: info/findsubj.pl $(tsrc)
 $(tsubj): info/mksubj.pl
 	perl $(srcdir)/info/mksubj.pl $@ $(filter %.t, $^)
 
-$(ttop): $(tsubj)
-	perl $(srcdir)/info/mktop.pl $@ $(filter %.t, $^)
+$(ttop): info/mktop.pl
+	$(call quiet-command,perl $(srcdir)/info/mktop.pl $@ $(subjects),GEN $@)
 
 info.nr/all: $(filter-out info.nr/all, $(info.nr))
 	>$@
