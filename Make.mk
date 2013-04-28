@@ -130,7 +130,7 @@ ttop := info/TOP.t
 # Formatted info:
 info.nr := $(addprefix info.nr/, $(info))
 info.html := $(addprefix info.html/, $(addsuffix .html, $(info)))
-info.all := $(info.nr) $(info.html) info.ps
+info.all := $(info.nr) $(info.html) info.ps info/stamp-subj
 # Tests
 # sandbox
 
@@ -322,16 +322,19 @@ $(libs) $(empth_lib):
 
 # Info formatting
 
-# FIXME Remaking subjects doesn't work correctly when info sources get
-# removed or subjects get dropped.
+# mksubj.pl reads $(tsrc) and writes subjects.mk $(tsubj).  The naive
+# rule
+#     subjects.mk $(ttop) $(tsubj): $(tsrc)
+#           COMMAND
+# runs COMMAND once for each target.  That's because multiple targets
+# in an explicit rule is just a shorthand for one rule per target,
+# each with the same prerequisites and commands.  Use a stamp file.
+subjects.mk $(tsubj): info/stamp-subj ;
+info/stamp-subj: info/mksubj.pl $(tsrc)
+	$(call quiet-command,perl $(srcdir)/info/mksubj.pl $(filter %.t, $^),GEN '$$(subjects)')
+	>$@
 
-subjects.mk: info/findsubj.pl $(tsrc)
-	perl $(srcdir)/info/findsubj.pl $(filter %.t, $^)
-
-$(tsubj): info/mksubj.pl
-	perl $(srcdir)/info/mksubj.pl $@ $(filter %.t, $^)
-
-$(ttop): info/mktop.pl
+$(ttop): info/mktop.pl $(tsrc)
 	$(call quiet-command,perl $(srcdir)/info/mktop.pl $@ $(subjects),GEN $@)
 
 info.nr/all: $(filter-out info.nr/all, $(info.nr))

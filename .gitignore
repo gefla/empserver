@@ -33,6 +33,7 @@
 /info/Transportation.t
 /info/Updates.t
 /info/TOP.t
+/info/stamp-subj
 # $(distclean)
 /config.h
 /config.log
