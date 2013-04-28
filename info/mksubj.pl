@@ -135,7 +135,7 @@ sub parse_file {
 	if (/^\.SA "([^\"]*)"/) {
 	    parse_see_also($topic, $1);
 	} else {
-	    error("Incorrect .SA Syntax.  Syntax should be '.SA \"item1, item2\"'");
+	    error("Incorrect .SA argument, expecting '.SA \"item1, item2\"'");
 	}
     } else {
 	error(".SA request is missing");
