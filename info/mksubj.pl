@@ -55,10 +55,6 @@ my %chapter;
 my %desc;
 # $level{TOPIC} is TOPIC's difficulty level (arg to .LV)
 my %level;
-# $see_also{TOPIC} is TOPIC's list of SEE ALSO items (.SA argument)
-my %see_also;
-# $sanr{TOPIC} is the line number of TOPIC's .SA request
-my %sanr;
 
 # current info file
 my $filename;
@@ -75,27 +71,31 @@ while ($#ARGV >= 0 && $ARGV[0] !~ /\.t$/) {
 }
 
 for (@ARGV) {
-    parse_file($_);
+    $filename{fn2topic($_)} = $_;
 }
 
-for my $t (sort keys %desc) {
-    parse_see_also($t);
+for (@ARGV) {
+    parse_file($_);
 }
 
 for (keys %Subjects) {
     update_subj($_);
 }
 
+sub fn2topic {
+    my ($fn) = @_;
+    $fn =~ s,.*/([^/]*)\.t$,$1,;
+    return $fn;
+}
+
 # Parse an info file
-# Set $filename, $filename{TOPIC}, $long{TOPIC}, $chapter{TOPIC},
-# $desc{TOPIC}, $level{TOPIC}, $see_also{TOPIC}, $sanr{TOPIC}
+# Set $filename, $long{TOPIC}, $chapter{TOPIC}, $desc{TOPIC},
+# $level{TOPIC}.
+# Update %subject, %largest.
 sub parse_file {
     ($filename) = @_;
-    my ($topic, $st);
-
-    $topic = $filename;
-    $topic =~ s,.*/([^/]*)\.t$,$1,;
-    $filename{$topic} = $filename;
+    my $topic = fn2topic($filename);
+    my $st;
 
     $st = stat $filename
 	or die "Can't stat $filename: $!";
@@ -143,8 +143,7 @@ sub parse_file {
 
     if ($_) {
 	if (/^\.SA "([^\"]*)"/) {
-	    $see_also{$topic} = $1;
-	    $sanr{$topic} = $.;
+	    parse_see_also($topic, $1);
 	} else {
 	    error("Incorrect .SA Syntax.  Syntax should be '.SA \"item1, item2\"'");
 	}
@@ -159,23 +158,18 @@ sub parse_file {
     close F;
 }
 
-# Create %subject and %largest from %see_also
 sub parse_see_also {
-    my ($topic) = @_;
-    my @see_also = split(/, /, $see_also{$topic});
+    my ($topic, $sa) = @_;
     my $wanted = $chapter{$topic};
     my $found;		       # found a subject?
 
     $wanted = undef if $wanted eq 'Concept' or $wanted eq 'Command';
-    $filename = $filename{$topic};
-    $. = $sanr{$topic};
 
-    for (@see_also) {
-	if (!exists $desc{$_}) { # is this entry a subject?
-	    error("Unknown topic $_ in .SA") unless exists $Subjects{$_};
-	    set_subject($_, $topic);
-	    $found = 1;
-	}
+    for (split(/, /, $sa)) {
+	next if exists $filename{$_};
+	error("Unknown topic $_ in .SA") unless exists $Subjects{$_};
+	set_subject($_, $topic);
+	$found = 1;
 	if ($wanted && $_ eq $wanted) {
 	    $wanted = undef;
 	}
