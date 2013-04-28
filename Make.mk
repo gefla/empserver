@@ -56,8 +56,8 @@ tsrc := $(filter %.t, $(src))
 man6 := $(filter man/%.6, $(src))
 builtins := $(filter src/lib/global/%.config, $(src))
 
-# Info subjects (automatically generated)
--include subjects.mk
+# Info subjects
+include $(srcdir)/info/subjects.mk
 
 # Abbreviations
 topics := $(patsubst %.t,%,$(notdir $(tsrc)))
@@ -102,7 +102,7 @@ subst.in = sed \
 
 # Generated files
 # See `Cleanliness' below
-mk := subjects.mk
+mk :=
 ifeq ($(revctrl),git)
 mk += $(srcdir)/sources.mk
 endif
@@ -322,19 +322,18 @@ $(libs) $(empth_lib):
 
 # Info formatting
 
-# mksubj.pl reads $(tsrc) and writes subjects.mk $(tsubj).  The naive
-# rule
-#     subjects.mk $(ttop) $(tsubj): $(tsrc)
+# mksubj.pl reads $(tsrc) and writes $(tsubj).  The naive rule
+#     $(ttop) $(tsubj): $(tsrc)
 #           COMMAND
 # runs COMMAND once for each target.  That's because multiple targets
 # in an explicit rule is just a shorthand for one rule per target,
 # each with the same prerequisites and commands.  Use a stamp file.
-subjects.mk $(tsubj): info/stamp-subj ;
+$(tsubj): info/stamp-subj ;
 info/stamp-subj: info/mksubj.pl $(tsrc)
-	$(call quiet-command,perl $(srcdir)/info/mksubj.pl $(filter %.t, $^),GEN '$$(subjects)')
+	$(call quiet-command,perl $(srcdir)/info/mksubj.pl $(subjects) $(filter %.t, $^),GEN '$$(subjects)')
 	>$@
 
-$(ttop): info/mktop.pl $(tsrc)
+$(ttop): info/mktop.pl info/subjects.mk
 	$(call quiet-command,perl $(srcdir)/info/mktop.pl $@ $(subjects),GEN $@)
 
 info.nr/all: $(filter-out info.nr/all, $(info.nr))

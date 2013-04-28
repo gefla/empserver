@@ -31,23 +31,21 @@
 #      Ken Stevens (when it was still info.pl)
 #      Markus Armbruster, 2006-2013
 #
-# Usage: mksubj.pl INFO-FILE...
+# Usage: mksubj.pl SUBJECT... INFO-FILE...
 #
-# Read the INFO-FILE..., read and update subjects.mk, create
-# info/SUBJECT.t for each SUBJECT.
+# Read the INFO-FILE..., create info/SUBJECT.t for each SUBJECT.
 
 use strict;
 use warnings;
 use File::stat;
 
-use Errno qw(ENOENT);
 use Fcntl qw(O_WRONLY O_EXCL O_CREAT);
 
 # The chapters, in order
 my @Chapters = qw/Introduction Concept Command Server/;
 
 my @Levels = qw/Basic Expert Obsolete/;
-my @Subjects;
+my %Subjects;
 
 # $filename{TOPIC} is TOPIC's file name
 my %filename;
@@ -74,7 +72,9 @@ my %subject;
 #                 column formatting)
 my %largest;
 
-@Subjects = split(' ', read_make_var("subjects", "subjects.mk", ""));
+while ($#ARGV >= 0 && $ARGV[0] !~ /\.t$/) {
+    $Subjects{shift @ARGV} = undef;
+}
 
 for (@ARGV) {
     parse_file($_);
@@ -84,34 +84,7 @@ for my $t (sort keys %desc) {
     parse_see_also($t);
 }
 
-@Subjects = create_subjects();
-
-open(F, ">subjects.mk")
-    or die "Can't open subjects.mk for writing: $!";
-print F "subjects := " . join(' ', @Subjects) . "\n";
-close(F);
-
-exit 0;
-
-# Read a variable value from a makefile
-sub read_make_var {
-    my ($var, $fname, $dflt) = @_;
-    my $val;
-
-    unless (open(F, "<$fname")) {
-	return $dflt if $! == ENOENT and defined $dflt;
-	die "Can't open $fname: $!";
-    }
-    while (<F>) {
-	if (/^[ \t]*\Q$var\E[ \t]*:?=[ \t]*(.*)/) {
-	    $val = $1;
-	    last;
-	}
-    }
-    close(F);
-    defined($val) or die "Can't find $var in $fname";
-    return $val;
-}
+create_subjects();
 
 # Parse an info file
 # Set $filename, $filename{TOPIC}, $long{TOPIC}, $chapter{TOPIC},
@@ -194,9 +167,12 @@ sub parse_see_also {
     my $found;		       # found a subject?
 
     $wanted = undef if $wanted eq 'Concept' or $wanted eq 'Command';
+    $filename = $filename{$topic};
+    $. = $sanr{$topic};
 
     for (@see_also) {
 	if (!exists $desc{$_}) { # is this entry a subject?
+	    error("Unknown topic $_ in .SA") unless exists $Subjects{$_};
 	    set_subject($_, $topic);
 	    $found = 1;
 	}
@@ -205,8 +181,6 @@ sub parse_see_also {
 	}
     }
 
-    $filename = $filename{$topic};
-    $. = $sanr{$topic};
     error("No subject listed in .SA") unless $found;
     error("Chapter $wanted not listed in .SA") if $wanted;
 }
@@ -224,10 +198,8 @@ sub set_subject {
 sub create_subj {
     my ($subj) = @_;
     my $fname = "info/$subj.t";
-    my ($any_basic, $any_obsolete, $any_long);
+    my ($any_topic, $any_basic, $any_obsolete, $any_long);
 
-    print "WARNING: $subj is a NEW subject\n"
-	unless grep(/^$subj$/, @Subjects);
     sysopen(SUBJ, $fname, O_WRONLY | O_EXCL | O_CREAT)
 	or die "Unable to create $fname: $!\n";
 
@@ -239,6 +211,7 @@ sub create_subj {
 	next unless exists $subject{$subj}{$chap};
 	print SUBJ ".s1\n";
 	for my $topic (split(/\n/, $subject{$subj}{$chap})) {
+	    $any_topic = 1;
 	    my $flags = "";
 	    if ($level{$topic} eq 'Basic') {
 		$flags .= "*";
@@ -257,6 +230,10 @@ sub create_subj {
 	    print SUBJ "$desc{$topic}\n";
 	}
     }
+    unless ($any_topic) {
+	print STDERR "$0: Subject $subj has no topics\n";
+	exit 1;
+    }
     print SUBJ ".s1\n"
 	. ".in 0\n"
 	. "For info on a particular subject, type \"info <subject>\" where <subject> is\n"
@@ -274,21 +251,15 @@ sub create_subj {
 sub create_subjects {
     my (@subj);
 
-    for (@Subjects) {
+    for (keys %Subjects) {
 	unlink "info/$_.t";
     }
 
     @subj = sort keys %subject;
 
-    for my $subj (@Subjects) {
-	print "WARNING: The subject $subj has been removed.\n"
-	    unless grep (/^$subj$/, @subj);
-    }
-
     for my $subj (@subj) {
 	create_subj($subj);
     }
-    return @subj;
 }
 
 # Print an integrity error message and exit with code 1

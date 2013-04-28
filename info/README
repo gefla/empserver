@@ -43,9 +43,9 @@ The first line must be a title header:
 The second line must be a name header:
 .NA arg1 arg2
   - arg1 must be the name
-  - arg2 is a one-line description of the info page which will be
-    put on the Subject page that your info page belongs to.  It should
-    be in double quotes
+  - arg2 is a one-line description of the info page which will be put
+    on the subject pages that your info page belongs to.  It should be
+    in double quotes
 
 The third line must be a level header:
 .LV arg
@@ -54,10 +54,11 @@ The third line must be a level header:
 The last line should be a see also:
 .SA "item1, item2, ..., subject1, subject2"
   - the stuff in quotes is a list of other info pages which are
-    related to this page and info Subjects to which this page belongs.
+    related to this page, and subjects to which this page belongs.
   - the stuff in quotes must all be on the same line
-  - You must include at least one subject (see the Subjects
-    subdirectory) in the list (at the end of the list by convention).
+  - You must include at least one subject in the list (at the end of
+    the list by convention).  Valid subjects are listed in
+    info/subjects.mk.
 
 The lines in between can contain troff requests.  The following
 additional requests are available:
@@ -92,17 +93,9 @@ Fancy troff magic is prone to break HTML output.
 The scripts read all of the info pages and create a two-level table of
 contents for them, organized by subject.  An info page belongs to a
 subject if that subject appears as an entry in the .SA ("SEE ALSO")
-field of the info page _and_ that entry is not the name of another
-info page.
+field of the info page.
 
-For example, the .SA field of headlines.t contains the entries
-"newspaper" and "Communication".  Since there's already an info page
-called "newspaper.t", but there is no "Communication" info page, then
-the headlines info page is considered to be a member of the
-Communication
-subject.
-
-The output of these script is a bunch of .t files.  The file TOP.t is
+The output of these scripts is a bunch of .t files.  The file TOP.t is
 the top-level table of contents and lists all of the subjects.  Then
 for each SUBJECT, a SUBJECT.t file is created, listing all of the info
 pages that belong to it.

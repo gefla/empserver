@@ -48,7 +48,6 @@
 /src/lib/global/path.c
 /autom4te.cache
 /src/client/autom4te.cache
-/subjects.mk
 # $(src_distgen)
 /aclocal.m4
 /config.h.in
