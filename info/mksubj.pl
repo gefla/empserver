@@ -220,13 +220,13 @@ sub update_subj {
     }
     $out .= ".s1\n"
 	. ".in 0\n"
-	. "For info on a particular subject, type \"info <subject>\" where <subject> is\n"
-	. "one of the subjects listed above.\n";
-    $out .= "Subjects marked by * are the most important and should be read by new players.\n"
+	. "For info on a particular topic, type \"info <topic>\" where <topic> is\n"
+	. "one of the topics listed above.\n";
+    $out .= "Topics marked by * are the most important and should be read by new players.\n"
 	if $any_basic;
-    $out .= "Subjects marked by + are obsolete.\n"
+    $out .= "Topics marked by + are obsolete.\n"
 	if $any_obsolete;
-    $out .= "Unusually long subjects are marked with a !.\n"
+    $out .= "Topics with unusually long info are marked with a !.\n"
 	if $any_long;
 
     return if (same_contents($fname, $out));
