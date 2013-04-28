@@ -137,12 +137,12 @@ sub parse_file {
 	} else {
 	    error("Incorrect .SA Syntax.  Syntax should be '.SA \"item1, item2\"'");
 	}
-
-	while (<F>) {
-	    error("Multiple .SA requests.  Each file may contain at most one.") if /^\.SA/;
-	}
     } else {
 	error(".SA request is missing");
+    }
+
+    if (<F>) {
+	error(".SA request must be the last line");
     }
 
     $lines{$topic} = $.;
