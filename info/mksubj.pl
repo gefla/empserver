@@ -37,7 +37,6 @@
 
 use strict;
 use warnings;
-use File::stat;
 
 # The chapters, in order
 my @Chapters = qw/Introduction Concept Command Server/;
@@ -50,8 +49,8 @@ my %Subjects;
 
 # $filename{TOPIC} is TOPIC's file name
 my %filename;
-# $long{TOPIC} is true when TOPIC's page is "long"
-my %long;
+# $lines{TOPIC} is the number of lines in $filename{TOPIC}
+my %lines;
 # $chapter{TOPIC} is TOPIC's chapter (first arg to .TH)
 my %chapter;
 # $desc{TOPIC} is a one line description of TOPIC (second arg to .NA)
@@ -85,17 +84,12 @@ sub fn2topic {
 }
 
 # Parse an info file
-# Set $filename, $long{TOPIC}, $chapter{TOPIC}, $desc{TOPIC},
+# Set $filename, $lines{TOPIC}, $chapter{TOPIC}, $desc{TOPIC},
 # $level{TOPIC}.
 # Update %Subjects.
 sub parse_file {
     ($filename) = @_;
     my $topic = fn2topic($filename);
-    my $st;
-
-    $st = stat $filename
-	or die "Can't stat $filename: $!";
-    $long{$topic} = $st->size > 9999;
 
     open(F, "<$filename")
 	or die "Can't open $filename: $!";
@@ -151,6 +145,7 @@ sub parse_file {
 	error(".SA request is missing");
     }
 
+    $lines{$topic} = $.;
     close F;
 }
 
@@ -209,7 +204,8 @@ sub update_subj {
 		$flags .= "+";
 		$any_obsolete = 1;
 	    }
-	    if ($long{$topic}) {
+	    if ($lines{$topic} > 300) {
+		# TODO use formatted line count
 		$flags .= "!";
 		$any_long = 1;
 	    }
