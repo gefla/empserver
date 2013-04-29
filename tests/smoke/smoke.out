@@ -240,7 +240,7 @@ Player 00 Turn 00 starting
 [0:640] Command : XDUMP meta trade 0
 "uid" 8 0 0 7
 "owner" 5 0 0 9
-"type" 4 0 0 27
+"type" 6 0 0 27
 "unitid" 8 0 0 -1
 "price" 8 0 0 -1
 "maxbidder" 8 0 0 9
@@ -1161,7 +1161,7 @@ CENSUS                   del dst
 [0:636] Command : XDUMP meta trade 0
 "uid" 8 0 0 7
 "owner" 5 0 0 9
-"type" 4 0 0 27
+"type" 6 0 0 27
 "unitid" 8 0 0 -1
 "price" 8 0 0 -1
 "maxbidder" 8 0 0 9

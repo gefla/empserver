@@ -523,7 +523,7 @@ struct castr trade_ca[] = {
     {"timestamp", fldoff(trd_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, NSC_EXTRA},
     {"owner", fldoff(trd_owner), NSC_NATID, 0, NULL, EF_NATION, 0},
-    {"type", fldoff(trd_type), NSC_CHAR, 0, NULL, EF_TABLE, 0},
+    {"type", fldoff(trd_type), NSC_SHORT, 0, NULL, EF_TABLE, 0},
     /* unitid's ca_table given by type, but can't express that: */
     {"unitid", fldoff(trd_unitid), NSC_INT, 0, NULL, EF_BAD, 0},
     {"price", fldoff(trd_price), NSC_INT, 0, NULL, EF_BAD, 0},
