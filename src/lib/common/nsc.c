@@ -686,8 +686,9 @@ struct castr mdchr_ca[] = {
     /* no need for uid */
     /* name must come first, clients may rely on it */
     {"name", fldoff(ca_name), NSC_STRING, 0, NULL, EF_BAD, NSC_CONST},
-    {"type", fldoff(ca_type), NSC_CHAR, 0, NULL, EF_META_TYPE, NSC_CONST},
-    {"flags", fldoff(ca_flags), NSC_UCHAR, 0, NULL,
+    {"type", fldoff(ca_type), NSC_SITYPE(enum nsc_type), 0, NULL,
+     EF_META_TYPE, NSC_CONST},
+    {"flags", fldoff(ca_flags), NSC_INT, 0, NULL,
      EF_META_FLAGS, NSC_CONST | NSC_BITS},
     {"len", fldoff(ca_len), NSC_USHORT, 0, NULL, EF_BAD, NSC_CONST},
     {"table", fldoff(ca_table), NSC_INT, 0, NULL, EF_TABLE, NSC_CONST},

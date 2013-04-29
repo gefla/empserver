@@ -632,8 +632,8 @@ Player 00 Turn 00 starting
 
 [0:640] Command : XDUMP meta meta 0
 "name" 3 4 0 -1
-"type" 4 4 0 34
-"flags" 5 12 0 33
+"type" 8 4 0 34
+"flags" 8 12 0 33
 "len" 7 4 0 -1
 "table" 8 4 0 27
 /5
@@ -1519,8 +1519,8 @@ CENSUS                   del dst
 
 [0:636] Command : XDUMP meta meta 0
 "name" 3 4 0 -1
-"type" 4 4 0 34
-"flags" 5 12 0 33
+"type" 8 4 0 34
+"flags" 8 12 0 33
 "len" 7 4 0 -1
 "table" 8 4 0 27
 /5
