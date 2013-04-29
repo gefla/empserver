@@ -487,7 +487,7 @@ struct castr lost_ca[] = {
     {"timestamp", fldoff(lost_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, 0},
     {"owner", fldoff(lost_owner), NSC_NATID, 0, NULL, EF_NATION, 0},
-    {"type", fldoff(lost_type), NSC_CHAR, 0, NULL, EF_TABLE, 0},
+    {"type", fldoff(lost_type), NSC_SHORT, 0, NULL, EF_TABLE, 0},
     /* id's ca_table given by type, but can't express that: */
     {"id", fldoff(lost_id), NSC_INT, 0, NULL, EF_BAD, 0},
     {"x", fldoff(lost_x), NSC_XCOORD, 0, NULL, EF_BAD, 0},
