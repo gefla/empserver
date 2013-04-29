@@ -255,7 +255,7 @@ Player 00 Turn 00 starting
 "flags" 8 9 0 36
 "cname" 14 0 20 -1
 "passwd" 14 1 20 -1
-"ip" 14 1 32 -1
+"ip" 14 1 46 -1
 "hostname" 14 1 512 -1
 "userid" 14 1 32 -1
 "xcap" 9 1 0 -1
@@ -746,7 +746,7 @@ Player 00 Turn 00 starting
 [0:640] Command : XDUMP meta country 0
 "cnum" 5 0 0 9
 "flags" 8 8 0 36
-"ip" 14 0 32 -1
+"ip" 14 0 46 -1
 "hostname" 14 0 512 -1
 "userid" 14 0 32 -1
 "xcap" 9 0 0 -1
@@ -1633,7 +1633,7 @@ CENSUS                   del dst
 [0:636] Command : XDUMP meta country 0
 "cnum" 5 0 0 9
 "flags" 8 8 0 36
-"ip" 14 0 32 -1
+"ip" 14 0 46 -1
 "hostname" 14 0 512 -1
 "userid" 14 0 32 -1
 "xcap" 9 0 0 -1

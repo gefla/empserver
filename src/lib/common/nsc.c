@@ -559,7 +559,7 @@ struct castr cou_ca[] = {
     {"cname", fldoff(nat_cnam), NSC_STRINGY, 20, NULL, EF_BAD, NSC_EXTRA},
     {"passwd", fldoff(nat_pnam), NSC_STRINGY, 20, NULL,
      EF_BAD, NSC_DEITY | NSC_EXTRA},
-    {"ip", fldoff(nat_hostaddr), NSC_STRINGY, 32, NULL, EF_BAD, 0},
+    {"ip", fldoff(nat_hostaddr), NSC_STRINGY, 46, NULL, EF_BAD, 0},
     {"hostname", fldoff(nat_hostname), NSC_STRINGY, 512, NULL, EF_BAD, 0},
     {"userid", fldoff(nat_userid), NSC_STRINGY, 32, NULL, EF_BAD, 0},
     {"xcap", fldoff(nat_xcap), NSC_XCOORD, 0, NULL, EF_BAD, 0},
