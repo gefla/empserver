@@ -60,7 +60,7 @@ e.g., it takes 1 unit of work per unit of food produced.
 How many products each unit of production makes depends on the level
 production efficiency, which is the product's level p.e. (shown by
 "show product") times the sector type's p.e. (shown by "show sect
-stats").  Production requires a level p.e. above zero, obviously.
+capabilities").  Production requires a level p.e. above zero, obviously.
 .s1
 Say your country is at tech level 25.  Then your agribusinesses' level
 p.e. is (25+10)/(25+20) * 900% = 7, i.e. they'll make 7 food per unit
