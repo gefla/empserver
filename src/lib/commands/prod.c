@@ -135,7 +135,6 @@ prod(void)
 		eff = 0;
 	    }
 	    if (!eff && IS_BIG_CITY(otype) && !IS_BIG_CITY(type)) {
-		natp = getnatp(sect.sct_own);
 		maxpop = max_population(natp->nat_level[NAT_RLEV],
 					type, eff);
 		work = new_work(&sect,
@@ -184,12 +183,8 @@ prod(void)
 
 	    if (sect.sct_own != sect.sct_oldown)
 		continue;
-	    civs = (1.0 + obrate * etu_per_update) * sect.sct_item[I_CIVIL];
-	    natp = getnatp(sect.sct_own);
-	    maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
-	    civs = MIN(civs, maxpop);
 	    enlisted = 0;
-	    maxmil = (civs / 2) - sect.sct_item[I_MILIT];
+	    maxmil = MIN(civs, maxpop) / 2 - sect.sct_item[I_MILIT];
 	    if (maxmil > 0) {
 		enlisted = (etu_per_update
 			    * (10 + sect.sct_item[I_MILIT])
@@ -214,7 +209,6 @@ prod(void)
 	    resource = (unsigned char *)&sect + pp->p_nrndx;
 	else
 	    resource = NULL;
-	natp = getnatp(sect.sct_own);
 	/*
 	 * sect p_e  (inc improvements)
 	 */
