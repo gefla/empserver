@@ -8,7 +8,8 @@ They also can't be attacked.
 .s1
 Break removes the sanctuary protection from your country and forces
 your people to work for a living.
-Sanctuaries become capitals if they are 100% efficient, else highways.
+Sanctuaries become capitals, unless the deity set up a different new
+designation.
 You can't do any country development commands until you break out
 of sanctuary.
 .s1

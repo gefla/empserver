@@ -57,13 +57,9 @@ bsanct(void)
 	    continue;
 	pr("%s is no longer a sanctuary.\n",
 	   xyas(s.sct_x, s.sct_y, player->cnum));
-	if (s.sct_effic == 100) {
-	    s.sct_type = SCT_CAPIT;
+	if (s.sct_newtype == SCT_SANCT)
 	    s.sct_newtype = SCT_CAPIT;
-	} else {
-	    s.sct_type = SCT_HIWAY;
-	    s.sct_newtype = SCT_HIWAY;
-	}
+	s.sct_type = s.sct_newtype;
 	game_tick_to_now(&s.sct_access);
 	(void)putsect(&s);
 	count++;
