@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     David Muir Sharnoff, 1987
  *     Steve McClure, 1997-2000
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -202,13 +202,13 @@ prod(void)
 
 	if (dchr[type].d_prd < 0)
 	    continue;
-	unit_work = 0;
 	pp = &pchr[dchr[type].d_prd];
 	vtype = pp->p_type;
 	if (pp->p_nrndx)
 	    resource = (unsigned char *)&sect + pp->p_nrndx;
 	else
 	    resource = NULL;
+	used = prod_materials_cost(pp, sect.sct_item, &unit_work);
 	/*
 	 * sect p_e  (inc improvements)
 	 */
@@ -216,25 +216,12 @@ prod(void)
 	    unit_work++;
 	    p_e *= *resource / 100.0;
 	}
+	if (unit_work == 0)
+	    unit_work = 1;
 	/*
 	 * production effic.
 	 */
 	prodeff = prod_eff(type, natp->nat_level[pp->p_nlndx]);
-	/*
-	 * raw material limit
-	 */
-	used = 9999;
-	for (i = 0; i < MAXPRCON; ++i) {
-	    it = pp->p_ctype[i];
-	    if (!pp->p_camt[i])
-		continue;
-	    if (CANT_HAPPEN(it <= I_NONE || I_MAX < it))
-		continue;
-	    used = MIN(used, sect.sct_item[it] / pp->p_camt[i]);
-	    unit_work += pp->p_camt[i];
-	}
-	if (unit_work == 0)
-	    unit_work = 1;
 	/*
 	 * is production limited by resources or
 	 * workforce?

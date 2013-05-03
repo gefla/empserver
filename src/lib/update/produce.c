@@ -27,7 +27,7 @@
  *  produce.c: Produce goodies
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -39,7 +39,6 @@
 #include "update.h"
 
 static void materials_charge(struct pchrstr *, short *, int);
-static int materials_cost(struct pchrstr *, short *, int *);
 
 static char *levelnames[] = {
     "Technology", "Research", "Education", "Happiness"
@@ -73,7 +72,8 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     *amount = 0;
     *cost = 0;
 
-    if ((material_limit = materials_cost(product, vec, &unit_work)) <= 0)
+    material_limit = prod_materials_cost(product, vec, &unit_work);
+    if (material_limit <= 0)
 	return 0;
     /*
      * calculate production efficiency.
@@ -172,8 +172,12 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     return 0;
 }
 
-static int
-materials_cost(struct pchrstr *pp, short *vec, int *costp)
+/*
+ * Return how much of product PP can be made from materials VEC[].
+ * Store amount of work per unit in *COSTP.
+ */
+int
+prod_materials_cost(struct pchrstr *pp, short vec[], int *costp)
 {
     int count;
     int cost;

@@ -48,6 +48,7 @@ struct nchrstr;
 struct nstr_item;
 struct nstr_sect;
 struct nukstr;
+struct pchrstr;
 struct player;
 struct plist;
 struct plnstr;
