@@ -122,15 +122,14 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	if (actual <= 0)
 	    return 0;
 	if (actual > 999) {
-	    material_consume = roundavg(999.0 * material_consume / actual);
 	    actual = 999;
+	    material_consume = roundavg(actual / prodeff);
 	}
 	if (vec[item] + actual > ITEM_MAX) {
-	    material_consume = roundavg((double)(ITEM_MAX - vec[item])
-					* material_consume / actual);
+	    actual = ITEM_MAX - vec[item];
+	    material_consume = roundavg(actual / prodeff);
 	    if (material_consume < 0)
 		material_consume = 0;
-	    actual = ITEM_MAX - vec[item];
 	    if (sp->sct_own && !player->simulation)
 		wu(0, sp->sct_own,
 		   "%s production backlog in %s\n",
