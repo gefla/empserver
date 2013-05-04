@@ -183,7 +183,7 @@ prod_materials_cost(struct pchrstr *pp, short vec[], int *costp)
     int cost;
     int i, n;
 
-    count = 9999;
+    count = ITEM_MAX;
     cost = 0;
     for (i = 0; i < MAXPRCON; ++i) {
 	if (!pp->p_camt[i])
