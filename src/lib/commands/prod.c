@@ -82,6 +82,7 @@ prod(void)
     int there;
     int unit_work;		/* sum of component amounts */
     int used;			/* production w/infinite workforce */
+    int res_limit;
     i_type it;
     i_type vtype;
     unsigned char *resource;
@@ -227,10 +228,9 @@ prod(void)
 	 * workforce?
 	 */
 	max = (int)(work * p_e / (double)unit_work + 0.5);
-	if (resource && pp->p_nrdep != 0) {
-	    if (*resource * 100 < pp->p_nrdep * max)
-		max = *resource * 100 / pp->p_nrdep;
-	}
+	res_limit = prod_resource_limit(pp, resource);
+	if (max > res_limit)
+	    max = res_limit;
 	act = MIN(used, max);
 
 	real = (double)act * prodeff;

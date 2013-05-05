@@ -57,7 +57,7 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     int unit_work;
     i_type item;
     int worker_limit;
-    int material_limit;
+    int material_limit, res_limit;
     int material_consume;
     int val;
 
@@ -93,10 +93,9 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     worker_limit = roundavg(work * p_e / unit_work);
     if (material_consume > worker_limit)
 	material_consume = worker_limit;
-    if (resource && product->p_nrdep != 0) {
-	if (*resource * 100 < product->p_nrdep * material_consume)
-	    material_consume = *resource * 100 / product->p_nrdep;
-    }
+    res_limit = prod_resource_limit(product, resource);
+    if (material_consume > res_limit)
+	material_consume = res_limit;
     if (material_consume == 0)
 	return 0;
     prodeff = prod_eff(desig, np->nat_level[product->p_nlndx]);
@@ -215,6 +214,20 @@ materials_charge(struct pchrstr *pp, short *vec, int count)
 	    n = 0;
 	vec[item] = n;
     }
+}
+
+/*
+ * Return how much of product PP can be made from its resource.
+ * If PP depletes a resource, RESOURCE must point to its value.
+ */
+int
+prod_resource_limit(struct pchrstr *pp, unsigned char *resource)
+{
+    if (CANT_HAPPEN(pp->p_nrndx && !resource))
+	return 0;
+    if (resource && pp->p_nrdep != 0)
+	return *resource * 100 / pp->p_nrdep;
+    return ITEM_MAX;
 }
 
 /*
