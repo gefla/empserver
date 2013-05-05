@@ -75,29 +75,27 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     material_limit = prod_materials_cost(product, vec, &unit_work);
     if (material_limit <= 0)
 	return 0;
-    /*
-     * calculate production efficiency.
-     */
+
+    /* sector p.e. */
     p_e = neweff / 100.0;
     if (resource) {
 	unit_work++;
 	p_e *= *resource / 100.0;
     }
-    /*
-     * determine number that can be made with
-     * the available workforce
-     */
     if (unit_work == 0)
 	unit_work = 1;
-    material_consume = material_limit;
+
     worker_limit = roundavg(work * p_e / unit_work);
+    res_limit = prod_resource_limit(product, resource);
+
+    material_consume = res_limit;
     if (material_consume > worker_limit)
 	material_consume = worker_limit;
-    res_limit = prod_resource_limit(product, resource);
-    if (material_consume > res_limit)
-	material_consume = res_limit;
+    if (material_consume > material_limit)
+	material_consume = material_limit;
     if (material_consume == 0)
 	return 0;
+
     prodeff = prod_eff(desig, np->nat_level[product->p_nlndx]);
     if (prodeff <= 0.0 && !player->simulation) {
 	wu(0, sp->sct_own,

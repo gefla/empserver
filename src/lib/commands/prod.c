@@ -72,17 +72,17 @@ prod(void)
     double real;		/* floating pt version of act */
     int work;
     int totpop;
-    int act;			/* actual production */
+    int material_consume;	/* actual production */
     double cost;
     int i;
-    int max;			/* production w/infinite materials */
+    int max_consume;		/* production w/infinite materials */
     int nsect;
     double take;
     double mtake;
     int there;
     int unit_work;		/* sum of component amounts */
-    int used;			/* production w/infinite workforce */
-    int res_limit;
+    int mat_limit, res_limit;
+    int worker_limit;
     i_type it;
     i_type vtype;
     unsigned char *resource;
@@ -174,10 +174,6 @@ prod(void)
 	if (eff < 60)
 	    continue;
 
-	p_e = eff / 100.0;
-	if (p_e > 1.0)
-	    p_e = 1.0;
-
 	if (type == SCT_ENLIST) {
 	    int maxmil;
 	    int enlisted;
@@ -195,7 +191,7 @@ prod(void)
 	    }
 	    if (enlisted < 0)
 		enlisted = 0;
-	    prprod(sect.sct_x, sect.sct_y, type, p_e, 1.0, work,
+	    prprod(sect.sct_x, sect.sct_y, type, eff / 100.0, 1.0, work,
 		   ichr[I_MILIT].i_mnem, enlisted, maxmil, enlisted * 3,
 		   "c\0\0", &enlisted, &enlisted, nsect++);
 	    continue;
@@ -209,32 +205,29 @@ prod(void)
 	    resource = (unsigned char *)&sect + pp->p_nrndx;
 	else
 	    resource = NULL;
-	used = prod_materials_cost(pp, sect.sct_item, &unit_work);
-	/*
-	 * sect p_e  (inc improvements)
-	 */
+
+	mat_limit = prod_materials_cost(pp, sect.sct_item, &unit_work);
+
+	/* sector p.e. */
+	p_e = eff / 100.0;
 	if (resource) {
 	    unit_work++;
 	    p_e *= *resource / 100.0;
 	}
 	if (unit_work == 0)
 	    unit_work = 1;
-	/*
-	 * production effic.
-	 */
-	prodeff = prod_eff(type, natp->nat_level[pp->p_nlndx]);
-	/*
-	 * is production limited by resources or
-	 * workforce?
-	 */
-	max = (int)(work * p_e / (double)unit_work + 0.5);
-	res_limit = prod_resource_limit(pp, resource);
-	if (max > res_limit)
-	    max = res_limit;
-	act = MIN(used, max);
 
-	real = (double)act * prodeff;
-	maxr = (double)max * prodeff;
+	worker_limit = (int)(work * p_e / (double)unit_work + 0.5);
+	res_limit = prod_resource_limit(pp, resource);
+
+	max_consume = res_limit;
+	if (max_consume > worker_limit)
+	    max_consume = worker_limit;
+	material_consume = MIN(max_consume, mat_limit);
+
+	prodeff = prod_eff(type, natp->nat_level[pp->p_nlndx]);
+	real = (double)material_consume * prodeff;
+	maxr = (double)max_consume * prodeff;
 
 	if (vtype != I_NONE) {
 	    real = MIN(999.0, real);
