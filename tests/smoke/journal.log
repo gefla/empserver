@@ -667,7 +667,7 @@ Thu Jan  1 00:00:00 1970     Play#1 input desi 6,-2 l
 Thu Jan  1 00:00:00 1970     Play#1 command designate
 Thu Jan  1 00:00:00 1970     Play#1 input thre l 6,-2 150
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
-Thu Jan  1 00:00:00 1970     Play#1 input mov c 2,0 370 -2,2
+Thu Jan  1 00:00:00 1970     Play#1 input mov c 2,0 300 -2,2
 Thu Jan  1 00:00:00 1970     Play#1 command move
 Thu Jan  1 00:00:00 1970     Play#1 input deliver i 2,0 0 j
 Thu Jan  1 00:00:00 1970     Play#1 command deliver
@@ -691,7 +691,7 @@ Thu Jan  1 00:00:00 1970     Play#1 input thres c -2:4,0 768
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
 Thu Jan  1 00:00:00 1970     Play#1 input thres c 6,-2 250
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
-Thu Jan  1 00:00:00 1970     Play#1 input thres c 4,-2 300
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 4,-2 370
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
 Thu Jan  1 00:00:00 1970     Play#1 input thres l 4,-2 100
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
@@ -892,7 +892,7 @@ Thu Jan  1 00:00:00 1970     Play#1 input mov d 0,0 1 -1,-1
 Thu Jan  1 00:00:00 1970     Play#1 command move
 Thu Jan  1 00:00:00 1970     Play#1 input thres c 0,-2 100
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
-Thu Jan  1 00:00:00 1970     Play#1 input thres c 4:6,-2 210
+Thu Jan  1 00:00:00 1970     Play#1 input thres c 6,-2 210
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
 Thu Jan  1 00:00:00 1970     Play#1 input thres c -1,-1 100
 Thu Jan  1 00:00:00 1970     Play#1 command threshold
