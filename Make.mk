@@ -424,5 +424,5 @@ $(srcdir)/src/client/config.h.in: src/client/configure.ac src/client/aclocal.m4
 	cd $(dir $@) && autoheader
 	touch $@
 
-$(srcdir)/src/client/aclocal.m4: m4/lib_socket_nsl.m4 m4/my_terminfo.m4 m4/my_windows_api.m4
+$(srcdir)/src/client/aclocal.m4: m4/ax_lib_socket_nsl.m4 m4/my_terminfo.m4 m4/my_windows_api.m4
 	cat $^ >$@

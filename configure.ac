@@ -69,10 +69,10 @@ MY_WINDOWS_API
 
 
 ### Checks for libraries
-ACX_PTHREAD
+AX_PTHREAD
 LIBS_util="$LIBS"
 LIBS="$LIBS_SOCKETS $LIBS"
-LIB_SOCKET_NSL
+AX_LIB_SOCKET_NSL
 LIBS_server="$LIBS"
 
 
@@ -109,7 +109,7 @@ AC_ARG_WITH([pthread],
 # Select thread package
 empthread=
 if test "$with_pthread" != no; then
-    if test "$acx_pthread_ok" = yes; then
+    if test "$ax_pthread_ok" = yes; then
 	empthread=POSIX
     fi
 fi
