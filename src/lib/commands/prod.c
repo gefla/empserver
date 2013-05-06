@@ -82,7 +82,7 @@ prod(void)
     int there;
     int unit_work;		/* sum of component amounts */
     int mat_limit, res_limit;
-    int worker_limit;
+    double worker_limit;
     i_type it;
     i_type vtype;
     unsigned char *resource;
@@ -217,12 +217,12 @@ prod(void)
 	if (unit_work == 0)
 	    unit_work = 1;
 
-	worker_limit = (int)(work * p_e / (double)unit_work + 0.5);
+	worker_limit = work * p_e / (double)unit_work;
 	res_limit = prod_resource_limit(pp, resource);
 
 	max_consume = res_limit;
 	if (max_consume > worker_limit)
-	    max_consume = worker_limit;
+	    max_consume = (int)worker_limit;
 	material_consume = MIN(max_consume, mat_limit);
 
 	prodeff = prod_eff(type, natp->nat_level[pp->p_nlndx]);

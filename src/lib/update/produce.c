@@ -54,9 +54,9 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     unsigned char *resource;
     double output;
     int actual;
-    int unit_work;
+    int unit_work, work_used;
     i_type item;
-    int worker_limit;
+    double worker_limit;
     int material_limit, res_limit;
     int material_consume;
     int val;
@@ -85,12 +85,12 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     if (unit_work == 0)
 	unit_work = 1;
 
-    worker_limit = roundavg(work * p_e / unit_work);
+    worker_limit = work * p_e / unit_work;
     res_limit = prod_resource_limit(product, resource);
 
     material_consume = res_limit;
     if (material_consume > worker_limit)
-	material_consume = worker_limit;
+	material_consume = (int)worker_limit;
     if (material_consume > material_limit)
 	material_consume = material_limit;
     if (material_consume == 0)
@@ -161,11 +161,12 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	}
     }
 
-    /* The MIN() here is to take care of integer rounding errors */
-    if (p_e > 0.0) {
-	return MIN(work, (int)(unit_work * material_consume / p_e));
-    }
-    return 0;
+    if (CANT_HAPPEN(p_e <= 0.0))
+	return 0;
+    work_used = roundavg(unit_work * material_consume / p_e);
+    if (CANT_HAPPEN(work_used > work))
+	return work;
+    return work_used;
 }
 
 /*
