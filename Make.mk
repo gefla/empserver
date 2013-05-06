@@ -369,7 +369,8 @@ dist-client: $(cli_distgen)
 	-C $(srcdir)/src/lib/global version.c				\
 	-C $(srcdir)/src/lib $(addprefix w32/, $(client/w32))		\
 	-C $(srcdir)/man empire.6					\
-	-C $(srcdir) COPYING INSTALL install-sh
+	-C $(srcdir)/build-aux install-sh				\
+	-C $(srcdir) COPYING INSTALL
 
 .PHONY: dist-info
 dist-info: info html

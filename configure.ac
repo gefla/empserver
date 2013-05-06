@@ -27,7 +27,7 @@
 #   configure.ac: Autoconf input file
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2010
+#      Markus Armbruster, 2005-2013
 #
 # Process this file with autoconf to produce a configure script.
 
@@ -40,6 +40,7 @@ AC_PREREQ(2.64)
 AC_INIT([Wolfpack Empire], [4.3.31], [wolfpack@wolfpackempire.com], [empire],
 	[http://www.wolfpackempire.com/])
 AC_CONFIG_SRCDIR([include/combat.h])
+AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
 
