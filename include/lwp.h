@@ -42,6 +42,7 @@
 #define LWP_H
 
 #include <signal.h>
+#include <sys/time.h>
 #include <sys/types.h>
 
 #define LWP_STACKCHECK	0x1
