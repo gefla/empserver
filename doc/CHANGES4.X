@@ -1,3 +1,116 @@
+Changes to Empire 4.3.31 - Wed May  8 18:45:06 UTC 2013
+ * Permit ships that can drop depth charges, but not fire.  No such
+   ships exist in the stock game.
+ * Consistently require guns for dropping depth charges.  Before, only
+   the fire command required guns (since 4.3.12 and before 4.0.6).
+ * Change econfig key rollover_avail_max from 0 to 50.
+ * Make sector production more predictable.  Commands production and
+   budget are now a bit more accurate.
+ * Fix bugs that messed up xdump lost and xdump trade on big endian
+   hosts (broken in 4.3.8), and made the server fail during startup on
+   most big endian hosts (broken in 4.3.12).
+ * Build process robustness fixes.
+ * Use "Level: Obsolete" to mark obsolete info pages, and drop "info
+   Obsolete".
+ * Server now uses IPv4 format for IPv4-mapped addresses.  Simplifies
+   safe use of econfig key privip.
+ * Server logs a few more network connection details.
+ * Fixes and workarounds for econfig key listen_addr "" (which is the
+   default) when the system has both IPv4 and IPv6 addresses
+   configured:
+   - Server accepted only IPv6 connections on Windows and BSDs.  Fix
+     to accept IPv4 ones, too.
+   - Except for OpenBSD, where the fix doesn't work.  Accept IPv4
+     connections instead of IPv6 ones there, and document how to get
+     IPv6 accepted instead.
+   - Linux systems are frequently configured in a way that makes the
+     server accept only IPv4 connections.  Document workaround: use
+     listen_addr "::".
+ * Change fairland island size probability distribution: roll two dice
+   instead of one.  This makes extreme sizes much less likely.
+ * Make fairland record the island number in the deity territory.
+ * Fix extension of market bidding time when high bidder changes.
+   Introduced broken in 4.0.7, with insufficient fixes in 4.0.9 and
+   4.2.0.
+ * Fix market not to mess up ridiculously high unit prices.  Has been
+   broken since 4.0.0 introduced the market.
+ * Fix melting of big piles of stuff by ridiculously heavy fallout.
+   Has been broken since fallout exists.
+ * Fix crash on edit s, p, u key 'U' with negative argument.
+ * When a deity builds ships or land units in foreign sectors, they're
+   given to the sector owner.  This lets POGO build them, and it's how
+   build works for planes and nukes.
+ * Fix PRNG (pseudo-random number generator) seeding to resist
+   guessing: seed with a kernel random number.  If we can't get one,
+   fall back to a hash of high-resolution time and process ID.  This
+   should happen only on old systems or Windows.  Far worse than a
+   kernel random number, but far better than just low-resolution time.
+   Fairland's seeding used to be low-resolution time and process ID,
+   but regressed in 4.2.20 to just time.
+ * Switch PRNG from BSD random() to Mersenne Twister.  This is a is a
+   proven, high-quality PRNG.
+ * Fix tiny error in distribution of some die rolls.
+ * Increase land unit retreat chance and nuclear damage's chance to
+   destroy a nuke by one percentage point, for simplicity.
+ * Merge news items a bit more aggressively.
+ * Fix a year 2038 bug in news item merging.
+ * Retire the nightly build.
+ * New make target check.  Just a few tests for now, derived from the
+   smoke test that used to be part of the nightly build.
+ * Really fix accepting connections from "long" IPv6 address.  The fix
+   in 4.3.23 could mess up player's host address in player output and
+   logs, and cause extra "Last connection" messages.
+ * Take ship cost into account when picking missile interdiction
+   target.  Broken in 4.3.8.
+ * Really fix give, setsector and setresource not to wipe out
+   concurrent updates.  The fix in 4.3.27 was insufficient.
+ * Fix setsector not to disclose number of landmines to occupier.
+ * Make capital fail more nicely when the sector is unsuitable.  Its
+   argument must now be a single sector.  Before, it silently picked
+   the first suitable one when the argument selected several.  Has
+   always been that way, and never documented.
+ * Changes to option GODNEWS:
+   - Deity command give could downgrade the deity's relations to the
+     sector owner when GODNEWS was enabled.  No more.
+   - Likewise, deity commands edit and setsector can no longer
+     downgrade the victim's relations to the deity.
+   - News enabled by GODNEWS no longer affect news headlines.
+ * Fix bomb, drop, fly, paradrop, recon and sweep to again accept a
+   destination sector equal to the assembly point.  Broken in 4.3.27.
+ * Fix portability bug in configure test for Windows API.
+ * More user friendly server startup: journal open errors are detected
+   while the server still runs in the foreground, which makes it
+   possible to complain to stderr and to exit unsuccessfully.
+ * Market changes:
+   - Forbid selling conquered populace.  Only relevant when the deity
+     allows selling civilians, which is probably a bad idea.
+   - Permit selling military by default.
+   - Forbid selling ships and land units carrying unsalable cargo.
+ * Scrapping ships and land units now spreads the plague
+ * Don't let scrap give away civilians, kill them off instead.
+ * Pilots and air cargo now spread the plague.
+ * Don't let fly and drop give away civilians.
+ * Fix fly to permit flying civs to a carrier in an occupied sector.
+   Broken in 4.2.17.
+ * Don't let planes fly to a carrier without sufficient space.
+   Before, planes that didn't fit were teleported home, which could be
+   abused.  Broken in 4.3.17.  Almost the same bug was previously
+   fixed in 4.2.17.
+ * Fix tend to foreign ships:
+   - Refuse to tend civilians to foreign ships.
+   - Don't leak friendly foreign ships' commodity cargo.
+   - Continue with remaining target ships after skipping a foreign one
+     when tending a negative amount of commodities.
+   All broken when Chainsaw 2 added tending to allies.
+ * march sub-command 'm' can now sweep own landmines.
+ * Land units no longer sweep allied landmines, except when executing
+   march sub-command 'm'.  They don't hit them since 4.3.27.  Sweeping
+   was forgotten then.
+ * Fix bmap commands not to parse empty flags argument as "revert".
+   Broken in 4.3.27.
+ * Code refactoring and cleanup.
+ * Info page fixes and clarifications.
+
 Changes to Empire 4.3.30 - Tue May 22 18:34:52 UTC 2012
  * Disable damage to base sector or ship when missile explodes on
    launch for now, because damage done to other missiles there can be
