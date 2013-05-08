@@ -19,6 +19,10 @@ instructions.  Quick guide for the impatient: run configure; make;
 make install.  The last step is optional; everything runs fine right
 from the build tree.
 
+If configure reports "terminfo: no" in its configuration summary,
+highlighting doesn't work.  Commonly caused by not having development
+libraries installed.  On Linux, try installing ncurses-devel.
+
 The client connects to the Changeling blitz by default.  Use
 environment variables EMPIREHOST and EMPIREPORT to connect to another
 game (see manual page for details).
