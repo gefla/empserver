@@ -133,7 +133,7 @@ shp_dchrg(struct shpstr *sp)
 
     if (sp->shp_effic < 60 || (mchr[sp->shp_type].m_flags & M_DCH) == 0)
 	return -1;
-    if (sp->shp_item[I_MILIT] == 0)
+    if (sp->shp_item[I_MILIT] == 0 || sp->shp_item[I_GUN] == 0)
 	return -1;
     shp_supply(sp, I_SHELL, 2);
     dchrgs = MIN(2, sp->shp_item[I_SHELL]);
