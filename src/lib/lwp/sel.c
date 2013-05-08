@@ -243,7 +243,7 @@ lwpSelect(void *arg)
 	    if (tv.tv_sec < 0)
 		tv.tv_sec = 0;
 	}
-	lwpStatus(us, "selecting; sleep %ld secs", tv.tv_sec);
+	lwpStatus(us, "selecting; sleep %ld secs", (long)tv.tv_sec);
 
 	memcpy(&readmask, &LwpReadfds, sizeof(fd_set));
 	memcpy(&writemask, &LwpWritefds, sizeof(fd_set));
