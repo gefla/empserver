@@ -293,7 +293,7 @@ info.nr/%: info/%.t
 # Pipes in make are a pain.  The "test -s" catches obvious errors.
 
 info.html/%.html: info/%.t
-	perl $(srcdir)/info/emp2html.pl $< >$@
+	$(call quiet-command,perl $(srcdir)/info/emp2html.pl $(info) <$< >$@,GEN $@)
 
 
 ### Explicit rules

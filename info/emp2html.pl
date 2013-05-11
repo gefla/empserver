@@ -31,9 +31,10 @@
 #      Drake Diedrich, 1996
 #      Markus Armbruster, 2004-2013
 #
-# Usage: emp2html.pl [INFO-FILE]
+# Usage: emp2html.pl INFO...
 #
-# Convert INFO-FILE (or else standard input) to HTML on standard output.
+# Convert info source on standard input to HTML on standard output.
+# INFO... are the info page names.
 
 use strict;
 use warnings;
@@ -43,13 +44,18 @@ my $esc = "\\";
 my $ignore = 0;
 my $is_subj;
 my @a;
+my %topic;
+
+for (@ARGV) {
+    $topic{$_} = 1;
+}
 
 print "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n";
 print "   \"http://www.w3.org/TR/html4/strict.dtd\">\n";
 print "<html>\n";
 print "<head>\n";
 
-line: while (<>) {
+line: while (<STDIN>) {
     chomp;			# strip record separator
     s/((^|[^\\])(\\\\)*)\\\".*/$1/g; # strip comments
 
@@ -162,8 +168,7 @@ sub checkarg {
 
 sub anchor {
     local ($_) = @_;
-    # FIXME don't create dangling links here
-    return "<a href=\"$_.html\">$_</a>";
+    return $topic{$_} ? "<a href=\"$_.html\">$_</a>" : $_;
 }
 
 # Translate HTML special characters into escape sequences
@@ -182,13 +187,18 @@ sub htmlify {
     s/\\e/&\#92;/g;		# escape character
     # turn quoted strings that look like info names into links
     # tacky...
+    my $pfx = "";
     while (/\\\*Q([A-Za-z0-9\-\.]+)\\\*U|\"info ([A-Za-z0-9\-\.]+)\"/) {
-	if (defined $1) {
-	    $_ = $` . anchor($1) . "$'";
+	if (defined $1 && $topic{$1}) {
+	    $pfx = $` . anchor($1);
+	} elsif (defined $2 && $topic{$2}) {
+	    $pfx = "$`\"info " . anchor($2) . "\"";
 	} else {
-	    $_ = "$`\"info " . anchor($2) . "\"$'";
+	    $pfx .= $` . $&;
 	}
+	$_ = "$'";
     }
+    $_ = "$pfx$_";
     # tranlate more troff escapes and strings
     s/\\\*Q/<em>/g;
     s/\\\*U/<\/em>/g;
