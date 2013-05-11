@@ -182,11 +182,12 @@ sub htmlify {
     s/\\e/&\#92;/g;		# escape character
     # turn quoted strings that look like info names into links
     # tacky...
-    while (/(\\\*Q)([A-Za-z0-9\-\.]+)(\\\*U)/) {
-	$_ = $` . anchor($2) . "$'";
-    }
-    while (/(\"info )([A-Za-z0-9\-\.]+)/) {
-	$_ = "$`\"info " . anchor($2) . "$'";
+    while (/\\\*Q([A-Za-z0-9\-\.]+)\\\*U|\"info ([A-Za-z0-9\-\.]+)\"/) {
+	if (defined $1) {
+	    $_ = $` . anchor($1) . "$'";
+	} else {
+	    $_ = "$`\"info " . anchor($2) . "\"$'";
+	}
     }
     # tranlate more troff escapes and strings
     s/\\\*Q/<em>/g;
