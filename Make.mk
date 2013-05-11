@@ -62,8 +62,6 @@ include $(srcdir)/info/subjects.mk
 # Abbreviations
 topics := $(patsubst %.t,%,$(notdir $(tsrc)))
 info := $(topics) $(subjects) all TOP
-subjects.html := $(addprefix info.html/, $(addsuffix .html, $(subjects)))
-topics.html := $(addprefix info.html/, $(addsuffix .html, $(topics)))
 scripts := $(srcdir)/src/scripts
 depcomp := $(SHELL) $(srcdir)/depcomp
 tarball := $(SHELL) -e $(scripts)/tarball
@@ -295,7 +293,7 @@ info.nr/%: info/%.t
 # Pipes in make are a pain.  The "test -s" catches obvious errors.
 
 info.html/%.html: info/%.t
-	perl $(filter %.pl, $^) $< >$@
+	perl $(srcdir)/info/emp2html.pl $< >$@
 
 
 ### Explicit rules
@@ -345,8 +343,7 @@ info.html/all.html: info.nr/all info/ls2html.pl
 
 $(info.nr): info/CRT.MAC info/INFO.MAC info/Blank.awk
 
-$(subjects.html) info.html/TOP.html: info/subj2html.pl
-$(topics.html): info/emp2html.pl
+$(info.html): info/emp2html.pl
 
 info.ps: info/TROFF.MAC info/INFO.MAC $(ttop) $(tsubj) $(tsrc)
 	groff $^ >$@

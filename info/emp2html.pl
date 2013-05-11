@@ -1,10 +1,47 @@
-#!/usr/local/bin/perl
+#!/usr/bin/perl
+#
+#   Empire - A multi-player, client/server Internet based war game.
+#   Copyright (C) 1986-2013, Dave Pare, Jeff Bailey, Thomas Ruschak,
+#                 Ken Stevens, Steve McClure, Markus Armbruster
+#
+#   Empire is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#   ---
+#
+#   See files README, COPYING and CREDITS in the root of the source
+#   tree for related information and legal notices.  It is expected
+#   that future projects/authors will amend these files as needed.
+#
+#   ---
+#
+#   emp2html.pl: Convert info source to HTML
+#
+#   Known contributors to this file:
+#      Drake Diedrich, 1996
+#      Markus Armbruster, 2004-2013
+#
+# Usage: emp2html.pl [INFO-FILE]
+#
+# Convert INFO-FILE (or else standard input) to HTML on standard output.
 
 use strict;
 use warnings;
 
+my $in_nf = 0;
 my $esc = "\\";
 my $ignore = 0;
+my $is_subj;
 my @a;
 
 print "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n";
@@ -19,6 +56,13 @@ line: while (<>) {
     @a = req($_);
 
     if (!@a) {
+	if ($is_subj && $in_nf) {
+	    while ($_ =~ /[A-Za-z0-9\-\.]+/g) {
+		print htmlify("$`");
+		print anchor("$&");
+		$_="$'";
+	    }
+	}
 	print htmlify($_), "\n" unless $ignore;
 	next line;
     }
@@ -33,6 +77,7 @@ line: while (<>) {
 
     if ($a[1] eq "TH") {
 	@a = checkarg(2, @a);
+	$is_subj = $a[2] eq 'Subject' || $a[2] eq 'Info';
 	$a[3] = htmlify($a[3]);
 	print "<title>$a[2] : $a[3]</title>\n";
 	print "</head>\n";
@@ -55,6 +100,12 @@ line: while (<>) {
 	next line;
     }
 
+    if ($a[1] eq "L" && $is_subj) {
+	$a[2] =~ / /;
+	print "<br>" . anchor("$`") . " $'\n";
+	next line;
+    }
+
     if ($a[1] =~ /^LV?$/) {
 	@a = checkarg(1, @a);
 	$a[2] = htmlify($a[2]);
@@ -66,8 +117,8 @@ line: while (<>) {
     if ($a[1] eq "eo") { $esc = 0; next line; }
     if ($a[1] eq "ec") { $esc = $#a == 1 ? "\\" : $a[2]; next line; }
 
-    if ($a[1] =~ /NF|nf/i) { printf (("<p><pre>\n")); next line; }
-    if ($a[1] =~ /FI|fi/i) { printf (("</pre><p>\n")); next line; }
+    if ($a[1] =~ /NF|nf/i) { $in_nf = 1; printf (("<p><pre>\n")); next line; }
+    if ($a[1] =~ /FI|fi/i) { $in_nf = 0; printf (("</pre><p>\n")); next line; }
     if ($a[1] eq "s1") { printf (("<hr><p>\n")); next line; }
     if ($a[1] eq "br") { printf "<br>\n"; next line; }
 
