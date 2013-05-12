@@ -1,4 +1,6 @@
-Changes to Empire 4.3.31 - Wed May  8 18:45:06 UTC 2013
+Changes to Empire 4.3.31 - Sun May 12 16:58:34 UTC 2013
+ * Fix read beyond end of conditional argument on missing operand.
+ * Don't put broken links into info pages formatted as HTML.
  * Permit ships that can drop depth charges, but not fire.  No such
    ships exist in the stock game.
  * Consistently require guns for dropping depth charges.  Before, only
