@@ -77,6 +77,10 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 	    np = &dummy;
 
 	/* left operand */
+	if (!*cond) {
+	    pr("%s -- %scondition expected\n", str, i ? "another " : "");
+	    return -1;
+	}
 	tail = nstr_parse_val(cond, &np->lft);
 	lft_caidx = nstr_match_ca(&np->lft, ca);
 
@@ -92,6 +96,10 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
 	++tail;
 
 	/* right operand */
+	if (!*tail) {
+	    pr("%s -- operand expected\n", cond);
+	    return -1;
+	}
 	tail = nstr_parse_val(tail, &np->rgt);
 	rgt_caidx = nstr_match_ca(&np->rgt, ca);
 
@@ -313,7 +321,7 @@ nstr_parse_val(char *str, struct valstr *val)
     }
 
     /* funny character, interpret as identifier */
-    tail = str+1;
+    tail = CANT_HAPPEN(!*str) ? str : str + 1;
     val->val_type = NSC_NOTYPE;
     val->val_cat = NSC_ID;
     val->val_as.str.base = str;
