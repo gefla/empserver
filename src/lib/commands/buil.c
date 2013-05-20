@@ -53,6 +53,7 @@ static int build_ship(struct sctstr *sp, int type, int tlev);
 static int build_land(struct sctstr *sp, int type, int tlev);
 static int build_nuke(struct sctstr *sp, int type, int tlev);
 static int build_plane(struct sctstr *sp, int type, int tlev);
+static int pick_unused_unit_uid(int);
 static int build_bridge(char);
 static int build_bspan(struct sctstr *sp);
 static int build_btower(struct sctstr *sp);
@@ -207,12 +208,10 @@ build_ship(struct sctstr *sp, int type, int tlev)
     short *vec = sp->sct_item;
     struct mchrstr *mp = &mchr[type];
     struct shpstr ship;
-    struct nstr_item nstr;
     int avail;
     double cost;
     double eff = SHIP_MINEFF / 100.0;
     int lcm, hcm;
-    int freeship = 0;
 
     hcm = roundavg(mp->m_hcm * eff);
     lcm = roundavg(mp->m_lcm * eff);
@@ -247,17 +246,7 @@ build_ship(struct sctstr *sp, int type, int tlev)
 	return 0;
     sp->sct_avail -= avail;
     player->dolcost += cost;
-    snxtitem_all(&nstr, EF_SHIP);
-    while (nxtitem(&nstr, &ship)) {
-	if (ship.shp_own == 0) {
-	    freeship++;
-	    break;
-	}
-    }
-    if (freeship == 0) {
-	ef_extend(EF_SHIP, 50);
-    }
-    ef_blank(EF_SHIP, nstr.cur, &ship);
+    ef_blank(EF_SHIP, pick_unused_unit_uid(EF_SHIP), &ship);
     ship.shp_x = sp->sct_x;
     ship.shp_y = sp->sct_y;
     ship.shp_own = sp->sct_own;
@@ -296,12 +285,10 @@ build_land(struct sctstr *sp, int type, int tlev)
     short *vec = sp->sct_item;
     struct lchrstr *lp = &lchr[type];
     struct lndstr land;
-    struct nstr_item nstr;
     int avail;
     double cost;
     double eff = LAND_MINEFF / 100.0;
     int mil, lcm, hcm, gun, shell;
-    int freeland = 0;
 
 #if 0
     mil = roundavg(lp->l_mil * eff);
@@ -360,17 +347,7 @@ build_land(struct sctstr *sp, int type, int tlev)
 	return 0;
     sp->sct_avail -= avail;
     player->dolcost += cost;
-    snxtitem_all(&nstr, EF_LAND);
-    while (nxtitem(&nstr, &land)) {
-	if (land.lnd_own == 0) {
-	    freeland++;
-	    break;
-	}
-    }
-    if (freeland == 0) {
-	ef_extend(EF_LAND, 50);
-    }
-    ef_blank(EF_LAND, nstr.cur, &land);
+    ef_blank(EF_LAND, pick_unused_unit_uid(EF_LAND), &land);
     land.lnd_x = sp->sct_x;
     land.lnd_y = sp->sct_y;
     land.lnd_own = sp->sct_own;
@@ -399,7 +376,7 @@ build_land(struct sctstr *sp, int type, int tlev)
 
     if (sp->sct_pstage == PLG_INFECT)
 	land.lnd_pstage = PLG_EXPOSED;
-    putland(nstr.cur, &land);
+    putland(land.lnd_uid, &land);
     pr("%s", prland(&land));
     pr(" built in sector %s\n", xyas(sp->sct_x, sp->sct_y, player->cnum));
     return 1;
@@ -411,9 +388,7 @@ build_nuke(struct sctstr *sp, int type, int tlev)
     short *vec = sp->sct_item;
     struct nchrstr *np = &nchr[type];
     struct nukstr nuke;
-    struct nstr_item nstr;
     int avail;
-    int freenuke;
 
     if (sp->sct_type != SCT_NUKE && !player->god) {
 	pr("Nuclear weapons must be built in nuclear plants.\n");
@@ -452,18 +427,7 @@ build_nuke(struct sctstr *sp, int type, int tlev)
 	return 0;
     sp->sct_avail -= avail;
     player->dolcost += np->n_cost;
-    snxtitem_all(&nstr, EF_NUKE);
-    freenuke = 0;
-    while (nxtitem(&nstr, &nuke)) {
-	if (nuke.nuk_own == 0) {
-	    freenuke++;
-	    break;
-	}
-    }
-    if (freenuke == 0) {
-	ef_extend(EF_NUKE, 50);
-    }
-    ef_blank(EF_NUKE, nstr.cur, &nuke);
+    ef_blank(EF_NUKE, pick_unused_unit_uid(EF_NUKE), &nuke);
     nuke.nuk_x = sp->sct_x;
     nuke.nuk_y = sp->sct_y;
     nuke.nuk_own = sp->sct_own;
@@ -490,12 +454,10 @@ build_plane(struct sctstr *sp, int type, int tlev)
     short *vec = sp->sct_item;
     struct plchrstr *pp = &plchr[type];
     struct plnstr plane;
-    struct nstr_item nstr;
     int avail;
     double cost;
     double eff = PLANE_MINEFF / 100.0;
     int hcm, lcm, mil;
-    int freeplane;
 
     mil = roundavg(pp->pl_crew * eff);
     /* Always use at least 1 mil to build a plane */
@@ -538,18 +500,7 @@ build_plane(struct sctstr *sp, int type, int tlev)
 	return 0;
     sp->sct_avail -= avail;
     player->dolcost += cost;
-    snxtitem_all(&nstr, EF_PLANE);
-    freeplane = 0;
-    while (nxtitem(&nstr, &plane)) {
-	if (plane.pln_own == 0) {
-	    freeplane++;
-	    break;
-	}
-    }
-    if (freeplane == 0) {
-	ef_extend(EF_PLANE, 50);
-    }
-    ef_blank(EF_PLANE, nstr.cur, &plane);
+    ef_blank(EF_PLANE, pick_unused_unit_uid(EF_PLANE), &plane);
     plane.pln_x = sp->sct_x;
     plane.pln_y = sp->sct_y;
     plane.pln_own = sp->sct_own;
@@ -577,6 +528,21 @@ build_plane(struct sctstr *sp, int type, int tlev)
     pr("%s built in sector %s\n", prplane(&plane),
        xyas(sp->sct_x, sp->sct_y, player->cnum));
     return 1;
+}
+
+static int
+pick_unused_unit_uid(int type)
+{
+    struct nstr_item nstr;
+    union empobj_storage unit;
+
+    snxtitem_all(&nstr, type);
+    while (nxtitem(&nstr, &unit)) {
+	if (!unit.gen.own)
+	    return nstr.cur;
+    }
+    ef_extend(type, 50);
+    return nstr.cur;
 }
 
 static int
