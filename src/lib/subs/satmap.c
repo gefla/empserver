@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -146,7 +146,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	if (flags & P_S) {
 	    pr("Satellite ship report\n");
 	    prdate();
-	    pr(" own  shp# ship type                                  sector   eff\n");
+	    pr(" own shp# ship type                                   sector   eff\n");
 	}
 	while (nxtitem(&ni, &ship)) {
 	    if (ship.shp_own == 0)
@@ -190,7 +190,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 	if (flags & P_S) {
 	    pr("Satellite unit report\n");
 	    prdate();
-	    pr(" own  lnd# unit type         sector   eff\n");
+	    pr(" own lnd# unit type         sector   eff\n");
 	}
 	while (nxtitem(&ni, &land)) {
 	    if (land.lnd_own == 0)
@@ -207,7 +207,7 @@ satmap(int x, int y, int eff, int range, int flags, int type)
 		pr("%4d %4d %-16.16s ",
 		   land.lnd_own, land.lnd_uid,
 		   lchr[(int)land.lnd_type].l_name);
-		prxy("%4d,%-4d", land.lnd_x, land.lnd_y);
+		prxy("%4d,%-4d ", land.lnd_x, land.lnd_y);
 		pr("%3d%%\n", land.lnd_effic);
 		++count;
 		if (opt_HIDDEN)
@@ -285,7 +285,7 @@ satdisp_units(coord x, coord y)
 	if (mchr[(int)ship.shp_type].m_flags & M_SUB)
 	    continue;
 	if (first) {
-	    pr("\t own  shp# ship type                                  sector   eff\n");
+	    pr("\t own shp# ship type                                   sector   eff\n");
 	    first = 0;
 	}
 	pr("\t%4d %4d %-16.16s %-25.25s ",
@@ -312,7 +312,7 @@ satdisp_units(coord x, coord y)
 	    continue;
 
 	if (first) {
-	    pr("\t own  lnd# unit type       sector   eff\n");
+	    pr("\t own lnd# unit type         sector   eff\n");
 	    first = 0;
 	}
 
