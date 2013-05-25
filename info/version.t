@@ -12,7 +12,7 @@ For example:
 .s1
 .EX version
 .NF
-Wolfpack Empire 4.3.30
+Wolfpack Empire 4.3.32
 
 The following parameters have been set for this game:
 World size is 64 by 32.
@@ -20,7 +20,7 @@ There can be up to 99 countries.
 By default, countries use their own coordinate system.
 
 Use the 'show' command to find out the time of the next update.
-The current time is Sun Mar 18 18:22:49.
+The current time is Sat May 25 16:42:56.
 An update consists of 60 empire time units.
 Each country is allowed to be logged in 1440 minutes a day.
 It takes 8.33 civilians to produce a BTU in one time unit.
@@ -36,6 +36,7 @@ No food is needed!
 Banks pay $250.00 in interest per 1000 gold bars per etu.
 1000 civilians generate $8.33, uncompensated workers $1.78 each time unit.
 1000 active military cost $83.33, reserves cost $8.33.
+Up to 50 avail can roll over an update.
 Happiness p.e. requires 1 happy stroller per 10000 civ.
 Education p.e. requires 1 class of graduates per 10000 civ.
 Happiness is averaged over 48 time units.
@@ -59,7 +60,7 @@ Flak damage is scaled by 1.75.
 Torpedo damage is 2d40+38.
 The attack factor for para & assault troops is 0.50.
 12% of fallout leaks into each surrounding sector.
-Fallout decays by 28% per update
+Fallout decays by 28% per update.
 
 Damage to			Spills to
 	      Sector  People  Mater.   Ships  Planes  LandU.
@@ -87,10 +88,9 @@ Options disabled in this game:
 See "info Options" for a detailed list of options and descriptions.
 
 The person to annoy if something goes wrong is:
-	John Doe
-	(johndoe@bar.edu).
+	Wolfpack <wolfpack@wolfpackempire.com>.
 
-You can get your own copy of the source from http://www.wolfpackempire.com/
+You can get your own copy of the source from <http://www.wolfpackempire.com/>.
 
 Copyright (C) 1986-2013, Dave Pare, Jeff Bailey, Thomas Ruschak,
               Ken Stevens, Steve McClure, Markus Armbruster
