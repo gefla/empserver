@@ -27,7 +27,7 @@
  *  tcp_listen.c: Create a socket and listen on it
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2010
+ *     Markus Armbruster, 2005-2013
  */
 
 #include <config.h>
@@ -98,6 +98,7 @@ again:
 		 * IPv4.
 		 */
 		v6only_stuck = 1;
+		close(fd);
 		continue;
 	    }
 	}
