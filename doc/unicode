@@ -37,7 +37,7 @@ most significant bit clear) in an UTF-8 string always encodes the
 ASCII character, i.e. it is never part of a multibyte sequence.
 
 To learn more, see the Unicode FAQ, currently at
-http://www.cl.cam.ac.uk/~mgk25/unicode.html
+<http://www.cl.cam.ac.uk/~mgk25/unicode.html>.
 
 
 Requirements for Unicode Support in Empire

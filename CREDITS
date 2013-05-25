@@ -20,11 +20,11 @@ in time (October, 1998) there have been 5 major stages identified,
 each with a leading author.  They are as follows (with successsive
 projects building on the projects before it):
 
-  Dave Pare (mr-frog@smarttouch.com) (UCSD/BSD)
-  Jeff Bailey (bailey@mcs.kent.edu) (KSU (1.04) Distribution of BSD)
-  Thomas Ruschak (ts@ecn.purdue.edu) (Chainsaw)
-  Ken Stevens (KStevens@GlobeandMail.ca) (3.0.x)
-  Steve McClure (ionica@empire.cx) (Wolfpack)
+  Dave Pare <mr-frog@smarttouch.com> (UCSD/BSD)
+  Jeff Bailey <bailey@mcs.kent.edu> (KSU (1.04) Distribution of BSD)
+  Thomas Ruschak <ts@ecn.purdue.edu> (Chainsaw)
+  Ken Stevens <KStevens@GlobeandMail.ca> (3.0.x)
+  Steve McClure <ionica@empire.cx> (Wolfpack)
 
 It is due to these above people pulling projects together that the
 Empire server has gotten to where it is today.
@@ -46,8 +46,8 @@ Also see the "History" info file for a more detailed listing of
 the history of Empire.
 
 Currently (June, 2003), Empire development is being led by the
-Wolfpack team.  You can find them at "http://www.wolfpackempire.com"
-or e-mail "wolfpack@wolfpackempire.com".
+Wolfpack team.  You can find them at <http://www.wolfpackempire.com/>
+or e-mail <wolfpack@wolfpackempire.com>.
 
 In addition, the people below are recognized as having either given
 code to the above authors, submitted patches, helped on various
@@ -70,10 +70,10 @@ address if you'd like it included.
 
 ---
 
-James Anderson (jwa@k.cs.cmu.edu)
-Jeff Anton (anton@postgres.berkeley.edu)
-Markus Armbruster (armbru@pond.sub.org)
-Jeff Bailey (bailey@mcs.kent.edu)
+James Anderson <jwa@k.cs.cmu.edu>
+Jeff Anton <anton@postgres.berkeley.edu>
+Markus Armbruster <armbru@pond.sub.org>
+Jeff Bailey <bailey@mcs.kent.edu>
 Mark Ballinger
 Jan van Beethoven
 Paul Byrne
@@ -82,75 +82,75 @@ Bill Canning
 Trannie Carter
 Sean Casey
 David Davis
-Aaron Dewell (dewell@greatland.net)
+Aaron Dewell <dewell@greatland.net>
 Jorge Diaz
-Drake Diedrich (dld@debian.org)
+Drake Diedrich <dld@debian.org>
 Yaser Doleh
 Ed Down
-Phill Everson (everson@compsci.bristol.ac.uk)
+Phill Everson <everson@compsci.bristol.ac.uk>
 Scott Ferguson
-Robert Forsman (thoth@beach.cis.ufl.edu)
+Robert Forsman <thoth@beach.cis.ufl.edu>
 Bill Frolick
 Steven Grady
 Keith Graham
-Jim Griffith (griffith@scam.Berkeley.EDU)
-Steven Grimm (koreth@ucscb.UCSC.EDU)
+Jim Griffith <griffith@scam.Berkeley.EDU>
+Steven Grimm <koreth@ucscb.UCSC.EDU>
 Karl Hagen
-Doug Hay (Doug_Hay@tsb.ca)
+Doug Hay <Doug_Hay@tsb.ca>
 Ken Huisman
-Ray Hyatt (Ray.Hyatt@gmail.com)
-Lewis R. Jansen (lrj@helios.tn.cornell.edu)
-Mike St. Johns (stjohns@edn-vax.arpa)
+Ray Hyatt <Ray.Hyatt@gmail.com>
+Lewis R. Jansen <lrj@helios.tn.cornell.edu>
+Mike St. Johns <stjohns@edn-vax.arpa>
 Beorn Johnson
 William S. Kaster
 Jeremy Kennebel
 Kevin Klemmick
-Ron Koenderink (rkoenderink@yahoo.ca)
-Ron Kuris (rk@unify.com)
-Nick Lai (lai@cs.ucla.edu)
+Ron Koenderink <rkoenderink@yahoo.ca>
+Ron Kuris <rk@unify.com>
+Nick Lai <lai@cs.ucla.edu>
 Phil Lapsley
 Curtis Larsen
-Robert A. Larson (blarson@skat.usc.edu)
+Robert A. Larson <blarson@skat.usc.edu>
 Jonathan Lee
 Craig Leres
-Dan Logcher (dan@i-kinetics.com)
-Pat Loney (overlord@multi.usr.ch)
-Shelley Louie (slouie@cory.berekely.edu)
+Dan Logcher <dan@i-kinetics.com>
+Pat Loney <overlord@multi.usr.ch>
+Shelley Louie <slouie@cory.berekely.edu>
 Steve McClure
-Chris Metcalf (metcalf-christopher@yale.arpa)
+Chris Metcalf <metcalf-christopher@yale.arpa>
 Sasha Mikheev
 Kevin Morgan
 Richard Moss
-Keith Muller (muller@sdcc7.ucsd.edu)
-Chuck Musciano (chuck@trantor.harris-atd.com)
+Keith Muller <muller@sdcc7.ucsd.edu>
+Chuck Musciano <chuck@trantor.harris-atd.com>
 Dave Nye
 Kevin O'Connor
-Jeff Okamoto (okamoto%hpccc@hplabs.hp.com)
+Jeff Okamoto <okamoto%hpccc@hplabs.hp.com>
 Marc Olzheim
-Julian Onions (jpo@computer-science.nottingham.ac.uk)
+Julian Onions <jpo@computer-science.nottingham.ac.uk>
 Jim Ortlieb
-Dave Pare (mr-frog@smarttouch.com)
+Dave Pare <mr-frog@smarttouch.com>
 Gregory Paris
-Kurt Pires (kjpires@ic.berkeley.edu)
+Kurt Pires <kjpires@ic.berkeley.edu>
 Brett Reid
-Bernhard Reiter (breiter@mathematik.Uni-Osnabrueck.DE)
-Jim Reuter (reuter@decwrl.dec.com)
-James Risner (risemp@openworldinc.com)
-Thomas Ruschak (ts@ecn.purdue.edu)
+Bernhard Reiter <breiter@mathematik.Uni-Osnabrueck.DE>
+Jim Reuter <reuter@decwrl.dec.com>
+James Risner <risemp@openworldinc.com>
+Thomas Ruschak <ts@ecn.purdue.edu>
 Edward M. Rynes
-David Muir Sharnoff (muir@cogsci.berkeley.edu)
+David Muir Sharnoff <muir@cogsci.berkeley.edu>
 Alex Shatsky
 Walter Smith
-Ken Stevens (KStevens@GlobeandMail.ca)
+Ken Stevens <KStevens@GlobeandMail.ca>
 Michael Straub
 Tom Tedrick
 Sam Tetherow
-Yannick Tremblay (yt1@eng.cam.ac.uk)
+Yannick Tremblay <yt1@eng.cam.ac.uk>
 Janjaap van Velthooven
 Ville Virrankoski
-Peter Vukovich (peterv@monet.berkeley.edu)
-Jeff Wallace (jeffw@scam.berkeley.edu)
+Peter Vukovich <peterv@monet.berkeley.edu>
+Jeff Wallace <jeffw@scam.berkeley.edu>
 Sverker Wiberg
 Mike Wise
-John Yockey (johny@verinet.com)
+John Yockey <johny@verinet.com>
 Chad Zabel

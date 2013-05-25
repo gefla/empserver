@@ -229,10 +229,10 @@ vers(void)
     show_opts(0);
     pr("\n\nSee \"info Options\" for a detailed list of options and descriptions.\n");
     show_custom();
-    pr("\nThe person to annoy if something goes wrong is:\n\t%s\n\t(%s).\n",
+    pr("\nThe person to annoy if something goes wrong is:\n\t%s <%s>.\n",
        privname, privlog);
     pr("\nYou can get your own copy of the source from "
-       "http://www.wolfpackempire.com/\n\n");
+       "<http://www.wolfpackempire.com/>.\n\n");
     pr("%s", legal);
     return RET_OK;
 }

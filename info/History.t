@@ -187,7 +187,7 @@ the server gets upgraded, their client will still work.  Note that the
 C_SYNC protocol is asynchronous so, in particular, players will be
 able to watch their neighbors sail ships past their coast etc...
 
-1996 Empire 4.0, Wolfpack (http://www.wolfpackempire.com)
+1996 Empire 4.0, Wolfpack <http://www.wolfpackempire.com/>
 
 A group of people got together to form a new server project.  This project
 is a new project, and is a complete takeoff from the Empire 3.0 server

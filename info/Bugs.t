@@ -4,7 +4,7 @@
 .s1
 Please work with your deity (see \*Qinfo pray\*U) to get bugs reported
 to <wolfpack@wolfpackempire.com> or via SourceForge
-http://sourceforge.net/projects/empserver (registration required).
+<http://sourceforge.net/projects/empserver> (registration required).
 .s1
 NOTE: The following list is perennially incomplete and out of date.
 .s1
