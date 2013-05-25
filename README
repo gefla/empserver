@@ -21,7 +21,8 @@ To build the server and set up a game, follow the steps below.
     If you downloaded a tarball, unpack it.
 
     If you cloned a git repository, run bootstrap.  This requires
-    recent versions of Autoconf and Automake to be installed.
+    recent versions of Autoconf and Automake to be installed.  See
+    also doc/contributing.
 
 (2) Building a server
 

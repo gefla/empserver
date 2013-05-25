@@ -1,0 +1,243 @@
+                     How to contribute to Empire
+
+Introduction
+------------
+
+Basing your contribution on a tarball may work out okay for simple
+patches, but for anything serious, you will need the "git" version
+control tools.
+
+The primary purpose of this document is to help you setting up a
+proper development environment, and guide you towards good practices.
+It is not a git tutorial (but read on for some pointers).  It is not
+about how to do the actual hacking; see doc/coding for that.
+
+
+Getting git
+-----------
+
+On Fedora-based systems, do "yum install git".  On Debian-based ones
+install the "git-core" package.  You can always download from
+<http://git-scm.com/>.
+
+If you're new to git, try the gittutorial(7) manual page, and the Git
+User's Manual.  Both are also available at <http://git-scm.com/>,
+along with other resources, including the the "Pro Git" book.
+
+
+Getting sources
+---------------
+
+You can get a copy of the Empire source repository with this command:
+
+    $ git clone git://git.pond.sub.org/~armbru/empserver
+
+If that doesn't work because you're behind a restrictive firewall, try
+
+    $ git clone http://git.pond.sub.org/empserver
+
+Cloning downloads the entire repository, including revision control
+history dating back to 2003.  The repository (the part you download,
+and which resides in empserver/.git) currently weighs in at about
+25MiB.  But once you got it, you can update it to later versions very
+efficiently; see "Pulling updates".
+
+If you prefer working with github, we maintain a mirror at
+<https://github.com/gefla/empserver>.
+
+
+Building
+--------
+
+Use of a separate build directory is recommended, like this:
+
+    $ cd empserver
+    $ ./bootstrap
+    $ mkdir bld
+    $ cd bld
+    $ ../configure
+    $ make
+    $ make check
+
+See README in the top level directory for more detailed information on
+building.
+
+
+Identify yourself
+-----------------
+
+We can only take patches that record authorship.  That is important
+not just to give credit where due, but also from a legal standpoint
+(see below).  Git records authorship automatically, but you must first
+tell git who you are.  That information is best recorded in your
+~/.gitconfig file.  Edit that file, creating it if needed, and put
+your name and email address in place of these example values:
+
+[user]
+	name = Joe X. User
+	email = joe.user@example.com
+
+
+Work on a "topic branch"
+------------------------
+
+Cloning the repository created a "master" branch for you, tracking the
+origin's master branch.  We recommend you use your master branch only
+for tracking the origin, and make all your changes on separate topic
+branches, because doing both on the same branch creates problems when
+you later pull updates from origin.
+
+If you don't know how to create a branch, check out section "Managing
+branches" in gittutorial(7).
+
+
+Committing changes to your local repository
+-------------------------------------------
+
+If you don't know how to commit, check out section "Making changes" in
+gittutorial(7).
+
+Commit related changes together, unrelated changes separately.
+
+Write meaningful commit messages.  Start with a single summary line,
+followed by a blank line and then a more thorough description.
+
+The purpose of the commit message is not to explain how the code
+works; that should be done in the source code itself.  It's to explain
+*why* you made the change, and what is affected by it.
+
+The summary line should begin with "keyword: ".  The keyword should
+identify what area of Empire gets changed.  Could be a command name, a
+directory name, or any other succinct term.  You may want to peruse
+commit logs for inspiration.
+
+Keep the summary line short, ideally less than 60 characters.
+Nevertheless, it should make sense on its own, independently of the
+description.  Yes, coming up with a good summary line can be hard.
+
+The description may be as long as you wish.  Limit line length to 70
+characters.  Don't use TABs.
+
+If your commit fixes a bug, point to the commit that introduced the
+bug, e.g. "broken in commit 3a7d7fa".  If the bug is in a released
+version, add the first release containing it, like "broken in commit
+14ea670 (v4.3.8)", or "broken in commit 774b590f, v4.3.17".  If the
+bug predates version control, point just to the release.  If you can't
+find out when it was broken, say so.
+
+You may want to sign off your commit now by adding a line
+
+    Signed-off-by: Your Name <your-email-address>"
+
+The easiest way to do so is "git commit" option -s (assuming you
+followed the "Identify yourself" instructions above).
+
+Similar Reported-by:, Tested-by:, and Reviewed-by: lines can be added
+to give credit for reporting, testing, and reviewing.  Do not add them
+without the credited person's permission.
+
+More on these tags can be found at
+<http://gerrit.googlecode.com/svn/documentation/2.0/user-signedoffby.html>.
+
+
+Submitting patches
+------------------
+
+The first step is to prepare patches for e-mail.  Remove any stale
+patches you may have lying around:
+
+    $ rm *.patch
+
+If you want to submit a single commit, prepare it like this:
+
+    $ git format-patch -s -1
+
+This produces a file 0001-<subject>.patch, where <subject> is derived
+from the first line of the commit message.
+
+If you want to submit a a whole topic branch based on master, do:
+
+    $ git format-patch -ns --cover-letter
+
+This produces 0000-cover-letter.patch 0001-<subject1>.patch
+0002-<subject2>.patch and so on.  Edit 0000-cover-letter.patch so it
+serves as an introduction to your patch series.
+
+Option -s adds your Signed-off-by, if it's not already present.  Your
+Signed-off-by line certifies that you wrote the patch or otherwise
+have the right to pass it on, as follows:
+
+    Developer's Certificate of Origin 1.1
+
+    By making a contribution to this project, I certify that:
+
+    (a) The contribution was created in whole or in part by me and I
+	have the right to submit it under the open source license
+	indicated in the file; or
+
+    (b) The contribution is based upon previous work that, to the best
+	of my knowledge, is covered under an appropriate open source
+	license and I have the right under that license to submit that
+	work with modifications, whether created in whole or in part
+	by me, under the same open source license (unless I am
+	permitted to submit under a different license), as indicated
+	in the file; or
+
+    (c) The contribution was provided directly to me by some other
+	person who certified (a), (b) or (c) and I have not modified
+	it.
+
+    (d) I understand and agree that this project and the contribution
+	are public and that a record of the contribution (including
+	all personal information I submit with it, including my
+	sign-off) is maintained indefinitely and may be redistributed
+	consistent with
+        this project or the open source license(s) involved.
+
+Each patch needs to be signed off by everyone who contributed to it,
+with their real names, not pseudonym, or else we can't accept it as a
+contribution to Empire.
+
+The second step is to e-mail the patches.  Common e-mail programs
+notoriously mangle patches.  Therefore, use of "git send-email" is
+strongly recommended:
+
+    $ git send-email --to wolfpack@wolfpackempire.com *.patch
+
+You may use option --cc to copy yourself and/or other persons.
+
+Some configuration may be required to make "git send-email" work with
+your e-mail account.  If you use Gmail, check out
+<http://morefedora.blogspot.de/2009/02/configuring-git-send-email-to-use-gmail.html>.
+
+Of course, you can also submit pull requests.
+
+
+Pulling updates
+---------------
+
+First make sure your working tree is clean, i.e. there are no
+uncommitted changes.  You can use "git stash" to save and restore
+uncommitted changes.
+
+Switch to branch master:
+
+    $ git checkout master
+
+If you mistakenly committed to master, move the commits to a topic
+branch, then reset your master to match the origin's:
+
+    $ git branch work
+    $ git reset --hard origin/master
+
+Pull update's from origin into your master:
+
+    $ git pull
+
+
+Rebasing topic branches
+-----------------------
+
+After pulling updates, you may want to "rebase" topic branches, so
+they branch off the latest master.  The Git User's Manual covers this
+in section "Keeping a patch series up to date using git rebase".

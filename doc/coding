@@ -44,6 +44,8 @@ These guidelines don't attempt to be exhaustive.  More complete
 guidelines that are mostly compatible with Empire can be found at
 http://www.jetcafe.org/~jim/c-style.html
 
+See also doc/contributing.
+
 
 Source tree organization
 ------------------------
@@ -77,6 +79,12 @@ results.  The command `c-set-style', normally bound to `C-c .', lets
 you set the style for the current buffer.  Set variable
 `c-default-style' to "stroustrup" to switch to this style for all
 buffers.
+
+Avoid gratuitous space change
+
+Don't change whitespace gratuitiously, say just because your editor
+screws up tabs.  Such changes make it much harder to figure out who
+changed what and when.
 
 Tab character use
 
@@ -461,24 +469,6 @@ negative value, getstring() and getstarg() return NULL.
 Others return the same error value for failed read and for successful
 read of input that is invalid.  Then you need to check
 player->aborted; if it is set after a read, the read failed.
-
-
-git
----
-
-Commit related changes together, unrelated changes separately.
-
-Write meaningfull commit messages.  Start with a single short line
-(ideally less than 50 characters) summarizing the change, followed by
-a blank line and then a more thorough description.
-
-The purpose of the change log is not to explain how the code works;
-that should be done in the source code itself.  It's to explain *why*
-you made the change, and what is affected by it.
-
-Don't change whitespace gratuitiously, say just because your editor
-screws up tabs.  Such changes make it much harder to figure out who
-changed what and when.
 
 
 Historical guidelines, superseded by the above

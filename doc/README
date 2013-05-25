@@ -38,6 +38,9 @@ pthreads
 coding
 	Guidelines for coding style
 
+contributing
+	How to contribute to Empire
+
 unicode
 	Design and implementation of Empire's Unicode support.
 
