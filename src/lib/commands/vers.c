@@ -33,7 +33,7 @@
  *     Ken Stevens
  *     Steve McClure
  *     Ron Koenderink, 2005-2006
- *     Markus Armbruster, 2005-2012
+ *     Markus Armbruster, 2005-2013
  */
 
 #include <config.h>
@@ -68,9 +68,9 @@ vers(void)
     pr("Each country is allowed to be logged in %d minutes a day.\n",
        m_m_p_d);
     if (*game_days != 0)
-	pr("Game days are %s\n", game_days);
+	pr("Game days are %s.\n", game_days);
     if (*game_hours != 0)
-	pr("Game hours are %s\n", game_hours);
+	pr("Game hours are %s.\n", game_hours);
     pr("It takes %.2f civilians to produce a BTU in one time unit.\n",
        (1.0 / (btu_build_rate * 100.0)));
     pr("\n");
@@ -119,7 +119,7 @@ vers(void)
 
     pr("Tech buildup is ");
     if (tech_log_base <= 1.0) {
-	pr("not limited\n");
+	pr("not limited.\n");
     }
     if (tech_log_base > 1.0) {
 	pr("limited to logarithmic growth (base %.2f)", tech_log_base);
@@ -170,9 +170,9 @@ vers(void)
 	   trade_ally_cut * 100.0);
     }
     if (opt_MARKET) {
-	pr("The tax you pay on selling things on the trading block is %.1f%%\n",
+	pr("The tax you pay on selling things on the trading block is %.1f%%.\n",
 	   (1.00 - tradetax) * 100.0);
-	pr("The tax you pay on buying commodities on the market is %.1f%%\n",
+	pr("The tax you pay on buying commodities on the market is %.1f%%.\n",
 	   (buytax - 1.00) * 100.0);
 	pr("The amount of time to bid on commodities is %d seconds.\n",
 	   MARK_DELAY);
@@ -183,9 +183,9 @@ vers(void)
     if (!ef_nelem(EF_NUKE_CHR))
 	pr("Nukes are disabled.\n");
     else if (drnuke_const > MIN_DRNUKE_CONST) {
-	pr("In order to build a nuke, you need %1.2f times the tech level in research\n",
+	pr("In order to build a nuke, you need %1.2f times the tech level in research.\n",
 	   drnuke_const);
-	pr("\tExample: In order to build a 300 tech nuke, you need %d research\n\n",
+	pr("\tExample: In order to build a 300 tech nuke, you need %d research.\n\n",
 	   (int)(300.0 * drnuke_const));
     }
 
@@ -196,7 +196,7 @@ vers(void)
        assault_penalty);
     pr("%.0f%% of fallout leaks into each surrounding sector.\n",
        fallout_spread * 100.0 * MIN(24, etu_per_update));
-    pr("Fallout decays by %.0f%% per update\n",
+    pr("Fallout decays by %.0f%% per update.\n",
        100.0 - (decay_per_etu + 6.0) * fallout_spread * MIN(24, etu_per_update) * 100.0);
     pr("\n");
     pr("Damage to\t\t\tSpills to\n");
