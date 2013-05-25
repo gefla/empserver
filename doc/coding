@@ -66,7 +66,7 @@ turned the source code into an unreadable mess.  In 2003, we fed it to
 GNU indent.
 
 We tried to restore things to the original style, mostly.  There is
-one noteable change: basic indentation is now four spaces.  Restoring
+one notable change: basic indentation is now four spaces.  Restoring
 the original eight spaces would have resulted in many more long lines,
 which would have to be broken by indent.  Since indent isn't good at
 breaking lines tastefully, we reluctantly chose four instead.
@@ -86,10 +86,10 @@ Don't change whitespace gratuitiously, say just because your editor
 screws up tabs.  Such changes make it much harder to figure out who
 changed what and when.
 
-Tab character use
+TAB character use
 
-Whether you use tab characters or not doesn't really matter that much,
-but tab stops are every eight characters, period.
+Whether you use TAB characters or not doesn't really matter that much,
+but TAB stops are every eight characters, period.
 
 Indentation, placement of braces, function name
 
@@ -175,7 +175,7 @@ Comment lines should be indented exactly like the code the belong to.
 You are encouraged to format multi-line comments like this:
 
         /*
-	 * Please use complete sentences, with proper grammer,
+	 * Please use complete sentences, with proper grammar,
 	 * capitalization and punctuation.  Use two spaces between
 	 * sentences.
 	 */
@@ -279,7 +279,7 @@ give it the same name, like this:
 
 	typedef struct foo foo;
 
-Yes, this is incompatble with C++.  Reducing the number of names for
+Yes, this is incompatible with C++.  Reducing the number of names for
 the same thing is more useful than compatibility to a programming
 language we don't use.
 
@@ -314,7 +314,7 @@ serves no purpose (repeat after me: ISO C is not K&R C).
 
 Factor out common code
 
-Do not gratuitiously duplicate code!  Ken Stevens said it well, and
+Do not gratuitously duplicate code!  Ken Stevens said it well, and
 it's as relevant as ever:
 
   Cut-and-Paste coding is by far the biggest problem that the current
@@ -426,16 +426,16 @@ There are several ways to access an object in set FOO:
   copy), and yielding the processor, which lets other threads update
   the object you copied.
 
-  Therefore, you have to reget after a possible invalidation, and deal
-  with changes.  In particular, if you checked whether the object is
-  suitable for a task, you need to check again after regetting it.  If
-  you can afford to bail out when something changed, use
+  Therefore, you have to re-get after a possible invalidation, and
+  deal with changes.  In particular, if you checked whether the object
+  is suitable for a task, you need to check again after re-getting it.
+  If you can afford to bail out when something changed, use
   check_FOO_ok().
 
   Function comments should state what objects the function can update.
   Unfortunately, they generally don't.
 
-  It's best to keep puts close to gets, both in runtime and in the
+  It's best to keep puts close to gets, both at runtime and in the
   source code.
 
 * Bmaps have special access functions.
