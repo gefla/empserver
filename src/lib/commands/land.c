@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>
@@ -54,7 +55,7 @@ land(void)
 	if (nunits++ == 0) {
 	    if (player->god)
 		pr("own ");
-	    pr("   # unit type          x,y   a   eff mil frt  mu  fd"
+	    pr("   # unit type          x,y    a   eff mil frt  mu  fd"
 	       " tch retr xl ln carry\n");
 	}
 	if (land.lnd_off)
@@ -63,7 +64,7 @@ land(void)
 	    pr("%3d ", land.lnd_own);
 	pr("%4d ", ni.cur);
 	pr("%-15.15s", lchr[(int)land.lnd_type].l_name);
-	prxy(" %4d,%-4d", land.lnd_x, land.lnd_y);
+	prxy(" %4d,%-4d ", land.lnd_x, land.lnd_y);
 	pr("%1.1s", &land.lnd_army);
 	pr(" %c%3d%%", land.lnd_off ? '!' : ' ', land.lnd_effic);
 	pr("%4d", land.lnd_item[I_MILIT]);

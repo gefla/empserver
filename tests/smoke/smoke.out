@@ -8212,12 +8212,12 @@ CENSUS                   del dst
    3 cs   cargo ship     5,-1       20%   0   0   0   0  0  0  0  0   0   31
 4 ships
 
-[0:635] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
-   0 cav  cavalry      10,2       10%   0   0   0   0  31  42%  0  0
-   1 cav  cavalry      10,2       10%   0   0   0   0  31  42%  0  0
-   2 cav  cavalry      10,2       10%   0   0   0   0  31  42%  0  0
-   3 cav  cavalry      10,2       10%   0   0   0   0  31  42%  0  0
-   4 cav  cavalry      10,2       10%   0   0   0   0  31  42%  0  0
+[0:635] Command :    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
+   0 cav  cavalry      10,2        10%   0   0   0   0  31  42%  0  0
+   1 cav  cavalry      10,2        10%   0   0   0   0  31  42%  0  0
+   2 cav  cavalry      10,2        10%   0   0   0   0  31  42%  0  0
+   3 cav  cavalry      10,2        10%   0   0   0   0  31  42%  0  0
+   4 cav  cavalry      10,2        10%   0   0   0   0  31  42%  0  0
 5 units
 
 [0:635] Command :      --------00000000001111111
@@ -8919,11 +8919,11 @@ CENSUS                   del dst
    1 cs   cargo ship     5,-1      100% 300  25   0   0  0  0  0  1  90   31
 2 ships
 
-[0:587] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
-   0 cav  cavalry       5,-1     100%  20   0   4   0  31  42%  0  0    1S
-   3 cav  cavalry       5,-1     100%   1   0   4   0  31  42%  0  0
-   4 cav  cavalry      10,2      100%   0   0  60   0  31  42%  0  0
-   5 art  artillery    10,2       10%   0   0   0   0  37  42%  0  0
+[0:587] Command :    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
+   0 cav  cavalry       5,-1      100%  20   0   4   0  31  42%  0  0    1S
+   3 cav  cavalry       5,-1      100%   1   0   4   0  31  42%  0  0
+   4 cav  cavalry      10,2       100%   0   0  60   0  31  42%  0  0
+   5 art  artillery    10,2        10%   0   0   0   0  37  42%  0  0
 4 units
 
 [0:587] Command :      --------00000000001111111
@@ -10067,11 +10067,11 @@ CENSUS                   del dst
    2 tk   tanker         5,-1       20%  30   0   0   0  0  0  0  0   0   44
 3 ships
 
-[0:622] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
-   0 cav  cavalry       5,-1     100%  20   0  64   0  31  42%  0  0    1S
-   3 cav  cavalry       5,-1     100%   1   0  64   0  31  42%  0  0
-   4 cav  cavalry       4,0      100%   5   0  75   0  31  42%  0  0
-   5 art  artillery     4,0      100%   5   0 -18   0  37  42%  0  0
+[0:622] Command :    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
+   0 cav  cavalry       5,-1      100%  20   0  64   0  31  42%  0  0    1S
+   3 cav  cavalry       5,-1      100%   1   0  64   0  31  42%  0  0
+   4 cav  cavalry       4,0       100%   5   0  75   0  31  42%  0  0
+   5 art  artillery     4,0       100%   5   0 -18   0  37  42%  0  0
 4 units
 
 [0:622] Command : *: No plane(s)
@@ -11071,11 +11071,11 @@ CENSUS                   del dst
    4 ft   fishing tra    5,-1       20% 200   0   0   0  0  0  0  0   0   51
 5 ships
 
-[0:625] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
-   0 cav  cavalry       5,-1     100%  20   0 124   0  31  42%  0  0    1S
-   3 cav  cavalry       5,-1     100%   1   0 124   0  31  42%  0  0
-   4 cav  cavalry      11,-1     100%   5   0 102   0  31  42%  0  0
-   5 art  artillery    11,-1     100%   5   0   0   0  37  42%  0  0
+[0:625] Command :    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
+   0 cav  cavalry       5,-1      100%  20   0 124   0  31  42%  0  0    1S
+   3 cav  cavalry       5,-1      100%   1   0 124   0  31  42%  0  0
+   4 cav  cavalry      11,-1      100%   5   0 102   0  31  42%  0  0
+   5 art  artillery    11,-1      100%   5   0   0   0  37  42%  0  0
 4 units
 
 [0:625] Command :    #    type                x,y    w   eff  mu def tech ran hard carry special
@@ -12001,11 +12001,11 @@ CENSUS                   del dst
    4 ft   fishing tra    6,0       100% 300   0   0   0  0  0  0  0  76   51
 5 ships
 
-[0:611] Command :    # unit type          x,y   a   eff mil frt  mu  fd tch retr xl ln carry
-   0 cav  cavalry       5,-1     100%  20   0 127   0  31  42%  0  0    1S
-   3 cav  cavalry       5,-1     100%   1  57 127   0  31  42%  0  0
-   4 cav  cavalry      11,-1      73%   0   0  97   0  31  42%  0  0
-   5 art  artillery    11,-1      98%   5   0  59   0  37  42%  0  0
+[0:611] Command :    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
+   0 cav  cavalry       5,-1      100%  20   0 127   0  31  42%  0  0    1S
+   3 cav  cavalry       5,-1      100%   1  57 127   0  31  42%  0  0
+   4 cav  cavalry      11,-1       73%   0   0  97   0  31  42%  0  0
+   5 art  artillery    11,-1       98%   5   0  59   0  37  42%  0  0
 4 units
 
 [0:611] Command :    #    type                x,y    w   eff  mu def tech ran hard carry special
