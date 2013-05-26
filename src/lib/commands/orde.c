@@ -397,27 +397,26 @@ sorde(void)
 	if (!nships) {		/* 1st ship, print banner */
 	    if (player->god)
 		pr("own ");
-	    pr("shp#     ship type      x,y    ");
-	    pr("start    end   ");
-	    pr("len  eta\n");
+	    pr("shp#     ship type       x,y      start      end   "
+	       " len  eta\n");
 	}
 	nships++;
 	if (player->god)
 	    pr("%3d ", ship.shp_own);
 	pr("%4d", nb.cur);
 	pr(" %-16.16s", mchr[(int)ship.shp_type].m_name);
-	prxy(" %3d,%-3d", ship.shp_x, ship.shp_y);
+	prxy(" %4d,%-4d", ship.shp_x, ship.shp_y);
 
 	if (ship.shp_autonav & AN_AUTONAV) {
 	    /* Destination 1 */
-	    prxy(" %3d,%-3d", ship.shp_destx[1], ship.shp_desty[1]);
+	    prxy(" %4d,%-4d", ship.shp_destx[1], ship.shp_desty[1]);
 
 	    /* Destination 2 */
 	    if ((ship.shp_destx[1] != ship.shp_destx[0])
 		|| (ship.shp_desty[1] != ship.shp_desty[0])) {
-		prxy(" %3d,%-3d", ship.shp_destx[0], ship.shp_desty[0]);
+		prxy(" %4d,%-4d", ship.shp_destx[0], ship.shp_desty[0]);
 	    } else
-		pr("        ");
+		pr("          ");
 
 	    if (ship.shp_autonav & AN_STANDBY)
 		pr(" suspended");
