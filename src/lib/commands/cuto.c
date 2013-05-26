@@ -62,7 +62,7 @@ cuto(void)
 	}
 	if (player->god)
 	    pr("%3d", sect.sct_own);
-	prxy("%3d,%-3d", nstr.x, nstr.y);
+	prxy("%3d,%-3d", nstr.x, nstr.y); /* FIXME too narrow */
 	pr(" %c ", dchr[sect.sct_type].d_mnem);
 	pr("%c", dirstr[sect.sct_del[I_CIVIL] & 0x7]);
 	pr("%c", dirstr[sect.sct_del[I_MILIT] & 0x7]);
