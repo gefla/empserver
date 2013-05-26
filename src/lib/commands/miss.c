@@ -305,11 +305,11 @@ show_mission(struct nstr_item *np)
 	    continue;
 
 	if (first) {
-	    pr("Thing                         x,y   op-sect rad mission\n");
+	    pr("Thing                        x,y     op-sect  rad mission\n");
 	    first = 0;
 	}
 	pr("%-25s", unit_nameof(gp));
-	prxy(" %3d,%-3d", gp->x, gp->y);
+	prxy(" %4d,%-4d", gp->x, gp->y);
 	switch (gp->mission) {
 	case MI_INTERDICT:
 	case MI_SUPPORT:
@@ -318,8 +318,8 @@ show_mission(struct nstr_item *np)
 	case MI_AIR_DEFENSE:
 	case MI_DSUPPORT:
 	case MI_OSUPPORT:
-	    prxy(" %3d,%-3d", gp->opx, gp->opy);
-	    pr("  %4d", gp->radius);
+	    prxy(" %4d,%-4d", gp->opx, gp->opy);
+	    pr(" %3d", gp->radius);
 	    break;
 	default:
 	    CANT_REACH();
