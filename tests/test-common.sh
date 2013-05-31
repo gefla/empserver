@@ -35,7 +35,7 @@ start_server()
     local timeout
     pid=
     trap 'if [ "$pid" ]; then kill -9 "$pid" 2>/dev/null || true; fi' EXIT
-    src/server/emp_server -e sandbox/etc/empire/econfig -R 1
+    src/server/emp_server -e sandbox/etc/empire/econfig -R 1 -s
     timeout=$((`now`+5))
     until pid=`cat $pidfile 2>/dev/null` && [ -n "$pid" ]
     do
