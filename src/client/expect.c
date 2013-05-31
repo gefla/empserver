@@ -106,8 +106,8 @@ sendcmd(int s, char *cmd, char *arg)
     ssize_t n;
     int len;
 
-    len = snprintf(buf, sizeof(buf), "%s %s\n",
-		   cmd, arg != NULL ? arg : "");
+    len = snprintf(buf, sizeof(buf), "%s%s%s\n",
+		   cmd, arg ? " " : "", arg ? arg : "");
     if (len >= (int)sizeof(buf)) {
 	fprintf(stderr, "%s too long\n", cmd);
 	exit(1);

@@ -5,7 +5,7 @@
      Conn1 input user tester
      Conn1 input coun POGO
      Conn1 input pass peter
-     Conn1 input play 
+     Conn1 input play
      Conn1 login 0 127.0.0.1 tester
     Play#0 input add 1 1 1 p
     Play#0 command add
@@ -54,7 +54,7 @@
      Conn2 input user tester
      Conn2 input coun POGO
      Conn2 input pass peter
-     Conn2 input play 
+     Conn2 input play
      Conn2 login 0 127.0.0.1 tester
     Play#0 input xdump meta sect
     Play#0 command xdump
@@ -159,7 +159,7 @@
      Conn3 input user tester
      Conn3 input coun 1
      Conn3 input pass 1
-     Conn3 input play 
+     Conn3 input play
      Conn3 login 1 127.0.0.1 tester
     Play#1 input xdump sect 0,0
     Play#1 command xdump
@@ -268,7 +268,7 @@
      Conn4 input user tester
      Conn4 input coun 2
      Conn4 input pass 2
-     Conn4 input play 
+     Conn4 input play
      Conn4 login 2 127.0.0.1 tester
     Play#2 input break
     Play#2 command break
@@ -385,7 +385,7 @@
      Conn5 input user tester
      Conn5 input coun 3
      Conn5 input pass 3
-     Conn5 input play 
+     Conn5 input play
      Conn5 login 3 127.0.0.1 tester
     Play#3 input break
     Play#3 command break
@@ -404,7 +404,7 @@
      Conn6 input user tester
      Conn6 input coun 4
      Conn6 input pass 4
-     Conn6 input play 
+     Conn6 input play
      Conn6 login 4 127.0.0.1 tester
     Play#4 input break
     Play#4 command break
@@ -423,7 +423,7 @@
      Conn7 input user tester
      Conn7 input coun 5
      Conn7 input pass 5
-     Conn7 input play 
+     Conn7 input play
      Conn7 login 5 127.0.0.1 tester
     Play#5 input break
     Play#5 command break
@@ -442,7 +442,7 @@
      Conn8 input user tester
      Conn8 input coun 6
      Conn8 input pass 6
-     Conn8 input play 
+     Conn8 input play
      Conn8 login 6 127.0.0.1 tester
     Play#6 input break
     Play#6 command break
@@ -461,7 +461,7 @@
      Conn9 input user tester
      Conn9 input coun 7
      Conn9 input pass 7
-     Conn9 input play 
+     Conn9 input play
      Conn9 login 7 127.0.0.1 tester
     Play#7 input break
     Play#7 command break
@@ -480,7 +480,7 @@
     Conn10 input user tester
     Conn10 input coun 8
     Conn10 input pass 8
-    Conn10 input play 
+    Conn10 input play
     Conn10 login 8 127.0.0.1 tester
     Play#8 input break
     Play#8 command break
@@ -499,7 +499,7 @@
     Conn11 input user tester
     Conn11 input coun 9
     Conn11 input pass 9
-    Conn11 input play 
+    Conn11 input play
     Conn11 login 9 127.0.0.1 tester
     Play#9 input break
     Play#9 command break
@@ -518,7 +518,7 @@
     Conn12 input user tester
     Conn12 input coun 10
     Conn12 input pass 10
-    Conn12 input play 
+    Conn12 input play
     Conn12 login 10 127.0.0.1 tester
    Play#10 input break
    Play#10 command break
@@ -537,7 +537,7 @@
     Conn13 input user tester
     Conn13 input coun POGO
     Conn13 input pass peter
-    Conn13 input play 
+    Conn13 input play
     Conn13 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -557,7 +557,7 @@
     Conn14 input user tester
     Conn14 input coun 1
     Conn14 input pass 1
-    Conn14 input play 
+    Conn14 input play
     Conn14 login 1 127.0.0.1 tester
     Play#1 input real 0 -8:12,-4:4
     Play#1 command realm
@@ -572,7 +572,7 @@
     Conn15 input user tester
     Conn15 input coun POGO
     Conn15 input pass peter
-    Conn15 input play 
+    Conn15 input play
     Conn15 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -592,7 +592,7 @@
     Conn16 input user tester
     Conn16 input coun 1
     Conn16 input pass 1
-    Conn16 input play 
+    Conn16 input play
     Conn16 login 1 127.0.0.1 tester
     Play#1 input desi -1,-1 b
     Play#1 command designate
@@ -629,7 +629,7 @@
     Conn17 input user tester
     Conn17 input coun POGO
     Conn17 input pass peter
-    Conn17 input play 
+    Conn17 input play
     Conn17 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -649,7 +649,7 @@
     Conn18 input user tester
     Conn18 input coun 1
     Conn18 input pass 1
-    Conn18 input play 
+    Conn18 input play
     Conn18 login 1 127.0.0.1 tester
     Play#1 input cen *
     Play#1 command census
@@ -710,7 +710,7 @@
     Conn19 input user tester
     Conn19 input coun 8
     Conn19 input pass 8
-    Conn19 input play 
+    Conn19 input play
     Conn19 login 8 127.0.0.1 tester
     Play#8 input cen *
     Play#8 command census
@@ -729,7 +729,7 @@
     Conn20 input user tester
     Conn20 input coun POGO
     Conn20 input pass peter
-    Conn20 input play 
+    Conn20 input play
     Conn20 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -749,7 +749,7 @@
     Conn21 input user tester
     Conn21 input coun 1
     Conn21 input pass 1
-    Conn21 input play 
+    Conn21 input play
     Conn21 login 1 127.0.0.1 tester
     Play#1 input cen *
     Play#1 command census
@@ -782,7 +782,7 @@
     Conn22 input user tester
     Conn22 input coun 8
     Conn22 input pass 8
-    Conn22 input play 
+    Conn22 input play
     Conn22 login 8 127.0.0.1 tester
     Play#8 input cen *
     Play#8 command census
@@ -797,7 +797,7 @@
     Conn23 input user tester
     Conn23 input coun POGO
     Conn23 input pass peter
-    Conn23 input play 
+    Conn23 input play
     Conn23 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -817,7 +817,7 @@
     Conn24 input user tester
     Conn24 input coun 1
     Conn24 input pass 1
-    Conn24 input play 
+    Conn24 input play
     Conn24 login 1 127.0.0.1 tester
     Play#1 input real 0 -8:16,-4:4
     Play#1 command realm
@@ -836,7 +836,7 @@
     Conn25 input user tester
     Conn25 input coun POGO
     Conn25 input pass peter
-    Conn25 input play 
+    Conn25 input play
     Conn25 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -856,7 +856,7 @@
     Conn26 input user tester
     Conn26 input coun 1
     Conn26 input pass 1
-    Conn26 input play 
+    Conn26 input play
     Conn26 login 1 127.0.0.1 tester
     Play#1 input real 1 -16:24,-8:8
     Play#1 command realm
@@ -931,7 +931,7 @@
     Conn27 input user tester
     Conn27 input coun 8
     Conn27 input pass 8
-    Conn27 input play 
+    Conn27 input play
     Conn27 login 8 127.0.0.1 tester
     Play#8 input exp c 0,0 1 gh
     Play#8 command explore
@@ -998,7 +998,7 @@
     Conn28 input user tester
     Conn28 input coun POGO
     Conn28 input pass peter
-    Conn28 input play 
+    Conn28 input play
     Conn28 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -1018,7 +1018,7 @@
     Conn29 input user tester
     Conn29 input coun 1
     Conn29 input pass 1
-    Conn29 input play 
+    Conn29 input play
     Conn29 login 1 127.0.0.1 tester
     Play#1 input build bridge 5,-1 j
     Play#1 command build
@@ -1083,7 +1083,7 @@
     Conn30 input user tester
     Conn30 input coun 8
     Conn30 input pass 8
-    Conn30 input play 
+    Conn30 input play
     Conn30 login 8 127.0.0.1 tester
     Play#8 input des 7,-1 c
     Play#8 command designate
@@ -1144,7 +1144,7 @@
     Conn31 input user tester
     Conn31 input coun POGO
     Conn31 input pass peter
-    Conn31 input play 
+    Conn31 input play
     Conn31 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -1164,7 +1164,7 @@
     Conn32 input user tester
     Conn32 input coun 1
     Conn32 input pass 1
-    Conn32 input play 
+    Conn32 input play
     Conn32 login 1 127.0.0.1 tester
     Play#1 input des 0,2 m
     Play#1 command designate
@@ -1227,7 +1227,7 @@
     Conn33 input user tester
     Conn33 input coun 8
     Conn33 input pass 8
-    Conn33 input play 
+    Conn33 input play
     Conn33 login 8 127.0.0.1 tester
     Play#8 input thres c -3:-1,-1 769
     Play#8 command threshold
@@ -1250,7 +1250,7 @@
     Conn34 input user tester
     Conn34 input coun POGO
     Conn34 input pass peter
-    Conn34 input play 
+    Conn34 input play
     Conn34 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -1270,7 +1270,7 @@
     Conn35 input user tester
     Conn35 input coun 1
     Conn35 input pass 1
-    Conn35 input play 
+    Conn35 input play
     Conn35 login 1 127.0.0.1 tester
     Play#1 input mov u 2,0 10 7,-1
     Play#1 command move
@@ -1307,7 +1307,7 @@
     Conn36 input user tester
     Conn36 input coun 8
     Conn36 input pass 8
-    Conn36 input play 
+    Conn36 input play
     Conn36 login 8 127.0.0.1 tester
     Play#8 input thres d 1,-1 0
     Play#8 command threshold
@@ -1354,7 +1354,7 @@
     Conn37 input user tester
     Conn37 input coun POGO
     Conn37 input pass peter
-    Conn37 input play 
+    Conn37 input play
     Conn37 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -1374,7 +1374,7 @@
     Conn38 input user tester
     Conn38 input coun 1
     Conn38 input pass 1
-    Conn38 input play 
+    Conn38 input play
     Conn38 login 1 127.0.0.1 tester
     Play#1 input mov h 5,-1 100 7,-1
     Play#1 command move
@@ -1481,7 +1481,7 @@
     Conn39 input user tester
     Conn39 input coun 8
     Conn39 input pass 8
-    Conn39 input play 
+    Conn39 input play
     Conn39 login 8 127.0.0.1 tester
     Play#8 input des -3,-1 j
     Play#8 command designate
@@ -1516,7 +1516,7 @@
     Conn40 input user tester
     Conn40 input coun POGO
     Conn40 input pass peter
-    Conn40 input play 
+    Conn40 input play
     Conn40 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -1536,7 +1536,7 @@
     Conn41 input user tester
     Conn41 input coun 1
     Conn41 input pass 1
-    Conn41 input play 
+    Conn41 input play
     Conn41 login 1 127.0.0.1 tester
     Play#1 input thres l 6,-2 300
     Play#1 command threshold
@@ -1571,7 +1571,7 @@
     Conn42 input user tester
     Conn42 input coun 8
     Conn42 input pass 8
-    Conn42 input play 
+    Conn42 input play
     Conn42 login 8 127.0.0.1 tester
     Play#8 input des -1,-1 m
     Play#8 command designate
@@ -1624,7 +1624,7 @@
     Conn43 input user tester
     Conn43 input coun POGO
     Conn43 input pass peter
-    Conn43 input play 
+    Conn43 input play
     Conn43 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -1644,7 +1644,7 @@
     Conn44 input user tester
     Conn44 input coun 1
     Conn44 input pass 1
-    Conn44 input play 
+    Conn44 input play
     Conn44 login 1 127.0.0.1 tester
     Play#1 input build l 10,2 cav 5
     Play#1 command build
@@ -1675,7 +1675,7 @@
     Conn45 input user tester
     Conn45 input coun 8
     Conn45 input pass 8
-    Conn45 input play 
+    Conn45 input play
     Conn45 login 8 127.0.0.1 tester
     Play#8 input des 6,-2 t
     Play#8 command designate
@@ -1716,7 +1716,7 @@
     Conn46 input user tester
     Conn46 input coun POGO
     Conn46 input pass peter
-    Conn46 input play 
+    Conn46 input play
     Conn46 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -1736,7 +1736,7 @@
     Conn47 input user tester
     Conn47 input coun 1
     Conn47 input pass 1
-    Conn47 input play 
+    Conn47 input play
     Conn47 login 1 127.0.0.1 tester
     Play#1 input des -2,-2 j
     Play#1 command designate
@@ -1851,7 +1851,7 @@
     Conn48 input user tester
     Conn48 input coun 2
     Conn48 input pass 2
-    Conn48 input play 
+    Conn48 input play
     Conn48 login 2 127.0.0.1 tester
     Play#2 input explore c 2,0  1 uh
     Play#2 command explore
@@ -2035,7 +2035,7 @@
     Conn49 input user tester
     Conn49 input coun 8
     Conn49 input pass 8
-    Conn49 input play 
+    Conn49 input play
     Conn49 login 8 127.0.0.1 tester
     Play#8 input thres c -2,0 769
     Play#8 command threshold
@@ -2080,7 +2080,7 @@
     Conn50 input user tester
     Conn50 input coun POGO
     Conn50 input pass peter
-    Conn50 input play 
+    Conn50 input play
     Conn50 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -2100,7 +2100,7 @@
     Conn51 input user tester
     Conn51 input coun 1
     Conn51 input pass 1
-    Conn51 input play 
+    Conn51 input play
     Conn51 login 1 127.0.0.1 tester
     Play#1 input lload m 4/5 5
     Play#1 command lload
@@ -2159,7 +2159,7 @@
     Conn52 input user tester
     Conn52 input coun 2
     Conn52 input pass 2
-    Conn52 input play 
+    Conn52 input play
     Conn52 login 2 127.0.0.1 tester
     Play#2 input des 0:2,0 m
     Play#2 command designate
@@ -2204,7 +2204,7 @@
     Conn53 input user tester
     Conn53 input coun 8
     Conn53 input pass 8
-    Conn53 input play 
+    Conn53 input play
     Conn53 login 8 127.0.0.1 tester
     Play#8 input thres c * 769
     Play#8 command threshold
@@ -2243,7 +2243,7 @@
     Conn54 input user tester
     Conn54 input coun POGO
     Conn54 input pass peter
-    Conn54 input play 
+    Conn54 input play
     Conn54 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -2263,7 +2263,7 @@
     Conn55 input user tester
     Conn55 input coun 1
     Conn55 input pass 1
-    Conn55 input play 
+    Conn55 input play
     Conn55 login 1 127.0.0.1 tester
     Play#1 input build p 2,2 f1 3
     Play#1 command build
@@ -2316,7 +2316,7 @@
     Conn56 input user tester
     Conn56 input coun 2
     Conn56 input pass 2
-    Conn56 input play 
+    Conn56 input play
     Conn56 login 2 127.0.0.1 tester
     Play#2 input des -5,-1 j
     Play#2 command designate
@@ -2345,7 +2345,7 @@
     Conn57 input user tester
     Conn57 input coun 8
     Conn57 input pass 8
-    Conn57 input play 
+    Conn57 input play
     Conn57 login 8 127.0.0.1 tester
     Play#8 input des 5,-1 d
     Play#8 command designate
@@ -2410,7 +2410,7 @@
     Conn58 input user tester
     Conn58 input coun POGO
     Conn58 input pass peter
-    Conn58 input play 
+    Conn58 input play
     Conn58 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -2430,7 +2430,7 @@
     Conn59 input user tester
     Conn59 input coun 1
     Conn59 input pass 1
-    Conn59 input play 
+    Conn59 input play
     Conn59 login 1 127.0.0.1 tester
     Play#1 input mov c 1,-1 230 jjh
     Play#1 command move
@@ -2500,7 +2500,7 @@
     Conn60 input user tester
     Conn60 input coun 2
     Conn60 input pass 2
-    Conn60 input play 
+    Conn60 input play
     Conn60 login 2 127.0.0.1 tester
     Play#2 input des 3,-1 l
     Play#2 command designate
@@ -2539,7 +2539,7 @@
     Conn61 input user tester
     Conn61 input coun 8
     Conn61 input pass 8
-    Conn61 input play 
+    Conn61 input play
     Conn61 login 8 127.0.0.1 tester
     Play#8 input des -4,-4 o
     Play#8 command designate
@@ -2562,7 +2562,7 @@
     Conn62 input user tester
     Conn62 input coun POGO
     Conn62 input pass peter
-    Conn62 input play 
+    Conn62 input play
     Conn62 login 0 127.0.0.1 tester
     Play#0 input power new
     Play#0 command power
@@ -2582,7 +2582,7 @@
     Conn63 input user tester
     Conn63 input coun POGO
     Conn63 input pass peter
-    Conn63 input play 
+    Conn63 input play
     Conn63 login 0 127.0.0.1 tester
     Play#0 input xdump sect 0,0
     Play#0 command xdump
@@ -2687,7 +2687,7 @@
     Conn64 input user tester
     Conn64 input coun 1
     Conn64 input pass 1
-    Conn64 input play 
+    Conn64 input play
     Conn64 login 1 127.0.0.1 tester
     Play#1 input xdump sect 0,0
     Play#1 command xdump
