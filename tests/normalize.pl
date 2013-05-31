@@ -34,8 +34,7 @@ while (<>) {
     my $pfx = '';
 
     if ($opt_j || $opt_s) {
-	die "$0: malformed line" unless substr($_, 24, 1) eq ' ';
-	$pfx .= norm_ctime(substr($_, 0, 25));
+	die "$0: malformed line" unless /^$ctime_re /;
 	$_ = substr($_, 25);
     }
 
