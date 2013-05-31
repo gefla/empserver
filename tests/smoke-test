@@ -41,7 +41,7 @@ do
     if [ "$need_update" ]
     then
 	echo "Update Turn $t starting" >&3
-	src/client/empire POGO peter <<EOF >&3
+	src/client/empire POGO peter <<EOF >/dev/null
 power new
 report *
 cen * ?own#0
@@ -59,7 +59,7 @@ EOF
 	then c=POGO r=peter
 	else c="${p#0}"; r="$c"
 	fi
-	src/client/empire "$c" "$r" <$j >&3
+	src/client/empire "$c" "$r" <$j >/dev/null
 	echo "Player $p Turn $t completed successfully" >&3
     done
     need_update=y

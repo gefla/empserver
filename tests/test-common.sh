@@ -18,7 +18,7 @@ data "../../var/empire"
 info "../../../../info.nr"
 builtin "../../share/empire/builtin"
 listen_addr "$EMPIREHOST"
-keep_journal 1
+keep_journal 2
 EOF
     cp "$srcdir"/src/lib/global/*.config sandbox/share/empire/builtin
 }
