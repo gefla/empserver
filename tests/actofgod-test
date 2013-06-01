@@ -1,0 +1,59 @@
+#!/bin/sh -e
+# Acts of god test for Empire
+
+if [ $# -ne 1 ]
+then echo "Usage: $0 SRCDIR" >&2; exit 1
+fi
+
+srcdir="$1"
+
+. "$srcdir"/tests/test-common.sh
+
+#
+# Currently expected to work only with thread package LWP, because:
+# 
+# - Thread scheduling is reliably deterministic only with LWP
+# - Shell builtin kill appears not to do the job in MinGW
+# - The Windows server tries to run as service when -d isn't
+#   specified
+#
+# TODO address these shortcomings.
+#
+if [ `sed -n 's/empthread *:= *\(.*\)/\1/p' <GNUmakefile` != LWP ]
+then echo "Warning: test not expected to work with this thread package!" >&2
+fi
+
+create_sandbox
+cat >>sandbox/etc/empire/econfig <<EOF
+WORLD_X 24
+WORLD_Y 16
+EOF
+
+exec 3>sandbox/actofgod.out
+
+# Create world, hide creation output
+src/util/files -e sandbox/etc/empire/econfig -f >&3
+cp -r sandbox/var/empire/tel sandbox/var/empire/empty.tel
+start_server
+src/client/empire POGO peter <"$srcdir"/tests/actofgod/init_script >/dev/null
+stop_server
+mv sandbox/var/empire/tel sandbox/var/empire/init.tel
+mv sandbox/var/empire/empty.tel sandbox/var/empire/tel
+mv sandbox/var/empire/journal.log sandbox/var/empire/init.journal.log
+mv sandbox/var/empire/server.log sandbox/var/empire/init.server.log
+
+# Start server
+start_server
+
+# Feed input
+perl "$srcdir"/tests/actofgod/geninput.pl | src/client/empire POGO peter >/dev/null
+
+# Stop server
+stop_server
+
+exec 3>&-
+
+src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/actofgod.xdump
+
+# Test completed; compare results
+cmp_out actofgod.out var/empire/server.log var/empire/journal.log actofgod.xdump

@@ -1,0 +1,1590 @@
+      Main startup
+      Main prng MT19937 1
+     Conn0 output Conn0 2 Empire server ready
+     Conn0 input user tester
+     Conn0 output Conn0 0 hello tester
+     Conn0 input coun red
+     Conn0 output Conn0 10 country red does not exist
+     Conn0 output Conn0 3 so long...
+     Conn1 output Conn1 2 Empire server ready
+     Conn1 input user tester
+     Conn1 output Conn1 0 hello tester
+     Conn1 input coun POGO
+     Conn1 output Conn1 0 country name POGO
+     Conn1 input pass peter
+     Conn1 output Conn1 0 password ok
+     Conn1 input play
+     Conn1 login 0 127.0.0.1 tester
+    Play#0 output Play#0 2 2
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 0,0 @ 0
+    Play#0 command edit
+    Play#0 output Play#0 1 huh? (@)
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres @ 0,0 0
+    Play#0 command setresource
+    Play#0 output Play#0 1 huh?
+    Play#0 output Play#0 1 Usage: setresource <type> <SECTS> <NUM>
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect @ 0,0 0
+    Play#0 command setsector
+    Play#0 output Play#0 1 huh?
+    Play#0 output Play#0 1 Usage: setsector <type> <SECTS> <NUM>
+    Play#0 output Play#0 6 0 640
+    Play#0 input give @ 0,0 0
+    Play#0 command give
+    Play#0 output Play#0 1 Unrecognized item "@"
+    Play#0 output Play#0 1 Usage: give <COMM> <SECTS> <NUM>
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,7 o 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Owner of 1,7 changed from 1 (#1) to POGO (#0).
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,7 o -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,7 o 98
+    Play#0 command edit
+    Play#0 output Play#0 1 Owner of 3,7 changed from 1 (#1) to 98 (#98).
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,7 o 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Owner of 3,7 changed from 98 (#98) to 98 (#98).
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,7 O 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Old owner of 1,7 changed from 1 (#1) to POGO (#0).
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,7 O -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,7 O 98
+    Play#0 command edit
+    Play#0 output Play#0 1 Old owner of 3,7 changed from 1 (#1) to 98 (#98).
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,7 O 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Old owner of 3,7 changed from 98 (#98) to 98 (#98).
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,7 X 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Che target of 1,7 changed from POGO (#0) to POGO (#0).
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,7 X -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Che target of 1,7 changed from POGO (#0) to POGO (#0).
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,7 X 98
+    Play#0 command edit
+    Play#0 output Play#0 1 Che target of 3,7 changed from POGO (#0) to 98 (#98).
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,7 X 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Che target of 3,7 changed from 98 (#98) to 98 (#98).
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,7 o 2
+    Play#0 command edit
+    Play#0 output Play#0 1 Owner of 5,7 changed from 1 (#1) to 2 (#2).
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect ow 7,7 0
+    Play#0 command setsector
+    Play#0 output Play#0 1 Owner of 7,7 changed from 1 (#1) to POGO (#0).
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect ow 7,7 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Usage: setsector <type> <SECTS> <NUM>
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect ow 9,7 98
+    Play#0 command setsector
+    Play#0 output Play#0 1 Owner of 9,7 changed from 1 (#1) to 98 (#98).
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect ow 9,7 99
+    Play#0 command setsector
+    Play#0 output Play#0 1 Usage: setsector <type> <SECTS> <NUM>
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect ol 7,7 0
+    Play#0 command setsector
+    Play#0 output Play#0 1 Old owner of 7,7 changed from 1 (#1) to POGO (#0).
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect ol 7,7 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Usage: setsector <type> <SECTS> <NUM>
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect ol 9,7 98
+    Play#0 command setsector
+    Play#0 output Play#0 1 Old owner of 9,7 changed from 1 (#1) to 98 (#98).
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect ol 9,7 99
+    Play#0 command setsector
+    Play#0 output Play#0 1 Usage: setsector <type> <SECTS> <NUM>
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect ow 11,7 2
+    Play#0 command setsector
+    Play#0 output Play#0 1 Owner of 11,7 changed from 1 (#1) to 2 (#2).
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,7 L 1,-7
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,-7 L 3,-7 L 1,0
+    Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 e 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 e -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 e 100
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of 5,1 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 e 101
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of 7,1 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect e 1,3 -2147483648
+    Play#0 command setsector
+    Play#0 output Play#0 1 Efficiency in 1,3 changed to 0.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect e 3:7,3 1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Efficiency in 3,3 changed to 1.
+    Play#0 output Play#0 1 Efficiency in 5,3 changed to 1.
+    Play#0 output Play#0 1 Efficiency in 7,3 changed to 1.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect e 5,3 2147483647
+    Play#0 command setsector
+    Play#0 output Play#0 1 Efficiency in 5,3 changed to 0.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect e 7,3 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Efficiency in 7,3 changed to 0.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 m -127
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of 1,1 changed from 0 to -127
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 m -128
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of 3,1 changed from 0 to -127
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 m 127
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of 5,1 changed from 0 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 m 128
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of 7,1 changed from 0 to 128
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect mo 1,3 -2147483648
+    Play#0 command setsector
+    Play#0 output Play#0 1 Mobility in 1,3 changed to -127.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect mo 3:7,3 1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Mobility in 3,3 changed to 1.
+    Play#0 output Play#0 1 Mobility in 5,3 changed to 1.
+    Play#0 output Play#0 1 Mobility in 7,3 changed to 1.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect mo 5,3 2147483647
+    Play#0 command setsector
+    Play#0 output Play#0 1 Mobility in 5,3 changed to -127.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect mo 7,3 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Mobility in 7,3 changed to 0.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 i 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Iron ore content of 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 i -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Iron ore content of 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 i 127
+    Play#0 command edit
+    Play#0 output Play#0 1 Iron ore content of 5,1 changed from 0 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 i 128
+    Play#0 command edit
+    Play#0 output Play#0 1 Iron ore content of 7,1 changed from 0 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres i 2,2 0
+    Play#0 command setresource
+    Play#0 output Play#0 1 Iron ore content of 2,2 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres i 4,2 -1
+    Play#0 command setresource
+    Play#0 output Play#0 1 Iron ore content of 4,2 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres i 6,2 100
+    Play#0 command setresource
+    Play#0 output Play#0 1 Iron ore content of 6,2 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres i 8,2 101
+    Play#0 command setresource
+    Play#0 output Play#0 1 Iron ore content of 8,2 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect i 1,3 -2147483648
+    Play#0 command setsector
+    Play#0 output Play#0 1 Iron ore content of 1,3 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect i 3:7,3 1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Iron ore content of 3,3 changed from 0 to 1
+    Play#0 output Play#0 1 Iron ore content of 5,3 changed from 0 to 1
+    Play#0 output Play#0 1 Iron ore content of 7,3 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect i 5,3 2147483647
+    Play#0 command setsector
+    Play#0 output Play#0 1 Iron ore content of 5,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect i 7,3 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Iron ore content of 7,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 g 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Gold content of 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 g -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Gold content of 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 g 127
+    Play#0 command edit
+    Play#0 output Play#0 1 Gold content of 5,1 changed from 0 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 g 128
+    Play#0 command edit
+    Play#0 output Play#0 1 Gold content of 7,1 changed from 0 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres g 2,2 0
+    Play#0 command setresource
+    Play#0 output Play#0 1 Gold content of 2,2 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres g 4,2 -1
+    Play#0 command setresource
+    Play#0 output Play#0 1 Gold content of 4,2 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres g 6,2 100
+    Play#0 command setresource
+    Play#0 output Play#0 1 Gold content of 6,2 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres g 8,2 101
+    Play#0 command setresource
+    Play#0 output Play#0 1 Gold content of 8,2 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect g 1,3 -2147483648
+    Play#0 command setsector
+    Play#0 output Play#0 1 Gold content of 1,3 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect g 3:7,3 1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Gold content of 3,3 changed from 0 to 1
+    Play#0 output Play#0 1 Gold content of 5,3 changed from 0 to 1
+    Play#0 output Play#0 1 Gold content of 7,3 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect g 5,3 2147483647
+    Play#0 command setsector
+    Play#0 output Play#0 1 Gold content of 5,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect g 7,3 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Gold content of 7,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 f 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Fertility of 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 f -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Fertility of 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 f 127
+    Play#0 command edit
+    Play#0 output Play#0 1 Fertility of 5,1 changed from 0 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 f 128
+    Play#0 command edit
+    Play#0 output Play#0 1 Fertility of 7,1 changed from 0 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres f 2,2 0
+    Play#0 command setresource
+    Play#0 output Play#0 1 Fertility content of 2,2 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres f 4,2 -1
+    Play#0 command setresource
+    Play#0 output Play#0 1 Fertility content of 4,2 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres f 6,2 100
+    Play#0 command setresource
+    Play#0 output Play#0 1 Fertility content of 6,2 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres f 8,2 101
+    Play#0 command setresource
+    Play#0 output Play#0 1 Fertility content of 8,2 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect f 1,3 -2147483648
+    Play#0 command setsector
+    Play#0 output Play#0 1 Fertility content of 1,3 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect f 3:7,3 1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Fertility content of 3,3 changed from 0 to 1
+    Play#0 output Play#0 1 Fertility content of 5,3 changed from 0 to 1
+    Play#0 output Play#0 1 Fertility content of 7,3 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect f 5,3 2147483647
+    Play#0 command setsector
+    Play#0 output Play#0 1 Fertility content of 5,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect f 7,3 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Fertility content of 7,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 c 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Oil content of 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 c -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Oil content of 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 c 127
+    Play#0 command edit
+    Play#0 output Play#0 1 Oil content of 5,1 changed from 0 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 c 128
+    Play#0 command edit
+    Play#0 output Play#0 1 Oil content of 7,1 changed from 0 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres o 2,2 0
+    Play#0 command setresource
+    Play#0 output Play#0 1 Oil content of 2,2 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres o 4,2 -1
+    Play#0 command setresource
+    Play#0 output Play#0 1 Oil content of 4,2 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres o 6,2 100
+    Play#0 command setresource
+    Play#0 output Play#0 1 Oil content of 6,2 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres o 8,2 101
+    Play#0 command setresource
+    Play#0 output Play#0 1 Oil content of 8,2 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect oi 1,3 -2147483648
+    Play#0 command setsector
+    Play#0 output Play#0 1 Oil content of 1,3 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect oi 3:7,3 1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Oil content of 3,3 changed from 0 to 1
+    Play#0 output Play#0 1 Oil content of 5,3 changed from 0 to 1
+    Play#0 output Play#0 1 Oil content of 7,3 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect oi 5,3 2147483647
+    Play#0 command setsector
+    Play#0 output Play#0 1 Oil content of 5,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect oi 7,3 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Oil content of 7,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 u 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Uranium content of 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 u -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Uranium content of 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 u 127
+    Play#0 command edit
+    Play#0 output Play#0 1 Uranium content of 5,1 changed from 0 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 u 128
+    Play#0 command edit
+    Play#0 output Play#0 1 Uranium content of 7,1 changed from 0 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres u 2,2 0
+    Play#0 command setresource
+    Play#0 output Play#0 1 Uranium content of 2,2 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres u 4,2 -1
+    Play#0 command setresource
+    Play#0 output Play#0 1 Uranium content of 4,2 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres u 6,2 100
+    Play#0 command setresource
+    Play#0 output Play#0 1 Uranium content of 6,2 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setres u 8,2 101
+    Play#0 command setresource
+    Play#0 output Play#0 1 Uranium content of 8,2 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect u 1,3 -2147483648
+    Play#0 command setsector
+    Play#0 output Play#0 1 Uranium content of 1,3 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect u 3:7,3 1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Uranium content of 3,3 changed from 0 to 1
+    Play#0 output Play#0 1 Uranium content of 5,3 changed from 0 to 1
+    Play#0 output Play#0 1 Uranium content of 7,3 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect u 5,3 2147483647
+    Play#0 command setsector
+    Play#0 output Play#0 1 Uranium content of 5,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect u 7,3 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Uranium content of 7,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 w 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Workforce percentage of 1,1 changed from 100 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 w -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Workforce percentage of 3,1 changed from 100 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 w 100
+    Play#0 command edit
+    Play#0 output Play#0 1 Workforce percentage of 5,1 changed from 100 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 w 101
+    Play#0 command edit
+    Play#0 output Play#0 1 Workforce percentage of 7,1 changed from 100 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect w 1,3 -2147483648
+    Play#0 command setsector
+    Play#0 output Play#0 1 Work in 1,3 changed to 0.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect w 3:7,3 1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Work in 3,3 changed to 100.
+    Play#0 output Play#0 1 Work in 5,3 changed to 100.
+    Play#0 output Play#0 1 Work in 7,3 changed to 100.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect w 5,3 2147483647
+    Play#0 command setsector
+    Play#0 output Play#0 1 Work in 5,3 changed to 0.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect w 7,3 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Work in 7,3 changed to 99.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 l 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Loyalty of 1,1 changed from 0 to 0%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 l -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Loyalty of 3,1 changed from 0 to 0%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 l 127
+    Play#0 command edit
+    Play#0 output Play#0 1 Loyalty of 5,1 changed from 0 to 127%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 l 128
+    Play#0 command edit
+    Play#0 output Play#0 1 Loyalty of 7,1 changed from 0 to 127%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 x 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Guerillas in 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 x -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Guerillas in 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 x 255
+    Play#0 command edit
+    Play#0 output Play#0 1 Guerillas in 5,1 changed from 0 to 255
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 x 256
+    Play#0 command edit
+    Play#0 output Play#0 1 Guerillas in 7,1 changed from 0 to 255
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 p 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of 1,1 changed from 0 to 0%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 p -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of 3,1 changed from 0 to 0%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 p 4
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of 5,1 changed from 0 to 4%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 p 5
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of 7,1 changed from 0 to 4%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 t 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague time of 1,1 changed from 0 to 0%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 t -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague time of 3,1 changed from 0 to 0%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 t 32767
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague time of 5,1 changed from 0 to 255%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 t 32768
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague time of 7,1 changed from 0 to 255%
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 F 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Fallout for sector 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 F -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Fallout for sector 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 F 9999
+    Play#0 command edit
+    Play#0 output Play#0 1 Fallout for sector 5,1 changed from 0 to 9999
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 F 10000
+    Play#0 command edit
+    Play#0 output Play#0 1 Fallout for sector 7,1 changed from 0 to 9999
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 a 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Available workforce of 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 a -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Available workforce of 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 a 9999
+    Play#0 command edit
+    Play#0 output Play#0 1 Available workforce of 5,1 changed from 0 to 9999
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 a 10000
+    Play#0 command edit
+    Play#0 output Play#0 1 Available workforce of 7,1 changed from 0 to 9999
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect a 1,3 -2147483648
+    Play#0 command setsector
+    Play#0 output Play#0 1 Available in 1,3 changed to 0.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect a 3:7,3 1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Available in 3,3 changed to 1.
+    Play#0 output Play#0 1 Available in 5,3 changed to 1.
+    Play#0 output Play#0 1 Available in 7,3 changed to 1.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect a 5,3 2147483647
+    Play#0 command setsector
+    Play#0 output Play#0 1 Available in 5,3 changed to 0.
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect a 7,3 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Available in 7,3 changed to 0.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 M 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Mines changed to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 M -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Mines changed to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 M 32767
+    Play#0 command edit
+    Play#0 output Play#0 1 Mines changed to 32767
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 M 32768
+    Play#0 command edit
+    Play#0 output Play#0 1 Mines changed to 32767
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect mi 1,3 -2147483648
+    Play#0 command setsector
+    Play#0 output Play#0 1 Mines of 1,3 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect mi 3:7,3 1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Mines of 3,3 changed from 0 to 1
+    Play#0 output Play#0 1 Mines of 5,3 changed from 0 to 1
+    Play#0 output Play#0 1 Mines of 7,3 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect mi 5,3 2147483647
+    Play#0 command setsector
+    Play#0 output Play#0 1 Mines of 5,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input setsect mi 7,3 -1
+    Play#0 command setsector
+    Play#0 output Play#0 1 Mines of 7,3 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 R 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Road percentage of 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 R -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Road percentage of 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 R 100
+    Play#0 command edit
+    Play#0 output Play#0 1 Road percentage of 5,1 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 R 101
+    Play#0 command edit
+    Play#0 output Play#0 1 Road percentage of 7,1 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 r 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Rail percentage of 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 r -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Rail percentage of 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 r 100
+    Play#0 command edit
+    Play#0 output Play#0 1 Rail percentage of 5,1 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 r 101
+    Play#0 command edit
+    Play#0 output Play#0 1 Rail percentage of 7,1 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 d 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Defense percentage of 1,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,1 d -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Defense percentage of 3,1 changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 d 100
+    Play#0 command edit
+    Play#0 output Play#0 1 Defense percentage of 5,1 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 7,1 d 101
+    Play#0 command edit
+    Play#0 output Play#0 1 Defense percentage of 7,1 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 2,4 D 4,4
+    Play#0 command edit
+    Play#0 output Play#0 1 Distribution location for sector 2,4 changed from 2,4 to 4,4
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 4,4 D 4,4
+    Play#0 command edit
+    Play#0 output Play#0 1 Distribution location for sector 4,4 changed from 4,4 to 4,4
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 6,4 s +
+    Play#0 command edit
+    Play#0 output Play#0 1 Designation for sector 6,4 changed from - to +
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 6,4 s +
+    Play#0 command edit
+    Play#0 output Play#0 1 Designation for sector 6,4 changed from + to +
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 8,4 s +
+    Play#0 command edit
+    Play#0 output Play#0 1 Designation for sector 8,4 changed from - to +
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 8,4 s ,
+    Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 6,4 S +
+    Play#0 command edit
+    Play#0 output Play#0 1 New designation for sector 6,4 changed from - to +
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 6,4 S +
+    Play#0 command edit
+    Play#0 output Play#0 1 New designation for sector 6,4 changed from + to +
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 8,4 S +
+    Play#0 command edit
+    Play#0 output Play#0 1 New designation for sector 8,4 changed from - to +
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 8,4 S ,
+    Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,5 m 1 a 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of 1,5 changed from 0 to 1
+    Play#0 output Play#0 1 Available workforce of 1,5 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit l 3,5
+    Play#0 command edit
+    Play#0 output Play#0 1 Location <L>: 3,5	Distribution sector <D>: 3,5
+    Play#0 output Play#0 1 Designation <s>: -	New designation <S>: -
+    Play#0 output Play#0 1 own  oo eff mob min gld frt oil urn wrk lty che ctg plg ptime fall avail
+    Play#0 output Play#0 1   o   O   e   m   i   g   f   c   u   w   l   x   X   p     t    F     a
+    Play#0 output Play#0 1   1   1   0   0   0   0   0   0   0 100   0   0   0   0     0    0     0
+    Play#0 output Play#0 1 Mines <M>: 0
+    Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input m 2
+    Play#0 output Play#0 1 Mobility of 3,5 changed from 0 to 2
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input a 1
+    Play#0 output Play#0 1 Available workforce of 3,5 changed from 0 to 1
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input 
+    Play#0 output Play#0 1 Location <L>: 3,5	Distribution sector <D>: 3,5
+    Play#0 output Play#0 1 Designation <s>: -	New designation <S>: -
+    Play#0 output Play#0 1 own  oo eff mob min gld frt oil urn wrk lty che ctg plg ptime fall avail
+    Play#0 output Play#0 1   o   O   e   m   i   g   f   c   u   w   l   x   X   p     t    F     a
+    Play#0 output Play#0 1   1   1   0   2   0   0   0   0   0 100   0   0   0   0     0    0     1
+    Play#0 output Play#0 1 Mines <M>: 0
+    Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input give l 2,6 -2147483648
+    Play#0 command give
+    Play#0 output Play#0 1 -2147483648 light products in 2,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give c 4:8,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 2 civilians in 4,6
+    Play#0 output Play#0 1 2 civilians in 6,6
+    Play#0 output Play#0 1 2 civilians in 8,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give c 6,6 2147483647
+    Play#0 command give
+    Play#0 output Play#0 1 -2147483647 civilians in 6,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give c 8,6 -1
+    Play#0 command give
+    Play#0 output Play#0 1 1 civilians in 8,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input swaps -2,2 2,-2
+    Play#0 command swapsector
+    Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
+    Play#0 output Play#0 1   2   -2,2    -    0%    0    0    0   0    0
+    Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
+    Play#0 output Play#0 1   3    2,-2   -    0%    0    0    0   0    0
+    Play#0 output Play#0 4 Are you sure these are the two sectors you wish to swap? 
+    Play#0 input y
+    Play#0 output Play#0 1 done
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 0 @ 0
+    Play#0 command edit
+    Play#0 output Play#0 1 huh? (@)
+    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 0 O 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 0 O -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 1 O 98
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 1 O 99
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 O 2
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 3 U 5 U 3
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 0 U 0 U -1
+    Play#0 command edit
+    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 L 3,-1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 3 L 1,-1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 0 @ 0
+    Play#0 command edit
+    Play#0 output Play#0 1 huh? (@)
+    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 0 O 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 0 O -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 1 O 98
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 1 O 99
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 O 2
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 3 U 5 U 3
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 0 U 0 U -1
+    Play#0 command edit
+    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 l 3,-1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 3 l 1,-1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 0 @ 0
+    Play#0 command edit
+    Play#0 output Play#0 1 huh? (@)
+    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 0 O 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 0 O -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 1 O 98
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 1 O 99
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 O 2
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 U 5 U 3
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 0 U 0 U -1
+    Play#0 command edit
+    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 L 3,-1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 L 1,-1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 E 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 3 E -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 E 100
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 5 E 101
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 M -127
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 3 M -128
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 M 127
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 5 M 128
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 T 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 3 T -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 T 32767
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 5 T 32768
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 a 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 3 a -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 a 4
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 5 a 5
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 b 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 3 b -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 b 32767
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 5 b 32768
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 m 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 3 m -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 m 50
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 5 m 51
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 e 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 3 e -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 4 e 100
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 5 e 101
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 m -127
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 3 m -128
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 4 m 127
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 5 m 128
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 r 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 3 r -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 4 r 9
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 5 r 10
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 t 50
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 3 t 49
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 4 t 32767
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 5 t 32768
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 e 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 e -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 e 100
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 5 e 101
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 M -127
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 M -128
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 M 127
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 5 M 128
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 t 50
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 t 49
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 t 32767
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 5 t 32768
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 F 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 F -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 F 127
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 5 F 128
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 Z 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 Z -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 Z 100
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 5 Z 101
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 m 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 m -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 m 25
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 5 m 26
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 F ~
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 3 F a
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 w ~
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 3 w a
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 a ~
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 a a
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 R ""
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 3 R jj
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 W 0 W 1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 3 W 513 W 1030 W 2
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 R ""
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 R jj
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 W 0 W 1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 W 513 W 1030 W 2
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 f 4
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 s -1 s 9999
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 3 s 3
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 4 s 4 y 4
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 S -1 S 9999
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 3 S 3
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 S 4 Y 4
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 0
+    Play#0 command edit
+    Play#0 output Play#0 1 POGO (#0) cs   cargo ship (#0)
+    Play#0 output Play#0 1 UID <U>: 0
+    Play#0 output Play#0 1 Owner <O>: 0			Location <L>: 1,-1
+    Play#0 output Play#0 1 Tech <T>: 100			Efficiency <E>: 0
+    Play#0 output Play#0 1 Mobility <M>: 0		Fleet <F>: 
+    Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
+    Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
+    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
+    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
+    Play#0 output Play#0 1   0   0   0    0   0   0    0    0    0    0    0    0   0
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input M 2
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input m 1
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input f 1
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input 
+    Play#0 output Play#0 1 POGO (#0) cs   cargo ship (#0)
+    Play#0 output Play#0 1 UID <U>: 0
+    Play#0 output Play#0 1 Owner <O>: 0			Location <L>: 1,-1
+    Play#0 output Play#0 1 Tech <T>: 100			Efficiency <E>: 0
+    Play#0 output Play#0 1 Mobility <M>: 2		Fleet <F>: 
+    Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
+    Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
+    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
+    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
+    Play#0 output Play#0 1   0   1   0    1   0   0    0    0    0    0    0    0   0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 0
+    Play#0 command edit
+    Play#0 output Play#0 1 UID <U>: 0		Owner <O>: 0		Location <l>: 1,-1
+    Play#0 output Play#0 1 Efficiency <e>: 0	Mobility <m>: 0
+    Play#0 output Play#0 1 Tech <t>: 100		Wing <w>: 
+    Play#0 output Play#0 1 Range <r>: 9		Flags <f>: 0
+    Play#0 output Play#0 1 Ship <s>: -1		Land Unit <y>: -1	
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input m 2
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input y -1
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input 
+    Play#0 output Play#0 1 UID <U>: 0		Owner <O>: 0		Location <l>: 1,-1
+    Play#0 output Play#0 1 Efficiency <e>: 0	Mobility <m>: 2
+    Play#0 output Play#0 1 Tech <t>: 100		Wing <w>: 
+    Play#0 output Play#0 1 Range <r>: 9		Flags <f>: 0
+    Play#0 output Play#0 1 Ship <s>: -1		Land Unit <y>: -1	
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 0
+    Play#0 command edit
+    Play#0 output Play#0 1 UID <U>: 0
+    Play#0 output Play#0 1 Owner <O>: 0
+    Play#0 output Play#0 1 Location <L>: 1,-1
+    Play#0 output Play#0 1 Efficiency <e>: 0	Mobility <M>: 0
+    Play#0 output Play#0 1 Tech <t>: 100		Army <a>: 
+    Play#0 output Play#0 1 Fortification <F>: 0	Land unit <Y>: -1
+    Play#0 output Play#0 1 Ship <S>: -1		Retreat percentage <Z>: 42
+    Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
+    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
+    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
+    Play#0 output Play#0 1   0   0   0    0   0   0    0    0    0    0    0    0   0
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input M 2
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input Y -1
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input 
+    Play#0 output Play#0 1 UID <U>: 0
+    Play#0 output Play#0 1 Owner <O>: 0
+    Play#0 output Play#0 1 Location <L>: 1,-1
+    Play#0 output Play#0 1 Efficiency <e>: 0	Mobility <M>: 2
+    Play#0 output Play#0 1 Tech <t>: 100		Army <a>: 
+    Play#0 output Play#0 1 Fortification <F>: 0	Land unit <Y>: -1
+    Play#0 output Play#0 1 Ship <S>: -1		Retreat percentage <Z>: 42
+    Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
+    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
+    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
+    Play#0 output Play#0 1   0   0   0    0   0   0    0    0    0    0    0    0   0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 0 @ 0
+    Play#0 command edit
+    Play#0 output Play#0 1 huh? (@)
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 b 0
+    Play#0 command edit
+    Play#0 output Play#0 1 BTU's changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 2 b -1
+    Play#0 command edit
+    Play#0 output Play#0 1 BTU's changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 b 640
+    Play#0 command edit
+    Play#0 output Play#0 1 BTU's changed from 0 to 640
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 4 b 641
+    Play#0 command edit
+    Play#0 output Play#0 1 BTU's changed from 0 to 641
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 m 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Military reserves changed from 0 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 2 m -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Military reserves changed from 0 to -1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 m 2147483647
+    Play#0 command edit
+    Play#0 output Play#0 1 Military reserves changed from 0 to 2147483647
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 u 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Number of seconds used changed from 0 to 0.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 2 u -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Number of seconds used changed from 0 to 0.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 u 86400
+    Play#0 command edit
+    Play#0 output Play#0 1 Number of seconds used changed from 0 to 86400.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 4 u 86401
+    Play#0 command edit
+    Play#0 output Play#0 1 Number of seconds used changed from 0 to 86400.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 M -2147483648
+    Play#0 command edit
+    Play#0 output Play#0 1 Money changed from 0 to -2147483648
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 M 2147483647
+    Play#0 command edit
+    Play#0 output Play#0 1 Money changed from 0 to 2147483647
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 6 t -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 7 t 65536
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 T 3.14
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech changed from 0.00 to 3.14.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 2 T 100
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech changed from 0.00 to 100.00.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 T -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech changed from 0.00 to -1.00.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 R 3.14
+    Play#0 command edit
+    Play#0 output Play#0 1 Research changed from 0.00 to 3.14.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 2 R 100
+    Play#0 command edit
+    Play#0 output Play#0 1 Research changed from 0.00 to 100.00.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 R -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Research changed from 0.00 to -1.00.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 E 3.14
+    Play#0 command edit
+    Play#0 output Play#0 1 Education changed from 0.00 to 3.14.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 2 E 100
+    Play#0 command edit
+    Play#0 output Play#0 1 Education changed from 0.00 to 100.00.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 E -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Education changed from 0.00 to -1.00.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 H 3.14
+    Play#0 command edit
+    Play#0 output Play#0 1 Happiness changed from 0.00 to 3.14.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 2 H 100
+    Play#0 command edit
+    Play#0 output Play#0 1 Happiness changed from 0.00 to 100.00.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 H -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Happiness changed from 0.00 to -1.00.
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 n POGO
+    Play#0 command edit
+    Play#0 output Play#0 1 Country #0 is already called `POGO'
+    Play#0 output Play#0 1 Usage: edit <country|land|ship|plane|unit> <NAT|SECT|SHIP|PLANE|LAND> [<KEY> <VALUE>]...
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 2 n 2
+    Play#0 command edit
+    Play#0 output Play#0 1 Country name changed from 2 to 2
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 n drei
+    Play#0 command edit
+    Play#0 output Play#0 1 Country name changed from 3 to drei
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 r 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Country representative changed from 1 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 2 r 012345678901234567890123456789
+    Play#0 command edit
+    Play#0 output Play#0 1 Country representative changed from 2 to 012345678901234567890123456789
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 c 0,0
+    Play#0 command edit
+    Play#0 output Play#0 1 Capital coordinates changed from 0,0 to 0,0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 2 c 2,0
+    Play#0 command edit
+    Play#0 output Play#0 1 Capital coordinates changed from 0,0 to 2,0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 o 0,0
+    Play#0 command edit
+    Play#0 output Play#0 1 Origin coordinates changed from 0,0 to 0,0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 2 o 2,0
+    Play#0 command edit
+    Play#0 output Play#0 1 Origin coordinates changed from 0,0 to 2,0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 6 s 0
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 7 s -1
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 4 s 5
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 5 s 6
+    Play#0 command edit
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 5
+    Play#0 command edit
+    Play#0 output Play#0 1 Country #:  5
+    Play#0 output Play#0 1 Name <n>: 5                   	Representative <r>: 5                   
+    Play#0 output Play#0 1 BTUs <b>:   0			Reserves <m>:     0
+    Play#0 output Play#0 1 Capital <c>: 0,0		Origin <o>: 0,0
+    Play#0 output Play#0 1 Status <s>: 0x5			Seconds Used <u>:   0
+    Play#0 output Play#0 1 Technology <T>: 0.00		Research <R>: 0.00
+    Play#0 output Play#0 1 Education <E>: 0.00		Happiness <H>: 0.00
+    Play#0 output Play#0 1 Money <M>: $     0
+    Play#0 output Play#0 1 Telegrams <t>:      0
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input b 640
+    Play#0 output Play#0 1 BTU's changed from 0 to 640
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input T 1
+    Play#0 output Play#0 1 Tech changed from 0.00 to 1.00.
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input 
+    Play#0 output Play#0 1 Country #:  5
+    Play#0 output Play#0 1 Name <n>: 5                   	Representative <r>: 5                   
+    Play#0 output Play#0 1 BTUs <b>: 640			Reserves <m>:     0
+    Play#0 output Play#0 1 Capital <c>: 0,0		Origin <o>: 0,0
+    Play#0 output Play#0 1 Status <s>: 0x5			Seconds Used <u>:   0
+    Play#0 output Play#0 1 Technology <T>: 1.00		Research <R>: 0.00
+    Play#0 output Play#0 1 Education <E>: 0.00		Happiness <H>: 0.00
+    Play#0 output Play#0 1 Money <M>: $     0
+    Play#0 output Play#0 1 Telegrams <t>:      0
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 0
+    Play#0 command read
+    Play#0 output Play#0 1 No telegrams for you at the moment...
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 1
+    Play#0 command read
+    Play#0 output Play#0 1 
+    Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Sector 1,7 lost to deity intervention
+    Play#0 output Play#0 1 Sector 3,7 lost to deity intervention
+    Play#0 output Play#0 1 Sector 5,7 lost to deity intervention
+    Play#0 output Play#0 1 Sector 7,7 lost to deity intervention
+    Play#0 output Play#0 1 Sector 9,7 lost to deity intervention
+    Play#0 output Play#0 1 Sector 11,7 lost to deity intervention
+    Play#0 output Play#0 1 Efficiency in 1,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Efficiency in 3,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Efficiency in 5,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Efficiency in 7,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Mobility in 1,1 was changed from 0 to -127 by an act of POGO
+    Play#0 output Play#0 1 Mobility in 3,1 was changed from 0 to -127 by an act of POGO
+    Play#0 output Play#0 1 Mobility in 5,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Mobility in 7,1 was changed from 0 to 128 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 1,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 3,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 5,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 7,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 2,2 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 4,2 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 6,2 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 8,2 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 1,3 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 3,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 5,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 7,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 5,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content in 7,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 1,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 3,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 5,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 7,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 2,2 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 4,2 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 6,2 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 8,2 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 1,3 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 3,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 5,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 7,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 5,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Gold content in 7,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Fertility in 1,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Fertility in 3,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Fertility in 5,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Fertility in 7,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Fertility content in 2,2 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Fertility content in 4,2 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Fertility content in 6,2 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Fertility content in 8,2 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Fertility content in 1,3 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Fertility content in 3,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Fertility content in 5,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Fertility content in 7,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Fertility content in 5,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Fertility content in 7,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 1,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 3,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 5,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 7,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 2,2 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 4,2 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 6,2 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 8,2 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 1,3 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 3,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 5,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 7,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 5,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Oil content in 7,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 1,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 3,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 5,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 7,1 was changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 2,2 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 4,2 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 6,2 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 8,2 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 1,3 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 3,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 5,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 7,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 5,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Uranium content in 7,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Workforce percentage in 1,1 was changed from 100 to 0 by an act of POGO
+    Play#0 output Play#0 1 Workforce percentage in 3,1 was changed from 100 to 0 by an act of POGO
+    Play#0 output Play#0 1 Workforce percentage in 5,1 was changed from 100 to 100 by an act of POGO
+    Play#0 output Play#0 1 Workforce percentage in 7,1 was changed from 100 to 100 by an act of POGO
+    Play#0 output Play#0 1 Available workforce in 1,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Available workforce in 3,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Available workforce in 5,1 was changed from 0 to 9999 by an act of POGO
+    Play#0 output Play#0 1 Available workforce in 7,1 was changed from 0 to 9999 by an act of POGO
+    Play#0 output Play#0 1 Mines in 1,3 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Mines in 3,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Mines in 5,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Mines in 7,3 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Mines in 5,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Mines in 7,3 was changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Road percentage in 1,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Road percentage in 3,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Road percentage in 5,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Road percentage in 7,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Rail percentage in 1,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Rail percentage in 3,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Rail percentage in 5,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Rail percentage in 7,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Defense percentage in 1,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Defense percentage in 3,1 was changed from 0 to 0 by an act of POGO
+    Play#0 output Play#0 1 Defense percentage in 5,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Defense percentage in 7,1 was changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Mobility in 1,5 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Available workforce in 1,5 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Mobility in 3,5 was changed from 0 to 2 by an act of POGO
+    Play#0 output Play#0 1 Available workforce in 3,5 was changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 POGO stole -2147483648 light products from 2,6
+    Play#0 output Play#0 1 POGO gave you 1 civilians in 4,6
+    Play#0 output Play#0 1 POGO gave you 1 civilians in 6,6
+    Play#0 output Play#0 1 POGO gave you 1 civilians in 8,6
+    Play#0 output Play#0 1 POGO stole -2147483647 civilians from 6,6
+    Play#0 output Play#0 1 POGO stole 1 civilians from 8,6
+    Play#0 output Play#0 1 Military reserves changed from 0 to 0 by divine intervention.
+    Play#0 output Play#0 1 Money changed from 0 to -2147483648 by divine intervention.
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 2
+    Play#0 command read
+    Play#0 output Play#0 1 
+    Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Sector 5,7 gained from deity intervention
+    Play#0 output Play#0 1 Sector 11,7 gained from deity intervention
+    Play#0 output Play#0 1 cs   cargo ship (#2) given to you by deity intervention!
+    Play#0 output Play#0 1 f1   Sopwith Camel #2 given to you by deity intervention!
+    Play#0 output Play#0 1 sup  supply #2 given to you by deity intervention!
+    Play#0 output Play#0 1 Military reserves changed from 0 to -1 by divine intervention.
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 3
+    Play#0 command read
+    Play#0 output Play#0 1 
+    Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 cs   cargo ship (#0) taken from you by deity intervention!
+    Play#0 output Play#0 1 	cs   cargo ship (#0) sunk!
+    Play#0 output Play#0 1 cs   cargo ship (#1) taken from you by deity intervention!
+    Play#0 output Play#0 1 cs   cargo ship (#2) taken from you by deity intervention!
+    Play#0 output Play#0 1 f1   Sopwith Camel #0 taken from you by deity intervention!
+    Play#0 output Play#0 1 f1   Sopwith Camel #1 taken from you by deity intervention!
+    Play#0 output Play#0 1 f1   Sopwith Camel #2 taken from you by deity intervention!
+    Play#0 output Play#0 1 sup  supply #0 taken from you by deity intervention!
+    Play#0 output Play#0 1 sup  supply #1 taken from you by deity intervention!
+    Play#0 output Play#0 1 sup  supply #2 taken from you by deity intervention!
+    Play#0 output Play#0 1 Military reserves changed from 0 to 2147483647 by divine intervention.
+    Play#0 output Play#0 1 Money changed from 0 to 2147483647 by divine intervention.
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 4
+    Play#0 command read
+    Play#0 output Play#0 1 No telegrams for 4 at the moment...
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 5
+    Play#0 command read
+    Play#0 output Play#0 1 No telegrams for 5 at the moment...
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 98
+    Play#0 command read
+    Play#0 output Play#0 1 
+    Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Sector 3,7 gained from deity intervention
+    Play#0 output Play#0 1 Sector 3,7 lost to deity intervention
+    Play#0 output Play#0 1 Sector 3,7 gained from deity intervention
+    Play#0 output Play#0 1 Sector 9,7 gained from deity intervention
+    Play#0 output Play#0 1 cs   cargo ship (#1) given to you by deity intervention!
+    Play#0 output Play#0 1 cs   cargo ship (#1) taken from you by deity intervention!
+    Play#0 output Play#0 1 f1   Sopwith Camel #1 given to you by deity intervention!
+    Play#0 output Play#0 1 f1   Sopwith Camel #1 taken from you by deity intervention!
+    Play#0 output Play#0 1 sup  supply #1 given to you by deity intervention!
+    Play#0 output Play#0 1 sup  supply #1 taken from you by deity intervention!
+    Play#0 output Play#0 6 0 640
+    Play#0 input ctld
+    Play#0 output Play#0 1 Bye-bye
+    Play#0 logout 0
+    Play#0 output Play#0 3 so long...
+      Main shutdown

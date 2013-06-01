@@ -1,0 +1,21 @@
+------------------------------------------------------
+Empire server (pid 42) started
+Update schedule read
+No update scheduled
+Listening on 127.0.0.1
+Connect from 127.0.0.1
+Connect from 127.0.0.1
+tester@127.0.0.1 using country #0
+tester@127.0.0.1 logged in as country #0
+Oops: id < 0 in ../src/lib/common/file.c:973
+Oops: id < 0 in ../src/lib/common/file.c:973
+Oops: id < 0 in ../src/lib/common/file.c:973
+Oops: item[i] < 0 in ../src/lib/subs/sect.c:98
+Oops: item[i] < 0 in ../src/lib/subs/sect.c:98
+Oops: new >= nclink[type] in ../src/lib/common/cargo.c:190
+Oops: ship >= 0 && land >= 0 in ../src/lib/subs/plane.c:77
+Oops: new >= nclink[type] in ../src/lib/common/cargo.c:190
+Oops: ship >= 0 && land >= 0 in ../src/lib/subs/land.c:78
+tester@127.0.0.1 logged out, country #0
+Shutdown commencing (cleaning up threads.)
+Server shutting down on signal 15
