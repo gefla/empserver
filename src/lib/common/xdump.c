@@ -27,7 +27,7 @@
  *  xdump.c: Extended dumps
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2013
  */
 
 /*
@@ -84,15 +84,19 @@
  * Initialize XD.
  * Translate dump for country CNUM, except when CNUM is NATID_BAD.
  * If HUMAN, dump in human-readable format.
+ * If SLOPPY, try to cope with invalid data (may result in invalid
+ * dump).
  * Dump is to be delivered through callback PR.
  * Return XD.
  */
 struct xdstr *
-xdinit(struct xdstr *xd, natid cnum, int human, void (*pr)(char *fmt, ...))
+xdinit(struct xdstr *xd, natid cnum, int human, int sloppy,
+       void (*pr)(char *fmt, ...))
 {
     xd->cnum = cnum;
     xd->divine = cnum == NATID_BAD || getnatp(cnum)->nat_stat == STAT_GOD;
     xd->human = human;
+    xd->sloppy = sloppy;
     xd->pr = pr;
     return xd;
 }
@@ -181,9 +185,10 @@ xdprsym(struct xdstr *xd, int key, int type, char *sep)
 {
     char *sym = symbol_by_value(key, ef_ptr(type, 0));
 
-    if (CANT_HAPPEN(!sym))
+    if (!sym) {
+	CANT_HAPPEN(!xd->sloppy);
 	xd->pr("%s%d", sep, key);
-    else {
+    } else {
 	xd->pr("%s", sep);
 	xdpresc(xd, sym, INT_MAX);
     }

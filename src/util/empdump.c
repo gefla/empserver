@@ -27,7 +27,7 @@
  *  empdump.c: Export/import Empire game state
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2008-2011
+ *     Markus Armbruster, 2008-2013
  */
 
 #include <config.h>
@@ -46,7 +46,7 @@
 
 static void exit_bad_arg(char *, ...)
     ATTRIBUTE((noreturn, format (printf, 1, 2)));
-static void dump_table(int, int);
+static void dump_table(int, int, int);
 
 int
 main(int argc, char *argv[])
@@ -159,7 +159,7 @@ main(int argc, char *argv[])
 	for (i = 0; i < EF_MAX; i++) {
 	    if (!EF_IS_GAME_STATE(i))
 		continue;
-	    dump_table(i, human);
+	    dump_table(i, human, !verified);
 	}
 	if (fclose(stdout) != 0) {
 	    fprintf(stderr, "%s: error writing export (%s)\n",
@@ -213,7 +213,7 @@ printf_wrapper(char *fmt, ...)
 }
 
 static void
-dump_table(int type, int human)
+dump_table(int type, int human, int sloppy)
 {
     struct xdstr xd;
     struct castr *ca;
@@ -224,7 +224,7 @@ dump_table(int type, int human)
     if (!ca)
 	return;
 
-    xdinit(&xd, NATID_BAD, human, printf_wrapper);
+    xdinit(&xd, NATID_BAD, human, sloppy, printf_wrapper);
     xdhdr(&xd, ef_nameof(type), 0);
     xdcolhdr(&xd, ca);
     for (i = 0; (p = ef_ptr(type, i)); i++) {

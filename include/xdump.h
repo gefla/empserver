@@ -27,7 +27,7 @@
  *  xdump.h: Extended dumps
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2008-2011
+ *     Markus Armbruster, 2008-2013
  */
 
 #ifndef XDUMP_H
@@ -42,11 +42,13 @@ struct xdstr {
     natid cnum;			/* dump for this country */
     int divine;			/* is this a deity dump? */
     int human;			/* dump human-readable format */
+    int sloppy;			/* try to cope with invalid data */
     void (*pr)(char *fmt, ...)	/* callback for printing dump */
 	ATTRIBUTE((format (printf, 1, 2)));
 };
 
-struct xdstr *xdinit(struct xdstr *, natid, int, void (*)(char *, ...));
+struct xdstr *xdinit(struct xdstr *, natid, int, int,
+		     void (*)(char *, ...));
 extern void xdhdr(struct xdstr *, char *, int);
 extern void xdcolhdr(struct xdstr *, struct castr[]);
 extern void xdflds(struct xdstr *, struct castr[], void *);
