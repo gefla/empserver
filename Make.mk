@@ -178,9 +178,6 @@ endif
 $(client): LDLIBS := $(LIBS_client)
 $(server): LDLIBS := $(LIBS_server)
 
-# Self-tests
-checks := check-smoke
-
 
 ### Advertized goals
 
@@ -248,11 +245,9 @@ uninstall:
 .PHONY: dist
 dist: dist-source dist-client dist-info
 
-.PHONY: check $(checks)
-check: $(checks)
-$(checks): all
-check-smoke:
-	@echo "Warning: smoke test is immature and needs work." >&2
+.PHONY: check
+check: all
+	@echo "Warning: test suite is immature and needs work." >&2
 	$(srcdir)/tests/files-test $(srcdir)
 	$(srcdir)/tests/fairland-test $(srcdir)
 ifeq ($(empthread),LWP)
