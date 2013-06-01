@@ -255,7 +255,7 @@ ifeq ($(empthread),LWP)
 else
 	@echo "$(srcdir)/tests/smoke-test SKIPPED"
 endif
-	@echo "$(srcdir)/tests/actofgod-test SKIPPED"
+	$(srcdir)/tests/actofgod-test $(srcdir)
 
 
 ### Implicit rules
