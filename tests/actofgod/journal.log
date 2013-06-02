@@ -1382,7 +1382,7 @@
     Play#0 output Play#0 1 Efficiency <e>: 0	Mobility <m>: 0
     Play#0 output Play#0 1 Tech <t>: 100		Wing <w>: 
     Play#0 output Play#0 1 Range <r>: 9		Flags <f>: 0
-    Play#0 output Play#0 1 Ship <s>: -1		Land Unit <y>: -1	
+    Play#0 output Play#0 1 Ship <s>: -1		Land Unit <y>: -1
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input m 2
     Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #0 changed from 0 to 2

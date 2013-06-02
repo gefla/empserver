@@ -262,7 +262,7 @@ print_plane(struct plnstr *plane)
     pr("Range <r>: %d\t\t", plane->pln_range);
     pr("Flags <f>: %d\n", plane->pln_flags);
     pr("Ship <s>: %d\t\t", plane->pln_ship);
-    pr("Land Unit <y>: %d\t", plane->pln_land);
+    pr("Land Unit <y>: %d\n", plane->pln_land);
 }
 
 static void
