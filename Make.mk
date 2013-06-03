@@ -252,10 +252,11 @@ check: all
 	$(srcdir)/tests/fairland-test $(srcdir)
 ifeq ($(empthread),LWP)
 	$(srcdir)/tests/smoke-test $(srcdir)
+	$(srcdir)/tests/actofgod-test $(srcdir)
 else
 	@echo "$(srcdir)/tests/smoke-test SKIPPED"
+	@echo "$(srcdir)/tests/actofgod-test SKIPPED"
 endif
-	$(srcdir)/tests/actofgod-test $(srcdir)
 
 
 ### Implicit rules
