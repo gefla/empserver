@@ -724,7 +724,7 @@ e. It failed to achieve objective (4), and therefore slowed down
 
 And here comes the killer:
 
-f. The data to sync is not readily available the server.
+f. The data to sync is not readily available on the server.
 
    Yup.  Think about it.  The game state on the server is *not* the
    same as on the client.  The server grants the client a carefully
