@@ -1,3 +1,50 @@
+Changes to Empire 4.3.32 - Sun Aug 11 12:23:54 UTC 2013
+ * The break command now honors new designation of sanctuaries.
+ * Changes to edit, give, setsector, setresource, swapsector:
+   - Generalize edit to multiple objects: accept
+     <SECTS|SHIPS|PLANES|LANDS|NATS> argument instead of just
+     <SECT|SHIP|PLANE|LAND|NAT>.  Obsoletes setsector and setresource.
+   - Make interactive "edit c" detect and handle concurrent updates,
+     like other edits do.
+   - Don't reprint edited object when done with it.
+   - Always print a message describing the actual change.  Necessary
+     to give the deity a chance to catch unexpected changes, e.g. a
+     player moving away stuff right before a give command, leaving
+     fewer items than the deity intends to take.  Existing messages
+     improved, missing ones added.
+   - Consistently send bulletins to the victim / beneficiary of deity
+     meddling, except when changing stuff mortals can't see.
+   - Report much more deity meddling in the news (subject to option
+     GODNEWS).
+   - More robust argument checking.  Before, careless deity edits
+     could cause internal errors.  Much bounds checking was missing,
+     inconsistent or wrong.
+   - Teleport planes and land units to carrier on load.
+   - Refuse to move planes and land units on carriers.
+   - Fix stack smash in edit l key 'L' that can mess up sector file.
+   - Fix setsector to again print actual landmine change for occupied
+     sectors.  Broken in 4.3.31.
+   - Suppress bulletins for acts of god to himself.
+   - Suppress news for acts of god to gods.
+   - Suppress news and bulletins on no-op acts of god.
+   - Always send bulletins from POGO.  Name the meddling deity in the
+     bulletin text instead.  Inconsistent since Chainsaw.
+   - Make interactive edit accept empty key argument again.
+   - Make interactive edit treat blank input like empty input.
+   - Don't let edit put a land unit or plane on two carriers
+   - Do not disclose when a deity destroys a ship, tell the ex-owner
+     only that he lost it.
+   - edit p and u now show the edited unit like edit s.
+   - edit s now shows the edited ship even when its owner is invalid.
+ * Clean up output of satellite, land, sorder and mission for world
+   sizes between 200 and 1998.  cutoff and level still have issues
+   there.
+ * Plug harmless file descriptor leak on OpenBSD with IPv6.  Broken in
+   4.3.31.
+ * New doc/contributing explains how to contribute to Empire.
+ * Code refactoring and cleanup.
+ * Info page, manual page and documentation fixes and clarifications.
+
 Changes to Empire 4.3.31 - Sun May 12 16:58:34 UTC 2013
  * Fix read beyond end of conditional argument on missing operand.
  * Don't put broken links into info pages formatted as HTML.
