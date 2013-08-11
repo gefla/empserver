@@ -201,7 +201,6 @@ player_accept(void *unused)
 	    logerror("new socket accept");
 	    continue;
 	}
-	/* FIXME SO_KEEPALIVE is useless, player_kill_idle() strikes long before */
 	(void)setsockopt(ns, SOL_SOCKET, SO_KEEPALIVE, &set, sizeof(set));
 	np = player_new(ns);
 	if (!np) {
