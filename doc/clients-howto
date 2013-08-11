@@ -36,6 +36,7 @@ The following control characters have a defined meaning:
 
   ASCII name	     decimal  meaning
   ----------------------------------------------------
+  bell			 7    ring the bell
   horizontal tab	 9    move to next tab stop(1)
   line feed		10    end of line
   shift out		14    begin highlighting(2)
