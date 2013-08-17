@@ -325,7 +325,7 @@ lwpInitSystem(int pri, void **ctxptr, int flags, sigset_t *waitset)
     LwpDeadQ.head = LwpDeadQ.tail = NULL;
     lwpInitSigWait(waitset);
     /* must be lower in priority than us for this to work right */
-    sel = lwpCreate(0, lwpSelect, 16384, flags, "EventHandler", 0,
+    sel = lwpCreate(0, lwpSelect, 65536, flags, "EventHandler", 0,
 		    NULL, NULL);
     lwpInitSelect(sel);
     return LwpCurrent;
