@@ -2,8 +2,8 @@ AC_DEFUN([MY_CURSES_TERMINFO],
 [
 	AC_SEARCH_LIBS([setupterm], [termlib termcap curses ncurses],
 		[have_terminfo=yes], [have_terminfo=no])
-	AC_CHECK_HEADER([curses.h], , [have_terminfo=no])
-	AC_CHECK_HEADER([term.h], , [have_terminfo=no])
+	AC_CHECK_HEADERS([curses.h term.h], [], [have_terminfo=no],
+	[[#include <curses.h>]])
 	if test "$have_terminfo" = yes
 	then AC_DEFINE([HAVE_CURSES_TERMINFO], 1,
 		[Define if you have the curses interface to terminfo])
