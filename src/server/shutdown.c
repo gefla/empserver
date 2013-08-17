@@ -71,7 +71,7 @@ shutdown_initiate(int mins_from_now)
 		    mins_from_now);
 	empth_wakeup(shutdown_thread);
     } else {
-	shutdown_thread = empth_create(shutdown_sequence, 50 * 1024, 0,
+	shutdown_thread = empth_create(shutdown_sequence, 65536, 0,
 				       "shutdownSeq", NULL);
 	if (!shutdown_thread) {
 	    shutdown_pending = 0;

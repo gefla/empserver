@@ -391,7 +391,7 @@ start_server(int flags)
 
     market_init();
     update_init();
-    empth_create(player_accept, 50 * 1024, flags, "AcceptPlayers", NULL);
+    empth_create(player_accept, 65536, flags, "AcceptPlayers", NULL);
 }
 
 /*
