@@ -267,7 +267,8 @@ s_commod(struct empobj *sink, short *vec,
 	    if (actually_doit) {
 		vec[type] += can_move;
 		putship(ship.shp_uid, &ship);
-		putsect(&sect);
+		if (n)
+		    putsect(&sect);
 		put_empobj(sink->ef_type, sink->uid, sink);
 	    }
 	    return 1;
@@ -281,7 +282,8 @@ s_commod(struct empobj *sink, short *vec,
 	    if (actually_doit) {
 		vec[type] += can_move;
 		putship(ship.shp_uid, &ship);
-		putsect(&sect);
+		if (n)
+		    putsect(&sect);
 	    }
 	}
     }
