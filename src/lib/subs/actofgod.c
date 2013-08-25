@@ -210,7 +210,7 @@ fmtflags (char *buf, size_t sz, int flags, struct symbol symtab[], int all)
     int n, i;
     char *p;
 
-    if (sz)
+    if (buf && sz)
 	buf[0] = 0;
     n = 0;
     for (i = 0; i < 32; i++) {
@@ -221,12 +221,12 @@ fmtflags (char *buf, size_t sz, int flags, struct symbol symtab[], int all)
 	    n += snprintf(buf + n, sz - n, "%s%s", sep, p);
 	else if (all)
 	    n += snprintf(buf + n, sz - n, "%s#%d", sep, i);
-	if (CANT_HAPPEN((size_t)n >= sz)) {
-	    buf = NULL;
+	if ((size_t)n >= sz)
 	    sz = n;
-	}
 	sep = ", ";
     }
+
+    CANT_HAPPEN((size_t)n >= sz && buf);
     return n;
 }
 
