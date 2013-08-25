@@ -7,7 +7,10 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.32 - Sun Aug 11 12:23:54 UTC 2013
+Changes to Empire 4.3.32 - Sun Aug 25 07:55:34 UTC 2013
+ * Fix an LWP stack overflow observed on AIX 7.1.
+ * Fix portability bug in standalone client Makefile
+ * Fix portability bug in configure test for curses.
  * The break command now honors new designation of sanctuaries.
  * Changes to edit, give, setsector, setresource, swapsector:
    - Generalize edit to multiple objects: accept
