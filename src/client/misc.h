@@ -44,6 +44,7 @@ extern int eight_bit_clean;
 extern int input_fd;
 extern int send_eof;
 extern FILE *auxfp;
+extern int restricted;
 
 #ifdef HAVE_CURSES_TERMINFO
 void getsose(void);

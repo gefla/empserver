@@ -69,6 +69,7 @@ print_usage(char *program_name)
     printf("Usage: %s [OPTION]...[COUNTRY [PASSWORD]]\n"
 	   "  -2 FILE         Append log of session to FILE\n"
 	   "  -k              Kill connection\n"
+	   "  -r              Restricted mode, no redirections\n"
 	   "  -s [HOST:]PORT  Specify server HOST and PORT\n"
 	   "  -u              Use UTF-8\n"
 	   "  -h              display this help and exit\n"
@@ -92,13 +93,16 @@ main(int argc, char **argv)
     char *colon;
     int sock;
 
-    while ((opt = getopt(argc, argv, "2:ks:uhv")) != EOF) {
+    while ((opt = getopt(argc, argv, "2:krs:uhv")) != EOF) {
 	switch (opt) {
 	case '2':
 	    auxfname = optarg;
 	    break;
 	case 'k':
 	    send_kill = 1;
+	    break;
+	case 'r':
+	    restricted = 1;
 	    break;
 	case 's':
 	    port = strdup(optarg);

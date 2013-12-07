@@ -47,6 +47,7 @@
 
 int eight_bit_clean;
 FILE *auxfp;
+int restricted;
 
 static FILE *redir_fp;
 static int redir_is_pipe;
@@ -160,6 +161,11 @@ static int
 redir_authorized(char *arg, char *attempt, int expected)
 {
     size_t seen = seen_input(arg);
+
+    if (restricted) {
+	fprintf(stderr, "Can't %s in restricted mode\n", attempt);
+	return 0;
+    }
 
     if (executing) {
 	fprintf(stderr, "Can't %s in a batch file\n", attempt);
