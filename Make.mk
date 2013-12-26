@@ -27,7 +27,7 @@
 #   Make.mk: The real Makefile, included by GNUmakefile
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2012
+#      Markus Armbruster, 2005-2013
 #
 
 # This makefile was inspired by `Recursive Make Considered Harmful',
@@ -201,6 +201,7 @@ install: all installdirs
 	$(INSTALL_PROGRAM) $(util) $(server) $(sbindir)
 	$(INSTALL_PROGRAM) $(client) $(bindir)
 	$(INSTALL) -m 444 $(addprefix $(srcdir)/, $(builtins)) $(builtindir)
+	rm -f $(einfodir)/*
 	$(INSTALL_DATA) $(info.nr) $(einfodir)
 	$(INSTALL_DATA) $(addprefix $(srcdir)/, $(man6)) $(mandir)/man6
 	sed -e '1,/^$$/d' -e 's/^/# /g' <$(srcdir)/doc/schedule >$(schedule).dist
@@ -232,6 +233,7 @@ installdirs:
 .PHONY: install-html
 install-html: html
 	mkdir -p $(ehtmldir)
+	rm -f $(ehtmldir)/*
 	$(INSTALL_DATA) $(info.html) $(ehtmldir)
 
 .PHONY: uninstall
