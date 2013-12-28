@@ -25,13 +25,10 @@ fi
 
 create_sandbox
 
-# Create world and start server
-src/util/files -e sandbox/etc/empire/econfig -f >/dev/null
-src/util/empdump -e sandbox/etc/empire/econfig -i "$srcdir"/tests/smoke/fairland.xdump
-start_server
+begin_test "$srcdir"/tests/smoke/fairland.xdump
+
 src/client/empire POGO peter <"$srcdir"/tests/smoke/newcap_script >/dev/null
 
-# Feed player input
 need_update=
 for i in "$srcdir"/tests/smoke/[0-9]*
 do
@@ -59,10 +56,6 @@ EOF
     need_update=y
 done
 
-# Stop server
-stop_server
+end_test
 
-src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/smoke.xdump
-
-# Smoke test completed; compare results
 cmp_out var/empire/server.log var/empire/journal.log smoke.xdump

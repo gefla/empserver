@@ -70,6 +70,33 @@ stop_server()
     done
 }
 
+begin_test()
+{
+    src/util/files -e sandbox/etc/empire/econfig -f >/dev/null
+    case "$1" in
+    *.xdump)
+	src/util/empdump -e sandbox/etc/empire/econfig -i "$1"
+	;;
+    *)
+	cp -r sandbox/var/empire/tel sandbox/var/empire/empty.tel
+	start_server
+	src/client/empire POGO peter <"$1" >/dev/null
+	stop_server
+	mv sandbox/var/empire/tel sandbox/var/empire/init.tel
+	mv sandbox/var/empire/empty.tel sandbox/var/empire/tel
+	mv sandbox/var/empire/journal.log sandbox/var/empire/init.journal.log
+	mv sandbox/var/empire/server.log sandbox/var/empire/init.server.log
+	;;
+    esac
+    start_server
+}
+
+end_test ()
+{
+    stop_server
+    src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/$test.xdump
+}
+
 cmp_out()
 {
     local opt exp act nrm msg ret=0

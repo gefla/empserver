@@ -29,27 +29,11 @@ WORLD_X 24
 WORLD_Y 16
 EOF
 
-# Create world, hide creation output
-src/util/files -e sandbox/etc/empire/econfig -f >/dev/null
-cp -r sandbox/var/empire/tel sandbox/var/empire/empty.tel
-start_server
-src/client/empire POGO peter <"$srcdir"/tests/actofgod/init_script >/dev/null
-stop_server
-mv sandbox/var/empire/tel sandbox/var/empire/init.tel
-mv sandbox/var/empire/empty.tel sandbox/var/empire/tel
-mv sandbox/var/empire/journal.log sandbox/var/empire/init.journal.log
-mv sandbox/var/empire/server.log sandbox/var/empire/init.server.log
+begin_test "$srcdir"/tests/actofgod/init_script
 
-# Start server
-start_server
-
-# Feed input
 perl "$srcdir"/tests/actofgod/geninput.pl | src/client/empire POGO peter >/dev/null
 
-# Stop server
-stop_server
-
-src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/actofgod.xdump
+end_test
 
 # Test completed; compare results
 cmp_out var/empire/server.log var/empire/journal.log actofgod.xdump
