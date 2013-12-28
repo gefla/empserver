@@ -25,10 +25,8 @@ fi
 
 create_sandbox
 
-exec 3>sandbox/smoke.out
-
 # Create world and start server
-src/util/files -e sandbox/etc/empire/econfig -f >&3
+src/util/files -e sandbox/etc/empire/econfig -f >/dev/null
 src/util/empdump -e sandbox/etc/empire/econfig -i "$srcdir"/tests/smoke/fairland.xdump
 start_server
 src/client/empire POGO peter <"$srcdir"/tests/smoke/newcap_script >/dev/null
@@ -40,7 +38,6 @@ do
     t="${i##*/}"
     if [ "$need_update" ]
     then
-	echo "Update Turn $t starting" >&3
 	src/client/empire POGO peter <<EOF >/dev/null
 power new
 report *
@@ -49,18 +46,15 @@ comm * ?own#0
 reso * ?own#0
 force
 EOF
-	echo "Update Turn $t completed successfully" >&3
     fi
     for j in "$i"/*
     do
 	p="${j##*/}"
-	echo "Player $p Turn $t starting" >&3
 	if [ $p -eq 0 ]
 	then c=POGO r=peter
 	else c="${p#0}"; r="$c"
 	fi
 	src/client/empire "$c" "$r" <$j >/dev/null
-	echo "Player $p Turn $t completed successfully" >&3
     done
     need_update=y
 done
@@ -68,9 +62,7 @@ done
 # Stop server
 stop_server
 
-exec 3>&-
-
 src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/smoke.xdump
 
 # Smoke test completed; compare results
-cmp_out smoke.out var/empire/server.log var/empire/journal.log smoke.xdump
+cmp_out var/empire/server.log var/empire/journal.log smoke.xdump
