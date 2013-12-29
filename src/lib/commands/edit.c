@@ -781,6 +781,8 @@ edit_unit(struct empobj *unit, char *key, char *p,
 				 "from %s to %s",
 				 xyas(unit->x, unit->y, player->cnum),
 				 xyas(newx, newy, player->cnum));
+	if (newx == unit->x && newy == unit->y)
+	    break;
 	if (unit->own && unit->own != player->cnum)
 	    wu(0, unit->own,
 	       "Location of %s changed from %s to %s by an act of %s!\n",
