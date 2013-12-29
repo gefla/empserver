@@ -1035,7 +1035,7 @@ config land
 uid owner xloc yloc type effic mobil off tech opx opy mission radius army ship harden retreat rflags rpath civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime land access
 /config
 config nuke
-uid owner xloc yloc type effic mobil off tech opx opy mission radius plane
+uid owner xloc yloc type effic mobil off tech opx opy mission radius stockpile plane
 /config
 config news
 actor action victim times duration time

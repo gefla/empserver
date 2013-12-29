@@ -353,7 +353,7 @@ uid owner xloc yloc type effic mobil off tech opx opy mission radius army ship h
 49 0 0 0 0 0 0 0 0 0 0 none 0 "" -1 0 0 () "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
 /config
 config nuke
-uid owner xloc yloc type effic mobil off tech opx opy mission radius plane
+uid owner xloc yloc type effic mobil off tech opx opy mission radius stockpile plane
 /config
 config news
 actor action victim times duration time

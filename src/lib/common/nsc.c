@@ -407,6 +407,7 @@ struct castr lchr_ca[] = {
 struct castr nuke_ca[] = {
 #define CURSTR struct nukstr
     NSC_GENITEM(EF_NUKE, EF_NUKE_CHR),
+    {"stockpile", fldoff(nuk_stockpile), NSC_STRINGY, 1, NULL, EF_BAD, 0},
     {"plane", fldoff(nuk_plane), NSC_INT, 0, NULL, EF_PLANE, 0},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
 #undef CURSTR

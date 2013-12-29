@@ -326,8 +326,9 @@
     Play#0 output Play#0 1 "opy" 10 0 0 -1
     Play#0 output Play#0 1 "mission" 6 0 0 35
     Play#0 output Play#0 1 "radius" 6 0 0 -1
+    Play#0 output Play#0 1 "stockpile" 14 0 1 -1
     Play#0 output Play#0 1 "plane" 8 0 0 2
-    Play#0 output Play#0 1 /14
+    Play#0 output Play#0 1 /15
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta news
     Play#0 command xdump
@@ -1473,8 +1474,9 @@
     Play#2 output Play#2 1 "opy" 10 0 0 -1
     Play#2 output Play#2 1 "mission" 6 0 0 35
     Play#2 output Play#2 1 "radius" 6 0 0 -1
+    Play#2 output Play#2 1 "stockpile" 14 0 1 -1
     Play#2 output Play#2 1 "plane" 8 0 0 2
-    Play#2 output Play#2 1 /14
+    Play#2 output Play#2 1 /15
     Play#2 output Play#2 6 0 636
     Play#2 input xdump meta news
     Play#2 command xdump
