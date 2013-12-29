@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Thomas Ruschak, 1992
  *     Steve McClure, 1998
- *     Markus Armbruster, 2006-2010
+ *     Markus Armbruster, 2006-2013
  */
 
 #include <config.h>
@@ -160,7 +160,7 @@ start_stop_unit(int type, char *arg, int off)
     prdate();
     nunit = 0;
     while (nxtitem(&nstr, &unit)) {
-	if (!player->owner)
+	if (!player->owner || !unit.gen.own)
 	    continue;
 	if (!unit.gen.off == !off)
 	    continue;
