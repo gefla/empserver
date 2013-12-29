@@ -275,7 +275,7 @@ struct cmndstr player_coms[] = {
      1, upgr, C_MOD, NORM + MONEY + CAP},
     {"version", 0, vers, 0, 0},
     {"wall [<message>]", 0, wall, 0, NORM},
-    {"wingadd <WING> <PLANES>", 1, wing, C_MOD, NORM},
+    {"wingadd <WING> <PLANES>", 0, wing, C_MOD, NORM},
     {"wipe <SECTS>", 1, wipe, C_MOD, NORM},
     {"wire [yes|no|<days>]", 0, rea, C_MOD, 0},
     {"work <LAND UNITS> <AMOUNT>", 1, work, C_MOD, NORM + MONEY + CAP},
