@@ -248,6 +248,9 @@ for my $ef ('ship', 'plane', 'land') {
     edit($ef, 3, $key, '1,-1');
 }
 
+# ship: type
+edit('ship', 6, 't', 'lc', 'O', 1, 't', 'lc', 't', 'hc', 'g', 8, 't', 'lc');
+
 # ship: effic mobil tech pstage ptime milit
 edit_int('ship', 2, (
     ['E', 0, 100],
@@ -258,6 +261,9 @@ edit_int('ship', 2, (
     ['m', 0, 50],
 ));
 
+# plane: type
+edit('plane', 6, 'T', 'mb', 'O', 1, 'T', 'mb', 'T', 'hb', 'T', 'mb');
+
 # plane: effic mobil range tech
 edit_int('plane', 2, (
     ['e', 0, 100],
@@ -265,6 +271,10 @@ edit_int('plane', 2, (
     ['r', 0, 9],
     ['t', 50, 32767],
 ));
+
+# land: type
+edit('land', 6, 'T', 'art', 'O', 1, 'T', 'art', 'T', 'hat', 'g', 12,
+     'T', 'art');
 
 # land: effic mobil tech harden retreat milit
 edit_int('land', 2, (

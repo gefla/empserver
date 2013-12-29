@@ -252,6 +252,7 @@ print_plane(struct plnstr *plane)
 {
     pr("%s %s\n", prnatid(plane->pln_own), prplane(plane));
     pr("UID <U>: %d\t\t", plane->pln_uid);
+    pr("Type <T>: %s\n", plchr[plane->pln_type].pl_name);
     pr("Owner <O>: %d\t\t", plane->pln_own);
     pr("Location <l>: %s\n",
        xyas(plane->pln_x, plane->pln_y, player->cnum));
@@ -269,7 +270,8 @@ static void
 print_land(struct lndstr *land)
 {
     pr("%s %s\n", prnatid(land->lnd_own), prland(land));
-    pr("UID <U>: %d\n", land->lnd_uid);
+    pr("UID <U>: %d\t\t", land->lnd_uid);
+    pr("Type <T>: %s\n", lchr[land->lnd_type].l_name);
     pr("Owner <O>: %d\n", land->lnd_own);
     pr("Location <L>: %s\n", xyas(land->lnd_x, land->lnd_y, player->cnum));
     pr("Efficiency <e>: %d\t", land->lnd_effic);
@@ -304,7 +306,8 @@ static void
 print_ship(struct shpstr *ship)
 {
     pr("%s %s\n", prnatid(ship->shp_own), prship(ship));
-    pr("UID <U>: %d\n", ship->shp_uid);
+    pr("UID <U>: %d\t\t\t", ship->shp_uid);
+    pr("Type <t>: %s\n", mchr[ship->shp_type].m_name);
     pr("Owner <O>: %d\t\t\t", ship->shp_own);
     pr("Location <L>: %s\n", xyas(ship->shp_x, ship->shp_y, player->cnum));
     pr("Tech <T>: %d\t\t\t", ship->shp_tech);
@@ -836,6 +839,17 @@ edit_item(struct empobj *unit, short item[], struct ichrstr *ip, int arg,
     item[ip->i_uid] = arg;
 }
 
+static void
+limit_item(struct empobj *unit, short item[], short lim[])
+{
+    i_type it;
+
+    for (it = I_NONE + 1; it <= I_MAX; it++) {
+	if (item[it] > lim[it])
+	    edit_item(unit, item, &ichr[it], item[it], lim);
+    }
+}
+
 static int
 edit_ship(struct shpstr *ship, char *key, char *p)
 {
@@ -851,6 +865,21 @@ edit_ship(struct shpstr *ship, char *key, char *p)
     case 'F':
 	return edit_unit((struct empobj *)ship, key, p,
 			 SHIP_MINEFF, "fleet", 0);
+    case 't':
+	arg = ef_elt_byname(EF_SHIP_CHR, p);
+	if (arg < 0) {
+	    pr("%s: invalid ship type\n", p);
+	    return RET_FAIL;
+	}
+	divine_unit_change((struct empobj *)ship, "Type",
+			   arg != ship->shp_type, 0,
+			   "to %s", mchr[arg].m_name);
+	ship->shp_type = arg;
+	limit_item((struct empobj *)ship, ship->shp_item, mchr[arg].m_item);
+	if (ship->shp_tech >= mchr[arg].m_tech)
+	    break;
+	arg = mchr[arg].m_tech;
+	/* fall through */
     case 'T':
 	arg = LIMIT_TO(arg, mcp->m_tech, SHRT_MAX);
 	divine_unit_change((struct empobj *)ship, "Tech level",
@@ -923,6 +952,21 @@ edit_land(struct lndstr *land, char *key, char *p)
 	return edit_unit((struct empobj *)land, key, p,
 			 LAND_MINEFF, "army",
 			 land->lnd_ship >= 0 || land->lnd_land >= 0);
+    case 'T':
+	arg = ef_elt_byname(EF_LAND_CHR, p);
+	if (arg < 0) {
+	    pr("%s: invalid land unit type\n", p);
+	    return RET_FAIL;
+	}
+	divine_unit_change((struct empobj *)land, "Type",
+			   arg != land->lnd_type, 0,
+			   "to %s", lchr[arg].l_name);
+	land->lnd_type = arg;
+	limit_item((struct empobj *)land, land->lnd_item, lchr[arg].l_item);
+	if (land->lnd_tech >= lchr[arg].l_tech)
+	    break;
+	arg = lchr[arg].l_tech;
+	/* fall through */
     case 't':
 	arg = LIMIT_TO(arg, lcp->l_tech, SHRT_MAX);
 	divine_unit_change((struct empobj *)land, "Tech level",
@@ -1025,6 +1069,20 @@ edit_plane(struct plnstr *plane, char *key, char *p)
 	return edit_unit((struct empobj *)plane, key, p,
 			 PLANE_MINEFF, "wing",
 			 plane->pln_ship >= 0 || plane->pln_land >= 0);
+    case 'T':
+	arg = ef_elt_byname(EF_PLANE_CHR, p);
+	if (arg < 0) {
+	    pr("%s: invalid plane type\n", p);
+	    return RET_FAIL;
+	}
+	divine_unit_change((struct empobj *)plane, "Type",
+			   arg != plane->pln_type, 0,
+			   "to %s", plchr[arg].pl_name);
+	plane->pln_type = arg;
+	if (plane->pln_tech >= plchr[arg].pl_tech)
+	    break;
+	arg = plchr[arg].pl_tech;
+	/* fall through */
     case 't':
 	arg = LIMIT_TO(arg, pcp->pl_tech, SHRT_MAX);
 	divine_unit_change((struct empobj *)plane, "Tech level",
