@@ -824,12 +824,23 @@ edit_unit(struct empobj *unit, char *key, char *p,
     return RET_OK;
 }
 
+static void
+edit_item(struct empobj *unit, short item[], struct ichrstr *ip, int arg,
+	  short lim[])
+{
+    arg = LIMIT_TO(arg, 0, lim[ip->i_uid]);
+    divine_unit_change_quiet(unit, ip->i_name, arg != item[ip->i_uid],
+			     "from %d to %d", item[ip->i_uid], arg);
+    report_divine_gift(unit->own, ip, arg - item[ip->i_uid],
+		       unit_nameof(unit));
+    item[ip->i_uid] = arg;
+}
+
 static int
 edit_ship(struct shpstr *ship, char *key, char *p)
 {
     struct mchrstr *mcp = &mchr[ship->shp_type];
     int arg = atoi(p);
-    struct ichrstr *ip;
 
     switch (*key) {
     case 'U':
@@ -886,15 +897,8 @@ edit_ship(struct shpstr *ship, char *key, char *p)
     case 'l':
     case 'h':
     case 'r':
-	ip = item_by_name(key);
-	arg = LIMIT_TO(arg, 0, mchr[ship->shp_type].m_item[ip->i_uid]);
-	divine_unit_change_quiet((struct empobj *)ship, ip->i_name,
-				 arg != ship->shp_item[ip->i_uid],
-				 "from %d to %d",
-				 ship->shp_item[ip->i_uid], arg);
-	report_divine_gift(ship->shp_own, ip,
-			   arg - ship->shp_item[ip->i_uid], prship(ship));
-	ship->shp_item[ip->i_uid] = arg;
+	edit_item((struct empobj *)ship, ship->shp_item, item_by_name(key),
+		  arg, mcp->m_item);
 	break;
     default:
 	pr("huh? (%s)\n", key);
@@ -908,7 +912,6 @@ edit_land(struct lndstr *land, char *key, char *p)
 {
     struct lchrstr *lcp = &lchr[land->lnd_type];
     int arg = atoi(p);
-    struct ichrstr *ip;
 
     switch (*key) {
     case 'U':
@@ -996,15 +999,8 @@ edit_land(struct lndstr *land, char *key, char *p)
     case 'l':
     case 'h':
     case 'r':
-	ip = item_by_name(key);
-	arg = LIMIT_TO(arg, 0, lchr[land->lnd_type].l_item[ip->i_uid]);
-	divine_unit_change_quiet((struct empobj *)land, ip->i_name,
-				 arg != land->lnd_item[ip->i_uid],
-				 "from %d to %d",
-				 land->lnd_item[ip->i_uid], arg);
-	report_divine_gift(land->lnd_own, ip,
-			   arg - land->lnd_item[ip->i_uid], prland(land));
-	land->lnd_item[ip->i_uid] = arg;
+	edit_item((struct empobj *)land, land->lnd_item, item_by_name(key),
+		  arg, lcp->l_item);
 	break;
     default:
 	pr("huh? (%s)\n", key);
