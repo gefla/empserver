@@ -20,7 +20,7 @@
     Play#0 input edit l 0,0 @ 0
     Play#0 command edit
     Play#0 output Play#0 1 huh? (@)
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input setres @ 0,0 0
     Play#0 command setresource
@@ -43,7 +43,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 o -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 o 98
     Play#0 command edit
@@ -51,7 +51,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 o 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 O 0
     Play#0 command edit
@@ -59,7 +59,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 O -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 O 98
     Play#0 command edit
@@ -67,7 +67,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 O 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 X 0
     Play#0 command edit
@@ -75,7 +75,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,7 X -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 X 98
     Play#0 command edit
@@ -83,7 +83,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,7 X 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,7 o 2
     Play#0 command edit
@@ -132,7 +132,7 @@
     Play#0 input edit l 3,-7 L 3,-7 L 1,0
     Play#0 command edit
     Play#0 output Play#0 1 Sector 3,-7 unchanged
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 e 0
     Play#0 command edit
@@ -726,7 +726,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 8,4 s ,
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 6:8,4 S +
     Play#0 command edit
@@ -739,7 +739,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 8,4 S ,
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,5 m 1 a 1
     Play#0 command edit
@@ -846,7 +846,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 0 O -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 1 O 98
     Play#0 command edit
@@ -854,7 +854,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 1 O 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 O 2
     Play#0 command edit
@@ -875,7 +875,7 @@
     Play#0 input edit s 0 U 0 U -1
     Play#0 command edit
     Play#0 output Play#0 1 cs   cargo ship (#0) unchanged
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 L 3,-1
     Play#0 command edit
@@ -896,7 +896,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0 O -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 1 O 98
     Play#0 command edit
@@ -904,7 +904,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 1 O 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 O 2
     Play#0 command edit
@@ -925,7 +925,7 @@
     Play#0 input edit p 0 U 0 U -1
     Play#0 command edit
     Play#0 output Play#0 1 f1   Sopwith Camel #0 unchanged
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 l 3,-1
     Play#0 command edit
@@ -946,7 +946,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0 O -1
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 1 O 98
     Play#0 command edit
@@ -954,7 +954,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 1 O 99
     Play#0 command edit
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 O 2
     Play#0 command edit
@@ -975,7 +975,7 @@
     Play#0 input edit u 0 U 0 U -1
     Play#0 command edit
     Play#0 output Play#0 1 sup  supply #0 unchanged
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 L 3,-1
     Play#0 command edit
@@ -984,6 +984,56 @@
     Play#0 input edit u 3 L 1,-1
     Play#0 command edit
     Play#0 output Play#0 1 Location of sup  supply #3 changed from 1,-1 to 1,-1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 0 @ 0
+    Play#0 command edit
+    Play#0 output Play#0 1 huh? (@)
+    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 0 O 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Owner of 10kt  fission warhead #0 changed from 3 (#3) to POGO (#0)
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 0 O -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 1 O 98
+    Play#0 command edit
+    Play#0 output Play#0 1 Owner of 10kt  fission warhead #1 changed from 3 (#3) to 98 (#98)
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 1 O 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 2 O 2
+    Play#0 command edit
+    Play#0 output Play#0 1 Owner of 10kt  fission warhead #2 changed from 3 (#3) to 2 (#2)
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 4 O 0 O 3
+    Play#0 command edit
+    Play#0 output Play#0 1 Owner of 10kt  fission warhead #4 changed from 3 (#3) to POGO (#0)
+    Play#0 output Play#0 1 Owner of 10kt  fission warhead #4 changed from POGO (#0) to 3 (#3)
+    Play#0 output Play#0 1 Efficiency of 10kt  fission warhead #4 changed from 0 to 100
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 3 U 5 U 3
+    Play#0 command edit
+    Play#0 output Play#0 1 10kt  fission warhead #3 duplicated to (#5)
+    Play#0 output Play#0 1 10kt  fission warhead #5 duplicated to (#3)
+    Play#0 output Play#0 1 Replacing 10kt  fission warhead #3 of 3 (#3)
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 0 U 0 U -1
+    Play#0 command edit
+    Play#0 output Play#0 1 10kt  fission warhead #0 unchanged
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 2 L 3,-1
+    Play#0 command edit
+    Play#0 output Play#0 1 Location of 10kt  fission warhead #2 changed from 1,-1 to 3,-1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 3 L 1,-1
+    Play#0 command edit
+    Play#0 output Play#0 1 Location of 10kt  fission warhead #3 changed from 1,-1 to 1,-1
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 6 t lc O 1 t lc t hc g 8 t lc
     Play#0 command edit
@@ -1278,6 +1328,33 @@
     Play#0 command edit
     Play#0 output Play#0 1 military of sup  supply #5 changed from 0 to 25
     Play#0 output Play#0 6 0 640
+    Play#0 input edit n 6 t 15kt O 1 t 15kt t 50kt t 15kt
+    Play#0 command edit
+    Play#0 output Play#0 1 Type of 10kt  fission warhead #6 changed to 15kt  fission
+    Play#0 output Play#0 1 Tech level of 15kt  fission warhead #6 changed from 0 to 290
+    Play#0 output Play#0 1 Owner of 15kt  fission warhead #6 changed from POGO (#0) to 1 (#1)
+    Play#0 output Play#0 1 Efficiency of 15kt  fission warhead #6 changed from 0 to 100
+    Play#0 output Play#0 1 Type of 15kt  fission warhead #6 unchanged
+    Play#0 output Play#0 1 Type of 15kt  fission warhead #6 changed to 50kt  fission
+    Play#0 output Play#0 1 Tech level of 50kt  fission warhead #6 changed from 290 to 300
+    Play#0 output Play#0 1 Type of 50kt  fission warhead #6 changed to 15kt  fission
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 2 T 280
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #2 changed from 400 to 280
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 3 T 279
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #3 changed from 400 to 280
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 4 T 32767
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #4 changed from 400 to 32767
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 5 T 32768
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #5 changed from 400 to 32767
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 F ~
     Play#0 command edit
     Play#0 output Play#0 1 Assignment of cs   cargo ship (#2) unchanged
@@ -1347,7 +1424,7 @@
     Play#0 input edit p 2 s -1 s 9999
     Play#0 command edit
     Play#0 output Play#0 1 Ship of f1   Sopwith Camel #2 unchanged
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 s 3
     Play#0 command edit
@@ -1362,7 +1439,7 @@
     Play#0 input edit u 2 S -1 S 9999
     Play#0 command edit
     Play#0 output Play#0 1 Ship of sup  supply #2 unchanged
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 S 3
     Play#0 command edit
@@ -1373,6 +1450,15 @@
     Play#0 output Play#0 1 sup  supply #4 loaded onto ship #4
     Play#0 output Play#0 1 sup  supply #4 unloaded from ship #4
     Play#0 output Play#0 1 sup  supply #4 loaded onto land #4
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 2 p -1 p 9999
+    Play#0 command edit
+    Play#0 output Play#0 1 Plane of 10kt  fission warhead #2 unchanged
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 3 p 3
+    Play#0 command edit
+    Play#0 output Play#0 1 10kt  fission warhead #3 loaded onto plane #3
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 4 l 5,1
     Play#0 command edit
@@ -1468,6 +1554,22 @@
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input Y -1
     Play#0 output Play#0 1 Land unit of sup  supply #0 unchanged
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input 
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit n 0
+    Play#0 command edit
+    Play#0 output Play#0 1 POGO (#0) 10kt  fission warhead #0
+    Play#0 output Play#0 1 UID <U>: 0			Type <t>: 0
+    Play#0 output Play#0 1 Owner <O>: 0			Location <L>: 1,-1
+    Play#0 output Play#0 1 Tech <T>: 400			Stockpile <S>: 
+    Play#0 output Play#0 1 Plane <p>: -1
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input S a
+    Play#0 output Play#0 1 Assignment of 10kt  fission warhead #0 changed from stockpile ~ to a
+    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 input p -1
+    Play#0 output Play#0 1 Plane of 10kt  fission warhead #0 unchanged
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
     Play#0 output Play#0 6 0 640
@@ -1586,7 +1688,7 @@
     Play#0 input edit c 1 n POGO
     Play#0 command edit
     Play#0 output Play#0 1 Country #0 is already called `POGO'
-    Play#0 output Play#0 1 Usage: edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...
+    Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 n 2
     Play#0 command edit
@@ -1791,6 +1893,10 @@
     Play#0 output Play#0 1 POGO gave you 12 guns in hat  hvy artillery #6
     Play#0 output Play#0 1 Type of hat  hvy artillery #6 changed to art  artillery by an act of POGO
     Play#0 output Play#0 1 POGO stole 2 guns from art  artillery #6
+    Play#0 output Play#0 1 15kt  fission warhead #6 given to you by an act of POGO!
+    Play#0 output Play#0 1 Type of 15kt  fission warhead #6 changed to 50kt  fission by an act of POGO
+    Play#0 output Play#0 1 Tech level of 50kt  fission warhead #6 changed from 290 to 300 by an act of POGO
+    Play#0 output Play#0 1 Type of 50kt  fission warhead #6 changed to 15kt  fission by an act of POGO
     Play#0 output Play#0 1 Money changed from 0 to -2147483648 by an act of POGO!
     Play#0 output Play#0 1 Technology changed from 0.00 to 3.14 by an act of POGO!
     Play#0 output Play#0 1 Research changed from 0.00 to 3.14 by an act of POGO!
@@ -1810,6 +1916,8 @@
     Play#0 output Play#0 1 Location of f1   Sopwith Camel #2 changed from 1,-1 to 3,-1 by an act of POGO!
     Play#0 output Play#0 1 sup  supply #2 given to you by an act of POGO!
     Play#0 output Play#0 1 Location of sup  supply #2 changed from 1,-1 to 3,-1 by an act of POGO!
+    Play#0 output Play#0 1 10kt  fission warhead #2 given to you by an act of POGO!
+    Play#0 output Play#0 1 Location of 10kt  fission warhead #2 changed from 1,-1 to 3,-1 by an act of POGO!
     Play#0 output Play#0 1 Mobility of cs   cargo ship (#2) changed from 0 to -127 by an act of POGO
     Play#0 output Play#0 1 Tech level of cs   cargo ship (#2) changed from 100 to 20 by an act of POGO
     Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #2 changed from 0 to -127 by an act of POGO
@@ -1818,6 +1926,7 @@
     Play#0 output Play#0 1 Mobility of sup  supply #2 changed from 0 to -127 by an act of POGO
     Play#0 output Play#0 1 Tech level of sup  supply #2 changed from 100 to 50 by an act of POGO
     Play#0 output Play#0 1 Retreat percentage of sup  supply #2 changed from 42 to 0 by an act of POGO
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #2 changed from 400 to 280 by an act of POGO
     Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#2) changed by an act of POGO: group set
     Play#0 output Play#0 1 Retreat condition of sup  supply #2 changed by an act of POGO: group set
     Play#0 output Play#0 1 Flags of f1   Sopwith Camel #2 changed by an act of POGO: airburst set
@@ -1860,6 +1969,14 @@
     Play#0 output Play#0 1 sup  supply #5 given to you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #3 taken from you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #3 given to you by an act of POGO!
+    Play#0 output Play#0 1 10kt  fission warhead #0 taken from you by an act of POGO!
+    Play#0 output Play#0 1 10kt  fission warhead #1 taken from you by an act of POGO!
+    Play#0 output Play#0 1 10kt  fission warhead #2 taken from you by an act of POGO!
+    Play#0 output Play#0 1 10kt  fission warhead #4 taken from you by an act of POGO!
+    Play#0 output Play#0 1 10kt  fission warhead #4 given to you by an act of POGO!
+    Play#0 output Play#0 1 10kt  fission warhead #5 given to you by an act of POGO!
+    Play#0 output Play#0 1 10kt  fission warhead #3 taken from you by an act of POGO!
+    Play#0 output Play#0 1 10kt  fission warhead #3 given to you by an act of POGO!
     Play#0 output Play#0 1 Efficiency of cs   cargo ship (#4) changed from 20 to 100 by an act of POGO
     Play#0 output Play#0 1 Efficiency of cs   cargo ship (#5) changed from 20 to 100 by an act of POGO
     Play#0 output Play#0 1 Mobility of cs   cargo ship (#3) changed from 0 to -127 by an act of POGO
@@ -1894,6 +2011,9 @@
     Play#0 output Play#0 1 Retreat percentage of sup  supply #5 changed from 42 to 100 by an act of POGO
     Play#0 output Play#0 1 POGO gave you 25 military in sup  supply #4
     Play#0 output Play#0 1 POGO gave you 25 military in sup  supply #5
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #3 changed from 400 to 280 by an act of POGO
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #4 changed from 400 to 32767 by an act of POGO
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #5 changed from 400 to 32767 by an act of POGO
     Play#0 output Play#0 1 Assignment of cs   cargo ship (#3) changed from fleet ~ to a by an act of POGO
     Play#0 output Play#0 1 Assignment of f1   Sopwith Camel #3 changed from wing ~ to a by an act of POGO
     Play#0 output Play#0 1 Assignment of sup  supply #3 changed from army ~ to a by an act of POGO
@@ -1913,6 +2033,7 @@
     Play#0 output Play#0 1 sup  supply #4 loaded onto ship #4 by an act of POGO!
     Play#0 output Play#0 1 sup  supply #4 unloaded from ship #4 by an act of POGO!
     Play#0 output Play#0 1 sup  supply #4 loaded onto land #4 by an act of POGO!
+    Play#0 output Play#0 1 10kt  fission warhead #3 loaded onto plane #3 by an act of POGO!
     Play#0 output Play#0 1 sup  supply #4 unloaded from land #4 by an act of POGO!
     Play#0 output Play#0 1 sup  supply #4 loaded onto ship #2 by an act of POGO!
     Play#0 output Play#0 1 BTUs changed from 0 to 640 by an act of POGO!
@@ -1947,6 +2068,7 @@
     Play#0 output Play#0 1 cs   cargo ship (#1) given to you by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #1 given to you by an act of POGO!
     Play#0 output Play#0 1 sup  supply #1 given to you by an act of POGO!
+    Play#0 output Play#0 1 10kt  fission warhead #1 given to you by an act of POGO!
     Play#0 output Play#0 6 0 640
     Play#0 input ctld
     Play#0 output Play#0 1 Bye-bye

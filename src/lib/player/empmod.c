@@ -32,7 +32,7 @@
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2013
  */
 
 /*
@@ -99,7 +99,7 @@ struct cmndstr player_coms[] = {
      1, drop, C_MOD, NORM + MONEY + CAP},
     {"dump <SECTS> [<fields>]", 0, dump, 0, NORM},
     {"echo [<string>]", 0, echo, 0, 0},
-    {"edit <l|s|p|u|c> <SECTS|SHIPS|PLANES|LANDS|NATS> [<KEY> <VALUE>]...",
+    {"edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...",
      0, edit, C_MOD, GOD},
     {"enable", 0, enab, C_MOD, GOD},
     {"enlist <SECTS> <NUM>", 2, enli, C_MOD, NORM + MONEY + CAP},

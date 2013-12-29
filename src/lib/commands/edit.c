@@ -54,11 +54,13 @@ static void print_nat(struct natstr *);
 static void print_plane(struct plnstr *);
 static void print_land(struct lndstr *);
 static void print_ship(struct shpstr *);
+static void print_nuke(struct nukstr *);
 static char *getin(char *, char **);
 static int edit_nat(struct natstr *, char *, char *);
 static int edit_ship(struct shpstr *, char *, char *);
 static int edit_land(struct lndstr *, char *, char *);
 static int edit_plane(struct plnstr *, char *, char *);
+static int edit_nuke(struct nukstr *, char *, char *);
 
 int
 edit(void)
@@ -90,8 +92,8 @@ edit(void)
 	type = EF_LAND;
 	break;
     case 'n':
-	pr("Not implemented yet.\n");
-	return RET_FAIL;
+	type = EF_NUKE;
+	break;
     case 'c':
 	type = EF_NATION;
 	break;
@@ -116,6 +118,9 @@ edit(void)
 		break;
 	    case EF_LAND:
 		print_land(&item.land);
+		break;
+	    case EF_NUKE:
+		print_nuke(&item.nuke);
 		break;
 	    case EF_NATION:
 		print_nat(&item.nat);
@@ -170,6 +175,9 @@ edit(void)
 		break;
 	    case EF_PLANE:
 		ret = edit_plane(&item.plane, key, ptr);
+		break;
+	    case EF_NUKE:
+		ret = edit_nuke(&item.nuke, key, ptr);
 		break;
 	    default:
 		CANT_REACH();
@@ -334,6 +342,19 @@ print_ship(struct shpstr *ship)
     pr("%5d", ship->shp_item[I_HCM]);
     pr("%4d", ship->shp_item[I_RAD]);
     pr("\n");
+}
+
+static void
+print_nuke(struct nukstr *nuke)
+{
+    pr("%s %s\n", prnatid(nuke->nuk_own), prnuke(nuke));
+    pr("UID <U>: %d\t\t\t", nuke->nuk_uid);
+    pr("Type <t>: %d\n", nuke->nuk_type);
+    pr("Owner <O>: %d\t\t\t", nuke->nuk_own);
+    pr("Location <L>: %s\n", xyas(nuke->nuk_x, nuke->nuk_y, player->cnum));
+    pr("Tech <T>: %d\t\t\t", nuke->nuk_tech);
+    pr("Stockpile <S>: %.1s\n", &nuke->nuk_stockpile);
+    pr("Plane <p>: %d\n", nuke->nuk_plane);
 }
 
 static char *
@@ -810,6 +831,7 @@ edit_unit(struct empobj *unit, char *key, char *p,
     case 'F':
     case 'W':
     case 'A':
+    case 'S':
 	if (p[0] == '~')
 	    newgroup = 0;
 	else if (isalpha(p[0]))
@@ -1133,6 +1155,58 @@ edit_plane(struct plnstr *plane, char *key, char *p)
 	divine_flag_change((struct empobj *)plane, "Flags",
 			   plane->pln_flags, arg, plane_flags);
 	plane->pln_flags = arg;
+	break;
+    default:
+	pr("huh? (%s)\n", key);
+	return RET_FAIL;
+    }
+    return RET_OK;
+}
+
+static int
+edit_nuke(struct nukstr *nuke, char *key, char *p)
+{
+    struct nchrstr *ncp = &nchr[nuke->nuk_type];
+    int arg = atoi(p);
+
+    switch (*key) {
+    case 'U':
+    case 'O':
+    case 'L':
+    case 'S':
+	return edit_unit((struct empobj *)nuke, key, p,
+			 100, "stockpile", nuke->nuk_plane >= 0);
+    case 't':
+	arg = ef_elt_byname(EF_NUKE_CHR, p);
+	if (arg < 0) {
+	    pr("%s: invalid nuke type\n", p);
+	    return RET_FAIL;
+	}
+	divine_unit_change((struct empobj *)nuke, "Type",
+			   arg != nuke->nuk_type, 0,
+			   "to %s", nchr[arg].n_name);
+	nuke->nuk_type = arg;
+	if (nuke->nuk_tech >= nchr[arg].n_tech)
+	    break;
+	arg = nchr[arg].n_tech;
+	/* fall through */
+    case 'T':
+	arg = LIMIT_TO(arg, ncp->n_tech, SHRT_MAX);
+	divine_unit_change((struct empobj *)nuke, "Tech level",
+			   arg != nuke->nuk_tech, arg - nuke->nuk_tech,
+			   "from %d to %d", nuke->nuk_tech, arg);
+	nuke->nuk_tech = arg;
+	break;
+    case 'p':
+	if (arg < -1 || arg >= ef_nelem(EF_PLANE))
+	    return RET_SYN;
+	if (arg == nuke->nuk_plane) {
+	    pr("Plane of %s unchanged\n", prnuke(nuke));
+	    break;
+	}
+	divine_unload((struct empobj *)nuke, EF_PLANE, nuke->nuk_plane);
+	divine_load((struct empobj *)nuke, EF_PLANE, arg);
+	nuke->nuk_plane = arg;
 	break;
     default:
 	pr("huh? (%s)\n", key);

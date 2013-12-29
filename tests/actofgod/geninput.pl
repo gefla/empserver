@@ -9,7 +9,7 @@
 #     x<-1,y<0  own 0
 #     all wilderness, rest sea
 #     owned sectors have 1m 1c
-# units 5 cs #0..4, 5 f1 #0..4, 5 sup #0..4, all in 1,-1 owned by 3
+# units cs #0..4, f1 #0..4, sup #0..4, 10kt #0..4, all in 1,-1 owned by 3
 
 use warnings;
 use strict;
@@ -227,9 +227,9 @@ give('8,6', 'c', -1);
 # swapsector
 swaps('-2,2', '2,-2');
 
-## Ship, plane, land unit
+## Ship, plane, land unit, nuke
 
-for my $ef ('ship', 'plane', 'land') {
+for my $ef ('ship', 'plane', 'land', 'nuke') {
     # invalid key
     edit($ef, 0, '@', 0);
     # own
@@ -286,6 +286,14 @@ edit_int('land', 2, (
     ['m', 0, 25],
 ));
 
+# nuke: type
+edit('nuke', 6, 't', '15kt', 'O', 1, 't', '15kt', 't', '50kt', 't', '15kt');
+
+# nuke: tech
+edit_int('nuke', 2, (
+    ['T', 280, 32767],
+));
+
 # fleet, wing, army
 sub unit_group {
     my ($ef, $key) = @_;
@@ -311,13 +319,14 @@ edit('plane', 2, 'f', 4);
 
 # carrier
 sub unit_carrier {
-    my ($ef, $skey, $pkey) = @_;
-    edit($ef, 2, $skey, -1, $skey, 9999);
-    edit($ef, 3, $skey, 3);
-    edit($ef, 4, $skey, 4, $pkey, 4);
+    my ($ef, $key1, $key2) = @_;
+    edit($ef, 2, $key1, -1, $key1, 9999);
+    edit($ef, 3, $key1, 3);
+    edit($ef, 4, $key1, 4, $key2, 4) if defined $key2;
 }
 unit_carrier('plane', 's', 'y');
 unit_carrier('land', 'S', 'Y');
+unit_carrier('nuke', 'p');
 
 # special case: move carrier's cargo away
 edit('plane', 4, 'l', '5,1');
@@ -330,6 +339,7 @@ iedit('ship', 0, 'M 2', 'm 1', 'f 1');
 iedit('ship', 0, 'R n', 'R ""');
 iedit('plane', 0, 'm 2', 'y -1');
 iedit('land', 0, 'M 2', 'Y -1');
+iedit('nuke', 0, 'S a', 'p -1');
 
 ## Nation
 
