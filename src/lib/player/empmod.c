@@ -244,6 +244,7 @@ struct cmndstr player_coms[] = {
     {"sstat <SHIPS>", 0, sstat, 0, NORM},
     {"start <TYPE> <SECTS|PLANES|SHIPS|UNITS|NUKES>", 1, start, C_MOD, NORM},
     {"starvation [<SECTS>|l <UNITS>|s <SHIPS>]", 0, starve, 0, NORM},
+    {"stockpile <STOCKPILE> <NUKES>", 0, stoc, C_MOD, NORM},
     {"stop <TYPE> <SECTS|PLANES|SHIPS|UNITS|NUKES>", 1, stop, C_MOD, NORM},
     {"strength <SECTS>", 1, stre, C_MOD, NORM},
     {"supply <LAND UNITS>", 1, supp, C_MOD, NORM + CAP},

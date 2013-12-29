@@ -223,6 +223,7 @@ int spy(void);
 int sstat(void);
 int start(void);
 int starve(void);
+int stoc(void);
 int stop(void);
 int stre(void);
 int supp(void);
