@@ -238,6 +238,7 @@ for my $ef ('ship', 'plane', 'land') {
     edit($ef, 1, 'O', $MAXNOC - 1);
     edit($ef, 1, 'O', $MAXNOC);
     edit($ef, 2, 'O', 2);
+    edit($ef, 4, 'O', 0, 'O', '3');
     # uid (copy)
     edit($ef, 3, 'U', 5, 'U', 3);
     edit($ef, 0, 'U', 0, 'U', -1);

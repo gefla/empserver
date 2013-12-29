@@ -759,6 +759,11 @@ edit_unit(struct empobj *unit, char *key, char *p,
 	    report_god_takes("", unit_nameof(unit), unit->own);
 	    report_god_gives("", unit_nameof(unit), arg);
 	}
+	if (arg && unit->effic < mineff) {
+	    divine_unit_change_quiet(unit, "Efficiency", 1,
+				     "from %d to %d", unit->effic, mineff);
+	    unit->effic = mineff;
+	}
 	unit->own = arg;
 	break;
     case 'L':
