@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # xdump example program.
-# Copyright (C) 2006-2013 Markus Armbruster
+# Copyright (C) 2006-2014 Markus Armbruster
 #
 # Empire is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
