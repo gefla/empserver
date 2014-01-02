@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
+ *     Markus Armbruster, 2009-2013
  */
 
 #ifndef SYS_SOCKET_H

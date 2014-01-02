@@ -29,7 +29,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1994
- *     Markus Armbruster, 2007-2011
+ *     Markus Armbruster, 2007-2013
  *     Ron Koenderink, 2009
  */
 

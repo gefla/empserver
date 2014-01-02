@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Chad Zabel, 1994
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2013
  */
 
 #include <config.h>

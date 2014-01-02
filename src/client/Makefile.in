@@ -28,7 +28,7 @@
 #   Makefile.in: Makefile template for configure
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2009
+#      Markus Armbruster, 2005-2013
 #
 
 CC = @CC@

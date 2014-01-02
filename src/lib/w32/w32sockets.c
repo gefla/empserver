@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007-2010
- *     Markus Armbruster, 2007-2010
+ *     Markus Armbruster, 2007-2013
  */
 
 /*

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1994
- *     Markus Armbruster, 2005-2012
+ *     Markus Armbruster, 2005-2013
  */
 
 #include <config.h>

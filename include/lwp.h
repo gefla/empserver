@@ -28,7 +28,7 @@
  *  lwp.h -- prototypes and structures for lightweight processes
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2013
  *     Ron Koenderink, 2007-2009
  */
 
