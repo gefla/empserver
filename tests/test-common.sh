@@ -20,7 +20,7 @@ builtin "../../share/empire/builtin"
 listen_addr "$EMPIREHOST"
 keep_journal 2
 EOF
-    cp "$srcdir"/src/lib/global/*.config sandbox/share/empire/builtin
+    cp `git ls-files "$srcdir"/src/lib/global | grep '\.config$'` sandbox/share/empire/builtin
 }
 
 now()
