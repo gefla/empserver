@@ -31,9 +31,8 @@ EOF
 
 begin_test "$srcdir"/tests/actofgod/init_script
 
-perl "$srcdir"/tests/actofgod/geninput.pl | src/client/empire POGO peter >/dev/null
+perl "$srcdir"/tests/actofgod/geninput.pl | feed_input POGO peter
 
 end_test
 
-# Test completed; compare results
 cmp_out var/empire/server.log var/empire/journal.log actofgod.xdump

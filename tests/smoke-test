@@ -27,7 +27,7 @@ create_sandbox
 
 begin_test "$srcdir"/tests/smoke/fairland.xdump
 
-src/client/empire POGO peter <"$srcdir"/tests/smoke/newcap_script >/dev/null
+feed_input POGO peter "$srcdir"/tests/smoke/newcap_script
 
 t=
 for i in `git ls-files "$srcdir"/tests/smoke | grep 'tests/smoke/../..$'`
@@ -36,7 +36,7 @@ do
     t="${i%/??}"
     if [ "$p" != "$t" ] && [ "$p" ]
     then
-	src/client/empire POGO peter <<EOF >/dev/null
+	feed_input POGO peter <<EOF
 power new
 report *
 cen * ?own#0
@@ -50,7 +50,7 @@ EOF
     then c=POGO r=peter
     else c="${b#0}"; r="$c"
     fi
-    src/client/empire "$c" "$r" <"$i" >/dev/null
+    feed_input "$c" "$r" "$i"
 done
 
 end_test

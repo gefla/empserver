@@ -70,6 +70,14 @@ stop_server()
     done
 }
 
+feed_input()
+{
+    c=$1
+    r=$2
+    shift 2
+    sed '/^|/d' "$@" | src/client/empire "$c" "$r" >/dev/null
+}
+
 begin_test()
 {
     src/util/files -e sandbox/etc/empire/econfig -f >/dev/null
