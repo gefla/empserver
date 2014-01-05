@@ -81,21 +81,25 @@ feed_input()
 begin_test()
 {
     src/util/files -e sandbox/etc/empire/econfig -f >/dev/null
+    local xd=
     case "$1" in
     *.xdump)
-	src/util/empdump -e sandbox/etc/empire/econfig -i "$1"
+	xd="$1"
+	src/util/empdump -e sandbox/etc/empire/econfig -i "$xd"
+	shift
 	;;
-    *)
+    esac
+    if [ -z "$xd" ] || [ "$#" -ne 0 ]
+    then
 	cp -r sandbox/var/empire/tel sandbox/var/empire/empty.tel
 	start_server
-	src/client/empire POGO peter <"$1" >/dev/null
+	feed_input POGO peter "$@"
 	stop_server
 	mv sandbox/var/empire/tel sandbox/var/empire/init.tel
 	mv sandbox/var/empire/empty.tel sandbox/var/empire/tel
 	mv sandbox/var/empire/journal.log sandbox/var/empire/init.journal.log
 	mv sandbox/var/empire/server.log sandbox/var/empire/init.server.log
-	;;
-    esac
+    fi
     start_server
 }
 
