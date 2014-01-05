@@ -28,12 +28,12 @@ will give something like
 .NF
 Printing for tech level '325'
               blst dam lbs tech res $        abilities
-10kt  fission    3  70   4  280  93 $  10000 
-15kt  fission    3  90   5  290  96 $  15000 
-50kt  fission    3 100   6  300 100 $  25000 
-100kt fission    4 125   8  310 103 $  30000 
-5kt   fusion     2  80   1  315 104 $  12500 
-75kt  fusion     3  90   3  320 106 $  20000 
+10kt  fission    3  70   4  280  93 $  10000
+15kt  fission    3  90   5  290  96 $  15000
+50kt  fission    3 100   6  300 100 $  25000
+100kt fission    4 125   8  310 103 $  30000
+5kt   fusion     2  80   1  315 104 $  12500
+75kt  fusion     3  90   3  320 106 $  20000
 .FI
 .s1
 .SA "Ship-types, Nuke-types, Plane-types, Unit-types, Sector-types, Ships, Planes, LandUnits, Nukes, Bridges, Item-types, Products, newspaper, Updates"
