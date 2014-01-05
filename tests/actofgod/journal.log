@@ -1741,7 +1741,7 @@
     Play#0 input edit c 5
     Play#0 command edit
     Play#0 output Play#0 1 Country #:  5
-    Play#0 output Play#0 1 Name <n>: 5                   	Representative <r>: 5                   
+    Play#0 output Play#0 1 Name <n>: 5                   	Representative <r>: 5
     Play#0 output Play#0 1 BTUs <b>:   0			Reserves <m>:     0
     Play#0 output Play#0 1 Capital <c>: 0,0		Origin <o>: 0,0
     Play#0 output Play#0 1 Status <s>: 0x5			Seconds Used <u>:   0

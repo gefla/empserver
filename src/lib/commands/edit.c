@@ -230,7 +230,7 @@ print_nat(struct natstr *np)
 
     pr("Country #: %2d\n", np->nat_cnum);
     pr("Name <n>: %-20s\t", np->nat_cnam);
-    pr("Representative <r>: %-20s\n", np->nat_pnam);
+    pr("Representative <r>: %s\n", np->nat_pnam);
     pr("BTUs <b>: %3d\t\t\t", np->nat_btu);
     pr("Reserves <m>: %5d\n", np->nat_reserve);
     pr("Capital <c>: %s\t\t",
