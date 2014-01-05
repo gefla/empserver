@@ -89,8 +89,8 @@ reso_hdr(void)
     pr("RESOURCE\n");
     if (player->god)
 	pr("own ");
-    pr("  sect        eff  min gold fert oil uran ");
+    pr("  sect        eff  min gold fert oil uran");
     if (!player->god)
-	pr("ter");
+	pr(" ter");
     pr("\n");
 }
