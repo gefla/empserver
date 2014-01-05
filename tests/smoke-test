@@ -11,7 +11,7 @@ srcdir="$1"
 
 #
 # Currently expected to work only with thread package LWP, because:
-# 
+#
 # - Thread scheduling is reliably deterministic only with LWP
 # - Shell builtin kill appears not to do the job in MinGW
 # - The Windows server tries to run as service when -d isn't

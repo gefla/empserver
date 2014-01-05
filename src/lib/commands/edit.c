@@ -750,7 +750,7 @@ edit_unit(struct empobj *unit, char *key, char *p,
     coord newx, newy;
     union empobj_storage newunit;
     char newgroup;
- 
+
     switch (toupper(*key)) {
     case 'U':
 	if (arg < 0)
