@@ -254,6 +254,7 @@ check: all
 	@echo "Warning: test suite is immature and needs work." >&2
 	$(srcdir)/tests/files-test $(srcdir)
 	$(srcdir)/tests/fairland-test $(srcdir)
+	$(srcdir)/tests/info-test $(srcdir)
 ifeq ($(empthread),LWP)
 	$(srcdir)/tests/smoke-test $(srcdir)
 	$(srcdir)/tests/actofgod-test $(srcdir)
