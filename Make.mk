@@ -321,15 +321,15 @@ $(libs) $(empth_lib):
 
 # Info formatting
 
-# mksubj.pl reads $(tsrc) and writes $(tsubj).  The naive rule
-#     $(ttop) $(tsubj): $(tsrc)
+# mksubj.pl reads $(tsrc) and writes $(tsubj).  A naive rule
+#     $(tsubj): $(tsrc)
 #           COMMAND
 # runs COMMAND once for each target.  That's because multiple targets
 # in an explicit rule is just a shorthand for one rule per target,
 # each with the same prerequisites and commands.  Use a stamp file.
-$(tsubj): info/stamp-subj ;
+$(tsubj) info/toc: info/stamp-subj ;
 info/stamp-subj: info/mksubj.pl $(tsrc)
-	$(call quiet-command,perl $(srcdir)/info/mksubj.pl $(subjects) $(filter %.t, $^),GEN '$(tsubj)')
+	$(call quiet-command,perl $(srcdir)/info/mksubj.pl $(subjects) $(filter %.t, $^),GEN '$(tsubj) info/toc')
 	>$@
 
 $(ttop): info/mktop.pl info/subjects.mk

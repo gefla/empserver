@@ -77,6 +77,8 @@ for (keys %Subjects) {
     update_subj($_);
 }
 
+write_toc();
+
 sub fn2topic {
     my ($fn) = @_;
     $fn =~ s,.*/([^/]*)\.t$,$1,;
@@ -247,6 +249,17 @@ sub same_contents {
     my $old = <SUBJ>;
     close SUBJ;
     return $contents eq $old;
+}
+
+sub write_toc {
+    my @toc;
+    for (keys %chapter) {
+	push @toc, "$chapter{$_} $_";
+    }
+    open(TOC, ">info/toc")
+	or die "Can't open info/toc for writing: $!";
+    print TOC join("\n", sort @toc);
+    close TOC;
 }
 
 # Print an integrity error message and exit with code 1
