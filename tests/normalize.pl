@@ -118,6 +118,10 @@ while (<>) {
     # Windows %#g prints it with seven significant digits instead of six
     s/ 0\.000000/ 0.00000/g
 	if $dump =~ /^[a-z]/;
+    ### Trailing white space
+    # We don't really care for it in test output, and git's pre-commit
+    # hook flags it, which is annoying.
+    s/\s+$//;
 
     print "$pfx$_\n";
 

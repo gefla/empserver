@@ -2500,18 +2500,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                  0.00        0.00        0.00        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                  0.00        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                  0.00        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                  0.00        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                  0.00        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                  0.00        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                  0.00        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                  0.00        0.00        0.00        0.00    23,-11 
-    Play#0 output Play#0 1  9     9                  0.00        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                 0.00        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                  0.00        0.00        0.00        0.00     5,-15
+    Play#0 output Play#0 1  2     2                  0.00        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                  0.00        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                  0.00        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                  0.00        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                  0.00        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                  0.00        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                  0.00        0.00        0.00        0.00    23,-11
+    Play#0 output Play#0 1  9     9                  0.00        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                 0.00        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 0 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -2842,18 +2842,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                  0.00        0.00        0.00        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                  0.00        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                  0.00        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                  0.00        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                  0.00        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                  0.00        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                  0.00        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                  0.00        0.00        0.00        0.00    23,-11 
-    Play#0 output Play#0 1  9     9                  0.00        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                 0.00        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                  0.00        0.00        0.00        0.00     5,-15
+    Play#0 output Play#0 1  2     2                  0.00        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                  0.00        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                  0.00        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                  0.00        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                  0.00        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                  0.00        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                  0.00        0.00        0.00        0.00    23,-11
+    Play#0 output Play#0 1  9     9                  0.00        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                 0.00        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 0 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -3276,18 +3276,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                  0.00        0.00        0.00        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                  0.00        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                  0.00        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                  0.00        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                  0.00        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                  0.00        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                  0.00        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                  0.00        0.00        0.00        0.00    23,-11 
-    Play#0 output Play#0 1  9     9                  0.00        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                 0.00        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                  0.00        0.00        0.00        0.00     5,-15
+    Play#0 output Play#0 1  2     2                  0.00        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                  0.00        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                  0.00        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                  0.00        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                  0.00        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                  0.00        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                  0.00        0.00        0.00        0.00    23,-11
+    Play#0 output Play#0 1  9     9                  0.00        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                 0.00        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 1 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -3802,18 +3802,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                  0.00        0.00        0.00        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                  0.00        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                  0.00        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                  0.00        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                  0.00        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                  0.00        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                  0.00        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                  0.00        0.00        0.00        0.00    23,-11 
-    Play#0 output Play#0 1  9     9                  0.00        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                 0.00        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                  0.00        0.00        0.00        0.00     5,-15
+    Play#0 output Play#0 1  2     2                  0.00        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                  0.00        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                  0.00        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                  0.00        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                  0.00        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                  0.00        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                  0.00        0.00        0.00        0.00    23,-11
+    Play#0 output Play#0 1  9     9                  0.00        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                 0.00        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 1 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -4127,19 +4127,19 @@
     Play#1 input nav 0
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is frg  frigate (#0)
-    Play#1 output Play#1 1  t l 
+    Play#1 output Play#1 1  t l
     Play#1 output Play#1 1 j h .
-    Play#1 output Play#1 1  k . 
+    Play#1 output Play#1 1  k .
     Play#1 output Play#1 4 <90.0:90.0: 5,-1> 
     Play#1 input j
-    Play#1 output Play#1 1  l . 
+    Play#1 output Play#1 1  l .
     Play#1 output Play#1 1 h . .
-    Play#1 output Play#1 1  . . 
+    Play#1 output Play#1 1  . .
     Play#1 output Play#1 4 <74.6:74.6: 7,-1> 
     Play#1 input j
-    Play#1 output Play#1 1  . . 
+    Play#1 output Play#1 1  . .
     Play#1 output Play#1 1 . . )
-    Play#1 output Play#1 1  . . 
+    Play#1 output Play#1 1  . .
     Play#1 output Play#1 4 <59.3:59.3: 9,-1> 
     Play#1 input h
     Play#1 output Play#1 1 frg  frigate (#0) stopped at 9,-1
@@ -4299,18 +4299,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                  0.00        0.00       15.28        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                  0.00        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                  0.00        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                  0.00        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                  0.00        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                  0.00        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                  0.00        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                  0.00        0.00        0.00        0.00    23,-11 
-    Play#0 output Play#0 1  9     9                  0.00        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                 0.00        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                  0.00        0.00       15.28        0.00     5,-15
+    Play#0 output Play#0 1  2     2                  0.00        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                  0.00        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                  0.00        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                  0.00        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                  0.00        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                  0.00        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                  0.00        0.00        0.00        0.00    23,-11
+    Play#0 output Play#0 1  9     9                  0.00        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                 0.00        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 1 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -4672,18 +4672,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                  3.32        0.00       28.90        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                  1.66        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                  1.66        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                  1.66        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                  1.66        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                  1.66        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                  1.66        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                  1.66        0.00        0.00        0.00    23,-11 
-    Play#0 output Play#0 1  9     9                  1.66        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                 1.66        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                  3.32        0.00       28.90        0.00     5,-15
+    Play#0 output Play#0 1  2     2                  1.66        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                  1.66        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                  1.66        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                  1.66        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                  1.66        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                  1.66        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                  1.66        0.00        0.00        0.00    23,-11
+    Play#0 output Play#0 1  9     9                  1.66        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                 1.66        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 1 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -5037,19 +5037,19 @@
     Play#1 input radar 0
     Play#1 command radar
     Play#1 output Play#1 1 frg  frigate (#0) at 13,1 efficiency 100%, max range 1
-    Play#1 output Play#1 1  . ? 
+    Play#1 output Play#1 1  . ?
     Play#1 output Play#1 1 . 0 ?
-    Play#1 output Play#1 1  . . 
+    Play#1 output Play#1 1  . .
     Play#1 output Play#1 1 
     Play#1 output Play#1 6 1 514
     Play#1 input radar 11,-1
     Play#1 command radar
     Play#1 output Play#1 1 11,-1 efficiency 51%, max range 2
-    Play#1 output Play#1 1   . . .  
-    Play#1 output Play#1 1  . . ? ? 
+    Play#1 output Play#1 1   . . .
+    Play#1 output Play#1 1  . . ? ?
     Play#1 output Play#1 1 . . 0 ? ?
-    Play#1 output Play#1 1  . . . ? 
-    Play#1 output Play#1 1   . . F  
+    Play#1 output Play#1 1  . . . ?
+    Play#1 output Play#1 1   . . F
     Play#1 output Play#1 1 
     Play#1 output Play#1 6 1 513
     Play#1 input cen *
@@ -5416,18 +5416,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                  7.09        0.00       36.55        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                  3.55        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                  3.55        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                  3.55        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                  3.55        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                  3.55        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                  3.55        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                  3.55        0.00        0.00        0.00    23,-11 
-    Play#0 output Play#0 1  9     9                  3.55        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                 3.55        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                  7.09        0.00       36.55        0.00     5,-15
+    Play#0 output Play#0 1  2     2                  3.55        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                  3.55        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                  3.55        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                  3.55        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                  3.55        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                  3.55        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                  3.55        0.00        0.00        0.00    23,-11
+    Play#0 output Play#0 1  9     9                  3.55        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                 3.55        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 2 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -5932,15 +5932,15 @@
     Play#1 input radar 11,-1
     Play#1 command radar
     Play#1 output Play#1 1 11,-1 efficiency 100%, max range 4
-    Play#1 output Play#1 1     . . . . .    
-    Play#1 output Play#1 1    . . . . . .   
-    Play#1 output Play#1 1   . . . . . . .  
-    Play#1 output Play#1 1  t l . . - ? . ? 
+    Play#1 output Play#1 1     . . . . .
+    Play#1 output Play#1 1    . . . . . .
+    Play#1 output Play#1 1   . . . . . . .
+    Play#1 output Play#1 1  t l . . - ? . ?
     Play#1 output Play#1 1 j h = . 0 - ? ? ?
-    Play#1 output Play#1 1  k . . . . ? ? ? 
-    Play#1 output Play#1 1   + + . . F ? ?  
-    Play#1 output Play#1 1    + + + . . ?   
-    Play#1 output Play#1 1     . . . . ?    
+    Play#1 output Play#1 1  k . . . . ? ? ?
+    Play#1 output Play#1 1   + + . . F ? ?
+    Play#1 output Play#1 1    + + + . . ?
+    Play#1 output Play#1 1     . . . . ?
     Play#1 output Play#1 1 
     Play#1 output Play#1 6 1 493
     Play#1 input cen *
@@ -6376,18 +6376,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                 10.95        0.00       39.76        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                  5.48        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                  5.48        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                  5.48        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                  5.48        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                  5.48        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                  5.48        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                  5.48        0.00        0.00        0.00    30,-12 
-    Play#0 output Play#0 1  9     9                  5.48        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                 5.48        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                 10.95        0.00       39.76        0.00     5,-15
+    Play#0 output Play#0 1  2     2                  5.48        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                  5.48        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                  5.48        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                  5.48        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                  5.48        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                  5.48        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                  5.48        0.00        0.00        0.00    30,-12
+    Play#0 output Play#0 1  9     9                  5.48        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                 5.48        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 2 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -6772,15 +6772,15 @@
     Play#1 input radar 11,-1
     Play#1 command radar
     Play#1 output Play#1 1 11,-1 efficiency 100%, max range 4
-    Play#1 output Play#1 1     . . . . .    
-    Play#1 output Play#1 1    . . . . . .   
-    Play#1 output Play#1 1   . . . . . . .  
-    Play#1 output Play#1 1  t l . . o ? . ? 
+    Play#1 output Play#1 1     . . . . .
+    Play#1 output Play#1 1    . . . . . .
+    Play#1 output Play#1 1   . . . . . . .
+    Play#1 output Play#1 1  t l . . o ? . ?
     Play#1 output Play#1 1 j h = . 0 o ? ? ?
-    Play#1 output Play#1 1  k . . . . ? ? ? 
-    Play#1 output Play#1 1   g + . . F ? ?  
-    Play#1 output Play#1 1    g g g . . ?   
-    Play#1 output Play#1 1     . . . . ?    
+    Play#1 output Play#1 1  k . . . . ? ? ?
+    Play#1 output Play#1 1   g + . . F ? ?
+    Play#1 output Play#1 1    g g g . . ?
+    Play#1 output Play#1 1     . . . . ?
     Play#1 output Play#1 1 
     Play#1 output Play#1 6 2 618
     Play#1 input bmap #1
@@ -7075,18 +7075,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                 14.81        0.00       40.48        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                  7.41        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                  7.41        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                  7.41        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                  7.41        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                  7.41        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                  7.41        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                  7.41        0.00        0.00        0.00    30,-12 
-    Play#0 output Play#0 1  9     9                  7.41        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                 7.41        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                 14.81        0.00       40.48        0.00     5,-15
+    Play#0 output Play#0 1  2     2                  7.41        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                  7.41        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                  7.41        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                  7.41        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                  7.41        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                  7.41        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                  7.41        0.00        0.00        0.00    30,-12
+    Play#0 output Play#0 1  9     9                  7.41        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                 7.41        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 2 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -7804,18 +7804,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                 18.66        0.00       39.62        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                  9.33        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                  9.33        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                  9.33        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                  9.33        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                  9.33        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                  9.33        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                  9.33        0.00        0.00        0.00    30,-12 
-    Play#0 output Play#0 1  9     9                  9.33        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                 9.33        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                 18.66        0.00       39.62        0.00     5,-15
+    Play#0 output Play#0 1  2     2                  9.33        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                  9.33        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                  9.33        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                  9.33        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                  9.33        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                  9.33        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                  9.33        0.00        0.00        0.00    30,-12
+    Play#0 output Play#0 1  9     9                  9.33        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                 9.33        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 2 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -8719,18 +8719,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                 23.06        0.00       37.48        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                 11.53        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                 11.53        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                 11.53        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                 11.53        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                 11.53        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                 11.53        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                 11.53        0.00        0.00        0.00    30,-12 
-    Play#0 output Play#0 1  9     9                 11.53        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                11.53        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                 23.06        0.00       37.48        0.00     5,-15
+    Play#0 output Play#0 1  2     2                 11.53        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                 11.53        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                 11.53        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                 11.53        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                 11.53        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                 11.53        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                 11.53        0.00        0.00        0.00    30,-12
+    Play#0 output Play#0 1  9     9                 11.53        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                11.53        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 3 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -9514,18 +9514,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                 27.40        0.00       34.65        0.00     5,-15 
-    Play#0 output Play#0 1  2     2                 13.70        0.00        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                 13.70        0.00        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                 13.70        0.00        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                 13.70        0.00        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                 13.70        0.00        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                 13.70        0.00        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                 13.70        0.00        0.00        0.00    30,-12 
-    Play#0 output Play#0 1  9     9                 13.70        0.00        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                13.70        0.00        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                 27.40        0.00       34.65        0.00     5,-15
+    Play#0 output Play#0 1  2     2                 13.70        0.00        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                 13.70        0.00        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                 13.70        0.00        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                 13.70        0.00        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                 13.70        0.00        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                 13.70        0.00        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                 13.70        0.00        0.00        0.00    30,-12
+    Play#0 output Play#0 1  9     9                 13.70        0.00        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                13.70        0.00        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 3 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -10203,18 +10203,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                 31.69        3.68       33.74        7.19     5,-15 
-    Play#0 output Play#0 1  2     2                 15.85        1.84        0.00        0.00    16,10  
-    Play#0 output Play#0 1  3     3                 15.85        1.84        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                 15.85        1.84        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                 15.85        1.84        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                 15.85        1.84        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                 15.85        1.84        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                 15.85        1.84       20.50        0.00    30,-12 
-    Play#0 output Play#0 1  9     9                 15.85        1.84        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                15.85        1.84        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                 31.69        3.68       33.74        7.19     5,-15
+    Play#0 output Play#0 1  2     2                 15.85        1.84        0.00        0.00    16,10
+    Play#0 output Play#0 1  3     3                 15.85        1.84        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                 15.85        1.84        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                 15.85        1.84        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                 15.85        1.84        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                 15.85        1.84        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                 15.85        1.84       20.50        0.00    30,-12
+    Play#0 output Play#0 1  9     9                 15.85        1.84        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                15.85        1.84        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 3 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -10573,17 +10573,17 @@
     Play#1 input radar 11,-1
     Play#1 command radar
     Play#1 output Play#1 1 11,-1 efficiency 100%, max range 5
-    Play#1 output Play#1 1      . ? ? ? ? .     
-    Play#1 output Play#1 1     . . . . . . .    
-    Play#1 output Play#1 1    . . . . . . . .   
-    Play#1 output Play#1 1   . . . . . . . . .  
-    Play#1 output Play#1 1  + t l . . o ? . ? . 
+    Play#1 output Play#1 1      . ? ? ? ? .
+    Play#1 output Play#1 1     . . . . . . .
+    Play#1 output Play#1 1    . . . . . . . .
+    Play#1 output Play#1 1   . . . . . . . . .
+    Play#1 output Play#1 1  + t l . . o ? . ? .
     Play#1 output Play#1 1 m j C = = 0 o ? ? ? .
-    Play#1 output Play#1 1  m k . . . . ? ? ? ? 
-    Play#1 output Play#1 1   m j d . . F ? ? ?  
-    Play#1 output Play#1 1    r w e ! . . ? ?   
-    Play#1 output Play#1 1     p . . . . ? ?    
-    Play#1 output Play#1 1      . . . . . .     
+    Play#1 output Play#1 1  m k . . . . ? ? ? ?
+    Play#1 output Play#1 1   m j d . . F ? ? ?
+    Play#1 output Play#1 1    r w e ! . . ? ?
+    Play#1 output Play#1 1     p . . . . ? ?
+    Play#1 output Play#1 1      . . . . . .
     Play#1 output Play#1 1 
     Play#1 output Play#1 6 3 623
     Play#1 input lload m 0 20
@@ -11727,18 +11727,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                 37.97        7.32       33.69       10.12     5,-15 
-    Play#0 output Play#0 1  2     2                 17.87        3.66        0.00        0.00    18,8   
-    Play#0 output Play#0 1  3     3                 17.87        3.66        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                 17.87        3.66        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                 17.87        3.66        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                 17.87        3.66        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                 17.87        3.66        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                 22.03        3.66       32.30        0.00    30,-12 
-    Play#0 output Play#0 1  9     9                 17.87        3.66        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                17.87        3.66        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                 37.97        7.32       33.69       10.12     5,-15
+    Play#0 output Play#0 1  2     2                 17.87        3.66        0.00        0.00    18,8
+    Play#0 output Play#0 1  3     3                 17.87        3.66        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                 17.87        3.66        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                 17.87        3.66        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                 17.87        3.66        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                 17.87        3.66        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                 22.03        3.66       32.30        0.00    30,-12
+    Play#0 output Play#0 1  9     9                 17.87        3.66        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                17.87        3.66        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 3 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -12874,18 +12874,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                 44.90       10.94       33.63       11.41     5,-15 
-    Play#0 output Play#0 1  2     2                 20.23        5.47        0.00        0.00    18,8   
-    Play#0 output Play#0 1  3     3                 20.23        5.47        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                 20.23        5.47        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                 20.23        5.47        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                 20.23        5.47        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                 20.23        5.47        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                 29.54        5.47       38.23        0.00    30,-12 
-    Play#0 output Play#0 1  9     9                 20.23        5.47        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                20.23        5.47        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                 44.90       10.94       33.63       11.41     5,-15
+    Play#0 output Play#0 1  2     2                 20.23        5.47        0.00        0.00    18,8
+    Play#0 output Play#0 1  3     3                 20.23        5.47        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                 20.23        5.47        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                 20.23        5.47        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                 20.23        5.47        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                 20.23        5.47        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                 29.54        5.47       38.23        0.00    30,-12
+    Play#0 output Play#0 1  9     9                 20.23        5.47        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                20.23        5.47        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 4 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -13448,9 +13448,9 @@
     Play#1 input plane *
     Play#1 command plane
     Play#1 output Play#1 1    #    type                x,y    w   eff  mu def tech ran hard carry special
-    Play#1 output Play#1 1    0 f1   Sopwith Camel     2,2        10%   0   1   51   4    0      
-    Play#1 output Play#1 1    1 f1   Sopwith Camel     2,2        10%   0   1   51   4    0      
-    Play#1 output Play#1 1    2 f1   Sopwith Camel     2,2        10%   0   1   51   4    0      
+    Play#1 output Play#1 1    0 f1   Sopwith Camel     2,2        10%   0   1   51   4    0
+    Play#1 output Play#1 1    1 f1   Sopwith Camel     2,2        10%   0   1   51   4    0
+    Play#1 output Play#1 1    2 f1   Sopwith Camel     2,2        10%   0   1   51   4    0
     Play#1 output Play#1 1 3 planes
     Play#1 output Play#1 6 3 625
     Play#1 input map #
@@ -13913,18 +13913,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                 51.81       14.54       35.43       11.99     5,-15 
-    Play#0 output Play#0 1  2     2                 22.59        7.27        0.00        0.00    18,8   
-    Play#0 output Play#0 1  3     3                 22.59        7.27        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                 22.59        7.27        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                 22.59        7.27        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                 22.59        7.27        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                 22.59        7.27        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                 37.07        7.27       40.30        0.00    30,-12 
-    Play#0 output Play#0 1  9     9                 22.59        7.27        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                22.59        7.27        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                 51.81       14.54       35.43       11.99     5,-15
+    Play#0 output Play#0 1  2     2                 22.59        7.27        0.00        0.00    18,8
+    Play#0 output Play#0 1  3     3                 22.59        7.27        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                 22.59        7.27        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                 22.59        7.27        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                 22.59        7.27        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                 22.59        7.27        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                 37.07        7.27       40.30        0.00    30,-12
+    Play#0 output Play#0 1  9     9                 22.59        7.27        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                22.59        7.27        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 4 630
     Play#0 input cen * ?own#0
     Play#0 command census
@@ -14341,9 +14341,9 @@
     Play#1 input nav 3 6,0
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is od   oil derrick (#3)
-    Play#1 output Play#1 1  h = 
+    Play#1 output Play#1 1  h =
     Play#1 output Play#1 1 k . .
-    Play#1 output Play#1 1  j d 
+    Play#1 output Play#1 1  j d
     Play#1 output Play#1 4 <67.2:67.2: 6,0> 
     Play#1 input h
     Play#1 output Play#1 1 od   oil derrick (#3) stopped at 6,0
@@ -14567,9 +14567,9 @@
     Play#1 input plane *
     Play#1 command plane
     Play#1 output Play#1 1    #    type                x,y    w   eff  mu def tech ran hard carry special
-    Play#1 output Play#1 1    0 f1   Sopwith Camel    11,-1       92%  31   1   51   4    0      
-    Play#1 output Play#1 1    1 f1   Sopwith Camel    11,-1       95%  33   1   51   4    0      
-    Play#1 output Play#1 1    2 f1   Sopwith Camel    11,-1       90%  40   1   51   4    0      
+    Play#1 output Play#1 1    0 f1   Sopwith Camel    11,-1       92%  31   1   51   4    0
+    Play#1 output Play#1 1    1 f1   Sopwith Camel    11,-1       95%  33   1   51   4    0
+    Play#1 output Play#1 1    2 f1   Sopwith Camel    11,-1       90%  40   1   51   4    0
     Play#1 output Play#1 1 3 planes
     Play#1 output Play#1 6 4 611
     Play#1 input map #
@@ -15007,18 +15007,18 @@
     Play#0 command report
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1  #    name                tech      research   education   happiness capital
-    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0   
-    Play#0 output Play#0 1  1     1                 58.71       18.13       37.38       12.03     5,-15 
-    Play#0 output Play#0 1  2     2                 24.94        9.07        0.00        0.00    18,8   
-    Play#0 output Play#0 1  3     3                 24.94        9.07        0.00        0.00    -4,10  
-    Play#0 output Play#0 1  4     4                 24.94        9.07        0.00        0.00   -15,1   
-    Play#0 output Play#0 1  5     5                 24.94        9.07        0.00        0.00   -30,8   
-    Play#0 output Play#0 1  6     6                 24.94        9.07        0.00        0.00     2,-2  
-    Play#0 output Play#0 1  7     7                 24.94        9.07        0.00        0.00    24,0   
-    Play#0 output Play#0 1  8     8                 44.59        9.07       39.92        0.00    30,-12 
-    Play#0 output Play#0 1  9     9                 24.94        9.07        0.00        0.00   -26,-6  
-    Play#0 output Play#0 1  10    10                24.94        9.07        0.00        0.00   -12,-10 
-    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0   
+    Play#0 output Play#0 1  0     POGO               0.00        0.00        0.00        0.00     0,0
+    Play#0 output Play#0 1  1     1                 58.71       18.13       37.38       12.03     5,-15
+    Play#0 output Play#0 1  2     2                 24.94        9.07        0.00        0.00    18,8
+    Play#0 output Play#0 1  3     3                 24.94        9.07        0.00        0.00    -4,10
+    Play#0 output Play#0 1  4     4                 24.94        9.07        0.00        0.00   -15,1
+    Play#0 output Play#0 1  5     5                 24.94        9.07        0.00        0.00   -30,8
+    Play#0 output Play#0 1  6     6                 24.94        9.07        0.00        0.00     2,-2
+    Play#0 output Play#0 1  7     7                 24.94        9.07        0.00        0.00    24,0
+    Play#0 output Play#0 1  8     8                 44.59        9.07       39.92        0.00    30,-12
+    Play#0 output Play#0 1  9     9                 24.94        9.07        0.00        0.00   -26,-6
+    Play#0 output Play#0 1  10    10                24.94        9.07        0.00        0.00   -12,-10
+    Play#0 output Play#0 1  11    visitor            0.00        0.00        0.00        0.00     0,0
     Play#0 output Play#0 6 4 630
     Play#0 input cen * ?own#0
     Play#0 command census

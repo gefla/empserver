@@ -1477,7 +1477,7 @@
     Play#0 output Play#0 1 UID <U>: 0			Type <t>: cs   cargo ship
     Play#0 output Play#0 1 Owner <O>: 0			Location <L>: 1,-1
     Play#0 output Play#0 1 Tech <T>: 100			Efficiency <E>: 0
-    Play#0 output Play#0 1 Mobility <M>: 0		Fleet <F>: 
+    Play#0 output Play#0 1 Mobility <M>: 0		Fleet <F>:
     Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
     Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
     Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
@@ -1501,7 +1501,7 @@
     Play#0 output Play#0 1 UID <U>: 0			Type <t>: cs   cargo ship
     Play#0 output Play#0 1 Owner <O>: 0			Location <L>: 1,-1
     Play#0 output Play#0 1 Tech <T>: 100			Efficiency <E>: 0
-    Play#0 output Play#0 1 Mobility <M>: 2		Fleet <F>: 
+    Play#0 output Play#0 1 Mobility <M>: 2		Fleet <F>:
     Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
     Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
     Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
@@ -1512,7 +1512,7 @@
     Play#0 output Play#0 1 Retreat path of cs   cargo ship (#0) changed from  to n
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input R ""
-    Play#0 output Play#0 1 Retreat path of cs   cargo ship (#0) changed from n to 
+    Play#0 output Play#0 1 Retreat path of cs   cargo ship (#0) changed from n to
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input 
     Play#0 output Play#0 6 0 640
@@ -1522,7 +1522,7 @@
     Play#0 output Play#0 1 UID <U>: 0		Type <T>: f1   Sopwith Camel
     Play#0 output Play#0 1 Owner <O>: 0		Location <l>: 1,-1
     Play#0 output Play#0 1 Efficiency <e>: 0	Mobility <m>: 0
-    Play#0 output Play#0 1 Tech <t>: 100		Wing <w>: 
+    Play#0 output Play#0 1 Tech <t>: 100		Wing <w>:
     Play#0 output Play#0 1 Range <r>: 9		Flags <f>: 0
     Play#0 output Play#0 1 Ship <s>: -1		Land Unit <y>: -1
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
@@ -1541,7 +1541,7 @@
     Play#0 output Play#0 1 Owner <O>: 0
     Play#0 output Play#0 1 Location <L>: 1,-1
     Play#0 output Play#0 1 Efficiency <e>: 0	Mobility <M>: 0
-    Play#0 output Play#0 1 Tech <t>: 100		Army <a>: 
+    Play#0 output Play#0 1 Tech <t>: 100		Army <a>:
     Play#0 output Play#0 1 Fortification <F>: 0	Land unit <Y>: -1
     Play#0 output Play#0 1 Ship <S>: -1		Retreat percentage <Z>: 42
     Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
@@ -1562,7 +1562,7 @@
     Play#0 output Play#0 1 POGO (#0) 10kt  fission warhead #0
     Play#0 output Play#0 1 UID <U>: 0			Type <t>: 0
     Play#0 output Play#0 1 Owner <O>: 0			Location <L>: 1,-1
-    Play#0 output Play#0 1 Tech <T>: 400			Stockpile <S>: 
+    Play#0 output Play#0 1 Tech <T>: 400			Stockpile <S>:
     Play#0 output Play#0 1 Plane <p>: -1
     Play#0 output Play#0 4 %c xxxxx -- thing value : 
     Play#0 input S a
