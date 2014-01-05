@@ -340,7 +340,7 @@ draw_map(char origin, int map_flags, struct nstr_sect *nsp)
 
 	yval = yrel(np, y);
 	wmap[i][nsp->range.width] = '\0';
-	pr("%4d %s %-4d\n", yval, wmap[i], yval);
+	pr("%4d %s %d\n", yval, wmap[i], yval);
 	if (y >= WORLD_Y)
 	    y -= WORLD_Y;
     }
