@@ -329,7 +329,7 @@ $(libs) $(empth_lib):
 # each with the same prerequisites and commands.  Use a stamp file.
 $(tsubj): info/stamp-subj ;
 info/stamp-subj: info/mksubj.pl $(tsrc)
-	$(call quiet-command,perl $(srcdir)/info/mksubj.pl $(subjects) $(filter %.t, $^),GEN '$$(subjects)')
+	$(call quiet-command,perl $(srcdir)/info/mksubj.pl $(subjects) $(filter %.t, $^),GEN '$(tsubj)')
 	>$@
 
 $(ttop): info/mktop.pl info/subjects.mk
