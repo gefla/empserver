@@ -31,16 +31,18 @@ sub norm_ctime {
 while (<>) {
     chomp;
 
-    my $pfx = '';
-
+    # Strip log timestamp
     if ($opt_j || $opt_s) {
 	die "$0: malformed line" unless /^$ctime_re /;
 	$_ = substr($_, 25);
     }
 
+    # Split off prefix that is not to be normalized
+    my $pfx = '';
     if ($opt_j) {
 	die "$0: malformed line" unless substr($_, 10, 1) eq ' ';
 	$pfx .= substr($_, 0, 11);
+	# Normalize only player output
 	$_ = substr($_, 11);
 	if (/(^output [^ ]* 1 )(.*)/) {
 	    $pfx .= $1;
