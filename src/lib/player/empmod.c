@@ -174,7 +174,7 @@ struct cmndstr player_coms[] = {
     {"nuke <NUKES>", 0, nuke, 0, NORM},
     {"offer <loan|treaty> <NAT> [<NUM> <DAYS> <IRATE>]",
      1, offe, C_MOD, NORM + MONEY + CAP},
-    {"order <SHIPS> <c|s|r|d|l> ", 1, orde, C_MOD, NORM + CAP},
+    {"order <SHIPS> <c|s|r|d|l>", 1, orde, C_MOD, NORM + CAP},
     {"origin <SECT|COUNTRY|~>", 1, orig, C_MOD, NORM},
     {"paradrop <cargo-PLANES> <fighter-PLANES> <ap-SECT> <PATH|DESTINATION>",
      3, para, C_MOD, NORM + MONEY + CAP},
