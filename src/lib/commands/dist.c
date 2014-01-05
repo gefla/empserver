@@ -65,10 +65,10 @@ dist(void)
 		pr("distributes to %s, not owned by you.\n",
 		   xyas(tsect.sct_x, tsect.sct_y, player->cnum));
 	    else
-		pr("distributes to %s. \n",
+		pr("distributes to %s.\n",
 		   xyas(tsect.sct_x, tsect.sct_y, player->cnum));
 	} else
-	    pr("has no dist sector. \n");
+	    pr("has no dist sector.\n");
 	p = getstarg(player->argp[2], "Distribution sector? ", buf);
 	if (!p)
 	    return RET_SYN;

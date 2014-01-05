@@ -1202,7 +1202,7 @@
     Play#1 output Play#1 6 0 597
     Play#1 input dist 4,0 2,0
     Play#1 command distribute
-    Play#1 output Play#1 1 highway at 4,0 has no dist sector. 
+    Play#1 output Play#1 1 highway at 4,0 has no dist sector.
     Play#1 output Play#1 1 highway 4,0 now distributes to 2,0 (cost 0.200)
     Play#1 output Play#1 1 
     Play#1 output Play#1 6 0 596
@@ -3127,94 +3127,94 @@
     Play#1 output Play#1 6 0 581
     Play#1 input dist # 5,-1
     Play#1 command distribute
-    Play#1 output Play#1 1 highway at 1,-3 has no dist sector. 
+    Play#1 output Play#1 1 highway at 1,-3 has no dist sector.
     Play#1 output Play#1 1 highway 1,-3 now distributes to 5,-1 (cost 1.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -4,-2 has no dist sector. 
+    Play#1 output Play#1 1 highway at -4,-2 has no dist sector.
     Play#1 output Play#1 1 highway -4,-2 now distributes to 5,-1 (cost 1.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -2,-2 has no dist sector. 
+    Play#1 output Play#1 1 highway at -2,-2 has no dist sector.
     Play#1 output Play#1 1 highway -2,-2 now distributes to 5,-1 (cost 1.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 capital at 0,-2 has no dist sector. 
+    Play#1 output Play#1 1 capital at 0,-2 has no dist sector.
     Play#1 output Play#1 1 capital 0,-2 now distributes to 5,-1 (cost 1.000)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 2,-2 has no dist sector. 
+    Play#1 output Play#1 1 highway at 2,-2 has no dist sector.
     Play#1 output Play#1 1 highway 2,-2 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 4,-2 has no dist sector. 
+    Play#1 output Play#1 1 highway at 4,-2 has no dist sector.
     Play#1 output Play#1 1 highway 4,-2 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 6,-2 has no dist sector. 
+    Play#1 output Play#1 1 highway at 6,-2 has no dist sector.
     Play#1 output Play#1 1 highway 6,-2 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at -1,-1 has no dist sector. 
+    Play#1 output Play#1 1 gold mine at -1,-1 has no dist sector.
     Play#1 output Play#1 1 gold mine -1,-1 now distributes to 5,-1 (cost 1.000)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 1,-1 has no dist sector. 
+    Play#1 output Play#1 1 mine at 1,-1 has no dist sector.
     Play#1 output Play#1 1 mine 1,-1 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 light manufacturing at 3,-1 has no dist sector. 
+    Play#1 output Play#1 1 light manufacturing at 3,-1 has no dist sector.
     Play#1 output Play#1 1 light manufacturing 3,-1 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 5,-1 has no dist sector. 
+    Play#1 output Play#1 1 highway at 5,-1 has no dist sector.
     Play#1 output Play#1 1 Distribution from and to highway 5,-1 terminated
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -2,0 has no dist sector. 
+    Play#1 output Play#1 1 highway at -2,0 has no dist sector.
     Play#1 output Play#1 1 highway -2,0 now distributes to 5,-1 (cost 1.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at 0,0 has no dist sector. 
+    Play#1 output Play#1 1 gold mine at 0,0 has no dist sector.
     Play#1 output Play#1 1 gold mine 0,0 now distributes to 5,-1 (cost 1.000)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 2,0 has no dist sector. 
+    Play#1 output Play#1 1 mine at 2,0 has no dist sector.
     Play#1 output Play#1 1 mine 2,0 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 heavy manufacturing at 4,0 distributes to 2,0. 
+    Play#1 output Play#1 1 heavy manufacturing at 4,0 distributes to 2,0.
     Play#1 output Play#1 1 heavy manufacturing 4,0 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -1,1 has no dist sector. 
+    Play#1 output Play#1 1 highway at -1,1 has no dist sector.
     Play#1 output Play#1 1 highway -1,1 now distributes to 5,-1 (cost 1.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 1,1 has no dist sector. 
+    Play#1 output Play#1 1 highway at 1,1 has no dist sector.
     Play#1 output Play#1 1 highway 1,1 now distributes to 5,-1 (cost 1.000)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 3,1 has no dist sector. 
+    Play#1 output Play#1 1 highway at 3,1 has no dist sector.
     Play#1 output Play#1 1 highway 3,1 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 5,1 has no dist sector. 
+    Play#1 output Play#1 1 highway at 5,1 has no dist sector.
     Play#1 output Play#1 1 highway 5,1 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 7,1 has no dist sector. 
+    Play#1 output Play#1 1 highway at 7,1 has no dist sector.
     Play#1 output Play#1 1 highway 7,1 now distributes to 5,-1 (cost 1.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -2,2 has no dist sector. 
+    Play#1 output Play#1 1 highway at -2,2 has no dist sector.
     Play#1 output Play#1 1 highway -2,2 now distributes to 5,-1 (cost 1.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 0,2 has no dist sector. 
+    Play#1 output Play#1 1 highway at 0,2 has no dist sector.
     Play#1 output Play#1 1 highway 0,2 now distributes to 5,-1 (cost 1.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 2,2 has no dist sector. 
+    Play#1 output Play#1 1 highway at 2,2 has no dist sector.
     Play#1 output Play#1 1 highway 2,2 now distributes to 5,-1 (cost 1.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 4,2 has no dist sector. 
+    Play#1 output Play#1 1 highway at 4,2 has no dist sector.
     Play#1 output Play#1 1 highway 4,2 now distributes to 5,-1 (cost 1.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 6,2 has no dist sector. 
+    Play#1 output Play#1 1 highway at 6,2 has no dist sector.
     Play#1 output Play#1 1 highway 6,2 now distributes to 5,-1 (cost 1.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 8,2 has no dist sector. 
+    Play#1 output Play#1 1 highway at 8,2 has no dist sector.
     Play#1 output Play#1 1 highway 8,2 now distributes to 5,-1 (cost 1.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 10,2 has no dist sector. 
+    Play#1 output Play#1 1 highway at 10,2 has no dist sector.
     Play#1 output Play#1 1 highway 10,2 now distributes to 5,-1 (cost 2.000)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -1,3 has no dist sector. 
+    Play#1 output Play#1 1 highway at -1,3 has no dist sector.
     Play#1 output Play#1 1 highway -1,3 now distributes to 5,-1 (cost 1.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 1,3 has no dist sector. 
+    Play#1 output Play#1 1 highway at 1,3 has no dist sector.
     Play#1 output Play#1 1 highway 1,3 now distributes to 5,-1 (cost 1.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 5,3 has no dist sector. 
+    Play#1 output Play#1 1 highway at 5,3 has no dist sector.
     Play#1 output Play#1 1 highway 5,3 now distributes to 5,-1 (cost 1.600)
     Play#1 output Play#1 1 
     Play#1 output Play#1 6 0 580
@@ -5745,99 +5745,99 @@
     Play#1 output Play#1 6 1 512
     Play#1 input dist * 5,-1
     Play#1 command distribute
-    Play#1 output Play#1 1 highway at 1,-3 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 1,-3 distributes to 5,-1.
     Play#1 output Play#1 1 highway 1,-3 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -4,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at -4,-2 distributes to 5,-1.
     Play#1 output Play#1 1 highway -4,-2 now distributes to 5,-1 (cost 1.184)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -2,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at -2,-2 distributes to 5,-1.
     Play#1 output Play#1 1 highway -2,-2 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 capital at 0,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 capital at 0,-2 distributes to 5,-1.
     Play#1 output Play#1 1 capital 0,-2 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 2,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 2,-2 distributes to 5,-1.
     Play#1 output Play#1 1 highway 2,-2 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 technical center at 4,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 technical center at 4,-2 distributes to 5,-1.
     Play#1 output Play#1 1 technical center 4,-2 now distributes to 5,-1 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 library/school at 6,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 library/school at 6,-2 distributes to 5,-1.
     Play#1 output Play#1 1 library/school 6,-2 now distributes to 5,-1 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 bank at -1,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 bank at -1,-1 distributes to 5,-1.
     Play#1 output Play#1 1 bank -1,-1 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 1,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 1,-1 distributes to 5,-1.
     Play#1 output Play#1 1 mine 1,-1 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 light manufacturing at 3,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 light manufacturing at 3,-1 distributes to 5,-1.
     Play#1 output Play#1 1 light manufacturing 3,-1 now distributes to 5,-1 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 harbor at 5,-1 has no dist sector. 
+    Play#1 output Play#1 1 harbor at 5,-1 has no dist sector.
     Play#1 output Play#1 1 Distribution from and to harbor 5,-1 terminated
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 bridge span at 7,-1 has no dist sector. 
+    Play#1 output Play#1 1 bridge span at 7,-1 has no dist sector.
     Play#1 output Play#1 1 bridge span 7,-1 now distributes to 5,-1 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 radar installation at 11,-1 has no dist sector. 
+    Play#1 output Play#1 1 radar installation at 11,-1 has no dist sector.
     Play#1 output Play#1 1 No owned path from 5,-1 to 11,-1.
-    Play#1 output Play#1 1 light manufacturing at -2,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 light manufacturing at -2,0 distributes to 5,-1.
     Play#1 output Play#1 1 light manufacturing -2,0 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 0,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 0,0 distributes to 5,-1.
     Play#1 output Play#1 1 mine 0,0 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 2,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 2,0 distributes to 5,-1.
     Play#1 output Play#1 1 mine 2,0 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 heavy manufacturing at 4,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 heavy manufacturing at 4,0 distributes to 5,-1.
     Play#1 output Play#1 1 heavy manufacturing 4,0 now distributes to 5,-1 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -1,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at -1,1 distributes to 5,-1.
     Play#1 output Play#1 1 highway -1,1 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at 1,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 gold mine at 1,1 distributes to 5,-1.
     Play#1 output Play#1 1 gold mine 1,1 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at 3,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 gold mine at 3,1 distributes to 5,-1.
     Play#1 output Play#1 1 gold mine 3,1 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 5,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 5,1 distributes to 5,-1.
     Play#1 output Play#1 1 highway 5,1 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 7,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 7,1 distributes to 5,-1.
     Play#1 output Play#1 1 highway 7,1 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 oil field at -2,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 oil field at -2,2 distributes to 5,-1.
     Play#1 output Play#1 1 oil field -2,2 now distributes to 5,-1 (cost 1.144)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at 0,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 gold mine at 0,2 distributes to 5,-1.
     Play#1 output Play#1 1 gold mine 0,2 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at 2,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 gold mine at 2,2 distributes to 5,-1.
     Play#1 output Play#1 1 gold mine 2,2 now distributes to 5,-1 (cost 0.796)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 4,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 4,2 distributes to 5,-1.
     Play#1 output Play#1 1 highway 4,2 now distributes to 5,-1 (cost 0.796)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 6,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 6,2 distributes to 5,-1.
     Play#1 output Play#1 1 highway 6,2 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 8,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 8,2 distributes to 5,-1.
     Play#1 output Play#1 1 highway 8,2 now distributes to 5,-1 (cost 1.144)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 10,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 10,2 distributes to 5,-1.
     Play#1 output Play#1 1 highway 10,2 now distributes to 5,-1 (cost 1.504)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -1,3 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at -1,3 distributes to 5,-1.
     Play#1 output Play#1 1 highway -1,3 now distributes to 5,-1 (cost 1.162)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 1,3 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 1,3 distributes to 5,-1.
     Play#1 output Play#1 1 highway 1,3 now distributes to 5,-1 (cost 1.162)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 5,3 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 5,3 distributes to 5,-1.
     Play#1 output Play#1 1 highway 5,3 now distributes to 5,-1 (cost 1.172)
     Play#1 output Play#1 1 
     Play#1 output Play#1 6 1 511
@@ -6118,91 +6118,91 @@
     Play#8 output Play#8 6 1 627
     Play#8 input dist * 3,1
     Play#8 command distribute
-    Play#8 output Play#8 1 oil field at -6,-4 has no dist sector. 
+    Play#8 output Play#8 1 oil field at -6,-4 has no dist sector.
     Play#8 output Play#8 1 oil field -6,-4 now distributes to 3,1 (cost 2.400)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 wilderness at -4,-4 has no dist sector. 
+    Play#8 output Play#8 1 wilderness at -4,-4 has no dist sector.
     Play#8 output Play#8 1 wilderness -4,-4 now distributes to 3,1 (cost 2.000)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 wilderness at 0,-4 has no dist sector. 
+    Play#8 output Play#8 1 wilderness at 0,-4 has no dist sector.
     Play#8 output Play#8 1 wilderness 0,-4 now distributes to 3,1 (cost 1.600)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 oil field at -5,-3 has no dist sector. 
+    Play#8 output Play#8 1 oil field at -5,-3 has no dist sector.
     Play#8 output Play#8 1 oil field -5,-3 now distributes to 3,1 (cost 2.000)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 wilderness at -3,-3 has no dist sector. 
+    Play#8 output Play#8 1 wilderness at -3,-3 has no dist sector.
     Play#8 output Play#8 1 wilderness -3,-3 now distributes to 3,1 (cost 1.600)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at -1,-3 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at -1,-3 has no dist sector.
     Play#8 output Play#8 1 gold mine -1,-3 now distributes to 3,1 (cost 1.200)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at 1,-3 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at 1,-3 has no dist sector.
     Play#8 output Play#8 1 gold mine 1,-3 now distributes to 3,1 (cost 1.200)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at -4,-2 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at -4,-2 has no dist sector.
     Play#8 output Play#8 1 gold mine -4,-2 now distributes to 3,1 (cost 1.600)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at -2,-2 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at -2,-2 has no dist sector.
     Play#8 output Play#8 1 gold mine -2,-2 now distributes to 3,1 (cost 1.200)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at 0,-2 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at 0,-2 has no dist sector.
     Play#8 output Play#8 1 gold mine 0,-2 now distributes to 3,1 (cost 0.800)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at 2,-2 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at 2,-2 has no dist sector.
     Play#8 output Play#8 1 gold mine 2,-2 now distributes to 3,1 (cost 0.800)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 wilderness at 4,-2 has no dist sector. 
+    Play#8 output Play#8 1 wilderness at 4,-2 has no dist sector.
     Play#8 output Play#8 1 wilderness 4,-2 now distributes to 3,1 (cost 1.000)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at 6,-2 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at 6,-2 has no dist sector.
     Play#8 output Play#8 1 gold mine 6,-2 now distributes to 3,1 (cost 1.200)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at -3,-1 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at -3,-1 has no dist sector.
     Play#8 output Play#8 1 gold mine -3,-1 now distributes to 3,1 (cost 1.200)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at -1,-1 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at -1,-1 has no dist sector.
     Play#8 output Play#8 1 gold mine -1,-1 now distributes to 3,1 (cost 0.800)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at 1,-1 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at 1,-1 has no dist sector.
     Play#8 output Play#8 1 gold mine 1,-1 now distributes to 3,1 (cost 0.600)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at 3,-1 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at 3,-1 has no dist sector.
     Play#8 output Play#8 1 gold mine 3,-1 now distributes to 3,1 (cost 0.600)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at 5,-1 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at 5,-1 has no dist sector.
     Play#8 output Play#8 1 gold mine 5,-1 now distributes to 3,1 (cost 0.800)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 capital at 7,-1 has no dist sector. 
+    Play#8 output Play#8 1 capital at 7,-1 has no dist sector.
     Play#8 output Play#8 1 capital 7,-1 now distributes to 3,1 (cost 1.200)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at -2,0 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at -2,0 has no dist sector.
     Play#8 output Play#8 1 gold mine -2,0 now distributes to 3,1 (cost 0.800)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 capital at 0,0 has no dist sector. 
+    Play#8 output Play#8 1 capital at 0,0 has no dist sector.
     Play#8 output Play#8 1 capital 0,0 now distributes to 3,1 (cost 0.600)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 capital at 2,0 has no dist sector. 
+    Play#8 output Play#8 1 capital at 2,0 has no dist sector.
     Play#8 output Play#8 1 capital 2,0 now distributes to 3,1 (cost 0.400)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at 4,0 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at 4,0 has no dist sector.
     Play#8 output Play#8 1 gold mine 4,0 now distributes to 3,1 (cost 0.400)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at 6,0 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at 6,0 has no dist sector.
     Play#8 output Play#8 1 gold mine 6,0 now distributes to 3,1 (cost 0.800)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 wilderness at 8,0 has no dist sector. 
+    Play#8 output Play#8 1 wilderness at 8,0 has no dist sector.
     Play#8 output Play#8 1 wilderness 8,0 now distributes to 3,1 (cost 1.200)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at -3,1 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at -3,1 has no dist sector.
     Play#8 output Play#8 1 gold mine -3,1 now distributes to 3,1 (cost 1.200)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 wilderness at -1,1 has no dist sector. 
+    Play#8 output Play#8 1 wilderness at -1,1 has no dist sector.
     Play#8 output Play#8 1 wilderness -1,1 now distributes to 3,1 (cost 0.800)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 gold mine at 1,1 has no dist sector. 
+    Play#8 output Play#8 1 gold mine at 1,1 has no dist sector.
     Play#8 output Play#8 1 gold mine 1,1 now distributes to 3,1 (cost 0.400)
     Play#8 output Play#8 1 
-    Play#8 output Play#8 1 warehouse at 3,1 has no dist sector. 
+    Play#8 output Play#8 1 warehouse at 3,1 has no dist sector.
     Play#8 output Play#8 1 Distribution from and to warehouse 3,1 terminated
     Play#8 output Play#8 1 
     Play#8 output Play#8 6 1 626
@@ -8280,103 +8280,103 @@
     Play#1 output Play#1 6 2 599
     Play#1 input dist #1 5,-1
     Play#1 command distribute
-    Play#1 output Play#1 1 oil field at 1,-3 distributes to 5,-1. 
+    Play#1 output Play#1 1 oil field at 1,-3 distributes to 5,-1.
     Play#1 output Play#1 1 oil field 1,-3 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 oil field at -4,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 oil field at -4,-2 distributes to 5,-1.
     Play#1 output Play#1 1 oil field -4,-2 now distributes to 5,-1 (cost 1.000)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 oil field at -2,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 oil field at -2,-2 distributes to 5,-1.
     Play#1 output Play#1 1 oil field -2,-2 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 capital at 0,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 capital at 0,-2 distributes to 5,-1.
     Play#1 output Play#1 1 capital 0,-2 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 2,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 2,-2 distributes to 5,-1.
     Play#1 output Play#1 1 highway 2,-2 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 technical center at 4,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 technical center at 4,-2 distributes to 5,-1.
     Play#1 output Play#1 1 technical center 4,-2 now distributes to 5,-1 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 library/school at 6,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 library/school at 6,-2 distributes to 5,-1.
     Play#1 output Play#1 1 library/school 6,-2 now distributes to 5,-1 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 bank at -1,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 bank at -1,-1 distributes to 5,-1.
     Play#1 output Play#1 1 bank -1,-1 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 1,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 1,-1 distributes to 5,-1.
     Play#1 output Play#1 1 mine 1,-1 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 light manufacturing at 3,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 light manufacturing at 3,-1 distributes to 5,-1.
     Play#1 output Play#1 1 light manufacturing 3,-1 now distributes to 5,-1 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 harbor at 5,-1 has no dist sector. 
+    Play#1 output Play#1 1 harbor at 5,-1 has no dist sector.
     Play#1 output Play#1 1 Distribution from and to harbor 5,-1 terminated
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 bridge span at 7,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 bridge span at 7,-1 distributes to 5,-1.
     Play#1 output Play#1 1 bridge span 7,-1 now distributes to 5,-1 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 bridge span at 9,-1 has no dist sector. 
+    Play#1 output Play#1 1 bridge span at 9,-1 has no dist sector.
     Play#1 output Play#1 1 bridge span 9,-1 now distributes to 5,-1 (cost 0.201)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 radar installation at 11,-1 has no dist sector. 
+    Play#1 output Play#1 1 radar installation at 11,-1 has no dist sector.
     Play#1 output Play#1 1 radar installation 11,-1 now distributes to 5,-1 (cost 0.521)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 light manufacturing at -2,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 light manufacturing at -2,0 distributes to 5,-1.
     Play#1 output Play#1 1 light manufacturing -2,0 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 0,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 0,0 distributes to 5,-1.
     Play#1 output Play#1 1 mine 0,0 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 2,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 2,0 distributes to 5,-1.
     Play#1 output Play#1 1 mine 2,0 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 heavy manufacturing at 4,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 heavy manufacturing at 4,0 distributes to 5,-1.
     Play#1 output Play#1 1 heavy manufacturing 4,0 now distributes to 5,-1 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 heavy manufacturing at -1,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 heavy manufacturing at -1,1 distributes to 5,-1.
     Play#1 output Play#1 1 heavy manufacturing -1,1 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 1,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 1,1 distributes to 5,-1.
     Play#1 output Play#1 1 mine 1,1 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 3,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 3,1 distributes to 5,-1.
     Play#1 output Play#1 1 mine 3,1 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at 5,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 gold mine at 5,1 distributes to 5,-1.
     Play#1 output Play#1 1 gold mine 5,1 now distributes to 5,-1 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at 7,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 gold mine at 7,1 distributes to 5,-1.
     Play#1 output Play#1 1 gold mine 7,1 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 shell industry at -2,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 shell industry at -2,2 distributes to 5,-1.
     Play#1 output Play#1 1 shell industry -2,2 now distributes to 5,-1 (cost 1.000)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 0,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 0,2 distributes to 5,-1.
     Play#1 output Play#1 1 mine 0,2 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 heavy manufacturing at 2,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 heavy manufacturing at 2,2 distributes to 5,-1.
     Play#1 output Play#1 1 heavy manufacturing 2,2 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at 4,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 gold mine at 4,2 distributes to 5,-1.
     Play#1 output Play#1 1 gold mine 4,2 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at 6,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 gold mine at 6,2 distributes to 5,-1.
     Play#1 output Play#1 1 gold mine 6,2 now distributes to 5,-1 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at 8,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 gold mine at 8,2 distributes to 5,-1.
     Play#1 output Play#1 1 gold mine 8,2 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 gold mine at 10,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 gold mine at 10,2 distributes to 5,-1.
     Play#1 output Play#1 1 gold mine 10,2 now distributes to 5,-1 (cost 1.000)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -1,3 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at -1,3 distributes to 5,-1.
     Play#1 output Play#1 1 highway -1,3 now distributes to 5,-1 (cost 1.000)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 1,3 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 1,3 distributes to 5,-1.
     Play#1 output Play#1 1 highway 1,3 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 5,3 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 5,3 distributes to 5,-1.
     Play#1 output Play#1 1 highway 5,3 now distributes to 5,-1 (cost 0.800)
     Play#1 output Play#1 1 
     Play#1 output Play#1 6 2 598
@@ -9053,103 +9053,103 @@
     Play#1 output Play#1 6 2 634
     Play#1 input dist #1 6,2
     Play#1 command distribute
-    Play#1 output Play#1 1 oil field at 1,-3 distributes to 5,-1. 
+    Play#1 output Play#1 1 oil field at 1,-3 distributes to 5,-1.
     Play#1 output Play#1 1 oil field 1,-3 now distributes to 6,2 (cost 0.801)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 oil field at -4,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 oil field at -4,-2 distributes to 5,-1.
     Play#1 output Play#1 1 oil field -4,-2 now distributes to 6,2 (cost 1.201)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 oil field at -2,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 oil field at -2,-2 distributes to 5,-1.
     Play#1 output Play#1 1 oil field -2,-2 now distributes to 6,2 (cost 1.001)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 capital at 0,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 capital at 0,-2 distributes to 5,-1.
     Play#1 output Play#1 1 capital 0,-2 now distributes to 6,2 (cost 0.801)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 2,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 2,-2 distributes to 5,-1.
     Play#1 output Play#1 1 highway 2,-2 now distributes to 6,2 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 technical center at 4,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 technical center at 4,-2 distributes to 5,-1.
     Play#1 output Play#1 1 technical center 4,-2 now distributes to 6,2 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 library/school at 6,-2 distributes to 5,-1. 
+    Play#1 output Play#1 1 library/school at 6,-2 distributes to 5,-1.
     Play#1 output Play#1 1 library/school 6,-2 now distributes to 6,2 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 bank at -1,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 bank at -1,-1 distributes to 5,-1.
     Play#1 output Play#1 1 bank -1,-1 now distributes to 6,2 (cost 1.000)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 1,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 1,-1 distributes to 5,-1.
     Play#1 output Play#1 1 mine 1,-1 now distributes to 6,2 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 light manufacturing at 3,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 light manufacturing at 3,-1 distributes to 5,-1.
     Play#1 output Play#1 1 light manufacturing 3,-1 now distributes to 6,2 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 harbor at 5,-1 has no dist sector. 
+    Play#1 output Play#1 1 harbor at 5,-1 has no dist sector.
     Play#1 output Play#1 1 harbor 5,-1 now distributes to 6,2 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 bridge span at 7,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 bridge span at 7,-1 distributes to 5,-1.
     Play#1 output Play#1 1 bridge span 7,-1 now distributes to 6,2 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 bridge span at 9,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 bridge span at 9,-1 distributes to 5,-1.
     Play#1 output Play#1 1 bridge span 9,-1 now distributes to 6,2 (cost 0.801)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 radar installation at 11,-1 distributes to 5,-1. 
+    Play#1 output Play#1 1 radar installation at 11,-1 distributes to 5,-1.
     Play#1 output Play#1 1 radar installation 11,-1 now distributes to 6,2 (cost 1.121)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 light manufacturing at -2,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 light manufacturing at -2,0 distributes to 5,-1.
     Play#1 output Play#1 1 light manufacturing -2,0 now distributes to 6,2 (cost 1.000)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 0,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 0,0 distributes to 5,-1.
     Play#1 output Play#1 1 mine 0,0 now distributes to 6,2 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 2,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 2,0 distributes to 5,-1.
     Play#1 output Play#1 1 mine 2,0 now distributes to 6,2 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 heavy manufacturing at 4,0 distributes to 5,-1. 
+    Play#1 output Play#1 1 heavy manufacturing at 4,0 distributes to 5,-1.
     Play#1 output Play#1 1 heavy manufacturing 4,0 now distributes to 6,2 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 heavy manufacturing at -1,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 heavy manufacturing at -1,1 distributes to 5,-1.
     Play#1 output Play#1 1 heavy manufacturing -1,1 now distributes to 6,2 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 1,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 1,1 distributes to 5,-1.
     Play#1 output Play#1 1 mine 1,1 now distributes to 6,2 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 3,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 3,1 distributes to 5,-1.
     Play#1 output Play#1 1 mine 3,1 now distributes to 6,2 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 light manufacturing at 5,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 light manufacturing at 5,1 distributes to 5,-1.
     Play#1 output Play#1 1 light manufacturing 5,1 now distributes to 6,2 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 defense plant at 7,1 distributes to 5,-1. 
+    Play#1 output Play#1 1 defense plant at 7,1 distributes to 5,-1.
     Play#1 output Play#1 1 defense plant 7,1 now distributes to 6,2 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 shell industry at -2,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 shell industry at -2,2 distributes to 5,-1.
     Play#1 output Play#1 1 shell industry -2,2 now distributes to 6,2 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 mine at 0,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 mine at 0,2 distributes to 5,-1.
     Play#1 output Play#1 1 mine 0,2 now distributes to 6,2 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 heavy manufacturing at 2,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 heavy manufacturing at 2,2 distributes to 5,-1.
     Play#1 output Play#1 1 heavy manufacturing 2,2 now distributes to 6,2 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 research lab at 4,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 research lab at 4,2 distributes to 5,-1.
     Play#1 output Play#1 1 research lab 4,2 now distributes to 6,2 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 warehouse at 6,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 warehouse at 6,2 distributes to 5,-1.
     Play#1 output Play#1 1 Distribution from and to warehouse 6,2 terminated
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 enlistment center at 8,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 enlistment center at 8,2 distributes to 5,-1.
     Play#1 output Play#1 1 enlistment center 8,2 now distributes to 6,2 (cost 0.200)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 headquarters at 10,2 distributes to 5,-1. 
+    Play#1 output Play#1 1 headquarters at 10,2 distributes to 5,-1.
     Play#1 output Play#1 1 headquarters 10,2 now distributes to 6,2 (cost 0.400)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at -1,3 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at -1,3 distributes to 5,-1.
     Play#1 output Play#1 1 highway -1,3 now distributes to 6,2 (cost 0.800)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 highway at 1,3 distributes to 5,-1. 
+    Play#1 output Play#1 1 highway at 1,3 distributes to 5,-1.
     Play#1 output Play#1 1 highway 1,3 now distributes to 6,2 (cost 0.600)
     Play#1 output Play#1 1 
-    Play#1 output Play#1 1 park at 5,3 distributes to 5,-1. 
+    Play#1 output Play#1 1 park at 5,3 distributes to 5,-1.
     Play#1 output Play#1 1 park 5,3 now distributes to 6,2 (cost 0.200)
     Play#1 output Play#1 1 
     Play#1 output Play#1 6 2 633
@@ -11211,94 +11211,94 @@
     Play#2 output Play#2 6 0 566
     Play#2 input distr * 1,-1
     Play#2 command distribute
-    Play#2 output Play#2 1 highway at -6,-2 has no dist sector. 
+    Play#2 output Play#2 1 highway at -6,-2 has no dist sector.
     Play#2 output Play#2 1 highway -6,-2 now distributes to 1,-1 (cost 1.600)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 warehouse at -4,-2 has no dist sector. 
+    Play#2 output Play#2 1 warehouse at -4,-2 has no dist sector.
     Play#2 output Play#2 1 warehouse -4,-2 now distributes to 1,-1 (cost 1.600)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 capital at 2,-2 has no dist sector. 
+    Play#2 output Play#2 1 capital at 2,-2 has no dist sector.
     Play#2 output Play#2 1 capital 2,-2 now distributes to 1,-1 (cost 0.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at -7,-1 has no dist sector. 
+    Play#2 output Play#2 1 highway at -7,-1 has no dist sector.
     Play#2 output Play#2 1 highway -7,-1 now distributes to 1,-1 (cost 1.600)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -5,-1 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at -5,-1 has no dist sector.
     Play#2 output Play#2 1 gold mine -5,-1 now distributes to 1,-1 (cost 1.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 oil field at -1,-1 has no dist sector. 
+    Play#2 output Play#2 1 oil field at -1,-1 has no dist sector.
     Play#2 output Play#2 1 oil field -1,-1 now distributes to 1,-1 (cost 0.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 1,-1 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at 1,-1 has no dist sector.
     Play#2 output Play#2 1 Distribution from and to gold mine 1,-1 terminated
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 3,-1 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at 3,-1 has no dist sector.
     Play#2 output Play#2 1 gold mine 3,-1 now distributes to 1,-1 (cost 0.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 5,-1 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at 5,-1 has no dist sector.
     Play#2 output Play#2 1 gold mine 5,-1 now distributes to 1,-1 (cost 0.600)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 7,-1 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at 7,-1 has no dist sector.
     Play#2 output Play#2 1 gold mine 7,-1 now distributes to 1,-1 (cost 1.000)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -6,0 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at -6,0 has no dist sector.
     Play#2 output Play#2 1 gold mine -6,0 now distributes to 1,-1 (cost 1.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -4,0 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at -4,0 has no dist sector.
     Play#2 output Play#2 1 gold mine -4,0 now distributes to 1,-1 (cost 0.800)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -2,0 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at -2,0 has no dist sector.
     Play#2 output Play#2 1 gold mine -2,0 now distributes to 1,-1 (cost 0.400)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 capital at 0,0 has no dist sector. 
+    Play#2 output Play#2 1 capital at 0,0 has no dist sector.
     Play#2 output Play#2 1 capital 0,0 now distributes to 1,-1 (cost 0.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 capital at 2,0 has no dist sector. 
+    Play#2 output Play#2 1 capital at 2,0 has no dist sector.
     Play#2 output Play#2 1 capital 2,0 now distributes to 1,-1 (cost 0.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at 4,0 has no dist sector. 
+    Play#2 output Play#2 1 highway at 4,0 has no dist sector.
     Play#2 output Play#2 1 highway 4,0 now distributes to 1,-1 (cost 0.400)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at -7,1 has no dist sector. 
+    Play#2 output Play#2 1 highway at -7,1 has no dist sector.
     Play#2 output Play#2 1 highway -7,1 now distributes to 1,-1 (cost 1.600)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at -5,1 has no dist sector. 
+    Play#2 output Play#2 1 highway at -5,1 has no dist sector.
     Play#2 output Play#2 1 highway -5,1 now distributes to 1,-1 (cost 1.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -3,1 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at -3,1 has no dist sector.
     Play#2 output Play#2 1 gold mine -3,1 now distributes to 1,-1 (cost 0.800)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -1,1 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at -1,1 has no dist sector.
     Play#2 output Play#2 1 gold mine -1,1 now distributes to 1,-1 (cost 0.400)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 1,1 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at 1,1 has no dist sector.
     Play#2 output Play#2 1 gold mine 1,1 now distributes to 1,-1 (cost 0.400)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at 3,1 has no dist sector. 
+    Play#2 output Play#2 1 highway at 3,1 has no dist sector.
     Play#2 output Play#2 1 highway 3,1 now distributes to 1,-1 (cost 0.400)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -4,2 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at -4,2 has no dist sector.
     Play#2 output Play#2 1 gold mine -4,2 now distributes to 1,-1 (cost 1.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -2,2 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at -2,2 has no dist sector.
     Play#2 output Play#2 1 gold mine -2,2 now distributes to 1,-1 (cost 0.800)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 0,2 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at 0,2 has no dist sector.
     Play#2 output Play#2 1 gold mine 0,2 now distributes to 1,-1 (cost 0.800)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 2,2 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at 2,2 has no dist sector.
     Play#2 output Play#2 1 gold mine 2,2 now distributes to 1,-1 (cost 0.800)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at -3,3 has no dist sector. 
+    Play#2 output Play#2 1 highway at -3,3 has no dist sector.
     Play#2 output Play#2 1 highway -3,3 now distributes to 1,-1 (cost 1.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at -1,3 has no dist sector. 
+    Play#2 output Play#2 1 highway at -1,3 has no dist sector.
     Play#2 output Play#2 1 highway -1,3 now distributes to 1,-1 (cost 1.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at 1,3 has no dist sector. 
+    Play#2 output Play#2 1 highway at 1,3 has no dist sector.
     Play#2 output Play#2 1 highway 1,3 now distributes to 1,-1 (cost 1.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 3,3 has no dist sector. 
+    Play#2 output Play#2 1 gold mine at 3,3 has no dist sector.
     Play#2 output Play#2 1 gold mine 3,3 now distributes to 1,-1 (cost 1.200)
     Play#2 output Play#2 1 
     Play#2 output Play#2 6 0 565
@@ -12375,94 +12375,94 @@
     Play#2 output Play#2 6 0 557
     Play#2 input dist * -4,-2
     Play#2 command distribute
-    Play#2 output Play#2 1 highway at -6,-2 distributes to 1,-1. 
+    Play#2 output Play#2 1 highway at -6,-2 distributes to 1,-1.
     Play#2 output Play#2 1 highway -6,-2 now distributes to -4,-2 (cost 0.400)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 warehouse at -4,-2 distributes to 1,-1. 
+    Play#2 output Play#2 1 warehouse at -4,-2 distributes to 1,-1.
     Play#2 output Play#2 1 Distribution from and to warehouse -4,-2 terminated
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 capital at 2,-2 distributes to 1,-1. 
+    Play#2 output Play#2 1 capital at 2,-2 distributes to 1,-1.
     Play#2 output Play#2 1 capital 2,-2 now distributes to -4,-2 (cost 2.000)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at -7,-1 distributes to 1,-1. 
+    Play#2 output Play#2 1 highway at -7,-1 distributes to 1,-1.
     Play#2 output Play#2 1 highway -7,-1 now distributes to -4,-2 (cost 0.800)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -5,-1 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at -5,-1 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine -5,-1 now distributes to -4,-2 (cost 0.400)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 oil field at -1,-1 distributes to 1,-1. 
+    Play#2 output Play#2 1 oil field at -1,-1 distributes to 1,-1.
     Play#2 output Play#2 1 oil field -1,-1 now distributes to -4,-2 (cost 1.600)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 bank at 1,-1 has no dist sector. 
+    Play#2 output Play#2 1 bank at 1,-1 has no dist sector.
     Play#2 output Play#2 1 bank 1,-1 now distributes to -4,-2 (cost 1.800)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 3,-1 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at 3,-1 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine 3,-1 now distributes to -4,-2 (cost 2.000)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 5,-1 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at 5,-1 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine 5,-1 now distributes to -4,-2 (cost 2.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 7,-1 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at 7,-1 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine 7,-1 now distributes to -4,-2 (cost 2.522)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -6,0 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at -6,0 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine -6,0 now distributes to -4,-2 (cost 0.800)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -4,0 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at -4,0 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine -4,0 now distributes to -4,-2 (cost 0.800)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -2,0 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at -2,0 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine -2,0 now distributes to -4,-2 (cost 1.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 0,0 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at 0,0 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine 0,0 now distributes to -4,-2 (cost 1.600)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 2,0 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at 2,0 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine 2,0 now distributes to -4,-2 (cost 1.800)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at 4,0 distributes to 1,-1. 
+    Play#2 output Play#2 1 highway at 4,0 distributes to 1,-1.
     Play#2 output Play#2 1 highway 4,0 now distributes to -4,-2 (cost 2.000)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at -7,1 distributes to 1,-1. 
+    Play#2 output Play#2 1 highway at -7,1 distributes to 1,-1.
     Play#2 output Play#2 1 highway -7,1 now distributes to -4,-2 (cost 1.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at -5,1 distributes to 1,-1. 
+    Play#2 output Play#2 1 highway at -5,1 distributes to 1,-1.
     Play#2 output Play#2 1 highway -5,1 now distributes to -4,-2 (cost 1.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -3,1 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at -3,1 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine -3,1 now distributes to -4,-2 (cost 1.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -1,1 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at -1,1 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine -1,1 now distributes to -4,-2 (cost 1.600)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 1,1 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at 1,1 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine 1,1 now distributes to -4,-2 (cost 1.800)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at 3,1 distributes to 1,-1. 
+    Play#2 output Play#2 1 highway at 3,1 distributes to 1,-1.
     Play#2 output Play#2 1 highway 3,1 now distributes to -4,-2 (cost 2.000)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -4,2 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at -4,2 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine -4,2 now distributes to -4,-2 (cost 1.600)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at -2,2 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at -2,2 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine -2,2 now distributes to -4,-2 (cost 1.600)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 0,2 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at 0,2 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine 0,2 now distributes to -4,-2 (cost 2.000)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 2,2 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at 2,2 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine 2,2 now distributes to -4,-2 (cost 2.200)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at -3,3 distributes to 1,-1. 
+    Play#2 output Play#2 1 highway at -3,3 distributes to 1,-1.
     Play#2 output Play#2 1 highway -3,3 now distributes to -4,-2 (cost 2.000)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at -1,3 distributes to 1,-1. 
+    Play#2 output Play#2 1 highway at -1,3 distributes to 1,-1.
     Play#2 output Play#2 1 highway -1,3 now distributes to -4,-2 (cost 2.000)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 highway at 1,3 distributes to 1,-1. 
+    Play#2 output Play#2 1 highway at 1,3 distributes to 1,-1.
     Play#2 output Play#2 1 highway 1,3 now distributes to -4,-2 (cost 2.400)
     Play#2 output Play#2 1 
-    Play#2 output Play#2 1 gold mine at 3,3 distributes to 1,-1. 
+    Play#2 output Play#2 1 gold mine at 3,3 distributes to 1,-1.
     Play#2 output Play#2 1 gold mine 3,3 now distributes to -4,-2 (cost 2.600)
     Play#2 output Play#2 1 
     Play#2 output Play#2 6 0 556
@@ -14376,7 +14376,7 @@
     Play#1 output Play#1 6 4 628
     Play#1 input order 4 level 1 start food 30
     Play#1 command order
-    Play#1 output Play#1 1 Order Set 
+    Play#1 output Play#1 1 Order Set
     Play#1 output Play#1 6 4 627
     Play#1 input order 4 level 1 end food 30
     Play#1 command order

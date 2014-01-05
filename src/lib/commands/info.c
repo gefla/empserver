@@ -186,7 +186,7 @@ apro(void)
 
     info_dp = opendir(infodir);
     if (info_dp == NULL) {
-	pr("Can't open info dir \n");
+	pr("Can't open info dir\n");
 	logerror("Can't open info dir \"%s\"", infodir);
 	return RET_FAIL;
     }

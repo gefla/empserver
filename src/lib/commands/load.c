@@ -130,7 +130,7 @@ load(void)
 		continue;
 	    if (load_unload == LOAD) {
 		if (noisy)
-		    pr("You don't own %s \n",
+		    pr("You don't own %s\n",
 		       xyas(sect.sct_x, sect.sct_y, player->cnum));
 		continue;
 	    }

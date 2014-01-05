@@ -224,7 +224,7 @@ orde(void)
 		    }
 		    ship.shp_tend[sub] = i1->i_uid;
 		    ship.shp_lend[sub] = level;
-		    pr("Order Set \n");
+		    pr("Order Set\n");
 		    break;
 		}
 	    } else
@@ -337,7 +337,7 @@ qorde(void)
 	    if (player->god)
 		pr("own ");
 	    pr("shp#     ship type    ");
-	    pr("[Starting]       (Ending)    \n");
+	    pr("[Starting]       (Ending)\n");
 	}
 	nships++;
 	if (player->god)

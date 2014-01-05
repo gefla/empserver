@@ -153,7 +153,7 @@ sect_hdr(void)
 {
     if (player->god)
 	pr("    ");
-    pr("Starvation               \n");
+    pr("Starvation\n");
     if (player->god)
 	pr("own ");
     pr("  sect         eff ");
@@ -202,10 +202,10 @@ ship_hdr(void)
 {
     if (player->god)
 	pr("    ");
-    pr("Starvation               \n");
+    pr("Starvation\n");
     if (player->god)
 	pr("own ");
-    pr(" shp#     ship type       \n");
+    pr(" shp#     ship type\n");
 }
 
 static void
@@ -250,8 +250,8 @@ unit_hdr(void)
 {
     if (player->god)
 	pr("    ");
-    pr("Starvation               \n");
+    pr("Starvation\n");
     if (player->god)
 	pr("own ");
-    pr(" lnd#     unit type       \n");
+    pr(" lnd#     unit type\n");
 }
