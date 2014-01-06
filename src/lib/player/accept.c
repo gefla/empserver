@@ -174,7 +174,6 @@ player_accept(void *unused)
     const char *p;
     int ns;
     int set = 1;
-    int stacksize;
     char buf[128];
 #ifdef RESOLVE_IPADDRESS
     struct hostent *hostp;
@@ -219,12 +218,8 @@ player_accept(void *unused)
 	if (NULL != hostp)
 	    strcpy(np->hostname, hostp->h_name);
 #endif /* RESOLVE_IPADDRESS */
-	/* FIXME ancient black magic; figure out true stack need */
-	stacksize = 100000
-/* budget */  + MAX(WORLD_SZ() * sizeof(int) * 7,
-/* power */ MAXNOC * sizeof(struct powstr));
 	sprintf(buf, "Conn%d", conn_cnt++);
-	empth_create(player_login, stacksize, 0, buf, np);
+	empth_create(player_login, 1024 * 1024, 0, buf, np);
     }
 }
 
