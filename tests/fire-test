@@ -1,0 +1,45 @@
+#!/bin/sh -e
+# Gun fire test for Empire
+
+if [ $# -ne 1 ]
+then echo "Usage: $0 SRCDIR" >&2; exit 1
+fi
+
+srcdir="$1"
+
+. "$srcdir"/tests/test-common.sh
+
+#
+# Currently expected to work only with thread package LWP, because:
+#
+# - Thread scheduling is reliably deterministic only with LWP
+# - Shell builtin kill appears not to do the job in MinGW
+# - The Windows server tries to run as service when -d isn't
+#   specified
+#
+# TODO address these shortcomings.
+#
+if [ `sed -n 's/empthread *:= *\(.*\)/\1/p' <GNUmakefile` != LWP ]
+then echo "Warning: test not expected to work with this thread package!" >&2
+fi
+
+create_sandbox
+cat >>sandbox/etc/empire/econfig <<EOF
+WORLD_X 32
+WORLD_Y 16
+EASY_BRIDGES 1
+GODNEWS 0
+EOF
+
+begin_test "$srcdir"/tests/fire/init_script
+
+for i in `git ls-files "$srcdir"/tests/fire | grep '/[0-9][0-9]-.*$'`
+do
+    c="${i##*/??-}"
+    r=`echo $c | sed 's/^POGO$/peter/'`
+    feed_input "$c" "$r" "$i"
+done
+
+end_test
+
+cmp_out var/empire/server.log var/empire/journal.log fire.xdump

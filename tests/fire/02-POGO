@@ -1,0 +1,7 @@
+xdump sect * ?own#0
+xdump ship *
+xdump plane *
+xdump land *
+xdump nuke *
+xdump news *
+edit c 1 b 640

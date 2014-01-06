@@ -1,0 +1,100 @@
+||| fire ship
+| ship must have mil>0, glim>0, gun>0, shell>0, eff>=60
+|
+|| assets
+ship * ?shell>0
+carg * ?shell>0
+|
+|| ship not firing
+| nonexistant ship
+fire sh 666 6,0
+| 100% cs
+fire sh 9 6,0
+| 59% bb
+fire sh 1 6,0
+| 60% bb, at itself
+fire sh 2 2
+| at sector that doesn't exist
+fire sh 2 1,0
+| at ship that doesn't exist
+fire sh 2 666
+| at valid target, but no mil
+unload m 2 13
+fire sh 2 6,0
+load m 2 13
+| likewise no guns
+unload g 2 10
+fire sh 2 6,0
+load g 2 10
+| likewise no shells
+unload s 2 200
+fire sh 2 6,0
+load s 2 200
+|
+|| ship firing nowhere (shells consumed)
+| 100% bb
+| at sea out of range
+fire sh 3 -12,0
+| at ship out of range
+fire sh 3 0
+| at sub, server pretends out of range
+fire sh 3 13
+| likewise in port
+fire sh 3 12
+|
+|| ship firing at bogus target
+| 100% bb
+| at sea
+fire sh 3 6,0
+| at sanctuary
+fire sh 3 2,-2
+|
+|| ship firing at undefended target
+| 100% bb with 1, 2, 3 guns
+| at empty highway
+unload g 3 -1
+fire sh 3 0,2
+load g 3 1
+fire sh 3 0,2
+load g 3 1
+fire sh 3 0,2
+load g 3 7
+| likewise 1, 2 shell (take care to avoid automatic supply)
+unload s 3 -1
+navi 3 jh
+fire sh 3 0,2
+navi 3 gh
+load s 3 2
+navi 3 jh
+fire sh 3 0,2
+navi 3 gh
+load s 3 169
+| likewise 1, 2, 3 mil
+unload m 3 -1
+fire sh 3 0,2
+load m 3 1
+fire sh 3 0,2
+load m 3 1
+fire sh 3 0,2
+load m 3 10
+| 60% bb
+fire sh 2 0,2
+| 100% bb
+fire sh 3 0,2
+| 100% dd
+| at sub, two retreat, two sink
+fire sh 5 13
+fire sh 6 12
+fire sh 5 11
+fire sh 6 10
+| at ship, fractional range, ~50% chance
+navi 5 jh
+fire sh 5 24
+fire sh 5 24
+fire sh 5 24
+fire sh 5 24
+fire sh 5 24
+fire sh 5 24
+|
+|| show shell use
+carg * ?shell>0

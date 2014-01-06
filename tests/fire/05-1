@@ -1,0 +1,87 @@
+||| fire land
+| land must have mil>0, glim>0, gun>0, shell>0, eff>=40, and not on carrier
+|
+|| assets
+land * ?shell>0
+lcarg * ?shell>0
+|
+|| land not firing
+| nonexistant land
+fire la 666 6,0
+| 100% tra
+fire la 9 6,0
+| 39% hat
+fire la 1 6,0
+| 40% hat, at itself
+fire la 2 3,1
+| at sector that doesn't exist
+fire la 2 1,0
+| at ship that doesn't exist
+fire la 2 666
+| at valid target, but no mil
+lunload m 2 10
+fire la 2 6,0
+lload m 2 10
+| likewise no guns
+lunload g 2 12
+fire la 2 6,0
+lload g 2 12
+| likewise no shells
+lunload s 2 80
+fire la 2 6,0
+lload s 2 80
+| likewise on ship
+load land 9 2
+fire la 2 6,0
+unload land 9 2
+| likewise on land
+lload land 9 2
+fire la 2 6,0
+lunload land 9 2
+|
+|| land firing nowhere (shells consumed)
+| 100% hat
+| at sea out of range
+fire la 3 -12,0
+| at ship out of range
+fire la 3 0
+| at sub, server pretends out of range
+fire la 3 13
+| likewise in port
+fire la 3 12
+|
+|| land firing at bogus target
+| 100% hat
+| at sea
+fire la 3 6,0
+| at sanctuary
+fire la 3 2,-2
+|
+|| land firing at undefended target
+| 100% hat with one gun
+| at empty highway
+lunload g 3 -1
+fire la 3 0,2
+lload g 3 11
+| likewise one shell (take care to avoid automatic supply)
+lunload s 3 -1
+march 3 gh
+fire la 3 0,2
+march 3 jh
+lload s 3 51
+| 40% hat
+fire la 2 0,2
+| 100% hat
+fire la 3 0,2
+| 100% hat
+| at sector, fractional range, ~50% chance
+march 3 yyyh
+fire la 3 0,2
+fire la 3 0,2
+fire la 3 0,2
+fire la 3 0,2
+fire la 3 0,2
+fire la 3 0,2
+|
+|| show shell use
+lcarg * ?shell>0

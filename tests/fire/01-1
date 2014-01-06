@@ -1,0 +1,89 @@
+||| fire sector
+| sector must be fort with eff>5%, mil>5, gun>0, shell>0
+|
+|| assets
+cens * ?shell>0
+comm * ?shell>0
+|
+|| fort not firing
+| nonexistant sector
+fire se 1,0 6,0
+| 100% highway
+fire se -4,0 6,0
+| 4% fort
+fire se -2,0 6,0
+| 5% fort
+| at itself
+fire se 0,0 0,0
+| at sector that doesn't exist
+fire se 0,0 1,0
+| at ship that doesn't exist
+fire se 0,0 666
+| at valid target, but with insufficient mil
+move m 0,0 1 nh
+fire se 0,0 6,0
+move m 1,1 1 yh
+| likewise no guns
+move g 0,0 1 nh
+fire se 0,0 6,0
+move g 1,1 1 yh
+| likewise no shells
+move s 0,0 1 nh
+fire se 0,0 6,0
+move s 1,1 1 yh
+|
+|| fort firing nowhere (shell consumed)
+| 100% fort
+| at sea out of range
+fire se 4,0 -12,0
+| at ship out of range
+fire se 4,0 0
+| at sub, server pretends out of range
+fire se 4,0 13
+| likewise in port
+fire se 4,0 12
+|
+|| fort firing at bogus target
+| 100% fort
+| at sea, fractional range, ~50% chance
+fire se 4,0 14,0
+fire se 4,0 14,0
+fire se 4,0 14,0
+fire se 4,0 14,0
+fire se 4,0 14,0
+fire se 4,0 14,0
+| at sanctuary
+fire se 4,0 2,-2
+|
+|| fort firing at undefended target
+| 5% fort with one gun
+| 100% fort with one gun
+| 100% fort with plenty of guns
+| at own empty highway
+move s 2,0 20 gh
+fire se 0,0 -2,-2
+fire se 2,0 -2,-2
+fire se 4,0 -2,-2
+| at bridge, one splash
+fire se 0,0 4,2
+fire se 2,0 4,2
+fire se 4,0 1,3
+| at harbor with stuff
+fire se 0,0 2,2
+fire se 2,0 2,2
+fire se 4,0 2,2
+| at own cs
+fire se 0,0 9
+| at cs at sea, one retreat, one sinking
+fire se 0,0 23
+fire se 2,0 23
+fire se 4,0 23
+fire se 4,0 21
+| at cs in port, one retreat, one sinking
+fire se 0,0 22
+fire se 2,0 22
+fire se 4,0 22
+fire se 4,0 20
+|
+|| show shell use
+comm * ?shell>0
