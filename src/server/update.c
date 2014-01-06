@@ -69,7 +69,6 @@ void
 update_init(void)
 {
     struct player *dp;
-    int stacksize;
 
     update_schedule_anchor = (time(NULL) + 59) / 60 * 60;
     if (update_get_schedule() < 0)
@@ -78,11 +77,7 @@ update_init(void)
     dp = player_new(-1);
     if (!dp)
 	exit_nomem();
-    /* FIXME ancient black magic; figure out true stack need */
-    stacksize = 100000 +
-/* finish_sects */ WORLD_X * WORLD_Y * (2 * sizeof(double) +
-					sizeof(char *));
-    update_thread = empth_create(update_sched, stacksize, 0, "Update", dp);
+    update_thread = empth_create(update_sched, 512 * 1024, 0, "Update", dp);
     if (!update_thread)
 	exit_nomem();
 }
