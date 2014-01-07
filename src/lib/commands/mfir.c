@@ -283,7 +283,7 @@ multifire(void)
 		dam = shp_fire(&fship);
 	    }
 	    putship(fship.shp_uid, &fship);
-	    if (dam == 0 || CANT_HAPPEN(dam < 0)) {
+	    if (CANT_HAPPEN(dam < 0)) {
 		pr("Klick!     ...\n");
 		continue;
 	    }
