@@ -47,6 +47,7 @@
 /src/client/ipglob.c
 /src/lib/global/path.c
 /autom4te.cache
+/sandbox
 /src/client/autom4te.cache
 # $(src_distgen)
 /aclocal.m4
