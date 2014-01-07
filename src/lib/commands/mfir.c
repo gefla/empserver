@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -442,7 +442,7 @@ multifire(void)
 	    nreport(player->cnum, N_SHP_SHELL, vict, 1);
 	    /* fall through */
 	default:
-	    if (vict) {
+	    if (vict && vict != player->cnum) {
 		wu(0, vict,
 		   "Country #%d shelled %s in %s for %d damage.\n",
 		   player->cnum, prship(&vship),

@@ -279,7 +279,6 @@
     Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit cs   cargo ship (#9) in 3,1 for 0 damage.
-    Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 603
     Play#1 input fire se 2,0 9
     Play#1 command fire
@@ -289,7 +288,6 @@
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit cs   cargo ship (#9) in 3,1 for 3 damage.
     Play#1 output Play#1 1 	cs   cargo ship (#9) takes 2
-    Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 602
     Play#1 input __cmd added 1 1 0
     Play#1 command __cmd
@@ -1376,10 +1374,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input read 1
     Play#0 command read
-    Play#0 output Play#0 1
-    Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#9) in 3,1 for 0 damage.
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#9) in 3,1 for 3 damage.
+    Play#0 output Play#0 1 No telegrams for 1 at the moment...
     Play#0 output Play#0 6 0 640
     Play#0 input read 2
     Play#0 command read
