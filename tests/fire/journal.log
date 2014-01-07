@@ -474,7 +474,7 @@
     Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
     Play#0 output Play#0 1   1    1 hat  hvy artill    3,1        39%  10   0 127   0 160   0%  0  0
     Play#0 output Play#0 1   1    2 hat  hvy artill    3,1        40%  10   0 127   0 160   0%  0  0
-    Play#0 output Play#0 1   2   22 rad  radar unit    2,2        97%  10   0 124   0 270   0%  0  0   22S
+    Play#0 output Play#0 1   2   22 rad  radar unit    2,2        97%  10   0 124   0 270   0%  1  0   22S
     Play#0 output Play#0 1   2   32 tra  train         2,2        94%  10   0 120   0  40   0%  1  1
     Play#0 output Play#0 1   2   33 rad  radar unit    2,2        97%  10   0 123   0 270   0%  1  0   32L
     Play#0 output Play#0 1 5 units
@@ -955,7 +955,7 @@
     Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
     Play#0 output Play#0 1   1    1 hat  hvy artill    3,1        39%  10   0 127   0 160   0%  0  0
     Play#0 output Play#0 1   1    2 hat  hvy artill    3,1        40%  10   0 127   0 160   0%  0  0
-    Play#0 output Play#0 1   2   22 rad  radar unit    2,2        97%  10   0 124   0 270   0%  0  0   22S
+    Play#0 output Play#0 1   2   22 rad  radar unit    2,2        97%  10   0 124   0 270   0%  1  0   22S
     Play#0 output Play#0 1   2   32 tra  train         2,2        94%  10   0 120   0  40   0%  1  1
     Play#0 output Play#0 1   2   33 rad  radar unit    2,2        97%  10   0 123   0 270   0%  1  0   32L
     Play#0 output Play#0 1 5 units
@@ -1345,7 +1345,7 @@
     Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
     Play#0 output Play#0 1   1    1 hat  hvy artill    3,1        39%  10   0 127   0 160   0%  0  0
     Play#0 output Play#0 1   1    2 hat  hvy artill    3,1        40%  10   0 127   0 160   0%  0  0
-    Play#0 output Play#0 1   2   22 rad  radar unit    2,2        97%  10   0 124   0 270   0%  0  0   22S
+    Play#0 output Play#0 1   2   22 rad  radar unit    2,2        97%  10   0 124   0 270   0%  1  0   22S
     Play#0 output Play#0 1   2   32 tra  train         2,2        94%  10   0 120   0  40   0%  1  1
     Play#0 output Play#0 1   2   33 rad  radar unit    2,2        97%  10   0 123   0 270   0%  1  0   32L
     Play#0 output Play#0 1 5 units
@@ -1420,6 +1420,7 @@
     Play#0 output Play#0 1 	cs   cargo ship (#21) sunk!
     Play#0 output Play#0 1 sam  Sea Sparrow #21 lost!
     Play#0 output Play#0 1 rad  radar unit #21 lost!
+    Play#0 output Play#0 1 sam  Sea Sparrow #26 lost!
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#22) in 2,2 for 0 damage.
     Play#0 output Play#0 1 cs   cargo ship (#22) was fired upon with no one able to defend it, and retreated to 3,3
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#22) in 2,2 for 4 damage.
@@ -1433,6 +1434,7 @@
     Play#0 output Play#0 1 	cs   cargo ship (#20) sunk!
     Play#0 output Play#0 1 sam  Sea Sparrow #20 lost!
     Play#0 output Play#0 1 rad  radar unit #20 lost!
+    Play#0 output Play#0 1 sam  Sea Sparrow #25 lost!
     Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 14 damage.
     Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 25 damage.
     Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 32 damage.
