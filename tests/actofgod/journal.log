@@ -755,14 +755,14 @@
     Play#0 output Play#0 1   1   1   0   0   0   0   0   0   0 100   0   0   0   0     0    0     0
     Play#0 output Play#0 1 Mines <M>: 0
     Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input m 2
     Play#0 output Play#0 1 Mobility of 3,5 changed from 0 to 2
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input a 1
     Play#0 output Play#0 1 Available workforce of 3,5 changed from 0 to 1
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
-    Play#0 input 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
+    Play#0 input
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,5
     Play#0 command edit
@@ -773,10 +773,10 @@
     Play#0 output Play#0 1   1   1   0   0   0   0   0   0   0 100   0   0   0   0     0    0     0
     Play#0 output Play#0 1 Mines <M>: 0
     Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
-    Play#0 input  
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
+    Play#0 input
     Play#0 output Play#0 6 0 640
-    Play#0 input 
+    Play#0 input
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7:9,5
     Play#0 command edit
@@ -787,11 +787,11 @@
     Play#0 output Play#0 1   1   1   0   0   0   0   0   0   0 100   0   0   0   0     0    0     0
     Play#0 output Play#0 1 Mines <M>: 0
     Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input e 1
     Play#0 output Play#0 1 Efficiency of 7,5 changed from 0 to 1
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
-    Play#0 input 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
+    Play#0 input
     Play#0 output Play#0 1 Location <L>: 9,5	Distribution sector <D>: 9,5
     Play#0 output Play#0 1 Designation <s>: -	New designation <S>: -
     Play#0 output Play#0 1 own  oo eff mob min gld frt oil urn wrk lty che ctg plg ptime fall avail
@@ -799,11 +799,11 @@
     Play#0 output Play#0 1   1   1   0   0   0   0   0   0   0 100   0   0   0   0     0    0     0
     Play#0 output Play#0 1 Mines <M>: 0
     Play#0 output Play#0 1 Road % <R>: 0	Rail % <r>: 0	Defense % <d>: 0
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input e 2
     Play#0 output Play#0 1 Efficiency of 9,5 changed from 0 to 2
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
-    Play#0 input 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
+    Play#0 input
     Play#0 output Play#0 6 0 640
     Play#0 input give l 2,6 -2147483648
     Play#0 command give
@@ -831,7 +831,7 @@
     Play#0 output Play#0 1   2   -2,2    -    0%    0    0    0   0    0
     Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
     Play#0 output Play#0 1   3    2,-2   -    0%    0    0    0   0    0
-    Play#0 output Play#0 4 Are you sure these are the two sectors you wish to swap? 
+    Play#0 output Play#0 4 Are you sure these are the two sectors you wish to swap?
     Play#0 input y
     Play#0 output Play#0 1 done
     Play#0 output Play#0 6 0 640
@@ -1483,17 +1483,17 @@
     Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
     Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
     Play#0 output Play#0 1   0   0   0    0   0   0    0    0    0    0    0    0   0
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input M 2
     Play#0 output Play#0 1 Mobility of cs   cargo ship (#0) changed from 0 to 2
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input m 1
     Play#0 output Play#0 1 military of cs   cargo ship (#0) changed from 0 to 1
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input f 1
     Play#0 output Play#0 1 food of cs   cargo ship (#0) changed from 0 to 1
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
-    Play#0 input 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
+    Play#0 input
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 0
     Play#0 command edit
@@ -1507,14 +1507,14 @@
     Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
     Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
     Play#0 output Play#0 1   0   1   0    1   0   0    0    0    0    0    0    0   0
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input R n
     Play#0 output Play#0 1 Retreat path of cs   cargo ship (#0) changed from  to n
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input R ""
     Play#0 output Play#0 1 Retreat path of cs   cargo ship (#0) changed from n to
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
-    Play#0 input 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
+    Play#0 input
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0
     Play#0 command edit
@@ -1525,14 +1525,14 @@
     Play#0 output Play#0 1 Tech <t>: 100		Wing <w>:
     Play#0 output Play#0 1 Range <r>: 9		Flags <f>: 0
     Play#0 output Play#0 1 Ship <s>: -1		Land Unit <y>: -1
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input m 2
     Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #0 changed from 0 to 2
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input y -1
     Play#0 output Play#0 1 Land unit of f1   Sopwith Camel #0 unchanged
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
-    Play#0 input 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
+    Play#0 input
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0
     Play#0 command edit
@@ -1548,14 +1548,14 @@
     Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
     Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
     Play#0 output Play#0 1   0   0   0    0   0   0    0    0    0    0    0    0   0
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input M 2
     Play#0 output Play#0 1 Mobility of sup  supply #0 changed from 0 to 2
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input Y -1
     Play#0 output Play#0 1 Land unit of sup  supply #0 unchanged
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
-    Play#0 input 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
+    Play#0 input
     Play#0 output Play#0 6 0 640
     Play#0 input edit n 0
     Play#0 command edit
@@ -1564,14 +1564,14 @@
     Play#0 output Play#0 1 Owner <O>: 0			Location <L>: 1,-1
     Play#0 output Play#0 1 Tech <T>: 400			Stockpile <S>:
     Play#0 output Play#0 1 Plane <p>: -1
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input S a
     Play#0 output Play#0 1 Assignment of 10kt  fission warhead #0 changed from stockpile ~ to a
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input p -1
     Play#0 output Play#0 1 Plane of 10kt  fission warhead #0 unchanged
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
-    Play#0 input 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
+    Play#0 input
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 0 @ 0
     Play#0 command edit
@@ -1749,14 +1749,14 @@
     Play#0 output Play#0 1 Education <E>: 0.00		Happiness <H>: 0.00
     Play#0 output Play#0 1 Money <M>: $     0
     Play#0 output Play#0 1 Telegrams <t>:      1
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input b 640
     Play#0 output Play#0 1 BTUs of 5 (#5) changed from 0 to 640
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input T 1
     Play#0 output Play#0 1 Technology of 5 (#5) changed from 0.00 to 1.00
-    Play#0 output Play#0 4 %c xxxxx -- thing value : 
-    Play#0 input 
+    Play#0 output Play#0 4 %c xxxxx -- thing value :
+    Play#0 input
     Play#0 output Play#0 6 0 640
     Play#0 input read 0
     Play#0 command read
@@ -1764,7 +1764,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input read 1
     Play#0 command read
-    Play#0 output Play#0 1 
+    Play#0 output Play#0 1
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Sector 1,7 taken from you by an act of POGO!
     Play#0 output Play#0 1 Sector 3,7 taken from you by an act of POGO!
@@ -1905,7 +1905,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input read 2
     Play#0 command read
-    Play#0 output Play#0 1 
+    Play#0 output Play#0 1
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Sector 5,7 given to you by an act of POGO!
     Play#0 output Play#0 1 Sector 11,7 given to you by an act of POGO!
@@ -1939,7 +1939,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input read 3
     Play#0 command read
-    Play#0 output Play#0 1 
+    Play#0 output Play#0 1
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Sector 1,-7 taken from you by an act of POGO!
     Play#0 output Play#0 1 Old owner of 1,-3 changed from 3 (#3) to 1 (#1) by an act of POGO
@@ -2043,7 +2043,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input read 4
     Play#0 command read
-    Play#0 output Play#0 1 
+    Play#0 output Play#0 1
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 BTUs changed from 0 to 640 by an act of POGO!
     Play#0 output Play#0 1 Number of seconds used changed from 0 to 86400 by an act of POGO!
@@ -2051,7 +2051,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input read 5
     Play#0 command read
-    Play#0 output Play#0 1 
+    Play#0 output Play#0 1
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Status changed to deity by an act of POGO!
     Play#0 output Play#0 1 BTUs changed from 0 to 640 by an act of POGO!
@@ -2059,7 +2059,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input read 98
     Play#0 command read
-    Play#0 output Play#0 1 
+    Play#0 output Play#0 1
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Sector 3,7 given to you by an act of POGO!
     Play#0 output Play#0 1 Old owner of 3,7 changed from 1 (#1) to 98 (#98) by an act of POGO
