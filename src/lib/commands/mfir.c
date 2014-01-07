@@ -145,6 +145,11 @@ multifire(void)
 		   fland.lnd_uid, LAND_MINFIREEFF);
 		continue;
 	    }
+	    if (fland.lnd_item[I_GUN] == 0) {
+		pr("%s -- not enough guns\n", prland(&fland));
+		continue;
+	    }
+
 	    if (fland.lnd_item[I_SHELL] == 0) {
 		pr("%s -- not enough shells\n", prland(&fland));
 		continue;
@@ -254,24 +259,11 @@ multifire(void)
 	if (type == EF_SHIP) {
 	    if (!check_ship_ok(&fship))
 		return RET_FAIL;
-	    if (fship.shp_own != player->cnum) {
-		pr("Not your ship!\n");
-		continue;
-	    }
 	    if (target == targ_sub || target == targ_ship) {
 		if (fship.shp_uid == vship.shp_uid) {
 		    pr("You can't fire upon yourself!\n");
 		    continue;
 		}
-	    }
-	    if (fship.shp_item[I_MILIT] < 1) {
-		pr("Not enough military for firing crew.\n");
-		continue;
-	    }
-	    if (fship.shp_effic < 60) {
-		pr("Ship #%d is crippled (%d%%)\n",
-		   fship.shp_uid, fship.shp_effic);
-		continue;
 	    }
 	    range = shp_fire_range(&fship);
 	    range2 = roundrange(range);
@@ -291,7 +283,7 @@ multifire(void)
 		dam = shp_fire(&fship);
 	    }
 	    putship(fship.shp_uid, &fship);
-	    if (dam <= 0) {
+	    if (dam == 0 || CANT_HAPPEN(dam < 0)) {
 		pr("Klick!     ...\n");
 		continue;
 	    }
@@ -302,26 +294,12 @@ multifire(void)
 	} else if (type == EF_LAND) {
 	    if (!check_land_ok(&fland))
 		return RET_FAIL;
-	    if (fland.lnd_own != player->cnum) {
-		pr("Not your unit!\n");
-		continue;
-	    }
-
 	    if (target == targ_land) {
 		if (fland.lnd_x == vsect.sct_x
 		    && fland.lnd_y == vsect.sct_y) {
 		    pr("You can't fire upon yourself!\n");
 		    continue;
 		}
-	    }
-
-	    if (lchr[fland.lnd_type].l_dam == 0) {
-		pr("Unit %d cannot fire!\n", fland.lnd_uid);
-		continue;
-	    }
-	    if (fland.lnd_item[I_GUN] == 0) {
-		pr("%s -- not enough guns\n", prland(&fland));
-		continue;
 	    }
 
 	    range = lnd_fire_range(&fland);
@@ -334,7 +312,7 @@ multifire(void)
 
 	    dam = lnd_fire(&fland);
 	    putland(fland.lnd_uid, &fland);
-	    if (dam < 0) {
+	    if (CANT_HAPPEN(dam < 0)) {
 		pr("Klick!     ...\n");
 		continue;
 	    }
@@ -345,12 +323,6 @@ multifire(void)
 	} else {
 	    if (!check_sect_ok(&fsect))
 		return RET_FAIL;
-	    if (fsect.sct_own != player->cnum ||
-		fsect.sct_type != SCT_FORTR) {
-		pr("No fortress at %s\n",
-		   xyas(fsect.sct_x, fsect.sct_y, player->cnum));
-		continue;
-	    }
 	    if (target == targ_land) {
 		if (fsect.sct_x == vsect.sct_x
 		    && fsect.sct_y == vsect.sct_y) {
@@ -358,17 +330,9 @@ multifire(void)
 		    continue;
 		}
 	    }
-	    if (fsect.sct_item[I_GUN] == 0) {
-		pr("Insufficient arms.\n");
-		continue;
-	    }
-	    if (fsect.sct_item[I_MILIT] < 5) {
-		pr("Not enough military for firing crew.\n");
-		continue;
-	    }
 	    dam = fort_fire(&fsect);
 	    putsect(&fsect);
-	    if (dam < 0) {
+	    if (CANT_HAPPEN(dam < 0)) {
 		pr("Klick!     ...\n");
 		continue;
 	    }
