@@ -281,6 +281,19 @@
     Play#1 output Play#1 1 Shells hit cs   cargo ship (#9) in 3,1 for 0 damage.
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 603
+    Play#1 input fire se 2,0 9
+    Play#1 command fire
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 Sector 2,0 firing
+    Play#1 output Play#1 1 range is 4.00 (4.50)
+    Play#1 output Play#1 1 \007Kaboom!!!
+    Play#1 output Play#1 1 Shells hit cs   cargo ship (#9) in 3,1 for 3 damage.
+    Play#1 output Play#1 1 	cs   cargo ship (#9) takes 2
+    Play#1 output Play#1 1 You have a new telegram waiting ...
+    Play#1 output Play#1 6 0 602
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
+    Play#1 output Play#1 6 0 603
     Play#1 input fire se 0,0 23
     Play#1 command fire
     Play#1 output Play#1 1
@@ -355,7 +368,7 @@
     Play#1 output Play#1 1   -4,0    + .......... ..........   1   1    0    0    0   0    0    0    0   0
     Play#1 output Play#1 1   -2,0    f .......... ..........   1   1    0    0    0   0    0    0    0   0
     Play#1 output Play#1 1    0,0    f .......... ..........  15   1    0    0    0   0    0    0    0   0
-    Play#1 output Play#1 1    2,0    f .......... ..........  75   1    0    0    0   0    0    0    0   0
+    Play#1 output Play#1 1    2,0    f .......... ..........  74   1    0    0    0   0    0    0    0   0
     Play#1 output Play#1 1    4,0    f .......... ..........  82   7    0    0    0   0    0    0    0   0
     Play#1 output Play#1 1 5 sectors
     Play#1 output Play#1 6 0 595
@@ -431,11 +444,12 @@
     Play#0 output Play#0 1   2    0 frg  frigate      -12,0        20%   0   0   0   0  0  0  0  0   0    0
     Play#0 output Play#0 1   1    1 bb   battleship     3,1        59%   0  13   0   0  0  0  0  0 127  150
     Play#0 output Play#0 1   1    2 bb   battleship     3,1        60%   0  13   0   0  0  0  0  0 127  150
+    Play#0 output Play#0 1   1    9 cs   cargo ship     3,1        98%   0  10   0   0  0  0  0  0 124   20
     Play#0 output Play#0 1   2   10 sb   submarine      2,2        20%   0   0   0   0  0  0  0  0   0   60
     Play#0 output Play#0 1   2   11 sb   submarine      6,0        20%   0   0   0   0  0  0  0  1   0   60
     Play#0 output Play#0 1   2   22 cs   cargo ship     2,2        58%   0   3   0   0  0  0  1  1  74   20
     Play#0 output Play#0 1   2   23 cs   cargo ship     8,0        78%   0   4   0   0  0  0  1  1  88   20
-    Play#0 output Play#0 1 7 ships
+    Play#0 output Play#0 1 8 ships
     Play#0 output Play#0 6 0 640
     Play#0 input carg * ?eff<100
     Play#0 command cargo
@@ -443,11 +457,12 @@
     Play#0 output Play#0 1    0 frg   -12,0       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    1 bb      3,1       59%   0  13   0 200  10   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    2 bb      3,1       60%   0  13   0 200  10   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    9 cs      3,1       98%   0  10   0  10   9   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   10 sb      2,2       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   11 sb      6,0       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   22 cs      2,2       58%   0   3   0   0   0   0   0   0   0   0  59  58   0
     Play#0 output Play#0 1   23 cs      8,0       78%   0   4   0   0   0   0   0   0   0   0  78  78   0
-    Play#0 output Play#0 1 7 ships
+    Play#0 output Play#0 1 8 ships
     Play#0 output Play#0 6 0 640
     Play#0 input plane * ?eff<100
     Play#0 command plane
@@ -510,7 +525,7 @@
     Play#1 output Play#1 1    3 bb   battleship     3,1       100%   0  13   0   0  0  0  0  0 127  150
     Play#1 output Play#1 1    5 dd   destroyer      8,0       100%   0   5   0   0  0  0  0  0 127  100
     Play#1 output Play#1 1    6 dd   destroyer      3,3       100%   0   5   0   0  0  0  0  0 127  100
-    Play#1 output Play#1 1    9 cs   cargo ship     3,1       100%   0  10   0   0  0  0  0  0 127   20
+    Play#1 output Play#1 1    9 cs   cargo ship     3,1        98%   0  10   0   0  0  0  0  0 124   20
     Play#1 output Play#1 1 6 ships
     Play#1 output Play#1 6 0 595
     Play#1 input carg * ?shell>0
@@ -521,7 +536,7 @@
     Play#1 output Play#1 1    3 bb      3,1      100%   0  13   0 200  10   0   0   0   0   0   0   0   0
     Play#1 output Play#1 1    5 dd      8,0      100%   0   5   0  40   4   0   0   0   0   0   0   0   0
     Play#1 output Play#1 1    6 dd      3,3      100%   0   5   0  40   4   0   0   0   0   0   0   0   0
-    Play#1 output Play#1 1    9 cs      3,1      100%   0  10   0  10  10   0   0   0   0   0   0   0   0
+    Play#1 output Play#1 1    9 cs      3,1       98%   0  10   0  10   9   0   0   0   0   0   0   0   0
     Play#1 output Play#1 1 6 ships
     Play#1 output Play#1 6 0 595
     Play#1 input fire sh 666 6,0
@@ -833,7 +848,7 @@
     Play#1 output Play#1 1    3 bb      3,1      100%   0  13   0 162  10   0   0   0   0   0   0   0   0
     Play#1 output Play#1 1    5 dd     10,0      100%   0   5   0  24   4   0   0   0   0   0   0   0   0
     Play#1 output Play#1 1    6 dd      3,3      100%   0   5   0  36   4   0   0   0   0   0   0   0   0
-    Play#1 output Play#1 1    9 cs      3,1      100%   0  10   0  10  10   0   0   0   0   0   0   0   0
+    Play#1 output Play#1 1    9 cs      3,1       98%   0  10   0  10   9   0   0   0   0   0   0   0   0
     Play#1 output Play#1 1 6 ships
     Play#1 output Play#1 6 0 538
     Play#1 input ctld
@@ -908,12 +923,13 @@
     Play#0 output Play#0 1   2    0 frg  frigate      -12,0        20%   0   0   0   0  0  0  0  0   0    0
     Play#0 output Play#0 1   1    1 bb   battleship     3,1        59%   0  13   0   0  0  0  0  0 127  150
     Play#0 output Play#0 1   1    2 bb   battleship     3,1        60%   0  13   0   0  0  0  0  0 127  150
+    Play#0 output Play#0 1   1    9 cs   cargo ship     3,1        98%   0  10   0   0  0  0  0  0 124   20
     Play#0 output Play#0 1   2   12 sb   submarine      3,3        68%   0   4   0   0  0  0  0  0  62   60
     Play#0 output Play#0 1   2   13 sb   submarine      8,0        72%   0   4   0   0  0  0  0  1  67   60
     Play#0 output Play#0 1   2   22 cs   cargo ship     2,2        58%   0   3   0   0  0  0  1  1  74   20
     Play#0 output Play#0 1   2   23 cs   cargo ship     8,0        78%   0   4   0   0  0  0  1  1  88   20
     Play#0 output Play#0 1   2   24 cs   cargo ship     6,0        32%   0   1   0   0  0  0  0  0  40   20
-    Play#0 output Play#0 1 8 ships
+    Play#0 output Play#0 1 9 ships
     Play#0 output Play#0 6 0 640
     Play#0 input carg * ?eff<100
     Play#0 command cargo
@@ -921,12 +937,13 @@
     Play#0 output Play#0 1    0 frg   -12,0       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    1 bb      3,1       59%   0  13   0 200  10   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    2 bb      3,1       60%   0  13   0 196  10   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    9 cs      3,1       98%   0  10   0  10   9   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   12 sb      3,3       68%   0   4   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   13 sb      8,0       72%   0   4   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   22 cs      2,2       58%   0   3   0   0   0   0   0   0   0   0  59  58   0
     Play#0 output Play#0 1   23 cs      8,0       78%   0   4   0   0   0   0   0   0   0   0  78  78   0
     Play#0 output Play#0 1   24 cs      6,0       32%   0   1   0   0   0   0   0   0   0   0  32  32   0
-    Play#0 output Play#0 1 8 ships
+    Play#0 output Play#0 1 9 ships
     Play#0 output Play#0 6 0 640
     Play#0 input plane * ?eff<100
     Play#0 command plane
@@ -1296,12 +1313,13 @@
     Play#0 output Play#0 1   2    0 frg  frigate      -12,0        20%   0   0   0   0  0  0  0  0   0    0
     Play#0 output Play#0 1   1    1 bb   battleship     3,1        59%   0  13   0   0  0  0  0  0 127  150
     Play#0 output Play#0 1   1    2 bb   battleship     3,1        60%   0  13   0   0  0  0  0  0 127  150
+    Play#0 output Play#0 1   1    9 cs   cargo ship     3,1        98%   0  10   0   0  0  0  0  0 124   20
     Play#0 output Play#0 1   2   12 sb   submarine      3,3        68%   0   4   0   0  0  0  0  0  62   60
     Play#0 output Play#0 1   2   13 sb   submarine      8,0        72%   0   4   0   0  0  0  0  1  67   60
     Play#0 output Play#0 1   2   22 cs   cargo ship     2,2        58%   0   3   0   0  0  0  1  1  74   20
     Play#0 output Play#0 1   2   23 cs   cargo ship     8,0        78%   0   4   0   0  0  0  1  1  88   20
     Play#0 output Play#0 1   2   24 cs   cargo ship     6,0        32%   0   1   0   0  0  0  0  0  40   20
-    Play#0 output Play#0 1 8 ships
+    Play#0 output Play#0 1 9 ships
     Play#0 output Play#0 6 0 640
     Play#0 input carg * ?eff<100
     Play#0 command cargo
@@ -1309,12 +1327,13 @@
     Play#0 output Play#0 1    0 frg   -12,0       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    1 bb      3,1       59%   0  13   0 200  10   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    2 bb      3,1       60%   0  13   0 196  10   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    9 cs      3,1       98%   0  10   0  10   9   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   12 sb      3,3       68%   0   4   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   13 sb      8,0       72%   0   4   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   22 cs      2,2       58%   0   3   0   0   0   0   0   0   0   0  59  58   0
     Play#0 output Play#0 1   23 cs      8,0       78%   0   4   0   0   0   0   0   0   0   0  78  78   0
     Play#0 output Play#0 1   24 cs      6,0       32%   0   1   0   0   0   0   0   0   0   0  32  32   0
-    Play#0 output Play#0 1 8 ships
+    Play#0 output Play#0 1 9 ships
     Play#0 output Play#0 6 0 640
     Play#0 input plane * ?eff<100
     Play#0 command plane
@@ -1360,6 +1379,7 @@
     Play#0 output Play#0 1
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#9) in 3,1 for 0 damage.
+    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#9) in 3,1 for 3 damage.
     Play#0 output Play#0 6 0 640
     Play#0 input read 2
     Play#0 command read

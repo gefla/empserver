@@ -74,6 +74,8 @@ fire se 2,0 2,2
 fire se 4,0 2,2
 | at own cs
 fire se 0,0 9
+fire se 2,0 9
+__cmd added 1 1 0
 | at cs at sea, one retreat, one sinking
 fire se 0,0 23
 fire se 2,0 23
