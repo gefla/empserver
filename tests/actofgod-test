@@ -13,6 +13,7 @@ create_sandbox
 cat >>sandbox/etc/empire/econfig <<EOF
 WORLD_X 24
 WORLD_Y 16
+GODNEWS 1
 EOF
 
 begin_test "$srcdir"/tests/actofgod/init_script

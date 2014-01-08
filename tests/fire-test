@@ -14,7 +14,6 @@ cat >>sandbox/etc/empire/econfig <<EOF
 WORLD_X 32
 WORLD_Y 16
 EASY_BRIDGES 1
-GODNEWS 0
 EOF
 
 begin_test "$srcdir"/tests/fire/init_script

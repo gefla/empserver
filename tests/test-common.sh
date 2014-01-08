@@ -31,6 +31,7 @@ info "../../../../info.nr"
 builtin "../../share/empire/builtin"
 listen_addr "$EMPIREHOST"
 keep_journal 2
+GODNEWS 0
 EOF
     cp `git ls-files "$srcdir"/src/lib/global | grep '\.config$'` sandbox/share/empire/builtin
 }
