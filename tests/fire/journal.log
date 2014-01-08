@@ -308,14 +308,14 @@
     Play#1 output Play#1 1 Sector 2,0 ready to fire
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#22) in 2,2 for 4 damage.
+    Play#1 output Play#1 1 Shells hit cs   cargo ship (#22) in 3,3 for 4 damage.
     Play#1 output Play#1 6 0 597
     Play#1 input fire se 4,0 22
     Play#1 command fire
     Play#1 output Play#1 1 Sector 4,0 ready to fire
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#22) in 2,2 for 49 damage.
+    Play#1 output Play#1 1 Shells hit cs   cargo ship (#22) in 3,3 for 49 damage.
     Play#1 output Play#1 6 0 596
     Play#1 input fire se 4,0 20
     Play#1 command fire
@@ -412,7 +412,7 @@
     Play#0 output Play#0 1   1    9 cs   cargo ship     3,1        98%   0  10   0   0  0  0  0  0 124   20
     Play#0 output Play#0 1   2   10 sb   submarine      2,2        20%   0   0   0   0  0  0  0  0   0   60
     Play#0 output Play#0 1   2   11 sb   submarine      6,0        20%   0   0   0   0  0  0  0  1   0   60
-    Play#0 output Play#0 1   2   22 cs   cargo ship     2,2        58%   0   3   0   0  0  0  1  1  74   20
+    Play#0 output Play#0 1   2   22 cs   cargo ship     3,3        58%   0   3   0   0  0  0  1  1  65   20
     Play#0 output Play#0 1   2   23 cs   cargo ship     8,0        78%   0   4   0   0  0  0  1  1  88   20
     Play#0 output Play#0 1 8 ships
     Play#0 output Play#0 6 0 640
@@ -425,7 +425,7 @@
     Play#0 output Play#0 1    9 cs      3,1       98%   0  10   0  10   9   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   10 sb      2,2       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   11 sb      6,0       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1   22 cs      2,2       58%   0   3   0   0   0   0   0   0   0   0  59  58   0
+    Play#0 output Play#0 1   22 cs      3,3       58%   0   3   0   0   0   0   0   0   0   0  59  58   0
     Play#0 output Play#0 1   23 cs      8,0       78%   0   4   0   0   0   0   0   0   0   0  78  78   0
     Play#0 output Play#0 1 8 ships
     Play#0 output Play#0 6 0 640
@@ -439,7 +439,7 @@
     Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
     Play#0 output Play#0 1   1    1 hat  hvy artill    3,1        39%  10   0 127   0 160   0%  0  0
     Play#0 output Play#0 1   1    2 hat  hvy artill    3,1        40%  10   0 127   0 160   0%  0  0
-    Play#0 output Play#0 1   2   22 rad  radar unit    2,2        97%  10   0 124   0 270   0%  1  0   22S
+    Play#0 output Play#0 1   2   22 rad  radar unit    3,3        97%  10   0 124   0 270   0%  1  0   22S
     Play#0 output Play#0 1   2   32 tra  train         2,2        94%  10   0 120   0  40   0%  1  1
     Play#0 output Play#0 1   2   33 rad  radar unit    2,2        97%  10   0 123   0 270   0%  1  0   32L
     Play#0 output Play#0 1 5 units
@@ -449,7 +449,7 @@
     Play#0 output Play#0 1 lnd# unit    x,y    a  eff  civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad
     Play#0 output Play#0 1    1 hat     3,1        39%   0  10   0  80  12   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    2 hat     3,1        40%   0  10   0  80  12   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1   22 rad     2,2        97%   0  10   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   22 rad     3,3        97%   0  10   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   32 tra     2,2        94%   0  10   0   0   0   0   0   0   0   0  94  94   0
     Play#0 output Play#0 1   33 rad     2,2        97%   0  10   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1 5 units
@@ -920,7 +920,7 @@
     Play#0 output Play#0 1   1    9 cs   cargo ship     3,1        98%   0  10   0   0  0  0  0  0 124   20
     Play#0 output Play#0 1   2   12 sb   submarine      3,3        68%   0   4   0   0  0  0  0  0  62   60
     Play#0 output Play#0 1   2   13 sb   submarine      8,0        72%   0   4   0   0  0  0  0  1  67   60
-    Play#0 output Play#0 1   2   22 cs   cargo ship     2,2        58%   0   3   0   0  0  0  1  1  74   20
+    Play#0 output Play#0 1   2   22 cs   cargo ship     3,3        58%   0   3   0   0  0  0  1  1  65   20
     Play#0 output Play#0 1   2   23 cs   cargo ship     8,0        78%   0   4   0   0  0  0  1  1  88   20
     Play#0 output Play#0 1   2   24 cs   cargo ship     6,0        32%   0   1   0   0  0  0  0  0  40   20
     Play#0 output Play#0 1 9 ships
@@ -934,7 +934,7 @@
     Play#0 output Play#0 1    9 cs      3,1       98%   0  10   0  10   9   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   12 sb      3,3       68%   0   4   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   13 sb      8,0       72%   0   4   0   0   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1   22 cs      2,2       58%   0   3   0   0   0   0   0   0   0   0  59  58   0
+    Play#0 output Play#0 1   22 cs      3,3       58%   0   3   0   0   0   0   0   0   0   0  59  58   0
     Play#0 output Play#0 1   23 cs      8,0       78%   0   4   0   0   0   0   0   0   0   0  78  78   0
     Play#0 output Play#0 1   24 cs      6,0       32%   0   1   0   0   0   0   0   0   0   0  32  32   0
     Play#0 output Play#0 1 9 ships
@@ -949,7 +949,7 @@
     Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
     Play#0 output Play#0 1   1    1 hat  hvy artill    3,1        39%  10   0 127   0 160   0%  0  0
     Play#0 output Play#0 1   1    2 hat  hvy artill    3,1        40%  10   0 127   0 160   0%  0  0
-    Play#0 output Play#0 1   2   22 rad  radar unit    2,2        97%  10   0 124   0 270   0%  1  0   22S
+    Play#0 output Play#0 1   2   22 rad  radar unit    3,3        97%  10   0 124   0 270   0%  1  0   22S
     Play#0 output Play#0 1   2   32 tra  train         2,2        94%  10   0 120   0  40   0%  1  1
     Play#0 output Play#0 1   2   33 rad  radar unit    2,2        97%  10   0 123   0 270   0%  1  0   32L
     Play#0 output Play#0 1 5 units
@@ -959,7 +959,7 @@
     Play#0 output Play#0 1 lnd# unit    x,y    a  eff  civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad
     Play#0 output Play#0 1    1 hat     3,1        39%   0  10   0  80  12   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    2 hat     3,1        40%   0  10   0  80  12   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1   22 rad     2,2        97%   0  10   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   22 rad     3,3        97%   0  10   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   32 tra     2,2        94%   0  10   0   0   0   0   0   0   0   0  94  94   0
     Play#0 output Play#0 1   33 rad     2,2        97%   0  10   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1 5 units
@@ -1329,7 +1329,7 @@
     Play#0 output Play#0 1   1    9 cs   cargo ship     3,1        98%   0  10   0   0  0  0  0  0 124   20
     Play#0 output Play#0 1   2   12 sb   submarine      3,3        68%   0   4   0   0  0  0  0  0  62   60
     Play#0 output Play#0 1   2   13 sb   submarine      8,0        72%   0   4   0   0  0  0  0  1  67   60
-    Play#0 output Play#0 1   2   22 cs   cargo ship     2,2        58%   0   3   0   0  0  0  1  1  74   20
+    Play#0 output Play#0 1   2   22 cs   cargo ship     3,3        58%   0   3   0   0  0  0  1  1  65   20
     Play#0 output Play#0 1   2   23 cs   cargo ship     8,0        78%   0   4   0   0  0  0  1  1  88   20
     Play#0 output Play#0 1   2   24 cs   cargo ship     6,0        32%   0   1   0   0  0  0  0  0  40   20
     Play#0 output Play#0 1 9 ships
@@ -1343,7 +1343,7 @@
     Play#0 output Play#0 1    9 cs      3,1       98%   0  10   0  10   9   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   12 sb      3,3       68%   0   4   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   13 sb      8,0       72%   0   4   0   0   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1   22 cs      2,2       58%   0   3   0   0   0   0   0   0   0   0  59  58   0
+    Play#0 output Play#0 1   22 cs      3,3       58%   0   3   0   0   0   0   0   0   0   0  59  58   0
     Play#0 output Play#0 1   23 cs      8,0       78%   0   4   0   0   0   0   0   0   0   0  78  78   0
     Play#0 output Play#0 1   24 cs      6,0       32%   0   1   0   0   0   0   0   0   0   0  32  32   0
     Play#0 output Play#0 1 9 ships
@@ -1358,7 +1358,7 @@
     Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
     Play#0 output Play#0 1   1    1 hat  hvy artill    3,1        39%  10   0 127   0 160   0%  0  0
     Play#0 output Play#0 1   1    2 hat  hvy artill    3,1        40%  10   0 127   0 160   0%  0  0
-    Play#0 output Play#0 1   2   22 rad  radar unit    2,2        97%  10   0 124   0 270   0%  1  0   22S
+    Play#0 output Play#0 1   2   22 rad  radar unit    3,3        97%  10   0 124   0 270   0%  1  0   22S
     Play#0 output Play#0 1   2   32 tra  train         2,2        94%  10   0 120   0  40   0%  1  1
     Play#0 output Play#0 1   2   33 rad  radar unit    2,2        97%  10   0 123   0 270   0%  1  0   32L
     Play#0 output Play#0 1 5 units
@@ -1368,7 +1368,7 @@
     Play#0 output Play#0 1 lnd# unit    x,y    a  eff  civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad
     Play#0 output Play#0 1    1 hat     3,1        39%   0  10   0  80  12   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    2 hat     3,1        40%   0  10   0  76  12   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1   22 rad     2,2        97%   0  10   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   22 rad     3,3        97%   0  10   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   32 tra     2,2        94%   0  10   0   0   0   0   0   0   0   0  94  94   0
     Play#0 output Play#0 1   33 rad     2,2        97%   0  10   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1 5 units
@@ -1433,12 +1433,10 @@
     Play#0 output Play#0 1 sam  Sea Sparrow #26 lost!
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#22) in 2,2 for 0 damage.
     Play#0 output Play#0 1 cs   cargo ship (#22) was fired upon with no one able to defend it, and retreated to 3,3
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#22) in 2,2 for 4 damage.
+    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#22) in 3,3 for 4 damage.
     Play#0 output Play#0 1 	cs   cargo ship (#22) takes 3
-    Play#0 output Play#0 1 cs   cargo ship (#22) was fired upon with no one able to defend it, and retreated to 3,3
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#22) in 2,2 for 49 damage.
+    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#22) in 3,3 for 49 damage.
     Play#0 output Play#0 1 	cs   cargo ship (#22) takes 40
-    Play#0 output Play#0 1 cs   cargo ship (#22) was fired upon with no one able to defend it, and retreated to 3,3
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#20) in 2,2 for 27 damage.
     Play#0 output Play#0 1 	cs   cargo ship (#20) takes 22
     Play#0 output Play#0 1 	cs   cargo ship (#20) sunk!
