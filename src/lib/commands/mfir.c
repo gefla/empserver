@@ -80,6 +80,7 @@ multifire(void)
     struct shpstr fship;
     struct lndstr fland;
     struct sctstr fsect;
+    char *sep = "";
     struct shpstr vship;
     struct sctstr vsect;
     enum targ_type target;
@@ -210,11 +211,12 @@ multifire(void)
 		   xyas(item.sect.sct_x, item.sect.sct_y, player->cnum));
 		continue;
 	    }
-	    pr("\nSector %s firing\n",
+	    pr("%sSector %s ready to fire\n", sep,
 	       xyas(item.sect.sct_x, item.sect.sct_y, player->cnum));
 	    fx = fsect.sct_x;
 	    fy = fsect.sct_y;
 	}
+	sep = "\n";
 
 	ptr = getstarg(player->argp[3], "Firing at? ", buf);
 	if (!ptr)
