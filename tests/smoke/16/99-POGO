@@ -1,0 +1,6 @@
+power new
+report *
+cen * ?own#0
+comm * ?own#0
+reso * ?own#0
+force

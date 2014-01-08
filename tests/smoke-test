@@ -14,30 +14,7 @@ create_sandbox
 begin_test "$srcdir"/tests/smoke/fairland.xdump
 
 feed_input POGO peter "$srcdir"/tests/smoke/newcap_script
-
-t=
-for i in `git ls-files "$srcdir"/tests/smoke | grep 'tests/smoke/../..$'`
-do
-    p="$t"
-    t="${i%/??}"
-    if [ "$p" != "$t" ] && [ "$p" ]
-    then
-	feed_input POGO peter <<EOF
-power new
-report *
-cen * ?own#0
-comm * ?own#0
-reso * ?own#0
-force
-EOF
-    fi
-    b="${i##*/}"
-    if [ $b -eq 0 ]
-    then c=POGO r=peter
-    else c="${b#0}"; r="$c"
-    fi
-    feed_input "$c" "$r" "$i"
-done
+feed_dir "$srcdir"/tests/smoke
 
 end_test
 

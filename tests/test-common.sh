@@ -104,6 +104,21 @@ feed_input()
     sed '/^|/d' "$@" | src/client/empire "$c" "$r" >/dev/null
 }
 
+feed_files()
+{
+    for i
+    do
+	c="${i##*/*-}"
+	r=`echo $c | sed 's/^POGO$/peter/'`
+	feed_input "$c" "$r" "$i"
+    done
+}
+
+feed_dir()
+{
+    feed_files `git ls-files "$@" | grep '/[0-9][0-9]-[^/]*$'`
+}
+
 begin_test()
 {
     src/util/files -e sandbox/etc/empire/econfig -f >/dev/null

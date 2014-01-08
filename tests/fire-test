@@ -18,14 +18,7 @@ GODNEWS 0
 EOF
 
 begin_test "$srcdir"/tests/fire/init_script
-
-for i in `git ls-files "$srcdir"/tests/fire | grep '/[0-9][0-9]-.*$'`
-do
-    c="${i##*/??-}"
-    r=`echo $c | sed 's/^POGO$/peter/'`
-    feed_input "$c" "$r" "$i"
-done
-
+feed_dir "$srcdir"/tests/fire
 end_test
 
 cmp_out var/empire/server.log var/empire/journal.log fire.xdump
