@@ -9,20 +9,6 @@ srcdir="$1"
 
 . "$srcdir"/tests/test-common.sh
 
-#
-# Currently expected to work only with thread package LWP, because:
-#
-# - Thread scheduling is reliably deterministic only with LWP
-# - Shell builtin kill appears not to do the job in MinGW
-# - The Windows server tries to run as service when -d isn't
-#   specified
-#
-# TODO address these shortcomings.
-#
-if [ `sed -n 's/empthread *:= *\(.*\)/\1/p' <GNUmakefile` != LWP ]
-then echo "Warning: test not expected to work with this thread package!" >&2
-fi
-
 create_sandbox
 cat >>sandbox/etc/empire/econfig <<EOF
 WORLD_X 32

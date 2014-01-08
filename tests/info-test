@@ -11,6 +11,11 @@ srcdir="$1"
 
 create_sandbox
 
+# begin_test warns POSIX isn't expected to work, because thread
+# scheduling isn't reliably deterministic.  Not an issue for this
+# test, so suppress the warning.
+[ "$empthread" = POSIX ] && warn_empthread=
+
 begin_test <<EOF
 add 1 1 1 p
 des 0:2,0 -

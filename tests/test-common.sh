@@ -8,6 +8,18 @@ fi
 test=${0##*/}
 test=${test%-test}
 
+empthread=`sed -n 's/empthread *:= *\(.*\)/\1/p' <GNUmakefile`
+warn_empthread=y
+
+check_empthread()
+{
+    if [ "$warn_empthread" ] && [ "$empthread" != "LWP" ]
+    then
+	echo "Warning: test not expected to work with thread package $empthread!" >&2
+	warn_empthread=
+    fi
+}
+
 create_sandbox()
 {
     rm -rf sandbox
@@ -33,6 +45,20 @@ start_server()
 {
     local pidfile=sandbox/var/empire/server.pid
     local timeout
+
+    #
+    # Currently expected to work only with thread package LWP,
+    # because:
+    #
+    # - Thread scheduling is reliably deterministic only with LWP
+    # - Shell builtin kill appears not to do the job in MinGW
+    # - The Windows server tries to run as service when -d isn't
+    #   specified
+    #
+    # TODO address these shortcomings.
+    #
+    check_empthread
+
     pid=
     trap 'if [ "$pid" ]; then kill -9 "$pid" 2>/dev/null || true; fi' EXIT
     src/server/emp_server -e sandbox/etc/empire/econfig -R 1 -s
