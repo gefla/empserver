@@ -14612,6 +14612,7 @@
     Play#1 output Play#1 6 0 618
     Play#1 input fire l 5 12,-2
     Play#1 command fire
+    Play#1 output Play#1 1 art  artillery #5 ready to fire
     Play#1 output Play#1 1 range is 2.00 (1.47)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 12,-2 for 39 damage.

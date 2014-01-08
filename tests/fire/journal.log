@@ -517,14 +517,17 @@
     Play#1 output Play#1 6 0 592
     Play#1 input fire sh 2 2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#2) ready to fire
     Play#1 output Play#1 1 You can't fire upon yourself!
     Play#1 output Play#1 6 0 591
     Play#1 input fire sh 2 1,0
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#2) ready to fire
     Play#1 output Play#1 1 No such sector exists!
     Play#1 output Play#1 6 0 590
     Play#1 input fire sh 2 666
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#2) ready to fire
     Play#1 output Play#1 1 No such ship exists!
     Play#1 output Play#1 6 0 589
     Play#1 input unload m 2 13
@@ -571,32 +574,38 @@
     Play#1 output Play#1 6 0 580
     Play#1 input fire sh 3 -12,0
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 579
     Play#1 input fire sh 3 0
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 578
     Play#1 input fire sh 3 13
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 577
     Play#1 input fire sh 3 12
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 576
     Play#1 input fire sh 3 6,0
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 6,0 for 87 damage.
     Play#1 output Play#1 6 0 575
     Play#1 input fire sh 3 2,-2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 2,-2 for 87 damage.
@@ -608,6 +617,7 @@
     Play#1 output Play#1 6 0 573
     Play#1 input fire sh 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 14 damage.
@@ -619,6 +629,7 @@
     Play#1 output Play#1 6 0 571
     Play#1 input fire sh 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 25 damage.
@@ -630,6 +641,7 @@
     Play#1 output Play#1 6 0 569
     Play#1 input fire sh 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 32 damage.
@@ -652,6 +664,7 @@
     Play#1 output Play#1 6 0 565
     Play#1 input fire sh 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 21 damage.
@@ -675,6 +688,7 @@
     Play#1 output Play#1 6 0 561
     Play#1 input fire sh 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 50 damage.
@@ -697,6 +711,7 @@
     Play#1 output Play#1 6 0 557
     Play#1 input fire sh 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 12 damage.
@@ -708,6 +723,7 @@
     Play#1 output Play#1 6 0 555
     Play#1 input fire sh 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 12 damage.
@@ -719,6 +735,7 @@
     Play#1 output Play#1 6 0 553
     Play#1 input fire sh 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 23 damage.
@@ -730,30 +747,35 @@
     Play#1 output Play#1 6 0 551
     Play#1 input fire sh 2 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#2) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 49 damage.
     Play#1 output Play#1 6 0 550
     Play#1 input fire sh 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#3) ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 88 damage.
     Play#1 output Play#1 6 0 549
     Play#1 input fire sh 5 13
     Play#1 command fire
+    Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kawhomp!!!
     Play#1 output Play#1 1 Shells hit sub in 6,0 for 35 damage.
     Play#1 output Play#1 6 0 548
     Play#1 input fire sh 6 12
     Play#1 command fire
+    Play#1 output Play#1 1 dd   destroyer (#6) ready to fire
     Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kawhomp!!!
     Play#1 output Play#1 1 Shells hit sub in 2,2 for 40 damage.
     Play#1 output Play#1 6 0 547
     Play#1 input fire sh 5 11
     Play#1 command fire
+    Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kawhomp!!!
     Play#1 output Play#1 1 Shells hit sub in 6,0 for 37 damage.
@@ -761,6 +783,7 @@
     Play#1 output Play#1 6 0 546
     Play#1 input fire sh 6 10
     Play#1 command fire
+    Play#1 output Play#1 1 dd   destroyer (#6) ready to fire
     Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kawhomp!!!
     Play#1 output Play#1 1 Shells hit sub in 2,2 for 34 damage.
@@ -774,33 +797,39 @@
     Play#1 output Play#1 6 0 544
     Play#1 input fire sh 5 24
     Play#1 command fire
+    Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 1.00 (1.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 543
     Play#1 input fire sh 5 24
     Play#1 command fire
+    Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit cs   cargo ship (#24) in 6,0 for 43 damage.
     Play#1 output Play#1 6 0 542
     Play#1 input fire sh 5 24
     Play#1 command fire
+    Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 1.00 (1.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 541
     Play#1 input fire sh 5 24
     Play#1 command fire
+    Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit cs   cargo ship (#24) in 6,0 for 35 damage.
     Play#1 output Play#1 6 0 540
     Play#1 input fire sh 5 24
     Play#1 command fire
+    Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 1.00 (1.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 539
     Play#1 input fire sh 5 24
     Play#1 command fire
+    Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit cs   cargo ship (#24) in 6,0 for 38 damage.
@@ -994,14 +1023,17 @@
     Play#1 output Play#1 6 0 535
     Play#1 input fire la 2 3,1
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #2 ready to fire
     Play#1 output Play#1 1 You can't fire upon yourself!
     Play#1 output Play#1 6 0 534
     Play#1 input fire la 2 1,0
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #2 ready to fire
     Play#1 output Play#1 1 No such sector exists!
     Play#1 output Play#1 6 0 533
     Play#1 input fire la 2 666
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #2 ready to fire
     Play#1 output Play#1 1 No such ship exists!
     Play#1 output Play#1 6 0 532
     Play#1 input lunload m 2 10
@@ -1076,32 +1108,38 @@
     Play#1 output Play#1 6 0 517
     Play#1 input fire la 3 -12,0
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 516
     Play#1 input fire la 3 0
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 515
     Play#1 input fire la 3 13
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 514
     Play#1 input fire la 3 12
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 513
     Play#1 input fire la 3 6,0
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 6,0 for 61 damage.
     Play#1 output Play#1 6 0 512
     Play#1 input fire la 3 2,-2
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 2,-2 for 66 damage.
@@ -1113,6 +1151,7 @@
     Play#1 output Play#1 6 0 510
     Play#1 input fire la 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 9 damage.
@@ -1134,6 +1173,7 @@
     Play#1 output Play#1 6 0 506
     Play#1 input fire la 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 15 damage.
@@ -1150,12 +1190,14 @@
     Play#1 output Play#1 6 0 503
     Play#1 input fire la 2 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #2 ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 20 damage.
     Play#1 output Play#1 6 0 502
     Play#1 input fire la 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 60 damage.
@@ -1167,33 +1209,39 @@
     Play#1 output Play#1 6 0 500
     Play#1 input fire la 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 499
     Play#1 input fire la 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 52 damage.
     Play#1 output Play#1 6 0 498
     Play#1 input fire la 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 497
     Play#1 input fire la 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 62 damage.
     Play#1 output Play#1 6 0 496
     Play#1 input fire la 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 495
     Play#1 input fire la 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #3 ready to fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 494

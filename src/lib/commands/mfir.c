@@ -155,6 +155,7 @@ multifire(void)
 		pr("%s -- not enough shells\n", prland(&fland));
 		continue;
 	    }
+	    pr("%s%s ready to fire\n", sep, prland(&fland));
 	    fx = fland.lnd_x;
 	    fy = fland.lnd_y;
 	} else if (type == EF_SHIP) {
@@ -183,6 +184,7 @@ multifire(void)
 		pr("Ship #%d is crippled!\n", item.ship.shp_uid);
 		continue;
 	    }
+	    pr("%s%s ready to fire\n", sep, prship(&fship));
 	    fx = fship.shp_x;
 	    fy = fship.shp_y;
 	} else {
