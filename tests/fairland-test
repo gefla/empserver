@@ -18,6 +18,6 @@ src/util/fairland -e sandbox/etc/empire/econfig -s sandbox/newcap_script -R 1 10
 
 exec 3>&-
 
-src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/fairland.xdump
+src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/final.xdump
 
-cmp_out fairland.out fairland.xdump newcap_script
+cmp_out fairland.out final.xdump newcap_script

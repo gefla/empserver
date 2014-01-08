@@ -22,4 +22,4 @@ perl "$srcdir"/tests/actofgod/geninput.pl | feed_input POGO peter
 
 end_test
 
-cmp_out var/empire/server.log var/empire/journal.log actofgod.xdump
+cmp_out var/empire/server.log var/empire/journal.log final.xdump

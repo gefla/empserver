@@ -17,6 +17,6 @@ src/util/files -e sandbox/etc/empire/econfig -f >&3
 
 exec 3>&-
 
-src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/files.xdump
+src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/final.xdump
 
-cmp_out files.out files.xdump
+cmp_out files.out final.xdump

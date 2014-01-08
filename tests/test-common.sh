@@ -148,7 +148,7 @@ begin_test()
 end_test ()
 {
     stop_server
-    src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/$test.xdump
+    src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/final.xdump
 }
 
 cmp_out()

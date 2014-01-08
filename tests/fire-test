@@ -20,4 +20,4 @@ begin_test "$srcdir"/tests/fire/init_script
 feed_dir "$srcdir"/tests/fire
 end_test
 
-cmp_out var/empire/server.log var/empire/journal.log fire.xdump
+cmp_out var/empire/server.log var/empire/journal.log final.xdump
