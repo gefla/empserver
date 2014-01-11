@@ -82,6 +82,8 @@ while (<>) {
     ### Formatted time
     # nat_timeused in prompt
     s/^\[[0-9]+(:[0-9]+\] Command \:)/[0$1/;
+    $pfx =~ s/( output [^ ]* 6) [0-9]+ ([0-9]+$)/$1 0 $2/
+	if $opt_j;
     # TODO command play column time
     # result of ctime() in many commands
     $_ = norm_ctime($_)
