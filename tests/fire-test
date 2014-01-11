@@ -16,7 +16,7 @@ WORLD_Y 16
 EASY_BRIDGES 1
 EOF
 
-begin_test "$srcdir"/tests/fire/init_script
+begin_test "$srcdir"/tests/fire/setup-POGO
 feed_dir "$srcdir"/tests/fire
 end_test
 

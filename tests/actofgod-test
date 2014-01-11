@@ -16,7 +16,7 @@ WORLD_Y 16
 GODNEWS 1
 EOF
 
-begin_test "$srcdir"/tests/actofgod/init_script
+begin_test "$srcdir"/tests/actofgod/setup-POGO
 
 perl "$srcdir"/tests/actofgod/geninput.pl | feed_input POGO peter
 

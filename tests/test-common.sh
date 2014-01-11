@@ -135,12 +135,15 @@ begin_test()
     then
 	cp -r sandbox/var/empire/tel sandbox/var/empire/empty.tel
 	start_server
-	feed_input POGO peter "$@"
+	if [ "$#" -eq 0 ]
+	then feed_input POGO peter
+	else feed_files "$@"
+	fi
 	stop_server
-	mv sandbox/var/empire/tel sandbox/var/empire/init.tel
+	mv sandbox/var/empire/tel sandbox/var/empire/setup.tel
 	mv sandbox/var/empire/empty.tel sandbox/var/empire/tel
-	mv sandbox/var/empire/journal.log sandbox/var/empire/init.journal.log
-	mv sandbox/var/empire/server.log sandbox/var/empire/init.server.log
+	mv sandbox/var/empire/journal.log sandbox/var/empire/setup.journal.log
+	mv sandbox/var/empire/server.log sandbox/var/empire/setup.server.log
     fi
     start_server
 }
