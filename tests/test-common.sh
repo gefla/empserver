@@ -167,10 +167,10 @@ cmp_out()
 	perl "$srcdir"/tests/normalize.pl $opt "$act" >"$nrm"
 	if msg=`diff -q "$exp" "$nrm"`
 	then
-	    echo "$exp OK"
+	    echo "$i OK"
 	else
 	    ret=$?
-	    echo "$exp FAIL"
+	    echo "$i FAIL"
 	    echo $msg
 	fi
     done
