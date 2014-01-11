@@ -166,7 +166,6 @@ extern double techfact(int level, double mult);
 
 extern char *cname(natid n);
 extern char *relatename(struct natstr *np, natid other);
-extern char *rejectname(struct natstr *np, natid other);
 extern char *natstate(struct natstr *np);
 extern int getrel(struct natstr *np, natid them);
 extern int relations_with(natid, natid);

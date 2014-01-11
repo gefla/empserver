@@ -42,6 +42,25 @@
 int
 acce(void)
 {
+    static char *rejects[] = {
+	/* must follow reject flags defined in nat.h */
+	"  YES  YES  YES  YES",
+	"  NO   YES  YES  YES",
+	"  YES  NO   YES  YES",
+	"  NO   NO   YES  YES",
+	"  YES  YES  NO   YES",
+	"  NO   YES  NO   YES",
+	"  YES  NO   NO   YES",
+	"  NO   NO   NO   YES",
+	"  YES  YES  YES  NO ",
+	"  NO   YES  YES  NO ",
+	"  YES  NO   YES  NO ",
+	"  NO   NO   YES  NO ",
+	"  YES  YES  NO   NO ",
+	"  NO   YES  NO   NO ",
+	"  YES  NO   NO   NO ",
+	"  NO   NO   NO   NO "
+    };
     struct natstr *natp;
     struct natstr *np;
     natid cn;
@@ -67,7 +86,9 @@ acce(void)
 	if (np->nat_stat == STAT_UNUSED)
 	    continue;
 	pr("%3d) %-14.14s  ", cn, cname(cn));
-	pr("%-9s %s\n", rejectname(natp, cn), rejectname(np, as));
+	pr("%s %s\n",
+	   rejects[getrejects(cn, natp)],
+	   rejects[getrejects(as, np)]);
     }
     return RET_OK;
 }

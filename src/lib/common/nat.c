@@ -64,32 +64,6 @@ relatename(struct natstr *np, natid other)
 }
 
 char *
-rejectname(struct natstr *np, natid other)
-{
-    static char *rejects[] = {
-	/* must follow reject flags defined in nat.h */
-	"  YES  YES  YES  YES",
-	"  NO   YES  YES  YES",
-	"  YES  NO   YES  YES",
-	"  NO   NO   YES  YES",
-	"  YES  YES  NO   YES",
-	"  NO   YES  NO   YES",
-	"  YES  NO   NO   YES",
-	"  NO   NO   NO   YES",
-	"  YES  YES  YES  NO ",
-	"  NO   YES  YES  NO ",
-	"  YES  NO   YES  NO ",
-	"  NO   NO   YES  NO ",
-	"  YES  YES  NO   NO ",
-	"  NO   YES  NO   NO ",
-	"  YES  NO   NO   NO ",
-	"  NO   NO   NO   NO "
-    };
-
-    return rejects[getrejects(other, np)];
-}
-
-char *
 natstate(struct natstr *np)
 {
     static char *stnam[] = {
