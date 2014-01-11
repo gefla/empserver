@@ -195,8 +195,6 @@ EMPCF_OPT("SUPER_BARS", opt_SUPER_BARS,
     "Make bars immune to damage")
 EMPCF_OPT("TECH_POP", opt_TECH_POP,
     "Technology costs more as population rises")
-EMPCF_OPT("TREATIES", opt_TREATIES,
-    "Allow treaties")
 
 EMPCF_COMMENT("\n\n### Countries")
 EMPCFBOTH("btu_build_rate", btu_build_rate, float, NSC_FLOAT, 0,

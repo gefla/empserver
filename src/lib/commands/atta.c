@@ -72,10 +72,8 @@ atta(void)
     if (att_abort(A_ATTACK, NULL, def))
 	return RET_FAIL;
 
-    /* Show what we're attacking, and check treaties */
-
-    if (att_show(def))
-	return RET_FAIL;
+    /* Show what we're attacking */
+    att_show(def);
 
     /* Ask about offensive support */
 

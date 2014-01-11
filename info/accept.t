@@ -8,16 +8,16 @@ it prints the acceptance status of the specified country.
 .s1
 .EX "accept 7"
 .nf
-Temekula Acceptance Status Report       Sun Feb 21 20:53:51 1993
+    Temekula Acceptance Status Report   Sat Jan 11 17:02:53 2014
 
-Acceptance status            his                theirs
-                     tel trty anno loan   tel trty anno loan
-1) Gobu              YES  YES  YES  YES   YES  YES  YES  YES
-2) Spectre           YES  YES  YES  YES   YES  YES  YES  YES
-3) Rohan             YES  YES  YES  YES   YES  YES  YES  YES
-4) Sioux             YES  YES  YES  YES   YES  YES  YES  YES
-5) Tom_Servo         YES  YES  YES  YES   YES  YES  YES  YES
-6) Horgoth           YES  YES  YES  YES   YES  YES  YES  YES
+  Acceptance status        his            theirs
+                       tel anno loan   tel anno loan
+  1) Gobu              YES  YES  YES   YES  YES  YES
+  2) Spectre           YES  YES  YES   YES  YES  YES
+  3) Rohan             YES  YES  YES   YES  YES  YES
+  4) Sioux             YES  YES  YES   YES  YES  YES
+  5) Tom_Servo         YES  YES  YES   YES  YES  YES
+  6) Horgoth           YES  YES  YES   YES  YES  YES
 .fi
 .s1
 .SA "telegram, announce, read, wire, reject, Diplomacy, Communication"

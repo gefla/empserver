@@ -367,22 +367,6 @@ multifire(void)
 	    }
 	    continue;
 	}
-	switch (target) {
-	case targ_ship:
-	    if (!trechk(player->cnum, vict, SEAFIR))
-		continue;
-	    break;
-	case targ_sub:
-	    if (!trechk(player->cnum, vict, SUBFIR))
-		continue;
-	    break;
-	case targ_land:
-	    if (!trechk(player->cnum, vict, LANFIR))
-		continue;
-	    break;
-	default:
-	    break;
-	}
 
 	nfiring++;
 	switch (target) {

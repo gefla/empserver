@@ -102,7 +102,6 @@ ef_open_srv(void)
     failed |= !ef_open(EF_GAME, EFF_MEM);
     failed |= !ef_open(EF_NEWS, 0);
     failed |= !ef_open(EF_LOAN, 0);
-    failed |= !ef_open(EF_TREATY, 0);
     failed |= !ef_open(EF_NUKE, EFF_MEM);
     failed |= !ef_open(EF_POWER, 0);
     failed |= !ef_open(EF_TRADE, 0);
@@ -131,7 +130,6 @@ ef_close_srv(void)
     ef_close(EF_GAME);
     ef_close(EF_NEWS);
     ef_close(EF_LOAN);
-    ef_close(EF_TREATY);
     ef_close(EF_NUKE);
     ef_close(EF_POWER);
     ef_close(EF_TRADE);

@@ -24,7 +24,7 @@
  *
  *  ---
  *
- *  acce.c: Report rejection status of telegrams/treaties/annos/loans
+ *  acce.c: Report rejection status of telegrams/annos/loans
  *
  *  Known contributors to this file:
  *
@@ -35,7 +35,7 @@
 #include "commands.h"
 
 /*
- * report rejection status of telegrams and treaties.
+ * report rejection status
  * Optional argument reports staus from the
  * viewpoint of another country
  */
@@ -44,22 +44,14 @@ acce(void)
 {
     static char *rejects[] = {
 	/* must follow reject flags defined in nat.h */
-	"  YES  YES  YES  YES",
-	"  NO   YES  YES  YES",
-	"  YES  NO   YES  YES",
-	"  NO   NO   YES  YES",
-	"  YES  YES  NO   YES",
-	"  NO   YES  NO   YES",
-	"  YES  NO   NO   YES",
-	"  NO   NO   NO   YES",
-	"  YES  YES  YES  NO ",
-	"  NO   YES  YES  NO ",
-	"  YES  NO   YES  NO ",
-	"  NO   NO   YES  NO ",
-	"  YES  YES  NO   NO ",
-	"  NO   YES  NO   NO ",
-	"  YES  NO   NO   NO ",
-	"  NO   NO   NO   NO "
+	"  YES  YES  YES",
+	"  NO   YES  YES",
+	"  YES  NO   YES",
+	"  NO   NO   YES",
+	"  YES  YES  NO ",
+	"  NO   YES  NO ",
+	"  YES  NO   NO ",
+	"  NO   NO   NO ",
     };
     struct natstr *natp;
     struct natstr *np;
@@ -75,9 +67,9 @@ acce(void)
     as = natp->nat_cnum;
     pr("\t%s Acceptance Status Report\t", cname(as));
     prdate();
-    pr("\n  Acceptance status          %5s                theirs\n",
-       player->cnum == as ? "yours" : " his");
-    pr("                       tel trty anno loan   tel trty anno loan\n");
+    pr("\n  Acceptance status       %s           theirs\n",
+       player->cnum == as ? "yours" : " his ");
+    pr("                       tel anno loan   tel anno loan\n");
     for (cn = 0; cn < MAXNOC; cn++) {
 	if (cn == as)
 	    continue;

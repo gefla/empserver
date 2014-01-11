@@ -432,24 +432,6 @@ struct castr nchr_ca[] = {
 #undef CURSTR
 };
 
-struct castr treaty_ca[] = {
-#define CURSTR struct trtstr
-    {"uid", fldoff(trt_uid), NSC_INT, 0, NULL, EF_TREATY, 0},
-    {"timestamp", fldoff(trt_timestamp), NSC_TIME, 0, NULL,
-     EF_BAD, NSC_EXTRA},
-    {"cna", fldoff(trt_cna), NSC_NATID, 0, NULL, EF_NATION, 0},
-    {"cnb", fldoff(trt_cnb), NSC_NATID, 0, NULL, EF_NATION, 0},
-    {"status", fldoff(trt_status), NSC_CHAR, 0, NULL,
-     EF_AGREEMENT_STATUS, 0},
-    {"acond", fldoff(trt_acond), NSC_SHORT, 0, NULL,
-     EF_TREATY_FLAGS, NSC_BITS},
-    {"bcond", fldoff(trt_bcond), NSC_SHORT, 0, NULL,
-     EF_TREATY_FLAGS, NSC_BITS},
-    {"exp", fldoff(trt_exp), NSC_TIME, 0, NULL, EF_BAD, 0},
-    {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0}
-#undef CURSTR
-};
-
 struct castr loan_ca[] = {
 #define CURSTR struct lonstr
     {"uid", fldoff(l_uid), NSC_INT, 0, NULL, EF_LOAN, 0},

@@ -93,8 +93,6 @@ empobj_in_use(int type, void *p)
 	return ((struct natstr *)p)->nat_stat != STAT_UNUSED;
     case EF_NEWS:
 	return ((struct nwsstr *)p)->nws_vrb != 0;
-    case EF_TREATY:
-	return ((struct trtstr *)p)->trt_status != TS_FREE;
     case EF_LOAN:
 	return ((struct lonstr *)p)->l_status != LS_FREE;
     case EF_REALM:

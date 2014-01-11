@@ -4,7 +4,7 @@ xdump plane *
 xdump land *
 xdump nuke *
 xdump news *
-xdump treaty *
+__cmd added -1 0 0
 xdump trade *
 xdump nat *
 xdump loan *
@@ -45,5 +45,5 @@ xdump plane-flags *
 xdump resources *
 xdump retreat-flags *
 xdump ship-chr-flags *
-xdump treaty-flags *
+__cmd added -1  0 0
 xdump country *

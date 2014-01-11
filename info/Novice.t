@@ -528,10 +528,6 @@ I was talking to Lewis from Cornell College
 and his comment was the best I'd heard in a while:
 \*QNever ally with someone that doesn't have a definite
 interest in seeing you survive.\*U
-Don't be deceived by the treaty command;
-treaty violations will show up in the news,
-but that is not going to stop the aggressor from wiping you out,
-no matter how bad it looks in the news.
 .s1
 Nuclear attacks can cause a lot of damage,
 but no one has ever been taken out of the game by a nuclear attack.

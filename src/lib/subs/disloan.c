@@ -38,9 +38,6 @@
  * some kind of payment plan...like house payments
  * and such, where the bucks just get paid up each
  * update or so.
- *
- * I'd have made this more like treaty if I weren't
- * so disgusted with how it works.
  */
 
 #include <config.h>

@@ -45,7 +45,6 @@
 #include "sect.h"
 #include "ship.h"
 #include "trade.h"
-#include "treaty.h"
 #include "types.h"
 
 struct empobj {
@@ -89,7 +88,6 @@ union empobj_storage {
     struct sctstr sect;
     struct shpstr ship;
     struct trdstr trade;
-    struct trtstr treaty;
 };
 
 struct empobj_chr;

@@ -66,7 +66,7 @@ struct rptstr {
 #define N_SCT_LOSE	2
 #define N_SPY_SHOT	3
 #define N_SENT_TEL	4
-#define N_SIGN_TRE	5
+/* unused		5 */
 #define N_MAKE_LOAN	6
 #define N_REPAY_LOAN	7
 #define N_MAKE_SALE	8
@@ -83,8 +83,8 @@ struct rptstr {
 #define N_SHP_LOSE	19
 /* unused		20 */
 #define N_SEIZE_SECT	21
-#define N_HONOR_TRE	22
-#define N_VIOL_TRE	23
+/* unused		22 */
+/* unused		23 */
 /* unused		24 */
 #define N_HIT_MINE	25
 #define N_DECL_ALLY	26

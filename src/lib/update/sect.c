@@ -135,7 +135,6 @@ enlist(short *vec, int etu, int *cost)
     int maxmil;
     int enlisted;
 
-    /* Need to check treaties here */
     enlisted = 0;
     maxmil = vec[I_CIVIL] / 2 - vec[I_MILIT];
     if (maxmil > 0) {

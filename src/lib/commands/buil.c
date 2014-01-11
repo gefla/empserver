@@ -46,7 +46,6 @@
 #include "plague.h"
 #include "plane.h"
 #include "ship.h"
-#include "treaty.h"
 #include "unit.h"
 
 static int build_ship(struct sctstr *sp, int type, int tlev);
@@ -240,10 +239,6 @@ build_ship(struct sctstr *sp, int type, int tlev)
     cost = mp->m_cost * SHIP_MINEFF / 100.0;
     if (!build_can_afford(cost, mp->m_name))
 	return 0;
-    if (!trechk(player->cnum, 0, NEWSHP))
-	return 0;
-    if (!check_sect_ok(sp))
-	return 0;
     sp->sct_avail -= avail;
     player->dolcost += cost;
     ef_blank(EF_SHIP, pick_unused_unit_uid(EF_SHIP), &ship);
@@ -331,10 +326,6 @@ build_land(struct sctstr *sp, int type, int tlev)
 	return 0;
     }
 #endif
-    if (!trechk(player->cnum, 0, NEWLND))
-	return 0;
-    if (!check_sect_ok(sp))
-	return 0;
     avail = (LND_BLD_WORK(lp->l_lcm, lp->l_hcm) * LAND_MINEFF + 99) / 100;
     if (sp->sct_avail < avail) {
 	pr("Not enough available work in %s to build a %s\n",
@@ -421,10 +412,6 @@ build_nuke(struct sctstr *sp, int type, int tlev)
 	pr(" (%d available work required)\n", avail);
 	return 0;
     }
-    if (!trechk(player->cnum, 0, NEWNUK))
-	return 0;
-    if (!check_sect_ok(sp))
-	return 0;
     sp->sct_avail -= avail;
     player->dolcost += np->n_cost;
     ef_blank(EF_NUKE, pick_unused_unit_uid(EF_NUKE), &nuke);
@@ -494,10 +481,6 @@ build_plane(struct sctstr *sp, int type, int tlev)
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
 	return 0;
     }
-    if (!trechk(player->cnum, 0, NEWPLN))
-	return 0;
-    if (!check_sect_ok(sp))
-	return 0;
     sp->sct_avail -= avail;
     player->dolcost += cost;
     ef_blank(EF_PLANE, pick_unused_unit_uid(EF_PLANE), &plane);

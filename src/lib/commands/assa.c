@@ -89,10 +89,8 @@ assa(void)
 	return RET_OK;
     }
 
-    /* Show what we're assaulting, and check treaties */
-
-    if (att_show(def))
-	return RET_FAIL;
+    /* Show what we're assaulting */
+    att_show(def);
 
     /* Ask about offensive support */
 

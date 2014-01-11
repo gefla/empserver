@@ -1040,9 +1040,6 @@ uid owner xloc yloc type effic mobil off tech opx opy mission radius stockpile p
 config news
 actor action victim times duration time
 /config
-config treaty
-uid cna cnb status acond bcond exp
-/config
 config trade
 uid owner type unitid price maxbidder markettime xloc yloc
 /config

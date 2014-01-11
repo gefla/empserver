@@ -51,7 +51,6 @@
 #include "ship.h"
 #include "server.h"
 #include "trade.h"
-#include "treaty.h"
 #include "version.h"
 #include "xy.h"
 
@@ -153,9 +152,6 @@ struct empfile empfile[] = {
      nuk_oninit, NULL, NULL, NULL},
     {EF_NEWS, "news", NULL, "news", news_ca, EF_BAD,
      UNMAPPED_CACHE(struct nwsstr, -1, 0),
-     NULL, NULL, NULL, NULL},
-    {EF_TREATY, "treaty", NULL, "treaty", treaty_ca, EF_BAD,
-     UNMAPPED_CACHE(struct trtstr, -1, EFF_TYPED),
      NULL, NULL, NULL, NULL},
     {EF_TRADE, "trade", "trade lot", "trade", trade_ca, EF_BAD,
      UNMAPPED_CACHE(struct trdstr, -1, EFF_TYPED | EFF_OWNER),
@@ -265,7 +261,6 @@ struct empfile empfile[] = {
     SYMTAB(EF_RETREAT_FLAGS, "retreat-flags", retreat_flags),
     SYMTAB(EF_SECTOR_NAVIGATION, "sector-navigation", sector_navigation),
     SYMTAB(EF_SHIP_CHR_FLAGS, "ship-chr-flags", ship_chr_flags),
-    SYMTAB(EF_TREATY_FLAGS, "treaty-flags", treaty_flags),
 
     /* Views */
     {EF_COUNTRY, "country", NULL, NULL, cou_ca, EF_NATION,

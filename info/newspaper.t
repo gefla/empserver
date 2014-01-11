@@ -28,7 +28,6 @@ and what news to see with the ?action selector.  Actions are:
      2)  Unsuccessful attack
      3)  Spy shot
      4)  Telegram sent
-     5)  Treaty signing
      6)  Loan made
      7)  Loan repaid
      8)  Goods sold
@@ -44,8 +43,6 @@ and what news to see with the ?action selector.  Actions are:
      18) Successful boarding actions
      19) Unsuccessful boarding actions
      21) Collecting on loans
-     22) Considering treaty violation
-     23) Actual treaty violation
      25) Ships hitting mines
      26) Alliance declaration
      28) War declarations

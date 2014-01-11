@@ -3,8 +3,7 @@
 .LV Basic
 .SY "power [new|update] [<NUM>|country <NATS>]"
 The power report provides one view of national strengths.
-It can be particularly helpful in planning defense strategies
-and treaty voting.
+It can be particularly helpful in planning defense strategies.
 .s1
 Normally, the last saved power report is shown.
 The optional arguments \*Qnew\*U and \*Qupdate\*U request a new power

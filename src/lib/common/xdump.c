@@ -56,7 +56,6 @@
  * - Planes: EF_PLANE (superseding pdump)
  * - Ships: EF_SHIP (superseding sdump)
  * - News: EF_NEWS
- * - Treaties: EF_TREATY
  * - Power: EF_POWER (TODO)
  * - Nations: EF_NATION
  * - Loans: EF_LOAN

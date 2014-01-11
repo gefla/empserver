@@ -38,7 +38,7 @@
 struct empfile {
     /* Members with immutable values */
     int uid;			/* Table ID */
-    char *name;			/* Empire name (e.g., "treaty") */
+    char *name;			/* Empire name (e.g., "land") */
     char *pretty_name;		/* prettier name, e.g. "land unit" */
     char *file;			/* file name, relative to gamedir for
 				   game state, to builtindir for config */
@@ -146,7 +146,6 @@ enum {
     EF_LAND,
     EF_NUKE,
     EF_NEWS,
-    EF_TREATY,
     EF_TRADE,
     EF_POWER,
     EF_NATION,
@@ -194,7 +193,6 @@ enum {
     EF_RETREAT_FLAGS,
     EF_SECTOR_NAVIGATION,
     EF_SHIP_CHR_FLAGS,
-    EF_TREATY_FLAGS,
     /* Views */
     EF_COUNTRY,
     /* Number of types: */

@@ -126,9 +126,8 @@ struct natstr {
 
 	/* nation reject codes */
 #define REJ_TELE	bit(0)	/* dont allow telegrams to be sent */
-#define REJ_TREA	bit(1)	/* dont allow treaties to be offered */
-#define REJ_ANNO	bit(2)	/* don't receive announcements */
-#define REJ_LOAN	bit(3)	/* don't allow loans to be offered */
+#define REJ_ANNO	bit(1)	/* don't receive announcements */
+#define REJ_LOAN	bit(2)	/* don't allow loans to be offered */
 
 #define NAT_TLEV	0
 #define NAT_RLEV	1

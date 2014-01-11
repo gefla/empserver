@@ -130,10 +130,8 @@ paradrop(struct emp_qelem *list, coord x, coord y)
     if (att_abort(A_PARA, NULL, def))
 	return RET_FAIL;
 
-    /* Show what we're air-assaulting, and check treaties */
-
-    if (att_show(def))
-	return RET_FAIL;
+    /* Show what we're air-assaulting */
+    att_show(def);
 
     /* set what we're air-assaulting with */
 

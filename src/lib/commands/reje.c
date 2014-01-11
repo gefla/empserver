@@ -24,7 +24,7 @@
  *
  *  ---
  *
- *  reje.c: Refuse telegrams/annos/treaties/loans from countries
+ *  reje.c: Refuse telegrams/annos/loans from countries
  *
  *  Known contributors to this file:
  *
@@ -58,7 +58,7 @@ reje(void)
 	return RET_SYN;
     }
     p = getstarg(player->argp[2],
-		 "mail, treaties, loans, or announcements? ", buf);
+		 "mail, loans, or announcements? ", buf);
     if (!p)
 	return RET_SYN;
     switch (*p) {
@@ -70,9 +70,6 @@ reje(void)
 	break;
     case 'm':
 	rel = REJ_TELE;
-	break;
-    case 't':
-	rel = REJ_TREA;
 	break;
     default:
 	pr("That's not one of the choices!\n");
@@ -100,10 +97,6 @@ reje(void)
 	    break;
 	case REJ_TELE:
 	    pr("%s teles from %s\n",
-	       (do_undo == 1 ? "Rejecting" : "Accepting"), nat.nat_cnam);
-	    break;
-	case REJ_TREA:
-	    pr("%s treaties from %s\n",
 	       (do_undo == 1 ? "Rejecting" : "Accepting"), nat.nat_cnam);
 	    break;
 	}

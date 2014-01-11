@@ -44,7 +44,6 @@
 #include "retreat.h"
 #include "sect.h"
 #include "ship.h"
-#include "treaty.h"
 
 struct symbol agreement_statuses[] = {
     {AGREE_FREE, "free"},
@@ -129,7 +128,6 @@ struct symbol nation_flags[] = {
 
 struct symbol nation_rejects[] = {
     {REJ_TELE, "telegrams"},
-    {REJ_TREA, "treaties"},
     {REJ_ANNO, "announcements"},
     {REJ_LOAN, "loans"},
     {0, NULL}
@@ -274,20 +272,5 @@ struct symbol ship_chr_flags[] = {
     {M_SUPPLY, "supply"},
     {M_CANAL, "canal"},
     {M_ANTIMISSILE, "anti-missile"},
-    {0, NULL}
-};
-
-struct symbol treaty_flags[] = {
-    {LNDATT, "no attacks on any land units"},
-    {SEAATT, "no attacks on any ships"},
-    {SEAFIR, "no shelling any ships"},
-    {SUBFIR, "no depth-charging any subs"},
-    {LANATT, "no sector attacks"},
-    {LANFIR, "no shelling any land"},
-    {NEWSHP, "no building ships"},
-    {NEWNUK, "no new nuclear weapons"},
-    {NEWPLN, "no building planes"},
-    {NEWLND, "no building land units"},
-    {TRTENL, "no enlistment"},
     {0, NULL}
 };

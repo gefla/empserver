@@ -10,7 +10,7 @@ xdump meta plane
 xdump meta land
 xdump meta nuke
 xdump meta news
-xdump meta treaty
+__cmd added -1 0 0
 xdump meta trade
 xdump meta nat
 xdump meta loan
@@ -51,5 +51,5 @@ xdump meta plane-flags
 xdump meta resources
 xdump meta retreat-flags
 xdump meta ship-chr-flags
-xdump meta treaty-flags
+__cmd added -1 0 0
 xdump meta country

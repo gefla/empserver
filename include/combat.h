@@ -75,7 +75,7 @@ extern int att_combat_init(struct combat *, int);
 extern int att_get_combat(struct combat *, int);
 extern int att_abort(int, struct combat *, struct combat *);
 extern int att_approach(struct combat *, struct combat *);
-extern int att_show(struct combat *);
+extern void att_show(struct combat *);
 extern int att_ask_support(int, int *, int *, int *, int *);
 extern int att_ask_offense(int, struct combat *, struct combat *,
 			   struct emp_qelem *, int *, int *);

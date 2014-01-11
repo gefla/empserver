@@ -231,16 +231,6 @@ Deity:
 .L mines
 .in
 .s1
-Treaty:
-.in +\w'nchoppers\0\0'u
-.L cna
-.L cnb
-.L status
-.L acond
-.L bcond
-.L exp
-.in
-.s1
 Loan:
 .in +\w'nchoppers\0\0'u
 .L loaner

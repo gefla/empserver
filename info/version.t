@@ -78,7 +78,7 @@ Visitors are disconnected after 5 minutes of idle time.
 
 Options enabled in this game:
 	ALL_BLEED, BLITZ, EASY_BRIDGES, FALLOUT, GODNEWS, INTERDICT_ATT,
-	NOFOOD, NOMOBCOST, NO_PLAGUE, RAILWAYS, SAIL, TREATIES
+	NOFOOD, NOMOBCOST, NO_PLAGUE, RAILWAYS, SAIL
 
 Options disabled in this game:
 	AUTO_POWER, BRIDGETOWERS, GO_RENEW, GUINEA_PIGS, HIDDEN, LOANS,

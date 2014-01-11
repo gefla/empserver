@@ -34,7 +34,6 @@
 
 #include "chance.h"
 #include "commands.h"
-#include "treaty.h"
 
 int
 enli(void)
@@ -55,8 +54,6 @@ enli(void)
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
-    if (!trechk(player->cnum, 0, TRTENL))
-	return RET_FAIL;
     natp = getnatp(player->cnum);
     newmil = 500;
     sprintf(prompt, "Number to enlist (max %d) : ", newmil);

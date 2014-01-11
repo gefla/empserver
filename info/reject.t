@@ -1,21 +1,21 @@
 .TH Command REJECT
 .NA reject "Stop/start listening to other countries"
 .LV Expert
-.SY "reject <reject|accept> <announcements|mail|treaties|loans> <NAT>"
+.SY "reject <reject|accept> <announcements|mail|loans> <NAT>"
 The reject command allows you to either accept or reject announcements,
-mail, treaties, or loans from a country.
+mail, or loans from a country.
 .s1
 .EX "reject"
 .nf
 reject or accept? reject
-mail, treaties, loans, or announcements? anno
+mail, loans, or announcements? anno
 nat(s)? 0
 Rejecting annos from The_Scum
 .fi
 .EX "reject"
 .nf
 reject or accept? accept
-mail, treaties, loans, or announcements? anno
+mail, loans, or announcements? anno
 nat(s)? 0
 Accepting annos from The_Scum
 .fi

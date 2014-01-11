@@ -94,9 +94,7 @@ lboa(void)
     }
 
     /* Show what we're boarding */
-
-    if (att_show(def))
-	return RET_FAIL;
+    att_show(def);
 
     /* Ask the player what he wants to board with */
 

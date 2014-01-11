@@ -46,7 +46,6 @@ static int
 xdvisible(int type, void *p)
 {
     struct empobj *gp = p;
-    struct trtstr *tp = p;
     struct lonstr *lp = p;
     struct natstr *natp;
     int tlev;
@@ -67,10 +66,6 @@ xdvisible(int type, void *p)
 	return gp->own == player->cnum;
     case EF_NEWS:
 	return !opt_HIDDEN || player->god; /* FIXME */
-    case EF_TREATY:
-	return tp->trt_cna == player->cnum
-	    || tp->trt_cnb == player->cnum
-	    || player->god;
     case EF_LOAN:
 	if (lp->l_status == LS_SIGNED)
 	    return 1;

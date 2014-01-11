@@ -40,8 +40,6 @@ NO_FORT_FIRE:   Forts cannot fire.
 RAILWAYS	Highways double as rail
 TECH_POP:       Technology costs more to make as your civilian population
                  grows past 50,000 civilians.
-TREATIES:       Sign treaties with your friends and enemies, and breaking of
-                 them is reported in the news.
 .fi
 
 .SA "Hidden, Server, version"

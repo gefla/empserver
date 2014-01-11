@@ -639,14 +639,10 @@ att_approach(struct combat *off, struct combat *def)
 
 /* The attack is valid.  Tell the attacker about what they're going to hit */
 
-int
+void
 att_show(struct combat *def)
 {
-    /* Note that we tell the player about the treaty BEFORE we tell them
-       about the item.  If we didn't, then they gain free information */
     if (def->type == EF_SECTOR) {
-	if (!trechk(player->cnum, def->own, LANATT))
-	    return abort_attack();
 	pr("%s is a %d%% %s %s with approximately %d military.\n",
 	   xyas(def->x, def->y, player->cnum),
 	   roundintby((int)def->eff, 10),
@@ -655,19 +651,10 @@ att_show(struct combat *def)
 	if (map_set(player->cnum, def->x, def->y, def->sct_dcp->d_mnem, 0))
 	    writemap(player->cnum);
     } else if (def->type == EF_SHIP || def->type == EF_LAND) {
-	if (def->type == EF_SHIP) {
-	    if (!trechk(player->cnum, def->own, SEAATT))
-		return abort_attack();
-	} else {
-	    if (!trechk(player->cnum, def->own, LNDATT))
-		return abort_attack();
-	}
 	pr("%s is about %d%% efficient and has approximately %d mil on board.\n",
 	   prcom(0, def), roundintby((int)def->eff, 10),
 	   roundintby(def->troops, 10));
     }
-    /* Ok, everything is fine */
-    return 0;
 }
 
 /* Attack and assault ask the user which kind of support they want */

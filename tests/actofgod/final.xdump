@@ -428,9 +428,6 @@ actor action victim times duration time
 0 43 2 4 0 0
 0 33 0 2 0 0
 /config
-config treaty
-uid cna cnb status acond bcond exp
-/config
 config trade
 uid owner type unitid price maxbidder markettime xloc yloc
 /config

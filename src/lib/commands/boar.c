@@ -122,10 +122,8 @@ boar(void)
 	return RET_OK;
     }
 
-    /* Show what we're boarding, and check treaties */
-
-    if (att_show(def))
-	return RET_FAIL;
+    /* Show what we're boarding */
+    att_show(def);
 
     /* Ask the player what he wants to board with */
 

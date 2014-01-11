@@ -24,7 +24,7 @@
  *
  *  ---
  *
- *  offe.c: Offer a loan or treaty
+ *  offe.c: Offer a loan
  *
  *  Known contributors to this file:
  *     Pat Loney, 1992
@@ -36,21 +36,15 @@
 #include "commands.h"
 #include "loan.h"
 #include "optlist.h"
-#include "treaty.h"
 
-static int do_treaty(void);
 static int do_loan(void);
 
 int
 offe(void)
 {
     char *cp;
-    char buf[1024];
 
-    cp = getstarg(player->argp[1], "loan or treaty? ", buf);
-    if (!cp || !*cp)
-	return RET_SYN;
-
+    cp = player->argp[1] ? player->argp[1] : "loan";
     switch (*cp) {
     case 'l':
 	if (!opt_LOANS) {
@@ -58,98 +52,10 @@ offe(void)
 	    return RET_FAIL;
 	}
 	return do_loan();
-    case 't':
-	if (!opt_TREATIES) {
-	    pr("Treaties are not enabled.\n");
-	    return RET_FAIL;
-	}
-	return do_treaty();
     default:
-	pr("You must specify \"loan\" as there are no treaties.\n");
+	pr("You must specify \"loan\".\n");
 	return RET_SYN;
     }
-}
-
-static int
-do_treaty(void)
-{
-    char *cp;
-    int ourcond, theircond;
-    struct symbol *tfp;
-    struct trtstr trty;
-    struct nstr_item nstr;
-    natid recipient;
-    time_t now;
-    int j, n;
-    struct natstr *natp;
-    char prompt[128];
-    char buf[1024];
-
-    if ((n = natarg(player->argp[2], "Treaty offered to? ")) < 0)
-	return RET_SYN;
-    recipient = n;
-    if (recipient == player->cnum) {
-	pr("You can't sign a treaty with yourself!\n");
-	return RET_FAIL;
-    }
-    natp = getnatp(recipient);
-    if (player->cnum && (getrejects(player->cnum, natp) & REJ_TREA)) {
-	pr("%s is rejecting your treaties.\n", cname(recipient));
-	return RET_SYN;
-    }
-    pr("Terms for %s:\n", cname(recipient));
-    theircond = 0;
-    for (tfp = treaty_flags; tfp && tfp->name; tfp++) {
-	sprintf(prompt, "%s? ", tfp->name);
-	if (!(cp = getstring(prompt, buf)))
-	    return RET_FAIL;
-	if (*cp == 'y')
-	    theircond |= tfp->value;
-    }
-    pr("Terms for you:\n");
-    ourcond = 0;
-    for (tfp = treaty_flags; tfp && tfp->name; tfp++) {
-	sprintf(prompt, "%s? ", tfp->name);
-	if (!(cp = getstring(prompt, buf)))
-	    return RET_FAIL;
-	if (*cp == 'y')
-	    ourcond |= tfp->value;
-    }
-    if (ourcond == 0 && theircond == 0) {
-	pr("Treaties with no clauses aren't very useful, boss!\n");
-	return RET_SYN;
-    }
-    cp = getstring("Proposed treaty duration? (days) ", buf);
-    if (!cp)
-	return RET_FAIL;
-    j = atoi(cp);
-    if (j <= 0) {
-	pr("Bad treaty duration.\n");
-	return RET_SYN;
-    }
-    (void)time(&now);
-    snxtitem_all(&nstr, EF_TREATY);
-    while (nxtitem(&nstr, &trty)) {
-	if (trty.trt_status == TS_FREE) {
-	    break;
-	}
-    }
-    ef_blank(EF_TREATY, nstr.cur, &trty);
-    trty.trt_acond = ourcond;
-    trty.trt_bcond = theircond;
-    trty.trt_status = TS_PROPOSED;
-    trty.trt_cna = player->cnum;
-    trty.trt_cnb = recipient;
-    trty.trt_exp = j * SECS_PER_DAY + now;
-    if (!puttre(nstr.cur, &trty)) {
-	logerror("do_treaty: can't write treaty");
-	pr("Couldn't save treaty; get help.\n");
-	return RET_FAIL;
-    }
-    wu(0, recipient, "Treaty #%d proposed to you by %s\n",
-       nstr.cur, cname(player->cnum));
-    pr("You have proposed treaty #%d\n", nstr.cur);
-    return RET_OK;
 }
 
 static int
