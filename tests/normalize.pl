@@ -62,9 +62,9 @@ while (<>) {
 	$_ = norm_ctime($_);
 	### Host environment in logs
 	# getrusage() results in server.log
-	s/(End update|done assembling paths) .* user .* system/$1 0.0 user 0.0 system/g;
+	s/(End update|done assembling paths) .* user .* system/$1 0.0 user 0.0 system/;
 	# PID in server.log
-	s/(Empire server \(pid) [0-9]+(\) started)/$1 42$2/g;
+	s/(Empire server \(pid) [0-9]+(\) started)/$1 42$2/;
 	### Harmless races
 	# shutdown wins race with logout
 	next if /Waiting for player threads to terminate/;
@@ -81,13 +81,13 @@ while (<>) {
 
     ### Formatted time
     # nat_timeused in prompt
-    s/^\[[0-9]+(:[0-9]+\] Command \:)/[0$1/g;
+    s/^\[[0-9]+(:[0-9]+\] Command \:)/[0$1/;
     # TODO command play column time
     # result of ctime() in many commands
     $_ = norm_ctime($_)
 	unless $dump;
     ### Time values in legacy dumps
-    s/(DUMP (SECTOR|SHIPS|PLANES|LAND UNITS|NUKES|LOST ITEMS)) [0-9]+$/$1 0/g;
+    s/(DUMP (SECTOR|SHIPS|PLANES|LAND UNITS|NUKES|LOST ITEMS)) [0-9]+$/$1 0/;
     s/ [0-9]+$/ 0/
 	if $dump eq 'LOST ITEMS';
     ### Time values in xdump
