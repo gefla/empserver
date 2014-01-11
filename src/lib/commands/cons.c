@@ -27,7 +27,7 @@
  *  cons.c: Consider a loan or treaty
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -57,11 +57,14 @@ struct ltcomstr {
 };
 
 static int cons_choose(struct ltcomstr *ltcp);
+static int cons_display(struct ltcomstr *ltcp);
+static int cons_accept(struct ltcomstr *ltcp);
+static int cons_decline(struct ltcomstr *ltcp);
+static int cons_postpone(struct ltcomstr *ltcp);
 static int treaty_accept(struct ltcomstr *ltcp);
 static int treaty_decline(struct ltcomstr *ltcp);
 static int loan_accept(struct ltcomstr *ltcp);
 static int loan_decline(struct ltcomstr *ltcp);
-static int postpone(struct ltcomstr *ltcp);
 static void accpt(struct ltcomstr *ltcp);
 static void decline(struct ltcomstr *ltcp);
 static void late(struct ltcomstr *ltcp);
@@ -79,21 +82,15 @@ cons(void)
 
     switch (ltc.op) {
     case 'a':
-	rv = (ltc.type == EF_TREATY) ? treaty_accept(&ltc)
-	    : loan_accept(&ltc);
-	break;
+	return cons_accept(&ltc);
     case 'd':
-	rv = (ltc.type == EF_TREATY) ? treaty_decline(&ltc)
-	    : loan_decline(&ltc);
-	break;
+	return cons_decline(&ltc);
     case 'p':
-	rv = postpone(&ltc);
-	break;
+	return cons_postpone(&ltc);
     default:
 	CANT_REACH();
 	return RET_SYN;
     }
-    return rv;
 }
 
 /*
@@ -139,10 +136,7 @@ cons_choose(struct ltcomstr *ltcp)
     sprintf(prompt, "%s number? ", ltcp->Name);
     if ((ltcp->num = onearg(player->argp[2], prompt)) < 0)
 	return RET_SYN;
-    if (!ef_read(ltcp->type, ltcp->num, &ltcp->u) ||
-	!(ltcp->type == EF_TREATY
-	  ? distrea(ltcp->num, &ltcp->u.t)
-	  : disloan(ltcp->num, &ltcp->u.l))) {
+    if (!ef_read(ltcp->type, ltcp->num, &ltcp->u) || !cons_display(ltcp)) {
 	pr("%s #%d is not being offered to you!\n", ltcp->Name, ltcp->num);
 	return RET_SYN;
     }
@@ -172,6 +166,61 @@ cons_choose(struct ltcomstr *ltcp)
     if (!p || (*p != 'a' && *p != 'd' && *p != 'p'))
 	return RET_SYN;
     ltcp->op = *p;
+    return RET_OK;
+}
+
+static int
+cons_display(struct ltcomstr *ltcp)
+{
+    switch (ltcp->type) {
+    case EF_LOAN:
+	return disloan(ltcp->num, &ltcp->u.l);
+    case EF_TREATY:
+	return distrea(ltcp->num, &ltcp->u.t);
+    default:
+	CANT_REACH();
+	return 0;
+    }
+}
+
+static int
+cons_accept(struct ltcomstr *ltcp)
+{
+    switch (ltcp->type) {
+    case EF_LOAN:
+	return loan_accept(ltcp);
+    case EF_TREATY:
+	return treaty_accept(ltcp);
+    default:
+	CANT_REACH();
+	return RET_FAIL;
+    }
+}
+
+static int
+cons_decline(struct ltcomstr *ltcp)
+{
+    switch (ltcp->type) {
+    case EF_LOAN:
+	return loan_decline(ltcp);
+    case EF_TREATY:
+	return treaty_decline(ltcp);
+    default:
+	CANT_REACH();
+	return RET_FAIL;
+    }
+}
+
+/*
+ * Postpone a treaty; always succeeds.
+ */
+static int
+cons_postpone(struct ltcomstr *ltcp)
+{
+    pr("%s %d is still pending.\n", ltcp->Name, ltcp->num);
+    if (ltcp->proposee == player->cnum)
+	wu(0, ltcp->proposer, "%s %d considered by %s\n",
+	   ltcp->name, ltcp->num, cname(player->cnum));
     return RET_OK;
 }
 
@@ -335,19 +384,6 @@ treaty_decline(struct ltcomstr *ltcp)
 }
 
 /*
- * Postpone a treaty; always succeeds.
- */
-static int
-postpone(struct ltcomstr *ltcp)
-{
-    pr("%s %d is still pending.\n", ltcp->Name, ltcp->num);
-    if (ltcp->proposee == player->cnum)
-	wu(0, ltcp->proposer, "%s %d considered by %s\n",
-	   ltcp->name, ltcp->num, cname(player->cnum));
-    return RET_OK;
-}
-
-/*
  * Somebody tried to accept a loan/treaty that was retracted,
  * or to decline a loan/treaty they already signed.
  */
@@ -395,10 +431,16 @@ decline(struct ltcomstr *ltcp)
 static void
 accpt(struct ltcomstr *ltcp)
 {
-    if (ltcp->type == EF_LOAN)
+    switch (ltcp->type) {
+    case EF_LOAN:
 	nreport(ltcp->proposer, N_MAKE_LOAN, player->cnum, 1);
-    else
+	break;
+    case EF_TREATY:
 	nreport(player->cnum, N_SIGN_TRE, ltcp->mailee, 1);
+	break;
+    default:
+	CANT_REACH();
+    }
     wu(0, ltcp->mailee, "%s #%d accepted by %s\n",
        ltcp->Name, ltcp->num, cname(player->cnum));
 }
