@@ -90,10 +90,9 @@ cons(void)
 	rv = postpone(&ltc);
 	break;
     default:
-	pr("Bad operation %c from cons_choose; get help!\n", ltc.op);
-	break;
-    };
-
+	CANT_REACH();
+	return RET_SYN;
+    }
     return rv;
 }
 
