@@ -269,6 +269,7 @@
     Play#2 output Play#2 6 0 635
     Play#2 input build p 3:5,1 f2
     Play#2 command build
+    Play#2 output Play#2 1 Not enough military in 3,1 (need 1 more)
     Play#2 output Play#2 1 Not enough light products in 3,1 (need 1 more)
     Play#2 output Play#2 1 Not enough heavy products in 3,1 (need 1 more)
     Play#2 output Play#2 1 Sector 5,1 is not 60% efficient.
@@ -292,7 +293,7 @@
     Play#2 command build
     Play#2 output Play#2 1 Not enough light products in 1,1 (need 1 more)
     Play#2 output Play#2 1 Not enough heavy products in 1,1 (need 1 more)
-    Play#2 output Play#2 1 Not enough military for crew in 3,1
+    Play#2 output Play#2 1 Not enough military in 3,1 (need 1 more)
     Play#2 output Play#2 6 0 630
     Play#2 input move m -1,1 3 jh
     Play#2 command move
@@ -364,8 +365,8 @@
     Play#2 output Play#2 1 Thu Jan  1 00:00:00 1970
     Play#2 output Play#2 1 CENSUS                   del dst
     Play#2 output Play#2 1   sect        eff prd mob uf uf old  civ  mil   uw food work avail ter fall coa
-    Play#2 output Play#2 1    1,1    *  100%     127 .. ..      100    2    0    0   0%    3        0
-    Play#2 output Play#2 1    3,1    *   60%     127 .. ..      100    3    0    0   0%    7        0
+    Play#2 output Play#2 1    1,1    *  100%     127 .. ..      100    4    0    0   0%    3        0
+    Play#2 output Play#2 1    3,1    *   60%     127 .. ..      100    4    0    0   0%    7        0
     Play#2 output Play#2 1    5,1    *   59%     127 .. ..      100   50    0    0   0%   11        0   1
     Play#2 output Play#2 1 3 sectors
     Play#2 output Play#2 6 0 621
@@ -374,8 +375,8 @@
     Play#2 output Play#2 1 Thu Jan  1 00:00:00 1970
     Play#2 output Play#2 1 COMMODITIES deliver--  distribute
     Play#2 output Play#2 1   sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
-    Play#2 output Play#2 1    1,1    * .......... ..........   0   0    0    0    0   0    0    2    2   0
-    Play#2 output Play#2 1    3,1    * .......... ..........   0   0    0    0    0   0    0    3    3   0
+    Play#2 output Play#2 1    1,1    * .......... ..........   0   0    0    0    0   0    0    2    3   0
+    Play#2 output Play#2 1    3,1    * .......... ..........   0   0    0    0    0   0    0    4    3   0
     Play#2 output Play#2 1    5,1    * .......... ..........   0   0    0    0    0   0  500  500  500 500
     Play#2 output Play#2 1 3 sectors
     Play#2 output Play#2 6 0 621

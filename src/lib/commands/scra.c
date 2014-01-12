@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include <ctype.h>
+#include "chance.h"
 #include "commands.h"
 #include "optlist.h"
 #include "plague.h"
@@ -170,7 +171,7 @@ scra(void)
 	    pp = &plchr[(int)item.plane.pln_type];
 	    sect.sct_item[I_LCM] += pp->pl_lcm * 2 / 3 * eff;
 	    sect.sct_item[I_HCM] += pp->pl_hcm * 2 / 3 * eff;
-	    sect.sct_item[I_MILIT] += pp->pl_crew;
+	    sect.sct_item[I_MILIT] += roundavg(pp->pl_crew * eff);
 	}
 	item.gen.effic = 0;
 	put_empobj(type, item.gen.uid, &item.gen);

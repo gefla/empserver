@@ -379,14 +379,9 @@ build_plane(struct sctstr *sp, int type, int tlev)
     short mat[I_MAX+1];
     int work;
     struct plnstr plane;
-    double eff = PLANE_MINEFF / 100.0;
-    int mil;
 
-    mil = roundavg(pp->pl_crew * eff);
-    /* Always use at least 1 mil to build a plane */
-    if (mil == 0 && pp->pl_crew > 0)
-	mil = 1;
     memset(mat, 0, sizeof(mat));
+    mat[I_MILIT] = pp->pl_crew;
     mat[I_LCM] = pp->pl_lcm;
     mat[I_HCM] = pp->pl_hcm;
     work = PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm);
@@ -399,12 +394,6 @@ build_plane(struct sctstr *sp, int type, int tlev)
 	return 0;
     if (!build_can_afford(pp->pl_cost, PLANE_MINEFF, pp->pl_name))
 	return 0;
-    if (sp->sct_item[I_MILIT] < mil) {
-	pr("Not enough military for crew in %s\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	return 0;
-    }
-    sp->sct_item[I_MILIT] -= mil;
     build_charge(sp, mat, work, pp->pl_cost, PLANE_MINEFF);
 
     ef_blank(EF_PLANE, pick_unused_unit_uid(EF_PLANE), &plane);
