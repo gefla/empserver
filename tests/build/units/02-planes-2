@@ -12,12 +12,8 @@ build p -1,1 f2 1 101
 build p -1,1 f2 1 79
 | not an airfield, no materials, inefficient
 build p -1,1 f2
-| Note: fractional cms are randomly rounded, which can make build
-| succeed, upsetting the rest of the test
 build p 3:5,1 f2
 | insufficient materials: 1,1 short 1l/1h, 3,1 short 1m
-| Note: fractional cms are randomly rounded, which can make build
-| succeed in 1,1, upsetting the rest of the test
 move m -1,1 1 jh
 move l -1,1 1 jjh
 move h -1,1 1 jjh

@@ -56,7 +56,6 @@ static int pick_unused_unit_uid(int);
 static int build_bridge(char);
 static int build_bspan(struct sctstr *sp);
 static int build_btower(struct sctstr *sp);
-static void build_material_use(short[], short[], int);
 static int sector_can_build(struct sctstr *, short[], int, int, char *);
 static void build_charge(struct sctstr *, short[], int, double, int);
 static int build_can_afford(double, int, char *);
@@ -208,14 +207,13 @@ static int
 build_ship(struct sctstr *sp, int type, int tlev)
 {
     struct mchrstr *mp = &mchr[type];
-    short mat[I_MAX+1], mat_100[I_MAX+1];
+    short mat[I_MAX+1];
     int work;
     struct shpstr ship;
 
-    memset(mat_100, 0, sizeof(mat_100));
-    mat_100[I_LCM] = mp->m_lcm;
-    mat_100[I_HCM] = mp->m_hcm;
-    build_material_use(mat, mat_100, SHIP_MINEFF);
+    memset(mat, 0, sizeof(mat));
+    mat[I_LCM] = mp->m_lcm;
+    mat[I_HCM] = mp->m_hcm;
     work = SHP_BLD_WORK(mp->m_lcm, mp->m_hcm);
 
     if (sp->sct_type != SCT_HARBR) {
@@ -262,14 +260,13 @@ static int
 build_land(struct sctstr *sp, int type, int tlev)
 {
     struct lchrstr *lp = &lchr[type];
-    short mat[I_MAX+1], mat_100[I_MAX+1];
+    short mat[I_MAX+1];
     int work;
     struct lndstr land;
 
-    memset(mat_100, 0, sizeof(mat_100));
-    mat_100[I_LCM] = lp->l_lcm;
-    mat_100[I_HCM] = lp->l_hcm;
-    build_material_use(mat, mat_100, LAND_MINEFF);
+    memset(mat, 0, sizeof(mat));
+    mat[I_LCM] = lp->l_lcm;
+    mat[I_HCM] = lp->l_hcm;
     work = LND_BLD_WORK(lp->l_lcm, lp->l_hcm);
 
     if (sp->sct_type != SCT_HEADQ) {
@@ -378,7 +375,7 @@ static int
 build_plane(struct sctstr *sp, int type, int tlev)
 {
     struct plchrstr *pp = &plchr[type];
-    short mat[I_MAX+1], mat_100[I_MAX+1];
+    short mat[I_MAX+1];
     int work;
     struct plnstr plane;
     double eff = PLANE_MINEFF / 100.0;
@@ -388,10 +385,9 @@ build_plane(struct sctstr *sp, int type, int tlev)
     /* Always use at least 1 mil to build a plane */
     if (mil == 0 && pp->pl_crew > 0)
 	mil = 1;
-    memset(mat_100, 0, sizeof(mat_100));
-    mat_100[I_LCM] = pp->pl_lcm;
-    mat_100[I_HCM] = pp->pl_hcm;
-    build_material_use(mat, mat_100, PLANE_MINEFF);
+    memset(mat, 0, sizeof(mat));
+    mat[I_LCM] = pp->pl_lcm;
+    mat[I_HCM] = pp->pl_hcm;
     work = PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm);
 
     if (sp->sct_type != SCT_AIRPT && !player->god) {
@@ -714,21 +710,12 @@ build_btower(struct sctstr *sp)
     return 1;
 }
 
-static void
-build_material_use(short mat[], short mat_100[], int effic)
-{
-    int i;
-
-    for (i = I_MAX; i > I_NONE; i--) {
-	mat[i] = mat_100[i] ? roundavg(mat_100[i] * (effic / 100.0)) : 0;
-    }
-}
-
 static int
 sector_can_build(struct sctstr *sp, short mat[], int work,
 		 int effic, char *what)
 {
     int i, avail;
+    double needed;
 
     if (sp->sct_effic < 60 && !player->god) {
 	pr("Sector %s is not 60%% efficient.\n",
@@ -737,11 +724,13 @@ sector_can_build(struct sctstr *sp, short mat[], int work,
     }
 
     for (i = I_NONE + 1; i <= I_MAX; i++) {
-	if (sp->sct_item[i] < mat[i]) {
+	needed = mat[i] * (effic / 100.0);
+	if (sp->sct_item[i] < needed) {
 	    pr("Not enough materials in %s\n",
 	       xyas(sp->sct_x, sp->sct_y, player->cnum));
 	    return 0;
 	}
+	mat[i] = roundavg(needed);
     }
 
     avail = (work * effic + 99) / 100;

@@ -14039,7 +14039,7 @@
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
     Play#0 output Play#0 1         1  33  100%  31K 210  514   22    0  9.1K 849  1.2K   3    5    4   46K
-    Play#0 output Play#0 1    639.34
+    Play#0 output Play#0 1    639.37
     Play#0 output Play#0 1         8  29   91%  25K 110  101    0    0   14K 2.8K 527    0    0    0   21K
     Play#0 output Play#0 1    329.62
     Play#0 output Play#0 1         2  30   28% 4.9K   0    0    0    0  1.7K 1.3K 170    0    0    0   35K
@@ -14249,7 +14249,7 @@
     Play#0 output Play#0 1  10 -11,-11  g .......... ..........   0   0    0    0  225   0    0    0    0   0
     Play#0 output Play#0 1   1   3,-11  i .......... 0......63.   1   0    0    0    0   0    0  600  300   0
     Play#0 output Play#0 1   1   5,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
-    Play#0 output Play#0 1   1   7,-11  * .......... 1.2....22.   0   0    0    0    0   0    0  197  199   0
+    Play#0 output Play#0 1   1   7,-11  * .......... 1.2....22.   0   0    0    0    0   0    0  198  200   0
     Play#0 output Play#0 1   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
     Play#0 output Play#0 1   1  11,-11  w .......... .......... 273   0    0 2519  523   0  849 2514 3122   0
     Play#0 output Play#0 1   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -15146,7 +15146,7 @@
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
     Play#0 output Play#0 1         1  33  100%  31K 232  659   30  994  8.9K 524  1.0K   3    5    4   51K
-    Play#0 output Play#0 1    756.23
+    Play#0 output Play#0 1    756.27
     Play#0 output Play#0 1         8  29  100%  29K 105  215    5    0   15K 2.5K 541    0    0    0   23K
     Play#0 output Play#0 1    447.37
     Play#0 output Play#0 1         2  30   33% 6.3K   0    0    0    0  3.2K 1.2K 523    0    0    0   36K
@@ -15358,7 +15358,7 @@
     Play#0 output Play#0 1   1   5,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
     Play#0 output Play#0 1   1   7,-11  * .......... 1.2....22. 180   0  200    0    0   0    0  200  200   0
     Play#0 output Play#0 1   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-    Play#0 output Play#0 1   1  11,-11  w .......... ..........  25   0  778 2295  498   0  828 3245 3775   0
+    Play#0 output Play#0 1   1  11,-11  w .......... ..........  25   0  778 2295  498   0  828 3246 3776   0
     Play#0 output Play#0 1   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  15,-11  ! .......... 20.....22. 200  11    0    0    0   0    0  200  200   0
     Play#0 output Play#0 1   8  21,-11  p .......... .......0..   0   0    0    0    1   0    0   75    0   0

@@ -11,13 +11,9 @@ n
 build l 0,2 linf 1 101
 build l 0,2 linf 1 39
 | not an headquarters, no materials, inefficient
-| Note: fractional cms are randomly rounded, which can make build
-| succeed in 4,2, upsetting the rest of the test
 build l 0,2 linf
 build l 4:6,2 linf
 | insufficient materials: 2,2 short 1l, 4,2 short 1h
-| Note: fractional cms are randomly rounded, which can make build
-| succeed in either sector, upsetting the rest of the test
 move l 0,2 1 jjh
 move h 0,2 1 jh
 build l 2:4,2 linf
