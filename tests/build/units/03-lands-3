@@ -1,0 +1,39 @@
+|| land units
+| invalid type
+build l 0,2 @
+| insufficient tech
+build l 0,2 rad
+| too many
+build l 0,2 linf 21
+n
+| linf needs 0.8l/0.4h/4av/$30, tech 40
+| asking for too high and too low tech
+build l 0,2 linf 1 101
+build l 0,2 linf 1 39
+| not an headquarters, no materials, inefficient
+| Note: fractional cms are randomly rounded, which can make build
+| succeed in 4,2, upsetting the rest of the test
+build l 0,2 linf
+build l 4:6,2 linf
+| insufficient materials: 2,2 short 1l, 4,2 short 1h
+| Note: fractional cms are randomly rounded, which can make build
+| succeed in either sector, upsetting the rest of the test
+move l 0,2 1 jjh
+move h 0,2 1 jh
+build l 2:4,2 linf
+| build until out of avail/money
+| sectors can build 2 each, but out of money after 3 total
+move l 0,2 4 jh
+move h 0,2 3 jh
+move l 0,2 3 jjh
+move h 0,2 4 jjh
+build
+l
+2,2
+linf
+build l 2,2 linf
+build l 2:4,2 linf 3 90
+|| show results
+land *
+cens * ?des=!
+comm * ?des=!

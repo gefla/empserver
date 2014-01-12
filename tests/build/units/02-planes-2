@@ -1,0 +1,42 @@
+|| planes
+| invalid type
+build p -1,1 @
+| insufficient tech
+build p -1,1 sf
+| too many
+build p -1,1 f2 21
+n
+| f2 needs 0.8l/0.2h/1m/4av/$40, tech 80
+| asking for too high and too low tech
+build p -1,1 f2 1 101
+build p -1,1 f2 1 79
+| not an airfield, no materials, inefficient
+build p -1,1 f2
+| Note: fractional cms are randomly rounded, which can make build
+| succeed, upsetting the rest of the test
+build p 3:5,1 f2
+| insufficient materials: 1,1 short 1l/1h, 3,1 short 1m
+| Note: fractional cms are randomly rounded, which can make build
+| succeed in 1,1, upsetting the rest of the test
+move m -1,1 1 jh
+move l -1,1 1 jjh
+move h -1,1 1 jjh
+build p 1:3,1 f2
+| build until out of avail/money
+| sectors can build 2 each, but out of money after 3 total
+move m -1,1 3 jh
+move l -1,1 4 jh
+move h -1,1 4 jh
+move m -1,1 4 jjh
+move l -1,1 3 jjh
+move h -1,1 3 jjh
+build
+p
+1,1
+f2
+build p 1,1 f2
+build p 1:3,1 f2 3 90
+|| show results
+plan *
+cens * ?des=*
+comm * ?des=*

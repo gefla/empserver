@@ -1,0 +1,39 @@
+|| invalid
+build
+@
+|| ships
+| invalid type
+build s 0,0 @
+| insufficient tech
+build s 0,0 nuc
+| too many
+build s 0,0 pt 21
+n
+| pt needs 4l/2h/12av/$60, tech 40
+| asking for too high and too low tech
+build s 0,0 pt 1 101
+build s 0,0 pt 1 39
+| not a harbor, no materials, inefficient
+build s 0,0 pt
+build s 4:6,0 pt
+| insufficient materials: 2,0 short 1h, 4,0 short 1l
+move l 0,0 4 jh
+move h 0,0 1 jh
+move l 0,0 3 jjh
+move h 0,0 2 jjh
+build s 2:4,0 pt
+| build until out of avail/money
+| sectors can build 2 each, but out of money after 3 total
+move l 0,0 12 jh
+move h 0,0 7 jh
+move l 0,0 13 jjh
+move h 0,0 6 jjh
+build s
+2,0
+pt
+build s 2,0 pt
+build s 2:4,0 pt 21 90 y
+|| show results
+ship *
+cens * ?des=h
+comm * ?des=h

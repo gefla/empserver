@@ -1,0 +1,28 @@
+|| bridge towers, BRIDGETOWERS on
+| not a bridge span, no materials, inefficient
+build t 0,-4 u
+build t -9:-8,-5:-4 b
+| insufficient materials: short 1h
+move h 0,-4 299 gyggbh
+build t -8,-4 g
+| invalid direction
+move h 0,-4 601 gyggbh
+move h 0,-4 600 gygbh
+build t -8,-4 @
+| not sea
+build t -8,-4 u
+| adjacent to land
+build t -6,-4 j
+| success
+build t
+-8,-4
+g
+| success
+build t -8,-4 b
+| -8,-4 not enough avail, -6,-4 success
+build t -8:-6,-4 n
+| not enough money
+build t -6,-4 b
+|| show results
+cens * ?des==
+comm * ?des==

@@ -1,0 +1,91 @@
+|| sectors
+des -3:-2,-2:4 c
+des -1:0,-2:4 w
+des 7,3 w
+edit l -8,4 e 100 s @ S @
+des -2,-4 c
+des 0,-4 w
+des -3,-5 #
+edit l -5,-5 e 100 s = S =
+edit l -7,-5 e 100 s @ S @
+give l * ?des=w 2000
+give h * ?des=w 2000
+give m * ?des=w 90
+give o * ?des=w 900
+give r * ?des=w 900
+| building sectors 100% 60% 59%
+des 2:6,0 h
+des 1:5,1 *
+des 2:6,2 !
+des 1:5,3 n
+des 2:6,4 -
+edit l -4,4 e 100 s = S =
+des 2:6,-2 #
+edit l -4,-2 e 100 s = S =
+edit l -6,-2 e 100 s @ S @
+give h -6,-2 100
+edit l -8,-4 e 100 s = S =
+edit l -6,-4 e 60 s = S =
+edit l -9,-5 e 59 s = S =
+edit l 3:4,-2:4 ?des#. e 60
+edit l 5:6,-2:4 ?des#. e 59
+edit l * ?des#.&eff=0 e 100
+edit l * ?des#. m 127
+| avail for 2 pt in h, 2 f2 in *, 2 linf in !, 2 10kt in n
+edit l * ?des=h a 35
+edit l * ?des=* a 11
+edit l * ?des=! a 11
+edit l * ?des=n a 146
+| avail for 2 = or 2 @ in bridge heads
+edit l * ?des=# a 119
+edit l * ?des=- a 119
+edit l * ?des== a 119
+edit l * ?des=@ a 119
+edit l * ?des==&yloc<0 a 359
+edit l 1,-1 a 119
+| plenty of materials in 59%ers
+give l * ?eff=59 500
+give h * ?eff=59 500
+give m * ?eff=59 50
+give o * ?eff=59 500
+give r * ?eff=59 500
+| populate
+give c * ?des#. 100
+|| country#1: builds ships, has money for 3 pt
+add 1 1 1 p
+edit c 1 c -2,0 s 4 b 640 M 239 T 100
+edit l -2:6,0 o 1 O 1
+|| country#2: builds planes, has money for 3 f2
+add 2 2 2 p
+edit c 2 c -3,1 s 4 b 640 M 159 T 100
+edit l -3:5,1 o 2 O 2
+|| country#3: builds lands, has money for 3 linf
+add 3 3 3 p
+edit c 3 c -2,2 s 4 b 640 M 119 T 100
+edit l -2:6,2 o 3 O 3
+|| country#4: builds nukes, has money for 3 10kt
+add 4 4 4 p
+edit c 4 c -3,3 s 4 b 640 M 39999 T 300
+edit l -3:7,3 o 4 O 4
+|| country#5: builds EASY_BRIDGES bridge spans, has money for 3
+| also tries a tower with insufficient tech
+add 5 5 5 p
+edit c 5 c -2,4 s 4 b 640 M 3999 T 99
+edit l -8:6,4 ?des#. o 5 O 5
+|| country#6: tries to build bridge spans, but has no tech
+add 6 6 6 p
+edit c 6 c -3,-1 s 4 b 640 M 10000 T 9
+edit l -3:-1,-1 o 6 O 6
+|| country#7: builds !EASY_BRIDGES bridge spans, has money for 4
+| also tries a tower with !BRIDGETOWERS
+add 7 7 7 p
+edit c 7 c -2,-2 s 4 b 640 M 4999 T 100
+edit l -6:6,-2 o 7 O 7
+|| country#9: builds bridge towers, has money for 3
+add 9 9 9 p
+edit c 9 c -2,-4 s 4 b 640 M 11999 T 100
+edit l -9:0,-5:-4 ?des#. o 9 O 9
+|| show initial state here to help maintainers
+cens * ?des#.
+comm * ?des#.
+map *

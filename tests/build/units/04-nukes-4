@@ -1,0 +1,51 @@
+|| nukes
+| invalid type
+build n -1,3 @
+| insufficient tech
+build n -1,3 5mt
+| too many
+build n -1,3 10kt 21
+n
+| 10kt needs 50l/50h/25o/70r/10k$, tech 80
+| asking for too high and too low tech
+build n -1,3 10kt 1 301
+build n -1,3 10kt 1 279
+| not an nuclear plan, no materials, inefficient
+build n -1,3 10kt
+build n 3:5,3 10kt
+| insufficient materials: 1,3 short 1l, 3,3 short 1h
+move l -1,3 49 jh
+move l -1,3 50 jjh
+move h -1,3 50 jh
+move h -1,3 49 jjh
+move o -1,3 25 jh
+move o -1,3 25 jjh
+move r -1,3 70 jh
+move r -1,3 70 jjh
+build n 1:3,3 10kt
+| insufficient materials: 1,3 short 1o, 3,3 short 1r
+move l -1,3 1 jh
+move h -1,3 1 jjh
+move o 1,3 1 gh
+move r 3,3 1 ggh
+build n 1:3,3 10kt
+| build until out of avail/money
+| sectors can build 2 each, but out of money after 3 total
+move l -1,3 100 jh
+move l -1,3 100 jjh
+move h -1,3 100 jh
+move h -1,3 100 jjh
+move o -1,3 51 jh
+move o -1,3 50 jjh
+move r -1,3 140 jh
+move r 7,3 141 ggh
+build
+n
+1,3
+10kt
+build n 1,3 10kt
+build n 1:3,3 10kt 3 290
+|| show results
+nuke *
+cens * ?des=n
+comm * ?des=n

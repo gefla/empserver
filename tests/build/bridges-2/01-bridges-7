@@ -1,0 +1,33 @@
+|| bridge towers, BRIDGETOWERS off
+build t -4,-2 u
+|| bridge spans, EASY_BRIDGES off
+| not a bridge head, no materials, inefficient
+build b 0,-2 u
+build b 4:6,-2 u
+| insufficient materials: short 1h
+move h 0,-2 99 jh
+build b 2,-2 u
+| invalid direction
+move h 0,-2 201 jh
+move h 0,-2 200 jjh
+build b 2,-2 @
+| not sea
+build b 2,-2 g
+| success
+build b
+2,-2
+y
+| success
+build b 2,-2 n
+| success from tower
+build b -6,-2 b
+| 2,-2 not enough avail, 4,-2 success
+build b 2:4,-2
+n
+| not enough money
+build b 4,-2 n
+|| show results
+cens * ?des=#
+comm * ?des=#
+cens * ?des=@
+comm * ?des=@

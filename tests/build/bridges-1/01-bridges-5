@@ -1,0 +1,33 @@
+|| bridge towers, BRIDGETOWERS on
+| insufficient tech
+build t -4,4 b
+|| bridge spans, EASY_BRIDGES on
+| no materials, inefficient
+build b 4:6,4 n
+| insufficient materials: short 1h
+move h 0,4 99 ggh
+build b -4,4 n
+| invalid direction
+move h 0,4 201 ggh
+move h 0,4 200 jjh
+build b -4,4 @
+| not sea
+build b -4,4 j
+| not next to land
+build b -4,4 b
+| success to tower
+build b
+-4,4
+g
+| success to land
+build b -4,4 n
+| -4,4 not enough avail, 4,4 success
+cens -4:4,4 ?des#w&hcm>0
+build b -4:4,4 ?des#c&des#w b
+| not enough money
+build b 4,4 n
+|| show results
+cens * ?des=#
+comm * ?des=#
+cens * ?des=@
+comm * ?des=@
