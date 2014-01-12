@@ -55,6 +55,7 @@ start_server()
     # - Shell builtin kill appears not to do the job in MinGW
     # - The Windows server tries to run as service when -d isn't
     #   specified
+    # - The Windows server does not implement -E crash-dump
     #
     # TODO address these shortcomings.
     #
@@ -62,7 +63,7 @@ start_server()
 
     pid=
     trap 'if [ "$pid" ]; then kill -9 "$pid" 2>/dev/null || true; fi' EXIT
-    src/server/emp_server -e sandbox/etc/empire/econfig -R 1 -s
+    src/server/emp_server -e sandbox/etc/empire/econfig -R 1 -s -E crash-dump
     timeout=$((`now`+5))
     until pid=`cat $pidfile 2>/dev/null` && [ -n "$pid" ]
     do
