@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -56,7 +56,10 @@ static int pick_unused_unit_uid(int);
 static int build_bridge(char);
 static int build_bspan(struct sctstr *sp);
 static int build_btower(struct sctstr *sp);
-static int build_can_afford(double, char *);
+static void build_material_use(short[], short[], int);
+static int sector_can_build(struct sctstr *, short[], int, int, char *);
+static void build_charge(struct sctstr *, short[], int, double, int);
+static int build_can_afford(double, int, char *);
 
 /*
  * build <WHAT> <SECTS> <TYPE|DIR|MEG> [NUMBER]
@@ -204,43 +207,27 @@ buil(void)
 static int
 build_ship(struct sctstr *sp, int type, int tlev)
 {
-    short *vec = sp->sct_item;
     struct mchrstr *mp = &mchr[type];
+    short mat[I_MAX+1], mat_100[I_MAX+1];
+    int work;
     struct shpstr ship;
-    int avail;
-    double cost;
-    double eff = SHIP_MINEFF / 100.0;
-    int lcm, hcm;
 
-    hcm = roundavg(mp->m_hcm * eff);
-    lcm = roundavg(mp->m_lcm * eff);
+    memset(mat_100, 0, sizeof(mat_100));
+    mat_100[I_LCM] = mp->m_lcm;
+    mat_100[I_HCM] = mp->m_hcm;
+    build_material_use(mat, mat_100, SHIP_MINEFF);
+    work = SHP_BLD_WORK(mp->m_lcm, mp->m_hcm);
 
     if (sp->sct_type != SCT_HARBR) {
 	pr("Ships must be built in harbours.\n");
 	return 0;
     }
-    if (sp->sct_effic < 60 && !player->god) {
-	pr("Sector %s is not 60%% efficient.\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+    if (!sector_can_build(sp, mat, work, SHIP_MINEFF, mp->m_name))
 	return 0;
-    }
-    if (vec[I_LCM] < lcm || vec[I_HCM] < hcm) {
-	pr("Not enough materials in %s\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+    if (!build_can_afford(mp->m_cost, SHIP_MINEFF, mp->m_name))
 	return 0;
-    }
-    avail = (SHP_BLD_WORK(mp->m_lcm, mp->m_hcm) * SHIP_MINEFF + 99) / 100;
-    if (sp->sct_avail < avail) {
-	pr("Not enough available work in %s to build a %s\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum), mp->m_name);
-	pr(" (%d available work required)\n", avail);
-	return 0;
-    }
-    cost = mp->m_cost * SHIP_MINEFF / 100.0;
-    if (!build_can_afford(cost, mp->m_name))
-	return 0;
-    sp->sct_avail -= avail;
-    player->dolcost += cost;
+    build_charge(sp, mat, work, mp->m_cost, SHIP_MINEFF);
+
     ef_blank(EF_SHIP, pick_unused_unit_uid(EF_SHIP), &ship);
     ship.shp_x = sp->sct_x;
     ship.shp_y = sp->sct_y;
@@ -263,9 +250,6 @@ build_ship(struct sctstr *sp, int type, int tlev)
     shp_set_tech(&ship, tlev);
     unit_wipe_orders((struct empobj *)&ship);
 
-    vec[I_LCM] -= lcm;
-    vec[I_HCM] -= hcm;
-
     if (sp->sct_pstage == PLG_INFECT)
 	ship.shp_pstage = PLG_EXPOSED;
     putship(ship.shp_uid, &ship);
@@ -277,67 +261,27 @@ build_ship(struct sctstr *sp, int type, int tlev)
 static int
 build_land(struct sctstr *sp, int type, int tlev)
 {
-    short *vec = sp->sct_item;
     struct lchrstr *lp = &lchr[type];
+    short mat[I_MAX+1], mat_100[I_MAX+1];
+    int work;
     struct lndstr land;
-    int avail;
-    double cost;
-    double eff = LAND_MINEFF / 100.0;
-    int mil, lcm, hcm, gun, shell;
 
-#if 0
-    mil = roundavg(lp->l_mil * eff);
-    shell = roundavg(lp->l_shell * eff);
-    gun = roundavg(lp->l_gun * eff);
-#else
-    mil = shell = gun = 0;
-#endif
-    hcm = roundavg(lp->l_hcm * eff);
-    lcm = roundavg(lp->l_lcm * eff);
+    memset(mat_100, 0, sizeof(mat_100));
+    mat_100[I_LCM] = lp->l_lcm;
+    mat_100[I_HCM] = lp->l_hcm;
+    build_material_use(mat, mat_100, LAND_MINEFF);
+    work = LND_BLD_WORK(lp->l_lcm, lp->l_hcm);
 
     if (sp->sct_type != SCT_HEADQ) {
 	pr("Land units must be built in headquarters.\n");
 	return 0;
     }
-    if (sp->sct_effic < 60 && !player->god) {
-	pr("Sector %s is not 60%% efficient.\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+    if (!sector_can_build(sp, mat, work, LAND_MINEFF, lp->l_name))
 	return 0;
-    }
-    if (vec[I_LCM] < lcm || vec[I_HCM] < hcm) {
-	pr("Not enough materials in %s\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+    if (!build_can_afford(lp->l_cost, LAND_MINEFF, lp->l_name))
 	return 0;
-    }
-#if 0
-    if (vec[I_GUN] < gun || vec[I_GUN] == 0) {
-	pr("Not enough guns in %s\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	return 0;
-    }
-    if (vec[I_SHELL] < shell) {
-	pr("Not enough shells in %s\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	return 0;
-    }
-    if (vec[I_MILIT] < mil) {
-	pr("Not enough military in %s\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	return 0;
-    }
-#endif
-    avail = (LND_BLD_WORK(lp->l_lcm, lp->l_hcm) * LAND_MINEFF + 99) / 100;
-    if (sp->sct_avail < avail) {
-	pr("Not enough available work in %s to build a %s\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum), lp->l_name);
-	pr(" (%d available work required)\n", avail);
-	return 0;
-    }
-    cost = lp->l_cost * LAND_MINEFF / 100.0;
-    if (!build_can_afford(cost, lp->l_name))
-	return 0;
-    sp->sct_avail -= avail;
-    player->dolcost += cost;
+    build_charge(sp, mat, work, lp->l_cost, LAND_MINEFF);
+
     ef_blank(EF_LAND, pick_unused_unit_uid(EF_LAND), &land);
     land.lnd_x = sp->sct_x;
     land.lnd_y = sp->sct_y;
@@ -358,12 +302,6 @@ build_land(struct sctstr *sp, int type, int tlev)
     land.lnd_ptime = 0;
     lnd_set_tech(&land, tlev);
     unit_wipe_orders((struct empobj *)&land);
-
-    vec[I_LCM] -= lcm;
-    vec[I_HCM] -= hcm;
-    vec[I_MILIT] -= mil;
-    vec[I_GUN] -= gun;
-    vec[I_SHELL] -= shell;
 
     if (sp->sct_pstage == PLG_INFECT)
 	land.lnd_pstage = PLG_EXPOSED;
@@ -398,7 +336,7 @@ build_nuke(struct sctstr *sp, int type, int tlev)
 	   np->n_hcm, np->n_lcm, np->n_oil, np->n_rad);
 	return 0;
     }
-    if (!build_can_afford(np->n_cost, np->n_name))
+    if (!build_can_afford(np->n_cost, 100, np->n_name))
 	return 0;
     avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
     /*
@@ -414,6 +352,7 @@ build_nuke(struct sctstr *sp, int type, int tlev)
     }
     sp->sct_avail -= avail;
     player->dolcost += np->n_cost;
+
     ef_blank(EF_NUKE, pick_unused_unit_uid(EF_NUKE), &nuke);
     nuke.nuk_x = sp->sct_x;
     nuke.nuk_y = sp->sct_y;
@@ -438,51 +377,39 @@ build_nuke(struct sctstr *sp, int type, int tlev)
 static int
 build_plane(struct sctstr *sp, int type, int tlev)
 {
-    short *vec = sp->sct_item;
     struct plchrstr *pp = &plchr[type];
+    short mat[I_MAX+1], mat_100[I_MAX+1];
+    int work;
     struct plnstr plane;
-    int avail;
-    double cost;
     double eff = PLANE_MINEFF / 100.0;
-    int hcm, lcm, mil;
+    int mil;
 
     mil = roundavg(pp->pl_crew * eff);
     /* Always use at least 1 mil to build a plane */
     if (mil == 0 && pp->pl_crew > 0)
 	mil = 1;
-    hcm = roundavg(pp->pl_hcm * eff);
-    lcm = roundavg(pp->pl_lcm * eff);
+    memset(mat_100, 0, sizeof(mat_100));
+    mat_100[I_LCM] = pp->pl_lcm;
+    mat_100[I_HCM] = pp->pl_hcm;
+    build_material_use(mat, mat_100, PLANE_MINEFF);
+    work = PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm);
+
     if (sp->sct_type != SCT_AIRPT && !player->god) {
 	pr("Planes must be built in airports.\n");
 	return 0;
     }
-    if (sp->sct_effic < 60 && !player->god) {
-	pr("Sector %s is not 60%% efficient.\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+    if (!sector_can_build(sp, mat, work, PLANE_MINEFF, pp->pl_name))
 	return 0;
-    }
-    if (vec[I_LCM] < lcm || vec[I_HCM] < hcm) {
-	pr("Not enough materials in %s\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+    if (!build_can_afford(pp->pl_cost, PLANE_MINEFF, pp->pl_name))
 	return 0;
-    }
-    avail = (PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm) * PLANE_MINEFF + 99) / 100;
-    if (sp->sct_avail < avail) {
-	pr("Not enough available work in %s to build a %s\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum), pp->pl_name);
-	pr(" (%d available work required)\n", avail);
-	return 0;
-    }
-    cost = pp->pl_cost * PLANE_MINEFF / 100.0;
-    if (!build_can_afford(cost, pp->pl_name))
-	return 0;
-    if (vec[I_MILIT] < mil || (vec[I_MILIT] == 0 && pp->pl_crew > 0)) {
+    if (sp->sct_item[I_MILIT] < mil) {
 	pr("Not enough military for crew in %s\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
 	return 0;
     }
-    sp->sct_avail -= avail;
-    player->dolcost += cost;
+    sp->sct_item[I_MILIT] -= mil;
+    build_charge(sp, mat, work, pp->pl_cost, PLANE_MINEFF);
+
     ef_blank(EF_PLANE, pick_unused_unit_uid(EF_PLANE), &plane);
     plane.pln_x = sp->sct_x;
     plane.pln_y = sp->sct_y;
@@ -502,10 +429,6 @@ build_plane(struct sctstr *sp, int type, int tlev)
     plane.pln_flags = 0;
     pln_set_tech(&plane, tlev);
     unit_wipe_orders((struct empobj *)&plane);
-
-    vec[I_LCM] -= lcm;
-    vec[I_HCM] -= hcm;
-    vec[I_MILIT] -= mil;
 
     putplane(plane.pln_uid, &plane);
     pr("%s built in sector %s\n", prplane(&plane),
@@ -612,7 +535,7 @@ build_bspan(struct sctstr *sp)
 	return 0;
     }
 
-    if (!build_can_afford(buil_bc, dchr[SCT_BSPAN].d_name))
+    if (!build_can_afford(buil_bc, 100, dchr[SCT_BSPAN].d_name))
 	return 0;
     avail = (SCT_BLD_WORK(0, buil_bh) * SCT_MINEFF + 99) / 100;
     if (sp->sct_avail < avail) {
@@ -719,7 +642,7 @@ build_btower(struct sctstr *sp)
 	return 0;
     }
 
-    if (!build_can_afford(buil_tower_bc, dchr[SCT_BTOWER].d_name))
+    if (!build_can_afford(buil_tower_bc, 100, dchr[SCT_BTOWER].d_name))
 	return 0;
     avail = (SCT_BLD_WORK(0, buil_tower_bh) * SCT_MINEFF + 99) / 100;
     if (sp->sct_avail < avail) {
@@ -791,11 +714,65 @@ build_btower(struct sctstr *sp)
     return 1;
 }
 
+static void
+build_material_use(short mat[], short mat_100[], int effic)
+{
+    int i;
+
+    for (i = I_MAX; i > I_NONE; i--) {
+	mat[i] = mat_100[i] ? roundavg(mat_100[i] * (effic / 100.0)) : 0;
+    }
+}
+
 static int
-build_can_afford(double cost, char *what)
+sector_can_build(struct sctstr *sp, short mat[], int work,
+		 int effic, char *what)
+{
+    int i, avail;
+
+    if (sp->sct_effic < 60 && !player->god) {
+	pr("Sector %s is not 60%% efficient.\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum));
+	return 0;
+    }
+
+    for (i = I_NONE + 1; i <= I_MAX; i++) {
+	if (sp->sct_item[i] < mat[i]) {
+	    pr("Not enough materials in %s\n",
+	       xyas(sp->sct_x, sp->sct_y, player->cnum));
+	    return 0;
+	}
+    }
+
+    avail = (work * effic + 99) / 100;
+    if (sp->sct_avail < avail) {
+	pr("Not enough available work in %s to build a %s\n",
+	   xyas(sp->sct_x, sp->sct_y, player->cnum), what);
+	pr(" (%d available work required)\n", avail);
+	return 0;
+    }
+
+    return 1;
+}
+
+static void
+build_charge(struct sctstr *sp,
+	     short mat[], int work, double cost, int effic)
+{
+    int i;
+
+    for (i = I_NONE + 1; i <= I_MAX; i++)
+	sp->sct_item[i] -= mat[i];
+    sp->sct_avail -= (work * effic + 99) / 100;
+    player->dolcost += cost * effic / 100.0;
+}
+
+static int
+build_can_afford(double cost, int effic, char *what)
 {
     struct natstr *natp = getnatp(player->cnum);
-    if (natp->nat_money < player->dolcost + cost) {
+
+    if (natp->nat_money < player->dolcost + cost * effic / 100.0) {
 	pr("Not enough money left to build a %s\n", what);
 	return 0;
     }
