@@ -141,6 +141,7 @@ begin_test()
 	then feed_input POGO peter
 	else feed_files "$@"
 	fi
+	echo 'edit c * ?tgms>0 t 0' | feed_input POGO peter
 	stop_server
 	mv sandbox/var/empire/tel sandbox/var/empire/setup.tel
 	mv sandbox/var/empire/empty.tel sandbox/var/empire/tel

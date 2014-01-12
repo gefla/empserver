@@ -19,7 +19,6 @@
     Play#1 output Play#1 1
     Play#1 output Play#1 1 ***          Server configured for testing          ***
     Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
-    Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input cens * ?shell>0
     Play#1 command census

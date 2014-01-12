@@ -31,4 +31,4 @@ buil l 1,-1 sup 5 100
 des 1,-1 n
 buil n 1,-1 10kt 5
 edit l 3,-1 L 1,-1
-edit c 1/2/3/4/5 t 0 s 4
+edit c 1/2/3/4/5 s 4
