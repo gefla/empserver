@@ -578,8 +578,10 @@
     Play#4 output Play#4 6 0 635
     Play#4 input build n 3:5,3 10kt
     Play#4 command build
-    Play#4 output Play#4 1 Not enough materials for a 10kt  fission bomb in 3,3
-    Play#4 output Play#4 1 (50 hcm, 50 lcm, 25 oil, & 70 rads).
+    Play#4 output Play#4 1 Not enough oil in 3,3 (need 25 more)
+    Play#4 output Play#4 1 Not enough light products in 3,3 (need 50 more)
+    Play#4 output Play#4 1 Not enough heavy products in 3,3 (need 50 more)
+    Play#4 output Play#4 1 Not enough radioactive materials in 3,3 (need 70 more)
     Play#4 output Play#4 1 Sector 5,3 is not 60% efficient.
     Play#4 output Play#4 6 0 634
     Play#4 input move l -1,3 49 jh
@@ -624,10 +626,8 @@
     Play#4 output Play#4 6 0 626
     Play#4 input build n 1:3,3 10kt
     Play#4 command build
-    Play#4 output Play#4 1 Not enough materials for a 10kt  fission bomb in 1,3
-    Play#4 output Play#4 1 (50 hcm, 50 lcm, 25 oil, & 70 rads).
-    Play#4 output Play#4 1 Not enough materials for a 10kt  fission bomb in 3,3
-    Play#4 output Play#4 1 (50 hcm, 50 lcm, 25 oil, & 70 rads).
+    Play#4 output Play#4 1 Not enough light products in 1,3 (need 1 more)
+    Play#4 output Play#4 1 Not enough heavy products in 3,3 (need 1 more)
     Play#4 output Play#4 6 0 625
     Play#4 input move l -1,3 1 jh
     Play#4 command move
@@ -651,10 +651,8 @@
     Play#4 output Play#4 6 0 621
     Play#4 input build n 1:3,3 10kt
     Play#4 command build
-    Play#4 output Play#4 1 Not enough materials for a 10kt  fission bomb in 1,3
-    Play#4 output Play#4 1 (50 hcm, 50 lcm, 25 oil, & 70 rads).
-    Play#4 output Play#4 1 Not enough materials for a 10kt  fission bomb in 3,3
-    Play#4 output Play#4 1 (50 hcm, 50 lcm, 25 oil, & 70 rads).
+    Play#4 output Play#4 1 Not enough oil in 1,3 (need 1 more)
+    Play#4 output Play#4 1 Not enough radioactive materials in 3,3 (need 1 more)
     Play#4 output Play#4 6 0 620
     Play#4 input move l -1,3 100 jh
     Play#4 command move
@@ -715,12 +713,14 @@
     Play#4 input build n 1:3,3 10kt 3 290
     Play#4 command build
     Play#4 output Play#4 1 Building with tech level 290.
-    Play#4 output Play#4 1 Not enough available work in 1,3 to build a 10kt  fission;
+    Play#4 output Play#4 1 Not enough available work in 1,3 to build a 10kt  fission
     Play#4 output Play#4 1  (49 available work required)
     Play#4 output Play#4 1 10kt  fission warhead #2 created in 3,3
+    Play#4 output Play#4 1 Not enough available work in 1,3 to build a 10kt  fission
+    Play#4 output Play#4 1  (49 available work required)
     Play#4 output Play#4 1 Not enough money left to build a 10kt  fission
-    Play#4 output Play#4 1 Not enough money left to build a 10kt  fission
-    Play#4 output Play#4 1 Not enough money left to build a 10kt  fission
+    Play#4 output Play#4 1 Not enough available work in 1,3 to build a 10kt  fission
+    Play#4 output Play#4 1  (49 available work required)
     Play#4 output Play#4 1 Not enough money left to build a 10kt  fission
     Play#4 output Play#4 1 That just cost you $10000.00
     Play#4 output Play#4 6 0 609

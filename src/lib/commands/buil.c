@@ -312,44 +312,32 @@ build_land(struct sctstr *sp, int type, int tlev)
 static int
 build_nuke(struct sctstr *sp, int type, int tlev)
 {
-    short *vec = sp->sct_item;
     struct nchrstr *np = &nchr[type];
+    short mat[I_MAX+1];
+    int work;
     struct nukstr nuke;
-    int avail;
 
     if (sp->sct_type != SCT_NUKE && !player->god) {
 	pr("Nuclear weapons must be built in nuclear plants.\n");
 	return 0;
     }
-    if (sp->sct_effic < 60 && !player->god) {
-	pr("Sector %s is not 60%% efficient.\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	return 0;
-    }
-    if (vec[I_HCM] < np->n_hcm || vec[I_LCM] < np->n_lcm ||
-	vec[I_OIL] < np->n_oil || vec[I_RAD] < np->n_rad) {
-	pr("Not enough materials for a %s bomb in %s\n",
-	   np->n_name, xyas(sp->sct_x, sp->sct_y, player->cnum));
-	pr("(%d hcm, %d lcm, %d oil, & %d rads).\n",
-	   np->n_hcm, np->n_lcm, np->n_oil, np->n_rad);
-	return 0;
-    }
-    if (!build_can_afford(np->n_cost, 100, np->n_name))
-	return 0;
-    avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
     /*
      * XXX when nukes turn into units (or whatever), then
      * make them start at 20%.  Since they don't have efficiency
      * now, we charge all the work right away.
      */
-    if (sp->sct_avail < avail) {
-	pr("Not enough available work in %s to build a %s;\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum), np->n_name);
-	pr(" (%d available work required)\n", avail);
+    memset(mat, 0, sizeof(mat));
+    mat[I_LCM] = np->n_lcm;
+    mat[I_HCM] = np->n_hcm;
+    mat[I_OIL] = np->n_oil;
+    mat[I_RAD] = np->n_rad;
+    work = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
+
+    if (!sector_can_build(sp, mat, work, 100, np->n_name))
 	return 0;
-    }
-    sp->sct_avail -= avail;
-    player->dolcost += np->n_cost;
+    if (!build_can_afford(np->n_cost, 100, np->n_name))
+	return 0;
+    build_charge(sp, mat, work, np->n_cost, 100);
 
     ef_blank(EF_NUKE, pick_unused_unit_uid(EF_NUKE), &nuke);
     nuke.nuk_x = sp->sct_x;
@@ -360,11 +348,6 @@ build_nuke(struct sctstr *sp, int type, int tlev)
     nuke.nuk_plane = -1;
     nuke.nuk_tech = tlev;
     unit_wipe_orders((struct empobj *)&nuke);
-
-    vec[I_HCM] -= np->n_hcm;
-    vec[I_LCM] -= np->n_lcm;
-    vec[I_OIL] -= np->n_oil;
-    vec[I_RAD] -= np->n_rad;
 
     putnuke(nuke.nuk_uid, &nuke);
     pr("%s created in %s\n", prnuke(&nuke),
