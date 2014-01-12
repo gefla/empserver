@@ -34,6 +34,7 @@
 #include <config.h>
 
 #include <limits.h>
+#include <math.h>
 #include "chance.h"
 #include "commands.h"
 #include "game.h"
@@ -714,23 +715,13 @@ static int
 sector_can_build(struct sctstr *sp, short mat[], int work,
 		 int effic, char *what)
 {
-    int i, avail;
+    int i, avail, ret;
     double needed;
 
     if (sp->sct_effic < 60 && !player->god) {
 	pr("Sector %s is not 60%% efficient.\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
 	return 0;
-    }
-
-    for (i = I_NONE + 1; i <= I_MAX; i++) {
-	needed = mat[i] * (effic / 100.0);
-	if (sp->sct_item[i] < needed) {
-	    pr("Not enough materials in %s\n",
-	       xyas(sp->sct_x, sp->sct_y, player->cnum));
-	    return 0;
-	}
-	mat[i] = roundavg(needed);
     }
 
     avail = (work * effic + 99) / 100;
@@ -741,7 +732,19 @@ sector_can_build(struct sctstr *sp, short mat[], int work,
 	return 0;
     }
 
-    return 1;
+    ret = 1;
+    for (i = I_NONE + 1; i <= I_MAX; i++) {
+	needed = mat[i] * (effic / 100.0);
+	if (sp->sct_item[i] < needed) {
+	    pr("Not enough %s in %s (need %g more)\n",
+	       ichr[i].i_name, xyas(sp->sct_x, sp->sct_y, player->cnum),
+	       ceil(needed - sp->sct_item[i]));
+	    ret = 0;
+	}
+	mat[i] = roundavg(needed);
+    }
+
+    return ret;
 }
 
 static void
