@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2014
  *     Ron Koenderink, 2004-2009
  */
 
@@ -60,6 +60,10 @@ player_main(struct player *p)
     time(&player->curup);
     update_timeused_login(player->curup);
     show_motd();
+    if (running_test_suite)
+	pr("\n"
+	   "***          Server configured for testing          ***\n"
+	   "*** If you see this in a game, it is misconfigured! ***\n");
     if (init_nats() < 0) {
 	pr("Server confused, try again later\n");
 	return;

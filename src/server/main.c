@@ -31,7 +31,7 @@
  *     Steve McClure, 1996, 1998
  *     Doug Hay, 1998
  *     Ron Koenderink, 2004-2009
- *     Markus Armbruster, 2005-2013
+ *     Markus Armbruster, 2005-2014
  */
 
 #include <config.h>
@@ -381,6 +381,8 @@ start_server(int flags)
     create_pidfile(pidfname, pid);
     logerror("------------------------------------------------------");
     logerror("Empire server (pid %d) started", (int)pid);
+    if (running_test_suite)
+	logerror("Configured for testing");
 
     empth_init((void **)&player, flags);
 

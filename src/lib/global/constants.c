@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -46,6 +46,8 @@ char *privip = "127.0.0.1 ::1";
 char *post_crash_dump_hook = "";
 
 char *disabled_commands = "";
+
+int running_test_suite = 0;	/* For use by "make check" only */
 
 int keep_journal = 0;		/* journal log file enabled */
 

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Marc Olzheim, 2004
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 /*
@@ -395,6 +395,8 @@ EMPCFBOTH("news_keep_days", news_keep_days, int, NSC_INT, KM_INTERNAL,
     "How long until news expire")
 EMPCFBOTH("lost_keep_hours", lost_keep_hours, int, NSC_INT, KM_INTERNAL,
     "How long until lost items expire")
+EMPCFBOTH("running_test_suite", running_test_suite, int, NSC_INT, KM_INTERNAL,
+    "Are we running the test suite?  Must be 0 for games!")
 
 /* Sentinel */
 EMPCFONLYC(NULL, emp_config_dummy, NULL, NSC_NOTYPE, 0, NULL)
