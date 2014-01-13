@@ -46,6 +46,7 @@
 #include "player.h"
 #include "prototypes.h"
 #include "server.h"
+#include "testing.h"
 
 /*
  * Last command's PRNG seed.
@@ -101,9 +102,12 @@ dispatch(char *buf, char *redir)
      * When running the test suite, reseed PRNG for each command with
      * a counter, to keep results stable even when the number of PRNs
      * consumed changes.
+     * Tests can adjust the counter with "__cmd added ...", to
+     * keep the results stable when commands are inserted or deleted.
      */
+    test_suite_prng_seed += !(command->c_permit & TESTING);
     if (running_test_suite)
-	seed_prng(++test_suite_prng_seed);
+	seed_prng(test_suite_prng_seed);
 
     if (redir) {
 	prredir(redir);

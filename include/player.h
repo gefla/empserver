@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Doug Hay, 1998
- *     Markus Armbruster, 2005-2012
+ *     Markus Armbruster, 2005-2014
  */
 
 #ifndef PLAYER_H
@@ -46,6 +46,7 @@
 #define SANCT	bit(1)	/* can execute commands available in sanctuary */
 #define NORM	bit(2)	/* can execute active player commands */
 #define GOD	bit(3)	/* can execute deity commands */
+#define TESTING	bit(4)	/* can execute commands meant for test suite */
 #define EXEC	bit(5)	/* can execute the execute command */
 #define CAP	bit(6)	/* has capital */
 #define MONEY	bit(7)	/* isn't broke */

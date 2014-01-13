@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 2000
- *     Markus Armbruster, 2007-2012
+ *     Markus Armbruster, 2007-2014
  */
 
 #include <config.h>
@@ -81,6 +81,8 @@ player_set_nstat(struct player *pl, struct natstr *np)
 	pl->nstat |= MONEY;
     if (np->nat_stat == STAT_ACTIVE && !influx(np))
 	pl->nstat |= CAP;
+    if (running_test_suite)
+	pl->nstat |= TESTING;
     pl->nstat |= EXEC;
     return pl->nstat;
 }

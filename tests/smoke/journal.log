@@ -993,6 +993,14 @@
     Play#1 output Play#1 1 ***          Server configured for testing          ***
     Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 6 0 640
+    Play#1 input __cmd added -1 -2 -101
+    Play#1 command __cmd
+    Play#1 output Play#1 1 That just cost you $101.00
+    Play#1 output Play#1 6 0 638
+    Play#1 input __cmd added 1 2 101
+    Play#1 command __cmd
+    Play#1 output Play#1 1 You just made $101.00
+    Play#1 output Play#1 6 0 640
     Play#1 input xdump sect 0,0
     Play#1 command xdump
     Play#1 output Play#1 1 Access to table sect denied

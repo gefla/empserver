@@ -32,7 +32,7 @@
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 /*
@@ -46,6 +46,7 @@
 #include "com.h"
 #include "player.h"
 #include "prototypes.h"
+#include "testing.h"
 
 struct cmndstr player_coms[] = {
 /*  command form                       cost	addr    permit */
@@ -282,5 +283,6 @@ struct cmndstr player_coms[] = {
     {"work <LAND UNITS> <AMOUNT>", 1, work, C_MOD, NORM + MONEY + CAP},
     {"xdump [\"meta\"] <TYPE> [<RECORDS>]", 0, xdump, 0, 0},
     {"zdone <y|n|c>", 0, zdon, C_MOD, NORM},
+    {"__cmd \"added\" <NUM> <NUM> <NUM>", 0, testing_cmd, 0, TESTING},
     {NULL, 0, NULL, 0, 0}
 };
