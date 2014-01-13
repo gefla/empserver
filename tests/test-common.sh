@@ -172,6 +172,10 @@ cmp_out()
 	if msg=`diff -q "$exp" "$nrm"`
 	then
 	    echo "$i OK"
+	elif [ "$EMPIRE_CHECK_ACCEPT" ]
+	then
+	    echo "$i CHANGED"
+	    cp "$nrm" "$exp"
 	else
 	    ret=$?
 	    echo "$i FAIL"

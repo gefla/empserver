@@ -27,7 +27,7 @@
 #   Make.mk: The real Makefile, included by GNUmakefile
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2013
+#      Markus Armbruster, 2005-2014
 #
 
 # This makefile was inspired by `Recursive Make Considered Harmful',
@@ -249,8 +249,11 @@ uninstall:
 .PHONY: dist
 dist: dist-source dist-client dist-info
 
-.PHONY: check
-check: all
+.PHONY: check check-accept _check
+check check-accept: _check
+check:        export override EMPIRE_CHECK_ACCEPT :=
+check-accept: export override EMPIRE_CHECK_ACCEPT := y
+_check: all
 	@echo "Warning: test suite is immature and needs work." >&2
 	$(srcdir)/tests/files-test $(srcdir)
 	$(srcdir)/tests/fairland-test $(srcdir)
