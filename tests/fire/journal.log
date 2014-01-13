@@ -98,8 +98,8 @@
     Play#1 output Play#1 6 0 629
     Play#1 input move g 1,1 1 yh
     Play#1 command move
-    Play#1 output Play#1 1 Total movement cost = 4
-    Play#1 output Play#1 1 122 mob left in 1,1
+    Play#1 output Play#1 1 Total movement cost = 3
+    Play#1 output Play#1 1 123 mob left in 1,1
     Play#1 output Play#1 6 0 628
     Play#1 input move s 0,0 1 nh
     Play#1 command move
@@ -113,7 +113,7 @@
     Play#1 input move s 1,1 1 yh
     Play#1 command move
     Play#1 output Play#1 1 Total movement cost = 1
-    Play#1 output Play#1 1 121 mob left in 1,1
+    Play#1 output Play#1 1 122 mob left in 1,1
     Play#1 output Play#1 6 0 625
     Play#1 input fire se 4,0 -12,0
     Play#1 command fire
@@ -140,7 +140,7 @@
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 4,0 firing
-    Play#1 output Play#1 1 range is 5.00 (4.50)
+    Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 621
     Play#1 input fire se 4,0 14,0
@@ -154,24 +154,23 @@
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 4,0 firing
+    Play#1 output Play#1 1 range is 4.00 (4.50)
+    Play#1 output Play#1 1 Target out of range.
+    Play#1 output Play#1 6 0 619
+    Play#1 input fire se 4,0 14,0
+    Play#1 command fire
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 Sector 4,0 firing
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 14,0 for 40 damage.
-    Play#1 output Play#1 6 0 619
+    Play#1 output Play#1 1 Shells hit sector 14,0 for 22 damage.
+    Play#1 output Play#1 6 0 618
     Play#1 input fire se 4,0 14,0
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 4,0 firing
     Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 Target out of range.
-    Play#1 output Play#1 6 0 618
-    Play#1 input fire se 4,0 14,0
-    Play#1 command fire
-    Play#1 output Play#1 1
-    Play#1 output Play#1 1 Sector 4,0 firing
-    Play#1 output Play#1 1 range is 5.00 (4.50)
-    Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 14,0 for 48 damage.
     Play#1 output Play#1 6 0 617
     Play#1 input fire se 4,0 14,0
     Play#1 command fire
@@ -186,20 +185,20 @@
     Play#1 output Play#1 1 Sector 4,0 firing
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 14,0 for 24 damage.
+    Play#1 output Play#1 1 Shells hit sector 14,0 for 39 damage.
     Play#1 output Play#1 6 0 615
     Play#1 input fire se 4,0 2,-2
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 4,0 firing
-    Play#1 output Play#1 1 range is 4.00 (4.50)
+    Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 2,-2 for 43 damage.
+    Play#1 output Play#1 1 Shells hit sector 2,-2 for 21 damage.
     Play#1 output Play#1 6 0 614
     Play#1 input move s 2,0 20 gh
     Play#1 command move
-    Play#1 output Play#1 1 Total movement cost = 8
-    Play#1 output Play#1 1 119 mob left in 2,0
+    Play#1 output Play#1 1 Total movement cost = 7
+    Play#1 output Play#1 1 120 mob left in 2,0
     Play#1 output Play#1 6 0 613
     Play#1 input fire se 0,0 -2,-2
     Play#1 command fire
@@ -213,23 +212,23 @@
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 2,0 firing
-    Play#1 output Play#1 1 range is 4.00 (4.50)
+    Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector -2,-2 for 4 damage.
+    Play#1 output Play#1 1 Shells hit sector -2,-2 for 5 damage.
     Play#1 output Play#1 6 0 611
     Play#1 input fire se 4,0 -2,-2
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 4,0 firing
-    Play#1 output Play#1 1 range is 4.00 (4.50)
+    Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector -2,-2 for 45 damage.
+    Play#1 output Play#1 1 Shells hit sector -2,-2 for 43 damage.
     Play#1 output Play#1 6 0 610
     Play#1 input fire se 0,0 4,2
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 0,0 firing
-    Play#1 output Play#1 1 range is 4.00 (3.50)
+    Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 4,2 for 0 damage.
     Play#1 output Play#1 6 0 609
@@ -245,15 +244,15 @@
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 4,0 firing
-    Play#1 output Play#1 1 range is 4.00 (4.50)
+    Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 1,3 for 27 damage.
+    Play#1 output Play#1 1 Shells hit sector 1,3 for 29 damage.
     Play#1 output Play#1 6 0 607
     Play#1 input fire se 0,0 2,2
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 0,0 firing
-    Play#1 output Play#1 1 range is 3.00 (3.50)
+    Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 2,2 for 0 damage.
     Play#1 output Play#1 6 0 606
@@ -271,7 +270,7 @@
     Play#1 output Play#1 1 Sector 4,0 firing
     Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 2,2 for 44 damage.
+    Play#1 output Play#1 1 Shells hit sector 2,2 for 21 damage.
     Play#1 output Play#1 6 0 604
     Play#1 input fire se 0,0 9
     Play#1 command fire
@@ -296,7 +295,7 @@
     Play#1 output Play#1 1 Sector 2,0 firing
     Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#23) in 6,0 for 3 damage.
+    Play#1 output Play#1 1 Shells hit cs   cargo ship (#23) in 6,0 for 2 damage.
     Play#1 output Play#1 6 0 601
     Play#1 input fire se 4,0 23
     Play#1 command fire
@@ -304,7 +303,7 @@
     Play#1 output Play#1 1 Sector 4,0 firing
     Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#23) in 8,0 for 40 damage.
+    Play#1 output Play#1 1 Shells hit cs   cargo ship (#23) in 8,0 for 26 damage.
     Play#1 output Play#1 6 0 600
     Play#1 input fire se 4,0 21
     Play#1 command fire
@@ -312,14 +311,14 @@
     Play#1 output Play#1 1 Sector 4,0 firing
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#21) in 6,0 for 48 damage.
+    Play#1 output Play#1 1 Shells hit cs   cargo ship (#21) in 6,0 for 24 damage.
     Play#1 output Play#1 1 cs   cargo ship (#21) sunk!
     Play#1 output Play#1 6 0 599
     Play#1 input fire se 0,0 22
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 0,0 firing
-    Play#1 output Play#1 1 range is 3.00 (3.50)
+    Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit cs   cargo ship (#22) in 2,2 for 0 damage.
     Play#1 output Play#1 6 0 598
@@ -327,7 +326,7 @@
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 2,0 firing
-    Play#1 output Play#1 1 range is 4.00 (4.50)
+    Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit cs   cargo ship (#22) in 2,2 for 4 damage.
     Play#1 output Play#1 6 0 597
@@ -337,15 +336,15 @@
     Play#1 output Play#1 1 Sector 4,0 firing
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#22) in 2,2 for 46 damage.
+    Play#1 output Play#1 1 Shells hit cs   cargo ship (#22) in 2,2 for 49 damage.
     Play#1 output Play#1 6 0 596
     Play#1 input fire se 4,0 20
     Play#1 command fire
     Play#1 output Play#1 1
     Play#1 output Play#1 1 Sector 4,0 firing
-    Play#1 output Play#1 1 range is 5.00 (4.50)
+    Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#20) in 2,2 for 36 damage.
+    Play#1 output Play#1 1 Shells hit cs   cargo ship (#20) in 2,2 for 27 damage.
     Play#1 output Play#1 1 cs   cargo ship (#20) sunk!
     Play#1 output Play#1 6 0 595
     Play#1 input comm * ?shell>0
@@ -382,17 +381,17 @@
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP sect 0
     Play#0 output Play#0 1 1 0 0 19 5 127 0 0 0 0 0 0 0 2 0 0 0 0 0 19 0 0 0 0 0 1 100 5 15 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 1 2 0 19 100 119 0 0 0 0 0 0 0 2 0 0 0 0 0 19 0 0 0 0 0 1 100 5 75 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 1 2 0 19 100 120 0 0 0 0 0 0 0 2 0 0 0 0 0 19 0 0 0 0 0 1 100 5 75 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 4 0 19 100 127 0 0 0 0 0 0 0 4 0 0 0 0 1 19 0 0 0 0 0 1 100 5 82 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 -4 0 24 100 127 0 0 0 0 0 0 0 -4 0 0 0 0 1 24 0 0 0 0 0 1 100 5 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 -2 0 19 4 127 0 0 0 0 0 0 0 -2 0 0 0 0 0 19 0 0 0 0 0 1 100 5 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 1 1 1 24 100 121 0 0 0 0 0 0 0 1 1 0 0 0 0 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 1 1 1 24 100 122 0 0 0 0 0 0 0 1 1 0 0 0 0 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 3 1 12 100 0 0 0 0 0 0 0 0 3 1 0 0 0 1 12 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 -3 1 24 100 127 0 0 0 0 0 0 0 -3 1 0 0 0 1 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 -1 1 24 100 127 0 0 0 0 0 0 0 -1 1 0 0 0 0 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 2 0 2 24 100 127 0 0 0 0 0 0 0 0 2 100 0 0 1 24 0 0 0 0 0 2 100 0 0 0 0 0 0 0 0 0 100 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 100
-    Play#0 output Play#0 1 2 2 2 12 75 0 0 0 0 0 0 0 0 2 2 76 0 0 1 12 0 0 0 0 0 2 75 0 0 0 0 0 0 0 0 0 76 75 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 76 76 75
-    Play#0 output Play#0 1 2 4 2 28 98 125 0 0 0 0 0 0 0 4 2 98 0 0 1 28 0 0 0 0 0 2 98 0 0 0 0 0 0 0 0 0 98 98 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 98 98 98
+    Play#0 output Play#0 1 2 2 2 12 87 0 0 0 0 0 0 0 0 2 2 86 0 0 1 12 0 0 0 0 0 2 87 0 0 0 0 0 0 0 0 0 86 86 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 86 86 86
+    Play#0 output Play#0 1 2 4 2 28 98 124 0 0 0 0 0 0 0 4 2 98 0 0 1 28 0 0 0 0 0 2 98 0 0 0 0 0 0 0 0 0 98 98 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 98 98 98
     Play#0 output Play#0 1 2 -2 2 24 100 127 0 0 0 0 0 0 0 -2 2 100 0 0 1 24 0 0 0 0 0 2 100 0 0 0 0 0 0 0 0 0 100 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 100
     Play#0 output Play#0 1 1 0 -2 24 100 127 0 0 0 0 0 0 0 0 -2 0 0 0 1 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 2 -2 2 100 127 0 0 0 0 0 0 0 2 -2 0 0 0 1 2 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -417,20 +416,20 @@
     Play#0 output Play#0 1 11 2 6 0 18 20 0 0 60 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 0 0 0 82 "j"
     Play#0 output Play#0 1 12 2 2 2 18 100 127 0 60 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 0 0 0 80 "n"
     Play#0 output Play#0 1 13 2 6 0 18 100 127 0 60 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 0 0 0 82 "j"
-    Play#0 output Play#0 1 22 2 2 2 2 60 77 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 60 60 0 0 0 0 0 0 "" 0 "" 0 0 0 80 "n"
-    Play#0 output Play#0 1 23 2 8 0 2 65 74 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0 0 66 66 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
+    Play#0 output Play#0 1 22 2 2 2 2 58 74 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 59 58 0 0 0 0 0 0 "" 0 "" 0 0 0 80 "n"
+    Play#0 output Play#0 1 23 2 8 0 2 78 88 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0 0 78 78 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
     Play#0 output Play#0 1 24 2 6 0 2 100 127 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 0 0 0 0 0 100 100 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
     Play#0 output Play#0 1 /14
     Play#0 output Play#0 6 0 640
     Play#0 input xdump plane *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP plane 0
-    Play#0 output Play#0 1 0 2 2 2 27 99 126 0 180 0 0 0 0 "" 2 0 -1 -1 0 0 0.00000
-    Play#0 output Play#0 1 1 2 2 2 12 99 126 0 150 0 0 0 0 "" 0 0 -1 -1 0 0 0.00000
+    Play#0 output Play#0 1 0 2 2 2 27 100 127 0 180 0 0 0 0 "" 2 0 -1 -1 0 0 0.00000
+    Play#0 output Play#0 1 1 2 2 2 12 100 127 0 150 0 0 0 0 "" 0 0 -1 -1 0 0 0.00000
     Play#0 output Play#0 1 22 2 2 2 27 100 127 0 180 0 0 0 0 "" 2 0 22 -1 0 0 0.00000
     Play#0 output Play#0 1 23 2 8 0 27 100 127 0 180 0 0 0 0 "" 2 0 23 -1 0 0 0.00000
-    Play#0 output Play#0 1 32 2 2 2 27 99 126 0 180 0 0 0 0 "" 2 0 -1 32 0 0 0.00000
-    Play#0 output Play#0 1 33 2 2 2 27 99 126 0 180 0 0 0 0 "" 2 0 -1 33 0 0 0.00000
+    Play#0 output Play#0 1 32 2 2 2 27 100 127 0 180 0 0 0 0 "" 2 0 -1 32 0 0 0.00000
+    Play#0 output Play#0 1 33 2 2 2 27 100 127 0 180 0 0 0 0 "" 2 0 -1 33 0 0 0.00000
     Play#0 output Play#0 1 /6
     Play#0 output Play#0 6 0 640
     Play#0 input xdump land *
@@ -442,10 +441,10 @@
     Play#0 output Play#0 1 9 1 3 1 7 100 0 0 40 0 0 0 0 "" -1 0 0 0 "" 0 10 10 10 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
     Play#0 output Play#0 1 11 2 6 0 8 100 127 0 40 0 0 0 0 "" 11 0 42 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
     Play#0 output Play#0 1 13 2 6 0 8 100 127 0 40 0 0 0 0 "" 13 0 42 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
-    Play#0 output Play#0 1 22 2 2 2 21 95 121 0 270 2 2 0 0 "" 22 0 0 0 "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
+    Play#0 output Play#0 1 22 2 2 2 21 97 124 0 270 2 2 0 0 "" 22 0 0 0 "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
     Play#0 output Play#0 1 23 2 8 0 21 100 127 0 270 8 0 0 0 "" 23 0 0 0 "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
-    Play#0 output Play#0 1 32 2 2 2 7 90 114 0 40 0 0 0 0 "" -1 0 0 0 "" 0 9 0 0 0 0 0 0 0 0 89 89 0 0 0 0 -1 0
-    Play#0 output Play#0 1 33 2 2 2 21 95 121 0 270 2 2 0 0 "" -1 0 0 0 "" 0 9 0 0 0 0 0 0 0 0 0 0 0 0 0 0 32 0
+    Play#0 output Play#0 1 32 2 2 2 7 94 120 0 40 0 0 0 0 "" -1 0 0 0 "" 0 10 0 0 0 0 0 0 0 0 94 94 0 0 0 0 -1 0
+    Play#0 output Play#0 1 33 2 2 2 21 97 123 0 270 2 2 0 0 "" -1 0 0 0 "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 32 0
     Play#0 output Play#0 1 /10
     Play#0 output Play#0 6 0 640
     Play#0 input xdump nuke *
@@ -458,7 +457,7 @@
     Play#0 input xdump news *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP news 0
-    Play#0 output Play#0 1 1 10 0 3 0 0
+    Play#0 output Play#0 1 1 10 0 2 0 0
     Play#0 output Play#0 1 1 10 1 4 0 0
     Play#0 output Play#0 1 1 10 2 6 0 0
     Play#0 output Play#0 1 1 11 1 1 0 0
@@ -587,25 +586,25 @@
     Play#1 output Play#1 6 0 623
     Play#1 input fire sh 3 13
     Play#1 command fire
-    Play#1 output Play#1 1 range is 3.00 (3.71)
+    Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 622
     Play#1 input fire sh 3 12
     Play#1 command fire
-    Play#1 output Play#1 1 range is 3.00 (3.71)
+    Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 621
     Play#1 input fire sh 3 6,0
     Play#1 command fire
     Play#1 output Play#1 1 range is 3.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 6,0 for 92 damage.
+    Play#1 output Play#1 1 Shells hit sector 6,0 for 87 damage.
     Play#1 output Play#1 6 0 620
     Play#1 input fire sh 3 2,-2
     Play#1 command fire
-    Play#1 output Play#1 1 range is 3.00 (3.71)
+    Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 2,-2 for 91 damage.
+    Play#1 output Play#1 1 Shells hit sector 2,-2 for 87 damage.
     Play#1 output Play#1 6 0 619
     Play#1 input unload g 3 -1
     Play#1 command unload
@@ -616,7 +615,7 @@
     Play#1 command fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 13 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 14 damage.
     Play#1 output Play#1 6 0 617
     Play#1 input load g 3 1
     Play#1 command load
@@ -627,7 +626,7 @@
     Play#1 command fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 28 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 25 damage.
     Play#1 output Play#1 6 0 615
     Play#1 input load g 3 1
     Play#1 command load
@@ -638,7 +637,7 @@
     Play#1 command fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 31 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 32 damage.
     Play#1 output Play#1 6 0 613
     Play#1 input load g 3 7
     Play#1 command load
@@ -660,7 +659,7 @@
     Play#1 command fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 22 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 21 damage.
     Play#1 output Play#1 6 0 609
     Play#1 input navi 3 gh
     Play#1 command navigate
@@ -681,9 +680,9 @@
     Play#1 output Play#1 6 0 606
     Play#1 input fire sh 3 0,2
     Play#1 command fire
-    Play#1 output Play#1 1 range is 4.00 (3.71)
+    Play#1 output Play#1 1 range is 3.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 52 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 50 damage.
     Play#1 output Play#1 6 0 605
     Play#1 input navi 3 gh
     Play#1 command navigate
@@ -703,9 +702,9 @@
     Play#1 output Play#1 6 0 602
     Play#1 input fire sh 3 0,2
     Play#1 command fire
-    Play#1 output Play#1 1 range is 3.00 (3.71)
+    Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 10 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 12 damage.
     Play#1 output Play#1 6 0 601
     Play#1 input load m 3 1
     Play#1 command load
@@ -714,7 +713,7 @@
     Play#1 output Play#1 6 0 600
     Play#1 input fire sh 3 0,2
     Play#1 command fire
-    Play#1 output Play#1 1 range is 4.00 (3.71)
+    Play#1 output Play#1 1 range is 3.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
     Play#1 output Play#1 1 Shells hit sector 0,2 for 12 damage.
     Play#1 output Play#1 6 0 599
@@ -727,7 +726,7 @@
     Play#1 command fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 24 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 23 damage.
     Play#1 output Play#1 6 0 597
     Play#1 input load m 3 10
     Play#1 command load
@@ -738,38 +737,38 @@
     Play#1 command fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 48 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 49 damage.
     Play#1 output Play#1 6 0 595
     Play#1 input fire sh 3 0,2
     Play#1 command fire
     Play#1 output Play#1 1 range is 4.00 (3.71)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 94 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 88 damage.
     Play#1 output Play#1 6 0 594
     Play#1 input fire sh 5 13
     Play#1 command fire
     Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kawhomp!!!
-    Play#1 output Play#1 1 Shells hit sub in 6,0 for 40 damage.
+    Play#1 output Play#1 1 Shells hit sub in 6,0 for 35 damage.
     Play#1 output Play#1 6 0 593
     Play#1 input fire sh 6 12
     Play#1 command fire
-    Play#1 output Play#1 1 range is 1.00 (1.50)
+    Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kawhomp!!!
-    Play#1 output Play#1 1 Shells hit sub in 2,2 for 37 damage.
+    Play#1 output Play#1 1 Shells hit sub in 2,2 for 40 damage.
     Play#1 output Play#1 6 0 592
     Play#1 input fire sh 5 11
     Play#1 command fire
-    Play#1 output Play#1 1 range is 1.00 (1.50)
+    Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kawhomp!!!
     Play#1 output Play#1 1 Shells hit sub in 6,0 for 37 damage.
     Play#1 output Play#1 1 sub sunk!
     Play#1 output Play#1 6 0 591
     Play#1 input fire sh 6 10
     Play#1 command fire
-    Play#1 output Play#1 1 range is 1.00 (1.50)
+    Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kawhomp!!!
-    Play#1 output Play#1 1 Shells hit sub in 2,2 for 40 damage.
+    Play#1 output Play#1 1 Shells hit sub in 2,2 for 34 damage.
     Play#1 output Play#1 1 sub sunk!
     Play#1 output Play#1 6 0 590
     Play#1 input navi 5 jh
@@ -785,32 +784,31 @@
     Play#1 output Play#1 6 0 588
     Play#1 input fire sh 5 24
     Play#1 command fire
-    Play#1 output Play#1 1 range is 1.00 (1.50)
-    Play#1 output Play#1 1 Target out of range.
+    Play#1 output Play#1 1 range is 2.00 (1.50)
+    Play#1 output Play#1 1 \007Kaboom!!!
+    Play#1 output Play#1 1 Shells hit cs   cargo ship (#24) in 6,0 for 43 damage.
     Play#1 output Play#1 6 0 587
     Play#1 input fire sh 5 24
     Play#1 command fire
-    Play#1 output Play#1 1 range is 2.00 (1.50)
-    Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#24) in 6,0 for 34 damage.
+    Play#1 output Play#1 1 range is 1.00 (1.50)
+    Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 586
     Play#1 input fire sh 5 24
     Play#1 command fire
     Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#24) in 6,0 for 39 damage.
+    Play#1 output Play#1 1 Shells hit cs   cargo ship (#24) in 6,0 for 35 damage.
     Play#1 output Play#1 6 0 585
     Play#1 input fire sh 5 24
     Play#1 command fire
-    Play#1 output Play#1 1 range is 2.00 (1.50)
-    Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#24) in 6,0 for 37 damage.
+    Play#1 output Play#1 1 range is 1.00 (1.50)
+    Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 584
     Play#1 input fire sh 5 24
     Play#1 command fire
     Play#1 output Play#1 1 range is 2.00 (1.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#24) in 6,0 for 40 damage.
+    Play#1 output Play#1 1 Shells hit cs   cargo ship (#24) in 6,0 for 38 damage.
     Play#1 output Play#1 6 0 583
     Play#1 input carg * ?shell>0
     Play#1 command cargo
@@ -845,17 +843,17 @@
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP sect 0
     Play#0 output Play#0 1 1 0 0 19 5 127 0 0 0 0 0 0 0 2 0 0 0 0 0 19 0 0 0 0 0 1 100 5 15 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 1 2 0 19 100 119 0 0 0 0 0 0 0 2 0 0 0 0 0 19 0 0 0 0 0 1 100 5 75 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 1 2 0 19 100 120 0 0 0 0 0 0 0 2 0 0 0 0 0 19 0 0 0 0 0 1 100 5 75 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 4 0 19 100 127 0 0 0 0 0 0 0 4 0 0 0 0 1 19 0 0 0 0 0 1 100 5 82 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 -4 0 24 100 127 0 0 0 0 0 0 0 -4 0 0 0 0 1 24 0 0 0 0 0 1 100 5 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 -2 0 19 4 127 0 0 0 0 0 0 0 -2 0 0 0 0 0 19 0 0 0 0 0 1 100 5 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 1 1 1 24 100 121 0 0 0 0 0 0 0 1 1 0 0 0 0 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 1 1 1 24 100 122 0 0 0 0 0 0 0 1 1 0 0 0 0 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 3 1 12 100 0 0 0 0 0 0 0 0 3 1 0 0 0 1 12 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 -3 1 24 100 127 0 0 0 0 0 0 0 -3 1 0 0 0 1 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 -1 1 24 100 127 0 0 0 0 0 0 0 -1 1 0 0 0 0 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 2 0 2 24 6 9 0 0 0 0 0 0 0 0 2 7 0 0 1 24 0 0 0 0 0 2 7 0 0 0 0 0 0 0 0 0 7 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 6 8 7
-    Play#0 output Play#0 1 2 2 2 12 75 0 0 0 0 0 0 0 0 2 2 76 0 0 1 12 0 0 0 0 0 2 75 0 0 0 0 0 0 0 0 0 76 75 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 76 76 75
-    Play#0 output Play#0 1 2 4 2 28 98 125 0 0 0 0 0 0 0 4 2 98 0 0 1 28 0 0 0 0 0 2 98 0 0 0 0 0 0 0 0 0 98 98 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 98 98 98
+    Play#0 output Play#0 1 2 0 2 24 7 8 0 0 0 0 0 0 0 0 2 7 0 0 1 24 0 0 0 0 0 2 6 0 0 0 0 0 0 0 0 0 7 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 8 7
+    Play#0 output Play#0 1 2 2 2 12 87 0 0 0 0 0 0 0 0 2 2 86 0 0 1 12 0 0 0 0 0 2 87 0 0 0 0 0 0 0 0 0 86 86 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 86 86 86
+    Play#0 output Play#0 1 2 4 2 28 98 124 0 0 0 0 0 0 0 4 2 98 0 0 1 28 0 0 0 0 0 2 98 0 0 0 0 0 0 0 0 0 98 98 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 98 98 98
     Play#0 output Play#0 1 2 -2 2 24 100 127 0 0 0 0 0 0 0 -2 2 100 0 0 1 24 0 0 0 0 0 2 100 0 0 0 0 0 0 0 0 0 100 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 100
     Play#0 output Play#0 1 1 0 -2 24 100 127 0 0 0 0 0 0 0 0 -2 0 0 0 1 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 1 2 -2 2 100 127 0 0 0 0 0 0 0 2 -2 0 0 0 1 2 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -876,22 +874,22 @@
     Play#0 output Play#0 1 5 1 10 0 17 100 117 0 100 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 24 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
     Play#0 output Play#0 1 6 1 3 3 17 100 127 0 100 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 36 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
     Play#0 output Play#0 1 9 1 3 1 2 100 127 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
-    Play#0 output Play#0 1 12 2 3 3 18 71 66 0 60 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
-    Play#0 output Play#0 1 13 2 8 0 18 68 61 0 60 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
-    Play#0 output Play#0 1 22 2 2 2 2 60 77 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 60 60 0 0 0 0 0 0 "" 0 "" 0 0 0 80 "n"
-    Play#0 output Play#0 1 23 2 8 0 2 65 74 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0 0 66 66 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
-    Play#0 output Play#0 1 24 2 6 0 2 24 30 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 23 23 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
+    Play#0 output Play#0 1 12 2 3 3 18 68 62 0 60 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
+    Play#0 output Play#0 1 13 2 8 0 18 72 67 0 60 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
+    Play#0 output Play#0 1 22 2 2 2 2 58 74 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 0 59 58 0 0 0 0 0 0 "" 0 "" 0 0 0 80 "n"
+    Play#0 output Play#0 1 23 2 8 0 2 78 88 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0 0 78 78 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
+    Play#0 output Play#0 1 24 2 6 0 2 32 40 0 20 0 0 0 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 32 32 0 0 0 0 0 0 "" 0 "" 0 0 0 0 ""
     Play#0 output Play#0 1 /12
     Play#0 output Play#0 6 0 640
     Play#0 input xdump plane *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP plane 0
-    Play#0 output Play#0 1 0 2 2 2 27 99 126 0 180 0 0 0 0 "" 2 0 -1 -1 0 0 0.00000
-    Play#0 output Play#0 1 1 2 2 2 12 99 126 0 150 0 0 0 0 "" 0 0 -1 -1 0 0 0.00000
+    Play#0 output Play#0 1 0 2 2 2 27 100 127 0 180 0 0 0 0 "" 2 0 -1 -1 0 0 0.00000
+    Play#0 output Play#0 1 1 2 2 2 12 100 127 0 150 0 0 0 0 "" 0 0 -1 -1 0 0 0.00000
     Play#0 output Play#0 1 22 2 2 2 27 100 127 0 180 0 0 0 0 "" 2 0 22 -1 0 0 0.00000
     Play#0 output Play#0 1 23 2 8 0 27 100 127 0 180 0 0 0 0 "" 2 0 23 -1 0 0 0.00000
-    Play#0 output Play#0 1 32 2 2 2 27 99 126 0 180 0 0 0 0 "" 2 0 -1 32 0 0 0.00000
-    Play#0 output Play#0 1 33 2 2 2 27 99 126 0 180 0 0 0 0 "" 2 0 -1 33 0 0 0.00000
+    Play#0 output Play#0 1 32 2 2 2 27 100 127 0 180 0 0 0 0 "" 2 0 -1 32 0 0 0.00000
+    Play#0 output Play#0 1 33 2 2 2 27 100 127 0 180 0 0 0 0 "" 2 0 -1 33 0 0 0.00000
     Play#0 output Play#0 1 /6
     Play#0 output Play#0 6 0 640
     Play#0 input xdump land *
@@ -902,10 +900,10 @@
     Play#0 output Play#0 1 3 1 3 1 13 100 127 0 160 0 0 0 0 "" -1 0 0 0 "" 0 10 80 12 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
     Play#0 output Play#0 1 9 1 3 1 7 100 0 0 40 0 0 0 0 "" -1 0 0 0 "" 0 10 10 10 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
     Play#0 output Play#0 1 13 2 8 0 8 100 127 0 40 0 0 0 0 "" 13 0 42 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
-    Play#0 output Play#0 1 22 2 2 2 21 95 121 0 270 2 2 0 0 "" 22 0 0 0 "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
+    Play#0 output Play#0 1 22 2 2 2 21 97 124 0 270 2 2 0 0 "" 22 0 0 0 "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
     Play#0 output Play#0 1 23 2 8 0 21 100 127 0 270 8 0 0 0 "" 23 0 0 0 "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0
-    Play#0 output Play#0 1 32 2 2 2 7 90 114 0 40 0 0 0 0 "" -1 0 0 0 "" 0 9 0 0 0 0 0 0 0 0 89 89 0 0 0 0 -1 0
-    Play#0 output Play#0 1 33 2 2 2 21 95 121 0 270 2 2 0 0 "" -1 0 0 0 "" 0 9 0 0 0 0 0 0 0 0 0 0 0 0 0 0 32 0
+    Play#0 output Play#0 1 32 2 2 2 7 94 120 0 40 0 0 0 0 "" -1 0 0 0 "" 0 10 0 0 0 0 0 0 0 0 94 94 0 0 0 0 -1 0
+    Play#0 output Play#0 1 33 2 2 2 21 97 123 0 270 2 2 0 0 "" -1 0 0 0 "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 32 0
     Play#0 output Play#0 1 /9
     Play#0 output Play#0 6 0 640
     Play#0 input xdump nuke *
@@ -918,11 +916,11 @@
     Play#0 input xdump news *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP news 0
-    Play#0 output Play#0 1 1 10 0 4 0 0
+    Play#0 output Play#0 1 1 10 0 3 0 0
     Play#0 output Play#0 1 1 10 1 5 0 0
     Play#0 output Play#0 1 1 10 2 16 0 0
     Play#0 output Play#0 1 1 11 1 1 0 0
-    Play#0 output Play#0 1 1 11 2 12 0 0
+    Play#0 output Play#0 1 1 11 2 11 0 0
     Play#0 output Play#0 1 /5
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 b 640
@@ -1061,12 +1059,12 @@
     Play#1 output Play#1 6 0 619
     Play#1 input fire la 3 -12,0
     Play#1 command fire
-    Play#1 output Play#1 1 range is 3.00 (3.50)
+    Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 618
     Play#1 input fire la 3 0
     Play#1 command fire
-    Play#1 output Play#1 1 range is 3.00 (3.50)
+    Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 617
     Play#1 input fire la 3 13
@@ -1083,13 +1081,13 @@
     Play#1 command fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 6,0 for 53 damage.
+    Play#1 output Play#1 1 Shells hit sector 6,0 for 61 damage.
     Play#1 output Play#1 6 0 614
     Play#1 input fire la 3 2,-2
     Play#1 command fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 2,-2 for 63 damage.
+    Play#1 output Play#1 1 Shells hit sector 2,-2 for 66 damage.
     Play#1 output Play#1 6 0 613
     Play#1 input lunload g 3 -1
     Play#1 command lunload
@@ -1100,7 +1098,7 @@
     Play#1 command fire
     Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 7 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 9 damage.
     Play#1 output Play#1 6 0 611
     Play#1 input lload g 3 11
     Play#1 command lload
@@ -1119,9 +1117,9 @@
     Play#1 output Play#1 6 0 608
     Play#1 input fire la 3 0,2
     Play#1 command fire
-    Play#1 output Play#1 1 range is 4.00 (3.50)
+    Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 14 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 15 damage.
     Play#1 output Play#1 6 0 607
     Play#1 input march 3 jh
     Play#1 command march
@@ -1137,13 +1135,13 @@
     Play#1 command fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 22 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 20 damage.
     Play#1 output Play#1 6 0 604
     Play#1 input fire la 3 0,2
     Play#1 command fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 56 damage.
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 60 damage.
     Play#1 output Play#1 6 0 603
     Play#1 input march 3 yyyh
     Play#1 command march
@@ -1152,31 +1150,30 @@
     Play#1 output Play#1 6 0 602
     Play#1 input fire la 3 0,2
     Play#1 command fire
-    Play#1 output Play#1 1 range is 4.00 (3.50)
-    Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 53 damage.
+    Play#1 output Play#1 1 range is 3.00 (3.50)
+    Play#1 output Play#1 1 Target out of range.
     Play#1 output Play#1 6 0 601
     Play#1 input fire la 3 0,2
     Play#1 command fire
-    Play#1 output Play#1 1 range is 3.00 (3.50)
-    Play#1 output Play#1 1 Target out of range.
+    Play#1 output Play#1 1 range is 4.00 (3.50)
+    Play#1 output Play#1 1 \007Kaboom!!!
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 52 damage.
     Play#1 output Play#1 6 0 600
     Play#1 input fire la 3 0,2
     Play#1 command fire
+    Play#1 output Play#1 1 range is 3.00 (3.50)
+    Play#1 output Play#1 1 Target out of range.
+    Play#1 output Play#1 6 0 599
+    Play#1 input fire la 3 0,2
+    Play#1 command fire
     Play#1 output Play#1 1 range is 4.00 (3.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 58 damage.
-    Play#1 output Play#1 6 0 599
+    Play#1 output Play#1 1 Shells hit sector 0,2 for 62 damage.
+    Play#1 output Play#1 6 0 598
     Play#1 input fire la 3 0,2
     Play#1 command fire
     Play#1 output Play#1 1 range is 3.00 (3.50)
     Play#1 output Play#1 1 Target out of range.
-    Play#1 output Play#1 6 0 598
-    Play#1 input fire la 3 0,2
-    Play#1 command fire
-    Play#1 output Play#1 1 range is 4.00 (3.50)
-    Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit sector 0,2 for 60 damage.
     Play#1 output Play#1 6 0 597
     Play#1 input fire la 3 0,2
     Play#1 command fire
@@ -1228,7 +1225,7 @@
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Country #1 shelled sector 4,2 for 0 damage.
     Play#0 output Play#0 1 Country #1 shelled sector 4,2 for 3 damage.
-    Play#0 output Play#0 1 Country #1 shelled sector 1,3 for 27 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 1,3 for 29 damage.
     Play#0 output Play#0 1 Crumble... SCREEEECH!  Splash! Bridge falls at 1,3!
     Play#0 output Play#0 1      AARGH! tra  train #30 tumbles to its doom!
     Play#0 output Play#0 1 sam  Sea Sparrow #30 lost!
@@ -1245,23 +1242,19 @@
     Play#0 output Play#0 1 	rad  radar unit #22 takes 1
     Play#0 output Play#0 1 	tra  train #32 takes 1
     Play#0 output Play#0 1 	rad  radar unit #33 takes 1
-    Play#0 output Play#0 1 Country #1 shelled sector 2,2 for 44 damage.
-    Play#0 output Play#0 1 	rad  radar unit #20 takes 4
-    Play#0 output Play#0 1 	rad  radar unit #22 takes 4
-    Play#0 output Play#0 1 	tra  train #32 takes 10
-    Play#0 output Play#0 1 	rad  radar unit #33 takes 4
-    Play#0 output Play#0 1 	sam  Sea Sparrow #0 takes 1
-    Play#0 output Play#0 1 	jhb  B-52 Strato-Fortress #1 takes 1
-    Play#0 output Play#0 1 	sam  Sea Sparrow #32 takes 1
-    Play#0 output Play#0 1 	sam  Sea Sparrow #33 takes 1
+    Play#0 output Play#0 1 Country #1 shelled sector 2,2 for 21 damage.
+    Play#0 output Play#0 1 	rad  radar unit #20 takes 2
+    Play#0 output Play#0 1 	rad  radar unit #22 takes 2
+    Play#0 output Play#0 1 	tra  train #32 takes 5
+    Play#0 output Play#0 1 	rad  radar unit #33 takes 2
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#23) in 6,0 for 0 damage.
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#23) in 6,0 for 3 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#23) takes 2
+    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#23) in 6,0 for 2 damage.
+    Play#0 output Play#0 1 	cs   cargo ship (#23) takes 1
     Play#0 output Play#0 1 cs   cargo ship (#23) was damaged, and retreated to 8,0
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#23) in 8,0 for 40 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#23) takes 33
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#21) in 6,0 for 48 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#21) takes 40
+    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#23) in 8,0 for 26 damage.
+    Play#0 output Play#0 1 	cs   cargo ship (#23) takes 21
+    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#21) in 6,0 for 24 damage.
+    Play#0 output Play#0 1 	cs   cargo ship (#21) takes 20
     Play#0 output Play#0 1 	cs   cargo ship (#21) sunk!
     Play#0 output Play#0 1 sam  Sea Sparrow #21 lost!
     Play#0 output Play#0 1 rad  radar unit #21 lost!
@@ -1270,33 +1263,33 @@
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#22) in 2,2 for 4 damage.
     Play#0 output Play#0 1 	cs   cargo ship (#22) takes 3
     Play#0 output Play#0 1 cs   cargo ship (#22) was fired upon with no one able to defend it, and retreated to 3,3
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#22) in 2,2 for 46 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#22) takes 38
+    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#22) in 2,2 for 49 damage.
+    Play#0 output Play#0 1 	cs   cargo ship (#22) takes 40
     Play#0 output Play#0 1 cs   cargo ship (#22) was fired upon with no one able to defend it, and retreated to 3,3
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#20) in 2,2 for 36 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#20) takes 30
+    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#20) in 2,2 for 27 damage.
+    Play#0 output Play#0 1 	cs   cargo ship (#20) takes 22
     Play#0 output Play#0 1 	cs   cargo ship (#20) sunk!
     Play#0 output Play#0 1 sam  Sea Sparrow #20 lost!
     Play#0 output Play#0 1 rad  radar unit #20 lost!
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 13 damage.
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 28 damage.
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 31 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 14 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 25 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 32 damage.
     Play#0 output Play#0 1 1 bb   battleship (#3) sighted at 5,1
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 22 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 21 damage.
     Play#0 output Play#0 1 1 bb   battleship (#3) sighted at 3,1
     Play#0 output Play#0 1 1 bb   battleship (#3) sighted at 5,1
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 52 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 50 damage.
     Play#0 output Play#0 1 1 bb   battleship (#3) sighted at 3,1
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 10 damage.
     Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 12 damage.
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 24 damage.
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 48 damage.
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 94 damage.
-    Play#0 output Play#0 1 Country #1 shelled sb   submarine (#13) in 6,0 for 40 damage.
-    Play#0 output Play#0 1 	sb   submarine (#13) takes 32
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 12 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 23 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 49 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 88 damage.
+    Play#0 output Play#0 1 Country #1 shelled sb   submarine (#13) in 6,0 for 35 damage.
+    Play#0 output Play#0 1 	sb   submarine (#13) takes 28
     Play#0 output Play#0 1 sb   submarine (#13) was damaged, and retreated to 8,0
-    Play#0 output Play#0 1 Country #1 shelled sb   submarine (#12) in 2,2 for 37 damage.
-    Play#0 output Play#0 1 	sb   submarine (#12) takes 29
+    Play#0 output Play#0 1 Country #1 shelled sb   submarine (#12) in 2,2 for 40 damage.
+    Play#0 output Play#0 1 	sb   submarine (#12) takes 32
     Play#0 output Play#0 1 sb   submarine (#12) was depth-charged, and retreated to 3,3
     Play#0 output Play#0 1 Country #1 shelled sb   submarine (#11) in 6,0 for 37 damage.
     Play#0 output Play#0 1 	sb   submarine (#11) takes 29
@@ -1304,24 +1297,21 @@
     Play#0 output Play#0 1 but it died in the attack, and so couldn't retreat!
     Play#0 output Play#0 1 	sb   submarine (#11) sunk!
     Play#0 output Play#0 1 spy  infiltrator #11 lost!
-    Play#0 output Play#0 1 Country #1 shelled sb   submarine (#10) in 2,2 for 40 damage.
-    Play#0 output Play#0 1 	sb   submarine (#10) takes 32
+    Play#0 output Play#0 1 Country #1 shelled sb   submarine (#10) in 2,2 for 34 damage.
+    Play#0 output Play#0 1 	sb   submarine (#10) takes 27
     Play#0 output Play#0 1 	sb   submarine (#10) sunk!
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#24) in 6,0 for 34 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#24) takes 28
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#24) in 6,0 for 39 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#24) takes 32
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#24) in 6,0 for 37 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#24) takes 30
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#24) in 6,0 for 40 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#24) takes 33
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 7 damage.
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 14 damage.
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 22 damage.
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 56 damage.
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 53 damage.
-    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 58 damage.
+    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#24) in 6,0 for 43 damage.
+    Play#0 output Play#0 1 	cs   cargo ship (#24) takes 35
+    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#24) in 6,0 for 35 damage.
+    Play#0 output Play#0 1 	cs   cargo ship (#24) takes 29
+    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#24) in 6,0 for 38 damage.
+    Play#0 output Play#0 1 	cs   cargo ship (#24) takes 31
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 9 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 15 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 20 damage.
     Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 60 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 52 damage.
+    Play#0 output Play#0 1 Country #1 shelled sector 0,2 for 62 damage.
     Play#0 output Play#0 6 0 640
     Play#0 input read 3
     Play#0 command read

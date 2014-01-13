@@ -29,11 +29,12 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 1998
- *     Markus Armbruster, 2007-2012
+ *     Markus Armbruster, 2007-2014
  */
 
 #include <config.h>
 
+#include "chance.h"
 #include "com.h"
 #include "empio.h"
 #include "file.h"
@@ -45,6 +46,12 @@
 #include "player.h"
 #include "prototypes.h"
 #include "server.h"
+
+/*
+ * Last command's PRNG seed.
+ * Only used when running_test_suite.
+ */
+int test_suite_prng_seed;
 
 /*
  * Execute command named by player->argp[0].
@@ -71,6 +78,7 @@ dispatch(char *buf, char *redir)
 	return -1;
     }
     command = &player_coms[cmd];
+
     np = getnatp(player->cnum);
     if (np->nat_btu < command->c_cost && command->c_cost > 0) {
 	if (player->god || opt_BLITZ)
@@ -88,6 +96,15 @@ dispatch(char *buf, char *redir)
 	? PLAYER_SLEEP_ON_INPUT : PLAYER_SLEEP_FREELY;
     player->command = command;
     empth_rwlock_rdlock(update_lock);
+
+    /*
+     * When running the test suite, reseed PRNG for each command with
+     * a counter, to keep results stable even when the number of PRNs
+     * consumed changes.
+     */
+    if (running_test_suite)
+	seed_prng(++test_suite_prng_seed);
+
     if (redir) {
 	prredir(redir);
 	uprnf(buf);
@@ -109,6 +126,7 @@ dispatch(char *buf, char *redir)
 	CANT_REACH();
 	break;
     }
+
     empth_rwlock_unlock(update_lock);
     player->command = NULL;
     if (player->may_sleep != PLAYER_SLEEP_NEVER || !io_eof(player->iop))
