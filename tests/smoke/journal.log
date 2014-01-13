@@ -16,6 +16,9 @@
      Conn1 input play
      Conn1 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input add 1 1 1 p
     Play#0 command add
@@ -104,6 +107,9 @@
      Conn2 input play
      Conn2 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta sect
     Play#0 command xdump
@@ -983,6 +989,9 @@
      Conn3 input play
      Conn3 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 6 0 640
     Play#1 input xdump sect 0,0
     Play#1 command xdump
@@ -1236,6 +1245,9 @@
      Conn4 input play
      Conn4 login 2 127.0.0.1 tester
     Play#2 output Play#2 2 2
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 ***          Server configured for testing          ***
+    Play#2 output Play#2 1 *** If you see this in a game, it is misconfigured! ***
     Play#2 output Play#2 6 0 640
     Play#2 input break
     Play#2 command break
@@ -2097,6 +2109,9 @@
      Conn5 input play
      Conn5 login 3 127.0.0.1 tester
     Play#3 output Play#3 2 2
+    Play#3 output Play#3 1
+    Play#3 output Play#3 1 ***          Server configured for testing          ***
+    Play#3 output Play#3 1 *** If you see this in a game, it is misconfigured! ***
     Play#3 output Play#3 6 0 640
     Play#3 input break
     Play#3 command break
@@ -2143,6 +2158,9 @@
      Conn6 input play
      Conn6 login 4 127.0.0.1 tester
     Play#4 output Play#4 2 2
+    Play#4 output Play#4 1
+    Play#4 output Play#4 1 ***          Server configured for testing          ***
+    Play#4 output Play#4 1 *** If you see this in a game, it is misconfigured! ***
     Play#4 output Play#4 6 0 640
     Play#4 input break
     Play#4 command break
@@ -2189,6 +2207,9 @@
      Conn7 input play
      Conn7 login 5 127.0.0.1 tester
     Play#5 output Play#5 2 2
+    Play#5 output Play#5 1
+    Play#5 output Play#5 1 ***          Server configured for testing          ***
+    Play#5 output Play#5 1 *** If you see this in a game, it is misconfigured! ***
     Play#5 output Play#5 6 0 640
     Play#5 input break
     Play#5 command break
@@ -2235,6 +2256,9 @@
      Conn8 input play
      Conn8 login 6 127.0.0.1 tester
     Play#6 output Play#6 2 2
+    Play#6 output Play#6 1
+    Play#6 output Play#6 1 ***          Server configured for testing          ***
+    Play#6 output Play#6 1 *** If you see this in a game, it is misconfigured! ***
     Play#6 output Play#6 6 0 640
     Play#6 input break
     Play#6 command break
@@ -2281,6 +2305,9 @@
      Conn9 input play
      Conn9 login 7 127.0.0.1 tester
     Play#7 output Play#7 2 2
+    Play#7 output Play#7 1
+    Play#7 output Play#7 1 ***          Server configured for testing          ***
+    Play#7 output Play#7 1 *** If you see this in a game, it is misconfigured! ***
     Play#7 output Play#7 6 0 640
     Play#7 input break
     Play#7 command break
@@ -2327,6 +2354,9 @@
     Conn10 input play
     Conn10 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 6 0 640
     Play#8 input break
     Play#8 command break
@@ -2373,6 +2403,9 @@
     Conn11 input play
     Conn11 login 9 127.0.0.1 tester
     Play#9 output Play#9 2 2
+    Play#9 output Play#9 1
+    Play#9 output Play#9 1 ***          Server configured for testing          ***
+    Play#9 output Play#9 1 *** If you see this in a game, it is misconfigured! ***
     Play#9 output Play#9 6 0 640
     Play#9 input break
     Play#9 command break
@@ -2419,6 +2452,9 @@
     Conn12 input play
     Conn12 login 10 127.0.0.1 tester
    Play#10 output Play#10 2 2
+   Play#10 output Play#10 1
+   Play#10 output Play#10 1 ***          Server configured for testing          ***
+   Play#10 output Play#10 1 *** If you see this in a game, it is misconfigured! ***
    Play#10 output Play#10 6 0 640
    Play#10 input break
    Play#10 command break
@@ -2465,6 +2501,9 @@
     Conn13 input play
     Conn13 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -2724,6 +2763,9 @@
     Conn14 input play
     Conn14 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 592
     Play#1 input real 0 -8:12,-4:4
@@ -2807,6 +2849,9 @@
     Conn15 input play
     Conn15 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -3066,6 +3111,9 @@
     Conn16 input play
     Conn16 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 592
     Play#1 input desi -1,-1 b
@@ -3241,6 +3289,9 @@
     Conn17 input play
     Conn17 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -3500,6 +3551,9 @@
     Conn18 input play
     Conn18 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 577
     Play#1 input cen *
@@ -3686,6 +3740,9 @@
     Conn19 input play
     Conn19 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have three new telegrams waiting ...
     Play#8 output Play#8 6 0 640
     Play#8 input cen *
@@ -3767,6 +3824,9 @@
     Conn20 input play
     Conn20 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -4029,6 +4089,9 @@
     Conn21 input play
     Conn21 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 554
     Play#1 input cen *
@@ -4194,6 +4257,9 @@
     Conn22 input play
     Conn22 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have two new telegrams waiting ...
     Play#8 output Play#8 6 0 640
     Play#8 input cen *
@@ -4264,6 +4330,9 @@
     Conn23 input play
     Conn23 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -4526,6 +4595,9 @@
     Conn24 input play
     Conn24 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 544
     Play#1 input real 0 -8:16,-4:4
@@ -4637,6 +4709,9 @@
     Conn25 input play
     Conn25 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -4899,6 +4974,9 @@
     Conn26 input play
     Conn26 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 544
     Play#1 input real 1 -16:24,-8:8
@@ -5157,6 +5235,9 @@
     Conn27 input play
     Conn27 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have two new telegrams waiting ...
     Play#8 output Play#8 6 0 640
     Play#8 input exp c 0,0 1 gh
@@ -5381,6 +5462,9 @@
     Conn28 input play
     Conn28 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -5721,6 +5805,9 @@
     Conn29 input play
     Conn29 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 516
     Play#1 input build bridge 5,-1 j
@@ -6052,6 +6139,9 @@
     Conn30 input play
     Conn30 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have a new telegram waiting ...
     Play#8 output Play#8 6 0 640
     Play#8 input des 7,-1 c
@@ -6341,6 +6431,9 @@
     Conn31 input play
     Conn31 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -6684,6 +6777,9 @@
     Conn32 input play
     Conn32 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input des 0,2 m
@@ -6921,6 +7017,9 @@
     Conn33 input play
     Conn33 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have a new telegram waiting ...
     Play#8 output Play#8 6 0 619
     Play#8 input thres c -3:-1,-1 769
@@ -7040,6 +7139,9 @@
     Conn34 input play
     Conn34 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -7383,6 +7485,9 @@
     Conn35 input play
     Conn35 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input mov u 2,0 10 7,-1
@@ -7592,6 +7697,9 @@
     Conn36 input play
     Conn36 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have a new telegram waiting ...
     Play#8 output Play#8 6 0 616
     Play#8 input thres d 1,-1 0
@@ -7769,6 +7877,9 @@
     Conn37 input play
     Conn37 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -8112,6 +8223,9 @@
     Conn38 input play
     Conn38 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input mov h 5,-1 100 7,-1
@@ -8537,6 +8651,9 @@
     Conn39 input play
     Conn39 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have a new telegram waiting ...
     Play#8 output Play#8 6 0 602
     Play#8 input des -3,-1 j
@@ -8684,6 +8801,9 @@
     Conn40 input play
     Conn40 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -9030,6 +9150,9 @@
     Conn41 input play
     Conn41 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input thres l 6,-2 300
@@ -9302,6 +9425,9 @@
     Conn42 input play
     Conn42 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have a new telegram waiting ...
     Play#8 output Play#8 6 0 593
     Play#8 input des -1,-1 m
@@ -9479,6 +9605,9 @@
     Conn43 input play
     Conn43 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -9825,6 +9954,9 @@
     Conn44 input play
     Conn44 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input build l 10,2 cav 5
@@ -10010,6 +10142,9 @@
     Conn45 input play
     Conn45 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have a new telegram waiting ...
     Play#8 output Play#8 6 0 575
     Play#8 input des 6,-2 t
@@ -10168,6 +10303,9 @@
     Conn46 input play
     Conn46 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -10514,6 +10652,9 @@
     Conn47 input play
     Conn47 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input des -2,-2 j
@@ -10899,6 +11040,9 @@
     Conn48 input play
     Conn48 login 2 127.0.0.1 tester
     Play#2 output Play#2 2 2
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 ***          Server configured for testing          ***
+    Play#2 output Play#2 1 *** If you see this in a game, it is misconfigured! ***
     Play#2 output Play#2 1 You have thirteen new telegrams waiting ...
     Play#2 output Play#2 6 0 640
     Play#2 input explore c 2,0  1 uh
@@ -11524,6 +11668,9 @@
     Conn49 input play
     Conn49 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have a new telegram waiting ...
     Play#8 output Play#8 6 0 564
     Play#8 input thres c -2,0 769
@@ -11692,6 +11839,9 @@
     Conn50 input play
     Conn50 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -12119,6 +12269,9 @@
     Conn51 input play
     Conn51 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input lload m 4/5 5
@@ -12362,6 +12515,9 @@
     Conn52 input play
     Conn52 login 2 127.0.0.1 tester
     Play#2 output Play#2 2 2
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 ***          Server configured for testing          ***
+    Play#2 output Play#2 1 *** If you see this in a game, it is misconfigured! ***
     Play#2 output Play#2 1 You have three new telegrams waiting ...
     Play#2 output Play#2 6 0 560
     Play#2 input des 0:2,0 m
@@ -12631,6 +12787,9 @@
     Conn53 input play
     Conn53 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have two new telegrams waiting ...
     Play#8 output Play#8 1 You have a new announcement waiting ...
     Play#8 output Play#8 6 0 552
@@ -12838,6 +12997,9 @@
     Conn54 input play
     Conn54 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 1 You have a new announcement waiting ...
     Play#0 output Play#0 6 0 640
     Play#0 input power new
@@ -13266,6 +13428,9 @@
     Conn55 input play
     Conn55 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have two new telegrams waiting ...
     Play#1 output Play#1 1 You have a new announcement waiting ...
     Play#1 output Play#1 6 0 640
@@ -13533,6 +13698,9 @@
     Conn56 input play
     Conn56 login 2 127.0.0.1 tester
     Play#2 output Play#2 2 2
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 ***          Server configured for testing          ***
+    Play#2 output Play#2 1 *** If you see this in a game, it is misconfigured! ***
     Play#2 output Play#2 1 You have two new telegrams waiting ...
     Play#2 output Play#2 6 0 623
     Play#2 input des -5,-1 j
@@ -13670,6 +13838,9 @@
     Conn57 input play
     Conn57 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have a new telegram waiting ...
     Play#8 output Play#8 6 0 640
     Play#8 input des 5,-1 d
@@ -13878,6 +14049,9 @@
     Conn58 input play
     Conn58 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -14305,6 +14479,9 @@
     Conn59 input play
     Conn59 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input mov c 1,-1 230 jjh
@@ -14653,6 +14830,9 @@
     Conn60 input play
     Conn60 login 2 127.0.0.1 tester
     Play#2 output Play#2 2 2
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 ***          Server configured for testing          ***
+    Play#2 output Play#2 1 *** If you see this in a game, it is misconfigured! ***
     Play#2 output Play#2 1 You have a new telegram waiting ...
     Play#2 output Play#2 6 0 640
     Play#2 input des 3,-1 l
@@ -14807,6 +14987,9 @@
     Conn61 input play
     Conn61 login 8 127.0.0.1 tester
     Play#8 output Play#8 2 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 ***          Server configured for testing          ***
+    Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have two new telegrams waiting ...
     Play#8 output Play#8 6 0 640
     Play#8 input des -4,-4 o
@@ -14972,6 +15155,9 @@
     Conn62 input play
     Conn62 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input power new
     Play#0 command power
@@ -15399,6 +15585,9 @@
     Conn63 input play
     Conn63 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input xdump sect 0,0
     Play#0 command xdump
@@ -16171,6 +16360,9 @@
     Conn64 input play
     Conn64 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input xdump sect 0,0

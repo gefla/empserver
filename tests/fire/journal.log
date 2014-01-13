@@ -16,6 +16,9 @@
      Conn1 input play
      Conn1 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input cens * ?shell>0
@@ -371,6 +374,9 @@
      Conn2 input play
      Conn2 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input xdump sect * ?own#0
     Play#0 command xdump
@@ -477,6 +483,9 @@
      Conn3 input play
      Conn3 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input ship * ?shell>0
@@ -828,6 +837,9 @@
      Conn4 input play
      Conn4 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input xdump sect * ?own#0
     Play#0 command xdump
@@ -931,6 +943,9 @@
      Conn5 input play
      Conn5 login 1 127.0.0.1 tester
     Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
     Play#1 output Play#1 6 0 640
     Play#1 input land * ?shell>0
@@ -1191,6 +1206,9 @@
      Conn6 input play
      Conn6 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input read 0
     Play#0 command read

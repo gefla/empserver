@@ -16,6 +16,9 @@
      Conn1 input play
      Conn1 login 0 127.0.0.1 tester
     Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 0,0 @ 0
     Play#0 command edit
