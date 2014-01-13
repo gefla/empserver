@@ -777,8 +777,7 @@
     Play#5 output Play#5 6 0 639
     Play#5 input build b 4:6,4 n
     Play#5 command build
-    Play#5 output Play#5 1 4,4 only has 0 unit of hcm,
-    Play#5 output Play#5 1 (a bridge span requires 100)
+    Play#5 output Play#5 1 Not enough heavy products in 4,4 (need 100 more)
     Play#5 output Play#5 1 Sector 6,4 is not 60% efficient.
     Play#5 output Play#5 6 0 638
     Play#5 input move h 0,4 99 ggh
@@ -788,8 +787,7 @@
     Play#5 output Play#5 6 0 637
     Play#5 input build b -4,4 n
     Play#5 command build
-    Play#5 output Play#5 1 -4,4 only has 99 units of hcm,
-    Play#5 output Play#5 1 (a bridge span requires 100)
+    Play#5 output Play#5 1 Not enough heavy products in -4,4 (need 1 more)
     Play#5 output Play#5 6 0 636
     Play#5 input move h 0,4 201 ggh
     Play#5 command move
@@ -847,10 +845,9 @@
     Play#5 output Play#5 6 0 629
     Play#5 input build b -4:4,4 ?des#c&des#w b
     Play#5 command build
-    Play#5 output Play#5 1 Not enough available work in -4,4 to build a bridge
+    Play#5 output Play#5 1 Not enough available work in -4,4 to build a bridge span
     Play#5 output Play#5 1  (40 available work required)
-    Play#5 output Play#5 1 2,4 only has 0 unit of hcm,
-    Play#5 output Play#5 1 (a bridge span requires 100)
+    Play#5 output Play#5 1 Not enough heavy products in 2,4 (need 100 more)
     Play#5 output Play#5 1 Bridge span built over 3,5
     Play#5 output Play#5 1 That just cost you $1000.00
     Play#5 output Play#5 6 0 628
@@ -934,8 +931,7 @@
     Play#9 input build t -9:-8,-5:-4 b
     Play#9 command build
     Play#9 output Play#9 1 Sector -9,-5 is not 60% efficient.
-    Play#9 output Play#9 1 -8,-4 only has 0 unit of hcm,
-    Play#9 output Play#9 1 (a bridge tower requires 300)
+    Play#9 output Play#9 1 Not enough heavy products in -8,-4 (need 300 more)
     Play#9 output Play#9 6 0 638
     Play#9 input move h 0,-4 299 gyggbh
     Play#9 command move
@@ -944,8 +940,7 @@
     Play#9 output Play#9 6 0 637
     Play#9 input build t -8,-4 g
     Play#9 command build
-    Play#9 output Play#9 1 -8,-4 only has 299 units of hcm,
-    Play#9 output Play#9 1 (a bridge tower requires 300)
+    Play#9 output Play#9 1 Not enough heavy products in -8,-4 (need 1 more)
     Play#9 output Play#9 6 0 636
     Play#9 input move h 0,-4 601 gyggbh
     Play#9 command move
@@ -1062,8 +1057,7 @@
     Play#7 output Play#7 6 0 638
     Play#7 input build b 4:6,-2 u
     Play#7 command build
-    Play#7 output Play#7 1 4,-2 only has 0 unit of hcm,
-    Play#7 output Play#7 1 (a bridge span requires 100)
+    Play#7 output Play#7 1 Not enough heavy products in 4,-2 (need 100 more)
     Play#7 output Play#7 1 Sector 6,-2 is not 60% efficient.
     Play#7 output Play#7 6 0 637
     Play#7 input move h 0,-2 99 jh
@@ -1073,8 +1067,7 @@
     Play#7 output Play#7 6 0 636
     Play#7 input build b 2,-2 u
     Play#7 command build
-    Play#7 output Play#7 1 2,-2 only has 99 units of hcm,
-    Play#7 output Play#7 1 (a bridge span requires 100)
+    Play#7 output Play#7 1 Not enough heavy products in 2,-2 (need 1 more)
     Play#7 output Play#7 6 0 635
     Play#7 input move h 0,-2 201 jh
     Play#7 command move
@@ -1123,7 +1116,7 @@
     Play#7 output Play#7 6 0 628
     Play#7 input build b 2:4,-2
     Play#7 command build
-    Play#7 output Play#7 1 Not enough available work in 2,-2 to build a bridge
+    Play#7 output Play#7 1 Not enough available work in 2,-2 to build a bridge span
     Play#7 output Play#7 1  (40 available work required)
     Play#7 output Play#7 1 Bridge head at 4,-2
     Play#7 output Play#7 1  . .

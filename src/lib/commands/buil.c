@@ -472,11 +472,11 @@ build_bridge(char what)
 static int
 build_bspan(struct sctstr *sp)
 {
-    short *vec = sp->sct_item;
     struct sctstr sect;
+    short mat[I_MAX+1];
+    int work;
     int val;
     int newx, newy;
-    int avail;
     int nx, ny, i, good = 0;
     char *p;
     char buf[1024];
@@ -490,29 +490,14 @@ build_bspan(struct sctstr *sp)
 	}
     }
 
-    if (sp->sct_effic < 60 && !player->god) {
-	pr("Sector %s is not 60%% efficient.\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	return 0;
-    }
+    memset(mat, 0, sizeof(mat));
+    mat[I_HCM] = buil_bh;
+    work = (SCT_BLD_WORK(0, buil_bh) * SCT_MINEFF + 99) / 100;
 
-    if (vec[I_HCM] < buil_bh) {
-	pr("%s only has %d unit%s of hcm,\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum),
-	   vec[I_HCM], vec[I_HCM] > 1 ? "s" : "");
-	pr("(a bridge span requires %d)\n", buil_bh);
+    if (!sector_can_build(sp, mat, work, 100, dchr[SCT_BSPAN].d_name))
 	return 0;
-    }
-
     if (!build_can_afford(buil_bc, 100, dchr[SCT_BSPAN].d_name))
 	return 0;
-    avail = (SCT_BLD_WORK(0, buil_bh) * SCT_MINEFF + 99) / 100;
-    if (sp->sct_avail < avail) {
-	pr("Not enough available work in %s to build a bridge\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	pr(" (%d available work required)\n", avail);
-	return 0;
-    }
     if (!player->argp[3]) {
 	pr("Bridge head at %s\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
@@ -522,7 +507,6 @@ build_bspan(struct sctstr *sp)
     if (!p || !*p) {
 	return 0;
     }
-    /* Sanity check time */
     if (!check_sect_ok(sp))
 	return 0;
 
@@ -554,8 +538,8 @@ build_bspan(struct sctstr *sp)
 	    return 0;
 	}
     }				/* end EASY_BRIDGES */
-    sp->sct_avail -= avail;
-    player->dolcost += buil_bc;
+    build_charge(sp, mat, work, buil_bc, 100);
+
     sect.sct_type = SCT_BSPAN;
     sect.sct_newtype = SCT_BSPAN;
     sect.sct_effic = SCT_MINEFF;
@@ -574,18 +558,17 @@ build_bspan(struct sctstr *sp)
     putsect(&sect);
     pr("Bridge span built over %s\n",
        xyas(sect.sct_x, sect.sct_y, player->cnum));
-    vec[I_HCM] -= buil_bh;
     return 1;
 }
 
 static int
 build_btower(struct sctstr *sp)
 {
-    short *vec = sp->sct_item;
     struct sctstr sect;
+    short mat[I_MAX+1];
+    int work;
     int val;
     int newx, newy;
-    int avail;
     char *p;
     char buf[1024];
     int i;
@@ -597,29 +580,14 @@ build_btower(struct sctstr *sp)
 	return 0;
     }
 
-    if (sp->sct_effic < 60 && !player->god) {
-	pr("Sector %s is not 60%% efficient.\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	return 0;
-    }
+    memset(mat, 0, sizeof(mat));
+    mat[I_HCM] = buil_tower_bh;
+    work = (SCT_BLD_WORK(0, buil_tower_bh) * SCT_MINEFF + 99) / 100;
 
-    if (vec[I_HCM] < buil_tower_bh) {
-	pr("%s only has %d unit%s of hcm,\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum),
-	   vec[I_HCM], vec[I_HCM] > 1 ? "s" : "");
-	pr("(a bridge tower requires %d)\n", buil_tower_bh);
+    if (!sector_can_build(sp, mat, work, 100, dchr[SCT_BTOWER].d_name))
 	return 0;
-    }
-
     if (!build_can_afford(buil_tower_bc, 100, dchr[SCT_BTOWER].d_name))
 	return 0;
-    avail = (SCT_BLD_WORK(0, buil_tower_bh) * SCT_MINEFF + 99) / 100;
-    if (sp->sct_avail < avail) {
-	pr("Not enough available work in %s to build a bridge tower\n",
-	   xyas(sp->sct_x, sp->sct_y, player->cnum));
-	pr(" (%d available work required)\n", avail);
-	return 0;
-    }
     if (!player->argp[3]) {
 	pr("Building from %s\n", xyas(sp->sct_x, sp->sct_y, player->cnum));
 	nav_map(sp->sct_x, sp->sct_y, 1);
@@ -628,7 +596,6 @@ build_btower(struct sctstr *sp)
     if (!p || !*p) {
 	return 0;
     }
-    /* Sanity check time */
     if (!check_sect_ok(sp))
 	return 0;
 
@@ -659,8 +626,8 @@ build_btower(struct sctstr *sp)
 	}
     }
 
-    sp->sct_avail -= avail;
-    player->dolcost += buil_tower_bc;
+    build_charge(sp, mat, work, buil_tower_bc, 100);
+
     sect.sct_type = SCT_BTOWER;
     sect.sct_newtype = SCT_BTOWER;
     sect.sct_effic = SCT_MINEFF;
@@ -679,7 +646,6 @@ build_btower(struct sctstr *sp)
     putsect(&sect);
     pr("Bridge tower built in %s\n",
        xyas(sect.sct_x, sect.sct_y, player->cnum));
-    vec[I_HCM] -= buil_tower_bh;
     return 1;
 }
 
