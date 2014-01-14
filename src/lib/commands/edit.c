@@ -31,7 +31,7 @@
  *     Chad Zabel, 1994
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2003-2009
- *     Markus Armbruster, 2003-2013
+ *     Markus Armbruster, 2003-2014
  */
 
 #include <config.h>
@@ -798,7 +798,7 @@ edit_unit(struct empobj *unit, char *key, char *p,
 	    return RET_FAIL;
 	}
 	divine_unit_change_quiet(unit, "Location",
-				 unit->own && unit->own != player->cnum,
+				 newx != unit->x || newy != unit->y,
 				 "from %s to %s",
 				 xyas(unit->x, unit->y, player->cnum),
 				 xyas(newx, newy, player->cnum));

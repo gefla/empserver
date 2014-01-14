@@ -886,7 +886,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 L 1,-1
     Play#0 command edit
-    Play#0 output Play#0 1 Location of cs   cargo ship (#3) changed from 1,-1 to 1,-1
+    Play#0 output Play#0 1 Location of cs   cargo ship (#3) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 0 @ 0
     Play#0 command edit
@@ -936,7 +936,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 l 1,-1
     Play#0 command edit
-    Play#0 output Play#0 1 Location of f1   Sopwith Camel #3 changed from 1,-1 to 1,-1
+    Play#0 output Play#0 1 Location of f1   Sopwith Camel #3 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 0 @ 0
     Play#0 command edit
@@ -986,7 +986,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 L 1,-1
     Play#0 command edit
-    Play#0 output Play#0 1 Location of sup  supply #3 changed from 1,-1 to 1,-1
+    Play#0 output Play#0 1 Location of sup  supply #3 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit n 0 @ 0
     Play#0 command edit
@@ -1036,7 +1036,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input edit n 3 L 1,-1
     Play#0 command edit
-    Play#0 output Play#0 1 Location of 10kt  fission warhead #3 changed from 1,-1 to 1,-1
+    Play#0 output Play#0 1 Location of 10kt  fission warhead #3 unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 6 t lc O 1 t lc t hc g 8 t lc
     Play#0 command edit
