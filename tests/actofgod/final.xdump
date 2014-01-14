@@ -407,13 +407,6 @@ uid owner xloc yloc type effic mobil off tech opx opy mission radius stockpile p
 /config
 config news
 actor action victim times duration time
-0 43 1 39 0 0
-0 43 2 38 0 0
-0 43 3 46 0 0
-0 42 3 49 0 0
-0 42 2 38 0 0
-0 42 1 39 0 0
-0 44 3 1 0 0
 0 44 1 32 0 0
 0 43 2 6 0 0
 0 44 3 28 0 0

@@ -145,6 +145,10 @@ begin_test()
 	stop_server
 	mv sandbox/var/empire/tel sandbox/var/empire/setup.tel
 	mv sandbox/var/empire/empty.tel sandbox/var/empire/tel
+	mv sandbox/var/empire/news sandbox/var/empire/setup.news
+	>sandbox/var/empire/news
+	mv sandbox/var/empire/lostitems sandbox/var/empire/setup.lostitems
+	>sandbox/var/empire/lostitems
 	mv sandbox/var/empire/journal.log sandbox/var/empire/setup.journal.log
 	mv sandbox/var/empire/server.log sandbox/var/empire/setup.server.log
     fi
