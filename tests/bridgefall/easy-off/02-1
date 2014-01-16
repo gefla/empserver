@@ -1,0 +1,26 @@
+|| loss of support, EASY_BRIDGES off
+| regesignate head
+| span 3,1 falls because its only support is gone
+| the other spans still have support
+desi 1,1 -
+| trigger a bulletin as a separator
+fire se 2,0 8,2
+| now span 2,2 falls, because both its heads are gone
+desi 3,3 -
+desi 1,1 #
+| head damaged below 20%
+| span 1,3 falls, because its other head is redesignated
+fire se 2,0 -1,3
+| tower falls
+| span -2,2 falls, because its other head is damaged
+| BUG: doesn't fall now, falls on its next write
+fire se 2,0 -3,1
+| trigger a bulletin as a separator
+fire se 2,0 8,2
+| head damaged
+| span -1,-1 falls, because its only support is gone
+| span 0,2 falls, because its other head is damaged
+| BUG: doesn't fall
+fire se 2,0 1,1
+| trigger a bulletin as a separator
+fire se 2,0 8,2

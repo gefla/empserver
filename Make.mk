@@ -263,11 +263,13 @@ ifeq ($(empthread),LWP)
 	$(srcdir)/tests/actofgod-test $(srcdir)
 	$(srcdir)/tests/build-test $(srcdir)
 	$(srcdir)/tests/fire-test $(srcdir)
+	$(srcdir)/tests/bridgefall-test $(srcdir)
 else
 	@echo "$(srcdir)/tests/smoke-test SKIPPED"
 	@echo "$(srcdir)/tests/actofgod-test SKIPPED"
 	@echo "$(srcdir)/tests/build-test SKIPPED"
 	@echo "$(srcdir)/tests/fire-test SKIPPED"
+	@echo "$(srcdir)/tests/bridgefall-test SKIPPED"
 endif
 
 

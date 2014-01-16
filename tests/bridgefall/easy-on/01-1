@@ -1,0 +1,13 @@
+|| damage span
+| span stands
+fire se 2,0 3,-1
+| span falls
+fire se 2,0 -1,-1
+| own span falls
+fire se 2,0 0,-2
+|| damage tower, loss of support, EASY_BRIDGES on
+| tower stands, and supports span
+fire se 2,0 6,0
+| tower falls, span 3,-3 falls
+| BUG: doesn't fall
+fire se 2,0 1,-3

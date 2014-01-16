@@ -1,0 +1,5 @@
+map *
+cens * ?terr=1
+terr * 0
+read 1
+read 2

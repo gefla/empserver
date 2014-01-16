@@ -1,0 +1,29 @@
+#!/bin/sh -e
+# Collapsing bridge test for Empire
+
+if [ $# -ne 1 ]
+then echo "Usage: $0 SRCDIR" >&2; exit 1
+fi
+
+srcdir="$1"
+
+. "$srcdir"/tests/test-common.sh
+
+create_sandbox
+cat >>sandbox/etc/empire/econfig <<EOF
+WORLD_X 20
+WORLD_Y 10
+BRIDGETOWERS 1
+EOF
+
+begin_test "$srcdir"/tests/bridgefall/setup-POGO
+feed_dir "$srcdir"/tests/bridgefall/easy-on
+stop_server
+cat >>sandbox/etc/empire/econfig <<EOF
+EASY_BRIDGES 0
+EOF
+start_server
+feed_dir "$srcdir"/tests/bridgefall/easy-off
+end_test
+
+cmp_out var/empire/server.log var/empire/journal.log final.xdump
