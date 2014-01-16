@@ -62,6 +62,16 @@ edit l * ?des#.&des#h m 127
 || relations
 decl w 1 2
 decl w 2 1
+|| mark target sectors
+terr * ?own#0&eff=100 2
+terr 14,0 1
+terr 2,-2 1
+terr -2,-2 1
+terr 4,2 1
+terr 1,3 1
+terr 2,2 1
+terr 0,2 1
+terr 6,0 1
 || target ships
 | frg far away
 edit s 0 t frg L -12,0 O 2
@@ -117,3 +127,4 @@ land *
 lcar *
 plan *
 nuke *
+sinf * ?own#0

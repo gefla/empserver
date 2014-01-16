@@ -1,3 +1,14 @@
+terr * ?terr=2&eff<100 1
+cens * ?terr=1
+comm * ?terr=1
+sinf * ?terr=1
+ship * ?eff<100
+carg * ?eff<100
+plane * ?eff<100
+land * ?eff<100
+lcarg * ?eff<100
+nuke *
+terr * 0
 read 0
 read 1
 read 2

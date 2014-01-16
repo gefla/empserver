@@ -1,7 +1,12 @@
-xdump sect * ?own#0
-xdump ship *
-xdump plane *
-xdump land *
-xdump nuke *
-xdump news *
+terr * ?terr=2&eff<100 1
+cens * ?terr=1
+comm * ?terr=1
+sinf * ?terr=1
+ship * ?eff<100
+carg * ?eff<100
+plane * ?eff<100
+land * ?eff<100
+lcarg * ?eff<100
+nuke *
+__cmd added 4 0 0
 edit c 1 b 640
