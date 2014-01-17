@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -92,10 +92,10 @@ bridgefall(struct sctstr *sp)
 	if (sect.sct_type != SCT_BSPAN)
 	    continue;
 	for (j = 1; j <= 6; j++) {
+	    if (j == DIR_BACK(i))
+		continue;
 	    nnx = nx + diroff[j][0];
 	    nny = ny + diroff[j][1];
-	    if (nnx == sp->sct_x && nny == sp->sct_y)
-		continue;
 	    getsect(nnx, nny, &bh_sect);
 	    if (bh_sect.sct_type == SCT_BHEAD &&
 		bh_sect.sct_newtype == SCT_BHEAD)
