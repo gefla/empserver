@@ -94,11 +94,6 @@ bridgefall(struct sctstr *sp)
 	    nnx = nx + diroff[j][0];
 	    nny = ny + diroff[j][1];
 	    getsect(nnx, nny, &bh_sect);
-	    if (bh_sect.sct_type == SCT_BHEAD &&
-		bh_sect.sct_newtype == SCT_BHEAD)
-		break;
-	    if (bh_sect.sct_type == SCT_BTOWER)
-		break;
 	    /* With EASY_BRIDGES, it just has to be next to any
 	       land */
 	    if (opt_EASY_BRIDGES) {
@@ -106,6 +101,13 @@ bridgefall(struct sctstr *sp)
 		    bh_sect.sct_type != SCT_BSPAN)
 		    break;
 	    }
+	    if (bh_sect.sct_effic < 20)
+		continue;
+	    if (bh_sect.sct_type == SCT_BHEAD &&
+		bh_sect.sct_newtype == SCT_BHEAD)
+		break;
+	    if (bh_sect.sct_type == SCT_BTOWER)
+		break;
 	}
 	if (j > 6) {
 	    knockdown(&sect);
