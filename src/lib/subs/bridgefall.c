@@ -82,9 +82,6 @@ bridgefall(struct sctstr *sp)
     int nnx;
     int nny;
 
-    if (CANT_HAPPEN(opt_EASY_BRIDGES))
-	return;
-
     for (i = 1; i <= 6; i++) {
 	nx = sp->sct_x + diroff[i][0];
 	ny = sp->sct_y + diroff[i][1];
@@ -102,6 +99,13 @@ bridgefall(struct sctstr *sp)
 		break;
 	    if (bh_sect.sct_type == SCT_BTOWER)
 		break;
+	    /* With EASY_BRIDGES, it just has to be next to any
+	       land */
+	    if (opt_EASY_BRIDGES) {
+		if (bh_sect.sct_type != SCT_WATER &&
+		    bh_sect.sct_type != SCT_BSPAN)
+		    break;
+	    }
 	}
 	if (j > 6) {
 	    knockdown(&sect);
