@@ -27,7 +27,7 @@
  *  path.h: Definitions for directions, paths, etc.
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2014
  */
 
 #ifndef PATH_H
@@ -48,6 +48,8 @@
 #define DIR_MAP		8
 #define DIR_FIRST	1
 #define DIR_LAST	6
+
+#define DIR_BACK(dir) ((dir) >= DIR_FIRST + 3 ? (dir) - 3 : (dir) + 3)
 
 #define MOB_MOVE	0
 #define MOB_MARCH	1

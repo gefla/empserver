@@ -27,7 +27,7 @@
  *  pathfind.c: Find cheapest paths
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2011
+ *     Markus Armbruster, 2014
  */
 
 #include <config.h>
@@ -325,13 +325,6 @@ y_in_dir(coord y, int dir)
     return yy;
 }
 
-static int
-rev_dir(int dir)
-{
-    assert(DIR_FIRST <= dir && dir <= DIR_LAST);
-    return dir >= DIR_FIRST + 3 ? dir - 3 : dir + 3;
-}
-
 /*
  * Set the current source and cost function.
  * SX,SY is the source.
@@ -456,8 +449,9 @@ path_find_route(char *buf, size_t bufsz,
 	    i = bufsz;
 	buf[--i] = dirch[d];
 	len++;
-	x = x_in_dir(x, rev_dir(d));
-	y = y_in_dir(y, rev_dir(d));
+	assert(DIR_FIRST <= d && d <= DIR_LAST);
+	x = x_in_dir(x, DIR_BACK(d));
+	y = y_in_dir(y, DIR_BACK(d));
     }
 
     assert(x == sx && y == sy);
