@@ -66,7 +66,7 @@ bridge_damaged(struct sctstr *sp)
     des = sp->sct_type;
     if (des == SCT_BSPAN || des == SCT_BTOWER)
 	knockdown(sp);
-    if ((des == SCT_BHEAD || des == SCT_BTOWER) && !opt_EASY_BRIDGES)
+    if ((des == SCT_BHEAD && !opt_EASY_BRIDGES) || des == SCT_BTOWER)
 	bridgefall(sp);
 }
 

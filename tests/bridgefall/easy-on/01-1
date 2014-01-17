@@ -9,5 +9,4 @@ fire se 2,0 0,-2
 | tower stands, and supports span
 fire se 2,0 6,0
 | tower falls, span 3,-3 falls
-| BUG: doesn't fall
 fire se 2,0 1,-3
