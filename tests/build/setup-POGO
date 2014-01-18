@@ -2,12 +2,12 @@
 des -3:-2,-2:4 c
 des -1:0,-2:4 w
 des 7,3 w
-edit l -8,4 e 100 s @ S @
+build t -6,4 g
 des -2,-4 c
 des 0,-4 w
 des -3,-5 #
-edit l -5,-5 e 100 s = S =
-edit l -7,-5 e 100 s @ S @
+build b -3,-5 g
+build t -5,-5 g
 give l * ?des=w 2000
 give h * ?des=w 2000
 give m * ?des=w 90
@@ -19,17 +19,21 @@ des 1:5,1 *
 des 2:6,2 !
 des 1:5,3 n
 des 2:6,4 -
-edit l -4,4 e 100 s = S =
+build b -2,4 g
 des 2:6,-2 #
-edit l -4,-2 e 100 s = S =
-edit l -6,-2 e 100 s @ S @
+build b -2,-2 g
+build t -4,-2 g
 give h -6,-2 100
-edit l -8,-4 e 100 s = S =
-edit l -6,-4 e 60 s = S =
-edit l -9,-5 e 59 s = S =
+build b -7,-5 b
+build b -7,-5 n
+edit l -6,-4 e 60
+build b -7,-5 g
+edit l -9,-5 e 59
 edit l 3:4,-2:4 ?des#. e 60
 edit l 5:6,-2:4 ?des#. e 59
 edit l * ?des#.&eff=0 e 100
+edit l * ?des==&eff=20 e 100
+edit l * ?des=@&eff=20 e 100
 edit l * ?des#. m 127
 | avail for 2 pt in h, 2 f2 in *, 2 linf in !, 2 10kt in n
 edit l * ?des=h a 35
