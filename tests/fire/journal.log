@@ -368,7 +368,7 @@
     Play#0 output Play#0 1   0   14,0    .    0%       0 .. ..        0    0    0    0   0%    0    0   1
     Play#0 output Play#0 1   2    0,2    +  100%     127 .. ..     1000    0    0    0   0%  100    0   1
     Play#0 output Play#0 1   2    2,2    h   87%       0 .. ..       87    0    0    0   0%   86    0   1
-    Play#0 output Play#0 1   2    4,2    =   98%     124 .. ..       98    0    0    0   0%   98    0   1
+    Play#0 output Play#0 1   2    4,2    =   98%     125 .. ..       98    0    0    0   0%   98    0   1
     Play#0 output Play#0 1   0    1,3    .    0%       0 .. ..        0    0    0    0   0%   78    0   1
     Play#0 output Play#0 1 8 sectors
     Play#0 output Play#0 6 0 640
@@ -876,7 +876,7 @@
     Play#0 output Play#0 1   0   14,0    .    0%       0 .. ..        0    0    0    0   0%    0    0   1
     Play#0 output Play#0 1   2    0,2    +    7%       8 .. ..       72    0    0    0   0%    7    0   1
     Play#0 output Play#0 1   2    2,2    h   87%       0 .. ..       87    0    0    0   0%   86    0   1
-    Play#0 output Play#0 1   2    4,2    =   98%     124 .. ..       98    0    0    0   0%   98    0   1
+    Play#0 output Play#0 1   2    4,2    =   98%     125 .. ..       98    0    0    0   0%   98    0   1
     Play#0 output Play#0 1   0    1,3    .    0%       0 .. ..        0    0    0    0   0%   78    0   1
     Play#0 output Play#0 1 8 sectors
     Play#0 output Play#0 6 0 640
@@ -1285,7 +1285,7 @@
     Play#0 output Play#0 1   0   14,0    .    0%       0 .. ..        0    0    0    0   0%    0    0   1
     Play#0 output Play#0 1   2    0,2    +    2%       2 .. ..       12    0    0    0   0%    1    0   1
     Play#0 output Play#0 1   2    2,2    h   87%       0 .. ..       87    0    0    0   0%   86    0   1
-    Play#0 output Play#0 1   2    4,2    =   98%     124 .. ..       98    0    0    0   0%   98    0   1
+    Play#0 output Play#0 1   2    4,2    =   98%     125 .. ..       98    0    0    0   0%   98    0   1
     Play#0 output Play#0 1   0    1,3    .    0%       0 .. ..        0    0    0    0   0%   78    0   1
     Play#0 output Play#0 1 8 sectors
     Play#0 output Play#0 6 0 640
@@ -1398,12 +1398,6 @@
     Play#0 output Play#0 1 Country #1 shelled sector 4,2 for 3 damage.
     Play#0 output Play#0 1 Country #1 shelled sector 1,3 for 29 damage.
     Play#0 output Play#0 1 Crumble... SCREEEECH!  Splash! Bridge falls at 1,3!
-    Play#0 output Play#0 1      AARGH! tra  train #30 tumbles to its doom!
-    Play#0 output Play#0 1 sam  Sea Sparrow #30 lost!
-    Play#0 output Play#0 1 rad  radar unit #31 lost!
-    Play#0 output Play#0 1 sam  Sea Sparrow #31 lost!
-    Play#0 output Play#0 1      AARGH! jhb  B-52 Strato-Fortress #2 tumbles to its doom!
-    Play#0 output Play#0 1 10kt  fission warhead #2 lost!
     Play#0 output Play#0 1 Country #1 shelled sector 2,2 for 0 damage.
     Play#0 output Play#0 1 Country #1 shelled sector 2,2 for 5 damage.
     Play#0 output Play#0 1 	spy  infiltrator #0 takes 1
