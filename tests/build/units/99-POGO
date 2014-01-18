@@ -1,0 +1,14 @@
+|| ships, planes, land units, nukes
+build s -3:-1,-1 lc
+build p -3,-1 np
+build p -1,-1 np 2 150
+build l -3:-1,-1 aau
+build n -3:-1,-1 1mt
+|| show results
+ship -3:-1,-1
+plane -3:-1,-1
+land -3:-1,-1
+nuke -3:-1,-1
+cens -3:-1,-1
+comm -3:-1,-1
+__cmd added 11 5 0

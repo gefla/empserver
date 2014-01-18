@@ -1,1 +1,9 @@
+|| bridge towers, BRIDGETOWERS off
+build t -8,-6 g
+|| bridge spans, EASY_BRIDGES off
+| no support
+build b 4,-4 g
+| success
+build b 6,-4 n
+|| show results
 cens * ?own=0&des#.

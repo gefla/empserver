@@ -22,6 +22,10 @@ tester@127.0.0.1 using country #4
 tester@127.0.0.1 logged in as country #4
 tester@127.0.0.1 logged out, country #4
 Connect from 127.0.0.1
+tester@127.0.0.1 using country #0
+tester@127.0.0.1 logged in as country #0
+tester@127.0.0.1 logged out, country #0
+Connect from 127.0.0.1
 tester@127.0.0.1 using country #5
 tester@127.0.0.1 logged in as country #5
 tester@127.0.0.1 logged out, country #5
@@ -33,6 +37,10 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #9
 tester@127.0.0.1 logged in as country #9
 tester@127.0.0.1 logged out, country #9
+Connect from 127.0.0.1
+tester@127.0.0.1 using country #0
+tester@127.0.0.1 logged in as country #0
+tester@127.0.0.1 logged out, country #0
 Shutdown commencing (cleaning up threads.)
 Server shutting down on signal 15
 ------------------------------------------------------

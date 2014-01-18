@@ -1,0 +1,8 @@
+|| bridge towers, BRIDGETOWERS on
+build t -8,2 n
+|| bridge spans, EASY_BRIDGES on
+| no support
+build b -8,2 u
+| success
+build b -8,2 j
+__cmd added 3 3 0

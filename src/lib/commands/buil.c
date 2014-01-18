@@ -151,6 +151,8 @@ buil(void)
 	return RET_FAIL;
     }
 
+    if (tlev < rqtech && player->god)
+	tlev = rqtech;
     if (type < 0 || tlev < rqtech) {
 	pr("You can't build that!\n");
 	pr("Use `show %s build %d' to show types you can build.\n",
@@ -217,7 +219,7 @@ build_ship(struct sctstr *sp, int type, int tlev)
     mat[I_HCM] = mp->m_hcm;
     work = SHP_BLD_WORK(mp->m_lcm, mp->m_hcm);
 
-    if (sp->sct_type != SCT_HARBR) {
+    if (sp->sct_type != SCT_HARBR && !player->god) {
 	pr("Ships must be built in harbours.\n");
 	return 0;
     }
@@ -270,7 +272,7 @@ build_land(struct sctstr *sp, int type, int tlev)
     mat[I_HCM] = lp->l_hcm;
     work = LND_BLD_WORK(lp->l_lcm, lp->l_hcm);
 
-    if (sp->sct_type != SCT_HEADQ) {
+    if (sp->sct_type != SCT_HEADQ && !player->god) {
 	pr("Land units must be built in headquarters.\n");
 	return 0;
     }
@@ -431,7 +433,7 @@ build_bridge(char what)
 
     switch (what) {
     case 'b':
-	if (natp->nat_level[NAT_TLEV] < buil_bt) {
+	if (natp->nat_level[NAT_TLEV] < buil_bt && !player->god) {
 	    pr("Building a span requires a tech of %.0f\n", buil_bt);
 	    return RET_FAIL;
 	}
@@ -442,7 +444,7 @@ build_bridge(char what)
 	    pr("Bridge tower building is disabled.\n");
 	    return RET_FAIL;
 	}
-	if (natp->nat_level[NAT_TLEV] < buil_tower_bt) {
+	if (natp->nat_level[NAT_TLEV] < buil_tower_bt && !player->god) {
 	    pr("Building a tower requires a tech of %.0f\n",
 	       buil_tower_bt);
 	    return RET_FAIL;
@@ -477,11 +479,11 @@ build_bspan(struct sctstr *sp)
     int work;
     int val;
     int newx, newy;
-    int nx, ny, i, good = 0;
     char *p;
     char buf[1024];
 
-    if (opt_EASY_BRIDGES == 0) {	/* must have a bridge head or tower */
+    if (!opt_EASY_BRIDGES && !player->god) {
+	/* must have a bridge head or tower */
 	if (sp->sct_type != SCT_BTOWER) {
 	    if (sp->sct_type != SCT_BHEAD)
 		return 0;
@@ -521,23 +523,20 @@ build_bspan(struct sctstr *sp)
 	pr("%s is not a water sector\n", xyas(newx, newy, player->cnum));
 	return 0;
     }
-    if (opt_EASY_BRIDGES) {
-	good = 0;
-
-	for (i = 1; i <= 6; i++) {
-	    struct sctstr s2;
-	    nx = sect.sct_x + diroff[i][0];
-	    ny = sect.sct_y + diroff[i][1];
-	    getsect(nx, ny, &s2);
-	    if ((s2.sct_type != SCT_WATER) && (s2.sct_type != SCT_BSPAN))
-		good = 1;
-	}
-	if (!good) {
+    if (!bridge_support_at(&sect, DIR_STOP)) {
+	if (opt_EASY_BRIDGES) {
 	    pr("Bridges must be built adjacent to land or bridge towers.\n");
 	    pr("That sector is not adjacent to land or a bridge tower.\n");
-	    return 0;
+	} else {
+	    /*
+	     * Note: because players need a 60% bridge head or tower,
+	     * we can get here only for a deity.
+	     */
+	    pr("%s is not next to a supporting bridge head or tower\n",
+	       xyas(newx, newy, player->cnum));
 	}
-    }				/* end EASY_BRIDGES */
+	return 0;
+    }
     build_charge(sp, mat, work, buil_bc, 100);
 
     sect.sct_type = SCT_BSPAN;
@@ -575,7 +574,7 @@ build_btower(struct sctstr *sp)
     int nx;
     int ny;
 
-    if (sp->sct_type != SCT_BSPAN) {
+    if (sp->sct_type != SCT_BSPAN && !player->god) {
 	pr("Bridge towers can only be built from bridge spans.\n");
 	return 0;
     }
@@ -656,6 +655,9 @@ sector_can_build(struct sctstr *sp, short mat[], int work,
     int i, avail, ret;
     double needed;
 
+    if (player->god)
+	return 1;		/* Deity builds ex nihilo */
+
     if (sp->sct_effic < 60 && !player->god) {
 	pr("Sector %s is not 60%% efficient.\n",
 	   xyas(sp->sct_x, sp->sct_y, player->cnum));
@@ -690,6 +692,9 @@ build_charge(struct sctstr *sp,
 	     short mat[], int work, double cost, int effic)
 {
     int i;
+
+    if (player->god)
+	return;			/* Deity builds ex nihilo */
 
     for (i = I_NONE + 1; i <= I_MAX; i++)
 	sp->sct_item[i] -= mat[i];
