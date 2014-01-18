@@ -1,43 +1,51 @@
-|| sectors
-desi 0,0 c
-desi 2,0 f
-desi 1,-1:1 #
-edit l 3,-1 e 100 s = S =
-edit l -1:0,-2:-1 e 20 s = S =
-edit l 1,-3 e 20 s @ S @
-edit l 2:3,-4:-2 e 100 s = S =
-des 3,-5 +
-des 8,2 -
-edit l -2:3,1:2 ?des=. e 100 s = S =
-edit l 1,3 e 100 s = S =
-desi 3,3 #
-desi -1,3 #
-edit l 6,0 e 100 s @ S @
-edit l 8,0 e 100 s = S =
-edit l -3,1 e 20 s @ S @
-| mark sectors of interest
-terr * ?des== 1
-terr * ?des=# 1
-terr * ?des=@ 1
-| populate
-give c * ?des#. 100
-edit l 0:2,0 e 100
-edit l * ?des=# e 20
 || country#1
 add 1 1 1 p
 edit c 1 s 4 b 640 M 25000 T 100
+desi 0,0 c
+desi 2,0 f
+edit l 0:2,0 e 100
 give m 2,0 5
 give g 2,0 7
 give s 2,0 100
-edit l * ?des#.&des#=&des#@&des#- o 1 O 1
-edit l 0,-2 o 1 O 1
-edit l 3,1 o 1 O 1
+desi 1,-1:1 #
+build b 1,-1 y
+desi 3,-5 +
+build b 1,1 j
+edit l 3,1 e 100
+desi 3,3 #
+give c * ?des#. 100
+edit l * ?des#. o 1 O 1
 || country#2
 add 2 2 2 p
-| make country active, so it gets bulletins
 edit c 2 s 4 b 640 M 25000 T 100
+build b 1,-1 j
+edit l * ?des==&own=0 e 100
+build b 1,-1 u
+build b 1,-1 g
+build t 2,-2 y
+build b 1,-3 j
+build b 1,-3 u
+desi 8,2 -
+build b 1,1 n
+build b 1,1 b
+build b 1,1 g
+build t -1,1 g
+build b -3,1 n
+desi -1,3 #
+build b -1,3 j
+build t 4,0 j
+build b 6,0 j
+edit l * ?des==&own=0 e 100
+edit l -1,-1 e 20
+edit l 6,0 e 100
+give c * ?des#.&own=0 100
 edit l * ?des#.&own=0 o 2 O 2
-edit l -1,3 o 2 O 2
+|| finishing touches to land
+edit l * ?des=# e 20
+|| mark sectors of interest
+terr * ?des== 1
+terr * ?des=# 1
+terr * ?des=@ 1
 || relations
 decl h 1 2
 decl h 2 1
