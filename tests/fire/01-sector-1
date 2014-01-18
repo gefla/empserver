@@ -65,9 +65,8 @@ fire se 0,0 -2,-2
 fire se 2,0 -2,-2
 fire se 4,0 -2,-2
 | at bridge, one splash
-fire se 0,0 4,2
-fire se 2,0 4,2
-fire se 4,0 1,3
+| firing at bridges is covered in bridgefall-test
+__cmd added -3 -3 0
 | at harbor with stuff
 fire se 0,0 2,2
 fire se 2,0 2,2
