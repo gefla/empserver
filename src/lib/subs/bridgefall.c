@@ -49,6 +49,35 @@
 static void knockdown(struct sctstr *);
 
 /*
+ * Is there support for a bridge at SP?
+ * Ignore support coming from direction IGNORE_DIR.
+ */
+int
+bridge_support_at(struct sctstr *sp, int ignore_dir)
+{
+    int i, nx, ny;
+    struct sctstr sect;
+
+    for (i = 1; i <= 6; i++) {
+	if (i == ignore_dir)
+	    continue;
+	nx = sp->sct_x + diroff[i][0];
+	ny = sp->sct_y + diroff[i][1];
+	getsect(nx, ny, &sect);
+	if (opt_EASY_BRIDGES
+	    && sect.sct_type != SCT_WATER && sect.sct_type != SCT_BSPAN)
+	    return 1;
+	if (sect.sct_effic < 20)
+	    continue;
+	if (sect.sct_type == SCT_BHEAD && sect.sct_newtype == SCT_BHEAD)
+	    return 1;
+	if (sect.sct_type == SCT_BTOWER)
+	    return 1;
+    }
+    return 0;
+}
+
+/*
  * Check bridges at and around SP after damage to SP.
  * If SP is an inefficent bridge, splash it.
  * If SP can't support a bridge, splash unsupported adjacent bridges.
@@ -74,42 +103,16 @@ void
 bridgefall(struct sctstr *sp)
 {
     int i;
-    int j;
     struct sctstr sect;
-    struct sctstr bh_sect;
     int nx;
     int ny;
-    int nnx;
-    int nny;
 
     for (i = 1; i <= 6; i++) {
 	nx = sp->sct_x + diroff[i][0];
 	ny = sp->sct_y + diroff[i][1];
 	getsect(nx, ny, &sect);
-	if (sect.sct_type != SCT_BSPAN)
-	    continue;
-	for (j = 1; j <= 6; j++) {
-	    if (j == DIR_BACK(i))
-		continue;
-	    nnx = nx + diroff[j][0];
-	    nny = ny + diroff[j][1];
-	    getsect(nnx, nny, &bh_sect);
-	    /* With EASY_BRIDGES, it just has to be next to any
-	       land */
-	    if (opt_EASY_BRIDGES) {
-		if (bh_sect.sct_type != SCT_WATER &&
-		    bh_sect.sct_type != SCT_BSPAN)
-		    break;
-	    }
-	    if (bh_sect.sct_effic < 20)
-		continue;
-	    if (bh_sect.sct_type == SCT_BHEAD &&
-		bh_sect.sct_newtype == SCT_BHEAD)
-		break;
-	    if (bh_sect.sct_type == SCT_BTOWER)
-		break;
-	}
-	if (j > 6) {
+	if (sect.sct_type == SCT_BSPAN
+	    && !bridge_support_at(&sect, DIR_BACK(i))) {
 	    knockdown(&sect);
 	    putsect(&sect);
 	}

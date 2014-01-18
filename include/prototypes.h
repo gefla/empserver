@@ -392,6 +392,7 @@ extern void stop_service(void);
 extern int confirm(char *);
 extern int askyn(char *);
 /* bridgefall.c */
+extern int bridge_support_at(struct sctstr *, int);
 extern void bridge_damaged(struct sctstr *);
 extern void bridgefall(struct sctstr *);
 /* bsanct.c */
