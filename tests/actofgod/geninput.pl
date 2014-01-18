@@ -143,7 +143,7 @@ for my $key ('ow', 'ol') {
 setsect('11,7', 'ow', 2);
 
 # x,y (copy)
-edit('sect', '1,7', 'L', '1,-7');
+edit('sect', '1,7', 'L', '5,-7');
 edit('sect', '3,-7', 'L', '3,-7', 'L', '1,0');
 
 # effic mobil iron gmin fertil oil uran work loyalty che pstage ptime
