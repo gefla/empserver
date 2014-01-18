@@ -46,10 +46,33 @@ edit l * ?des=# e 20
 terr * ?des== 1
 terr * ?des=# 1
 terr * ?des=@ 1
+|| put some victims on bridges
+build l 0,-2 tra
+build l 0,-2 rad
+edit u 1 Y 0
+build p 0,-2 sam
+edit p 0 y 0
+edit p 0 U 1 y 1
+build p 0,-2 jhb
+build n 0,-2 10kt
+edit n 0 U 2 p 2
+edit u 0 U 10 L 1,-3 O 2
+edit u 1 U 11 Y 10 O 2
+edit p 0 U 10 L
+edit p 0 U 10 O 2 y 10
+edit p 1 U 11 O 2 y 11
+edit p 2 U 12 O 2 l 1,-3
+edit n 0 U 10 O 2 L 1,-3
+edit n 2 U 12 O 2 p 12
+edit p * e 100
+edit u * e 100
 || relations
 decl h 1 2
 decl h 2 1
 || show initial state here to help maintainers
 cens * ?des#.
 comm * ?des#.
+plane *
+land *
+nuke *
 map *
