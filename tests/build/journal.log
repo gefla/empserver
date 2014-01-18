@@ -906,8 +906,7 @@
     Play#5 output Play#5 6 0 632
     Play#5 input build b -4,4 b
     Play#5 command build
-    Play#5 output Play#5 1 Bridges must be built adjacent to land or bridge towers.
-    Play#5 output Play#5 1 That sector is not adjacent to land or a bridge tower.
+    Play#5 output Play#5 1 -5,5 is not next to land or a bridge tower
     Play#5 output Play#5 6 0 631
     Play#5 input build b
     Play#5 command build
@@ -1059,8 +1058,7 @@
     Play#9 output Play#9 6 0 632
     Play#9 input build t -6,-4 j
     Play#9 command build
-    Play#9 output Play#9 1 Bridge towers cannot be built adjacent to land.
-    Play#9 output Play#9 1 That sector is adjacent to land.
+    Play#9 output Play#9 1 -4,-4 is next to land, can't build bridge tower there
     Play#9 output Play#9 6 0 631
     Play#9 input build t
     Play#9 command build
@@ -1137,8 +1135,7 @@
     Play#0 output Play#0 6 0 639
     Play#0 input build b -8,2 u
     Play#0 command build
-    Play#0 output Play#0 1 Bridges must be built adjacent to land or bridge towers.
-    Play#0 output Play#0 1 That sector is not adjacent to land or a bridge tower.
+    Play#0 output Play#0 1 -7,1 is not next to land or a bridge tower
     Play#0 output Play#0 6 0 638
     Play#0 input build b -8,2 j
     Play#0 command build

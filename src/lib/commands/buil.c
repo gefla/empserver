@@ -525,8 +525,8 @@ build_bspan(struct sctstr *sp)
     }
     if (!bridge_support_at(&sect, DIR_STOP)) {
 	if (opt_EASY_BRIDGES) {
-	    pr("Bridges must be built adjacent to land or bridge towers.\n");
-	    pr("That sector is not adjacent to land or a bridge tower.\n");
+	    pr("%s is not next to land or a bridge tower",
+	       xyas(newx, newy, player->cnum));
 	} else {
 	    /*
 	     * Note: because players need a 60% bridge head or tower,
@@ -619,8 +619,8 @@ build_btower(struct sctstr *sp)
 	getsect(nx, ny, &s2);
 	if ((s2.sct_type != SCT_WATER) &&
 	    (s2.sct_type != SCT_BTOWER) && (s2.sct_type != SCT_BSPAN)) {
-	    pr("Bridge towers cannot be built adjacent to land.\n");
-	    pr("That sector is adjacent to land.\n");
+	    pr("%s is next to land, can't build bridge tower there",
+	       xyas(newx, newy, player->cnum));
 	    return 0;
 	}
     }
