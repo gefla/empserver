@@ -559,6 +559,11 @@ edit_sect(struct sctstr *sect, char *key, char *p)
 			 newsect.sct_own);
 	report_god_gives("Sector ", xyas(newx, newy, sect->sct_own),
 			 sect->sct_own);
+	if (sect->sct_x == sect->sct_dist_x
+	    && sect->sct_y == sect->sct_dist_y) {
+	    sect->sct_dist_x = newx;
+	    sect->sct_dist_y = newy;
+	}
 	sect->sct_x = newx;
 	sect->sct_y = newy;
 	sect->sct_coastal = newsect.sct_coastal;
