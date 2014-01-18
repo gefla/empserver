@@ -34,7 +34,7 @@ keep_journal 2
 GODNEWS 0
 running_test_suite 1
 EOF
-    cp `git ls-files "$srcdir"/src/lib/global | grep '\.config$'` sandbox/share/empire/builtin
+    cp `git ls-files "$srcdir"/src/lib/global | uniq | grep '\.config$'` sandbox/share/empire/builtin
 }
 
 now()
@@ -119,7 +119,7 @@ feed_files()
 
 feed_dir()
 {
-    feed_files `git ls-files "$@" | grep '/[0-9][0-9]-[^/]*$'`
+    feed_files `git ls-files "$@" | uniq | grep '/[0-9][0-9]-[^/]*$'`
 }
 
 begin_test()
