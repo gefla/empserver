@@ -1,30 +1,8 @@
-|| pre-extend unit files
-edit c 0 T 400
-add 98 98 98 g
-des 0,0 h
-give m 0,0 100
-edit l 0,0 o 98 O 98 a 9999
-give l 0,0 9999
-give h 0,0 9999
-give o 0,0 9999
-give r 0,0 9999
-build s 0,0 frg
-edit s 0 O 0 T 0
-des 0,0 *
-build p 0,0 f1
-edit p 0 O 0 t 0
-des 0,0 !
-build l 0,0 cav
-edit u 0 O 0 t 0
-des 0,0 n
-build n 0,0 10kt
-edit n 0 O 0 t 0
-edit l 2,0 L 0,0
-|
 || an island
 des @0,0:2 +
-edit l 4,2 e 100 s = S =
-edit l 1,3 e 20 s = S =
+build b 2,2 j
+build b 2,2 b
+edit l 4,2 e 100
 give c * ?des#. 100
 || country#1
 add 1 1 1 p
@@ -74,49 +52,54 @@ terr 0,2 1
 terr 6,0 1
 || target ships
 | frg far away
-edit s 0 t frg L -12,0 O 2
+build s -12,0 frg
+edit s 0 O 2
 | sub at sea and in port
-edit s 10 t sb L 2,2 O 2 U 11 L 6,0
+edit s 0 U 10 t sb L 2,2 U 11 L 6,0
 edit s 10 U 12 m 5 E 100 M 127 U 13 L 6,0
 | cs at sea and in port
-edit s 20 t cs L 2,2 O 2 l 100 h 100 U 21 L 6,0
+edit s 0 U 20 t cs L 2,2 O 2 l 100 h 100 U 21 L 6,0
 edit s 20 U 22 m 5 E 100 M 127 U 23 L 6,0 U 24
 retreat 11/13/23 j idh
 retreat 10/12/22 n dh
 || target lands
 | spy in target harbor
-edit u 0 T spy L 2,2 O 2 e 100 M 127
+build l 2,2 spy
+edit u 0 e 100 M 127
 | spy on target subs
 edit u 0 U 10 S 10 U 11 S 11 U 12 S 12 U 13 S 13
 | rad on target cs
-edit u 20 T rad O 2 e 100 M 127 m 10 S 20 U 21 S 21 U 22 S 22 U 23 S 23
+edit u 0 U 20 T rad m 10 S 20 U 21 S 21 U 22 S 22 U 23 S 23
 | train on weak target bridge
-edit u 30 T tra L 1,3 O 2 e 100 m 10 l 100 h 100 M 127 U 32 L 2,2
+edit u 0 U 30 T tra L 1,3 m 10 l 100 h 100 U 32 L 2,2
 | tra in target harbor
-edit u 31 T rad O 2 e 100 M 127 m 10 Y 30 U 33 Y 32
+edit u 0 U 31 T rad m 10 Y 30 U 33 Y 32
 || target planes
 | sam & jhb in target harbor, jhb ob weak target bridge
-edit p 0 T sam l 2,2 O 2 e 100 m 127
-edit p 1 T jhb l 2,2 O 2 e 100 m 127 U 2 l 1,3
+build p 2,2 sam
+edit p 0 e 100 m 127
+build p 2,2 jhb
+edit p 1 e 100 m 127 U 2 l 1,3
 | sam in target cs and rad
 edit p 0 U 20 s 20 U 21 s 21 U 22 s 22 U 23 s 23
 edit p 0 U 25 y 20 U 26 y 21 U 27 y 22 U 28 y 23
 edit p 0 U 30 y 30 U 31 y 31 U 32 y 32 U 33 y 33
 || target nukes in target harbor and on target jhb
-edit n 0 t 10kt L 2,2 O 2 U 1 p 1 U 2 p 2
+build n 2,2 10kt
+edit n 0 U 1 p 1 U 2 p 2
 || firing ships
 | bb range >=3, 59% 60% 100%
-edit s 1 t bb T 150 L 3,1 O 1 E 59 M 127 m 13 g 10 s 200 U 2 E 60 U 3 E 100
+edit s 0 U 1 t bb T 150 L 3,1 O 1 E 59 M 127 m 13 g 10 s 200 U 2 E 60 U 3 E 100
 | cs
-edit s 9 t cs L 3,1 O 1 E 100 M 127 m 10 g 10 s 10
+edit s 0 U 9 t cs L 3,1 O 1 E 100 M 127 m 10 g 10 s 10
 | dd range 1.5
-edit s 5 t dd T 100 L 8,0 O 1 E 100 M 127 m 5 g 4 s 40
+edit s 0 U 5 t dd T 100 L 8,0 O 1 E 100 M 127 m 5 g 4 s 40
 edit s 5 U 6 L 3,3
 || firing lands
 | hat range 3.5 39% 40% 100%
-edit u 1 T hat t 160 L 3,1 O 1 e 39 M 127 m 10 g 12 s 80 U 2 e 40 U 3 e 100
+edit u 0 U 1 T hat t 160 L 3,1 O 1 e 39 m 10 g 12 s 80 U 2 e 40 U 3 e 100
 | tra
-edit u 9 T tra L 3,1 O 1 e 100 m 10 g 10 s 10
+edit u 0 U 9 T tra L 3,1 O 1 M 0 m 10 g 10 s 10
 | note: no mob in train to avoid unwanted supply
 || show initial state here to help maintainers
 map *
