@@ -561,6 +561,7 @@ edit_sect(struct sctstr *sect, char *key, char *p)
 			 sect->sct_own);
 	sect->sct_x = newx;
 	sect->sct_y = newy;
+	sect->sct_coastal = newsect.sct_coastal;
 	ef_set_uid(EF_SECTOR, sect, XYOFFSET(newx, newy));
 	break;
     case 'D':
