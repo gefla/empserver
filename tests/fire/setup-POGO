@@ -26,6 +26,9 @@ edit l -2:4,2:3 ?des#. o 2 O 2
 give l * ?own=2 100
 give h * ?own=2 100
 edit l * ?own=2 a 100 R 100 r 100 d 100
+| 0,2 is at risk of getting shelled to deity
+| can upset the rest of the test when it happens, avoid by adding more civs
+give c 0,2 900
 | make country active, so it gets bulletins
 edit c 2 s 4 b 640 M 25000 T 100
 || country#3
