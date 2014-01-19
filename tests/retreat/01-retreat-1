@@ -1,0 +1,200 @@
+||| Commands
+|| retreat command
+| garbage path
+retr 0 garbage i
+| condition help, then junk conditions
+retr 1 g
+?
+junk
+| long path, all conditions
+retr 2/3 bgyujnbgyujnbgyujn itshbdu
+| clear retreat order
+retr 3 ignored c
+| group retreat order
+retr a ?uid=4 b h
+| show retreat orders
+retr
+0/1/2/3/4
+|| lretreat command
+| garbage path
+lret 0 garbage i
+| condition help, then junk conditions
+lret 1 g
+?
+junk
+| long path, all conditions
+lret 2/3 yujnbgyujnbgyujnbg ihb
+| clear retreat order
+lret 3 ignored c
+| group retreat order
+lret a ?uid=4 b h
+| show retreat orders
+lret
+0/1/2/3/4
+||| Ships
+|| ships failing to retreat
+| sunk
+fire se -2,2 30
+| sailing
+fire se -2,2 31
+| crewless
+fire se -2,2 32
+| construction zone
+fire se -2,2 33
+| landlocked
+fire se -2,2 34
+| no mobility
+fire se -2,2 35
+|| ships having difficulties during retreat
+| out of mobility after n
+fire se -2,2 40
+| into non-navigable sector after n
+fire se -2,2 41
+| into unfriendly sector right away
+fire se -2,2 42
+| gg with 43, sweeping and hitting mines
+fire se -2,2 44
+|| ships retreating fully
+| nh
+fire se -2,2 10
+| h
+fire se -2,2 10
+| nj into friendly harbor
+fire se -2,2 10
+|| own ship
+fire se -2,2 2
+|| ships retreating from gun fire
+| injured covered above
+| helpless
+fire se -2,2 11
+| not helpless
+fire se -2,-2 20
+|| ships retreating from depth charges
+| depth-charged
+fire sh 5 50
+fire sh 5 51
+| helpless
+fire sh 5 52
+| not helpless
+navi 5 gyuh
+fire sh 5 53
+|| ships retreating from bombs
+| injured
+bomb 0/1/2/3/4 . p -2,2 jh
+s
+60
+61
+62
+63
+64
+| bombed
+bomb 0/1/2/3/4 . p -2,2 jh
+s
+65
+66
+67
+68
+69
+| helpless is not implemented
+|| ships retreating from missiles
+| injured
+launch 10 80
+launch 11 81
+launch 12 82
+launch 13 83
+launch 14 84
+| bombed and helpless doesn't apply to missiles (I guess they should)
+|| ships retreating from torpedoes
+| torpedoed
+torp 6 100
+torp 6 101
+torp 6 102
+torp 6 103
+torp 6 104
+| BUG: retreats only when hit
+| injured is not implemented
+| helpless is not implemented
+|| ships retreating from sonar pings
+| naval sonar
+navi 5 bsh
+| retreat on plane sonar is not implemented
+|| ships retreating from unsuccessful boarding
+navi 5 nh
+board 130 5
+1
+||| Land units
+| only retreat on p-bombing is implemented
+| BUG: condition b triggers only on hit
+|| land units failing to retreat
+| these bombing runs must hit; if they don't, use __cmd to make them
+| destroyed
+bomb 30 . p -2,2 ujh
+l
+30
+| loaded, but there's no way to trigger a retreat then
+| crewless
+__cmd added -1 0 0
+bomb 30 . p -2,2 ujh
+l
+32
+| BUG: retreats anyway
+| kidnapped
+bomb 30 . p -2,2 uh
+l
+33
+| BUG: retreats anyway
+| no mobility
+bomb 30 . p -2,2 ujh
+l
+35
+|| land units having difficulties during retreat
+| these bombing runs must hit; if they don't, use __cmd to make them
+| out of mobility after n
+__cmd added -1 0 0
+bomb 30 . p -2,2 ujh
+l
+40
+| into mountain after j
+bomb 30 . p -2,2 ujh
+l
+41
+| into foreign sector right away
+__cmd added -1 0 0
+bomb 30 . p -2,2 ujh
+l
+42
+| yu with 43, sweeping and hitting mines
+__cmd added -1 0 0
+bomb 30 . p -2,2 ujh
+l
+44
+| BUG: oopses!
+|| land units retreating fully
+| jh
+bomb 30 . p -2,2 ujh
+l
+10
+| h
+__cmd added -1 0 0
+bomb 30 . p -2,2 ujjh
+l
+10
+| uy into allied sector
+__cmd added -1 0 0
+bomb 30 . p -2,2 ujjh
+l
+10
+| BUG: can't enter allied sector
+| own land unit
+bomb 30 . p -3,1 h
+l
+2
+| injured
+bomb 20/21/22/23/24 . p -2,2 uuh
+l
+60
+61
+62
+63
+64
+| bombed covered above

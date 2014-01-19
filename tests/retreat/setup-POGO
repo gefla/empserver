@@ -1,0 +1,159 @@
+|| create land
+desi @0,0:2 a
+desi 4,4 h
+give c * ?des#. 100
+|| country#1
+add 1 1 1 p
+desi -2,0 c
+edit c 1 c -2,0 s 4 b 640 M 25000 T 100
+| two forts (one with, one without return fire)
+desi -2,2 f
+desi -2,-2 f
+| harbor for building of non-landlocked ships
+desi -3,1 h
+edit l * ?des#.&xloc<0 o 1 O 1
+| ships for testing retreat command
+build s -3,1 cs 5
+| ship to drop depth charges
+build s -3,1 dd
+| ship to launch torpedoes
+edit s 5 g 1 s 40
+build s -3,1 sb
+edit s 6 T 165 L -1,3 g 1 s 36
+| p-bombers with 50% hit chance vs. dd in port
+build p -2,2 lb 5
+| marine missiles acc 50
+edit p 0 U 10 T mi t 160 U 11 U 12 U 13 U 14
+| p-bombers with 50% hit chance vs. cav
+edit p 0 U 20 t 400 U 21 U 22 U 23 U 24
+| very accurate p-bomber
+edit p 0 U 30 T ac t 400
+| land units for testing retreat command
+build l -3,1 inf 5
+| fortify to reduce unwanted collateral damage
+edit u * F 127
+|| country#2
+add 2 2 2 p
+| mountain, to test "can't retreat into mountain"
+desi 2,0 ^
+edit c 2 c 2,0 s 4 b 640 M 25000 T 100
+| a harbor for building, a harbor for testing construction zone retreat
+desi 0:2,2 h
+edit l 2,2 e 1
+edit l * ?des#.&own=0 o 2 O 2
+| ship that can return fire to -2,-2 and -5,-1 weakly
+edit s 5 U 9 O 2 L -4,-2 E 60
+| a train to carry land units
+edit u 0 U 9 O 2 T tra L 1,1
+| target ships gun fire: injured, helpless, not helpless
+edit s 0 U 20 O 2 U 10 L 0,2 U 11
+retr 10 nhhnj ih
+retr 11 n h
+retr 20 u h
+| target ships that want to retreat, but can't: sunk, sailing, crewless,
+| in construction zone, landlocked, no mobility
+edit s 10 U 30 U 31 U 32 U 33 U 34 U 35
+sail 31 nnnnh
+edit s 33 L 2,2
+edit s 34 L 3,1
+retr 30/31/32/33/34/35 n i
+| target ships having difficulties during retreat: out of mobility,
+| into non-navigable, into unfriendly, as group into minefield
+edit s 10 U 40 t lc U 41 U 42
+retr 40 nnnnh i
+edit s 40 M 5
+retr 41 nuh i
+edit s 42 L -4,2
+retr 42 ugggh i
+edit s 10 U 43 t ms U 44
+fleet m 43/44
+edit s m L -4,4
+edit l -8:-6,4 M 100
+retr m gg i
+miss s 40/41/42 int .
+| target ships depth-charges: injured vs. depth-charged, depth-charged,
+| helpless, not helpless
+edit s 10 U 50 t sb L -5,1 U 51 U 52 U 53 L -4,-2
+retr 50 gg dih
+retr 51 gg dh
+retr 52/53 gg h
+| target ships bombs: injured vs. bombed, bombed
+| five of each, to have a decent chance at getting both a hit and a miss
+edit s 10 U 60 t dd U 61 U 62 U 63 U 64 U 65 U 66 U 67 U 68 U 69
+retr 60/61/62/63/64 nn bih
+retr 65/66/67/68/69 nn bh
+| target ships missiles: injured (bombed doesn't apply)
+| five, to have a decent chance at getting both a hit and a miss
+edit s 60 U 80 U 81 U 82 U 83 U 84
+retr 80/81/82/83/84 nn bih
+| target ships torpedoes: torpedoed (injured not implemented)
+| five, to have a decent chance at getting both a hit and a miss
+edit s 10 U 100 U 101 U 102 U 103 U 104
+retr 100/101/102/103/104 nn tih
+| target ship sonar
+edit s 50 U 120
+retr 120 gg s
+| target ship boarding
+edit s 50 U 130 t tt
+retr 130 gg u
+| target land units bombs: bombed
+edit u 9 U 10 T cav
+lret 10 jhhuy b
+| target land units that want to retreat, but can't: destroyed,
+| loaded on ship, crewless, kidnapped, loaded on land unit, no mobility
+edit u 10 U 30 T inf
+edit u 10 U 31 S 35
+edit u 10 U 32 U 33 U 35
+edit u 33 L -1,1
+edit u 10 U 34 Y 9
+lret 30/31/32/33/34/35 j b
+| target land units having difficulties during retreat: out of mobility,
+| into mountain, into foreign sector, as group into minefield
+edit u 10 U 40 U 41 U 42
+lret 40 nu b
+edit u 40 M 5
+lret 41 jy b
+lret 42 g b
+edit u 10 U 43 T eng U 44
+army m 43/44
+edit l 0:1,-1:0 O 1 M 100
+lret m yu b
+miss l 40/41/42 res .
+| target land units bombs: injured vs. bombed
+| five, to have a decent chance at getting both a hit and a miss
+edit u 10 U 60 L 0,0 U 61 U 62 U 63 U 64
+lret 60/61/62/63/64 nj bih
+|| country#3, allied to #2
+add 3 3 3 p
+edit l 2:3,-2:-1 o 3 O 3
+|| country#4, friendly to #2
+add 4 4 4 p
+edit l 4,4 o 4 O 4
+|| finishing touches
+give m * ?des=f 5
+give g * ?des=f 2
+give s * ?des=f 100
+give p * ?des=f 100
+edit l * ?des#.&eff=0 e 100 m 127
+edit s * ?eff=20&uid#30 E 100
+edit s * ?mob=0&uid#35 M 127
+edit s * ?uid#32 m 10
+edit u * ?eff=10&uid#30 e 100
+edit u * ?mob=0&uid#35 M 127
+edit u * ?uid#32 m 10
+fleet a * ?own=1&uid#2
+fleet a 9
+army a * ?own=1&uid#2
+edit p * e 100 m 127
+|| relations
+decl w 1 2
+decl w 2 1
+decl a 2 3
+decl f 2 4
+|| show initial state here to help maintainers
+map *
+ship *
+retr *
+land *
+lretr *
+plane *

@@ -1,0 +1,8 @@
+read 1
+read 2
+ship * ?fleet#a
+retr * ?fleet#a
+miss s * ?mission#0 q
+land * ?army#a
+lretr * ?army#a
+miss l * ?mission#0 q
