@@ -19,4 +19,5 @@ buil s 1,-1 cs 5 100
 buil p 1,-1 f1 5 100
 buil l 1,-1 sup 5 100
 buil n 1,-1 10kt 5 400
+miss p 2/3 air .
 edit c 1/2/3/4/5 s 4
