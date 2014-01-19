@@ -163,7 +163,7 @@ end_test ()
 
 cmp_out()
 {
-    local opt exp act nrm msg ret=0
+    local opt exp act nrm ret=0
     for i
     do
 	case "$i" in
@@ -175,7 +175,7 @@ cmp_out()
 	act="sandbox/$i"
 	nrm="sandbox/normalized-${i##*/}"
 	perl "$srcdir"/tests/normalize.pl $opt "$act" >"$nrm"
-	if msg=`diff -q "$exp" "$nrm"`
+	if diff -u "$exp" "$nrm" >"$nrm.diff"
 	then
 	    echo "$i OK"
 	elif [ "$EMPIRE_CHECK_ACCEPT" ]
@@ -185,7 +185,6 @@ cmp_out()
 	else
 	    ret=$?
 	    echo "$i FAIL"
-	    echo $msg
 	fi
     done
     return $ret
