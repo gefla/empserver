@@ -817,8 +817,7 @@ edit_unit(struct empobj *unit, char *key, char *p,
 	       xyas(unit->x, unit->y, unit->own),
 	       xyas(newx, newy, unit->own),
 	       cname(player->cnum));
-	unit->x = newx;
-	unit->y = newy;
+	unit_teleport(unit, newx, newy);
 	break;
     case 'E':
 	arg = LIMIT_TO(arg, mineff, 100);
