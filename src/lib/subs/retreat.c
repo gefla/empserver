@@ -45,6 +45,7 @@
 #include "nsc.h"
 #include "optlist.h"
 #include "path.h"
+#include "player.h"
 #include "prototypes.h"
 #include "retreat.h"
 #include "sect.h"
@@ -97,6 +98,8 @@ retreat_ship(struct shpstr *sp, char code)
     struct shpstr ship;
 
     if (sp->shp_effic < SHIP_MINEFF || CANT_HAPPEN(!sp->shp_own))
+	return;
+    if (sp->shp_own == player->cnum)
 	return;
 
     retreat_ship1(sp, code, 1);
@@ -344,6 +347,8 @@ retreat_land(struct lndstr *lp, char code)
     struct lndstr land;
 
     if (lp->lnd_effic < LAND_MINEFF || CANT_HAPPEN(!lp->lnd_own))
+	return;
+    if (lp->lnd_own == player->cnum)
 	return;
 
     retreat_land1(lp, code, 1);

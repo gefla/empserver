@@ -61,7 +61,7 @@ fire se -2,2 10
 fire se -2,2 10
 | nj into friendly harbor
 fire se -2,2 10
-|| own ship
+|| own ship stays put
 fire se -2,2 2
 || ships retreating from gun fire
 | injured covered above
@@ -185,7 +185,7 @@ bomb 30 . p -2,2 ujjh
 l
 10
 | BUG: can't enter allied sector
-| own land unit
+| own land unit stays put
 bomb 30 . p -3,1 h
 l
 2
