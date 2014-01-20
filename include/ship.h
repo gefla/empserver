@@ -155,12 +155,6 @@ extern struct mchrstr mchr[SHP_TYPE_MAX + 2];
 /* Work required for building 100% */
 #define SHP_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))
 
- /* return codes from shp_check_nav */
-#define CN_NAVIGABLE	0
-#define CN_LANDLOCKED	1
-#define CN_CONSTRUCTION	2
-#define CN_ERROR	-1
-
 enum {
     SHP_AIROPS_EFF = 50,	/* min. efficiency for air ops */
     SHP_TORP_SHELLS = 3		/* number of shells used by a torpedo */
@@ -191,7 +185,7 @@ extern double shp_torp_hitchance(struct shpstr *, int);
 extern void shp_sel(struct nstr_item *, struct emp_qelem *);
 extern void shp_nav(struct emp_qelem *, double *, double *, int *, natid);
 extern int shp_sweep(struct emp_qelem *, int, int, natid);
-extern int shp_check_nav(struct sctstr *, struct shpstr *);
+extern enum d_navigation shp_check_nav(struct shpstr *, struct sctstr *);
 extern int sect_has_dock(struct sctstr *);
 extern int shp_hardtarget(struct shpstr *);
 extern int shp_nav_one_sector(struct emp_qelem *, int, natid, int);

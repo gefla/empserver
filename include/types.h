@@ -36,6 +36,14 @@
 typedef unsigned char natid;	/* NSC_NATID must match this */
 typedef short coord;
 
+enum d_navigation {
+    NAV_NONE,	/* ships can't navigate */
+    NAVOK,	/* ships can always navigate */
+    NAV_02,	/* requires 2% effic to navigate */
+    NAV_CANAL,	/* requires 2% effic to navigate and M_CANAL capability */
+    NAV_60	/* requires 60% effic to navigate */
+};
+
 struct bp;
 struct emp_qelem;
 struct empobj;

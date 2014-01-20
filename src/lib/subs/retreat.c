@@ -172,25 +172,27 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
     }
 
     getsect(sp->shp_x, sp->shp_y, &sect);
-    switch (shp_check_nav(&sect, sp)) {
-    case CN_CONSTRUCTION:
+    switch (shp_check_nav(sp, &sect)) {
+    case NAV_02:
+    case NAV_60:
 	wu(0, sp->shp_own,
 	   "%s %s,\nbut was caught in a construction zone, and couldn't retreat!\n",
 	   prship(sp), conditions[findcondition(code)].desc[orig]);
 	if (!orig)
 	    putship(sp->shp_uid, sp);
 	return 0;
-    case CN_LANDLOCKED:
+    case NAV_NONE:
+    case NAV_CANAL:
 	wu(0, sp->shp_own,
 	   "%s %s,\nbut was landlocked, and couldn't retreat!\n",
 	   prship(sp), conditions[findcondition(code)].desc[orig]);
 	if (!orig)
 	    putship(sp->shp_uid, sp);
 	return 0;
-    case CN_NAVIGABLE:
+    case NAVOK:
 	break;
-    case CN_ERROR:
     default:
+	CANT_REACH();
 	wu(0, sp->shp_own,
 	   "%s %s,\nbut was subject to an empire error, and couldn't retreat!\n",
 	   prship(sp), conditions[findcondition(code)].desc[orig]);
@@ -242,7 +244,7 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	mobcost = shp_mobcost(sp);
 
 	getsect(newx, newy, &sect);
-	if (shp_check_nav(&sect, sp) != CN_NAVIGABLE ||
+	if (shp_check_nav(sp, &sect) != NAVOK ||
 	    (sect.sct_own
 	     && relations_with(sect.sct_own, sp->shp_own) < FRIENDLY)) {
 	    wu(0, sp->shp_own, "%s %s,\nbut could not retreat to %s!\n",

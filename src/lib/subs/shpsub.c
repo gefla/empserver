@@ -138,17 +138,19 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    shp_stays(actor, "was sucked into the sky by a strange looking spaceship", mlp);	/* heh -KHS */
 	    continue;
 	}
-	switch (shp_check_nav(&sect, sp)) {
-	case CN_CONSTRUCTION:
+	switch (shp_check_nav(sp, &sect)) {
+	case NAV_02:
+	case NAV_60:
 	    shp_stays(actor, "is caught in a construction zone", mlp);
 	    continue;
-	case CN_LANDLOCKED:
+	case NAV_NONE:
+	case NAV_CANAL:
 	    shp_stays(actor, "is landlocked", mlp);
 	    continue;
-	case CN_NAVIGABLE:
+	case NAVOK:
 	    break;
-	case CN_ERROR:
 	default:
+	    CANT_REACH();
 	    shp_stays(actor, "was just swallowed by a big green worm", mlp);
 	    continue;
 	}
@@ -292,31 +294,42 @@ shp_stays(natid actor, char *str, struct ulist *mlp)
     free(mlp);
 }
 
-int
-shp_check_nav(struct sctstr *sect, struct shpstr *shp)
+/*
+ * Can SP navigate in SECTP?
+ * Sector ownership is *not* considered!
+ * Return NAVOK when yes.
+ * Return NAV_02 when it could if the sector was at least 2% efficient.
+ * Return NAV_60 when it could if the sector was at least 60% efficient.
+ * Return NAV_CANAL when it lacks capability M_CANAL.
+ * Return NAV_NONE when this sector type isn't navigable at all.
+ */
+enum d_navigation
+shp_check_nav(struct shpstr *sp, struct sctstr *sectp)
 {
-    switch (dchr[sect->sct_type].d_nav) {
+    switch (dchr[sectp->sct_type].d_nav) {
     case NAVOK:
 	break;
     case NAV_CANAL:
-	if (mchr[(int)shp->shp_type].m_flags & M_CANAL) {
-	    if (sect->sct_effic < 2)
-		return CN_CONSTRUCTION;
+	if (mchr[sp->shp_type].m_flags & M_CANAL) {
+	    if (sectp->sct_effic < 2)
+		return NAV_02;
 	} else
-	    return CN_LANDLOCKED;
+	    return NAV_CANAL;
 	break;
     case NAV_02:
-	if (sect->sct_effic < 2)
-	    return CN_CONSTRUCTION;
+	if (sectp->sct_effic < 2)
+	    return NAV_02;
 	break;
     case NAV_60:
-	if (sect->sct_effic < 60)
-	    return CN_CONSTRUCTION;
+	if (sectp->sct_effic < 60)
+	    return NAV_60;
 	break;
     default:
-	return CN_LANDLOCKED;
+	CANT_REACH();
+    case NAV_NONE:
+	return NAV_NONE;
     }
-    return CN_NAVIGABLE;
+    return NAVOK;
 }
 
 int
@@ -748,13 +761,11 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 	newx = xnorm(mlp->unit.ship.shp_x + dx);
 	newy = ynorm(mlp->unit.ship.shp_y + dy);
 	getsect(newx, newy, &sect);
-	navigate = shp_check_nav(&sect, &mlp->unit.ship);
-	if (navigate != CN_NAVIGABLE ||
+	navigate = shp_check_nav(&mlp->unit.ship, &sect);
+	if (navigate != NAVOK ||
 	    (sect.sct_own
 	     && relations_with(sect.sct_own, actor) < FRIENDLY)) {
-	    if (dchr[sect.sct_type].d_nav == NAV_CANAL &&
-		!(((struct mchrstr *)mlp->chrp)->m_flags & M_CANAL) &&
-		navigate == CN_LANDLOCKED)
+	    if (navigate == NAV_CANAL)
 		sprintf(dp,
 			"is too large to fit into the canal system at %s",
 			xyas(newx, newy, actor));

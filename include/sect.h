@@ -92,14 +92,6 @@ struct sctstr {
     unsigned char sct_defense;	/* Defensive value of a sector */
 };
 
-enum d_navigation {
-    NAV_NONE,	/* ships can't navigate */
-    NAVOK,	/* ships can always navigate */
-    NAV_02,	/* requires 2% effic to navigate */
-    NAV_CANAL,	/* requires 2% effic to navigate and M_CANAL capability */
-    NAV_60	/* requires 60% effic to navigate */
-};
-
 struct dchrstr {
     unsigned char d_uid;
     char d_mnem;		/* map symbol */
