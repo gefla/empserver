@@ -74,5 +74,4 @@ nxtsct(struct nstr_sect *np, struct sctstr *sp)
 	if (nstr_exec(np->cond, np->ncond, sp))
 	    return 1;
     }
-    /*NOTREACHED*/
 }

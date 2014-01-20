@@ -379,7 +379,6 @@ bmnxtsct(struct nstr_sect *np)
 	np->id = sctoff(np->x, np->y);
 	return 1;
     }
-    /*NOTREACHED*/
 }
 
 /*

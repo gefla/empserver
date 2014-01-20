@@ -157,7 +157,6 @@ update_sched(void *unused)
 
 	update_get_schedule();
     }
-    /*NOTREACHED*/
 }
 
 /*

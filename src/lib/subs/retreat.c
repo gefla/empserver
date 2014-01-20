@@ -187,7 +187,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	if (!orig)
 	    putship(sp->shp_uid, sp);
 	return 0;
-	/*NOTREACHED*/
     case CN_NAVIGABLE:
 	break;
     case CN_ERROR:
@@ -198,7 +197,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	if (!orig)
 	    putship(sp->shp_uid, sp);
 	return 0;
-	/*NOTREACHED*/
     }
 
     if (sp->shp_mobil <= 0.0) {

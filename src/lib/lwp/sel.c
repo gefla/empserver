@@ -283,5 +283,4 @@ lwpSelect(void *arg)
 	lwpReady(LwpCurrent);
 	lwpReschedule();
     }
-    /*NOTREACHED*/
 }

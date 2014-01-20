@@ -56,7 +56,6 @@ market_update(void *unused)
 	now += 300;		/* Every 5 minutes */
 	empth_sleep(now);
     }
-    /*NOTREACHED*/
 }
 
 void
