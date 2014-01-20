@@ -629,17 +629,7 @@ extern void show_news(int);
 extern void show_product(int);
 extern void show_updates(int);
 /* shpsub.c */
-extern void shp_sel(struct nstr_item *, struct emp_qelem *);
-extern void shp_nav(struct emp_qelem *, double *, double *, int *, natid);
-extern int shp_sweep(struct emp_qelem *, int, int, natid);
-extern int shp_check_nav(struct sctstr *, struct shpstr *);
-extern int sect_has_dock(struct sctstr *);
-extern int shp_hardtarget(struct shpstr *);
-extern int shp_nav_one_sector(struct emp_qelem *, int, natid, int);
-extern int shp_missile_defense(coord, coord, natid, int);
-extern void shp_missdef(struct shpstr *, natid);
-extern double shp_mobcost(struct shpstr *);
-extern void shp_set_tech(struct shpstr *, int);
+/* in ship.h */
 /* snxtitem.c */
 /* snxtsct.c */
 /* in nsc.h */
