@@ -150,8 +150,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	    wu(0, sp->shp_own,
 	       "%s %s,\nbut had sailing orders, and couldn't retreat!\n",
 	       prship(sp), conditions[findcondition(code)].desc[orig]);
-	    if (!orig)
-		putship(sp->shp_uid, sp);
 	    return 0;
 	}
     }
@@ -160,8 +158,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	wu(0, sp->shp_own,
 	   "%s %s,\nbut had no crew, and couldn't retreat!\n", prship(sp),
 	   conditions[findcondition(code)].desc[orig]);
-	if (!orig)
-	    putship(sp->shp_uid, sp);
 	return 0;
     }
 
@@ -172,16 +168,12 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	wu(0, sp->shp_own,
 	   "%s %s,\nbut was caught in a construction zone, and couldn't retreat!\n",
 	   prship(sp), conditions[findcondition(code)].desc[orig]);
-	if (!orig)
-	    putship(sp->shp_uid, sp);
 	return 0;
     case NAV_NONE:
     case NAV_CANAL:
 	wu(0, sp->shp_own,
 	   "%s %s,\nbut was landlocked, and couldn't retreat!\n",
 	   prship(sp), conditions[findcondition(code)].desc[orig]);
-	if (!orig)
-	    putship(sp->shp_uid, sp);
 	return 0;
     case NAVOK:
 	break;
@@ -190,8 +182,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	wu(0, sp->shp_own,
 	   "%s %s,\nbut was subject to an empire error, and couldn't retreat!\n",
 	   prship(sp), conditions[findcondition(code)].desc[orig]);
-	if (!orig)
-	    putship(sp->shp_uid, sp);
 	return 0;
     }
 
@@ -199,8 +189,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	wu(0, sp->shp_own,
 	   "%s %s,\nbut had no mobility, and couldn't retreat!\n",
 	   prship(sp), conditions[findcondition(code)].desc[orig]);
-	if (!orig)
-	    putship(sp->shp_uid, sp);
 	return 0;
     }
 
@@ -398,8 +386,6 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	wu(0, lp->lnd_own,
 	   "%s %s,\nbut had no mobility, and couldn't retreat!\n",
 	   prland(lp), conditions[findcondition(code)].desc[orig]);
-	if (!orig)
-	    putland(lp->lnd_uid, lp);
 	return 0;
     }
 
