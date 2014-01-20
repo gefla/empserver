@@ -1303,14 +1303,14 @@
     Play#0 output Play#0 1 but could not retreat to -3,1!
     Play#0 output Play#0 1 Country #1 shelled ms   minesweeper (#44) in -4,4 for 11 damage.
     Play#0 output Play#0 1 	ms   minesweeper (#44) takes 10
-    Play#0 output Play#0 1 ms   minesweeper (#43) cleared 3 mines in -6,4 while retreating
-    Play#0 output Play#0 1 ms   minesweeper (#43) retreated with a damaged friend,
-    Play#0 output Play#0 1 and hit a mine in -6,4 while retreating!
-    Play#0 output Play#0 1 	ms   minesweeper (#43) takes 29
     Play#0 output Play#0 1 ms   minesweeper (#44) cleared 3 mines in -6,4 while retreating
     Play#0 output Play#0 1 ms   minesweeper (#44) was damaged,
     Play#0 output Play#0 1 and hit a mine in -6,4 while retreating!
-    Play#0 output Play#0 1 	ms   minesweeper (#44) takes 24
+    Play#0 output Play#0 1 	ms   minesweeper (#44) takes 29
+    Play#0 output Play#0 1 ms   minesweeper (#43) cleared 3 mines in -6,4 while retreating
+    Play#0 output Play#0 1 ms   minesweeper (#43) retreated with a damaged friend,
+    Play#0 output Play#0 1 and hit a mine in -6,4 while retreating!
+    Play#0 output Play#0 1 	ms   minesweeper (#43) takes 24
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#10) in 0,2 for 11 damage.
     Play#0 output Play#0 1 	cs   cargo ship (#10) takes 9
     Play#0 output Play#0 1 cs   cargo ship (#10) was damaged, and retreated to 1,3
@@ -1453,12 +1453,12 @@
     Play#0 output Play#0 1 Flak! Firing flak guns from unit eng  engineer #44 (aa rating 1)
     Play#0 output Play#0 1 1 pinpoint bombing raid did 28 damage to eng  engineer #44
     Play#0 output Play#0 1 	eng  engineer #44 takes 7
-    Play#0 output Play#0 1 eng  engineer #43 retreated with a bombed friend,
-    Play#0 output Play#0 1 and hit a mine in 0,0 while retreating!
-    Play#0 output Play#0 1 	eng  engineer #43 takes 3
     Play#0 output Play#0 1 eng  engineer #44 was bombed,
     Play#0 output Play#0 1 and hit a mine in 0,0 while retreating!
-    Play#0 output Play#0 1 	eng  engineer #44 takes 4
+    Play#0 output Play#0 1 	eng  engineer #44 takes 3
+    Play#0 output Play#0 1 eng  engineer #43 retreated with a bombed friend,
+    Play#0 output Play#0 1 and hit a mine in 0,0 while retreating!
+    Play#0 output Play#0 1 	eng  engineer #43 takes 4
     Play#0 output Play#0 1 1,1 takes 3% collateral damage
     Play#0 output Play#0 1 	tra  train #9 takes 1
     Play#0 output Play#0 1 1 planes spotted over 1,1
@@ -1504,8 +1504,8 @@
     Play#0 output Play#0 1   2   40 lc   light cruis    1,3        91%   0   9   0   0  0  0  0  0  -7   45
     Play#0 output Play#0 1   2   41 lc   light cruis    1,3        96%   0  10   0   0  0  0  0  0 108   45
     Play#0 output Play#0 1   2   42 lc   light cruis   -4,2        95%   0  10   0   0  0  0  0  0 120   45
-    Play#0 output Play#0 1   2   43 ms   minesweeper   -6,4    m   71%   0   7   0   0  0  0  0  0  80   40
-    Play#0 output Play#0 1   2   44 ms   minesweeper   -6,4    m   69%   0   7   0   0  0  0  0  0  74   40
+    Play#0 output Play#0 1   2   43 ms   minesweeper   -6,4    m   76%   0   7   0   0  0  0  0  0  86   40
+    Play#0 output Play#0 1   2   44 ms   minesweeper   -6,4    m   63%   0   7   0   0  0  0  0  0  70   40
     Play#0 output Play#0 1   2   50 sb   submarine     -9,1        67%   0   7   0   0  0  0  0  0  33   60
     Play#0 output Play#0 1   2   51 sb   submarine     -9,1        64%   0   6   0   0  0  0  0  0  27   60
     Play#0 output Play#0 1   2   52 sb   submarine     -9,1        73%   0   7   0   0  0  0  0  0  44   60
@@ -1598,8 +1598,8 @@
     Play#0 output Play#0 1   2   40 cav  cavalry       2,2        89%   9 127 -15   0  50  42%  0  0
     Play#0 output Play#0 1   2   41 cav  cavalry       3,1        86%   9 127  99   0  50  42%  0  0
     Play#0 output Play#0 1   2   42 cav  cavalry       1,1        83%   9 127 105   0  50  42%  0  0
-    Play#0 output Play#0 1   2   43 eng  engineer      0,0    m   97%  10 127 111   0 130  42%  0  0
-    Play#0 output Play#0 1   2   44 eng  engineer      0,0    m   89%  10 127 102   0 130  42%  0  0
+    Play#0 output Play#0 1   2   43 eng  engineer      0,0    m   96%  10 127 110   0 130  42%  0  0
+    Play#0 output Play#0 1   2   44 eng  engineer      0,0    m   90%  10 127 103   0 130  42%  0  0
     Play#0 output Play#0 1   2   60 cav  cavalry       3,1        73%   7 127  71   0  50  42%  0  0
     Play#0 output Play#0 1   2   61 cav  cavalry       0,0       100%  10 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   2   62 cav  cavalry       0,0       100%  10 127 127   0  50  42%  0  0

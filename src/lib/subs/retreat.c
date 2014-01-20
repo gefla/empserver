@@ -28,6 +28,8 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
+ *     Ron Koenderink, 2005-2006
+ *     Markus Armbruster, 2006-2014
  */
 
 #include <config.h>
@@ -94,15 +96,15 @@ retreat_ship(struct shpstr *sp, char code)
     struct nstr_item ni;
     struct shpstr ship;
 
+    retreat_ship1(sp, code, 1);
+    if (sp->shp_rpath[0] == 0)
+	sp->shp_rflags = 0;
+
     if (sp->shp_rflags & RET_GROUP) {
 	snxtitem_group(&ni, EF_SHIP, sp->shp_fleet);
 	while (nxtitem(&ni, &ship))
 	    if (ship.shp_own == sp->shp_own) {
-		if (ship.shp_uid == sp->shp_uid) {
-		    retreat_ship1(sp, code, 1);
-		    if (sp->shp_rpath[0] == 0)
-			sp->shp_rflags = 0;
-		} else {
+		if (ship.shp_uid != sp->shp_uid) {
 		    retreat_ship1(&ship, code, 0);
 		    getship(ship.shp_uid, &ship);
 		    if (ship.shp_rpath[0] == 0) {
@@ -111,10 +113,6 @@ retreat_ship(struct shpstr *sp, char code)
 		    }
 		}
 	    }
-    } else {
-	retreat_ship1(sp, code, 1);
-	if (sp->shp_rpath[0] == 0)
-	    sp->shp_rflags = 0;
     }
 }
 
@@ -354,15 +352,15 @@ retreat_land(struct lndstr *lp, char code)
     struct nstr_item ni;
     struct lndstr land;
 
+    retreat_land1(lp, code, 1);
+    if (lp->lnd_rpath[0] == 0)
+	lp->lnd_rflags = 0;
+
     if (lp->lnd_rflags & RET_GROUP) {
 	snxtitem_group(&ni, EF_LAND, lp->lnd_army);
 	while (nxtitem(&ni, &land))
 	    if (land.lnd_own == lp->lnd_own) {
-		if (land.lnd_uid == lp->lnd_uid) {
-		    retreat_land1(lp, code, 1);
-		    if (lp->lnd_rpath[0] == 0)
-			lp->lnd_rflags = 0;
-		} else {
+		if (land.lnd_uid != lp->lnd_uid) {
 		    retreat_land1(&land, code, 0);
 		    getland(land.lnd_uid, &land);
 		    if (land.lnd_rpath[0] == 0) {
@@ -371,10 +369,6 @@ retreat_land(struct lndstr *lp, char code)
 		    }
 		}
 	    }
-    } else {
-	retreat_land1(lp, code, 1);
-	if (lp->lnd_rpath[0] == 0)
-	    lp->lnd_rflags = 0;
     }
 }
 
