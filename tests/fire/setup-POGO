@@ -59,8 +59,6 @@ edit s 10 U 12 m 5 E 100 M 127 U 13 L 6,0
 | cs at sea and in port
 edit s 0 U 20 t cs L 2,2 O 2 l 100 h 100 U 21 L 6,0
 edit s 20 U 22 m 5 E 100 M 127 U 23 L 6,0 U 24
-retreat 11/13/23 j idh
-retreat 10/12/22 n dh
 || target lands
 | spy in target harbor
 build l 2,2 spy

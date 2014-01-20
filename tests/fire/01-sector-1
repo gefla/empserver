@@ -75,12 +75,12 @@ fire se 4,0 2,2
 fire se 0,0 9
 fire se 2,0 9
 __cmd added 1 1 0
-| at cs at sea, one retreat, one sinking
+| at cs at sea, one sunk
 fire se 0,0 23
 fire se 2,0 23
 fire se 4,0 23
 fire se 4,0 21
-| at cs in port, one retreat, one sinking
+| at cs in port, one sunk
 fire se 0,0 22
 fire se 2,0 22
 fire se 4,0 22
