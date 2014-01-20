@@ -355,7 +355,7 @@ retreat_land(struct lndstr *lp, char code)
     struct lndstr land;
 
     if (lp->lnd_rflags & RET_GROUP) {
-	snxtitem_group(&ni, EF_SHIP, lp->lnd_army);
+	snxtitem_group(&ni, EF_LAND, lp->lnd_army);
 	while (nxtitem(&ni, &land))
 	    if (land.lnd_own == lp->lnd_own) {
 		if (land.lnd_uid == lp->lnd_uid) {

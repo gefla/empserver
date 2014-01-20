@@ -168,7 +168,7 @@ __cmd added -1 0 0
 bomb 30 . p -2,2 ujh
 l
 44
-| BUG: oopses!
+| BUG: sweeps silently
 || land units retreating fully
 | jh
 bomb 30 . p -2,2 ujh

@@ -8,8 +8,6 @@ Connect from 127.0.0.1
 Connect from 127.0.0.1
 tester@127.0.0.1 using country #1
 tester@127.0.0.1 logged in as country #1
-Oops: bug in ../src/lib/subs/nxtitem.c:106
-Crash dump complete
 tester@127.0.0.1 logged out, country #1
 Connect from 127.0.0.1
 tester@127.0.0.1 using country #0

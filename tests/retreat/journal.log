@@ -1047,8 +1047,6 @@
     Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 35)          2    completely  cav  cavalry #35
     Play#1 output Play#1 1 (# 42)          2    completely  cav  cavalry #42
-    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
-    Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 4 Bomb what? (ship, plane, land unit, efficiency, commodities)
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
@@ -1057,8 +1055,6 @@
     Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 35)          2    completely  cav  cavalry #35
     Play#1 output Play#1 1 (# 42)          2    completely  cav  cavalry #42
-    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
-    Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 10
     Play#1 output Play#1 1 72% hitchance...Blam
@@ -1178,6 +1174,8 @@
     Play#1 output Play#1 1 flying over agribusiness at 0,0
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
+    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
+    Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 1 (# 60)          2    completely  cav  cavalry #60
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
@@ -1186,6 +1184,8 @@
     Play#1 output Play#1 4 Bomb what? (ship, plane, land unit, efficiency, commodities)
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
+    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
+    Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 1 (# 60)          2    completely  cav  cavalry #60
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
@@ -1195,6 +1195,8 @@
     Play#1 input 60
     Play#1 output Play#1 1 50% hitchance...Blam-BLAM
     Play#1 output Play#1 1  #          owner           eff       type
+    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
+    Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
     Play#1 output Play#1 1 (# 63)          2    completely  cav  cavalry #63
@@ -1203,6 +1205,8 @@
     Play#1 input 61
     Play#1 output Play#1 1 50% hitchance...thud
     Play#1 output Play#1 1  #          owner           eff       type
+    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
+    Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
     Play#1 output Play#1 1 (# 63)          2    completely  cav  cavalry #63
@@ -1211,6 +1215,8 @@
     Play#1 input 62
     Play#1 output Play#1 1 50% hitchance...thud
     Play#1 output Play#1 1  #          owner           eff       type
+    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
+    Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
     Play#1 output Play#1 1 (# 63)          2    completely  cav  cavalry #63
@@ -1219,6 +1225,8 @@
     Play#1 input 63
     Play#1 output Play#1 1 50% hitchance...thud
     Play#1 output Play#1 1  #          owner           eff       type
+    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
+    Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
     Play#1 output Play#1 1 (# 63)          2    completely  cav  cavalry #63
@@ -1445,6 +1453,12 @@
     Play#0 output Play#0 1 Flak! Firing flak guns from unit eng  engineer #44 (aa rating 1)
     Play#0 output Play#0 1 1 pinpoint bombing raid did 28 damage to eng  engineer #44
     Play#0 output Play#0 1 	eng  engineer #44 takes 7
+    Play#0 output Play#0 1 eng  engineer #43 retreated with a bombed friend,
+    Play#0 output Play#0 1 and hit a mine in 0,0 while retreating!
+    Play#0 output Play#0 1 	eng  engineer #43 takes 3
+    Play#0 output Play#0 1 eng  engineer #44 was bombed,
+    Play#0 output Play#0 1 and hit a mine in 0,0 while retreating!
+    Play#0 output Play#0 1 	eng  engineer #44 takes 4
     Play#0 output Play#0 1 1,1 takes 3% collateral damage
     Play#0 output Play#0 1 	tra  train #9 takes 1
     Play#0 output Play#0 1 1 planes spotted over 1,1
@@ -1572,7 +1586,7 @@
     Play#0 command land
     Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
     Play#0 output Play#0 1   1    2 inf  infantry     -3,-1       89%   9 127  85   0  50  42%  0  0
-    Play#0 output Play#0 1   2    9 tra  train         1,1        93%  10 127 120   0  50  42%  0  1
+    Play#0 output Play#0 1   2    9 tra  train         1,1        93%  10 127 119   0  50  42%  0  1
     Play#0 output Play#0 1   2   10 cav  cavalry       4,0        61%   6 127  45   0  50  42%  0  0
     Play#0 output Play#0 1   2   31 cav  cavalry       0,2        99%  10 127 126   0  50  42%  0  0   35S
     Play#0 output Play#0 1   2   32 cav  cavalry       3,1        83%   0 127  96   0  50  42%  0  0
@@ -1582,8 +1596,8 @@
     Play#0 output Play#0 1   2   40 cav  cavalry       2,2        89%   9 127 -15   0  50  42%  0  0
     Play#0 output Play#0 1   2   41 cav  cavalry       3,1        86%   9 127  99   0  50  42%  0  0
     Play#0 output Play#0 1   2   42 cav  cavalry       1,1        83%   9 127 105   0  50  42%  0  0
-    Play#0 output Play#0 1   2   43 eng  engineer      1,1    m  100%  10 127 127   0 130  42%  0  0
-    Play#0 output Play#0 1   2   44 eng  engineer      1,1    m   93%  10 127 119   0 130  42%  0  0
+    Play#0 output Play#0 1   2   43 eng  engineer      0,0    m   97%  10 127 111   0 130  42%  0  0
+    Play#0 output Play#0 1   2   44 eng  engineer      0,0    m   89%  10 127 102   0 130  42%  0  0
     Play#0 output Play#0 1   2   60 cav  cavalry       3,1        73%   7 127  71   0  50  42%  0  0
     Play#0 output Play#0 1   2   61 cav  cavalry       0,0       100%  10 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   2   62 cav  cavalry       0,0       100%  10 127 127   0  50  42%  0  0
@@ -1605,8 +1619,8 @@
     Play#0 output Play#0 1   2   40 cav  cavalry        2,2      u                   b
     Play#0 output Play#0 1   2   41 cav  cavalry        3,1
     Play#0 output Play#0 1   2   42 cav  cavalry        1,1
-    Play#0 output Play#0 1   2   43 eng  engineer       1,1    m yu         Yes      b
-    Play#0 output Play#0 1   2   44 eng  engineer       1,1    m yu         Yes      b
+    Play#0 output Play#0 1   2   43 eng  engineer       0,0    m u          Yes      b
+    Play#0 output Play#0 1   2   44 eng  engineer       0,0    m u          Yes      b
     Play#0 output Play#0 1   2   60 cav  cavalry        3,1
     Play#0 output Play#0 1   2   61 cav  cavalry        0,0      nj                  ihb
     Play#0 output Play#0 1   2   62 cav  cavalry        0,0      nj                  ihb
