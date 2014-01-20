@@ -1581,6 +1581,8 @@
     Play#0 output Play#0 6 0 639
     Play#0 input miss s * ?mission#0 q
     Play#0 command mission
+    Play#0 output Play#0 1 Thing                        x,y     op-sect  rad mission
+    Play#0 output Play#0 1 lc   light cruiser (#42)    -4,2      -4,2      1 is on an interdiction mission
     Play#0 output Play#0 6 0 637
     Play#0 input land * ?army#a
     Play#0 command land
@@ -1630,6 +1632,8 @@
     Play#0 output Play#0 6 0 636
     Play#0 input miss l * ?mission#0 q
     Play#0 command mission
+    Play#0 output Play#0 1 Thing                        x,y     op-sect  rad mission
+    Play#0 output Play#0 1 cav  cavalry #42             1,1       1,1      3 is on a reserve mission
     Play#0 output Play#0 6 0 634
     Play#0 input ctld
     Play#0 output Play#0 1 Bye-bye

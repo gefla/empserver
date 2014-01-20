@@ -140,7 +140,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
     struct mchrstr *mcp;
     int changed;
 
-    sp->shp_mission = 0;
     if (sp->shp_own == 0)
 	return 0;
 
@@ -260,6 +259,7 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	sp->shp_x = newx;
 	sp->shp_y = newy;
 	sp->shp_mobil -= mobcost;
+	sp->shp_mission = 0;
 	if (stopping)
 	    continue;
 
@@ -399,7 +399,6 @@ retreat_land1(struct lndstr *lp, char code, int orig)
     double mobcost;
     struct lchrstr *lcp;
 
-    lp->lnd_mission = 0;
     if (lp->lnd_own == 0)
 	return 0;
 
@@ -471,6 +470,7 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	lp->lnd_x = newx;
 	lp->lnd_y = newy;
 	lp->lnd_mobil -= mobcost;
+	lp->lnd_mission = 0;
 	if (stopping)
 	    continue;
 
