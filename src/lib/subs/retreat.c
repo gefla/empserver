@@ -96,7 +96,7 @@ retreat_ship(struct shpstr *sp, char code)
     struct nstr_item ni;
     struct shpstr ship;
 
-    if (CANT_HAPPEN(!sp->shp_own))
+    if (sp->shp_effic < SHIP_MINEFF || CANT_HAPPEN(!sp->shp_own))
 	return;
 
     retreat_ship1(sp, code, 1);
@@ -140,15 +140,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
     double mobcost;
     struct mchrstr *mcp;
     int changed;
-
-    if (sp->shp_effic < SHIP_MINEFF) {
-	wu(0, sp->shp_own,
-	   "%s %s,\nbut it died in the attack, and so couldn't retreat!\n",
-	   prship(sp), conditions[findcondition(code)].desc[orig]);
-	if (!orig)
-	    putship(sp->shp_uid, sp);
-	return 0;
-    }
 
     if (opt_SAIL) {
 	/* can't retreat a ship that's sailin, bad things happend */
@@ -352,7 +343,7 @@ retreat_land(struct lndstr *lp, char code)
     struct nstr_item ni;
     struct lndstr land;
 
-    if (CANT_HAPPEN(!lp->lnd_own))
+    if (lp->lnd_effic < LAND_MINEFF || CANT_HAPPEN(!lp->lnd_own))
 	return;
 
     retreat_land1(lp, code, 1);
@@ -395,15 +386,6 @@ retreat_land1(struct lndstr *lp, char code, int orig)
     int shells;
     double mobcost;
     struct lchrstr *lcp;
-
-    if (lp->lnd_effic < LAND_MINEFF) {
-	wu(0, lp->lnd_own,
-	   "%s %s,\nbut it died in the attack, and so couldn't retreat!\n",
-	   prland(lp), conditions[findcondition(code)].desc[orig]);
-	if (!orig)
-	    putland(lp->lnd_uid, lp);
-	return 0;
-    }
 
     getsect(lp->lnd_x, lp->lnd_y, &sect);
 
