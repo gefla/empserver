@@ -121,10 +121,8 @@ retreat(int type)
 	    }
 	    rflags |= 1 << (p - rflagsc);
 	}
-	if (*pq && !rflags) {
-	    pr("Must give retreat conditions!\n");
-	    return RET_FAIL;
-	}
+	if (*pq && !rflags)
+	    return RET_SYN;
 	if (ni.sel == NS_GROUP && ni.group)
 	    rflags |= RET_GROUP;
 	if (!*pq)
