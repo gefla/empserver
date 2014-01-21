@@ -1484,7 +1484,7 @@
     Play#0 command ship
     Play#0 output Play#0 1 own shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
     Play#0 output Play#0 1   1    2 cs   cargo ship    -3,1        91%   0   9   0   0  0  0  0  0 115   20
-    Play#0 output Play#0 1   2   10 cs   cargo ship     4,4        83%   0   8   0   0  0  0  0  0  22   20
+    Play#0 output Play#0 1   2   10 cs   cargo ship     4,4        83%   0   8   0   0  0  0  0  0  53   20
     Play#0 output Play#0 1   2   11 cs   cargo ship     1,3        91%   0   9   0   0  0  0  0  0  99   20
     Play#0 output Play#0 1   2   20 cs   cargo ship    -3,1        95%   0   9   0   0  0  0  0  0 121   20
     Play#0 output Play#0 1   2   31 cs   cargo ship     0,2        94%   0  10   0   0  0  0  0  0 119   20
@@ -1580,7 +1580,7 @@
     Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
     Play#0 output Play#0 1   1    2 inf  infantry     -3,1        89%   9 127 113   0  50  42%  0  0
     Play#0 output Play#0 1   2    9 tra  train         1,1        93%  10 127 119   0  50  42%  0  1
-    Play#0 output Play#0 1   2   10 cav  cavalry       4,0        61%   6 127  45   0  50  42%  0  0
+    Play#0 output Play#0 1   2   10 cav  cavalry       4,0        61%   6 127  61   0  50  42%  0  0
     Play#0 output Play#0 1   2   31 cav  cavalry       0,2        99%  10 127 126   0  50  42%  0  0   35S
     Play#0 output Play#0 1   2   32 cav  cavalry       3,1        83%   0 127  96   0  50  42%  0  0
     Play#0 output Play#0 1   2   33 cav  cavalry       1,1        85%   8 127  97   0  50  42%  0  0

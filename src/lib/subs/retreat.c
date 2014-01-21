@@ -129,7 +129,7 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 			/* Is this the originally scared ship, or a follower */
 {
     struct sctstr sect;
-    int n;
+    int i;
     int m;
     int max;
     int dir;
@@ -137,7 +137,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
     coord newy;
     coord dx;
     coord dy;
-    int stopping;
     int mines;
     int shells;
     double mobcost;
@@ -192,14 +191,7 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	return 0;
     }
 
-    n = -MAX_RETREAT;
-    stopping = 0;
-    while (!stopping && n) {
-	dx = dy = 0;
-	if (sp->shp_rpath[0] == 0) {
-	    stopping = 1;
-	    continue;
-	}
+    for (i = 0; i < MAX_RETREAT && sp->shp_rpath[0]; i++) {
 	if (sp->shp_mobil <= 0.0) {
 	    wu(0, sp->shp_own,
 	       "%s %s,\nbut ran out of mobility, and couldn't retreat fully!\n",
@@ -213,12 +205,9 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	if (dir < 0)
 	    continue;
 	if (dir == DIR_STOP)
-	    stopping++;
-	else {
-	    dx = diroff[dir][0];
-	    dy = diroff[dir][1];
-	}
-	n++;
+	    break;
+	dx = diroff[dir][0];
+	dy = diroff[dir][1];
 
 	mcp = &mchr[(int)sp->shp_type];
 	newx = xnorm(sp->shp_x + dx);
@@ -240,8 +229,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	sp->shp_y = newy;
 	sp->shp_mobil -= mobcost;
 	sp->shp_mission = 0;
-	if (stopping)
-	    continue;
 
 	mines = sect.sct_mines;
 	changed = 0;
@@ -366,7 +353,7 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 			/* Is this the originally scared unit, or a follower */
 {
     struct sctstr sect;
-    int n;
+    int i;
     int m;
     int max;
     int dir;
@@ -374,7 +361,6 @@ retreat_land1(struct lndstr *lp, char code, int orig)
     coord newy;
     coord dx;
     coord dy;
-    int stopping;
     int mines;
     int shells;
     double mobcost;
@@ -389,14 +375,7 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	return 0;
     }
 
-    n = -MAX_RETREAT;
-    stopping = 0;
-    while (!stopping && n) {
-	dx = dy = 0;
-	if (lp->lnd_rpath[0] == 0) {
-	    stopping = 1;
-	    continue;
-	}
+    for (i = 0; i < MAX_RETREAT && lp->lnd_rpath[0]; i++) {
 	if (lp->lnd_mobil <= 0.0) {
 	    wu(0, lp->lnd_own,
 	       "%s %s,\nbut ran out of mobility, and couldn't retreat fully!\n",
@@ -410,12 +389,9 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	if (dir < 0)
 	    continue;
 	if (dir == DIR_STOP)
-	    stopping++;
-	else {
-	    dx = diroff[dir][0];
-	    dy = diroff[dir][1];
-	}
-	n++;
+	    break;
+	dx = diroff[dir][0];
+	dy = diroff[dir][1];
 
 	lcp = &lchr[(int)lp->lnd_type];
 	newx = xnorm(lp->lnd_x + dx);
@@ -438,8 +414,6 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	lp->lnd_y = newy;
 	lp->lnd_mobil -= mobcost;
 	lp->lnd_mission = 0;
-	if (stopping)
-	    continue;
 
 	mines = SCT_LANDMINES(&sect);
 	if (mines <= 0 || sect.sct_oldown == lp->lnd_own)
