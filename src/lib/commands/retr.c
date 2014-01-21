@@ -104,7 +104,7 @@ retreat(int type)
 		*pq = 0;
 		break;
 	    }
-	    if (ch == '?') {
+	    if (ch == '?' && !player->argp[3]) {
 		for (j = 1; rflagsc[j]; j++) {
 		    if (rflagsc[j] != 'X')
 			pr("%c\tretreat when %s\n",
