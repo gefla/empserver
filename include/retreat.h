@@ -33,6 +33,8 @@
 #ifndef RETREAT_H
 #define RETREAT_H
 
+#include "types.h"
+
 #define MAX_RETREAT	2	/* Max number of sectors you can retreat */
 #define RET_LEN		10
 
@@ -45,5 +47,10 @@
 #define RET_BOMBED	32	/* Retreat when bombed */
 #define RET_DCHRGED	64	/* Retreat when depth-charged */
 #define RET_BOARDED	128	/* Retreat when unsuccessfully boarded */
+
+extern void retreat_ship(struct shpstr *, char);
+extern void retreat_land(struct lndstr *, char);
+extern int check_retreat_and_do_shipdamage(struct shpstr *, int);
+extern int check_retreat_and_do_landdamage(struct lndstr *, int);
 
 #endif
