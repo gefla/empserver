@@ -201,9 +201,11 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	    return 0;
 	}
 	dir = chkdir(sp->shp_rpath[0], DIR_STOP, DIR_LAST);
-	memmove(sp->shp_rpath, sp->shp_rpath+1, sizeof(sp->shp_rpath) - 1);
-	if (dir == DIR_STOP || CANT_HAPPEN(dir < 0))
+	if (dir == DIR_STOP || CANT_HAPPEN(dir < 0)) {
+	    memmove(sp->shp_rpath, sp->shp_rpath + 1,
+		    sizeof(sp->shp_rpath) - 1);
 	    break;
+	}
 	dx = diroff[dir][0];
 	dy = diroff[dir][1];
 
@@ -227,6 +229,8 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	sp->shp_y = newy;
 	sp->shp_mobil -= mobcost;
 	sp->shp_mission = 0;
+	memmove(sp->shp_rpath, sp->shp_rpath + 1,
+		sizeof(sp->shp_rpath) - 1);
 
 	mines = sect.sct_mines;
 	changed = 0;
@@ -383,9 +387,11 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	    return 0;
 	}
 	dir = chkdir(lp->lnd_rpath[0], DIR_STOP, DIR_LAST);
-	memmove(lp->lnd_rpath, lp->lnd_rpath+1, sizeof(lp->lnd_rpath) - 1);
-	if (dir == DIR_STOP || CANT_HAPPEN(dir < 0))
+	if (dir == DIR_STOP || CANT_HAPPEN(dir < 0)) {
+	    memmove(lp->lnd_rpath, lp->lnd_rpath + 1,
+		    sizeof(lp->lnd_rpath) - 1);
 	    break;
+	}
 	dx = diroff[dir][0];
 	dy = diroff[dir][1];
 
@@ -410,6 +416,8 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	lp->lnd_y = newy;
 	lp->lnd_mobil -= mobcost;
 	lp->lnd_mission = 0;
+	memmove(lp->lnd_rpath, lp->lnd_rpath + 1,
+		sizeof(lp->lnd_rpath) - 1);
 
 	mines = SCT_LANDMINES(&sect);
 	if (mines <= 0 || sect.sct_oldown == lp->lnd_own)

@@ -1550,8 +1550,8 @@
     Play#0 output Play#0 1   2   34 cs   cargo ship     3,1      n                   i
     Play#0 output Play#0 1   2   35 cs   cargo ship     0,2      n                   i
     Play#0 output Play#0 1   2   40 lc   light cruis    1,3      nnnh                i
-    Play#0 output Play#0 1   2   41 lc   light cruis    1,3      h                   i
-    Play#0 output Play#0 1   2   42 lc   light cruis   -4,2      gggh                i
+    Play#0 output Play#0 1   2   41 lc   light cruis    1,3      uh                  i
+    Play#0 output Play#0 1   2   42 lc   light cruis   -4,2      ugggh               i
     Play#0 output Play#0 1   2   43 ms   minesweeper   -6,4    m g          Yes      i
     Play#0 output Play#0 1   2   44 ms   minesweeper   -6,4    m g          Yes      i
     Play#0 output Play#0 1   2   50 sb   submarine     -9,1
@@ -1615,15 +1615,15 @@
     Play#0 output Play#0 1 own lnd#     unit type       x,y   ar path       as army? flags
     Play#0 output Play#0 1   1    2 inf  infantry      -3,1      yujnbgyuj           ihb
     Play#0 output Play#0 1   2    9 tra  train          1,1
-    Play#0 output Play#0 1   2   10 cav  cavalry        4,0
+    Play#0 output Play#0 1   2   10 cav  cavalry        4,0      y                   b
     Play#0 output Play#0 1   2   31 cav  cavalry        0,2      j                   b
     Play#0 output Play#0 1   2   32 cav  cavalry        3,1
     Play#0 output Play#0 1   2   33 cav  cavalry        1,1
     Play#0 output Play#0 1   2   34 cav  cavalry        1,1      j                   b
     Play#0 output Play#0 1   2   35 cav  cavalry        1,1      j                   b
     Play#0 output Play#0 1   2   40 cav  cavalry        2,2      u                   b
-    Play#0 output Play#0 1   2   41 cav  cavalry        3,1
-    Play#0 output Play#0 1   2   42 cav  cavalry        1,1
+    Play#0 output Play#0 1   2   41 cav  cavalry        3,1      y                   b
+    Play#0 output Play#0 1   2   42 cav  cavalry        1,1      g                   b
     Play#0 output Play#0 1   2   43 eng  engineer       0,0    m u          Yes      b
     Play#0 output Play#0 1   2   44 eng  engineer       0,0    m u          Yes      b
     Play#0 output Play#0 1   2   60 cav  cavalry        3,1
