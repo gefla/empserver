@@ -34,7 +34,6 @@
 #define ACTOFGOD_H
 
 #include "item.h"
-#include "nat.h"
 #include "types.h"
 
 extern void report_god_takes(char *, char *, natid);

@@ -36,7 +36,6 @@
 #include "misc.h"
 #include "nat.h"
 #include "prototypes.h"
-#include "xy.h"
 
 double
 hap_fact(struct natstr *tnat, struct natstr *vnat)

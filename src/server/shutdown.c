@@ -35,7 +35,6 @@
 
 #include <time.h>
 #include "empthread.h"
-#include "nat.h"
 #include "prototypes.h"
 #include "server.h"
 

@@ -35,7 +35,6 @@
 #include "file.h"
 #include "optlist.h"
 #include "prototypes.h"
-#include "sect.h"
 
 /*
  * get the next sector in the range

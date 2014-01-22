@@ -32,7 +32,6 @@
 
 #include <config.h>
 
-#include "chance.h"
 #include "commands.h"
 #include "testing.h"
 

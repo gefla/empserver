@@ -58,11 +58,8 @@
 #include "match.h"
 #include "misc.h"
 #include "optlist.h"
-#include "plane.h"
 #include "player.h"
-#include "product.h"
 #include "prototypes.h"
-#include "sect.h"
 #include "server.h"
 #include "version.h"
 

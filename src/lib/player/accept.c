@@ -48,7 +48,6 @@
 #include "nat.h"
 #include "optlist.h"
 #include "player.h"
-#include "power.h"
 #include "prototypes.h"
 
 static struct emp_qelem Players;

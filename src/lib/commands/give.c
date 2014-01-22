@@ -37,8 +37,6 @@
 #include "actofgod.h"
 #include "commands.h"
 #include "item.h"
-#include "news.h"
-#include "optlist.h"
 
 /*
  * format: give <commod> <sect> <amt>

@@ -46,7 +46,6 @@
 #include "player.h"
 #include "prototypes.h"
 #include "server.h"
-#include "testing.h"
 
 /*
  * Last command's PRNG seed.
