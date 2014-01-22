@@ -103,22 +103,15 @@ retreat_ship(struct shpstr *sp, char code)
 	return;
 
     retreat_ship1(sp, code, 1);
-    if (sp->shp_rpath[0] == 0)
-	sp->shp_rflags = 0;
 
     if (sp->shp_rflags & RET_GROUP) {
 	snxtitem_group(&ni, EF_SHIP, sp->shp_fleet);
-	while (nxtitem(&ni, &ship))
-	    if (ship.shp_own == sp->shp_own) {
-		if (ship.shp_uid != sp->shp_uid) {
-		    retreat_ship1(&ship, code, 0);
-		    getship(ship.shp_uid, &ship);
-		    if (ship.shp_rpath[0] == 0) {
-			ship.shp_rflags = 0;
-			putship(ship.shp_uid, &ship);
-		    }
-		}
-	    }
+	while (nxtitem(&ni, &ship)) {
+	    if (ship.shp_own != sp->shp_own || ship.shp_uid == sp->shp_uid)
+		continue;
+	    if (retreat_ship1(&ship, code, 0))
+		putship(ship.shp_uid, &ship);
+	}
     }
 }
 
@@ -196,14 +189,14 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	    wu(0, sp->shp_own,
 	       "%s %s,\nbut ran out of mobility, and couldn't retreat fully!\n",
 	       prship(sp), conditions[findcondition(code)].desc[orig]);
-	    if (!orig)
-		putship(sp->shp_uid, sp);
-	    return 0;
+	    return 1;
 	}
 	dir = chkdir(sp->shp_rpath[0], DIR_STOP, DIR_LAST);
 	if (dir == DIR_STOP || CANT_HAPPEN(dir < 0)) {
 	    memmove(sp->shp_rpath, sp->shp_rpath + 1,
 		    sizeof(sp->shp_rpath) - 1);
+	    if (sp->shp_rpath[0] == 0)
+		sp->shp_rflags = 0;
 	    break;
 	}
 	dx = diroff[dir][0];
@@ -221,9 +214,7 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	    wu(0, sp->shp_own, "%s %s,\nbut could not retreat to %s!\n",
 	       prship(sp), conditions[findcondition(code)].desc[orig],
 	       xyas(newx, newy, sp->shp_own));
-	    if (!orig)
-		putship(sp->shp_uid, sp);
-	    return 0;
+	    return 1;
 	}
 	sp->shp_x = newx;
 	sp->shp_y = newy;
@@ -231,6 +222,8 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	sp->shp_mission = 0;
 	memmove(sp->shp_rpath, sp->shp_rpath + 1,
 		sizeof(sp->shp_rpath) - 1);
+	if (sp->shp_rpath[0] == 0)
+	    sp->shp_rflags = 0;
 
 	mines = sect.sct_mines;
 	changed = 0;
@@ -273,9 +266,7 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 		writemap(sp->shp_own);
 	    sect.sct_mines = mines;
 	    putsect(&sect);
-	    if (!orig)
-		putship(sp->shp_uid, sp);
-	    return 0;
+	    return 1;
 	}
     }
 
@@ -289,8 +280,7 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	   conditions[findcondition(code)].desc[orig],
 	   xyas(sp->shp_x, sp->shp_y, sp->shp_own));
     }
-    if (!orig)
-	putship(sp->shp_uid, sp);
+
     return 1;
 }
 
@@ -329,22 +319,15 @@ retreat_land(struct lndstr *lp, char code)
 	return;
 
     retreat_land1(lp, code, 1);
-    if (lp->lnd_rpath[0] == 0)
-	lp->lnd_rflags = 0;
 
     if (lp->lnd_rflags & RET_GROUP) {
 	snxtitem_group(&ni, EF_LAND, lp->lnd_army);
-	while (nxtitem(&ni, &land))
-	    if (land.lnd_own == lp->lnd_own) {
-		if (land.lnd_uid != lp->lnd_uid) {
-		    retreat_land1(&land, code, 0);
-		    getland(land.lnd_uid, &land);
-		    if (land.lnd_rpath[0] == 0) {
-			land.lnd_rflags = 0;
-			putland(land.lnd_uid, &land);
-		    }
-		}
-	    }
+	while (nxtitem(&ni, &land)) {
+	    if (land.lnd_own != lp->lnd_own || land.lnd_uid == lp->lnd_uid)
+		continue;
+	    if (retreat_land1(&land, code, 0))
+		putland(land.lnd_uid, &land);
+	}
     }
 }
 
@@ -382,14 +365,14 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	    wu(0, lp->lnd_own,
 	       "%s %s,\nbut ran out of mobility, and couldn't retreat fully!\n",
 	       prland(lp), conditions[findcondition(code)].desc[orig]);
-	    if (!orig)
-		putland(lp->lnd_uid, lp);
-	    return 0;
+	    return 1;
 	}
 	dir = chkdir(lp->lnd_rpath[0], DIR_STOP, DIR_LAST);
 	if (dir == DIR_STOP || CANT_HAPPEN(dir < 0)) {
 	    memmove(lp->lnd_rpath, lp->lnd_rpath + 1,
 		    sizeof(lp->lnd_rpath) - 1);
+	    if (lp->lnd_rpath[0] == 0)
+		lp->lnd_rflags = 0;
 	    break;
 	}
 	dx = diroff[dir][0];
@@ -408,9 +391,7 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	       prland(lp),
 	       conditions[findcondition(code)].desc[orig],
 	       xyas(newx, newy, lp->lnd_own));
-	    if (!orig)
-		putland(lp->lnd_uid, lp);
-	    return 0;
+	    return 1;
 	}
 	lp->lnd_x = newx;
 	lp->lnd_y = newy;
@@ -418,6 +399,8 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	lp->lnd_mission = 0;
 	memmove(lp->lnd_rpath, lp->lnd_rpath + 1,
 		sizeof(lp->lnd_rpath) - 1);
+	if (lp->lnd_rpath[0] == 0)
+	    lp->lnd_rflags = 0;
 
 	mines = SCT_LANDMINES(&sect);
 	if (mines <= 0 || sect.sct_oldown == lp->lnd_own)
@@ -449,9 +432,7 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	    mines--;
 	    sect.sct_mines = mines;
 	    putsect(&sect);
-	    if (!orig)
-		putland(lp->lnd_uid, lp);
-	    return 0;
+	    return 1;
 	}
     }
 
@@ -466,7 +447,6 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	   conditions[findcondition(code)].desc[orig],
 	   xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
     }
-    if (!orig)
-	putland(lp->lnd_uid, lp);
+
     return 1;
 }
