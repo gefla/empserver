@@ -38,6 +38,7 @@
 #include "commands.h"
 #include "empobj.h"
 #include "land.h"
+#include "path.h"
 #include "retreat.h"
 #include "ship.h"
 
@@ -84,9 +85,16 @@ retreat(int type)
     if (!snxtitem(&ni, type, player->argp[1], NULL))
 	return RET_SYN;
     nunits = 0;
-    if (player->argp[2] != NULL)
+    if (player->argp[2] != NULL) {
 	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
-    else
+	for (i = 0; i < RET_LEN - 1 && pq[i]; i++) {
+	    if (chkdir(pq[i], DIR_STOP, DIR_LAST) < 0) {
+		pr("'%c' is not a valid direction...\n", pq[i]);
+		direrr(NULL, NULL, NULL);
+		return RET_SYN;
+	    }
+	}
+    } else
 	pq = NULL;
 
     rflags = 0;

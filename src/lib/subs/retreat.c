@@ -202,9 +202,7 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
 	}
 	dir = chkdir(sp->shp_rpath[0], DIR_STOP, DIR_LAST);
 	memmove(sp->shp_rpath, sp->shp_rpath+1, sizeof(sp->shp_rpath) - 1);
-	if (dir < 0)
-	    continue;
-	if (dir == DIR_STOP)
+	if (dir == DIR_STOP || CANT_HAPPEN(dir < 0))
 	    break;
 	dx = diroff[dir][0];
 	dy = diroff[dir][1];
@@ -386,9 +384,7 @@ retreat_land1(struct lndstr *lp, char code, int orig)
 	}
 	dir = chkdir(lp->lnd_rpath[0], DIR_STOP, DIR_LAST);
 	memmove(lp->lnd_rpath, lp->lnd_rpath+1, sizeof(lp->lnd_rpath) - 1);
-	if (dir < 0)
-	    continue;
-	if (dir == DIR_STOP)
+	if (dir == DIR_STOP || CANT_HAPPEN(dir < 0))
 	    break;
 	dx = diroff[dir][0];
 	dy = diroff[dir][1];

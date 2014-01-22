@@ -2,6 +2,7 @@
 || retreat command
 | garbage path
 retr 0 garbage i
+__cmd added 0 -1 0
 | condition help, then junk conditions
 retr 1 g
 ?
@@ -9,7 +10,7 @@ junk
 | long path, all conditions
 retr 2/3 bgyujnbgyujnbgyujn itshbdu
 | clear retreat order
-retr 3 ignored c
+retr 3 h c
 | group retreat order
 retr a ?uid=4 b h
 | show retreat orders
@@ -18,6 +19,7 @@ retr
 || lretreat command
 | garbage path
 lret 0 garbage i
+__cmd added 0 -1 0
 | condition help, then junk conditions
 lret 1 g
 ?
@@ -25,7 +27,7 @@ junk
 | long path, all conditions
 lret 2/3 yujnbgyujnbgyujnbg ihb
 | clear retreat order
-lret 3 ignored c
+lret 3 h c
 | group retreat order
 lret a ?uid=4 b h
 | show retreat orders
