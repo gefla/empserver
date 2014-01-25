@@ -145,14 +145,6 @@ lnd_print(natid actor, struct ulist *llp, char *s)
 	wu(0, actor, "%s %s\n", prland(&llp->unit.land), s);
 }
 
-void
-lnd_delete(struct ulist *llp)
-{
-    putland(llp->unit.land.lnd_uid, &llp->unit.land);
-    emp_remque(&llp->queue);
-    free(llp);
-}
-
 int
 lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 			/* attacking or assaulting or paratrooping? */
@@ -190,7 +182,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 		xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
 		     llp->unit.land.lnd_own));
 	lnd_print(llp->unit.land.lnd_own, llp, buf);
-	lnd_delete(llp);
+	lnd_put_one(llp);
 	/* Since we killed the unit, we killed all the mil on it */
 	return taken;
     } else {
@@ -264,7 +256,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 			llp->unit.land.lnd_effic,
 			xyas(bx, by, llp->unit.land.lnd_own));
 		lnd_print(llp->unit.land.lnd_own, llp, buf);
-		lnd_delete(llp);
+		lnd_put_one(llp);
 	    }
 	} else {		/* attacking from a sector */
 	    sprintf(buf, "leaves the battlefield at %d%% efficiency",
@@ -275,7 +267,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 		llp->unit.land.lnd_mobil -= (int)llp->mobil;
 	    llp->mobil = 0.0;
 	    lnd_print(llp->unit.land.lnd_own, llp, buf);
-	    lnd_delete(llp);
+	    lnd_put_one(llp);
 	}
     }
     if (nowhere_to_go) {
@@ -286,7 +278,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 	if (llp->unit.land.lnd_effic < LAND_MINEFF) {
 	    lnd_print(llp->unit.land.lnd_own, llp,
 		      "has nowhere to retreat, and dies!");
-	    lnd_delete(llp);
+	    lnd_put_one(llp);
 	} else
 	    lnd_print(llp->unit.land.lnd_own, llp,
 		      "has nowhere to retreat and takes extra losses!");
@@ -568,6 +560,14 @@ lnd_put(struct emp_qelem *list)
     }
 }
 
+void
+lnd_put_one(struct ulist *llp)
+{
+    putland(llp->unit.land.lnd_uid, &llp->unit.land);
+    emp_remque(&llp->queue);
+    free(llp);
+}
+
 /*
  * Sweep landmines with engineers in LAND_LIST for ACTOR.
  * If EXPLICIT is non-zero, this is for an explicit sweep command from
@@ -695,7 +695,7 @@ lnd_stays(natid actor, char *str, struct ulist *llp)
     if (llp->mobil < -127)
 	llp->mobil = -127;
     llp->unit.land.lnd_mobil = llp->mobil;
-    lnd_delete(llp);
+    lnd_put_one(llp);
 }
 
 static int
@@ -1059,7 +1059,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 			prland(&llp->unit.land));
 		    llp->unit.land.lnd_effic = 0;
 		    putland(llp->unit.land.lnd_uid, &llp->unit.land);
-		    lnd_delete(llp);
+		    lnd_put_one(llp);
 		}
 	    }
 	}

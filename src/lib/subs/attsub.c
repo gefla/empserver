@@ -1246,7 +1246,7 @@ get_ototal(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	    if (w < 0) {
 		lnd_print(player->cnum, llp,
 			  "can't attack from this sector now");
-		lnd_delete(llp);
+		lnd_put_one(llp);
 		continue;
 	    }
 	    ototal += attack_val(combat_mode, &llp->unit.land) *
@@ -1312,7 +1312,7 @@ get_oland(int combat_mode, struct ulist *llp)
 	sprintf(buf, "was destroyed and is no longer a part of the %s",
 		att_mode[combat_mode]);
 	lnd_print(player->cnum, llp, buf);
-	lnd_delete(llp);
+	lnd_put_one(llp);
 	return 0;
     }
     if (lp->lnd_x != llp->x || lp->lnd_y != llp->y) {
@@ -1320,7 +1320,7 @@ get_oland(int combat_mode, struct ulist *llp)
 		"left to fight another battle and is no longer a part of the %s",
 		att_mode[combat_mode]);
 	lnd_print(player->cnum, llp, buf);
-	lnd_delete(llp);
+	lnd_put_one(llp);
 	return 0;
     }
     if (lp->lnd_effic < llp->eff) {
@@ -1344,13 +1344,13 @@ get_dland(struct combat *def, struct ulist *llp)
     if (lp->lnd_effic < LAND_MINEFF) {
 	sprintf(buf, "was destroyed and is no longer a part of the defense");
 	lnd_print(llp->unit.land.lnd_own, llp, buf);
-	lnd_delete(llp);
+	lnd_put_one(llp);
 	return 0;
     }
     if (lp->lnd_x != def->x || lp->lnd_y != def->y) {
 	lnd_print(llp->unit.land.lnd_own, llp,
 		  "left to go fight another battle and is no longer a part of the defense");
-	lnd_delete(llp);
+	lnd_put_one(llp);
 	return 0;
     }
 
@@ -1371,7 +1371,7 @@ kill_land(struct emp_qelem *list)
 	    llp->unit.land.lnd_effic = 0;
 	    lnd_print(player->cnum, llp,
 		      "cannot return to the ship, and dies!");
-	    lnd_delete(llp);
+	    lnd_put_one(llp);
 	}
     }
 }
@@ -2110,7 +2110,7 @@ send_reacting_units_home(struct emp_qelem *list)
 	    llp->unit.land.lnd_x = llp->x;
 	    llp->unit.land.lnd_y = llp->y;
 	    lnd_print(llp->unit.land.lnd_own, llp, buf);
-	    lnd_delete(llp);
+	    lnd_put_one(llp);
 	}
     }
 }
@@ -2190,7 +2190,7 @@ take_def(int combat_mode, struct emp_qelem *list, struct combat *off,
 		sprintf(buf, "moves in to occupy %s",
 			xyas(def->x, def->y, player->cnum));
 		lnd_print(player->cnum, llp, buf);
-		lnd_delete(llp);
+		lnd_put_one(llp);
 	    }
 	}
     }
@@ -2212,7 +2212,7 @@ take_def(int combat_mode, struct emp_qelem *list, struct combat *off,
 	putland(land.lnd_uid, &land);
     }
     if (delete_me)
-	lnd_delete(delete_me);
+	lnd_put_one(delete_me);
     att_get_combat(def, 0);
     return 1;
 }
@@ -2272,7 +2272,7 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 		xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
 		     player->cnum));
 	lnd_print(player->cnum, llp, buf);
-	lnd_delete(llp);
+	lnd_put_one(llp);
     }
     if (QEMPTY(olist))
 	return;
@@ -2286,7 +2286,7 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
 		    xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
 			 player->cnum));
 	    lnd_print(player->cnum, llp, buf);
-	    lnd_delete(llp);
+	    lnd_put_one(llp);
 	}
 	return;
     }
