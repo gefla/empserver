@@ -289,7 +289,7 @@ build_mission_list_type(struct genlist mi[], unsigned char act[],
 
     snxtitem_all(&ni, type);
     while (nxtitem(&ni, &item)) {
-	gp = (struct empobj *)&item;
+	gp = &item.gen;
 
 	if (!act[gp->own])
 	    continue;

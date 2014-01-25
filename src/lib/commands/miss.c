@@ -165,7 +165,7 @@ mission(void)
 	radius = 9999;
 
     while (nxtitem(&ni, &item)) {
-	gp = (struct empobj *)&item;
+	gp = &item.gen;
 
 	if (!player->owner || gp->own == 0)
 	    continue;
@@ -300,7 +300,7 @@ show_mission(struct nstr_item *np)
     struct empobj *gp;
 
     while (nxtitem(np, &item)) {
-	gp = (struct empobj *)&item;
+	gp = &item.gen;
 	if (!player->owner || gp->own == 0)
 	    continue;
 
