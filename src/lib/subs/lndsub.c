@@ -523,6 +523,15 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
     }
 }
 
+static void
+lnd_mar_put_one(struct ulist *llp)
+{
+    if (llp->mobil < -127)
+	llp->mobil = -127;
+    llp->unit.land.lnd_mobil = llp->mobil;
+    lnd_put_one(llp);
+}
+
 void
 lnd_mar_put(struct emp_qelem *list, natid actor)
 {
@@ -536,10 +545,7 @@ lnd_mar_put(struct emp_qelem *list, natid actor)
 	lp = &llp->unit.land;
 	mpr(actor, "%s stopped at %s\n",
 	    prland(lp), xyas(lp->lnd_x, lp->lnd_y, actor));
-	if (llp->mobil < -127)
-	    llp->mobil = -127;
-	lp->lnd_mobil = llp->mobil;
-	lnd_put_one(llp);
+	lnd_mar_put_one(llp);
     }
 }
 
@@ -686,10 +692,7 @@ lnd_stays(natid actor, char *str, struct ulist *llp)
     mpr(actor, "%s %s & stays in %s\n",
 	prland(&llp->unit.land), str,
 	xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y, actor));
-    if (llp->mobil < -127)
-	llp->mobil = -127;
-    llp->unit.land.lnd_mobil = llp->mobil;
-    lnd_put_one(llp);
+    lnd_mar_put_one(llp);
 }
 
 static int
