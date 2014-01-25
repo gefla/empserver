@@ -53,6 +53,7 @@
 #include "unit.h"
 #include "xy.h"
 
+static void shp_nav_put_one(struct ulist *);
 static int shp_check_one_mines(struct ulist *);
 static int shp_hit_mine(struct shpstr *);
 static void shp_stays(natid, char *, struct ulist *);
@@ -193,11 +194,17 @@ shp_nav_put(struct emp_qelem *list, natid actor)
 	sp = &mlp->unit.ship;
 	mpr(actor, "%s stopped at %s\n",
 	    prship(sp), xyas(sp->shp_x, sp->shp_y, actor));
-	sp->shp_mobil = (int)mlp->mobil;
-	putship(sp->shp_uid, sp);
-	emp_remque(qp);
-	free(qp);
+	shp_nav_put_one(mlp);
     }
+}
+
+static void
+shp_nav_put_one(struct ulist *mlp)
+{
+    mlp->unit.ship.shp_mobil = (int)mlp->mobil;
+    putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
+    emp_remque(&mlp->queue);
+    free(mlp);
 }
 
 int
@@ -317,10 +324,7 @@ shp_stays(natid actor, char *str, struct ulist *mlp)
     mpr(actor, "%s %s & stays in %s\n",
 	prship(&mlp->unit.ship), str,
 	xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, actor));
-    mlp->unit.ship.shp_mobil = (int)mlp->mobil;
-    putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
-    emp_remque(&mlp->queue);
-    free(mlp);
+    shp_nav_put_one(mlp);
 }
 
 /*
