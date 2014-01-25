@@ -270,7 +270,7 @@ sail_nav_fleet(struct fltheadstr *fltp)
 	    fltp->maxmoves = 1;
 	--fltp->maxmoves;
     }
-    unit_put(&ship_list, own);
+    shp_put(&ship_list, own);
     getship(sp->shp_uid, &ship);
     fltp->x = ship.shp_x;
     fltp->y = ship.shp_y;

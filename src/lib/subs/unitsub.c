@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
- *     Markus Armbruster, 2009-2013
+ *     Markus Armbruster, 2009-2014
  */
 
 #include <config.h>
@@ -113,40 +113,6 @@ unit_list(struct emp_qelem *unit_list)
 	    pr("%4d%%", lnd->lnd_retreat);
 	}
 	pr("\n");
-    }
-}
-
-void
-unit_put(struct emp_qelem *list, natid actor)
-{
-    struct emp_qelem *qp;
-    struct emp_qelem *newqp;
-    struct ulist *ulp;
-    struct empobj *unit;
-
-    qp = list->q_back;
-    while (qp != list) {
-	ulp = (struct ulist *)qp;
-	unit = &ulp->unit.gen;
-	if (CANT_HAPPEN(unit->ef_type != EF_LAND
-			&& unit->ef_type != EF_SHIP))
-	    continue;
-	if (actor) {
-	    mpr(actor, "%s stopped at %s\n", unit_nameof(unit),
-		xyas(unit->x, unit->y, actor));
-	    if (unit->ef_type == EF_LAND) {
-		if (ulp->mobil < -127)
-		    ulp->mobil = -127;
-		unit->mobil = ulp->mobil;
-	    }
-	}
-	if (unit->ef_type == EF_SHIP)
-	    unit->mobil = (int)ulp->mobil;
-	put_empobj(unit->ef_type, unit->uid, unit);
-	newqp = qp->q_back;
-	emp_remque(qp);
-	free(qp);
-	qp = newqp;
     }
 }
 

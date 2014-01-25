@@ -1959,7 +1959,7 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
     send_reacting_units_home(dlist);
 
     /* putland the defending land */
-    unit_put(dlist, 0);
+    lnd_put(dlist, 0);
 
     /* putland the attacking land */
     put_oland(olist);
@@ -2340,7 +2340,7 @@ move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
     }
     if (QEMPTY(olist))
 	return;
-    unit_put(olist, 0);
+    lnd_put(olist, 0);
 }
 
 /*

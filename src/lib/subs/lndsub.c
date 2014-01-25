@@ -531,6 +531,30 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
     }
 }
 
+void
+lnd_put(struct emp_qelem *list, natid actor)
+{
+    struct emp_qelem *qp, *next;
+    struct ulist *llp;
+    struct lndstr *lp;
+
+    for (qp = list->q_back; qp != list; qp = next) {
+	next = qp->q_back;
+	llp = (struct ulist *)qp;
+	lp = &llp->unit.land;
+	if (actor) {
+	    mpr(actor, "%s stopped at %s\n",
+		prland(lp), xyas(lp->lnd_x, lp->lnd_y, actor));
+	    if (llp->mobil < -127)
+		llp->mobil = -127;
+	    lp->lnd_mobil = llp->mobil;
+	}
+	putland(lp->lnd_uid, lp);
+	emp_remque(qp);
+	free(qp);
+    }
+}
+
 /*
  * Sweep landmines with engineers in LAND_LIST for ACTOR.
  * If EXPLICIT is non-zero, this is for an explicit sweep command from
@@ -927,7 +951,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     int oldown;
 
     if (dir <= DIR_STOP || dir >= DIR_VIEW) {
-	unit_put(list, actor);
+	lnd_put(list, actor);
 	return 1;
     }
     dx = diroff[dir][0];
