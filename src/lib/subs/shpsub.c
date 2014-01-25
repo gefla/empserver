@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2006-2013
+ *     Markus Armbruster, 2006-2014
  */
 
 #include <config.h>
@@ -61,8 +61,6 @@ void
 shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 {
     struct shpstr ship;
-    struct mchrstr *mcp;
-    struct ulist *mlp;
 
     emp_initque(list);
     while (nxtitem(ni, &ship)) {
@@ -73,7 +71,6 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 	 */
 	if (!ship.shp_own || ship.shp_own != player->cnum)
 	    continue;
-	mcp = &mchr[(int)ship.shp_type];
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_SHIP, &ship)) {
 		pr("ship #%d inelligible - it's for sale.\n",
@@ -85,12 +82,24 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 	ship.shp_rflags = 0;
 	memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
 	putship(ship.shp_uid, &ship);
-	mlp = malloc(sizeof(struct ulist));
-	mlp->chrp = (struct empobj_chr *)mcp;
-	mlp->unit.ship = ship;
-	mlp->mobil = ship.shp_mobil;
-	emp_insque(&mlp->queue, list);
+	shp_insque(&ship, list);
     }
+}
+
+/*
+ * Append SP to LIST.
+ * Return the new list link.
+ */
+struct ulist *
+shp_insque(struct shpstr *sp, struct emp_qelem *list)
+{
+    struct ulist *mlp = malloc(sizeof(struct ulist));
+
+    mlp->chrp = (struct empobj_chr *)&mchr[sp->shp_type];
+    mlp->unit.ship = *sp;
+    mlp->mobil = sp->shp_mobil;
+    emp_insque(&mlp->queue, list);
+    return mlp;
 }
 
 /* This function assumes that the list was created by shp_sel */
@@ -912,12 +921,7 @@ shp_missdef(struct shpstr *sp, natid victim)
     char buf[512];
 
     emp_initque(&list);
-
-    mlp = malloc(sizeof(struct ulist));
-    mlp->chrp = (struct empobj_chr *)&mchr[(int)sp->shp_type];
-    mlp->unit.ship = *sp;
-    mlp->mobil = sp->shp_mobil;
-    emp_insque(&mlp->queue, &list);
+    mlp = shp_insque(sp, &list);
     sprintf(buf, "%s", prship(&mlp->unit.ship));
 
     eff = sp->shp_effic;

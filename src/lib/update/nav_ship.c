@@ -256,12 +256,8 @@ nav_ship(struct shpstr *sp)
 
     /* Make a list of one ships so we can use the navi.c code */
     emp_initque(&ship_list);
-    mlp = malloc(sizeof(struct ulist));
-    mlp->chrp = (struct empobj_chr *)(mchr + sp->shp_type);
-    mlp->unit.ship = *sp;
+    mlp = shp_insque(sp, &ship_list);
     ef_mark_fresh(EF_SHIP, &mlp->unit.ship);
-    mlp->mobil = sp->shp_mobil;
-    emp_insque(&mlp->queue, &ship_list);
 
     do {
 	if ((sp->shp_mobil > 0) && (!(sp->shp_autonav & AN_LOADING)) &&

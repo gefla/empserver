@@ -337,16 +337,11 @@ fltp_to_list(struct fltheadstr *fltp, struct emp_qelem *list)
 {
     struct fltelemstr *fe;
     struct ulist *mlp;
-    struct shpstr *sp;
 
     emp_initque(list);
     for (fe = fltp->head; fe; fe = fe->next) {
-	mlp = malloc(sizeof(struct ulist));
-	sp = getshipp(fe->num);
-	mlp->chrp = (struct empobj_chr *)(mchr + sp->shp_type);
-	mlp->unit.ship = *sp;
+	mlp = shp_insque(getshipp(fe->num), list);
 	ef_mark_fresh(EF_SHIP, &mlp->unit.ship);
 	mlp->mobil = fe->mobil;
-	emp_insque(&mlp->queue, list);
     }
 }
