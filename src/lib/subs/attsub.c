@@ -2037,8 +2037,8 @@ take_casualty(int combat_mode, struct combat *off, struct emp_qelem *olist)
     int to_take = CASUALTY_LUMP;
     int biggest_troops = 0, index = -1;
     int n, tot_troops = 0, biggest_mil, cas;
-    struct emp_qelem *qp, *biggest;
-    struct ulist *llp;
+    struct emp_qelem *qp;
+    struct ulist *llp, *biggest;
 
     for (n = 0; n <= off->last; ++n) {
 	if (off[n].type != EF_BAD) {
@@ -2099,14 +2099,13 @@ take_casualty(int combat_mode, struct combat *off, struct emp_qelem *olist)
 
 	if (llp->unit.land.lnd_item[I_MILIT] > biggest_mil) {
 	    biggest_mil = llp->unit.land.lnd_item[I_MILIT];
-	    biggest = qp;
+	    biggest = llp;
 	}
     }
     if (biggest == NULL)
 	return CASUALTY_LUMP - to_take;
 
-    llp = (struct ulist *)biggest;
-    cas = lnd_take_casualty(combat_mode, llp, to_take);
+    cas = lnd_take_casualty(combat_mode, biggest, to_take);
     return CASUALTY_LUMP - (to_take - cas);
 }
 
