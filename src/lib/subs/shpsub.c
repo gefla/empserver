@@ -181,7 +181,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 }
 
 void
-shp_put(struct emp_qelem *list, natid actor)
+shp_nav_put(struct emp_qelem *list, natid actor)
 {
     struct emp_qelem *qp, *next;
     struct ulist *mlp;
@@ -779,7 +779,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     int navigate;
 
     if (dir <= DIR_STOP || dir >= DIR_VIEW) {
-	shp_put(list, actor);
+	shp_nav_put(list, actor);
 	return 1;
     }
     dx = diroff[dir][0];
