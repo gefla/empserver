@@ -149,7 +149,7 @@ void
 lnd_delete(struct ulist *llp)
 {
     putland(llp->unit.land.lnd_uid, &llp->unit.land);
-    emp_remque((struct emp_qelem *)llp);
+    emp_remque(&llp->queue);
     free(llp);
 }
 
@@ -476,7 +476,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	if (lp->lnd_own != actor) {
 	    mpr(actor, "%s was disbanded at %s\n",
 		prland(lp), xyas(lp->lnd_x, lp->lnd_y, actor));
-	    emp_remque((struct emp_qelem *)llp);
+	    emp_remque(&llp->queue);
 	    free(llp);
 	    continue;
 	}

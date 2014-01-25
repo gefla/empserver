@@ -107,7 +107,7 @@ ground_interdict(coord x, coord y, natid victim, char *s)
     act[0] = 0;
     for (cn = 1; cn < MAXNOC; cn++) {
 	act[cn] = relations_with(cn, victim) <= HOSTILE;
-	emp_initque((struct emp_qelem *)&mi[cn]);
+	emp_initque(&mi[cn].queue);
     }
 
     build_mission_list(mi, act, act, x, y, MI_INTERDICT);
@@ -192,7 +192,7 @@ unit_interdict(coord x, coord y, natid victim, char *s, int hardtarget,
 	other_act[cn] = rel <= HOSTILE;
 	plane_act[cn] = mission == MI_SINTERDICT
 	    ? rel <= NEUTRAL : other_act[cn];
-	emp_initque((struct emp_qelem *)&mi[cn]);
+	emp_initque(&mi[cn].queue);
     }
 
     build_mission_list(mi, other_act, plane_act, x, y, mission);
@@ -250,7 +250,7 @@ dosupport(coord x, coord y, natid victim, natid actee, int mission)
     act[0] = 0;
     for (cn = 1; cn < MAXNOC; cn++) {
 	act[cn] = feels_like_helping(cn, actee, victim);
-	emp_initque((struct emp_qelem *)&mi[cn]);
+	emp_initque(&mi[cn].queue);
     }
 
     build_mission_list(mi, act, act, x, y, MI_SUPPORT);
@@ -992,7 +992,7 @@ add_airport(struct emp_qelem *airp, coord x, coord y)
     getsect(x, y, &sect);
     a->own = sect.sct_own;
 
-    emp_insque((struct emp_qelem *)a, airp);
+    emp_insque(&a->queue, airp);
 }
 
 /*

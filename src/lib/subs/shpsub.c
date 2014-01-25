@@ -118,7 +118,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	if (sp->shp_own != actor) {
 	    mpr(actor, "%s was sunk at %s\n",
 		prship(sp), xyas(sp->shp_x, sp->shp_y, actor));
-	    emp_remque((struct emp_qelem *)mlp);
+	    emp_remque(&mlp->queue);
 	    free(mlp);
 	    continue;
 	}
@@ -290,7 +290,7 @@ shp_stays(natid actor, char *str, struct ulist *mlp)
 	xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, actor));
     mlp->unit.ship.shp_mobil = (int)mlp->mobil;
     putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
-    emp_remque((struct emp_qelem *)mlp);
+    emp_remque(&mlp->queue);
     free(mlp);
 }
 
@@ -377,7 +377,7 @@ shp_damage_one(struct ulist *mlp, int dam)
     shipdamage(&mlp->unit.ship, dam);
     putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
     if (!mlp->unit.ship.shp_own) {
-	emp_remque((struct emp_qelem *)mlp);
+	emp_remque(&mlp->queue);
 	free(mlp);
     }
 }

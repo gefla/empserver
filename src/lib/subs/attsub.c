@@ -1428,7 +1428,7 @@ put_oland(struct emp_qelem *list)
 	llp->mobil = 0.0;
 	putland(llp->unit.land.lnd_uid, &llp->unit.land);
 	if (llp->unit.land.lnd_own != player->cnum) {
-	    emp_remque((struct emp_qelem *)llp);
+	    emp_remque(&llp->queue);
 	    free(llp);
 	} else
 	    get_oland(A_ATTACK, llp);
