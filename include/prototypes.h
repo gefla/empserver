@@ -70,7 +70,7 @@ extern void plane_sona(struct emp_qelem *, int, int, struct shiplist **);
 extern char *prsub(struct shpstr *);
 extern int check_trade(void);
 extern int ontradingblock(int, void *);
-extern void trdswitchown(int, void *, int);
+extern void trdswitchown(int, struct empobj *, int);
 extern int do_look(int);
 extern void look_at_sect(struct sctstr *, int);
 extern int radar(int);

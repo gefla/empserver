@@ -423,7 +423,7 @@ ontradingblock(int type, void *ptr)
 }
 
 void
-trdswitchown(int type, void *ptr, int newown)
+trdswitchown(int type, struct empobj *obj, int newown)
 {
     struct trdstr trade;
     union empobj_storage tg;
@@ -436,7 +436,7 @@ trdswitchown(int type, void *ptr, int newown)
 	    continue;
 	if (trade.trd_type != type)
 	    continue;
-	if (tg.gen.uid != ((struct empobj *)ptr)->uid)
+	if (tg.gen.uid != obj->uid)
 	    continue;
 	if (trade.trd_owner == trade.trd_maxbidder)
 	    trade.trd_maxbidder = newown;
