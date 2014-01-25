@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2006-2013
+ *     Markus Armbruster, 2006-2014
  */
 
 #include <config.h>
@@ -1068,19 +1068,11 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 		land_answer[(int)land.lnd_army] != 'Y')
 		continue;
 	}
-	if (!(llp = malloc(sizeof(struct ulist)))) {
-	    logerror("Malloc failed in attack!\n");
-	    abort_attack();
-	    return;
-	}
-	memset(llp, 0, sizeof(struct ulist));
-	emp_insque(&llp->queue, olist);
+	llp = lnd_insque(&land, olist);
 	llp->supplied = 1;
 	llp->mobil = mobcost;
-	llp->unit.land = land;
 	llp->x = llp->unit.land.lnd_x;
 	llp->y = llp->unit.land.lnd_y;
-	llp->chrp = (struct empobj_chr *)&lchr[(int)llp->unit.land.lnd_type];
 	llp->eff = llp->unit.land.lnd_effic;
 	if (lnd_spyval(&land) > *a_spyp)
 	    *a_spyp = lnd_spyval(&land);
@@ -1199,18 +1191,11 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 	intelligence_report(player->cnum, &land, a_spy,
 			    "Scouts report defending unit:");
-	if (!(llp = malloc(sizeof(struct ulist)))) {
-	    logerror("Malloc failed in attack!\n");
-	    abort_attack();
-	    return;
-	}
-	memset(llp, 0, sizeof(struct ulist));
-	emp_insque(&llp->queue, list);
+	llp = lnd_insque(&land, list);
 	llp->supplied = lnd_supply_all(&land);
-	llp->unit.land = land;
+	llp->mobil = 0.0;
 	llp->x = llp->unit.land.lnd_x;
 	llp->y = llp->unit.land.lnd_y;
-	llp->chrp = (struct empobj_chr *)&lchr[(int)llp->unit.land.lnd_type];
 	llp->eff = llp->unit.land.lnd_effic;
 	if (lnd_spyval(&land) > *d_spyp)
 	    *d_spyp = lnd_spyval(&land);
@@ -1508,16 +1493,12 @@ att_reacting_units(struct combat *def, struct emp_qelem *list, int a_spy,
 	wu(0, land.lnd_own, "%s reacts to %s.\n",
 	   prland(&land), xyas(land.lnd_x, land.lnd_y, land.lnd_own));
 
-	llp = malloc(sizeof(struct ulist));
-
-	memset(llp, 0, sizeof(struct ulist));
+	llp = lnd_insque(&land, list);
 	llp->supplied = 1;
+	llp->mobil = 0.0;
 	llp->x = origx;
 	llp->y = origy;
-	llp->chrp = (struct empobj_chr *)&lchr[(int)land.lnd_type];
-	llp->unit.land = land;
 	llp->eff = land.lnd_effic;
-	emp_insque(&llp->queue, list);
 	if (lnd_spyval(&land) > *d_spyp)
 	    *d_spyp = lnd_spyval(&land);
 

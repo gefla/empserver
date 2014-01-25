@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -396,8 +396,6 @@ void
 lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 {
     struct lndstr land;
-    struct lchrstr *lcp;
-    struct ulist *llp;
     int this_mot;
     int mobtype = MOB_MOVE;	/* indeterminate */
 
@@ -436,18 +434,29 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 	    }
 	}
 
-	lcp = &lchr[(int)land.lnd_type];
 	land.lnd_mission = 0;
 	land.lnd_rflags = 0;
 	land.lnd_harden = 0;
 	memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
 	putland(land.lnd_uid, &land);
-	llp = malloc(sizeof(struct ulist));
-	llp->chrp = (struct empobj_chr *)lcp;
-	llp->unit.land = land;
-	llp->mobil = land.lnd_mobil;
-	emp_insque(&llp->queue, list);
+	lnd_insque(&land, list);
     }
+}
+
+/*
+ * Append LP to LIST.
+ * Return the new list link.
+ */
+struct ulist *
+lnd_insque(struct lndstr *lp, struct emp_qelem *list)
+{
+    struct ulist *mlp = malloc(sizeof(struct ulist));
+
+    mlp->chrp = (struct empobj_chr *)&lchr[lp->lnd_type];
+    mlp->unit.land = *lp;
+    mlp->mobil = lp->lnd_mobil;
+    emp_insque(&mlp->queue, list);
+    return mlp;
 }
 
 /* This function assumes that the list was created by lnd_sel */
