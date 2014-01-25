@@ -1075,6 +1075,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	}
 	memset(llp, 0, sizeof(struct ulist));
 	emp_insque(&llp->queue, olist);
+	llp->supplied = 1;
 	llp->mobil = mobcost;
 	llp->unit.land = land;
 	llp->x = llp->unit.land.lnd_x;
