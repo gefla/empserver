@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2006-2007
- *     Markus Armbruster, 2006-2013
+ *     Markus Armbruster, 2006-2014
  */
 
 #ifndef UNIT_H
@@ -38,12 +38,14 @@
 
 struct ulist {
     struct emp_qelem queue;	/* list of units */
-    double mobil;		/* how much mobility the unit has left */
+    double mobil;		/* moving: how much the unit has left
+				   ground combat: how much to charge */
     struct empobj_chr *chrp;	/* pointer to characteristics unit */
     union empobj_storage unit;	/* unit */
-    coord x, y;			/* x,y it came from LAND only */
-    int eff;			/* LAND only */
-    int supplied;		/* LAND only */
+    /* Rest used only by ground combat (attsub.c) */
+    coord x, y;			/* x,y it came from */
+    int eff;			/* initial efficiency */
+    int supplied;
 };
 
 extern void unit_cargo_init(void);
