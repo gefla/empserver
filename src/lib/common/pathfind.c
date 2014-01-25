@@ -565,7 +565,7 @@ static double
 cost_land(natid actor, int uid, int mobtype)
 {
     /*
-     * Non-negative cost must not depend on ACTOR, see BestLandPath().
+     * Non-negative cost must not depend on ACTOR, see unit_path().
      */
     struct sctstr *sp = (void *)empfile[EF_SECTOR].cache;
 
