@@ -539,9 +539,7 @@ lnd_mar_put(struct emp_qelem *list, natid actor)
 	if (llp->mobil < -127)
 	    llp->mobil = -127;
 	lp->lnd_mobil = llp->mobil;
-	putland(lp->lnd_uid, lp);
-	emp_remque(qp);
-	free(qp);
+	lnd_put_one(llp);
     }
 }
 
@@ -549,14 +547,10 @@ void
 lnd_put(struct emp_qelem *list)
 {
     struct emp_qelem *qp, *next;
-    struct ulist *llp;
 
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
-	llp = (struct ulist *)qp;
-	putland(llp->unit.land.lnd_uid, &llp->unit.land);
-	emp_remque(qp);
-	free(qp);
+	lnd_put_one((struct ulist *)qp);
     }
 }
 
