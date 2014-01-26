@@ -1,23 +1,34 @@
-des * -
-des -12:11,0 .
-des -1:0,-8:7 .
+|| countries
 add 1 1 1 p
 add 2 2 2 p
 add 3 3 3 p
 add 4 4 4 p
 add 5 5 5 p
+edit c 1/2/3/4/5 s 4
 add 6 6 6 v
 add 7 7 7 v
 add 98 98 98 g
+|| sectors
+| x>0,y>0   own 1
+| x<-1,y>0  own 2
+| x>0,y<0   own 3
+| x<-1,y<0  own 0
+| all wilderness, rest sea
+| owned sectors have 1m 1c
+desi * -
+desi -12:11,0 .
+desi -1:0,-8:7 .
 give m * 1
-setsect ow * ?xloc>0&yloc>0 1
-setsect ow * ?xloc<-1&yloc>0 2
-setsect ow * ?xloc>0&yloc<0 3
+edit l * ?xloc>0&yloc>0 o 1
+edit l * ?xloc<-1&yloc>0 o 2
+edit l * ?xloc>0&yloc<0 o 3
 give m * ?own=0 -1
 give c * ?own#0 1
+|| units
+| cs #0..4, f1 #0..4, sup #0..4, 10kt #0..4, all in 1,-1 owned by 3
+| f1 #2/3 on a mission
 buil s 1,-1 cs 5 100
 buil p 1,-1 f1 5 100
 buil l 1,-1 sup 5 100
 buil n 1,-1 10kt 5 400
 miss p 2/3 air .
-edit c 1/2/3/4/5 s 4

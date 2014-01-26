@@ -1,16 +1,5 @@
 #!/usr/bin/perl
 
-# Assumed initial state:
-# nats POGO, 1..5, $MAXNOC-1
-# sects
-#     x>0,y>0   own 1
-#     x<-1,y>0  own 2
-#     x>0,y<0   own 3
-#     x<-1,y<0  own 0
-#     all wilderness, rest sea
-#     owned sectors have 1m 1c
-# units cs #0..4, f1 #0..4, sup #0..4, 10kt #0..4, all in 1,-1 owned by 3
-
 use warnings;
 use strict;
 
