@@ -1,11 +1,11 @@
-|| sectors
-des -3:-2,-2:4 c
-des -1:0,-2:4 w
-des 7,3 w
+|| create land
+desi -3:-2,-2:4 c
+desi -1:0,-2:4 w
+desi 7,3 w
 build t -6,4 g
-des -2,-4 c
-des 0,-4 w
-des -3,-5 #
+desi -2,-4 c
+desi 0,-4 w
+desi -3,-5 #
 build b -3,-5 g
 build t -5,-5 g
 give l * ?des=w 2000
@@ -14,13 +14,13 @@ give m * ?des=w 90
 give o * ?des=w 900
 give r * ?des=w 900
 | building sectors 100% 60% 59%
-des 2:6,0 h
-des 1:5,1 *
-des 2:6,2 !
-des 1:5,3 n
-des 2:6,4 -
+desi 2:6,0 h
+desi 1:5,1 *
+desi 2:6,2 !
+desi 1:5,3 n
+desi 2:6,4 -
 build b -2,4 g
-des 2:6,-2 #
+desi 2:6,-2 #
 build b -2,-2 g
 build t -4,-2 g
 give h -6,-2 100
