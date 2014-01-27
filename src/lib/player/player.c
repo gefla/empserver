@@ -80,11 +80,9 @@ player_main(struct player *p)
 	   natp->nat_last_login <= natp->nat_last_logout
 	   ? ctime(&natp->nat_last_logout) : "?");
 	pr("                  by: %s@%s\n",
-	   natp->nat_userid,
-	   *natp->nat_hostname ? natp->nat_hostname : natp->nat_hostaddr);
+	   natp->nat_userid, natp->nat_hostaddr);
     }
     strcpy(natp->nat_userid, player->userid);
-    strcpy(natp->nat_hostname, player->hostname);
     strcpy(natp->nat_hostaddr, player->hostaddr);
     natp->nat_last_login = player->curup;
     putnat(natp);
@@ -289,6 +287,5 @@ quit(void)
 char *
 praddr(struct player *p)
 {
-    return prbuf("%s@%s", p->userid,
-		 *p->hostname ? p->hostname : p->hostaddr);
+    return prbuf("%s@%s", p->userid, p->hostaddr);
 }

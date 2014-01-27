@@ -31,7 +31,7 @@
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2005-2008
- *     Markus Armbruster, 2005-2013
+ *     Markus Armbruster, 2005-2014
  */
 
 #ifndef NAT_H
@@ -95,7 +95,6 @@ struct natstr {
     char nat_cnam[20];		/* country name */
     char nat_pnam[20];		/* representative */
     char nat_hostaddr[46];	/* host addr of last user */
-    char nat_hostname[512];	/* hostname of last user, may be empty */
     char nat_userid[32];	/* userid of last user, may be empty */
     coord nat_xcap, nat_ycap;	/* cap location in abs coords */
     coord nat_xorg, nat_yorg;	/* origin location in abs coords */

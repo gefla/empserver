@@ -59,7 +59,6 @@ struct player {
     struct emp_qelem queue;
     empth_t *proc;
     char hostaddr[46];
-    char hostname[512];		/* may be empty */
     char client[128];		/* may be empty */
     char userid[32];		/* may be empty */
     int authenticated;

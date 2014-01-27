@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1994
- *     Markus Armbruster, 2005-2013
+ *     Markus Armbruster, 2005-2014
  */
 
 #include <config.h>
@@ -174,9 +174,6 @@ player_accept(void *unused)
     int ns;
     int set = 1;
     char buf[128];
-#ifdef RESOLVE_IPADDRESS
-    struct hostent *hostp;
-#endif
 
     /* auto sockaddr_storage would be simpler, but less portable */
     sap = malloc(player_addrlen);
@@ -212,11 +209,6 @@ player_accept(void *unused)
 	    continue;
 	}
 	logerror("Connect from %s", np->hostaddr);
-#ifdef RESOLVE_IPADDRESS
-	hostp = gethostbyaddr(inaddr, player_addrlen, sap->sa_family);
-	if (NULL != hostp)
-	    strcpy(np->hostname, hostp->h_name);
-#endif /* RESOLVE_IPADDRESS */
 	sprintf(buf, "Conn%d", conn_cnt++);
 	empth_create(player_login, 1024 * 1024, 0, buf, np);
     }

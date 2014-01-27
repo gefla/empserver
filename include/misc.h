@@ -29,7 +29,7 @@
  *
  *  Known contributors to this file:
  *     Doug Hay, 1998
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 #ifndef MISC_H
@@ -49,15 +49,6 @@
 #define ATTRIBUTE(attrs) __attribute__ (attrs)
 #else
 #define ATTRIBUTE(attrs)
-#endif
-
-/*
- * This uses a lot of thread stack with some versions of GNU libc,
- * which can lead to nasty heap smashes (observed with 2.2.93).
- * Disabled for now, until we readjust thread stack sizes.
- */
-#if 0
-#define RESOLVE_IPADDRESS	/* resolve ip addresses into hostnames */
 #endif
 
 #ifndef bit
