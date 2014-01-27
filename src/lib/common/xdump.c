@@ -27,7 +27,7 @@
  *  xdump.c: Extended dumps
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 /*
@@ -122,20 +122,19 @@ xdeval(struct valstr *val, struct xdstr *xd,
 static void
 xdpresc(struct xdstr *xd, char *str, size_t n)
 {
-    unsigned char *s, *e, *l;
+    unsigned char *s, *e;
 
     s = (unsigned char *)str;
-    l = s + n;
     for (;;) {
 	for (e = s;
-	     e < l && *e != '"' && *e != '\\' && isgraph(*e);
-	     ++e)
+	     n && *e != '"' && *e != '\\' && isgraph(*e);
+	     e++, n--)
 	    ;
 	xd->pr("%.*s", (int)(e-s), s);
-	if (e < l && *e)
-	    xd->pr("\\%03o", *e++);
-	else
+	if (!n || !*e)
 	    break;
+	xd->pr("\\%03o", *e++);
+	n--;
 	s = e;
     }
 }
