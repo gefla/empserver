@@ -27,11 +27,12 @@
  *  filetable.c: Empire game data file descriptions.
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2013
+ *     Markus Armbruster, 2005-2014
  */
 
 #include <config.h>
 
+#include <assert.h>
 #include <stddef.h>
 #include "commodity.h"
 #include "file.h"
@@ -394,6 +395,11 @@ empfile_init(void)
 void
 empfile_fixup(void)
 {
+    struct empfile *ep;
+
     empfile[EF_SECTOR].nent = WORLD_SZ();
     empfile[EF_MAP].size = empfile[EF_BMAP].size = WORLD_SZ();
+
+    for (ep = empfile; ep->uid >= 0; ep++)
+	assert(!ep->cadef || ep->size <= EF_WITH_CADEF_MAX_ENTRY_SIZE);
 }

@@ -27,7 +27,7 @@
  *  xdump.c: Extended dump
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -140,7 +140,7 @@ xditem(struct xdstr *xd, int type, char *arg)
     struct castr *ca;
     struct nstr_item ni;
     int n;
-    char buf[2048];		/* FIXME buffer size? */
+    unsigned char buf[EF_WITH_CADEF_MAX_ENTRY_SIZE];
 
     ca = ef_cadef(type);
     if (!ca)

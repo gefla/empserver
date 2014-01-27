@@ -27,7 +27,7 @@
  *  file.h: Describes Empire tables (`files' for historical reasons)
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2012
+ *     Markus Armbruster, 2005-2014
  */
 
 #ifndef FILE_H
@@ -129,6 +129,12 @@ struct emptypedstr {
 /* Transient flags, only occur in argument of ef_open() */
 /* Create table file, clobbering any existing file */
 #define EFF_CREATE	bit(16)
+
+/*
+ * A value larger than any struct empfile member size where member
+ * cadef is not null.
+ */
+#define EF_WITH_CADEF_MAX_ENTRY_SIZE 1024
 
 /*
  * Empire `file types'
