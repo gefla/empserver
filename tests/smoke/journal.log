@@ -373,7 +373,7 @@
     Play#0 output Play#0 1 "cname" 14 0 20 -1
     Play#0 output Play#0 1 "passwd" 14 1 20 -1
     Play#0 output Play#0 1 "ip" 14 1 46 -1
-    Play#0 output Play#0 1 "hostname" 14 1 512 -1
+    Play#0 output Play#0 1 "hostname" 14 1 0 -1
     Play#0 output Play#0 1 "userid" 14 1 32 -1
     Play#0 output Play#0 1 "xcap" 9 1 0 -1
     Play#0 output Play#0 1 "ycap" 10 1 0 -1
@@ -939,7 +939,7 @@
     Play#0 output Play#0 1 "cnum" 5 0 0 8
     Play#0 output Play#0 1 "flags" 8 8 0 35
     Play#0 output Play#0 1 "ip" 14 0 46 -1
-    Play#0 output Play#0 1 "hostname" 14 0 512 -1
+    Play#0 output Play#0 1 "hostname" 14 0 0 -1
     Play#0 output Play#0 1 "userid" 14 0 32 -1
     Play#0 output Play#0 1 "xcap" 9 0 0 -1
     Play#0 output Play#0 1 "ycap" 10 0 0 -1
@@ -2053,7 +2053,7 @@
     Play#2 output Play#2 1 "cnum" 5 0 0 8
     Play#2 output Play#2 1 "flags" 8 8 0 35
     Play#2 output Play#2 1 "ip" 14 0 46 -1
-    Play#2 output Play#2 1 "hostname" 14 0 512 -1
+    Play#2 output Play#2 1 "hostname" 14 0 0 -1
     Play#2 output Play#2 1 "userid" 14 0 32 -1
     Play#2 output Play#2 1 "xcap" 9 0 0 -1
     Play#2 output Play#2 1 "ycap" 10 0 0 -1

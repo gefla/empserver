@@ -27,7 +27,7 @@
  *  nsc.c: Empire selection global structures
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 /*
@@ -543,7 +543,7 @@ struct castr cou_ca[] = {
     {"passwd", fldoff(nat_pnam), NSC_STRINGY, 20, NULL,
      EF_BAD, NSC_DEITY | NSC_EXTRA},
     {"ip", fldoff(nat_hostaddr), NSC_STRINGY, 46, NULL, EF_BAD, 0},
-    {"hostname", fldoff(nat_hostname), NSC_STRINGY, 512, NULL, EF_BAD, 0},
+    {"hostname", 0, NSC_STRINGY, 0, NULL, EF_BAD, 0}, /* deprecated */
     {"userid", fldoff(nat_userid), NSC_STRINGY, 32, NULL, EF_BAD, 0},
     {"xcap", fldoff(nat_xcap), NSC_XCOORD, 0, NULL, EF_BAD, 0},
     {"ycap", fldoff(nat_ycap), NSC_YCOORD, 0, NULL, EF_BAD, 0},
