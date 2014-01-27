@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1989
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2014
  */
 
 #ifndef NSC_H
@@ -92,9 +92,10 @@ enum nsc_cat {
  * promoted type.
  * If category is NSC_OFF, the value is in a context object, and
  * val_as.sym specifies how to get it, as follows.
- * If sym.get is null, and type is NSC_STRINGY, the value is an array
- * of sym.len characters starting at sym.offs in the context object.
- * sym.idx must be zero.
+ * If sym.get is null, and type is NSC_STRINGY, the value is a string
+ * stored in sym.len characters starting at sym.offs in the context
+ * object.  sym.idx must be zero.  Ugly wart: if sym.len is one, the
+ * terminating null character may be omitted.
  * Else if sym.get is null, and sym.len is zero, the value is in the
  * context object at offset sym.off.  sym.idx must be zero.
  * Else if sym.get is null, sym.len is non-zero, and the value has
@@ -202,7 +203,9 @@ enum {
  * A selector with ca_type NSC_NOTYPE is invalid.
  * If ca_get is null, the selector describes a datum of type ca_type
  * at offset ca_offs in the context object.
- * A datum of type NSC_STRINGY is an array of ca_len characters.
+ * A datum of type NSC_STRINGY is a string stored in an array of
+ * ca_len characters.  Ugly wart: if ca_len is one, the terminating
+ * null character may be omitted.
  * A datum of any other type is either a scalar of that type (if
  * ca_len is zero), or an array of ca_len elements of that type.
  * If ca_get is not null, the selector is virtual.  Values can be

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2014
  */
 
 /*
@@ -775,7 +775,7 @@ setstr(int fldno, char *str)
 {
     struct castr *ca;
     int must_match, idx;
-    size_t len;
+    size_t sz, len;
     char *memb_ptr, *old;
 
     ca = getfld(fldno, &idx);
@@ -803,13 +803,15 @@ setstr(int fldno, char *str)
 	    return -1;
 	if (!str)
 	    return gripe("Field %d doesn't take nil", fldno + 1);
-	len = ca->ca_len;
+	/* Wart: if ca_len <= 1, the terminating null may be omitted */
+	sz = ca->ca_len;
+	len = sz > 1 ? sz - 1 : sz;
 	if (strlen(str) > len)
 	    return gripe("Field %d takes at most %d characters",
 			 fldno + 1, (int)len);
 	old = memb_ptr;
 	if (!must_match)
-	    strncpy(memb_ptr, str, len);
+	    strncpy(memb_ptr, str, sz);
 	break;
     default:
 	return gripe("Field %d doesn't take strings", fldno + 1);
