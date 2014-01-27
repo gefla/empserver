@@ -52,6 +52,7 @@
 #include <config.h>
 
 #include <ctype.h>
+#include <limits.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -774,7 +775,7 @@ static int
 setstr(int fldno, char *str)
 {
     struct castr *ca;
-    int must_match, idx;
+    int must_match, mismatch, idx;
     size_t sz, len;
     char *memb_ptr, *old;
 
@@ -789,14 +790,17 @@ setstr(int fldno, char *str)
     memb_ptr = cur_obj;
     memb_ptr += ca->ca_off;
     must_match = fldval_must_match(fldno);
+    mismatch = 0;
 
     switch (ca->ca_type) {
     case NSC_STRING:
 	old = ((char **)memb_ptr)[idx];
-	if (!must_match)
+	if (must_match)
+	    mismatch = old ? !str || strcmp(old, str) : !!str;
+	else
 	    /* FIXME may leak old value */
 	    ((char **)memb_ptr)[idx] = str ? strdup(str) : NULL;
-	len = 65535;		/* really SIZE_MAX, but that's C99 */
+	len = -1;		/* unlimited */
 	break;
     case NSC_STRINGY:
 	if (CANT_HAPPEN(idx))
@@ -810,18 +814,20 @@ setstr(int fldno, char *str)
 	    return gripe("Field %d takes at most %d characters",
 			 fldno + 1, (int)len);
 	old = memb_ptr;
-	if (!must_match)
+	if (must_match)
+	    mismatch = !str || strncmp(old, str, len);
+	else
 	    strncpy(memb_ptr, str, sz);
 	break;
     default:
 	return gripe("Field %d doesn't take strings", fldno + 1);
     }
 
-    if (must_match) {
-	if (old && (!str || strncmp(old, str, len)))
+    if (mismatch) {
+	if (old)
 	    return gripe("Value for field %d must be \"%.*s\"",
 			 fldno + 1, (int)len, old);
-	if (!old && str)
+	else
 	    return gripe("Value for field %d must be nil", fldno + 1);
     }
 
