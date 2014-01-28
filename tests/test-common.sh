@@ -177,18 +177,22 @@ cmp_logs_xdump()
 
 cmp_out()
 {
-    local opt exp act nrm ret=0
+    local exp act nrm ret=0
     for i
     do
-	case "$i" in
-	*/journal.log)	opt=-j ;;
-	*/server.log)	opt=-s ;;
-	*)		opt= ;;
-	esac
 	exp="$testdir/${i##*/}"
 	act="sandbox/$i"
 	nrm="sandbox/normalized-${i##*/}"
-	perl "$srcdir"/tests/normalize.pl $opt "$act" >"$nrm"
+	case "$i" in
+	*/journal.log)
+	    perl "$srcdir"/tests/normalize.pl -j "$act" ;;
+	*/server.log)
+	    perl "$srcdir"/tests/normalize.pl -s "$act" ;;
+	*.xdump)
+	    perl "$srcdir"/tests/normalize.pl "$act" ;;
+	*)
+	    perl -pe 's/\s+$/\n/;' "$act" ;;
+	esac >"$nrm"
 	if diff -u "$exp" "$nrm" >"$nrm.diff"
 	then
 	    echo "$i OK"
