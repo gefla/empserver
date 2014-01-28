@@ -13,11 +13,11 @@ create_sandbox
 
 exec 3>sandbox/fairland.out
 
-src/util/files -e sandbox/etc/empire/econfig -f >&3
-src/util/fairland -e sandbox/etc/empire/econfig -s sandbox/newcap_script -R 1 10 30 >&3
+$files -f >&3
+$fairland -s sandbox/newcap_script -R 1 10 30 >&3
 
 exec 3>&-
 
-src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/final.xdump
+$empdump -x >sandbox/final.xdump
 
 cmp_out fairland.out final.xdump newcap_script

@@ -8,6 +8,15 @@ fi
 test=${0##*/}
 test=${test%-test}
 
+# Abbreviations
+testdir="$srcdir/tests/$test"
+econfig=sandbox/etc/empire/econfig
+schedule=sandbox/etc/empire/schedule
+data=sandbox/var/empire
+empdump="src/util/empdump -e $econfig"
+files="src/util/files -e $econfig"
+fairland="src/util/fairland -e $econfig"
+
 empthread=`sed -n 's/empthread *:= *\(.*\)/\1/p' <GNUmakefile`
 warn_empthread=y
 
@@ -23,9 +32,9 @@ check_empthread()
 create_sandbox()
 {
     rm -rf sandbox
-    mkdir -p sandbox/etc/empire sandbox/share/empire/builtin sandbox/var/empire
-    touch sandbox/etc/empire/schedule
-    cat >sandbox/etc/empire/econfig <<EOF
+    mkdir -p sandbox/etc/empire sandbox/share/empire/builtin $data
+    touch $schedule
+    cat >$econfig <<EOF
 data "../../var/empire"
 info "../../../../info.nr"
 builtin "../../share/empire/builtin"
@@ -45,7 +54,7 @@ now()
 
 start_server()
 {
-    local pidfile=sandbox/var/empire/server.pid
+    local pidfile=$data/server.pid
     local timeout
 
     #
@@ -64,7 +73,7 @@ start_server()
 
     pid=
     trap 'if [ "$pid" ]; then kill -9 "$pid" 2>/dev/null || true; fi' EXIT
-    src/server/emp_server -e sandbox/etc/empire/econfig -R 1 -s -E crash-dump
+    src/server/emp_server -e $econfig -R 1 -s -E crash-dump
     timeout=$((`now`+5))
     until pid=`cat $pidfile 2>/dev/null` && [ -n "$pid" ]
     do
@@ -124,18 +133,18 @@ feed_dir()
 
 begin_test()
 {
-    src/util/files -e sandbox/etc/empire/econfig -f >/dev/null
+    $files -f >/dev/null
     local xd=
     case "$1" in
     *.xdump)
 	xd="$1"
-	src/util/empdump -e sandbox/etc/empire/econfig -i "$xd"
+	$empdump -i "$xd"
 	shift
 	;;
     esac
     if [ -z "$xd" ] || [ "$#" -ne 0 ]
     then
-	cp -r sandbox/var/empire/tel sandbox/var/empire/empty.tel
+	cp -r $data/tel $data/empty.tel
 	start_server
 	if [ "$#" -eq 0 ]
 	then feed_input POGO peter
@@ -143,14 +152,14 @@ begin_test()
 	fi
 	echo 'edit c * ?tgms>0 t 0' | feed_input POGO peter
 	stop_server
-	mv sandbox/var/empire/tel sandbox/var/empire/setup.tel
-	mv sandbox/var/empire/empty.tel sandbox/var/empire/tel
-	mv sandbox/var/empire/news sandbox/var/empire/setup.news
-	>sandbox/var/empire/news
-	mv sandbox/var/empire/lostitems sandbox/var/empire/setup.lostitems
-	>sandbox/var/empire/lostitems
-	mv sandbox/var/empire/journal.log sandbox/var/empire/setup.journal.log
-	mv sandbox/var/empire/server.log sandbox/var/empire/setup.server.log
+	mv $data/tel $data/setup.tel
+	mv $data/empty.tel $data/tel
+	mv $data/news $data/setup.news
+	>$data/news
+	mv $data/lostitems $data/setup.lostitems
+	>$data/lostitems
+	mv $data/journal.log $data/setup.journal.log
+	mv $data/server.log $data/setup.server.log
     fi
     start_server
 }
@@ -158,7 +167,12 @@ begin_test()
 end_test ()
 {
     stop_server
-    src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/final.xdump
+    $empdump -x >sandbox/final.xdump
+}
+
+cmp_logs_xdump()
+{
+    cmp_out var/empire/server.log var/empire/journal.log final.xdump
 }
 
 cmp_out()
@@ -171,7 +185,7 @@ cmp_out()
 	*/server.log)	opt=-s ;;
 	*)		opt= ;;
 	esac
-	exp="$srcdir/tests/$test/${i##*/}"
+	exp="$testdir/${i##*/}"
 	act="sandbox/$i"
 	nrm="sandbox/normalized-${i##*/}"
 	perl "$srcdir"/tests/normalize.pl $opt "$act" >"$nrm"

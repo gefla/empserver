@@ -13,10 +13,10 @@ create_sandbox
 
 exec 3>sandbox/files.out
 
-src/util/files -e sandbox/etc/empire/econfig -f >&3
+$files -f >&3
 
 exec 3>&-
 
-src/util/empdump -e sandbox/etc/empire/econfig -x >sandbox/final.xdump
+$empdump -x >sandbox/final.xdump
 
 cmp_out files.out final.xdump

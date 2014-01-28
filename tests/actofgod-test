@@ -10,7 +10,7 @@ srcdir="$1"
 . "$srcdir"/tests/test-common.sh
 
 create_sandbox
-cat >>sandbox/etc/empire/econfig <<EOF
+cat >>$econfig <<EOF
 WORLD_X 24
 WORLD_Y 16
 GODNEWS 1
@@ -22,4 +22,4 @@ perl "$srcdir"/tests/actofgod/geninput.pl | feed_input POGO peter
 
 end_test
 
-cmp_out var/empire/server.log var/empire/journal.log final.xdump
+cmp_logs_xdump

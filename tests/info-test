@@ -11,7 +11,7 @@ srcdir="$1"
 
 create_sandbox
 # Suppress test-only commands:
-cat >>sandbox/etc/empire/econfig <<EOF
+cat >>$econfig <<EOF
 running_test_suite 0
 EOF
 
@@ -44,7 +44,7 @@ EOF
 
 end_test
 
-if perl $srcdir/tests/info/cmp-toc-vs-lists.pl info/toc sandbox/*.list
+if perl $testdir/cmp-toc-vs-lists.pl info/toc sandbox/*.list
 then echo "Command documentation OK"
 else echo "Command documentation FAIL"; false
 fi

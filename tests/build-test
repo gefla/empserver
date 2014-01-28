@@ -10,7 +10,7 @@ srcdir="$1"
 . "$srcdir"/tests/test-common.sh
 
 create_sandbox
-cat >>sandbox/etc/empire/econfig <<EOF
+cat >>$econfig <<EOF
 WORLD_X 20
 WORLD_Y 12
 BRIDGETOWERS 1
@@ -21,7 +21,7 @@ begin_test "$srcdir"/tests/build/setup-POGO
 feed_dir "$srcdir"/tests/build/units
 feed_dir "$srcdir"/tests/build/bridges-1
 stop_server
-cat >>sandbox/etc/empire/econfig <<EOF
+cat >>$econfig <<EOF
 EASY_BRIDGES 0
 BRIDGETOWERS 0
 EOF
@@ -29,4 +29,4 @@ start_server
 feed_dir "$srcdir"/tests/build/bridges-2
 end_test
 
-cmp_out var/empire/server.log var/empire/journal.log final.xdump
+cmp_logs_xdump
