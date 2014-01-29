@@ -210,44 +210,56 @@ cmp_logs_xdump()
 
 cmp_out()
 {
-    local i exp act nrm
+    local i
 
     for i
-    do
-	exp="$testdir/${i##*/}"
-	act="sandbox/$i"
-	nrm="sandbox/normalized-${i##*/}"
+    do cmp_out1 "$i"
+    done
+}
 
-	if [ ! -e "$exp" ]
-	then
-	    case "$i" in
+cmp_out1()
+{
+    local i=$1 exp="${2-$testdir/${1##*/}}"
+    local act="sandbox/$i"
+    local nrm="sandbox/normalized-${i##*/}"
+
+    if [ ! -e "$exp" ]
+    then
+	case "$i" in
+	*.status)
+	    exp=sandbox/ok.status
+	    echo 0 >sandbox/ok.status
+	    ;;
+	*)
+	    [ ! -e "$act" ] && return
+	    exp=/dev/null
+	    ;;
 	    *.status)   exp=sandbox/ok.status; echo 0 >sandbox/ok.status ;;
 	    *)		exp=/dev/null ;;
-	    esac
-	fi
+	esac
+    fi
 
-	case "$i" in
-	*/journal.log)
-	    perl "$srcdir"/tests/normalize.pl -j "$act" ;;
-	*/server.log)
-	    perl "$srcdir"/tests/normalize.pl -s "$act" ;;
-	*.xdump)
-	    perl "$srcdir"/tests/normalize.pl "$act" ;;
-	*.err)
-	    perl -pe 's/\s+$/\n/;' -e "s,\Q$srcdir/tests\E,tests," "$act" ;;
-	*)
-	    perl -pe 's/\s+$/\n/;' "$act" ;;
-	esac >"$nrm"
-	if diff -u "$exp" "$nrm" >"$nrm.diff"
-	then
-	    echo "$i OK"
-	elif [ "$EMPIRE_CHECK_ACCEPT" ]
-	then
-	    echo "$i CHANGED"
-	    cp "$nrm" "$exp"
-	else
-	    failed=y
-	    echo "$i FAIL"
-	fi
-    done
+    case "$i" in
+    */journal.log)
+	perl "$srcdir"/tests/normalize.pl -j "$act" ;;
+    */server.log)
+	perl "$srcdir"/tests/normalize.pl -s "$act" ;;
+    *.xdump)
+	perl "$srcdir"/tests/normalize.pl "$act" ;;
+    *.err)
+	perl -pe 's/\s+$/\n/;' -e "s,\Q$srcdir/tests\E,tests," "$act" ;;
+    *)
+	perl -pe 's/\s+$/\n/;' "$act" ;;
+    esac >"$nrm"
+    if diff -u "$exp" "$nrm" >"$nrm.diff"
+    then
+	echo "$i OK"
+    elif [ "$EMPIRE_CHECK_ACCEPT" ]
+    then
+	echo "$i CHANGED"
+	cp "$nrm" "$exp"
+    else
+	failed=y
+	echo "$i FAIL"
+    fi
 }
