@@ -8,6 +8,9 @@ fi
 test=${0##*/}
 test=${test%-test}
 
+failed=
+trap 'if [ "$pid" ]; then kill -9 "$pid" 2>/dev/null || true; fi; [ "$failed" ] && exit 1' EXIT
+
 # Abbreviations
 testdir="$srcdir/tests/$test"
 econfig=sandbox/etc/empire/econfig
@@ -72,7 +75,6 @@ start_server()
     check_empthread
 
     pid=
-    trap 'if [ "$pid" ]; then kill -9 "$pid" 2>/dev/null || true; fi' EXIT
     src/server/emp_server -e $econfig -R 1 -s -E crash-dump
     timeout=$((`now`+5))
     until pid=`cat $pidfile 2>/dev/null` && [ -n "$pid" ]
@@ -177,7 +179,7 @@ cmp_logs_xdump()
 
 cmp_out()
 {
-    local exp act nrm ret=0
+    local exp act nrm
     for i
     do
 	exp="$testdir/${i##*/}"
@@ -201,9 +203,8 @@ cmp_out()
 	    echo "$i CHANGED"
 	    cp "$nrm" "$exp"
 	else
-	    ret=$?
+	    failed=y
 	    echo "$i FAIL"
 	fi
     done
-    return $ret
 }
