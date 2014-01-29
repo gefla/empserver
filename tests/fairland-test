@@ -11,13 +11,8 @@ srcdir="$1"
 
 create_sandbox
 
-exec 3>sandbox/fairland.out
-
-$files -f >&3
-$fairland -s sandbox/newcap_script -R 1 10 30 >&3
-
-exec 3>&-
+$files -f >/dev/null
+run_and_cmp fairland $fairland -s sandbox/newcap_script -R 1 10 30
 
 $empdump -x >sandbox/final.xdump
-
-cmp_out fairland.out final.xdump newcap_script
+cmp_out final.xdump newcap_script

@@ -11,12 +11,7 @@ srcdir="$1"
 
 create_sandbox
 
-exec 3>sandbox/files.out
-
-$files -f >&3
-
-exec 3>&-
+run_and_cmp files $files -f
 
 $empdump -x >sandbox/final.xdump
-
-cmp_out files.out final.xdump
+cmp_out final.xdump

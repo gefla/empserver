@@ -49,6 +49,23 @@ EOF
     cp `git ls-files "$srcdir"/src/lib/global | uniq | grep '\.config$'` sandbox/share/empire/builtin
 }
 
+run_and_cmp()
+{
+    run "$@"
+    cmp_run "$1"
+}
+
+run()
+{
+    local name=$1 ret
+    shift
+    set +e
+    "$@" >>sandbox/$name.out 2>>sandbox/$name.err
+    ret=$?
+    set -e
+    echo $ret >>sandbox/$name.status
+}
+
 now()
 {
     # date +%s isn't portable...
@@ -174,6 +191,18 @@ end_test ()
     $empdump -x >sandbox/final.xdump
 }
 
+cmp_run()
+{
+    local i j exp
+
+    for i
+    do
+	for j in status out err
+	do cmp_out "$i.$j"
+	done
+    done
+}
+
 cmp_logs_xdump()
 {
     cmp_out var/empire/server.log var/empire/journal.log final.xdump
@@ -188,6 +217,15 @@ cmp_out()
 	exp="$testdir/${i##*/}"
 	act="sandbox/$i"
 	nrm="sandbox/normalized-${i##*/}"
+
+	if [ ! -e "$exp" ]
+	then
+	    case "$i" in
+	    *.status)   exp=sandbox/ok.status; echo 0 >sandbox/ok.status ;;
+	    *)		exp=/dev/null ;;
+	    esac
+	fi
+
 	case "$i" in
 	*/journal.log)
 	    perl "$srcdir"/tests/normalize.pl -j "$act" ;;
@@ -195,6 +233,8 @@ cmp_out()
 	    perl "$srcdir"/tests/normalize.pl -s "$act" ;;
 	*.xdump)
 	    perl "$srcdir"/tests/normalize.pl "$act" ;;
+	*.err)
+	    perl -pe 's/\s+$/\n/;' -e "s,\Q$srcdir/tests\E,tests," "$act" ;;
 	*)
 	    perl -pe 's/\s+$/\n/;' "$act" ;;
 	esac >"$nrm"
