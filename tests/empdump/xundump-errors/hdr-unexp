@@ -1,0 +1,5 @@
+config ship
+uid ...
+/config
+config plane
+# Expected table `ship', not `plane'

@@ -1,0 +1,4 @@
+config ship
+owner uid ...
+# Header field uid must come first
+/config

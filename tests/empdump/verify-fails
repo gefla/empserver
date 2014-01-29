@@ -1,0 +1,19 @@
+# Test every non-recoverable verify_fail(), as far as possible
+# Not possible: header corrupt, incorrect uid
+config plane
+uid owner xloc yloc type effic mobil off tech opx opy mission radius wing range ship land harden flags access theta
+# bit not in symbol table plane-flags
+0   1 0 0 0 100 0 0 0 0 0  0 0 "" 0 -1 -1 0 256 0 0.00000
+# value not in symbol table missions
+1   1 0 0 0 100 0 0 0 0 0 99 0 "" 0 -1 -1 0   0 0 0.00000
+# value indexes table nat out of bounds
+# value refers to missing element of table ship
+2 255 0 0 0 100 0 0 0 0 0  0 0 "" 0 42 -1 0   0 0 0.00000
+# on two carriers
+3   1 0 0 0 100 0 0 0 0 0  0 0 "" 0  0  0 0   0 0 0.00000
+/config
+config land
+uid owner xloc yloc type effic mobil off tech opx opy mission radius army ship harden retreat rflags rpath civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime land access
+# on two carriers
+0 1 0 0 0 100 0 0 0 0 0 none 0 "" 0 0 42 () "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0
+/config

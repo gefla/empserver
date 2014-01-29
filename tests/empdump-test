@@ -1,0 +1,33 @@
+#!/bin/sh -e
+# Basic empdump test
+
+if [ $# -ne 1 ]
+then echo "Usage: $0 SRCDIR" >&2; exit 1
+fi
+
+srcdir="$1"
+
+. "$srcdir"/tests/test-common.sh
+
+create_sandbox
+
+$files -f >/dev/null
+for i in `git ls-files "$testdir"/xundump-errors | uniq`
+do run errors $empdump -ni "$i"
+done
+run errors $empdump -i "$testdir"/verify-prep
+run errors $empdump -ni "$testdir"/verify-fails
+run errors $empdump -ni "$testdir"/verify-fixed
+
+$files -f >/dev/null
+run import1 $empdump -i "$srcdir"/tests/smoke/final.xdump
+run export1 $empdump -xm
+mv sandbox/export1.out sandbox/intermediate.xdump
+mv $data $data-intermediate
+$files -f >/dev/null
+run import2 $empdump -i sandbox/intermediate.xdump
+run export2 $empdump -x
+mv sandbox/export2.out sandbox/final.xdump
+
+cmp_run errors import1 export1 import2 export2
+EMPIRE_CHECK_ACCEPT= cmp_out1 final.xdump "$srcdir"/tests/smoke/final.xdump

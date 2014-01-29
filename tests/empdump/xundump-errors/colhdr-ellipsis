@@ -1,0 +1,3 @@
+config product
+...
+# Header field uid required in each table part

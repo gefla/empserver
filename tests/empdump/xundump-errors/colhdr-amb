@@ -1,0 +1,4 @@
+config sect-chr
+uid name m
+# Header m of field 3 is ambiguous
+/config

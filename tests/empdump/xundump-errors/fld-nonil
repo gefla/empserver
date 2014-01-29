@@ -1,0 +1,4 @@
+config land
+uid owner xloc yloc type effic mobil off tech opx opy mission radius army ship harden retreat rflags rpath ...
+0 1 0 0 0 100 0 0 100 0 0 0 0 "" -1 0 42 0 nil
+# Field 19 doesn't take nil

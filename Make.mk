@@ -273,6 +273,7 @@ else
 	@echo "$(srcdir)/tests/bridgefall-test SKIPPED"
 	@echo "$(srcdir)/tests/retreat-test SKIPPED"
 endif
+	$(srcdir)/tests/empdump-test $(srcdir)
 
 
 ### Implicit rules

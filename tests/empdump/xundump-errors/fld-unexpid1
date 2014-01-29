@@ -1,0 +1,9 @@
+config ship
+uid ...
+2
+/config
+config ship
+uid ...
+1
+# Expected 2 in field 1, like in table's first part
+/config

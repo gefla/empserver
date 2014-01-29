@@ -1,0 +1,4 @@
+config item
+uid name ...
+0 0
+# Field 2 doesn't take numbers

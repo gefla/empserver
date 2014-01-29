@@ -1,0 +1,8 @@
+config ship
+uid ...
+/config
+config ship
+uid ...
+2
+# Table's first part doesn't have this row
+/config

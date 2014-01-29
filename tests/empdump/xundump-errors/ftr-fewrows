@@ -1,0 +1,3 @@
+XDUMP sect 0
+/0
+# Expected 1024 more rows

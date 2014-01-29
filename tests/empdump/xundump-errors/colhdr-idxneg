@@ -1,0 +1,3 @@
+config item
+uid name mnem value sell lbs pkg(-1)
+# Index must not be negative in header field 7

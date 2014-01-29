@@ -1,0 +1,3 @@
+config news
+timestamp
+# Extraneous header timestamp in field 1

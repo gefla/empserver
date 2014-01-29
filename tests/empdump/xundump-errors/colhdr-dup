@@ -1,0 +1,3 @@
+config ship-chr
+name name
+# Duplicate header name in field 2

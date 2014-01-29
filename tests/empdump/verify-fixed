@@ -1,0 +1,19 @@
+# Test every recoverable verify_fail(), as far as possible
+# Not possible: bogus sect coordinates
+config plane
+uid owner xloc yloc type effic mobil off tech opx opy mission radius wing range ship land harden flags access theta
+# stuck in the air
+0 1 0 0 0 100 0 0 100 0 0 none 0 "" 0 -1 -1 0 (launched) 0 0.00000
+# ghost stuck on carrier
+1 0 0 0 0 100 0 0 100 0 0 none 0 "" 0  0 -1 0 ()         0 0.00000
+/config
+config land
+uid owner xloc yloc type effic mobil off tech opx opy mission radius army ship harden retreat rflags rpath civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime land access
+# ghost stuck on carrier
+0 0 0 0 0 100 0 0 100 0 0 none 0 "" 0 0 42 () "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
+/config
+config nuke
+uid owner xloc yloc type effic mobil off tech opx opy mission radius stockpile plane
+# ghost stuck on carrier
+0 0 0 0 0 100 0 0 300 0 0 none 0 "" 0
+/config

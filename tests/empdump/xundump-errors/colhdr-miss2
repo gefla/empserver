@@ -1,0 +1,32 @@
+config product
+uid sname ...
+  0 "iron"
+  1 "dust"
+  2 "food"
+  3 "oil"
+  4 "rad"
+  5 "shells"
+  6 "guns"
+  7 "petrol"
+  8 "bars"
+  9 "lcm"
+ 10 "hcm"
+ 11 "tech"
+ 12 "medical"
+ 13 "edu"
+ 14 "happy"
+/config
+
+config product
+name
+# Header field uid required in each table part
+# Header fields ctype(0) ... ctype(2) missing
+# Header fields camt(0) ... camt(2) missing
+# Header field type missing
+# Header field level missing
+# Header field cost missing
+# Header field nrndx missing
+# Header field nrdep missing
+# Header field nlndx missing
+# Header field nlmin missing
+# Header field nllag missing

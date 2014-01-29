@@ -1,0 +1,7 @@
+config infrastructure
+name             lcm hcm dcost mcost enab
+"road network"     2   2     2     1	1
+"rail network"     1   1     1     1	1
+"defense factor"   1   1     1     1	0
+/con
+# Malformed table footer

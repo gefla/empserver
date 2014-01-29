@@ -1,0 +1,8 @@
+config ship
+uid ...
+2
+/config
+config ship
+uid ...
+/config
+# Expected row with 2 in field 1, like in table's first part

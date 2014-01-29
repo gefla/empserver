@@ -1,0 +1,4 @@
+config item
+uid name mnem value sell lbs pkg(1)
+# Expected header pkg(0) in field 7
+/config

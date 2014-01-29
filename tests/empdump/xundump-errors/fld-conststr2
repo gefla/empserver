@@ -1,0 +1,9 @@
+config ship-chr
+type name ...
+0 nil
+/config
+
+config ship-chr
+type name ...
+0 "non-nil"
+# Value for field 2 must be nil
