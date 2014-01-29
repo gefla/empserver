@@ -120,6 +120,8 @@ feed_input()
 
 feed_files()
 {
+    local i
+
     for i
     do
 	c="${i##*/*-}"
@@ -179,7 +181,8 @@ cmp_logs_xdump()
 
 cmp_out()
 {
-    local exp act nrm
+    local i exp act nrm
+
     for i
     do
 	exp="$testdir/${i##*/}"
