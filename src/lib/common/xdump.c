@@ -244,7 +244,7 @@ xdflds(struct xdstr *xd, struct castr ca[], void *ptr)
 	    continue;
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
-	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
+	n = CA_ARRAY_LEN(&ca[i]);
 	j = 0;
 	do {
 	    xdeval(&val, xd, &ca[i], ptr, j);
@@ -287,7 +287,7 @@ xdcolhdr(struct xdstr *xd, struct castr ca[])
 	    continue;
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
-	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
+	n = CA_ARRAY_LEN(&ca[i]);
 	if (n) {
 	    for (j = 0; j < n; j++) {
 		xd->pr("%s%s(%d)", sep, ca[i].ca_name, j);

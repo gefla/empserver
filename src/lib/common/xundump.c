@@ -436,7 +436,7 @@ xufld(FILE *fp, int i)
     case '\n':
 	CANT_HAPPEN(i > nflds);
 	if (i < nflds) {
-	    if (fldca[i]->ca_type != NSC_STRINGY && fldca[i]->ca_len)
+	    if (CA_IS_ARRAY(fldca[i]))
 		return gripe("Field %s(%d) missing",
 			     fldca[i]->ca_name, fldidx[i]);
 	    return gripe("Field %s missing", fldca[i]->ca_name);
@@ -534,7 +534,7 @@ deffld(int fldno, char *name, int idx)
 		     res == M_NOTUNIQUE ? "ambiguous" : "unknown");
     if ((ca[res].ca_flags & NSC_EXTRA) || CANT_HAPPEN(ca[res].ca_get))
 	return gripe("Extraneous header %s in field %d", name, fldno + 1);
-    if (ca[res].ca_type != NSC_STRINGY && ca[res].ca_len != 0) {
+    if (CA_IS_ARRAY(&ca[res])) {
 	if (idx < 0)
 	    return gripe("Header %s requires an index in field %d",
 			 ca[res].ca_name, fldno + 1);
@@ -614,7 +614,7 @@ chkflds(void)
 	cafldsmax = MAX(caflds[i], cafldspp[i]);
 	if (ca[i].ca_flags & NSC_EXTRA)
 	    continue;
-	len = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
+	len = CA_ARRAY_LEN(&ca[i]);
 	if (!len && !cafldsmax)
 	    res = gripe("Header field %s missing", ca[i].ca_name);
 	else if (len && cafldsmax == len - 1)
@@ -1012,7 +1012,7 @@ xufldhdr(FILE *fp, struct castr ca[])
 	for (i = 0; ca[i].ca_name; i++) {
 	    if ((ca[i].ca_flags & NSC_EXTRA))
 		continue;
-	    n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
+	    n = CA_ARRAY_LEN(&ca[i]);
 	    j = 0;
 	    do {
 		*fca++ = &ca[i];
@@ -1094,7 +1094,7 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
     for (i = 0; ca[i].ca_name; i++) {
 	nca++;
 	if (!(ca[i].ca_flags & NSC_EXTRA)) {
-	    nf += MAX(1, ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0);
+	    nf += MAX(1, CA_ARRAY_LEN(&ca[i]));
 	    if (ca[i].ca_flags & NSC_CONST)
 		may_omit_id = may_trunc = 0;
 	}

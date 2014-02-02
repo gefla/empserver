@@ -235,7 +235,11 @@ struct castr {
     int ca_flags;
 };
 
-/* variables using the above */
+/* Is CA an array? */
+#define CA_IS_ARRAY(ca) ((ca)->ca_type != NSC_STRINGY && (ca)->ca_len != 0)
+
+/* If CA is an array, return its length, else zero */
+#define CA_ARRAY_LEN(ca) ((ca)->ca_type != NSC_STRINGY ? (ca)->ca_len : 0)
 
 extern struct castr ichr_ca[];
 extern struct castr pchr_ca[];

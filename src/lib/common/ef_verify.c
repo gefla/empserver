@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2006-2013
+ *     Markus Armbruster, 2006-2014
  */
 
 #include <config.h>
@@ -56,7 +56,7 @@ verify_fail(int type, int row, struct castr *ca, int idx, char *fmt, ...)
 	    ef_nameof(type), row);
     if (ca) {
 	fprintf(stderr, " field %s", ca->ca_name);
-	if (ca->ca_type != NSC_STRINGY && ca->ca_len != 0)
+	if (CA_IS_ARRAY(ca))
 	    fprintf(stderr, "(%d)", idx);
     }
     fprintf(stderr, ": ");
@@ -163,7 +163,7 @@ verify_row(int type, int row)
     for (i = 0; ca[i].ca_name; ++i) {
 	if (ca[i].ca_get)
 	    continue;		/* virtual */
-	n = ca[i].ca_type != NSC_STRINGY ? ca[i].ca_len : 0;
+	n = CA_ARRAY_LEN(&ca[i]);
 	j = 0;
 	do {
 	    if (ca[i].ca_table == EF_BAD)
