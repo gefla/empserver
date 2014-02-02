@@ -210,7 +210,7 @@
     Play#0 output Play#0 1 "opy" 10 0 0 -1
     Play#0 output Play#0 1 "mission" 6 0 0 34
     Play#0 output Play#0 1 "radius" 6 0 0 -1
-    Play#0 output Play#0 1 "fleet" 14 0 1 -1
+    Play#0 output Play#0 1 "fleet" 13 0 1 -1
     Play#0 output Play#0 1 "xstart" 9 0 0 -1
     Play#0 output Play#0 1 "xend" 9 0 0 -1
     Play#0 output Play#0 1 "ystart" 10 0 0 -1
@@ -238,14 +238,14 @@
     Play#0 output Play#0 1 "ptime" 6 1 0 -1
     Play#0 output Play#0 1 "access" 6 0 0 -1
     Play#0 output Play#0 1 "mquota" 5 0 0 -1
-    Play#0 output Play#0 1 "path" 14 0 28 -1
+    Play#0 output Play#0 1 "path" 13 0 28 -1
     Play#0 output Play#0 1 "follow" 8 0 0 -1
-    Play#0 output Play#0 1 "name" 14 0 24 -1
+    Play#0 output Play#0 1 "name" 13 0 24 -1
     Play#0 output Play#0 1 "xbuilt" 9 1 0 -1
     Play#0 output Play#0 1 "ybuilt" 10 1 0 -1
     Play#0 output Play#0 1 "builder" 5 1 0 8
     Play#0 output Play#0 1 "rflags" 8 8 0 46
-    Play#0 output Play#0 1 "rpath" 14 0 10 -1
+    Play#0 output Play#0 1 "rpath" 13 0 10 -1
     Play#0 output Play#0 1 /49
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta plane
@@ -264,14 +264,14 @@
     Play#0 output Play#0 1 "opy" 10 0 0 -1
     Play#0 output Play#0 1 "mission" 6 0 0 34
     Play#0 output Play#0 1 "radius" 6 0 0 -1
-    Play#0 output Play#0 1 "wing" 14 0 1 -1
+    Play#0 output Play#0 1 "wing" 13 0 1 -1
     Play#0 output Play#0 1 "range" 5 0 0 -1
     Play#0 output Play#0 1 "harden" 4 0 0 -1
     Play#0 output Play#0 1 "ship" 8 0 0 1
     Play#0 output Play#0 1 "land" 8 0 0 3
     Play#0 output Play#0 1 "flags" 8 8 0 44
     Play#0 output Play#0 1 "access" 6 0 0 -1
-    Play#0 output Play#0 1 "theta" 13 0 0 -1
+    Play#0 output Play#0 1 "theta" 12 0 0 -1
     Play#0 output Play#0 1 /21
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta land
@@ -290,12 +290,12 @@
     Play#0 output Play#0 1 "opy" 10 0 0 -1
     Play#0 output Play#0 1 "mission" 6 0 0 34
     Play#0 output Play#0 1 "radius" 6 0 0 -1
-    Play#0 output Play#0 1 "army" 14 0 1 -1
+    Play#0 output Play#0 1 "army" 13 0 1 -1
     Play#0 output Play#0 1 "ship" 8 0 0 1
     Play#0 output Play#0 1 "harden" 4 0 0 -1
     Play#0 output Play#0 1 "retreat" 6 0 0 -1
     Play#0 output Play#0 1 "rflags" 8 8 0 46
-    Play#0 output Play#0 1 "rpath" 14 0 10 -1
+    Play#0 output Play#0 1 "rpath" 13 0 10 -1
     Play#0 output Play#0 1 "civil" 6 0 0 -1
     Play#0 output Play#0 1 "milit" 6 0 0 -1
     Play#0 output Play#0 1 "shell" 6 0 0 -1
@@ -332,7 +332,7 @@
     Play#0 output Play#0 1 "opy" 10 0 0 -1
     Play#0 output Play#0 1 "mission" 6 0 0 34
     Play#0 output Play#0 1 "radius" 6 0 0 -1
-    Play#0 output Play#0 1 "stockpile" 14 0 1 -1
+    Play#0 output Play#0 1 "stockpile" 13 0 1 -1
     Play#0 output Play#0 1 "plane" 8 0 0 2
     Play#0 output Play#0 1 /15
     Play#0 output Play#0 6 0 640
@@ -344,7 +344,7 @@
     Play#0 output Play#0 1 "victim" 5 0 0 8
     Play#0 output Play#0 1 "times" 4 0 0 -1
     Play#0 output Play#0 1 "duration" 6 0 0 -1
-    Play#0 output Play#0 1 "time" 12 0 0 -1
+    Play#0 output Play#0 1 "time" 11 0 0 -1
     Play#0 output Play#0 1 /6
     Play#0 output Play#0 6 0 640
     Play#0 input __cmd added -1 0 0
@@ -359,7 +359,7 @@
     Play#0 output Play#0 1 "unitid" 8 0 0 -1
     Play#0 output Play#0 1 "price" 8 0 0 -1
     Play#0 output Play#0 1 "maxbidder" 8 0 0 8
-    Play#0 output Play#0 1 "markettime" 12 0 0 -1
+    Play#0 output Play#0 1 "markettime" 11 0 0 -1
     Play#0 output Play#0 1 "xloc" 9 1 0 -1
     Play#0 output Play#0 1 "yloc" 10 1 0 -1
     Play#0 output Play#0 1 /9
@@ -370,11 +370,11 @@
     Play#0 output Play#0 1 "cnum" 5 0 0 8
     Play#0 output Play#0 1 "stat" 8 0 0 38
     Play#0 output Play#0 1 "flags" 8 9 0 35
-    Play#0 output Play#0 1 "cname" 14 0 20 -1
-    Play#0 output Play#0 1 "passwd" 14 1 20 -1
-    Play#0 output Play#0 1 "ip" 14 1 46 -1
-    Play#0 output Play#0 1 "hostname" 14 1 0 -1
-    Play#0 output Play#0 1 "userid" 14 1 32 -1
+    Play#0 output Play#0 1 "cname" 13 0 20 -1
+    Play#0 output Play#0 1 "passwd" 13 1 20 -1
+    Play#0 output Play#0 1 "ip" 13 1 46 -1
+    Play#0 output Play#0 1 "hostname" 13 1 0 -1
+    Play#0 output Play#0 1 "userid" 13 1 32 -1
     Play#0 output Play#0 1 "xcap" 9 1 0 -1
     Play#0 output Play#0 1 "ycap" 10 1 0 -1
     Play#0 output Play#0 1 "xorg" 9 1 0 -1
@@ -387,15 +387,15 @@
     Play#0 output Play#0 1 "access" 6 1 0 -1
     Play#0 output Play#0 1 "milreserve" 8 1 0 -1
     Play#0 output Play#0 1 "money" 8 1 0 -1
-    Play#0 output Play#0 1 "login" 12 1 0 -1
-    Play#0 output Play#0 1 "logout" 12 1 0 -1
-    Play#0 output Play#0 1 "newstim" 12 1 0 -1
-    Play#0 output Play#0 1 "annotim" 12 1 0 -1
-    Play#0 output Play#0 1 "tech" 13 1 0 -1
-    Play#0 output Play#0 1 "research" 13 1 0 -1
-    Play#0 output Play#0 1 "education" 13 1 0 -1
-    Play#0 output Play#0 1 "happiness" 13 1 0 -1
-    Play#0 output Play#0 1 "relations" 11 0 99 37
+    Play#0 output Play#0 1 "login" 11 1 0 -1
+    Play#0 output Play#0 1 "logout" 11 1 0 -1
+    Play#0 output Play#0 1 "newstim" 11 1 0 -1
+    Play#0 output Play#0 1 "annotim" 11 1 0 -1
+    Play#0 output Play#0 1 "tech" 12 1 0 -1
+    Play#0 output Play#0 1 "research" 12 1 0 -1
+    Play#0 output Play#0 1 "education" 12 1 0 -1
+    Play#0 output Play#0 1 "happiness" 12 1 0 -1
+    Play#0 output Play#0 1 "relations" 5 16 99 37
     Play#0 output Play#0 1 "contacts" 5 1 99 -1
     Play#0 output Play#0 1 "rejects" 5 8 99 36
     Play#0 output Play#0 1 /31
@@ -411,8 +411,8 @@
     Play#0 output Play#0 1 "ldur" 8 0 0 -1
     Play#0 output Play#0 1 "amtpaid" 8 0 0 -1
     Play#0 output Play#0 1 "amtdue" 8 0 0 -1
-    Play#0 output Play#0 1 "lastpay" 12 0 0 -1
-    Play#0 output Play#0 1 "duedate" 12 0 0 -1
+    Play#0 output Play#0 1 "lastpay" 11 0 0 -1
+    Play#0 output Play#0 1 "duedate" 11 0 0 -1
     Play#0 output Play#0 1 /10
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta commodity
@@ -422,9 +422,9 @@
     Play#0 output Play#0 1 "owner" 5 0 0 8
     Play#0 output Play#0 1 "type" 4 0 0 16
     Play#0 output Play#0 1 "amount" 8 0 0 -1
-    Play#0 output Play#0 1 "price" 13 0 0 -1
+    Play#0 output Play#0 1 "price" 12 0 0 -1
     Play#0 output Play#0 1 "maxbidder" 8 0 0 8
-    Play#0 output Play#0 1 "markettime" 12 0 0 -1
+    Play#0 output Play#0 1 "markettime" 11 0 0 -1
     Play#0 output Play#0 1 "xbuy" 9 1 0 -1
     Play#0 output Play#0 1 "ybuy" 9 1 0 -1
     Play#0 output Play#0 1 "xsell" 9 1 0 -1
@@ -434,7 +434,7 @@
     Play#0 input xdump meta lost
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP meta lost 0
-    Play#0 output Play#0 1 "timestamp" 12 0 0 -1
+    Play#0 output Play#0 1 "timestamp" 11 0 0 -1
     Play#0 output Play#0 1 "owner" 5 0 0 8
     Play#0 output Play#0 1 "type" 6 0 0 26
     Play#0 output Play#0 1 "id" 8 0 0 -1
@@ -460,7 +460,7 @@
     Play#0 output Play#0 1 "down" 4 0 0 -1
     Play#0 output Play#0 1 "turn" 6 0 0 -1
     Play#0 output Play#0 1 "tick" 6 1 0 -1
-    Play#0 output Play#0 1 "rt" 12 1 0 -1
+    Play#0 output Play#0 1 "rt" 11 1 0 -1
     Play#0 output Play#0 1 /5
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta item
@@ -468,7 +468,7 @@
     Play#0 output Play#0 1 XDUMP meta item 0
     Play#0 output Play#0 1 "uid" 4 0 0 16
     Play#0 output Play#0 1 "name" 3 0 0 -1
-    Play#0 output Play#0 1 "mnem" 14 4 1 -1
+    Play#0 output Play#0 1 "mnem" 13 4 1 -1
     Play#0 output Play#0 1 "value" 8 0 0 -1
     Play#0 output Play#0 1 "sell" 8 0 0 -1
     Play#0 output Play#0 1 "lbs" 8 0 0 -1
@@ -499,16 +499,16 @@
     Play#0 output Play#0 1 XDUMP meta sect-chr 0
     Play#0 output Play#0 1 "uid" 5 0 0 18
     Play#0 output Play#0 1 "name" 3 0 0 -1
-    Play#0 output Play#0 1 "mnem" 14 4 1 -1
+    Play#0 output Play#0 1 "mnem" 13 4 1 -1
     Play#0 output Play#0 1 "terrain" 5 0 0 18
     Play#0 output Play#0 1 "prd" 8 0 0 17
     Play#0 output Play#0 1 "peffic" 8 0 0 -1
-    Play#0 output Play#0 1 "mob0" 13 0 0 -1
-    Play#0 output Play#0 1 "mob1" 13 0 0 -1
+    Play#0 output Play#0 1 "mob0" 12 0 0 -1
+    Play#0 output Play#0 1 "mob1" 12 0 0 -1
     Play#0 output Play#0 1 "nav" 8 0 0 47
     Play#0 output Play#0 1 "pkg" 8 0 0 40
-    Play#0 output Play#0 1 "ostr" 13 0 0 -1
-    Play#0 output Play#0 1 "dstr" 13 0 0 -1
+    Play#0 output Play#0 1 "ostr" 12 0 0 -1
+    Play#0 output Play#0 1 "dstr" 12 0 0 -1
     Play#0 output Play#0 1 "value" 8 0 0 -1
     Play#0 output Play#0 1 "cost" 8 0 0 -1
     Play#0 output Play#0 1 "build" 8 0 0 -1
@@ -597,8 +597,8 @@
     Play#0 output Play#0 1 "h_build" 8 0 0 -1
     Play#0 output Play#0 1 "tech" 8 0 0 -1
     Play#0 output Play#0 1 "cost" 8 0 0 -1
-    Play#0 output Play#0 1 "att" 13 0 0 -1
-    Play#0 output Play#0 1 "def" 13 0 0 -1
+    Play#0 output Play#0 1 "att" 12 0 0 -1
+    Play#0 output Play#0 1 "def" 12 0 0 -1
     Play#0 output Play#0 1 "vul" 8 0 0 -1
     Play#0 output Play#0 1 "spd" 8 0 0 -1
     Play#0 output Play#0 1 "vis" 8 0 0 -1
@@ -654,7 +654,7 @@
     Play#0 input xdump meta updates
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP meta updates 0
-    Play#0 output Play#0 1 "time" 12 0 0 -1
+    Play#0 output Play#0 1 "time" 11 0 0 -1
     Play#0 output Play#0 1 /1
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta table
@@ -667,7 +667,7 @@
     Play#0 input xdump meta version
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP meta version 0
-    Play#0 output Play#0 1 "version" 14 0 23 -1
+    Play#0 output Play#0 1 "version" 13 0 23 -1
     Play#0 output Play#0 1 "maxnoc" 1 0 0 -1
     Play#0 output Play#0 1 "privname" 3 0 0 -1
     Play#0 output Play#0 1 "privlog" 3 0 0 -1
@@ -704,22 +704,22 @@
     Play#0 output Play#0 1 "SAIL" 8 0 0 -1
     Play#0 output Play#0 1 "SUPER_BARS" 8 0 0 -1
     Play#0 output Play#0 1 "TECH_POP" 8 0 0 -1
-    Play#0 output Play#0 1 "btu_build_rate" 13 0 0 -1
+    Play#0 output Play#0 1 "btu_build_rate" 12 0 0 -1
     Play#0 output Play#0 1 "m_m_p_d" 8 0 0 -1
     Play#0 output Play#0 1 "max_btus" 8 0 0 -1
     Play#0 output Play#0 1 "max_idle" 8 0 0 -1
     Play#0 output Play#0 1 "max_idle_visitor" 8 0 0 -1
     Play#0 output Play#0 1 "login_grace_time" 8 0 0 -1
     Play#0 output Play#0 1 "players_at_00" 8 0 0 -1
-    Play#0 output Play#0 1 "easy_tech" 13 0 0 -1
-    Play#0 output Play#0 1 "level_age_rate" 13 0 0 -1
-    Play#0 output Play#0 1 "tech_log_base" 13 0 0 -1
-    Play#0 output Play#0 1 "ally_factor" 13 0 0 -1
-    Play#0 output Play#0 1 "edu_avg" 13 0 0 -1
-    Play#0 output Play#0 1 "hap_avg" 13 0 0 -1
+    Play#0 output Play#0 1 "easy_tech" 12 0 0 -1
+    Play#0 output Play#0 1 "level_age_rate" 12 0 0 -1
+    Play#0 output Play#0 1 "tech_log_base" 12 0 0 -1
+    Play#0 output Play#0 1 "ally_factor" 12 0 0 -1
+    Play#0 output Play#0 1 "edu_avg" 12 0 0 -1
+    Play#0 output Play#0 1 "hap_avg" 12 0 0 -1
     Play#0 output Play#0 1 "edu_cons" 2 0 0 -1
     Play#0 output Play#0 1 "hap_cons" 2 0 0 -1
-    Play#0 output Play#0 1 "sect_mob_scale" 13 0 0 -1
+    Play#0 output Play#0 1 "sect_mob_scale" 12 0 0 -1
     Play#0 output Play#0 1 "sect_mob_max" 8 0 0 -1
     Play#0 output Play#0 1 "buil_bh" 8 0 0 -1
     Play#0 output Play#0 1 "buil_bc" 2 0 0 -1
@@ -727,29 +727,29 @@
     Play#0 output Play#0 1 "buil_tower_bh" 8 0 0 -1
     Play#0 output Play#0 1 "buil_tower_bc" 2 0 0 -1
     Play#0 output Play#0 1 "buil_tower_bt" 2 0 0 -1
-    Play#0 output Play#0 1 "land_mob_scale" 13 0 0 -1
-    Play#0 output Play#0 1 "land_grow_scale" 13 0 0 -1
+    Play#0 output Play#0 1 "land_mob_scale" 12 0 0 -1
+    Play#0 output Play#0 1 "land_grow_scale" 12 0 0 -1
     Play#0 output Play#0 1 "land_mob_max" 8 0 0 -1
     Play#0 output Play#0 1 "money_land" 2 0 0 -1
-    Play#0 output Play#0 1 "plane_mob_scale" 13 0 0 -1
-    Play#0 output Play#0 1 "plane_grow_scale" 13 0 0 -1
+    Play#0 output Play#0 1 "plane_mob_scale" 12 0 0 -1
+    Play#0 output Play#0 1 "plane_grow_scale" 12 0 0 -1
     Play#0 output Play#0 1 "plane_mob_max" 8 0 0 -1
     Play#0 output Play#0 1 "money_plane" 2 0 0 -1
-    Play#0 output Play#0 1 "ship_mob_scale" 13 0 0 -1
-    Play#0 output Play#0 1 "ship_grow_scale" 13 0 0 -1
+    Play#0 output Play#0 1 "ship_mob_scale" 12 0 0 -1
+    Play#0 output Play#0 1 "ship_grow_scale" 12 0 0 -1
     Play#0 output Play#0 1 "ship_mob_max" 8 0 0 -1
     Play#0 output Play#0 1 "money_ship" 2 0 0 -1
     Play#0 output Play#0 1 "torpedo_damage" 8 0 0 -1
     Play#0 output Play#0 1 "fort_max_interdiction_range" 8 0 0 -1
     Play#0 output Play#0 1 "land_max_interdiction_range" 8 0 0 -1
     Play#0 output Play#0 1 "ship_max_interdiction_range" 8 0 0 -1
-    Play#0 output Play#0 1 "flakscale" 13 0 0 -1
+    Play#0 output Play#0 1 "flakscale" 12 0 0 -1
     Play#0 output Play#0 1 "combat_mob" 2 0 0 -1
     Play#0 output Play#0 1 "people_damage" 2 0 0 -1
     Play#0 output Play#0 1 "unit_damage" 2 0 0 -1
     Play#0 output Play#0 1 "collateral_dam" 2 0 0 -1
     Play#0 output Play#0 1 "assault_penalty" 2 0 0 -1
-    Play#0 output Play#0 1 "fire_range_factor" 13 0 0 -1
+    Play#0 output Play#0 1 "fire_range_factor" 12 0 0 -1
     Play#0 output Play#0 1 "sect_mob_neg_factor" 8 0 0 -1
     Play#0 output Play#0 1 "uwbrate" 2 0 0 -1
     Play#0 output Play#0 1 "money_civ" 2 0 0 -1
@@ -765,7 +765,7 @@
     Play#0 output Play#0 1 "rollover_avail_max" 8 0 0 -1
     Play#0 output Play#0 1 "decay_per_etu" 2 0 0 -1
     Play#0 output Play#0 1 "fallout_spread" 2 0 0 -1
-    Play#0 output Play#0 1 "drnuke_const" 13 0 0 -1
+    Play#0 output Play#0 1 "drnuke_const" 12 0 0 -1
     Play#0 output Play#0 1 "MARK_DELAY" 8 0 0 -1
     Play#0 output Play#0 1 "TRADE_DELAY" 8 0 0 -1
     Play#0 output Play#0 1 "buytax" 2 0 0 -1
@@ -773,11 +773,11 @@
     Play#0 output Play#0 1 "trade_1_dist" 8 0 0 -1
     Play#0 output Play#0 1 "trade_2_dist" 8 0 0 -1
     Play#0 output Play#0 1 "trade_3_dist" 8 0 0 -1
-    Play#0 output Play#0 1 "trade_1" 13 0 0 -1
-    Play#0 output Play#0 1 "trade_2" 13 0 0 -1
-    Play#0 output Play#0 1 "trade_3" 13 0 0 -1
-    Play#0 output Play#0 1 "trade_ally_bonus" 13 0 0 -1
-    Play#0 output Play#0 1 "trade_ally_cut" 13 0 0 -1
+    Play#0 output Play#0 1 "trade_1" 12 0 0 -1
+    Play#0 output Play#0 1 "trade_2" 12 0 0 -1
+    Play#0 output Play#0 1 "trade_3" 12 0 0 -1
+    Play#0 output Play#0 1 "trade_ally_bonus" 12 0 0 -1
+    Play#0 output Play#0 1 "trade_ally_cut" 12 0 0 -1
     Play#0 output Play#0 1 /111
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta meta
@@ -938,9 +938,9 @@
     Play#0 output Play#0 1 XDUMP meta country 0
     Play#0 output Play#0 1 "cnum" 5 0 0 8
     Play#0 output Play#0 1 "flags" 8 8 0 35
-    Play#0 output Play#0 1 "ip" 14 0 46 -1
-    Play#0 output Play#0 1 "hostname" 14 0 0 -1
-    Play#0 output Play#0 1 "userid" 14 0 32 -1
+    Play#0 output Play#0 1 "ip" 13 0 46 -1
+    Play#0 output Play#0 1 "hostname" 13 0 0 -1
+    Play#0 output Play#0 1 "userid" 13 0 32 -1
     Play#0 output Play#0 1 "xcap" 9 0 0 -1
     Play#0 output Play#0 1 "ycap" 10 0 0 -1
     Play#0 output Play#0 1 "update" 4 0 0 -1
@@ -951,14 +951,14 @@
     Play#0 output Play#0 1 "access" 6 0 0 -1
     Play#0 output Play#0 1 "milreserve" 8 0 0 -1
     Play#0 output Play#0 1 "money" 8 0 0 -1
-    Play#0 output Play#0 1 "login" 12 0 0 -1
-    Play#0 output Play#0 1 "logout" 12 0 0 -1
-    Play#0 output Play#0 1 "newstim" 12 0 0 -1
-    Play#0 output Play#0 1 "annotim" 12 0 0 -1
-    Play#0 output Play#0 1 "tech" 13 0 0 -1
-    Play#0 output Play#0 1 "research" 13 0 0 -1
-    Play#0 output Play#0 1 "education" 13 0 0 -1
-    Play#0 output Play#0 1 "happiness" 13 0 0 -1
+    Play#0 output Play#0 1 "login" 11 0 0 -1
+    Play#0 output Play#0 1 "logout" 11 0 0 -1
+    Play#0 output Play#0 1 "newstim" 11 0 0 -1
+    Play#0 output Play#0 1 "annotim" 11 0 0 -1
+    Play#0 output Play#0 1 "tech" 12 0 0 -1
+    Play#0 output Play#0 1 "research" 12 0 0 -1
+    Play#0 output Play#0 1 "education" 12 0 0 -1
+    Play#0 output Play#0 1 "happiness" 12 0 0 -1
     Play#0 output Play#0 1 /23
     Play#0 output Play#0 6 0 640
     Play#0 input ctld
@@ -1365,7 +1365,7 @@
     Play#2 output Play#2 1 "opy" 10 0 0 -1
     Play#2 output Play#2 1 "mission" 6 0 0 34
     Play#2 output Play#2 1 "radius" 6 0 0 -1
-    Play#2 output Play#2 1 "fleet" 14 0 1 -1
+    Play#2 output Play#2 1 "fleet" 13 0 1 -1
     Play#2 output Play#2 1 "xstart" 9 0 0 -1
     Play#2 output Play#2 1 "xend" 9 0 0 -1
     Play#2 output Play#2 1 "ystart" 10 0 0 -1
@@ -1391,11 +1391,11 @@
     Play#2 output Play#2 1 "rad" 6 0 0 -1
     Play#2 output Play#2 1 "access" 6 0 0 -1
     Play#2 output Play#2 1 "mquota" 5 0 0 -1
-    Play#2 output Play#2 1 "path" 14 0 28 -1
+    Play#2 output Play#2 1 "path" 13 0 28 -1
     Play#2 output Play#2 1 "follow" 8 0 0 -1
-    Play#2 output Play#2 1 "name" 14 0 24 -1
+    Play#2 output Play#2 1 "name" 13 0 24 -1
     Play#2 output Play#2 1 "rflags" 8 8 0 46
-    Play#2 output Play#2 1 "rpath" 14 0 10 -1
+    Play#2 output Play#2 1 "rpath" 13 0 10 -1
     Play#2 output Play#2 1 /44
     Play#2 output Play#2 6 0 636
     Play#2 input xdump meta plane
@@ -1414,14 +1414,14 @@
     Play#2 output Play#2 1 "opy" 10 0 0 -1
     Play#2 output Play#2 1 "mission" 6 0 0 34
     Play#2 output Play#2 1 "radius" 6 0 0 -1
-    Play#2 output Play#2 1 "wing" 14 0 1 -1
+    Play#2 output Play#2 1 "wing" 13 0 1 -1
     Play#2 output Play#2 1 "range" 5 0 0 -1
     Play#2 output Play#2 1 "harden" 4 0 0 -1
     Play#2 output Play#2 1 "ship" 8 0 0 1
     Play#2 output Play#2 1 "land" 8 0 0 3
     Play#2 output Play#2 1 "flags" 8 8 0 44
     Play#2 output Play#2 1 "access" 6 0 0 -1
-    Play#2 output Play#2 1 "theta" 13 0 0 -1
+    Play#2 output Play#2 1 "theta" 12 0 0 -1
     Play#2 output Play#2 1 /21
     Play#2 output Play#2 6 0 636
     Play#2 input xdump meta land
@@ -1440,12 +1440,12 @@
     Play#2 output Play#2 1 "opy" 10 0 0 -1
     Play#2 output Play#2 1 "mission" 6 0 0 34
     Play#2 output Play#2 1 "radius" 6 0 0 -1
-    Play#2 output Play#2 1 "army" 14 0 1 -1
+    Play#2 output Play#2 1 "army" 13 0 1 -1
     Play#2 output Play#2 1 "ship" 8 0 0 1
     Play#2 output Play#2 1 "harden" 4 0 0 -1
     Play#2 output Play#2 1 "retreat" 6 0 0 -1
     Play#2 output Play#2 1 "rflags" 8 8 0 46
-    Play#2 output Play#2 1 "rpath" 14 0 10 -1
+    Play#2 output Play#2 1 "rpath" 13 0 10 -1
     Play#2 output Play#2 1 "civil" 6 0 0 -1
     Play#2 output Play#2 1 "milit" 6 0 0 -1
     Play#2 output Play#2 1 "shell" 6 0 0 -1
@@ -1480,7 +1480,7 @@
     Play#2 output Play#2 1 "opy" 10 0 0 -1
     Play#2 output Play#2 1 "mission" 6 0 0 34
     Play#2 output Play#2 1 "radius" 6 0 0 -1
-    Play#2 output Play#2 1 "stockpile" 14 0 1 -1
+    Play#2 output Play#2 1 "stockpile" 13 0 1 -1
     Play#2 output Play#2 1 "plane" 8 0 0 2
     Play#2 output Play#2 1 /15
     Play#2 output Play#2 6 0 636
@@ -1492,7 +1492,7 @@
     Play#2 output Play#2 1 "victim" 5 0 0 8
     Play#2 output Play#2 1 "times" 4 0 0 -1
     Play#2 output Play#2 1 "duration" 6 0 0 -1
-    Play#2 output Play#2 1 "time" 12 0 0 -1
+    Play#2 output Play#2 1 "time" 11 0 0 -1
     Play#2 output Play#2 1 /6
     Play#2 output Play#2 6 0 636
     Play#2 input __cmd added -1 0 0
@@ -1507,7 +1507,7 @@
     Play#2 output Play#2 1 "unitid" 8 0 0 -1
     Play#2 output Play#2 1 "price" 8 0 0 -1
     Play#2 output Play#2 1 "maxbidder" 8 0 0 8
-    Play#2 output Play#2 1 "markettime" 12 0 0 -1
+    Play#2 output Play#2 1 "markettime" 11 0 0 -1
     Play#2 output Play#2 1 /7
     Play#2 output Play#2 6 0 636
     Play#2 input xdump meta nat
@@ -1515,8 +1515,8 @@
     Play#2 output Play#2 1 XDUMP meta nat 0
     Play#2 output Play#2 1 "cnum" 5 0 0 8
     Play#2 output Play#2 1 "stat" 8 0 0 38
-    Play#2 output Play#2 1 "cname" 14 0 20 -1
-    Play#2 output Play#2 1 "relations" 11 0 99 37
+    Play#2 output Play#2 1 "cname" 13 0 20 -1
+    Play#2 output Play#2 1 "relations" 5 16 99 37
     Play#2 output Play#2 1 "rejects" 5 8 99 36
     Play#2 output Play#2 1 /5
     Play#2 output Play#2 6 0 636
@@ -1531,8 +1531,8 @@
     Play#2 output Play#2 1 "ldur" 8 0 0 -1
     Play#2 output Play#2 1 "amtpaid" 8 0 0 -1
     Play#2 output Play#2 1 "amtdue" 8 0 0 -1
-    Play#2 output Play#2 1 "lastpay" 12 0 0 -1
-    Play#2 output Play#2 1 "duedate" 12 0 0 -1
+    Play#2 output Play#2 1 "lastpay" 11 0 0 -1
+    Play#2 output Play#2 1 "duedate" 11 0 0 -1
     Play#2 output Play#2 1 /10
     Play#2 output Play#2 6 0 636
     Play#2 input xdump meta commodity
@@ -1542,15 +1542,15 @@
     Play#2 output Play#2 1 "owner" 5 0 0 8
     Play#2 output Play#2 1 "type" 4 0 0 16
     Play#2 output Play#2 1 "amount" 8 0 0 -1
-    Play#2 output Play#2 1 "price" 13 0 0 -1
+    Play#2 output Play#2 1 "price" 12 0 0 -1
     Play#2 output Play#2 1 "maxbidder" 8 0 0 8
-    Play#2 output Play#2 1 "markettime" 12 0 0 -1
+    Play#2 output Play#2 1 "markettime" 11 0 0 -1
     Play#2 output Play#2 1 /7
     Play#2 output Play#2 6 0 636
     Play#2 input xdump meta lost
     Play#2 command xdump
     Play#2 output Play#2 1 XDUMP meta lost 0
-    Play#2 output Play#2 1 "timestamp" 12 0 0 -1
+    Play#2 output Play#2 1 "timestamp" 11 0 0 -1
     Play#2 output Play#2 1 "owner" 5 0 0 8
     Play#2 output Play#2 1 "type" 6 0 0 26
     Play#2 output Play#2 1 "id" 8 0 0 -1
@@ -1582,7 +1582,7 @@
     Play#2 output Play#2 1 XDUMP meta item 0
     Play#2 output Play#2 1 "uid" 4 0 0 16
     Play#2 output Play#2 1 "name" 3 0 0 -1
-    Play#2 output Play#2 1 "mnem" 14 4 1 -1
+    Play#2 output Play#2 1 "mnem" 13 4 1 -1
     Play#2 output Play#2 1 "value" 8 0 0 -1
     Play#2 output Play#2 1 "sell" 8 0 0 -1
     Play#2 output Play#2 1 "lbs" 8 0 0 -1
@@ -1613,16 +1613,16 @@
     Play#2 output Play#2 1 XDUMP meta sect-chr 0
     Play#2 output Play#2 1 "uid" 5 0 0 18
     Play#2 output Play#2 1 "name" 3 0 0 -1
-    Play#2 output Play#2 1 "mnem" 14 4 1 -1
+    Play#2 output Play#2 1 "mnem" 13 4 1 -1
     Play#2 output Play#2 1 "terrain" 5 0 0 18
     Play#2 output Play#2 1 "prd" 8 0 0 17
     Play#2 output Play#2 1 "peffic" 8 0 0 -1
-    Play#2 output Play#2 1 "mob0" 13 0 0 -1
-    Play#2 output Play#2 1 "mob1" 13 0 0 -1
+    Play#2 output Play#2 1 "mob0" 12 0 0 -1
+    Play#2 output Play#2 1 "mob1" 12 0 0 -1
     Play#2 output Play#2 1 "nav" 8 0 0 47
     Play#2 output Play#2 1 "pkg" 8 0 0 40
-    Play#2 output Play#2 1 "ostr" 13 0 0 -1
-    Play#2 output Play#2 1 "dstr" 13 0 0 -1
+    Play#2 output Play#2 1 "ostr" 12 0 0 -1
+    Play#2 output Play#2 1 "dstr" 12 0 0 -1
     Play#2 output Play#2 1 "value" 8 0 0 -1
     Play#2 output Play#2 1 "cost" 8 0 0 -1
     Play#2 output Play#2 1 "build" 8 0 0 -1
@@ -1711,8 +1711,8 @@
     Play#2 output Play#2 1 "h_build" 8 0 0 -1
     Play#2 output Play#2 1 "tech" 8 0 0 -1
     Play#2 output Play#2 1 "cost" 8 0 0 -1
-    Play#2 output Play#2 1 "att" 13 0 0 -1
-    Play#2 output Play#2 1 "def" 13 0 0 -1
+    Play#2 output Play#2 1 "att" 12 0 0 -1
+    Play#2 output Play#2 1 "def" 12 0 0 -1
     Play#2 output Play#2 1 "vul" 8 0 0 -1
     Play#2 output Play#2 1 "spd" 8 0 0 -1
     Play#2 output Play#2 1 "vis" 8 0 0 -1
@@ -1768,7 +1768,7 @@
     Play#2 input xdump meta updates
     Play#2 command xdump
     Play#2 output Play#2 1 XDUMP meta updates 0
-    Play#2 output Play#2 1 "time" 12 0 0 -1
+    Play#2 output Play#2 1 "time" 11 0 0 -1
     Play#2 output Play#2 1 /1
     Play#2 output Play#2 6 0 636
     Play#2 input xdump meta table
@@ -1781,7 +1781,7 @@
     Play#2 input xdump meta version
     Play#2 command xdump
     Play#2 output Play#2 1 XDUMP meta version 0
-    Play#2 output Play#2 1 "version" 14 0 23 -1
+    Play#2 output Play#2 1 "version" 13 0 23 -1
     Play#2 output Play#2 1 "maxnoc" 1 0 0 -1
     Play#2 output Play#2 1 "privname" 3 0 0 -1
     Play#2 output Play#2 1 "privlog" 3 0 0 -1
@@ -1818,22 +1818,22 @@
     Play#2 output Play#2 1 "SAIL" 8 0 0 -1
     Play#2 output Play#2 1 "SUPER_BARS" 8 0 0 -1
     Play#2 output Play#2 1 "TECH_POP" 8 0 0 -1
-    Play#2 output Play#2 1 "btu_build_rate" 13 0 0 -1
+    Play#2 output Play#2 1 "btu_build_rate" 12 0 0 -1
     Play#2 output Play#2 1 "m_m_p_d" 8 0 0 -1
     Play#2 output Play#2 1 "max_btus" 8 0 0 -1
     Play#2 output Play#2 1 "max_idle" 8 0 0 -1
     Play#2 output Play#2 1 "max_idle_visitor" 8 0 0 -1
     Play#2 output Play#2 1 "login_grace_time" 8 0 0 -1
     Play#2 output Play#2 1 "players_at_00" 8 0 0 -1
-    Play#2 output Play#2 1 "easy_tech" 13 0 0 -1
-    Play#2 output Play#2 1 "level_age_rate" 13 0 0 -1
-    Play#2 output Play#2 1 "tech_log_base" 13 0 0 -1
-    Play#2 output Play#2 1 "ally_factor" 13 0 0 -1
-    Play#2 output Play#2 1 "edu_avg" 13 0 0 -1
-    Play#2 output Play#2 1 "hap_avg" 13 0 0 -1
+    Play#2 output Play#2 1 "easy_tech" 12 0 0 -1
+    Play#2 output Play#2 1 "level_age_rate" 12 0 0 -1
+    Play#2 output Play#2 1 "tech_log_base" 12 0 0 -1
+    Play#2 output Play#2 1 "ally_factor" 12 0 0 -1
+    Play#2 output Play#2 1 "edu_avg" 12 0 0 -1
+    Play#2 output Play#2 1 "hap_avg" 12 0 0 -1
     Play#2 output Play#2 1 "edu_cons" 2 0 0 -1
     Play#2 output Play#2 1 "hap_cons" 2 0 0 -1
-    Play#2 output Play#2 1 "sect_mob_scale" 13 0 0 -1
+    Play#2 output Play#2 1 "sect_mob_scale" 12 0 0 -1
     Play#2 output Play#2 1 "sect_mob_max" 8 0 0 -1
     Play#2 output Play#2 1 "buil_bh" 8 0 0 -1
     Play#2 output Play#2 1 "buil_bc" 2 0 0 -1
@@ -1841,29 +1841,29 @@
     Play#2 output Play#2 1 "buil_tower_bh" 8 0 0 -1
     Play#2 output Play#2 1 "buil_tower_bc" 2 0 0 -1
     Play#2 output Play#2 1 "buil_tower_bt" 2 0 0 -1
-    Play#2 output Play#2 1 "land_mob_scale" 13 0 0 -1
-    Play#2 output Play#2 1 "land_grow_scale" 13 0 0 -1
+    Play#2 output Play#2 1 "land_mob_scale" 12 0 0 -1
+    Play#2 output Play#2 1 "land_grow_scale" 12 0 0 -1
     Play#2 output Play#2 1 "land_mob_max" 8 0 0 -1
     Play#2 output Play#2 1 "money_land" 2 0 0 -1
-    Play#2 output Play#2 1 "plane_mob_scale" 13 0 0 -1
-    Play#2 output Play#2 1 "plane_grow_scale" 13 0 0 -1
+    Play#2 output Play#2 1 "plane_mob_scale" 12 0 0 -1
+    Play#2 output Play#2 1 "plane_grow_scale" 12 0 0 -1
     Play#2 output Play#2 1 "plane_mob_max" 8 0 0 -1
     Play#2 output Play#2 1 "money_plane" 2 0 0 -1
-    Play#2 output Play#2 1 "ship_mob_scale" 13 0 0 -1
-    Play#2 output Play#2 1 "ship_grow_scale" 13 0 0 -1
+    Play#2 output Play#2 1 "ship_mob_scale" 12 0 0 -1
+    Play#2 output Play#2 1 "ship_grow_scale" 12 0 0 -1
     Play#2 output Play#2 1 "ship_mob_max" 8 0 0 -1
     Play#2 output Play#2 1 "money_ship" 2 0 0 -1
     Play#2 output Play#2 1 "torpedo_damage" 8 0 0 -1
     Play#2 output Play#2 1 "fort_max_interdiction_range" 8 0 0 -1
     Play#2 output Play#2 1 "land_max_interdiction_range" 8 0 0 -1
     Play#2 output Play#2 1 "ship_max_interdiction_range" 8 0 0 -1
-    Play#2 output Play#2 1 "flakscale" 13 0 0 -1
+    Play#2 output Play#2 1 "flakscale" 12 0 0 -1
     Play#2 output Play#2 1 "combat_mob" 2 0 0 -1
     Play#2 output Play#2 1 "people_damage" 2 0 0 -1
     Play#2 output Play#2 1 "unit_damage" 2 0 0 -1
     Play#2 output Play#2 1 "collateral_dam" 2 0 0 -1
     Play#2 output Play#2 1 "assault_penalty" 2 0 0 -1
-    Play#2 output Play#2 1 "fire_range_factor" 13 0 0 -1
+    Play#2 output Play#2 1 "fire_range_factor" 12 0 0 -1
     Play#2 output Play#2 1 "sect_mob_neg_factor" 8 0 0 -1
     Play#2 output Play#2 1 "uwbrate" 2 0 0 -1
     Play#2 output Play#2 1 "money_civ" 2 0 0 -1
@@ -1879,7 +1879,7 @@
     Play#2 output Play#2 1 "rollover_avail_max" 8 0 0 -1
     Play#2 output Play#2 1 "decay_per_etu" 2 0 0 -1
     Play#2 output Play#2 1 "fallout_spread" 2 0 0 -1
-    Play#2 output Play#2 1 "drnuke_const" 13 0 0 -1
+    Play#2 output Play#2 1 "drnuke_const" 12 0 0 -1
     Play#2 output Play#2 1 "MARK_DELAY" 8 0 0 -1
     Play#2 output Play#2 1 "TRADE_DELAY" 8 0 0 -1
     Play#2 output Play#2 1 "buytax" 2 0 0 -1
@@ -1887,11 +1887,11 @@
     Play#2 output Play#2 1 "trade_1_dist" 8 0 0 -1
     Play#2 output Play#2 1 "trade_2_dist" 8 0 0 -1
     Play#2 output Play#2 1 "trade_3_dist" 8 0 0 -1
-    Play#2 output Play#2 1 "trade_1" 13 0 0 -1
-    Play#2 output Play#2 1 "trade_2" 13 0 0 -1
-    Play#2 output Play#2 1 "trade_3" 13 0 0 -1
-    Play#2 output Play#2 1 "trade_ally_bonus" 13 0 0 -1
-    Play#2 output Play#2 1 "trade_ally_cut" 13 0 0 -1
+    Play#2 output Play#2 1 "trade_1" 12 0 0 -1
+    Play#2 output Play#2 1 "trade_2" 12 0 0 -1
+    Play#2 output Play#2 1 "trade_3" 12 0 0 -1
+    Play#2 output Play#2 1 "trade_ally_bonus" 12 0 0 -1
+    Play#2 output Play#2 1 "trade_ally_cut" 12 0 0 -1
     Play#2 output Play#2 1 /111
     Play#2 output Play#2 6 0 636
     Play#2 input xdump meta meta
@@ -2052,9 +2052,9 @@
     Play#2 output Play#2 1 XDUMP meta country 0
     Play#2 output Play#2 1 "cnum" 5 0 0 8
     Play#2 output Play#2 1 "flags" 8 8 0 35
-    Play#2 output Play#2 1 "ip" 14 0 46 -1
-    Play#2 output Play#2 1 "hostname" 14 0 0 -1
-    Play#2 output Play#2 1 "userid" 14 0 32 -1
+    Play#2 output Play#2 1 "ip" 13 0 46 -1
+    Play#2 output Play#2 1 "hostname" 13 0 0 -1
+    Play#2 output Play#2 1 "userid" 13 0 32 -1
     Play#2 output Play#2 1 "xcap" 9 0 0 -1
     Play#2 output Play#2 1 "ycap" 10 0 0 -1
     Play#2 output Play#2 1 "update" 4 0 0 -1
@@ -2065,14 +2065,14 @@
     Play#2 output Play#2 1 "access" 6 0 0 -1
     Play#2 output Play#2 1 "milreserve" 8 0 0 -1
     Play#2 output Play#2 1 "money" 8 0 0 -1
-    Play#2 output Play#2 1 "login" 12 0 0 -1
-    Play#2 output Play#2 1 "logout" 12 0 0 -1
-    Play#2 output Play#2 1 "newstim" 12 0 0 -1
-    Play#2 output Play#2 1 "annotim" 12 0 0 -1
-    Play#2 output Play#2 1 "tech" 13 0 0 -1
-    Play#2 output Play#2 1 "research" 13 0 0 -1
-    Play#2 output Play#2 1 "education" 13 0 0 -1
-    Play#2 output Play#2 1 "happiness" 13 0 0 -1
+    Play#2 output Play#2 1 "login" 11 0 0 -1
+    Play#2 output Play#2 1 "logout" 11 0 0 -1
+    Play#2 output Play#2 1 "newstim" 11 0 0 -1
+    Play#2 output Play#2 1 "annotim" 11 0 0 -1
+    Play#2 output Play#2 1 "tech" 12 0 0 -1
+    Play#2 output Play#2 1 "research" 12 0 0 -1
+    Play#2 output Play#2 1 "education" 12 0 0 -1
+    Play#2 output Play#2 1 "happiness" 12 0 0 -1
     Play#2 output Play#2 1 /23
     Play#2 output Play#2 6 0 636
     Play#2 input ctld
@@ -16099,7 +16099,8 @@
     Play#0 output Play#0 1 2 "extra"
     Play#0 output Play#0 1 4 "const"
     Play#0 output Play#0 1 8 "bits"
-    Play#0 output Play#0 1 /4
+    Play#0 output Play#0 1 16 "hidden"
+    Play#0 output Play#0 1 /5
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta-type *
     Play#0 command xdump
@@ -16115,10 +16116,9 @@
     Play#0 output Play#0 1 9 "d"
     Play#0 output Play#0 1 10 "d"
     Play#0 output Play#0 1 11 "d"
-    Play#0 output Play#0 1 12 "d"
-    Play#0 output Play#0 1 13 "g"
-    Play#0 output Play#0 1 14 "c"
-    Play#0 output Play#0 1 /14
+    Play#0 output Play#0 1 12 "g"
+    Play#0 output Play#0 1 13 "c"
+    Play#0 output Play#0 1 /13
     Play#0 output Play#0 6 0 640
     Play#0 input xdump missions *
     Play#0 command xdump
@@ -16831,7 +16831,8 @@
     Play#1 output Play#1 1 2 "extra"
     Play#1 output Play#1 1 4 "const"
     Play#1 output Play#1 1 8 "bits"
-    Play#1 output Play#1 1 /4
+    Play#1 output Play#1 1 16 "hidden"
+    Play#1 output Play#1 1 /5
     Play#1 output Play#1 6 0 640
     Play#1 input xdump meta-type *
     Play#1 command xdump
@@ -16847,10 +16848,9 @@
     Play#1 output Play#1 1 9 "d"
     Play#1 output Play#1 1 10 "d"
     Play#1 output Play#1 1 11 "d"
-    Play#1 output Play#1 1 12 "d"
-    Play#1 output Play#1 1 13 "g"
-    Play#1 output Play#1 1 14 "c"
-    Play#1 output Play#1 1 /14
+    Play#1 output Play#1 1 12 "g"
+    Play#1 output Play#1 1 13 "c"
+    Play#1 output Play#1 1 /13
     Play#1 output Play#1 6 0 640
     Play#1 input xdump missions *
     Play#1 command xdump

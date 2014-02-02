@@ -27,7 +27,7 @@
  *  symbol.c: Empire symbol tables
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2006-2010
+ *     Markus Armbruster, 2006-2014
  */
 
 #include <config.h>
@@ -82,6 +82,7 @@ struct symbol meta_flags[] = {
     {NSC_EXTRA, "extra"},
     {NSC_CONST, "const"},
     {NSC_BITS, "bits"},
+    {NSC_HIDDEN, "hidden"},
     {0, NULL}
 };
 
@@ -96,7 +97,6 @@ struct symbol meta_type[] = {
     {NSC_INT, "d"},
     {NSC_XCOORD, "d"},
     {NSC_YCOORD, "d"},
-    {NSC_HIDDEN, "d"},
     {NSC_TIME, "d"},
     {NSC_FLOAT, "g"},
     {NSC_STRINGY, "c"},

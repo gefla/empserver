@@ -56,8 +56,6 @@ enum nsc_type {
     NSC_INT,			/* int */
     NSC_XCOORD,			/* coord that needs x conversion */
     NSC_YCOORD,			/* coord that needs y conversion */
-    NSC_HIDDEN,			/* unsigned char in struct natstr that
-				   may need hiding */
     NSC_TIME,			/* time_t */
     NSC_FLOAT,			/* float */
     NSC_STRINGY,		/* char[] */
@@ -118,6 +116,7 @@ struct valstr {
 	    int len;
 	    int idx;
 	    void *(*get)(struct valstr *, struct natstr *, void *);
+	    int hidden;
 	} sym;
 	double dbl;		/* cat NSC_VAL, type NSC_DOUBLE */
 	struct {		/* cat NSC_VAL, type NSC_STRING, cat NSC_ID */
@@ -193,7 +192,8 @@ enum {
     NSC_DEITY = bit(0),		/* access restricted to deity */
     NSC_EXTRA = bit(1),		/* computable from other selectors */
     NSC_CONST = bit(2),		/* field cannot be changed */
-    NSC_BITS = bit(3)		/* value consists of flag bits */
+    NSC_BITS = bit(3),		/* value consists of flag bits */
+    NSC_HIDDEN = bit(4)		/* visibility depends on contact */
 };
 
 /*
@@ -216,10 +216,14 @@ enum {
  * See struct valstr for details.
  * Because virtual selectors don't have a setter method, xundump must
  * be made to ignore them, by setting NSC_EXTRA.
- * If flag NSC_DEITY is set, only to deities can use this selector.
+ * If flag NSC_DEITY is set, only deities can use this selector.
  * If flag NSC_EXTRA is set, xdump and xundump ignore this selector.
  * If flag NSC_CONST is set, the datum can't be changed from its
  * initial value (xundump obeys that).
+ * If flag NSC_HIDDEN is set, the selector must be an array of MAXNOC
+ * elements, indexed by country number, and the context object must be
+ * EF_NATION.  Array elements are masked for contact when opt_HIDDEN
+ * is on.
  * If ca_table is not EF_BAD, the datum refers to that Empire table;
  * ca_type must be an integer type.  If flag NSC_BITS is set, the
  * datum consists of flag bits, and the referred table must be a

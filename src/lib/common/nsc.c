@@ -570,8 +570,8 @@ struct castr cou_ca[] = {
      EF_BAD, 0},
     {"happiness", fldoff(nat_level[NAT_HLEV]), NSC_FLOAT, 0, NULL,
      EF_BAD, 0},
-    {"relations", fldoff(nat_relate), NSC_HIDDEN, MAXNOC, NULL,
-     EF_NATION_RELATIONS, NSC_EXTRA},
+    {"relations", fldoff(nat_relate), NSC_UCHAR, MAXNOC, NULL,
+     EF_NATION_RELATIONS, NSC_EXTRA | NSC_HIDDEN},
     /* mortals know there's contact (relations show), but not how strong */
     {"contacts", fldoff(nat_contact), NSC_UCHAR, MAXNOC, NULL,
      EF_BAD, NSC_DEITY | NSC_EXTRA},

@@ -54,6 +54,7 @@ nstr_mksymval(struct valstr *val, struct castr *ca, int idx)
     val->val_as.sym.len = ca->ca_len;
     val->val_as.sym.idx = idx;
     val->val_as.sym.get = ca->ca_get;
+    val->val_as.sym.hidden = ca->ca_flags & NSC_HIDDEN;
     return val;
 }
 
@@ -75,7 +76,7 @@ nstr_eval(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 {
     char *memb_ptr;
     enum nsc_type valtype;
-    int idx;
+    int idx, hidden;
     coord c;
     struct natstr *natp;
 
@@ -105,6 +106,8 @@ nstr_eval(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	memb_ptr = ptr;
 	memb_ptr += val->val_as.sym.off;
 	idx = val->val_as.sym.idx;
+	hidden = val->val_as.sym.hidden;
+	val->val_cat = NSC_VAL;
 	switch (val->val_type) {
 	case NSC_CHAR:
 	    val->val_as.lng = ((signed char *)memb_ptr)[idx];
@@ -144,18 +147,6 @@ nstr_eval(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 		c = yrel(getnatp(cnum), c);
 	    val->val_as.lng = c;
 	    break;
-	case NSC_HIDDEN:
-	    val->val_as.lng = -1;
-	    if (CANT_HAPPEN(((struct natstr *)ptr)->ef_type != EF_NATION))
-		break;
-	    if (opt_HIDDEN && cnum != NATID_BAD) {
-		natp = getnatp(cnum);
-		if (natp->nat_stat != STAT_GOD
-		    && !(getcontact(natp, idx) && getcontact(ptr, idx)))
-		    break;
-	    }
-	    val->val_as.lng = ((unsigned char *)memb_ptr)[idx];
-	    break;
 	case NSC_FLOAT:
 	    val->val_as.dbl = ((float *)memb_ptr)[idx];
 	    valtype = NSC_DOUBLE;
@@ -183,7 +174,19 @@ nstr_eval(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	    CANT_REACH();
 	    valtype = NSC_NOTYPE;
 	}
-	val->val_cat = NSC_VAL;
+
+	if (hidden) {
+	    if (CANT_HAPPEN(hidden && valtype != NSC_LONG))
+		break;		/* not implemented */
+	    if (CANT_HAPPEN(((struct natstr *)ptr)->ef_type != EF_NATION))
+		break;		/* only defined for nation selectors */
+	    if (!opt_HIDDEN || cnum == NATID_BAD)
+		break;
+	    natp = getnatp(cnum);
+	    if (natp->nat_stat != STAT_GOD
+		&& !(getcontact(natp, idx) && getcontact(ptr, idx)))
+		val->val_as.lng = -1;
+	}
 	break;
     default:
 	CANT_REACH();
@@ -228,7 +231,6 @@ nstr_promote(int valtype)
     case NSC_INT:
     case NSC_XCOORD:
     case NSC_YCOORD:
-    case NSC_HIDDEN:
     case NSC_TIME:
 	valtype = NSC_LONG;
 	break;

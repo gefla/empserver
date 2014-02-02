@@ -703,7 +703,6 @@ setnum(int fldno, double dbl)
 	new = ((signed char *)memb_ptr)[idx] = (signed char)dbl;
 	break;
     case NSC_UCHAR:
-    case NSC_HIDDEN:
 	old = ((unsigned char *)memb_ptr)[idx];
 	new = ((unsigned char *)memb_ptr)[idx] = (unsigned char)dbl;
 	break;
