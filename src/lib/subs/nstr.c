@@ -445,6 +445,13 @@ nstr_resolve_id(struct valstr *val, struct castr *ca, int idx)
 	return NULL;
     }
 
+    if (CA_IS_ARRAY(&ca[idx])) {
+	pr("%.*s -- not usable here\n",
+	   (int)val->val_as.str.maxsz, val->val_as.str.base);
+	val->val_cat = NSC_NOCAT;
+	return NULL;
+    }
+
     if ((ca[idx].ca_flags & NSC_DEITY) && !player->god) {
 	pr("%.*s -- not accessible to mortals\n",
 	   (int)val->val_as.str.maxsz, val->val_as.str.base);
@@ -514,8 +521,6 @@ nstr_optype(enum nsc_type lft, enum nsc_type rgt)
  * Return a pointer to the first character after the value on success,
  * NULL on error.
  * TYPE is the context type, a file type.
- * If STR names an array, VAL simply refers to the element with index
- * zero.
  */
 char *
 nstr_comp_val(char *str, struct valstr *val, int type)
