@@ -112,7 +112,7 @@ xdeval(struct valstr *val, struct xdstr *xd,
        struct castr *ca, void *ptr, int idx)
 {
     nstr_mksymval(val, ca, idx);
-    return nstr_exec_val(val, xd->cnum, ptr, NSC_NOTYPE);
+    return nstr_eval(val, xd->cnum, ptr, NSC_NOTYPE);
 }
 
 /*

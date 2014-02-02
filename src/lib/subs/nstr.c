@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1997
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -231,7 +231,8 @@ strnncmp(char *s1, size_t sz1, char *s2, size_t sz2)
 int
 nstr_exec(struct nscstr *np, int ncond, void *ptr)
 {
-    int i, op, optype, cmp;
+    int i, op, cmp;
+    enum nsc_type optype;
     struct valstr lft, rgt;
 
     for (i = 0; i < ncond; ++i) {
@@ -240,9 +241,11 @@ nstr_exec(struct nscstr *np, int ncond, void *ptr)
 	if (np[i].lft.val_cat == NSC_NOCAT || np[i].rgt.val_cat == NSC_NOCAT)
 	    return 0;
 	lft = np[i].lft;
-	nstr_exec_val(&lft, player->cnum, ptr, optype);
+	nstr_eval(&lft, player->cnum, ptr, optype);
 	rgt = np[i].rgt;
-	nstr_exec_val(&rgt, player->cnum, ptr, optype);
+	nstr_eval(&rgt, player->cnum, ptr, optype);
+	if (CANT_HAPPEN(lft.val_type != optype || rgt.val_type != optype))
+	    return 0;
 	switch (optype) {
 	case NSC_LONG:
 	    if (!EVAL(op, lft.val_as.lng, rgt.val_as.lng))

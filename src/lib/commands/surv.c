@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -135,7 +136,9 @@ code_char(struct valstr val, struct sctstr *sp)
     int n;
     int large = val.val_type != NSC_CHAR && val.val_type != NSC_UCHAR;
 
-    nstr_exec_val(&val, player->cnum, sp, NSC_LONG);
+    nstr_eval(&val, player->cnum, sp, NSC_LONG);
+    if (CANT_HAPPEN(val.val_type != NSC_LONG))
+	return ' ';
     amt = val.val_as.lng;
     if (amt <= 0)
 	return ' ';

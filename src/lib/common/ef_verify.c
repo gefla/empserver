@@ -169,7 +169,7 @@ verify_row(int type, int row)
 	    if (ca[i].ca_table == EF_BAD)
 		continue;
 	    nstr_mksymval(&val, &ca[i], j);
-	    nstr_exec_val(&val, 0, row_ref, NSC_NOTYPE);
+	    nstr_eval(&val, 0, row_ref, NSC_NOTYPE);
 	    if (CANT_HAPPEN(val.val_type != NSC_LONG)) {
 		ret_val = -1;
 		continue;

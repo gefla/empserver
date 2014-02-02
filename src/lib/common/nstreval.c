@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1997
- *     Markus Armbruster, 2004-2008
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -59,16 +59,19 @@ nstr_mksymval(struct valstr *val, struct castr *ca, int idx)
 
 /*
  * Evaluate VAL.
- * If VAL is symbolic, evaluate it into a promoted value type.
- * Translate it for country CNUM (coordinate system and contact
- * status), except when CNUM is NATID_BAD.
+ * If VAL has category NSC_OFF, read the value from the context object
+ * PTR, and translate it for country CNUM (coordinate system and
+ * contact status).  No translation when CNUM is NATID_BAD.
  * PTR points to a context object of the type that was used to compile
  * the value.
  * Unless WANT is NSC_NOTYPE, coerce the value to promoted value type
  * WANT.  VAL must be coercible.
+ * The result's type is promoted on success, NSC_NOTYPE on error.
+ * In either case, the category is NSC_VAL.
+ * Return VAL.
  */
 struct valstr *
-nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
+nstr_eval(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 {
     char *memb_ptr;
     enum nsc_type valtype;
@@ -82,6 +85,8 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
     switch (val->val_cat) {
     case NSC_VAL:
 	valtype = val->val_type;
+	if (CANT_HAPPEN(!NSC_IS_PROMOTED(valtype)))
+	    valtype = nstr_promote(valtype);
 	break;
     case NSC_OFF:
 	if (val->val_as.sym.get) {
@@ -168,6 +173,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	case NSC_STRING:
 	    val->val_as.str.base = ((char **)memb_ptr)[idx];
 	    val->val_as.str.maxsz = INT_MAX;
+				/* really SIZE_MAX, but that's C99 */
 	    valtype = NSC_STRING;
 	    break;
 	case NSC_TIME:
@@ -175,7 +181,7 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	    break;
 	default:
 	    CANT_REACH();
-	    val->val_as.lng = 0;
+	    valtype = NSC_NOTYPE;
 	}
 	val->val_cat = NSC_VAL;
 	break;
@@ -194,11 +200,8 @@ nstr_exec_val(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	}
     }
 
-    if (CANT_HAPPEN(valtype != want && want != NSC_NOTYPE)) {
-	/* make up an error value */
-	valtype = want;
-	memset(&val->val_as, 0, sizeof(val->val_as));
-    }
+    if (CANT_HAPPEN(valtype != want && want != NSC_NOTYPE))
+	valtype = NSC_NOTYPE;
 
     val->val_type = valtype;
     return val;
