@@ -56,7 +56,17 @@ tests/empdump/xundump-errors/fld-malnum:2: Malformed number in field 1
 tests/empdump/xundump-errors/fld-malstr:2: Malformed string in field 1
 tests/empdump/xundump-errors/fld-many:2: Too many fields, expected only 6
 tests/empdump/xundump-errors/fld-miss:2: Field name missing
-tests/empdump/xundump-errors/fld-miss2:2: Field ctype(0) missing
+tests/empdump/xundump-errors/fld-miss:2: Field mnem missing
+tests/empdump/xundump-errors/fld-miss:2: Field value missing
+tests/empdump/xundump-errors/fld-miss:2: Field sell missing
+tests/empdump/xundump-errors/fld-miss:2: Field lbs missing
+tests/empdump/xundump-errors/fld-miss:2: Field pkg(0) missing
+tests/empdump/xundump-errors/fld-miss:2: Field pkg(1) missing
+tests/empdump/xundump-errors/fld-miss:2: Field pkg(2) missing
+tests/empdump/xundump-errors/fld-miss:2: Field pkg(3) missing
+tests/empdump/xundump-errors/fld-miss:2: Field pkg(4) missing
+tests/empdump/xundump-errors/fld-miss:2: Field melt_denom missing
+tests/empdump/xundump-errors/fld-miss2:3: Field ctype(0) missing
 tests/empdump/xundump-errors/fld-nonil:3: Field 19 doesn't take nil
 tests/empdump/xundump-errors/fld-nonum:3: Field 2 doesn't take numbers
 tests/empdump/xundump-errors/fld-nostr:3: Field 1 doesn't take strings

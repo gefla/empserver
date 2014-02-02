@@ -424,7 +424,7 @@ xufldname(FILE *fp, int i)
 static int
 xufld(FILE *fp, int i)
 {
-    int ch;
+    int ch, j;
     char buf[1024];
     double dbl;
     long set;
@@ -435,14 +435,15 @@ xufld(FILE *fp, int i)
 	return gripe("Unexpected EOF");
     case '\n':
 	CANT_HAPPEN(i > nflds);
-	if (i < nflds) {
-	    if (CA_IS_ARRAY(fldca[i]))
-		return gripe("Field %s(%d) missing",
-			     fldca[i]->ca_name, fldidx[i]);
-	    return gripe("Field %s missing", fldca[i]->ca_name);
+	for (j = i; j < nflds; j++) {
+	    if (CA_IS_ARRAY(fldca[j]))
+		gripe("Field %s(%d) missing",
+		      fldca[j]->ca_name, fldidx[j]);
+	    else
+		gripe("Field %s missing", fldca[j]->ca_name);
 	}
 	lineno++;
-	return 0;
+	return i < nflds ? -1 : 0;
     case '+': case '-': case '.':
     case '0': case '1': case '2': case '3': case '4':
     case '5': case '6': case '7': case '8': case '9':

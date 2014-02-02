@@ -1,3 +1,4 @@
-XDUMP product 0
+config product
+uid name sname ct(0) ...
 0 "iron\040ore" "iron"
 # Field ctype(0) missing
