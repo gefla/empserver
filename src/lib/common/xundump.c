@@ -88,9 +88,7 @@ static int gripe(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 static int deffld(int, char *, int);
 static int chkflds(void);
 static int setnum(int, double);
-static int putnum(void *, int, double);
 static int setstr(int, char *);
-static int putstr(void *, int, char *);
 static int setsym(int, char *);
 static int mtsymset(int, long *);
 static int add2symset(int, long *, char *);
@@ -270,6 +268,25 @@ tbl_part_done(void)
 }
 
 /*
+ * Get selector for field FLDNO.
+ * Assign the field's selector index to *IDX, unless it is null.
+ * Return the selector on success, null pointer on error.
+ */
+static struct castr *
+getfld(int fldno, int *idx)
+{
+    if (fldno >= nflds) {
+	gripe("Too many fields, expected only %d", nflds);
+	return NULL;
+    }
+    if (CANT_HAPPEN(fldno < 0))
+	return NULL;
+    if (idx)
+	*idx = fldidx[fldno];
+    return fldca[fldno];
+}
+
+/*
  * Find the field for selector CA with index IDX.
  * Return the field number if it exists, else -1.
  */
@@ -353,6 +370,166 @@ rowobj(void)
 
     if (!partno)
 	omit_ids(last_id + 1, id);
+    return 0;
+}
+
+/*
+ * Is a new value for field FLDNO required to match the old one?
+ */
+static int
+fldval_must_match(int fldno)
+{
+    struct castr *ca = ef_cadef(cur_type);
+    int i = fldca[fldno] - ca;
+
+    /*
+     * Value must match if:
+     * it's for a const selector, unless the object is still blank, or
+     * it was already given in a previous part of a split table.
+     */
+    return (cur_id < old_nelem && (fldca[fldno]->ca_flags & NSC_CONST))
+	|| fldidx[fldno] < cafldspp[i];
+}
+
+/*
+ * Set OBJ's field FLDNO to DBL.
+ * Return 0 on success, -1 on error.
+ */
+static int
+putnum(void *obj, int fldno, double dbl)
+{
+    struct castr *ca = fldca[fldno];
+    int idx = fldidx[fldno];
+    char *memb_ptr;
+    double old, new;
+
+    memb_ptr = (char *)obj + ca->ca_off;
+
+    switch (ca->ca_type) {
+    case NSC_CHAR:
+	old = ((signed char *)memb_ptr)[idx];
+	new = ((signed char *)memb_ptr)[idx] = (signed char)dbl;
+	break;
+    case NSC_UCHAR:
+	old = ((unsigned char *)memb_ptr)[idx];
+	new = ((unsigned char *)memb_ptr)[idx] = (unsigned char)dbl;
+	break;
+    case NSC_SHORT:
+	old = ((short *)memb_ptr)[idx];
+	new = ((short *)memb_ptr)[idx] = (short)dbl;
+	break;
+    case NSC_USHORT:
+	old = ((unsigned short *)memb_ptr)[idx];
+	new = ((unsigned short *)memb_ptr)[idx] = (unsigned short)dbl;
+	break;
+    case NSC_INT:
+	old = ((int *)memb_ptr)[idx];
+	new = ((int *)memb_ptr)[idx] = (int)dbl;
+	break;
+    case NSC_LONG:
+	old = ((long *)memb_ptr)[idx];
+	new = ((long *)memb_ptr)[idx] = (long)dbl;
+	break;
+    case NSC_XCOORD:
+	old = ((coord *)memb_ptr)[idx];
+	/* FIXME use variant of xrel() that takes orig instead of nation */
+	if (old >= WORLD_X / 2)
+	    old -= WORLD_X;
+	new = ((coord *)memb_ptr)[idx] = XNORM((coord)dbl);
+	if (new >= WORLD_X / 2)
+	    new -= WORLD_X;
+	break;
+    case NSC_YCOORD:
+	old = ((coord *)memb_ptr)[idx];
+	/* FIXME use variant of yrel() that takes orig instead of nation */
+	if (old >= WORLD_Y / 2)
+	    old -= WORLD_Y;
+	new = ((coord *)memb_ptr)[idx] = YNORM((coord)dbl);
+	if (new >= WORLD_Y / 2)
+	    new -= WORLD_Y;
+	break;
+    case NSC_FLOAT:
+	old = ((float *)memb_ptr)[idx];
+	((float *)memb_ptr)[idx] = (float)dbl;
+	new = dbl;		/* suppress new != dbl check */
+	break;
+    case NSC_DOUBLE:
+	old = ((double *)memb_ptr)[idx];
+	((double *)memb_ptr)[idx] = dbl;
+	new = dbl;		/* suppress new != dbl check */
+	break;
+    case NSC_TIME:
+	old = ((time_t *)memb_ptr)[idx];
+	new = ((time_t *)memb_ptr)[idx] = (time_t)dbl;
+	break;
+    default:
+	return gripe("Field %d doesn't take numbers", fldno + 1);
+    }
+
+    if (fldval_must_match(fldno) && old != dbl)
+	return gripe("Value for field %d must be %g", fldno + 1, old);
+    if (new != dbl)
+	return gripe("Field %d can't hold this value", fldno + 1);
+
+    return 0;
+}
+
+/*
+ * Set obj's field FLDNO to STR.
+ * Return 0 on success, -1 on error.
+ */
+static int
+putstr(void *obj, int fldno, char *str)
+{
+    struct castr *ca = fldca[fldno];
+    int idx = fldidx[fldno];
+    int must_match, mismatch;
+    size_t sz, len;
+    char *memb_ptr, *old;
+
+    memb_ptr = (char *)obj + ca->ca_off;
+    must_match = fldval_must_match(fldno);
+    mismatch = 0;
+
+    switch (ca->ca_type) {
+    case NSC_STRING:
+	old = ((char **)memb_ptr)[idx];
+	if (must_match)
+	    mismatch = old ? !str || strcmp(old, str) : !!str;
+	else
+	    /* FIXME may leak old value */
+	    ((char **)memb_ptr)[idx] = str ? strdup(str) : NULL;
+	len = -1;		/* unlimited */
+	break;
+    case NSC_STRINGY:
+	if (CANT_HAPPEN(idx))
+	    return -1;
+	if (!str)
+	    return gripe("Field %d doesn't take nil", fldno + 1);
+	/* Wart: if ca_len <= 1, the terminating null may be omitted */
+	sz = ca->ca_len;
+	len = sz > 1 ? sz - 1 : sz;
+	if (strlen(str) > len)
+	    return gripe("Field %d takes at most %d characters",
+			 fldno + 1, (int)len);
+	old = memb_ptr;
+	if (must_match)
+	    mismatch = !str || strncmp(old, str, len);
+	else
+	    strncpy(memb_ptr, str, sz);
+	break;
+    default:
+	return gripe("Field %d doesn't take strings", fldno + 1);
+    }
+
+    if (mismatch) {
+	if (old)
+	    return gripe("Value for field %d must be \"%.*s\"",
+			 fldno + 1, (int)len, old);
+	else
+	    return gripe("Value for field %d must be nil", fldno + 1);
+    }
+
     return 0;
 }
 
@@ -696,43 +873,6 @@ chkflds(void)
 }
 
 /*
- * Get selector for field FLDNO.
- * Assign the field's selector index to *IDX, unless it is null.
- * Return the selector on success, null pointer on error.
- */
-static struct castr *
-getfld(int fldno, int *idx)
-{
-    if (fldno >= nflds) {
-	gripe("Too many fields, expected only %d", nflds);
-	return NULL;
-    }
-    if (CANT_HAPPEN(fldno < 0))
-	return NULL;
-    if (idx)
-	*idx = fldidx[fldno];
-    return fldca[fldno];
-}
-
-/*
- * Is a new value for field FLDNO required to match the old one?
- */
-static int
-fldval_must_match(int fldno)
-{
-    struct castr *ca = ef_cadef(cur_type);
-    int i = fldca[fldno] - ca;
-
-    /*
-     * Value must match if:
-     * it's for a const selector, unless the object is still blank, or
-     * it was already given in a previous part of a split table.
-     */
-    return (cur_id < old_nelem && (fldca[fldno]->ca_flags & NSC_CONST))
-	|| fldidx[fldno] < cafldspp[i];
-}
-
-/*
  * Set value of field FLDNO in current row to DBL.
  * Return 1 on success, -1 on error.
  */
@@ -745,89 +885,6 @@ setnum(int fldno, double dbl)
     fldval[fldno].val_type = NSC_DOUBLE;
     fldval[fldno].val_as.dbl = dbl;
     return 1;
-}
-
-/*
- * Set OBJ's field FLDNO to DBL.
- * Return 0 on success, -1 on error.
- */
-static int
-putnum(void *obj, int fldno, double dbl)
-{
-    struct castr *ca = fldca[fldno];
-    int idx = fldidx[fldno];
-    char *memb_ptr;
-    double old, new;
-
-    memb_ptr = (char *)obj + ca->ca_off;
-
-    switch (ca->ca_type) {
-    case NSC_CHAR:
-	old = ((signed char *)memb_ptr)[idx];
-	new = ((signed char *)memb_ptr)[idx] = (signed char)dbl;
-	break;
-    case NSC_UCHAR:
-	old = ((unsigned char *)memb_ptr)[idx];
-	new = ((unsigned char *)memb_ptr)[idx] = (unsigned char)dbl;
-	break;
-    case NSC_SHORT:
-	old = ((short *)memb_ptr)[idx];
-	new = ((short *)memb_ptr)[idx] = (short)dbl;
-	break;
-    case NSC_USHORT:
-	old = ((unsigned short *)memb_ptr)[idx];
-	new = ((unsigned short *)memb_ptr)[idx] = (unsigned short)dbl;
-	break;
-    case NSC_INT:
-	old = ((int *)memb_ptr)[idx];
-	new = ((int *)memb_ptr)[idx] = (int)dbl;
-	break;
-    case NSC_LONG:
-	old = ((long *)memb_ptr)[idx];
-	new = ((long *)memb_ptr)[idx] = (long)dbl;
-	break;
-    case NSC_XCOORD:
-	old = ((coord *)memb_ptr)[idx];
-	/* FIXME use variant of xrel() that takes orig instead of nation */
-	if (old >= WORLD_X / 2)
-	    old -= WORLD_X;
-	new = ((coord *)memb_ptr)[idx] = XNORM((coord)dbl);
-	if (new >= WORLD_X / 2)
-	    new -= WORLD_X;
-	break;
-    case NSC_YCOORD:
-	old = ((coord *)memb_ptr)[idx];
-	/* FIXME use variant of yrel() that takes orig instead of nation */
-	if (old >= WORLD_Y / 2)
-	    old -= WORLD_Y;
-	new = ((coord *)memb_ptr)[idx] = YNORM((coord)dbl);
-	if (new >= WORLD_Y / 2)
-	    new -= WORLD_Y;
-	break;
-    case NSC_FLOAT:
-	old = ((float *)memb_ptr)[idx];
-	((float *)memb_ptr)[idx] = (float)dbl;
-	new = dbl;		/* suppress new != dbl check */
-	break;
-    case NSC_DOUBLE:
-	old = ((double *)memb_ptr)[idx];
-	((double *)memb_ptr)[idx] = dbl;
-	new = dbl;		/* suppress new != dbl check */
-	break;
-    case NSC_TIME:
-	old = ((time_t *)memb_ptr)[idx];
-	new = ((time_t *)memb_ptr)[idx] = (time_t)dbl;
-	break;
-    default:
-	return gripe("Field %d doesn't take numbers", fldno + 1);
-    }
-
-    if (fldval_must_match(fldno) && old != dbl)
-	return gripe("Value for field %d must be %g", fldno + 1, old);
-    if (new != dbl)
-	return gripe("Field %d can't hold this value", fldno + 1);
-
-    return 0;
 }
 
 /*
@@ -845,65 +902,6 @@ setstr(int fldno, char *str)
     fldval[fldno].val_as.str.maxsz = INT_MAX;
 				/* really SIZE_MAX, but that's C99 */
     return 1;
-}
-
-/*
- * Set obj's field FLDNO to STR.
- * Return 0 on success, -1 on error.
- */
-static int
-putstr(void *obj, int fldno, char *str)
-{
-    struct castr *ca = fldca[fldno];
-    int idx = fldidx[fldno];
-    int must_match, mismatch;
-    size_t sz, len;
-    char *memb_ptr, *old;
-
-    memb_ptr = (char *)obj + ca->ca_off;
-    must_match = fldval_must_match(fldno);
-    mismatch = 0;
-
-    switch (ca->ca_type) {
-    case NSC_STRING:
-	old = ((char **)memb_ptr)[idx];
-	if (must_match)
-	    mismatch = old ? !str || strcmp(old, str) : !!str;
-	else
-	    /* FIXME may leak old value */
-	    ((char **)memb_ptr)[idx] = str ? strdup(str) : NULL;
-	len = -1;		/* unlimited */
-	break;
-    case NSC_STRINGY:
-	if (CANT_HAPPEN(idx))
-	    return -1;
-	if (!str)
-	    return gripe("Field %d doesn't take nil", fldno + 1);
-	/* Wart: if ca_len <= 1, the terminating null may be omitted */
-	sz = ca->ca_len;
-	len = sz > 1 ? sz - 1 : sz;
-	if (strlen(str) > len)
-	    return gripe("Field %d takes at most %d characters",
-			 fldno + 1, (int)len);
-	old = memb_ptr;
-	if (must_match)
-	    mismatch = !str || strncmp(old, str, len);
-	else
-	    strncpy(memb_ptr, str, sz);
-	break;
-    default:
-	return gripe("Field %d doesn't take strings", fldno + 1);
-    }
-
-    if (mismatch) {
-	if (old)
-	    return gripe("Value for field %d must be \"%.*s\"",
-			 fldno + 1, (int)len, old);
-	else
-	    return gripe("Value for field %d must be nil", fldno + 1);
-    }
-
-    return 0;
 }
 
 /*
