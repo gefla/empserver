@@ -80,6 +80,7 @@ static int ellipsis;		/* Header ended with ...? */
 static int nflds;		/* #fields in input records */
 static struct castr **fldca;	/* Map field number to selector */
 static int *fldidx;		/* Map field number to index */
+static struct valstr *fldval;	/* Map field number to value */
 static int *caflds;		/* Map selector number to #fields seen */
 static int *cafldspp;		/* ditto, in previous parts */
 
@@ -87,7 +88,9 @@ static int gripe(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 static int deffld(int, char *, int);
 static int chkflds(void);
 static int setnum(int, double);
+static int putnum(void *, int, double);
 static int setstr(int, char *);
+static int putstr(void *, int, char *);
 static int setsym(int, char *);
 static int mtsymset(int, long *);
 static int add2symset(int, long *, char *);
@@ -114,15 +117,23 @@ may_truncate(int type)
 }
 
 /*
+ * Is TYPE's 0-th selector a usable ID?
+ */
+static int
+ca0_is_id(int type)
+{
+    struct castr *ca = ef_cadef(type);
+
+    return ca[0].ca_table == type && !(ca[0].ca_flags & NSC_EXTRA);
+}
+
+/*
  * Can we fill in gaps in table TYPE?
  */
 static int
 can_fill_gaps(int type)
 {
-    struct castr *ca = ef_cadef(type);
-
-    return ca[0].ca_table == type && !(ca[0].ca_flags & NSC_EXTRA)
-	&& !have_hardcoded_indexes(type);
+    return ca0_is_id(type) && !have_hardcoded_indexes(type);
 }
 
 /*
@@ -224,57 +235,6 @@ expected_id(int id1, int id2)
 }
 
 /*
- * Get the next object, it has record index ID.
- * Store it in cur_obj, and set cur_id accordingly.
- * Reset any omitted objects to default state.
- * Return 0 on success, -1 on failure.
- */
-static int
-tbl_skip_to_obj(int id)
-{
-    int prev_id = cur_id;
-    int max_id;
-
-    if (CANT_HAPPEN(partno != 0))
-	return -1;
-    if (!can_fill_gaps(cur_type) && id != cur_id + 1)
-	return gripe("Expected %d in field %d", cur_id + 1, 1);
-    if (id <= cur_id)
-	return gripe("Field %d must be > %d", 1, cur_id);
-    max_id = ef_id_limit(cur_type);
-    if (id > max_id)
-	return gripe("Field %d must be <= %d", 1, max_id);
-
-    if (tbl_seek(id) < 0)
-	return -1;
-
-    omit_ids(prev_id + 1, id);
-    return 0;
-}
-
-/*
- * Get the next object.
- * Store it in cur_obj, and set cur_id accordingly.
- * Return 0 on success, -1 on failure.
- */
-static int
-tbl_next_obj(void)
-{
-    int next_id;
-
-    if (partno == 0) {
-	if (cur_id >= ef_id_limit(cur_type))
-	    return gripe("Too many rows");
-	next_id = cur_id + 1;
-    } else {
-	next_id = expected_id(cur_id + 1, empfile[cur_type].fids);
-	if (next_id < 0)
-	    return gripe("Table's first part doesn't have this row");
-    }
-    return tbl_seek(next_id);
-}
-
-/*
  * Finish table part.
  * If the table has variable length, truncate it.
  * Else ensure we're omitting the same objects as the previous parts.
@@ -285,7 +245,6 @@ static int
 tbl_part_done(void)
 {
     struct empfile *ep = &empfile[cur_type];
-    int exp_id;
 
     if (cur_id + 1 < ep->fids) {
 	if (partno == 0) {
@@ -299,11 +258,8 @@ tbl_part_done(void)
 		omit_ids(cur_id + 1, ep->fids);
 	    }
 	} else {
-	    exp_id = expected_id(cur_id + 1, ep->fids);
-	    if (exp_id >= 0)
-		return gripe("Expected row with %d in field %d,"
-			     " like in table's first part",
-			     exp_id, 1);
+	    if (expected_id(cur_id + 1, ep->fids) >= 0)
+		return gripe("Table's first part has more rows");
 	}
     }
 
@@ -311,6 +267,123 @@ tbl_part_done(void)
     cur_id = -1;
     cur_obj = NULL;
     return 0;
+}
+
+/*
+ * Find the field for selector CA with index IDX.
+ * Return the field number if it exists, else -1.
+ */
+static int
+fld_find(struct castr *ca, int idx)
+{
+    int i;
+
+    for (i = 0; i < nflds; i++) {
+	if (fldca[i] == ca && fldidx[i] == idx)
+	    return i;
+    }
+    return -1;
+}
+
+/*
+ * Get the current row's ID.
+ * Current table's 0-th selector must be a usable ID.
+ * Return ID on success, -1 on failure.
+ */
+static int
+rowid(void)
+{
+    struct castr *ca = ef_cadef(cur_type);
+    int fldno, id, max_id;
+
+    if (CANT_HAPPEN(partno != 0 || !ca0_is_id(cur_type)))
+	return -1;
+
+    fldno = fld_find(ca, 0);
+    if (fldno < 0)
+	return cur_id + 1;	/* ID not specified */
+    /*
+     * Field values not representable as int will be rejected by
+     * putnum() or putstr().  Leave the error reporting to them, and
+     * simply pick the next ID here.
+     */
+    if (fldval[fldno].val_type != NSC_DOUBLE)
+	return cur_id + 1;
+    id = fldval[fldno].val_as.dbl;
+    if (id != fldval[fldno].val_as.dbl)
+	return cur_id + 1;
+
+    if (id != cur_id + 1 && !can_fill_gaps(cur_type))
+	return gripe("Expected %d in field %d",
+		     cur_id + 1, fldno + 1);
+    if (id <= cur_id)
+	return gripe("Field %d must be > %d", fldno + 1, cur_id);
+    max_id = ef_id_limit(cur_type);
+    if (id > max_id)
+	return gripe("Field %d must be <= %d", fldno + 1, max_id);
+
+    return id;
+}
+
+/*
+ * Get the current row's object.
+ * Store it in cur_obj, and set cur_id accordingly.
+ * Return 0 on success, -1 on failure.
+ */
+static int
+rowobj(void)
+{
+    int last_id = cur_id;
+    int id;
+
+    if (partno) {
+	id = expected_id(cur_id + 1, empfile[cur_type].fids);
+	if (id < 0)
+	    return gripe("Table's first part doesn't have this row");
+    } else if (ca0_is_id(cur_type)) {
+	id = rowid();
+	if (id < 0)
+	    return -1;
+    } else
+	id = last_id + 1;
+    if (id > ef_id_limit(cur_type))
+	return gripe("Too many rows");
+    if (tbl_seek(id) < 0)
+	return -1;
+
+    if (!partno)
+	omit_ids(last_id + 1, id);
+    return 0;
+}
+
+/*
+ * Save the current row's fields in its object.
+ * Return 0 on success, -1 on failure.
+ */
+static int
+putrow(void)
+{
+    int i, ret = 0;
+
+    if (rowobj() < 0)
+	return -1;
+
+    for (i = 0; i < nflds; i++) {
+	switch (fldval[i].val_type) {
+	case NSC_DOUBLE:
+	    ret |= putnum(cur_obj, i, fldval[i].val_as.dbl);
+	    break;
+	case NSC_STRING:
+	    ret |= putstr(cur_obj, i, fldval[i].val_as.str.base);
+	    free(fldval[i].val_as.str.base);
+	    break;
+	default:
+	    CANT_REACH();
+	    ret = -1;
+	}
+    }
+
+    return ret;
 }
 
 /*
@@ -394,6 +467,7 @@ xufldname(FILE *fp, int i)
     case EOF:
 	return gripe("Unexpected EOF");
     case '\n':
+	nflds = i - (ellipsis != 0);
 	if (chkflds() < 0)
 	    return -1;
 	lineno++;
@@ -466,6 +540,8 @@ xufld(FILE *fp, int i)
 	    else
 		gripe("Field %s missing", fldca[j]->ca_name);
 	}
+	if (i != nflds || putrow() < 0)
+	    return -1;
 	lineno++;
 	return i < nflds ? -1 : 0;
     case '+': case '-': case '.':
@@ -597,10 +673,6 @@ chkflds(void)
     struct castr *ca = ef_cadef(cur_type);
     int i, len, cafldsmax, res = 0;
 
-    /* Record index must come first, to make cur_id work, see setnum() */
-    if (ca[0].ca_table == cur_type && caflds[0] && fldca[0] != &ca[0])
-	res = gripe("Header field %s must come first", ca[0].ca_name);
-
     if (ellipsis)
 	return res;		/* table is split, another part expected */
 
@@ -661,36 +733,33 @@ fldval_must_match(int fldno)
 }
 
 /*
- * Set value of field FLDNO in current object to DBL.
+ * Set value of field FLDNO in current row to DBL.
  * Return 1 on success, -1 on error.
  */
 static int
 setnum(int fldno, double dbl)
 {
-    struct castr *ca;
-    int next_id, idx;
+    if (!getfld(fldno, NULL))
+	return -1;
+    fldval[fldno].val_cat = NSC_VAL;
+    fldval[fldno].val_type = NSC_DOUBLE;
+    fldval[fldno].val_as.dbl = dbl;
+    return 1;
+}
+
+/*
+ * Set OBJ's field FLDNO to DBL.
+ * Return 0 on success, -1 on error.
+ */
+static int
+putnum(void *obj, int fldno, double dbl)
+{
+    struct castr *ca = fldca[fldno];
+    int idx = fldidx[fldno];
     char *memb_ptr;
     double old, new;
 
-    ca = getfld(fldno, &idx);
-    if (!ca)
-	return -1;
-
-    if (fldno == 0) {
-	if (partno == 0 && ca->ca_table == cur_type) {
-	    /* Got record index */
-	    next_id = (int)dbl;
-	    if (next_id != dbl)
-		return gripe("Field %d can't hold this value", fldno + 1);
-	    if (tbl_skip_to_obj(next_id) < 0)
-		return -1;
-	} else {
-	    if (tbl_next_obj() < 0)
-		return -1;
-	}
-    }
-    memb_ptr = cur_obj;
-    memb_ptr += ca->ca_off;
+    memb_ptr = (char *)obj + ca->ca_off;
 
     switch (ca->ca_type) {
     case NSC_CHAR:
@@ -758,31 +827,40 @@ setnum(int fldno, double dbl)
     if (new != dbl)
 	return gripe("Field %d can't hold this value", fldno + 1);
 
-    return 1;
+    return 0;
 }
 
 /*
- * Set value of field FLDNO in current object to STR.
+ * Set value of field FLDNO in current row to STR.
  * Return 1 on success, -1 on error.
  */
 static int
 setstr(int fldno, char *str)
 {
-    struct castr *ca;
-    int must_match, mismatch, idx;
+    if (!getfld(fldno, NULL))
+	return -1;
+    fldval[fldno].val_cat = NSC_VAL;
+    fldval[fldno].val_type = NSC_STRING;
+    fldval[fldno].val_as.str.base = str ? strdup(str) : NULL;
+    fldval[fldno].val_as.str.maxsz = INT_MAX;
+				/* really SIZE_MAX, but that's C99 */
+    return 1;
+}
+
+/*
+ * Set obj's field FLDNO to STR.
+ * Return 0 on success, -1 on error.
+ */
+static int
+putstr(void *obj, int fldno, char *str)
+{
+    struct castr *ca = fldca[fldno];
+    int idx = fldidx[fldno];
+    int must_match, mismatch;
     size_t sz, len;
     char *memb_ptr, *old;
 
-    ca = getfld(fldno, &idx);
-    if (!ca)
-	return -1;
-
-    if (fldno == 0) {
-	if (tbl_next_obj() < 0)
-	    return -1;
-    }
-    memb_ptr = cur_obj;
-    memb_ptr += ca->ca_off;
+    memb_ptr = (char *)obj + ca->ca_off;
     must_match = fldval_must_match(fldno);
     mismatch = 0;
 
@@ -825,7 +903,7 @@ setstr(int fldno, char *str)
 	    return gripe("Value for field %d must be nil", fldno + 1);
     }
 
-    return 1;
+    return 0;
 }
 
 /*
@@ -995,10 +1073,8 @@ xufldhdr(FILE *fp, struct castr ca[])
 	while ((ch = skipfs(fp)) == '\n')
 	    lineno++;
 	ungetc(ch, fp);
-	nflds = xuflds(fp, xufldname);
-	if (nflds < 0)
+	if (xuflds(fp, xufldname) < 0)
 	    return -1;
-	nflds -= ellipsis != 0;
     } else {
 	fca = fldca;
 	fidx = fldidx;
@@ -1090,6 +1166,7 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
     }
     fldca = malloc(nf * sizeof(*fldca));
     fldidx = malloc(nf * sizeof(*fldidx));
+    fldval = malloc(nf * sizeof(*fldval));
     caflds = malloc(nca * sizeof(*caflds));
     cafldspp = calloc(nca, sizeof(*cafldspp));
 
@@ -1100,6 +1177,7 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
 
     free(cafldspp);
     free(caflds);
+    free(fldval);
     free(fldidx);
     free(fldca);
 

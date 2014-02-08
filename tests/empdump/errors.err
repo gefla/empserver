@@ -5,7 +5,6 @@ tests/empdump/xundump-errors/colhdr-dup3:2: Duplicate header pkg(0) in field 8
 tests/empdump/xundump-errors/colhdr-ellipsis:2: Header fields expected
 tests/empdump/xundump-errors/colhdr-ellipsis2:2: Junk after ...
 tests/empdump/xundump-errors/colhdr-eof:2: Unexpected EOF
-tests/empdump/xundump-errors/colhdr-first:2: Header field uid must come first
 tests/empdump/xundump-errors/colhdr-idxbig:2: Header pkg(99) index out of bounds in field 7
 tests/empdump/xundump-errors/colhdr-idxneg:2: Index must not be negative in header field 7
 tests/empdump/xundump-errors/colhdr-idxreq:2: Header pkg requires an index in field 7
@@ -77,11 +76,12 @@ tests/empdump/xundump-errors/fld-unparen:2: Unmatched '(' in field 19
 tests/empdump/xundump-errors/ftr-fewrows:2: Expected 34 more rows
 tests/empdump/xundump-errors/ftr-fewrows2:4: Expected 13 more rows
 tests/empdump/xundump-errors/ftr-fewrows3:4: Expected 1 more rows
-tests/empdump/xundump-errors/ftr-fewrows4:7: Expected row with 2 in field 1, like in table's first part
+tests/empdump/xundump-errors/ftr-fewrows4:7: Table's first part has more rows
 tests/empdump/xundump-errors/ftr-junk:2: Junk after table footer
 tests/empdump/xundump-errors/ftr-mal:2: Malformed table footer
 tests/empdump/xundump-errors/ftr-mal2:6: Malformed table footer
 tests/empdump/xundump-errors/ftr-manyrows:5: Too many rows
+tests/empdump/xundump-errors/ftr-manyrows2:17: Too many rows
 tests/empdump/xundump-errors/ftr-mismatch:2: Read 0 rows, which doesn't match footer 2 rows
 tests/empdump/xundump-errors/hdr-extra:2: Extraneous header timestamp in field 1
 tests/empdump/xundump-errors/hdr-extra2:2: Extraneous header uid in field 1
