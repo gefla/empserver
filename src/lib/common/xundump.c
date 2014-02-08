@@ -69,7 +69,6 @@ static int lineno;		/* Current line number */
 
 static int cur_type;		/* Current table's file type */
 static int partno;		/* Counts from 0..#parts-1 */
-static void *cur_obj;		/* The object being read into */
 static int cur_id;		/* and its index in the table */
 static int old_nelem;
 static unsigned char *idgap;	/* idgap && idgap[ID] iff part#0 lacks ID */
@@ -158,7 +157,6 @@ tbl_start(int type)
     cur_type = type;
     partno = 0;
     cur_id = -1;
-    cur_obj = NULL;
     old_nelem = type == EF_BAD ? 0 : ef_nelem(type);
     idgap = NULL;
     idgap_len = 0;
@@ -173,26 +171,29 @@ tbl_end(void)
 }
 
 /*
- * Seek to current table's ID-th record.
- * ID must be acceptable.
- * Store it in cur_obj, and set cur_id accordingly.
- * Return 0 on success, -1 on failure.
+ * Seek to current table's ID-th object.
+ * Extend the table if necessary.
+ * Save ID in cur_id.
+ * Return the object on success, NULL on failure.
  */
-static int
+static void *
 tbl_seek(int id)
 {
     struct empfile *ep = &empfile[cur_type];
+    void *obj;
 
     if (id >= ef_nelem(cur_type)) {
-	if (!ef_ensure_space(cur_type, id, 1))
-	    return gripe("Can't put ID %d into table %s", id, ep->name);
+	if (!ef_ensure_space(cur_type, id, 1)) {
+	    gripe("Can't put ID %d into table %s", id, ep->name);
+	    return NULL;
+	}
     }
 
-    cur_obj = ef_ptr(cur_type, id);
-    if (CANT_HAPPEN(!cur_obj))
-	return -1;
+    obj = ef_ptr(cur_type, id);
+    if (CANT_HAPPEN(!obj))
+	return NULL;
     cur_id = id;
-    return 0;
+    return obj;
 }
 
 /*
@@ -263,7 +264,6 @@ tbl_part_done(void)
 
     partno++;
     cur_id = -1;
-    cur_obj = NULL;
     return 0;
 }
 
@@ -344,33 +344,38 @@ rowid(void)
 
 /*
  * Get the current row's object.
- * Store it in cur_obj, and set cur_id accordingly.
- * Return 0 on success, -1 on failure.
+ * Extend the table if necessary.
+ * Save ID in cur_id.
+ * Return the object on success, NULL on failure.
  */
-static int
+static void *
 rowobj(void)
 {
     int last_id = cur_id;
     int id;
+    void *obj;
 
     if (partno) {
 	id = expected_id(cur_id + 1, empfile[cur_type].fids);
-	if (id < 0)
-	    return gripe("Table's first part doesn't have this row");
+	if (id < 0) {
+	    gripe("Table's first part doesn't have this row");
+	    return NULL;
+	}
     } else if (ca0_is_id(cur_type)) {
 	id = rowid();
 	if (id < 0)
-	    return -1;
+	    return NULL;
     } else
 	id = last_id + 1;
-    if (id > ef_id_limit(cur_type))
-	return gripe("Too many rows");
-    if (tbl_seek(id) < 0)
-	return -1;
+    if (id > ef_id_limit(cur_type)) {
+	gripe("Too many rows");
+	return NULL;
+    }
 
-    if (!partno)
+    obj = tbl_seek(id);
+    if (obj && !partno)
 	omit_ids(last_id + 1, id);
-    return 0;
+    return obj;
 }
 
 /*
@@ -541,17 +546,19 @@ static int
 putrow(void)
 {
     int i, ret = 0;
+    void *obj;
 
-    if (rowobj() < 0)
+    obj = rowobj();
+    if (!obj)
 	return -1;
 
     for (i = 0; i < nflds; i++) {
 	switch (fldval[i].val_type) {
 	case NSC_DOUBLE:
-	    ret |= putnum(cur_obj, i, fldval[i].val_as.dbl);
+	    ret |= putnum(obj, i, fldval[i].val_as.dbl);
 	    break;
 	case NSC_STRING:
-	    ret |= putstr(cur_obj, i, fldval[i].val_as.str.base);
+	    ret |= putstr(obj, i, fldval[i].val_as.str.base);
 	    free(fldval[i].val_as.str.base);
 	    break;
 	default:
