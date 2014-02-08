@@ -82,8 +82,6 @@ static struct castr **fldca;	/* Map field number to selector */
 static int *fldidx;		/* Map field number to index */
 static int *caflds;		/* Map selector number to #fields seen */
 static int *cafldspp;		/* ditto, in previous parts */
-static int may_omit_id;		/* Okay to omit IDs? */
-static int may_trunc;		/* Okay to truncate? */
 
 static int gripe(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 static int deffld(int, char *, int);
@@ -104,6 +102,27 @@ have_hardcoded_indexes(int type)
 {
     return type == EF_ITEM || type == EF_SECTOR_CHR
 	|| type == EF_INFRASTRUCTURE;
+}
+
+/*
+ * Okay to truncate table TYPE?
+ */
+static int
+may_truncate(int type)
+{
+    return empfile[type].nent < 0 && !have_hardcoded_indexes(type);
+}
+
+/*
+ * Can we fill in gaps in table TYPE?
+ */
+static int
+can_fill_gaps(int type)
+{
+    struct castr *ca = ef_cadef(type);
+
+    return ca[0].ca_table == type && !(ca[0].ca_flags & NSC_EXTRA)
+	&& !have_hardcoded_indexes(type);
 }
 
 /*
@@ -218,7 +237,7 @@ tbl_skip_to_obj(int id)
 
     if (CANT_HAPPEN(partno != 0))
 	return -1;
-    if (!may_omit_id && id != cur_id + 1)
+    if (!can_fill_gaps(cur_type) && id != cur_id + 1)
 	return gripe("Expected %d in field %d", cur_id + 1, 1);
     if (id <= cur_id)
 	return gripe("Field %d must be > %d", 1, cur_id);
@@ -270,11 +289,11 @@ tbl_part_done(void)
 
     if (cur_id + 1 < ep->fids) {
 	if (partno == 0) {
-	    if (may_trunc) {
+	    if (may_truncate(cur_type)) {
 		if (!ef_truncate(cur_type, cur_id + 1))
 		    return -1;
 	    } else {
-		if (!may_omit_id)
+		if (!can_fill_gaps(cur_type))
 		    return gripe("Expected %d more rows",
 				 ep->fids - (cur_id + 1));
 		omit_ids(cur_id + 1, ep->fids);
@@ -1062,13 +1081,6 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
     ca = ef_cadef(type);
     if (CANT_HAPPEN(!ca))
 	return -1;
-
-    if (have_hardcoded_indexes(type)) {
-	may_omit_id = may_trunc = 0;
-    } else {
-	may_omit_id = 1;
-	may_trunc = empfile[type].nent < 0;
-    }
 
     nca = nf = 0;
     for (i = 0; ca[i].ca_name; i++) {
