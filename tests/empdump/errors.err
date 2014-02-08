@@ -74,7 +74,7 @@ tests/empdump/xundump-errors/fld-unexpid:6: Table's first part doesn't have this
 tests/empdump/xundump-errors/fld-unexpid1:7: Value for field 1 must be 2
 tests/empdump/xundump-errors/fld-unksym:2: Unknown level symbol `xxx' in field 11
 tests/empdump/xundump-errors/fld-unparen:2: Unmatched '(' in field 19
-tests/empdump/xundump-errors/ftr-fewrows:2: Expected 1024 more rows
+tests/empdump/xundump-errors/ftr-fewrows:2: Expected 34 more rows
 tests/empdump/xundump-errors/ftr-fewrows2:4: Expected 13 more rows
 tests/empdump/xundump-errors/ftr-fewrows3:4: Expected 1 more rows
 tests/empdump/xundump-errors/ftr-fewrows4:7: Expected row with 2 in field 1, like in table's first part

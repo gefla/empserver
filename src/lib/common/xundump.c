@@ -97,6 +97,16 @@ static int xubody(FILE *);
 static int xutail(FILE *, struct castr *);
 
 /*
+ * Does the code hardcode indexes for table TYPE?
+ */
+static int
+have_hardcoded_indexes(int type)
+{
+    return type == EF_ITEM || type == EF_SECTOR_CHR
+	|| type == EF_INFRASTRUCTURE;
+}
+
+/*
  * Gripe about the current line to stderr, return -1.
  */
 static int
@@ -1053,16 +1063,18 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
     if (CANT_HAPPEN(!ca))
 	return -1;
 
+    if (have_hardcoded_indexes(type)) {
+	may_omit_id = may_trunc = 0;
+    } else {
+	may_omit_id = 1;
+	may_trunc = empfile[type].nent < 0;
+    }
+
     nca = nf = 0;
-    may_omit_id = 1;
-    may_trunc = empfile[type].nent < 0;
     for (i = 0; ca[i].ca_name; i++) {
 	nca++;
-	if (!(ca[i].ca_flags & NSC_EXTRA)) {
+	if (!(ca[i].ca_flags & NSC_EXTRA))
 	    nf += MAX(1, CA_ARRAY_LEN(&ca[i]));
-	    if (ca[i].ca_flags & NSC_CONST)
-		may_omit_id = may_trunc = 0;
-	}
     }
     fldca = malloc(nf * sizeof(*fldca));
     fldidx = malloc(nf * sizeof(*fldidx));

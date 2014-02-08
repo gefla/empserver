@@ -1,3 +1,3 @@
-XDUMP sect 0
+XDUMP sect-chr 0
 /0
-# Expected 1024 more rows
+# Expected 34 more rows
