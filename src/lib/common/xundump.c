@@ -87,7 +87,6 @@ static int may_trunc;		/* Okay to truncate? */
 
 static int gripe(char *, ...) ATTRIBUTE((format (printf, 1, 2)));
 static int deffld(int, char *, int);
-static int defellipsis(void);
 static int chkflds(void);
 static int setnum(int, double);
 static int setstr(int, char *);
@@ -159,22 +158,6 @@ tbl_seek(int id)
 }
 
 /*
- * Get the next object.
- * Must not have a record index.
- * Store it in cur_obj, and set cur_id accordingly.
- * Return 0 on success, -1 on failure.
- */
-static int
-tbl_next_obj(void)
-{
-    int max_id = ef_id_limit(cur_type);
-
-    if (cur_id >= max_id)
-	return gripe("Too many rows");
-    return tbl_seek(cur_id + 1);
-}
-
-/*
  * Omit ID1..ID2-1.
  * Reset the omitted objects to default state.
  */
@@ -214,41 +197,52 @@ expected_id(int id1, int id2)
 /*
  * Get the next object, it has record index ID.
  * Store it in cur_obj, and set cur_id accordingly.
- * Ensure we're omitting the same objects as the previous parts.
  * Reset any omitted objects to default state.
  * Return 0 on success, -1 on failure.
  */
 static int
 tbl_skip_to_obj(int id)
 {
-    struct empfile *ep = &empfile[cur_type];
     int prev_id = cur_id;
-    int max_id, exp_id;
+    int max_id;
 
-    if (partno == 0) {
-	if (!may_omit_id && id != cur_id + 1)
-	    return gripe("Expected %d in field %d", cur_id + 1, 1);
-	if (id <= cur_id)
-	    return gripe("Field %d must be > %d", 1, cur_id);
-	max_id = ef_id_limit(cur_type);
-	if (id > max_id)
-	    return gripe("Field %d must be <= %d", 1, max_id);
-    } else {
-	exp_id = expected_id(cur_id + 1, ep->fids);
-	if (exp_id < 0)
-	    return gripe("Table's first part doesn't have this row");
-	else if (id != exp_id)
-	    return gripe("Expected %d in field %d,"
-			 " like in table's first part",
-			 exp_id, 1);
-    }
+    if (CANT_HAPPEN(partno != 0))
+	return -1;
+    if (!may_omit_id && id != cur_id + 1)
+	return gripe("Expected %d in field %d", cur_id + 1, 1);
+    if (id <= cur_id)
+	return gripe("Field %d must be > %d", 1, cur_id);
+    max_id = ef_id_limit(cur_type);
+    if (id > max_id)
+	return gripe("Field %d must be <= %d", 1, max_id);
 
     if (tbl_seek(id) < 0)
 	return -1;
 
-    if (partno == 0)
-	omit_ids(prev_id + 1, id);
+    omit_ids(prev_id + 1, id);
     return 0;
+}
+
+/*
+ * Get the next object.
+ * Store it in cur_obj, and set cur_id accordingly.
+ * Return 0 on success, -1 on failure.
+ */
+static int
+tbl_next_obj(void)
+{
+    int next_id;
+
+    if (partno == 0) {
+	if (cur_id >= ef_id_limit(cur_type))
+	    return gripe("Too many rows");
+	next_id = cur_id + 1;
+    } else {
+	next_id = expected_id(cur_id + 1, empfile[cur_type].fids);
+	if (next_id < 0)
+	    return gripe("Table's first part doesn't have this row");
+    }
+    return tbl_seek(next_id);
 }
 
 /*
@@ -378,8 +372,9 @@ xufldname(FILE *fp, int i)
     case '.':
 	if (getc(fp) != '.' || getc(fp) != '.')
 	    return gripe("Junk in header field %d", i + 1);
-	if (defellipsis() < 0)
-	    return -1;
+	if (i == 0)
+	    return gripe("Header fields expected");
+	ellipsis = 1;
 	ch = skipfs(fp);
 	if (ch != EOF && ch != '\n')
 	    return gripe("Junk after ...");
@@ -564,29 +559,6 @@ deffld(int fldno, char *name, int idx)
 }
 
 /*
- * Record that header ends with ...
- * Set ellipsis and is_partial.
- * Return 0 on success, -1 on error.
- */
-static int
-defellipsis(void)
-{
-    struct castr *ca = ef_cadef(cur_type);
-
-    if (ca[0].ca_table != cur_type || (ca[0].ca_flags & NSC_EXTRA))
-	return gripe("Table %s doesn't support ...", ef_nameof(cur_type));
-    ellipsis = 1;
-    return 0;
-}
-
-/* Is table split into parts? */
-static int
-is_partial(void)
-{
-    return ellipsis || partno;
-}
-
-/*
  * Check fields in xdump are sane.
  * Return 0 on success, -1 on error.
  */
@@ -599,13 +571,6 @@ chkflds(void)
     /* Record index must come first, to make cur_id work, see setnum() */
     if (ca[0].ca_table == cur_type && caflds[0] && fldca[0] != &ca[0])
 	res = gripe("Header field %s must come first", ca[0].ca_name);
-
-    if (is_partial()) {
-	/* Need a join field, use 0-th selector */
-	if (!caflds[0])
-	    res = gripe("Header field %s required in each table part",
-			ca[0].ca_name);
-    }
 
     if (ellipsis)
 	return res;		/* table is split, another part expected */
@@ -683,7 +648,7 @@ setnum(int fldno, double dbl)
 	return -1;
 
     if (fldno == 0) {
-	if (ca->ca_table == cur_type) {
+	if (partno == 0 && ca->ca_table == cur_type) {
 	    /* Got record index */
 	    next_id = (int)dbl;
 	    if (next_id != dbl)

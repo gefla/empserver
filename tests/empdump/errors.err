@@ -2,11 +2,8 @@ tests/empdump/xundump-errors/colhdr-amb:2: Header m of field 3 is ambiguous
 tests/empdump/xundump-errors/colhdr-dup:2: Duplicate header name in field 2
 tests/empdump/xundump-errors/colhdr-dup2:6: Duplicate header name in field 3
 tests/empdump/xundump-errors/colhdr-dup3:2: Duplicate header pkg(0) in field 8
-tests/empdump/xundump-errors/colhdr-ellipsis:2: Header field uid required in each table part
+tests/empdump/xundump-errors/colhdr-ellipsis:2: Header fields expected
 tests/empdump/xundump-errors/colhdr-ellipsis2:2: Junk after ...
-tests/empdump/xundump-errors/colhdr-ellipsis3:2: Table infrastructure doesn't support ...
-tests/empdump/xundump-errors/colhdr-ellipsis4:2: Header field uid required in each table part
-tests/empdump/xundump-errors/colhdr-ellipsis5:2: Table sect doesn't support ...
 tests/empdump/xundump-errors/colhdr-eof:2: Unexpected EOF
 tests/empdump/xundump-errors/colhdr-first:2: Header field uid must come first
 tests/empdump/xundump-errors/colhdr-idxbig:2: Header pkg(99) index out of bounds in field 7
@@ -22,7 +19,6 @@ tests/empdump/xundump-errors/colhdr-miss:2: Header field uid missing
 tests/empdump/xundump-errors/colhdr-miss:2: Header field ctype(2) missing
 tests/empdump/xundump-errors/colhdr-miss:2: Header fields camt(0) ... camt(2) missing
 tests/empdump/xundump-errors/colhdr-miss:2: Header field nllag missing
-tests/empdump/xundump-errors/colhdr-miss2:21: Header field uid required in each table part
 tests/empdump/xundump-errors/colhdr-miss2:21: Header fields ctype(0) ... ctype(2) missing
 tests/empdump/xundump-errors/colhdr-miss2:21: Header fields camt(0) ... camt(2) missing
 tests/empdump/xundump-errors/colhdr-miss2:21: Header field type missing
@@ -75,7 +71,7 @@ tests/empdump/xundump-errors/fld-nosymset:2: Field 1 doesn't take symbol sets
 tests/empdump/xundump-errors/fld-sep:2: Bad field separator after field 1
 tests/empdump/xundump-errors/fld-strbig:3: Field 19 takes at most 9 characters
 tests/empdump/xundump-errors/fld-unexpid:6: Table's first part doesn't have this row
-tests/empdump/xundump-errors/fld-unexpid1:7: Expected 2 in field 1, like in table's first part
+tests/empdump/xundump-errors/fld-unexpid1:7: Value for field 1 must be 2
 tests/empdump/xundump-errors/fld-unksym:2: Unknown level symbol `xxx' in field 11
 tests/empdump/xundump-errors/fld-unparen:2: Unmatched '(' in field 19
 tests/empdump/xundump-errors/ftr-fewrows:2: Expected 1024 more rows

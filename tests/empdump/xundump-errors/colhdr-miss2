@@ -19,7 +19,6 @@ uid sname ...
 
 config product
 name
-# Header field uid required in each table part
 # Header fields ctype(0) ... ctype(2) missing
 # Header fields camt(0) ... camt(2) missing
 # Header field type missing
