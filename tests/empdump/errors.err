@@ -45,6 +45,7 @@ tests/empdump/xundump-errors/fld-invid1:3: Expected 0 in field 1
 tests/empdump/xundump-errors/fld-invid2:3: Field 1 must be > -1
 tests/empdump/xundump-errors/fld-invid3:4: Field 1 must be > 2
 tests/empdump/xundump-errors/fld-invid4:3: Field 1 must be <= 98
+tests/empdump/xundump-errors/fld-invid5:4: Coordinates in fields 1,2 must be > 2,0
 tests/empdump/xundump-errors/fld-junk:2: Junk in field 1
 tests/empdump/xundump-errors/fld-junk2:2: Junk in field 19
 tests/empdump/xundump-errors/fld-malnum:2: Malformed number in field 1

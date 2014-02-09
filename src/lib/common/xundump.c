@@ -130,7 +130,8 @@ ca0_is_id(int type)
 static int
 can_fill_gaps(int type)
 {
-    return ca0_is_id(type) && !have_hardcoded_indexes(type);
+    return (ca0_is_id(type) || type == EF_SECTOR)
+	&& !have_hardcoded_indexes(type);
 }
 
 /*
@@ -343,6 +344,56 @@ rowid(void)
 }
 
 /*
+ * Find the field NAME with index IDX and value representable as long.
+ * Return the field number if it exists, else -1.
+ */
+static int
+fld_find_long_by_name(char *name, int idx)
+{
+    int i;
+
+    for (i = 0; i < nflds; i++) {
+	if (!strcmp(fldca[i]->ca_name, name) && fldidx[i] == idx)
+	    break;
+    }
+
+    if (i == nflds || fldval[i].val_type != NSC_DOUBLE
+	|| (long)fldval[i].val_as.dbl != fldval[i].val_as.dbl)
+	return -1;
+    return i;
+}
+
+/*
+ * Get the current row's ID.
+ * Current table's type must be EF_SECTOR.
+ * Return ID on success, -1 on failure.
+ */
+static int
+rowid_sect(void)
+{
+    int fldno_x, fldno_y, id;
+    coord x, y;
+
+    if (CANT_HAPPEN(partno != 0 || cur_type != EF_SECTOR))
+	return -1;
+
+    fldno_x = fld_find_long_by_name("xloc", 0);
+    fldno_y = fld_find_long_by_name("yloc", 0);
+    if (fldno_x < 0 || fldno_y < 0)
+	return cur_id + 1;
+
+    id = sctoff((long)fldval[fldno_x].val_as.dbl,
+		(long)fldval[fldno_y].val_as.dbl);
+    /* Note: reporting values out of range left to putnum() */
+    if (id <= cur_id) {
+	sctoff2xy(&x, &y, cur_id);
+	return gripe("Coordinates in fields %d,%d must be > %d,%d",
+		     fldno_x + 1, fldno_y + 1, x, y);
+    }
+    return id;
+}
+
+/*
  * Get the current row's object.
  * Extend the table if necessary.
  * Save ID in cur_id.
@@ -363,6 +414,10 @@ rowobj(void)
 	}
     } else if (ca0_is_id(cur_type)) {
 	id = rowid();
+	if (id < 0)
+	    return NULL;
+    } else if (cur_type == EF_SECTOR) {
+	id = rowid_sect();
 	if (id < 0)
 	    return NULL;
     } else
