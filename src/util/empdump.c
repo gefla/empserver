@@ -27,7 +27,7 @@
  *  empdump.c: Export/import Empire game state
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2008-2013
+ *     Markus Armbruster, 2008-2014
  */
 
 #include <config.h>
@@ -46,13 +46,14 @@
 
 static void exit_bad_arg(char *, ...)
     ATTRIBUTE((noreturn, format (printf, 1, 2)));
-static void dump_table(int, int, int);
+static void dump_table(int, int, int, int);
 
 int
 main(int argc, char *argv[])
 {
     char *config_file = NULL;
     char *import = NULL;
+    int complete = 0;
     int export = 0;
     int private = 0;
     int human = 1;
@@ -60,8 +61,11 @@ main(int argc, char *argv[])
     FILE *impf = NULL;
     int dirty[EF_MAX];
 
-    while ((opt = getopt(argc, argv, "e:i:mnxhv")) != EOF) {
+    while ((opt = getopt(argc, argv, "ce:i:mnxhv")) != EOF) {
 	switch (opt) {
+	case 'c':
+	    complete = 1;
+	    break;
 	case 'e':
 	    config_file = optarg;
 	    break;
@@ -79,6 +83,7 @@ main(int argc, char *argv[])
 	    break;
 	case 'h':
 	    printf("Usage: %s [OPTION]...\n"
+		   "  -c              use complete export format\n"
 		   "  -e CONFIG-FILE  configuration file\n"
 		   "                  (default %s)\n"
 		   "  -i DUMP-FILE    import from DUMP-FILE\n"
@@ -159,7 +164,7 @@ main(int argc, char *argv[])
 	for (i = 0; i < EF_MAX; i++) {
 	    if (!EF_IS_GAME_STATE(i))
 		continue;
-	    dump_table(i, human, !verified);
+	    dump_table(i, human, !verified, complete);
 	}
 	if (fclose(stdout) != 0) {
 	    fprintf(stderr, "%s: error writing export (%s)\n",
@@ -213,11 +218,11 @@ printf_wrapper(char *fmt, ...)
 }
 
 static void
-dump_table(int type, int human, int sloppy)
+dump_table(int type, int human, int sloppy, int complete)
 {
     struct xdstr xd;
     struct castr *ca;
-    int i;
+    int i, n;
     void *p;
 
     ca = ef_cadef(type);
@@ -227,9 +232,13 @@ dump_table(int type, int human, int sloppy)
     xdinit(&xd, NATID_BAD, human, sloppy, printf_wrapper);
     xdhdr(&xd, ef_nameof(type), 0);
     xdcolhdr(&xd, ca);
+    n = 0;
     for (i = 0; (p = ef_ptr(type, i)); i++) {
+	if (!complete && xundump_redundant(type, i, p))
+	    continue;
 	xdflds(&xd, ca, p);
+	n++;
 	printf("\n");
     }
-    xdftr(&xd, i);
+    xdftr(&xd, n);
 }

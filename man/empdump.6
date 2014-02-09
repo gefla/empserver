@@ -4,7 +4,7 @@ empdump \- Export/import Empire game state
 .SH SYNOPSIS
 .B empdump
 [
-.B \-hmnvx
+.B \-chmnvx
 ]
 [
 .BI \-e " configfile"
@@ -17,6 +17,9 @@ empdump \- Export/import Empire game state
 .B empdump
 exports and imports game state as plain text.
 .SH OPTIONS
+.TP
+.B \-c
+Use complete export format: don't omit data import doesn't need.
 .TP
 .BI \-e " configfile"
 Use game configuration in \fIconfigfile\fR.

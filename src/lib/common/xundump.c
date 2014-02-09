@@ -136,6 +136,27 @@ can_fill_gaps(int type)
 }
 
 /*
+ * Is table TYPE's ID-th record OBJ redundant for xundump()
+ */
+int
+xundump_redundant(int type, int id, void *obj)
+{
+    char buf[EF_WITH_CADEF_MAX_ENTRY_SIZE];
+
+    if (!can_fill_gaps(type))
+	return 0;
+
+    if (may_truncate(type) && id == ef_nelem(type) - 1)
+	return 0;
+
+    ef_blank(type, id, buf);
+    if (ef_flags(type) & EFF_TYPED)
+	return ef_typedstr_eq((struct ef_typedstr *)buf,
+			      (struct ef_typedstr *)obj);
+    return !memcmp(obj, buf, empfile[type].size);
+}
+
+/*
  * Gripe about the current line to stderr, return -1.
  */
 static int
