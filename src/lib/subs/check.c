@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -41,24 +41,15 @@
 #include "prototypes.h"
 #include "xy.h"
 
-/* Note that timestamps make things tricky.  And, we don't
- * really care about the timestamp, we just care about the rest
- * of the structure.  So, we make a copy, and zero the timestamps
- * in both copies, and then compare. */
-
 static int
 obj_changed(struct empobj *obj)
 {
-    union empobj_storage old, tobj;
-    size_t sz;
+    union empobj_storage old;
 
     if (!get_empobj(obj->ef_type, obj->uid, &old))
 	return 0;
-    sz = empfile[obj->ef_type].size;
-    memcpy(&tobj, obj, sz);
-    old.gen.timestamp = tobj.gen.timestamp = 0;
-    old.gen.generation = tobj.gen.generation = 0;
-    if (memcmp(&tobj, &old, sz))
+    if (!ef_typedstr_eq((struct ef_typedstr *)&old,
+			(struct ef_typedstr *)obj))
 	return 1;
     ef_mark_fresh(obj->ef_type, obj);
     return 0;

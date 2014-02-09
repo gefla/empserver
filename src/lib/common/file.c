@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 2000
- *     Markus Armbruster, 2005-2013
+ *     Markus Armbruster, 2005-2014
  */
 
 #include <config.h>
@@ -598,6 +598,19 @@ ef_set_uid(int type, void *buf, int uid)
 	return;
     elt->uid = uid;
     elt->seqno = get_seqno(ep, uid);
+}
+
+/*
+ * Are *A and *B equal, except for timestamps and such?
+ */
+int
+ef_typedstr_eq(struct ef_typedstr *a, struct ef_typedstr *b)
+{
+    return a->ef_type == b->ef_type
+	&& a->seqno == b->seqno
+	&& a->uid == b->uid
+	&& !memcmp((char *)a + sizeof(*a), (char *)b + sizeof(*a),
+		   empfile[a->ef_type].size - sizeof(*a));
 }
 
 /*

@@ -223,6 +223,7 @@ extern int ef_flush(int);
 extern void ef_blank(int, int, void *);
 extern int ef_write(int, int, void *);
 extern void ef_set_uid(int, void *, int);
+extern int ef_typedstr_eq(struct ef_typedstr *, struct ef_typedstr *);
 extern int ef_extend(int, int);
 extern int ef_ensure_space(int, int, int);
 extern int ef_id_limit(int);
