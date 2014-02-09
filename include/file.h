@@ -86,7 +86,7 @@ struct empfile {
     void (*onresize)(int type);
 };
 
-struct emptypedstr {
+struct ef_typedstr {
     signed ef_type: 8;
     unsigned seqno: 12;
     unsigned generation: 12;
@@ -100,7 +100,7 @@ struct emptypedstr {
  * The remaining flags record how the table is being used.
  */
 /* Immutable flags, fixed at compile-time */
-/* Dereferencing entry address cast to struct emptypedstr * is safe */
+/* Dereferencing entry address cast to struct ef_typedstr * is safe */
 #define EFF_TYPED	bit(0)
 /*
  * EFF_XY / EFF_OWNER / EFF_GROUP assert that coordinates / owner /

@@ -469,7 +469,7 @@ do_write(struct empfile *ep, void *buf, int id, int count)
 {
     int i, n, ret;
     char *p;
-    struct emptypedstr *elt;
+    struct ef_typedstr *elt;
     time_t now;
 
     if (CANT_HAPPEN(ep->fd < 0 || id < 0 || count < 0))
@@ -482,7 +482,7 @@ do_write(struct empfile *ep, void *buf, int id, int count)
 	     * TODO Oopses here could be due to bad data corruption.
 	     * Fail instead of attempting to recover?
 	     */
-	    elt = (struct emptypedstr *)((char *)buf + i * ep->size);
+	    elt = (struct ef_typedstr *)((char *)buf + i * ep->size);
 	    if (CANT_HAPPEN(elt->ef_type != ep->uid))
 		elt->ef_type = ep->uid;
 	    if (CANT_HAPPEN(elt->uid != id + i))
@@ -585,7 +585,7 @@ ef_write(int type, int id, void *from)
 void
 ef_set_uid(int type, void *buf, int uid)
 {
-    struct emptypedstr *elt;
+    struct ef_typedstr *elt;
     struct empfile *ep;
 
     if (ef_check(type) < 0)
@@ -608,7 +608,7 @@ ef_set_uid(int type, void *buf, int uid)
 static unsigned
 get_seqno(struct empfile *ep, int id)
 {
-    struct emptypedstr *elt;
+    struct ef_typedstr *elt;
 
     if (!(ep->flags & EFF_TYPED))
 	return 0;
@@ -637,7 +637,7 @@ get_seqno(struct empfile *ep, int id)
 static void
 new_seqno(struct empfile *ep, void *buf)
 {
-    struct emptypedstr *elt = buf;
+    struct ef_typedstr *elt = buf;
     unsigned old_seqno;
 
     if (!(ep->flags & EFF_TYPED))
@@ -673,13 +673,13 @@ ef_mark_fresh(int type, void *buf)
     ep = &empfile[type];
     if (!(ep->flags & EFF_TYPED))
 	return;
-    ((struct emptypedstr *)buf)->generation = ef_generation;
+    ((struct ef_typedstr *)buf)->generation = ef_generation;
 }
 
 static void
 must_be_fresh(struct empfile *ep, void *buf)
 {
-    struct emptypedstr *elt = buf;
+    struct ef_typedstr *elt = buf;
 
     if (!(ep->flags & EFF_TYPED))
 	return;
@@ -767,7 +767,7 @@ void
 ef_blank(int type, int id, void *buf)
 {
     struct empfile *ep;
-    struct emptypedstr *elt;
+    struct ef_typedstr *elt;
 
     if (ef_check(type) < 0)
 	return;
@@ -787,11 +787,11 @@ static void
 do_blank(struct empfile *ep, void *buf, int id, int count)
 {
     int i;
-    struct emptypedstr *elt;
+    struct ef_typedstr *elt;
 
     memset(buf, 0, count * ep->size);
     for (i = 0; i < count; i++) {
-	elt = (struct emptypedstr *)((char *)buf + i * ep->size);
+	elt = (struct ef_typedstr *)((char *)buf + i * ep->size);
 	if (ep->flags & EFF_TYPED) {
 	    elt->ef_type = ep->uid;
 	    elt->uid = id + i;
