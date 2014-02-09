@@ -1,4 +1,4 @@
-config realm
-cnum realm xl xh yl yh
-1 0 0 0 0 0
+config sect
+xloc yloc ...
+64 0
 # Value for field 1 must be 0

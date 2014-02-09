@@ -60,6 +60,7 @@
 #include <time.h>
 #include "file.h"
 #include "match.h"
+#include "nat.h"
 #include "nsc.h"
 #include "optlist.h"
 #include "xdump.h"
@@ -130,7 +131,7 @@ ca0_is_id(int type)
 static int
 can_fill_gaps(int type)
 {
-    return (ca0_is_id(type) || type == EF_SECTOR)
+    return (ca0_is_id(type) || type == EF_SECTOR || type == EF_REALM)
 	&& !have_hardcoded_indexes(type);
 }
 
@@ -394,6 +395,40 @@ rowid_sect(void)
 }
 
 /*
+ * Get the current row's ID.
+ * Current table's type must be EF_REALM.
+ * Return ID on success, -1 on failure.
+ */
+static int
+rowid_realm(void)
+{
+    int fldno_cnum, fldno_realm, id;
+    long realm, cnum;
+
+    if (CANT_HAPPEN(partno != 0 || cur_type != EF_REALM))
+	return -1;
+
+    fldno_cnum = fld_find_long_by_name("cnum", 0);
+    fldno_realm = fld_find_long_by_name("realm", 0);
+    if (fldno_cnum < 0 || fldno_realm < 0)
+	return cur_id + 1;
+
+    realm = (long)fldval[fldno_realm].val_as.dbl;
+    cnum = (long)fldval[fldno_cnum].val_as.dbl;
+    if (cnum < 0 || cnum >= MAXNOC)
+	return gripe("Field %d must be between 0 and %d",
+		     fldno_cnum, MAXNOC);
+    if (realm < 0 || realm >= MAXNOR)
+	return gripe("Field %d must be between 0 and %d",
+		     fldno_realm, MAXNOR);
+    id = realm + cnum * MAXNOR;
+    if (id <= cur_id)
+	return gripe("Fields %d,%d must be > (%d,%d)",
+		     fldno_cnum + 1, fldno_realm + 1,
+		     cur_id / MAXNOR, cur_id % MAXNOR);
+    return id;
+}
+/*
  * Get the current row's object.
  * Extend the table if necessary.
  * Save ID in cur_id.
@@ -418,6 +453,10 @@ rowobj(void)
 	    return NULL;
     } else if (cur_type == EF_SECTOR) {
 	id = rowid_sect();
+	if (id < 0)
+	    return NULL;
+    } else if (cur_type == EF_REALM) {
+	id = rowid_realm();
 	if (id < 0)
 	    return NULL;
     } else
