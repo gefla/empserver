@@ -445,8 +445,8 @@ multifire(void)
 	    if ((target == targ_ship) || (target == targ_sub)) {
 		if (fship.shp_effic > SHIP_MINEFF) {
 		    shp_missdef(&fship, vict);
-		};
-	    };
+		}
+	    }
 	    putship(fship.shp_uid, &fship);
 	    break;
 	default:

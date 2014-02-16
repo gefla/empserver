@@ -95,7 +95,7 @@ trad(void)
 	    continue;
 	if (!trade_getitem(&trade, &tg)) {
 	    continue;
-	};
+	}
 	pr(" %3d ", ni.cur);
 	(void)time(&now);
 	tleft = trade.trd_markettime + TRADE_DELAY - now;
