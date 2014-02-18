@@ -2,4 +2,4 @@ config ship
 uid ...
 /config
 config plane
-# Expected table `ship', not `plane'
+# expected table 'ship', not 'plane'

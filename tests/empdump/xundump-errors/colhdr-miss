@@ -1,7 +1,7 @@
 config product
 name sname ctype(0) ctype(1) type level cost nrndx nrdep nlndx nlmin
-# Header field uid missing
-# Header field ctype(2) missing
-# Header fields camt(0) ... camt(2) missing
-# Header field nllag missing
+# header 'uid' missing
+# header 'ctype(2)' missing
+# header 'camt(0)' ... 'camt(2)' missing
+# header 'nllag' missing
 /config

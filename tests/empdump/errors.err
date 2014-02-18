@@ -1,100 +1,129 @@
-tests/empdump/xundump-errors/colhdr-amb:2: Header m of field 3 is ambiguous
-tests/empdump/xundump-errors/colhdr-dup:2: Duplicate header name in field 2
-tests/empdump/xundump-errors/colhdr-dup2:6: Duplicate header name in field 3
-tests/empdump/xundump-errors/colhdr-dup3:2: Duplicate header pkg(0) in field 8
-tests/empdump/xundump-errors/colhdr-ellipsis:2: Header fields expected
-tests/empdump/xundump-errors/colhdr-ellipsis2:2: Junk after ...
-tests/empdump/xundump-errors/colhdr-eof:2: Unexpected EOF
-tests/empdump/xundump-errors/colhdr-idxbig:2: Header pkg(99) index out of bounds in field 7
-tests/empdump/xundump-errors/colhdr-idxneg:2: Index must not be negative in header field 7
-tests/empdump/xundump-errors/colhdr-idxreq:2: Header pkg requires an index in field 7
-tests/empdump/xundump-errors/colhdr-junk:2: Junk in header field 1
-tests/empdump/xundump-errors/colhdr-junk2:2: Junk in header field 1
-tests/empdump/xundump-errors/colhdr-junk3:2: Junk in header field 1
-tests/empdump/xundump-errors/colhdr-malidx:2: Malformed number in index of header field 1
-tests/empdump/xundump-errors/colhdr-malidx2:2: Malformed index in header field 1
-tests/empdump/xundump-errors/colhdr-malidx3:2: Malformed index in header field 1
-tests/empdump/xundump-errors/colhdr-miss:2: Header field uid missing
-tests/empdump/xundump-errors/colhdr-miss:2: Header field ctype(2) missing
-tests/empdump/xundump-errors/colhdr-miss:2: Header fields camt(0) ... camt(2) missing
-tests/empdump/xundump-errors/colhdr-miss:2: Header field nllag missing
-tests/empdump/xundump-errors/colhdr-miss2:21: Header fields ctype(0) ... ctype(2) missing
-tests/empdump/xundump-errors/colhdr-miss2:21: Header fields camt(0) ... camt(2) missing
-tests/empdump/xundump-errors/colhdr-miss2:21: Header field type missing
-tests/empdump/xundump-errors/colhdr-miss2:21: Header field level missing
-tests/empdump/xundump-errors/colhdr-miss2:21: Header field cost missing
-tests/empdump/xundump-errors/colhdr-miss2:21: Header field nrndx missing
-tests/empdump/xundump-errors/colhdr-miss2:21: Header field nrdep missing
-tests/empdump/xundump-errors/colhdr-miss2:21: Header field nlndx missing
-tests/empdump/xundump-errors/colhdr-miss2:21: Header field nlmin missing
-tests/empdump/xundump-errors/colhdr-miss2:21: Header field nllag missing
-tests/empdump/xundump-errors/colhdr-noidx:2: Header name doesn't take an index in field 1
-tests/empdump/xundump-errors/colhdr-sep:2: Bad field separator after field 1
-tests/empdump/xundump-errors/colhdr-symidx:2: Symbolic index in header field 1 not yet implemented
-tests/empdump/xundump-errors/colhdr-unexp2:2: Expected header pkg(0) in field 7
-tests/empdump/xundump-errors/colhdr-unk:2: Header xxx of field 1 is unknown
-tests/empdump/xundump-errors/fld-ambsym:2: Ambiguous flags symbol `s' in field 29
-tests/empdump/xundump-errors/fld-badnum:3: Field 2 can't hold this value
-tests/empdump/xundump-errors/fld-constnum:3: Value for field 1 must be 0
-tests/empdump/xundump-errors/fld-conststr:3: Value for field 1 must be "road network"
-tests/empdump/xundump-errors/fld-conststr2:8: Value for field 2 must be nil
-tests/empdump/xundump-errors/fld-eof:2: Unexpected EOF
-tests/empdump/xundump-errors/fld-invesc:2: Invalid escape sequence in field 1
-tests/empdump/xundump-errors/fld-invid:3: Field 1 can't hold this value
-tests/empdump/xundump-errors/fld-invid1:3: Expected 0 in field 1
-tests/empdump/xundump-errors/fld-invid2:3: Field 1 must be > -1
-tests/empdump/xundump-errors/fld-invid3:4: Field 1 must be > 2
-tests/empdump/xundump-errors/fld-invid4:3: Field 1 must be <= 98
-tests/empdump/xundump-errors/fld-invid5:4: Coordinates in fields 1,2 must be > 2,0
-tests/empdump/xundump-errors/fld-invid6:3: Field 0 must be between 0 and 99
-tests/empdump/xundump-errors/fld-invid7:3: Field 1 must be between 0 and 50
-tests/empdump/xundump-errors/fld-invid8:4: Fields 1,2 must be > (0,1)
-tests/empdump/xundump-errors/fld-junk:2: Junk in field 1
-tests/empdump/xundump-errors/fld-junk2:2: Junk in field 19
-tests/empdump/xundump-errors/fld-malnum:2: Malformed number in field 1
-tests/empdump/xundump-errors/fld-malstr:2: Malformed string in field 1
-tests/empdump/xundump-errors/fld-many:2: Too many fields, expected only 6
-tests/empdump/xundump-errors/fld-miss:2: Field name missing
-tests/empdump/xundump-errors/fld-miss:2: Field mnem missing
-tests/empdump/xundump-errors/fld-miss:2: Field value missing
-tests/empdump/xundump-errors/fld-miss:2: Field sell missing
-tests/empdump/xundump-errors/fld-miss:2: Field lbs missing
-tests/empdump/xundump-errors/fld-miss:2: Field pkg(0) missing
-tests/empdump/xundump-errors/fld-miss:2: Field pkg(1) missing
-tests/empdump/xundump-errors/fld-miss:2: Field pkg(2) missing
-tests/empdump/xundump-errors/fld-miss:2: Field pkg(3) missing
-tests/empdump/xundump-errors/fld-miss:2: Field pkg(4) missing
-tests/empdump/xundump-errors/fld-miss:2: Field melt_denom missing
-tests/empdump/xundump-errors/fld-miss2:3: Field ctype(0) missing
-tests/empdump/xundump-errors/fld-nonil:3: Field 19 doesn't take nil
-tests/empdump/xundump-errors/fld-nonum:3: Field 2 doesn't take numbers
-tests/empdump/xundump-errors/fld-nostr:3: Field 1 doesn't take strings
-tests/empdump/xundump-errors/fld-nosym:2: Field 1 doesn't take symbols
-tests/empdump/xundump-errors/fld-nosymset:2: Field 1 doesn't take symbol sets
-tests/empdump/xundump-errors/fld-sep:2: Bad field separator after field 1
-tests/empdump/xundump-errors/fld-strbig:3: Field 19 takes at most 9 characters
-tests/empdump/xundump-errors/fld-unexpid:6: Table's first part doesn't have this row
-tests/empdump/xundump-errors/fld-unexpid1:7: Value for field 1 must be 2
-tests/empdump/xundump-errors/fld-unksym:2: Unknown level symbol `xxx' in field 11
-tests/empdump/xundump-errors/fld-unparen:2: Unmatched '(' in field 19
-tests/empdump/xundump-errors/ftr-fewrows:2: Expected 34 more rows
-tests/empdump/xundump-errors/ftr-fewrows2:4: Expected 13 more rows
-tests/empdump/xundump-errors/ftr-fewrows3:4: Expected 1 more rows
-tests/empdump/xundump-errors/ftr-fewrows4:7: Table's first part has more rows
-tests/empdump/xundump-errors/ftr-junk:2: Junk after table footer
-tests/empdump/xundump-errors/ftr-mal:2: Malformed table footer
-tests/empdump/xundump-errors/ftr-mal2:6: Malformed table footer
-tests/empdump/xundump-errors/ftr-manyrows:5: Too many rows
-tests/empdump/xundump-errors/ftr-manyrows2:17: Too many rows
-tests/empdump/xundump-errors/ftr-mismatch:2: Read 0 rows, which doesn't match footer 2 rows
-tests/empdump/xundump-errors/hdr-extra:2: Extraneous header timestamp in field 1
-tests/empdump/xundump-errors/hdr-extra2:2: Extraneous header uid in field 1
-tests/empdump/xundump-errors/hdr-junk:1: Junk after xdump header
-tests/empdump/xundump-errors/hdr-none:1: Expected xdump header
-tests/empdump/xundump-errors/hdr-noperm:1: Table `map' is not permitted here
-tests/empdump/xundump-errors/hdr-noperm2:1: Table `table' is not permitted here
-tests/empdump/xundump-errors/hdr-unexp:4: Expected table `ship', not `plane'
-tests/empdump/xundump-errors/hdr-unktab:1: Unknown table `xxx'
+tests/empdump/xundump-errors/colhdr-amb:2: ambiguous header 'm' in field 3
+tests/empdump/xundump-errors/colhdr-dup:2: duplicate header 'name' in field 2
+tests/empdump/xundump-errors/colhdr-dup2:6: duplicate header 'name' in field 3
+tests/empdump/xundump-errors/colhdr-dup3:2: expected header 'pkg(1)' in field 8
+tests/empdump/xundump-errors/colhdr-ellipsis:2: header fields expected
+tests/empdump/xundump-errors/colhdr-ellipsis2:2: junk after ...
+tests/empdump/xundump-errors/colhdr-eof:2: unexpected EOF
+tests/empdump/xundump-errors/colhdr-idxbig:2: unexpected header 'pkg(99)' in field 12
+tests/empdump/xundump-errors/colhdr-idxneg:2: index must not be negative in header field 7
+tests/empdump/xundump-errors/colhdr-idxreq:2: header 'pkg' requires an index in field 7
+tests/empdump/xundump-errors/colhdr-junk:2: junk in header field 1
+tests/empdump/xundump-errors/colhdr-junk2:2: junk in header field 1
+tests/empdump/xundump-errors/colhdr-junk3:2: junk in header field 1
+tests/empdump/xundump-errors/colhdr-malidx:2: malformed number in index of header field 1
+tests/empdump/xundump-errors/colhdr-malidx2:2: malformed index in header field 1
+tests/empdump/xundump-errors/colhdr-malidx3:2: malformed index in header field 1
+tests/empdump/xundump-errors/colhdr-miss:2: header 'uid' missing
+tests/empdump/xundump-errors/colhdr-miss:2: header 'ctype(2)' missing
+tests/empdump/xundump-errors/colhdr-miss:2: header 'camt(0)' ... 'camt(2)' missing
+tests/empdump/xundump-errors/colhdr-miss:2: header 'nllag' missing
+tests/empdump/xundump-errors/colhdr-miss2:21: header 'ctype(0)' ... 'ctype(2)' missing
+tests/empdump/xundump-errors/colhdr-miss2:21: header 'camt(0)' ... 'camt(2)' missing
+tests/empdump/xundump-errors/colhdr-miss2:21: header 'type' missing
+tests/empdump/xundump-errors/colhdr-miss2:21: header 'level' missing
+tests/empdump/xundump-errors/colhdr-miss2:21: header 'cost' missing
+tests/empdump/xundump-errors/colhdr-miss2:21: header 'nrndx' missing
+tests/empdump/xundump-errors/colhdr-miss2:21: header 'nrdep' missing
+tests/empdump/xundump-errors/colhdr-miss2:21: header 'nlndx' missing
+tests/empdump/xundump-errors/colhdr-miss2:21: header 'nlmin' missing
+tests/empdump/xundump-errors/colhdr-miss2:21: header 'nllag' missing
+tests/empdump/xundump-errors/colhdr-noidx:2: header 'name' doesn't take an index in field 1
+tests/empdump/xundump-errors/colhdr-sep:2: bad field separator after field 1
+tests/empdump/xundump-errors/colhdr-symidx:2: symbolic index in header field 1 not yet implemented
+tests/empdump/xundump-errors/colhdr-unexp2:2: expected header 'pkg(0)' in field 7
+tests/empdump/xundump-errors/colhdr-unk:2: unknown header 'xxx' in field 1
+tests/empdump/xundump-errors/fld-ambsym:2: ambiguous flags symbol 's' in field 29
+tests/empdump/xundump-errors/fld-badnum:3: field 2 can't hold this value
+tests/empdump/xundump-errors/fld-constnum:3: value for field 1 must be 0
+tests/empdump/xundump-errors/fld-conststr:3: value for field 1 must be "road network"
+tests/empdump/xundump-errors/fld-conststr2:8: value for field 2 must be nil
+tests/empdump/xundump-errors/fld-eof:2: field 'name' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'civil' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'milit' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'shell' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'gun' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'petrol' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'iron' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'dust' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'bar' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'food' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'oil' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'lcm' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'hcm' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'uw' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'rad' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'l_build' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'h_build' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'armor' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'speed' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'visib' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'vrnge' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'frnge' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'glim' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'nxlight' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'nchoppers' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'tech' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'cost' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'flags' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'nplanes' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'nland' missing
+tests/empdump/xundump-errors/fld-invesc:2: invalid escape sequence in field 1
+tests/empdump/xundump-errors/fld-invid:3: field 1 can't hold this value
+tests/empdump/xundump-errors/fld-invid1:3: expected 0 in field 1
+tests/empdump/xundump-errors/fld-invid2:3: field 1 must be > -1
+tests/empdump/xundump-errors/fld-invid3:4: field 1 must be > 2
+tests/empdump/xundump-errors/fld-invid4:3: field 1 must be <= 98
+tests/empdump/xundump-errors/fld-invid5:4: coordinates in fields 1,2 must be > 2,0
+tests/empdump/xundump-errors/fld-invid6:3: field 0 must be between 0 and 99
+tests/empdump/xundump-errors/fld-invid7:3: field 1 must be between 0 and 50
+tests/empdump/xundump-errors/fld-invid8:4: fields 1,2 must be > (0,1)
+tests/empdump/xundump-errors/fld-junk:2: junk in field 1
+tests/empdump/xundump-errors/fld-junk2:2: junk in field 19
+tests/empdump/xundump-errors/fld-malnum:2: malformed number in field 1
+tests/empdump/xundump-errors/fld-malstr:2: malformed string in field 1
+tests/empdump/xundump-errors/fld-many:2: too many fields, expected only 6
+tests/empdump/xundump-errors/fld-miss:2: field 'name' missing
+tests/empdump/xundump-errors/fld-miss:2: field 'mnem' missing
+tests/empdump/xundump-errors/fld-miss:2: field 'value' missing
+tests/empdump/xundump-errors/fld-miss:2: field 'sell' missing
+tests/empdump/xundump-errors/fld-miss:2: field 'lbs' missing
+tests/empdump/xundump-errors/fld-miss:2: field 'pkg(0)' missing
+tests/empdump/xundump-errors/fld-miss:2: field 'pkg(1)' missing
+tests/empdump/xundump-errors/fld-miss:2: field 'pkg(2)' missing
+tests/empdump/xundump-errors/fld-miss:2: field 'pkg(3)' missing
+tests/empdump/xundump-errors/fld-miss:2: field 'pkg(4)' missing
+tests/empdump/xundump-errors/fld-miss:2: field 'melt_denom' missing
+tests/empdump/xundump-errors/fld-miss2:3: field 'ctype(0)' missing
+tests/empdump/xundump-errors/fld-nonil:3: field 19 doesn't take nil
+tests/empdump/xundump-errors/fld-nonum:3: field 2 doesn't take numbers
+tests/empdump/xundump-errors/fld-nostr:3: field 1 doesn't take strings
+tests/empdump/xundump-errors/fld-nosym:2: field 1 doesn't take symbols
+tests/empdump/xundump-errors/fld-nosymset:2: field 1 doesn't take symbol sets
+tests/empdump/xundump-errors/fld-sep:2: bad field separator after field 1
+tests/empdump/xundump-errors/fld-strbig:3: field 19 takes at most 9 characters
+tests/empdump/xundump-errors/fld-unexpid:6: table's first part doesn't have this row
+tests/empdump/xundump-errors/fld-unexpid1:7: value for field 1 must be 2
+tests/empdump/xundump-errors/fld-unksym:2: unknown level symbol 'xxx' in field 11
+tests/empdump/xundump-errors/fld-unparen:2: unmatched '(' in field 19
+tests/empdump/xundump-errors/ftr-fewrows:2: expected 34 more rows
+tests/empdump/xundump-errors/ftr-fewrows2:4: expected 13 more rows
+tests/empdump/xundump-errors/ftr-fewrows3:4: expected 1 more rows
+tests/empdump/xundump-errors/ftr-fewrows4:7: table's first part has more rows
+tests/empdump/xundump-errors/ftr-junk:2: junk after table footer
+tests/empdump/xundump-errors/ftr-mal:2: malformed table footer
+tests/empdump/xundump-errors/ftr-mal2:6: malformed table footer
+tests/empdump/xundump-errors/ftr-manyrows:5: too many rows
+tests/empdump/xundump-errors/ftr-manyrows2:17: too many rows
+tests/empdump/xundump-errors/ftr-mismatch:2: expected footer /0
+tests/empdump/xundump-errors/hdr-extra:2: extraneous header 'timestamp' in field 1
+tests/empdump/xundump-errors/hdr-extra2:2: extraneous header 'uid' in field 1
+tests/empdump/xundump-errors/hdr-junk:1: junk after xdump header
+tests/empdump/xundump-errors/hdr-none:1: expected xdump header
+tests/empdump/xundump-errors/hdr-noperm:1: table 'map' is not permitted here
+tests/empdump/xundump-errors/hdr-noperm2:1: table 'table' is not permitted here
+tests/empdump/xundump-errors/hdr-unexp:4: expected table 'ship', not 'plane'
+tests/empdump/xundump-errors/hdr-unktab:1: unknown table 'xxx'
 File plane uid 0 field flags: bit 8 is not in symbol table plane-flags
 File plane uid 1 field mission: value 99 is not in symbol table missions
 File plane uid 2 field owner: value 255 indexes table nat out of bounds 0..99

@@ -1,4 +1,4 @@
 config sect-chr
 uid name m
-# Header m of field 3 is ambiguous
+# ambiguous header 'm' in field 3
 /config

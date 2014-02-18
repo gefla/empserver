@@ -1,4 +1,4 @@
 config ship
 uid ...
 -1
-# Field 1 must be > -1
+# field 1 must be > -1

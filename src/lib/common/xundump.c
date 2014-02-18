@@ -202,12 +202,11 @@ tbl_end(void)
 static void *
 tbl_seek(int id)
 {
-    struct empfile *ep = &empfile[cur_type];
     void *obj;
 
     if (id >= ef_nelem(cur_type)) {
 	if (!ef_ensure_space(cur_type, id, 1)) {
-	    gripe("Can't put ID %d into table %s", id, ep->name);
+	    gripe("can't grow table to hold this row");
 	    return NULL;
 	}
     }
@@ -275,13 +274,13 @@ tbl_part_done(void)
 		    return -1;
 	    } else {
 		if (!can_fill_gaps(cur_type))
-		    return gripe("Expected %d more rows",
+		    return gripe("expected %d more rows",
 				 ep->fids - (cur_id + 1));
 		omit_ids(cur_id + 1, ep->fids);
 	    }
 	} else {
 	    if (expected_id(cur_id + 1, ep->fids) >= 0)
-		return gripe("Table's first part has more rows");
+		return gripe("table's first part has more rows");
 	}
     }
 
@@ -299,7 +298,7 @@ static struct castr *
 getfld(int fldno, int *idx)
 {
     if (fldno >= nflds) {
-	gripe("Too many fields, expected only %d", nflds);
+	gripe("too many fields, expected only %d", nflds);
 	return NULL;
     }
     if (CANT_HAPPEN(fldno < 0))
@@ -354,13 +353,13 @@ rowid(void)
 	return cur_id + 1;
 
     if (id != cur_id + 1 && !can_fill_gaps(cur_type))
-	return gripe("Expected %d in field %d",
+	return gripe("expected %d in field %d",
 		     cur_id + 1, fldno + 1);
     if (id <= cur_id)
-	return gripe("Field %d must be > %d", fldno + 1, cur_id);
+	return gripe("field %d must be > %d", fldno + 1, cur_id);
     max_id = ef_id_limit(cur_type);
     if (id > max_id)
-	return gripe("Field %d must be <= %d", fldno + 1, max_id);
+	return gripe("field %d must be <= %d", fldno + 1, max_id);
 
     return id;
 }
@@ -409,7 +408,7 @@ rowid_sect(void)
     /* Note: reporting values out of range left to putnum() */
     if (id <= cur_id) {
 	sctoff2xy(&x, &y, cur_id);
-	return gripe("Coordinates in fields %d,%d must be > %d,%d",
+	return gripe("coordinates in fields %d,%d must be > %d,%d",
 		     fldno_x + 1, fldno_y + 1, x, y);
     }
     return id;
@@ -437,14 +436,14 @@ rowid_realm(void)
     realm = (long)fldval[fldno_realm].val_as.dbl;
     cnum = (long)fldval[fldno_cnum].val_as.dbl;
     if (cnum < 0 || cnum >= MAXNOC)
-	return gripe("Field %d must be between 0 and %d",
+	return gripe("field %d must be between 0 and %d",
 		     fldno_cnum, MAXNOC);
     if (realm < 0 || realm >= MAXNOR)
-	return gripe("Field %d must be between 0 and %d",
+	return gripe("field %d must be between 0 and %d",
 		     fldno_realm, MAXNOR);
     id = realm + cnum * MAXNOR;
     if (id <= cur_id)
-	return gripe("Fields %d,%d must be > (%d,%d)",
+	return gripe("fields %d,%d must be > (%d,%d)",
 		     fldno_cnum + 1, fldno_realm + 1,
 		     cur_id / MAXNOR, cur_id % MAXNOR);
     return id;
@@ -465,7 +464,7 @@ rowobj(void)
     if (partno) {
 	id = expected_id(cur_id + 1, empfile[cur_type].fids);
 	if (id < 0) {
-	    gripe("Table's first part doesn't have this row");
+	    gripe("table's first part doesn't have this row");
 	    return NULL;
 	}
     } else if (ca0_is_id(cur_type)) {
@@ -483,7 +482,7 @@ rowobj(void)
     } else
 	id = last_id + 1;
     if (id > ef_id_limit(cur_type)) {
-	gripe("Too many rows");
+	gripe("too many rows");
 	return NULL;
     }
 
@@ -583,13 +582,13 @@ putnum(void *obj, int fldno, double dbl)
 	new = ((time_t *)memb_ptr)[idx] = (time_t)dbl;
 	break;
     default:
-	return gripe("Field %d doesn't take numbers", fldno + 1);
+	return gripe("field %d doesn't take numbers", fldno + 1);
     }
 
     if (fldval_must_match(fldno) && old != dbl)
-	return gripe("Value for field %d must be %g", fldno + 1, old);
+	return gripe("value for field %d must be %g", fldno + 1, old);
     if (new != dbl)
-	return gripe("Field %d can't hold this value", fldno + 1);
+	return gripe("field %d can't hold this value", fldno + 1);
 
     return 0;
 }
@@ -625,12 +624,12 @@ putstr(void *obj, int fldno, char *str)
 	if (CANT_HAPPEN(idx))
 	    return -1;
 	if (!str)
-	    return gripe("Field %d doesn't take nil", fldno + 1);
+	    return gripe("field %d doesn't take nil", fldno + 1);
 	/* Wart: if ca_len <= 1, the terminating null may be omitted */
 	sz = ca->ca_len;
 	len = sz > 1 ? sz - 1 : sz;
 	if (strlen(str) > len)
-	    return gripe("Field %d takes at most %d characters",
+	    return gripe("field %d takes at most %d characters",
 			 fldno + 1, (int)len);
 	old = memb_ptr;
 	if (must_match)
@@ -639,15 +638,15 @@ putstr(void *obj, int fldno, char *str)
 	    strncpy(memb_ptr, str, sz);
 	break;
     default:
-	return gripe("Field %d doesn't take strings", fldno + 1);
+	return gripe("field %d doesn't take strings", fldno + 1);
     }
 
     if (mismatch) {
 	if (old)
-	    return gripe("Value for field %d must be \"%.*s\"",
+	    return gripe("value for field %d must be \"%.*s\"",
 			 fldno + 1, (int)len, old);
 	else
-	    return gripe("Value for field %d must be nil", fldno + 1);
+	    return gripe("value for field %d must be nil", fldno + 1);
     }
 
     return 0;
@@ -764,7 +763,7 @@ xufldname(FILE *fp, int i)
     ch = skipfs(fp);
     switch (ch) {
     case EOF:
-	return gripe("Unexpected EOF");
+	return gripe("unexpected EOF");
     case '\n':
 	nflds = i - (ellipsis != 0);
 	if (chkflds() < 0)
@@ -773,19 +772,19 @@ xufldname(FILE *fp, int i)
 	return 0;
     case '.':
 	if (getc(fp) != '.' || getc(fp) != '.')
-	    return gripe("Junk in header field %d", i + 1);
+	    return gripe("junk in header field %d", i + 1);
 	if (i == 0)
-	    return gripe("Header fields expected");
+	    return gripe("header fields expected");
 	ellipsis = 1;
 	ch = skipfs(fp);
 	if (ch != EOF && ch != '\n')
-	    return gripe("Junk after ...");
+	    return gripe("junk after ...");
 	ungetc(ch, fp);
 	return 1;
     default:
 	ungetc(ch, fp);
 	if (getid(fp, buf) < 0)
-	    return gripe("Junk in header field %d", i + 1);
+	    return gripe("junk in header field %d", i + 1);
 	ch = getc(fp);
 	if (ch != '(') {
 	    ungetc(ch, fp);
@@ -795,20 +794,20 @@ xufldname(FILE *fp, int i)
 	ungetc(ch, fp);
 	if (isdigit(ch) || ch == '-' || ch == '+') {
 	    if (fscanf(fp, "%d", &idx) != 1)
-		return gripe("Malformed number in index of header field %d",
+		return gripe("malformed number in index of header field %d",
 			     i + 1);
 	    if (idx < 0)
-		return gripe("Index must not be negative in header field %d",
+		return gripe("index must not be negative in header field %d",
 			     i + 1);
 	} else {
 	    if (getid(fp, buf) < 0)
-		return gripe("Malformed index in header field %d", i + 1);
-	    return gripe("Symbolic index in header field %d not yet implemented",
+		return gripe("malformed index in header field %d", i + 1);
+	    return gripe("symbolic index in header field %d not yet implemented",
 			 i + 1);
 	}
 	ch = getc(fp);
 	if (ch != ')')
-	    return gripe("Malformed index in header field %d", i + 1);
+	    return gripe("malformed index in header field %d", i + 1);
 	return deffld(i, buf, idx);
     }
 }
@@ -829,15 +828,15 @@ xufld(FILE *fp, int i)
     ch = skipfs(fp);
     switch (ch) {
     case EOF:
-	return gripe("Unexpected EOF");
+	return gripe("unexpected EOF");
     case '\n':
 	CANT_HAPPEN(i > nflds);
 	for (j = i; j < nflds; j++) {
 	    if (CA_IS_ARRAY(fldca[j]))
-		gripe("Field %s(%d) missing",
+		gripe("field '%s(%d)' missing",
 		      fldca[j]->ca_name, fldidx[j]);
 	    else
-		gripe("Field %s missing", fldca[j]->ca_name);
+		gripe("field '%s' missing", fldca[j]->ca_name);
 	}
 	if (i != nflds || putrow() < 0)
 	    return -1;
@@ -848,7 +847,7 @@ xufld(FILE *fp, int i)
     case '5': case '6': case '7': case '8': case '9':
 	ungetc(ch, fp);
 	if (fscanf(fp, "%lg", &dbl) != 1)
-	    return gripe("Malformed number in field %d", i + 1);
+	    return gripe("malformed number in field %d", i + 1);
 	return setnum(i, dbl);
     case '"':
 	ch = getc(fp);
@@ -857,9 +856,9 @@ xufld(FILE *fp, int i)
 	else {
 	    ungetc(ch, fp);
 	    if (fscanf(fp, "%1023[^\"\n]", buf) != 1 || getc(fp) != '"')
-		return gripe("Malformed string in field %d", i + 1);
+		return gripe("malformed string in field %d", i + 1);
 	    if (!xuesc(buf))
-		return gripe("Invalid escape sequence in field %d",
+		return gripe("invalid escape sequence in field %d",
 			     i + 1);
 	}
 	return setstr(i, buf);
@@ -869,12 +868,12 @@ xufld(FILE *fp, int i)
 	for (;;) {
 	    ch = skipfs(fp);
 	    if (ch == EOF || ch == '\n')
-		return gripe("Unmatched '(' in field %d", i + 1);
+		return gripe("unmatched '(' in field %d", i + 1);
 	    if (ch == ')')
 		break;
 	    ungetc(ch, fp);
 	    if (getid(fp, buf) < 0)
-		return gripe("Junk in field %d", i + 1);
+		return gripe("junk in field %d", i + 1);
 	    if (add2symset(i, &set, buf) < 0)
 		return -1;
 	}
@@ -882,7 +881,7 @@ xufld(FILE *fp, int i)
     default:
 	ungetc(ch, fp);
 	if (getid(fp, buf) < 0)
-	    return gripe("Junk in field %d", i + 1);
+	    return gripe("junk in field %d", i + 1);
 	if (!strcmp(buf, "nil"))
 	    return setstr(i, NULL);
 	else
@@ -910,7 +909,7 @@ xuflds(FILE *fp, int (*parse)(FILE *, int))
 	if (ch == '\n')
 	    ungetc(ch, fp);
 	else if (ch != ' ' && ch != '\t')
-	    return gripe("Bad field separator after field %d", i + 1);
+	    return gripe("bad field separator after field %d", i + 1);
     }
 }
 
@@ -930,30 +929,28 @@ deffld(int fldno, char *name, int idx)
     res = stmtch(name, ca, offsetof(struct castr, ca_name),
 		 sizeof(struct castr));
     if (res < 0)
-	return gripe("Header %s of field %d is %s", name, fldno + 1,
-		     res == M_NOTUNIQUE ? "ambiguous" : "unknown");
+	return gripe("%s header '%s' in field %d",
+		     res == M_NOTUNIQUE ? "ambiguous" : "unknown",
+		     name, fldno + 1);
     if ((ca[res].ca_flags & NSC_EXTRA) || CANT_HAPPEN(ca[res].ca_get))
-	return gripe("Extraneous header %s in field %d", name, fldno + 1);
+	return gripe("extraneous header '%s' in field %d", name, fldno + 1);
     if (CA_IS_ARRAY(&ca[res])) {
 	if (idx < 0)
-	    return gripe("Header %s requires an index in field %d",
+	    return gripe("header '%s' requires an index in field %d",
 			 ca[res].ca_name, fldno + 1);
-	if (idx >= ca[res].ca_len)
-	    return gripe("Header %s(%d) index out of bounds in field %d",
-			 ca[res].ca_name, idx, fldno + 1);
-	if (idx < caflds[res])
-	    return gripe("Duplicate header %s(%d) in field %d",
-			 ca[res].ca_name, idx, fldno + 1);
-	if (idx > caflds[res])
-	    return gripe("Expected header %s(%d) in field %d",
+	if (idx != caflds[res] && idx < ca[res].ca_len)
+	    return gripe("expected header '%s(%d)' in field %d",
 			 ca[res].ca_name, caflds[res], fldno + 1);
+	if (idx >= ca[res].ca_len)
+	    return gripe("unexpected header '%s(%d)' in field %d",
+			 ca[res].ca_name, idx, fldno + 1);
     } else {
 	if (idx >= 0)
-	    return gripe("Header %s doesn't take an index in field %d",
+	    return gripe("header '%s' doesn't take an index in field %d",
 			 ca[res].ca_name, fldno + 1);
 	idx = 0;
 	if (caflds[res])
-	    return gripe("Duplicate header %s in field %d",
+	    return gripe("duplicate header '%s' in field %d",
 			 ca[res].ca_name, fldno + 1);
     }
     fldca[fldno] = &ca[res];
@@ -982,12 +979,12 @@ chkflds(void)
 	    continue;
 	len = CA_ARRAY_LEN(&ca[i]);
 	if (!len && !cafldsmax)
-	    res = gripe("Header field %s missing", ca[i].ca_name);
+	    res = gripe("header '%s' missing", ca[i].ca_name);
 	else if (len && cafldsmax == len - 1)
-	    res = gripe("Header field %s(%d) missing",
+	    res = gripe("header '%s(%d)' missing",
 			ca[i].ca_name, len - 1);
 	else if (len && cafldsmax < len - 1)
-	    res = gripe("Header fields %s(%d) ... %s(%d) missing",
+	    res = gripe("header '%s(%d)' ... '%s(%d)' missing",
 			ca[i].ca_name, cafldsmax, ca[i].ca_name, len - 1);
     }
 
@@ -1036,8 +1033,8 @@ xunsymbol(char *id, struct castr *ca, int n)
 {
     int i = ef_elt_byname(ca->ca_table, id);
     if (i < 0)
-	return gripe("%s %s symbol `%s' in field %d",
-		     i == M_NOTUNIQUE ? "Ambiguous" : "Unknown",
+	return gripe("%s %s symbol '%s' in field %d",
+		     i == M_NOTUNIQUE ? "ambiguous" : "unknown",
 		     ca->ca_name, id, n + 1);
     return i;
 }
@@ -1073,7 +1070,7 @@ setsym(int fldno, char *sym)
 	return -1;
 
     if (ca->ca_table == EF_BAD || (ca->ca_flags & NSC_BITS))
-	return gripe("Field %d doesn't take symbols", fldno + 1);
+	return gripe("field %d doesn't take symbols", fldno + 1);
 
     i = xunsymbol(sym, ca, fldno);
     if (i < 0)
@@ -1096,7 +1093,7 @@ mtsymset(int fldno, long *set)
 
     if (ca->ca_table == EF_BAD || ef_cadef(ca->ca_table) != symbol_ca
 	|| !(ca->ca_flags & NSC_BITS))
-	return gripe("Field %d doesn't take symbol sets", fldno + 1);
+	return gripe("field %d doesn't take symbol sets", fldno + 1);
     *set = 0;
     return 0;
 }
@@ -1149,23 +1146,23 @@ xuheader(FILE *fp, int expected_table)
 	 ? fscanf(fp, "config%*[ \t]%63[^ \t#\n]%n", name, &res) != 1
 	 : fscanf(fp, "XDUMP%*[ \t]%63[^ \t#\n]%*[ \t]%*[^ \t#\n]%n",
 		  name, &res) != 1) || res < 0)
-	return gripe("Expected xdump header");
+	return gripe("expected xdump header");
 
     type = ef_byname(name);
     if (type < 0)
-	return gripe("Unknown table `%s'", name);
+	return gripe("unknown table '%s'", name);
     if (expected_table != EF_BAD && expected_table != type)
-	return gripe("Expected table `%s', not `%s'",
+	return gripe("expected table '%s', not '%s'",
 		     ef_nameof(expected_table), name);
 
     if (!empfile[type].file
 	|| !ef_cadef(type) || !(ef_flags(type) & EFF_MEM)) {
 	CANT_HAPPEN(expected_table != EF_BAD);
-	return gripe("Table `%s' is not permitted here", name);
+	return gripe("table '%s' is not permitted here", name);
     }
 
     if (skipfs(fp) != '\n')
-	return gripe("Junk after xdump header");
+	return gripe("junk after xdump header");
     lineno++;
 
     return type;
@@ -1231,16 +1228,15 @@ xufooter(FILE *fp, struct castr ca[], int recs)
     res = -1;
     if (human) {
 	if (fscanf(fp, "config%n", &res) != 0 || res < 0)
-	    return gripe("Malformed table footer");
+	    return gripe("malformed table footer");
     } else {
 	if (fscanf(fp, "%d", &n) != 1)
-	    return gripe("Malformed table footer");
+	    return gripe("malformed table footer");
 	if (recs != n)
-	    return gripe("Read %d rows, which doesn't match footer "
-			 "%d rows", recs, n);
+	    return gripe("expected footer /%d", recs);
     }
     if (skipfs(fp) != '\n')
-	return gripe("Junk after table footer");
+	return gripe("junk after table footer");
     if (tbl_part_done() < 0)
 	return -1;
     lineno++;

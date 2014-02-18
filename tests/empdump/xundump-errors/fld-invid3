@@ -2,4 +2,4 @@ config ship
 uid ...
 2
 0
-# Field 1 must be > 2
+# field 1 must be > 2

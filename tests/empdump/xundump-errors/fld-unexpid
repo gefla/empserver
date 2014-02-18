@@ -4,5 +4,5 @@ uid ...
 config ship
 uid ...
 2
-# Table's first part doesn't have this row
+# table's first part doesn't have this row
 /config

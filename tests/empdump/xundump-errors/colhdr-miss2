@@ -19,13 +19,13 @@ uid sname ...
 
 config product
 name
-# Header fields ctype(0) ... ctype(2) missing
-# Header fields camt(0) ... camt(2) missing
-# Header field type missing
-# Header field level missing
-# Header field cost missing
-# Header field nrndx missing
-# Header field nrdep missing
-# Header field nlndx missing
-# Header field nlmin missing
-# Header field nllag missing
+# header 'ctype(0)' ... 'ctype(2)' missing
+# header 'camt(0)' ... 'camt(2)' missing
+# header 'type' missing
+# header 'level' missing
+# header 'cost' missing
+# header 'nrndx' missing
+# header 'nrdep' missing
+# header 'nlndx' missing
+# header 'nlmin' missing
+# header 'nllag' missing

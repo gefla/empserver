@@ -1,4 +1,4 @@
 config ship-chr
 xxx
-# Header xxx of field 1 is unknown
+# unknown header 'xxx' in field 1
 /config

@@ -4,5 +4,5 @@ type name ...
 
 config ship-chr
 type name name
-# Duplicate header name in field 3
+# duplicate header 'name' in field 3
 /config

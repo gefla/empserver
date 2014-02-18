@@ -2,4 +2,4 @@ config realm
 cnum realm ...
 0 1
 0 0
-# Fields 1,2 must be > (0,1)
+# fields 1,2 must be > (0,1)

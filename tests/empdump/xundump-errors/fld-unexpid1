@@ -5,5 +5,5 @@ uid ...
 config ship
 uid ...
 1
-# Value for field 1 must be 2
+# value for field 1 must be 2
 /config

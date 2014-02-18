@@ -4,4 +4,4 @@ name             lcm hcm dcost mcost enab
 "rail network"     1   1     1     1	1
 "defense factor"   1   1     1     1	0
 /con
-# Malformed table footer
+# malformed table footer

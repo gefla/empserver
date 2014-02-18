@@ -2,4 +2,4 @@ config sect
 xloc yloc ...
 2 0
 0 0
-# Coordinates in fields 1,2 must be > 2,0
+# coordinates in fields 1,2 must be > 2,0

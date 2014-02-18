@@ -1,4 +1,4 @@
 config realm
 cnum realm ...
 100 0
-# Field 0 must be between 0 and 99
+# field 0 must be between 0 and 99
