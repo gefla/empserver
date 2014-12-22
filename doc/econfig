@@ -80,9 +80,6 @@ file next to your econfig, then name the file in custom_tables.  Do
 *not* edit the default table in-place!  That bypasses important
 consistency checks.
 
-Be careful not to put `holes' into tables, e.g. by commenting out
-entries.  That doesn't work yet.
-
 A word of caution: Just because you can customize something doesn't
 mean you should!  The server makes an effort to catch mistakes that
 could crash the game.  It has no chance to catch mistakes that
