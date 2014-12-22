@@ -64,7 +64,6 @@ move s 2,0 20 gh
 fire se 0,0 -2,-2
 fire se 2,0 -2,-2
 fire se 4,0 -2,-2
-| at bridge, one splash
 | firing at bridges is covered in bridgefall-test
 __cmd added -3 -3 0
 | at harbor with stuff
