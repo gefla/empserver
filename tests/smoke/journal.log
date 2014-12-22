@@ -4186,7 +4186,6 @@
     Play#1 output Play#1 4 <59.3:59.3: 9,-1>
     Play#1 input h
     Play#1 output Play#1 1 frg  frigate (#0) stopped at 9,-1
-    Play#1 output Play#1 1 Path taken: jj
     Play#1 output Play#1 6 0 547
     Play#1 input assault 11,-1 0
     Play#1 command assault
@@ -5083,7 +5082,6 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is frg  frigate (#0)
     Play#1 output Play#1 1 frg  frigate (#0) stopped at 13,1
-    Play#1 output Play#1 1 Path taken: njn
     Play#1 output Play#1 6 0 518
     Play#1 input look 0
     Play#1 command lookout
@@ -10786,7 +10784,6 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is cs   cargo ship (#2)
     Play#1 output Play#1 1 cs   cargo ship (#2) stopped at 6,0
-    Play#1 output Play#1 1 Path taken: n
     Play#1 output Play#1 6 0 608
     Play#1 input scrap l 1
     Play#1 command scrap
@@ -14497,13 +14494,13 @@
     Play#1 input nav 3 6,0
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is od   oil derrick (#3)
+    Play#1 output Play#1 1 Using path 'n'
     Play#1 output Play#1 1  h =
     Play#1 output Play#1 1 k . .
     Play#1 output Play#1 1  j d
     Play#1 output Play#1 4 <67.2:67.2: 6,0>
     Play#1 input h
     Play#1 output Play#1 1 od   oil derrick (#3) stopped at 6,0
-    Play#1 output Play#1 1 Path taken: n
     Play#1 output Play#1 6 0 633
     Play#1 input nav 3 vh
     Play#1 command navigate
@@ -14524,7 +14521,6 @@
     Play#1 output Play#1 1 Flagship is ft   fishing trawler (#4)
     Play#1 output Play#1 1 [fert:84] ft   fishing trawler (#4) @ 6,0 0% sea
     Play#1 output Play#1 1 ft   fishing trawler (#4) stopped at 6,0
-    Play#1 output Play#1 1 Path taken: n
     Play#1 output Play#1 6 0 629
     Play#1 input order 4 des 5,-1 6,0
     Play#1 command order

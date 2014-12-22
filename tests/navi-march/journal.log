@@ -73,13 +73,11 @@
     Play#1 output Play#1 4 <127.0:127.0: 0,0>
     Play#1 input yh
     Play#1 output Play#1 1 pt   patrol boat (#10) stopped at -1,-1
-    Play#1 output Play#1 1 Path taken: y
     Play#1 output Play#1 6 0 637
     Play#1 input navi 20 yh
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#20)
     Play#1 output Play#1 1 pt   patrol boat (#20) stopped at 0,0
-    Play#1 output Play#1 1 Path taken: y
     Play#1 output Play#1 6 0 636
     Play#1 input navi 21 h
     Play#1 command navigate
@@ -91,7 +89,6 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#22)
     Play#1 output Play#1 1 pt   patrol boat (#22) stopped at 3,-1
-    Play#1 output Play#1 1 Path taken: u
     Play#1 output Play#1 6 0 634
     Play#1 input navi 23 h
     Play#1 command navigate
@@ -104,7 +101,6 @@
     Play#1 output Play#1 1 cs   cargo ship (#26) is landlocked & stays in 2,2
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#24)
     Play#1 output Play#1 1 pt   patrol boat (#24) stopped at 1,1
-    Play#1 output Play#1 1 Path taken: y
     Play#1 output Play#1 6 0 632
     Play#1 input navi 25 h
     Play#1 command navigate
@@ -133,7 +129,6 @@
     Play#1 output Play#1 1 shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech
     Play#1 output Play#1 1   30 pt   patrol boat   11,-5     100%   2   0   0  0  0  0  0 117  40
     Play#1 output Play#1 1 pt   patrol boat (#30) stopped at 10,-6
-    Play#1 output Play#1 1 Path taken: jy
     Play#1 output Play#1 6 0 629
     Play#1 input navi 32/33/34/35/36/37/38/39 jiyh
     Play#1 command navigate
@@ -169,13 +164,11 @@
     Play#1 output Play#1 1 pt   patrol boat (#37) stopped at 10,-6
     Play#1 output Play#1 1 pt   patrol boat (#38) stopped at 10,-6
     Play#1 output Play#1 1 pt   patrol boat (#39) stopped at 10,-6
-    Play#1 output Play#1 1 Path taken: jy
     Play#1 output Play#1 6 0 628
     Play#1 input navi 50 nh
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#50)
     Play#1 output Play#1 1 pt   patrol boat (#50) stopped at 1,1
-    Play#1 output Play#1 1 Path taken: n
     Play#1 output Play#1 6 0 627
     Play#1 input navi 51 bX
     Play#1 command navigate
@@ -192,7 +185,6 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#52)
     Play#1 output Play#1 1 pt   patrol boat (#52) stopped at 2,0
-    Play#1 output Play#1 1 Path taken: g
     Play#1 output Play#1 6 0 625
     Play#1 input navi 53 jX
     Play#1 command navigate
@@ -219,7 +211,6 @@
     Play#1 output Play#1 1   55 cs   cargo ship     1,1      100%   5   0   0  0  0  0  0 127  20
     Play#1 output Play#1 1 pt   patrol boat (#54) stopped at 0,0
     Play#1 output Play#1 1 cs   cargo ship (#55) stopped at -1,-1
-    Play#1 output Play#1 1 Path taken: yy
     Play#1 output Play#1 6 0 623
     Play#1 input navi 57/56 n
     Play#1 command navigate
@@ -235,7 +226,6 @@
     Play#1 output Play#1 1   56 pt   patrol boat    1,1      100%   2   0   0  0  0  0  0 127  40
     Play#1 output Play#1 1 cs   cargo ship (#57) stopped at -1,-1
     Play#1 output Play#1 1 pt   patrol boat (#56) stopped at -1,-1
-    Play#1 output Play#1 1 Path taken: yy
     Play#1 output Play#1 6 0 622
     Play#1 input navi 58/59 nX
     Play#1 command navigate
@@ -275,13 +265,11 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#62)
     Play#1 output Play#1 1 pt   patrol boat (#62) stopped at -13,1
-    Play#1 output Play#1 1 Path taken: b
     Play#1 output Play#1 6 0 618
     Play#1 input navi 63 bh
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#63)
     Play#1 output Play#1 1 pt   patrol boat (#63) stopped at -5,1
-    Play#1 output Play#1 1 Path taken: b
     Play#1 output Play#1 6 0 617
     Play#1 input navi 64 bX
     Play#1 command navigate
@@ -309,13 +297,11 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#70)
     Play#1 output Play#1 1 pt   patrol boat (#70) stopped at -14,0
-    Play#1 output Play#1 1 Path taken: g
     Play#1 output Play#1 6 0 614
     Play#1 input navi 71 gh
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#71)
     Play#1 output Play#1 1 pt   patrol boat (#71) stopped at -6,0
-    Play#1 output Play#1 1 Path taken: g
     Play#1 output Play#1 6 0 613
     Play#1 input navi 72 gX
     Play#1 command navigate
@@ -347,16 +333,17 @@
     Play#1 input h
     Play#1 output Play#1 1 cs   cargo ship (#80) stopped at -4,-4
     Play#1 output Play#1 1 cs   cargo ship (#81) stopped at -4,-4
-    Play#1 output Play#1 1 Path taken: yyyy
     Play#1 output Play#1 6 0 611
     Play#1 input navi 90 -3,-3
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#90)
+    Play#1 output Play#1 1 Using path 'yyy'
     Play#1 output Play#1 1  . .
     Play#1 output Play#1 1 . . .
     Play#1 output Play#1 1  . .
     Play#1 output Play#1 4 <99.4:99.4: -3,-3>
     Play#1 input 0,-4
+    Play#1 output Play#1 1 Using path 'uj'
     Play#1 output Play#1 1  . .
     Play#1 output Play#1 1 . . .
     Play#1 output Play#1 1  . i
@@ -364,7 +351,6 @@
     Play#1 input 1,-1
     Play#1 output Play#1 1 Can't get to '1,-1' right now.
     Play#1 output Play#1 1 pt   patrol boat (#90) stopped at 0,-4
-    Play#1 output Play#1 1 Path taken: yyyuj
     Play#1 output Play#1 6 0 610
     Play#1 input navi 90 1,-1
     Play#1 command navigate
@@ -380,13 +366,13 @@
     Play#1 input navi 91 -3,1
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#91)
+    Play#1 output Play#1 1 Using path 'gb'
     Play#1 output Play#1 1  . .
     Play#1 output Play#1 1 h h h
     Play#1 output Play#1 1  c c
     Play#1 output Play#1 4 <108.6:108.6: -3,1>
     Play#1 input h
     Play#1 output Play#1 1 pt   patrol boat (#91) stopped at -3,1
-    Play#1 output Play#1 1 Path taken: gb
     Play#1 output Play#1 6 0 608
     Play#1 input navi 92 2,2
     Play#1 command navigate
@@ -544,7 +530,6 @@
     Play#1 output Play#1 1 ft   fishing trawler (#101) stopped at 3,-1
     Play#1 output Play#1 1 dd   destroyer (#100) stopped at 3,-1
     Play#1 output Play#1 1 oe   oil exploration boat (#102) stopped at 3,-1
-    Play#1 output Play#1 1 Path taken: ygg
     Play#1 output Play#1 6 0 599
     Play#1 input navi 110/111 d
     Play#1 command navigate
@@ -561,7 +546,6 @@
     Play#1 input h
     Play#1 output Play#1 1 ms   minesweeper (#110) stopped at 10,-2
     Play#1 output Play#1 1 ms   minesweeper (#111) stopped at 10,-2
-    Play#1 output Play#1 1 Path taken: n
     Play#1 output Play#1 6 0 595
     Play#1 input navi 0/1 mh
     Play#1 command navigate
@@ -603,7 +587,6 @@
     Play#1 output Play#1 1 ms   minesweeper (#128) is out of mobility & stays in 11,-3
     Play#1 output Play#1 1 ms   minesweeper (#121) stopped at 13,-3
     Play#1 output Play#1 1 ms   minesweeper (#122) stopped at 13,-3
-    Play#1 output Play#1 1 Path taken: jj
     Play#1 output Play#1 6 0 592
     Play#1 input __cmd added -1 0 0
     Play#1 command __cmd
@@ -618,7 +601,6 @@
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 ms   minesweeper (#129) stopped at 10,-2
-    Play#1 output Play#1 1 Path taken: n
     Play#1 output Play#1 6 0 591
     Play#1 input navi 135/130/131/136/137/138/139
     Play#1 command navigate
@@ -707,7 +689,6 @@
     Play#1 output Play#1 1 pt   patrol boat (#137) stopped at 11,-5
     Play#1 output Play#1 1 pt   patrol boat (#138) stopped at 11,-5
     Play#1 output Play#1 1 pt   patrol boat (#139) stopped at 11,-5
-    Play#1 output Play#1 1 Path taken: j
     Play#1 output Play#1 6 0 590
     Play#1 input ctld
     Play#1 output Play#1 1 Bye-bye

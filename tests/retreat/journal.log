@@ -278,7 +278,6 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is dd   destroyer (#5)
     Play#1 output Play#1 1 dd   destroyer (#5) stopped at -5,-1
-    Play#1 output Play#1 1 Path taken: gyu
     Play#1 output Play#1 6 0 610
     Play#1 input fire sh 5 53
     Play#1 command fire
@@ -731,13 +730,11 @@
     Play#1 output Play#1 1    . . . .
     Play#1 output Play#1 1
     Play#1 output Play#1 1 dd   destroyer (#5) stopped at -6,0
-    Play#1 output Play#1 1 Path taken: b
     Play#1 output Play#1 6 0 573
     Play#1 input navi 5 nh
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is dd   destroyer (#5)
     Play#1 output Play#1 1 dd   destroyer (#5) stopped at -5,1
-    Play#1 output Play#1 1 Path taken: n
     Play#1 output Play#1 6 0 572
     Play#1 input board 130 5
     Play#1 command board

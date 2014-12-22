@@ -173,8 +173,7 @@ unit_path(int together, struct empobj *unit, char *buf, size_t bufsz)
 	   xyas(destx, desty, player->cnum));
 	return NULL;
     }
-    if (unit->ef_type == EF_LAND)
-	pr("Using path '%s'\n", buf);
+    pr("Using path '%s'\n", buf);
     return buf;
 }
 

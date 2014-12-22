@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995 (rewritten)
  *     Ron Koenderink, 2006-2007
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2014
  */
 
 #include <config.h>
@@ -76,8 +76,6 @@ do_unit_move(struct emp_qelem *ulist, int *together,
     int skip = 0;
     char buf[1024];
     char prompt[128];
-    char pathtaken[1024];  /* Doubtful we'll have a path longer than this */
-    char *pt = pathtaken;
     char bmap_flag;
     int ac;
     int type;
@@ -94,7 +92,6 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	cp = unit_path(*together, leader, buf, sizeof(buf));
     }
 
-    *pt = '\0';
     while (!QEMPTY(ulist)) {
 	char dp[80];
 
@@ -106,10 +103,6 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 		lnd_mar(ulist, minmob, maxmob, together, player->cnum);
 	    if (QEMPTY(ulist)) {
 		pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
-		if (type == EF_SHIP && strlen(pathtaken) > 1) {
-		    pathtaken[strlen(pathtaken) - 1] = '\0';
-		    pr("Path taken: %s\n", pathtaken);
-		}
 		return RET_OK;
 	    }
 	    leader = get_leader(ulist);
@@ -137,10 +130,6 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 		lnd_mar(ulist, minmob, maxmob, together, player->cnum);
 	    if (QEMPTY(ulist)) {
 		pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
-		if (type == EF_SHIP && strlen(pathtaken) > 1) {
-		    pathtaken[strlen(pathtaken) - 1] = '\0';
-		    pr("Path taken: %s\n", pathtaken);
-		}
 		return RET_OK;
 	    }
 	    leader = get_leader(ulist);
@@ -161,14 +150,10 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    cp = &dirch[DIR_STOP];
 	dir = chkdir(*cp, DIR_STOP, DIR_LAST);
 	if (dir >= 0) {
-	    if (type == EF_SHIP) {
+	    if (type == EF_SHIP)
 		stopping |= shp_nav_one_sector(ulist, dir,
 					       player->cnum, *together);
-		if (stopping != 2) {
-		    *pt++ = dirch[dir];
-		    *pt = '\0';
-		}
-	    } else
+	    else
 		stopping |=
 		    lnd_mar_one_sector(ulist, dir, player->cnum,
 				       *together);
@@ -261,10 +246,6 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    type == EF_SHIP ? "`s' to sonar, " : "");
 	pr("`d' to drop mines, and `m' to minesweep\n");
 	stopping = 1;
-    }
-    if (type == EF_SHIP && strlen(pathtaken) > 1) {
-	pathtaken[strlen(pathtaken) - 1] = '\0';
-	pr("Path taken: %s\n", pathtaken);
     }
     return RET_OK;
 }

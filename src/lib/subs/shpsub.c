@@ -806,7 +806,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 		sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
 	    if (together) {
 		mpr(actor, "%s\n", dp);
-		return 2;
+		return 1;
 	    } else {
 		shp_stays(actor, dp, mlp);
 		continue;

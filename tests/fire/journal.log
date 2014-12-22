@@ -635,7 +635,6 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is bb   battleship (#3)
     Play#1 output Play#1 1 bb   battleship (#3) stopped at 5,1
-    Play#1 output Play#1 1 Path taken: j
     Play#1 output Play#1 6 0 565
     Play#1 input fire sh 3 0,2
     Play#1 command fire
@@ -648,7 +647,6 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is bb   battleship (#3)
     Play#1 output Play#1 1 bb   battleship (#3) stopped at 3,1
-    Play#1 output Play#1 1 Path taken: g
     Play#1 output Play#1 6 0 563
     Play#1 input load s 3 2
     Play#1 command load
@@ -659,7 +657,6 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is bb   battleship (#3)
     Play#1 output Play#1 1 bb   battleship (#3) stopped at 5,1
-    Play#1 output Play#1 1 Path taken: j
     Play#1 output Play#1 6 0 561
     Play#1 input fire sh 3 0,2
     Play#1 command fire
@@ -672,7 +669,6 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is bb   battleship (#3)
     Play#1 output Play#1 1 bb   battleship (#3) stopped at 3,1
-    Play#1 output Play#1 1 Path taken: g
     Play#1 output Play#1 6 0 559
     Play#1 input load s 3 169
     Play#1 command load
@@ -768,7 +764,6 @@
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is dd   destroyer (#5)
     Play#1 output Play#1 1 dd   destroyer (#5) stopped at 10,0
-    Play#1 output Play#1 1 Path taken: j
     Play#1 output Play#1 6 0 544
     Play#1 input fire sh 5 24
     Play#1 command fire
