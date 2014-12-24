@@ -884,7 +884,7 @@ edit_ship(struct shpstr *ship, char *key, char *p)
 {
     struct mchrstr *mcp = &mchr[ship->shp_type];
     int arg = atoi(p);
-    int old_uid, ret;
+    int ret;
 
     switch (*key) {
     case 'U':
@@ -893,13 +893,8 @@ edit_ship(struct shpstr *ship, char *key, char *p)
     case 'E':
     case 'M':
     case 'F':
-	old_uid = ship->shp_uid;
 	ret = edit_unit((struct empobj *)ship, key, p,
 			SHIP_MINEFF, "fleet", 0);
-	if (ret == RET_OK && ship->shp_uid != old_uid) {
-	    if (ship->shp_follow == old_uid)
-		ship->shp_follow = ship->shp_uid;
-	}
 	return ret;
     case 't':
 	arg = ef_elt_byname(EF_SHIP_CHR, p);

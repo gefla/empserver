@@ -123,7 +123,6 @@ int fina(void);
 int flash(void);
 int flee(void);
 int fly(void);
-int foll(void);
 int force(void);
 int fort(void);
 int give(void);
@@ -154,7 +153,6 @@ int march(void);
 int mark(void);
 int mine(void);
 int mission(void);
-int mobq(void);
 int morale(void);
 int move(void);
 int multifire(void);
@@ -195,7 +193,6 @@ int reso(void);
 int retr(void);
 int rout(void);
 int sabo(void);
-int sail(void);
 int sate(void);
 int scra(void);
 int sct(void);
@@ -717,8 +714,6 @@ extern int update_removewants(void);
 /* revolt.c */
 extern void revolt(struct sctstr *);
 extern void guerrilla(struct sctstr *);
-/* sail.c */
-extern void sail_ship(natid);
 /* sect.c */
 extern void do_fallout(struct sctstr *, int);
 extern void spread_fallout(struct sctstr *, int);

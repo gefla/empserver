@@ -228,16 +228,13 @@
     Play#0 output Play#0 1 "pstage" 6 1 0 42
     Play#0 output Play#0 1 "ptime" 6 1 0 -1
     Play#0 output Play#0 1 "access" 6 0 0 -1
-    Play#0 output Play#0 1 "mquota" 5 0 0 -1
-    Play#0 output Play#0 1 "path" 13 0 28 -1
-    Play#0 output Play#0 1 "follow" 8 0 0 -1
     Play#0 output Play#0 1 "name" 13 0 24 -1
     Play#0 output Play#0 1 "xbuilt" 9 1 0 -1
     Play#0 output Play#0 1 "ybuilt" 10 1 0 -1
     Play#0 output Play#0 1 "builder" 5 1 0 8
     Play#0 output Play#0 1 "rflags" 8 8 0 46
     Play#0 output Play#0 1 "rpath" 13 0 10 -1
-    Play#0 output Play#0 1 /40
+    Play#0 output Play#0 1 /37
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta plane
     Play#0 command xdump
@@ -692,7 +689,6 @@
     Play#0 output Play#0 1 "NO_PLAGUE" 8 0 0 -1
     Play#0 output Play#0 1 "RAILWAYS" 8 0 0 -1
     Play#0 output Play#0 1 "RES_POP" 8 0 0 -1
-    Play#0 output Play#0 1 "SAIL" 8 0 0 -1
     Play#0 output Play#0 1 "SUPER_BARS" 8 0 0 -1
     Play#0 output Play#0 1 "TECH_POP" 8 0 0 -1
     Play#0 output Play#0 1 "btu_build_rate" 12 0 0 -1
@@ -769,7 +765,7 @@
     Play#0 output Play#0 1 "trade_3" 12 0 0 -1
     Play#0 output Play#0 1 "trade_ally_bonus" 12 0 0 -1
     Play#0 output Play#0 1 "trade_ally_cut" 12 0 0 -1
-    Play#0 output Play#0 1 /111
+    Play#0 output Play#0 1 /110
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta meta
     Play#0 command xdump
@@ -1372,13 +1368,10 @@
     Play#2 output Play#2 1 "uw" 6 0 0 -1
     Play#2 output Play#2 1 "rad" 6 0 0 -1
     Play#2 output Play#2 1 "access" 6 0 0 -1
-    Play#2 output Play#2 1 "mquota" 5 0 0 -1
-    Play#2 output Play#2 1 "path" 13 0 28 -1
-    Play#2 output Play#2 1 "follow" 8 0 0 -1
     Play#2 output Play#2 1 "name" 13 0 24 -1
     Play#2 output Play#2 1 "rflags" 8 8 0 46
     Play#2 output Play#2 1 "rpath" 13 0 10 -1
-    Play#2 output Play#2 1 /35
+    Play#2 output Play#2 1 /32
     Play#2 output Play#2 6 0 636
     Play#2 input xdump meta plane
     Play#2 command xdump
@@ -1797,7 +1790,6 @@
     Play#2 output Play#2 1 "NO_PLAGUE" 8 0 0 -1
     Play#2 output Play#2 1 "RAILWAYS" 8 0 0 -1
     Play#2 output Play#2 1 "RES_POP" 8 0 0 -1
-    Play#2 output Play#2 1 "SAIL" 8 0 0 -1
     Play#2 output Play#2 1 "SUPER_BARS" 8 0 0 -1
     Play#2 output Play#2 1 "TECH_POP" 8 0 0 -1
     Play#2 output Play#2 1 "btu_build_rate" 12 0 0 -1
@@ -1874,7 +1866,7 @@
     Play#2 output Play#2 1 "trade_3" 12 0 0 -1
     Play#2 output Play#2 1 "trade_ally_bonus" 12 0 0 -1
     Play#2 output Play#2 1 "trade_ally_cut" 12 0 0 -1
-    Play#2 output Play#2 1 /111
+    Play#2 output Play#2 1 /110
     Play#2 output Play#2 6 0 636
     Play#2 input xdump meta meta
     Play#2 command xdump
@@ -15542,11 +15534,11 @@
     Play#0 input xdump ship *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP ship 0
-    Play#0 output Play#0 1 0 1 18 -12 6 100 127 0 0 0 0 0 0 "" 0 25 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 10 -14 1 0 ""
-    Play#0 output Play#0 1 1 1 10 -14 2 100 127 0 31 0 0 0 0 "" 300 25 0 0 0 0 0 0 0 0 100 100 0 0 0 0 0 0 "" 1 "" 10 -14 1 0 ""
-    Play#0 output Play#0 1 2 1 10 -14 15 100 127 0 44 0 0 0 0 "" 30 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 2 "" 10 -14 1 0 ""
-    Play#0 output Play#0 1 3 1 11 -13 8 100 127 0 51 0 0 0 0 "" 990 0 0 0 0 0 0 0 0 449 0 0 0 0 0 0 0 0 "" 3 "" 10 -14 1 0 ""
-    Play#0 output Play#0 1 4 1 11 -13 1 100 127 0 51 0 0 0 0 "" 300 0 0 0 0 0 0 0 900 0 0 0 0 0 0 0 0 0 "" 4 "" 10 -14 1 0 ""
+    Play#0 output Play#0 1 0 1 18 -12 6 100 127 0 0 0 0 0 0 "" 0 25 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 10 -14 1 0 ""
+    Play#0 output Play#0 1 1 1 10 -14 2 100 127 0 31 0 0 0 0 "" 300 25 0 0 0 0 0 0 0 0 100 100 0 0 0 0 0 "" 10 -14 1 0 ""
+    Play#0 output Play#0 1 2 1 10 -14 15 100 127 0 44 0 0 0 0 "" 30 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 10 -14 1 0 ""
+    Play#0 output Play#0 1 3 1 11 -13 8 100 127 0 51 0 0 0 0 "" 990 0 0 0 0 0 0 0 0 449 0 0 0 0 0 0 0 "" 10 -14 1 0 ""
+    Play#0 output Play#0 1 4 1 11 -13 1 100 127 0 51 0 0 0 0 "" 300 0 0 0 0 0 0 0 900 0 0 0 0 0 0 0 0 "" 10 -14 1 0 ""
     Play#0 output Play#0 1 /5
     Play#0 output Play#0 6 0 640
     Play#0 input xdump plane *
@@ -16004,7 +15996,7 @@
     Play#0 input xdump version *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP version 0
-    Play#0 output Play#0 1 "Wolfpack\\040Empire\\0404.3.32" 99 "Deity\\040forgot\\040to\\040edit\\040econfig" "careless@invalid" 64 32 60 0 0 1 "" "" "" 1 0 1 0 1 1 0 0 0 0 1 0 0 0 0 1 1 0 1 1 0 1 0 0 0.00120000 1440 640 15 5 120 0 1.00000 96.0000 2.00000 2.00000 192.000 48.0000 600000. 600000. 1.00000 127 100 1000.00 10.0000 300 3000.00 100.000 1.00000 2.00000 127 -0.00100000 1.00000 2.00000 127 -0.00100000 1.50000 3.00000 127 -0.00100000 40 8 8 8 1.75000 5.00000 1.00000 0.300000 0.100000 0.500000 1.00000 2 0.00250000 0.00833330 -0.0833333 -0.00833330 0.00177770 0.00600000 0.250000 0.000500000 0.00130000 0.00120000 0.00500000 50 0.00600000 0.00500000 0.00000 7200 7200 1.00000 0.990000 8 14 25 0.0250000 0.0350000 0.0500000 0.200000 0.100000
+    Play#0 output Play#0 1 "Wolfpack\\040Empire\\0404.3.32" 99 "Deity\\040forgot\\040to\\040edit\\040econfig" "careless@invalid" 64 32 60 0 0 1 "" "" "" 1 0 1 0 1 1 0 0 0 0 1 0 0 0 0 1 1 0 1 1 0 0 0 0.00120000 1440 640 15 5 120 0 1.00000 96.0000 2.00000 2.00000 192.000 48.0000 600000. 600000. 1.00000 127 100 1000.00 10.0000 300 3000.00 100.000 1.00000 2.00000 127 -0.00100000 1.00000 2.00000 127 -0.00100000 1.50000 3.00000 127 -0.00100000 40 8 8 8 1.75000 5.00000 1.00000 0.300000 0.100000 0.500000 1.00000 2 0.00250000 0.00833330 -0.0833333 -0.00833330 0.00177770 0.00600000 0.250000 0.000500000 0.00130000 0.00120000 0.00500000 50 0.00600000 0.00500000 0.00000 7200 7200 1.00000 0.990000 8 14 25 0.0250000 0.0350000 0.0500000 0.200000 0.100000
     Play#0 output Play#0 1 /1
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta *
@@ -16297,11 +16289,11 @@
     Play#1 input xdump ship *
     Play#1 command xdump
     Play#1 output Play#1 1 XDUMP ship 0
-    Play#1 output Play#1 1 0 1 13 1 6 100 127 0 0 -5 13 0 0 "" 0 25 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 "" 0 ""
-    Play#1 output Play#1 1 1 1 5 -1 2 100 127 0 31 -5 13 0 0 "" 300 25 0 0 0 0 0 0 0 0 100 100 0 0 0 0 "" 1 "" 0 ""
-    Play#1 output Play#1 1 2 1 5 -1 15 100 127 0 44 -5 13 0 0 "" 30 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 2 "" 0 ""
-    Play#1 output Play#1 1 3 1 6 0 8 100 127 0 51 -5 13 0 0 "" 990 0 0 0 0 0 0 0 0 449 0 0 0 0 0 0 "" 3 "" 0 ""
-    Play#1 output Play#1 1 4 1 6 0 1 100 127 0 51 -5 13 0 0 "" 300 0 0 0 0 0 0 0 900 0 0 0 0 0 0 0 "" 4 "" 0 ""
+    Play#1 output Play#1 1 0 1 13 1 6 100 127 0 0 -5 13 0 0 "" 0 25 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 ""
+    Play#1 output Play#1 1 1 1 5 -1 2 100 127 0 31 -5 13 0 0 "" 300 25 0 0 0 0 0 0 0 0 100 100 0 0 0 "" 0 ""
+    Play#1 output Play#1 1 2 1 5 -1 15 100 127 0 44 -5 13 0 0 "" 30 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "" 0 ""
+    Play#1 output Play#1 1 3 1 6 0 8 100 127 0 51 -5 13 0 0 "" 990 0 0 0 0 0 0 0 0 449 0 0 0 0 0 "" 0 ""
+    Play#1 output Play#1 1 4 1 6 0 1 100 127 0 51 -5 13 0 0 "" 300 0 0 0 0 0 0 0 900 0 0 0 0 0 0 "" 0 ""
     Play#1 output Play#1 1 /5
     Play#1 output Play#1 6 0 640
     Play#1 input xdump plane *
@@ -16736,7 +16728,7 @@
     Play#1 input xdump version *
     Play#1 command xdump
     Play#1 output Play#1 1 XDUMP version 0
-    Play#1 output Play#1 1 "Wolfpack\\040Empire\\0404.3.32" 99 "Deity\\040forgot\\040to\\040edit\\040econfig" "careless@invalid" 64 32 60 0 0 1 "" "" "" 1 0 1 0 1 1 0 0 0 0 1 0 0 0 0 1 1 0 1 1 0 1 0 0 0.00120000 1440 640 15 5 120 0 1.00000 96.0000 2.00000 2.00000 192.000 48.0000 600000. 600000. 1.00000 127 100 1000.00 10.0000 300 3000.00 100.000 1.00000 2.00000 127 -0.00100000 1.00000 2.00000 127 -0.00100000 1.50000 3.00000 127 -0.00100000 40 8 8 8 1.75000 5.00000 1.00000 0.300000 0.100000 0.500000 1.00000 2 0.00250000 0.00833330 -0.0833333 -0.00833330 0.00177770 0.00600000 0.250000 0.000500000 0.00130000 0.00120000 0.00500000 50 0.00600000 0.00500000 0.00000 7200 7200 1.00000 0.990000 8 14 25 0.0250000 0.0350000 0.0500000 0.200000 0.100000
+    Play#1 output Play#1 1 "Wolfpack\\040Empire\\0404.3.32" 99 "Deity\\040forgot\\040to\\040edit\\040econfig" "careless@invalid" 64 32 60 0 0 1 "" "" "" 1 0 1 0 1 1 0 0 0 0 1 0 0 0 0 1 1 0 1 1 0 0 0 0.00120000 1440 640 15 5 120 0 1.00000 96.0000 2.00000 2.00000 192.000 48.0000 600000. 600000. 1.00000 127 100 1000.00 10.0000 300 3000.00 100.000 1.00000 2.00000 127 -0.00100000 1.00000 2.00000 127 -0.00100000 1.50000 3.00000 127 -0.00100000 40 8 8 8 1.75000 5.00000 1.00000 0.300000 0.100000 0.500000 1.00000 2 0.00250000 0.00833330 -0.0833333 -0.00833330 0.00177770 0.00600000 0.250000 0.000500000 0.00130000 0.00120000 0.00500000 50 0.00600000 0.00500000 0.00000 7200 7200 1.00000 0.990000 8 14 25 0.0250000 0.0350000 0.0500000 0.200000 0.100000
     Play#1 output Play#1 1 /1
     Play#1 output Play#1 6 0 640
     Play#1 input xdump meta *

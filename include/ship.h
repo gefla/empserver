@@ -72,9 +72,6 @@ struct shpstr {
     short shp_pstage;		/* plague stage */
     short shp_ptime;		/* how many etus remain in this stage */
     short shp_access;		/* Last tick mob was updated (MOB_ACCESS) */
-    unsigned char shp_mobquota;	/* mobility quota */
-    char shp_path[MAXSHPPATH];
-    int shp_follow;
     char shp_name[MAXSHPNAMLEN]; /* name set with the "name" command */
     coord shp_orig_x;
     coord shp_orig_y;		/* Where we were built */

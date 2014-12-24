@@ -136,15 +136,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
     struct mchrstr *mcp;
     int changed;
 
-    if (opt_SAIL) {
-	/* can't retreat a ship that's sailin, bad things happend */
-	if (*sp->shp_path) {
-	    wu(0, sp->shp_own,
-	       "%s %s,\nbut had sailing orders, and couldn't retreat!\n",
-	       prship(sp), conditions[findcondition(code)].desc[orig]);
-	    return 0;
-	}
-    }
     /* check crew - uws don't count */
     if (sp->shp_item[I_MILIT] == 0 && sp->shp_item[I_CIVIL] == 0) {
 	wu(0, sp->shp_own,

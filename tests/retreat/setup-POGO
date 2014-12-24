@@ -50,10 +50,10 @@ edit s 0 U 20 O 2 U 10 L 0,2 U 11
 retr 10 nhhnj ih
 retr 11 n h
 retr 20 u h
-| target ships that want to retreat, but can't: sunk, sailing, crewless,
+| target ships that want to retreat, but can't: sunk, crewless,
 | in construction zone, landlocked, no mobility
 edit s 10 U 30 U 31 U 32 U 33 U 34 U 35
-sail 31 nnnnh
+| #31 unused
 edit s 33 L 2,2
 edit s 34 L 3,1
 retr 30/31/32/33/34/35 n i

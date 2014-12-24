@@ -338,9 +338,6 @@ unit_wipe_orders(struct empobj *unit)
     switch (unit->ef_type) {
     case EF_SHIP:
 	sp = (struct shpstr *)unit;
-	sp->shp_mobquota = 0;
-	sp->shp_path[0] = 0;
-	sp->shp_follow = sp->shp_uid;
 	sp->shp_rflags = 0;
 	sp->shp_rpath[0] = 0;
 	break;

@@ -37,8 +37,7 @@ lret
 || ships failing to retreat
 | sunk
 fire se -2,2 30
-| sailing
-fire se -2,2 31
+__cmd added -1 -1 0
 | crewless
 fire se -2,2 32
 | construction zone

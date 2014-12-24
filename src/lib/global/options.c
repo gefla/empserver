@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2014
  */
 
 #include <config.h>
@@ -56,6 +56,5 @@ int opt_NO_FORT_FIRE = 0;
 int opt_NO_PLAGUE = 1;
 int opt_RAILWAYS = 1;
 int opt_RES_POP = 0;
-int opt_SAIL = 1;
 int opt_SUPER_BARS = 0;
 int opt_TECH_POP = 0;

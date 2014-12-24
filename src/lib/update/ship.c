@@ -82,10 +82,6 @@ prod_ship(int etus, int natnum, struct bp *bp, int build)
 	    np->nat_money = start_money;
     }
 
-    if (opt_SAIL) {
-	if (build && !player->simulation)	/* make sure to only sail once */
-	    sail_ship(natnum);
-    }
     return k;
 }
 

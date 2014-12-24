@@ -189,8 +189,6 @@ EMPCF_OPT("RAILWAYS", opt_RAILWAYS,
     "Highways double as rail")
 EMPCF_OPT("RES_POP", opt_RES_POP,
     "Population is limited by research")
-EMPCF_OPT("SAIL", opt_SAIL,
-    "Enable sail command")
 EMPCF_OPT("SUPER_BARS", opt_SUPER_BARS,
     "Make bars immune to damage")
 EMPCF_OPT("TECH_POP", opt_TECH_POP,

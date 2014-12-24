@@ -22,24 +22,24 @@ owner xloc yloc des effic mobil off loyal terr0 terr1 terr2 terr3 dterr xdist yd
 1 -1 -1 24 100 127 0 0 0 0 0 0 0 -1 -1 0 0 0 0 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
 /config
 config ship
-uid owner xloc yloc type effic mobil off tech opx opy mission radius fleet civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime access mquota path follow name xbuilt ybuilt builder rflags rpath
-0 2 -12 0 6 20 0 0 0 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 0 "" -12 0 0 () ""
-1 1 3 1 13 59 127 0 150 0 0 none 0 "" 0 13 200 10 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 1 "" -12 0 0 () ""
-2 1 3 1 13 60 127 0 150 0 0 none 0 "" 0 13 196 10 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 2 "" -12 0 0 () ""
-3 1 3 1 13 100 87 0 150 0 0 none 0 "" 0 13 162 10 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 3 "" -12 0 0 () ""
-5 1 10 0 17 100 117 0 100 0 0 none 0 "" 0 5 24 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 5 "" -12 0 0 () ""
-6 1 3 3 17 100 127 0 100 0 0 none 0 "" 0 5 36 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 6 "" -12 0 0 () ""
-9 1 3 1 2 98 124 0 20 0 0 none 0 "" 0 10 10 9 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 9 "" -12 0 0 () ""
-10 0 2 2 18 0 0 0 60 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 10 "" -12 0 0 () ""
-11 0 6 0 18 0 0 0 60 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 11 "" -12 0 0 () ""
-12 2 2 2 18 68 86 0 60 0 0 none 0 "" 0 3 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 12 "" -12 0 0 () ""
-13 2 6 0 18 72 91 0 60 0 0 none 0 "" 0 3 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 13 "" -12 0 0 () ""
-20 0 2 2 2 0 0 0 20 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 78 78 0 0 healthy 0 0 0 "" 20 "" -12 0 0 () ""
-21 0 6 0 2 0 0 0 20 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 80 80 0 0 healthy 0 0 0 "" 21 "" -12 0 0 () ""
-22 2 2 2 2 58 74 0 20 0 0 none 0 "" 0 3 0 0 0 0 0 0 0 0 58 59 0 0 healthy 0 0 0 "" 22 "" -12 0 0 () ""
-23 2 6 0 2 78 98 0 20 0 0 none 0 "" 0 4 0 0 0 0 0 0 0 0 78 78 0 0 healthy 0 0 0 "" 23 "" -12 0 0 () ""
-24 2 6 0 2 32 40 0 20 0 0 none 0 "" 0 2 0 0 0 0 0 0 0 0 32 32 0 0 healthy 0 0 0 "" 24 "" -12 0 0 () ""
-49 0 0 0 0 0 0 0 0 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 "" 0 "" 0 0 0 () ""
+uid owner xloc yloc type effic mobil off tech opx opy mission radius fleet civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime access name xbuilt ybuilt builder rflags rpath
+0 2 -12 0 6 20 0 0 0 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -12 0 0 () ""
+1 1 3 1 13 59 127 0 150 0 0 none 0 "" 0 13 200 10 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -12 0 0 () ""
+2 1 3 1 13 60 127 0 150 0 0 none 0 "" 0 13 196 10 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -12 0 0 () ""
+3 1 3 1 13 100 87 0 150 0 0 none 0 "" 0 13 162 10 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -12 0 0 () ""
+5 1 10 0 17 100 117 0 100 0 0 none 0 "" 0 5 24 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -12 0 0 () ""
+6 1 3 3 17 100 127 0 100 0 0 none 0 "" 0 5 36 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -12 0 0 () ""
+9 1 3 1 2 98 124 0 20 0 0 none 0 "" 0 10 10 9 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -12 0 0 () ""
+10 0 2 2 18 0 0 0 60 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -12 0 0 () ""
+11 0 6 0 18 0 0 0 60 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -12 0 0 () ""
+12 2 2 2 18 68 86 0 60 0 0 none 0 "" 0 3 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -12 0 0 () ""
+13 2 6 0 18 72 91 0 60 0 0 none 0 "" 0 3 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -12 0 0 () ""
+20 0 2 2 2 0 0 0 20 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 78 78 0 0 healthy 0 0 "" -12 0 0 () ""
+21 0 6 0 2 0 0 0 20 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 80 80 0 0 healthy 0 0 "" -12 0 0 () ""
+22 2 2 2 2 58 74 0 20 0 0 none 0 "" 0 3 0 0 0 0 0 0 0 0 58 59 0 0 healthy 0 0 "" -12 0 0 () ""
+23 2 6 0 2 78 98 0 20 0 0 none 0 "" 0 4 0 0 0 0 0 0 0 0 78 78 0 0 healthy 0 0 "" -12 0 0 () ""
+24 2 6 0 2 32 40 0 20 0 0 none 0 "" 0 2 0 0 0 0 0 0 0 0 32 32 0 0 healthy 0 0 "" -12 0 0 () ""
+49 0 0 0 0 0 0 0 0 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 0 0 () ""
 /config
 config plane
 uid owner xloc yloc type effic mobil off tech opx opy mission radius wing range harden ship land flags access theta

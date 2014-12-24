@@ -47,7 +47,7 @@ allies, but not by others .  Allied nations are assumed to have
 When you accept a country as a trustworthy trading partner, then you
 establish friendly relations towards them.  This allows them to sail
 ships into your harbours, load and unload goods, and have their
-ships repaired there.  You are allowed to "tend" and "follow" friendly
+ships repaired there.  You are allowed to "tend" friendly
 ships.  You may send "flash" messages (see info flash) to friendly nations.
 You will be warned, however, if they overfly
 your territory.  And if they do it enough times, your diplomatic

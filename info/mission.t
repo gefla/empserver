@@ -31,8 +31,6 @@ That's the price you pay for having automatic defenses.
 .s1
 .L "IMPORTANT NOTES"
 .s1
-Missions can occur during updates.  (Interdicting ships using "sail").
-.s1
 Artillery units less than 40% efficient will not fire.
 .s1
 Planes flying missions other than air defense will be intercepted

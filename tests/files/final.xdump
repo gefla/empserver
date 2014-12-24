@@ -2,7 +2,7 @@ config sect
 owner xloc yloc des effic mobil off loyal terr0 terr1 terr2 terr3 dterr xdist ydist avail elev work coastal newdes min gold fert ocontent uran oldown civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad c_dist m_dist s_dist g_dist p_dist i_dist d_dist b_dist f_dist o_dist l_dist h_dist u_dist r_dist c_del m_del s_del g_del p_del i_del d_del b_del f_del o_del l_del h_del u_del r_del mines pstage ptime che che_target fallout access road rail dfense
 /config
 config ship
-uid owner xloc yloc type effic mobil off tech opx opy mission radius fleet civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime access mquota path follow name xbuilt ybuilt builder rflags rpath
+uid owner xloc yloc type effic mobil off tech opx opy mission radius fleet civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime access name xbuilt ybuilt builder rflags rpath
 /config
 config plane
 uid owner xloc yloc type effic mobil off tech opx opy mission radius wing range harden ship land flags access theta

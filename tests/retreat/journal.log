@@ -144,12 +144,8 @@
     Play#1 output Play#1 1 Shells hit cs   cargo ship (#30) in 0,2 for 10 damage.
     Play#1 output Play#1 1 cs   cargo ship (#30) sunk!
     Play#1 output Play#1 6 0 629
-    Play#1 input fire se -2,2 31
-    Play#1 command fire
-    Play#1 output Play#1 1 Sector -2,2 ready to fire
-    Play#1 output Play#1 1 range is 4.00 (4.50)
-    Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#31) in 0,2 for 8 damage.
+    Play#1 input __cmd added -1 -1 0
+    Play#1 command __cmd
     Play#1 output Play#1 6 0 628
     Play#1 input fire se -2,2 32
     Play#1 command fire
@@ -1271,10 +1267,6 @@
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#30) in 0,2 for 10 damage.
     Play#0 output Play#0 1 	cs   cargo ship (#30) takes 8
     Play#0 output Play#0 1 	cs   cargo ship (#30) sunk!
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#31) in 0,2 for 8 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#31) takes 6
-    Play#0 output Play#0 1 cs   cargo ship (#31) was damaged,
-    Play#0 output Play#0 1 but had sailing orders, and couldn't retreat!
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#32) in 0,2 for 8 damage.
     Play#0 output Play#0 1 	cs   cargo ship (#32) takes 6
     Play#0 output Play#0 1 cs   cargo ship (#32) was damaged,
@@ -1503,7 +1495,7 @@
     Play#0 output Play#0 1   2   10 cs   cargo ship     4,4        83%   0   8   0   0  0  0  0  0  53   20
     Play#0 output Play#0 1   2   11 cs   cargo ship     1,3        91%   0   9   0   0  0  0  0  0  99   20
     Play#0 output Play#0 1   2   20 cs   cargo ship    -3,1        95%   0   9   0   0  0  0  0  0 121   20
-    Play#0 output Play#0 1   2   31 cs   cargo ship     0,2        94%   0  10   0   0  0  0  0  0 119   20
+    Play#0 output Play#0 1   2   31 cs   cargo ship     0,2       100%   0  10   0   0  0  0  0  0 127   20
     Play#0 output Play#0 1   2   32 cs   cargo ship     0,2        94%   0   0   0   0  0  0  0  0 119   20
     Play#0 output Play#0 1   2   33 cs   cargo ship     2,2        94%   0   9   0   0  0  0  0  0 120   20
     Play#0 output Play#0 1   2   34 cs   cargo ship     3,1        92%   0   9   0   0  0  0  0  0 116   20

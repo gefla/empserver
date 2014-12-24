@@ -236,10 +236,6 @@ struct castr ship_ca[] = {
      EF_PLAGUE_STAGES, NSC_DEITY},
     {"ptime", fldoff(shp_ptime), NSC_SHORT, 0, NULL, EF_BAD, NSC_DEITY},
     {"access", fldoff(shp_access), NSC_SHORT, 0, NULL, EF_BAD, 0},
-    {"mquota", fldoff(shp_mobquota), NSC_UCHAR, 0, NULL, EF_BAD, 0},
-    {"path", fldoff(shp_path), NSC_STRINGY, MAXSHPPATH, NULL, EF_BAD, 0},
-    /* follow can point to dead ship; avoid ca_table for now */
-    {"follow", fldoff(shp_follow), NSC_INT, 0, NULL, EF_BAD, 0},
     {"name", fldoff(shp_name), NSC_STRINGY, MAXSHPNAMLEN, NULL,
      EF_BAD, 0},
     /* should let builder access xbuilt, ybuilt, but can't express that: */

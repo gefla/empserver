@@ -132,13 +132,6 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    free(mlp);
 	    continue;
 	}
-	if (opt_SAIL) {
-	    if (*sp->shp_path && !update_running) {
-		shp_stays(actor, "has a sail path", mlp);
-		mpr(actor, "Use `sail <#> -' to reset\n");
-		continue;
-	    }
-	}
 	/* check crew - uws don't count */
 	if (sp->shp_item[I_MILIT] == 0 && sp->shp_item[I_CIVIL] == 0) {
 	    shp_stays(actor, "is crewless", mlp);

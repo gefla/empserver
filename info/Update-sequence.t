@@ -39,7 +39,6 @@ This document gives a rough order of events during the update.
                 g) then make things
 	f) ship building
                 stopped ships are started, but not built (see info stop)
-		finally, if option SAIL is enabled, follow sail paths
 	g) plane building
                 stopped planes are started, but not built (see info stop)
 	h) land unit building

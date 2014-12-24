@@ -1026,7 +1026,7 @@ owner xloc yloc des effic mobil off loyal terr0 terr1 terr2 terr3 dterr xdist yd
 0 -1 -1 0 0 0 0 0 0 0 0 0 0 -1 -1 0 -33 0 1 0 0 0 74 68 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
 /config
 config ship
-uid owner xloc yloc type effic mobil off tech opx opy mission radius fleet civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime access mquota path follow name xbuilt ybuilt builder rflags rpath
+uid owner xloc yloc type effic mobil off tech opx opy mission radius fleet civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime access name xbuilt ybuilt builder rflags rpath
 /config
 config plane
 uid owner xloc yloc type effic mobil off tech opx opy mission radius wing range harden ship land flags access theta
