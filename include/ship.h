@@ -45,17 +45,6 @@
 #define SHP_TYPE_MAX	46
 #define SHIP_MINEFF	20
 
-/* bit masks for the autonav mode flags */
-
-#define AN_AUTONAV bit(2)
-#define AN_STANDBY bit(3)
-#define AN_LOADING bit(4)
-#define AN_SCUTTLE bit(5)	/* Auto-scuttle of trade ships */
-
-/* TMAX is the number of cargo holds a ship use in the autonav code. */
-#define TMAX 6
-
-
 #define MAXSHPPATH	28
 #define MAXSHPNAMLEN	24
 
@@ -79,13 +68,6 @@ struct shpstr {
     short shp_mission;		/* mission code */
     short shp_radius;		/* mission radius */
     /* end of part matching struct empobj */
-    coord shp_destx[2];		/* location for ship destination */
-    coord shp_desty[2];
-    i_type shp_tstart[TMAX];	/* what goods to pick up at start point */
-    i_type shp_tend[TMAX];	/* what goods to pick up at end point   */
-    short shp_lstart[TMAX];	/* How much do we pick up at the start  */
-    short shp_lend[TMAX];	/* How much do we pick up at the end    */
-    unsigned char shp_autonav;	/* autonavigation flags */
     short shp_item[I_MAX+1];	/* amount of items on board */
     short shp_pstage;		/* plague stage */
     short shp_ptime;		/* how many etus remain in this stage */

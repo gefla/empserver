@@ -27,7 +27,7 @@
  *  scut.c: Scuttle ships, planes or land units
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -37,6 +37,8 @@
 #include "news.h"
 #include "optlist.h"
 #include "unit.h"
+
+static int scuttle_tradeship(struct shpstr *);
 
 int
 scut(void)
@@ -94,7 +96,7 @@ scut(void)
 	if (type == EF_SHIP) {
 	    mp = &mchr[(int)item.ship.shp_type];
 	    if (mp->m_flags & M_TRADE) {
-		if (!scuttle_tradeship(&item.ship, 1))
+		if (!scuttle_tradeship(&item.ship))
 		    continue;
 	    }
 	} else if (type == EF_LAND) {
@@ -117,8 +119,8 @@ scut(void)
     return RET_OK;
 }
 
-int
-scuttle_tradeship(struct shpstr *sp, int interactive)
+static int
+scuttle_tradeship(struct shpstr *sp)
 {
     float cash = 0;
     float ally_cash = 0;
@@ -127,7 +129,6 @@ scuttle_tradeship(struct shpstr *sp, int interactive)
     struct mchrstr *mp;
     struct natstr *np;
     char buf[512];
-    struct natstr *natp;
 
     mp = &mchr[(int)sp->shp_type];
     getsect(sp->shp_x, sp->shp_y, &sect);
@@ -136,8 +137,8 @@ scuttle_tradeship(struct shpstr *sp, int interactive)
 	dist = mapdist(sp->shp_x, sp->shp_y,
 		       sp->shp_orig_x, sp->shp_orig_y);
 	/* Don't disclose distance to to pirates */
-	if (sp->shp_own == sp->shp_orig_own)
-	    mpr(sp->shp_own, "%s has gone %d sects\n", prship(sp), dist);
+	if (player->cnum == sp->shp_orig_own)
+	    pr("%s has gone %d sects\n", prship(sp), dist);
 	if (dist < trade_1_dist)
 	    cash = 0;
 	else if (dist < trade_2_dist)
@@ -156,23 +157,13 @@ scuttle_tradeship(struct shpstr *sp, int interactive)
     }
 
     if (!cash && (dist < 0 || sp->shp_own == sp->shp_orig_own)) {
-	if (interactive) {
-	    pr("You won't get any money if you scuttle in %s!",
-	       xyas(sp->shp_x, sp->shp_y, player->cnum));
-	    sprintf(buf, "Are you sure you want to scuttle %s? ", prship(sp));
-	    return confirm(buf);
-	} else
-	    return 0;
+	pr("You won't get any money if you scuttle in %s!",
+	   xyas(sp->shp_x, sp->shp_y, player->cnum));
+	sprintf(buf, "Are you sure you want to scuttle %s? ", prship(sp));
+	return confirm(buf);
     }
 
-    if (interactive) {
-	player->dolcost -= cash;
-    } else {
-	natp = getnatp(sp->shp_own);
-	natp->nat_money += cash;
-	putnat(natp);
-	wu(0, sp->shp_own, "You just made $%d.\n", (int)cash);
-    }
+    player->dolcost -= cash;
 
     if (ally_cash) {
 	np = getnatp(sect.sct_own);

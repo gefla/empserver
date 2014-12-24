@@ -125,7 +125,6 @@ number of planes the ship is carrying
 number of xlight planes the ship is carrying
 .L nchoppers
 number of helicopters the ship is carrying
-.L autonav
 .in
 .s1
 Plane:

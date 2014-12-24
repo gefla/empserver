@@ -72,21 +72,4 @@ get some bad publicity in the news) Payoff is still based on the distance from
 the harbor where the trade ship was built, not the sector in which it was
 captured.
 .s1
-You can also use the "order" command to set up automated trading routes with
-trade ships and have them navigate and automatically scuttle themselves when
-they reach their destination.  See "info order" for more information on this,
-but basically you can do things like this:
-.NF
-    Step 1) Make a harbor
-    Step 2) Get cms distributed/delivered to your harbor each update.
-    Step 3) Find a destination harbor to sail to
-    Step 4) build tradeships in the harbor each update
-    Step 5) load civs and food on the trade ships each update.
-    Step 6) order the trade ships to sail and autoscuttle in the dest harbor.
-.FI
-.s1
-You can then just repeat steps 4, 5, and 6 each update, and never worry
-about your trade ships again.  Unless someone starts intercepting them,
-that is...
-.s1
-.SA "payoff, order, Ship-types, scuttle, Ships"
+.SA "payoff, Ship-types, scuttle, Ships"

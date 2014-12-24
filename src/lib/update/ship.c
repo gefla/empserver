@@ -75,8 +75,6 @@ prod_ship(int etus, int natnum, struct bp *bp, int build)
 	np = getnatp(sp->shp_own);
 	start_money = np->nat_money;
 	upd_ship(sp, etus, np, bp, build);
-	if (build && !player->simulation)	/* make sure to only autonav once */
-	    nav_ship(sp);	/* autonav the ship */
 	sea_money[sp->shp_own] += np->nat_money - start_money;
 	if (!build || np->nat_money != start_money)
 	    k++;

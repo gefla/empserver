@@ -33,7 +33,7 @@
  *     Ken Stevens
  *     Steve McClure
  *     Ron Koenderink, 2005-2006
- *     Markus Armbruster, 2005-2013
+ *     Markus Armbruster, 2005-2014
  */
 
 #include <config.h>
@@ -156,7 +156,6 @@ vers(void)
 	pr("The starting mobility when acquiring a sector or unit is %d.\n",
 	   -(etu_per_update / sect_mob_neg_factor));
     pr("\n");
-    pr("Ships on autonavigation may use %i cargo holds per ship.\n", TMAX);
     if (have_trade_ships()) {
 	pr("Trade-ships that go at least %d sectors get a return of %.1f%% per sector.\n",
 	   trade_1_dist, trade_1 * 100.0);

@@ -54,7 +54,6 @@ Max interdiction range		8	8	--	8
 
 The maximum amount of mobility used for land unit combat is 5.00.
 
-Ships on autonavigation may use 6 cargo holds per ship.
 Fire ranges are scaled by 1.00.
 Flak damage is scaled by 1.75.
 Torpedo damage is 2d40+38.

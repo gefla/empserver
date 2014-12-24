@@ -62,8 +62,6 @@ show_sail(struct nstr_item *nstr)
 	pr("   %3d   ", ship.shp_follow);
 	if (ship.shp_path[0]) {
 	    pr("%s", ship.shp_path);
-	} else if ((ship.shp_autonav & AN_AUTONAV)) {
-	    pr("Has orders");
 	}
 	pr("\n");
 	if (ship.shp_name[0] != 0) {
@@ -112,11 +110,6 @@ cmd_sail_ship(struct nstr_item *nstr)
     while (nxtitem(nstr, &ship)) {
 	if (!player->owner || ship.shp_own == 0)
 	    continue;
-	if ((ship.shp_autonav & AN_AUTONAV) &&
-	    !(ship.shp_autonav & AN_STANDBY)) {
-	    pr("Ship #%d has other orders!\n", ship.shp_uid);
-	    continue;
-	}
 
 	pr("Ship #%d at %s\n", ship.shp_uid,
 	   xyas(ship.shp_x, ship.shp_y, player->cnum));

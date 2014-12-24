@@ -64,7 +64,6 @@ extern int would_abandon(struct sctstr *, i_type, int, struct lndstr *);
 extern int nav_map(int, int, int);
 extern int do_unit_move(struct emp_qelem *, int *, double *, double *);
 extern int count_pop(int);
-extern int scuttle_tradeship(struct shpstr *, int);
 extern int line_of_sight(char **rad, int ax, int ay, int bx, int by);
 extern void plane_sona(struct emp_qelem *, int, int, struct shiplist **);
 extern char *prsub(struct shpstr *);
@@ -168,7 +167,6 @@ int newe(void);
 int news(void);
 int nuke(void);
 int offe(void);
-int orde(void);
 int orig(void);
 int para(void);
 int path(void);
@@ -181,7 +179,6 @@ int play(void);
 int powe(void);
 int prod(void);
 int pstat(void);
-int qorde(void);
 int quit(void);
 int rada(void);
 int range(void);
@@ -218,7 +215,6 @@ int shut(void);
 int sinfra(void);
 int skyw(void);
 int sona(void);
-int sorde(void);
 int spy(void);
 int sstat(void);
 int start(void);
@@ -694,11 +690,6 @@ extern void pln_do_upd_mob(struct plnstr *pp);
 extern void move_sat(struct plnstr *);
 /* nat.c */
 extern void prod_nat(int);
-/* nav_ship.c */
-extern int nav_ship(struct shpstr *);
-/* nav_util.c */
-extern int load_it(struct shpstr *, struct sctstr *, int);
-extern void unload_it(struct shpstr *);
 /* nxtitemp.c */
 /* in nsc.h */
 /* plague.c */

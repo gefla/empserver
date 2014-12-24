@@ -46,7 +46,7 @@ for the ships specified to be removed.
 .s1
 The PATH is a normal empire path specification. You may *not* give a
 destination sector on the command line, or at any time while giving
-the route.  Use the \*Qorder\*U command if you wish this functionality.
+the route.
 .s1
 When getting a path interactively, empire will show you the information
 you have (from your bmap) concerning the current area, to help you plot

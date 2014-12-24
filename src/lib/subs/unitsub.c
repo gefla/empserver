@@ -329,7 +329,6 @@ unit_wipe_orders(struct empobj *unit)
     struct shpstr *sp;
     struct plnstr *pp;
     struct lndstr *lp;
-    int i;
 
     unit->group = 0;
     unit->opx = unit->opy = 0;
@@ -339,15 +338,6 @@ unit_wipe_orders(struct empobj *unit)
     switch (unit->ef_type) {
     case EF_SHIP:
 	sp = (struct shpstr *)unit;
-	sp->shp_destx[0] = sp->shp_desty[0] = 0;
-	sp->shp_destx[1] = sp->shp_desty[1] = 0;
-	for (i = 0; i < TMAX; ++i) {
-	    sp->shp_tstart[i] = I_NONE;
-	    sp->shp_tend[i] = I_NONE;
-	    sp->shp_lstart[i] = 0;
-	    sp->shp_lend[i] = 0;
-	}
-	sp->shp_autonav = 0;
 	sp->shp_mobquota = 0;
 	sp->shp_path[0] = 0;
 	sp->shp_follow = sp->shp_uid;

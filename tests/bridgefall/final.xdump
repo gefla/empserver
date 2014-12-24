@@ -15,7 +15,7 @@ owner xloc yloc des effic mobil off loyal terr0 terr1 terr2 terr3 dterr xdist yd
 2 3 -1 28 80 0 0 0 0 0 0 0 0 3 -1 0 0 0 1 28 0 0 0 0 0 2 80 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
 /config
 config ship
-uid owner xloc yloc type effic mobil off tech opx opy mission radius fleet xstart xend ystart yend cargostart(0) cargostart(1) cargostart(2) cargostart(3) cargostart(4) cargostart(5) cargoend(0) cargoend(1) cargoend(2) cargoend(3) cargoend(4) cargoend(5) amtstart(0) amtstart(1) amtstart(2) amtstart(3) amtstart(4) amtstart(5) amtend(0) amtend(1) amtend(2) amtend(3) amtend(4) amtend(5) autonav civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime access mquota path follow name xbuilt ybuilt builder rflags rpath
+uid owner xloc yloc type effic mobil off tech opx opy mission radius fleet civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime access mquota path follow name xbuilt ybuilt builder rflags rpath
 /config
 config plane
 uid owner xloc yloc type effic mobil off tech opx opy mission radius wing range harden ship land flags access theta

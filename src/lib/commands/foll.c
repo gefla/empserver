@@ -77,11 +77,6 @@ foll(void)
 	    pr("Ship #%d can't follow itself!\n", leader);
 	    continue;
 	}
-	if ((ship.shp_autonav & AN_AUTONAV)
-	    && !(ship.shp_autonav & AN_STANDBY)) {
-	    pr("Ship #%d has other orders!\n", ship.shp_uid);
-	    continue;
-	}
 	count++;
 	ship.shp_mission = 0;
 	*ship.shp_path = 'f';

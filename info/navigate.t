@@ -148,4 +148,4 @@ all the ships in the fleet which are in the same sector.
 While navigating, you cannot enter a sector that belongs to another
 country unless they have FRIENDLY relations with you. This includes bridges, and harbors.
 .s1
-.SA "mine, Ship-types, mission, order, sail, Ships, Transportation, Moving"
+.SA "mine, Ship-types, mission, sail, Ships, Transportation, Moving"
