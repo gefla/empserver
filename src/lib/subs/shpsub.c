@@ -174,7 +174,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
     }
 }
 
-void
+static void
 shp_nav_put(struct emp_qelem *list, natid actor)
 {
     struct emp_qelem *qp, *next;

@@ -532,7 +532,7 @@ lnd_mar_put_one(struct ulist *llp)
     lnd_put_one(llp);
 }
 
-void
+static void
 lnd_mar_put(struct emp_qelem *list, natid actor)
 {
     struct emp_qelem *qp, *next;

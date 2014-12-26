@@ -186,7 +186,6 @@ extern void lnd_takemob(struct emp_qelem *, double);
 extern int lnd_spyval(struct lndstr *);
 extern void intelligence_report(int, struct lndstr *, int, char *);
 extern void lnd_mar(struct emp_qelem *, double *, double *, int *, natid);
-extern void lnd_mar_put(struct emp_qelem *, natid);
 extern void lnd_put(struct emp_qelem *);
 extern void lnd_put_one(struct ulist *);
 extern int lnd_hardtarget(struct lndstr *);
