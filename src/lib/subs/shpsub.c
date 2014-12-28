@@ -775,39 +775,50 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor)
     newy = ynorm(mlp->unit.ship.shp_y + dy);
     getsect(newx, newy, &sect);
 
+    if (sect.sct_own && relations_with(sect.sct_own, actor) < FRIENDLY) {
+	mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
+	return 1;
+    }
+
     move = 0;
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
-	stuck = shp_check_nav(&mlp->unit.ship, &sect);
-	if (stuck == SHP_STUCK_NOT &&
-	    (!sect.sct_own
-	     || relations_with(sect.sct_own, actor) >= FRIENDLY))
+	switch (shp_check_nav(&mlp->unit.ship, &sect)) {
+	case SHP_STUCK_NOT:
 	    move = 1;
+	    break;
+	case SHP_STUCK_CANAL:
+	    break;
+	default:
+	    CANT_REACH();
+	    /* fall through */
+	case SHP_STUCK_CONSTRUCTION:
+	case SHP_STUCK_IMPASSABLE:
+	    mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
+	    return 1;
+	}
+    }
+    if (!move) {
+	mpr(actor, "is too large to fit into the canal system at %s\n",
+	    xyas(newx, newy, actor));
+	return 1;
     }
 
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
 	stuck = shp_check_nav(&mlp->unit.ship, &sect);
-	if (stuck != SHP_STUCK_NOT ||
-	    (sect.sct_own
-	     && relations_with(sect.sct_own, actor) < FRIENDLY)) {
-	    if (stuck == SHP_STUCK_CANAL &&
-		(!sect.sct_own
-		 || relations_with(sect.sct_own, actor) >= FRIENDLY))
-		sprintf(dp,
-			"is too large to fit into the canal system at %s",
-			xyas(newx, newy, actor));
-	    else
-		sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
-	    if (!move) {
-		mpr(actor, "%s\n", dp);
-		return 1;
-	    } else {
-		shp_stays(actor, dp, mlp);
-		continue;
-	    }
+	if (stuck == SHP_STUCK_CANAL) {
+	    sprintf(dp,
+		    "is too large to fit into the canal system at %s",
+		    xyas(newx, newy, actor));
+	    shp_stays(actor, dp, mlp);
+	    continue;
+	} else if (CANT_HAPPEN(stuck != SHP_STUCK_NOT)) {
+	    sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
+	    shp_stays(actor, dp, mlp);
+	    continue;
 	}
 
 	if (mlp->mobil <= 0.0) {
