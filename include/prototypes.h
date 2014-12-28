@@ -452,7 +452,7 @@ extern int unitsatxy(coord, coord, int, int, int);
 extern int planesatxy(coord, coord, int, int);
 extern int asw_shipsatxy(coord, coord, int, int, struct plnstr *,
 			 struct shiplist **);
-extern int has_units(coord, coord, natid, struct lndstr *);
+extern int has_units(coord, coord, natid);
 extern int adj_units(coord, coord, natid);
 extern int islist(char *);
 /* maps.c */

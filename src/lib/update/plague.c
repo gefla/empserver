@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -100,7 +100,7 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
 	}
     }
     if (sp->sct_item[I_CIVIL] == 0 && sp->sct_item[I_MILIT] == 0
-	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, NULL)) {
+	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own)) {
 	makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
 	sp->sct_own = 0;
 	sp->sct_oldown = 0;

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -51,7 +51,7 @@ populace(struct natstr *np, struct sctstr *sp, int etu)
 	sp->sct_oldown = sp->sct_own;
     }
     if (!civ && !mil && !sp->sct_item[I_UW]
-	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, NULL)) {
+	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own)) {
 	makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
 	sp->sct_own = 0;
 	sp->sct_oldown = 0;

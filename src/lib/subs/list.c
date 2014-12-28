@@ -256,14 +256,14 @@ adj_units(coord x, coord y, natid own)
 
     for (i = DIR_FIRST; i <= DIR_LAST; i++) {
 	getsect(x + diroff[i][0], y + diroff[i][1], &sect);
-	if (has_units(sect.sct_x, sect.sct_y, own, NULL))
+	if (has_units(sect.sct_x, sect.sct_y, own))
 	    return 1;
     }
     return 0;
 }
 
 int
-has_units(coord x, coord y, natid cn, struct lndstr *lp)
+has_units(coord x, coord y, natid cn)
 {
     int n;
     struct lndstr land;
@@ -271,12 +271,6 @@ has_units(coord x, coord y, natid cn, struct lndstr *lp)
     for (n = 0; ef_read(EF_LAND, n, &land); n++) {
 	if (land.lnd_x != x || land.lnd_y != y)
 	    continue;
-	if (lp) {
-	    /* Check this unit.  If it is this one, we don't want
-	       it included in the count. */
-	    if (lp->lnd_uid == land.lnd_uid)
-		continue;
-	}
 	if (land.lnd_own == cn)
 	    return 1;
     }

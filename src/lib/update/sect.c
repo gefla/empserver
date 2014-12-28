@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -287,7 +287,7 @@ produce_sect(int natnum, int etu, struct bp *bp, int p_sect[][2])
 	 * they all starved or were plagued off.
 	 */
 	if (vec[I_CIVIL] == 0 && vec[I_MILIT] == 0 &&
-	    !has_units(sp->sct_x, sp->sct_y, sp->sct_own, NULL)) {
+	    !has_units(sp->sct_x, sp->sct_y, sp->sct_own)) {
 	    if (!player->simulation) {
 		makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
 		sp->sct_own = 0;

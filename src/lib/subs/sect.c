@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -83,7 +83,7 @@ sct_prewrite(int id, void *old, void *new)
 	sp->sct_oldown = own;
     }
 
-    if (own && !civs && !mil && !has_units(sp->sct_x, sp->sct_y, own, NULL)
+    if (own && !civs && !mil && !has_units(sp->sct_x, sp->sct_y, own)
 	&& !(sp->sct_flags & MOVE_IN_PROGRESS)) {
 	/* more cruft! */
 	own = sp->sct_own = 0;
