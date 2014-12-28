@@ -196,7 +196,7 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
 	    pr("Some subs are present in the sector.\n");
     }
     nplanes = planesatxy(target->sct_x, target->sct_y, 0, 0);
-    nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0);
+    nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0, 0);
   retry:
     p = getstring("Bomb what? (ship, plane, land unit, efficiency, commodities) ",
 		  buf);
@@ -612,7 +612,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0);
+	nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0, 0);
 	if (nunits == 0) {
 	    pr("%s could not find any units!\n", prplane(&plp->plane));
 	    continue;
@@ -628,7 +628,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    if (*q == '~')
 		break;
 	    if (*q == '?') {
-		unitsatxy(target->sct_x, target->sct_y, 0, 0);
+		unitsatxy(target->sct_x, target->sct_y, 0, 0, 0);
 		continue;
 	    }
 	    n = atoi(q);

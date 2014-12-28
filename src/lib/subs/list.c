@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2003-2012
+ *     Markus Armbruster, 2003-2014
  */
 
 #include <config.h>
@@ -119,7 +119,7 @@ carriersatxy(coord x, coord y, natid own)
 }
 
 int
-unitsatxy(coord x, coord y, int wantflags, int nowantflags)
+unitsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
 {
     int first;
     int units;
@@ -152,12 +152,14 @@ unitsatxy(coord x, coord y, int wantflags, int nowantflags)
 		continue;
 	}
 
-	if (first) {
-	    pr(" #          owner           eff       type\n");
-	    first = 0;
+	if (!only_count) {
+	    if (first) {
+		pr(" #          owner           eff       type\n");
+		first = 0;
+	    }
+	    pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
+	       cname(land.lnd_own), effadv(land.lnd_effic), prland(&land));
 	}
-	pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
-	   cname(land.lnd_own), effadv(land.lnd_effic), prland(&land));
 	units++;
     }
     return units;

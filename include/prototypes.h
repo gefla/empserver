@@ -448,7 +448,7 @@ extern int roundrange(double);
 /* list.c */
 extern int shipsatxy(coord, coord, int, int, int);
 extern int carriersatxy(coord, coord, natid);
-extern int unitsatxy(coord, coord, int, int);
+extern int unitsatxy(coord, coord, int, int, int);
 extern int planesatxy(coord, coord, int, int);
 extern int asw_shipsatxy(coord, coord, int, int, struct plnstr *,
 			 struct shiplist **);
