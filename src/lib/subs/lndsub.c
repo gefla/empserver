@@ -984,7 +984,6 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor)
     coord newx;
     coord newy;
     int move;
-    enum lnd_stuck stuck;
     int stopping = 0;
     int visible;
     char dp[80];
@@ -1007,49 +1006,46 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor)
     newx = xnorm(llp->unit.land.lnd_x + dx);
     newy = ynorm(llp->unit.land.lnd_y + dy);
     getsect(newx, newy, &sect);
-    rel = relations_with(sect.sct_own, actor);
+    rel = sect.sct_own ? relations_with(sect.sct_own, actor) : ALLIED;
 
     move = 0;
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
-	stuck = lnd_check_mar(&llp->unit.land, &sect);
-	if (stuck == LND_STUCK_NOT
-	    && (!sect.sct_own || rel == ALLIED
-		|| (lchr[llp->unit.land.lnd_type].l_flags & L_SPY))) {
-	    move = 1;
+	switch (lnd_check_mar(&llp->unit.land, &sect)) {
+	case LND_STUCK_NOT:
+	    if (rel == ALLIED
+		|| (lchr[llp->unit.land.lnd_type].l_flags & L_SPY))
+		move = 1;
+	    break;
+	case LND_STUCK_NO_RAIL:
+	    if (rel == ALLIED)
+		mpr(actor, "no rail system in %s\n",
+		    xyas(newx, newy, actor));
+	    else
+		mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
+	    return 1;
+	default:
+	    CANT_REACH();
+	    /* fall through */
+	case LND_STUCK_IMPASSABLE:
+	    mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
+	    return 1;
 	}
+    }
+    if (!move) {
+	mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
+	return 1;
     }
 
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
-	stuck = lnd_check_mar(&llp->unit.land, &sect);
-	if (stuck != LND_STUCK_NOT
-	    || (sect.sct_own && rel != ALLIED
-		&& !(lchr[llp->unit.land.lnd_type].l_flags & L_SPY))) {
-	    if (stuck == LND_STUCK_NO_RAIL
-		&& (!sect.sct_own || rel == ALLIED)) {
-		if (!move) {
-		    mpr(actor, "no rail system in %s\n",
-			xyas(newx, newy, actor));
-		    return 1;
-		} else {
-		    sprintf(dp, "has no rail system in %s",
-			    xyas(newx, newy, actor));
-		    lnd_stays(actor, dp, llp);
-		    continue;
-		}
-	    } else {
-		if (!move) {
-		    mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
-		    return 1;
-		} else {
-		    sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
-		    lnd_stays(actor, dp, llp);
-		    continue;
-		}
-	    }
+	if (rel != ALLIED
+	    && !(lchr[llp->unit.land.lnd_type].l_flags & L_SPY)) {
+	    sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
+	    lnd_stays(actor, dp, llp);
+	    continue;
 	}
 	if (llp->mobil <= 0.0) {
 	    lnd_stays(actor, "is out of mobility", llp);
@@ -1068,7 +1064,8 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor)
 	    mpr(actor, "You no longer own %s\n",
 		xyas(osect.sct_x, osect.sct_y, actor));
 	}
-	if (rel != ALLIED && sect.sct_own) {	/* must be a spy */
+	if (rel != ALLIED) {
+	    /* must be a spy */
 	    /* Always a 10% chance of getting caught. */
 	    if (chance(LND_SPY_DETECT_CHANCE(llp->unit.land.lnd_effic))) {
 		if (rel == NEUTRAL || rel == FRIENDLY) {
