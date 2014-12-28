@@ -1,0 +1,134 @@
+|| list, change flagship, nonsense
+march 2/3/0 i
+fi
+X
+
+|| stuck in starting sector
+| on sale/unremarkable/dead/foreign/crewless/loaded in 1,1
+set l 12 500
+march 12/10/19/11/13/14/15
+nh
+| non-train leading train in 1,3
+march 20/22 jh
+| train leading non-train and 50% train in 1,3
+march 22/21/23 jh
+| no rail in 2,2
+march 24 nh
+| BUG: not stuck
+| kidnapped in -5,3
+march 25 gh
+|| get stuck on the way
+| die, by hitting mine in 8,6
+| #31 hits a mine, #30 doesn't
+march 31/30 jX
+iyh
+| odd: death is silent
+| lose crew, by hitting mines in 8,6
+| at least one hit must lose crew; use __cmd to force it if necessary
+__cmd added -1 0 0
+march 32/33/34/35/36/37/38/39 jiyh
+| BUG: moves on without crew
+| TODO destroy land unit at march prompt, changing leader
+| TODO kidnap at march prompt
+|| sector entry
+| enter unowned 11,3
+march 50 jh
+| enter allied -1,3 (mined)
+march 51 gh
+| enter friendly -5,3, not all capable
+march 52/53 g
+ijjh
+| mess with the dice to avoid relations downgrade
+__cmd added -1 0 0
+march 55/54 g
+ijjh
+| BUG: 52/53 moves nothing g, cav/spy jj, 53/54 moves spy g, spy/cav jj
+| enter hostile 10,4
+march 56/57/58/59 jh
+| enter sea
+march 60 yX
+h
+| enter railway 1,3 5% and 3,5 4% (no rail)
+march 70 gh
+march 71 bX
+h
+| enter rail extension 4,4 60% and 6,4 59% (no rail)
+march 72 bh
+march 73 nX
+h
+| enter friendly -5,5 (no rail)
+march 74 bX
+h
+| enter allied X,Y (no rail)
+march 75 bX
+h
+| abandon sector 1,7, don't abandon 3,7
+march 76/77 yj
+y
+h
+march 78/79 yj
+n
+h
+| TODO empty sector at march prompt
+| run out of mob, change leader
+march 84/83/80/81/82
+jjun
+h
+|| path finding
+| within own
+march 90 4,4
+march 90
+4,2
+| odd: march to dest stops, navi doesn't
+| to sea
+march 90 0,0
+h
+march 90
+0,0
+| odd: unreachable dest at prompt stops, argument doesn't
+| to ally
+march 91 -2,2
+h
+| BUG: can't find path to / through ally
+|| lookout, mapping, radar
+march 101/100
+v
+B
+l
+l 0
+gbbb
+B 0
+| BUG: radar not used on march
+M *
+r
+r 100
+f
+r
+h
+|| mining old-owned 7,7 and 6,6
+march 110/111 d
+d 2
+yd 111/110 2
+h
+|| sweeping
+| no engineers
+march 0/2 mh
+| bridge span, no landmines
+march 120 mh
+| implicit sweep of occupied 9,7
+march 121/128 j
+| explicit sweep of same, out of mob
+mi
+| BUG: 128 stays behind
+| no implicit sweep in old-owned 7,7
+g
+| explicit sweep in same
+mh
+| implicit sweep in dense minefield, not all capable
+march 135/130/131/136/137/138/139
+j
+| implicit sweep, not all capable
+mmmh
+| BUG: non-sweeper hits mine
+| BUG: mobility use low
+|| TODO interdiction

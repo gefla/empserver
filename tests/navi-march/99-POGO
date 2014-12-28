@@ -1,8 +1,14 @@
 read 1
 read 2
+read 3
+read 4
+read 5
+read 6
 ship *
+carg * ?shell#0
 retr * ?rflags#0
 miss s * ?mission#0 q
 land *
-lretr * ?rflags#0
+lcar * ?shell#0
+lret * ?rflags#0
 miss l * ?mission#0 q

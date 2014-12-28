@@ -1,0 +1,21 @@
+------------------------------------------------------
+Empire server (pid 42) started
+Configured for testing
+Update schedule read
+No update scheduled
+Listening on 127.0.0.1
+Connect from 127.0.0.1
+Connect from 127.0.0.1
+tester@127.0.0.1 using country #1
+tester@127.0.0.1 logged in as country #1
+tester@127.0.0.1 logged out, country #1
+Connect from 127.0.0.1
+tester@127.0.0.1 using country #1
+tester@127.0.0.1 logged in as country #1
+tester@127.0.0.1 logged out, country #1
+Connect from 127.0.0.1
+tester@127.0.0.1 using country #0
+tester@127.0.0.1 logged in as country #0
+tester@127.0.0.1 logged out, country #0
+Shutdown commencing (cleaning up threads.)
+Server shutting down on signal 15

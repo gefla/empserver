@@ -1,0 +1,27 @@
+#!/bin/sh -e
+# navigate and march test for Empire
+
+if [ $# -ne 1 ]
+then echo "Usage: $0 SRCDIR" >&2; exit 1
+fi
+
+srcdir="$1"
+
+. "$srcdir"/tests/test-common.sh
+
+create_sandbox
+cat >>$econfig <<EOF
+WORLD_X 32
+WORLD_Y 16
+MARKET 1
+EOF
+customize big-city
+# TODO cover scattered navigate
+# TODO cover scattered march
+# TODO cover RAILWAYS 0
+
+begin_test "$srcdir"/tests/navi-march/setup-POGO
+feed_dir "$srcdir"/tests/navi-march
+end_test
+
+cmp_logs_xdump

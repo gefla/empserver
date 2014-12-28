@@ -1,0 +1,129 @@
+|| list, change leader, nonsense
+navi 2/3/0 i
+fi
+X
+
+|| stuck in starting sector
+| on sale/unremarkable/dead/foreign/crewless in 0,0
+set s 12 500
+navi 12/10/19/11/13
+yh
+| in harbor 1,1 2% and 3,1 1%
+navi 20 yh
+navi 21 h
+| in bridge 2,0 60% and 6,0 59%
+navi 22 uh
+navi 23 h
+| in canal 2,2 2% and 4,2 1%
+navi 24/26 yh
+navi 25 h
+| landlocked in 1,-1
+navi 27 h
+|| get stuck on the way
+| sink, by hitting mine in 11,-5
+| #31 hits a mine, #30 doesn't
+navi 31/30 jX
+iyh
+| lose crew, by hitting mines in 11,-5
+| at least one hit must lose crew; use __cmd to force it if necessary
+navi 32/33/34/35/36/37/38/39 jiyh
+| BUG: moves on without crew
+| TODO sink ship at navi prompt, changing leader
+| TODO slap bridge onto ship at navi prompt
+|| sector entry
+| enter harbor 1,1 2% and 3,1 1%
+navi 50 nh
+navi 51 bX
+h
+| enter bridge 2,0 60% and 6,0 59%
+navi 52 gh
+navi 53 jX
+h
+| enter canal 2,2 2%, not all capable
+navi 54/55 n
+iyyh
+navi 57/56 n
+iyyh
+| BUG: 54/55 moves pt n, pt/cs yy, 57/56 moves nothing n, cs/pt yy
+navi 58/59 nX
+h
+| enter canal 4,2 1%
+navi 60 bX
+h
+| enter land 1,-1
+navi 61 gX
+h
+| enter unowned harbor 11,1, friendly -7,1, unfriendly -9,1
+navi 62 bh
+navi 63 bh
+navi 64 bX
+h
+| enter unfriendly canal -10,2
+navi 65 bX
+h
+| BUG: reports "too large"
+| enter unowned bridge 10,0, friendly -6,0, unfriendly bridge -10,0
+navi 70 gh
+navi 71 gh
+navi 72 gX
+h
+| run out of mob, change leader
+navi 84/83/80/81/82
+yyyy
+h
+|| path finding
+| to sea, sea, land
+navi 90 -3,-3
+0,-4
+1,-1
+navi 90 1,-1
+h
+| odd: unreachable dest at prompt stops, argument doesn't
+| to allied harbor 2%
+navi 91 -3,1
+h
+| to canal 2%
+navi 92 2,2
+h
+| BUG: can't find path to / through canal
+|| lookout, mapping, radar, sonar
+navi 102/101/100
+v
+B
+l
+l 0
+ygg
+B 0
+M *
+r
+r 100
+s
+s 100
+f
+r
+h
+|| mining
+navi 110/111 d
+d 12
+nd 111/110 3
+h
+|| sweeping
+| no sweepers
+navi 0/1 mh
+| not at sea
+navi 5 mh
+| implicit sweep
+navi 121/122/128 j
+| explicit sweep, out of mob
+imjh
+| magazine full
+| mess with the dice to avoid hitting one
+__cmd added -1 0 0
+navi 129 nmh
+| implicit sweep in dense minefield, not all capable
+navi 135/130/131/136/137/138/139
+j
+| implicit sweep, not all capable
+mmmh
+| BUG: mobility use low
+|| TODO interdiction

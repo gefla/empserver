@@ -1492,10 +1492,17 @@
     Play#0 output Play#0 1 cav  cavalry #64 was damaged, and retreated to 3,1
     Play#0 output Play#0 1 0,0 takes 7% collateral damage
     Play#0 output Play#0 6 0 640
-    Play#0 input ship * ?fleet#a
+    Play#0 input ship *
     Play#0 command ship
     Play#0 output Play#0 1 own shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
+    Play#0 output Play#0 1   1    0 cs   cargo ship    -3,1    a  100%   0  10   0   0  0  0  0  0 127   20
+    Play#0 output Play#0 1   1    1 cs   cargo ship    -3,1    a  100%   0  10   0   0  0  0  0  0 127   20
     Play#0 output Play#0 1   1    2 cs   cargo ship    -3,1        91%   0   9   0   0  0  0  0  0 115   20
+    Play#0 output Play#0 1   1    3 cs   cargo ship    -3,1    a  100%   0  10   0   0  0  0  0  0 127   20
+    Play#0 output Play#0 1   1    4 cs   cargo ship    -3,1    a  100%   0  10   0   0  0  0  0  0 127   20
+    Play#0 output Play#0 1   1    5 dd   destroyer     -5,1    a   96%   0   9   0   0  0  0  0  0  63   70
+    Play#0 output Play#0 1   1    6 sb   submarine     -1,3    a  100%   0  10   0   0  0  0  0  0  97  165
+    Play#0 output Play#0 1   2    9 dd   destroyer     -4,-2   a   60%   0  10   0   0  0  0  0  0 127   70
     Play#0 output Play#0 1   2   10 cs   cargo ship     4,4        83%   0   8   0   0  0  0  0  0  53   20
     Play#0 output Play#0 1   2   11 cs   cargo ship     1,3        91%   0   9   0   0  0  0  0  0  99   20
     Play#0 output Play#0 1   2   20 cs   cargo ship    -3,1        95%   0   9   0   0  0  0  0  0 121   20
@@ -1535,14 +1542,13 @@
     Play#0 output Play#0 1   2  104 cs   cargo ship     0,2       100%   0  10   0   0  0  0  0  0 127   20
     Play#0 output Play#0 1   2  120 sb   submarine     -9,1       100%   0  10   0   0  0  0  0  0  93   60
     Play#0 output Play#0 1   2  130 tt   troop trans   -9,1       100%   0  10   0   0  0  0  0  0  95   60
-    Play#0 output Play#0 1 40 ships
+    Play#0 output Play#0 1 47 ships
     Play#0 output Play#0 6 0 640
-    Play#0 input retr * ?fleet#a
+    Play#0 input retr * ?rflags#0
     Play#0 command retreat
     Play#0 output Play#0 1 own shp#     ship type       x,y   fl path       as flt?  flags
     Play#0 output Play#0 1   1    2 cs   cargo ship    -3,1      bgyujnbgy           itshbdu
-    Play#0 output Play#0 1   2   10 cs   cargo ship     4,4
-    Play#0 output Play#0 1   2   11 cs   cargo ship     1,3
+    Play#0 output Play#0 1   1    4 cs   cargo ship    -3,1    a b          Yes      h
     Play#0 output Play#0 1   2   20 cs   cargo ship    -3,1      u                   h
     Play#0 output Play#0 1   2   31 cs   cargo ship     0,2      n                   i
     Play#0 output Play#0 1   2   32 cs   cargo ship     0,2      n                   i
@@ -1554,43 +1560,32 @@
     Play#0 output Play#0 1   2   42 lc   light cruis   -4,2      ugggh               i
     Play#0 output Play#0 1   2   43 ms   minesweeper   -6,4    m g          Yes      i
     Play#0 output Play#0 1   2   44 ms   minesweeper   -6,4    m g          Yes      i
-    Play#0 output Play#0 1   2   50 sb   submarine     -9,1
-    Play#0 output Play#0 1   2   51 sb   submarine     -9,1
-    Play#0 output Play#0 1   2   52 sb   submarine     -9,1
     Play#0 output Play#0 1   2   53 sb   submarine     -4,-2     gg                  h
     Play#0 output Play#0 1   2   60 dd   destroyer      0,2      nn                  ihb
-    Play#0 output Play#0 1   2   61 dd   destroyer      2,4
     Play#0 output Play#0 1   2   62 dd   destroyer      0,2      nn                  ihb
     Play#0 output Play#0 1   2   63 dd   destroyer      0,2      nn                  ihb
-    Play#0 output Play#0 1   2   64 dd   destroyer      2,4
-    Play#0 output Play#0 1   2   65 dd   destroyer      2,4
-    Play#0 output Play#0 1   2   66 dd   destroyer      2,4
     Play#0 output Play#0 1   2   67 dd   destroyer      0,2      nn                  hb
-    Play#0 output Play#0 1   2   68 dd   destroyer      2,4
-    Play#0 output Play#0 1   2   69 dd   destroyer      2,4
     Play#0 output Play#0 1   2   80 dd   destroyer      0,2      nn                  ihb
     Play#0 output Play#0 1   2   81 dd   destroyer      0,2      nn                  ihb
     Play#0 output Play#0 1   2   82 dd   destroyer      0,2      nn                  ihb
-    Play#0 output Play#0 1   2   83 dd   destroyer      2,4
     Play#0 output Play#0 1   2   84 dd   destroyer      0,2      nn                  ihb
-    Play#0 output Play#0 1   2  100 cs   cargo ship     2,4
     Play#0 output Play#0 1   2  101 cs   cargo ship     0,2      nn                  ith
-    Play#0 output Play#0 1   2  102 cs   cargo ship     2,4
-    Play#0 output Play#0 1   2  103 cs   cargo ship     2,4
     Play#0 output Play#0 1   2  104 cs   cargo ship     0,2      nn                  ith
-    Play#0 output Play#0 1   2  120 sb   submarine     -9,1
-    Play#0 output Play#0 1   2  130 tt   troop trans   -9,1
-    Play#0 output Play#0 1 40 ships
+    Play#0 output Play#0 1 24 ships
     Play#0 output Play#0 6 0 639
     Play#0 input miss s * ?mission#0 q
     Play#0 command mission
     Play#0 output Play#0 1 Thing                        x,y     op-sect  rad mission
     Play#0 output Play#0 1 lc   light cruiser (#42)    -4,2      -4,2      1 is on an interdiction mission
     Play#0 output Play#0 6 0 637
-    Play#0 input land * ?army#a
+    Play#0 input land *
     Play#0 command land
     Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
+    Play#0 output Play#0 1   1    0 inf  infantry     -3,1    a  100%  10 127 127   0  50  42%  0  0
+    Play#0 output Play#0 1   1    1 inf  infantry     -3,1    a  100%  10 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   1    2 inf  infantry     -3,1        89%   9 127 113   0  50  42%  0  0
+    Play#0 output Play#0 1   1    3 inf  infantry     -3,1    a  100%  10 127 127   0  50  42%  0  0
+    Play#0 output Play#0 1   1    4 inf  infantry     -3,1    a  100%  10 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   2    9 tra  train         1,1        93%  10 127 119   0  50  42%  0  1
     Play#0 output Play#0 1   2   10 cav  cavalry       4,0        61%   6 127  61   0  50  42%  0  0
     Play#0 output Play#0 1   2   31 cav  cavalry       0,2        99%  10 127 126   0  50  42%  0  0   35S
@@ -1608,17 +1603,15 @@
     Play#0 output Play#0 1   2   62 cav  cavalry       0,0       100%  10 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   2   63 cav  cavalry       0,0       100%  10 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   2   64 cav  cavalry       3,1        74%   7 127  72   0  50  42%  0  0
-    Play#0 output Play#0 1 18 units
+    Play#0 output Play#0 1 22 units
     Play#0 output Play#0 6 0 637
-    Play#0 input lretr * ?army#a
+    Play#0 input lretr * ?rflags#0
     Play#0 command lretreat
     Play#0 output Play#0 1 own lnd#     unit type       x,y   ar path       as army? flags
     Play#0 output Play#0 1   1    2 inf  infantry      -3,1      yujnbgyuj           ihb
-    Play#0 output Play#0 1   2    9 tra  train          1,1
+    Play#0 output Play#0 1   1    4 inf  infantry      -3,1    a b          Yes      h
     Play#0 output Play#0 1   2   10 cav  cavalry        4,0      y                   b
     Play#0 output Play#0 1   2   31 cav  cavalry        0,2      j                   b
-    Play#0 output Play#0 1   2   32 cav  cavalry        3,1
-    Play#0 output Play#0 1   2   33 cav  cavalry        1,1
     Play#0 output Play#0 1   2   34 cav  cavalry        1,1      j                   b
     Play#0 output Play#0 1   2   35 cav  cavalry        1,1      j                   b
     Play#0 output Play#0 1   2   40 cav  cavalry        2,2      u                   b
@@ -1626,12 +1619,10 @@
     Play#0 output Play#0 1   2   42 cav  cavalry        1,1      g                   b
     Play#0 output Play#0 1   2   43 eng  engineer       0,0    m u          Yes      b
     Play#0 output Play#0 1   2   44 eng  engineer       0,0    m u          Yes      b
-    Play#0 output Play#0 1   2   60 cav  cavalry        3,1
     Play#0 output Play#0 1   2   61 cav  cavalry        0,0      nj                  ihb
     Play#0 output Play#0 1   2   62 cav  cavalry        0,0      nj                  ihb
     Play#0 output Play#0 1   2   63 cav  cavalry        0,0      nj                  ihb
-    Play#0 output Play#0 1   2   64 cav  cavalry        3,1
-    Play#0 output Play#0 1 18 units
+    Play#0 output Play#0 1 14 units
     Play#0 output Play#0 6 0 636
     Play#0 input miss l * ?mission#0 q
     Play#0 command mission
