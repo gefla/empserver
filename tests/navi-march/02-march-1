@@ -41,7 +41,6 @@ ijjh
 __cmd added -1 0 0
 march 55/54 g
 ijjh
-| BUG: 52/53 moves nothing g, cav/spy jj, 53/54 moves spy g, spy/cav jj
 | enter hostile 10,4
 march 56/57/58/59 jh
 | enter sea

@@ -977,6 +977,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     coord dy;
     coord newx;
     coord newy;
+    int move;
     enum lnd_stuck stuck;
     int stopping = 0;
     int visible;
@@ -991,6 +992,25 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     }
     dx = diroff[dir][0];
     dy = diroff[dir][1];
+
+    move = 0;
+    for (qp = list->q_back; qp != list; qp = next) {
+	next = qp->q_back;
+	llp = (struct ulist *)qp;
+	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &osect);
+	oldown = osect.sct_own;
+	newx = xnorm(llp->unit.land.lnd_x + dx);
+	newy = ynorm(llp->unit.land.lnd_y + dy);
+	getsect(newx, newy, &sect);
+	stuck = lnd_check_mar(&llp->unit.land, &sect);
+	if (stuck == LND_STUCK_NOT
+	    && (relations_with(sect.sct_own, actor) == ALLIED
+		|| !sect.sct_own
+		|| (lchr[llp->unit.land.lnd_type].l_flags & L_SPY))) {
+	    move = 1;
+	}
+    }
+
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
@@ -1006,7 +1026,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		&& !(lchr[llp->unit.land.lnd_type].l_flags & L_SPY))) {
 	    if (stuck == LND_STUCK_NO_RAIL
 		&& (!sect.sct_own || rel == ALLIED)) {
-		if (together) {
+		if (together && !move) {
 		    mpr(actor, "no rail system in %s\n",
 			xyas(newx, newy, actor));
 		    return 1;
@@ -1017,7 +1037,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		    continue;
 		}
 	    } else {
-		if (together) {
+		if (together && !move) {
 		    mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
 		    return 1;
 		} else {
