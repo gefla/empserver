@@ -949,13 +949,40 @@ lnd_mobcost(struct lndstr *lp, struct sctstr *sp)
     return lnd_pathcost(lp, sector_mcost(sp, lnd_mobtype(lp)));
 }
 
+/*
+ * Ask user to confirm sector abandonment, if any.
+ * All land units in LIST must be in the same sector.
+ * If removing the land units in LIST would abandon their sector, ask
+ * the user to confirm.
+ * Return zero when abandonment was declined, else non-zero.
+ */
+int lnd_abandon_askyn(struct emp_qelem *list)
+{
+    struct ulist *llp;
+    struct sctstr sect;
+    struct emp_qelem *qp;
+
+    if (QEMPTY(list))
+	return 1;
+    llp = (struct ulist *)list->q_back;
+    getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
+    if (!abandon_askyn(&sect, I_CIVIL, 0, llp))
+	return 0;
+    if (!check_sect_ok(&sect))
+	return 0;
+    for (qp = list->q_back; qp != list; qp = qp->q_back) {
+	if (!check_land_ok(&((struct ulist *)qp)->unit.land))
+	    return 0;
+    }
+    return 1;
+}
+
 int
 lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		   int together)
 {
     struct sctstr sect, osect;
     struct emp_qelem *qp;
-    struct emp_qelem *qp2;
     struct emp_qelem *next;
     struct ulist *llp;
     struct emp_qelem cur, done;
@@ -967,7 +994,6 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     enum lnd_stuck stuck;
     int stopping = 0;
     int visible;
-    int stop;
     char dp[80];
     int rel;
     int oldown;
@@ -1031,27 +1057,6 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		    lnd_stays(actor, dp, llp);
 		    continue;
 		}
-	    }
-	}
-	/* Note we check would_abandon first because we don't want
-	   to always have to do these checks */
-	if (would_abandon(&osect, I_CIVIL, 0, &llp->unit.land)) {
-	    stop = 0;
-	    if (!want_to_abandon(&osect, I_CIVIL, 0, &llp->unit.land)) {
-		stop = 1;
-	    }
-	    /* now check stuff */
-	    if (!check_sect_ok(&sect))
-		return 1;
-	    if (!check_sect_ok(&osect))
-		return 1;
-	    for (qp2 = list->q_back; qp2 != list; qp2 = qp2->q_back) {
-		if (!check_land_ok(&((struct ulist *)qp2)->unit.land))
-		    return 1;
-	    }
-	    if (stop) {
-		lnd_stays(actor, "stops", llp);
-		continue;
 	    }
 	}
 	if (llp->mobil <= 0.0) {

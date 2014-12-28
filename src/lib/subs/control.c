@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
+ *     Markus Armbruster, 2014
  */
 
 #include <config.h>
@@ -38,6 +39,7 @@
 #include "player.h"
 #include "prototypes.h"
 #include "sect.h"
+#include "unit.h"
 
 /*
  * Does the player->owner have military control of this sector?
@@ -62,8 +64,16 @@ military_control(struct sctstr *sp)
     return 1;
 }
 
+/*
+ * Ask user to confirm abandonment of sector SP, if any.
+ * If removing AMNT commodities of type VTYPE and the land units in
+ * LIST would abandon their sector, ask the user to confirm.
+ * All land units in LIST must be in this sector.  LIST may be null.
+ * Return zero when abandonment was declined, else non-zero.
+ */
 int
-want_to_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
+abandon_askyn(struct sctstr *sp, i_type vtype, int amnt,
+	      struct ulist *land_list)
 {
     char prompt[80];
 
@@ -71,7 +81,7 @@ want_to_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
      * First, would we be abandoning it?  If not, just return that
      * it's ok to move out.
      */
-    if (!would_abandon(sp, vtype, amnt, lp))
+    if (!would_abandon(sp, vtype, amnt, land_list))
 	return 1;
 
     sprintf(prompt, "Do you really want to abandon %s [yn]? ",
@@ -80,10 +90,17 @@ want_to_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
     return askyn(prompt);
 }
 
+/*
+ * Would removing this stuff from SP abandon it?
+ * Consider removal of AMNT commodities of type VTYPE and the land
+ * units in LIST.
+ * All land units in LIST must be in this sector.  LIST may be null.
+ */
 int
-would_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
+would_abandon(struct sctstr *sp, i_type vtype, int amnt,
+	      struct ulist *land_list)
 {
-    int mil, civs;
+    int mil, civs, nland;
 
     if (vtype != I_CIVIL && vtype != I_MILIT)
 	return 0;
@@ -96,6 +113,10 @@ would_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
     if (vtype == I_CIVIL)
 	civs -= amnt;
 
-    return sp->sct_own != 0 && civs <= 0 && mil <= 0
-	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, lp);
+    if (!sp->sct_own || civs > 0 || mil > 0)
+	return 0;
+    nland = unitsatxy(sp->sct_x, sp->sct_y, 0, 0, 1);
+    if (land_list)
+	nland -= emp_quelen(&land_list->queue);
+    return nland <= 0;
 }

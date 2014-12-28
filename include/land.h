@@ -196,6 +196,7 @@ extern void lnd_mar(struct emp_qelem *, double *, double *, int *, natid);
 extern void lnd_put(struct emp_qelem *);
 extern void lnd_put_one(struct ulist *);
 extern int lnd_hardtarget(struct lndstr *);
+extern int lnd_abandon_askyn(struct emp_qelem *);
 extern int lnd_mar_one_sector(struct emp_qelem *, int, natid, int);
 extern int lnd_support(natid, natid, coord, coord, int);
 extern int lnd_can_attack(struct lndstr *);

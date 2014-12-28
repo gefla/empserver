@@ -140,7 +140,7 @@ move(void)
 	}
     }
 
-    if (!istest && !want_to_abandon(&sect, vtype, amount, NULL)) {
+    if (!istest && !abandon_askyn(&sect, vtype, amount, NULL)) {
 	pr("Move cancelled.\n");
 	return RET_FAIL;
     }

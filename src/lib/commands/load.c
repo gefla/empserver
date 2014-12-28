@@ -30,7 +30,7 @@
  *     David Sharnoff, 1987
  *     Ken Stevens, 1995 (rewritten)
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2014
  */
 
 #include <config.h>
@@ -692,7 +692,7 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 			   load_unload, atoi(p));
     if (!load_comm_ok(sectp, sp->shp_own, item, move_amt))
 	return RET_OK;
-    if (!want_to_abandon(sectp, item, move_amt, NULL))
+    if (!abandon_askyn(sectp, item, move_amt, NULL))
 	return RET_FAIL;
     if (!still_ok_ship(sectp, sp))
 	return RET_SYN;

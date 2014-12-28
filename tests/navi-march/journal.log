@@ -971,13 +971,7 @@
     Play#1 output Play#1 1 Leader is cav  cavalry #78
     Play#1 output Play#1 4 Do you really want to abandon 3,7 [yn]?
     Play#1 input n
-    Play#1 output Play#1 1 cav  cavalry #79 stops & stays in 3,7
-    Play#1 output Play#1 1  + m
-    Play#1 output Play#1 1 m m m
-    Play#1 output Play#1 1  m m
-    Play#1 output Play#1 4 <104.7:104.7: 4,6>
-    Play#1 input h
-    Play#1 output Play#1 1 cav  cavalry #78 stopped at 4,6
+    Play#1 output Play#1 1 command failed
     Play#1 output Play#1 6 0 567
     Play#1 input march 84/83/80/81/82
     Play#1 command march
@@ -1519,7 +1513,7 @@
     Play#0 output Play#0 1   1   75 tra  train         0,4       100%   5   0 127   0  40  42%  0  0
     Play#0 output Play#0 1   1   76 cav  cavalry       2,6       100%   5   0 104   0  30  42%  0  0
     Play#0 output Play#0 1   1   77 cav  cavalry       2,6       100%   5   0 104   0  30  42%  0  0
-    Play#0 output Play#0 1   1   78 cav  cavalry       4,6       100%   5   0 104   0  30  42%  0  0
+    Play#0 output Play#0 1   1   78 cav  cavalry       3,7       100%   5   0 127   0  30  42%  0  0
     Play#0 output Play#0 1   1   79 cav  cavalry       3,7       100%   5   0 127   0  30  42%  0  0
     Play#0 output Play#0 1   1   80 cav  cavalry       9,5       100%   5   0  60   0  30  42%  0  0
     Play#0 output Play#0 1   1   81 cav  cavalry       9,5       100%   5   0  60   0  30  42%  0  0

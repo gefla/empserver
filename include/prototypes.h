@@ -404,8 +404,8 @@ extern int check_trade_ok(struct trdstr *);
 extern void set_coastal(struct sctstr *, int, int);
 /* control.c */
 extern int military_control(struct sctstr *);
-extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);
-extern int would_abandon(struct sctstr *, i_type, int, struct lndstr *);
+extern int abandon_askyn(struct sctstr *, i_type, int, struct ulist *);
+extern int would_abandon(struct sctstr *, i_type, int, struct ulist *);
 /* damage.c */
 extern void landdamage(struct lndstr *, int);
 extern void ship_damage(struct shpstr *, int);

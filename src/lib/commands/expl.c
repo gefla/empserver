@@ -118,7 +118,7 @@ explore(void)
 	pr("Only exploring with %d.\n", amount);
     }
 
-    if (!want_to_abandon(&sect, vtype, amount, NULL)) {
+    if (!abandon_askyn(&sect, vtype, amount, NULL)) {
 	pr("Explore cancelled.\n");
 	return RET_FAIL;
     }

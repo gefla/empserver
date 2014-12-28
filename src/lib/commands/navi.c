@@ -74,6 +74,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
     int dir;
     int stopping = 0;
     int skip = 0;
+    int moved = 0;
     char buf[1024];
     char prompt[128];
     char bmap_flag;
@@ -153,10 +154,14 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    if (type == EF_SHIP)
 		stopping |= shp_nav_one_sector(ulist, dir,
 					       player->cnum, *together);
-	    else
+	    else {
+		if (!moved && !lnd_abandon_askyn(ulist))
+		    return RET_FAIL;
 		stopping |=
 		    lnd_mar_one_sector(ulist, dir, player->cnum,
 				       *together);
+	    }
+	    moved = 1;
 	    cp++;
 	    continue;
 	}
