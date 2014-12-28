@@ -49,6 +49,30 @@ EOF
     cp `git ls-files "$srcdir"/src/lib/global | uniq | grep '\.config$'` sandbox/share/empire/builtin
 }
 
+copy_tables()
+{
+    local t
+
+    for t
+    do [ -e sandbox/etc/empire/"$t".config ] || cp "$srcdir"/src/lib/global/$t.config sandbox/etc/empire
+    done
+}
+
+customize()
+{
+    local key
+    for key
+    do
+	case $key in
+	big-city)
+	    copy_tables sect
+	    sed -i '/"c" .* norm/d;/^#.*"c" .* cana/s/^#/ /' sandbox/etc/empire/sect.config
+	    ;;
+	esac
+    done
+    echo "custom_tables \"`cd sandbox/etc/empire && echo *.config`\"" >>$econfig
+}
+
 run_and_cmp()
 {
     run "$@"
