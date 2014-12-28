@@ -975,11 +975,9 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	newy = ynorm(llp->unit.land.lnd_y + dy);
 	getsect(newx, newy, &sect);
 	rel = relations_with(sect.sct_own, actor);
-	if ((rel != ALLIED &&
-	     !(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY) &&
-	     sect.sct_own) || (sect.sct_type == SCT_WATER ||
-			       sect.sct_type == SCT_SANCT ||
-			       sect.sct_type == SCT_WASTE)) {
+	if ((rel != ALLIED && sect.sct_own
+	     && !(lchr[llp->unit.land.lnd_type].l_flags & L_SPY))
+	    || dchr[sect.sct_type].d_mob0 < 0) {
 	    if (together) {
 		mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
 		return 1;
