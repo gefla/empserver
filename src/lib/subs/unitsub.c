@@ -117,7 +117,7 @@ unit_list(struct emp_qelem *unit_list)
 }
 
 char *
-unit_path(int together, struct empobj *unit, char *buf, size_t bufsz)
+unit_path(struct empobj *unit, char *buf, size_t bufsz)
 {
     coord destx;
     coord desty;
@@ -131,10 +131,6 @@ unit_path(int together, struct empobj *unit, char *buf, size_t bufsz)
 
     if (!sarg_xy(buf, &destx, &desty))
 	return buf;
-    if (!together) {
-	pr("Cannot go to a destination sector if not all starting in the same sector\n");
-	return NULL;
-    }
     if (unit->ef_type == EF_SHIP) {
 	c = path_find(unit->x, unit->y, destx, desty,
 		      player->cnum, MOB_SAIL);

@@ -87,7 +87,7 @@ do_unit_move(struct emp_qelem *ulist, double *minmob, double *maxmob)
 
     if (player->argp[2]) {
 	strcpy(buf, player->argp[2]);
-	cp = unit_path(1, leader, buf, sizeof(buf));
+	cp = unit_path(leader, buf, sizeof(buf));
     }
 
     while (!QEMPTY(ulist)) {
@@ -138,7 +138,7 @@ do_unit_move(struct emp_qelem *ulist, double *minmob, double *maxmob)
 		continue;
 	    }
 	    if (cp)
-		cp = unit_path(1, leader, buf, sizeof(buf));
+		cp = unit_path(leader, buf, sizeof(buf));
 	}
 	if (type == EF_SHIP) {
 	    rad_map_set(player->cnum, leader->x, leader->y, leader->effic,
