@@ -50,7 +50,6 @@ navi(void)
     struct nstr_item ni_ship;
     struct emp_qelem ship_list;
     double minmob, maxmob;
-    int together = 1;
 
     if (!snxtitem(&ni_ship, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
@@ -60,12 +59,11 @@ navi(void)
 	pr("No ships\n");
 	return RET_FAIL;
     }
-    return do_unit_move(&ship_list, &together, &minmob, &maxmob);
+    return do_unit_move(&ship_list, &minmob, &maxmob);
 }
 
 int
-do_unit_move(struct emp_qelem *ulist, int *together,
-	     double *minmob, double *maxmob)
+do_unit_move(struct emp_qelem *ulist, double *minmob, double *maxmob)
 {
     char *cp = NULL;
     int leader_uid;
@@ -89,7 +87,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 
     if (player->argp[2]) {
 	strcpy(buf, player->argp[2]);
-	cp = unit_path(*together, leader, buf, sizeof(buf));
+	cp = unit_path(1, leader, buf, sizeof(buf));
     }
 
     while (!QEMPTY(ulist)) {
@@ -140,7 +138,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 		continue;
 	    }
 	    if (cp)
-		cp = unit_path(*together, leader, buf, sizeof(buf));
+		cp = unit_path(1, leader, buf, sizeof(buf));
 	}
 	if (type == EF_SHIP) {
 	    rad_map_set(player->cnum, leader->x, leader->y, leader->effic,

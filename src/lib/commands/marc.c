@@ -44,7 +44,6 @@ march(void)
     struct nstr_item ni_land;
     struct emp_qelem land_list;
     double minmob, maxmob;
-    int together = 1;
 
     if (!snxtitem(&ni_land, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
@@ -54,5 +53,5 @@ march(void)
 	pr("No lands\n");
 	return RET_FAIL;
     }
-    return do_unit_move(&land_list, &together, &minmob, &maxmob);
+    return do_unit_move(&land_list, &minmob, &maxmob);
 }
