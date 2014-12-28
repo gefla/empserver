@@ -44,12 +44,12 @@ march(void)
     struct nstr_item ni_land;
     struct emp_qelem land_list;
     double minmob, maxmob;
-    int together;
+    int together = 1;
 
     if (!snxtitem(&ni_land, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
     lnd_sel(&ni_land, &land_list);
-    lnd_mar(&land_list, &minmob, &maxmob, &together, player->cnum);
+    lnd_mar(&land_list, &minmob, &maxmob, player->cnum);
     if (QEMPTY(&land_list)) {
 	pr("No lands\n");
 	return RET_FAIL;

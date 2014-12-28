@@ -454,21 +454,17 @@ lnd_insque(struct lndstr *lp, struct emp_qelem *list)
 /* This function assumes that the list was created by lnd_sel */
 void
 lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
-	int *togetherp, natid actor)
+	natid actor)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct ulist *llp;
-    struct lndstr *lp;
+    struct lndstr *lp, *ldr = NULL;
     struct sctstr sect;
-    coord allx;
-    coord ally;
-    int first = 1;
     char mess[128];
 
     *minmobp = 9876.0;
     *maxmobp = -9876.0;
-    *togetherp = 1;
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
@@ -519,13 +515,12 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    lnd_stays(actor, mess, llp);
 	    continue;
 	}
-	if (first) {
-	    allx = lp->lnd_x;
-	    ally = lp->lnd_y;
-	    first = 0;
+	if (!ldr)
+	    ldr = lp;
+	else if (lp->lnd_x != ldr->lnd_x || lp->lnd_y != ldr->lnd_y) {
+	    lnd_stays(actor, "is not with the leader", llp);
+	    continue;
 	}
-	if (lp->lnd_x != allx || lp->lnd_y != ally)
-	    *togetherp = 0;
 	if (lp->lnd_mobil + 1 < (int)llp->mobil) {
 	    llp->mobil = lp->lnd_mobil;
 	}
@@ -978,14 +973,12 @@ int lnd_abandon_askyn(struct emp_qelem *list)
 }
 
 int
-lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
-		   int together)
+lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor)
 {
     struct sctstr sect, osect;
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct ulist *llp;
-    struct emp_qelem cur, done;
     coord dx;
     coord dy;
     coord newx;
@@ -998,6 +991,9 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     int rel;
     int oldown;
 
+    if (CANT_HAPPEN(QEMPTY(list)))
+	return 1;
+
     if (dir <= DIR_STOP || dir >= DIR_VIEW) {
 	lnd_mar_put(list, actor);
 	return 1;
@@ -1005,19 +1001,21 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     dx = diroff[dir][0];
     dy = diroff[dir][1];
 
+    llp = (struct ulist *)list->q_back;
+    getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &osect);
+    oldown = osect.sct_own;
+    newx = xnorm(llp->unit.land.lnd_x + dx);
+    newy = ynorm(llp->unit.land.lnd_y + dy);
+    getsect(newx, newy, &sect);
+    rel = relations_with(sect.sct_own, actor);
+
     move = 0;
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
-	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &osect);
-	oldown = osect.sct_own;
-	newx = xnorm(llp->unit.land.lnd_x + dx);
-	newy = ynorm(llp->unit.land.lnd_y + dy);
-	getsect(newx, newy, &sect);
 	stuck = lnd_check_mar(&llp->unit.land, &sect);
 	if (stuck == LND_STUCK_NOT
-	    && (relations_with(sect.sct_own, actor) == ALLIED
-		|| !sect.sct_own
+	    && (!sect.sct_own || rel == ALLIED
 		|| (lchr[llp->unit.land.lnd_type].l_flags & L_SPY))) {
 	    move = 1;
 	}
@@ -1026,19 +1024,13 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
-	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &osect);
-	oldown = osect.sct_own;
-	newx = xnorm(llp->unit.land.lnd_x + dx);
-	newy = ynorm(llp->unit.land.lnd_y + dy);
-	getsect(newx, newy, &sect);
-	rel = relations_with(sect.sct_own, actor);
 	stuck = lnd_check_mar(&llp->unit.land, &sect);
 	if (stuck != LND_STUCK_NOT
 	    || (sect.sct_own && rel != ALLIED
 		&& !(lchr[llp->unit.land.lnd_type].l_flags & L_SPY))) {
 	    if (stuck == LND_STUCK_NO_RAIL
 		&& (!sect.sct_own || rel == ALLIED)) {
-		if (together && !move) {
+		if (!move) {
 		    mpr(actor, "no rail system in %s\n",
 			xyas(newx, newy, actor));
 		    return 1;
@@ -1049,7 +1041,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 		    continue;
 		}
 	    } else {
-		if (together && !move) {
+		if (!move) {
 		    mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
 		    return 1;
 		} else {
@@ -1104,38 +1096,15 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     if (QEMPTY(list))
 	return stopping;
 
-    /* interdict land units sector by sector */
-    emp_initque(&cur);
-    emp_initque(&done);
-    while (!QEMPTY(list)) {
-	llp = (struct ulist *)list->q_back;
-	newx = llp->unit.land.lnd_x;
-	newy = llp->unit.land.lnd_y;
-	/* move units in NEWX,NEWY to cur */
-	visible = 0;
-	for (qp = list->q_back; qp != list; qp = next) {
-	    next = qp->q_back;
-	    llp = (struct ulist *)qp;
-	    if (llp->unit.land.lnd_x == newx && llp->unit.land.lnd_y == newy) {
-		emp_remque(qp);
-		emp_insque(qp, &cur);
-		if (!(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY))
-		    visible = 1;
-	    }
-	}
-	/* interdict them */
-	if (visible)
-	    stopping |= lnd_interdict(&cur, newx, newy, actor);
-	/* move survivors to done */
-	for (qp = cur.q_back; qp != &cur; qp = next) {
-	    next = qp->q_back;
-	    emp_remque(qp);
-	    emp_insque(qp, &done);
-	}
+    visible = 0;
+    for (qp = list->q_back; qp != list; qp = next) {
+	next = qp->q_back;
+	llp = (struct ulist *)qp;
+	if (!(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY))
+	    visible = 1;
     }
-    /* assign surviving land units back to list */
-    emp_insque(list, &done);
-    emp_remque(&done);
+    if (visible)
+	stopping |= lnd_interdict(list, newx, newy, actor);
 
     return stopping;
 }

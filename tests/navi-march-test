@@ -17,7 +17,6 @@ MARKET 1
 EOF
 customize big-city
 # TODO cover scattered navigate
-# TODO cover scattered march
 # TODO cover RAILWAYS 0
 
 begin_test "$srcdir"/tests/navi-march/setup-POGO

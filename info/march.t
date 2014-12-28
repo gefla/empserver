@@ -3,7 +3,8 @@
 .LV Basic
 .SY "march <LAND UNIT/ARMY> <ROUTE|DESTINATION>"
 The march command is the \*Qmove\*U command applied to land units.
-You can control one unit or an entire army with it.
+You can control one unit or an entire army with it, but they must all
+start in the same sector.
 .s1
 Land units may only move into sectors you own, sectors of countries
 you are allied with or deity-owned sectors with 1 exception.  Spies.  Spies
@@ -114,10 +115,6 @@ For example,
 <104.2:104.2: -6,-2> h
 war band #18 stopped at -5,-3
 .FI
-.s1
-Note that if you are marching multiple units, you may only specify a
-destination sector on the command line if all the units start in the
-same sector.
 .s1
 See \*Qinfo Mobility\*U for the mobility cost to march land units.
 .s1

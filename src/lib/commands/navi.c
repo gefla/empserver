@@ -101,7 +101,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    if (type == EF_SHIP)
 		shp_nav(ulist, minmob, maxmob, together, player->cnum);
 	    else
-		lnd_mar(ulist, minmob, maxmob, together, player->cnum);
+		lnd_mar(ulist, minmob, maxmob, player->cnum);
 	    if (QEMPTY(ulist)) {
 		pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
 		return RET_OK;
@@ -128,7 +128,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    if (type == EF_SHIP)
 		shp_nav(ulist, minmob, maxmob, together, player->cnum);
 	    else
-		lnd_mar(ulist, minmob, maxmob, together, player->cnum);
+		lnd_mar(ulist, minmob, maxmob, player->cnum);
 	    if (QEMPTY(ulist)) {
 		pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
 		return RET_OK;
@@ -157,9 +157,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	    else {
 		if (!moved && !lnd_abandon_askyn(ulist))
 		    return RET_FAIL;
-		stopping |=
-		    lnd_mar_one_sector(ulist, dir, player->cnum,
-				       *together);
+		stopping |= lnd_mar_one_sector(ulist, dir, player->cnum);
 	    }
 	    moved = 1;
 	    cp++;

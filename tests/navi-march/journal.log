@@ -786,6 +786,15 @@
     Play#1 output Play#1 1 No lands
     Play#1 output Play#1 1 command failed
     Play#1 output Play#1 6 0 583
+    Play#1 input march 21/10 nh
+    Play#1 command march
+    Play#1 output Play#1 1 cav  cavalry #10 is not with the leader & stays in 2,2
+    Play#1 output Play#1 1 Leader is cav  cavalry #21
+    Play#1 output Play#1 1 cav  cavalry #21 stopped at 2,4
+    Play#1 output Play#1 6 0 582
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
+    Play#1 output Play#1 6 0 583
     Play#1 input march 31/30 jX
     Play#1 command march
     Play#1 output Play#1 1 Leader is cav  cavalry #31
@@ -1480,7 +1489,7 @@
     Play#0 output Play#0 1   1   14 cav  cavalry       1,1       100%   2   0 127   0  30  42%  0  0    1S
     Play#0 output Play#0 1   1   15 cav  cavalry       1,1       100%   2   0 127   0  30  42%  0  0    1L
     Play#0 output Play#0 1   1   20 cav  cavalry       3,3       100%   5   0 105   0  30  42%  0  0
-    Play#0 output Play#0 1   1   21 cav  cavalry       1,3       100%   5 127 127   0  30  42%  0  0
+    Play#0 output Play#0 1   1   21 cav  cavalry       2,4       100%   5   0 105   0  30  42%  0  0
     Play#0 output Play#0 1   1   22 tra  train         3,3       100%   5   0  60   0  40  42%  0  0
     Play#0 output Play#0 1   1   23 tra  train         3,3        50%   5   0  -5   0  40  42%  0  0
     Play#0 output Play#0 1   1   24 tra  train         2,2       100%   5   0 127   0  40  42%  0  0
@@ -1554,8 +1563,7 @@
     Play#0 output Play#0 1   1    4 eng  engineer       1,1      hhhhn               b
     Play#0 output Play#0 1   2   11 cav  cavalry        1,1      hhhhn               b
     Play#0 output Play#0 1   1   12 cav  cavalry        1,1      hhhhn               b
-    Play#0 output Play#0 1   1   21 cav  cavalry        1,3      hhhhn               b
-    Play#0 output Play#0 1 5 units
+    Play#0 output Play#0 1 4 units
     Play#0 output Play#0 6 0 636
     Play#0 input miss l * ?mission#0 q
     Play#0 command mission
@@ -1563,7 +1571,6 @@
     Play#0 output Play#0 1 eng  engineer #4             1,1       1,1      1 is on a reserve mission
     Play#0 output Play#0 1 cav  cavalry #11             1,1       1,1      3 is on a reserve mission
     Play#0 output Play#0 1 cav  cavalry #12             1,1       1,1      3 is on a reserve mission
-    Play#0 output Play#0 1 cav  cavalry #21             1,3       1,3      3 is on a reserve mission
     Play#0 output Play#0 6 0 634
     Play#0 input ctld
     Play#0 output Play#0 1 Bye-bye
