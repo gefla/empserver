@@ -3,7 +3,8 @@
 .LV Basic
 .SY "navigate <SHIP/FLEET> <ROUTE|DESTINATION>"
 The navigate command is the \*Qmove\*U command applied to the sea.
-You can control one ship or an entire fleet with it.
+You can control one ship or an entire fleet with it, but they must all
+start in the same sector.
 .s1
 A ship must have at least one crew
 (which may be civilian or military,
@@ -113,10 +114,6 @@ For example,
 <104.2:104.2: -6, -2> h
 patrol boat #18 stopped at -6,-2
 .FI
-.s1
-Note that if you are navigating multiple ships, you may only specify a
-destination sector on the command line if all the ships start in the
-same sector.
 .s1
 The formula for the movement cost for 1 sector is:
 .NF

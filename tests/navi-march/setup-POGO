@@ -88,6 +88,8 @@ edit s 0 U 24 L 2,2 U 25 L 4,2
 edit s 1 U 26 L 2,2
 | landlocked in 1,-1
 edit s 0 U 27 L 1,-1
+| at sea, away from #10
+edit s 0 U 28 L 4,0
 | next to minefield 11,-5
 edit s 0 U 30 L 9,-5 U 31 E 20
 edit s 30 U 32 m 1 U 33 U 34 U 35 U 36 U 37 U 38 U 39

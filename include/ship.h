@@ -171,12 +171,12 @@ extern double shp_torp_hitchance(struct shpstr *, int);
 /* src/lib/subs/shpsub.c */
 extern void shp_sel(struct nstr_item *, struct emp_qelem *);
 extern struct ulist *shp_insque(struct shpstr *, struct emp_qelem *);
-extern void shp_nav(struct emp_qelem *, double *, double *, int *, natid);
+extern void shp_nav(struct emp_qelem *, double *, double *, natid);
 extern int shp_sweep(struct emp_qelem *, int, int, natid);
 extern enum shp_stuck shp_check_nav(struct shpstr *, struct sctstr *);
 extern int sect_has_dock(struct sctstr *);
 extern int shp_hardtarget(struct shpstr *);
-extern int shp_nav_one_sector(struct emp_qelem *, int, natid, int);
+extern int shp_nav_one_sector(struct emp_qelem *, int, natid);
 extern int shp_missile_defense(coord, coord, natid, int);
 extern void shp_missdef(struct shpstr *, natid);
 extern double shp_mobcost(struct shpstr *);

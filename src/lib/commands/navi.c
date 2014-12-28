@@ -50,17 +50,16 @@ navi(void)
     struct nstr_item ni_ship;
     struct emp_qelem ship_list;
     double minmob, maxmob;
-    int together;
+    int together = 1;
 
     if (!snxtitem(&ni_ship, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     shp_sel(&ni_ship, &ship_list);
-    shp_nav(&ship_list, &minmob, &maxmob, &together, player->cnum);
+    shp_nav(&ship_list, &minmob, &maxmob, player->cnum);
     if (QEMPTY(&ship_list)) {
 	pr("No ships\n");
 	return RET_FAIL;
     }
-
     return do_unit_move(&ship_list, &together, &minmob, &maxmob);
 }
 
@@ -99,7 +98,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	if (cp == NULL || *cp == '\0' || stopping) {
 	    stopping = 0;
 	    if (type == EF_SHIP)
-		shp_nav(ulist, minmob, maxmob, together, player->cnum);
+		shp_nav(ulist, minmob, maxmob, player->cnum);
 	    else
 		lnd_mar(ulist, minmob, maxmob, player->cnum);
 	    if (QEMPTY(ulist)) {
@@ -126,7 +125,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	     * at the prompt, we call shp_nav() or lnd_mar() again.
 	     */
 	    if (type == EF_SHIP)
-		shp_nav(ulist, minmob, maxmob, together, player->cnum);
+		shp_nav(ulist, minmob, maxmob, player->cnum);
 	    else
 		lnd_mar(ulist, minmob, maxmob, player->cnum);
 	    if (QEMPTY(ulist)) {
@@ -152,8 +151,7 @@ do_unit_move(struct emp_qelem *ulist, int *together,
 	dir = chkdir(*cp, DIR_STOP, DIR_LAST);
 	if (dir >= 0) {
 	    if (type == EF_SHIP)
-		stopping |= shp_nav_one_sector(ulist, dir,
-					       player->cnum, *together);
+		stopping |= shp_nav_one_sector(ulist, dir, player->cnum);
 	    else {
 		if (!moved && !lnd_abandon_askyn(ulist))
 		    return RET_FAIL;

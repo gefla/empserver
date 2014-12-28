@@ -106,20 +106,16 @@ shp_insque(struct shpstr *sp, struct emp_qelem *list)
 /* This function assumes that the list was created by shp_sel */
 void
 shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
-	int *togetherp, natid actor)
+	natid actor)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct ulist *mlp;
-    struct shpstr *sp;
+    struct shpstr *sp, *flg = NULL;
     struct sctstr sect;
-    coord allx;
-    coord ally;
-    int first = 1;
 
     *minmobp = 9876.0;
     *maxmobp = -9876.0;
-    *togetherp = 1;
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
@@ -155,13 +151,12 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    shp_stays(actor, "is landlocked", mlp);
 	    continue;
 	}
-	if (first) {
-	    allx = sp->shp_x;
-	    ally = sp->shp_y;
-	    first = 0;
+	if (!flg)
+	    flg = sp;
+	else if (sp->shp_x != flg->shp_x || sp->shp_y != flg->shp_y) {
+	    shp_stays(actor, "is not with the flagship", mlp);
+	    continue;
 	}
-	if (sp->shp_x != allx || sp->shp_y != ally)
-	    *togetherp = 0;
 	if (sp->shp_mobil + 1 < (int)mlp->mobil) {
 	    mlp->mobil = sp->shp_mobil;
 	}
@@ -749,14 +744,12 @@ shp_hit_mine(struct shpstr *sp)
 }
 
 int
-shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
-		   int together)
+shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor)
 {
     struct sctstr sect;
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct ulist *mlp;
-    struct emp_qelem done;
     coord dx;
     coord dy;
     coord newx;
@@ -767,6 +760,9 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     double mobcost;
     char dp[80];
 
+    if (CANT_HAPPEN(QEMPTY(list)))
+	return 1;
+
     if (dir <= DIR_STOP || dir >= DIR_VIEW) {
 	shp_nav_put(list, actor);
 	return 1;
@@ -774,13 +770,15 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     dx = diroff[dir][0];
     dy = diroff[dir][1];
 
+    mlp = (struct ulist *)list->q_back;
+    newx = xnorm(mlp->unit.ship.shp_x + dx);
+    newy = ynorm(mlp->unit.ship.shp_y + dy);
+    getsect(newx, newy, &sect);
+
     move = 0;
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
-	newx = xnorm(mlp->unit.ship.shp_x + dx);
-	newy = ynorm(mlp->unit.ship.shp_y + dy);
-	getsect(newx, newy, &sect);
 	stuck = shp_check_nav(&mlp->unit.ship, &sect);
 	if (stuck == SHP_STUCK_NOT &&
 	    (!sect.sct_own
@@ -791,9 +789,6 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
-	newx = xnorm(mlp->unit.ship.shp_x + dx);
-	newy = ynorm(mlp->unit.ship.shp_y + dy);
-	getsect(newx, newy, &sect);
 	stuck = shp_check_nav(&mlp->unit.ship, &sect);
 	if (stuck != SHP_STUCK_NOT ||
 	    (sect.sct_own
@@ -804,7 +799,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 			xyas(newx, newy, actor));
 	    else
 		sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
-	    if (together && !move) {
+	    if (!move) {
 		mpr(actor, "%s\n", dp);
 		return 1;
 	    } else {
@@ -842,28 +837,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     stopping |= shp_check_mines(list);
     if (QEMPTY(list))
 	return stopping;
-
-    /* interdict ships sector by sector */
-    emp_initque(&done);
-    while (!QEMPTY(list)) {
-	mlp = (struct ulist *)list->q_back;
-	newx = mlp->unit.ship.shp_x;
-	newy = mlp->unit.ship.shp_y;
-	stopping |= shp_interdict(list, newx, newy, actor);
-	/* move survivors in this sector to done */
-	for (qp = list->q_back; qp != list; qp = next) {
-	    next = qp->q_back;
-	    mlp = (struct ulist *)qp;
-	    if (mlp->unit.ship.shp_x == newx &&
-		mlp->unit.ship.shp_y == newy) {
-		emp_remque(qp);
-		emp_insque(qp, &done);
-	    }
-	}
-    }
-    /* assign surviving ships back to list */
-    emp_insque(list, &done);
-    emp_remque(&done);
+    stopping |= shp_interdict(list, newx, newy, actor);
 
     return stopping;
 }

@@ -19,6 +19,9 @@ navi 24/26 yh
 navi 25 h
 | landlocked in 1,-1
 navi 27 h
+| not with flagship
+nav 28/10 yh
+__cmd added 1 1 0
 || get stuck on the way
 | sink, by hitting mine in 11,-5
 | #31 hits a mine, #30 doesn't
