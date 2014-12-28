@@ -499,6 +499,19 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    lnd_stays(actor, "has no mil on it to guide it", llp);
 	    continue;
 	}
+	switch (lnd_check_mar(lp, &sect)) {
+	case LND_STUCK_NOT:
+	    break;
+	case LND_STUCK_NO_RAIL:
+	    lnd_stays(actor, "is stuck off the rail system", llp);
+	    continue;
+	default:
+	    CANT_REACH();
+	    /* fall through */
+	case LND_STUCK_IMPASSABLE:
+	    lnd_stays(actor, "is stuck", llp);
+	    continue;
+	}
 	if (relations_with(sect.sct_own, actor) != ALLIED &&
 	    !(lchr[lp->lnd_type].l_flags & L_SPY) &&
 	    sect.sct_own) {

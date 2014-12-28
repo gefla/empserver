@@ -776,8 +776,9 @@
     Play#1 output Play#1 6 0 585
     Play#1 input march 24 nh
     Play#1 command march
-    Play#1 output Play#1 1 Leader is tra  train #24
-    Play#1 output Play#1 1 tra  train #24 stopped at 3,3
+    Play#1 output Play#1 1 tra  train #24 is stuck off the rail system & stays in 2,2
+    Play#1 output Play#1 1 No lands
+    Play#1 output Play#1 1 command failed
     Play#1 output Play#1 6 0 584
     Play#1 input march 25 gh
     Play#1 command march
@@ -1491,7 +1492,7 @@
     Play#0 output Play#0 1   1   21 cav  cavalry       1,3       100%   5 127 127   0  30  42%  0  0
     Play#0 output Play#0 1   1   22 tra  train         3,3       100%   5   0  60   0  40  42%  0  0
     Play#0 output Play#0 1   1   23 tra  train         3,3        50%   5   0  -5   0  40  42%  0  0
-    Play#0 output Play#0 1   1   24 tra  train         3,3       100%   5   0  60   0  40  42%  0  0
+    Play#0 output Play#0 1   1   24 tra  train         2,2       100%   5   0 127   0  40  42%  0  0
     Play#0 output Play#0 1   1   25 cav  cavalry      -5,3       100%   5   0 127   0  30  42%  0  0
     Play#0 output Play#0 1   1   30 cav  cavalry       7,5       100%   5   0  93   0  30  42%  0  0
     Play#0 output Play#0 1   1   32 cav  cavalry       7,5        87%   1   0  93   0  30  42%  0  0
