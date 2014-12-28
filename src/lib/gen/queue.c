@@ -27,7 +27,7 @@
  *  queue.c: Various queue routines (for lists)
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2014
  */
 
 #include <config.h>
@@ -56,6 +56,17 @@ emp_remque(struct emp_qelem *elem)
 	elem->q_forw->q_back = elem->q_back;
     if (elem->q_back)
 	elem->q_back->q_forw = elem->q_forw;
+}
+
+int
+emp_quelen(struct emp_qelem *queue)
+{
+    struct emp_qelem *qp;
+    int len;
+
+    for (qp = queue->q_forw, len = 0; qp != queue; qp = qp->q_forw, len++)
+	;
+    return len;
 }
 
 struct emp_qelem *

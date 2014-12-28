@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992
  *     Steve McClure, 1996
- *     Markus Armbruster, 2006-2012
+ *     Markus Armbruster, 2006-2014
  */
 
 #include <config.h>
@@ -314,11 +314,7 @@ ac_intercept(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     sam_intercept(esc_list, def_list, def_own, plane_owner, x, y,
 		  only_mission);
 
-    att_count = 0;
-    for (qp = bomb_list->q_forw; qp != bomb_list; qp = qp->q_forw)
-	att_count++;
-    for (qp = esc_list->q_forw; qp != esc_list; qp = qp->q_forw)
-	att_count++;
+    att_count = emp_quelen(bomb_list) + emp_quelen(esc_list);
     if (!att_count)
 	return;
 

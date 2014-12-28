@@ -720,20 +720,6 @@ lnd_check_mar(struct lndstr *lp, struct sctstr *sectp)
 }
 
 static int
-lnd_count(struct emp_qelem *list)
-{
-    struct emp_qelem *qp;
-    struct emp_qelem *next;
-    int count = 0;
-
-    for (qp = list->q_back; qp != list; qp = next) {
-	next = qp->q_back;
-	++count;
-    }
-    return count;
-}
-
-static int
 lnd_damage(struct emp_qelem *list, int totdam)
 {
     struct emp_qelem *qp;
@@ -742,7 +728,7 @@ lnd_damage(struct emp_qelem *list, int totdam)
     int dam;
     int count;
 
-    if (!totdam || !(count = lnd_count(list)))
+    if (!totdam || !(count = emp_quelen(list)))
 	return 0;
     dam = ldround((double)totdam / count, 1);
     for (qp = list->q_back; qp != list; qp = next) {
@@ -785,7 +771,7 @@ static int
 lnd_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 			 natid victim)
 {
-    int mindam = lnd_count(list) * 20;
+    int mindam = emp_quelen(list) * 20;
     int hardtarget = lnd_easiest_target(list);
     int dam, newdam, sublaunch;
     int stopping = 0;
