@@ -200,32 +200,29 @@
     Play#1 input navi 54/55 n
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#54)
-    Play#1 output Play#1 1 is too large to fit into the canal system at 2,2
+    Play#1 output Play#1 1 cs   cargo ship (#55) is too large to fit into the canal system at 2,2 & stays in 1,1
     Play#1 output Play#1 1  h h
     Play#1 output Play#1 1 c c c
     Play#1 output Play#1 1  + +
-    Play#1 output Play#1 4 <127.0:117.8: 2,2>
+    Play#1 output Play#1 4 <117.8:117.8: 2,2>
     Play#1 input iyyh
     Play#1 output Play#1 1 shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech
     Play#1 output Play#1 1   54 pt   patrol boat    2,2      100%   2   0   0  0  0  0  0 117  40
-    Play#1 output Play#1 1   55 cs   cargo ship     1,1      100%   5   0   0  0  0  0  0 127  20
     Play#1 output Play#1 1 pt   patrol boat (#54) stopped at 0,0
-    Play#1 output Play#1 1 cs   cargo ship (#55) stopped at -1,-1
     Play#1 output Play#1 6 0 623
     Play#1 input navi 57/56 n
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is cs   cargo ship (#57)
-    Play#1 output Play#1 1 is too large to fit into the canal system at 2,2
-    Play#1 output Play#1 1  . =
-    Play#1 output Play#1 1 h h h
-    Play#1 output Play#1 1  c c
-    Play#1 output Play#1 4 <127.0:127.0: 1,1>
+    Play#1 output Play#1 1 cs   cargo ship (#57) is too large to fit into the canal system at 2,2 & stays in 1,1
+    Play#1 output Play#1 1 Changing flagship to pt   patrol boat (#56)
+    Play#1 output Play#1 1  h h
+    Play#1 output Play#1 1 c c c
+    Play#1 output Play#1 1  + +
+    Play#1 output Play#1 4 <117.8:117.8: 2,2>
     Play#1 input iyyh
     Play#1 output Play#1 1 shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech
-    Play#1 output Play#1 1   57 cs   cargo ship     1,1      100%   5   0   0  0  0  0  0 127  20
-    Play#1 output Play#1 1   56 pt   patrol boat    1,1      100%   2   0   0  0  0  0  0 127  40
-    Play#1 output Play#1 1 cs   cargo ship (#57) stopped at -1,-1
-    Play#1 output Play#1 1 pt   patrol boat (#56) stopped at -1,-1
+    Play#1 output Play#1 1   56 pt   patrol boat    2,2      100%   2   0   0  0  0  0  0 117  40
+    Play#1 output Play#1 1 pt   patrol boat (#56) stopped at 0,0
     Play#1 output Play#1 6 0 622
     Play#1 input navi 58/59 nX
     Play#1 command navigate
@@ -1409,9 +1406,9 @@
     Play#0 output Play#0 1   1   52 pt   patrol boat    2,0       100%   0   2   0   0  0  0  0  0 117   40
     Play#0 output Play#0 1   1   53 pt   patrol boat    4,0       100%   0   2   0   0  0  0  0  0 127   40
     Play#0 output Play#0 1   1   54 pt   patrol boat    0,0       100%   0   2   0   0  0  0  0  0  99   40
-    Play#0 output Play#0 1   1   55 cs   cargo ship    -1,-1      100%   0   5   0   0  0  0  0  0  97   20
-    Play#0 output Play#0 1   1   56 pt   patrol boat   -1,-1      100%   0   2   0   0  0  0  0  0 108   40
-    Play#0 output Play#0 1   1   57 cs   cargo ship    -1,-1      100%   0   5   0   0  0  0  0  0  97   20
+    Play#0 output Play#0 1   1   55 cs   cargo ship     1,1       100%   0   5   0   0  0  0  0  0 127   20
+    Play#0 output Play#0 1   1   56 pt   patrol boat    0,0       100%   0   2   0   0  0  0  0  0  99   40
+    Play#0 output Play#0 1   1   57 cs   cargo ship     1,1       100%   0   5   0   0  0  0  0  0 127   20
     Play#0 output Play#0 1   1   58 cs   cargo ship     1,1       100%   0   5   0   0  0  0  0  0 127   20
     Play#0 output Play#0 1   1   59 cs   cargo ship     1,1       100%   0   5   0   0  0  0  0  0 127   20
     Play#0 output Play#0 1   1   60 pt   patrol boat    5,1       100%   0   2   0   0  0  0  0  0 127   40

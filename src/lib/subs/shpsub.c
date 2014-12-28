@@ -770,6 +770,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     coord dy;
     coord newx;
     coord newy;
+    int move;
     int stopping = 0;
     double mobcost;
     char dp[80];
@@ -781,6 +782,21 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
     }
     dx = diroff[dir][0];
     dy = diroff[dir][1];
+
+    move = 0;
+    for (qp = list->q_back; qp != list; qp = next) {
+	next = qp->q_back;
+	mlp = (struct ulist *)qp;
+	newx = xnorm(mlp->unit.ship.shp_x + dx);
+	newy = ynorm(mlp->unit.ship.shp_y + dy);
+	getsect(newx, newy, &sect);
+	navigate = shp_check_nav(&mlp->unit.ship, &sect);
+	if (navigate == NAVOK &&
+	    (!sect.sct_own
+	     || relations_with(sect.sct_own, actor) >= FRIENDLY))
+	    move = 1;
+    }
+
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
@@ -797,7 +813,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor,
 			xyas(newx, newy, actor));
 	    else
 		sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
-	    if (together) {
+	    if (together && !move) {
 		mpr(actor, "%s\n", dp);
 		return 1;
 	    } else {
