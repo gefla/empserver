@@ -63,7 +63,6 @@ h
 | enter unfriendly canal -10,2
 navi 65 bX
 h
-| BUG: reports "too large"
 | enter unowned bridge 10,0, friendly -6,0, unfriendly bridge -10,0
 navi 70 gh
 navi 71 gh

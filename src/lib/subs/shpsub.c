@@ -793,7 +793,9 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor)
 	if (stuck != SHP_STUCK_NOT ||
 	    (sect.sct_own
 	     && relations_with(sect.sct_own, actor) < FRIENDLY)) {
-	    if (stuck == SHP_STUCK_CANAL)
+	    if (stuck == SHP_STUCK_CANAL &&
+		(!sect.sct_own
+		 || relations_with(sect.sct_own, actor) >= FRIENDLY))
 		sprintf(dp,
 			"is too large to fit into the canal system at %s",
 			xyas(newx, newy, actor));

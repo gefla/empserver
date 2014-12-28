@@ -291,7 +291,7 @@
     Play#1 input navi 65 bX
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is cs   cargo ship (#65)
-    Play#1 output Play#1 1 is too large to fit into the canal system at -10,2
+    Play#1 output Play#1 1 can't go to -10,2
     Play#1 output Play#1 1  = .
     Play#1 output Play#1 1 h h h
     Play#1 output Play#1 1  c c
