@@ -139,6 +139,14 @@ enum {
     SHP_TORP_SHELLS = 3		/* number of shells used by a torpedo */
 };
 
+/* Whether and why a ship is stuck in a sector */
+enum shp_stuck {
+    SHP_STUCK_NOT,		/* not stuck */
+    SHP_STUCK_CONSTRUCTION,	/* sector not efficient enough */
+    SHP_STUCK_CANAL,		/* ship lacks M_CANAL */
+    SHP_STUCK_IMPASSABLE	/* sector type not navigable */
+};
+
 extern int m_armor(struct mchrstr *, int);
 extern int m_speed(struct mchrstr *, int);
 extern int m_visib(struct mchrstr *, int);
@@ -165,7 +173,7 @@ extern void shp_sel(struct nstr_item *, struct emp_qelem *);
 extern struct ulist *shp_insque(struct shpstr *, struct emp_qelem *);
 extern void shp_nav(struct emp_qelem *, double *, double *, int *, natid);
 extern int shp_sweep(struct emp_qelem *, int, int, natid);
-extern enum d_navigation shp_check_nav(struct shpstr *, struct sctstr *);
+extern enum shp_stuck shp_check_nav(struct shpstr *, struct sctstr *);
 extern int sect_has_dock(struct sctstr *);
 extern int shp_hardtarget(struct shpstr *);
 extern int shp_nav_one_sector(struct emp_qelem *, int, natid, int);

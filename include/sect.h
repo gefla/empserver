@@ -30,7 +30,7 @@
  *     Dave Pare
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2014
  */
 
 
@@ -90,6 +90,14 @@ struct sctstr {
     unsigned char sct_road;	/* Road value of a sector */
     unsigned char sct_rail;	/* Rail value of a sector */
     unsigned char sct_defense;	/* Defensive value of a sector */
+};
+
+enum d_navigation {
+    NAV_NONE,	/* ships can't navigate */
+    NAVOK,	/* ships can always navigate */
+    NAV_02,	/* requires 2% effic to navigate */
+    NAV_CANAL,	/* requires 2% effic to navigate and M_CANAL capability */
+    NAV_60	/* requires 60% effic to navigate */
 };
 
 struct dchrstr {
