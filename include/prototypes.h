@@ -59,8 +59,6 @@ extern int edit_sect_i(struct sctstr *, char *, int);
 extern int load_comm_ok(struct sctstr *, natid, i_type, int);
 extern void gift(natid, natid, void *, char *);
 extern int display_mark(i_type, int);
-extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);
-extern int would_abandon(struct sctstr *, i_type, int, struct lndstr *);
 extern int nav_map(int, int, int);
 extern int do_unit_move(struct emp_qelem *, int *, double *, double *);
 extern int count_pop(int);
@@ -406,6 +404,8 @@ extern int check_trade_ok(struct trdstr *);
 extern void set_coastal(struct sctstr *, int, int);
 /* control.c */
 extern int military_control(struct sctstr *);
+extern int want_to_abandon(struct sctstr *, i_type, int, struct lndstr *);
+extern int would_abandon(struct sctstr *, i_type, int, struct lndstr *);
 /* damage.c */
 extern void landdamage(struct lndstr *, int);
 extern void ship_damage(struct shpstr *, int);

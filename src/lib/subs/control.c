@@ -35,6 +35,7 @@
 #include "file.h"
 #include "land.h"
 #include "nsc.h"
+#include "player.h"
 #include "prototypes.h"
 #include "sect.h"
 
@@ -59,4 +60,42 @@ military_control(struct sctstr *sp)
     }
 
     return 1;
+}
+
+int
+want_to_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
+{
+    char prompt[80];
+
+    /*
+     * First, would we be abandoning it?  If not, just return that
+     * it's ok to move out.
+     */
+    if (!would_abandon(sp, vtype, amnt, lp))
+	return 1;
+
+    sprintf(prompt, "Do you really want to abandon %s [yn]? ",
+	    xyas(sp->sct_x, sp->sct_y, player->cnum));
+
+    return askyn(prompt);
+}
+
+int
+would_abandon(struct sctstr *sp, i_type vtype, int amnt, struct lndstr *lp)
+{
+    int mil, civs;
+
+    if (vtype != I_CIVIL && vtype != I_MILIT)
+	return 0;
+
+    mil = sp->sct_item[I_MILIT];
+    civs = sp->sct_item[I_CIVIL];
+
+    if (vtype == I_MILIT)
+	mil -= amnt;
+    if (vtype == I_CIVIL)
+	civs -= amnt;
+
+    return sp->sct_own != 0 && civs <= 0 && mil <= 0
+	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own, lp);
 }
