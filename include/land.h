@@ -136,6 +136,12 @@ enum {
     LND_AIROPS_EFF = 50		/* min. efficiency for air ops */
 };
 
+enum lnd_stuck {
+    LND_STUCK_NOT,		/* not stuck */
+    LND_STUCK_NO_RAIL,		/* land needs rail */
+    LND_STUCK_IMPASSABLE	/* sector type not marchable */
+};
+
 extern float l_att(struct lchrstr *, int);
 extern float l_def(struct lchrstr *, int);
 extern int l_vul(struct lchrstr *, int);
@@ -172,6 +178,7 @@ extern int lnd_interdict(struct emp_qelem *, coord, coord, natid);
 extern void lnd_sel(struct nstr_item *, struct emp_qelem *);
 extern struct ulist *lnd_insque(struct lndstr *, struct emp_qelem *);
 extern int lnd_check_mines(struct emp_qelem *);
+extern enum lnd_stuck lnd_check_mar(struct lndstr *, struct sctstr *);
 extern double lnd_pathcost(struct lndstr *, double);
 extern int lnd_mobtype(struct lndstr *);
 extern double lnd_mobcost(struct lndstr *, struct sctstr *);

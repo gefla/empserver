@@ -695,6 +695,17 @@ lnd_stays(natid actor, char *str, struct ulist *llp)
     lnd_mar_put_one(llp);
 }
 
+/* Return whether and why SP would be stuck in SECTP.  */
+enum lnd_stuck
+lnd_check_mar(struct lndstr *lp, struct sctstr *sectp)
+{
+    if (dchr[sectp->sct_type].d_mob0 < 0)
+	return LND_STUCK_IMPASSABLE;
+    if (lnd_mobtype(lp) == MOB_RAIL && !SCT_HAS_RAIL(sectp))
+	return LND_STUCK_NO_RAIL;
+    return LND_STUCK_NOT;
+}
+
 static int
 lnd_count(struct emp_qelem *list)
 {
@@ -953,6 +964,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
     coord dy;
     coord newx;
     coord newy;
+    enum lnd_stuck stuck;
     int stopping = 0;
     int visible;
     int stop;
@@ -975,29 +987,31 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor,
 	newy = ynorm(llp->unit.land.lnd_y + dy);
 	getsect(newx, newy, &sect);
 	rel = relations_with(sect.sct_own, actor);
-	if ((rel != ALLIED && sect.sct_own
-	     && !(lchr[llp->unit.land.lnd_type].l_flags & L_SPY))
-	    || dchr[sect.sct_type].d_mob0 < 0) {
-	    if (together) {
-		mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
-		return 1;
-	    } else {
-		sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
-		lnd_stays(actor, dp, llp);
-		continue;
-	    }
-	}
-	if (!SCT_HAS_RAIL(&sect)
-	    && lnd_mobtype(&llp->unit.land) == MOB_RAIL) {
-	    if (together) {
-		mpr(actor, "no rail system in %s\n",
-		    xyas(newx, newy, actor));
-		return 1;
-	    } else {
-		sprintf(dp, "has no rail system in %s",
+	stuck = lnd_check_mar(&llp->unit.land, &sect);
+	if (stuck != LND_STUCK_NOT
+	    || (sect.sct_own && rel != ALLIED
+		&& !(lchr[llp->unit.land.lnd_type].l_flags & L_SPY))) {
+	    if (stuck == LND_STUCK_NO_RAIL
+		&& (!sect.sct_own || rel == ALLIED)) {
+		if (together) {
+		    mpr(actor, "no rail system in %s\n",
 			xyas(newx, newy, actor));
-		lnd_stays(actor, dp, llp);
-		continue;
+		    return 1;
+		} else {
+		    sprintf(dp, "has no rail system in %s",
+			    xyas(newx, newy, actor));
+		    lnd_stays(actor, dp, llp);
+		    continue;
+		}
+	    } else {
+		if (together) {
+		    mpr(actor, "can't go to %s\n", xyas(newx, newy, actor));
+		    return 1;
+		} else {
+		    sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
+		    lnd_stays(actor, dp, llp);
+		    continue;
+		}
 	    }
 	}
 	/* Note we check would_abandon first because we don't want
