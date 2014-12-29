@@ -602,7 +602,8 @@ lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
 	}
 	if (takemob && llp->mobil <= 0.0) {
 	    if (explicit)
-		lnd_stays(actor, "is out of mobility", llp);
+		mpr(actor, "%s is out of mobility!\n",
+		    prland(&llp->unit.land));
 	    continue;
 	}
 	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);

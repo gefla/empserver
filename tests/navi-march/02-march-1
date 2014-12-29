@@ -118,7 +118,6 @@ march 120 mh
 march 121/128 j
 | explicit sweep of same, out of mob
 mi
-| BUG: 128 stays behind
 | no implicit sweep in old-owned 7,7
 g
 | explicit sweep in same

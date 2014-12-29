@@ -1240,14 +1240,16 @@
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 eng  engineer #128 is out of mobility & stays in 9,7
+    Play#1 output Play#1 1 eng  engineer #128 is out of mobility!
     Play#1 output Play#1 1 lnd#     land type       x,y    a  eff mil  sh gun xl ln  mu tech retr
     Play#1 output Play#1 1  121 eng  engineer       9,7      100%   5   3   0  0  0  77 130  42%
+    Play#1 output Play#1 1  128 eng  engineer       9,7      100%   5   0   0  0  0 -23 130  42%
     Play#1 output Play#1 1  m m
     Play#1 output Play#1 1 m m m
     Play#1 output Play#1 1  . .
-    Play#1 output Play#1 4 <77.3:77.3: 9,7>
+    Play#1 output Play#1 4 <77.3:-23.8: 9,7>
     Play#1 input g
+    Play#1 output Play#1 1 eng  engineer #128 is out of mobility & stays in 9,7
     Play#1 output Play#1 1  m m
     Play#1 output Play#1 1 m m m
     Play#1 output Play#1 1  . .
