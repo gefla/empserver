@@ -54,8 +54,8 @@ which cost at least $1000 to build or can carry land units or planes.
 For each new missile launched, the most valuable ship according to
 (cost to build) * efficiency is targeted.
 .s1
-Non-marine missiles will keep firing
-on a sector until 100 damage is done.
+Non-marine missiles will keep launching to interdict land units
+until 20 damage per interdicted land unit is done.
 .s1
 OPERATIONS SECTORS
 .s1
