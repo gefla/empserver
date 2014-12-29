@@ -11,16 +11,14 @@ A ship must have at least one crew
 but not an uncompensated worker)
 to be navigated.
 When you navigate, you see the hex of sectors around the flagship.
-(The lowest numbered ship is always considered the flagship).
 .s1
 The program will prompt with the maximum and minimum mobility of the
-ships in the fleet, and the current sector of the flagship in the form:
+ships in the fleet, and its current position in the form:
 .NF
 <57.0:23.5: -6,4>
 .FI
-which means one ship has 57 mobility units,
-some other ship in the fleet has 23.5 mobility units and
-the flagship is in sector -6,4.
+which means the ships have between 23.5 and 57 mobility units, and
+are in sector -6,4.
 You may indicate the direction you would like the fleet to move
 by typing a string of letters consisting of any combination of the
 following:
@@ -96,23 +94,33 @@ interactively:
 
 .EX nav 18 jj
 .NF
-<112.7:112.7: -4, -2> v
-patrol boat #18 on open sea @ -3,-2
-<112.7:112.7: -4, -2> gh
-patrol boat #18 stopped at -6,-2
+Flagship is pt   patrol boat (#18)
+ . . 
+. . .
+ . . 
+<112.7:112.7: -4,-2> v
+pt   patrol boat (#18) @ -4,-2 0% sea
+ . . 
+. . .
+ . . 
+<112.7:112.7: -4,-2> gh
+pt   patrol boat (#18) stopped at -6,-2
+Path taken: jjg
 .FI
 .s1
-You may also simply specify the destination sector
-on the command line. In this case,
-empire will set the path to be the cheapest path (in terms of
-length) that currently exists. The unit(s) will move to the
-destination sector, and then ask for more input.
+You may also simply specify the destination sector.  In this case, the
+ships will take a shortest known path to the destination sector.
 .s1
 For example,
 .EX nav 18 -6,-2
 .NF
-<104.2:104.2: -6, -2> h
-patrol boat #18 stopped at -6,-2
+Flagship is pt   patrol boat (#10)
+ . . 
+. . .
+ . . 
+<104.2:104.2: -6,-2> h
+pt   patrol boat (#18) stopped at -6,-2
+Path taken: jjg
 .FI
 .s1
 The formula for the movement cost for 1 sector is:
@@ -130,15 +138,17 @@ Minesweepers also take 1/2 normal damage from mines.
 .s1
 Also, note that some things may affect you while you are moving. Forts
 belonging to hostile countries will fire at you when you come within
-range. Hostile land/sea/air units may fire at/bomb your ships, if they're
-on interdiction missions (see info mission).  If your enemy has a
+range.  Hostile land/sea/air units may fire at/bomb your ships,
+if they're on interdiction missions (see \*Qinfo mission\*U).
+The chance of bombs hitting your ships is determined by
+the ship that is easiest to hit (see \*Qbomb\*U for the chance of
+hitting).  Any damage incurred is divided evenly among
+the navigating ships.
+.s1
+If your enemy has a
 stack of missiles on interdiction mission, then they will
 automatically fire one after another until all of your \*Qvaluable\*U
 ships are sunk.
-The chance of missiles and planes hitting your ships is determined by
-the \*Qworst\*U ship in your fleet (see \*Qbomb\*U for the chance of
-hitting).  Any damage incurred by the fleet is divided evenly among
-all the ships in the fleet which are in the same sector.
 .s1
 .L NOTE
 .s1
