@@ -676,22 +676,6 @@ lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
 }
 
 static int
-contains_engineer(struct emp_qelem *list)
-{
-    struct emp_qelem *qp;
-    struct emp_qelem *next;
-    struct ulist *llp;
-
-    for (qp = list->q_back; qp != list; qp = next) {
-	next = qp->q_back;
-	llp = (struct ulist *)qp;
-	if (lchr[llp->unit.land.lnd_type].l_flags & L_ENGINEER)
-	    return 1;
-    }
-    return 0;
-}
-
-static int
 lnd_check_one_mines(struct ulist *llp, int with_eng)
 {
     struct sctstr sect;
@@ -719,7 +703,7 @@ lnd_check_mines(struct emp_qelem *land_list)
     struct emp_qelem *next;
     struct ulist *llp;
     int stopping = 0;
-    int with_eng = contains_engineer(land_list);
+    int with_eng = !!lnd_find_capable(land_list, L_ENGINEER);
 
     for (qp = land_list->q_back; qp != land_list; qp = next) {
 	next = qp->q_back;
