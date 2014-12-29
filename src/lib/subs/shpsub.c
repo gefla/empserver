@@ -224,7 +224,7 @@ shp_sweep(struct emp_qelem *ship_list, int explicit, int takemob,
     struct sctstr sect;
     int mines, m, max, shells;
     int changed = 0;
-    int stopping = 0;
+    int stopping = 0, first = 1;
 
     mlp = shp_find_capable(ship_list, M_SWEEP);
     if (!mlp) {
@@ -265,6 +265,11 @@ shp_sweep(struct emp_qelem *ship_list, int explicit, int takemob,
 	shells = mlp->unit.ship.shp_item[I_SHELL];
 	for (m = 0; mines > 0 && m < 5; m++) {
 	    if (chance(0.66)) {
+		if (first) {
+		    mpr(actor, "Approaching minefield at %s...\n",
+			xyas(sect.sct_x, sect.sct_y, actor));
+		    first = 0;
+		}
 		mpr(actor, "Sweep...\n");
 		mines--;
 		shells = MIN(max, shells + 1);

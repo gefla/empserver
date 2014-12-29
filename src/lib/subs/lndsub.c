@@ -607,7 +607,7 @@ lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
     struct ulist *llp;
     struct sctstr sect;
     int mines, m, max, sshells, lshells;
-    int stopping = 0;
+    int stopping = 0, first = 1;
 
     llp = lnd_find_capable(land_list, L_ENGINEER);
     if (!llp) {
@@ -653,6 +653,11 @@ lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
 	sshells = sect.sct_item[I_SHELL];
 	for (m = 0; mines > 0 && m < max * 2; m++) {
 	    if (chance(0.5 * lchr[llp->unit.land.lnd_type].l_att)) {
+		if (first) {
+		    mpr(actor, "Approaching minefield at %s...\n",
+			xyas(sect.sct_x, sect.sct_y, actor));
+		    first = 0;
+		}
 		mpr(actor, "Sweep...\n");
 		mines--;
 		if (lshells < max)
