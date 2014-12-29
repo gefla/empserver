@@ -199,8 +199,7 @@ do_unit_move(struct emp_qelem *ulist, double *minmob, double *maxmob)
 	    if (type == EF_SHIP)
 		stopping |= shp_sweep(ulist, 1, 1, player->cnum);
 	    else {
-		lnd_sweep(ulist, 1, 1, player->cnum);
-		stopping |= lnd_check_mines(ulist);
+		stopping |= lnd_sweep(ulist, 1, 1, player->cnum);
 	    }
 	    continue;
 	case 'r':

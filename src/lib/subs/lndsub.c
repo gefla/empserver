@@ -52,6 +52,7 @@
 #include "unit.h"
 #include "xy.h"
 
+static int lnd_check_one_mines(struct ulist *, int);
 static void lnd_stays(natid, char *, struct ulist *);
 static int lnd_hit_mine(struct lndstr *);
 static int has_helpful_engineer(coord, coord, natid);
@@ -581,7 +582,7 @@ lnd_put_one(struct ulist *llp)
  * a player.  Else it's an automatic "on the move" sweep.
  * If TAKEMOB is non-zero, require and charge mobility.
  */
-void
+int
 lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
 	  natid actor)
 {
@@ -590,6 +591,7 @@ lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
     struct ulist *llp;
     struct sctstr sect;
     int mines, m, max, sshells, lshells;
+    int stopping = 0;
 
     for (qp = land_list->q_back; qp != land_list; qp = next) {
 	next = qp->q_back;
@@ -641,7 +643,13 @@ lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
 	sect.sct_item[I_SHELL] = sshells;
 	putland(llp->unit.land.lnd_uid, &llp->unit.land);
 	putsect(&sect);
+	if (lnd_check_one_mines(llp, 1)) {
+	    stopping = 1;
+	    emp_remque(qp);
+	    free(qp);
+	}
     }
+    return stopping;
 }
 
 static int
@@ -1096,7 +1104,9 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor)
     }
     if (QEMPTY(list))
 	return stopping;
-    lnd_sweep(list, 0, 1, actor);
+    stopping |= lnd_sweep(list, 0, 1, actor);
+    if (QEMPTY(list))
+	return stopping;
     stopping |= lnd_check_mines(list);
     if (QEMPTY(list))
 	return stopping;

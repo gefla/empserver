@@ -173,7 +173,7 @@ extern int lnd_sabo(struct lndstr *, short *);
 extern double lnd_fire_range(struct lndstr *);
 
 /* src/lib/subs/lndsub.c */
-extern void lnd_sweep(struct emp_qelem *, int, int, natid);
+extern int lnd_sweep(struct emp_qelem *, int, int, natid);
 extern int lnd_interdict(struct emp_qelem *, coord, coord, natid);
 extern void lnd_sel(struct nstr_item *, struct emp_qelem *);
 extern struct ulist *lnd_insque(struct lndstr *, struct emp_qelem *);

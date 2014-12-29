@@ -127,6 +127,5 @@ march 135/130/131/136/137/138/139
 j
 | implicit sweep, not all capable
 mmmh
-| BUG: non-sweeper hits mine
 | BUG: mobility use low
 || TODO interdiction

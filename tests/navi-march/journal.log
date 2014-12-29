@@ -1274,11 +1274,13 @@
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Blammo! Landmines detected in 8,6!
-    Play#1 output Play#1 1 	cav  cavalry #137 takes 14
+    Play#1 output Play#1 1 	eng  engineer #131 takes 4
+    Play#1 output Play#1 1 Blammo! Landmines detected in 8,6!
+    Play#1 output Play#1 1 	cav  cavalry #139 takes 16
     Play#1 output Play#1 1  m m
     Play#1 output Play#1 1 m m m
     Play#1 output Play#1 1  m m
-    Play#1 output Play#1 4 <104.7:89.7: 8,6>
+    Play#1 output Play#1 4 <104.7:86.0: 8,6>
     Play#1 input mmmh
     Play#1 output Play#1 1 cav  cavalry #135 is not an engineer!
     Play#1 output Play#1 1 Sweep...
@@ -1293,42 +1295,33 @@
     Play#1 output Play#1 1 cav  cavalry #137 is not an engineer!
     Play#1 output Play#1 1 cav  cavalry #138 is not an engineer!
     Play#1 output Play#1 1 cav  cavalry #139 is not an engineer!
-    Play#1 output Play#1 1 Blammo! Landmines detected in 8,6!
-    Play#1 output Play#1 1 	cav  cavalry #137 takes 18
     Play#1 output Play#1 1 cav  cavalry #135 is not an engineer!
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 cav  cavalry #136 is not an engineer!
-    Play#1 output Play#1 1 cav  cavalry #137 is not an engineer!
-    Play#1 output Play#1 1 cav  cavalry #138 is not an engineer!
-    Play#1 output Play#1 1 cav  cavalry #139 is not an engineer!
-    Play#1 output Play#1 1 Blammo! Landmines detected in 8,6!
-    Play#1 output Play#1 1 	cav  cavalry #137 takes 22
-    Play#1 output Play#1 1 Blammo! Landmines detected in 8,6!
-    Play#1 output Play#1 1 	cav  cavalry #138 takes 24
-    Play#1 output Play#1 1 cav  cavalry #135 is not an engineer!
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 cav  cavalry #136 is not an engineer!
-    Play#1 output Play#1 1 cav  cavalry #137 is not an engineer!
-    Play#1 output Play#1 1 cav  cavalry #138 is not an engineer!
-    Play#1 output Play#1 1 cav  cavalry #139 is not an engineer!
-    Play#1 output Play#1 1 Blammo! Landmines detected in 8,6!
-    Play#1 output Play#1 1 	cav  cavalry #135 takes 15
     Play#1 output Play#1 1 Blammo! Landmines detected in 8,6!
     Play#1 output Play#1 1 	eng  engineer #130 takes 6
-    Play#1 output Play#1 1 Blammo! Landmines detected in 8,6!
-    Play#1 output Play#1 1 	cav  cavalry #136 takes 17
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 cav  cavalry #136 is not an engineer!
+    Play#1 output Play#1 1 cav  cavalry #137 is not an engineer!
+    Play#1 output Play#1 1 cav  cavalry #138 is not an engineer!
+    Play#1 output Play#1 1 cav  cavalry #139 is not an engineer!
+    Play#1 output Play#1 1 cav  cavalry #135 is not an engineer!
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 cav  cavalry #136 is not an engineer!
+    Play#1 output Play#1 1 cav  cavalry #137 is not an engineer!
+    Play#1 output Play#1 1 cav  cavalry #138 is not an engineer!
+    Play#1 output Play#1 1 cav  cavalry #139 is not an engineer!
     Play#1 output Play#1 1 cav  cavalry #135 stopped at 8,6
     Play#1 output Play#1 1 eng  engineer #130 stopped at 8,6
     Play#1 output Play#1 1 eng  engineer #131 stopped at 8,6
@@ -1550,13 +1543,13 @@
     Play#0 output Play#0 1   1  120 eng  engineer      2,0       100%   5   0 127   0 130  42%  0  0
     Play#0 output Play#0 1   1  121 eng  engineer      7,7       100%   5   0  52   0 130  42%  0  0
     Play#0 output Play#0 1   1  128 eng  engineer      9,7       100%   5   0 -23   0 130  42%  0  0
-    Play#0 output Play#0 1   1  130 eng  engineer      8,6        94%   4   0  52   0 130  42%  0  0
-    Play#0 output Play#0 1   1  131 eng  engineer      8,6       100%   5   0  52   0 130  42%  0  0
-    Play#0 output Play#0 1   1  135 cav  cavalry       8,6        85%   5   0 104   0  30  42%  0  0
-    Play#0 output Play#0 1   1  136 cav  cavalry       8,6        83%   4   0 104   0  30  42%  0  0
-    Play#0 output Play#0 1   1  137 cav  cavalry       8,6        55%   3   0  90   0  30  42%  0  0
-    Play#0 output Play#0 1   1  138 cav  cavalry       8,6        76%   4   0 104   0  30  42%  0  0
-    Play#0 output Play#0 1   1  139 cav  cavalry       8,6       100%   5   0 104   0  30  42%  0  0
+    Play#0 output Play#0 1   1  130 eng  engineer      8,6        94%   5   0  52   0 130  42%  0  0
+    Play#0 output Play#0 1   1  131 eng  engineer      8,6        96%   5   0  48   0 130  42%  0  0
+    Play#0 output Play#0 1   1  135 cav  cavalry       8,6       100%   5   0 104   0  30  42%  0  0
+    Play#0 output Play#0 1   1  136 cav  cavalry       8,6       100%   5   0 104   0  30  42%  0  0
+    Play#0 output Play#0 1   1  137 cav  cavalry       8,6       100%   5   0 104   0  30  42%  0  0
+    Play#0 output Play#0 1   1  138 cav  cavalry       8,6       100%   5   0 104   0  30  42%  0  0
+    Play#0 output Play#0 1   1  139 cav  cavalry       8,6        84%   4   0  88   0  30  42%  0  0
     Play#0 output Play#0 1 68 units
     Play#0 output Play#0 6 0 637
     Play#0 input lcar * ?shell#0
@@ -1564,8 +1557,8 @@
     Play#0 output Play#0 1 lnd# unit    x,y    a  eff  civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad
     Play#0 output Play#0 1  111 eng     6,6       100%   0   5   0   1   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  121 eng     7,7       100%   0   5   0   3   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1  130 eng     8,6        94%   0   4   0   3   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1  131 eng     8,6       100%   0   5   0   3   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  130 eng     8,6        94%   0   5   0   3   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  131 eng     8,6        96%   0   5   0   3   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1 4 units
     Play#0 output Play#0 6 0 637
     Play#0 input lret * ?rflags#0
