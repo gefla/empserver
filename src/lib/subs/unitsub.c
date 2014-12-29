@@ -188,9 +188,9 @@ unit_view(struct emp_qelem *list)
 	    continue;
 	getsect(ulp->unit.gen.x, ulp->unit.gen.y, &sect);
 	if (ulp->unit.gen.ef_type == EF_SHIP) {
-	    if (((struct mchrstr *)ulp->chrp)->m_flags & M_FOOD)
+	    if (mchr[ulp->unit.ship.shp_type].m_flags & M_FOOD)
 		pr("[fert:%d] ", sect.sct_fertil);
-	    if (((struct mchrstr *)ulp->chrp)->m_flags & M_OIL)
+	    if (mchr[ulp->unit.ship.shp_type].m_flags & M_OIL)
 		pr("[oil:%d] ", sect.sct_oil);
 	}
 	pr("%s @ %s %d%% %s\n", unit_nameof(&ulp->unit.gen),

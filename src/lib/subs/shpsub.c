@@ -96,7 +96,6 @@ shp_insque(struct shpstr *sp, struct emp_qelem *list)
 {
     struct ulist *mlp = malloc(sizeof(struct ulist));
 
-    mlp->chrp = (struct empobj_chr *)&mchr[sp->shp_type];
     mlp->unit.ship = *sp;
     mlp->mobil = sp->shp_mobil;
     emp_insque(&mlp->queue, list);
@@ -207,7 +206,7 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, int takemob, natid actor)
     for (qp = ship_list->q_back; qp != ship_list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
-	if (!(((struct mchrstr *)mlp->chrp)->m_flags & M_SWEEP)) {
+	if (!(mchr[mlp->unit.ship.shp_type].m_flags & M_SWEEP)) {
 	    if (verbose)
 		mpr(actor, "%s doesn't have minesweeping capability!\n",
 		    prship(&mlp->unit.ship));
@@ -233,7 +232,7 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, int takemob, natid actor)
 	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
 	if (!(mines = sect.sct_mines))
 	    continue;
-	max = ((struct mchrstr *)mlp->chrp)->m_item[I_SHELL];
+	max = mchr[mlp->unit.ship.shp_type].m_item[I_SHELL];
 	shells = mlp->unit.ship.shp_item[I_SHELL];
 	for (m = 0; mines > 0 && m < 5; m++) {
 	    if (chance(0.66)) {
@@ -371,10 +370,10 @@ shp_count(struct emp_qelem *list, int wantflags, int nowantflags,
 	if (mlp->unit.ship.shp_x != x || mlp->unit.ship.shp_y != y)
 	    continue;
 	if (wantflags &&
-	    (((struct mchrstr *)mlp->chrp)->m_flags & wantflags) != wantflags)
+	    (mchr[mlp->unit.ship.shp_type].m_flags & wantflags) != wantflags)
 	    continue;
 	if (nowantflags &&
-	    ((struct mchrstr *)mlp->chrp)->m_flags & nowantflags)
+	    mchr[mlp->unit.ship.shp_type].m_flags & nowantflags)
 	    continue;
 	++count;
     }
@@ -414,10 +413,10 @@ shp_damage(struct emp_qelem *list, int totdam, int wantflags,
 	if (mlp->unit.ship.shp_x != x || mlp->unit.ship.shp_y != y)
 	    continue;
 	if (wantflags &&
-	    (((struct mchrstr *)mlp->chrp)->m_flags & wantflags) != wantflags)
+	    (mchr[mlp->unit.ship.shp_type].m_flags & wantflags) != wantflags)
 	    continue;
 	if (nowantflags &&
-	    ((struct mchrstr *)mlp->chrp)->m_flags & nowantflags)
+	    mchr[mlp->unit.ship.shp_type].m_flags & nowantflags)
 	    continue;
 	shp_damage_one(mlp, dam);
     }
@@ -439,10 +438,10 @@ shp_contains(struct emp_qelem *list, int newx, int newy, int wantflags,
 	if (newx != mlp->unit.ship.shp_x || newy != mlp->unit.ship.shp_y)
 	    continue;
 	if (wantflags &&
-	    (((struct mchrstr *)mlp->chrp)->m_flags & wantflags) != wantflags)
+	    (mchr[mlp->unit.ship.shp_type].m_flags & wantflags) != wantflags)
 	    continue;
 	if (nowantflags &&
-	    ((struct mchrstr *)mlp->chrp)->m_flags & nowantflags)
+	    mchr[mlp->unit.ship.shp_type].m_flags & nowantflags)
 	    continue;
 	return 1;
     }
@@ -462,20 +461,20 @@ most_valuable_ship(struct emp_qelem *list, coord x, coord y)
 	mlp = (struct ulist *)qp;
 	if (mlp->unit.ship.shp_x != x || mlp->unit.ship.shp_y != y)
 	    continue;
-	if (((struct mchrstr *)mlp->chrp)->m_flags & M_SUB)
+	if (mchr[mlp->unit.ship.shp_type].m_flags & M_SUB)
 	    continue;
-	if (!((struct mchrstr *)mlp->chrp)->m_nxlight &&
-	    !((struct mchrstr *)mlp->chrp)->m_nchoppers &&
-	    ((struct mchrstr *)mlp->chrp)->m_cost < 1000 &&
-	    !((struct mchrstr *)mlp->chrp)->m_nplanes &&
-	    !((struct mchrstr *)mlp->chrp)->m_nland)
+	if (!mchr[mlp->unit.ship.shp_type].m_nxlight &&
+	    !mchr[mlp->unit.ship.shp_type].m_nchoppers &&
+	    mchr[mlp->unit.ship.shp_type].m_cost < 1000 &&
+	    !mchr[mlp->unit.ship.shp_type].m_nplanes &&
+	    !mchr[mlp->unit.ship.shp_type].m_nland)
 	    continue;
 	if (!mvs) {
 	    mvs = mlp;
 	    continue;
 	}
-	if (((struct mchrstr *)mlp->chrp)->m_cost * mlp->unit.ship.shp_effic >
-	    ((struct mchrstr *)mvs->chrp)->m_cost * mvs->unit.ship.shp_effic)
+	if (mchr[mlp->unit.ship.shp_type].m_cost * mlp->unit.ship.shp_effic >
+	    mchr[mvs->unit.ship.shp_type].m_cost * mvs->unit.ship.shp_effic)
 	    mvs = mlp;
     }
     return mvs;
@@ -495,10 +494,10 @@ shp_easiest_target(struct emp_qelem *list, int wantflags, int nowantflags)
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
 	if (wantflags &&
-	    (((struct mchrstr *)mlp->chrp)->m_flags & wantflags) != wantflags)
+	    (mchr[mlp->unit.ship.shp_type].m_flags & wantflags) != wantflags)
 	    continue;
 	if (nowantflags &&
-	    ((struct mchrstr *)mlp->chrp)->m_flags & nowantflags)
+	    mchr[mlp->unit.ship.shp_type].m_flags & nowantflags)
 	    continue;
 	hard = shp_hardtarget(&mlp->unit.ship);
 	if (hard < easiest)
@@ -584,7 +583,7 @@ notify_coastguard(struct emp_qelem *list, int trange, struct sctstr *sectp)
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
-	if (((struct mchrstr *)mlp->chrp)->m_flags & M_SUB)
+	if (mchr[mlp->unit.ship.shp_type].m_flags & M_SUB)
 	    continue;
 	if (natp->nat_flags & NF_COASTWATCH)
 	    wu(0, sectp->sct_own,
@@ -840,7 +839,7 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor)
 	rad_map_set(mlp->unit.ship.shp_own,
 		    mlp->unit.ship.shp_x, mlp->unit.ship.shp_y,
 		    mlp->unit.ship.shp_effic, mlp->unit.ship.shp_tech,
-		    ((struct mchrstr *)mlp->chrp)->m_vrnge);
+		    mchr[mlp->unit.ship.shp_type].m_vrnge);
     }
     if (QEMPTY(list))
 	return stopping;

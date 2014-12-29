@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2006
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2014
  */
 
 #ifndef EMPOBJ_H
@@ -89,8 +89,6 @@ union empobj_storage {
     struct shpstr ship;
     struct trdstr trade;
 };
-
-struct empobj_chr;
 
 #define get_empobj(type, n, p) ef_read((type), (n), (p))
 #define put_empobj(type, n, p) ef_write((type), (n), (p))

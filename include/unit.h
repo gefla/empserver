@@ -40,7 +40,6 @@ struct ulist {
     struct emp_qelem queue;	/* list of units */
     double mobil;		/* moving: how much the unit has left
 				   ground combat: how much to charge */
-    struct empobj_chr *chrp;	/* pointer to characteristics unit */
     union empobj_storage unit;	/* unit */
     /* Rest used only by ground combat (attsub.c) */
     coord x, y;			/* x,y it came from */

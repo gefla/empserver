@@ -167,11 +167,11 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 
     taken = llp->unit.land.lnd_item[I_MILIT];
     /* Spies always die */
-    if (((struct lchrstr *)llp->chrp)->l_flags & L_SPY)
+    if (lchr[llp->unit.land.lnd_type].l_flags & L_SPY)
 	llp->unit.land.lnd_effic = 0;
     else {
 	eff_eq = ldround(cas * 100.0 /
-	    ((struct lchrstr *)llp->chrp)->l_item[I_MILIT], 1);
+	    lchr[llp->unit.land.lnd_type].l_item[I_MILIT], 1);
 	llp->unit.land.lnd_effic -= eff_eq;
 	lnd_submil(&llp->unit.land, cas);
     }
@@ -274,7 +274,7 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 	/* nowhere to go.. take more casualties */
 	llp->unit.land.lnd_effic -= 10;
 	lnd_submil(&llp->unit.land,
-		   ((struct lchrstr *)llp->chrp)->l_item[I_MILIT] / 10);
+		   lchr[llp->unit.land.lnd_type].l_item[I_MILIT] / 10);
 	if (llp->unit.land.lnd_effic < LAND_MINEFF) {
 	    lnd_print(llp->unit.land.lnd_own, llp,
 		      "has nowhere to retreat, and dies!");
@@ -444,7 +444,6 @@ lnd_insque(struct lndstr *lp, struct emp_qelem *list)
 {
     struct ulist *mlp = malloc(sizeof(struct ulist));
 
-    mlp->chrp = (struct empobj_chr *)&lchr[lp->lnd_type];
     mlp->unit.land = *lp;
     mlp->mobil = lp->lnd_mobil;
     emp_insque(&mlp->queue, list);
@@ -595,7 +594,7 @@ lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
     for (qp = land_list->q_back; qp != land_list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
-	if (!(((struct lchrstr *)llp->chrp)->l_flags & L_ENGINEER)) {
+	if (!(lchr[llp->unit.land.lnd_type].l_flags & L_ENGINEER)) {
 	    if (explicit)
 		mpr(actor, "%s is not an engineer!\n",
 		    prland(&llp->unit.land));
@@ -623,11 +622,11 @@ lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
 	putland(llp->unit.land.lnd_uid, &llp->unit.land);
 	if (!(mines = sect.sct_mines))
 	    continue;
-	max = ((struct lchrstr *)llp->chrp)->l_item[I_SHELL];
+	max = lchr[llp->unit.land.lnd_type].l_item[I_SHELL];
 	lshells = llp->unit.land.lnd_item[I_SHELL];
 	sshells = sect.sct_item[I_SHELL];
 	for (m = 0; mines > 0 && m < max * 2; m++) {
-	    if (chance(0.5 * ((struct lchrstr *)llp->chrp)->l_att)) {
+	    if (chance(0.5 * lchr[llp->unit.land.lnd_type].l_att)) {
 		mpr(actor, "Sweep...\n");
 		mines--;
 		if (lshells < max)
@@ -654,7 +653,7 @@ contains_engineer(struct emp_qelem *list)
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
-	if (((struct lchrstr *)llp->chrp)->l_flags & L_ENGINEER)
+	if (lchr[llp->unit.land.lnd_type].l_flags & L_ENGINEER)
 	    return 1;
     }
     return 0;

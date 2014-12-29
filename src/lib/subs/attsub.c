@@ -1076,7 +1076,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	llp->eff = llp->unit.land.lnd_effic;
 	if (lnd_spyval(&land) > *a_spyp)
 	    *a_spyp = lnd_spyval(&land);
-	if (((struct lchrstr *)llp->chrp)->l_flags & L_ENGINEER)
+	if (lchr[land.lnd_type].l_flags & L_ENGINEER)
 	    ++*a_engineerp;
 	if (def->type == EF_SHIP && ++count >= maxland)
 	    break;
@@ -2488,7 +2488,7 @@ take_move_in_mob(int combat_mode, struct ulist *llp, struct combat *off,
 	 * Set mobcost to basic assault cost, moblim to maximum
 	 * mobility to keep when assaulting from non-landing ship
 	 */
-	if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE) {
+	if (lchr[llp->unit.land.lnd_type].l_flags & L_MARINE) {
 	    mobcost = gain / 2.0;
 	    moblim = 0;
 	} else {
@@ -2500,7 +2500,7 @@ take_move_in_mob(int combat_mode, struct ulist *llp, struct combat *off,
 	    mobcost = MAX(mobcost, mob - moblim);
 	break;
     case A_BOARD:
-	if (((struct lchrstr *)llp->chrp)->l_flags & L_MARINE)
+	if (lchr[llp->unit.land.lnd_type].l_flags & L_MARINE)
 	    mobcost = 10;
 	else
 	    mobcost = 40;
