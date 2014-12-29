@@ -660,35 +660,43 @@ contains_engineer(struct emp_qelem *list)
     return 0;
 }
 
+static int
+lnd_check_one_mines(struct ulist *llp, int with_eng)
+{
+    struct sctstr sect;
+
+    getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
+    if (SCT_LANDMINES(&sect) == 0)
+	return 0;
+    if (relations_with(sect.sct_oldown, llp->unit.land.lnd_own) == ALLIED)
+	return 0;
+    if (chance(DMINE_LHITCHANCE(sect.sct_mines) / (1 + 2 * with_eng))) {
+	lnd_hit_mine(&llp->unit.land);
+	sect.sct_mines--;
+	putsect(&sect);
+	putland(llp->unit.land.lnd_uid, &llp->unit.land);
+	if (!llp->unit.land.lnd_own)
+	    return 1;
+    }
+    return 0;
+}
+
 int
 lnd_check_mines(struct emp_qelem *land_list)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
     struct ulist *llp;
-    struct sctstr sect;
     int stopping = 0;
     int with_eng = contains_engineer(land_list);
 
     for (qp = land_list->q_back; qp != land_list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
-	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
-	if (SCT_LANDMINES(&sect) == 0)
-	    continue;
-	if (relations_with(sect.sct_oldown, llp->unit.land.lnd_own)
-	    == ALLIED)
-	    continue;
-	if (chance(DMINE_LHITCHANCE(sect.sct_mines) / (1 + 2 * with_eng))) {
-	    lnd_hit_mine(&llp->unit.land);
-	    sect.sct_mines--;
-	    putsect(&sect);
-	    putland(llp->unit.land.lnd_uid, &llp->unit.land);
-	    if (!llp->unit.land.lnd_own) {
-		stopping = 1;
-		emp_remque(qp);
-		free(qp);
-	    }
+	if (lnd_check_one_mines(llp, with_eng)) {
+	    stopping = 1;
+	    emp_remque(qp);
+	    free(qp);
 	}
     }
     return stopping;
