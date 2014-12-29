@@ -58,6 +58,20 @@ static int shp_check_one_mines(struct ulist *);
 static int shp_hit_mine(struct shpstr *);
 static void shp_stays(natid, char *, struct ulist *);
 
+static struct ulist *
+shp_find_capable(struct emp_qelem *list, int flags)
+{
+    struct emp_qelem *qp;
+    struct ulist *mlp;
+
+    for (qp = list->q_back; qp != list; qp = qp->q_back) {
+	mlp = (struct ulist *)qp;
+	if (mchr[mlp->unit.ship.shp_type].m_flags & flags)
+	    return mlp;
+    }
+    return NULL;
+}
+
 void
 shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 {
@@ -192,8 +206,17 @@ shp_nav_put_one(struct ulist *mlp)
     free(mlp);
 }
 
+/*
+ * Sweep seamines with engineers in SHIP_LIST for ACTOR.
+ * All ships in SHIP_LIST must be in the same sector.
+ * If EXPLICIT is non-zero, this is for an explicit sweep command from
+ * a player.  Else it's an automatic "on the move" sweep.
+ * If TAKEMOB is non-zero, require and charge mobility.
+ * Return non-zero when the ships should stop.
+ */
 int
-shp_sweep(struct emp_qelem *ship_list, int verbose, int takemob, natid actor)
+shp_sweep(struct emp_qelem *ship_list, int explicit, int takemob,
+	  natid actor)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
@@ -203,33 +226,39 @@ shp_sweep(struct emp_qelem *ship_list, int verbose, int takemob, natid actor)
     int changed = 0;
     int stopping = 0;
 
+    mlp = shp_find_capable(ship_list, M_SWEEP);
+    if (!mlp) {
+	if (explicit)
+	    mpr(actor, "No minesweepers!\n");
+	return 0;
+    }
+
+    getsect(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, &sect);
+    if (sect.sct_type != SCT_WATER) {
+	if (explicit)
+	    mpr(actor, "%s is a %s.  No seamines there!\n",
+	       xyas(sect.sct_x, sect.sct_y, actor),
+	       dchr[sect.sct_type].d_name);
+	return 0;
+    }
+
     for (qp = ship_list->q_back; qp != ship_list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
-	if (!(mchr[mlp->unit.ship.shp_type].m_flags & M_SWEEP)) {
-	    if (verbose)
-		mpr(actor, "%s doesn't have minesweeping capability!\n",
-		    prship(&mlp->unit.ship));
+	if (!(mchr[mlp->unit.ship.shp_type].m_flags & M_SWEEP))
 	    continue;
-	}
-	if (takemob && mlp->mobil <= 0.0) {
-	    if (verbose)
-		mpr(actor, "%s is out of mobility!\n",
-		    prship(&mlp->unit.ship));
-	    continue;
-	}
-	getsect(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, &sect);
-	if (sect.sct_type != SCT_WATER) {
-	    if (verbose)
-		mpr(actor, "%s is not at sea.  No mines there!\n",
-		    prship(&mlp->unit.ship));
-	    continue;
-	}
 	if (takemob) {
+	    if (mlp->mobil <= 0.0) {
+		if (explicit)
+		    mpr(actor, "%s is out of mobility!\n",
+			prship(&mlp->unit.ship));
+		continue;
+	    }
 	    mlp->mobil -= shp_mobcost(&mlp->unit.ship);
 	    mlp->unit.ship.shp_mobil = (int)mlp->mobil;
 	}
 	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
+	getsect(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, &sect);
 	if (!(mines = sect.sct_mines))
 	    continue;
 	max = mchr[mlp->unit.ship.shp_type].m_item[I_SHELL];

@@ -57,6 +57,20 @@ static void lnd_stays(natid, char *, struct ulist *);
 static int lnd_hit_mine(struct lndstr *);
 static int has_helpful_engineer(coord, coord, natid);
 
+static struct ulist *
+lnd_find_capable(struct emp_qelem *list, int flags)
+{
+    struct emp_qelem *qp;
+    struct ulist *llp;
+
+    for (qp = list->q_back; qp != list; qp = qp->q_back) {
+	llp = (struct ulist *)qp;
+	if (lchr[llp->unit.land.lnd_type].l_flags & flags)
+	    return llp;
+    }
+    return NULL;
+}
+
 double
 attack_val(int combat_mode, struct lndstr *lp)
 {
@@ -578,9 +592,11 @@ lnd_put_one(struct ulist *llp)
 
 /*
  * Sweep landmines with engineers in LAND_LIST for ACTOR.
+ * All land units in LAND_LIST must be in the same sector.
  * If EXPLICIT is non-zero, this is for an explicit sweep command from
  * a player.  Else it's an automatic "on the move" sweep.
  * If TAKEMOB is non-zero, require and charge mobility.
+ * Return non-zero when the land units should stop.
  */
 int
 lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
@@ -593,36 +609,43 @@ lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
     int mines, m, max, sshells, lshells;
     int stopping = 0;
 
+    llp = lnd_find_capable(land_list, L_ENGINEER);
+    if (!llp) {
+	if (explicit)
+	    mpr(actor, "No engineers!\n");
+	return 0;
+    }
+
+    getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
+    if (!explicit
+	&& relations_with(sect.sct_oldown, actor) == ALLIED)
+	return 0;
+    if (SCT_MINES_ARE_SEAMINES(&sect)) {
+	if (explicit)
+	    mpr(actor, "%s is a %s.  No landmines there!\n",
+		xyas(sect.sct_x, sect.sct_y, actor),
+		dchr[sect.sct_type].d_name);
+	return 0;
+    }
+
     for (qp = land_list->q_back; qp != land_list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
-	if (!(lchr[llp->unit.land.lnd_type].l_flags & L_ENGINEER)) {
-	    if (explicit)
-		mpr(actor, "%s is not an engineer!\n",
-		    prland(&llp->unit.land));
+	if (!(lchr[llp->unit.land.lnd_type].l_flags & L_ENGINEER))
 	    continue;
-	}
-	if (takemob && llp->mobil <= 0.0) {
-	    if (explicit)
-		mpr(actor, "%s is out of mobility!\n",
-		    prland(&llp->unit.land));
-	    continue;
-	}
-	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
-	if (!explicit && relations_with(sect.sct_oldown, actor) == ALLIED)
-	    continue;
-	if (SCT_MINES_ARE_SEAMINES(&sect)) {
-	    if (explicit)
-		mpr(actor, "%s is in a %s sector.  No landmines there!\n",
-		    prland(&llp->unit.land), dchr[sect.sct_type].d_name);
-	    continue;
-	}
 	if (takemob) {
+	    if (llp->mobil <= 0.0) {
+		if (explicit)
+		    mpr(actor, "%s is out of mobility!\n",
+			prland(&llp->unit.land));
+		continue;
+	    }
 	    llp->mobil -= lnd_pathcost(&llp->unit.land, 0.2);
 	    llp->unit.land.lnd_mobil = (int)llp->mobil;
 	    llp->unit.land.lnd_harden = 0;
 	}
 	putland(llp->unit.land.lnd_uid, &llp->unit.land);
+	getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
 	if (!(mines = sect.sct_mines))
 	    continue;
 	max = lchr[llp->unit.land.lnd_type].l_item[I_SHELL];
