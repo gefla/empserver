@@ -11,18 +11,13 @@ you are allied with or deity-owned sectors with 1 exception.  Spies.  Spies
 may move anywhere, with a chance of getting caught.  See \*Qinfo Spies\*U for
 more information.
 .s1
-If you are moving an army and the lead unit stops, the army stops;
-(the lowest numbered unit is always considered the lead unit).
-.s1
-The program will prompt with the mobility of the lead unit,
-the minimum mobility value for the army, and the current sector
-coordinates in the form:
+The program will prompt with the maximum and minimum mobility of the
+land units in the army, and its current position in the form:
 .NF
 <57.0:23.5: -6,4>
 .FI
-which means the lead unit has 57 mobility units,
-some other unit in the army has 23.5 mobility units and
-the lead unit is in sector -6,4.
+which means the land units have between 23.5 and 57 mobility units, and
+are in sector -6,4.
 You may indicate the direction you would like the army to move
 by typing a string of letters consisting of any combination of the
 following:
@@ -95,41 +90,47 @@ interactively:
 
 .EX march 18 yy
 .NF
-<112.7:112.7: -4, -2> l
+Leader is cav  cavalry #0
+ c . 
+. + .
+ . h 
+<105.6:105.6: -24,-2> l
 Your capital 100% efficient with 549 civ with 10 mil @ -5,-3
 Your highway 100% efficient with 549 civ with 0 mil @ -4,-2
 Your harbor 100% efficient with 549 civ with 109 mil @ -3,-1
-<112.7:112.7: -4, -2> yh
-war band #18 stopped at -5,-3
+ c . 
+. + .
+ . h 
+<105.6:105.6: -4,-2> yh
+cav  cavalry #0 stopped at -5,-3
 .FI
 .s1
-You may also simply specify the destination sector
-on the command line. In this case,
-empire will set the path to be the cheapest path (in terms of
-mobility) that currently exists. The unit(s) will move to the
-destination sector, and then ask for more input.
+You may also simply specify the destination sector.  In this case, the
+land units will take a cheapest path (in terms of mobility) to the
+destination sector.
 .s1
 For example,
 .EX march 18 -6,-2
 .NF
-<104.2:104.2: -6,-2> h
-war band #18 stopped at -5,-3
+Leader is cav  cavalry #0
+Using path 'yyh'
+cav  cavalry #0 stopped at -6,-2
 .FI
 .s1
 See \*Qinfo Mobility\*U for the mobility cost to march land units.
 .s1
-Moving a unit through a sector that has been mined
-introduces a chance of mines/(mines + 50) that you will be damaged.
+Land units entering a sector that has been mined may trip landmines
+(see \*Qinfo Hitchance\*U).
 Units with engineering capabilities can remove up to five mines per
 pass through a sector (indicated by the message \*QSweep...\*U).
 Such units also take 1/2 normal damage from mines.
 See info lmine for more details.
 .s1
-Hostile land/sea/air units may fire at/bomb your units, if they're
-on interdiction missions (see info mission).  If your enemy has a
-stack of missiles on interdiction mission, then they will
-automatically fire one after another until 100 damage has been done.
-Missiles and pin-bombers have a 100% chance of hitting their target
-(provided they make it through plane/missile defenses).  Collateral
+Hostile land/sea/air units may fire at/bomb/missile your units, if
+they're on interdiction missions (see \*Qinfo mission\*U).
+The chance of missiles and bombs hitting your land units is determined by
+the land unit that is easiest to hit (see \*Qbomb\*U for the chance of
+hitting).  Any damage incurred is divided evenly among
+the marching land units.  Collateral
 damage will be done to the sector that the units were marching into.
 .SA "Unit-types, lmine, LandUnits, Transportation, Spies, Moving"
