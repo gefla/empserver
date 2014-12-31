@@ -1,91 +1,81 @@
 .TH Command LRETREAT
 .NA lretreat "Set retreat conditions/paths for units or armies"
 .LV Expert
-.SY "retreat [<SHIP/FLEET> | <SECTS>] [<PATH>] [<CONDITIONS>]"
-.SY "lretreat [<UNIT/ARMY> | <SECTS>] [<PATH>] [<CONDITIONS>]"
-The retreat command allows you to examine or modify the retreat
-paths and conditions of your ships or units. The following description
-is for ships. Land units are exactly the same, except of course that
-some of the retreat conditions (being sonared, depth charged, etc) don't apply.
+.SY "lretreat <UNIT/ARMY> [<PATH> <CONDITIONS>]"
+The lretreat command allows you to examine or modify the retreat
+paths and conditions of your land units.
 .s1
-The <SHIP/FLEET> and <SECTS> arguments are provided to specify which
-ships to view or give orders for. If a fleet designation is given when
-specifying orders, the orders apply to all ships within that fleet.
+The first argument selects land units to view or give orders for.
+If an army designation is given when specifying orders, the orders
+apply to all members of that army.
 .s1
-Retreat expects an argument.  To see every ship you own, give it
-the argument '*', or type "retreat *".
-.s1
+Without further arguments, current retreat orders are shown.
 The report format contains the following fields:
 .s1
-.in \w'shiptype\0\0'u
-.L shp#
-the ship number
-.L shiptype
-the type of ship; \*Qpatrol boat\*U, \*Qsubmarine\*U, etc,
+.in \w'unit type\0\0'u
+.L lnd#
+the unit number
+.L "unit type"
+the type of land unit; \*Qcavalry\*U, \*Qengineer\*U, etc.,
 .L x,y
-the ship's current location (relative to your capital),
-.L flt
-the fleet designation letter (set by \*Qfleetadd\*U command),
+the land unit's current location,
+.L a
+the army designation letter (set by \*Qarmy\*U command),
 .L path
-the ship's current retreat path.
-.L as_flt?
-whether or not the ship's retreat path is a fleet retreat path
+the current retreat path,
+.L as army?
+whether these are army retreat orders,
 .L flags
-what conditions the ship will retreat under
+what conditions will trigger retreat.
 .in
 .s1
 For example:
-.EX retreat *
+.EX lretreat *
 .NF
-shp#     ship type       x,y   fl path       as flt?  flags
-   0 battleship 4        2,0      jjuuj               I
-1 ship
+lnd#     unit type       x,y   ar path       as army? flags
+   0 cav  cavalry        2,0      jjuuj               I
+1 unit
 .FI
 .s1
 .L Overview
 .s1
-A player may give retreat orders for a ship or a fleet. Retreat
-orders include a set of conditions that determine when the fleet/ship
-will retreat, and a path that the fleet/ship will follow. When a condition
-is met for a particular ship, the \*Qas flt?\*U field is checked. If it
-is Yes, then every ship in that fleet with fleet retreat orders retreats
+A player may give retreat orders for a land unit or an army.  Retreat
+orders include a set of conditions that determine when the army/unit
+will retreat, and a path that the army/unit will follow.  When a condition
+is met for a particular land unit, the \*Qas army?\*U field is checked. If it
+is Yes, then every unit in that army with army retreat orders retreats
 along the specified path. If it is no, then the retreat orders apply to
-that ship only, and only that ship retreats.
+that unit only, and only that unit retreats.
 .s1
-When a ship is added to a fleet, it is given the retreat orders of the
-first ship in that fleet that has fleet retreat orders and is in the
-same sector, if any exist.
+When a land unit is added to an army, it is given the retreat orders
+of the first unit in that army that has army retreat orders and is in
+the same sector, if any exist.
 .s1
-Retreat orders are wiped when a ship navigates.
+Retreat orders are wiped when a land unit marches.
 .s1
 Retreat conditions are:
 .nf
 
 	Condition	Meaning
-	I		Retreat when the ship is injured,
-			i.e. whenever the ship is damaged by fire,
-			bombs, or torping
-	T		Retreat when a sub torpedos or tries to
-			torpedo the ship
-	B		Retreat when a plane bombs or tries to bomb
-			the ship
-	S		Retreat when the ship detects a sonar ping
-	D		Retreat when the ship is depth-charged
-	H		Retreat when helpless --- a ship is helpless
+	i		Retreat when the unit is injured,
+			i.e. whenever the unit is damaged by gun fire
+			or bombs.
+	b		Retreat when a plane bombs or tries to bomb
+			the unit.
+	h		Retreat when helpless --- a unit is helpless
 			when it is fired upon, and no friendly
-			ships/sectors (including the ship itself) are
-			able to fire back at the aggressor
-	U		Retreat upon a failed boarding attempt
-	C		Cancel retreat order
+			units/sectors (including the unit itself)
+			are able to fire back at the aggressor.
+	c		Cancel retreat order
 .fi
 .s1
-For example, if the battleship above was fired at, it would attempt to
+For example, if the cavalry above was fired at, it would attempt to
 retreat 2 sectors, jj, using the normal amount of mobility for moving
 2 sectors. It would then look like:
 .NF
-shp#     ship type       x,y   fl path       as flt?  flags
-   0 battleship 4        2,0      uuj                 I
-1 ship
+lnd#     unit type       x,y   ar path       as army? flags
+   0 cav  cavalry        2,0      uuj                 I
+1 unit
 .FI
 .s1
-.SA "ship, fleetadd, LandUnits"
+.SA "land, army, LandUnits"
