@@ -77,7 +77,6 @@ Retreat conditions are:
 			able to fire back at the aggressor
 	U		Retreat upon a failed boarding attempt
 	C		Cancel retreat order
-	?		List the conditions
 .fi
 .s1
 For example, if the battleship above was fired at, it would attempt to
