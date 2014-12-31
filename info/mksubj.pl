@@ -29,7 +29,7 @@
 #
 #   Known contributors to this file:
 #      Ken Stevens (when it was still info.pl)
-#      Markus Armbruster, 2006-2013
+#      Markus Armbruster, 2006-2014
 #
 # Usage: mksubj.pl SUBJECT... INFO-FILE...
 #
