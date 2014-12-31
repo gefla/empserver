@@ -27,7 +27,7 @@
     Play#1 output Play#1 1  y u
     Play#1 output Play#1 1 g   j
     Play#1 output Play#1 1  b n
-    Play#1 output Play#1 1 Usage: retreat <SHIPS|FLEET> <PATH> [i|t|s|h|b|d|u|c]
+    Play#1 output Play#1 1 Usage: retreat <SHIPS|FLEET> [<PATH> <i|t|s|h|b|d|u|c>]
     Play#1 output Play#1 6 0 640
     Play#1 input __cmd added 0 -1 0
     Play#1 command __cmd
@@ -47,7 +47,7 @@
     Play#1 output Play#1 4 Retreat conditions ('?' to list available ones)?
     Play#1 input junk
     Play#1 output Play#1 1 Bad retreat condition 'j'
-    Play#1 output Play#1 1 Usage: retreat <SHIPS|FLEET> <PATH> [i|t|s|h|b|d|u|c]
+    Play#1 output Play#1 1 Usage: retreat <SHIPS|FLEET> [<PATH> <i|t|s|h|b|d|u|c>]
     Play#1 output Play#1 6 0 639
     Play#1 input retr 2/3 bgyujnbgyujnbgyujn itshbdu
     Play#1 command retreat
@@ -87,7 +87,7 @@
     Play#1 output Play#1 1  y u
     Play#1 output Play#1 1 g   j
     Play#1 output Play#1 1  b n
-    Play#1 output Play#1 1 Usage: lretreat <UNITS|ARMY> <PATH> [i|h|b|c]
+    Play#1 output Play#1 1 Usage: lretreat <UNITS|ARMY> [<PATH> <i|h|b|c>]
     Play#1 output Play#1 6 0 635
     Play#1 input __cmd added 0 -1 0
     Play#1 command __cmd
@@ -103,7 +103,7 @@
     Play#1 output Play#1 4 Retreat conditions ('?' to list available ones)?
     Play#1 input junk
     Play#1 output Play#1 1 Bad retreat condition 'j'
-    Play#1 output Play#1 1 Usage: lretreat <UNITS|ARMY> <PATH> [i|h|b|c]
+    Play#1 output Play#1 1 Usage: lretreat <UNITS|ARMY> [<PATH> <i|h|b|c>]
     Play#1 output Play#1 6 0 634
     Play#1 input lret 2/3 yujnbgyujnbgyujnbg ihb
     Play#1 command lretreat
