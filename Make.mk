@@ -251,8 +251,8 @@ dist: dist-source dist-client dist-info
 
 .PHONY: check check-accept _check
 check check-accept: _check
-check:        export override EMPIRE_CHECK_ACCEPT :=
-check-accept: export override EMPIRE_CHECK_ACCEPT := y
+check:        export EMPIRE_CHECK_ACCEPT :=
+check-accept: export EMPIRE_CHECK_ACCEPT := y
 _check: all
 	@echo "Warning: test suite is immature and needs work." >&2
 	$(srcdir)/tests/files-test $(srcdir)
