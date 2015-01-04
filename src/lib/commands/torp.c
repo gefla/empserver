@@ -31,7 +31,7 @@
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2010
+ *     Markus Armbruster, 2004-2015
  */
 
 #include <config.h>
@@ -178,11 +178,9 @@ torp(void)
 		wu(0, vshipown, "%s in %s torpedoed %s for %d damage.\n",
 		   prsub(&sub), xyas(sub.shp_x, sub.shp_y, vshipown),
 		   prship(&vship), dam);
-	    if (vship.shp_rflags & RET_TORPED) {
+	    shipdamage(&vship, dam);
+	    if (vship.shp_rflags & RET_TORPED)
 		retreat_ship(&vship, 't');
-		shipdamage(&vship, dam);
-	    } else
-		shipdamage(&vship, dam);
 	    pr("Torpedo hit %s for %d damage.\n", prship(&vship), dam);
 
 	    if (vship.shp_effic < SHIP_MINEFF)

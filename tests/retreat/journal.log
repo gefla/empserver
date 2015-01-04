@@ -1385,15 +1385,16 @@
     Play#0 output Play#0 1
     Play#0 output Play#0 1 0,2 takes 6% collateral damage
     Play#0 output Play#0 1 sub in -1,3 torpedoed cs   cargo ship (#100) for 75 damage.
-    Play#0 output Play#0 1 cs   cargo ship (#100) was hit by a torpedo, and retreated to 2,4
     Play#0 output Play#0 1 	cs   cargo ship (#100) takes 62
+    Play#0 output Play#0 1 cs   cargo ship (#100) was hit by a torpedo, and retreated to 2,4
     Play#0 output Play#0 1 Torpedo sighted @ -1,3 by cs   cargo ship (#101)
     Play#0 output Play#0 1 sub in -1,3 torpedoed cs   cargo ship (#102) for 44 damage.
-    Play#0 output Play#0 1 cs   cargo ship (#102) was hit by a torpedo, and retreated to 2,4
     Play#0 output Play#0 1 	cs   cargo ship (#102) takes 36
+    Play#0 output Play#0 1 cs   cargo ship (#102) was hit by a torpedo, and retreated to 2,4
     Play#0 output Play#0 1 sub in -1,3 torpedoed cs   cargo ship (#103) for 95 damage.
-    Play#0 output Play#0 1 cs   cargo ship (#103) was hit by a torpedo, and retreated to 2,4
     Play#0 output Play#0 1 	cs   cargo ship (#103) takes 79
+    Play#0 output Play#0 1 cs   cargo ship (#103) was hit by a torpedo,
+    Play#0 output Play#0 1 but ran out of mobility, and couldn't retreat fully!
     Play#0 output Play#0 1 Torpedo sighted @ -1,3 by cs   cargo ship (#104)
     Play#0 output Play#0 1 Sonar ping from -6,0 detected by sb   submarine (#120)!
     Play#0 output Play#0 1 sb   submarine (#120) detected a sonar ping, and retreated to -9,1
@@ -1524,10 +1525,10 @@
     Play#0 output Play#0 1   2   82 dd   destroyer      0,2       100%   0  10   0   0  0  0  0  0 127   70
     Play#0 output Play#0 1   2   83 dd   destroyer      2,4        29%   0   3   0   0  0  0  0  0 -28   70
     Play#0 output Play#0 1   2   84 dd   destroyer      0,2       100%   0  10   0   0  0  0  0  0 127   70
-    Play#0 output Play#0 1   2  100 cs   cargo ship     2,4        38%   0   4   0   0  0  0  0  0  37   20
+    Play#0 output Play#0 1   2  100 cs   cargo ship     2,4        38%   0   4   0   0  0  0  0  0 -29   20
     Play#0 output Play#0 1   2  101 cs   cargo ship     0,2       100%   0  10   0   0  0  0  0  0 127   20
-    Play#0 output Play#0 1   2  102 cs   cargo ship     2,4        64%   0   6   0   0  0  0  0  0  62   20
-    Play#0 output Play#0 1   2  103 cs   cargo ship     2,4        21%   0   2   0   0  0  0  0  0  20   20
+    Play#0 output Play#0 1   2  102 cs   cargo ship     2,4        64%   0   6   0   0  0  0  0  0  35   20
+    Play#0 output Play#0 1   2  103 cs   cargo ship     1,3        21%   0   2   0   0  0  0  0  0 -42   20
     Play#0 output Play#0 1   2  104 cs   cargo ship     0,2       100%   0  10   0   0  0  0  0  0 127   20
     Play#0 output Play#0 1   2  120 sb   submarine     -9,1       100%   0  10   0   0  0  0  0  0  93   60
     Play#0 output Play#0 1   2  130 tt   troop trans   -9,1       100%   0  10   0   0  0  0  0  0  95   60
@@ -1559,8 +1560,9 @@
     Play#0 output Play#0 1   2   82 dd   destroyer      0,2      nn                  ihb
     Play#0 output Play#0 1   2   84 dd   destroyer      0,2      nn                  ihb
     Play#0 output Play#0 1   2  101 cs   cargo ship     0,2      nn                  ith
+    Play#0 output Play#0 1   2  103 cs   cargo ship     1,3      n                   ith
     Play#0 output Play#0 1   2  104 cs   cargo ship     0,2      nn                  ith
-    Play#0 output Play#0 1 24 ships
+    Play#0 output Play#0 1 25 ships
     Play#0 output Play#0 6 0 639
     Play#0 input miss s * ?mission#0 q
     Play#0 command mission
