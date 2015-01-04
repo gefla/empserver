@@ -796,7 +796,8 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor)
     if (CANT_HAPPEN(QEMPTY(list)))
 	return 1;
 
-    if (dir <= DIR_STOP || dir >= DIR_VIEW) {
+    if (dir <= DIR_STOP || dir > DIR_LAST) {
+	CANT_HAPPEN(dir != DIR_STOP);
 	shp_nav_put(list, actor);
 	return 1;
     }
