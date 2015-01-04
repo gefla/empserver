@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2015
  */
 
 #include <config.h>
@@ -476,17 +476,16 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	       xyas(target->sct_x, target->sct_y, ship.shp_own));
 	}
 	pr("\n");
-	check_retreat_and_do_shipdamage(&ship, dam);
-	if (ship.shp_rflags & RET_BOMBED)
-	    if (((ship.shp_rflags & RET_INJURED) == 0) || !dam)
-		retreat_ship(&ship, 'b');
-	putship(ship.shp_uid, &ship);
-	getship(ship.shp_uid, &ship);
-	if (!ship.shp_own) {
+	shipdamage(&ship, dam);
+	if (ship.shp_effic < SHIP_MINEFF)
 	    pr("%s at %s sunk!\n",
 	       prship(&ship),
 	       xyas(target->sct_x, target->sct_y, player->cnum));
-	}
+	if (dam && (ship.shp_rflags & RET_INJURED))
+	    retreat_ship(&ship, 'i');
+	else if (ship.shp_rflags & RET_BOMBED)
+	    retreat_ship(&ship, 'b');
+	putship(ship.shp_uid, &ship);
 	collateral_damage(target->sct_x, target->sct_y, dam / 2);
     }
 out:
@@ -678,11 +677,11 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	own = land.lnd_own;
 	mpr(own, "%s pinpoint bombing raid did %d damage to %s\n",
 	    cname(player->cnum), dam, prland(&land));
-	check_retreat_and_do_landdamage(&land, dam);
-
-	if (land.lnd_rflags & RET_BOMBED)
-	    if (((land.lnd_rflags & RET_INJURED) == 0) || !dam)
-		retreat_land(&land, 'b');
+	landdamage(&land, dam);
+	if (dam && (land.lnd_rflags & RET_INJURED))
+	    retreat_land(&land, 'i');
+	else if (land.lnd_rflags & RET_BOMBED)
+	    retreat_land(&land, 'b');
 	nreport(player->cnum, N_UNIT_BOMB, own, 1);
 	putland(land.lnd_uid, &land);
 	collateral_damage(target->sct_x, target->sct_y, dam);

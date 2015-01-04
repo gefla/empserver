@@ -78,19 +78,6 @@ static struct ccode conditions[] = {
     { 0,   { "panicked", "panicked"} }
 };
 
-int
-check_retreat_and_do_shipdamage(struct shpstr *sp, int dam)
-{
-    if (dam <= 0)
-	return 0;
-
-    shipdamage(sp, dam);
-    if (sp->shp_rflags & RET_INJURED)
-	retreat_ship(sp, 'i');
-
-    return 1;
-}
-
 void
 retreat_ship(struct shpstr *sp, char code)
 {
@@ -279,19 +266,6 @@ findcondition(char code)
     for (i = 0; conditions[i].code && conditions[i].code != code; i++) ;
     CANT_HAPPEN(!conditions[i].code);
     return i;
-}
-
-int
-check_retreat_and_do_landdamage(struct lndstr *lp, int dam)
-{
-    if (dam <= 0)
-	return 0;
-
-    landdamage(lp, dam);
-    if (lp->lnd_rflags & RET_INJURED)
-	retreat_land(lp, 'i');
-
-    return 1;
 }
 
 void

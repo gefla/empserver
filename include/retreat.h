@@ -50,7 +50,5 @@
 
 extern void retreat_ship(struct shpstr *, char);
 extern void retreat_land(struct lndstr *, char);
-extern int check_retreat_and_do_shipdamage(struct shpstr *, int);
-extern int check_retreat_and_do_landdamage(struct lndstr *, int);
 
 #endif

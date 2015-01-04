@@ -178,13 +178,12 @@ torp(void)
 		wu(0, vshipown, "%s in %s torpedoed %s for %d damage.\n",
 		   prsub(&sub), xyas(sub.shp_x, sub.shp_y, vshipown),
 		   prship(&vship), dam);
-	    shipdamage(&vship, dam);
-	    if (vship.shp_rflags & RET_TORPED)
-		retreat_ship(&vship, 't');
 	    pr("Torpedo hit %s for %d damage.\n", prship(&vship), dam);
-
+	    shipdamage(&vship, dam);
 	    if (vship.shp_effic < SHIP_MINEFF)
 		pr("%s sunk!\n", prship(&vship));
+	    if (vship.shp_rflags & RET_TORPED)
+		retreat_ship(&vship, 't');
 	    putship(vship.shp_uid, &vship);
 	    if (mchr[(int)sub.shp_type].m_flags & M_SUB)
 		nreport(vshipown, N_TORP_SHIP, 0, 1);

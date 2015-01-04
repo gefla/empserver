@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2015
  */
 
 #include <config.h>
@@ -423,16 +423,14 @@ multifire(void)
 	    break;
 	default:
 	    getship(vshipno, &vship);
-	    check_retreat_and_do_shipdamage(&vship, dam);
+	    shipdamage(&vship, dam);
 	    if (vship.shp_effic < SHIP_MINEFF)
 		pr("%s sunk!\n", prsub(&vship));
-	    else if (target == targ_sub
-		&& (vship.shp_rflags & RET_DCHRGED)
-		&& !(vship.shp_rflags & RET_INJURED))
+	    if (dam && (vship.shp_rflags & RET_INJURED))
+		retreat_ship(&vship, 'i');
+	    else if (target == targ_sub && (vship.shp_rflags & RET_DCHRGED))
 		retreat_ship(&vship, 'd');
-	    else if (totaldefdam == 0
-		     && (vship.shp_rflags & RET_HELPLESS)
-		     && !(vship.shp_rflags & RET_INJURED))
+	    else if (totaldefdam == 0 && (vship.shp_rflags & RET_HELPLESS))
 		retreat_ship(&vship, 'h');
 	    putship(vship.shp_uid, &vship);
 	    break;
