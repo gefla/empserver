@@ -62,6 +62,7 @@ extern void border(struct range *, char *, char *);
 /* src/lib/subs/maps.c */
 extern int do_map(int bmap, int unit_type, char *arg1, char *arg2);
 extern int display_region_map(int, int, coord, coord, char *, char *);
+extern int nav_map(int, int, int);
 extern int bmaps_intersect(natid, natid);
 extern int share_bmap(natid, natid, struct nstr_sect *, char, char *);
 

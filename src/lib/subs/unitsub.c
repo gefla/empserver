@@ -34,9 +34,10 @@
 #include <config.h>
 
 #include "file.h"
+#include "map.h"
+#include "optlist.h"
 #include "path.h"
 #include "player.h"
-#include "optlist.h"
 #include "prototypes.h"
 #include "unit.h"
 
@@ -57,7 +58,7 @@ unit_nameof(struct empobj *gp)
     return "The Beast #666";
 }
 
-void
+static void
 unit_list(struct emp_qelem *unit_list)
 {
     struct emp_qelem *qp;
@@ -116,7 +117,7 @@ unit_list(struct emp_qelem *unit_list)
     }
 }
 
-char *
+static char *
 unit_path(struct empobj *unit, char *buf, size_t bufsz)
 {
     coord destx;
@@ -173,7 +174,7 @@ unit_path(struct empobj *unit, char *buf, size_t bufsz)
     return buf;
 }
 
-void
+static void
 unit_view(struct emp_qelem *list)
 {
     struct sctstr sect;
@@ -197,6 +198,226 @@ unit_view(struct emp_qelem *list)
 	   xyas(ulp->unit.gen.x, ulp->unit.gen.y, player->cnum),
 	   sect.sct_effic, dchr[sect.sct_type].d_name);
     }
+}
+
+static void
+pr_leader_change(struct empobj *leader)
+{
+    pr("Changing %s to %s\n",
+	leader->ef_type == EF_SHIP ? "flagship" : "leader",
+	unit_nameof(leader));
+}
+
+static struct empobj *
+get_leader(struct emp_qelem *list)
+{
+    return &((struct ulist *)(list->q_back))->unit.gen;
+}
+
+static void
+switch_leader(struct emp_qelem *list, int uid)
+{
+    struct emp_qelem *qp, *save;
+    struct ulist *ulp;
+
+    if (QEMPTY(list))
+	return;
+
+    save = qp = list->q_back;
+    do {
+	emp_remque(qp);
+	emp_insque(qp, list);
+	qp = list->q_back;
+	ulp = (struct ulist *)qp;
+	if (ulp->unit.gen.uid == uid || uid == -1)
+	    break;
+    } while (list->q_back != save);
+}
+
+int
+unit_move(struct emp_qelem *ulist, double *minmob, double *maxmob)
+{
+    char *cp = NULL;
+    int leader_uid;
+    struct empobj *leader;
+    int dir;
+    int stopping = 0;
+    int skip = 0;
+    int moved = 0;
+    char buf[1024];
+    char prompt[128];
+    char bmap_flag;
+    int ac;
+    int type;
+
+    leader = get_leader(ulist);
+    leader_uid = leader->uid;
+    type = leader->ef_type;
+    pr("%s is %s\n",
+	type == EF_SHIP ? "Flagship" : "Leader",
+	unit_nameof(leader));
+
+    if (player->argp[2]) {
+	strcpy(buf, player->argp[2]);
+	cp = unit_path(leader, buf, sizeof(buf));
+    }
+
+    while (!QEMPTY(ulist)) {
+	char dp[80];
+
+	if (cp == NULL || *cp == '\0' || stopping) {
+	    stopping = 0;
+	    if (type == EF_SHIP)
+		shp_nav(ulist, minmob, maxmob, player->cnum);
+	    else
+		lnd_mar(ulist, minmob, maxmob, player->cnum);
+	    if (QEMPTY(ulist)) {
+		pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
+		return RET_OK;
+	    }
+	    leader = get_leader(ulist);
+	    if (leader->uid != leader_uid) {
+		leader_uid = leader->uid;
+		pr_leader_change(leader);
+		stopping = 1;
+		continue;
+	    }
+	    if (!skip)
+		nav_map(leader->x, leader->y,
+			type == EF_SHIP
+			? !(mchr[(int)leader->type].m_flags & M_SUB) : 1);
+	    else
+		skip = 0;
+	    sprintf(prompt, "<%.1f:%.1f: %s> ", *maxmob,
+		    *minmob, xyas(leader->x, leader->y, player->cnum));
+	    cp = getstring(prompt, buf);
+	    /* Just in case any of our units were shelled while we were
+	     * at the prompt, we call shp_nav() or lnd_mar() again.
+	     */
+	    if (type == EF_SHIP)
+		shp_nav(ulist, minmob, maxmob, player->cnum);
+	    else
+		lnd_mar(ulist, minmob, maxmob, player->cnum);
+	    if (QEMPTY(ulist)) {
+		pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
+		return RET_OK;
+	    }
+	    leader = get_leader(ulist);
+	    if (leader->uid != leader_uid) {
+		leader_uid = leader->uid;
+		pr_leader_change(leader);
+		stopping = 1;
+		continue;
+	    }
+	    if (cp)
+		cp = unit_path(leader, buf, sizeof(buf));
+	}
+	if (type == EF_SHIP) {
+	    rad_map_set(player->cnum, leader->x, leader->y, leader->effic,
+			leader->tech, mchr[leader->type].m_vrnge);
+	}
+	if (cp == NULL || *cp == '\0')
+	    cp = &dirch[DIR_STOP];
+	dir = chkdir(*cp, DIR_STOP, DIR_LAST);
+	if (dir >= 0) {
+	    if (type == EF_SHIP)
+		stopping |= shp_nav_one_sector(ulist, dir, player->cnum);
+	    else {
+		if (!moved && !lnd_abandon_askyn(ulist))
+		    return RET_FAIL;
+		stopping |= lnd_mar_one_sector(ulist, dir, player->cnum);
+	    }
+	    moved = 1;
+	    cp++;
+	    continue;
+	}
+	ac = parse(cp, player->argbuf, player->argp, NULL, NULL, NULL);
+	if (ac <= 0) {
+	    player->argp[0] = "";
+	    cp = NULL;
+	} else if (ac == 1) {
+	    sprintf(dp, "%d", leader->uid);
+	    player->argp[1] = dp;
+	    cp++;
+	} else
+	    cp = NULL;
+	bmap_flag = 0;
+	switch (*player->argp[0]) {
+	case 'B':
+	    bmap_flag = 'b';
+	    /*
+	     * fall through
+	     */
+	case 'M':
+	    display_region_map(bmap_flag, type, leader->x, leader->y,
+			       player->argp[1], player->argp[2]);
+	    skip = 1;
+	    continue;
+	case 'f':
+	    if (ac <= 1)
+		switch_leader(ulist, -1);
+	    else
+		switch_leader(ulist, atoi(player->argp[1]));
+	    leader = get_leader(ulist);
+	    if (leader->uid != leader_uid) {
+		leader_uid = leader->uid;
+		pr_leader_change(leader);
+	    }
+	    continue;
+	case 'i':
+	    unit_list(ulist);
+	    continue;
+	case 'm':
+	    if (type == EF_SHIP)
+		stopping |= shp_sweep(ulist, 1, 1, player->cnum);
+	    else {
+		stopping |= lnd_sweep(ulist, 1, 1, player->cnum);
+	    }
+	    continue;
+	case 'r':
+	    radar(leader->ef_type);
+	    skip = 1;
+	    player->btused++;
+	    continue;
+	case 'l':
+	    do_look(type);
+	    player->btused++;
+	    continue;
+	case 's':
+	    if (leader->ef_type != EF_SHIP)
+		break;
+	    sona();
+	    player->btused++;
+	    skip = 1;
+	    continue;
+	case 'd':
+	    if (ac < 3) {
+		player->argp[2] = ac < 2 ? "1" : player->argp[1];
+		sprintf(dp, "%d", leader->uid);
+		player->argp[1] = dp;
+	    }
+	    if (type == EF_SHIP)
+		mine();
+	    else
+		landmine();
+	    stopping = 1;
+	    skip = 1;
+	    player->btused++;
+	    continue;
+	case 'v':
+	    unit_view(ulist);
+	    continue;
+	}
+	direrr("`%c' to stop", ", `%c' to view", NULL);
+	pr(", `i' to list %s, `f' to change %s,\n",
+	    type == EF_SHIP ? "ships" : "units",
+	    type == EF_SHIP ? "flagship" : "leader");
+	pr("`r' to radar, %s`l' to look, `M' to map, `B' to bmap,\n",
+	    type == EF_SHIP ? "`s' to sonar, " : "");
+	pr("`d' to drop mines, and `m' to minesweep\n");
+	stopping = 1;
+    }
+    return RET_OK;
 }
 
 /*

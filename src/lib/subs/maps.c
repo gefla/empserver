@@ -464,6 +464,65 @@ display_region_map(int bmap, int unit_type, coord curx, coord cury,
 }
 
 int
+nav_map(int x, int y, int show_designations)
+{
+    char *ptr;
+    struct nstr_sect ns;
+    struct sctstr sect;
+    int i;
+    /* Note this is not re-entrant anyway, so we keep the buffers
+       around */
+    static char *wmapbuf = NULL;
+    static char **wmap = NULL;
+    int changed = 0;
+
+    if (!wmapbuf)
+	wmapbuf = malloc(WORLD_Y * MAPWIDTH(1));
+    if (!wmap) {
+	wmap = malloc(WORLD_Y * sizeof(*wmap));
+	if (wmap && wmapbuf) {
+	    for (i = 0; i < WORLD_Y; i++)
+		wmap[i] = &wmapbuf[MAPWIDTH(1) * i];
+	} else if (wmap) {
+	    free(wmap);
+	    wmap = NULL;
+	}
+    }
+    if (!wmapbuf || !wmap) {
+	pr("Memory error, tell the deity.\n");
+	logerror("malloc failed in navi\n");
+	return RET_FAIL;
+    }
+    snxtsct_dist(&ns, x, y, 1);
+    blankfill(wmapbuf, &ns.range, 1);
+    while (nxtsct(&ns, &sect)) {
+	ptr = &wmap[ns.dy][ns.dx];
+	*ptr = dchr[sect.sct_type].d_mnem;
+	if (!show_designations &&
+	    sect.sct_own != player->cnum &&
+	    sect.sct_type != SCT_WATER &&
+	    sect.sct_type != SCT_BSPAN && sect.sct_type != SCT_HARBR)
+	    *ptr = '?';
+	changed += map_set(player->cnum, sect.sct_x, sect.sct_y, *ptr, 0);
+	/*
+	 * We do it this way so that 'x' and 'X'
+	 * bdesignations will show up. This can
+	 * be used to mark mined sectors. So, the
+	 * player will see the current des, UNLESS
+	 * they've marked the sector 'x' or 'X',
+	 * in which case they'll see that.
+	 * --ts
+	 */
+	*ptr = player->bmap[sect.sct_uid];
+    }
+    if (changed)
+	writemap(player->cnum);
+    for (i = 0; i < ns.range.height; i++)
+	pr("%s\n", wmap[i]);
+    return RET_OK;
+}
+
+int
 bmaps_intersect(natid a, natid b)
 {
     char *mapa = ef_ptr(EF_MAP, a);

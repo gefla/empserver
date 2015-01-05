@@ -35,8 +35,7 @@
 #include <config.h>
 
 #include "commands.h"
-#include "file.h"
-#include "empobj.h"
+#include "unit.h"
 
 int
 march(void)
@@ -53,5 +52,5 @@ march(void)
 	pr("No lands\n");
 	return RET_FAIL;
     }
-    return do_unit_move(&land_list, &minmob, &maxmob);
+    return unit_move(&land_list, &minmob, &maxmob);
 }
