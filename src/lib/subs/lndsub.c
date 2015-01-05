@@ -502,7 +502,6 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 
 	land.lnd_mission = 0;
 	land.lnd_rflags = 0;
-	land.lnd_harden = 0;
 	memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
 	putland(land.lnd_uid, &land);
 	lnd_insque(&land, list);
