@@ -691,11 +691,7 @@ lnd_sweep(struct emp_qelem *land_list, int explicit, int takemob,
 	sect.sct_item[I_SHELL] = sshells;
 	putland(llp->unit.land.lnd_uid, &llp->unit.land);
 	putsect(&sect);
-	if (lnd_check_one_mines(llp, 1)) {
-	    stopping = 1;
-	    emp_remque(qp);
-	    free(qp);
-	}
+	stopping |= lnd_check_one_mines(llp, 1);
     }
     return stopping;
 }
@@ -715,8 +711,11 @@ lnd_check_one_mines(struct ulist *llp, int with_eng)
 	sect.sct_mines--;
 	putsect(&sect);
 	putland(llp->unit.land.lnd_uid, &llp->unit.land);
-	if (!llp->unit.land.lnd_own)
-	    return 1;
+	if (!llp->unit.land.lnd_own) {
+	    emp_remque(&llp->queue);
+	    free(llp);
+	}
+	return 1;
     }
     return 0;
 }
@@ -726,18 +725,12 @@ lnd_check_mines(struct emp_qelem *land_list)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct ulist *llp;
     int stopping = 0;
     int with_eng = !!lnd_find_capable(land_list, L_ENGINEER);
 
     for (qp = land_list->q_back; qp != land_list; qp = next) {
 	next = qp->q_back;
-	llp = (struct ulist *)qp;
-	if (lnd_check_one_mines(llp, with_eng)) {
-	    stopping = 1;
-	    emp_remque(qp);
-	    free(qp);
-	}
+	stopping |= lnd_check_one_mines((struct ulist *)qp, with_eng);
     }
     return stopping;
 }

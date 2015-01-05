@@ -29,7 +29,8 @@ navi 31/30 jX
 iyh
 | lose crew, by hitting mines in 11,-5
 | at least one hit must lose crew; use __cmd to force it if necessary
-navi 32/33/34/35/36/37/38/39 jiyh
+navi 32/33/34/35/36/37/38/39 jX
+iyh
 | TODO sink ship at navi prompt, changing leader
 | TODO slap bridge onto ship at navi prompt
 || sector entry
@@ -124,5 +125,8 @@ navi 129 nmh
 navi 135/130/131/136/137/138/139
 j
 | implicit sweep, not all capable
-mmmh
+mf
+mf
+mf
+h
 || TODO interdiction

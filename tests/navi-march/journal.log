@@ -139,7 +139,7 @@
     Play#1 output Play#1 1   30 pt   patrol boat   11,-5     100%   2   0   0  0  0  0  0 117  40
     Play#1 output Play#1 1 pt   patrol boat (#30) stopped at 10,-6
     Play#1 output Play#1 6 0 629
-    Play#1 input navi 32/33/34/35/36/37/38/39 jiyh
+    Play#1 input navi 32/33/34/35/36/37/38/39 jX
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#32)
     Play#1 output Play#1 1 Kawhomp! Mine detected in 11,-5!
@@ -157,6 +157,11 @@
     Play#1 output Play#1 1 Kawhomp! Mine detected in 11,-5!
     Play#1 output Play#1 1 	pt   patrol boat (#39) takes 36
     Play#1 output Play#1 1 pt   patrol boat (#38) is crewless & stays in 11,-5
+    Play#1 output Play#1 1  . .
+    Play#1 output Play#1 1 . X .
+    Play#1 output Play#1 1  . .
+    Play#1 output Play#1 4 <117.8:75.0: 11,-5>
+    Play#1 input iyh
     Play#1 output Play#1 1 shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech
     Play#1 output Play#1 1   32 pt   patrol boat   11,-5      75%   1   0   0  0  0  0  0  88  40
     Play#1 output Play#1 1   33 pt   patrol boat   11,-5      80%   1   0   0  0  0  0  0  94  40
@@ -646,7 +651,7 @@
     Play#1 output Play#1 1 . X .
     Play#1 output Play#1 1  . .
     Play#1 output Play#1 4 <117.8:76.0: 11,-5>
-    Play#1 input mmmh
+    Play#1 input mf
     Play#1 output Play#1 1 Approaching minefield at 11,-5...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Kawhomp! Mine detected in 11,-5!
@@ -658,6 +663,11 @@
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Kawhomp! Mine detected in 11,-5!
     Play#1 output Play#1 1 	ms   minesweeper (#131) takes 10
+    Play#1 output Play#1 1  . .
+    Play#1 output Play#1 1 . X .
+    Play#1 output Play#1 1  . .
+    Play#1 output Play#1 4 <117.8:47.0: 11,-5>
+    Play#1 input mf
     Play#1 output Play#1 1 Approaching minefield at 11,-5...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
@@ -671,6 +681,11 @@
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1  . .
+    Play#1 output Play#1 1 . X .
+    Play#1 output Play#1 1  . .
+    Play#1 output Play#1 4 <117.8:18.0: 11,-5>
+    Play#1 input mf
     Play#1 output Play#1 1 Approaching minefield at 11,-5...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
@@ -679,6 +694,11 @@
     Play#1 output Play#1 1 	ms   minesweeper (#130) takes 10
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1  . .
+    Play#1 output Play#1 1 . X .
+    Play#1 output Play#1 1  . .
+    Play#1 output Play#1 4 <117.8:-11.1: 11,-5>
+    Play#1 input h
     Play#1 output Play#1 1 pt   patrol boat (#135) stopped at 11,-5
     Play#1 output Play#1 1 ms   minesweeper (#130) stopped at 11,-5
     Play#1 output Play#1 1 ms   minesweeper (#131) stopped at 11,-5
@@ -813,7 +833,7 @@
     Play#1 input __cmd added -1 0 0
     Play#1 command __cmd
     Play#1 output Play#1 6 0 582
-    Play#1 input march 32/33/34/35/36/37/38/39 jiyh
+    Play#1 input march 32/33/34/35/36/37/38/39 jX
     Play#1 command march
     Play#1 output Play#1 1 Leader is cav  cavalry #32
     Play#1 output Play#1 1 Blammo! Landmines detected in 8,6!
@@ -831,6 +851,11 @@
     Play#1 output Play#1 1 Blammo! Landmines detected in 8,6!
     Play#1 output Play#1 1 	cav  cavalry #39 takes 16
     Play#1 output Play#1 1 cav  cavalry #36 has no mil on it to guide it & stays in 8,6
+    Play#1 output Play#1 1  m m
+    Play#1 output Play#1 1 m m m
+    Play#1 output Play#1 1  m m
+    Play#1 output Play#1 4 <104.7:81.0: 8,6>
+    Play#1 input iyh
     Play#1 output Play#1 1 lnd#     land type       x,y    a  eff mil  sh gun xl ln  mu tech retr
     Play#1 output Play#1 1   32 cav  cavalry        8,6       87%   1   0   0  0  0  90  30  42%
     Play#1 output Play#1 1   33 cav  cavalry        8,6      100%   1   0   0  0  0 104  30  42%
@@ -1275,7 +1300,7 @@
     Play#1 output Play#1 1 m m m
     Play#1 output Play#1 1  m m
     Play#1 output Play#1 4 <104.7:86.0: 8,6>
-    Play#1 input mmmh
+    Play#1 input mf
     Play#1 output Play#1 1 Approaching minefield at 8,6...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
@@ -1285,6 +1310,12 @@
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1 Changing leader to eng  engineer #130
+    Play#1 output Play#1 1  m m
+    Play#1 output Play#1 1 m m m
+    Play#1 output Play#1 1  m m
+    Play#1 output Play#1 4 <104.7:73.6: 8,6>
+    Play#1 input mf
     Play#1 output Play#1 1 Approaching minefield at 8,6...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
@@ -1294,6 +1325,11 @@
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
+    Play#1 output Play#1 1  m m
+    Play#1 output Play#1 1 m m m
+    Play#1 output Play#1 1  m m
+    Play#1 output Play#1 4 <104.7:61.0: 8,6>
+    Play#1 input mf
     Play#1 output Play#1 1 Approaching minefield at 8,6...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
@@ -1304,13 +1340,19 @@
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 cav  cavalry #135 stopped at 8,6
-    Play#1 output Play#1 1 eng  engineer #130 stopped at 8,6
+    Play#1 output Play#1 1 Changing leader to eng  engineer #131
+    Play#1 output Play#1 1  m m
+    Play#1 output Play#1 1 m m m
+    Play#1 output Play#1 1  m m
+    Play#1 output Play#1 4 <104.7:48.6: 8,6>
+    Play#1 input h
     Play#1 output Play#1 1 eng  engineer #131 stopped at 8,6
     Play#1 output Play#1 1 cav  cavalry #136 stopped at 8,6
     Play#1 output Play#1 1 cav  cavalry #137 stopped at 8,6
     Play#1 output Play#1 1 cav  cavalry #138 stopped at 8,6
     Play#1 output Play#1 1 cav  cavalry #139 stopped at 8,6
+    Play#1 output Play#1 1 cav  cavalry #135 stopped at 8,6
+    Play#1 output Play#1 1 eng  engineer #130 stopped at 8,6
     Play#1 output Play#1 6 0 547
     Play#1 input ctld
     Play#1 output Play#1 1 Bye-bye

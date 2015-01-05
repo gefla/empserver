@@ -298,11 +298,7 @@ shp_sweep(struct emp_qelem *ship_list, int explicit, int takemob,
 	mlp->unit.ship.shp_item[I_SHELL] = shells;
 	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
 	putsect(&sect);
-	if (shp_check_one_mines(mlp)) {
-	    stopping = 1;
-	    emp_remque(qp);
-	    free(qp);
-	}
+	stopping |= shp_check_one_mines(mlp);
     }
     if (changed)
 	writemap(actor);
@@ -328,8 +324,11 @@ shp_check_one_mines(struct ulist *mlp)
 	    writemap(actor);
 	putsect(&sect);
 	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
-	if (!mlp->unit.ship.shp_own)
-	    return 1;
+	if (!mlp->unit.ship.shp_own) {
+	    emp_remque(&mlp->queue);
+	    free(mlp);
+	}
+	return 1;
     }
     return 0;
 }
@@ -339,17 +338,11 @@ shp_check_mines(struct emp_qelem *ship_list)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
-    struct ulist *mlp;
     int stopping = 0;
 
     for (qp = ship_list->q_back; qp != ship_list; qp = next) {
 	next = qp->q_back;
-	mlp = (struct ulist *)qp;
-	if (shp_check_one_mines(mlp)) {
-	    stopping = 1;
-	    emp_remque(qp);
-	    free(qp);
-	}
+	stopping |= shp_check_one_mines((struct ulist *)qp);
     }
     return stopping;
 }
