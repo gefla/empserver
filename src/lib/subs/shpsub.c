@@ -82,6 +82,12 @@ shp_may_nav(struct shpstr *sp, struct shpstr *flg, char *suffix)
 	return 0;
     }
 
+    if (opt_MARKET && ontradingblock(EF_SHIP, sp)) {
+	mpr(sp->shp_own, "%s is on the trading block%s\n",
+	    prship(sp), suffix);
+	return 0;
+    }
+
     if (sp->shp_item[I_MILIT] == 0 && sp->shp_item[I_CIVIL] == 0) {
 	mpr(sp->shp_own, "%s is crewless%s\n", prship(sp), suffix);
 	return 0;
@@ -126,13 +132,6 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 	 */
 	if (!ship.shp_own || ship.shp_own != player->cnum)
 	    continue;
-	if (opt_MARKET) {
-	    if (ontradingblock(EF_SHIP, &ship)) {
-		pr("ship #%d inelligible - it's for sale.\n",
-		   ship.shp_uid);
-		continue;
-	    }
-	}
 	if (!shp_may_nav(&ship, flg, ""))
 	    continue;
 

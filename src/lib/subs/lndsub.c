@@ -404,9 +404,16 @@ int
 lnd_may_mar(struct lndstr *lp, struct lndstr *ldr, char *suffix)
 {
     struct sctstr sect;
+    int mobtype;
 
     if (!lp->lnd_own || !getsect(lp->lnd_x, lp->lnd_y, &sect)) {
 	CANT_REACH();
+	return 0;
+    }
+
+    if (opt_MARKET && ontradingblock(EF_LAND, lp)) {
+	mpr(lp->lnd_own, "%s is on the trading block%s\n",
+	    prland(lp), suffix);
 	return 0;
     }
 
@@ -455,6 +462,25 @@ lnd_may_mar(struct lndstr *lp, struct lndstr *ldr, char *suffix)
 	    prland(lp), suffix);
 	return 0;
     }
+
+    /*
+     * The marching code gets confused when trains and non-trains
+     * march together.  Disallow for now.
+     */
+    mobtype = lnd_mobtype(lp);
+    if (!ldr || mobtype == lnd_mobtype(ldr))
+	;
+    else if (mobtype == MOB_RAIL) {
+	mpr(lp->lnd_own,
+	    "%s is a train and can't march with the leader%s\n",
+	    prland(lp), suffix);
+	return 0;
+    } else {
+	mpr(lp->lnd_own, "%s can't rail-march with the leading train%s\n",
+	    prland(lp), suffix);
+	return 0;
+    }
+
     return 1;
 }
 
@@ -463,8 +489,6 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 {
     struct lndstr land, *ldr = NULL;
     struct ulist *llp;
-    int this_mot;
-    int mobtype = MOB_MOVE;	/* indeterminate */
 
     emp_initque(list);
     while (nxtitem(ni, &land)) {
@@ -475,33 +499,8 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 	 */
 	if (!land.lnd_own || land.lnd_own != player->cnum)
 	    continue;
-	if (opt_MARKET) {
-	    if (ontradingblock(EF_LAND, &land)) {
-		pr("unit #%d inelligible - it's for sale.\n",
-		   land.lnd_uid);
-		continue;
-	    }
-	}
 	if (!lnd_may_mar(&land, ldr, ""))
 	    continue;
-	/*
-	 * The marching code gets confused when trains and non-trains
-	 * march together.  Disallow for now.
-	 */
-	this_mot = lnd_mobtype(&land);
-	if (this_mot != mobtype) {
-	    if (mobtype == MOB_MOVE)
-		mobtype = this_mot;
-	    else if (mobtype == MOB_MARCH) {
-		pr("%s is a train and can't march with the leader.\n",
-		   prland(&land));
-		continue;
-	    } else {
-		pr("%s can't rail-march with the leading train.\n",
-		   prland(&land));
-		continue;
-	    }
-	}
 
 	land.lnd_mission = 0;
 	land.lnd_rflags = 0;

@@ -64,7 +64,7 @@
     Play#1 output Play#1 6 0 638
     Play#1 input navi 12/10/19/11/13
     Play#1 command navigate
-    Play#1 output Play#1 1 ship #12 inelligible - it's for sale.
+    Play#1 output Play#1 1 pt   patrol boat (#12) is on the trading block
     Play#1 output Play#1 1 pt   patrol boat (#13) is crewless
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#10)
     Play#1 output Play#1 1  . i
@@ -750,7 +750,7 @@
     Play#1 output Play#1 6 0 588
     Play#1 input march 12/10/19/11/13/14/15
     Play#1 command march
-    Play#1 output Play#1 1 unit #12 inelligible - it's for sale.
+    Play#1 output Play#1 1 cav  cavalry #12 is on the trading block
     Play#1 output Play#1 1 cav  cavalry #13 has no mil on it to guide it
     Play#1 output Play#1 1 cav  cavalry #14 is on a ship
     Play#1 output Play#1 1 cav  cavalry #15 is on a unit
@@ -764,13 +764,13 @@
     Play#1 output Play#1 6 0 587
     Play#1 input march 20/22 jh
     Play#1 command march
-    Play#1 output Play#1 1 tra  train #22 is a train and can't march with the leader.
+    Play#1 output Play#1 1 tra  train #22 is a train and can't march with the leader
     Play#1 output Play#1 1 Leader is cav  cavalry #20
     Play#1 output Play#1 1 cav  cavalry #20 stopped at 3,3
     Play#1 output Play#1 6 0 586
     Play#1 input march 22/21/23 jh
     Play#1 command march
-    Play#1 output Play#1 1 cav  cavalry #21 can't rail-march with the leading train.
+    Play#1 output Play#1 1 cav  cavalry #21 can't rail-march with the leading train
     Play#1 output Play#1 1 Leader is tra  train #22
     Play#1 output Play#1 1 tra  train #22 stopped at 3,3
     Play#1 output Play#1 1 tra  train #23 stopped at 3,3
