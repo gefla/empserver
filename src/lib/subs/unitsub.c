@@ -118,63 +118,6 @@ unit_list(struct emp_qelem *unit_list)
     }
 }
 
-static char *
-unit_path(struct empobj *unit, char *buf, size_t bufsz)
-{
-    coord destx;
-    coord desty;
-    struct sctstr sect;
-    size_t len;
-    double c;
-    int mtype;
-
-    if (CANT_HAPPEN(unit->ef_type != EF_LAND && unit->ef_type != EF_SHIP))
-	return NULL;
-
-    if (!sarg_xy(buf, &destx, &desty))
-	return buf;
-    if (unit->ef_type == EF_SHIP) {
-	c = path_find(unit->x, unit->y, destx, desty,
-		      player->cnum, MOB_SAIL);
-	if (c < 0 || unit->mobil <= 0) {
-	    pr("Can't get to '%s' right now.\n",
-	       xyas(destx, desty, player->cnum));
-	    return NULL;
-	}
-    } else {
-	getsect(unit->x, unit->y, &sect);
-	mtype = lnd_mobtype((struct lndstr *)unit);
-	/*
-	 * Note: passing sect.sct_own for actor is funny, but works:
-	 * its only effect is to confine the search to that nation's
-	 * land.  It doesn't affect mobility costs.  The real actor is
-	 * different for marching in allied land, and passing it would
-	 * break path finding there.
-	 */
-	c = path_find(unit->x, unit->y, destx, desty, sect.sct_own, mtype);
-	if (c < 0) {
-	    pr("No owned %s from %s to %s!\n",
-	       mtype == MOB_RAIL ? "railway" : "path",
-	       xyas(unit->x, unit->y, player->cnum),
-	       xyas(destx, desty, player->cnum));
-	    return NULL;
-	}
-    }
-    len = path_find_route(buf, bufsz, unit->x, unit->y, destx, desty);
-    if (len == 0 || unit->ef_type == EF_LAND) {
-	if (len + 1 < bufsz)
-	    strcpy(buf + len, "h");
-	len++;
-    }
-    if (len >= bufsz) {
-	pr("Can't handle path to %s, it's too long, sorry\n",
-	   xyas(destx, desty, player->cnum));
-	return NULL;
-    }
-    pr("Using path '%s'\n", buf);
-    return buf;
-}
-
 static void
 unit_view(struct emp_qelem *list)
 {
@@ -371,6 +314,63 @@ unit_move_getpath(struct emp_qelem *list, int suppress_map, char *path)
     return getstring(prompt, path);
 }
 
+static char *
+unit_move_route(struct empobj *unit, char *buf, size_t bufsz)
+{
+    coord destx;
+    coord desty;
+    struct sctstr sect;
+    size_t len;
+    double c;
+    int mtype;
+
+    if (CANT_HAPPEN(unit->ef_type != EF_LAND && unit->ef_type != EF_SHIP))
+	return NULL;
+
+    if (!sarg_xy(buf, &destx, &desty))
+	return buf;
+    if (unit->ef_type == EF_SHIP) {
+	c = path_find(unit->x, unit->y, destx, desty,
+		      player->cnum, MOB_SAIL);
+	if (c < 0 || unit->mobil <= 0) {
+	    pr("Can't get to '%s' right now.\n",
+	       xyas(destx, desty, player->cnum));
+	    return NULL;
+	}
+    } else {
+	getsect(unit->x, unit->y, &sect);
+	mtype = lnd_mobtype((struct lndstr *)unit);
+	/*
+	 * Note: passing sect.sct_own for actor is funny, but works:
+	 * its only effect is to confine the search to that nation's
+	 * land.  It doesn't affect mobility costs.  The real actor is
+	 * different for marching in allied land, and passing it would
+	 * break path finding there.
+	 */
+	c = path_find(unit->x, unit->y, destx, desty, sect.sct_own, mtype);
+	if (c < 0) {
+	    pr("No owned %s from %s to %s!\n",
+	       mtype == MOB_RAIL ? "railway" : "path",
+	       xyas(unit->x, unit->y, player->cnum),
+	       xyas(destx, desty, player->cnum));
+	    return NULL;
+	}
+    }
+    len = path_find_route(buf, bufsz, unit->x, unit->y, destx, desty);
+    if (len == 0 || unit->ef_type == EF_LAND) {
+	if (len + 1 < bufsz)
+	    strcpy(buf + len, "h");
+	len++;
+    }
+    if (len >= bufsz) {
+	pr("Can't handle path to %s, it's too long, sorry\n",
+	   xyas(destx, desty, player->cnum));
+	return NULL;
+    }
+    pr("Using path '%s'\n", buf);
+    return buf;
+}
+
 int
 unit_move(struct emp_qelem *list)
 {
@@ -390,7 +390,7 @@ unit_move(struct emp_qelem *list)
     cp = "";
     if (player->argp[2]) {
 	strcpy(path, player->argp[2]);
-	cp = unit_path(leader, path, sizeof(path));
+	cp = unit_move_route(leader, path, sizeof(path));
 	if (!cp)
 	    cp = "";
     }
@@ -408,7 +408,7 @@ unit_move(struct emp_qelem *list)
 	    cp = unit_move_getpath(list, suppress_map, path);
 	    if (!cp)
 		return RET_FAIL;
-	    cp = unit_path(leader, path, sizeof(path));
+	    cp = unit_move_route(leader, path, sizeof(path));
 	    if (!cp || !*cp)
 		cp = "h";
 	    suppress_map = 0;
