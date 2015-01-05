@@ -30,7 +30,7 @@
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2015
  */
 
 #ifndef LAND_H
@@ -175,6 +175,7 @@ extern double lnd_fire_range(struct lndstr *);
 /* src/lib/subs/lndsub.c */
 extern int lnd_sweep(struct emp_qelem *, int, int, natid);
 extern int lnd_interdict(struct emp_qelem *, coord, coord, natid);
+extern int lnd_may_mar(struct lndstr *, struct lndstr *, char *);
 extern void lnd_sel(struct nstr_item *, struct emp_qelem *);
 extern struct ulist *lnd_insque(struct lndstr *, struct emp_qelem *);
 extern int lnd_check_mines(struct emp_qelem *);

@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2015
  */
 
 #include <config.h>
@@ -52,6 +52,7 @@
 #include "unit.h"
 #include "xy.h"
 
+static void lnd_mar_put_one(struct ulist *);
 static int lnd_check_one_mines(struct ulist *, int);
 static void lnd_stays(natid, char *, struct ulist *);
 static int lnd_hit_mine(struct lndstr *);
@@ -399,6 +400,64 @@ intelligence_report(int destination, struct lndstr *lp, int spy,
     }
 }
 
+int
+lnd_may_mar(struct lndstr *lp, struct lndstr *ldr, char *suffix)
+{
+    struct sctstr sect;
+
+    if (!lp->lnd_own || !getsect(lp->lnd_x, lp->lnd_y, &sect)) {
+	CANT_REACH();
+	return 0;
+    }
+
+    if (lp->lnd_ship >= 0) {
+	mpr(lp->lnd_own, "%s is on a ship%s\n", prland(lp), suffix);
+	return 0;
+    }
+    if (lp->lnd_land >= 0) {
+	mpr(lp->lnd_own, "%s is on a unit%s\n", prland(lp), suffix);
+	return 0;
+    }
+
+    if (!(lchr[lp->lnd_type].l_flags & L_SPY) &&
+	!(lchr[lp->lnd_type].l_flags & L_TRAIN) &&
+	lp->lnd_item[I_MILIT] == 0) {
+	mpr(lp->lnd_own, "%s has no mil on it to guide it%s\n",
+	    prland(lp), suffix);
+	return 0;
+    }
+
+    switch (lnd_check_mar(lp, &sect)) {
+    case LND_STUCK_NOT:
+	break;
+    case LND_STUCK_NO_RAIL:
+	mpr(lp->lnd_own, "%s is stuck off the rail system%s\n",
+	    prland(lp), suffix);
+	return 0;
+    default:
+	CANT_REACH();
+	/* fall through */
+    case LND_STUCK_IMPASSABLE:
+	mpr(lp->lnd_own, "%s is stuck%s\n", prland(lp), suffix);
+	return 0;
+    }
+
+    if (relations_with(sect.sct_own, lp->lnd_own) != ALLIED &&
+	!(lchr[lp->lnd_type].l_flags & L_SPY) &&
+	sect.sct_own) {
+	mpr(lp->lnd_own, "%s has been kidnapped by %s%s\n",
+	    prland(lp), cname(sect.sct_own), suffix);
+	return 0;
+    }
+
+    if (ldr && (lp->lnd_x != ldr->lnd_x || lp->lnd_y != ldr->lnd_y)) {
+	mpr(lp->lnd_own, "%s is not with the leader%s\n",
+	    prland(lp), suffix);
+	return 0;
+    }
+    return 1;
+}
+
 void
 lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 {
@@ -474,8 +533,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
     struct emp_qelem *next;
     struct ulist *llp;
     struct lndstr *lp, *ldr = NULL;
-    struct sctstr sect;
-    char mess[128];
+    char and_stays[32];
 
     *minmobp = 9876.0;
     *maxmobp = -9876.0;
@@ -484,6 +542,7 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	llp = (struct ulist *)qp;
 	lp = &llp->unit.land;
 	getland(lp->lnd_uid, lp);
+
 	if (lp->lnd_own != actor) {
 	    mpr(actor, "%s was disbanded at %s\n",
 		prland(lp), xyas(lp->lnd_x, lp->lnd_y, actor));
@@ -491,50 +550,16 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    free(llp);
 	    continue;
 	}
-	if (lp->lnd_ship >= 0) {
-	    lnd_stays(actor, "is on a ship", llp);
+
+	snprintf(and_stays, sizeof(and_stays), " & stays in %s",
+		 xyas(lp->lnd_x, lp->lnd_y, actor));
+	if (!lnd_may_mar(lp, ldr, and_stays)) {
+	    lnd_mar_put_one(llp);
 	    continue;
 	}
-	if (lp->lnd_land >= 0) {
-	    lnd_stays(actor, "is on a unit", llp);
-	    continue;
-	}
-	if (!getsect(lp->lnd_x, lp->lnd_y, &sect)) {
-	    lnd_stays(actor, "was sucked into the sky by a strange looking spaceland", llp);	/* heh -KHS */
-	    continue;
-	}
-	if (!(lchr[lp->lnd_type].l_flags & L_SPY) &&
-	    !(lchr[lp->lnd_type].l_flags & L_TRAIN) &&
-	    lp->lnd_item[I_MILIT] == 0) {
-	    lnd_stays(actor, "has no mil on it to guide it", llp);
-	    continue;
-	}
-	switch (lnd_check_mar(lp, &sect)) {
-	case LND_STUCK_NOT:
-	    break;
-	case LND_STUCK_NO_RAIL:
-	    lnd_stays(actor, "is stuck off the rail system", llp);
-	    continue;
-	default:
-	    CANT_REACH();
-	    /* fall through */
-	case LND_STUCK_IMPASSABLE:
-	    lnd_stays(actor, "is stuck", llp);
-	    continue;
-	}
-	if (relations_with(sect.sct_own, actor) != ALLIED &&
-	    !(lchr[lp->lnd_type].l_flags & L_SPY) &&
-	    sect.sct_own) {
-	    sprintf(mess, "has been kidnapped by %s", cname(sect.sct_own));
-	    lnd_stays(actor, mess, llp);
-	    continue;
-	}
+
 	if (!ldr)
 	    ldr = lp;
-	else if (lp->lnd_x != ldr->lnd_x || lp->lnd_y != ldr->lnd_y) {
-	    lnd_stays(actor, "is not with the leader", llp);
-	    continue;
-	}
 	if (lp->lnd_mobil + 1 < (int)llp->mobil) {
 	    llp->mobil = lp->lnd_mobil;
 	}
