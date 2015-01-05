@@ -114,7 +114,8 @@ shp_may_nav(struct shpstr *sp, struct shpstr *flg, char *suffix)
 void
 shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 {
-    struct shpstr ship;
+    struct shpstr ship, *flg = NULL;
+    struct ulist *mlp;
 
     emp_initque(list);
     while (nxtitem(ni, &ship)) {
@@ -132,11 +133,16 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 		continue;
 	    }
 	}
+	if (!shp_may_nav(&ship, flg, ""))
+	    continue;
+
 	ship.shp_mission = 0;
 	ship.shp_rflags = 0;
 	memset(ship.shp_rpath, 0, sizeof(ship.shp_rpath));
 	putship(ship.shp_uid, &ship);
-	shp_insque(&ship, list);
+	mlp = shp_insque(&ship, list);
+	if (!flg)
+	    flg = &mlp->unit.ship;
     }
 }
 

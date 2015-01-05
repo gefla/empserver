@@ -461,7 +461,8 @@ lnd_may_mar(struct lndstr *lp, struct lndstr *ldr, char *suffix)
 void
 lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 {
-    struct lndstr land;
+    struct lndstr land, *ldr = NULL;
+    struct ulist *llp;
     int this_mot;
     int mobtype = MOB_MOVE;	/* indeterminate */
 
@@ -481,6 +482,8 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 		continue;
 	    }
 	}
+	if (!lnd_may_mar(&land, ldr, ""))
+	    continue;
 	/*
 	 * The marching code gets confused when trains and non-trains
 	 * march together.  Disallow for now.
@@ -504,7 +507,9 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 	land.lnd_rflags = 0;
 	memset(land.lnd_rpath, 0, sizeof(land.lnd_rpath));
 	putland(land.lnd_uid, &land);
-	lnd_insque(&land, list);
+	llp = lnd_insque(&land, list);
+	if (!ldr)
+	    ldr = &llp->unit.land;
     }
 }
 

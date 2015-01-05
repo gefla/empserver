@@ -65,7 +65,7 @@
     Play#1 input navi 12/10/19/11/13
     Play#1 command navigate
     Play#1 output Play#1 1 ship #12 inelligible - it's for sale.
-    Play#1 output Play#1 1 pt   patrol boat (#13) is crewless & stays in 0,0
+    Play#1 output Play#1 1 pt   patrol boat (#13) is crewless
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#10)
     Play#1 output Play#1 1  . i
     Play#1 output Play#1 1 . . =
@@ -81,7 +81,7 @@
     Play#1 output Play#1 6 0 636
     Play#1 input navi 21 h
     Play#1 command navigate
-    Play#1 output Play#1 1 pt   patrol boat (#21) is caught in a construction zone & stays in 3,1
+    Play#1 output Play#1 1 pt   patrol boat (#21) is caught in a construction zone
     Play#1 output Play#1 1 No ships
     Play#1 output Play#1 1 command failed
     Play#1 output Play#1 6 0 635
@@ -92,31 +92,31 @@
     Play#1 output Play#1 6 0 634
     Play#1 input navi 23 h
     Play#1 command navigate
-    Play#1 output Play#1 1 pt   patrol boat (#23) is caught in a construction zone & stays in 6,0
+    Play#1 output Play#1 1 pt   patrol boat (#23) is caught in a construction zone
     Play#1 output Play#1 1 No ships
     Play#1 output Play#1 1 command failed
     Play#1 output Play#1 6 0 633
     Play#1 input navi 24/26 yh
     Play#1 command navigate
-    Play#1 output Play#1 1 cs   cargo ship (#26) is landlocked & stays in 2,2
+    Play#1 output Play#1 1 cs   cargo ship (#26) is landlocked
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#24)
     Play#1 output Play#1 1 pt   patrol boat (#24) stopped at 1,1
     Play#1 output Play#1 6 0 632
     Play#1 input navi 25 h
     Play#1 command navigate
-    Play#1 output Play#1 1 pt   patrol boat (#25) is caught in a construction zone & stays in 4,2
+    Play#1 output Play#1 1 pt   patrol boat (#25) is caught in a construction zone
     Play#1 output Play#1 1 No ships
     Play#1 output Play#1 1 command failed
     Play#1 output Play#1 6 0 631
     Play#1 input navi 27 h
     Play#1 command navigate
-    Play#1 output Play#1 1 pt   patrol boat (#27) is landlocked & stays in 1,-1
+    Play#1 output Play#1 1 pt   patrol boat (#27) is landlocked
     Play#1 output Play#1 1 No ships
     Play#1 output Play#1 1 command failed
     Play#1 output Play#1 6 0 630
     Play#1 input nav 28/10 yh
     Play#1 command navigate
-    Play#1 output Play#1 1 pt   patrol boat (#10) is not with the flagship & stays in -1,-1
+    Play#1 output Play#1 1 pt   patrol boat (#10) is not with the flagship
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#28)
     Play#1 output Play#1 1 pt   patrol boat (#28) stopped at 3,-1
     Play#1 output Play#1 6 0 629
@@ -751,9 +751,9 @@
     Play#1 input march 12/10/19/11/13/14/15
     Play#1 command march
     Play#1 output Play#1 1 unit #12 inelligible - it's for sale.
-    Play#1 output Play#1 1 cav  cavalry #13 has no mil on it to guide it & stays in 1,1
-    Play#1 output Play#1 1 cav  cavalry #14 is on a ship & stays in 1,1
-    Play#1 output Play#1 1 cav  cavalry #15 is on a unit & stays in 1,1
+    Play#1 output Play#1 1 cav  cavalry #13 has no mil on it to guide it
+    Play#1 output Play#1 1 cav  cavalry #14 is on a ship
+    Play#1 output Play#1 1 cav  cavalry #15 is on a unit
     Play#1 output Play#1 1 Leader is cav  cavalry #10
     Play#1 output Play#1 1  . =
     Play#1 output Play#1 1 h h h
@@ -777,19 +777,19 @@
     Play#1 output Play#1 6 0 585
     Play#1 input march 24 nh
     Play#1 command march
-    Play#1 output Play#1 1 tra  train #24 is stuck off the rail system & stays in 2,2
+    Play#1 output Play#1 1 tra  train #24 is stuck off the rail system
     Play#1 output Play#1 1 No lands
     Play#1 output Play#1 1 command failed
     Play#1 output Play#1 6 0 584
     Play#1 input march 25 gh
     Play#1 command march
-    Play#1 output Play#1 1 cav  cavalry #25 has been kidnapped by 3 & stays in -5,3
+    Play#1 output Play#1 1 cav  cavalry #25 has been kidnapped by 3
     Play#1 output Play#1 1 No lands
     Play#1 output Play#1 1 command failed
     Play#1 output Play#1 6 0 583
     Play#1 input march 21/10 nh
     Play#1 command march
-    Play#1 output Play#1 1 cav  cavalry #10 is not with the leader & stays in 2,2
+    Play#1 output Play#1 1 cav  cavalry #10 is not with the leader
     Play#1 output Play#1 1 Leader is cav  cavalry #21
     Play#1 output Play#1 1 cav  cavalry #21 stopped at 2,4
     Play#1 output Play#1 6 0 582
@@ -1454,13 +1454,24 @@
     Play#0 output Play#0 1   1    4 oe   oil explora    1,1      hhhhn               b
     Play#0 output Play#0 1   2   11 pt   patrol boat    0,0      hhhhn               b
     Play#0 output Play#0 1   1   12 pt   patrol boat    0,0      hhhhn               b
-    Play#0 output Play#0 1 3 ships
+    Play#0 output Play#0 1   1   13 pt   patrol boat    0,0      hhhhn               b
+    Play#0 output Play#0 1   1   21 pt   patrol boat    3,1      hhhhn               b
+    Play#0 output Play#0 1   1   23 pt   patrol boat    6,0      hhhhn               b
+    Play#0 output Play#0 1   1   25 pt   patrol boat    4,2      hhhhn               b
+    Play#0 output Play#0 1   1   26 cs   cargo ship     2,2      hhhhn               b
+    Play#0 output Play#0 1   1   27 pt   patrol boat    1,-1     hhhhn               b
+    Play#0 output Play#0 1 9 ships
     Play#0 output Play#0 6 0 639
     Play#0 input miss s * ?mission#0 q
     Play#0 command mission
     Play#0 output Play#0 1 Thing                        x,y     op-sect  rad mission
     Play#0 output Play#0 1 pt   patrol boat (#11)       0,0       0,0      0 is on an interdiction mission
     Play#0 output Play#0 1 pt   patrol boat (#12)       0,0       0,0      0 is on an interdiction mission
+    Play#0 output Play#0 1 pt   patrol boat (#13)       0,0       0,0      0 is on an interdiction mission
+    Play#0 output Play#0 1 pt   patrol boat (#21)       3,1       3,1      0 is on an interdiction mission
+    Play#0 output Play#0 1 pt   patrol boat (#23)       6,0       6,0      0 is on an interdiction mission
+    Play#0 output Play#0 1 pt   patrol boat (#25)       4,2       4,2      0 is on an interdiction mission
+    Play#0 output Play#0 1 pt   patrol boat (#27)       1,-1      1,-1     0 is on an interdiction mission
     Play#0 output Play#0 6 0 637
     Play#0 input land *
     Play#0 command land
@@ -1551,7 +1562,12 @@
     Play#0 output Play#0 1   1    4 eng  engineer       1,1      hhhhn               b
     Play#0 output Play#0 1   2   11 cav  cavalry        1,1      hhhhn               b
     Play#0 output Play#0 1   1   12 cav  cavalry        1,1      hhhhn               b
-    Play#0 output Play#0 1 4 units
+    Play#0 output Play#0 1   1   13 cav  cavalry        1,1      hhhhn               b
+    Play#0 output Play#0 1   1   14 cav  cavalry        1,1      hhhhn               b
+    Play#0 output Play#0 1   1   15 cav  cavalry        1,1      hhhhn               b
+    Play#0 output Play#0 1   1   24 tra  train          2,2      hhhhn               b
+    Play#0 output Play#0 1   1   25 cav  cavalry       -5,3      hhhhn               b
+    Play#0 output Play#0 1 9 units
     Play#0 output Play#0 6 0 636
     Play#0 input miss l * ?mission#0 q
     Play#0 command mission
@@ -1559,6 +1575,10 @@
     Play#0 output Play#0 1 eng  engineer #4             1,1       1,1      1 is on a reserve mission
     Play#0 output Play#0 1 cav  cavalry #11             1,1       1,1      3 is on a reserve mission
     Play#0 output Play#0 1 cav  cavalry #12             1,1       1,1      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #13             1,1       1,1      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #14             1,1       1,1      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #15             1,1       1,1      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #25            -5,3      -5,3      3 is on a reserve mission
     Play#0 output Play#0 6 0 634
     Play#0 input ctld
     Play#0 output Play#0 1 Bye-bye
