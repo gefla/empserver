@@ -31,7 +31,7 @@
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2015
  */
 
 #ifndef SHIP_H
@@ -169,6 +169,7 @@ extern int shp_usable_guns(struct shpstr *);
 extern double shp_torp_hitchance(struct shpstr *, int);
 
 /* src/lib/subs/shpsub.c */
+extern int shp_may_nav(struct shpstr *, struct shpstr *, char *);
 extern void shp_sel(struct nstr_item *, struct emp_qelem *);
 extern struct ulist *shp_insque(struct shpstr *, struct emp_qelem *);
 extern void shp_nav(struct emp_qelem *, double *, double *, natid);

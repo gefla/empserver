@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2006-2014
+ *     Markus Armbruster, 2006-2015
  */
 
 #include <config.h>
@@ -70,6 +70,45 @@ shp_find_capable(struct emp_qelem *list, int flags)
 	    return mlp;
     }
     return NULL;
+}
+
+int
+shp_may_nav(struct shpstr *sp, struct shpstr *flg, char *suffix)
+{
+    struct sctstr sect;
+
+    if (!sp->shp_own || !getsect(sp->shp_x, sp->shp_y, &sect)) {
+	CANT_REACH();
+	return 0;
+    }
+
+    if (sp->shp_item[I_MILIT] == 0 && sp->shp_item[I_CIVIL] == 0) {
+	mpr(sp->shp_own, "%s is crewless%s\n", prship(sp), suffix);
+	return 0;
+    }
+
+    switch (shp_check_nav(sp, &sect)) {
+    case SHP_STUCK_NOT:
+	break;
+    case SHP_STUCK_CONSTRUCTION:
+	mpr(sp->shp_own, "%s is caught in a construction zone%s\n",
+	    prship(sp), suffix);
+	return 0;
+    default:
+	CANT_REACH();
+	/* fall through */
+    case SHP_STUCK_CANAL:
+    case SHP_STUCK_IMPASSABLE:
+	mpr(sp->shp_own, "%s is landlocked%s\n", prship(sp), suffix);
+	return 0;
+    }
+
+    if (flg && (sp->shp_x != flg->shp_x || sp->shp_y != flg->shp_y)) {
+	mpr(sp->shp_own, "%s is not with the flagship%s\n",
+	    prship(sp), suffix);
+	return 0;
+    }
+    return 1;
 }
 
 void
@@ -125,7 +164,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
     struct emp_qelem *next;
     struct ulist *mlp;
     struct shpstr *sp, *flg = NULL;
-    struct sctstr sect;
+    char and_stays[32];
 
     *minmobp = 9876.0;
     *maxmobp = -9876.0;
@@ -134,6 +173,7 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	mlp = (struct ulist *)qp;
 	sp = &mlp->unit.ship;
 	getship(sp->shp_uid, sp);
+
 	if (sp->shp_own != actor) {
 	    mpr(actor, "%s was sunk at %s\n",
 		prship(sp), xyas(sp->shp_x, sp->shp_y, actor));
@@ -141,35 +181,16 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	    free(mlp);
 	    continue;
 	}
-	/* check crew - uws don't count */
-	if (sp->shp_item[I_MILIT] == 0 && sp->shp_item[I_CIVIL] == 0) {
-	    shp_stays(actor, "is crewless", mlp);
+
+	snprintf(and_stays, sizeof(and_stays), " & stays in %s",
+		 xyas(sp->shp_x, sp->shp_y, actor));
+	if (!shp_may_nav(sp, flg, and_stays)) {
+	    shp_nav_put_one(mlp);
 	    continue;
 	}
-	if (!getsect(sp->shp_x, sp->shp_y, &sect)) {
-	    shp_stays(actor, "was sucked into the sky by a strange looking spaceship", mlp);	/* heh -KHS */
-	    continue;
-	}
-	switch (shp_check_nav(sp, &sect)) {
-	case SHP_STUCK_NOT:
-	    break;
-	case SHP_STUCK_CONSTRUCTION:
-	    shp_stays(actor, "is caught in a construction zone", mlp);
-	    continue;
-	default:
-	    CANT_REACH();
-	    /* fall through */
-	case SHP_STUCK_CANAL:
-	case SHP_STUCK_IMPASSABLE:
-	    shp_stays(actor, "is landlocked", mlp);
-	    continue;
-	}
+
 	if (!flg)
 	    flg = sp;
-	else if (sp->shp_x != flg->shp_x || sp->shp_y != flg->shp_y) {
-	    shp_stays(actor, "is not with the flagship", mlp);
-	    continue;
-	}
 	if (sp->shp_mobil + 1 < (int)mlp->mobil) {
 	    mlp->mobil = sp->shp_mobil;
 	}
