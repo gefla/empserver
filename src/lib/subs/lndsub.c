@@ -528,7 +528,7 @@ lnd_insque(struct lndstr *lp, struct emp_qelem *list)
 }
 
 void
-lnd_mar(struct emp_qelem *list, natid actor)
+lnd_mar_stay_behind(struct emp_qelem *list, natid actor)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;

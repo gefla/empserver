@@ -161,7 +161,7 @@ shp_insque(struct shpstr *sp, struct emp_qelem *list)
 }
 
 void
-shp_nav(struct emp_qelem *list, natid actor)
+shp_nav_stay_behind(struct emp_qelem *list, natid actor)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;

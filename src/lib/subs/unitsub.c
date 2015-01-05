@@ -441,9 +441,9 @@ unit_move(struct emp_qelem *list)
 	}
 
 	if (type == EF_SHIP)
-	    shp_nav(list, player->cnum);
+	    shp_nav_stay_behind(list, player->cnum);
 	else
-	    lnd_mar(list, player->cnum);
+	    lnd_mar_stay_behind(list, player->cnum);
 
 	if (QEMPTY(list)) {
 	    pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
