@@ -527,10 +527,8 @@ lnd_insque(struct lndstr *lp, struct emp_qelem *list)
     return mlp;
 }
 
-/* This function assumes that the list was created by lnd_sel */
 void
-lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
-	natid actor)
+lnd_mar(struct emp_qelem *list, natid actor)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
@@ -538,8 +536,6 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
     struct lndstr *lp, *ldr = NULL;
     char and_stays[32];
 
-    *minmobp = 9876.0;
-    *maxmobp = -9876.0;
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	llp = (struct ulist *)qp;
@@ -566,10 +562,6 @@ lnd_mar(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	if (lp->lnd_mobil + 1 < (int)llp->mobil) {
 	    llp->mobil = lp->lnd_mobil;
 	}
-	if (llp->mobil < *minmobp)
-	    *minmobp = llp->mobil;
-	if (llp->mobil > *maxmobp)
-	    *maxmobp = llp->mobil;
     }
 }
 

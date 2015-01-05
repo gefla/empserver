@@ -29,7 +29,6 @@ iyh
 | at least one hit must lose crew; use __cmd to force it if necessary
 __cmd added -1 0 0
 march 32/33/34/35/36/37/38/39 jiyh
-| BUG: moves on without crew
 | TODO destroy land unit at march prompt, changing leader
 | TODO kidnap at march prompt
 || sector entry
@@ -97,7 +96,6 @@ l
 l 0
 gbbb
 B 0
-| BUG: radar not used on march
 M *
 r
 r 100
@@ -127,5 +125,4 @@ march 135/130/131/136/137/138/139
 j
 | implicit sweep, not all capable
 mmmh
-| BUG: mobility use low
 || TODO interdiction

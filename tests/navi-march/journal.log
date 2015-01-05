@@ -156,6 +156,7 @@
     Play#1 output Play#1 1 	pt   patrol boat (#38) takes 31
     Play#1 output Play#1 1 Kawhomp! Mine detected in 11,-5!
     Play#1 output Play#1 1 	pt   patrol boat (#39) takes 36
+    Play#1 output Play#1 1 pt   patrol boat (#38) is crewless & stays in 11,-5
     Play#1 output Play#1 1 shp#     ship type       x,y   fl  eff mil  sh gun pn he xl ln mob tech
     Play#1 output Play#1 1   32 pt   patrol boat   11,-5      75%   1   0   0  0  0  0  0  88  40
     Play#1 output Play#1 1   33 pt   patrol boat   11,-5      80%   1   0   0  0  0  0  0  94  40
@@ -163,7 +164,6 @@
     Play#1 output Play#1 1   35 pt   patrol boat   11,-5      66%   1   0   0  0  0  0  0  77  40
     Play#1 output Play#1 1   36 pt   patrol boat   11,-5      80%   1   0   0  0  0  0  0  94  40
     Play#1 output Play#1 1   37 pt   patrol boat   11,-5      80%   1   0   0  0  0  0  0  94  40
-    Play#1 output Play#1 1   38 pt   patrol boat   11,-5      69%   0   0   0  0  0  0  0  81  40
     Play#1 output Play#1 1   39 pt   patrol boat   11,-5      64%   1   0   0  0  0  0  0  75  40
     Play#1 output Play#1 1 pt   patrol boat (#32) stopped at 10,-6
     Play#1 output Play#1 1 pt   patrol boat (#33) stopped at 10,-6
@@ -171,7 +171,6 @@
     Play#1 output Play#1 1 pt   patrol boat (#35) stopped at 10,-6
     Play#1 output Play#1 1 pt   patrol boat (#36) stopped at 10,-6
     Play#1 output Play#1 1 pt   patrol boat (#37) stopped at 10,-6
-    Play#1 output Play#1 1 pt   patrol boat (#38) stopped at 10,-6
     Play#1 output Play#1 1 pt   patrol boat (#39) stopped at 10,-6
     Play#1 output Play#1 6 0 628
     Play#1 input navi 50 nh
@@ -329,9 +328,10 @@
     Play#1 output Play#1 4 <127.0:0.0: 0,0>
     Play#1 input yyyy
     Play#1 output Play#1 1 cs   cargo ship (#84) is out of mobility & stays in 0,0
+    Play#1 output Play#1 1 Changing flagship to cs   cargo ship (#83)
     Play#1 output Play#1 1 cs   cargo ship (#83) is out of mobility & stays in -1,-1
-    Play#1 output Play#1 1 cs   cargo ship (#82) is out of mobility & stays in -3,-3
     Play#1 output Play#1 1 Changing flagship to cs   cargo ship (#80)
+    Play#1 output Play#1 1 cs   cargo ship (#82) is out of mobility & stays in -3,-3
     Play#1 output Play#1 1  . .
     Play#1 output Play#1 1 . . .
     Play#1 output Play#1 1  . .
@@ -412,11 +412,11 @@
     Play#1 output Play#1 1   -5  . .     . . X .      -5
     Play#1 output Play#1 1   -4 . . .     . . .       -4
     Play#1 output Play#1 1   -3  . i                  -3
-    Play#1 output Play#1 1   -2 . . . .               -2
-    Play#1 output Play#1 1   -1  . i . . . .       .  -1
-    Play#1 output Play#1 1    0 . . = . = O =     . . 0
-    Play#1 output Play#1 1    1  h h h h h h       ?  1
-    Play#1 output Play#1 1    2 c c c c c           ? 2
+    Play#1 output Play#1 1   -2 . . . . . . .         -2
+    Play#1 output Play#1 1   -1  . i . . . . .     .  -1
+    Play#1 output Play#1 1    0 . . = . = O = .   . . 0
+    Play#1 output Play#1 1    1  h h h h h h ?     ?  1
+    Play#1 output Play#1 1    2 c c c c c c ?       ? 2
     Play#1 output Play#1 1    3    + +                3
     Play#1 output Play#1 1    4                       4
     Play#1 output Play#1 1    5                       5
@@ -456,8 +456,8 @@
     Play#1 output Play#1 1   -2      . . . . . . . .  -2
     Play#1 output Play#1 1   -1 . . . . . i . . . . . -1
     Play#1 output Play#1 1    0  . = . . . = . = . =  0
-    Play#1 output Play#1 1    1 h h h h h P h h h h   1
-    Play#1 output Play#1 1    2  c ? c c c c c c      2
+    Play#1 output Play#1 1    1 h h h h h P h h h h ? 1
+    Play#1 output Play#1 1    2  c ? c c c c c c c ?  2
     Play#1 output Play#1 1    3           + +         3
     Play#1 output Play#1 1    4                       4
     Play#1 output Play#1 1    5                       5
@@ -678,8 +678,7 @@
     Play#1 output Play#1 1 Kawhomp! Mine detected in 11,-5!
     Play#1 output Play#1 1 	ms   minesweeper (#130) takes 10
     Play#1 output Play#1 1 Sweep...
-    Play#1 output Play#1 1 Kawhomp! Mine detected in 11,-5!
-    Play#1 output Play#1 1 	ms   minesweeper (#131) takes 11
+    Play#1 output Play#1 1 Sweep...
     Play#1 output Play#1 1 pt   patrol boat (#135) stopped at 11,-5
     Play#1 output Play#1 1 ms   minesweeper (#130) stopped at 11,-5
     Play#1 output Play#1 1 ms   minesweeper (#131) stopped at 11,-5
@@ -831,12 +830,12 @@
     Play#1 output Play#1 1 	cav  cavalry #38 takes 22
     Play#1 output Play#1 1 Blammo! Landmines detected in 8,6!
     Play#1 output Play#1 1 	cav  cavalry #39 takes 16
+    Play#1 output Play#1 1 cav  cavalry #36 has no mil on it to guide it & stays in 8,6
     Play#1 output Play#1 1 lnd#     land type       x,y    a  eff mil  sh gun xl ln  mu tech retr
     Play#1 output Play#1 1   32 cav  cavalry        8,6       87%   1   0   0  0  0  90  30  42%
     Play#1 output Play#1 1   33 cav  cavalry        8,6      100%   1   0   0  0  0 104  30  42%
     Play#1 output Play#1 1   34 cav  cavalry        8,6       86%   1   0   0  0  0  90  30  42%
     Play#1 output Play#1 1   35 cav  cavalry        8,6       87%   1   0   0  0  0  91  30  42%
-    Play#1 output Play#1 1   36 cav  cavalry        8,6       78%   0   0   0  0  0  82  30  42%
     Play#1 output Play#1 1   37 cav  cavalry        8,6       90%   1   0   0  0  0  93  30  42%
     Play#1 output Play#1 1   38 cav  cavalry        8,6       78%   1   0   0  0  0  81  30  42%
     Play#1 output Play#1 1   39 cav  cavalry        8,6       84%   1   0   0  0  0  87  30  42%
@@ -844,7 +843,6 @@
     Play#1 output Play#1 1 cav  cavalry #33 stopped at 7,5
     Play#1 output Play#1 1 cav  cavalry #34 stopped at 7,5
     Play#1 output Play#1 1 cav  cavalry #35 stopped at 7,5
-    Play#1 output Play#1 1 cav  cavalry #36 stopped at 7,5
     Play#1 output Play#1 1 cav  cavalry #37 stopped at 7,5
     Play#1 output Play#1 1 cav  cavalry #38 stopped at 7,5
     Play#1 output Play#1 1 cav  cavalry #39 stopped at 7,5
@@ -992,9 +990,10 @@
     Play#1 output Play#1 4 <127.0:0.0: 3,5>
     Play#1 input jjun
     Play#1 output Play#1 1 cav  cavalry #84 is out of mobility & stays in 3,5
+    Play#1 output Play#1 1 Changing leader to cav  cavalry #83
     Play#1 output Play#1 1 cav  cavalry #83 is out of mobility & stays in 5,5
-    Play#1 output Play#1 1 cav  cavalry #82 is out of mobility & stays in 8,4
     Play#1 output Play#1 1 Changing leader to cav  cavalry #80
+    Play#1 output Play#1 1 cav  cavalry #82 is out of mobility & stays in 8,4
     Play#1 output Play#1 1  m m
     Play#1 output Play#1 1 m m m
     Play#1 output Play#1 1  m m
@@ -1077,7 +1076,7 @@
     Play#1 output Play#1 1    0  . = . . . = . = . =  0
     Play#1 output Play#1 1    1 h h h h h C h h h h ? 1
     Play#1 output Play#1 1    2  c c c c c c c c c ?  2
-    Play#1 output Play#1 1    3   + + + + + + + + + ? 3
+    Play#1 output Play#1 1    3   + + + + + + + + + + 3
     Play#1 output Play#1 1    4    m m m m + m m m m  4
     Play#1 output Play#1 1    5     m m m m + m m m m 5
     Play#1 output Play#1 1    6    ? ? ? m m m m m m  6
@@ -1123,9 +1122,9 @@
     Play#1 output Play#1 1    0  . = . . . = . = . =  0
     Play#1 output Play#1 1    1 h h h h h C h h h h ? 1
     Play#1 output Play#1 1    2  c c c c c c c c c ?  2
-    Play#1 output Play#1 1    3   + + + + + + + + + ? 3
-    Play#1 output Play#1 1    4    m m m m + m m m m  4
-    Play#1 output Play#1 1    5     m m m m + m m m m 5
+    Play#1 output Play#1 1    3   + + + + + + + + + + 3
+    Play#1 output Play#1 1    4  ? m m m m + m m m m  4
+    Play#1 output Play#1 1    5   ? m m m m + m m m m 5
     Play#1 output Play#1 1    6    ? ? ? m m m m m m  6
     Play#1 output Play#1 1      ---------000000000011
     Play#1 output Play#1 1      987654321012345678901
@@ -1382,14 +1381,14 @@
     Play#0 output Play#0 1   1   27 pt   patrol boat    1,-1      100%   0   2   0   0  0  0  0  0 127   40
     Play#0 output Play#0 1   1   28 pt   patrol boat    3,-1      100%   0   2   0   0  0  0  0  0 117   40
     Play#0 output Play#0 1   1   30 pt   patrol boat   10,-6      100%   0   2   0   0  0  0  0  0 108   40
-    Play#0 output Play#0 1   1   32 pt   patrol boat   10,-6       75%   0   1   0   0  0  0  0  0 105   40
-    Play#0 output Play#0 1   1   33 pt   patrol boat   10,-6       80%   0   1   0   0  0  0  0  0 106   40
+    Play#0 output Play#0 1   1   32 pt   patrol boat   10,-6       75%   0   1   0   0  0  0  0  0  75   40
+    Play#0 output Play#0 1   1   33 pt   patrol boat   10,-6       80%   0   1   0   0  0  0  0  0  82   40
     Play#0 output Play#0 1   1   34 pt   patrol boat   10,-6      100%   0   1   0   0  0  0  0  0 108   40
-    Play#0 output Play#0 1   1   35 pt   patrol boat   10,-6       66%   0   1   0   0  0  0  0  0 103   40
-    Play#0 output Play#0 1   1   36 pt   patrol boat   10,-6       80%   0   1   0   0  0  0  0  0 106   40
-    Play#0 output Play#0 1   1   37 pt   patrol boat   10,-6       80%   0   1   0   0  0  0  0  0 106   40
-    Play#0 output Play#0 1   1   38 pt   patrol boat   10,-6       69%   0   0   0   0  0  0  0  0 104   40
-    Play#0 output Play#0 1   1   39 pt   patrol boat   10,-6       64%   0   1   0   0  0  0  0  0 103   40
+    Play#0 output Play#0 1   1   35 pt   patrol boat   10,-6       66%   0   1   0   0  0  0  0  0  63   40
+    Play#0 output Play#0 1   1   36 pt   patrol boat   10,-6       80%   0   1   0   0  0  0  0  0  82   40
+    Play#0 output Play#0 1   1   37 pt   patrol boat   10,-6       80%   0   1   0   0  0  0  0  0  82   40
+    Play#0 output Play#0 1   1   38 pt   patrol boat   11,-5       69%   0   0   0   0  0  0  0  0 117   40
+    Play#0 output Play#0 1   1   39 pt   patrol boat   10,-6       64%   0   1   0   0  0  0  0  0  60   40
     Play#0 output Play#0 1   1   50 pt   patrol boat    1,1       100%   0   2   0   0  0  0  0  0 117   40
     Play#0 output Play#0 1   1   51 pt   patrol boat    4,0       100%   0   2   0   0  0  0  0  0 127   40
     Play#0 output Play#0 1   1   52 pt   patrol boat    2,0       100%   0   2   0   0  0  0  0  0 117   40
@@ -1426,8 +1425,8 @@
     Play#0 output Play#0 1   1  122 ms   minesweeper   13,-3      100%   0   5   0   0  0  0  0  0  85   40
     Play#0 output Play#0 1   1  128 ms   minesweeper   11,-3      100%   0   5   0   0  0  0  0  0 -12   40
     Play#0 output Play#0 1   1  129 ms   minesweeper   10,-2      100%   0   5   0   0  0  0  0  0  99   40
-    Play#0 output Play#0 1   1  130 ms   minesweeper   11,-5       43%   0   3   0   0  0  0  0  0   1   40
-    Play#0 output Play#0 1   1  131 ms   minesweeper   11,-5       58%   0   3   0   0  0  0  0  0  20   40
+    Play#0 output Play#0 1   1  130 ms   minesweeper   11,-5       43%   0   4   0   0  0  0  0  0 -11   40
+    Play#0 output Play#0 1   1  131 ms   minesweeper   11,-5       66%   0   3   0   0  0  0  0  0  12   40
     Play#0 output Play#0 1   1  135 pt   patrol boat   11,-5       70%   0   1   0   0  0  0  0  0  82   40
     Play#0 output Play#0 1   1  136 pt   patrol boat   11,-5       69%   0   1   0   0  0  0  0  0  81   40
     Play#0 output Play#0 1   1  137 pt   patrol boat   11,-5      100%   0   2   0   0  0  0  0  0 117   40
@@ -1444,8 +1443,8 @@
     Play#0 output Play#0 1  122 ms     13,-3     100%   0   5   0   3   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  128 ms     11,-3     100%   0   5   0   5   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  129 ms     10,-2     100%   0   5   0 100   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1  130 ms     11,-5      43%   0   3   0  10   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1  131 ms     11,-5      58%   0   3   0  11   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  130 ms     11,-5      43%   0   4   0   9   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  131 ms     11,-5      66%   0   3   0  14   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1 8 ships
     Play#0 output Play#0 6 0 640
     Play#0 input retr * ?rflags#0
@@ -1494,14 +1493,14 @@
     Play#0 output Play#0 1   1   24 tra  train         2,2       100%   5 127 127   0  40  42%  0  0
     Play#0 output Play#0 1   1   25 cav  cavalry      -5,3       100%   5 127 127   0  30  42%  0  0
     Play#0 output Play#0 1   1   30 cav  cavalry       7,5       100%   5   0  93   0  30  42%  0  0
-    Play#0 output Play#0 1   1   32 cav  cavalry       7,5        87%   1   0  93   0  30  42%  0  0
+    Play#0 output Play#0 1   1   32 cav  cavalry       7,5        87%   1   0  78   0  30  42%  0  0
     Play#0 output Play#0 1   1   33 cav  cavalry       7,5       100%   1   0  93   0  30  42%  0  0
-    Play#0 output Play#0 1   1   34 cav  cavalry       7,5        86%   1   0  93   0  30  42%  0  0
-    Play#0 output Play#0 1   1   35 cav  cavalry       7,5        87%   1   0  93   0  30  42%  0  0
-    Play#0 output Play#0 1   1   36 cav  cavalry       7,5        78%   0   0  93   0  30  42%  0  0
-    Play#0 output Play#0 1   1   37 cav  cavalry       7,5        90%   1   0  93   0  30  42%  0  0
-    Play#0 output Play#0 1   1   38 cav  cavalry       7,5        78%   1   0  93   0  30  42%  0  0
-    Play#0 output Play#0 1   1   39 cav  cavalry       7,5        84%   1   0  93   0  30  42%  0  0
+    Play#0 output Play#0 1   1   34 cav  cavalry       7,5        86%   1   0  78   0  30  42%  0  0
+    Play#0 output Play#0 1   1   35 cav  cavalry       7,5        87%   1   0  79   0  30  42%  0  0
+    Play#0 output Play#0 1   1   36 cav  cavalry       8,6        78%   0   0 104   0  30  42%  0  0
+    Play#0 output Play#0 1   1   37 cav  cavalry       7,5        90%   1   0  81   0  30  42%  0  0
+    Play#0 output Play#0 1   1   38 cav  cavalry       7,5        78%   1   0  69   0  30  42%  0  0
+    Play#0 output Play#0 1   1   39 cav  cavalry       7,5        84%   1   0  75   0  30  42%  0  0
     Play#0 output Play#0 1   1   50 cav  cavalry      11,3       100%   5   0 105   0  30  42%  0  0
     Play#0 output Play#0 1   1   51 cav  cavalry      -1,3       100%   5   0 105   0  30  42%  0  0
     Play#0 output Play#0 1   1   52 cav  cavalry      -3,3       100%   5 127 127   0  30  42%  0  0
@@ -1537,7 +1536,7 @@
     Play#0 output Play#0 1   1  120 eng  engineer      2,0       100%   5 127 127   0 130  42%  0  0
     Play#0 output Play#0 1   1  121 eng  engineer      7,7       100%   5   0  52   0 130  42%  0  0
     Play#0 output Play#0 1   1  128 eng  engineer      9,7       100%   5   0 -23   0 130  42%  0  0
-    Play#0 output Play#0 1   1  130 eng  engineer      8,6        94%   5   0  52   0 130  42%  0  0
+    Play#0 output Play#0 1   1  130 eng  engineer      8,6        94%   5   0  48   0 130  42%  0  0
     Play#0 output Play#0 1   1  131 eng  engineer      8,6        96%   5   0  48   0 130  42%  0  0
     Play#0 output Play#0 1   1  135 cav  cavalry       8,6       100%   5   0 104   0  30  42%  0  0
     Play#0 output Play#0 1   1  136 cav  cavalry       8,6       100%   5   0 104   0  30  42%  0  0

@@ -160,10 +160,8 @@ shp_insque(struct shpstr *sp, struct emp_qelem *list)
     return mlp;
 }
 
-/* This function assumes that the list was created by shp_sel */
 void
-shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
-	natid actor)
+shp_nav(struct emp_qelem *list, natid actor)
 {
     struct emp_qelem *qp;
     struct emp_qelem *next;
@@ -171,8 +169,6 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
     struct shpstr *sp, *flg = NULL;
     char and_stays[32];
 
-    *minmobp = 9876.0;
-    *maxmobp = -9876.0;
     for (qp = list->q_back; qp != list; qp = next) {
 	next = qp->q_back;
 	mlp = (struct ulist *)qp;
@@ -199,10 +195,6 @@ shp_nav(struct emp_qelem *list, double *minmobp, double *maxmobp,
 	if (sp->shp_mobil + 1 < (int)mlp->mobil) {
 	    mlp->mobil = sp->shp_mobil;
 	}
-	if (mlp->mobil < *minmobp)
-	    *minmobp = mlp->mobil;
-	if (mlp->mobil > *maxmobp)
-	    *maxmobp = mlp->mobil;
     }
 }
 
@@ -895,12 +887,6 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor)
 	}
 	mlp->unit.ship.shp_mobil = (int)mlp->mobil;
 	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
-
-	/* Now update the map for this ship */
-	rad_map_set(mlp->unit.ship.shp_own,
-		    mlp->unit.ship.shp_x, mlp->unit.ship.shp_y,
-		    mlp->unit.ship.shp_effic, mlp->unit.ship.shp_tech,
-		    mchr[mlp->unit.ship.shp_type].m_vrnge);
     }
     if (QEMPTY(list))
 	return stopping;

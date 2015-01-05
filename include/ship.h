@@ -172,7 +172,7 @@ extern double shp_torp_hitchance(struct shpstr *, int);
 extern int shp_may_nav(struct shpstr *, struct shpstr *, char *);
 extern void shp_sel(struct nstr_item *, struct emp_qelem *);
 extern struct ulist *shp_insque(struct shpstr *, struct emp_qelem *);
-extern void shp_nav(struct emp_qelem *, double *, double *, natid);
+extern void shp_nav(struct emp_qelem *, natid);
 extern int shp_sweep(struct emp_qelem *, int, int, natid);
 extern enum shp_stuck shp_check_nav(struct shpstr *, struct sctstr *);
 extern int sect_has_dock(struct sctstr *);

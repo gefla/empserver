@@ -28,11 +28,12 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
- *     Markus Armbruster, 2009-2014
+ *     Markus Armbruster, 2009-2015
  */
 
 #include <config.h>
 
+#include <math.h>
 #include "file.h"
 #include "map.h"
 #include "optlist.h"
@@ -200,12 +201,18 @@ unit_view(struct emp_qelem *list)
     }
 }
 
-static void
-pr_leader_change(struct empobj *leader)
+void
+unit_rad_map_set(struct emp_qelem *list)
 {
-    pr("Changing %s to %s\n",
-	leader->ef_type == EF_SHIP ? "flagship" : "leader",
-	unit_nameof(leader));
+    struct emp_qelem *qp;
+    struct empobj *unit;
+
+    for (qp = list->q_back; qp != list; qp = qp->q_back) {
+	unit = &((struct ulist *)qp)->unit.gen;
+	rad_map_set(unit->own, unit->x, unit->y, unit->effic, unit->tech,
+		    unit->ef_type == EF_SHIP
+		    ? mchr[unit->type].m_vrnge : lchr[unit->type].l_spy);
+    }
 }
 
 static struct empobj *
@@ -215,8 +222,10 @@ get_leader(struct emp_qelem *list)
 }
 
 static void
-switch_leader(struct emp_qelem *list, int uid)
+switch_leader(struct emp_qelem *list, char *arg)
 {
+    int uid = arg ? atoi(arg) : -1;
+
     struct emp_qelem *qp, *save;
     struct ulist *ulp;
 
@@ -234,190 +243,222 @@ switch_leader(struct emp_qelem *list, int uid)
     } while (list->q_back != save);
 }
 
-int
-unit_move(struct emp_qelem *ulist, double *minmob, double *maxmob)
+static char *
+unit_move_parse(char *cp, char *arg1_default)
 {
-    char *cp = NULL;
-    int leader_uid;
-    struct empobj *leader;
-    int dir;
-    int stopping = 0;
-    int skip = 0;
-    int moved = 0;
-    char buf[1024];
-    char prompt[128];
-    char bmap_flag;
     int ac;
-    int type;
 
-    leader = get_leader(ulist);
-    leader_uid = leader->uid;
-    type = leader->ef_type;
+    ac = parse(cp, player->argbuf, player->argp, NULL, NULL, NULL);
+    if (CANT_HAPPEN(ac <= 0)) {
+	player->argp[0] = "";
+	return "";
+    }
+    if (ac == 1) {
+	player->argp[1] = arg1_default;
+	return cp + 1;
+    }
+    return "";
+}
+
+static char *
+unit_move_non_dir(struct emp_qelem *list, char *cp, int *map_shown)
+{
+    struct empobj *leader = get_leader(list);
+    int bmap = 0, stopping;
+    char leader_str[32];
+
+    *map_shown = 0;
+    sprintf(leader_str, "%d", leader->uid);
+
+    switch (*cp) {
+    case 'B':
+	bmap = 'b';
+	/* fall through */
+    case 'M':
+	cp = unit_move_parse(cp, leader_str);
+	display_region_map(bmap, leader->ef_type, leader->x, leader->y,
+			   player->argp[1], player->argp[2]);
+	*map_shown = 1;
+	break;
+    case 'f':
+	cp = unit_move_parse(cp, NULL);
+	switch_leader(list, player->argp[1]);
+	break;
+    case 'i':
+	cp++;
+	unit_list(list);
+	break;
+    case 'm':
+	cp++;
+	if (leader->ef_type == EF_SHIP)
+	    stopping = shp_sweep(list, 1, 1, player->cnum);
+	else
+	    stopping = lnd_sweep(list, 1, 1, player->cnum);
+	if (stopping)
+	    cp = "";
+	break;
+    case 'r':
+	cp = unit_move_parse(cp, leader_str);
+	radar(leader->ef_type);
+	player->btused++;	/* FIXME use player_coms[].c_cost */
+	*map_shown = 1;
+	break;
+    case 'l':
+	cp = unit_move_parse(cp, leader_str);
+	do_look(leader->ef_type);
+	player->btused++;	/* FIXME likewise */
+	break;
+    case 's':
+	if (leader->ef_type != EF_SHIP)
+	    return NULL;
+	cp = unit_move_parse(cp, leader_str);
+	sona();
+	player->btused++;	/* FIXME likewise */
+	*map_shown = 1;
+	break;
+    case 'd':
+	cp = unit_move_parse(cp, NULL);
+	if (!player->argp[1]) {
+	    player->argp[1] = leader_str;
+	    player->argp[2] = "1";
+	} else if (!player->argp[2]) {
+	    player->argp[2] = player->argp[1];
+	    player->argp[1] = leader_str;
+	}
+	if (leader->ef_type == EF_SHIP)
+	    mine();
+	else
+	    landmine();
+	player->btused++;	/* FIXME likewise */
+	*map_shown = 1;
+	break;
+    case 'v':
+	cp++;
+	unit_view(list);
+	break;
+    default:
+	return NULL;
+    }
+
+    return cp;
+}
+
+static char *
+unit_move_getpath(struct emp_qelem *list, int suppress_map, char *path)
+{
+    struct empobj *leader = get_leader(list);
+    double minmob, maxmob;
+    struct emp_qelem *qp;
+    struct ulist *ulp;
+    char prompt[64];
+
+    minmob = HUGE_VAL;
+    maxmob = -HUGE_VAL;
+    for (qp = list->q_back; qp != list; qp = qp->q_back) {
+	ulp = (struct ulist *)qp;
+	if (ulp->mobil < minmob)
+	    minmob = ulp->mobil;
+	if (ulp->mobil > maxmob)
+	    maxmob = ulp->mobil;
+    }
+    if (!suppress_map)
+	nav_map(leader->x, leader->y,
+		leader->ef_type == EF_SHIP
+		? !(mchr[leader->type].m_flags & M_SUB) : 1);
+    snprintf(prompt, sizeof(prompt), "<%.1f:%.1f: %s> ",
+	     maxmob, minmob,
+	     xyas(leader->x, leader->y, player->cnum));
+    return getstring(prompt, path);
+}
+
+int
+unit_move(struct emp_qelem *list)
+{
+    struct empobj *leader = get_leader(list);
+    int leader_uid = leader->uid;
+    int type = leader->ef_type;
+    int moved, suppress_map, dir, stopping;
+    char *cp;
+    char path[1024];
+
+    unit_rad_map_set(list);
+
     pr("%s is %s\n",
 	type == EF_SHIP ? "Flagship" : "Leader",
 	unit_nameof(leader));
 
+    cp = "";
     if (player->argp[2]) {
-	strcpy(buf, player->argp[2]);
-	cp = unit_path(leader, buf, sizeof(buf));
+	strcpy(path, player->argp[2]);
+	cp = unit_path(leader, path, sizeof(path));
+	if (!cp)
+	    cp = "";
     }
 
-    while (!QEMPTY(ulist)) {
-	char dp[80];
-
-	if (cp == NULL || *cp == '\0' || stopping) {
-	    stopping = 0;
+    moved = suppress_map = 0;
+    for (;;) {
+	/*
+	 * Invariants:
+	 * - shp_may_nav() true for all ships
+	 * - lnd_may_mar() true for all land units
+	 * - leader is up-to-date
+	 * Implies all are in the same sector
+	 */
+	if (!*cp) {
+	    cp = unit_move_getpath(list, suppress_map, path);
+	    if (!cp)
+		return RET_FAIL;
+	    cp = unit_path(leader, path, sizeof(path));
+	    if (!cp || !*cp)
+		cp = "h";
+	    suppress_map = 0;
+	} else if ((dir = chkdir(*cp, DIR_STOP, DIR_LAST)) >= 0) {
+	    cp++;
 	    if (type == EF_SHIP)
-		shp_nav(ulist, minmob, maxmob, player->cnum);
-	    else
-		lnd_mar(ulist, minmob, maxmob, player->cnum);
-	    if (QEMPTY(ulist)) {
-		pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
-		return RET_OK;
-	    }
-	    leader = get_leader(ulist);
-	    if (leader->uid != leader_uid) {
-		leader_uid = leader->uid;
-		pr_leader_change(leader);
-		stopping = 1;
-		continue;
-	    }
-	    if (!skip)
-		nav_map(leader->x, leader->y,
-			type == EF_SHIP
-			? !(mchr[(int)leader->type].m_flags & M_SUB) : 1);
-	    else
-		skip = 0;
-	    sprintf(prompt, "<%.1f:%.1f: %s> ", *maxmob,
-		    *minmob, xyas(leader->x, leader->y, player->cnum));
-	    cp = getstring(prompt, buf);
-	    /* Just in case any of our units were shelled while we were
-	     * at the prompt, we call shp_nav() or lnd_mar() again.
-	     */
-	    if (type == EF_SHIP)
-		shp_nav(ulist, minmob, maxmob, player->cnum);
-	    else
-		lnd_mar(ulist, minmob, maxmob, player->cnum);
-	    if (QEMPTY(ulist)) {
-		pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
-		return RET_OK;
-	    }
-	    leader = get_leader(ulist);
-	    if (leader->uid != leader_uid) {
-		leader_uid = leader->uid;
-		pr_leader_change(leader);
-		stopping = 1;
-		continue;
-	    }
-	    if (cp)
-		cp = unit_path(leader, buf, sizeof(buf));
-	}
-	if (type == EF_SHIP) {
-	    rad_map_set(player->cnum, leader->x, leader->y, leader->effic,
-			leader->tech, mchr[leader->type].m_vrnge);
-	}
-	if (cp == NULL || *cp == '\0')
-	    cp = &dirch[DIR_STOP];
-	dir = chkdir(*cp, DIR_STOP, DIR_LAST);
-	if (dir >= 0) {
-	    if (type == EF_SHIP)
-		stopping |= shp_nav_one_sector(ulist, dir, player->cnum);
+		stopping = shp_nav_one_sector(list, dir, player->cnum);
 	    else {
-		if (!moved && !lnd_abandon_askyn(ulist))
+		if (!moved && !lnd_abandon_askyn(list))
 		    return RET_FAIL;
-		stopping |= lnd_mar_one_sector(ulist, dir, player->cnum);
+		stopping = lnd_mar_one_sector(list, dir, player->cnum);
 	    }
+	    if (dir == DIR_STOP)
+		return RET_OK;
 	    moved = 1;
-	    cp++;
-	    continue;
+	    if (stopping)
+		cp = "";
+	} else {
+	    cp = unit_move_non_dir(list, cp, &suppress_map);
+	    if (!cp) {
+		direrr("`%c' to stop", ", `%c' to view", NULL);
+		pr(", `i' to list %s, `f' to change %s,\n",
+		   type == EF_SHIP ? "ships" : "units",
+		   type == EF_SHIP ? "flagship" : "leader");
+		pr("`r' to radar, %s`l' to look, `M' to map, `B' to bmap,\n",
+		   type == EF_SHIP ? "`s' to sonar, " : "");
+		pr("`d' to drop mines, and `m' to minesweep\n");
+		cp = "";
+	    }
 	}
-	ac = parse(cp, player->argbuf, player->argp, NULL, NULL, NULL);
-	if (ac <= 0) {
-	    player->argp[0] = "";
-	    cp = NULL;
-	} else if (ac == 1) {
-	    sprintf(dp, "%d", leader->uid);
-	    player->argp[1] = dp;
-	    cp++;
-	} else
-	    cp = NULL;
-	bmap_flag = 0;
-	switch (*player->argp[0]) {
-	case 'B':
-	    bmap_flag = 'b';
-	    /*
-	     * fall through
-	     */
-	case 'M':
-	    display_region_map(bmap_flag, type, leader->x, leader->y,
-			       player->argp[1], player->argp[2]);
-	    skip = 1;
-	    continue;
-	case 'f':
-	    if (ac <= 1)
-		switch_leader(ulist, -1);
-	    else
-		switch_leader(ulist, atoi(player->argp[1]));
-	    leader = get_leader(ulist);
-	    if (leader->uid != leader_uid) {
-		leader_uid = leader->uid;
-		pr_leader_change(leader);
-	    }
-	    continue;
-	case 'i':
-	    unit_list(ulist);
-	    continue;
-	case 'm':
-	    if (type == EF_SHIP)
-		stopping |= shp_sweep(ulist, 1, 1, player->cnum);
-	    else {
-		stopping |= lnd_sweep(ulist, 1, 1, player->cnum);
-	    }
-	    continue;
-	case 'r':
-	    radar(leader->ef_type);
-	    skip = 1;
-	    player->btused++;
-	    continue;
-	case 'l':
-	    do_look(type);
-	    player->btused++;
-	    continue;
-	case 's':
-	    if (leader->ef_type != EF_SHIP)
-		break;
-	    sona();
-	    player->btused++;
-	    skip = 1;
-	    continue;
-	case 'd':
-	    if (ac < 3) {
-		player->argp[2] = ac < 2 ? "1" : player->argp[1];
-		sprintf(dp, "%d", leader->uid);
-		player->argp[1] = dp;
-	    }
-	    if (type == EF_SHIP)
-		mine();
-	    else
-		landmine();
-	    stopping = 1;
-	    skip = 1;
-	    player->btused++;
-	    continue;
-	case 'v':
-	    unit_view(ulist);
-	    continue;
+
+	if (type == EF_SHIP)
+	    shp_nav(list, player->cnum);
+	else
+	    lnd_mar(list, player->cnum);
+
+	if (QEMPTY(list)) {
+	    pr("No %s left\n", type == EF_SHIP ? "ships" : "lands");
+	    return RET_OK;
 	}
-	direrr("`%c' to stop", ", `%c' to view", NULL);
-	pr(", `i' to list %s, `f' to change %s,\n",
-	    type == EF_SHIP ? "ships" : "units",
-	    type == EF_SHIP ? "flagship" : "leader");
-	pr("`r' to radar, %s`l' to look, `M' to map, `B' to bmap,\n",
-	    type == EF_SHIP ? "`s' to sonar, " : "");
-	pr("`d' to drop mines, and `m' to minesweep\n");
-	stopping = 1;
+
+	leader = get_leader(list);
+	if (leader->uid != leader_uid) {
+	    leader_uid = leader->uid;
+	    pr("Changing %s to %s\n",
+	       leader->ef_type == EF_SHIP ? "flagship" : "leader",
+	       unit_nameof(leader));
+	}
+	unit_rad_map_set(list);
     }
-    return RET_OK;
 }
 
 /*

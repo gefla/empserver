@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2006-2007
- *     Markus Armbruster, 2006-2014
+ *     Markus Armbruster, 2006-2015
  */
 
 #ifndef UNIT_H
@@ -56,7 +56,8 @@ extern int unit_nplane(int, int, int *, int *, int *);
 extern void unit_onresize(int);
 
 extern char *unit_nameof(struct empobj *);
-extern int unit_move(struct emp_qelem *, double *, double *);
+extern void unit_rad_map_set(struct emp_qelem *);
+extern int unit_move(struct emp_qelem *);
 extern void unit_teleport(struct empobj *, coord, coord);
 extern int unit_update_cargo(struct empobj *);
 extern void unit_drop_cargo(struct empobj *, natid);

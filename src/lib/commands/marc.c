@@ -30,6 +30,7 @@
  *     Thomas Ruschak
  *     Ken Stevens, 1995 (rewrite)
  *     Ron Koenderink, 2006-2007
+ *     Markus Armbruster, 2006-2015
  */
 
 #include <config.h>
@@ -42,15 +43,13 @@ march(void)
 {
     struct nstr_item ni_land;
     struct emp_qelem land_list;
-    double minmob, maxmob;
 
     if (!snxtitem(&ni_land, EF_LAND, player->argp[1], NULL))
 	return RET_SYN;
     lnd_sel(&ni_land, &land_list);
-    lnd_mar(&land_list, &minmob, &maxmob, player->cnum);
     if (QEMPTY(&land_list)) {
 	pr("No lands\n");
 	return RET_FAIL;
     }
-    return unit_move(&land_list, &minmob, &maxmob);
+    return unit_move(&land_list);
 }

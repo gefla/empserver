@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995 (rewritten)
  *     Ron Koenderink, 2006-2007
- *     Markus Armbruster, 2006-2014
+ *     Markus Armbruster, 2006-2015
  */
 
 #include <config.h>
@@ -42,15 +42,13 @@ navi(void)
 {
     struct nstr_item ni_ship;
     struct emp_qelem ship_list;
-    double minmob, maxmob;
 
     if (!snxtitem(&ni_ship, EF_SHIP, player->argp[1], NULL))
 	return RET_SYN;
     shp_sel(&ni_ship, &ship_list);
-    shp_nav(&ship_list, &minmob, &maxmob, player->cnum);
     if (QEMPTY(&ship_list)) {
 	pr("No ships\n");
 	return RET_FAIL;
     }
-    return unit_move(&ship_list, &minmob, &maxmob);
+    return unit_move(&ship_list);
 }
