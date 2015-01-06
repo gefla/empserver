@@ -54,7 +54,6 @@
 
 static void lnd_mar_put_one(struct ulist *);
 static int lnd_check_one_mines(struct ulist *, int);
-static void lnd_stays(natid, char *, struct ulist *);
 static int lnd_hit_mine(struct lndstr *);
 static int has_helpful_engineer(coord, coord, natid);
 
@@ -735,15 +734,6 @@ lnd_check_mines(struct emp_qelem *land_list)
     return stopping;
 }
 
-static void
-lnd_stays(natid actor, char *str, struct ulist *llp)
-{
-    mpr(actor, "%s %s & stays in %s\n",
-	prland(&llp->unit.land), str,
-	xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y, actor));
-    lnd_mar_put_one(llp);
-}
-
 /* Return whether and why SP would be stuck in SECTP.  */
 enum lnd_stuck
 lnd_check_mar(struct lndstr *lp, struct sctstr *sectp)
@@ -1027,7 +1017,6 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor)
     int move;
     int stopping = 0;
     int visible;
-    char dp[80];
     int rel;
     int oldown;
 
@@ -1085,12 +1074,17 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor)
 	llp = (struct ulist *)qp;
 	if (rel != ALLIED
 	    && !(lchr[llp->unit.land.lnd_type].l_flags & L_SPY)) {
-	    sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
-	    lnd_stays(actor, dp, llp);
+	    mpr(actor, "%s can't go to %s & stays in %s\n",
+		prland(&llp->unit.land), xyas(newx, newy, actor),
+		xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y, actor));
+	    lnd_mar_put_one(llp);
 	    continue;
 	}
 	if (llp->mobil <= 0.0) {
-	    lnd_stays(actor, "is out of mobility", llp);
+	    mpr(actor, "%s is out of mobility & stays in %s\n",
+		prland(&llp->unit.land),
+		xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y, actor));
+	    lnd_mar_put_one(llp);
 	    continue;
 	}
 	llp->unit.land.lnd_x = newx;

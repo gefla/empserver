@@ -56,7 +56,6 @@
 static void shp_nav_put_one(struct ulist *);
 static int shp_check_one_mines(struct ulist *);
 static int shp_hit_mine(struct shpstr *);
-static void shp_stays(natid, char *, struct ulist *);
 
 static struct ulist *
 shp_find_capable(struct emp_qelem *list, int flags)
@@ -345,16 +344,6 @@ shp_check_mines(struct emp_qelem *ship_list)
 	stopping |= shp_check_one_mines((struct ulist *)qp);
     }
     return stopping;
-}
-
-
-static void
-shp_stays(natid actor, char *str, struct ulist *mlp)
-{
-    mpr(actor, "%s %s & stays in %s\n",
-	prship(&mlp->unit.ship), str,
-	xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, actor));
-    shp_nav_put_one(mlp);
 }
 
 /*
@@ -802,7 +791,6 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor)
     enum shp_stuck stuck;
     int stopping = 0;
     double mobcost;
-    char dp[80];
 
     if (CANT_HAPPEN(QEMPTY(list)))
 	return 1;
@@ -855,19 +843,26 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor)
 	mlp = (struct ulist *)qp;
 	stuck = shp_check_nav(&mlp->unit.ship, &sect);
 	if (stuck == SHP_STUCK_CANAL) {
-	    sprintf(dp,
-		    "is too large to fit into the canal system at %s",
-		    xyas(newx, newy, actor));
-	    shp_stays(actor, dp, mlp);
+	    mpr(actor,
+		"%s is too large to fit into the canal system at %s"
+		" & stays in %s\n",
+		prship(&mlp->unit.ship), xyas(newx, newy, actor),
+		xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, actor));
+	    shp_nav_put_one(mlp);
 	    continue;
 	} else if (CANT_HAPPEN(stuck != SHP_STUCK_NOT)) {
-	    sprintf(dp, "can't go to %s", xyas(newx, newy, actor));
-	    shp_stays(actor, dp, mlp);
+	    mpr(actor, "%s can't go to %s & stays in %s\n",
+		prship(&mlp->unit.ship), xyas(newx, newy, actor),
+		xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, actor));
+	    shp_nav_put_one(mlp);
 	    continue;
 	}
 
 	if (mlp->mobil <= 0.0) {
-	    shp_stays(actor, "is out of mobility", mlp);
+	    mpr(actor, "%s is out of mobility & stays in %s\n",
+		prship(&mlp->unit.ship),
+		xyas(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, actor));
+	    shp_nav_put_one(mlp);
 	    continue;
 	}
 	mobcost = shp_mobcost(&mlp->unit.ship);
