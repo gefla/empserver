@@ -31,7 +31,7 @@
  *     Chad Zabel, 1994
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2003-2009
- *     Markus Armbruster, 2003-2014
+ *     Markus Armbruster, 2003-2015
  */
 
 #include <config.h>
@@ -905,12 +905,12 @@ edit_ship(struct shpstr *ship, char *key, char *p)
 	divine_unit_change((struct empobj *)ship, "Type",
 			   arg != ship->shp_type, 0,
 			   "to %s", mchr[arg].m_name);
+	if (ship->shp_tech < mchr[arg].m_tech)
+	    shp_set_tech(ship, mchr[arg].m_tech);
 	ship->shp_type = arg;
+	shp_set_tech(ship, ship->shp_tech);
 	limit_item((struct empobj *)ship, ship->shp_item, mchr[arg].m_item);
-	if (ship->shp_tech >= mchr[arg].m_tech)
-	    break;
-	arg = mchr[arg].m_tech;
-	/* fall through */
+	break;
     case 'T':
 	arg = LIMIT_TO(arg, mcp->m_tech, SHRT_MAX);
 	divine_unit_change((struct empobj *)ship, "Tech level",
@@ -992,12 +992,12 @@ edit_land(struct lndstr *land, char *key, char *p)
 	divine_unit_change((struct empobj *)land, "Type",
 			   arg != land->lnd_type, 0,
 			   "to %s", lchr[arg].l_name);
+	if (land->lnd_tech < lchr[arg].l_tech)
+	    lnd_set_tech(land, lchr[arg].l_tech);
 	land->lnd_type = arg;
+	lnd_set_tech(land, land->lnd_tech);
 	limit_item((struct empobj *)land, land->lnd_item, lchr[arg].l_item);
-	if (land->lnd_tech >= lchr[arg].l_tech)
-	    break;
-	arg = lchr[arg].l_tech;
-	/* fall through */
+	break;
     case 't':
 	arg = LIMIT_TO(arg, lcp->l_tech, SHRT_MAX);
 	divine_unit_change((struct empobj *)land, "Tech level",
@@ -1109,11 +1109,14 @@ edit_plane(struct plnstr *plane, char *key, char *p)
 	divine_unit_change((struct empobj *)plane, "Type",
 			   arg != plane->pln_type, 0,
 			   "to %s", plchr[arg].pl_name);
+	if (plane->pln_tech < plchr[arg].pl_tech)
+	    pln_set_tech(plane, plchr[arg].pl_tech);
+	if (plane->pln_range >= pln_range_max(plane))
+	    /* preserve unlimited range, pln_set_tech() will adjust */
+	    plane->pln_range = UCHAR_MAX;
 	plane->pln_type = arg;
-	if (plane->pln_tech >= plchr[arg].pl_tech)
-	    break;
-	arg = plchr[arg].pl_tech;
-	/* fall through */
+	pln_set_tech(plane, plane->pln_tech);
+	break;
     case 't':
 	arg = LIMIT_TO(arg, pcp->pl_tech, SHRT_MAX);
 	divine_unit_change((struct empobj *)plane, "Tech level",
@@ -1192,11 +1195,10 @@ edit_nuke(struct nukstr *nuke, char *key, char *p)
 	divine_unit_change((struct empobj *)nuke, "Type",
 			   arg != nuke->nuk_type, 0,
 			   "to %s", nchr[arg].n_name);
+	if (nuke->nuk_tech < nchr[arg].n_tech)
+	    nuke->nuk_tech = nchr[arg].n_tech;
 	nuke->nuk_type = arg;
-	if (nuke->nuk_tech >= nchr[arg].n_tech)
-	    break;
-	arg = nchr[arg].n_tech;
-	/* fall through */
+	break;
     case 'T':
 	arg = LIMIT_TO(arg, ncp->n_tech, SHRT_MAX);
 	divine_unit_change((struct empobj *)nuke, "Tech level",

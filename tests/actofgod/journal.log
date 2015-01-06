@@ -1041,12 +1041,10 @@
     Play#0 input edit s 6 t lc O 1 t lc t hc g 8 t lc
     Play#0 command edit
     Play#0 output Play#0 1 Type of fb   fishing boat (#6) changed to lc   light cruiser
-    Play#0 output Play#0 1 Tech level of lc   light cruiser (#6) changed from 0 to 45
     Play#0 output Play#0 1 Owner of lc   light cruiser (#6) changed from POGO (#0) to 1 (#1)
     Play#0 output Play#0 1 Efficiency of lc   light cruiser (#6) changed from 0 to 20
     Play#0 output Play#0 1 Type of lc   light cruiser (#6) unchanged
     Play#0 output Play#0 1 Type of lc   light cruiser (#6) changed to hc   heavy cruiser
-    Play#0 output Play#0 1 Tech level of hc   heavy cruiser (#6) changed from 45 to 50
     Play#0 output Play#0 1 guns of hc   heavy cruiser (#6) changed from 0 to 8
     Play#0 output Play#0 1 Type of hc   heavy cruiser (#6) changed to lc   light cruiser
     Play#0 output Play#0 1 guns of lc   light cruiser (#6) changed from 8 to 5
@@ -1150,25 +1148,21 @@
     Play#0 input edit p 6 T mb O 1 T mb T hb T mb
     Play#0 command edit
     Play#0 output Play#0 1 Type of f1   Sopwith Camel #6 changed to mb   medium bomber
-    Play#0 output Play#0 1 Tech level of mb   medium bomber #6 changed from 0 to 80
     Play#0 output Play#0 1 Owner of mb   medium bomber #6 changed from POGO (#0) to 1 (#1)
     Play#0 output Play#0 1 Efficiency of mb   medium bomber #6 changed from 0 to 10
     Play#0 output Play#0 1 Type of mb   medium bomber #6 unchanged
     Play#0 output Play#0 1 Type of mb   medium bomber #6 changed to hb   B-26B Marauder
-    Play#0 output Play#0 1 Tech level of hb   B-26B Marauder #6 changed from 80 to 90
     Play#0 output Play#0 1 Type of hb   B-26B Marauder #6 changed to mb   medium bomber
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 7 r 255 T hb T mb
     Play#0 command edit
     Play#0 output Play#0 1 Range of f1   Sopwith Camel #7 changed from 0 to 4
     Play#0 output Play#0 1 Type of f1   Sopwith Camel #7 changed to hb   B-26B Marauder
-    Play#0 output Play#0 1 Tech level of hb   B-26B Marauder #7 changed from 0 to 90
     Play#0 output Play#0 1 Type of hb   B-26B Marauder #7 changed to mb   medium bomber
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 8 T hb r 255 T f1
     Play#0 command edit
     Play#0 output Play#0 1 Type of f1   Sopwith Camel #8 changed to hb   B-26B Marauder
-    Play#0 output Play#0 1 Tech level of hb   B-26B Marauder #8 changed from 0 to 90
     Play#0 output Play#0 1 Range of hb   B-26B Marauder #8 changed from 0 to 15
     Play#0 output Play#0 1 Type of hb   B-26B Marauder #8 changed to f1   Sopwith Camel
     Play#0 output Play#0 6 0 640
@@ -1239,12 +1233,10 @@
     Play#0 input edit u 6 T art O 1 T art T hat g 12 T art
     Play#0 command edit
     Play#0 output Play#0 1 Type of cav  cavalry #6 changed to art  artillery
-    Play#0 output Play#0 1 Tech level of art  artillery #6 changed from 0 to 35
     Play#0 output Play#0 1 Owner of art  artillery #6 changed from POGO (#0) to 1 (#1)
     Play#0 output Play#0 1 Efficiency of art  artillery #6 changed from 0 to 10
     Play#0 output Play#0 1 Type of art  artillery #6 unchanged
     Play#0 output Play#0 1 Type of art  artillery #6 changed to hat  hvy artillery
-    Play#0 output Play#0 1 Tech level of hat  hvy artillery #6 changed from 35 to 100
     Play#0 output Play#0 1 guns of hat  hvy artillery #6 changed from 0 to 12
     Play#0 output Play#0 1 Type of hat  hvy artillery #6 changed to art  artillery
     Play#0 output Play#0 1 guns of art  artillery #6 changed from 12 to 10
@@ -1348,12 +1340,10 @@
     Play#0 input edit n 6 t 15kt O 1 t 15kt t 50kt t 15kt
     Play#0 command edit
     Play#0 output Play#0 1 Type of 10kt  fission warhead #6 changed to 15kt  fission
-    Play#0 output Play#0 1 Tech level of 15kt  fission warhead #6 changed from 0 to 290
     Play#0 output Play#0 1 Owner of 15kt  fission warhead #6 changed from POGO (#0) to 1 (#1)
     Play#0 output Play#0 1 Efficiency of 15kt  fission warhead #6 changed from 0 to 100
     Play#0 output Play#0 1 Type of 15kt  fission warhead #6 unchanged
     Play#0 output Play#0 1 Type of 15kt  fission warhead #6 changed to 50kt  fission
-    Play#0 output Play#0 1 Tech level of 50kt  fission warhead #6 changed from 290 to 300
     Play#0 output Play#0 1 Type of 50kt  fission warhead #6 changed to 15kt  fission
     Play#0 output Play#0 6 0 640
     Play#0 input edit n 2 T 280
@@ -1896,23 +1886,19 @@
     Play#0 output Play#0 1 POGO stole 1 civilians from 8,6
     Play#0 output Play#0 1 lc   light cruiser (#6) given to you by an act of POGO!
     Play#0 output Play#0 1 Type of lc   light cruiser (#6) changed to hc   heavy cruiser by an act of POGO
-    Play#0 output Play#0 1 Tech level of hc   heavy cruiser (#6) changed from 45 to 50 by an act of POGO
     Play#0 output Play#0 1 POGO gave you 8 guns in hc   heavy cruiser (#6)
     Play#0 output Play#0 1 Type of hc   heavy cruiser (#6) changed to lc   light cruiser by an act of POGO
     Play#0 output Play#0 1 POGO stole 3 guns from lc   light cruiser (#6)
     Play#0 output Play#0 1 mb   medium bomber #6 given to you by an act of POGO!
     Play#0 output Play#0 1 Type of mb   medium bomber #6 changed to hb   B-26B Marauder by an act of POGO
-    Play#0 output Play#0 1 Tech level of hb   B-26B Marauder #6 changed from 80 to 90 by an act of POGO
     Play#0 output Play#0 1 Type of hb   B-26B Marauder #6 changed to mb   medium bomber by an act of POGO
     Play#0 output Play#0 1 art  artillery #6 given to you by an act of POGO!
     Play#0 output Play#0 1 Type of art  artillery #6 changed to hat  hvy artillery by an act of POGO
-    Play#0 output Play#0 1 Tech level of hat  hvy artillery #6 changed from 35 to 100 by an act of POGO
     Play#0 output Play#0 1 POGO gave you 12 guns in hat  hvy artillery #6
     Play#0 output Play#0 1 Type of hat  hvy artillery #6 changed to art  artillery by an act of POGO
     Play#0 output Play#0 1 POGO stole 2 guns from art  artillery #6
     Play#0 output Play#0 1 15kt  fission warhead #6 given to you by an act of POGO!
     Play#0 output Play#0 1 Type of 15kt  fission warhead #6 changed to 50kt  fission by an act of POGO
-    Play#0 output Play#0 1 Tech level of 50kt  fission warhead #6 changed from 290 to 300 by an act of POGO
     Play#0 output Play#0 1 Type of 50kt  fission warhead #6 changed to 15kt  fission by an act of POGO
     Play#0 output Play#0 1 Money changed from 0 to -2147483648 by an act of POGO!
     Play#0 output Play#0 1 Technology changed from 0.00 to 3.14 by an act of POGO!
