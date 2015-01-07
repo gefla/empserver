@@ -14,7 +14,7 @@ desi -2,-2 f
 | harbor
 desi -3,1 h
 | ships for testing retreat command
-build s -3,1 cs 5
+build s -3,1 lc 5
 edit s 4 L -5,1 U 7
 | fleet a defined below
 | ship to drop depth charges
@@ -39,8 +39,8 @@ edit p * ?own#0 e 100 m 127
 build l -3,1 inf 5
 edit u 4 L -4,0 U 7
 | army a defined below
-| complete the land units (fortify to reduce unwanted collateral damage)
-edit u * ?own#0 e 100 M 127 m 10 F 127
+| complete the land units
+edit u * ?own#0 e 100 M 127 m 10
 || country#2
 add 2 2 2 p
 edit l * ?des#.&own=0 o 2 O 2
@@ -92,7 +92,7 @@ fleet c 30/32/35/36
 retr c n i
 retr 31/33/34 n i
 | target ships having difficulties during retreat:
-edit s 10 U 40 t lc U 41 U 42
+edit s 10 U 40 U 41 U 42
 | runs out of mobility
 edit s 40 M 5
 retr 40 nnnnh i
@@ -112,7 +112,8 @@ edit s 10 U 46 L 5,1 U 47 t pt
 fleet n 46/47
 retr n y i
 | missions for retreat to clear
-miss s 40/41/42 int .
+| (not all ships can perform missions)
+miss s * ?own=2&uid#9 int .
 | target ships depth-charges: injured vs. depth-charged, depth-charged,
 | helpless, not helpless
 edit s 10 U 50 t sb L -5,1 U 51 U 52 U 53 L -4,-2
@@ -196,8 +197,10 @@ lret t nb b
 edit u 10 U 47 L 1,-1 U 48 T spy
 army s 47/48
 lret s gh b
-| missions for retreat to clear
-miss l 40/41/42 res .
+| missions and fortification for retreat to clear
+| (not all land units can perform missions)
+miss l * ?own=2 res .
+edit u * ?own=2 F 127
 | target land units bombs: injured vs. bombed
 | five, to have a decent chance at getting both a hit and a miss
 edit u 10 U 60 L 0,0 U 61 U 62 U 63 U 64

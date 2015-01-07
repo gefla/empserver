@@ -52,20 +52,20 @@
     Play#1 input retr 2/3 bgyujnbgyujnbgyujn itshbdu
     Play#1 command retreat
     Play#1 output Play#1 1 shp#     ship type       x,y   fl path       as flt?  flags
-    Play#1 output Play#1 1    2 cs   cargo ship    -3,1      bgyujnbgy           itshbdu
-    Play#1 output Play#1 1    3 cs   cargo ship    -3,1    a bgyujnbgy           itshbdu
+    Play#1 output Play#1 1    2 lc   light cruis   -3,1      bgyujnbgy           itshbdu
+    Play#1 output Play#1 1    3 lc   light cruis   -3,1    a bgyujnbgy           itshbdu
     Play#1 output Play#1 1 2 ships
     Play#1 output Play#1 6 0 638
     Play#1 input retr 3 h c
     Play#1 command retreat
     Play#1 output Play#1 1 shp#     ship type       x,y   fl path       as flt?  flags
-    Play#1 output Play#1 1    3 cs   cargo ship    -3,1    a
+    Play#1 output Play#1 1    3 lc   light cruis   -3,1    a
     Play#1 output Play#1 1 1 ship
     Play#1 output Play#1 6 0 637
     Play#1 input retr a ?uid=4 b h
     Play#1 command retreat
     Play#1 output Play#1 1 shp#     ship type       x,y   fl path       as flt?  flags
-    Play#1 output Play#1 1    4 cs   cargo ship    -5,1    a b          Yes      h
+    Play#1 output Play#1 1    4 lc   light cruis   -5,1    a b          Yes      h
     Play#1 output Play#1 1 1 ship
     Play#1 output Play#1 6 0 636
     Play#1 input fleet a 7
@@ -80,12 +80,12 @@
     Play#1 output Play#1 4 ship(s)?
     Play#1 input 0/1/2/3/4/7
     Play#1 output Play#1 1 shp#     ship type       x,y   fl path       as flt?  flags
-    Play#1 output Play#1 1    0 cs   cargo ship    -3,1    a
-    Play#1 output Play#1 1    1 cs   cargo ship    -3,1    a
-    Play#1 output Play#1 1    2 cs   cargo ship    -3,1      bgyujnbgy           itshbdu
-    Play#1 output Play#1 1    3 cs   cargo ship    -3,1    a
-    Play#1 output Play#1 1    4 cs   cargo ship    -5,1    a b          Yes      h
-    Play#1 output Play#1 1    7 cs   cargo ship    -5,1    a b          Yes      h
+    Play#1 output Play#1 1    0 lc   light cruis   -3,1    a
+    Play#1 output Play#1 1    1 lc   light cruis   -3,1    a
+    Play#1 output Play#1 1    2 lc   light cruis   -3,1      bgyujnbgy           itshbdu
+    Play#1 output Play#1 1    3 lc   light cruis   -3,1    a
+    Play#1 output Play#1 1    4 lc   light cruis   -5,1    a b          Yes      h
+    Play#1 output Play#1 1    7 lc   light cruis   -5,1    a b          Yes      h
     Play#1 output Play#1 1 6 ships
     Play#1 output Play#1 6 0 635
     Play#1 input lret 0 garbage i
@@ -157,8 +157,8 @@
     Play#1 output Play#1 1 Sector -2,2 ready to fire
     Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#30) in 0,2 for 10 damage.
-    Play#1 output Play#1 1 cs   cargo ship (#30) sunk!
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#30) in 0,2 for 10 damage.
+    Play#1 output Play#1 1 lc   light cruiser (#30) sunk!
     Play#1 output Play#1 6 0 629
     Play#1 input __cmd added -2 -2 0
     Play#1 command __cmd
@@ -168,7 +168,7 @@
     Play#1 output Play#1 1 Sector -2,2 ready to fire
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#31) in 4,0 for 8 damage.
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#31) in 4,0 for 8 damage.
     Play#1 output Play#1 6 0 626
     Play#1 input __cmd added 1 1 0
     Play#1 command __cmd
@@ -178,14 +178,14 @@
     Play#1 output Play#1 1 Sector -2,2 ready to fire
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#33) in 2,2 for 8 damage.
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#33) in 2,2 for 8 damage.
     Play#1 output Play#1 6 0 626
     Play#1 input fire se -2,2 34
     Play#1 command fire
     Play#1 output Play#1 1 Sector -2,2 ready to fire
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#34) in 3,1 for 10 damage.
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#34) in 3,1 for 10 damage.
     Play#1 output Play#1 6 0 625
     Play#1 input __cmd added -1 -1 0
     Play#1 command __cmd
@@ -223,7 +223,7 @@
     Play#1 output Play#1 1 Sector -2,2 ready to fire
     Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#46) in 5,1 for 11 damage.
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#46) in 5,1 for 11 damage.
     Play#1 output Play#1 6 0 619
     Play#1 input __cmd added 1 1 0
     Play#1 command __cmd
@@ -233,43 +233,43 @@
     Play#1 output Play#1 1 Sector -2,2 ready to fire
     Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#10) in 0,2 for 11 damage.
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#10) in 0,2 for 11 damage.
     Play#1 output Play#1 6 0 619
     Play#1 input fire se -2,2 10
     Play#1 command fire
     Play#1 output Play#1 1 Sector -2,2 ready to fire
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#10) in 1,3 for 6 damage.
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#10) in 1,3 for 6 damage.
     Play#1 output Play#1 6 0 618
     Play#1 input fire se -2,2 10
     Play#1 command fire
     Play#1 output Play#1 1 Sector -2,2 ready to fire
     Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#10) in 1,3 for 6 damage.
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#10) in 1,3 for 6 damage.
     Play#1 output Play#1 6 0 617
     Play#1 input fire se -2,2 2
     Play#1 command fire
     Play#1 output Play#1 1 Sector -2,2 ready to fire
     Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#2) in -3,1 for 11 damage.
-    Play#1 output Play#1 1 	cs   cargo ship (#2) takes 9
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#2) in -3,1 for 11 damage.
+    Play#1 output Play#1 1 	lc   light cruiser (#2) takes 7
     Play#1 output Play#1 6 0 616
     Play#1 input fire se -2,2 11
     Play#1 command fire
     Play#1 output Play#1 1 Sector -2,2 ready to fire
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#11) in 0,2 for 11 damage.
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#11) in 0,2 for 11 damage.
     Play#1 output Play#1 6 0 615
     Play#1 input fire se -2,-2 20
     Play#1 command fire
     Play#1 output Play#1 1 Sector -2,-2 ready to fire
     Play#1 output Play#1 1 range is 5.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#20) in -3,1 for 6 damage.
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#20) in -3,1 for 6 damage.
     Play#1 output Play#1 1 \007
     Play#1 output Play#1 1 Defenders fire back!
     Play#1 output Play#1 1 Return fire hit sector -2,-2 for 8 damage.
@@ -279,7 +279,7 @@
     Play#1 output Play#1 1 Sector -2,2 ready to fire
     Play#1 output Play#1 1 range is 4.00 (4.50)
     Play#1 output Play#1 1 \007Kaboom!!!
-    Play#1 output Play#1 1 Shells hit cs   cargo ship (#25) in -4,2 for 11 damage.
+    Play#1 output Play#1 1 Shells hit lc   light cruiser (#25) in -4,2 for 11 damage.
     Play#1 output Play#1 6 0 613
     Play#1 input __cmd added 1 1 0
     Play#1 command __cmd
@@ -608,7 +608,7 @@
     Play#1 output Play#1 1 Effective torpedo range is 2.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 51%
     Play#1 output Play#1 1 BOOM!...
-    Play#1 output Play#1 1 Torpedo hit cs   cargo ship (#100) for 75 damage.
+    Play#1 output Play#1 1 Torpedo hit lc   light cruiser (#100) for 75 damage.
     Play#1 output Play#1 6 0 587
     Play#1 input torp 6 101
     Play#1 command torpedo
@@ -623,7 +623,7 @@
     Play#1 output Play#1 1 Effective torpedo range is 2.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 51%
     Play#1 output Play#1 1 BOOM!...
-    Play#1 output Play#1 1 Torpedo hit cs   cargo ship (#102) for 44 damage.
+    Play#1 output Play#1 1 Torpedo hit lc   light cruiser (#102) for 44 damage.
     Play#1 output Play#1 6 0 581
     Play#1 input torp 6 103
     Play#1 command torpedo
@@ -631,7 +631,7 @@
     Play#1 output Play#1 1 Effective torpedo range is 2.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 51%
     Play#1 output Play#1 1 BOOM!...
-    Play#1 output Play#1 1 Torpedo hit cs   cargo ship (#103) for 95 damage.
+    Play#1 output Play#1 1 Torpedo hit lc   light cruiser (#103) for 95 damage.
     Play#1 output Play#1 6 0 578
     Play#1 input torp 6 104
     Play#1 command torpedo
@@ -689,8 +689,8 @@
     Play#1 output Play#1 1 flying over harbor at 0,2
     Play#1 output Play#1 1 Target sector is a completely constructed harbor
     Play#1 output Play#1 1  #          owner           eff       type
-    Play#1 output Play#1 1 (# 32)          2    completely  cs   cargo ship (#32)
-    Play#1 output Play#1 1 (# 35)          2    completely  cs   cargo ship (#35)
+    Play#1 output Play#1 1 (# 32)          2    completely  lc   light cruiser (#32)
+    Play#1 output Play#1 1 (# 35)          2    completely  lc   light cruiser (#35)
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (#  9)          2    completely  tra  train #9
     Play#1 output Play#1 1 (# 30)          2     minimally  cav  cavalry #30
@@ -1010,7 +1010,7 @@
     Play#1 output Play#1 1 flying over agribusiness at 3,1
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
-    Play#1 output Play#1 1 (# 34)          2    completely  cs   cargo ship (#34)
+    Play#1 output Play#1 1 (# 34)          2    completely  lc   light cruiser (#34)
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
     Play#1 output Play#1 1 (# 24)          1    completely  cav  cavalry #24
@@ -1032,6 +1032,7 @@
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 10
     Play#1 output Play#1 1 73% hitchance...Blam
+    Play#1 output Play#1 1 	cav  cavalry #24 takes 1
     Play#1 output Play#1 6 0 549
     Play#1 input __cmd added -1 0 0
     Play#1 command __cmd
@@ -1049,7 +1050,7 @@
     Play#1 output Play#1 1 flying over agribusiness at 3,1
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
-    Play#1 output Play#1 1 (# 34)          2    completely  cs   cargo ship (#34)
+    Play#1 output Play#1 1 (# 34)          2    completely  lc   light cruiser (#34)
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    moderately  cav  cavalry #10
     Play#1 output Play#1 1 (# 24)          1    completely  cav  cavalry #24
@@ -1071,6 +1072,7 @@
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 10
     Play#1 output Play#1 1 75% hitchance...BLAM
+    Play#1 output Play#1 1 	cav  cavalry #24 takes 1
     Play#1 output Play#1 6 0 547
     Play#1 input bomb 30 . p -3,1 h
     Play#1 command bomb
@@ -1082,7 +1084,7 @@
     Play#1 output Play#1 1 flying over harbor at -3,1
     Play#1 output Play#1 1 Target sector is a completely constructed harbor
     Play#1 output Play#1 1  #          owner           eff       type
-    Play#1 output Play#1 1 (# 20)          2    completely  cs   cargo ship (#20)
+    Play#1 output Play#1 1 (# 20)          2    completely  lc   light cruiser (#20)
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (#  0)          1    completely  inf  infantry #0
     Play#1 output Play#1 1 (#  1)          1    completely  inf  infantry #1
@@ -1099,8 +1101,12 @@
     Play#1 input 2
     Play#1 output Play#1 1 73% hitchance...Blam
     Play#1 output Play#1 1 1 pinpoint bombing raid did 36 damage to inf  infantry #2
-    Play#1 output Play#1 1 	inf  infantry #2 takes 11
+    Play#1 output Play#1 1 	inf  infantry #2 takes 22
     Play#1 output Play#1 1 -3,1 takes 4% collateral damage
+    Play#1 output Play#1 1 	inf  infantry #0 takes 1
+    Play#1 output Play#1 1 	inf  infantry #1 takes 1
+    Play#1 output Play#1 1 	inf  infantry #2 takes 1
+    Play#1 output Play#1 1 	inf  infantry #3 takes 1
     Play#1 output Play#1 6 0 545
     Play#1 input bomb 30 . p -2,2 ujjh
     Play#1 command bomb
@@ -1115,7 +1121,7 @@
     Play#1 output Play#1 1 flying over agribusiness at 3,1
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
-    Play#1 output Play#1 1 (# 34)          2    completely  cs   cargo ship (#34)
+    Play#1 output Play#1 1 (# 34)          2    completely  lc   light cruiser (#34)
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 24)          1    completely  cav  cavalry #24
     Play#1 output Play#1 1 (# 25)          2    completely  cav  cavalry #25
@@ -1240,25 +1246,25 @@
     Play#0 command read
     Play#0 output Play#0 1
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#30) in 0,2 for 10 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#30) takes 8
-    Play#0 output Play#0 1 cs   cargo ship (#32) retreated with a damaged friend,
+    Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#30) in 0,2 for 10 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#30) takes 6
+    Play#0 output Play#0 1 lc   light cruiser (#32) retreated with a damaged friend,
     Play#0 output Play#0 1 but had no crew, and couldn't retreat!
-    Play#0 output Play#0 1 cs   cargo ship (#35) retreated with a damaged friend,
+    Play#0 output Play#0 1 lc   light cruiser (#35) retreated with a damaged friend,
     Play#0 output Play#0 1 but had no mobility, and couldn't retreat!
-    Play#0 output Play#0 1 cs   cargo ship (#36) retreated with a damaged friend, and ended up at 1,3
-    Play#0 output Play#0 1 	cs   cargo ship (#30) sunk!
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#31) in 4,0 for 8 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#31) takes 6
-    Play#0 output Play#0 1 cs   cargo ship (#31) was damaged,
+    Play#0 output Play#0 1 lc   light cruiser (#36) retreated with a damaged friend, and ended up at 1,3
+    Play#0 output Play#0 1 	lc   light cruiser (#30) sunk!
+    Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#31) in 4,0 for 8 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#31) takes 5
+    Play#0 output Play#0 1 lc   light cruiser (#31) was damaged,
     Play#0 output Play#0 1 but was landlocked, and couldn't retreat!
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#33) in 2,2 for 8 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#33) takes 6
-    Play#0 output Play#0 1 cs   cargo ship (#33) was damaged,
+    Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#33) in 2,2 for 8 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#33) takes 5
+    Play#0 output Play#0 1 lc   light cruiser (#33) was damaged,
     Play#0 output Play#0 1 but was caught in a construction zone, and couldn't retreat!
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#34) in 3,1 for 10 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#34) takes 8
-    Play#0 output Play#0 1 cs   cargo ship (#34) was damaged,
+    Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#34) in 3,1 for 10 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#34) takes 6
+    Play#0 output Play#0 1 lc   light cruiser (#34) was damaged,
     Play#0 output Play#0 1 but was landlocked, and couldn't retreat!
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#40) in 0,2 for 14 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#40) takes 9
@@ -1280,33 +1286,33 @@
     Play#0 output Play#0 1 	ms   minesweeper (#44) takes 29
     Play#0 output Play#0 1 ms   minesweeper (#43) cleared 2 mines in -6,4 while retreating
     Play#0 output Play#0 1 ms   minesweeper (#43) retreated with a damaged friend, and ended up at -8,4
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#46) in 5,1 for 11 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#46) takes 9
-    Play#0 output Play#0 1 cs   cargo ship (#46) was damaged,
+    Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#46) in 5,1 for 11 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#46) takes 7
+    Play#0 output Play#0 1 lc   light cruiser (#46) was damaged,
     Play#0 output Play#0 1 but could not retreat to 4,0!
     Play#0 output Play#0 1 pt   patrol boat (#47) retreated with a damaged friend, and ended up at 4,0
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#10) in 0,2 for 11 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#10) takes 9
-    Play#0 output Play#0 1 cs   cargo ship (#10) was damaged, and retreated to 1,3
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#10) in 1,3 for 6 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#10) takes 5
-    Play#0 output Play#0 1 cs   cargo ship (#10) was damaged, and retreated to 1,3
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#10) in 1,3 for 6 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#10) takes 5
-    Play#0 output Play#0 1 cs   cargo ship (#10) was damaged, and retreated to 4,4
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#11) in 0,2 for 11 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#11) takes 9
-    Play#0 output Play#0 1 cs   cargo ship (#11) was fired upon with no one able to defend it, and retreated to 1,3
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#20) in -3,1 for 6 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#20) takes 5
+    Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#10) in 0,2 for 11 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#10) takes 7
+    Play#0 output Play#0 1 lc   light cruiser (#10) was damaged, and retreated to 1,3
+    Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#10) in 1,3 for 6 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#10) takes 4
+    Play#0 output Play#0 1 lc   light cruiser (#10) was damaged, and retreated to 1,3
+    Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#10) in 1,3 for 6 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#10) takes 4
+    Play#0 output Play#0 1 lc   light cruiser (#10) was damaged, and retreated to 4,4
+    Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#11) in 0,2 for 11 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#11) takes 7
+    Play#0 output Play#0 1 lc   light cruiser (#11) was fired upon with no one able to defend it, and retreated to 1,3
+    Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#20) in -3,1 for 6 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#20) takes 4
     Play#0 output Play#0 1 Return fire hit sector -2,-2 for 8 damage.
-    Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#25) in -4,2 for 11 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#25) takes 9
-    Play#0 output Play#0 1 cs   cargo ship (#25) was damaged, and retreated to -8,2
-    Play#0 output Play#0 1 cs   cargo ship (#26) retreated with a damaged friend, and ended up at -4,4
-    Play#0 output Play#0 1 cs   cargo ship (#27) retreated with a damaged friend, and ended up at -4,4
-    Play#0 output Play#0 1 cs   cargo ship (#28) retreated with a damaged friend, and ended up at -8,2
-    Play#0 output Play#0 1 cs   cargo ship (#29) retreated with a damaged friend, and ended up at 1,3
+    Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#25) in -4,2 for 11 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#25) takes 7
+    Play#0 output Play#0 1 lc   light cruiser (#25) was damaged, and retreated to -8,2
+    Play#0 output Play#0 1 lc   light cruiser (#26) retreated with a damaged friend, and ended up at -4,4
+    Play#0 output Play#0 1 lc   light cruiser (#27) retreated with a damaged friend, and ended up at -4,4
+    Play#0 output Play#0 1 lc   light cruiser (#28) retreated with a damaged friend, and ended up at -8,2
+    Play#0 output Play#0 1 lc   light cruiser (#29) retreated with a damaged friend, and ended up at 1,3
     Play#0 output Play#0 1 Country #1 shelled sb   submarine (#50) in -5,1 for 42 damage.
     Play#0 output Play#0 1 	sb   submarine (#50) takes 33
     Play#0 output Play#0 1 sb   submarine (#50) was damaged, and retreated to -9,1
@@ -1380,18 +1386,17 @@
     Play#0 output Play#0 1 ...Incoming 1 missile missed
     Play#0 output Play#0 1
     Play#0 output Play#0 1 -6,2 takes 6% collateral damage
-    Play#0 output Play#0 1 sub in -1,3 torpedoed cs   cargo ship (#100) for 75 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#100) takes 62
-    Play#0 output Play#0 1 cs   cargo ship (#100) was hit by a torpedo, and retreated to 2,-6
-    Play#0 output Play#0 1 Torpedo sighted @ -1,3 by cs   cargo ship (#101)
-    Play#0 output Play#0 1 sub in -1,3 torpedoed cs   cargo ship (#102) for 44 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#102) takes 36
-    Play#0 output Play#0 1 cs   cargo ship (#102) was hit by a torpedo, and retreated to 2,-6
-    Play#0 output Play#0 1 sub in -1,3 torpedoed cs   cargo ship (#103) for 95 damage.
-    Play#0 output Play#0 1 	cs   cargo ship (#103) takes 79
-    Play#0 output Play#0 1 cs   cargo ship (#103) was hit by a torpedo,
-    Play#0 output Play#0 1 but ran out of mobility, and couldn't retreat fully!
-    Play#0 output Play#0 1 Torpedo sighted @ -1,3 by cs   cargo ship (#104)
+    Play#0 output Play#0 1 sub in -1,3 torpedoed lc   light cruiser (#100) for 75 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#100) takes 50
+    Play#0 output Play#0 1 lc   light cruiser (#100) was hit by a torpedo, and retreated to 2,-6
+    Play#0 output Play#0 1 Torpedo sighted @ -1,3 by lc   light cruiser (#101)
+    Play#0 output Play#0 1 sub in -1,3 torpedoed lc   light cruiser (#102) for 44 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#102) takes 29
+    Play#0 output Play#0 1 lc   light cruiser (#102) was hit by a torpedo, and retreated to 2,-6
+    Play#0 output Play#0 1 sub in -1,3 torpedoed lc   light cruiser (#103) for 95 damage.
+    Play#0 output Play#0 1 	lc   light cruiser (#103) takes 63
+    Play#0 output Play#0 1 lc   light cruiser (#103) was hit by a torpedo, and retreated to 2,-6
+    Play#0 output Play#0 1 Torpedo sighted @ -1,3 by lc   light cruiser (#104)
     Play#0 output Play#0 1 Sonar ping from -6,0 detected by sb   submarine (#120)!
     Play#0 output Play#0 1 sb   submarine (#120) detected a sonar ping, and retreated to -9,1
     Play#0 output Play#0 1 1 dd   destroyer (#5) sighted at -5,1
@@ -1502,37 +1507,37 @@
     Play#0 input ship *
     Play#0 command ship
     Play#0 output Play#0 1 own shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
-    Play#0 output Play#0 1   1    0 cs   cargo ship    -3,1    a  100%   0  10   0   0  0  0  0  0 127   20
-    Play#0 output Play#0 1   1    1 cs   cargo ship    -3,1    a  100%   0  10   0   0  0  0  0  0 127   20
-    Play#0 output Play#0 1   1    2 cs   cargo ship    -3,1        91%   0   9   0   0  0  0  0  0 115   20
-    Play#0 output Play#0 1   1    3 cs   cargo ship    -3,1    a  100%   0  10   0   0  0  0  0  0 127   20
-    Play#0 output Play#0 1   1    4 cs   cargo ship    -5,1    a  100%   0  10   0   0  0  0  0  0 127   20
+    Play#0 output Play#0 1   1    0 lc   light cruis   -3,1    a  100%   0  10   0   0  0  0  0  0 127   45
+    Play#0 output Play#0 1   1    1 lc   light cruis   -3,1    a  100%   0  10   0   0  0  0  0  0 127   45
+    Play#0 output Play#0 1   1    2 lc   light cruis   -3,1        93%   0   9   0   0  0  0  0  0 118   45
+    Play#0 output Play#0 1   1    3 lc   light cruis   -3,1    a  100%   0  10   0   0  0  0  0  0 127   45
+    Play#0 output Play#0 1   1    4 lc   light cruis   -5,1    a  100%   0  10   0   0  0  0  0  0 127   45
     Play#0 output Play#0 1   1    5 dd   destroyer     -5,1        96%   0   9   0   0  0  0  0  0  63   70
     Play#0 output Play#0 1   1    6 sb   submarine     -1,3       100%   0  10   0   0  0  0  0  0  97  165
-    Play#0 output Play#0 1   1    7 cs   cargo ship    -5,1    a  100%   0  10   0   0  0  0  0  0 127   20
+    Play#0 output Play#0 1   1    7 lc   light cruis   -5,1    a  100%   0  10   0   0  0  0  0  0 127   45
     Play#0 output Play#0 1   2    9 dd   destroyer     -4,-2       60%   0  10   0   0  0  0  0  0 127   70
-    Play#0 output Play#0 1   2   10 cs   cargo ship     4,4        83%   0   8   0   0  0  0  0  0  53   20
-    Play#0 output Play#0 1   2   11 cs   cargo ship     1,3        91%   0   9   0   0  0  0  0  0  98   20
-    Play#0 output Play#0 1   2   20 cs   cargo ship    -3,1        95%   0   9   0   0  0  0  0  0 121   20
-    Play#0 output Play#0 1   1   24 cs   cargo ship    -4,2    g  100%   0  10   0   0  0  0  0  0 127   20
-    Play#0 output Play#0 1   2   25 cs   cargo ship    -8,2    g   91%   0   9   0   0  0  0  0  0  82   20
-    Play#0 output Play#0 1   2   26 cs   cargo ship    -4,4    g  100%   0  10   0   0  0  0  0  0  97   20
-    Play#0 output Play#0 1   2   27 cs   cargo ship    -4,4    g  100%   0  10   0   0  0  0  0  0  97   20
-    Play#0 output Play#0 1   2   28 cs   cargo ship    -8,2    g  100%   0  10   0   0  0  0  0  0  97   20
-    Play#0 output Play#0 1   2   29 cs   cargo ship     1,3    g  100%   0  10   0   0  0  0  0  0  97   20
-    Play#0 output Play#0 1   2   31 cs   cargo ship     4,0        94%   0   9   0   0  0  0  0  0 119   20
-    Play#0 output Play#0 1   2   32 cs   cargo ship     0,2    c  100%   0   0   0   0  0  0  0  0 127   20
-    Play#0 output Play#0 1   2   33 cs   cargo ship     2,2        94%   0   9   0   0  0  0  0  0 119   20
-    Play#0 output Play#0 1   2   34 cs   cargo ship     3,1        92%   0   9   0   0  0  0  0  0 117   20
-    Play#0 output Play#0 1   2   35 cs   cargo ship     0,2    c  100%   0  10   0   0  0  0  0  1   0   20
-    Play#0 output Play#0 1   2   36 cs   cargo ship     1,3    c  100%   0  10   0   0  0  0  0  0 112   20
+    Play#0 output Play#0 1   2   10 lc   light cruis    4,4        85%   0   9   0   0  0  0  0  0  68   45
+    Play#0 output Play#0 1   2   11 lc   light cruis    1,3        93%   0  10   0   0  0  0  0  0 105   45
+    Play#0 output Play#0 1   2   20 lc   light cruis   -3,1        96%   0   9   0   0  0  0  0  0 122   45
+    Play#0 output Play#0 1   1   24 lc   light cruis   -4,2    g  100%   0  10   0   0  0  0  0  0 127   45
+    Play#0 output Play#0 1   2   25 lc   light cruis   -8,2    g   93%   0   9   0   0  0  0  0  0  93   45
+    Play#0 output Play#0 1   2   26 lc   light cruis   -4,4    g  100%   0  10   0   0  0  0  0  0 103   45
+    Play#0 output Play#0 1   2   27 lc   light cruis   -4,4    g  100%   0  10   0   0  0  0  0  0 103   45
+    Play#0 output Play#0 1   2   28 lc   light cruis   -8,2    g  100%   0  10   0   0  0  0  0  0 103   45
+    Play#0 output Play#0 1   2   29 lc   light cruis    1,3    g  100%   0  10   0   0  0  0  0  0 103   45
+    Play#0 output Play#0 1   2   31 lc   light cruis    4,0        95%   0   9   0   0  0  0  0  0 121   45
+    Play#0 output Play#0 1   2   32 lc   light cruis    0,2    c  100%   0   0   0   0  0  0  0  0 127   45
+    Play#0 output Play#0 1   2   33 lc   light cruis    2,2        95%   0   9   0   0  0  0  0  0 121   45
+    Play#0 output Play#0 1   2   34 lc   light cruis    3,1        94%   0  10   0   0  0  0  0  0 120   45
+    Play#0 output Play#0 1   2   35 lc   light cruis    0,2    c  100%   0  10   0   0  0  0  0  1   0   45
+    Play#0 output Play#0 1   2   36 lc   light cruis    1,3    c  100%   0  10   0   0  0  0  0  0 115   45
     Play#0 output Play#0 1   2   40 lc   light cruis    1,3        91%   0   9   0   0  0  0  0  0  -7   45
     Play#0 output Play#0 1   2   41 lc   light cruis    1,3        96%   0   9   0   0  0  0  0  0 109   45
     Play#0 output Play#0 1   2   42 lc   light cruis   -4,2        95%   0  10   0   0  0  0  0  0 121   45
-    Play#0 output Play#0 1   2   43 ms   minesweeper   -8,4    m  100%   0  10   0   0  0  0  0  0  99   40
-    Play#0 output Play#0 1   2   44 ms   minesweeper   -6,4    m   64%   0   6   0   0  0  0  0  0  70   40
-    Play#0 output Play#0 1   2   46 cs   cargo ship     5,1    n   91%   0   9   0   0  0  0  0  0 116   20
-    Play#0 output Play#0 1   2   47 pt   patrol boat    4,0    n  100%   0   2   0   0  0  0  0  0 117   40
+    Play#0 output Play#0 1   2   43 ms   minesweeper   -8,4    m  100%   0  10   0   0  0  0  0  0  99   45
+    Play#0 output Play#0 1   2   44 ms   minesweeper   -6,4    m   64%   0   6   0   0  0  0  0  0  70   45
+    Play#0 output Play#0 1   2   46 lc   light cruis    5,1    n   93%   0   9   0   0  0  0  0  0 118   45
+    Play#0 output Play#0 1   2   47 pt   patrol boat    4,0    n  100%   0   2   0   0  0  0  0  0 117   45
     Play#0 output Play#0 1   2   50 sb   submarine     -9,1        67%   0   7   0   0  0  0  0  0  33   60
     Play#0 output Play#0 1   2   51 sb   submarine     -9,1        64%   0   7   0   0  0  0  0  0  28   60
     Play#0 output Play#0 1   2   52 sb   submarine     -9,1        73%   0   7   0   0  0  0  0  0  45   60
@@ -1552,11 +1557,11 @@
     Play#0 output Play#0 1   2   82 dd   destroyer     -6,2       100%   0  10   0   0  0  0  0  0 127   70
     Play#0 output Play#0 1   2   83 dd   destroyer     -4,4        29%   0   3   0   0  0  0  0  0 -28   70
     Play#0 output Play#0 1   2   84 dd   destroyer     -6,2       100%   0  10   0   0  0  0  0  0 127   70
-    Play#0 output Play#0 1   2  100 cs   cargo ship     2,-6       38%   0   4   0   0  0  0  0  0 -29   20
-    Play#0 output Play#0 1   2  101 cs   cargo ship     0,4       100%   0  10   0   0  0  0  0  0 127   20
-    Play#0 output Play#0 1   2  102 cs   cargo ship     2,-6       64%   0   6   0   0  0  0  0  0  35   20
-    Play#0 output Play#0 1   2  103 cs   cargo ship     1,5        21%   0   2   0   0  0  0  0  0 -42   20
-    Play#0 output Play#0 1   2  104 cs   cargo ship     0,4       100%   0  10   0   0  0  0  0  0 127   20
+    Play#0 output Play#0 1   2  100 lc   light cruis    2,-6       50%   0   5   0   0  0  0  0  0  15   45
+    Play#0 output Play#0 1   2  101 lc   light cruis    0,4       100%   0  10   0   0  0  0  0  0 127   45
+    Play#0 output Play#0 1   2  102 lc   light cruis    2,-6       71%   0   7   0   0  0  0  0  0  56   45
+    Play#0 output Play#0 1   2  103 lc   light cruis    2,-6       37%   0   3   0   0  0  0  0  0 -16   45
+    Play#0 output Play#0 1   2  104 lc   light cruis    0,4       100%   0  10   0   0  0  0  0  0 127   45
     Play#0 output Play#0 1   2  120 sb   submarine     -9,1       100%   0  10   0   0  0  0  0  0  93   60
     Play#0 output Play#0 1   2  130 tt   troop trans   -9,1       100%   0  10   0   0  0  0  0  0  95   60
     Play#0 output Play#0 1 57 ships
@@ -1564,24 +1569,24 @@
     Play#0 input retr * ?rflags#0
     Play#0 command retreat
     Play#0 output Play#0 1 own shp#     ship type       x,y   fl path       as flt?  flags
-    Play#0 output Play#0 1   1    2 cs   cargo ship    -3,1      bgyujnbgy           itshbdu
-    Play#0 output Play#0 1   1    4 cs   cargo ship    -5,1    a b          Yes      h
-    Play#0 output Play#0 1   1    7 cs   cargo ship    -5,1    a b          Yes      h
-    Play#0 output Play#0 1   2   20 cs   cargo ship    -3,1      u                   h
-    Play#0 output Play#0 1   1   24 cs   cargo ship    -4,2    g ggg        Yes      i
-    Play#0 output Play#0 1   2   25 cs   cargo ship    -8,2    g g          Yes      i
-    Play#0 output Play#0 1   2   28 cs   cargo ship    -8,2    g g          Yes      b
-    Play#0 output Play#0 1   2   29 cs   cargo ship     1,3    g g          Yes      i
-    Play#0 output Play#0 1   2   31 cs   cargo ship     4,0      n                   i
-    Play#0 output Play#0 1   2   32 cs   cargo ship     0,2    c n          Yes      i
-    Play#0 output Play#0 1   2   33 cs   cargo ship     2,2      n                   i
-    Play#0 output Play#0 1   2   34 cs   cargo ship     3,1      n                   i
-    Play#0 output Play#0 1   2   35 cs   cargo ship     0,2    c n          Yes      i
+    Play#0 output Play#0 1   1    2 lc   light cruis   -3,1      bgyujnbgy           itshbdu
+    Play#0 output Play#0 1   1    4 lc   light cruis   -5,1    a b          Yes      h
+    Play#0 output Play#0 1   1    7 lc   light cruis   -5,1    a b          Yes      h
+    Play#0 output Play#0 1   2   20 lc   light cruis   -3,1      u                   h
+    Play#0 output Play#0 1   1   24 lc   light cruis   -4,2    g ggg        Yes      i
+    Play#0 output Play#0 1   2   25 lc   light cruis   -8,2    g g          Yes      i
+    Play#0 output Play#0 1   2   28 lc   light cruis   -8,2    g g          Yes      b
+    Play#0 output Play#0 1   2   29 lc   light cruis    1,3    g g          Yes      i
+    Play#0 output Play#0 1   2   31 lc   light cruis    4,0      n                   i
+    Play#0 output Play#0 1   2   32 lc   light cruis    0,2    c n          Yes      i
+    Play#0 output Play#0 1   2   33 lc   light cruis    2,2      n                   i
+    Play#0 output Play#0 1   2   34 lc   light cruis    3,1      n                   i
+    Play#0 output Play#0 1   2   35 lc   light cruis    0,2    c n          Yes      i
     Play#0 output Play#0 1   2   40 lc   light cruis    1,3      nnnh                i
     Play#0 output Play#0 1   2   41 lc   light cruis    1,3      uh                  i
     Play#0 output Play#0 1   2   42 lc   light cruis   -4,2      ugggh               i
     Play#0 output Play#0 1   2   44 ms   minesweeper   -6,4    m g          Yes      i
-    Play#0 output Play#0 1   2   46 cs   cargo ship     5,1    n y          Yes      i
+    Play#0 output Play#0 1   2   46 lc   light cruis    5,1    n y          Yes      i
     Play#0 output Play#0 1   2   53 sb   submarine     -4,-2     gg                  h
     Play#0 output Play#0 1   2   60 dd   destroyer     -6,2      nn                  ihb
     Play#0 output Play#0 1   2   67 dd   destroyer     -6,2      nn                  hb
@@ -1589,28 +1594,43 @@
     Play#0 output Play#0 1   2   81 dd   destroyer     -6,2      nn                  ihb
     Play#0 output Play#0 1   2   82 dd   destroyer     -6,2      nn                  ihb
     Play#0 output Play#0 1   2   84 dd   destroyer     -6,2      nn                  ihb
-    Play#0 output Play#0 1   2  101 cs   cargo ship     0,4      nn                  ith
-    Play#0 output Play#0 1   2  103 cs   cargo ship     1,5      n                   ith
-    Play#0 output Play#0 1   2  104 cs   cargo ship     0,4      nn                  ith
-    Play#0 output Play#0 1 28 ships
+    Play#0 output Play#0 1   2  101 lc   light cruis    0,4      nn                  ith
+    Play#0 output Play#0 1   2  104 lc   light cruis    0,4      nn                  ith
+    Play#0 output Play#0 1 27 ships
     Play#0 output Play#0 6 0 639
     Play#0 input miss s * ?mission#0 q
     Play#0 command mission
     Play#0 output Play#0 1 Thing                        x,y     op-sect  rad mission
+    Play#0 output Play#0 1 lc   light cruiser (#20)    -3,1      -3,1      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#31)     4,0       4,0      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#32)     0,2       0,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#33)     2,2       2,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#34)     3,1       3,1      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#35)     0,2       0,2      1 is on an interdiction mission
     Play#0 output Play#0 1 lc   light cruiser (#42)    -4,2      -4,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#46)     5,1       5,1      1 is on an interdiction mission
+    Play#0 output Play#0 1 sb   submarine (#53)        -4,-2     -4,-2     1 is on an interdiction mission
+    Play#0 output Play#0 1 dd   destroyer (#60)        -6,2      -6,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 dd   destroyer (#67)        -6,2      -6,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 dd   destroyer (#80)        -6,2      -6,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 dd   destroyer (#81)        -6,2      -6,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 dd   destroyer (#82)        -6,2      -6,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 dd   destroyer (#84)        -6,2      -6,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#101)    0,4       0,4      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#104)    0,4       0,4      1 is on an interdiction mission
     Play#0 output Play#0 6 0 637
     Play#0 input land *
     Play#0 command land
     Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
-    Play#0 output Play#0 1   1    0 inf  infantry     -3,1    a  100%  10 127 127   0  50  42%  0  0
-    Play#0 output Play#0 1   1    1 inf  infantry     -3,1    a  100%  10 127 127   0  50  42%  0  0
-    Play#0 output Play#0 1   1    2 inf  infantry     -3,1        89%   9 127 113   0  50  42%  0  0
-    Play#0 output Play#0 1   1    3 inf  infantry     -3,1    a  100%  10 127 127   0  50  42%  0  0
-    Play#0 output Play#0 1   1    4 inf  infantry     -4,0    a  100%  10 127 127   0  50  42%  0  0
-    Play#0 output Play#0 1   1    7 inf  infantry     -4,0    a  100%  10 127 127   0  50  42%  0  0
+    Play#0 output Play#0 1   1    0 inf  infantry     -3,1    a   99%   9   0 125   0  50  42%  0  0
+    Play#0 output Play#0 1   1    1 inf  infantry     -3,1    a   99%  10   0 125   0  50  42%  0  0
+    Play#0 output Play#0 1   1    2 inf  infantry     -3,1        77%   8   0  98   0  50  42%  0  0
+    Play#0 output Play#0 1   1    3 inf  infantry     -3,1    a   99%  10   0 126   0  50  42%  0  0
+    Play#0 output Play#0 1   1    4 inf  infantry     -4,0    a  100%  10   0 127   0  50  42%  0  0
+    Play#0 output Play#0 1   1    7 inf  infantry     -4,0    a  100%  10   0 127   0  50  42%  0  0
     Play#0 output Play#0 1   2    9 tra  train         0,2        99%  10 127 126   0  50  42%  0  1
     Play#0 output Play#0 1   2   10 cav  cavalry       4,0        61%   6 127  61   0  50  42%  0  0
-    Play#0 output Play#0 1   1   24 cav  cavalry       3,1    g  100%  10 127 127   0  50  42%  0  0
+    Play#0 output Play#0 1   1   24 cav  cavalry       3,1    g   98%  10   0 125   0  50  42%  0  0
     Play#0 output Play#0 1   2   25 cav  cavalry       2,2    g   91%   9 127  96   0  50  42%  0  0
     Play#0 output Play#0 1   2   26 cav  cavalry       4,0    g  100%  10 127 117   0  50  42%  0  0
     Play#0 output Play#0 1   2   27 cav  cavalry       4,0    g  100%  10 127 117   0  50  42%  0  0
@@ -1667,7 +1687,14 @@
     Play#0 input miss l * ?mission#0 q
     Play#0 command mission
     Play#0 output Play#0 1 Thing                        x,y     op-sect  rad mission
+    Play#0 output Play#0 1 cav  cavalry #35             0,2       0,2      3 is on a reserve mission
     Play#0 output Play#0 1 cav  cavalry #42             1,1       1,1      3 is on a reserve mission
+    Play#0 output Play#0 1 eng  engineer #43            1,1       1,1      1 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #47             1,-1      1,-1     3 is on a reserve mission
+    Play#0 output Play#0 1 spy  infiltrator #48         1,-1      1,-1     3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #61             0,0       0,0      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #62             0,0       0,0      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #63             0,0       0,0      3 is on a reserve mission
     Play#0 output Play#0 6 0 634
     Play#0 input ctld
     Play#0 output Play#0 1 Bye-bye
