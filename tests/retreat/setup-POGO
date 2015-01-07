@@ -81,7 +81,10 @@ edit s 10 U 33 L 2,2
 edit s 10 U 34 L 3,1
 | no mobility
 edit s 10 U 35 M 0
-fleet c 30/32/35
+| on sale
+edit s 10 U 36
+| set as POGO doesn't work, done in setup-2
+fleet c 30/32/35/36
 retr c n i
 retr 31/33/34 n i
 | target ships having difficulties during retreat:
@@ -152,7 +155,10 @@ edit u 10 U 33 L -1,1
 edit u 10 U 34 L 0,2 Y 9
 | no mobility
 edit u 10 U 35 L 0,2 M 0
-army c 30/31/32/34/35
+| on sale
+edit u 10 U 36 L 0,2
+| set as POGO doesn't work, done in setup-2
+army c 30/31/32/34/35/36
 lret c j b
 lret 33 j b
 | target land units having difficulties during retreat:

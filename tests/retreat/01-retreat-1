@@ -40,8 +40,9 @@ lret
 ||| Ships
 || ships failing to retreat
 | sunk
-| as group (fleet c): 30 sinks, 32 crewless, 35 no mobility
+| as group (fleet c): 30 sinks, 32 crewless, 35 no mobility, 36 on sale
 fire se -2,2 30
+| BUG: 36 retreats anyway
 __cmd added -2 -2 0
 | in construction zone 2,2
 fire se -2,2 33
@@ -138,13 +139,14 @@ board 130 5
 | these bombing runs must hit; if they don't, use __cmd to make them
 | destroyed
 | as group (army c): 30 dies, 31 loaded on ship, 32 crewless,
-| 34 loaded on train, 35 no mobility
+| 34 loaded on train, 35 no mobility, 36 on sale
 bomb 30 . p -2,2 jh
 l
 30
 | BUG: 31 retreats anyway
 | BUG: 32 retreats anyway
 | BUG: 34 retreats anyway
+| BUG: 36 retreats anyway
 __cmd added -1 -2 0
 | kidnapped in -1,1
 bomb 30 . p -2,2 uh

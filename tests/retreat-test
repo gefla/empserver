@@ -13,9 +13,10 @@ create_sandbox
 cat >>$econfig <<EOF
 WORLD_X 24
 WORLD_Y 12
+MARKET 1
 EOF
 
-begin_test "$srcdir"/tests/retreat/setup-POGO
+begin_test "$srcdir"/tests/retreat/setup-POGO "$srcdir"/tests/retreat/setup-2
 feed_dir "$srcdir"/tests/retreat
 end_test
 
