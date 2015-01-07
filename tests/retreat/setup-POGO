@@ -82,7 +82,7 @@ retr 42 ugggh i
 edit s 10 U 43 t ms U 44
 fleet m 43/44
 edit s m L -4,4
-edit l -8:-6,4 M 100
+edit l -6,4 M 100
 retr m gg i
 | missions for retreat to clear
 miss s 40/41/42 int .
@@ -141,7 +141,7 @@ lret 42 g b
 | as group into minefield 0,0
 edit u 10 U 10 U 43 T eng U 44
 army m 43/44
-edit l 0:1,-1:0 O 1 M 100
+edit l 0,0 O 1 M 100
 lret m yu b
 | missions for retreat to clear
 miss l 40/41/42 res .
