@@ -204,7 +204,9 @@ begin_test()
 	mv $data/lostitems $data/setup.lostitems
 	>$data/lostitems
 	mv $data/journal.log $data/setup.journal.log
+	normalize sandbox/var/empire/setup.journal.log
 	mv $data/server.log $data/setup.server.log
+	normalize sandbox/var/empire/setup.server.log
     fi
     start_server
 }
@@ -241,6 +243,25 @@ cmp_out()
     done
 }
 
+normalize()
+{
+    local act="$1"
+    local nrm="${2-sandbox/normalized-${1##*/}}"
+
+    case "$act" in
+    *journal.log)
+	perl "$srcdir"/tests/normalize.pl -j "$act" ;;
+    *server.log)
+	perl "$srcdir"/tests/normalize.pl -s "$act" ;;
+    *.xdump)
+	perl "$srcdir"/tests/normalize.pl "$act" ;;
+    *.err)
+	perl -pe 's/\s+$/\n/;' -e "s,\Q$srcdir/tests\E,tests," "$act" ;;
+    *)
+	perl -pe 's/\s+$/\n/;' "$act" ;;
+    esac >"$nrm"
+}
+
 cmp_out1()
 {
     local i=$1 exp="${2-$testdir/${1##*/}}"
@@ -263,18 +284,7 @@ cmp_out1()
 	esac
     fi
 
-    case "$i" in
-    */journal.log)
-	perl "$srcdir"/tests/normalize.pl -j "$act" ;;
-    */server.log)
-	perl "$srcdir"/tests/normalize.pl -s "$act" ;;
-    *.xdump)
-	perl "$srcdir"/tests/normalize.pl "$act" ;;
-    *.err)
-	perl -pe 's/\s+$/\n/;' -e "s,\Q$srcdir/tests\E,tests," "$act" ;;
-    *)
-	perl -pe 's/\s+$/\n/;' "$act" ;;
-    esac >"$nrm"
+    normalize "$act" "$nrm"
     if diff -u "$exp" "$nrm" >"$nrm.diff"
     then
 	echo "$i OK"
