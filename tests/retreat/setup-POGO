@@ -4,22 +4,24 @@ desi 4,4 h
 give c * ?des#. 100
 || country#1
 add 1 1 1 p
+edit l * ?des#.&xloc<0 o 1 O 1
 desi -2,0 c
 edit c 1 c -2,0 s 4 b 640 M 25000 T 100
-| two forts (one with, one without return fire)
+| two forts (-2,-2 with return fire, -2,2 without)
 desi -2,2 f
 desi -2,-2 f
-| harbor for building of non-landlocked ships
+| harbor
 desi -3,1 h
-edit l * ?des#.&xloc<0 o 1 O 1
 | ships for testing retreat command
 build s -3,1 cs 5
 | ship to drop depth charges
 build s -3,1 dd
-| ship to launch torpedoes
 edit s 5 g 1 s 40
+| ship to launch torpedoes
 build s -3,1 sb
 edit s 6 T 165 L -1,3 g 1 s 36
+| complete the ships
+edit s * ?own#0 E 100 M 127 m 10
 | p-bombers with 50% hit chance vs. dd in port
 build p -2,2 lb 5
 | marine missiles acc 50
@@ -28,19 +30,21 @@ edit p 0 U 10 T mi t 160 U 11 U 12 U 13 U 14
 edit p 0 U 20 t 400 U 21 U 22 U 23 U 24
 | very accurate p-bomber
 edit p 0 U 30 T ac t 400
+| complete the planes
+edit p * ?own#0 e 100 m 127
 | land units for testing retreat command
 build l -3,1 inf 5
-| fortify to reduce unwanted collateral damage
-edit u * F 127
+| complete the land units (fortify to reduce unwanted collateral damage)
+edit u * ?own#0 e 100 M 127 m 10 F 127
 || country#2
 add 2 2 2 p
+edit l * ?des#.&own=0 o 2 O 2
 | mountain, to test "can't retreat into mountain"
 desi 2,0 ^
 edit c 2 c 2,0 s 4 b 640 M 25000 T 100
-| a harbor for building, a harbor for testing construction zone retreat
+| harbors, 0,2 efficient, 2,2 construction zone
 desi 0:2,2 h
 edit l 2,2 e 1
-edit l * ?des#.&own=0 o 2 O 2
 | ship that can return fire to -2,-2 and -5,-1 weakly
 edit s 5 U 9 O 2 L -4,-2 E 60
 | a train to carry land units
@@ -50,26 +54,37 @@ edit s 0 U 20 O 2 U 10 L 0,2 U 11
 retr 10 nhhnj ih
 retr 11 n h
 retr 20 u h
-| target ships that want to retreat, but can't: sunk, crewless,
-| in construction zone, landlocked, no mobility
-edit s 10 U 30 U 31 U 32 U 33 U 34 U 35
+| target ships that want to retreat, but can't:
+| sunk
+edit s 10 U 30 E 20
 | #31 unused
-edit s 33 L 2,2
-edit s 34 L 3,1
+edit s 10 U 31
+| crewless
+edit s 10 U 32 m 0
+| in construction zone
+edit s 10 U 33 L 2,2
+| landlocked in 3,1
+edit s 10 U 34 L 3,1
+| no mobility
+edit s 10 U 35 M 0
 retr 30/31/32/33/34/35 n i
-| target ships having difficulties during retreat: out of mobility,
-| into non-navigable, into unfriendly, as group into minefield
+| target ships having difficulties during retreat:
 edit s 10 U 40 t lc U 41 U 42
-retr 40 nnnnh i
+| runs out of mobility
 edit s 40 M 5
+retr 40 nnnnh i
+| into construction zone 2,2
 retr 41 nuh i
+| into unfriendly -3,1
 edit s 42 L -4,2
 retr 42 ugggh i
+| as group into minefield -6,4
 edit s 10 U 43 t ms U 44
 fleet m 43/44
 edit s m L -4,4
 edit l -8:-6,4 M 100
 retr m gg i
+| missions for retreat to clear
 miss s 40/41/42 int .
 | target ships depth-charges: injured vs. depth-charged, depth-charged,
 | helpless, not helpless
@@ -99,25 +114,36 @@ retr 130 gg u
 | target land units bombs: bombed
 edit u 9 U 10 T cav
 lret 10 jhhuy b
-| target land units that want to retreat, but can't: destroyed,
-| loaded on ship, crewless, kidnapped, loaded on land unit, no mobility
-edit u 10 U 30 T inf
+| target land units that want to retreat, but can't:
+| destroyed
+edit u 10 U 30 T inf e 10
+| loaded on ship
 edit u 10 U 31 S 35
-edit u 10 U 32 U 33 U 35
-edit u 33 L -1,1
+| crewless
+edit u 10 U 32 m 0
+| kidnapped
+edit u 10 U 33 L -1,1
+| loaded on train
 edit u 10 U 34 Y 9
+| no mobility
+edit u 10 U 35 M 0
 lret 30/31/32/33/34/35 j b
-| target land units having difficulties during retreat: out of mobility,
-| into mountain, into foreign sector, as group into minefield
-edit u 10 U 40 U 41 U 42
+| target land units having difficulties during retreat:
+| runs out of mobility
+edit u 10 U 40 M 5
 lret 40 nu b
-edit u 40 M 5
+| into mountain 2,0
+edit u 10 U 41
 lret 41 jy b
+| into foreign sector -1,1
+edit u 10 U 42
 lret 42 g b
-edit u 10 U 43 T eng U 44
+| as group into minefield 0,0
+edit u 10 U 10 U 43 T eng U 44
 army m 43/44
 edit l 0:1,-1:0 O 1 M 100
 lret m yu b
+| missions for retreat to clear
 miss l 40/41/42 res .
 | target land units bombs: injured vs. bombed
 | five, to have a decent chance at getting both a hit and a miss
@@ -135,16 +161,9 @@ give g * ?des=f 2
 give s * ?des=f 100
 give p * ?des=f 100
 edit l * ?des#.&eff=0 e 100 m 127
-edit s * ?eff=20&uid#30 E 100
-edit s * ?mob=0&uid#35 M 127
-edit s * ?uid#32 m 10
-edit u * ?eff=10&uid#30 e 100
-edit u * ?mob=0&uid#35 M 127
-edit u * ?uid#32 m 10
 fleet a * ?own=1&uid#2
 fleet a 9
 army a * ?own=1&uid#2
-edit p * e 100 m 127
 || relations
 decl w 1 2
 decl w 2 1
@@ -152,6 +171,7 @@ decl a 2 3
 decl f 2 4
 || show initial state here to help maintainers
 map *
+cens * ?des#.
 ship *
 retr *
 land *
