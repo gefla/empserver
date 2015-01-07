@@ -1108,6 +1108,12 @@
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#30) in 0,2 for 10 damage.
     Play#0 output Play#0 1 	cs   cargo ship (#30) takes 8
+    Play#0 output Play#0 1 cs   cargo ship (#30) was damaged,
+    Play#0 output Play#0 1 but it died in the attack, and so couldn't retreat!
+    Play#0 output Play#0 1 cs   cargo ship (#32) retreated with a damaged friend,
+    Play#0 output Play#0 1 but had no crew, and couldn't retreat!
+    Play#0 output Play#0 1 cs   cargo ship (#35) retreated with a damaged friend,
+    Play#0 output Play#0 1 but had no mobility, and couldn't retreat!
     Play#0 output Play#0 1 	cs   cargo ship (#30) sunk!
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#33) in 2,2 for 8 damage.
     Play#0 output Play#0 1 	cs   cargo ship (#33) takes 6
@@ -1256,6 +1262,13 @@
     Play#0 output Play#0 1 1 planes spotted over 0,2
     Play#0 output Play#0 1 1 pinpoint bombing raid did 44 damage to cav  cavalry #30
     Play#0 output Play#0 1 	cav  cavalry #30 takes 17
+    Play#0 output Play#0 1 cav  cavalry #30 was bombed,
+    Play#0 output Play#0 1 but it died in the attack, and so couldn't retreat!
+    Play#0 output Play#0 1 cav  cavalry #31 retreated with a bombed friend, and ended up at 2,2
+    Play#0 output Play#0 1 cav  cavalry #32 retreated with a bombed friend, and ended up at 2,2
+    Play#0 output Play#0 1 cav  cavalry #34 retreated with a bombed friend, and ended up at 2,2
+    Play#0 output Play#0 1 cav  cavalry #35 retreated with a bombed friend,
+    Play#0 output Play#0 1 but had no mobility, and couldn't retreat!
     Play#0 output Play#0 1 0,2 takes 4% collateral damage
     Play#0 output Play#0 1 	tra  train #9 takes 1
     Play#0 output Play#0 1 1 planes spotted over -1,1
@@ -1432,10 +1445,10 @@
     Play#0 output Play#0 1   2   27 cav  cavalry       4,0    g  100%  10 127 117   0  50  42%  0  0
     Play#0 output Play#0 1   2   28 cav  cavalry       2,2    g  100%  10 127 107   0  50  42%  0  0
     Play#0 output Play#0 1   2   29 cav  cavalry       3,1    g  100%  10 127 117   0  50  42%  0  0
-    Play#0 output Play#0 1   2   31 cav  cavalry       0,2    c  100%  10 127 127   0  50  42%  0  0   35S
-    Play#0 output Play#0 1   2   32 cav  cavalry       0,2    c  100%   0 127 127   0  50  42%  0  0
+    Play#0 output Play#0 1   2   31 cav  cavalry       2,2    c  100%  10 127 107   0  50  42%  0  0   35S
+    Play#0 output Play#0 1   2   32 cav  cavalry       2,2    c  100%   0 127 107   0  50  42%  0  0
     Play#0 output Play#0 1   2   33 cav  cavalry       1,1        85%   9 127  98   0  50  42%  0  0
-    Play#0 output Play#0 1   2   34 cav  cavalry       0,2    c  100%  10 127 127   0  50  42%  0  0    9L
+    Play#0 output Play#0 1   2   34 cav  cavalry       2,2    c  100%  10 127 107   0  50  42%  0  0    9L
     Play#0 output Play#0 1   2   35 cav  cavalry       0,2    c  100%  10 127   0   0  50  42%  0  0
     Play#0 output Play#0 1   2   40 cav  cavalry       2,2        91%   9 127 -14   0  50  42%  0  0
     Play#0 output Play#0 1   2   41 cav  cavalry       3,1        89%   9 127 103   0  50  42%  0  0
@@ -1460,9 +1473,6 @@
     Play#0 output Play#0 1   2   25 cav  cavalry        2,2    g g          Yes      b
     Play#0 output Play#0 1   2   28 cav  cavalry        2,2    g g          Yes      i
     Play#0 output Play#0 1   2   29 cav  cavalry        3,1    g g          Yes      b
-    Play#0 output Play#0 1   2   31 cav  cavalry        0,2    c j          Yes      b
-    Play#0 output Play#0 1   2   32 cav  cavalry        0,2    c j          Yes      b
-    Play#0 output Play#0 1   2   34 cav  cavalry        0,2    c j          Yes      b
     Play#0 output Play#0 1   2   35 cav  cavalry        0,2    c j          Yes      b
     Play#0 output Play#0 1   2   40 cav  cavalry        2,2      u                   b
     Play#0 output Play#0 1   2   41 cav  cavalry        3,1      y                   b
@@ -1472,7 +1482,7 @@
     Play#0 output Play#0 1   2   62 cav  cavalry        0,0      nj                  ihb
     Play#0 output Play#0 1   2   63 cav  cavalry        0,0      nj                  ihb
     Play#0 output Play#0 1   2   64 cav  cavalry        0,0      nj                  ihb
-    Play#0 output Play#0 1 20 units
+    Play#0 output Play#0 1 17 units
     Play#0 output Play#0 6 0 636
     Play#0 input miss l * ?mission#0 q
     Play#0 command mission

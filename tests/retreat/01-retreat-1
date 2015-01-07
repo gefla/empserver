@@ -42,7 +42,6 @@ lret
 | sunk
 | as group (fleet c): 30 sinks, 32 crewless, 35 no mobility
 fire se -2,2 30
-| BUG: group does not retreat
 __cmd added -2 -2 0
 | in construction zone 2,2
 fire se -2,2 33
@@ -143,7 +142,9 @@ board 130 5
 bomb 30 . p -2,2 jh
 l
 30
-| BUG: group does not retreat
+| BUG: 31 retreats anyway
+| BUG: 32 retreats anyway
+| BUG: 34 retreats anyway
 __cmd added -1 -2 0
 | kidnapped in -1,1
 bomb 30 . p -2,2 uh

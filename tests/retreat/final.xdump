@@ -119,10 +119,10 @@ uid owner xloc yloc type effic mobil off tech opx opy mission radius army ship h
 28 2 2 2 0 100 107 0 50 0 0 none 0 "g" -1 127 42 (group injured) "g" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
 29 2 3 1 0 100 117 0 50 0 0 none 0 "g" -1 127 42 (group bombed) "g" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
 30 0 0 2 0 0 105 0 50 0 0 none 0 "c" -1 127 42 (group bombed) "j" 0 9 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
-31 2 0 2 0 100 127 0 50 0 0 none 0 "c" 35 127 42 (group bombed) "j" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
-32 2 0 2 0 100 127 0 50 0 0 none 0 "c" -1 127 42 (group bombed) "j" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
+31 2 2 2 0 100 107 0 50 0 0 none 0 "c" 35 127 42 () "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
+32 2 2 2 0 100 107 0 50 0 0 none 0 "c" -1 127 42 () "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
 33 2 1 1 0 85 98 0 50 0 0 none 0 "" -1 127 42 () "" 0 9 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
-34 2 0 2 0 100 127 0 50 0 0 none 0 "c" -1 127 42 (group bombed) "j" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 9 0
+34 2 2 2 0 100 107 0 50 0 0 none 0 "c" -1 127 42 () "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 9 0
 35 2 0 2 0 100 0 0 50 0 0 none 0 "c" -1 127 42 (group bombed) "j" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
 40 2 2 2 0 91 -14 0 50 1 1 none 3 "" -1 127 42 (bombed) "u" 0 9 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
 41 2 3 1 0 89 103 0 50 1 1 none 3 "" -1 127 42 (bombed) "y" 0 9 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
