@@ -691,6 +691,7 @@
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 32)          2    completely  lc   light cruiser (#32)
     Play#1 output Play#1 1 (# 35)          2    completely  lc   light cruiser (#35)
+    Play#1 output Play#1 1 (# 36)          2    completely  lc   light cruiser (#36)
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (#  9)          2    completely  tra  train #9
     Play#1 output Play#1 1 (# 30)          2     minimally  cav  cavalry #30
@@ -746,7 +747,6 @@
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 40)          2    completely  cav  cavalry #40
     Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
@@ -757,7 +757,6 @@
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 40)          2    completely  cav  cavalry #40
     Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
@@ -781,7 +780,6 @@
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 40)          2    completely  cav  cavalry #40
     Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
@@ -792,7 +790,6 @@
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 40)          2    completely  cav  cavalry #40
     Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
@@ -819,7 +816,6 @@
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
     Play#1 output Play#1 1 (# 42)          2    completely  cav  cavalry #42
@@ -829,7 +825,6 @@
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
     Play#1 output Play#1 1 (# 42)          2    completely  cav  cavalry #42
@@ -852,7 +847,6 @@
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 42)          2    completely  cav  cavalry #42
     Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
@@ -861,7 +855,6 @@
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 42)          2    completely  cav  cavalry #42
     Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
@@ -886,7 +879,6 @@
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 42)          2    completely  cav  cavalry #42
     Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
@@ -895,7 +887,6 @@
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 42)          2    completely  cav  cavalry #42
     Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
@@ -946,12 +937,14 @@
     Play#1 output Play#1 1 flying over agribusiness at 1,-1
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
+    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
     Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 1 (# 45)          2    completely  tra  train #45
     Play#1 output Play#1 1 (# 47)          2    completely  cav  cavalry #47
     Play#1 output Play#1 4 Bomb what? (ship, plane, land unit, efficiency, commodities)
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
+    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
     Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 1 (# 45)          2    completely  tra  train #45
     Play#1 output Play#1 1 (# 47)          2    completely  cav  cavalry #47
@@ -978,18 +971,14 @@
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 42)          2    completely  cav  cavalry #42
-    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
     Play#1 output Play#1 4 Bomb what? (ship, plane, land unit, efficiency, commodities)
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 10)          2    completely  cav  cavalry #10
-    Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 1 (# 37)          2    completely  tra  train #37
     Play#1 output Play#1 1 (# 42)          2    completely  cav  cavalry #42
-    Play#1 output Play#1 1 (# 43)          2    completely  eng  engineer #43
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 10
     Play#1 output Play#1 1 71% hitchance...Blam
@@ -1018,7 +1007,6 @@
     Play#1 output Play#1 1 (# 26)          2    completely  cav  cavalry #26
     Play#1 output Play#1 1 (# 27)          2    completely  cav  cavalry #27
     Play#1 output Play#1 1 (# 28)          2    completely  cav  cavalry #28
-    Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
     Play#1 output Play#1 4 Bomb what? (ship, plane, land unit, efficiency, commodities)
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
@@ -1028,7 +1016,6 @@
     Play#1 output Play#1 1 (# 26)          2    completely  cav  cavalry #26
     Play#1 output Play#1 1 (# 27)          2    completely  cav  cavalry #27
     Play#1 output Play#1 1 (# 28)          2    completely  cav  cavalry #28
-    Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 10
     Play#1 output Play#1 1 73% hitchance...Blam
@@ -1058,7 +1045,6 @@
     Play#1 output Play#1 1 (# 26)          2    completely  cav  cavalry #26
     Play#1 output Play#1 1 (# 27)          2    completely  cav  cavalry #27
     Play#1 output Play#1 1 (# 28)          2    completely  cav  cavalry #28
-    Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
     Play#1 output Play#1 4 Bomb what? (ship, plane, land unit, efficiency, commodities)
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
@@ -1068,10 +1054,9 @@
     Play#1 output Play#1 1 (# 26)          2    completely  cav  cavalry #26
     Play#1 output Play#1 1 (# 27)          2    completely  cav  cavalry #27
     Play#1 output Play#1 1 (# 28)          2    completely  cav  cavalry #28
-    Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 10
-    Play#1 output Play#1 1 75% hitchance...BLAM
+    Play#1 output Play#1 1 76% hitchance...BLAM
     Play#1 output Play#1 1 	cav  cavalry #24 takes 1
     Play#1 output Play#1 6 0 547
     Play#1 input bomb 30 . p -3,1 h
@@ -1128,7 +1113,6 @@
     Play#1 output Play#1 1 (# 26)          2    completely  cav  cavalry #26
     Play#1 output Play#1 1 (# 27)          2    completely  cav  cavalry #27
     Play#1 output Play#1 1 (# 28)          2    completely  cav  cavalry #28
-    Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
     Play#1 output Play#1 4 Bomb what? (ship, plane, land unit, efficiency, commodities)
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
@@ -1137,7 +1121,6 @@
     Play#1 output Play#1 1 (# 26)          2    completely  cav  cavalry #26
     Play#1 output Play#1 1 (# 27)          2    completely  cav  cavalry #27
     Play#1 output Play#1 1 (# 28)          2    completely  cav  cavalry #28
-    Play#1 output Play#1 1 (# 41)          2    completely  cav  cavalry #41
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 25
     Play#1 output Play#1 1 71% hitchance...Blam
@@ -1165,7 +1148,6 @@
     Play#1 output Play#1 1 flying over agribusiness at 0,0
     Play#1 output Play#1 1 Target sector is a completely constructed agribusiness
     Play#1 output Play#1 1  #          owner           eff       type
-    Play#1 output Play#1 1 (# 46)          2    completely  cav  cavalry #46
     Play#1 output Play#1 1 (# 60)          2    completely  cav  cavalry #60
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
@@ -1174,7 +1156,6 @@
     Play#1 output Play#1 4 Bomb what? (ship, plane, land unit, efficiency, commodities)
     Play#1 input l
     Play#1 output Play#1 1  #          owner           eff       type
-    Play#1 output Play#1 1 (# 46)          2    completely  cav  cavalry #46
     Play#1 output Play#1 1 (# 60)          2    completely  cav  cavalry #60
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
@@ -1184,7 +1165,6 @@
     Play#1 input 60
     Play#1 output Play#1 1 50% hitchance...Blam-BLAM
     Play#1 output Play#1 1  #          owner           eff       type
-    Play#1 output Play#1 1 (# 46)          2    completely  cav  cavalry #46
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
     Play#1 output Play#1 1 (# 63)          2    completely  cav  cavalry #63
@@ -1193,7 +1173,6 @@
     Play#1 input 61
     Play#1 output Play#1 1 50% hitchance...thud
     Play#1 output Play#1 1  #          owner           eff       type
-    Play#1 output Play#1 1 (# 46)          2    completely  cav  cavalry #46
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
     Play#1 output Play#1 1 (# 63)          2    completely  cav  cavalry #63
@@ -1202,7 +1181,6 @@
     Play#1 input 62
     Play#1 output Play#1 1 50% hitchance...thud
     Play#1 output Play#1 1  #          owner           eff       type
-    Play#1 output Play#1 1 (# 46)          2    completely  cav  cavalry #46
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
     Play#1 output Play#1 1 (# 63)          2    completely  cav  cavalry #63
@@ -1211,7 +1189,6 @@
     Play#1 input 63
     Play#1 output Play#1 1 50% hitchance...thud
     Play#1 output Play#1 1  #          owner           eff       type
-    Play#1 output Play#1 1 (# 46)          2    completely  cav  cavalry #46
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
     Play#1 output Play#1 1 (# 63)          2    completely  cav  cavalry #63
@@ -1248,80 +1225,94 @@
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#30) in 0,2 for 10 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#30) takes 6
-    Play#0 output Play#0 1 lc   light cruiser (#32) retreated with a damaged friend,
-    Play#0 output Play#0 1 but had no crew, and couldn't retreat!
-    Play#0 output Play#0 1 lc   light cruiser (#35) retreated with a damaged friend,
-    Play#0 output Play#0 1 but had no mobility, and couldn't retreat!
-    Play#0 output Play#0 1 lc   light cruiser (#36) retreated with a damaged friend, and ended up at 1,3
     Play#0 output Play#0 1 	lc   light cruiser (#30) sunk!
+    Play#0 output Play#0 1 lc   light cruiser (#32) is crewless, and can't retreat!
+    Play#0 output Play#0 1 lc   light cruiser (#35) has no mobility, and can't retreat!
+    Play#0 output Play#0 1 lc   light cruiser (#36) is on the trading block, and can't retreat!
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#31) in 4,0 for 8 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#31) takes 5
-    Play#0 output Play#0 1 lc   light cruiser (#31) was damaged,
-    Play#0 output Play#0 1 but was landlocked, and couldn't retreat!
+    Play#0 output Play#0 1 lc   light cruiser (#31) is landlocked, and can't retreat!
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#33) in 2,2 for 8 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#33) takes 5
-    Play#0 output Play#0 1 lc   light cruiser (#33) was damaged,
-    Play#0 output Play#0 1 but was caught in a construction zone, and couldn't retreat!
+    Play#0 output Play#0 1 lc   light cruiser (#33) is caught in a construction zone, and can't retreat!
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#34) in 3,1 for 10 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#34) takes 6
-    Play#0 output Play#0 1 lc   light cruiser (#34) was damaged,
-    Play#0 output Play#0 1 but was landlocked, and couldn't retreat!
+    Play#0 output Play#0 1 lc   light cruiser (#34) is landlocked, and can't retreat!
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#40) in 0,2 for 14 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#40) takes 9
-    Play#0 output Play#0 1 lc   light cruiser (#40) was damaged,
-    Play#0 output Play#0 1 but ran out of mobility, and couldn't retreat fully!
+    Play#0 output Play#0 1 lc   light cruiser (#40) retreats along path nn
+    Play#0 output Play#0 1 lc   light cruiser (#40) is out of mobility & stays in 1,3
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#41) in 0,2 for 6 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#41) takes 4
-    Play#0 output Play#0 1 lc   light cruiser (#41) was damaged,
-    Play#0 output Play#0 1 but could not retreat to 2,2!
+    Play#0 output Play#0 1 lc   light cruiser (#41) retreats along path nu
+    Play#0 output Play#0 1 can't go to 2,2
+    Play#0 output Play#0 1 lc   light cruiser (#41) stopped at 1,3
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#42) in -4,2 for 8 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#42) takes 5
-    Play#0 output Play#0 1 lc   light cruiser (#42) was damaged,
-    Play#0 output Play#0 1 but could not retreat to -3,1!
+    Play#0 output Play#0 1 lc   light cruiser (#42) retreats along path ug
+    Play#0 output Play#0 1 can't go to -3,1
+    Play#0 output Play#0 1 lc   light cruiser (#42) stopped at -4,2
     Play#0 output Play#0 1 Country #1 shelled ms   minesweeper (#44) in -4,4 for 11 damage.
     Play#0 output Play#0 1 	ms   minesweeper (#44) takes 10
-    Play#0 output Play#0 1 ms   minesweeper (#44) cleared 3 mines in -6,4 while retreating
-    Play#0 output Play#0 1 ms   minesweeper (#44) was damaged,
-    Play#0 output Play#0 1 and hit a mine in -6,4 while retreating!
-    Play#0 output Play#0 1 	ms   minesweeper (#44) takes 29
-    Play#0 output Play#0 1 ms   minesweeper (#43) cleared 2 mines in -6,4 while retreating
-    Play#0 output Play#0 1 ms   minesweeper (#43) retreated with a damaged friend, and ended up at -8,4
+    Play#0 output Play#0 1 ms   minesweeper (#44) retreats along path gg
+    Play#0 output Play#0 1 ms   minesweeper (#43) retreats with her
+    Play#0 output Play#0 1 Approaching minefield at -6,4...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Kawhomp! Mine detected in -6,4!
+    Play#0 output Play#0 1 	ms   minesweeper (#44) takes 14
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Kawhomp! Mine detected in -6,4!
+    Play#0 output Play#0 1 	ms   minesweeper (#44) takes 13
+    Play#0 output Play#0 1 Kawhomp! Mine detected in -6,4!
+    Play#0 output Play#0 1 	ms   minesweeper (#43) takes 13
+    Play#0 output Play#0 1 ms   minesweeper (#44) stopped at -6,4
+    Play#0 output Play#0 1 ms   minesweeper (#43) stopped at -6,4
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#46) in 5,1 for 11 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#46) takes 7
-    Play#0 output Play#0 1 lc   light cruiser (#46) was damaged,
-    Play#0 output Play#0 1 but could not retreat to 4,0!
-    Play#0 output Play#0 1 pt   patrol boat (#47) retreated with a damaged friend, and ended up at 4,0
+    Play#0 output Play#0 1 lc   light cruiser (#46) retreats along path y
+    Play#0 output Play#0 1 pt   patrol boat (#47) retreats with her
+    Play#0 output Play#0 1 lc   light cruiser (#46) is too large to fit into the canal system at 4,0 & stays in 5,1
+    Play#0 output Play#0 1 pt   patrol boat (#47) stopped at 4,0
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#10) in 0,2 for 11 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#10) takes 7
-    Play#0 output Play#0 1 lc   light cruiser (#10) was damaged, and retreated to 1,3
+    Play#0 output Play#0 1 lc   light cruiser (#10) retreats along path nh
+    Play#0 output Play#0 1 lc   light cruiser (#10) stopped at 1,3
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#10) in 1,3 for 6 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#10) takes 4
-    Play#0 output Play#0 1 lc   light cruiser (#10) was damaged, and retreated to 1,3
+    Play#0 output Play#0 1 lc   light cruiser (#10) retreats along path h
+    Play#0 output Play#0 1 lc   light cruiser (#10) stopped at 1,3
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#10) in 1,3 for 6 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#10) takes 4
-    Play#0 output Play#0 1 lc   light cruiser (#10) was damaged, and retreated to 4,4
+    Play#0 output Play#0 1 lc   light cruiser (#10) retreats along path nj
+    Play#0 output Play#0 1 lc   light cruiser (#10) stopped at 4,4
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#11) in 0,2 for 11 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#11) takes 7
-    Play#0 output Play#0 1 lc   light cruiser (#11) was fired upon with no one able to defend it, and retreated to 1,3
+    Play#0 output Play#0 1 lc   light cruiser (#11) retreats along path n
+    Play#0 output Play#0 1 lc   light cruiser (#11) stopped at 1,3
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#20) in -3,1 for 6 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#20) takes 4
     Play#0 output Play#0 1 Return fire hit sector -2,-2 for 8 damage.
     Play#0 output Play#0 1 Country #1 shelled lc   light cruiser (#25) in -4,2 for 11 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#25) takes 7
-    Play#0 output Play#0 1 lc   light cruiser (#25) was damaged, and retreated to -8,2
-    Play#0 output Play#0 1 lc   light cruiser (#26) retreated with a damaged friend, and ended up at -4,4
-    Play#0 output Play#0 1 lc   light cruiser (#27) retreated with a damaged friend, and ended up at -4,4
-    Play#0 output Play#0 1 lc   light cruiser (#28) retreated with a damaged friend, and ended up at -8,2
-    Play#0 output Play#0 1 lc   light cruiser (#29) retreated with a damaged friend, and ended up at 1,3
+    Play#0 output Play#0 1 lc   light cruiser (#25) retreats along path gg
+    Play#0 output Play#0 1 lc   light cruiser (#28) retreats with her
+    Play#0 output Play#0 1 lc   light cruiser (#25) stopped at -8,2
+    Play#0 output Play#0 1 lc   light cruiser (#28) stopped at -8,2
     Play#0 output Play#0 1 Country #1 shelled sb   submarine (#50) in -5,1 for 42 damage.
     Play#0 output Play#0 1 	sb   submarine (#50) takes 33
-    Play#0 output Play#0 1 sb   submarine (#50) was damaged, and retreated to -9,1
+    Play#0 output Play#0 1 sb   submarine (#50) retreats along path gg
+    Play#0 output Play#0 1 sb   submarine (#50) stopped at -9,1
     Play#0 output Play#0 1 Country #1 shelled sb   submarine (#51) in -5,1 for 45 damage.
     Play#0 output Play#0 1 	sb   submarine (#51) takes 36
-    Play#0 output Play#0 1 sb   submarine (#51) was depth-charged, and retreated to -9,1
+    Play#0 output Play#0 1 sb   submarine (#51) retreats along path gg
+    Play#0 output Play#0 1 sb   submarine (#51) stopped at -9,1
     Play#0 output Play#0 1 Country #1 shelled sb   submarine (#52) in -5,1 for 34 damage.
     Play#0 output Play#0 1 	sb   submarine (#52) takes 27
-    Play#0 output Play#0 1 sb   submarine (#52) was fired upon with no one able to defend it, and retreated to -9,1
+    Play#0 output Play#0 1 sb   submarine (#52) retreats along path gg
+    Play#0 output Play#0 1 sb   submarine (#52) stopped at -9,1
     Play#0 output Play#0 1 1 dd   destroyer (#5) sighted at -5,1
     Play#0 output Play#0 1 1 dd   destroyer (#5) sighted at -6,0
     Play#0 output Play#0 1 Country #1 shelled sb   submarine (#53) in -4,-2 for 34 damage.
@@ -1332,38 +1323,46 @@
     Play#0 output Play#0 1 -6,2 takes 3% collateral damage
     Play#0 output Play#0 1 1 bombs did 40 damage to dd   destroyer (#61) at -6,2
     Play#0 output Play#0 1 	dd   destroyer (#61) takes 27
-    Play#0 output Play#0 1 dd   destroyer (#61) was damaged, and retreated to -4,4
+    Play#0 output Play#0 1 dd   destroyer (#61) retreats along path nn
+    Play#0 output Play#0 1 dd   destroyer (#61) stopped at -4,4
     Play#0 output Play#0 1 -6,2 takes 2% collateral damage
     Play#0 output Play#0 1 1 bombs did 48 damage to dd   destroyer (#62) at -6,2
     Play#0 output Play#0 1 	dd   destroyer (#62) takes 33
-    Play#0 output Play#0 1 dd   destroyer (#62) was damaged, and retreated to -4,4
+    Play#0 output Play#0 1 dd   destroyer (#62) retreats along path nn
+    Play#0 output Play#0 1 dd   destroyer (#62) stopped at -4,4
     Play#0 output Play#0 1 -6,2 takes 2% collateral damage
     Play#0 output Play#0 1 1 bombs did 64 damage to dd   destroyer (#63) at -6,2
     Play#0 output Play#0 1 	dd   destroyer (#63) takes 44
-    Play#0 output Play#0 1 dd   destroyer (#63) was damaged, and retreated to -4,4
+    Play#0 output Play#0 1 dd   destroyer (#63) retreats along path nn
+    Play#0 output Play#0 1 dd   destroyer (#63) stopped at -4,4
     Play#0 output Play#0 1 -6,2 takes 3% collateral damage
     Play#0 output Play#0 1 1 bombs did 48 damage to dd   destroyer (#64) at -6,2
     Play#0 output Play#0 1 	dd   destroyer (#64) takes 33
-    Play#0 output Play#0 1 dd   destroyer (#64) was damaged, and retreated to -4,4
+    Play#0 output Play#0 1 dd   destroyer (#64) retreats along path nn
+    Play#0 output Play#0 1 dd   destroyer (#64) stopped at -4,4
     Play#0 output Play#0 1 -6,2 takes 2% collateral damage
     Play#0 output Play#0 1 1 planes spotted over -4,2
     Play#0 output Play#0 1 1 planes spotted over -6,2
     Play#0 output Play#0 1 1 bombs did 60 damage to dd   destroyer (#65) at -6,2
     Play#0 output Play#0 1 	dd   destroyer (#65) takes 41
-    Play#0 output Play#0 1 dd   destroyer (#65) was bombed, and retreated to -4,4
+    Play#0 output Play#0 1 dd   destroyer (#65) retreats along path nn
+    Play#0 output Play#0 1 dd   destroyer (#65) stopped at -4,4
     Play#0 output Play#0 1 -6,2 takes 3% collateral damage
     Play#0 output Play#0 1 1 bombs did 48 damage to dd   destroyer (#66) at -6,2
     Play#0 output Play#0 1 	dd   destroyer (#66) takes 33
-    Play#0 output Play#0 1 dd   destroyer (#66) was bombed, and retreated to -4,4
+    Play#0 output Play#0 1 dd   destroyer (#66) retreats along path nn
+    Play#0 output Play#0 1 dd   destroyer (#66) stopped at -4,4
     Play#0 output Play#0 1 -6,2 takes 2% collateral damage
     Play#0 output Play#0 1 -6,2 takes 4% collateral damage
     Play#0 output Play#0 1 1 bombs did 44 damage to dd   destroyer (#68) at -6,2
     Play#0 output Play#0 1 	dd   destroyer (#68) takes 30
-    Play#0 output Play#0 1 dd   destroyer (#68) was bombed, and retreated to -4,4
+    Play#0 output Play#0 1 dd   destroyer (#68) retreats along path nn
+    Play#0 output Play#0 1 dd   destroyer (#68) stopped at -4,4
     Play#0 output Play#0 1 -6,2 takes 2% collateral damage
     Play#0 output Play#0 1 1 bombs did 52 damage to dd   destroyer (#69) at -6,2
     Play#0 output Play#0 1 	dd   destroyer (#69) takes 35
-    Play#0 output Play#0 1 dd   destroyer (#69) was bombed, and retreated to -4,4
+    Play#0 output Play#0 1 dd   destroyer (#69) retreats along path nn
+    Play#0 output Play#0 1 dd   destroyer (#69) stopped at -4,4
     Play#0 output Play#0 1 -6,2 takes 3% collateral damage
     Play#0 output Play#0 1 Incoming 1 missile sighted at -6,2...
     Play#0 output Play#0 1 ...Incoming 1 missile missed
@@ -1381,127 +1380,156 @@
     Play#0 output Play#0 1 ...Incoming 1 missile HIT!
     Play#0 output Play#0 1
     Play#0 output Play#0 1 	dd   destroyer (#83) takes 71
-    Play#0 output Play#0 1 dd   destroyer (#83) was damaged, and retreated to -4,4
+    Play#0 output Play#0 1 dd   destroyer (#83) retreats along path nn
+    Play#0 output Play#0 1 dd   destroyer (#83) stopped at -4,4
     Play#0 output Play#0 1 Incoming 1 missile sighted at -6,2...
     Play#0 output Play#0 1 ...Incoming 1 missile missed
     Play#0 output Play#0 1
     Play#0 output Play#0 1 -6,2 takes 6% collateral damage
     Play#0 output Play#0 1 sub in -1,3 torpedoed lc   light cruiser (#100) for 75 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#100) takes 50
-    Play#0 output Play#0 1 lc   light cruiser (#100) was hit by a torpedo, and retreated to 2,-6
+    Play#0 output Play#0 1 lc   light cruiser (#100) retreats along path nn
+    Play#0 output Play#0 1 lc   light cruiser (#100) stopped at 2,-6
     Play#0 output Play#0 1 Torpedo sighted @ -1,3 by lc   light cruiser (#101)
     Play#0 output Play#0 1 sub in -1,3 torpedoed lc   light cruiser (#102) for 44 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#102) takes 29
-    Play#0 output Play#0 1 lc   light cruiser (#102) was hit by a torpedo, and retreated to 2,-6
+    Play#0 output Play#0 1 lc   light cruiser (#102) retreats along path nn
+    Play#0 output Play#0 1 lc   light cruiser (#102) stopped at 2,-6
     Play#0 output Play#0 1 sub in -1,3 torpedoed lc   light cruiser (#103) for 95 damage.
     Play#0 output Play#0 1 	lc   light cruiser (#103) takes 63
-    Play#0 output Play#0 1 lc   light cruiser (#103) was hit by a torpedo, and retreated to 2,-6
+    Play#0 output Play#0 1 lc   light cruiser (#103) retreats along path nn
+    Play#0 output Play#0 1 lc   light cruiser (#103) stopped at 2,-6
     Play#0 output Play#0 1 Torpedo sighted @ -1,3 by lc   light cruiser (#104)
     Play#0 output Play#0 1 Sonar ping from -6,0 detected by sb   submarine (#120)!
-    Play#0 output Play#0 1 sb   submarine (#120) detected a sonar ping, and retreated to -9,1
+    Play#0 output Play#0 1 sb   submarine (#120) retreats along path gg
+    Play#0 output Play#0 1 sb   submarine (#120) stopped at -9,1
     Play#0 output Play#0 1 1 dd   destroyer (#5) sighted at -5,1
     Play#0 output Play#0 1 tt   troop transport (#130) is being approached by dd   destroyer (#5)...
     Play#0 output Play#0 1 1 (#1) lost 1 troops trying to board tt   troop transport (#130)
     Play#0 output Play#0 1 We lost 0 troops defending
-    Play#0 output Play#0 1 tt   troop transport (#130) was boarded, and retreated to -9,1
+    Play#0 output Play#0 1 tt   troop transport (#130) retreats along path gg
+    Play#0 output Play#0 1 tt   troop transport (#130) stopped at -9,1
     Play#0 output Play#0 1 1 planes spotted over 0,2
     Play#0 output Play#0 1 1 pinpoint bombing raid did 44 damage to cav  cavalry #30
     Play#0 output Play#0 1 	cav  cavalry #30 takes 17
-    Play#0 output Play#0 1 cav  cavalry #31 retreated with a bombed friend, and ended up at 2,2
-    Play#0 output Play#0 1 cav  cavalry #32 retreated with a bombed friend, and ended up at 2,2
-    Play#0 output Play#0 1 cav  cavalry #34 retreated with a bombed friend, and ended up at 2,2
-    Play#0 output Play#0 1 cav  cavalry #35 retreated with a bombed friend,
-    Play#0 output Play#0 1 but had no mobility, and couldn't retreat!
-    Play#0 output Play#0 1 cav  cavalry #36 retreated with a bombed friend, and ended up at 2,2
+    Play#0 output Play#0 1 cav  cavalry #31 is on a ship, and can't retreat!
+    Play#0 output Play#0 1 cav  cavalry #32 has no mil on it to guide it, and can't retreat!
+    Play#0 output Play#0 1 cav  cavalry #34 is on a unit, and can't retreat!
+    Play#0 output Play#0 1 cav  cavalry #35 has no mobility, and can't retreat!
+    Play#0 output Play#0 1 cav  cavalry #36 is on the trading block, and can't retreat!
     Play#0 output Play#0 1 0,2 takes 4% collateral damage
     Play#0 output Play#0 1 	tra  train #9 takes 1
     Play#0 output Play#0 1 1 planes spotted over -1,1
     Play#0 output Play#0 1 1 pinpoint bombing raid did 40 damage to cav  cavalry #33
     Play#0 output Play#0 1 	cav  cavalry #33 takes 15
-    Play#0 output Play#0 1 cav  cavalry #33 was bombed, and retreated to 1,1
+    Play#0 output Play#0 1 cav  cavalry #33 has been kidnapped by 1, and can't retreat!
     Play#0 output Play#0 1 1 pinpoint bombing raid did 24 damage to tra  train #37
     Play#0 output Play#0 1 	tra  train #37 takes 14
-    Play#0 output Play#0 1 tra  train #37 was bombed,
-    Play#0 output Play#0 1 but could not retreat to 3,1!
+    Play#0 output Play#0 1 tra  train #37 is stuck off the rail system, and can't retreat!
     Play#0 output Play#0 1 1,1 takes 2% collateral damage
+    Play#0 output Play#0 1 1 planes spotted over -1,1
     Play#0 output Play#0 1 1 pinpoint bombing raid did 24 damage to cav  cavalry #40
     Play#0 output Play#0 1 	cav  cavalry #40 takes 9
-    Play#0 output Play#0 1 cav  cavalry #40 was bombed,
-    Play#0 output Play#0 1 but ran out of mobility, and couldn't retreat fully!
+    Play#0 output Play#0 1 cav  cavalry #40 retreats along path nu
+    Play#0 output Play#0 1 cav  cavalry #40 is out of mobility & stays in 2,2
     Play#0 output Play#0 1 1,1 takes 2% collateral damage
+    Play#0 output Play#0 1 1 planes spotted over -1,1
     Play#0 output Play#0 1 1 planes spotted over 1,1
     Play#0 output Play#0 1 1 pinpoint bombing raid did 28 damage to cav  cavalry #41
     Play#0 output Play#0 1 	cav  cavalry #41 takes 11
-    Play#0 output Play#0 1 cav  cavalry #41 was bombed,
-    Play#0 output Play#0 1 but could not retreat to 2,0!
+    Play#0 output Play#0 1 cav  cavalry #41 retreats along path jy
+    Play#0 output Play#0 1 cav  cavalry #41 stopped at 2,0
     Play#0 output Play#0 1 1,1 takes 3% collateral damage
     Play#0 output Play#0 1 	tra  train #37 takes 1
+    Play#0 output Play#0 1 1 planes spotted over -1,1
     Play#0 output Play#0 1 1 pinpoint bombing raid did 36 damage to cav  cavalry #42
     Play#0 output Play#0 1 	cav  cavalry #42 takes 14
-    Play#0 output Play#0 1 cav  cavalry #42 was bombed,
-    Play#0 output Play#0 1 but could not retreat to -1,1!
+    Play#0 output Play#0 1 cav  cavalry #42 retreats along path g
+    Play#0 output Play#0 1 can't go to -1,1
+    Play#0 output Play#0 1 cav  cavalry #42 stopped at 1,1
     Play#0 output Play#0 1 1,1 takes 4% collateral damage
     Play#0 output Play#0 1 	tra  train #37 takes 1
+    Play#0 output Play#0 1 1 planes spotted over -1,1
     Play#0 output Play#0 1 1 planes spotted over 1,1
     Play#0 output Play#0 1 Flak! Firing flak guns from unit eng  engineer #44 (aa rating 1)
     Play#0 output Play#0 1 1 pinpoint bombing raid did 40 damage to eng  engineer #44
     Play#0 output Play#0 1 	eng  engineer #44 takes 10
-    Play#0 output Play#0 1 eng  engineer #44 was bombed, and retreated to 1,-1
+    Play#0 output Play#0 1 eng  engineer #44 retreats along path yu
+    Play#0 output Play#0 1 eng  engineer #43 retreats with them
+    Play#0 output Play#0 1 Approaching minefield at 0,0...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 Sweep...
+    Play#0 output Play#0 1 eng  engineer #44 stopped at 1,-1
+    Play#0 output Play#0 1 eng  engineer #43 stopped at 1,-1
     Play#0 output Play#0 1 1,1 takes 4% collateral damage
     Play#0 output Play#0 1 	tra  train #37 takes 1
+    Play#0 output Play#0 1 1 planes spotted over -1,1
     Play#0 output Play#0 1 1 planes spotted over 0,-2
     Play#0 output Play#0 1 1 pinpoint bombing raid did 28 damage to tra  train #45
     Play#0 output Play#0 1 	tra  train #45 takes 16
-    Play#0 output Play#0 1 tra  train #45 was bombed,
-    Play#0 output Play#0 1 but could not retreat to 0,0!
-    Play#0 output Play#0 1 cav  cavalry #46 retreated with a bombed friend,
-    Play#0 output Play#0 1 and hit a mine in 0,0 while retreating!
-    Play#0 output Play#0 1 	cav  cavalry #46 takes 8
+    Play#0 output Play#0 1 tra  train #45 retreats along path nb
+    Play#0 output Play#0 1 cav  cavalry #46 can't rail-march with the leading train, and can't retreat!
+    Play#0 output Play#0 1 no rail system in 0,0
+    Play#0 output Play#0 1 tra  train #45 stopped at 1,-1
     Play#0 output Play#0 1 0,-2 takes 3% collateral damage
     Play#0 output Play#0 1 1 planes spotted over 0,0
     Play#0 output Play#0 1 1 planes spotted over 1,-1
     Play#0 output Play#0 1 1 pinpoint bombing raid did 24 damage to cav  cavalry #47
     Play#0 output Play#0 1 	cav  cavalry #47 takes 9
-    Play#0 output Play#0 1 cav  cavalry #47 was bombed,
-    Play#0 output Play#0 1 but could not retreat to -1,-1!
-    Play#0 output Play#0 1 spy  infiltrator #48 retreated with a bombed friend,
-    Play#0 output Play#0 1 but could not retreat to -1,-1!
+    Play#0 output Play#0 1 cav  cavalry #47 retreats along path gh
+    Play#0 output Play#0 1 spy  infiltrator #48 retreats with them
+    Play#0 output Play#0 1 cav  cavalry #47 can't go to -1,-1 & stays in 1,-1
+    Play#0 output Play#0 1 spy  infiltrator #48 stopped at -1,-1
     Play#0 output Play#0 1 1,-1 takes 2% collateral damage
     Play#0 output Play#0 1 1 planes spotted over 1,1
     Play#0 output Play#0 1 1 pinpoint bombing raid did 44 damage to cav  cavalry #10
     Play#0 output Play#0 1 	cav  cavalry #10 takes 17
-    Play#0 output Play#0 1 cav  cavalry #10 was bombed, and retreated to 3,1
+    Play#0 output Play#0 1 cav  cavalry #10 retreats along path jh
+    Play#0 output Play#0 1 cav  cavalry #10 stopped at 3,1
     Play#0 output Play#0 1 1,1 takes 4% collateral damage
     Play#0 output Play#0 1 	tra  train #37 takes 1
     Play#0 output Play#0 1 1 pinpoint bombing raid did 36 damage to cav  cavalry #10
-    Play#0 output Play#0 1 	cav  cavalry #10 takes 14
-    Play#0 output Play#0 1 cav  cavalry #10 was bombed, and retreated to 3,1
+    Play#0 output Play#0 1 	cav  cavalry #10 takes 27
+    Play#0 output Play#0 1 cav  cavalry #10 retreats along path h
+    Play#0 output Play#0 1 cav  cavalry #10 stopped at 3,1
     Play#0 output Play#0 1 3,1 takes 4% collateral damage
+    Play#0 output Play#0 1 	cav  cavalry #10 takes 1
+    Play#0 output Play#0 1 1 planes spotted over -1,1
     Play#0 output Play#0 1 1 pinpoint bombing raid did 40 damage to cav  cavalry #10
-    Play#0 output Play#0 1 	cav  cavalry #10 takes 15
-    Play#0 output Play#0 1 cav  cavalry #10 was bombed,
-    Play#0 output Play#0 1 but could not retreat to 3,-1!
+    Play#0 output Play#0 1 	cav  cavalry #10 takes 30
+    Play#0 output Play#0 1 cav  cavalry #10 retreats along path uy
+    Play#0 output Play#0 1 cav  cavalry #10 stopped at 3,-1
     Play#0 output Play#0 1 3,1 takes 4% collateral damage
+    Play#0 output Play#0 1 1 planes spotted over -1,1
     Play#0 output Play#0 1 1 planes spotted over 3,1
     Play#0 output Play#0 1 1 pinpoint bombing raid did 24 damage to cav  cavalry #25
     Play#0 output Play#0 1 	cav  cavalry #25 takes 9
-    Play#0 output Play#0 1 cav  cavalry #25 was bombed, and retreated to 2,2
-    Play#0 output Play#0 1 cav  cavalry #26 retreated with a bombed friend, and ended up at 4,0
-    Play#0 output Play#0 1 cav  cavalry #27 retreated with a bombed friend, and ended up at 4,0
-    Play#0 output Play#0 1 cav  cavalry #28 retreated with a bombed friend, and ended up at 2,2
-    Play#0 output Play#0 1 cav  cavalry #29 retreated with a bombed friend, and ended up at 3,1
+    Play#0 output Play#0 1 cav  cavalry #25 retreats along path bh
+    Play#0 output Play#0 1 cav  cavalry #28 retreats with them
+    Play#0 output Play#0 1 cav  cavalry #25 stopped at 2,2
+    Play#0 output Play#0 1 cav  cavalry #28 stopped at 2,2
     Play#0 output Play#0 1 3,1 takes 2% collateral damage
+    Play#0 output Play#0 1 1 planes spotted over -1,1
     Play#0 output Play#0 1 1 planes spotted over 0,0
     Play#0 output Play#0 1 1 pinpoint bombing raid did 72 damage to cav  cavalry #60
     Play#0 output Play#0 1 	cav  cavalry #60 takes 27
-    Play#0 output Play#0 1 cav  cavalry #60 was damaged, and retreated to 3,1
+    Play#0 output Play#0 1 cav  cavalry #60 retreats along path nj
+    Play#0 output Play#0 1 cav  cavalry #60 stopped at 3,1
     Play#0 output Play#0 1 0,0 takes 7% collateral damage
     Play#0 output Play#0 1 0,0 takes 4% collateral damage
     Play#0 output Play#0 1 0,0 takes 3% collateral damage
     Play#0 output Play#0 1 0,0 takes 4% collateral damage
     Play#0 output Play#0 1 1 pinpoint bombing raid did 68 damage to cav  cavalry #64
     Play#0 output Play#0 1 	cav  cavalry #64 takes 26
-    Play#0 output Play#0 1 cav  cavalry #64 was damaged, and retreated to 3,1
+    Play#0 output Play#0 1 cav  cavalry #64 retreats along path nj
+    Play#0 output Play#0 1 cav  cavalry #64 stopped at 3,1
     Play#0 output Play#0 1 0,0 takes 7% collateral damage
     Play#0 output Play#0 6 0 640
     Play#0 input ship *
@@ -1520,35 +1548,35 @@
     Play#0 output Play#0 1   2   11 lc   light cruis    1,3        93%   0  10   0   0  0  0  0  0 105   45
     Play#0 output Play#0 1   2   20 lc   light cruis   -3,1        96%   0   9   0   0  0  0  0  0 122   45
     Play#0 output Play#0 1   1   24 lc   light cruis   -4,2    g  100%   0  10   0   0  0  0  0  0 127   45
-    Play#0 output Play#0 1   2   25 lc   light cruis   -8,2    g   93%   0   9   0   0  0  0  0  0  93   45
-    Play#0 output Play#0 1   2   26 lc   light cruis   -4,4    g  100%   0  10   0   0  0  0  0  0 103   45
-    Play#0 output Play#0 1   2   27 lc   light cruis   -4,4    g  100%   0  10   0   0  0  0  0  0 103   45
+    Play#0 output Play#0 1   2   25 lc   light cruis   -8,2    g   93%   0   9   0   0  0  0  0  0  94   45
+    Play#0 output Play#0 1   2   26 lc   light cruis   -4,2    g  100%   0  10   0   0  0  0  0  0 127   45
+    Play#0 output Play#0 1   2   27 lc   light cruis   -4,2    g  100%   0  10   0   0  0  0  0  0 127   45
     Play#0 output Play#0 1   2   28 lc   light cruis   -8,2    g  100%   0  10   0   0  0  0  0  0 103   45
-    Play#0 output Play#0 1   2   29 lc   light cruis    1,3    g  100%   0  10   0   0  0  0  0  0 103   45
+    Play#0 output Play#0 1   2   29 lc   light cruis    5,3    g  100%   0  10   0   0  0  0  0  0 127   45
     Play#0 output Play#0 1   2   31 lc   light cruis    4,0        95%   0   9   0   0  0  0  0  0 121   45
     Play#0 output Play#0 1   2   32 lc   light cruis    0,2    c  100%   0   0   0   0  0  0  0  0 127   45
     Play#0 output Play#0 1   2   33 lc   light cruis    2,2        95%   0   9   0   0  0  0  0  0 121   45
     Play#0 output Play#0 1   2   34 lc   light cruis    3,1        94%   0  10   0   0  0  0  0  0 120   45
     Play#0 output Play#0 1   2   35 lc   light cruis    0,2    c  100%   0  10   0   0  0  0  0  1   0   45
-    Play#0 output Play#0 1   2   36 lc   light cruis    1,3    c  100%   0  10   0   0  0  0  0  0 115   45
+    Play#0 output Play#0 1   2   36 lc   light cruis    0,2    c  100%   0  10   0   0  0  0  0  0 127   45
     Play#0 output Play#0 1   2   40 lc   light cruis    1,3        91%   0   9   0   0  0  0  0  0  -7   45
     Play#0 output Play#0 1   2   41 lc   light cruis    1,3        96%   0   9   0   0  0  0  0  0 109   45
     Play#0 output Play#0 1   2   42 lc   light cruis   -4,2        95%   0  10   0   0  0  0  0  0 121   45
-    Play#0 output Play#0 1   2   43 ms   minesweeper   -8,4    m  100%   0  10   0   0  0  0  0  0  99   45
-    Play#0 output Play#0 1   2   44 ms   minesweeper   -6,4    m   64%   0   6   0   0  0  0  0  0  70   45
+    Play#0 output Play#0 1   2   43 ms   minesweeper   -6,4    m   87%   0   8   0   0  0  0  0  0  98   45
+    Play#0 output Play#0 1   2   44 ms   minesweeper   -6,4    m   68%   0   6   0   0  0  0  0  0  73   45
     Play#0 output Play#0 1   2   46 lc   light cruis    5,1    n   93%   0   9   0   0  0  0  0  0 118   45
     Play#0 output Play#0 1   2   47 pt   patrol boat    4,0    n  100%   0   2   0   0  0  0  0  0 117   45
-    Play#0 output Play#0 1   2   50 sb   submarine     -9,1        67%   0   7   0   0  0  0  0  0  33   60
-    Play#0 output Play#0 1   2   51 sb   submarine     -9,1        64%   0   7   0   0  0  0  0  0  28   60
-    Play#0 output Play#0 1   2   52 sb   submarine     -9,1        73%   0   7   0   0  0  0  0  0  45   60
+    Play#0 output Play#0 1   2   50 sb   submarine     -9,1        67%   0   7   0   0  0  0  0  0  34   60
+    Play#0 output Play#0 1   2   51 sb   submarine     -9,1        64%   0   7   0   0  0  0  0  0  29   60
+    Play#0 output Play#0 1   2   52 sb   submarine     -9,1        73%   0   7   0   0  0  0  0  0  46   60
     Play#0 output Play#0 1   2   53 sb   submarine     -4,-2       73%   0   7   0   0  0  0  0  0  92   60
     Play#0 output Play#0 1   2   60 dd   destroyer     -6,2       100%   0  10   0   0  0  0  0  0 127   70
-    Play#0 output Play#0 1   2   61 dd   destroyer     -4,4        73%   0   7   0   0  0  0  0  0  65   70
-    Play#0 output Play#0 1   2   62 dd   destroyer     -4,4        67%   0   7   0   0  0  0  0  0  55   70
+    Play#0 output Play#0 1   2   61 dd   destroyer     -4,4        73%   0   7   0   0  0  0  0  0  66   70
+    Play#0 output Play#0 1   2   62 dd   destroyer     -4,4        67%   0   7   0   0  0  0  0  0  56   70
     Play#0 output Play#0 1   2   63 dd   destroyer     -4,4        56%   0   5   0   0  0  0  0  0  37   70
-    Play#0 output Play#0 1   2   64 dd   destroyer     -4,4        67%   0   7   0   0  0  0  0  0  55   70
-    Play#0 output Play#0 1   2   65 dd   destroyer     -4,4        59%   0   6   0   0  0  0  0  0  40   70
-    Play#0 output Play#0 1   2   66 dd   destroyer     -4,4        67%   0   7   0   0  0  0  0  0  55   70
+    Play#0 output Play#0 1   2   64 dd   destroyer     -4,4        67%   0   7   0   0  0  0  0  0  56   70
+    Play#0 output Play#0 1   2   65 dd   destroyer     -4,4        59%   0   6   0   0  0  0  0  0  41   70
+    Play#0 output Play#0 1   2   66 dd   destroyer     -4,4        67%   0   7   0   0  0  0  0  0  56   70
     Play#0 output Play#0 1   2   67 dd   destroyer     -6,2       100%   0  10   0   0  0  0  0  0 127   70
     Play#0 output Play#0 1   2   68 dd   destroyer     -4,4        70%   0   7   0   0  0  0  0  0  61   70
     Play#0 output Play#0 1   2   69 dd   destroyer     -4,4        65%   0   7   0   0  0  0  0  0  53   70
@@ -1557,13 +1585,13 @@
     Play#0 output Play#0 1   2   82 dd   destroyer     -6,2       100%   0  10   0   0  0  0  0  0 127   70
     Play#0 output Play#0 1   2   83 dd   destroyer     -4,4        29%   0   3   0   0  0  0  0  0 -28   70
     Play#0 output Play#0 1   2   84 dd   destroyer     -6,2       100%   0  10   0   0  0  0  0  0 127   70
-    Play#0 output Play#0 1   2  100 lc   light cruis    2,-6       50%   0   5   0   0  0  0  0  0  15   45
+    Play#0 output Play#0 1   2  100 lc   light cruis    2,-6       50%   0   5   0   0  0  0  0  0  16   45
     Play#0 output Play#0 1   2  101 lc   light cruis    0,4       100%   0  10   0   0  0  0  0  0 127   45
-    Play#0 output Play#0 1   2  102 lc   light cruis    2,-6       71%   0   7   0   0  0  0  0  0  56   45
-    Play#0 output Play#0 1   2  103 lc   light cruis    2,-6       37%   0   3   0   0  0  0  0  0 -16   45
+    Play#0 output Play#0 1   2  102 lc   light cruis    2,-6       71%   0   7   0   0  0  0  0  0  57   45
+    Play#0 output Play#0 1   2  103 lc   light cruis    2,-6       37%   0   3   0   0  0  0  0  0 -15   45
     Play#0 output Play#0 1   2  104 lc   light cruis    0,4       100%   0  10   0   0  0  0  0  0 127   45
     Play#0 output Play#0 1   2  120 sb   submarine     -9,1       100%   0  10   0   0  0  0  0  0  93   60
-    Play#0 output Play#0 1   2  130 tt   troop trans   -9,1       100%   0  10   0   0  0  0  0  0  95   60
+    Play#0 output Play#0 1   2  130 tt   troop trans   -9,1       100%   0  10   0   0  0  0  0  0  96   60
     Play#0 output Play#0 1 57 ships
     Play#0 output Play#0 6 0 640
     Play#0 input retr * ?rflags#0
@@ -1575,16 +1603,20 @@
     Play#0 output Play#0 1   2   20 lc   light cruis   -3,1      u                   h
     Play#0 output Play#0 1   1   24 lc   light cruis   -4,2    g ggg        Yes      i
     Play#0 output Play#0 1   2   25 lc   light cruis   -8,2    g g          Yes      i
+    Play#0 output Play#0 1   2   26 lc   light cruis   -4,2    g bn                  i
+    Play#0 output Play#0 1   2   27 lc   light cruis   -4,2    g bn         Yes      i
     Play#0 output Play#0 1   2   28 lc   light cruis   -8,2    g g          Yes      b
-    Play#0 output Play#0 1   2   29 lc   light cruis    1,3    g g          Yes      i
+    Play#0 output Play#0 1   2   29 lc   light cruis    5,3    g ggg        Yes      i
     Play#0 output Play#0 1   2   31 lc   light cruis    4,0      n                   i
     Play#0 output Play#0 1   2   32 lc   light cruis    0,2    c n          Yes      i
     Play#0 output Play#0 1   2   33 lc   light cruis    2,2      n                   i
     Play#0 output Play#0 1   2   34 lc   light cruis    3,1      n                   i
     Play#0 output Play#0 1   2   35 lc   light cruis    0,2    c n          Yes      i
+    Play#0 output Play#0 1   2   36 lc   light cruis    0,2    c n          Yes      i
     Play#0 output Play#0 1   2   40 lc   light cruis    1,3      nnnh                i
     Play#0 output Play#0 1   2   41 lc   light cruis    1,3      uh                  i
     Play#0 output Play#0 1   2   42 lc   light cruis   -4,2      ugggh               i
+    Play#0 output Play#0 1   2   43 ms   minesweeper   -6,4    m g          Yes      i
     Play#0 output Play#0 1   2   44 ms   minesweeper   -6,4    m g          Yes      i
     Play#0 output Play#0 1   2   46 lc   light cruis    5,1    n y          Yes      i
     Play#0 output Play#0 1   2   53 sb   submarine     -4,-2     gg                  h
@@ -1596,17 +1628,21 @@
     Play#0 output Play#0 1   2   84 dd   destroyer     -6,2      nn                  ihb
     Play#0 output Play#0 1   2  101 lc   light cruis    0,4      nn                  ith
     Play#0 output Play#0 1   2  104 lc   light cruis    0,4      nn                  ith
-    Play#0 output Play#0 1 27 ships
+    Play#0 output Play#0 1 31 ships
     Play#0 output Play#0 6 0 639
     Play#0 input miss s * ?mission#0 q
     Play#0 command mission
     Play#0 output Play#0 1 Thing                        x,y     op-sect  rad mission
     Play#0 output Play#0 1 lc   light cruiser (#20)    -3,1      -3,1      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#26)    -4,2      -4,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#27)    -4,2      -4,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#29)     5,3       5,3      1 is on an interdiction mission
     Play#0 output Play#0 1 lc   light cruiser (#31)     4,0       4,0      1 is on an interdiction mission
     Play#0 output Play#0 1 lc   light cruiser (#32)     0,2       0,2      1 is on an interdiction mission
     Play#0 output Play#0 1 lc   light cruiser (#33)     2,2       2,2      1 is on an interdiction mission
     Play#0 output Play#0 1 lc   light cruiser (#34)     3,1       3,1      1 is on an interdiction mission
     Play#0 output Play#0 1 lc   light cruiser (#35)     0,2       0,2      1 is on an interdiction mission
+    Play#0 output Play#0 1 lc   light cruiser (#36)     0,2       0,2      1 is on an interdiction mission
     Play#0 output Play#0 1 lc   light cruiser (#42)    -4,2      -4,2      1 is on an interdiction mission
     Play#0 output Play#0 1 lc   light cruiser (#46)     5,1       5,1      1 is on an interdiction mission
     Play#0 output Play#0 1 sb   submarine (#53)        -4,-2     -4,-2     1 is on an interdiction mission
@@ -1629,34 +1665,34 @@
     Play#0 output Play#0 1   1    4 inf  infantry     -4,0    a  100%  10   0 127   0  50  42%  0  0
     Play#0 output Play#0 1   1    7 inf  infantry     -4,0    a  100%  10   0 127   0  50  42%  0  0
     Play#0 output Play#0 1   2    9 tra  train         0,2        99%  10 127 126   0  50  42%  0  1
-    Play#0 output Play#0 1   2   10 cav  cavalry       4,0        61%   6 127  61   0  50  42%  0  0
+    Play#0 output Play#0 1   2   10 cav  cavalry       3,-1       42%   4   0  29   0  50  42%  0  0
     Play#0 output Play#0 1   1   24 cav  cavalry       3,1    g   98%  10   0 125   0  50  42%  0  0
-    Play#0 output Play#0 1   2   25 cav  cavalry       2,2    g   91%   9 127  96   0  50  42%  0  0
-    Play#0 output Play#0 1   2   26 cav  cavalry       4,0    g  100%  10 127 117   0  50  42%  0  0
-    Play#0 output Play#0 1   2   27 cav  cavalry       4,0    g  100%  10 127 117   0  50  42%  0  0
-    Play#0 output Play#0 1   2   28 cav  cavalry       2,2    g  100%  10 127 107   0  50  42%  0  0
-    Play#0 output Play#0 1   2   29 cav  cavalry       3,1    g  100%  10 127 116   0  50  42%  0  0
-    Play#0 output Play#0 1   2   31 cav  cavalry       2,2    c  100%  10 127 107   0  50  42%  0  0   35S
-    Play#0 output Play#0 1   2   32 cav  cavalry       2,2    c  100%   0 127 107   0  50  42%  0  0
-    Play#0 output Play#0 1   2   33 cav  cavalry       1,1        85%   9 127  98   0  50  42%  0  0
-    Play#0 output Play#0 1   2   34 cav  cavalry       2,2    c  100%  10 127 107   0  50  42%  0  0    9L
+    Play#0 output Play#0 1   2   25 cav  cavalry       2,2    g   91%   9   0  96   0  50  42%  0  0
+    Play#0 output Play#0 1   2   26 cav  cavalry       3,1    g  100%  10 127 127   0  50  42%  0  0
+    Play#0 output Play#0 1   2   27 cav  cavalry       3,1    g  100%  10 127 127   0  50  42%  0  0
+    Play#0 output Play#0 1   2   28 cav  cavalry       2,2    g  100%  10   0 107   0  50  42%  0  0
+    Play#0 output Play#0 1   2   29 cav  cavalry       4,0    g  100%  10 127 127   0  50  42%  0  0
+    Play#0 output Play#0 1   2   31 cav  cavalry       0,2    c  100%  10 127 127   0  50  42%  0  0   35S
+    Play#0 output Play#0 1   2   32 cav  cavalry       0,2    c  100%   0 127 127   0  50  42%  0  0
+    Play#0 output Play#0 1   2   33 cav  cavalry      -1,1        85%   9 127 108   0  50  42%  0  0
+    Play#0 output Play#0 1   2   34 cav  cavalry       0,2    c  100%  10 127 127   0  50  42%  0  0    9L
     Play#0 output Play#0 1   2   35 cav  cavalry       0,2    c  100%  10 127   0   0  50  42%  0  0
-    Play#0 output Play#0 1   2   36 cav  cavalry       2,2    c  100%  10 127 107   0  50  42%  0  0
-    Play#0 output Play#0 1   2   37 tra  train         1,1        82%   8 127 105   0  50  42%  0  0
-    Play#0 output Play#0 1   2   40 cav  cavalry       2,2        91%   9 127 -14   0  50  42%  0  0
-    Play#0 output Play#0 1   2   41 cav  cavalry       3,1        89%   9 127 103   0  50  42%  0  0
+    Play#0 output Play#0 1   2   36 cav  cavalry       0,2    c  100%  10 127 127   0  50  42%  0  0
+    Play#0 output Play#0 1   2   37 tra  train         1,1        82%   9 127 105   0  50  42%  0  0
+    Play#0 output Play#0 1   2   40 cav  cavalry       2,2        91%   9   0 -14   0  50  42%  0  0
+    Play#0 output Play#0 1   2   41 cav  cavalry       2,0        89%   9   0  44   0  50  42%  0  0
     Play#0 output Play#0 1   2   42 cav  cavalry       1,1        86%   9 127 109   0  50  42%  0  0
-    Play#0 output Play#0 1   2   43 eng  engineer      1,1    m  100%  10 127 127   0 130  42%  0  0
-    Play#0 output Play#0 1   2   44 eng  engineer      1,-1   m   90%   9 127  88   0 130  42%  0  0
-    Play#0 output Play#0 1   2   45 tra  train         1,-1   t   84%   9 127  65   0  50  42%  0  0
-    Play#0 output Play#0 1   2   46 cav  cavalry       0,0    t   92%   9 127  99   0  50  42%  0  0
+    Play#0 output Play#0 1   2   43 eng  engineer      1,-1   m  100%  10   0  89   0 130  42%  0  0
+    Play#0 output Play#0 1   2   44 eng  engineer      1,-1   m   90%   9   0  76   0 130  42%  0  0
+    Play#0 output Play#0 1   2   45 tra  train         1,-1   t   84%   9   0  65   0  50  42%  0  0
+    Play#0 output Play#0 1   2   46 cav  cavalry       0,-2   t  100%  10 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   2   47 cav  cavalry       1,-1   s   91%   9 127 115   0  50  42%  0  0
-    Play#0 output Play#0 1   2   48 spy  infiltrato    1,-1   s  100%   0 127 127   0  50  42%  0  0
-    Play#0 output Play#0 1   2   60 cav  cavalry       3,1        73%   7 127  71   0  50  42%  0  0
+    Play#0 output Play#0 1   2   48 spy  infiltrato   -1,-1   s  100%   0   0 116   0  50  42%  0  0
+    Play#0 output Play#0 1   2   60 cav  cavalry       3,1        73%   7   0  72   0  50  42%  0  0
     Play#0 output Play#0 1   2   61 cav  cavalry       0,0       100%  10 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   2   62 cav  cavalry       0,0       100%  10 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   2   63 cav  cavalry       0,0       100%  10 127 127   0  50  42%  0  0
-    Play#0 output Play#0 1   2   64 cav  cavalry       3,1        74%   7 127  72   0  50  42%  0  0
+    Play#0 output Play#0 1   2   64 cav  cavalry       3,1        74%   7   0  73   0  50  42%  0  0
     Play#0 output Play#0 1 35 units
     Play#0 output Play#0 6 0 637
     Play#0 input lretr * ?rflags#0
@@ -1665,33 +1701,44 @@
     Play#0 output Play#0 1   1    2 inf  infantry      -3,1      yujnbgyuj           ihb
     Play#0 output Play#0 1   1    4 inf  infantry      -4,0    a b          Yes      h
     Play#0 output Play#0 1   1    7 inf  infantry      -4,0    a b          Yes      h
-    Play#0 output Play#0 1   2   10 cav  cavalry        4,0      y                   b
     Play#0 output Play#0 1   1   24 cav  cavalry        3,1    g bhg        Yes      b
     Play#0 output Play#0 1   2   25 cav  cavalry        2,2    g g          Yes      b
+    Play#0 output Play#0 1   2   26 cav  cavalry        3,1    g uh                  b
+    Play#0 output Play#0 1   2   27 cav  cavalry        3,1    g uh         Yes      b
     Play#0 output Play#0 1   2   28 cav  cavalry        2,2    g g          Yes      i
-    Play#0 output Play#0 1   2   29 cav  cavalry        3,1    g g          Yes      b
+    Play#0 output Play#0 1   2   29 cav  cavalry        4,0    g bhg        Yes      b
+    Play#0 output Play#0 1   2   31 cav  cavalry        0,2    c j          Yes      b
+    Play#0 output Play#0 1   2   32 cav  cavalry        0,2    c j          Yes      b
+    Play#0 output Play#0 1   2   33 cav  cavalry       -1,1      j                   b
+    Play#0 output Play#0 1   2   34 cav  cavalry        0,2    c j          Yes      b
     Play#0 output Play#0 1   2   35 cav  cavalry        0,2    c j          Yes      b
+    Play#0 output Play#0 1   2   36 cav  cavalry        0,2    c j          Yes      b
     Play#0 output Play#0 1   2   37 tra  train          1,1      j                   b
     Play#0 output Play#0 1   2   40 cav  cavalry        2,2      u                   b
-    Play#0 output Play#0 1   2   41 cav  cavalry        3,1      y                   b
     Play#0 output Play#0 1   2   42 cav  cavalry        1,1      g                   b
-    Play#0 output Play#0 1   2   43 eng  engineer       1,1    m yu         Yes      b
     Play#0 output Play#0 1   2   45 tra  train          1,-1   t b          Yes      b
+    Play#0 output Play#0 1   2   46 cav  cavalry        0,-2   t nb         Yes      b
     Play#0 output Play#0 1   2   47 cav  cavalry        1,-1   s gh         Yes      b
-    Play#0 output Play#0 1   2   48 spy  infiltrator    1,-1   s gh         Yes      b
     Play#0 output Play#0 1   2   61 cav  cavalry        0,0      nj                  ihb
     Play#0 output Play#0 1   2   62 cav  cavalry        0,0      nj                  ihb
     Play#0 output Play#0 1   2   63 cav  cavalry        0,0      nj                  ihb
-    Play#0 output Play#0 1 20 units
+    Play#0 output Play#0 1 24 units
     Play#0 output Play#0 6 0 636
     Play#0 input miss l * ?mission#0 q
     Play#0 command mission
     Play#0 output Play#0 1 Thing                        x,y     op-sect  rad mission
+    Play#0 output Play#0 1 cav  cavalry #26             3,1       3,1      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #27             3,1       3,1      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #29             4,0       4,0      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #31             0,2       0,2      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #32             0,2       0,2      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #33            -1,1      -1,1      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #34             0,2       0,2      3 is on a reserve mission
     Play#0 output Play#0 1 cav  cavalry #35             0,2       0,2      3 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #36             0,2       0,2      3 is on a reserve mission
     Play#0 output Play#0 1 cav  cavalry #42             1,1       1,1      3 is on a reserve mission
-    Play#0 output Play#0 1 eng  engineer #43            1,1       1,1      1 is on a reserve mission
+    Play#0 output Play#0 1 cav  cavalry #46             0,-2      0,-2     3 is on a reserve mission
     Play#0 output Play#0 1 cav  cavalry #47             1,-1      1,-1     3 is on a reserve mission
-    Play#0 output Play#0 1 spy  infiltrator #48         1,-1      1,-1     3 is on a reserve mission
     Play#0 output Play#0 1 cav  cavalry #61             0,0       0,0      3 is on a reserve mission
     Play#0 output Play#0 1 cav  cavalry #62             0,0       0,0      3 is on a reserve mission
     Play#0 output Play#0 1 cav  cavalry #63             0,0       0,0      3 is on a reserve mission

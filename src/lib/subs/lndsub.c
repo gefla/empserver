@@ -573,7 +573,7 @@ lnd_mar_put_one(struct ulist *llp)
     lnd_put_one(llp);
 }
 
-static void
+void
 lnd_mar_put(struct emp_qelem *list, natid actor)
 {
     struct emp_qelem *qp, *next;
@@ -1004,7 +1004,7 @@ int lnd_abandon_askyn(struct emp_qelem *list)
 }
 
 int
-lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor)
+lnd_mar_dir(struct emp_qelem *list, int dir, natid actor)
 {
     struct sctstr sect, osect;
     struct emp_qelem *qp;
@@ -1015,8 +1015,6 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor)
     coord newx;
     coord newy;
     int move;
-    int stopping = 0;
-    int visible;
     int rel;
     int oldown;
 
@@ -1122,9 +1120,21 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor)
 	    }
 	}
     }
-    if (QEMPTY(list))
-	return stopping;
-    stopping |= lnd_sweep(list, 0, 1, actor);
+
+    return 0;
+}
+
+int
+lnd_mar_gauntlet(struct emp_qelem *list, int interdict, natid actor)
+{
+    struct ulist *mlp = (struct ulist *)list->q_back;
+    coord newx = mlp->unit.land.lnd_x;
+    coord newy = mlp->unit.land.lnd_y;
+    int stopping, visible;
+    struct emp_qelem *qp, *next;
+    struct ulist *llp;
+
+    stopping = lnd_sweep(list, 0, 1, actor);
     if (QEMPTY(list))
 	return stopping;
     stopping |= lnd_check_mines(list);
@@ -1138,7 +1148,7 @@ lnd_mar_one_sector(struct emp_qelem *list, int dir, natid actor)
 	if (!(lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY))
 	    visible = 1;
     }
-    if (visible)
+    if (visible && interdict)
 	stopping |= lnd_interdict(list, newx, newy, actor);
 
     return stopping;

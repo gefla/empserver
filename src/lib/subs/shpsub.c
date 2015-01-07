@@ -197,7 +197,7 @@ shp_nav_stay_behind(struct emp_qelem *list, natid actor)
     }
 }
 
-static void
+void
 shp_nav_put(struct emp_qelem *list, natid actor)
 {
     struct emp_qelem *qp, *next;
@@ -777,7 +777,7 @@ shp_hit_mine(struct shpstr *sp)
 }
 
 int
-shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor)
+shp_nav_dir(struct emp_qelem *list, int dir, natid actor)
 {
     struct sctstr sect;
     struct emp_qelem *qp;
@@ -789,7 +789,6 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor)
     coord newy;
     int move;
     enum shp_stuck stuck;
-    int stopping = 0;
     double mobcost;
 
     if (CANT_HAPPEN(QEMPTY(list)))
@@ -876,15 +875,26 @@ shp_nav_one_sector(struct emp_qelem *list, int dir, natid actor)
 	mlp->unit.ship.shp_mobil = (int)mlp->mobil;
 	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
     }
-    if (QEMPTY(list))
-	return stopping;
-    stopping |= shp_sweep(list, 0, 0, actor);
+
+    return 0;
+}
+
+int
+shp_nav_gauntlet(struct emp_qelem *list, int interdict, natid actor)
+{
+    struct ulist *mlp = (struct ulist *)list->q_back;
+    coord newx = mlp->unit.ship.shp_x;
+    coord newy = mlp->unit.ship.shp_y;
+    int stopping;
+
+    stopping = shp_sweep(list, 0, 0, actor);
     if (QEMPTY(list))
 	return stopping;
     stopping |= shp_check_mines(list);
     if (QEMPTY(list))
 	return stopping;
-    stopping |= shp_interdict(list, newx, newy, actor);
+    if (interdict)
+	stopping |= shp_interdict(list, newx, newy, actor);
 
     return stopping;
 }

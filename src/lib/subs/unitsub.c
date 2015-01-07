@@ -415,11 +415,13 @@ unit_move(struct emp_qelem *list)
 	} else if ((dir = chkdir(*cp, DIR_STOP, DIR_LAST)) >= 0) {
 	    cp++;
 	    if (type == EF_SHIP)
-		stopping = shp_nav_one_sector(list, dir, player->cnum);
+		stopping = shp_nav_dir(list, dir, player->cnum)
+		    || shp_nav_gauntlet(list, 1, player->cnum);
 	    else {
 		if (!moved && !lnd_abandon_askyn(list))
 		    return RET_FAIL;
-		stopping = lnd_mar_one_sector(list, dir, player->cnum);
+		stopping = lnd_mar_dir(list, dir, player->cnum)
+		    || lnd_mar_gauntlet(list, 1, player->cnum);
 	    }
 	    if (dir == DIR_STOP)
 		return RET_OK;

@@ -29,397 +29,252 @@
  *  Known contributors to this file:
  *     Steve McClure, 2000
  *     Ron Koenderink, 2005-2006
- *     Markus Armbruster, 2006-2014
+ *     Markus Armbruster, 2006-2015
  */
 
 #include <config.h>
 
-#include "chance.h"
-#include "damage.h"
 #include "file.h"
-#include "land.h"
-#include "map.h"
-#include "misc.h"
-#include "nat.h"
-#include "news.h"
 #include "nsc.h"
-#include "optlist.h"
 #include "path.h"
 #include "player.h"
 #include "prototypes.h"
 #include "retreat.h"
-#include "sect.h"
-#include "ship.h"
-#include "xy.h"
+#include "unit.h"
 
-static int findcondition(char);
-static int retreat_land1(struct lndstr *, char, int);
-static int retreat_ship1(struct shpstr *, char, int);
+static void retreat_ship_sel(struct shpstr *, struct emp_qelem *, int);
+static int retreat_ships_step(struct emp_qelem *, char, natid);
+static void retreat_land_sel(struct lndstr *, struct emp_qelem *, int);
+static int retreat_lands_step(struct emp_qelem *, char, natid);
 
-struct ccode {
-    char code;
-    char *desc[2];
-};
+static int
+retreat_steps(char *rpath)
+{
+    int i;
 
-static struct ccode conditions[] = {
-    { 'i', { "retreated with a damaged friend",
-	     "was damaged" } },
-    { 't', { "retreated with a torpedoed ship",
-	     "was hit by a torpedo" } },
-    { 's', { "retreated with a ship scared by sonar",
-	     "detected a sonar ping" } },
-    { 'h', { "retreated with a helpless ship",
-	     "was fired upon with no one able to defend it" } },
-    { 'b', { "retreated with a bombed friend",
-	     "was bombed" } },
-    { 'd', { "retreated with a depth-charged ship",
-	     "was depth-charged" } },
-    { 'u', { "retreated with a boarded ship", "was boarded" } },
-    { 0,   { "panicked", "panicked"} }
-};
+    for (i = 0; i < MAX_RETREAT && rpath[i]; i++) {
+	if (rpath[i] == 'h')
+	    return i + 1;
+    }
+    return i;
+}
+
+static void
+consume_step(char *rpath, int *rflags)
+{
+    memmove(rpath, rpath + 1, RET_LEN - 1);
+    if (!rpath[0])
+	*rflags = 0;
+}
 
 void
 retreat_ship(struct shpstr *sp, char code)
 {
+    int n, i;
+    natid own;
+    struct emp_qelem list;
     struct nstr_item ni;
     struct shpstr ship;
 
     if (CANT_HAPPEN(!sp->shp_own))
 	return;
-    if (sp->shp_own == player->cnum)
+    if (sp->shp_own == player->cnum || !sp->shp_rpath[0])
 	return;
 
-    retreat_ship1(sp, code, 1);
+    n = retreat_steps(sp->shp_rpath);
+    if (!n)
+	return;
+
+    /*
+     * We're going to put a copy of *sp into list.  The movement loop
+     * will use that copy, which may render *sp stale.  To avoid
+     * leaving the caller with a stale *sp, we'll re-get it at the
+     * end.  To make that work, we need to put it now.  However, that
+     * resets sp->shp_own when the ship sinks, so save it first.
+     */
+    own = sp->shp_own;
+    putship(sp->shp_uid, sp);
+
+    emp_initque(&list);
+    if (sp->shp_own)
+	retreat_ship_sel(sp, &list, n);
 
     if (sp->shp_rflags & RET_GROUP) {
-	snxtitem_group(&ni, EF_SHIP, sp->shp_fleet);
+	snxtitem_xy(&ni, EF_SHIP, sp->shp_x, sp->shp_y);
 	while (nxtitem(&ni, &ship)) {
-	    if (ship.shp_own != sp->shp_own || ship.shp_uid == sp->shp_uid)
+	    if (ship.shp_own != own
+		|| !(ship.shp_rflags & RET_GROUP)
+		|| ship.shp_fleet != sp->shp_fleet
+		|| ship.shp_uid == sp->shp_uid)
 		continue;
-	    if (retreat_ship1(&ship, code, 0))
-		putship(ship.shp_uid, &ship);
+	    if (strncmp(ship.shp_rpath, sp->shp_rpath, MAX_RETREAT + 1))
+		continue;
+	    retreat_ship_sel(&ship, &list, n);
 	}
     }
+
+    /* Loop similar to the one in unit_move().  Keep it that way!  */
+    for (i = 0; i < n && !QEMPTY(&list); i++) {
+	/*
+	 * Invariant: shp_may_nav() true for all ships
+	 * Implies all are in the same sector
+	 */
+	if (!retreat_ships_step(&list, sp->shp_rpath[i], own))
+	    n = i;
+	shp_nav_stay_behind(&list, own);
+	unit_rad_map_set(&list);
+    }
+
+    if (!QEMPTY(&list))
+	shp_nav_put(&list, own);
+    getship(sp->shp_uid, sp);
+}
+
+static void
+retreat_ship_sel(struct shpstr *sp, struct emp_qelem *list, int n)
+{
+    struct shpstr *flg = QEMPTY(list) ? NULL
+	: &((struct ulist *)(list->q_back))->unit.ship;
+
+    if (!shp_may_nav(sp, flg, ", and can't retreat!"))
+	return;
+    if (sp->shp_mobil <= 0) {
+	mpr(sp->shp_own, "%s has no mobility, and can't retreat!\n",
+	    prship(sp));
+	return;
+    }
+
+    if (flg)
+	mpr(sp->shp_own, "%s retreats with her\n", prship(sp));
+    else
+	mpr(sp->shp_own, "%s retreats along path %.*s\n",
+	    prship(sp), n, sp->shp_rpath);
+    shp_insque(sp, list);
 }
 
 static int
-retreat_ship1(struct shpstr *sp, char code, int orig)
-
-
-			/* Is this the originally scared ship, or a follower */
+retreat_ships_step(struct emp_qelem *list, char step, natid actor)
 {
-    struct sctstr sect;
-    int i;
-    int m;
-    int max;
-    int dir;
-    coord newx;
-    coord newy;
-    coord dx;
-    coord dy;
-    int mines;
-    int shells;
-    double mobcost;
-    struct mchrstr *mcp;
-    int changed;
+    int dir = chkdir(step, DIR_STOP, DIR_LAST);
+    struct emp_qelem *qp;
+    struct ulist *mlp;
+    struct shpstr *sp;
 
-    if (sp->shp_effic < SHIP_MINEFF) {
-	if (!orig)
-	    putship(sp->shp_uid, sp);
-	return 0;
+    if (dir != DIR_STOP && shp_nav_dir(list, dir, actor))
+	return 0;		/* can't go there */
+
+    for (qp = list->q_back; qp != list; qp = qp->q_back) {
+	mlp = (struct ulist *)qp;
+	sp = &mlp->unit.ship;
+	consume_step(sp->shp_rpath, &sp->shp_rflags);
+	if (dir != DIR_STOP)
+	    sp->shp_mission = 0;
+	putship(sp->shp_uid, sp);
     }
 
-    /* check crew - uws don't count */
-    if (sp->shp_item[I_MILIT] == 0 && sp->shp_item[I_CIVIL] == 0) {
-	wu(0, sp->shp_own,
-	   "%s %s,\nbut had no crew, and couldn't retreat!\n", prship(sp),
-	   conditions[findcondition(code)].desc[orig]);
-	return 0;
-    }
-
-    getsect(sp->shp_x, sp->shp_y, &sect);
-    switch (shp_check_nav(sp, &sect)) {
-    case SHP_STUCK_NOT:
-	break;
-    case SHP_STUCK_CONSTRUCTION:
-	wu(0, sp->shp_own,
-	   "%s %s,\nbut was caught in a construction zone, and couldn't retreat!\n",
-	   prship(sp), conditions[findcondition(code)].desc[orig]);
-	return 0;
-    default:
-	CANT_REACH();
-	/* fall through */
-    case SHP_STUCK_CANAL:
-    case SHP_STUCK_IMPASSABLE:
-	wu(0, sp->shp_own,
-	   "%s %s,\nbut was landlocked, and couldn't retreat!\n",
-	   prship(sp), conditions[findcondition(code)].desc[orig]);
-	return 0;
-    }
-
-    if (sp->shp_mobil <= 0.0) {
-	wu(0, sp->shp_own,
-	   "%s %s,\nbut had no mobility, and couldn't retreat!\n",
-	   prship(sp), conditions[findcondition(code)].desc[orig]);
-	return 0;
-    }
-
-    for (i = 0; i < MAX_RETREAT && sp->shp_rpath[0]; i++) {
-	if (sp->shp_mobil <= 0.0) {
-	    wu(0, sp->shp_own,
-	       "%s %s,\nbut ran out of mobility, and couldn't retreat fully!\n",
-	       prship(sp), conditions[findcondition(code)].desc[orig]);
-	    return 1;
-	}
-	dir = chkdir(sp->shp_rpath[0], DIR_STOP, DIR_LAST);
-	if (dir == DIR_STOP || CANT_HAPPEN(dir < 0)) {
-	    memmove(sp->shp_rpath, sp->shp_rpath + 1,
-		    sizeof(sp->shp_rpath) - 1);
-	    if (sp->shp_rpath[0] == 0)
-		sp->shp_rflags = 0;
-	    break;
-	}
-	dx = diroff[dir][0];
-	dy = diroff[dir][1];
-
-	mcp = &mchr[(int)sp->shp_type];
-	newx = xnorm(sp->shp_x + dx);
-	newy = ynorm(sp->shp_y + dy);
-	mobcost = shp_mobcost(sp);
-
-	getsect(newx, newy, &sect);
-	if (shp_check_nav(sp, &sect) != SHP_STUCK_NOT ||
-	    (sect.sct_own
-	     && relations_with(sect.sct_own, sp->shp_own) < FRIENDLY)) {
-	    wu(0, sp->shp_own, "%s %s,\nbut could not retreat to %s!\n",
-	       prship(sp), conditions[findcondition(code)].desc[orig],
-	       xyas(newx, newy, sp->shp_own));
-	    return 1;
-	}
-	sp->shp_x = newx;
-	sp->shp_y = newy;
-	sp->shp_mobil -= mobcost;
-	sp->shp_mission = 0;
-	memmove(sp->shp_rpath, sp->shp_rpath + 1,
-		sizeof(sp->shp_rpath) - 1);
-	if (sp->shp_rpath[0] == 0)
-	    sp->shp_rflags = 0;
-
-	mines = sect.sct_mines;
-	changed = 0;
-	if (sect.sct_type != SCT_WATER || mines <= 0)
-	    continue;
-	if (mcp->m_flags & M_SWEEP) {
-	    max = mcp->m_item[I_SHELL];
-	    shells = sp->shp_item[I_SHELL];
-	    for (m = 0; mines > 0 && m < 5; m++) {
-		if (chance(0.66)) {
-		    mines--;
-		    shells = MIN(max, shells + 1);
-		    changed |= map_set(sp->shp_own, sp->shp_x, sp->shp_y,
-				       'X', 0);
-		}
-	    }
-	    if (sect.sct_mines != mines) {
-		wu(0, sp->shp_own,
-		   "%s cleared %d mine%s in %s while retreating\n",
-		   prship(sp), sect.sct_mines - mines,
-		   splur(sect.sct_mines - mines),
-		   xyas(newx, newy, sp->shp_own));
-		sect.sct_mines = mines;
-		sp->shp_item[I_SHELL] = shells;
-		putsect(&sect);
-	    }
-	    if (changed)
-		writemap(sp->shp_own);
-	}
-	if (chance(DMINE_HITCHANCE(mines))) {
-	    wu(0, sp->shp_own,
-	       "%s %s,\nand hit a mine in %s while retreating!\n",
-	       prship(sp), conditions[findcondition(code)].desc[orig],
-	       xyas(newx, newy, sp->shp_own));
-	    nreport(sp->shp_own, N_HIT_MINE, 0, 1);
-	    m = MINE_DAMAGE();
-	    shipdamage(sp, m);
-	    mines--;
-	    if (map_set(sp->shp_own, sp->shp_x, sp->shp_y, 'X', 0))
-		writemap(sp->shp_own);
-	    sect.sct_mines = mines;
-	    putsect(&sect);
-	    return 1;
-	}
-    }
-
-    if (orig) {
-	wu(0, sp->shp_own, "%s %s, and retreated to %s\n",
-	   prship(sp), conditions[findcondition(code)].desc[orig],
-	   xyas(sp->shp_x, sp->shp_y, sp->shp_own));
-    } else {
-	wu(0, sp->shp_own, "%s %s, and ended up at %s\n",
-	   prship(sp),
-	   conditions[findcondition(code)].desc[orig],
-	   xyas(sp->shp_x, sp->shp_y, sp->shp_own));
-    }
-
-    return 1;
-}
-
-static int
-findcondition(char code)
-{
-    int i;
-
-    for (i = 0; conditions[i].code && conditions[i].code != code; i++) ;
-    CANT_HAPPEN(!conditions[i].code);
-    return i;
+    return dir != DIR_STOP && !shp_nav_gauntlet(list, 0, actor);
 }
 
 void
 retreat_land(struct lndstr *lp, char code)
 {
+    int n, i;
+    natid own;
+    struct emp_qelem list;
     struct nstr_item ni;
     struct lndstr land;
 
     if (CANT_HAPPEN(!lp->lnd_own))
 	return;
-    if (lp->lnd_own == player->cnum)
+    if (lp->lnd_own == player->cnum || !lp->lnd_rpath[0])
 	return;
 
-    retreat_land1(lp, code, 1);
+    n = retreat_steps(lp->lnd_rpath);
+    if (!n)
+	return;
+
+    /* See explanation in retreat_ship() */
+    own = lp->lnd_own;
+    putland(lp->lnd_uid, lp);
+
+    emp_initque(&list);
+    if (lp->lnd_own)
+	retreat_land_sel(lp, &list, n);
 
     if (lp->lnd_rflags & RET_GROUP) {
-	snxtitem_group(&ni, EF_LAND, lp->lnd_army);
+	snxtitem_xy(&ni, EF_LAND, lp->lnd_x, lp->lnd_y);
 	while (nxtitem(&ni, &land)) {
-	    if (land.lnd_own != lp->lnd_own || land.lnd_uid == lp->lnd_uid)
+	    if (land.lnd_own != own
+		|| !(land.lnd_rflags & RET_GROUP)
+		|| land.lnd_army != lp->lnd_army
+		|| land.lnd_uid == lp->lnd_uid)
 		continue;
-	    if (retreat_land1(&land, code, 0))
-		putland(land.lnd_uid, &land);
+	    if (strncmp(land.lnd_rpath, lp->lnd_rpath, MAX_RETREAT + 1))
+		continue;
+	    retreat_land_sel(&land, &list, n);
 	}
     }
+
+    /* Loop similar to the one in unit_move().  Keep it that way!  */
+    for (i = 0; i < n && !QEMPTY(&list); i++) {
+	/*
+	 * Invariant: lnd_may_nav() true for all land units
+	 * Implies all are in the same sector
+	 */
+	if (!retreat_lands_step(&list, lp->lnd_rpath[i], own))
+	    n = i;
+	lnd_mar_stay_behind(&list, own);
+	unit_rad_map_set(&list);
+    }
+
+    if (!QEMPTY(&list))
+	lnd_mar_put(&list, own);
+    getland(lp->lnd_uid, lp);
+}
+
+static void
+retreat_land_sel(struct lndstr *lp, struct emp_qelem *list, int n)
+{
+    struct lndstr *ldr = QEMPTY(list)
+	? NULL : &((struct ulist *)(list->q_back))->unit.land;
+
+    if (!lnd_may_mar(lp, ldr, ", and can't retreat!"))
+	return;
+    if (lp->lnd_mobil <= 0) {
+	mpr(lp->lnd_own, "%s has no mobility, and can't retreat!\n",
+	    prland(lp));
+	return;
+    }
+
+    if (ldr)
+	mpr(lp->lnd_own, "%s retreats with them\n", prland(lp));
+    else
+	mpr(lp->lnd_own, "%s retreats along path %.*s\n",
+	    prland(lp), n, lp->lnd_rpath);
+    lnd_insque(lp, list);
 }
 
 static int
-retreat_land1(struct lndstr *lp, char code, int orig)
-
-
-			/* Is this the originally scared unit, or a follower */
+retreat_lands_step(struct emp_qelem *list, char step, natid actor)
 {
-    struct sctstr sect;
-    int i;
-    int m;
-    int max;
-    int dir;
-    coord newx;
-    coord newy;
-    coord dx;
-    coord dy;
-    int mines;
-    int shells;
-    double mobcost;
-    struct lchrstr *lcp;
+    int dir = chkdir(step, DIR_STOP, DIR_LAST);
+    struct emp_qelem *qp;
+    struct ulist *llp;
+    struct lndstr *lp;
 
-    if (lp->lnd_effic < LAND_MINEFF) {
-	if (!orig)
-	    putland(lp->lnd_uid, lp);
-	return 0;
+    if (dir != DIR_STOP && lnd_mar_dir(list, dir, actor))
+	return 0;		/* can't go there */
+
+    for (qp = list->q_back; qp != list; qp = qp->q_back) {
+	llp = (struct ulist *)qp;
+	lp = &llp->unit.land;
+	consume_step(lp->lnd_rpath, &lp->lnd_rflags);
+	if (dir != DIR_STOP) {
+	    lp->lnd_mission = 0;
+	    lp->lnd_harden = 0;
+	}
+	putland(lp->lnd_uid, lp);
     }
 
-    getsect(lp->lnd_x, lp->lnd_y, &sect);
-
-    if (lp->lnd_mobil <= 0.0) {
-	wu(0, lp->lnd_own,
-	   "%s %s,\nbut had no mobility, and couldn't retreat!\n",
-	   prland(lp), conditions[findcondition(code)].desc[orig]);
-	return 0;
-    }
-
-    for (i = 0; i < MAX_RETREAT && lp->lnd_rpath[0]; i++) {
-	if (lp->lnd_mobil <= 0.0) {
-	    wu(0, lp->lnd_own,
-	       "%s %s,\nbut ran out of mobility, and couldn't retreat fully!\n",
-	       prland(lp), conditions[findcondition(code)].desc[orig]);
-	    return 1;
-	}
-	dir = chkdir(lp->lnd_rpath[0], DIR_STOP, DIR_LAST);
-	if (dir == DIR_STOP || CANT_HAPPEN(dir < 0)) {
-	    memmove(lp->lnd_rpath, lp->lnd_rpath + 1,
-		    sizeof(lp->lnd_rpath) - 1);
-	    if (lp->lnd_rpath[0] == 0)
-		lp->lnd_rflags = 0;
-	    break;
-	}
-	dx = diroff[dir][0];
-	dy = diroff[dir][1];
-
-	lcp = &lchr[(int)lp->lnd_type];
-	newx = xnorm(lp->lnd_x + dx);
-	newy = ynorm(lp->lnd_y + dy);
-
-	getsect(newx, newy, &sect);
-	mobcost = lnd_mobcost(lp, &sect);
-	if (mobcost < 0
-	    || sect.sct_type == SCT_MOUNT
-	    || sect.sct_own != lp->lnd_own) {
-	    wu(0, lp->lnd_own, "%s %s,\nbut could not retreat to %s!\n",
-	       prland(lp),
-	       conditions[findcondition(code)].desc[orig],
-	       xyas(newx, newy, lp->lnd_own));
-	    return 1;
-	}
-	lp->lnd_x = newx;
-	lp->lnd_y = newy;
-	lp->lnd_mobil -= mobcost;
-	lp->lnd_mission = 0;
-	memmove(lp->lnd_rpath, lp->lnd_rpath + 1,
-		sizeof(lp->lnd_rpath) - 1);
-	if (lp->lnd_rpath[0] == 0)
-	    lp->lnd_rflags = 0;
-
-	mines = SCT_LANDMINES(&sect);
-	if (mines <= 0 || sect.sct_oldown == lp->lnd_own)
-	    continue;
-	if (lcp->l_flags & L_ENGINEER) {
-	    max = lcp->l_item[I_SHELL];
-	    shells = lp->lnd_item[I_SHELL];
-	    for (m = 0; mines > 0 && m < 5; m++) {
-		if (chance(0.66)) {
-		    mines--;
-		    shells = MIN(max, shells + 1);
-		}
-	    }
-	    sect.sct_mines = mines;
-	    lp->lnd_item[I_SHELL] = shells;
-	    putsect(&sect);
-	}
-	if (chance(DMINE_LHITCHANCE(mines))) {
-	    wu(0, lp->lnd_own,
-	       "%s %s,\nand hit a mine in %s while retreating!\n",
-	       prland(lp),
-	       conditions[findcondition(code)].desc[orig],
-	       xyas(newx, newy, lp->lnd_own));
-	    nreport(lp->lnd_own, N_LHIT_MINE, 0, 1);
-	    m = MINE_LDAMAGE();
-	    if (lcp->l_flags & L_ENGINEER)
-		m /= 2;
-	    landdamage(lp, m);
-	    mines--;
-	    sect.sct_mines = mines;
-	    putsect(&sect);
-	    return 1;
-	}
-    }
-
-    if (orig) {
-	wu(0, lp->lnd_own, "%s %s, and retreated to %s\n",
-	   prland(lp),
-	   conditions[findcondition(code)].desc[orig],
-	   xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
-    } else {
-	wu(0, lp->lnd_own, "%s %s, and ended up at %s\n",
-	   prland(lp),
-	   conditions[findcondition(code)].desc[orig],
-	   xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
-    }
-
-    return 1;
+    return dir != DIR_STOP && !lnd_mar_gauntlet(list, 0, actor);
 }

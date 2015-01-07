@@ -42,7 +42,6 @@ lret
 | sunk
 | as group (fleet c): 30 sinks, 32 crewless, 35 no mobility, 36 on sale
 fire se -2,2 30
-| BUG: 36 retreats anyway
 __cmd added -2 -2 0
 | in canal 4,0
 fire se -2,2 31
@@ -151,10 +150,6 @@ board 130 5
 bomb 30 . p -2,2 jh
 l
 30
-| BUG: 31 retreats anyway
-| BUG: 32 retreats anyway
-| BUG: 34 retreats anyway
-| BUG: 36 retreats anyway
 __cmd added -1 -2 0
 | kidnapped in -1,1
 bomb 30 . p -2,2 uh
@@ -172,6 +167,7 @@ bomb 30 . p -2,2 ujh
 l
 40
 | into mountain 2,0 after j
+| not actually having difficulties; such a retreat is permitted now
 __cmd added -1 0 0
 bomb 30 . p -2,2 ujh
 l
@@ -186,20 +182,16 @@ __cmd added -1 0 0
 bomb 30 . p -2,2 ujh
 l
 44
-| BUG: sweeps silently
-| BUG: 43 doesn't retreat when 44 retreats fully
 | rail ends after n
 | as group (army t): 45 train, 46 not
 bomb 31 . p -2,2 uyuuh
 l
 45
-| BUG: 46 retreats anyway
 | into foreign, 47 can't, 48 can
 __cmd added -1 0 0
 bomb 31 . p -2,2 uuuh
 l
 47
-| BUG: 48 can't enter foreign sector
 __cmd added 2 4 0
 || land units retreating fully
 | jh
@@ -217,7 +209,6 @@ __cmd added -1 0 0
 bomb 30 . p -2,2 ujjh
 l
 10
-| BUG: can't enter allied sector
 | own land unit stays put
 bomb 30 . p -3,1 h
 l
