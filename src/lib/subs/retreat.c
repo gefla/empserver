@@ -124,9 +124,6 @@ retreat_ship1(struct shpstr *sp, char code, int orig)
     int changed;
 
     if (sp->shp_effic < SHIP_MINEFF) {
-	wu(0, sp->shp_own,
-	   "%s %s,\nbut it died in the attack, and so couldn't retreat!\n",
-	   prship(sp), conditions[findcondition(code)].desc[orig]);
 	if (!orig)
 	    putship(sp->shp_uid, sp);
 	return 0;
@@ -322,9 +319,6 @@ retreat_land1(struct lndstr *lp, char code, int orig)
     struct lchrstr *lcp;
 
     if (lp->lnd_effic < LAND_MINEFF) {
-	wu(0, lp->lnd_own,
-	   "%s %s,\nbut it died in the attack, and so couldn't retreat!\n",
-	   prland(lp), conditions[findcondition(code)].desc[orig]);
 	if (!orig)
 	    putland(lp->lnd_uid, lp);
 	return 0;

@@ -1108,8 +1108,6 @@
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Country #1 shelled cs   cargo ship (#30) in 0,2 for 10 damage.
     Play#0 output Play#0 1 	cs   cargo ship (#30) takes 8
-    Play#0 output Play#0 1 cs   cargo ship (#30) was damaged,
-    Play#0 output Play#0 1 but it died in the attack, and so couldn't retreat!
     Play#0 output Play#0 1 cs   cargo ship (#32) retreated with a damaged friend,
     Play#0 output Play#0 1 but had no crew, and couldn't retreat!
     Play#0 output Play#0 1 cs   cargo ship (#35) retreated with a damaged friend,
@@ -1262,8 +1260,6 @@
     Play#0 output Play#0 1 1 planes spotted over 0,2
     Play#0 output Play#0 1 1 pinpoint bombing raid did 44 damage to cav  cavalry #30
     Play#0 output Play#0 1 	cav  cavalry #30 takes 17
-    Play#0 output Play#0 1 cav  cavalry #30 was bombed,
-    Play#0 output Play#0 1 but it died in the attack, and so couldn't retreat!
     Play#0 output Play#0 1 cav  cavalry #31 retreated with a bombed friend, and ended up at 2,2
     Play#0 output Play#0 1 cav  cavalry #32 retreated with a bombed friend, and ended up at 2,2
     Play#0 output Play#0 1 cav  cavalry #34 retreated with a bombed friend, and ended up at 2,2
