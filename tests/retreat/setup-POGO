@@ -15,6 +15,8 @@ desi -2,-2 f
 desi -3,1 h
 | ships for testing retreat command
 build s -3,1 cs 5
+edit s 4 L -5,1 U 7
+| fleet a defined below
 | ship to drop depth charges
 build s -3,1 dd
 edit s 5 g 1 s 40
@@ -35,6 +37,8 @@ edit p 0 U 30 T ac t 400
 edit p * ?own#0 e 100 m 127
 | land units for testing retreat command
 build l -3,1 inf 5
+edit u 4 L -4,0 U 7
+| army a defined below
 | complete the land units (fortify to reduce unwanted collateral damage)
 edit u * ?own#0 e 100 M 127 m 10 F 127
 || country#2
@@ -55,6 +59,15 @@ edit s 0 U 20 O 2 U 10 L 0,2 U 11
 retr 10 nhhnj ih
 retr 11 n h
 retr 20 u h
+| crazy group retreat
+edit s 10 U 25 L -4,2 U 26 U 27 U 28 U 29 L 5,3
+edit s 25 U 24 O 1
+fleet g 24/25/26/27/28/29
+retr g ggg i
+retr 26 bn i
+retr g ?uid=27 bn i
+retr g ?uid=28 ggg b
+retr g ?uid=29 ggg i
 | target ships that want to retreat, but can't:
 | sunk
 edit s 10 U 30 E 20
@@ -68,7 +81,9 @@ edit s 10 U 33 L 2,2
 edit s 10 U 34 L 3,1
 | no mobility
 edit s 10 U 35 M 0
-retr 30/31/32/33/34/35 n i
+fleet c 30/32/35
+retr c n i
+retr 31/33/34 n i
 | target ships having difficulties during retreat:
 edit s 10 U 40 t lc U 41 U 42
 | runs out of mobility
@@ -115,6 +130,15 @@ retr 130 gg u
 | target land units bombs: bombed
 edit u 9 U 10 T cav L 1,1
 lret 10 jhhuy b
+| crazy group retreat
+edit u 10 U 25 L 3,1 a g U 26 U 27 U 28 U 29 L 4,0
+edit u 25 U 24 O 1
+army g 24/25/26/27/28/29
+lret g bhg b
+lret 26 uh b
+lret g ?uid=27 uh b
+lret g ?uid=28 bhg i
+lret g ?uid=29 bhg b
 | target land units that want to retreat, but can't:
 | destroyed
 edit u 10 U 30 L 0,2 e 10
@@ -128,7 +152,9 @@ edit u 10 U 33 L -1,1
 edit u 10 U 34 L 0,2 Y 9
 | no mobility
 edit u 10 U 35 L 0,2 M 0
-lret 30/31/32/33/34/35 j b
+army c 30/31/32/34/35
+lret c j b
+lret 33 j b
 | target land units having difficulties during retreat:
 | runs out of mobility
 edit u 10 U 40 M 5
@@ -162,9 +188,8 @@ give g * ?des=f 2
 give s * ?des=f 100
 give p * ?des=f 100
 edit l * ?des#.&eff=0 e 100 m 127
-fleet a * ?own=1&uid#2
-fleet a 9
-army a * ?own=1&uid#2
+fleet a 0/1/3/4
+army a 0/1/3/4
 || relations
 decl w 1 2
 decl w 2 1

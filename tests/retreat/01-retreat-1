@@ -13,9 +13,11 @@ retr 2/3 bgyujnbgyujnbgyujn itshbdu
 retr 3 h c
 | group retreat order
 retr a ?uid=4 b h
+fleet a 7
+__cmd added 1 0 0
 | show retreat orders
 retr
-0/1/2/3/4
+0/1/2/3/4/7
 || lretreat command
 | garbage path
 lret 0 garbage i
@@ -30,22 +32,23 @@ lret 2/3 yujnbgyujnbgyujnbg ihb
 lret 3 h c
 | group retreat order
 lret a ?uid=4 b h
+army a 7
+__cmd added 1 0 0
 | show retreat orders
 lret
-0/1/2/3/4
+0/1/2/3/4/7
 ||| Ships
 || ships failing to retreat
 | sunk
+| as group (fleet c): 30 sinks, 32 crewless, 35 no mobility
 fire se -2,2 30
-__cmd added -1 -1 0
-| crewless
-fire se -2,2 32
+| BUG: group does not retreat
+__cmd added -2 -2 0
 | in construction zone 2,2
 fire se -2,2 33
 | landlocked in 3,1
 fire se -2,2 34
-| no mobility
-fire se -2,2 35
+__cmd added -1 -1 0
 || ships having difficulties during retreat
 | out of mobility after n
 fire se -2,2 40
@@ -53,7 +56,8 @@ fire se -2,2 40
 fire se -2,2 41
 | into unfriendly -3,1 right away
 fire se -2,2 42
-| into minefield -6,4 with 43, sweep and hit mines, stop
+| into minefield -6,4, sweep and hit mines, stop
+| as group (fleet m): 44/43
 fire se -2,2 44
 || ships retreating fully
 | nh
@@ -70,6 +74,12 @@ fire se -2,2 2
 fire se -2,2 11
 | not helpless
 fire se -2,-2 20
+| crazy group retreat
+| as group (fleet g): 25 unremarkable, 24 foreign, 26 group retreat off,
+| 27 different path, 28 different triggers, 29 is elsewhere
+fire se -2,2 25
+| odd: 26/27/28/29 retreat
+__cmd added 1 1 0
 || ships retreating from depth charges
 | depth-charged
 fire sh 5 50
@@ -128,25 +138,19 @@ board 130 5
 || land units failing to retreat
 | these bombing runs must hit; if they don't, use __cmd to make them
 | destroyed
+| as group (army c): 30 dies, 31 loaded on ship, 32 crewless,
+| 34 loaded on train, 35 no mobility
 bomb 30 . p -2,2 jh
 l
 30
-| 31 is on a ship, but there's no way to trigger a retreat then
-| crewless
-bomb 30 . p -2,2 jh
-l
-32
-| BUG: retreats anyway
+| BUG: group does not retreat
+__cmd added -1 -2 0
 | kidnapped in -1,1
 bomb 30 . p -2,2 uh
 l
 33
 | BUG: retreats anyway
-| 34 is on a land unit, but there's no way to trigger a retreat then
-| no mobility
-bomb 30 . p -2,2 jh
-l
-35
+__cmd added -1 -2 0
 || land units having difficulties during retreat
 | these bombing runs must hit; if they don't, use __cmd to make them
 | out of mobility after n
@@ -162,7 +166,8 @@ l
 bomb 30 . p -2,2 ujh
 l
 42
-| into minefield 0,0 with 43, sweep and hit mines, stop
+| into minefield 0,0, sweep and hit mines, stop
+| as group (army m): 44/43
 __cmd added -1 0 0
 bomb 30 . p -2,2 ujh
 l
@@ -187,6 +192,14 @@ l
 bomb 30 . p -3,1 h
 l
 2
+| crazy group retreat
+| as group (army g): 25 unremarkable, 24 foreign, 26 group retreat off,
+| 27 different path, 28 different triggers, 29 is elsewhere
+bomb 30 . p -2,2 ujjh
+l
+25
+| odd: 26/27/28/29 retreat
+__cmd added 1 2 0
 || land units retreating from bombs
 | only retreat on p-bombing is implemented
 | bombed covered above
