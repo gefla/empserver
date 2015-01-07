@@ -47,6 +47,8 @@ edit l * ?des#.&own=0 o 2 O 2
 | mountain, to test "can't retreat into mountain"
 desi 2,0 ^
 edit c 2 c 2,0 s 4 b 640 M 25000 T 100
+| a city for testing canals
+desi 4,0 c
 | harbors, 0,2 efficient, 2,2 construction zone
 desi 0:2,2 h
 edit l 2,2 e 1
@@ -71,8 +73,8 @@ retr g ?uid=29 ggg i
 | target ships that want to retreat, but can't:
 | sunk
 edit s 10 U 30 E 20
-| #31 unused
-edit s 10 U 31
+| in canal
+edit s 10 U 31 L 4,0
 | crewless
 edit s 10 U 32 m 0
 | in construction zone
@@ -103,6 +105,10 @@ fleet m 43/44
 edit s m L -4,4
 edit l -6,4 M 100
 retr m gg i
+| into canal 4,0
+edit s 10 U 46 L 5,1 U 47 t pt
+fleet n 46/47
+retr n y i
 | missions for retreat to clear
 miss s 40/41/42 int .
 | target ships depth-charges: injured vs. depth-charged, depth-charged,

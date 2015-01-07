@@ -44,11 +44,15 @@ lret
 fire se -2,2 30
 | BUG: 36 retreats anyway
 __cmd added -2 -2 0
+| in canal 4,0
+fire se -2,2 31
+__cmd added 1 1 0
 | in construction zone 2,2
 fire se -2,2 33
 | landlocked in 3,1
 fire se -2,2 34
 __cmd added -1 -1 0
+| as group (fleet c): 30 sinks, 31 on sale, 32 crewless, 35 no mobility,
 || ships having difficulties during retreat
 | out of mobility after n
 fire se -2,2 40
@@ -59,6 +63,10 @@ fire se -2,2 42
 | into minefield -6,4, sweep and hit mines, stop
 | as group (fleet m): 44/43
 fire se -2,2 44
+| into canal
+| as group (fleet n): 46 can't, 47 can
+fire se -2,2 46
+__cmd added 1 1 0
 || ships retreating fully
 | nh
 fire se -2,2 10
