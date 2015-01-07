@@ -81,7 +81,7 @@ navi 5 gyuh
 fire sh 5 53
 || ships retreating from bombs
 | injured
-bomb 0/1/2/3/4 . p -2,2 jh
+bomb 0/1/2/3/4 . p -2,2 ggh
 s
 60
 61
@@ -89,7 +89,7 @@ s
 63
 64
 | bombed
-bomb 0/1/2/3/4 . p -2,2 jh
+bomb 0/1/2/3/4 . p -2,2 ggh
 s
 65
 66
@@ -128,13 +128,12 @@ board 130 5
 || land units failing to retreat
 | these bombing runs must hit; if they don't, use __cmd to make them
 | destroyed
-bomb 30 . p -2,2 ujh
+bomb 30 . p -2,2 jh
 l
 30
 | 31 is on a ship, but there's no way to trigger a retreat then
 | crewless
-__cmd added -1 0 0
-bomb 30 . p -2,2 ujh
+bomb 30 . p -2,2 jh
 l
 32
 | BUG: retreats anyway
@@ -145,22 +144,21 @@ l
 | BUG: retreats anyway
 | 34 is on a land unit, but there's no way to trigger a retreat then
 | no mobility
-bomb 30 . p -2,2 ujh
+bomb 30 . p -2,2 jh
 l
 35
 || land units having difficulties during retreat
 | these bombing runs must hit; if they don't, use __cmd to make them
 | out of mobility after n
-__cmd added -1 0 0
 bomb 30 . p -2,2 ujh
 l
 40
 | into mountain 2,0 after j
+__cmd added -1 0 0
 bomb 30 . p -2,2 ujh
 l
 41
 | into foreign -1,1 right away
-__cmd added -1 0 0
 bomb 30 . p -2,2 ujh
 l
 42
@@ -170,18 +168,17 @@ bomb 30 . p -2,2 ujh
 l
 44
 | BUG: sweeps silently
+| BUG: 43 doesn't retreat when 44 retreats fully
 || land units retreating fully
 | jh
 bomb 30 . p -2,2 ujh
 l
 10
 | h
-__cmd added -1 0 0
 bomb 30 . p -2,2 ujjh
 l
 10
 | uy into allied 3,-1
-__cmd added -1 0 0
 bomb 30 . p -2,2 ujjh
 l
 10

@@ -1,10 +1,11 @@
 || create land
 desi @0,0:2 a
 desi 4,4 h
+des -6,2 h
 give c * ?des#. 100
 || country#1
 add 1 1 1 p
-edit l * ?des#.&xloc<0 o 1 O 1
+edit l * ?des#.&xloc>-6&xloc<0 o 1 O 1
 desi -2,0 c
 edit c 1 c -2,0 s 4 b 640 M 25000 T 100
 | two forts (-2,-2 with return fire, -2,2 without)
@@ -48,7 +49,7 @@ edit l 2,2 e 1
 | ship that can return fire to -2,-2 and -5,-1 weakly
 edit s 5 U 9 O 2 L -4,-2 E 60
 | a train to carry land units
-edit u 0 U 9 O 2 T tra L 1,1
+edit u 0 U 9 O 2 T tra L 0,2
 | target ships gun fire: injured, helpless, not helpless
 edit s 0 U 20 O 2 U 10 L 0,2 U 11
 retr 10 nhhnj ih
@@ -94,16 +95,16 @@ retr 51 gg dh
 retr 52/53 gg h
 | target ships bombs: injured vs. bombed, bombed
 | five of each, to have a decent chance at getting both a hit and a miss
-edit s 10 U 60 t dd U 61 U 62 U 63 U 64 U 65 U 66 U 67 U 68 U 69
+edit s 10 U 60 t dd L -6,2 U 61 U 62 U 63 U 64 U 65 U 66 U 67 U 68 U 69
 retr 60/61/62/63/64 nn bih
 retr 65/66/67/68/69 nn bh
 | target ships missiles: injured (bombed doesn't apply)
 | five, to have a decent chance at getting both a hit and a miss
-edit s 60 U 80 U 81 U 82 U 83 U 84
+edit s 60 U 80 L -6,2 U 81 U 82 U 83 U 84
 retr 80/81/82/83/84 nn bih
 | target ships torpedoes: torpedoed (injured not implemented)
 | five, to have a decent chance at getting both a hit and a miss
-edit s 10 U 100 U 101 U 102 U 103 U 104
+edit s 10 U 100 L 0,4 U 101 U 102 U 103 U 104
 retr 100/101/102/103/104 nn tih
 | target ship sonar
 edit s 50 U 120
@@ -112,21 +113,21 @@ retr 120 gg s
 edit s 50 U 130 t tt
 retr 130 gg u
 | target land units bombs: bombed
-edit u 9 U 10 T cav
+edit u 9 U 10 T cav L 1,1
 lret 10 jhhuy b
 | target land units that want to retreat, but can't:
 | destroyed
-edit u 10 U 30 T inf e 10
+edit u 10 U 30 L 0,2 e 10
 | loaded on ship
-edit u 10 U 31 S 35
+edit u 10 U 31 L 0,2 S 35
 | crewless
-edit u 10 U 32 m 0
+edit u 10 U 32 L 0,2 m 0
 | kidnapped
 edit u 10 U 33 L -1,1
 | loaded on train
-edit u 10 U 34 Y 9
+edit u 10 U 34 L 0,2 Y 9
 | no mobility
-edit u 10 U 35 M 0
+edit u 10 U 35 L 0,2 M 0
 lret 30/31/32/33/34/35 j b
 | target land units having difficulties during retreat:
 | runs out of mobility
