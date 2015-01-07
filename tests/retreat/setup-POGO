@@ -31,8 +31,8 @@ build p -2,2 lb 5
 edit p 0 U 10 T mi t 160 U 11 U 12 U 13 U 14
 | p-bombers with 50% hit chance vs. cav
 edit p 0 U 20 t 400 U 21 U 22 U 23 U 24
-| very accurate p-bomber
-edit p 0 U 30 T ac t 400
+| very accurate p-bombers
+edit p 0 U 30 T ac t 400 U 31
 | complete the planes
 edit p * ?own#0 e 100 m 127
 | land units for testing retreat command
@@ -52,6 +52,8 @@ desi 4,0 c
 | harbors, 0,2 efficient, 2,2 construction zone
 desi 0:2,2 h
 edit l 2,2 e 1
+| a bit of rail
+desi 0,-2 +
 | ship that can return fire to -2,-2 and -5,-1 weakly
 edit s 5 U 9 O 2 L -4,-2 E 60
 | a train to carry land units
@@ -164,9 +166,11 @@ edit u 10 U 35 L 0,2 M 0
 | on sale
 edit u 10 U 36 L 0,2
 | set as POGO doesn't work, done in setup-2
+| no rail in 1,1
+edit u 10 U 37 T tra
 army c 30/31/32/34/35/36
 lret c j b
-lret 33 j b
+lret 33/37 j b
 | target land units having difficulties during retreat:
 | runs out of mobility
 edit u 10 U 40 M 5
@@ -182,6 +186,12 @@ edit u 10 U 10 U 43 T eng U 44
 army m 43/44
 edit l 0,0 O 1 M 100
 lret m yu b
+| into 0,0 no rail
+edit u 10 U 45 T tra L 0,-2
+| non-train retreating with train
+edit u 10 U 46 L 0,-2
+army t 45/46
+lret t nb b
 | missions for retreat to clear
 miss l 40/41/42 res .
 | target land units bombs: injured vs. bombed

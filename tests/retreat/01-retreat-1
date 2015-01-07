@@ -161,7 +161,10 @@ bomb 30 . p -2,2 uh
 l
 33
 | BUG: retreats anyway
-__cmd added -1 -2 0
+| no rail in 1,1
+bomb 30 . p -2,2 ujh
+l
+37
 || land units having difficulties during retreat
 | these bombing runs must hit; if they don't, use __cmd to make them
 | out of mobility after n
@@ -185,6 +188,13 @@ l
 44
 | BUG: sweeps silently
 | BUG: 43 doesn't retreat when 44 retreats fully
+| rail ends after n
+| as group (army t): 45 train, 46 not
+bomb 31 . p -2,2 uyuuh
+l
+45
+| BUG: 46 retreats anyway
+__cmd added 1 2 0
 || land units retreating fully
 | jh
 bomb 30 . p -2,2 ujh
