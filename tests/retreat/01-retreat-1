@@ -194,17 +194,26 @@ bomb 31 . p -2,2 uyuuh
 l
 45
 | BUG: 46 retreats anyway
-__cmd added 1 2 0
+| into foreign, 47 can't, 48 can
+__cmd added -1 0 0
+bomb 31 . p -2,2 uuuh
+l
+47
+| BUG: 48 can't enter foreign sector
+__cmd added 2 4 0
 || land units retreating fully
 | jh
+__cmd added -1 0 0
 bomb 30 . p -2,2 ujh
 l
 10
 | h
+__cmd added -1 0 0
 bomb 30 . p -2,2 ujjh
 l
 10
 | uy into allied 3,-1
+__cmd added -1 0 0
 bomb 30 . p -2,2 ujjh
 l
 10

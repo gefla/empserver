@@ -192,6 +192,10 @@ edit u 10 U 45 T tra L 0,-2
 edit u 10 U 46 L 0,-2
 army t 45/46
 lret t nb b
+| into foreign X,Y
+edit u 10 U 47 L 1,-1 U 48 T spy
+army s 47/48
+lret s gh b
 | missions for retreat to clear
 miss l 40/41/42 res .
 | target land units bombs: injured vs. bombed
