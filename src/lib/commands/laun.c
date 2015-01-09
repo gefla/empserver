@@ -135,10 +135,10 @@ launch_as(struct plnstr *pp)
     struct plnstr plane;
 
     cp = getstarg(player->argp[2], "Target satellite? ", buf);
-    if (!check_plane_ok(pp))
-	return RET_FAIL;
     if (!cp || !*cp)
 	return RET_SYN;
+    if (!check_plane_ok(pp))
+	return RET_FAIL;
     if (!getplane(atoi(cp), &plane) || !plane.pln_own
 	|| !pln_is_in_orbit(&plane)) {
 	pr("No such satellite exists!\n");
@@ -301,10 +301,10 @@ launch_sat(struct plnstr *pp)
 
     pr("\n");
     cp = getstarg(player->argp[2], "Target sector? ", buf);
-    if (!check_plane_ok(pp))
-	return RET_FAIL;
     if (!cp || !*cp)
 	return RET_SYN;
+    if (!check_plane_ok(pp))
+	return RET_FAIL;
     if (!sarg_xy(cp, &sx, &sy)) {
 	pr("Bad sector designation!\n");
 	return RET_SYN;

@@ -52,10 +52,10 @@ name(void)
 	if (!player->owner)
 	    continue;
 	p = getstarg(player->argp[2], "Name? ", buf);
-	if (!check_ship_ok(&ship))
-	    return RET_FAIL;
 	if (!p || !*p)
 	    return RET_SYN;
+	if (!check_ship_ok(&ship))
+	    return RET_FAIL;
 	if (!strcmp(p, "~")) {
 	    ship.shp_name[0] = 0;
 	} else {

@@ -182,11 +182,10 @@ trad(void)
 	|| (trade.trd_type == EF_NUKE)) {
 	while (1) {
 	    p = getstring("Destination sector: ", buf);
+	    if (!p)
+		return RET_FAIL;
 	    if (!trade_check_ok(&trade, &tg.gen))
 		return RET_FAIL;
-	    if (!p) {
-		return RET_FAIL;
-	    }
 	    if (!sarg_xy(p, &sx, &sy) || !getsect(sx, sy, &sect)) {
 		pr("Bad sector designation; try again!\n");
 		continue;
@@ -210,11 +209,10 @@ trad(void)
     } else if (trade.trd_type == EF_LAND) {
 	while (1) {
 	    p = getstring("Destination sector: ", buf);
+	    if (!p)
+		return RET_FAIL;
 	    if (!trade_check_ok(&trade, &tg.gen))
 		return RET_FAIL;
-	    if (!p) {
-		return RET_FAIL;
-	    }
 	    if (!sarg_xy(p, &sx, &sy) || !getsect(sx, sy, &sect)) {
 		pr("Bad sector designation; try again!\n");
 		continue;
