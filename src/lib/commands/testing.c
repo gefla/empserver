@@ -27,7 +27,7 @@
  *  testing.c: Commands for test-suite use
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2014
+ *     Markus Armbruster, 2014-2015
  */
 
 #include <config.h>
@@ -46,10 +46,16 @@ testing_cmd(void)
 	return RET_SYN;
     if (!strcmp(p, "added")) {
 	p = getstarg(player->argp[2], "number? ", buf);
+	if (!p || !*p)
+	    return RET_SYN;
 	test_suite_prng_seed -= strtol(p, NULL, 10);
 	p = getstarg(player->argp[3], "BTUs? ", buf);
+	if (!p || !*p)
+	    return RET_SYN;
 	player->btused -= strtol(p, NULL, 10);
 	p = getstarg(player->argp[4], "money? ", buf);
+	if (!p)
+	    return RET_SYN;
 	player->dolcost -= strtod(p, NULL);
 	return RET_OK;
     }
