@@ -87,6 +87,8 @@ retreat(int type)
     nunits = 0;
     if (player->argp[2] != NULL) {
 	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
+	if (!pq)
+	    return RET_SYN;
 	for (i = 0; i < RET_LEN - 1 && pq[i]; i++) {
 	    if (chkdir(pq[i], DIR_STOP, DIR_LAST) < 0) {
 		pr("'%c' is not a valid direction...\n", pq[i]);
