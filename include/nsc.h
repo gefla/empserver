@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1989
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2015
  */
 
 #ifndef NSC_H
@@ -298,6 +298,7 @@ extern struct valstr *nstr_eval(struct valstr *, natid, void *,
 				enum nsc_type);
 extern int nstr_promote(int);
 extern char *symbol_by_value(int, struct symbol *);
+extern int symbol_set_fmt(char *, size_t, int, struct symbol *, int);
 /* src/lib/global/nsc.c */
 extern void nsc_init(void);
 /* src/lib/subs/nxtitem.c */

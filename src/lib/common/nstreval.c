@@ -29,12 +29,13 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1997
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2015
  */
 
 #include <config.h>
 
 #include <limits.h>
+#include <stdio.h>
 #include <string.h>
 #include "file.h"
 #include "nat.h"
@@ -257,4 +258,32 @@ symbol_by_value(int key, struct symbol *table)
 	    return table[i].name;
 
     return NULL;
+}
+
+int
+symbol_set_fmt(char *buf, size_t sz, int flags, struct symbol symtab[],
+	       int all)
+{
+    char *sep = "";
+    int n, i;
+    char *p;
+
+    if (buf && sz)
+	buf[0] = 0;
+    n = 0;
+    for (i = 0; i < 32; i++) {
+	if (!(flags & bit(i)))
+	    continue;
+	p = symbol_by_value(bit(i), symtab);
+	if (p)
+	    n += snprintf(buf + n, sz - n, "%s%s", sep, p);
+	else if (all)
+	    n += snprintf(buf + n, sz - n, "%s#%d", sep, i);
+	if ((size_t)n >= sz)
+	    sz = n;
+	sep = ", ";
+    }
+
+    CANT_HAPPEN((size_t)n >= sz && buf);
+    return n;
 }
