@@ -68,7 +68,7 @@ and what news to see with the ?action selector.  Actions are:
      49) Trade between countries
      50) Pirates fence loot
      51) Pirates keep loot
-     52) Ship torps ship
+     52) Ship torpedoes ship
      53) Sub bombed by ASW plane
      55) Unit bombed
      56) Unit hits land mine

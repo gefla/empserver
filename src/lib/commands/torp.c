@@ -82,7 +82,7 @@ torp(void)
 	    continue;
 	ntorping++;
     }
-    pr("%d ships are eligible to torp\n", ntorping);
+    pr("%d ships are eligible to torpedo\n", ntorping);
     snxtitem_rewind(&nbst);
     while (nxtitem(&nbst, &sub)) {
 	if (!sub.shp_own)
@@ -320,7 +320,7 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int ntargets)
 	pr("Missed!\n");
 	if (sp->shp_own != 0)
 	    wu(0, sp->shp_own,
-	       "%s missed %s with a torp at %s\n",
+	       "%s missed %s with a torpedo at %s\n",
 	       prship(sp), prsub(targ),
 	       xyas(sp->shp_x, sp->shp_y, sp->shp_own));
     }

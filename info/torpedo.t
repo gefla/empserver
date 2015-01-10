@@ -35,7 +35,7 @@ level. Currently the range formula looks like this:
 .fi
 .s1
 If the target is out of range, you will be told so,
-(after your torp is in the water).
+(after your torpedo is in the water).
 See \*Qinfo Hitchance\*U for the chance of a torpedo hitting its target.
 .s1
 If the target ship is not in a direct line of sight

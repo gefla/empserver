@@ -604,7 +604,7 @@
     Play#1 output Play#1 6 0 590
     Play#1 input torp 6 100
     Play#1 command torpedo
-    Play#1 output Play#1 1 1 ships are eligible to torp
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 51%
     Play#1 output Play#1 1 BOOM!...
@@ -612,14 +612,14 @@
     Play#1 output Play#1 6 0 587
     Play#1 input torp 6 101
     Play#1 command torpedo
-    Play#1 output Play#1 1 1 ships are eligible to torp
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 51%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 584
     Play#1 input torp 6 102
     Play#1 command torpedo
-    Play#1 output Play#1 1 1 ships are eligible to torp
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 51%
     Play#1 output Play#1 1 BOOM!...
@@ -627,7 +627,7 @@
     Play#1 output Play#1 6 0 581
     Play#1 input torp 6 103
     Play#1 command torpedo
-    Play#1 output Play#1 1 1 ships are eligible to torp
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 51%
     Play#1 output Play#1 1 BOOM!...
@@ -635,7 +635,7 @@
     Play#1 output Play#1 6 0 578
     Play#1 input torp 6 104
     Play#1 command torpedo
-    Play#1 output Play#1 1 1 ships are eligible to torp
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 51%
     Play#1 output Play#1 1 Missed
