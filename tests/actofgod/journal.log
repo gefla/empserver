@@ -1402,8 +1402,8 @@
     Play#0 input edit s 3 W 513 W 1030 W 2
     Play#0 command edit
     Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed: group, #9 set
-    Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed: injured, torped, #10 set, and group, #9 cleared
-    Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed: torped, #10 cleared
+    Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed: injured, torpedoed, #10 set, and group, #9 cleared
+    Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed: torpedoed, #10 cleared
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 R ""
     Play#0 command edit
@@ -1421,8 +1421,8 @@
     Play#0 input edit u 3 W 513 W 1030 W 2
     Play#0 command edit
     Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed: group, #9 set
-    Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed: injured, torped, #10 set, and group, #9 cleared
-    Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed: torped, #10 cleared
+    Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed: injured, torpedoed, #10 set, and group, #9 cleared
+    Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed: torpedoed, #10 cleared
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 f 4
     Play#0 command edit
@@ -2022,12 +2022,12 @@
     Play#0 output Play#0 1 Assignment of sup  supply #3 changed from army ~ to a by an act of POGO
     Play#0 output Play#0 1 Retreat path of cs   cargo ship (#3) changed from  to jj by an act of POGO
     Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed by an act of POGO: group set
-    Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed by an act of POGO: injured, torped set and group cleared
-    Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed by an act of POGO: torped cleared
+    Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed by an act of POGO: injured, torpedoed set and group cleared
+    Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#3) changed by an act of POGO: torpedoed cleared
     Play#0 output Play#0 1 Retreat path of sup  supply #3 changed from  to jj by an act of POGO
     Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed by an act of POGO: group set
-    Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed by an act of POGO: injured, torped set and group cleared
-    Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed by an act of POGO: torped cleared
+    Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed by an act of POGO: injured, torpedoed set and group cleared
+    Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed by an act of POGO: torpedoed cleared
     Play#0 output Play#0 1 f1   Sopwith Camel #3 loaded onto ship #3 by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #4 loaded onto ship #4 by an act of POGO!
     Play#0 output Play#0 1 f1   Sopwith Camel #4 unloaded from ship #4 by an act of POGO!

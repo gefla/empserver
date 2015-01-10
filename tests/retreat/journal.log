@@ -37,7 +37,7 @@
     Play#1 output Play#1 4 Retreat conditions ('?' to list available ones)?
     Play#1 input ?
     Play#1 output Play#1 1 i	retreat when injured
-    Play#1 output Play#1 1 t	retreat when torped
+    Play#1 output Play#1 1 t	retreat when torpedoed
     Play#1 output Play#1 1 s	retreat when sonared
     Play#1 output Play#1 1 h	retreat when helpless
     Play#1 output Play#1 1 b	retreat when bombed

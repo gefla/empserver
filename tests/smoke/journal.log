@@ -16222,7 +16222,7 @@
     Play#0 output Play#0 1 XDUMP retreat-flags 0
     Play#0 output Play#0 1 1 "group"
     Play#0 output Play#0 1 2 "injured"
-    Play#0 output Play#0 1 4 "torped"
+    Play#0 output Play#0 1 4 "torpedoed"
     Play#0 output Play#0 1 8 "sonared"
     Play#0 output Play#0 1 16 "helpless"
     Play#0 output Play#0 1 32 "bombed"
@@ -16954,7 +16954,7 @@
     Play#1 output Play#1 1 XDUMP retreat-flags 0
     Play#1 output Play#1 1 1 "group"
     Play#1 output Play#1 1 2 "injured"
-    Play#1 output Play#1 1 4 "torped"
+    Play#1 output Play#1 1 4 "torpedoed"
     Play#1 output Play#1 1 8 "sonared"
     Play#1 output Play#1 1 16 "helpless"
     Play#1 output Play#1 1 32 "bombed"

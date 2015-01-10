@@ -27,7 +27,7 @@
  *  symbol.c: Empire symbol tables
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2006-2014
+ *     Markus Armbruster, 2006-2015
  */
 
 #include <config.h>
@@ -236,7 +236,7 @@ struct symbol resources[] = {
 struct symbol retreat_flags[] = {
     {RET_GROUP, "group"},
     {RET_INJURED, "injured"},
-    {RET_TORPED, "torped"},
+    {RET_TORPED, "torpedoed"},
     {RET_SONARED, "sonared"},
     {RET_HELPLESS, "helpless"},
     {RET_BOMBED, "bombed"},
