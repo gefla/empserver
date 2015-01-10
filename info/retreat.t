@@ -4,11 +4,15 @@
 .SY "retreat <SHIP/FLEET> <PATH> <CONDITIONS>"
 .SY "retreat <SHIP/FLEET> q"
 The retreat command allows you to examine or modify the retreat
-paths and conditions of your ships.
+orders of your ships
 .s1
 The first argument selects ships to view or give orders for.
 If a fleet designation is given when specifying orders, the orders
 apply to all members of that fleet.
+.s1
+Retreat orders consist of a retreat path and conditions.
+.s1
+A retreat path 'h' orders the ships not to retreat.
 .s1
 With 'q' instead of a retreat path, the current retreat paths and
 conditions will be listed.
@@ -71,7 +75,6 @@ Retreat conditions are:
 			ships/sectors (including the ship itself) are
 			able to fire back at the aggressor
 	u		Retreat upon a failed boarding attempt
-	c		Cancel retreat order
 .fi
 .s1
 For example, if the battleship above was fired at, it would attempt to

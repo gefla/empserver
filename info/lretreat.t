@@ -4,11 +4,15 @@
 .SY "lretreat <UNIT/ARMY> <PATH> <CONDITIONS>"
 .SY "lretreat <UNIT/ARMY> q"
 The lretreat command allows you to examine or modify the retreat
-paths and conditions of your land units.
+orders of your land units.
 .s1
 The first argument selects land units to view or give orders for.
 If an army designation is given when specifying orders, the orders
 apply to all members of that army.
+.s1
+Retreat orders consist of a retreat path and conditions.
+.s1
+A retreat path 'h' orders the ships not to retreat.
 .s1
 With 'q' instead of a retreat path, the current retreat paths and
 conditions will be listed.
@@ -66,7 +70,6 @@ Retreat conditions are:
 			when it is fired upon, and no friendly
 			units/sectors (including the unit itself)
 			are able to fire back at the aggressor.
-	c		Cancel retreat order
 .fi
 .s1
 For example, if the cavalry above was fired at, it would attempt to

@@ -114,7 +114,8 @@ retreat(int type)
 	}
 	for (i--; i >= 0 && pq[i] == dirch[DIR_STOP]; i--)
 	    pq[i] = 0;
-
+    }
+    if (pq && *pq) {
     again:
 	fl = getstarg(player->argp[3],
 		      "Retreat conditions ('?' to list available ones)? ",
@@ -125,6 +126,7 @@ retreat(int type)
 	for (i = 0; fl[i]; i++) {
 	    ch = tolower(fl[i]);
 	    if (ch == 'c') {
+		/* Deprecated, but keeping it around doesn't hurt */
 		*pq = 0;
 		break;
 	    }
@@ -135,7 +137,6 @@ retreat(int type)
 			   rflagsc[j],
 			   symbol_by_value(1 << j, retreat_flags));
 		}
-		pr("c\tcancel retreat order\n");
 		goto again;
 	    }
 	    p = strchr(rflagsc, ch);

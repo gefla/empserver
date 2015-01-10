@@ -43,7 +43,6 @@
     Play#1 output Play#1 1 b	retreat when bombed
     Play#1 output Play#1 1 d	retreat when depth-charged
     Play#1 output Play#1 1 u	retreat when boarded
-    Play#1 output Play#1 1 c	cancel retreat order
     Play#1 output Play#1 4 Retreat conditions ('?' to list available ones)?
     Play#1 input junk
     Play#1 output Play#1 1 Bad retreat condition 'j'
@@ -109,7 +108,6 @@
     Play#1 output Play#1 1 i	retreat when injured
     Play#1 output Play#1 1 h	retreat when helpless
     Play#1 output Play#1 1 b	retreat when bombed
-    Play#1 output Play#1 1 c	cancel retreat order
     Play#1 output Play#1 4 Retreat conditions ('?' to list available ones)?
     Play#1 input junk
     Play#1 output Play#1 1 Bad retreat condition 'j'
