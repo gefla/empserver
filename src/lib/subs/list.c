@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2003-2014
+ *     Markus Armbruster, 2003-2015
  */
 
 #include <config.h>
@@ -47,6 +47,15 @@
 #include "sect.h"
 #include "ship.h"
 #include "xy.h"
+
+static void
+list_ship(struct shpstr *sp, int first)
+{
+    if (first)
+	pr(" #          owner           eff       type\n");
+    pr("(#%3d) %10.10s  %12.12s  %s\n", sp->shp_uid,
+       cname(sp->shp_own), effadv(sp->shp_effic), prship(sp));
+}
 
 int
 shipsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
@@ -72,12 +81,8 @@ shipsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
 	    if (mp->m_flags & nowantflags)
 		continue;
 	}
-	if (!only_count) {
-	    if (!ships)
-		pr(" #          owner           eff       type\n");
-	    pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
-	       cname(ship.shp_own), effadv(ship.shp_effic), prship(&ship));
-	}
+	if (!only_count)
+	    list_ship(&ship, !ships);
 	ships++;
     }
     return ships;
@@ -101,10 +106,7 @@ carriersatxy(coord x, coord y, natid own)
 	    continue;
 	if ((carrier_planes(&ship, 0) & (P_L | P_K)) == 0)
 	    continue;
-	if (!ships)
-	    pr(" #          owner           eff       type\n");
-	pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
-	   cname(ship.shp_own), effadv(ship.shp_effic), prship(&ship));
+	list_ship(&ship, !ships);
 	ships++;
     }
     return ships;
@@ -219,13 +221,22 @@ asw_shipsatxy(coord x, coord y, int wantflags, int nowantflags,
 		continue;
 	}
 	add_shiplist(ship.shp_uid, head);
-	if (!ships)
-	    pr(" #          owner           eff       type\n");
-	pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
-	   cname(ship.shp_own), effadv(ship.shp_effic), prship(&ship));
+	list_ship(&ship, !ships);
 	ships++;
     }
     return ships;
+}
+
+void
+print_shiplist(struct shiplist *head)
+{
+    struct shiplist *s;
+    struct shpstr ship;
+
+    for (s = head; s; s = s->next) {
+	getship(s->uid, &ship);
+	list_ship(&ship, s == head);
+    }
 }
 
 int

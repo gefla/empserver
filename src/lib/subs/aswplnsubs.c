@@ -92,25 +92,3 @@ free_shiplist(struct shiplist **head)
     }
     *head = NULL;
 }
-
-void
-print_shiplist(struct shiplist *head)
-{
-    struct shiplist *s;
-    int first;
-    struct shpstr ship;
-
-    s = head;
-    first = 1;
-
-    while (s != NULL) {
-	getship(s->uid, &ship);
-	if (first) {
-	    pr(" #          player->owner           eff        type\n");
-	    first = 0;
-	}
-	pr("(#%3d) %10.10s  %12.12s  %s\n", ship.shp_uid,
-	   cname(ship.shp_own), effadv(ship.shp_effic), prship(&ship));
-	s = s->next;
-    }
-}

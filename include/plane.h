@@ -171,6 +171,5 @@ extern int ac_damage_plane(struct plnstr *, natid, int, int, char *);
 extern int on_shiplist(int, struct shiplist *);
 extern void add_shiplist(int, struct shiplist **);
 extern void free_shiplist(struct shiplist **);
-extern void print_shiplist(struct shiplist *);
 
 #endif
