@@ -214,16 +214,16 @@ divine_flag_change(struct empobj *unit, char *name,
 	return;
     }
 
-    symbol_set_fmt(set, sizeof(set), new & ~old, sym, 1);
-    symbol_set_fmt(clr, sizeof(clr), old & ~new, sym, 1);
+    symbol_set_fmt(set, sizeof(set), new & ~old, sym, ", ", 1);
+    symbol_set_fmt(clr, sizeof(clr), old & ~new, sym, ", ", 1);
     pr("%s of %s changed: %s%s%s%s%s\n",
        name, unit_nameof(unit),
        set, set[0] ? " set" : "",
        set[0] && clr[0] ? ", and " : "",
        clr, clr[0] ? " cleared" : "");
 
-    if (symbol_set_fmt(set, sizeof(set), new & ~old, sym, 0)
-	+ symbol_set_fmt(clr, sizeof(clr), old & ~new, sym, 0))
+    if (symbol_set_fmt(set, sizeof(set), new & ~old, sym, ", ", 0)
+	+ symbol_set_fmt(clr, sizeof(clr), old & ~new, sym, ", ", 0))
 	wu(0, unit->own, "%s of %s changed by an act of %s: %s%s%s%s%s\n",
 	   name, unit_nameof(unit), cname(player->cnum),
 	   set, set[0] ? " set" : "",

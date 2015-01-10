@@ -31,7 +31,7 @@
  *     Jeff Bailey, 1990
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005-2009
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2015
  */
 
 #include <config.h>
@@ -658,14 +658,9 @@ show_load(short item[])
 static void
 show_capab(int flags, struct symbol *table)
 {
-    int i;
-    char *p;
+    char buf[1024];
 
-    for (i = 0; i < 32; i++) {
-	if (!(flags & bit(i)))
-	    continue;
-	p = symbol_by_value(bit(i), table);
-	if (p)
-	    pr(" %s", p);
-    }
+    symbol_set_fmt(buf, sizeof(buf), flags, table, " ", 0);
+    if (*buf)
+	pr(" %s", buf);
 }

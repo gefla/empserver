@@ -262,9 +262,9 @@ symbol_by_value(int key, struct symbol *table)
 
 int
 symbol_set_fmt(char *buf, size_t sz, int flags, struct symbol symtab[],
-	       int all)
+	       char *sep, int all)
 {
-    char *sep = "";
+    char *pfx = "";
     int n, i;
     char *p;
 
@@ -276,12 +276,12 @@ symbol_set_fmt(char *buf, size_t sz, int flags, struct symbol symtab[],
 	    continue;
 	p = symbol_by_value(bit(i), symtab);
 	if (p)
-	    n += snprintf(buf + n, sz - n, "%s%s", sep, p);
+	    n += snprintf(buf + n, sz - n, "%s%s", pfx, p);
 	else if (all)
-	    n += snprintf(buf + n, sz - n, "%s#%d", sep, i);
+	    n += snprintf(buf + n, sz - n, "%s#%d", pfx, i);
 	if ((size_t)n >= sz)
 	    sz = n;
-	sep = ", ";
+	pfx = sep;
     }
 
     CANT_HAPPEN((size_t)n >= sz && buf);
