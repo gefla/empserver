@@ -1483,7 +1483,7 @@
     Play#0 output Play#0 1 1 planes spotted over 1,-1
     Play#0 output Play#0 1 1 pinpoint bombing raid did 24 damage to cav  cavalry #47
     Play#0 output Play#0 1 	cav  cavalry #47 takes 9
-    Play#0 output Play#0 1 cav  cavalry #47 retreats along path gh
+    Play#0 output Play#0 1 cav  cavalry #47 retreats along path g
     Play#0 output Play#0 1 spy  infiltrator #48 retreats with them
     Play#0 output Play#0 1 cav  cavalry #47 can't go to -1,-1 & stays in 1,-1
     Play#0 output Play#0 1 spy  infiltrator #48 stopped at -1,-1
@@ -1613,9 +1613,9 @@
     Play#0 output Play#0 1   2   34 lc   light cruis    3,1      n                   i
     Play#0 output Play#0 1   2   35 lc   light cruis    0,2    c n          Yes      i
     Play#0 output Play#0 1   2   36 lc   light cruis    0,2    c n          Yes      i
-    Play#0 output Play#0 1   2   40 lc   light cruis    1,3      nnnh                i
-    Play#0 output Play#0 1   2   41 lc   light cruis    1,3      uh                  i
-    Play#0 output Play#0 1   2   42 lc   light cruis   -4,2      ugggh               i
+    Play#0 output Play#0 1   2   40 lc   light cruis    1,3      nnn                 i
+    Play#0 output Play#0 1   2   41 lc   light cruis    1,3      u                   i
+    Play#0 output Play#0 1   2   42 lc   light cruis   -4,2      uggg                i
     Play#0 output Play#0 1   2   43 ms   minesweeper   -6,4    m g          Yes      i
     Play#0 output Play#0 1   2   44 ms   minesweeper   -6,4    m g          Yes      i
     Play#0 output Play#0 1   2   46 lc   light cruis    5,1    n y          Yes      i
@@ -1703,8 +1703,8 @@
     Play#0 output Play#0 1   1    7 inf  infantry      -4,0    a b          Yes      h
     Play#0 output Play#0 1   1   24 cav  cavalry        3,1    g bhg        Yes      b
     Play#0 output Play#0 1   2   25 cav  cavalry        2,2    g g          Yes      b
-    Play#0 output Play#0 1   2   26 cav  cavalry        3,1    g uh                  b
-    Play#0 output Play#0 1   2   27 cav  cavalry        3,1    g uh         Yes      b
+    Play#0 output Play#0 1   2   26 cav  cavalry        3,1    g u                   b
+    Play#0 output Play#0 1   2   27 cav  cavalry        3,1    g u          Yes      b
     Play#0 output Play#0 1   2   28 cav  cavalry        2,2    g g          Yes      i
     Play#0 output Play#0 1   2   29 cav  cavalry        4,0    g bhg        Yes      b
     Play#0 output Play#0 1   2   31 cav  cavalry        0,2    c j          Yes      b
@@ -1718,7 +1718,7 @@
     Play#0 output Play#0 1   2   42 cav  cavalry        1,1      g                   b
     Play#0 output Play#0 1   2   45 tra  train          1,-1   t b          Yes      b
     Play#0 output Play#0 1   2   46 cav  cavalry        0,-2   t nb         Yes      b
-    Play#0 output Play#0 1   2   47 cav  cavalry        1,-1   s gh         Yes      b
+    Play#0 output Play#0 1   2   47 cav  cavalry        1,-1   s g          Yes      b
     Play#0 output Play#0 1   2   61 cav  cavalry        0,0      nj                  ihb
     Play#0 output Play#0 1   2   62 cav  cavalry        0,0      nj                  ihb
     Play#0 output Play#0 1   2   63 cav  cavalry        0,0      nj                  ihb

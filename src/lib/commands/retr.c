@@ -71,8 +71,7 @@ retreat(int type)
     int nunits;
     struct nstr_item ni;
     union empobj_storage unit;
-    int rflags, ch, j;
-    unsigned i;
+    int i, rflags, ch, j;
     char *rflagsc, *p, *name, *rpath, *what;
     int *rflagsp;
     char buf1[1024];
@@ -96,6 +95,8 @@ retreat(int type)
 		return RET_SYN;
 	    }
 	}
+	for (i--; i >= 0 && pq[i] == dirch[DIR_STOP]; i--)
+	    pq[i] = 0;
     } else
 	pq = NULL;
 
