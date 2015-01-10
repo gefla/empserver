@@ -1489,11 +1489,8 @@
     Play#0 output Play#0 1  131 ms     11,-5      66%   0   3   0  14   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1 8 ships
     Play#0 output Play#0 6 0 640
-    Play#0 input retr * ?rflags#0
+    Play#0 input retr * ?rflags#0 q
     Play#0 command retreat
-    Play#0 output Play#0 1 Omitting the second argument is deprecated and will cease to work in a
-    Play#0 output Play#0 1 future release.  Please use 'retr * ?rflags#0 q' to query retreat orders.
-    Play#0 output Play#0 1
     Play#0 output Play#0 1 own shp#     ship type       x,y   fl path       as flt?  flags
     Play#0 output Play#0 1   1    4 oe   oil explora    1,1      hhhhn               b
     Play#0 output Play#0 1   2   11 pt   patrol boat    0,0      hhhhn               b
@@ -1599,11 +1596,8 @@
     Play#0 output Play#0 1  131 eng     8,6        96%   0   5   0   3   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1 4 units
     Play#0 output Play#0 6 0 637
-    Play#0 input lret * ?rflags#0
+    Play#0 input lret * ?rflags#0 q
     Play#0 command lretreat
-    Play#0 output Play#0 1 Omitting the second argument is deprecated and will cease to work in a
-    Play#0 output Play#0 1 future release.  Please use 'lret * ?rflags#0 q' to query retreat orders.
-    Play#0 output Play#0 1
     Play#0 output Play#0 1 own lnd#     unit type       x,y   ar path       as army? flags
     Play#0 output Play#0 1   1    1 tra  train          1,1      hhhhn               b
     Play#0 output Play#0 1   1    4 eng  engineer       1,1      hhhhn               b

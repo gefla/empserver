@@ -1,8 +1,8 @@
 read 1
 read 2
 ship *
-retr * ?rflags#0
+retr * ?rflags#0 q
 miss s * ?mission#0 q
 land *
-lretr * ?rflags#0
+lretr * ?rflags#0 q
 miss l * ?mission#0 q

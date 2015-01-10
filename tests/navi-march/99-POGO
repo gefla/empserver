@@ -6,9 +6,9 @@ read 5
 read 6
 ship *
 carg * ?shell#0
-retr * ?rflags#0
+retr * ?rflags#0 q
 miss s * ?mission#0 q
 land *
 lcar * ?shell#0
-lret * ?rflags#0
+lret * ?rflags#0 q
 miss l * ?mission#0 q

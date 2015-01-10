@@ -10,7 +10,7 @@ junk
 | long path, all conditions
 retr 2/3 bgyujnbgyujnbgyujn itshbdu
 | clear retreat order
-retr 3 h c
+retr 3 h
 | group retreat order
 retr a ?uid=4 b h
 fleet a 7
@@ -30,7 +30,7 @@ junk
 | long path, all conditions
 lret 2/3 yujnbgyujnbgyujnbg ihb
 | clear retreat order
-lret 3 h c
+lret 3 h
 | group retreat order
 lret a ?uid=4 b h
 army a 7

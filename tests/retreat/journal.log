@@ -55,7 +55,7 @@
     Play#1 output Play#1 1    3 lc   light cruis   -3,1    a bgyujnbgy           itshbdu
     Play#1 output Play#1 1 2 ships
     Play#1 output Play#1 6 0 638
-    Play#1 input retr 3 h c
+    Play#1 input retr 3 h
     Play#1 command retreat
     Play#1 output Play#1 1 shp#     ship type       x,y   fl path       as flt?  flags
     Play#1 output Play#1 1    3 lc   light cruis   -3,1    a
@@ -120,7 +120,7 @@
     Play#1 output Play#1 1    3 inf  infantry      -3,1    a yujnbgyuj           ihb
     Play#1 output Play#1 1 2 units
     Play#1 output Play#1 6 0 633
-    Play#1 input lret 3 h c
+    Play#1 input lret 3 h
     Play#1 command lretreat
     Play#1 output Play#1 1 lnd#     unit type       x,y   ar path       as army? flags
     Play#1 output Play#1 1    3 inf  infantry      -3,1    a
@@ -1596,11 +1596,8 @@
     Play#0 output Play#0 1   2  130 tt   troop trans   -9,1       100%   0  10   0   0  0  0  0  0  96   60
     Play#0 output Play#0 1 57 ships
     Play#0 output Play#0 6 0 640
-    Play#0 input retr * ?rflags#0
+    Play#0 input retr * ?rflags#0 q
     Play#0 command retreat
-    Play#0 output Play#0 1 Omitting the second argument is deprecated and will cease to work in a
-    Play#0 output Play#0 1 future release.  Please use 'retr * ?rflags#0 q' to query retreat orders.
-    Play#0 output Play#0 1
     Play#0 output Play#0 1 own shp#     ship type       x,y   fl path       as flt?  flags
     Play#0 output Play#0 1   1    2 lc   light cruis   -3,1      bgyujnbgy           itshbdu
     Play#0 output Play#0 1   1    4 lc   light cruis   -5,1    a b          Yes      h
@@ -1700,11 +1697,8 @@
     Play#0 output Play#0 1   2   64 cav  cavalry       3,1        74%   7   0  73   0  50  42%  0  0
     Play#0 output Play#0 1 35 units
     Play#0 output Play#0 6 0 637
-    Play#0 input lretr * ?rflags#0
+    Play#0 input lretr * ?rflags#0 q
     Play#0 command lretreat
-    Play#0 output Play#0 1 Omitting the second argument is deprecated and will cease to work in a
-    Play#0 output Play#0 1 future release.  Please use 'lretr * ?rflags#0 q' to query retreat orders.
-    Play#0 output Play#0 1
     Play#0 output Play#0 1 own lnd#     unit type       x,y   ar path       as army? flags
     Play#0 output Play#0 1   1    2 inf  infantry      -3,1      yujnbgyuj           ihb
     Play#0 output Play#0 1   1    4 inf  infantry      -4,0    a b          Yes      h

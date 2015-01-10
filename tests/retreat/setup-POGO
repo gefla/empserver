@@ -228,7 +228,7 @@ decl f 2 4
 map *
 cens * ?des#.
 ship *
-retr *
+retr * q
 land *
-lretr *
+lret * q
 plane *
