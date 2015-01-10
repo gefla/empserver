@@ -32,7 +32,7 @@
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2015
  */
 
 /*
@@ -144,7 +144,7 @@ struct cmndstr player_coms[] = {
     {"lookout <SHIPS>", 1, look, 0, NORM + CAP},
     {"lost", 0, lost, 0, NORM},
     {"lradar <UNITS | SECTS>", 1, lrad, C_MOD, NORM + CAP},
-    {"lretreat <UNITS|ARMY> [<PATH> <i|h|b|c>]",
+    {"lretreat <UNITS|ARMY> [q | <PATH> <i|h|b|c>]",
      1, lretr, C_MOD, NORM + CAP},
     {"lstat <UNITS>", 0, lsta, 0, NORM},
     {"ltend <COMM> <tender-SHIPS> <NUM> <UNITS>",
@@ -205,7 +205,7 @@ struct cmndstr player_coms[] = {
     {"report <NATS>", 0, repo, 0, 0},
     {"reset <lot #> <0|price>", 1, rese, C_MOD, NORM + CAP},
     {"resource <SECTS>", 0, reso, 0, NONVIS},
-    {"retreat <SHIPS|FLEET> [<PATH> <i|t|s|h|b|d|u|c>]",
+    {"retreat <SHIPS|FLEET> [q | <PATH> <i|t|s|h|b|d|u|c>]",
      1, retr, C_MOD, NORM + CAP},
     {"route <COMM> <SECTS>", 1, rout, C_MOD, NORM},
     {"sabotage <UNITS>", 1, sabo, C_MOD, NORM + MONEY + CAP},

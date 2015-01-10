@@ -1,7 +1,8 @@
 .TH Command RETREAT
 .NA retreat "Set retreat conditions/paths for ships or fleets"
 .LV Expert
-.SY "retreat <SHIP/FLEET> [<PATH> <CONDITIONS>]"
+.SY "retreat <SHIP/FLEET> <PATH> <CONDITIONS>"
+.SY "retreat <SHIP/FLEET> q"
 The retreat command allows you to examine or modify the retreat
 paths and conditions of your ships.
 .s1
@@ -9,7 +10,8 @@ The first argument selects ships to view or give orders for.
 If a fleet designation is given when specifying orders, the orders
 apply to all members of that fleet.
 .s1
-Without further arguments, current retreat orders are shown.
+With 'q' instead of a retreat path, the current retreat paths and
+conditions will be listed.
 The report format contains the following fields:
 .s1
 .in \w'ship type\0\0'u
@@ -30,14 +32,12 @@ what conditions will trigger retreat.
 .in
 .s1
 For example:
-.EX retreat *
+.EX retreat * q
 .NF
 shp#     ship type       x,y   fl path       as flt?  flags
    0 bb   battleship     2,0      jjuuj               i
 1 ship
 .FI
-.s1
-.L Overview
 .s1
 A player may give retreat orders for a ship or a fleet. Retreat
 orders include a set of conditions that determine when the fleet/ship

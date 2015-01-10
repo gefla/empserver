@@ -18,6 +18,7 @@ __cmd added 1 0 0
 | show retreat orders
 retr
 0/1/2/3/4/7
+q
 || lretreat command
 | garbage path
 lret 0 garbage i
@@ -37,6 +38,7 @@ __cmd added 1 0 0
 | show retreat orders
 lret
 0/1/2/3/4/7
+q
 ||| Ships
 || ships failing to retreat
 | sunk

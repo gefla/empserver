@@ -84,10 +84,27 @@ retreat(int type)
     if (!snxtitem(&ni, type, player->argp[1], NULL))
 	return RET_SYN;
     nunits = 0;
-    if (player->argp[2] != NULL) {
-	pq = getstarg(player->argp[2], "Retreat path? ", buf1);
-	if (!pq)
+
+    if (player->argp[1] && !player->argp[2]) {
+	pr("Omitting the second argument is deprecated and will cease to work in a\n"
+	   "future release.  Please use '%s q' to query retreat orders.\n\n",
+	   player->combuf);
+	pq = "q";
+    } else {
+	/*
+	 * TODO getpath() or similar would be nice once the deprecated
+	 * syntax is gone.
+	 */
+	pq = getstarg(player->argp[2], "Retreat path, or q to query? ",
+		      buf1);
+	if (!pq || !*pq)
 	    return RET_SYN;
+    }
+
+    rflags = 0;
+    if (*pq == 'q') {
+	pq = NULL;
+    } else {
 	for (i = 0; i < RET_LEN - 1 && pq[i]; i++) {
 	    if (chkdir(pq[i], DIR_STOP, DIR_LAST) < 0) {
 		pr("'%c' is not a valid direction...\n", pq[i]);
@@ -97,11 +114,7 @@ retreat(int type)
 	}
 	for (i--; i >= 0 && pq[i] == dirch[DIR_STOP]; i--)
 	    pq[i] = 0;
-    } else
-	pq = NULL;
 
-    rflags = 0;
-    if (pq != NULL) {
     again:
 	fl = getstarg(player->argp[3],
 		      "Retreat conditions ('?' to list available ones)? ",

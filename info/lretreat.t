@@ -1,7 +1,8 @@
 .TH Command LRETREAT
 .NA lretreat "Set retreat conditions/paths for units or armies"
 .LV Expert
-.SY "lretreat <UNIT/ARMY> [<PATH> <CONDITIONS>]"
+.SY "lretreat <UNIT/ARMY> <PATH> <CONDITIONS>"
+.SY "lretreat <UNIT/ARMY> q"
 The lretreat command allows you to examine or modify the retreat
 paths and conditions of your land units.
 .s1
@@ -9,7 +10,8 @@ The first argument selects land units to view or give orders for.
 If an army designation is given when specifying orders, the orders
 apply to all members of that army.
 .s1
-Without further arguments, current retreat orders are shown.
+With 'q' instead of a retreat path, the current retreat paths and
+conditions will be listed.
 The report format contains the following fields:
 .s1
 .in \w'unit type\0\0'u
@@ -30,14 +32,12 @@ what conditions will trigger retreat.
 .in
 .s1
 For example:
-.EX lretreat *
+.EX lretreat * q
 .NF
 lnd#     unit type       x,y   ar path       as army? flags
    0 cav  cavalry        2,0      jjuuj               I
 1 unit
 .FI
-.s1
-.L Overview
 .s1
 A player may give retreat orders for a land unit or an army.  Retreat
 orders include a set of conditions that determine when the army/unit
