@@ -51,13 +51,11 @@
 int
 shipsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
 {
-    int first;
     int ships;
     struct nstr_item ni;
     struct mchrstr *mp;
     struct shpstr ship;
 
-    first = 1;
     ships = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
     while (nxtitem(&ni, &ship)) {
@@ -75,10 +73,8 @@ shipsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
 		continue;
 	}
 	if (!only_count) {
-	    if (first) {
+	    if (!ships)
 		pr(" #          owner           eff       type\n");
-		first = 0;
-	    }
 	    pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
 	       cname(ship.shp_own), effadv(ship.shp_effic), prship(&ship));
 	}
@@ -92,12 +88,10 @@ shipsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
 int
 carriersatxy(coord x, coord y, natid own)
 {
-    int first;
     int ships;
     struct nstr_item ni;
     struct shpstr ship;
 
-    first = 1;
     ships = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
     while (nxtitem(&ni, &ship)) {
@@ -107,10 +101,8 @@ carriersatxy(coord x, coord y, natid own)
 	    continue;
 	if ((carrier_planes(&ship, 0) & (P_L | P_K)) == 0)
 	    continue;
-	if (first) {
+	if (!ships)
 	    pr(" #          owner           eff       type\n");
-	    first = 0;
-	}
 	pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
 	   cname(ship.shp_own), effadv(ship.shp_effic), prship(&ship));
 	ships++;
@@ -121,13 +113,11 @@ carriersatxy(coord x, coord y, natid own)
 int
 unitsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
 {
-    int first;
     int units;
     struct nstr_item ni;
     struct lchrstr *lp;
     struct lndstr land;
 
-    first = 1;
     units = 0;
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (nxtitem(&ni, &land)) {
@@ -153,10 +143,8 @@ unitsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
 	}
 
 	if (!only_count) {
-	    if (first) {
+	    if (!units)
 		pr(" #          owner           eff       type\n");
-		first = 0;
-	    }
 	    pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
 	       cname(land.lnd_own), effadv(land.lnd_effic), prland(&land));
 	}
@@ -168,14 +156,12 @@ unitsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
 int
 planesatxy(coord x, coord y, int wantflags, int nowantflags)
 {
-    int first;
     int planes;
     struct plnstr plane;
     struct nstr_item ni;
     struct plchrstr *plp;
 
     planes = 0;
-    first = 1;
     snxtitem_xy(&ni, EF_PLANE, x, y);
     while (nxtitem(&ni, &plane)) {
 	if (plane.pln_effic < PLANE_MINEFF || plane.pln_own == 0)
@@ -185,10 +171,8 @@ planesatxy(coord x, coord y, int wantflags, int nowantflags)
 	if (plane.pln_flags & PLN_LAUNCHED)
 	    continue;
 	plp = &plchr[(int)plane.pln_type];
-	if (first) {
+	if (!planes)
 	    pr(" #          owner           eff       type\n");
-	    first = 0;
-	}
 	if (wantflags) {
 	    if ((plp->pl_flags & wantflags) == 0)
 		continue;
@@ -208,13 +192,11 @@ int
 asw_shipsatxy(coord x, coord y, int wantflags, int nowantflags,
 	      struct plnstr *pp, struct shiplist **head)
 {
-    int first;
     int ships;
     struct nstr_item ni;
     struct mchrstr *mp;
     struct shpstr ship;
 
-    first = 1;
     ships = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
     while (nxtitem(&ni, &ship)) {
@@ -237,10 +219,8 @@ asw_shipsatxy(coord x, coord y, int wantflags, int nowantflags,
 		continue;
 	}
 	add_shiplist(ship.shp_uid, head);
-	if (first) {
+	if (!ships)
 	    pr(" #          owner           eff       type\n");
-	    first = 0;
-	}
 	pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
 	   cname(ship.shp_own), effadv(ship.shp_effic), prship(&ship));
 	ships++;
