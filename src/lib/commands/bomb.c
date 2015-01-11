@@ -535,7 +535,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	    n = atoi(q);
 	    if (n < 0)
 		continue;
-	    if (getplane(n, &plane) &&
+	    if (getplane(n, &plane) && plane.pln_own &&
 		plane.pln_x == target->sct_x &&
 		plane.pln_y == target->sct_y &&
 		plane.pln_ship < 0 && plane.pln_land < 0 &&
