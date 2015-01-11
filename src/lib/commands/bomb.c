@@ -572,19 +572,10 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	else
 	    plane.pln_effic -= dam;
 	plane.pln_mobil = (dam * plane.pln_mobil / 100.0);
-	if (own == player->cnum) {
-	    pr("%s reports %d%% damage\n", prplane(&plane), dam);
-	} else {
-	    if (own != 0)
-		wu(0, own,
-		   "%s pinpoint bombing raid did %d%% damage to %s\n",
-		   cname(player->cnum), dam, prplane(&plane));
-	}
-	nreport(player->cnum, N_DOWN_PLANE, own, 1);
-	if (own != 0)
-	    wu(0, own, "%s bombs did %d%% damage to %s at %s\n",
+	mpr(own, "%s bombs did %d%% damage to %s at %s\n",
 	       cname(player->cnum), dam, prplane(&plane),
 	       xyas(target->sct_x, target->sct_y, own));
+	nreport(player->cnum, N_DOWN_PLANE, own, 1);
 	putplane(plane.pln_uid, &plane);
 	collateral_damage(target->sct_x, target->sct_y, dam);
     }
