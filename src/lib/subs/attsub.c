@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2006-2014
+ *     Markus Armbruster, 2006-2015
  */
 
 #include <config.h>
@@ -1590,7 +1590,7 @@ get_dsupport(char *outs, struct emp_qelem *list, struct combat *def,
     if (good)
 	*outs = '\0';
     else
-	sprintf(outs, "defender\t%1.2f\t%1.2f\t%1.2f\t%1.2f\n\n", df, ds,
+	sprintf(outs, "defender\t%1.2f\t%1.2f\t%1.2f\t%1.2f\n", df, ds,
 		du, dp);
     if (def->own) {
 	if (good < 0)
@@ -1678,6 +1678,7 @@ att_get_support(int combat_mode, int ofort, int oship, int oland,
 	    pr("%s", osupports);
 	if (*dsupportp != 1.0)
 	    pr("%s", dsupports);
+	pr("\n");
 	if (def->own) {
 	    wu(0, def->own, "\n\t\tsupport values\n");
 	    wu(0, def->own, "\t\tforts\tships\tunits\tplanes\n");
@@ -1685,6 +1686,7 @@ att_get_support(int combat_mode, int ofort, int oship, int oland,
 		wu(0, def->own, "%s", osupports);
 	    if (*dsupportp != 1.0)
 		wu(0, def->own, "%s", dsupports);
+	    wu(0, def->own, "\n");
 	}
     }
 

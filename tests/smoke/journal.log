@@ -14582,6 +14582,7 @@
     Play#1 output Play#1 1 		support values
     Play#1 output Play#1 1 		forts	ships	units	planes
     Play#1 output Play#1 1 attacker	0.00	0.00	0.41	0.26
+    Play#1 output Play#1 1
     Play#1 output Play#1 1                Final attack strength:       12
     Play#1 output Play#1 1               Final defense strength:      187
     Play#1 output Play#1 1                           Final odds:        6%
@@ -15044,6 +15045,7 @@
     Play#8 output Play#8 1 		support values
     Play#8 output Play#8 1 		forts	ships	units	planes
     Play#8 output Play#8 1 attacker	0.00	0.00	0.41	0.26
+    Play#8 output Play#8 1
     Play#8 output Play#8 1 1 (#1) lost 6 troops attacking -6,-4
     Play#8 output Play#8 1 We lost 0 troops defending
     Play#8 output Play#8 1
