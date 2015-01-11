@@ -362,18 +362,17 @@ intelligence_report(natid destination, struct lndstr *lp, int spy,
 		int t;
 		t = lp->lnd_tech - 20 + roll(40);
 		t = MAX(t, 0);
-		sprintf(buf3, ", tech %d)\n", t);
+		sprintf(buf3, ", tech %d)", t);
 	    } else {
-		sprintf(buf3, ")\n");
+		sprintf(buf3, ")");
 	    }
 	} else {
-	    sprintf(buf2, "\n");
-	    buf3[0] = 0;
+	    buf2[0] = buf3[0] = 0;
 	}
 	if (destination == player->cnum)
 	    pr("%s%s%s", buf1, buf2, buf3);
 	else
-	    wu(0, destination, "%s%s%s", buf1, buf2, buf3);
+	    wu(0, destination, "%s%s%s\n", buf1, buf2, buf3);
     }
 }
 

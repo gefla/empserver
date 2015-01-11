@@ -1542,8 +1542,7 @@ get_osupport(char *outs, struct combat *def, int fort_sup, int ship_sup,
 	ap = dam / 100.0;
 	osupport += ap;
     }
-    sprintf(outs, "attacker\t%1.2f\t%1.2f\t%1.2f\t%1.2f\n", af, as, au,
-	    ap);
+    sprintf(outs, "attacker\t%1.2f\t%1.2f\t%1.2f\t%1.2f", af, as, au, ap);
     return osupport;
 }
 
@@ -1590,8 +1589,8 @@ get_dsupport(char *outs, struct emp_qelem *list, struct combat *def,
     if (good)
 	*outs = '\0';
     else
-	sprintf(outs, "defender\t%1.2f\t%1.2f\t%1.2f\t%1.2f\n", df, ds,
-		du, dp);
+	sprintf(outs, "defender\t%1.2f\t%1.2f\t%1.2f\t%1.2f",
+		df, ds, du, dp);
     if (def->own) {
 	if (good < 0)
 	    wu(0, def->own,
@@ -1675,17 +1674,17 @@ att_get_support(int combat_mode, int ofort, int oship, int oland,
 	pr("\n\t\tsupport values\n");
 	pr("\t\tforts\tships\tunits\tplanes\n");
 	if (*osupportp != 1.0)
-	    pr("%s", osupports);
+	    pr("%s\n", osupports);
 	if (*dsupportp != 1.0)
-	    pr("%s", dsupports);
+	    pr("%s\n", dsupports);
 	pr("\n");
 	if (def->own) {
 	    wu(0, def->own, "\n\t\tsupport values\n");
 	    wu(0, def->own, "\t\tforts\tships\tunits\tplanes\n");
 	    if (*osupportp != 1.0)
-		wu(0, def->own, "%s", osupports);
+		wu(0, def->own, "%s\n", osupports);
 	    if (*dsupportp != 1.0)
-		wu(0, def->own, "%s", dsupports);
+		wu(0, def->own, "%s\n", dsupports);
 	    wu(0, def->own, "\n");
 	}
     }
