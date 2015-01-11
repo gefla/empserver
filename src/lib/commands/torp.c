@@ -179,18 +179,18 @@ torp(void)
 		   prsub(&sub), xyas(sub.shp_x, sub.shp_y, vshipown),
 		   prship(&vship), dam);
 	    pr("Torpedo hit %s for %d damage.\n", prsub(&vship), dam);
+	    if (!(mchr[vship.shp_type].m_flags & M_SUB)) {
+		if (mchr[sub.shp_type].m_flags & M_SUB)
+		    nreport(vshipown, N_TORP_SHIP, 0, 1);
+		else
+		    nreport(vshipown, N_SHIP_TORP, player->cnum, 1);
+	    }
 	    shipdamage(&vship, dam);
 	    if (vship.shp_effic < SHIP_MINEFF)
 		pr("%s sunk!\n", prsub(&vship));
 	    if (vship.shp_rflags & RET_TORPED)
 		retreat_ship(&vship, 't');
 	    putship(vship.shp_uid, &vship);
-	    if (!(mchr[vship.shp_type].m_flags & M_SUB)) {
-		if (mchr[(int)sub.shp_type].m_flags & M_SUB)
-		    nreport(vshipown, N_TORP_SHIP, 0, 1);
-		else
-		    nreport(vshipown, N_SHIP_TORP, player->cnum, 1);
-	    }
 	} else {
 	    pr("Missed\n");
 	    if (vshipown != 0)
@@ -304,6 +304,12 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int ntargets)
 
     if (chance(shp_torp_hitchance(sp, range))) {
 	pr("BOOM!...\n");
+	if (!(mchr[targ->shp_type].m_flags & M_SUB)) {
+	    if (mchr[sp->shp_type].m_flags & M_SUB)
+		nreport(targ->shp_own, N_TORP_SHIP, 0, 1);
+	    else
+		nreport(targ->shp_own, N_SHIP_TORP, sp->shp_own, 1);
+	}
 	if (sp->shp_own != 0)
 	    wu(0, sp->shp_own, "%s @ %s torpedoed %s\n",
 	       prship(sp),
@@ -314,12 +320,6 @@ fire_torp(struct shpstr *sp, struct shpstr *targ, int ntargets)
 	shipdamage(targ, dam);
 	putship(targ->shp_uid, targ);
 
-	if (!(mchr[targ->shp_type].m_flags & M_SUB)) {
-	    if (mchr[(int)sp->shp_type].m_flags & M_SUB)
-		nreport(targ->shp_own, N_TORP_SHIP, 0, 1);
-	    else
-		nreport(targ->shp_own, N_SHIP_TORP, sp->shp_own, 1);
-	}
     } else {
 	pr("Missed!\n");
 	if (sp->shp_own != 0)
