@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1997
+ *     Markus Armbruster, 2006-2015
  */
 
 #include <config.h>
@@ -188,9 +189,9 @@ prod_nat(int etu)
 	tlev = levels[n][NAT_TLEV];
 	rlev = levels[n][NAT_RLEV];
 	if (tech[n] != 0.0 || res[n] != 0.0) {
-	    wu(0, n, "%5.4f technology (%5.4f + %5.4f), ",
-	       tlev + tech[n], tlev, tech[n]);
-	    wu(0, n, "%5.4f research (%5.4f + %5.4f) produced\n",
+	    wu(0, n, "%5.4f technology (%5.4f + %5.4f), "
+	       "%5.4f research (%5.4f + %5.4f) produced\n",
+	       tlev + tech[n], tlev, tech[n],
 	       rlev + res[n], rlev, res[n]);
 	} else
 	    wu(0, n, "%5.4f tech, %5.4f research produced\n", tlev, rlev);
