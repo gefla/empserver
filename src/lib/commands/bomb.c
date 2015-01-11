@@ -288,11 +288,11 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
     pr("did %d%% damage to efficiency in %s\n",
        oldeff - target->sct_effic,
        xyas(target->sct_x, target->sct_y, player->cnum));
-    if (target->sct_own)
-	wu(0, target->sct_own,
-	   "%s bombing raid did %d%% damage in %s\n",
-	   cname(player->cnum), oldeff - target->sct_effic,
-	   xyas(target->sct_x, target->sct_y, target->sct_own));
+    if (target->sct_own != player->cnum)
+	mpr(target->sct_own,
+	    "%s bombing raid did %d%% damage in %s\n",
+	    cname(player->cnum), oldeff - target->sct_effic,
+	    xyas(target->sct_x, target->sct_y, target->sct_own));
     bridge_damaged(target);
     putsect(&sect);
     collateral_damage(target->sct_x, target->sct_y, dam);
@@ -361,11 +361,11 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
     pr("did %.2f%% damage to %s in %s\n",
        b, ip->i_name, xyas(target->sct_x, target->sct_y, player->cnum));
     nreport(player->cnum, N_SCT_BOMB, target->sct_own, 1);
-    if (target->sct_own != 0)
-	wu(0, target->sct_own,
-	   "%s precision bombing raid did %.2f%% damage to %s in %s\n",
-	   cname(player->cnum), b, ip->i_name,
-	   xyas(target->sct_x, target->sct_y, target->sct_own));
+    if (target->sct_own != player->cnum)
+	mpr(target->sct_own,
+	    "%s precision bombing raid did %.2f%% damage to %s in %s\n",
+	    cname(player->cnum), b, ip->i_name,
+	    xyas(target->sct_x, target->sct_y, target->sct_own));
     putsect(&sect);
     collateral_damage(target->sct_x, target->sct_y, dam);
 }
@@ -469,11 +469,11 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	    nreport(player->cnum, N_SUB_BOMB, ship.shp_own, 1);
 	else
 	    nreport(player->cnum, N_SHP_BOMB, ship.shp_own, 1);
-	if (ship.shp_own) {
-	    wu(0, ship.shp_own, "%s bombs did %d damage to %s at %s\n",
-	       cname(player->cnum), dam,
-	       prship(&ship),
-	       xyas(target->sct_x, target->sct_y, ship.shp_own));
+	if (ship.shp_own != player->cnum) {
+	    mpr(ship.shp_own, "%s bombs did %d damage to %s at %s\n",
+		cname(player->cnum), dam,
+		prship(&ship),
+		xyas(target->sct_x, target->sct_y, ship.shp_own));
 	}
 	pr("\n");
 	shipdamage(&ship, dam);
@@ -666,8 +666,9 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	if (dam > 100)
 	    dam = 100;
 	own = land.lnd_own;
-	mpr(own, "%s pinpoint bombing raid did %d damage to %s\n",
-	    cname(player->cnum), dam, prland(&land));
+	if (own != player->cnum)
+	    mpr(own, "%s pinpoint bombing raid did %d damage to %s\n",
+		cname(player->cnum), dam, prland(&land));
 	landdamage(&land, dam);
 	if (dam && (land.lnd_rflags & RET_INJURED))
 	    retreat_land(&land, 'i');
@@ -700,10 +701,10 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 	return;
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
-    if (target->sct_own)
-	wu(0, target->sct_own, "%s bombing raid did %d damage in %s\n",
-	   cname(player->cnum), PERCENT_DAMAGE(dam),
-	   xyas(target->sct_x, target->sct_y, target->sct_own));
+    if (target->sct_own != player->cnum)
+	mpr(target->sct_own, "%s bombing raid did %d damage in %s\n",
+	    cname(player->cnum), PERCENT_DAMAGE(dam),
+	    xyas(target->sct_x, target->sct_y, target->sct_own));
 
     sectdamage(target, dam);
 
