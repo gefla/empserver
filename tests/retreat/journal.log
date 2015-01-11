@@ -384,7 +384,6 @@
     Play#1 output Play#1 4 lb   TBD-1 Devastator #3, 2 bombs.  Target ('~' to skip)?
     Play#1 input 61
     Play#1 output Play#1 1 50% hitchance...blam-blam
-    Play#1 output Play#1 1
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 62)          2    completely  dd   destroyer (#62)
@@ -403,7 +402,6 @@
     Play#1 output Play#1 4 lb   TBD-1 Devastator #2, 2 bombs.  Target ('~' to skip)?
     Play#1 input 62
     Play#1 output Play#1 1 50% hitchance...Blam-blam
-    Play#1 output Play#1 1
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 63)          2    completely  dd   destroyer (#63)
@@ -421,7 +419,6 @@
     Play#1 output Play#1 4 lb   TBD-1 Devastator #1, 2 bombs.  Target ('~' to skip)?
     Play#1 input 63
     Play#1 output Play#1 1 50% hitchance...BLAM-Blam
-    Play#1 output Play#1 1
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 64)          2    completely  dd   destroyer (#64)
@@ -438,7 +435,6 @@
     Play#1 output Play#1 4 lb   TBD-1 Devastator #0, 2 bombs.  Target ('~' to skip)?
     Play#1 input 64
     Play#1 output Play#1 1 50% hitchance...BLAM-blam
-    Play#1 output Play#1 1
     Play#1 output Play#1 6 0 607
     Play#1 input bomb 0/1/2/3/4 . p -2,2 ggh
     Play#1 command bomb
@@ -488,7 +484,6 @@
     Play#1 output Play#1 4 lb   TBD-1 Devastator #4, 2 bombs.  Target ('~' to skip)?
     Play#1 input 65
     Play#1 output Play#1 1 50% hitchance...blam-BLAM
-    Play#1 output Play#1 1
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 66)          2    completely  dd   destroyer (#66)
@@ -503,7 +498,6 @@
     Play#1 output Play#1 4 lb   TBD-1 Devastator #3, 2 bombs.  Target ('~' to skip)?
     Play#1 input 66
     Play#1 output Play#1 1 50% hitchance...blam-blam
-    Play#1 output Play#1 1
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 67)          2    completely  dd   destroyer (#67)
@@ -530,7 +524,6 @@
     Play#1 output Play#1 4 lb   TBD-1 Devastator #1, 2 bombs.  Target ('~' to skip)?
     Play#1 input 68
     Play#1 output Play#1 1 50% hitchance...blam-Blam
-    Play#1 output Play#1 1
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 67)          2    completely  dd   destroyer (#67)
@@ -543,7 +536,6 @@
     Play#1 output Play#1 4 lb   TBD-1 Devastator #0, 2 bombs.  Target ('~' to skip)?
     Play#1 input 69
     Play#1 output Play#1 1 50% hitchance...blam-Blam
-    Play#1 output Play#1 1
     Play#1 output Play#1 6 0 605
     Play#1 input launch 10 80
     Play#1 command launch

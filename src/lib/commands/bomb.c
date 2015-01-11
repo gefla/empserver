@@ -475,7 +475,6 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 		prship(&ship),
 		xyas(target->sct_x, target->sct_y, ship.shp_own));
 	}
-	pr("\n");
 	shipdamage(&ship, dam);
 	if (ship.shp_effic < SHIP_MINEFF)
 	    pr("%s at %s sunk!\n",
