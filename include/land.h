@@ -192,7 +192,7 @@ extern int lnd_take_casualty(int, struct ulist *, int);
 extern void lnd_submil(struct lndstr *, int);
 extern void lnd_takemob(struct emp_qelem *, double);
 extern int lnd_spyval(struct lndstr *);
-extern void intelligence_report(int, struct lndstr *, int, char *);
+extern void intelligence_report(natid, struct lndstr *, int, char *);
 extern void lnd_mar_stay_behind(struct emp_qelem *, natid);
 extern void lnd_mar_put(struct emp_qelem *, natid);
 extern void lnd_put(struct emp_qelem *);

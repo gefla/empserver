@@ -341,61 +341,39 @@ lnd_spyval(struct lndstr *lp)
 }
 
 void
-intelligence_report(int destination, struct lndstr *lp, int spy,
+intelligence_report(natid destination, struct lndstr *lp, int spy,
 		    char *mess)
 {
     int vis = lnd_vis(lp);
     char buf1[80], buf2[80], buf3[80];
 
-    if (destination == 0)
+    if (!destination || !lp->lnd_own)
 	return;
 
-    if (lp->lnd_own == 0)
-	return;
-
-    memset(buf1, 0, sizeof(buf1));
-    memset(buf2, 0, sizeof(buf2));
-    memset(buf3, 0, sizeof(buf3));
     if (chance((spy + vis) / 10.0)) {
-	if (destination == player->cnum)
-	    pr("%s %s", mess, prland(lp));
-	else
-	    sprintf(buf1, "%s %s", mess, prland(lp));
+	sprintf(buf1, "%s %s", mess, prland(lp));
 
 	if (chance((spy + vis) / 20.0)) {
-	    if (destination == player->cnum)
-		pr(" (eff %d, mil %d",
-		   roundintby(lp->lnd_effic, 5),
-		   roundintby(lp->lnd_item[I_MILIT], 10));
-	    else
-		sprintf(buf2, " (eff %d, mil %d",
-			roundintby(lp->lnd_effic, 5),
-			roundintby(lp->lnd_item[I_MILIT], 10));
+	    sprintf(buf2, " (eff %d, mil %d",
+		    roundintby(lp->lnd_effic, 5),
+		    roundintby(lp->lnd_item[I_MILIT], 10));
 
 	    if (chance((spy + vis) / 20.0)) {
 		int t;
 		t = lp->lnd_tech - 20 + roll(40);
 		t = MAX(t, 0);
-		if (destination == player->cnum)
-		    pr(", tech %d)\n", t);
-		else
-		    sprintf(buf3, ", tech %d)\n", t);
+		sprintf(buf3, ", tech %d)\n", t);
 	    } else {
-		if (destination == player->cnum)
-		    pr(")\n");
-		else
-		    sprintf(buf3, ")\n");
+		sprintf(buf3, ")\n");
 	    }
 	} else {
-	    if (destination == player->cnum)
-		pr("\n");
-	    else
-		sprintf(buf2, "\n");
+	    sprintf(buf2, "\n");
+	    buf3[0] = 0;
 	}
-    }
-
-    if (destination != player->cnum) {
-	wu(0, destination, "%s%s%s", buf1, buf2, buf3);
+	if (destination == player->cnum)
+	    pr("%s%s%s", buf1, buf2, buf3);
+	else
+	    wu(0, destination, "%s%s%s", buf1, buf2, buf3);
     }
 }
 
