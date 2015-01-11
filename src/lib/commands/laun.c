@@ -239,7 +239,7 @@ launch_missile(struct plnstr *pp)
 	if (getnuke(nuk_on_plane(pp), &nuke))
 	    detonate(&nuke, sx, sy, pp->pln_flags & PLN_AIRBURST);
 	else {
-	    dam = pln_damage(pp, 's', 1);
+	    dam = pln_damage(pp, 's', "");
 	    pr("did %d damage in %s\n", PERCENT_DAMAGE(dam),
 	       xyas(sx, sy, player->cnum));
 	    if (sect.sct_own != 0) {
@@ -268,11 +268,11 @@ launch_missile(struct plnstr *pp)
 		     N_SHP_MISS, N_SHP_SMISS, sublaunch,
 		     target_ship.shp_own)) {
 	    pr("splash\n");
-	    dam = pln_damage(pp, 'p', 0);
+	    dam = pln_damage(pp, 'p', NULL);
 	    collateral_damage(target_ship.shp_x, target_ship.shp_y, dam);
 	    return RET_OK;
 	}
-	dam = pln_damage(pp, 'p', 1);
+	dam = pln_damage(pp, 'p', "");
 	shipdamage(&target_ship, dam);
 	if (target_ship.shp_effic < SHIP_MINEFF)
 	    pr("%s sunk!\n", prship(&target_ship));

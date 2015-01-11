@@ -533,7 +533,7 @@ extern void pln_put1(struct plist *);
 extern void plane_sweep(struct emp_qelem *, coord, coord);
 extern int put_plane_on_land(struct plnstr *, struct lndstr *);
 extern int pln_hitchance(struct plnstr *, int, int);
-extern int pln_damage(struct plnstr *, char, int);
+extern int pln_damage(struct plnstr *, char, char *);
 extern int pln_identchance(struct plnstr *, int, int);
 extern int pln_is_in_orbit(struct plnstr *);
 extern void pln_set_tech(struct plnstr *, int);

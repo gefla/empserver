@@ -569,13 +569,13 @@ shp_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	    if (msl_hit(&plp->plane,
 			shp_hardtarget(&mvs->unit.ship), EF_SHIP,
 			N_SHP_MISS, N_SHP_SMISS, sublaunch, victim)) {
-		dam = pln_damage(&plp->plane, 'p', 1);
+		dam = pln_damage(&plp->plane, 'p', "");
 		mpr(victim,
 		    "missile interdiction mission does %d damage to %s!\n",
 		    dam, prship(&mvs->unit.ship));
 		shp_damage_one(mvs, dam);
 	    } else {
-		dam = pln_damage(&plp->plane, 'p', 0);
+		dam = pln_damage(&plp->plane, 'p', NULL);
 		collateral_damage(newx, newy, dam);
 	    }
 	    mvs = most_valuable_ship(list, newx, newy);

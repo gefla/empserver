@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2015
  */
 
 #include <config.h>
@@ -1004,7 +1004,7 @@ pln_hitchance(struct plnstr *pp, int hardtarget, int type)
 }
 
 int
-pln_damage(struct plnstr *pp, char type, int noisy)
+pln_damage(struct plnstr *pp, char type, char *noisy)
 {
     struct plchrstr *pcp = plchr + pp->pln_type;
     int load, i, hitroll, aim, len;
@@ -1039,8 +1039,14 @@ pln_damage(struct plnstr *pp, char type, int noisy)
 	aim = 100 - aim;
     }
 
-    len = 0;
+    len = snprintf(buf, sizeof(buf), "%s", noisy);
     while (i--) {
+	if (noisy) {
+	    if (len > 75) {
+		mpr(pp->pln_own, "%s\n", buf);
+		len = 0;
+	    }
+	}
 	dam += roll(6);
 	hitroll = roll(100);
 	if (hitroll >= 90) {
@@ -1057,10 +1063,6 @@ pln_damage(struct plnstr *pp, char type, int noisy)
 		len += sprintf(buf + len, "blam");
 	}
 	if (noisy) {
-	    if (len > 75) {
-		mpr(pp->pln_own, "%s\n", buf);
-		len = 0;
-	    }
 	    if (i)
 		len += sprintf(buf + len, "-");
 	}

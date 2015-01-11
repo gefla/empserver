@@ -561,7 +561,7 @@ perform_mission_msl(int dam, struct emp_qelem *missiles, coord x, coord y,
 	    if (!msl_hit(&plp->plane, SECT_HARDTARGET, EF_SECTOR,
 			 N_SCT_MISS, N_SCT_SMISS, sublaunch, victim))
 		CANT_REACH();
-	    dam2 = pln_damage(&plp->plane, 'p', 1);
+	    dam2 = pln_damage(&plp->plane, 'p', "");
 	    air_dam += dam2;
 	use_up_msl:
 	    plp->plane.pln_effic = 0;
@@ -1066,7 +1066,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	else if (hardtarget != SECT_HARDTARGET)
 	    wu(0, pp->pln_own, "\t\t%d%% hitchance...", hitchance);
 	if (pct_chance(hitchance)) {
-	    newdam = pln_damage(&plp->plane, 'p', 1);
+	    newdam = pln_damage(&plp->plane, 'p', "");
 	    wu(0, pp->pln_own,
 	       "\t\thit %s %s for %d damage\n",
 	       cname(victim), s, newdam);

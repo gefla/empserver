@@ -275,7 +275,7 @@ eff_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	dam += pln_damage(&plp->plane, 'p', 1);
+	dam += pln_damage(&plp->plane, 'p', "");
     }
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
@@ -348,7 +348,7 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	dam += pln_damage(&plp->plane, 'p', 1);
+	dam += pln_damage(&plp->plane, 'p', "");
     }
     getsect(target->sct_x, target->sct_y, &sect);
     target = &sect;
@@ -457,7 +457,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 	if (pct_chance(hitchance)) {
 	    /* pinbombing is more accurate than normal bombing */
-	    dam = 2 * pln_damage(&plp->plane, 'p', 1);
+	    dam = 2 * pln_damage(&plp->plane, 'p', "");
 	} else {
 	    pr("splash\n");
 	    /* Bombs that miss have to land somewhere! */
@@ -556,7 +556,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	}
 	if (pct_chance(hitchance)) {
 	    /* pinbombing is more accurate than normal bombing */
-	    dam = 2 * pln_damage(&plp->plane, 'p', 1);
+	    dam = 2 * pln_damage(&plp->plane, 'p', "");
 	} else {
 	    pr("thud\n");
 	    /* Bombs that miss have to land somewhere! */
@@ -664,7 +664,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    pr("%d%% hitchance...", hitchance);
 	}
 	if (pct_chance(hitchance)) {
-	    dam = 2 * pln_damage(&plp->plane, 'p', 1);
+	    dam = 2 * pln_damage(&plp->plane, 'p', "");
 	} else {
 	    pr("thud\n");
 	    /* Bombs that miss have to land somewhere! */
@@ -703,7 +703,7 @@ strat_bomb(struct emp_qelem *list, struct sctstr *target)
 	    detonate(&nuke, target->sct_x, target->sct_y,
 		     plp->plane.pln_flags & PLN_AIRBURST);
 	else
-	    dam += pln_damage(&plp->plane, 's', 1);
+	    dam += pln_damage(&plp->plane, 's', "");
     }
     if (dam <= 0)
 	return;

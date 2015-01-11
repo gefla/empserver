@@ -818,10 +818,10 @@ lnd_missile_interdiction(struct emp_qelem *list, coord newx, coord newy,
 	    stopping = 1;
 	    if (msl_hit(&plp->plane, hardtarget, EF_LAND,
 			N_LND_MISS, N_LND_SMISS, sublaunch, victim)) {
-		newdam = pln_damage(&plp->plane, 'p', 1);
+		newdam = pln_damage(&plp->plane, 'p', "");
 		dam += newdam;
 	    } else {
-		newdam = pln_damage(&plp->plane, 'p', 0);
+		newdam = pln_damage(&plp->plane, 'p', NULL);
 		collateral_damage(newx, newy, newdam);
 	    }
 	use_up_msl:

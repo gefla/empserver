@@ -114,7 +114,7 @@ msl_launch(struct plnstr *pp, int type, char *what, coord x, coord y,
 	    struct sctstr sect;
 	    int dam;
 
-	    dam = pln_damage(pp, 'p', 0) / 2;
+	    dam = pln_damage(pp, 'p', NULL) / 2;
 	    if (pp->pln_ship >= 0) {
 		shipdamage(&ship, dam);
 		putship(ship.shp_uid, &ship);
