@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2003-2012
+ *     Markus Armbruster, 2003-2015
  */
 
 #include <config.h>
@@ -1027,6 +1027,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
     struct plist *plp;
     struct plnstr *pp;
     int newdam, dam = 0;
+    char buf[32];
     int hitchance;
 
     for (qp = bombers->q_forw; qp != bombers; qp = qp->q_forw) {
@@ -1060,20 +1061,25 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	       "\t%s pinbombing %s %s in %s\n",
 	       prplane(pp), cname(victim), s, xyas(x, y, pp->pln_own));
 	}
-	hitchance = pln_hitchance(pp, hardtarget, EF_SHIP);
+
+	buf[0] = 0;
 	if (nuk_on_plane(&plp->plane) >= 0)
 	    hitchance = 100;
-	else if (hardtarget != SECT_HARDTARGET)
-	    wu(0, pp->pln_own, "\t\t%d%% hitchance...", hitchance);
+	else {
+	    hitchance = pln_hitchance(pp, hardtarget, EF_SHIP);
+	    if (hardtarget != SECT_HARDTARGET)
+		snprintf(buf, sizeof(buf), "\t\t%d%% hitchance...",
+			 hitchance);
+	}
 	if (pct_chance(hitchance)) {
-	    newdam = pln_damage(&plp->plane, 'p', "");
+	    newdam = pln_damage(&plp->plane, 'p', buf);
 	    wu(0, pp->pln_own,
 	       "\t\thit %s %s for %d damage\n",
 	       cname(victim), s, newdam);
 	    dam += newdam;
 	} else {
-	    newdam = pln_damage(&plp->plane, 'p', 0);
-	    wu(0, pp->pln_own, "missed\n");
+	    newdam = pln_damage(&plp->plane, 'p', NULL);
+	    wu(0, pp->pln_own, "%smissed\n", buf);
 	    if (mission == MI_SINTERDICT) {
 		mpr(victim,
 		    "RUMBLE... your sub in %s hears a depth-charge explode nearby\n",
