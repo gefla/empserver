@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2015
  */
 
 #include <config.h>
@@ -138,6 +138,7 @@ typed_wu(natid from, natid to, char *message, int type)
     tel.tel_from = from;
     (void)time(&tel.tel_date);
     len = strlen(message);
+    CANT_HAPPEN(len && message[len - 1] != '\n');
     tel.tel_length = len;
     tel.tel_type = type;
     tel.tel_cont = !telegram_is_new(to, &tel);
