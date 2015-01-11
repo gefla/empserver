@@ -667,8 +667,9 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    dam = 100;
 	own = land.lnd_own;
 	if (own != player->cnum)
-	    mpr(own, "%s pinpoint bombing raid did %d damage to %s\n",
-		cname(player->cnum), dam, prland(&land));
+	    mpr(own, "%s bombs did %d%% damage to %s at %s\n",
+		cname(player->cnum), dam, prland(&land),
+		xyas(target->sct_x, target->sct_y, own));
 	landdamage(&land, dam);
 	if (dam && (land.lnd_rflags & RET_INJURED))
 	    retreat_land(&land, 'i');
