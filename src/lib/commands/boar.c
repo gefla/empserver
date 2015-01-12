@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
+ *     Markus Armbruster, 2011-2015
  */
 
 #include <config.h>
@@ -52,7 +53,7 @@ boar(void)
     struct sctstr sect;
     struct lndstr land;
     struct nstr_item ni;
-    int foundland;
+    int foundland, def_uid;
     char *p;
     char buf[1024];
 
@@ -155,11 +156,16 @@ boar(void)
      * Death, carnage, and destruction.
      */
 
+    /*
+     * Careful: when the fight sinks the ship, putcombat() clobbers
+     * *def (see FIXME there).
+     */
+    def_uid = def->shp_uid;
     if (!(att_fight(A_BOARD, off, &olist, 1.0, def, &dlist, 1.0))) {
-	getship(def->shp_uid, &ship);
+	getship(def_uid, &ship);
 	if (ship.shp_rflags & RET_BOARDED) {
 	    retreat_ship(&ship, 'u');
-	    putship(def->shp_uid, &ship);
+	    putship(def_uid, &ship);
 	}
     }
 
