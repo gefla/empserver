@@ -76,8 +76,6 @@ retreat_ship(struct shpstr *sp, char code)
     struct nstr_item ni;
     struct shpstr ship;
 
-    if (CANT_HAPPEN(!sp->shp_own))
-	return;
     if (sp->shp_own == player->cnum || !sp->shp_rpath[0])
 	return;
 
@@ -184,8 +182,6 @@ retreat_land(struct lndstr *lp, char code)
     struct nstr_item ni;
     struct lndstr land;
 
-    if (CANT_HAPPEN(!lp->lnd_own))
-	return;
     if (lp->lnd_own == player->cnum || !lp->lnd_rpath[0])
 	return;
 

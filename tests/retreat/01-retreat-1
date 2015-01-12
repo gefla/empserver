@@ -146,7 +146,6 @@ board 130 5
 board 132 5
 50
 | BUG: group does not retreat
-| BUG: oopses!
 __cmd added 1 4 0
 ||| Land units
 | BUG: condition b triggers only on hit
