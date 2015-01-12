@@ -481,9 +481,9 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	       prship(&ship),
 	       xyas(target->sct_x, target->sct_y, player->cnum));
 	if (dam && (ship.shp_rflags & RET_INJURED))
-	    retreat_ship(&ship, 'i');
+	    retreat_ship(&ship, ship.shp_own, 'i');
 	else if (ship.shp_rflags & RET_BOMBED)
-	    retreat_ship(&ship, 'b');
+	    retreat_ship(&ship, ship.shp_own, 'b');
 	putship(ship.shp_uid, &ship);
 	collateral_damage(target->sct_x, target->sct_y, dam / 2);
     }
@@ -671,9 +671,9 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 		xyas(target->sct_x, target->sct_y, own));
 	landdamage(&land, dam);
 	if (dam && (land.lnd_rflags & RET_INJURED))
-	    retreat_land(&land, 'i');
+	    retreat_land(&land, own, 'i');
 	else if (land.lnd_rflags & RET_BOMBED)
-	    retreat_land(&land, 'b');
+	    retreat_land(&land, own, 'b');
 	nreport(player->cnum, N_UNIT_BOMB, own, 1);
 	putland(land.lnd_uid, &land);
 	collateral_damage(target->sct_x, target->sct_y, dam);

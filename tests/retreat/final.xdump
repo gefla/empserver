@@ -83,7 +83,7 @@ uid owner xloc yloc type effic mobil off tech opx opy mission radius fleet civil
 104 2 0 4 10 100 127 0 45 0 4 interdiction 1 "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -3 1 1 (injured torpedoed helpless) "nn"
 120 2 -9 1 18 100 93 0 60 -5 1 none 1 "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -3 1 1 () ""
 130 2 -9 1 12 100 96 0 60 -5 1 none 1 "" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -3 1 1 () ""
-131 2 -5 1 12 100 127 0 60 -5 1 interdiction 1 "u" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -3 1 1 (group boarded) "gg"
+131 2 -9 1 12 100 96 0 60 -5 1 none 1 "u" 0 10 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -3 1 1 () ""
 132 0 -5 1 12 0 127 0 60 -5 1 interdiction 1 "u" 0 65 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" -3 1 1 (group boarded) "gg"
 149 0 0 0 0 0 0 0 0 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 0 0 () ""
 /config

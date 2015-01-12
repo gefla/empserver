@@ -54,6 +54,7 @@ boar(void)
     struct lndstr land;
     struct nstr_item ni;
     int foundland, def_uid;
+    natid def_own;
     char *p;
     char buf[1024];
 
@@ -161,10 +162,11 @@ boar(void)
      * *def (see FIXME there).
      */
     def_uid = def->shp_uid;
+    def_own = def->own;
     if (!(att_fight(A_BOARD, off, &olist, 1.0, def, &dlist, 1.0))) {
 	getship(def_uid, &ship);
 	if (ship.shp_rflags & RET_BOARDED) {
-	    retreat_ship(&ship, 'u');
+	    retreat_ship(&ship, def_own, 'u');
 	    putship(def_uid, &ship);
 	}
     }

@@ -68,15 +68,16 @@ consume_step(char *rpath, int *rflags)
 }
 
 void
-retreat_ship(struct shpstr *sp, char code)
+retreat_ship(struct shpstr *sp, natid own, char code)
 {
     int n, i;
-    natid own;
     struct emp_qelem list;
     struct nstr_item ni;
     struct shpstr ship;
 
-    if (sp->shp_own == player->cnum || !sp->shp_rpath[0])
+    if (CANT_HAPPEN(!own || (sp->shp_own && sp->shp_own != own)))
+	return;
+    if (own == player->cnum || !sp->shp_rpath[0])
 	return;
 
     n = retreat_steps(sp->shp_rpath);
@@ -87,10 +88,9 @@ retreat_ship(struct shpstr *sp, char code)
      * We're going to put a copy of *sp into list.  The movement loop
      * will use that copy, which may render *sp stale.  To avoid
      * leaving the caller with a stale *sp, we'll re-get it at the
-     * end.  To make that work, we need to put it now.  However, that
-     * resets sp->shp_own when the ship sinks, so save it first.
+     * end.  To make that work, we need to put it now.  Resets
+     * sp->shp_own when the ship sinks.
      */
-    own = sp->shp_own;
     putship(sp->shp_uid, sp);
 
     emp_initque(&list);
@@ -174,15 +174,16 @@ retreat_ships_step(struct emp_qelem *list, char step, natid actor)
 }
 
 void
-retreat_land(struct lndstr *lp, char code)
+retreat_land(struct lndstr *lp, natid own, char code)
 {
     int n, i;
-    natid own;
     struct emp_qelem list;
     struct nstr_item ni;
     struct lndstr land;
 
-    if (lp->lnd_own == player->cnum || !lp->lnd_rpath[0])
+    if (CANT_HAPPEN(!own || (lp->lnd_own && lp->lnd_own != own)))
+	return;
+    if (own == player->cnum || !lp->lnd_rpath[0])
 	return;
 
     n = retreat_steps(lp->lnd_rpath);
@@ -190,7 +191,6 @@ retreat_land(struct lndstr *lp, char code)
 	return;
 
     /* See explanation in retreat_ship() */
-    own = lp->lnd_own;
     putland(lp->lnd_uid, lp);
 
     emp_initque(&list);

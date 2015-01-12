@@ -427,11 +427,11 @@ multifire(void)
 	    if (vship.shp_effic < SHIP_MINEFF)
 		pr("%s sunk!\n", prsub(&vship));
 	    if (dam && (vship.shp_rflags & RET_INJURED))
-		retreat_ship(&vship, 'i');
+		retreat_ship(&vship, vict, 'i');
 	    else if (target == targ_sub && (vship.shp_rflags & RET_DCHRGED))
-		retreat_ship(&vship, 'd');
+		retreat_ship(&vship, vict, 'd');
 	    else if (totaldefdam == 0 && (vship.shp_rflags & RET_HELPLESS))
-		retreat_ship(&vship, 'h');
+		retreat_ship(&vship, vict, 'h');
 	    putship(vship.shp_uid, &vship);
 	    break;
 	}

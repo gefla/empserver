@@ -189,7 +189,7 @@ torp(void)
 	    if (vship.shp_effic < SHIP_MINEFF)
 		pr("%s sunk!\n", prsub(&vship));
 	    if (vship.shp_rflags & RET_TORPED)
-		retreat_ship(&vship, 't');
+		retreat_ship(&vship, vshipown, 't');
 	    putship(vship.shp_uid, &vship);
 	} else {
 	    pr("Missed\n");

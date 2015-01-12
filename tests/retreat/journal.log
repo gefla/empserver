@@ -1415,6 +1415,8 @@
     Play#0 output Play#0 1 1 (#1) lost 50 troops trying to board tt   troop transport (#132)
     Play#0 output Play#0 1 We lost 15 troops defending
     Play#0 output Play#0 1 	tt   troop transport (#132) sunk!
+    Play#0 output Play#0 1 tt   troop transport (#131) retreats along path gg
+    Play#0 output Play#0 1 tt   troop transport (#131) stopped at -9,1
     Play#0 output Play#0 1 1 planes spotted over 0,2
     Play#0 output Play#0 1 1 bombs did 44% damage to cav  cavalry #30 at 0,2
     Play#0 output Play#0 1 	cav  cavalry #30 takes 17
@@ -1598,7 +1600,7 @@
     Play#0 output Play#0 1   2  104 lc   light cruis    0,4       100%   0  10   0   0  0  0  0  0 127   45
     Play#0 output Play#0 1   2  120 sb   submarine     -9,1       100%   0  10   0   0  0  0  0  0  93   60
     Play#0 output Play#0 1   2  130 tt   troop trans   -9,1       100%   0  10   0   0  0  0  0  0  96   60
-    Play#0 output Play#0 1   2  131 tt   troop trans   -5,1    u  100%   0  10   0   0  0  0  0  0 127   60
+    Play#0 output Play#0 1   2  131 tt   troop trans   -9,1    u  100%   0  10   0   0  0  0  0  0  96   60
     Play#0 output Play#0 1 58 ships
     Play#0 output Play#0 6 0 640
     Play#0 input retr * ?rflags#0 q
@@ -1635,8 +1637,7 @@
     Play#0 output Play#0 1   2   84 dd   destroyer     -6,2      nn                  ihb
     Play#0 output Play#0 1   2  101 lc   light cruis    0,4      nn                  ith
     Play#0 output Play#0 1   2  104 lc   light cruis    0,4      nn                  ith
-    Play#0 output Play#0 1   2  131 tt   troop trans   -5,1    u gg         Yes      u
-    Play#0 output Play#0 1 32 ships
+    Play#0 output Play#0 1 31 ships
     Play#0 output Play#0 6 0 639
     Play#0 input miss s * ?mission#0 q
     Play#0 command mission
@@ -1662,7 +1663,6 @@
     Play#0 output Play#0 1 dd   destroyer (#84)        -6,2      -6,2      1 is on an interdiction mission
     Play#0 output Play#0 1 lc   light cruiser (#101)    0,4       0,4      1 is on an interdiction mission
     Play#0 output Play#0 1 lc   light cruiser (#104)    0,4       0,4      1 is on an interdiction mission
-    Play#0 output Play#0 1 tt   troop transport (#131)   -5,1      -5,1      1 is on an interdiction mission
     Play#0 output Play#0 6 0 637
     Play#0 input land *
     Play#0 command land

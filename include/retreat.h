@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
+ *     Markus Armbruster, 2014-2015
  */
 
 #ifndef RETREAT_H
@@ -48,7 +49,7 @@
 #define RET_DCHRGED	64	/* Retreat when depth-charged */
 #define RET_BOARDED	128	/* Retreat when unsuccessfully boarded */
 
-extern void retreat_ship(struct shpstr *, char);
-extern void retreat_land(struct lndstr *, char);
+extern void retreat_ship(struct shpstr *, natid, char);
+extern void retreat_land(struct lndstr *, natid, char);
 
 #endif

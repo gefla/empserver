@@ -277,7 +277,7 @@ launch_missile(struct plnstr *pp)
 	if (target_ship.shp_effic < SHIP_MINEFF)
 	    pr("%s sunk!\n", prship(&target_ship));
 	if (dam && (target_ship.shp_rflags & RET_INJURED))
-	    retreat_ship(&target_ship, 'i');
+	    retreat_ship(&target_ship, target_ship.shp_own, 'i');
 	putship(target_ship.shp_uid, &target_ship);
     }
     return RET_OK;
