@@ -142,6 +142,11 @@ navi 5 bsh
 navi 5 nh
 board 130 5
 1
+| as group (fleet u): 132 sinks, 131 unremarkable
+board 132 5
+50
+| BUG: group does not retreat
+__cmd added 1 4 0
 ||| Land units
 | BUG: condition b triggers only on hit
 || land units failing to retreat

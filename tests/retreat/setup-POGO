@@ -17,14 +17,15 @@ desi -3,1 h
 build s -3,1 lc 5
 edit s 4 L -5,1 U 7
 | fleet a defined below
-| ship to drop depth charges
+| ship to drop depth charges and board
 build s -3,1 dd
-edit s 5 g 1 s 40
+edit s 5 g 1 s 40 m 60
 | ship to launch torpedoes
 build s -3,1 sb
 edit s 6 T 165 L -1,3 g 1 s 36
 | complete the ships
-edit s * ?own#0 E 100 M 127 m 10
+edit s * ?own#0 E 100 M 127
+edit s * ?own#0&mil=0 m 10
 | p-bombers with 50% hit chance vs. dd in port
 build p -2,2 lb 5
 | marine missiles acc 50
@@ -139,6 +140,9 @@ retr 120 gg s
 | target ship boarding
 edit s 50 U 130 t tt
 retr 130 gg u
+edit s 130 U 131 U 132 E 20 m 80
+fleet u 131/132
+retr u gg u
 | target land units bombs: bombed
 edit u 9 U 10 T cav L 1,1
 lret 10 jhhuy b
