@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
+ *     Markus Armbruster, 2004-2015
  */
 
 /*
@@ -80,14 +81,11 @@ conv(void)
 
 	    /* Anti-terrorist units count double */
 	    if (lchr[(int)land.lnd_type].l_flags & L_SECURITY) {
-
 		/*
 		 * They also increase the efficiency of
 		 * the conversion process by 10% each.
-		 * (but they use 10 mobility doing it)
 		 */
 		security_extra += .1;
-		land.lnd_mobil -= 10;
 		mil += land.lnd_item[I_MILIT];
 	    }
 	}
