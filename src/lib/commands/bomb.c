@@ -570,7 +570,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	    plane.pln_effic = 0;
 	else
 	    plane.pln_effic -= dam;
-	plane.pln_mobil = (dam * plane.pln_mobil / 100.0);
+	plane.pln_mobil = damage(plane.pln_mobil, dam);
 	mpr(own, "%s bombs did %d%% damage to %s at %s\n",
 	       cname(player->cnum), dam, prplane(&plane),
 	       xyas(target->sct_x, target->sct_y, own));
