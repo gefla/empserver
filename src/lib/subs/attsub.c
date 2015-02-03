@@ -856,7 +856,7 @@ calc_mobcost(int combat_mode, struct combat *off, struct combat *def,
 	case EF_SHIP:
 	    /* the 2 in the formula below is a fudge factor */
 	    getship(def->shp_uid, &ship);
-	    off->mobcost += (def->eff / 100) * (shp_speed(&ship) / 2);
+	    off->mobcost += shp_speed(&ship) / 2 * def->eff / 100;
 	}
     }
 }
