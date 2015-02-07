@@ -1278,58 +1278,80 @@
     Play#0 output Play#0 1   2    2,2    h   86%   86% 0.052    no  N/A    86%  1.43
     Play#0 output Play#0 1 6 sectors
     Play#0 output Play#0 6 0 640
-    Play#0 input ship * ?eff<100
+    Play#0 input ship *
     Play#0 command ship
     Play#0 output Play#0 1 own shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
     Play#0 output Play#0 1   2    0 frg  frigate      -12,0        20%   0   0   0   0  0  0  0  0   0    0
     Play#0 output Play#0 1   1    1 bb   battleship     3,1        59%   0  13   0   0  0  0  0  0 127  150
     Play#0 output Play#0 1   1    2 bb   battleship     3,1        60%   0  13   0   0  0  0  0  0 127  150
+    Play#0 output Play#0 1   1    3 bb   battleship     3,1       100%   0  13   0   0  0  0  0  0  87  150
+    Play#0 output Play#0 1   1    5 dd   destroyer     10,0       100%   0   5   0   0  0  0  0  0 117  100
+    Play#0 output Play#0 1   1    6 dd   destroyer      3,3       100%   0   5   0   0  0  0  0  0 127  100
     Play#0 output Play#0 1   1    9 cs   cargo ship     3,1        98%   0  10   0   0  0  0  0  0 124   20
     Play#0 output Play#0 1   2   12 sb   submarine      2,2        68%   0   3   0   0  0  0  0  0  86   60
     Play#0 output Play#0 1   2   13 sb   submarine      6,0        72%   0   3   0   0  0  0  0  1  91   60
     Play#0 output Play#0 1   2   22 cs   cargo ship     2,2        58%   0   3   0   0  0  0  1  1  74   20
     Play#0 output Play#0 1   2   23 cs   cargo ship     6,0        78%   0   4   0   0  0  0  1  1  98   20
     Play#0 output Play#0 1   2   24 cs   cargo ship     6,0        32%   0   2   0   0  0  0  0  0  40   20
-    Play#0 output Play#0 1 9 ships
+    Play#0 output Play#0 1 12 ships
     Play#0 output Play#0 6 0 640
-    Play#0 input carg * ?eff<100
+    Play#0 input carg *
     Play#0 command cargo
     Play#0 output Play#0 1 shp#         x,y   flt eff  civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad
     Play#0 output Play#0 1    0 frg   -12,0       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    1 bb      3,1       59%   0  13   0 200  10   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    2 bb      3,1       60%   0  13   0 196  10   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    3 bb      3,1      100%   0  13   0 162  10   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    5 dd     10,0      100%   0   5   0  24   4   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    6 dd      3,3      100%   0   5   0  36   4   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    9 cs      3,1       98%   0  10   0  10   9   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   12 sb      2,2       68%   0   3   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   13 sb      6,0       72%   0   3   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   22 cs      2,2       58%   0   3   0   0   0   0   0   0   0   0  58  59   0
     Play#0 output Play#0 1   23 cs      6,0       78%   0   4   0   0   0   0   0   0   0   0  78  78   0
     Play#0 output Play#0 1   24 cs      6,0       32%   0   2   0   0   0   0   0   0   0   0  32  32   0
-    Play#0 output Play#0 1 9 ships
+    Play#0 output Play#0 1 12 ships
     Play#0 output Play#0 6 0 640
-    Play#0 input plane * ?eff<100
+    Play#0 input plane *
     Play#0 command plane
-    Play#0 output Play#0 1 *: No plane(s)
-    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 1 own    #    type                x,y    w   eff  mu def tech ran hard carry special
+    Play#0 output Play#0 1   2    0 sam  Sea Sparrow       2,2       100% 127  18  180   2    0
+    Play#0 output Play#0 1   2    1 jhb  B-52 Strato-Fo    2,2       100% 127  11  150  35    0       10kt  G
+    Play#0 output Play#0 1   2   22 sam  Sea Sparrow       2,2       100% 127  18  180   2    0   22S
+    Play#0 output Play#0 1   2   23 sam  Sea Sparrow       6,0       100% 127  18  180   2    0   23S
+    Play#0 output Play#0 1   2   27 sam  Sea Sparrow       2,2       100% 127  18  180   2    0   22L
+    Play#0 output Play#0 1   2   28 sam  Sea Sparrow       6,0       100% 127  18  180   2    0   23L
+    Play#0 output Play#0 1   2   32 sam  Sea Sparrow       2,2       100% 127  18  180   2    0   32L
+    Play#0 output Play#0 1   2   33 sam  Sea Sparrow       2,2       100% 127  18  180   2    0   33L
+    Play#0 output Play#0 1 8 planes
     Play#0 output Play#0 6 0 640
-    Play#0 input land * ?eff<100
+    Play#0 input land *
     Play#0 command land
     Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
     Play#0 output Play#0 1   1    1 hat  hvy artill    3,1        39%  10   0 127   0 160  42%  0  0
     Play#0 output Play#0 1   1    2 hat  hvy artill    3,1        40%  10   0 127   0 160  42%  0  0
+    Play#0 output Play#0 1   1    3 hat  hvy artill    0,-2      100%  10   0  51   0 160  42%  0  0
+    Play#0 output Play#0 1   1    9 tra  train         3,1       100%  10   0   0   0  40  42%  0  0
+    Play#0 output Play#0 1   2   13 spy  infiltrato    6,0       100%   0   0 127   0  40  42%  0  0   13S
     Play#0 output Play#0 1   2   22 rad  radar unit    2,2        97%  10   0 124   0 270  42%  1  0   22S
+    Play#0 output Play#0 1   2   23 rad  radar unit    6,0       100%  10   0 127   0 270  42%  1  0   23S
     Play#0 output Play#0 1   2   32 tra  train         2,2        94%  10   0 119   0  40  42%  1  1
     Play#0 output Play#0 1   2   33 rad  radar unit    2,2        97%   9   0 123   0 270  42%  1  0   32L
-    Play#0 output Play#0 1 5 units
+    Play#0 output Play#0 1 9 units
     Play#0 output Play#0 6 0 640
-    Play#0 input lcarg * ?eff<100
+    Play#0 input lcarg *
     Play#0 command lcargo
     Play#0 output Play#0 1 lnd# unit    x,y    a  eff  civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad
     Play#0 output Play#0 1    1 hat     3,1        39%   0  10   0  80  12   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1    2 hat     3,1        40%   0  10   0  76  12   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    3 hat     0,-2      100%   0  10   0  23  12   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    9 tra     3,1       100%   0  10   0  10  10   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   13 spy     6,0       100%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   22 rad     2,2        97%   0  10   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   23 rad     6,0       100%   0  10   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   32 tra     2,2        94%   0  10   0   0   0   0   0   0   0   0  94  94   0
     Play#0 output Play#0 1   33 rad     2,2        97%   0   9   0   0   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1 5 units
+    Play#0 output Play#0 1 9 units
     Play#0 output Play#0 6 0 640
     Play#0 input nuke *
     Play#0 command nuke
