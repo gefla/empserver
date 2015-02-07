@@ -4,9 +4,11 @@ comm * ?terr=1
 sinf * ?terr=1
 ship *
 carg *
+miss s * ?mission#0 q
 plane *
 land *
 lcarg *
+miss l * ?mission#0 q
 nuke *
 terr * 0
 read 0

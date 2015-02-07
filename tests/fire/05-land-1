@@ -27,17 +27,20 @@ lunload g 2 12
 fire la 2 6,0
 lload g 2 12
 | likewise no shells
-lunload s 2 80
+lunload s 2 40
 fire la 2 6,0
-lload s 2 80
+lload s 2 40
 | likewise on ship
-load land 9 2
+load land 8 2
 fire la 2 6,0
-unload land 9 2
+unload land 8 2
 | likewise on land
-lload land 9 2
+lload land 8 2
 fire la 2 6,0
-lunload land 9 2
+lunload land 8 2
+| show mission
+miss l * ?mission#0 q
+__cmd added 1 2 0
 |
 || land firing nowhere (shells consumed)
 | 100% hat
@@ -60,28 +63,28 @@ fire la 3 2,-2
 || land firing at undefended target
 | 100% hat with one gun
 | at empty highway
-lunload g 3 -1
-fire la 3 0,2
-lload g 3 11
+lunload g 4 -1
+fire la 4 0,2
+lload g 4 11
 | likewise one shell (take care to avoid automatic supply)
-lunload s 3 -1
-march 3 gh
-fire la 3 0,2
-march 3 jh
-lload s 3 51
+lunload s 4 -1
+lload s 3 40
+fire la 4 0,2
+lunload s 3 35
+lload s 4 35
 | 40% hat
 fire la 2 0,2
 | 100% hat
-fire la 3 0,2
+fire la 4 0,2
 | 100% hat
 | at sector, fractional range, ~50% chance
-march 3 yyyh
-fire la 3 0,2
-fire la 3 0,2
-fire la 3 0,2
-fire la 3 0,2
-fire la 3 0,2
-fire la 3 0,2
+__cmd added -1 -1 0
+fire la 5 0,2
+fire la 5 0,2
+fire la 5 0,2
+fire la 5 0,2
+fire la 5 0,2
+fire la 5 0,2
 |
 || show shell use
 lcarg * ?shell>0

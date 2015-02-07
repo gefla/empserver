@@ -1,6 +1,5 @@
 || create land
 desi @0,0:2 +
-edit l 4,2 e 100
 give c * ?des#. 100
 || country#1
 add 1 1 1 p
@@ -84,19 +83,31 @@ edit p 0 U 32 y 32 U 33 y 33
 build n 2,2 10kt
 edit n 0 U 1 p 1
 || firing ships
-| bb range >=3, 59% 60% 100%
-edit s 0 U 1 t bb T 150 L 3,1 O 1 E 59 M 127 m 13 g 10 s 200 U 2 E 60 U 3 E 100
+| bb range >=3, 59% 60% 100% 100%
+edit s 0 U 1 t bb T 150 L 3,1 O 1 E 59 M 127 m 13 g 10 s 100
+edit s 1 U 2 E 60 U 3 E 100 U 4
 | cs
-edit s 0 U 9 t cs L 3,1 O 1 E 100 M 127 m 10 g 10 s 10
+edit s 0 U 8 t cs L 3,1 O 1 E 100
+edit s 8 U 9 L 5,1 M 127 m 10 g 10 s 10
+| note: away from bb to avoid unwanted supply
 | dd range 1.5
 edit s 0 U 5 t dd T 100 L 8,0 O 1 E 100 M 127 m 5 g 4 s 40
 edit s 5 U 6 L 3,3
+| missions for fire to clear
+| (not all ships can perform missions)
+miss s * ?own=1 int .
 || firing lands
-| hat range 3.5 39% 40% 100%
-edit u 0 U 1 T hat t 160 L 3,1 O 1 e 39 m 10 g 12 s 80 U 2 e 40 U 3 e 100
+| hat range 3.5 39% 40% 100% 100% 100%
+edit u 0 U 1 T hat t 160 L 3,1 O 1 e 39 m 10 g 12 s 40
+edit u 1 U 2 e 40 U 3 e 100 U 4 U 5 L 0,-2
 | tra
-edit u 0 U 9 T tra L 3,1 O 1 M 0 m 10 g 10 s 10
-| note: no mob in train to avoid unwanted supply
+edit u 0 U 8 T tra L 3,1 O 1
+| sup
+edit u 0 U 9 T sup L 1,1 O 1 M 0 m 10 g 10 s 10
+| note: no mob in sup to avoid unwanted supply
+| missions for fire to clear
+| (not all land units can perform missions)
+miss l * ?own=1 int .
 || show initial state here to help maintainers
 map *
 cens * ?own#0
