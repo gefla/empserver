@@ -352,7 +352,6 @@ multifire(void)
 	    pr("Target out of range.\n");
 	    switch (type) {
 	    case EF_SECTOR:
-		putsect(&fsect);
 		break;
 	    case EF_LAND:
 		fland.lnd_mission = 0;
@@ -437,7 +436,6 @@ multifire(void)
 	}
 	switch (attgp->ef_type) {
 	case EF_SECTOR:
-	    putsect(&fsect);
 	    break;
 	case EF_SHIP:
 	    if ((target == targ_ship) || (target == targ_sub)) {
@@ -445,7 +443,6 @@ multifire(void)
 		    shp_missdef(&fship, vict);
 		}
 	    }
-	    putship(fship.shp_uid, &fship);
 	    break;
 	default:
 	    CANT_REACH();
