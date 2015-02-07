@@ -286,6 +286,7 @@ multifire(void)
 		}
 		dam = shp_fire(&fship);
 	    }
+	    fship.shp_mission = 0;
 	    putship(fship.shp_uid, &fship);
 	    if (CANT_HAPPEN(dam < 0)) {
 		pr("Klick!     ...\n");
@@ -315,6 +316,7 @@ multifire(void)
 	    }
 
 	    dam = lnd_fire(&fland);
+	    fland.lnd_mission = 0;
 	    putland(fland.lnd_uid, &fland);
 	    if (CANT_HAPPEN(dam < 0)) {
 		pr("Klick!     ...\n");
@@ -350,20 +352,6 @@ multifire(void)
 	}
 	if (trange > range2) {
 	    pr("Target out of range.\n");
-	    switch (type) {
-	    case EF_SECTOR:
-		break;
-	    case EF_LAND:
-		fland.lnd_mission = 0;
-		putland(fland.lnd_uid, &fland);
-		break;
-	    case EF_SHIP:
-		fship.shp_mission = 0;
-		putship(fship.shp_uid, &fship);
-		break;
-	    default:
-		CANT_REACH();
-	    }
 	    continue;
 	}
 
