@@ -40,8 +40,11 @@
 #include "optlist.h"
 #include "retreat.h"
 
-enum targ_type {
-    targ_land, targ_ship, targ_sub, targ_bogus
+enum targ_type {	/* Targeting... */
+    targ_land,		/* a sector with guns */
+    targ_ship,		/* a ship with guns */
+    targ_sub,		/* a submarine with depth charges */
+    targ_bogus		/* a bogus sector with guns */
 };
 
 struct flist {
@@ -232,8 +235,7 @@ multifire(void)
 		pr("No such ship exists!\n");
 		continue;
 	    }
-	    target = (mchr[(int)vship.shp_type].m_flags & M_SUB) ?
-		targ_sub : targ_ship;
+	    target = targ_ship;	/* targ_ship vs. targ_sub decided below */
 	    vict = vship.shp_own;
 	    x = vship.shp_x;
 	    y = vship.shp_y;
@@ -263,7 +265,7 @@ multifire(void)
 	if (type == EF_SHIP) {
 	    if (!check_ship_ok(&fship))
 		return RET_FAIL;
-	    if (target == targ_sub || target == targ_ship) {
+	    if (target == targ_ship) {
 		if (fship.shp_uid == vship.shp_uid) {
 		    pr("You can't fire upon yourself!\n");
 		    continue;
@@ -272,16 +274,15 @@ multifire(void)
 	    range = shp_fire_range(&fship);
 	    range2 = roundrange(range);
 	    pr("range is %d.00 (%.2f)\n", range2, range);
-	    if (target == targ_sub
-		&& trange <= range2
-		&& (mchr[(int)fship.shp_type].m_flags & M_DCH)) {
+	    /* Use depth charges against subs, but only when in range */
+	    if (target == targ_ship && trange <= range2
+		&& (mchr[vship.shp_type].m_flags & M_SUB)
+		&& (mchr[fship.shp_type].m_flags & M_DCH))
+		target = targ_sub;
+	    if (target == targ_sub)
 		dam = shp_dchrg(&fship);
-	    } else {
-		if (target == targ_sub)
-		    /* Don't tell it's a sub */
-		    range2 = -1;
+	    else
 		dam = shp_fire(&fship);
-	    }
 	    fship.shp_mission = 0;
 	    putship(fship.shp_uid, &fship);
 	    if (CANT_HAPPEN(dam < 0)) {
@@ -302,15 +303,9 @@ multifire(void)
 		    continue;
 		}
 	    }
-
 	    range = lnd_fire_range(&fland);
 	    range2 = roundrange(range);
 	    pr("range is %d.00 (%.2f)\n", range2, range);
-	    if (target == targ_sub) {
-		/* Don't tell it's a sub */
-		range2 = -1;
-	    }
-
 	    dam = lnd_fire(&fland);
 	    fland.lnd_mission = 0;
 	    putland(fland.lnd_uid, &fland);
@@ -341,11 +336,14 @@ multifire(void)
 	    range = fortrange(&fsect);
 	    range2 = roundrange(range);
 	    pr("range is %d.00 (%.2f)\n", range2, range);
-	    if (target == targ_sub) {
-		/* Don't tell it's a sub */
-		range2 = -1;
-	    }
 	}
+
+	/*
+	 * If the player fires guns at a submarine, take care not to
+	 * disclose it's a submarine: pretend the target is out of range.
+	 */
+	if (target == targ_ship && (mchr[vship.shp_type].m_flags & M_SUB))
+	    range2 = -1;
 	if (trange > range2) {
 	    pr("Target out of range.\n");
 	    continue;
@@ -362,6 +360,7 @@ multifire(void)
 	    pr("Kaboom!!!\n");
 	    break;
 	}
+
 	switch (target) {
 	case targ_bogus:
 	case targ_land:
