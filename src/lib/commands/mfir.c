@@ -280,10 +280,6 @@ multifire(void)
 		if (target == targ_sub)
 		    /* Don't tell it's a sub */
 		    range2 = -1;
-		if (fship.shp_item[I_GUN] == 0) {
-		    pr("Insufficient arms.\n");
-		    continue;
-		}
 		dam = shp_fire(&fship);
 	    }
 	    fship.shp_mission = 0;
