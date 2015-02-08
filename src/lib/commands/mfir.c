@@ -338,17 +338,6 @@ multifire(void)
 	    pr("range is %d.00 (%.2f)\n", range2, range);
 	}
 
-	/*
-	 * If the player fires guns at a submarine, take care not to
-	 * disclose it's a submarine: pretend the target is out of range.
-	 */
-	if (target == targ_ship && (mchr[vship.shp_type].m_flags & M_SUB))
-	    range2 = -1;
-	if (trange > range2) {
-	    pr("Target out of range.\n");
-	    continue;
-	}
-
 	nfiring++;
 	switch (target) {
 	case targ_sub:
@@ -359,6 +348,17 @@ multifire(void)
 	    pr_beep();
 	    pr("Kaboom!!!\n");
 	    break;
+	}
+
+	/*
+	 * If the player fires guns at a submarine, take care not to
+	 * disclose it's a submarine: pretend the target is out of range.
+	 */
+	if (target == targ_ship && (mchr[vship.shp_type].m_flags & M_SUB))
+	    range2 = -1;
+	if (trange > range2) {
+	    pr("Target out of range.\n");
+	    continue;
 	}
 
 	switch (target) {
