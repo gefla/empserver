@@ -272,7 +272,6 @@ multifire(void)
 	    }
 	    range = shp_fire_range(&fship);
 	    range2 = roundrange(range);
-	    pr("range is %d.00 (%.2f)\n", range2, range);
 	    /* Use depth charges against subs, but only when in range */
 	    if (target == targ_ship && trange <= range2
 		&& (mchr[vship.shp_type].m_flags & M_SUB)
@@ -284,10 +283,6 @@ multifire(void)
 		dam = shp_fire(&fship);
 	    fship.shp_mission = 0;
 	    putship(fship.shp_uid, &fship);
-	    if (CANT_HAPPEN(dam < 0)) {
-		pr("Klick!     ...\n");
-		continue;
-	    }
 	    if (opt_NOMOBCOST == 0) {
 		fship.shp_mobil = MAX(fship.shp_mobil - 15, -100);
 		putship(fship.shp_uid, &fship);
@@ -304,14 +299,9 @@ multifire(void)
 	    }
 	    range = lnd_fire_range(&fland);
 	    range2 = roundrange(range);
-	    pr("range is %d.00 (%.2f)\n", range2, range);
 	    dam = lnd_fire(&fland);
 	    fland.lnd_mission = 0;
 	    putland(fland.lnd_uid, &fland);
-	    if (CANT_HAPPEN(dam < 0)) {
-		pr("Klick!     ...\n");
-		continue;
-	    }
 	    if (target == targ_ship) {
 		if (chance(lnd_acc(&fland) / 100.0))
 		    dam = ldround(dam / 2.0, 1);
@@ -328,15 +318,15 @@ multifire(void)
 	    }
 	    dam = fort_fire(&fsect);
 	    putsect(&fsect);
-	    if (CANT_HAPPEN(dam < 0)) {
-		pr("Klick!     ...\n");
-		continue;
-	    }
 	    range = fortrange(&fsect);
 	    range2 = roundrange(range);
-	    pr("range is %d.00 (%.2f)\n", range2, range);
 	}
 
+	if (CANT_HAPPEN(dam < 0)) {
+	    pr("Jammed!\n");
+	    continue;
+	}
+	pr("range is %d.00 (%.2f)\n", range2, range);
 	nfiring++;
 	switch (target) {
 	case targ_sub:
