@@ -1,0 +1,7 @@
+ship *
+carg *
+miss s * ?mission#0 q
+read 0
+read 1
+read 2
+read 3

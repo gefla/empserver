@@ -1,0 +1,22 @@
+#!/bin/sh -e
+# Torpedo test for Empire
+
+if [ $# -ne 1 ]
+then echo "Usage: $0 SRCDIR" >&2; exit 1
+fi
+
+srcdir="$1"
+
+. "$srcdir"/tests/test-common.sh
+
+create_sandbox
+cat >>$econfig <<EOF
+WORLD_X 32
+WORLD_Y 16
+EOF
+
+begin_test "$srcdir"/tests/torpedo/setup-POGO
+feed_dir "$srcdir"/tests/torpedo
+end_test
+
+cmp_logs_xdump

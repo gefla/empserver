@@ -1,0 +1,76 @@
+|| no torpedo launched
+| ship doesn't exist
+torp 666 50
+| foreign ship
+torp 31 50
+| ship lacks capability torp
+torp 1 50
+| no guns
+torp 2 50
+| not enough shells
+torp 3 50
+| no military
+torp 4 50
+| inefficient
+torp 5 50
+| no mobility
+torp 6 50
+| target doesn't exist
+torp 0 666
+torp 0 19
+| targeting self
+torp 0 0
+| ship lacks capability sub-torp
+torp 7 45
+|
+|| torpedo launched at nothing (shells consumed)
+| out of range
+torp 11 40
+| blocked by land
+torp 11 41
+| odd: torpedo sighted anyway
+| both
+torp 11 42
+|
+|| torpedo launched at helpless target
+| range 0, surface to submarine, vis>5, 90% chance
+torp 0 45
+| range 1, submarine to surface, vis 5, 45% chance
+torp 10 50
+torp 10 51
+torp 10 52
+torp 10 53
+| range 1, surface to surface, vis>5, 45% chance
+torp 15 55
+torp 15 56
+torp 15 57
+torp 15 58
+| likewise, to submarine
+torp 15 60
+torp 15 61
+torp 15 62
+torp 15 63
+| range 2, submarine to submarine, vis 3, 36% chance
+torp 11 65
+torp 11 66
+torp 11 67
+torp 11 68
+|
+|| torpedo launched at armed target
+| lone pt, dd#60/af#61/bb#65 and maybe dd#66/sb#67 (50% chance) defend,
+| pt sunk before launch
+torp 20 70
+| odd: af defends with torpedo
+| odd: fort and hat and allied dd do nothing
+| 4pt, same defense, half damage, #3 sinks target
+torp 21/22/23/24 70
+| odd: command fails
+| lone sb, af#61 and maybe dd#66 (50% chance) defend
+torp 25 75
+| 4sb, same defense, half damage, #3 sinks target
+torp 26/27/28/29 75
+| odd: command fails
+| submarine at own ship
+torp 10 16
+| surface at own ship
+torp 15 16

@@ -1,0 +1,117 @@
+config sect
+owner xloc yloc des effic mobil off loyal terr0 terr1 terr2 terr3 dterr xdist ydist avail elev work coastal newdes min gold fert ocontent uran oldown civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad c_dist m_dist s_dist g_dist p_dist i_dist d_dist b_dist f_dist o_dist l_dist h_dist u_dist r_dist c_del m_del s_del g_del p_del i_del d_del b_del f_del o_del l_del h_del u_del r_del mines pstage ptime che che_target fallout access road rail dfense
+1 0 0 5 100 0 0 0 0 0 0 0 0 0 0 0 0 0 1 5 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
+1 -1 1 24 100 0 0 0 0 0 0 0 0 -1 1 0 0 0 1 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
+1 0 2 24 100 0 0 0 0 0 0 0 0 0 2 0 0 0 1 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
+1 -1 3 24 100 0 0 0 0 0 0 0 0 -1 3 0 0 0 1 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
+2 0 4 12 100 0 0 0 0 0 0 0 0 0 4 0 0 0 1 12 0 0 0 0 0 2 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
+2 -1 5 24 100 0 0 0 0 0 0 0 0 -1 5 0 0 0 1 24 0 0 0 0 0 2 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
+2 0 6 19 100 0 0 0 0 0 0 0 0 0 6 0 0 0 1 19 0 0 0 0 0 2 100 10 40 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
+1 0 -4 24 100 0 0 0 0 0 0 0 0 0 -4 0 0 0 1 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
+1 -1 -3 24 100 0 0 0 0 0 0 0 0 -1 -3 0 0 0 1 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
+1 0 -2 24 100 0 0 0 0 0 0 0 0 0 -2 0 0 0 1 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
+1 -1 -1 24 100 0 0 0 0 0 0 0 0 -1 -1 0 0 0 1 24 0 0 0 0 0 1 100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 0 0 0 0 0 0
+/config
+config ship
+uid owner xloc yloc type effic mobil off tech opx opy mission radius fleet civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime access name xbuilt ybuilt builder rflags rpath
+0 1 2 0 24 60 -5 0 220 2 0 none 1 "" 0 1 0 1 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+1 1 2 0 10 60 1 0 220 2 0 interdiction 3 "" 0 1 3 1 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+2 1 2 0 24 60 1 0 220 2 0 interdiction 1 "" 0 1 3 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+3 1 2 0 24 60 1 0 220 2 0 interdiction 1 "" 0 1 2 1 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+4 1 2 0 24 60 1 0 220 2 0 interdiction 1 "" 0 0 3 1 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+5 1 2 0 24 59 1 0 220 2 0 interdiction 1 "" 0 1 3 1 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+6 1 2 0 24 60 0 0 220 2 0 interdiction 1 "" 0 1 3 1 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+7 1 2 0 9 60 1 0 220 2 0 interdiction 0 "" 0 1 3 1 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+10 1 2 0 18 100 87 0 60 2 0 none 1 "" 0 1 21 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+11 1 2 0 25 100 99 0 260 2 0 none 2 "" 0 1 15 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+15 1 2 0 24 100 91 0 220 2 0 none 1 "" 0 1 9 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+16 1 2 0 24 56 71 0 220 2 0 interdiction 1 "" 0 1 21 2 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+20 0 2 6 9 0 -1 0 220 2 6 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+21 1 2 6 9 25 -1 0 220 2 6 none 0 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+22 1 2 6 9 21 -1 0 220 2 6 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+23 1 2 6 9 63 -1 0 220 2 6 none 0 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+24 1 2 6 9 100 1 0 220 2 6 interdiction 0 "" 0 1 3 1 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+25 1 2 6 18 25 -4 0 220 2 6 none 1 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+26 1 2 6 18 64 -4 0 220 2 6 none 1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+27 1 2 6 18 60 -4 0 220 2 6 none 1 "" 0 1 0 1 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+28 1 2 6 18 87 -4 0 220 2 6 none 1 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+29 1 2 6 18 100 1 0 220 2 6 interdiction 1 "" 0 1 3 1 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+40 2 12 0 6 100 127 0 0 0 0 none 0 "" 0 5 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+41 2 -2 0 6 100 127 0 0 0 0 none 0 "" 0 5 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+42 2 -12 0 6 100 127 0 0 0 0 none 0 "" 0 5 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+45 2 2 0 18 64 81 0 60 0 0 none 0 "" 0 3 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+50 2 4 0 9 100 127 0 40 0 0 none 0 "" 0 2 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+51 2 4 0 9 42 54 0 40 0 0 none 0 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+52 2 4 0 9 100 127 0 40 0 0 none 0 "" 0 2 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+53 2 4 0 9 100 127 0 40 0 0 none 0 "" 0 2 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+55 2 4 0 9 42 53 0 40 0 0 none 0 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+56 2 4 0 9 100 127 0 40 0 0 none 0 "" 0 2 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+57 2 4 0 9 100 127 0 40 0 0 none 0 "" 0 2 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+58 2 4 0 9 30 38 0 40 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+60 2 4 0 18 44 56 0 60 0 0 none 0 "" 0 2 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+61 2 4 0 18 100 127 0 60 0 0 none 0 "" 0 5 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+62 2 4 0 18 47 60 0 60 0 0 none 0 "" 0 3 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+63 2 4 0 18 100 127 0 60 0 0 none 0 "" 0 5 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+65 2 6 0 18 100 127 0 60 0 0 none 0 "" 0 5 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+66 0 6 0 18 0 11 0 60 0 0 none 0 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+67 2 6 0 18 36 46 0 60 0 0 none 0 "" 0 2 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+68 2 6 0 18 100 127 0 60 0 0 none 0 "" 0 5 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+70 0 2 6 17 0 12 0 70 0 0 none 0 "" 0 2 3 1 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+71 2 2 6 24 100 95 0 220 0 0 none 0 "" 0 20 16 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+72 2 2 6 18 100 127 0 70 0 0 none 0 "" 0 20 1 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+75 0 2 6 13 0 23 0 70 0 0 none 0 "" 0 4 4 2 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+76 2 6 6 17 100 127 0 100 0 0 none 0 "" 0 20 30 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+77 2 6 6 18 100 119 0 100 0 0 none 0 "" 0 20 33 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+78 2 8 6 17 100 127 0 70 0 0 none 0 "" 0 20 40 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+79 2 -2 6 25 100 127 0 260 0 0 none 0 "" 0 20 40 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+80 3 2 6 17 100 127 0 70 0 0 none 0 "" 0 20 40 4 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 4 2 () ""
+99 0 0 0 0 0 0 0 0 0 0 none 0 "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 0 "" 0 0 0 () ""
+/config
+config plane
+uid owner xloc yloc type effic mobil off tech opx opy mission radius wing range harden ship land flags access theta
+/config
+config land
+uid owner xloc yloc type effic mobil off tech opx opy mission radius army ship harden retreat rflags rpath civil milit shell gun petrol iron dust bar food oil lcm hcm uw rad pstage ptime land access
+0 2 0 6 13 100 0 0 100 0 0 none 0 "" -1 0 42 () "" 0 10 80 1 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
+49 0 0 0 0 0 0 0 0 0 0 none 0 "" -1 0 0 () "" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 healthy 0 -1 0
+/config
+config nuke
+uid owner xloc yloc type effic mobil off tech opx opy mission radius stockpile plane
+/config
+config news
+actor action victim times duration time
+2 13 0 5 0 0
+2 52 1 5 0 0
+1 52 2 3 0 0
+1 13 0 2 0 0
+/config
+config trade
+uid owner type unitid price maxbidder markettime xloc yloc
+/config
+config nat
+cnum stat flags cname passwd ip hostname userid xcap ycap xorg yorg update tgms ann timeused btu access milreserve money login logout newstim annotim tech research education happiness relations(0) relations(1) relations(2) relations(3) relations(4) relations(5) relations(6) relations(7) relations(8) relations(9) relations(10) relations(11) relations(12) relations(13) relations(14) relations(15) relations(16) relations(17) relations(18) relations(19) relations(20) relations(21) relations(22) relations(23) relations(24) relations(25) relations(26) relations(27) relations(28) relations(29) relations(30) relations(31) relations(32) relations(33) relations(34) relations(35) relations(36) relations(37) relations(38) relations(39) relations(40) relations(41) relations(42) relations(43) relations(44) relations(45) relations(46) relations(47) relations(48) relations(49) relations(50) relations(51) relations(52) relations(53) relations(54) relations(55) relations(56) relations(57) relations(58) relations(59) relations(60) relations(61) relations(62) relations(63) relations(64) relations(65) relations(66) relations(67) relations(68) relations(69) relations(70) relations(71) relations(72) relations(73) relations(74) relations(75) relations(76) relations(77) relations(78) relations(79) relations(80) relations(81) relations(82) relations(83) relations(84) relations(85) relations(86) relations(87) relations(88) relations(89) relations(90) relations(91) relations(92) relations(93) relations(94) relations(95) relations(96) relations(97) relations(98) contacts(0) contacts(1) contacts(2) contacts(3) contacts(4) contacts(5) contacts(6) contacts(7) contacts(8) contacts(9) contacts(10) contacts(11) contacts(12) contacts(13) contacts(14) contacts(15) contacts(16) contacts(17) contacts(18) contacts(19) contacts(20) contacts(21) contacts(22) contacts(23) contacts(24) contacts(25) contacts(26) contacts(27) contacts(28) contacts(29) contacts(30) contacts(31) contacts(32) contacts(33) contacts(34) contacts(35) contacts(36) contacts(37) contacts(38) contacts(39) contacts(40) contacts(41) contacts(42) contacts(43) contacts(44) contacts(45) contacts(46) contacts(47) contacts(48) contacts(49) contacts(50) contacts(51) contacts(52) contacts(53) contacts(54) contacts(55) contacts(56) contacts(57) contacts(58) contacts(59) contacts(60) contacts(61) contacts(62) contacts(63) contacts(64) contacts(65) contacts(66) contacts(67) contacts(68) contacts(69) contacts(70) contacts(71) contacts(72) contacts(73) contacts(74) contacts(75) contacts(76) contacts(77) contacts(78) contacts(79) contacts(80) contacts(81) contacts(82) contacts(83) contacts(84) contacts(85) contacts(86) contacts(87) contacts(88) contacts(89) contacts(90) contacts(91) contacts(92) contacts(93) contacts(94) contacts(95) contacts(96) contacts(97) contacts(98) rejects(0) rejects(1) rejects(2) rejects(3) rejects(4) rejects(5) rejects(6) rejects(7) rejects(8) rejects(9) rejects(10) rejects(11) rejects(12) rejects(13) rejects(14) rejects(15) rejects(16) rejects(17) rejects(18) rejects(19) rejects(20) rejects(21) rejects(22) rejects(23) rejects(24) rejects(25) rejects(26) rejects(27) rejects(28) rejects(29) rejects(30) rejects(31) rejects(32) rejects(33) rejects(34) rejects(35) rejects(36) rejects(37) rejects(38) rejects(39) rejects(40) rejects(41) rejects(42) rejects(43) rejects(44) rejects(45) rejects(46) rejects(47) rejects(48) rejects(49) rejects(50) rejects(51) rejects(52) rejects(53) rejects(54) rejects(55) rejects(56) rejects(57) rejects(58) rejects(59) rejects(60) rejects(61) rejects(62) rejects(63) rejects(64) rejects(65) rejects(66) rejects(67) rejects(68) rejects(69) rejects(70) rejects(71) rejects(72) rejects(73) rejects(74) rejects(75) rejects(76) rejects(77) rejects(78) rejects(79) rejects(80) rejects(81) rejects(82) rejects(83) rejects(84) rejects(85) rejects(86) rejects(87) rejects(88) rejects(89) rejects(90) rejects(91) rejects(92) rejects(93) rejects(94) rejects(95) rejects(96) rejects(97) rejects(98)
+0 deity (flash beep coastwatch sonar techlists) "POGO" "peter" "127.0.0.1" "" "tester" 0 0 0 0 0 0 0 255 638 0 0 123456789 0 0 0 0 0.00000 0.00000 0.00000 0.00000 neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () ()
+1 active (flash beep coastwatch sonar techlists) "1" "1" "127.0.0.1" "" "tester" 0 0 0 0 0 0 0 255 526 0 0 25000 0 0 0 0 100.000 0.00000 0.00000 0.00000 neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () ()
+2 active (flash beep coastwatch sonar techlists) "2" "2" "" "" "" 0 0 0 0 0 1 0 255 640 0 0 25000 0 0 0 0 100.000 0.00000 0.00000 0.00000 neutral neutral neutral allied neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () ()
+3 active (flash beep coastwatch sonar techlists) "3" "3" "" "" "" 0 0 0 0 0 0 0 255 640 0 0 25000 0 0 0 0 100.000 0.00000 0.00000 0.00000 neutral at-war allied neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral neutral 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () () ()
+/config
+config loan
+uid loaner loanee status irate ldur amtpaid amtdue lastpay duedate
+/config
+config commodity
+uid owner type amount price maxbidder markettime xbuy ybuy xsell ysell
+/config
+config lost
+timestamp owner type id x y
+0 2 1 66 6 0
+0 1 1 20 2 6
+0 2 1 70 2 6
+0 2 1 75 2 6
+/config
+config realm
+cnum realm xl xh yl yh
+/config
+config game
+upd_disable down turn tick rt
+0 0 1 0 0
+/config

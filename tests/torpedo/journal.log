@@ -1,0 +1,592 @@
+      Main startup
+      Main prng MT19937 1
+     Conn0 output Conn0 2 Empire server ready
+     Conn0 input user tester
+     Conn0 output Conn0 0 hello tester
+     Conn0 input coun red
+     Conn0 output Conn0 10 country red does not exist
+     Conn0 output Conn0 3 so long...
+     Conn1 output Conn1 2 Empire server ready
+     Conn1 input user tester
+     Conn1 output Conn1 0 hello tester
+     Conn1 input coun 1
+     Conn1 output Conn1 0 country name 1
+     Conn1 input pass 1
+     Conn1 output Conn1 0 password ok
+     Conn1 input play
+     Conn1 login 1 127.0.0.1 tester
+    Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
+    Play#1 output Play#1 6 0 640
+    Play#1 input torp 666 50
+    Play#1 command torpedo
+    Play#1 output Play#1 1 0 ships are eligible to torpedo
+    Play#1 output Play#1 6 0 637
+    Play#1 input torp 31 50
+    Play#1 command torpedo
+    Play#1 output Play#1 1 0 ships are eligible to torpedo
+    Play#1 output Play#1 6 0 634
+    Play#1 input torp 1 50
+    Play#1 command torpedo
+    Play#1 output Play#1 1 0 ships are eligible to torpedo
+    Play#1 output Play#1 1 Ship # 1: A lc   light cruiser can't fire torpedoes!
+    Play#1 output Play#1 6 0 631
+    Play#1 input torp 2 50
+    Play#1 command torpedo
+    Play#1 output Play#1 1 0 ships are eligible to torpedo
+    Play#1 output Play#1 1 Ship #2 has insufficient armament
+    Play#1 output Play#1 6 0 628
+    Play#1 input torp 3 50
+    Play#1 command torpedo
+    Play#1 output Play#1 1 0 ships are eligible to torpedo
+    Play#1 output Play#1 1 Ship #3 has insufficient armament
+    Play#1 output Play#1 6 0 625
+    Play#1 input torp 4 50
+    Play#1 command torpedo
+    Play#1 output Play#1 1 0 ships are eligible to torpedo
+    Play#1 output Play#1 1 Ship #4 has insufficient crew
+    Play#1 output Play#1 6 0 622
+    Play#1 input torp 5 50
+    Play#1 command torpedo
+    Play#1 output Play#1 1 0 ships are eligible to torpedo
+    Play#1 output Play#1 1 Ship #5 torpedo tubes inoperative.
+    Play#1 output Play#1 6 0 619
+    Play#1 input torp 6 50
+    Play#1 command torpedo
+    Play#1 output Play#1 1 0 ships are eligible to torpedo
+    Play#1 output Play#1 1 Ship #6 has insufficient mobility
+    Play#1 output Play#1 6 0 616
+    Play#1 input torp 0 666
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 command failed
+    Play#1 output Play#1 6 0 613
+    Play#1 input torp 0 19
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 command failed
+    Play#1 output Play#1 6 0 610
+    Play#1 input torp 0 0
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Shooting yourself, eh?  How strange...
+    Play#1 output Play#1 6 0 607
+    Play#1 input torp 7 45
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 You can't torpedo a submarine!
+    Play#1 output Play#1 6 0 604
+    Play#1 input torp 11 40
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 3.0
+    Play#1 output Play#1 1 Whooosh... Out of range
+    Play#1 output Play#1 6 0 601
+    Play#1 input torp 11 41
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 3.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 36%
+    Play#1 output Play#1 1 BOOM!... Torpedo slams into land before reaching target.
+    Play#1 output Play#1 6 0 598
+    Play#1 input torp 11 42
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 3.0
+    Play#1 output Play#1 1 Whooosh... BOOM!... Torpedo slams into land before reaching target.
+    Play#1 output Play#1 6 0 595
+    Play#1 input torp 0 45
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 Effective torpedo range is 1.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit sub for 46 damage.
+    Play#1 output Play#1 6 0 592
+    Play#1 input torp 10 50
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 2.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Missed
+    Play#1 output Play#1 6 0 589
+    Play#1 input torp 10 51
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 1.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit pt   patrol boat (#51) for 64 damage.
+    Play#1 output Play#1 6 0 586
+    Play#1 input torp 10 52
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 2.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Missed
+    Play#1 output Play#1 6 0 583
+    Play#1 input torp 10 53
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 1.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Missed
+    Play#1 output Play#1 6 0 580
+    Play#1 input torp 15 55
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 Effective torpedo range is 2.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit pt   patrol boat (#55) for 64 damage.
+    Play#1 output Play#1 6 0 577
+    Play#1 input torp 15 56
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 Effective torpedo range is 1.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Missed
+    Play#1 output Play#1 6 0 574
+    Play#1 input torp 15 57
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 Effective torpedo range is 1.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Missed
+    Play#1 output Play#1 6 0 571
+    Play#1 input torp 15 58
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 Effective torpedo range is 2.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit pt   patrol boat (#58) for 77 damage.
+    Play#1 output Play#1 6 0 568
+    Play#1 input torp 15 60
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 Effective torpedo range is 1.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit sub for 70 damage.
+    Play#1 output Play#1 6 0 565
+    Play#1 input torp 15 61
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 Effective torpedo range is 1.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Missed
+    Play#1 output Play#1 6 0 562
+    Play#1 input torp 15 62
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 Effective torpedo range is 1.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit sub for 67 damage.
+    Play#1 output Play#1 6 0 559
+    Play#1 input torp 15 63
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 Effective torpedo range is 1.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Missed
+    Play#1 output Play#1 6 0 556
+    Play#1 input torp 11 65
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 3.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 36%
+    Play#1 output Play#1 1 Missed
+    Play#1 output Play#1 6 0 553
+    Play#1 input torp 11 66
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 3.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 36%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit sub for 114 damage.
+    Play#1 output Play#1 1 sub sunk!
+    Play#1 output Play#1 6 0 550
+    Play#1 input torp 11 67
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 3.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 36%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit sub for 81 damage.
+    Play#1 output Play#1 6 0 547
+    Play#1 input torp 11 68
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 3.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 36%
+    Play#1 output Play#1 1 Missed
+    Play#1 output Play#1 6 0 544
+    Play#1 input torp 20 70
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 \007Kaboom!!! Incoming shells!
+    Play#1 output Play#1 1 \007BLAM! 37 damage!
+    Play#1 output Play#1 1 	pt   patrol boat (#20) takes 32
+    Play#1 output Play#1 1 Captain! Torpedoes sighted!
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 	pt   patrol boat (#20) takes 45
+    Play#1 output Play#1 1 \007Kaboom!!! Incoming shells!
+    Play#1 output Play#1 1 \007BLAM! 85 damage!
+    Play#1 output Play#1 1 	pt   patrol boat (#20) takes 74
+    Play#1 output Play#1 1 	pt   patrol boat (#20) sunk!
+    Play#1 output Play#1 6 0 541
+    Play#1 input torp 21/22/23/24 70
+    Play#1 command torpedo
+    Play#1 output Play#1 1 4 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 \007Kaboom!!! Incoming shells!
+    Play#1 output Play#1 1 \007BLAM! 18 damage!
+    Play#1 output Play#1 1 	pt   patrol boat (#21) takes 15
+    Play#1 output Play#1 1 Captain! Torpedoes sighted!
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 	pt   patrol boat (#21) takes 43
+    Play#1 output Play#1 1 \007Kaboom!!! Incoming shells!
+    Play#1 output Play#1 1 \007BLAM! 45 damage!
+    Play#1 output Play#1 1 	pt   patrol boat (#21) takes 39
+    Play#1 output Play#1 1 \007Kaboom!!! Incoming shells!
+    Play#1 output Play#1 1 \007BLAM! 20 damage!
+    Play#1 output Play#1 1 	pt   patrol boat (#21) takes 17
+    Play#1 output Play#1 1 Effective torpedo range is 0.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit dd   destroyer (#70) for 94 damage.
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 Captain! Torpedoes sighted!
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 	pt   patrol boat (#22) takes 39
+    Play#1 output Play#1 1 \007Kaboom!!! Incoming shells!
+    Play#1 output Play#1 1 \007BLAM! 41 damage!
+    Play#1 output Play#1 1 	pt   patrol boat (#22) takes 35
+    Play#1 output Play#1 1 \007Kaboom!!! Incoming shells!
+    Play#1 output Play#1 1 \007BLAM! 18 damage!
+    Play#1 output Play#1 1 	pt   patrol boat (#22) takes 15
+    Play#1 output Play#1 1 Captain! Torpedoes sighted!
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 	pt   patrol boat (#22) takes 36
+    Play#1 output Play#1 1 Effective torpedo range is 0.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit dd   destroyer (#70) for 61 damage.
+    Play#1 output Play#1 1 Starting our attack run...
+    Play#1 output Play#1 1 Captain! Torpedoes sighted!
+    Play#1 output Play#1 1 Missed!
+    Play#1 output Play#1 1 \007Kaboom!!! Incoming shells!
+    Play#1 output Play#1 1 \007BLAM! 43 damage!
+    Play#1 output Play#1 1 	pt   patrol boat (#23) takes 37
+    Play#1 output Play#1 1 Effective torpedo range is 0.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit dd   destroyer (#70) for 81 damage.
+    Play#1 output Play#1 1 dd   destroyer (#70) sunk!
+    Play#1 output Play#1 1 command failed
+    Play#1 output Play#1 6 0 538
+    Play#1 input torp 25 75
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 3.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 96%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit bb   battleship (#75) for 64 damage.
+    Play#1 output Play#1 1 Captain! Torpedoes sighted!
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 	sb   submarine (#25) takes 64
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 CAPTAIN!  !!Depth charges!!...
+    Play#1 output Play#1 1 click...WHAM!  40 damage!
+    Play#1 output Play#1 1 	sb   submarine (#25) takes 29
+    Play#1 output Play#1 6 0 535
+    Play#1 input torp 26/27/28/29 75
+    Play#1 command torpedo
+    Play#1 output Play#1 1 4 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 2.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 96%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit bb   battleship (#75) for 79 damage.
+    Play#1 output Play#1 1 Captain! Torpedoes sighted!
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 	sb   submarine (#26) takes 25
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 CAPTAIN!  !!Depth charges!!...
+    Play#1 output Play#1 1 click...WHAM!  19 damage!
+    Play#1 output Play#1 1 	sb   submarine (#26) takes 14
+    Play#1 output Play#1 1 Effective torpedo range is 3.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 96%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit bb   battleship (#75) for 60 damage.
+    Play#1 output Play#1 1 Captain! Torpedoes sighted!
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 	sb   submarine (#27) takes 40
+    Play#1 output Play#1 1 Effective torpedo range is 2.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 96%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit bb   battleship (#75) for 73 damage.
+    Play#1 output Play#1 1 bb   battleship (#75) sunk!
+    Play#1 output Play#1 1 Captain! Torpedoes sighted!
+    Play#1 output Play#1 1 Missed!
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 CAPTAIN!  !!Depth charges!!...
+    Play#1 output Play#1 1 click...WHAM!  18 damage!
+    Play#1 output Play#1 1 	sb   submarine (#28) takes 13
+    Play#1 output Play#1 1 command failed
+    Play#1 output Play#1 6 0 532
+    Play#1 input torp 10 16
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 1.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 BOOM!...
+    Play#1 output Play#1 1 Torpedo hit af   asw frigate (#16) for 67 damage.
+    Play#1 output Play#1 1 	af   asw frigate (#16) takes 44
+    Play#1 output Play#1 1 You have a new telegram waiting ...
+    Play#1 output Play#1 6 0 529
+    Play#1 input torp 15 16
+    Play#1 command torpedo
+    Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Effective torpedo range is 1.0
+    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 Missed
+    Play#1 output Play#1 1 You have a new telegram waiting ...
+    Play#1 output Play#1 6 0 526
+    Play#1 input ctld
+    Play#1 output Play#1 1 Bye-bye
+    Play#1 logout 1
+    Play#1 output Play#1 3 so long...
+     Conn2 output Conn2 2 Empire server ready
+     Conn2 input user tester
+     Conn2 output Conn2 0 hello tester
+     Conn2 input coun POGO
+     Conn2 output Conn2 0 country name POGO
+     Conn2 input pass peter
+     Conn2 output Conn2 0 password ok
+     Conn2 input play
+     Conn2 login 0 127.0.0.1 tester
+    Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
+    Play#0 output Play#0 6 0 640
+    Play#0 input ship *
+    Play#0 command ship
+    Play#0 output Play#0 1 own shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
+    Play#0 output Play#0 1   1    0 af   asw frigate    2,0        60%   0   1   0   0  0  0  0  0  -5  220
+    Play#0 output Play#0 1   1    1 lc   light cruis    2,0        60%   0   1   0   0  0  0  0  0   1  220
+    Play#0 output Play#0 1   1    2 af   asw frigate    2,0        60%   0   1   0   0  0  0  0  0   1  220
+    Play#0 output Play#0 1   1    3 af   asw frigate    2,0        60%   0   1   0   0  0  0  0  0   1  220
+    Play#0 output Play#0 1   1    4 af   asw frigate    2,0        60%   0   0   0   0  0  0  0  0   1  220
+    Play#0 output Play#0 1   1    5 af   asw frigate    2,0        59%   0   1   0   0  0  0  0  0   1  220
+    Play#0 output Play#0 1   1    6 af   asw frigate    2,0        60%   0   1   0   0  0  0  0  0   0  220
+    Play#0 output Play#0 1   1    7 pt   patrol boat    2,0        60%   0   1   0   0  0  0  0  0   1  220
+    Play#0 output Play#0 1   1   10 sb   submarine      2,0       100%   0   1   0   0  0  0  0  0  87   60
+    Play#0 output Play#0 1   1   11 na   nuc attack     2,0       100%   0   1   0   0  0  0  0  0  99  260
+    Play#0 output Play#0 1   1   15 af   asw frigate    2,0       100%   0   1   0   0  0  0  0  0  91  220
+    Play#0 output Play#0 1   1   16 af   asw frigate    2,0        56%   0   1   0   0  0  0  0  0  71  220
+    Play#0 output Play#0 1   1   21 pt   patrol boat    2,6        25%   0   1   0   0  0  0  0  0  -1  220
+    Play#0 output Play#0 1   1   22 pt   patrol boat    2,6        21%   0   0   0   0  0  0  0  0  -1  220
+    Play#0 output Play#0 1   1   23 pt   patrol boat    2,6        63%   0   1   0   0  0  0  0  0  -1  220
+    Play#0 output Play#0 1   1   24 pt   patrol boat    2,6       100%   0   1   0   0  0  0  0  0   1  220
+    Play#0 output Play#0 1   1   25 sb   submarine      2,6        25%   0   0   0   0  0  0  0  0  -4  220
+    Play#0 output Play#0 1   1   26 sb   submarine      2,6        64%   0   1   0   0  0  0  0  0  -4  220
+    Play#0 output Play#0 1   1   27 sb   submarine      2,6        60%   0   1   0   0  0  0  0  0  -4  220
+    Play#0 output Play#0 1   1   28 sb   submarine      2,6        87%   0   0   0   0  0  0  0  0  -4  220
+    Play#0 output Play#0 1   1   29 sb   submarine      2,6       100%   0   1   0   0  0  0  0  0   1  220
+    Play#0 output Play#0 1   2   40 frg  frigate       12,0       100%   0   5   0   0  0  0  0  0 127    0
+    Play#0 output Play#0 1   2   41 frg  frigate       -2,0       100%   0   5   0   0  0  0  0  0 127    0
+    Play#0 output Play#0 1   2   42 frg  frigate      -12,0       100%   0   5   0   0  0  0  0  0 127    0
+    Play#0 output Play#0 1   2   45 sb   submarine      2,0        64%   0   3   0   0  0  0  0  0  81   60
+    Play#0 output Play#0 1   2   50 pt   patrol boat    4,0       100%   0   2   0   0  0  0  0  0 127   40
+    Play#0 output Play#0 1   2   51 pt   patrol boat    4,0        42%   0   1   0   0  0  0  0  0  54   40
+    Play#0 output Play#0 1   2   52 pt   patrol boat    4,0       100%   0   2   0   0  0  0  0  0 127   40
+    Play#0 output Play#0 1   2   53 pt   patrol boat    4,0       100%   0   2   0   0  0  0  0  0 127   40
+    Play#0 output Play#0 1   2   55 pt   patrol boat    4,0        42%   0   1   0   0  0  0  0  0  53   40
+    Play#0 output Play#0 1   2   56 pt   patrol boat    4,0       100%   0   2   0   0  0  0  0  0 127   40
+    Play#0 output Play#0 1   2   57 pt   patrol boat    4,0       100%   0   2   0   0  0  0  0  0 127   40
+    Play#0 output Play#0 1   2   58 pt   patrol boat    4,0        30%   0   0   0   0  0  0  0  0  38   40
+    Play#0 output Play#0 1   2   60 sb   submarine      4,0        44%   0   2   0   0  0  0  0  0  56   60
+    Play#0 output Play#0 1   2   61 sb   submarine      4,0       100%   0   5   0   0  0  0  0  0 127   60
+    Play#0 output Play#0 1   2   62 sb   submarine      4,0        47%   0   3   0   0  0  0  0  0  60   60
+    Play#0 output Play#0 1   2   63 sb   submarine      4,0       100%   0   5   0   0  0  0  0  0 127   60
+    Play#0 output Play#0 1   2   65 sb   submarine      6,0       100%   0   5   0   0  0  0  0  0 127   60
+    Play#0 output Play#0 1   2   67 sb   submarine      6,0        36%   0   2   0   0  0  0  0  0  46   60
+    Play#0 output Play#0 1   2   68 sb   submarine      6,0       100%   0   5   0   0  0  0  0  0 127   60
+    Play#0 output Play#0 1   2   71 af   asw frigate    2,6       100%   0  20   0   0  0  0  0  0  95  220
+    Play#0 output Play#0 1   2   72 sb   submarine      2,6       100%   0  20   0   0  0  0  0  0 127   70
+    Play#0 output Play#0 1   2   76 dd   destroyer      6,6       100%   0  20   0   0  0  0  0  0 127  100
+    Play#0 output Play#0 1   2   77 sb   submarine      6,6       100%   0  20   0   0  0  0  0  0 119  100
+    Play#0 output Play#0 1   2   78 dd   destroyer      8,6       100%   0  20   0   0  0  0  0  0 127   70
+    Play#0 output Play#0 1   2   79 na   nuc attack    -2,6       100%   0  20   0   0  0  0  0  0 127  260
+    Play#0 output Play#0 1   3   80 dd   destroyer      2,6       100%   0  20   0   0  0  0  0  0 127   70
+    Play#0 output Play#0 1 47 ships
+    Play#0 output Play#0 6 0 640
+    Play#0 input carg *
+    Play#0 command cargo
+    Play#0 output Play#0 1 shp#         x,y   flt eff  civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad
+    Play#0 output Play#0 1    0 af      2,0       60%   0   1   0   0   1   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    1 lc      2,0       60%   0   1   0   3   1   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    2 af      2,0       60%   0   1   0   3   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    3 af      2,0       60%   0   1   0   2   1   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    4 af      2,0       60%   0   0   0   3   1   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    5 af      2,0       59%   0   1   0   3   1   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    6 af      2,0       60%   0   1   0   3   1   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    7 pt      2,0       60%   0   1   0   3   1   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   10 sb      2,0      100%   0   1   0  21   4   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   11 na      2,0      100%   0   1   0  15   4   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   15 af      2,0      100%   0   1   0   9   4   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   16 af      2,0       56%   0   1   0  21   2   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   21 pt      2,6       25%   0   1   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   22 pt      2,6       21%   0   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   23 pt      2,6       63%   0   1   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   24 pt      2,6      100%   0   1   0   3   1   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   25 sb      2,6       25%   0   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   26 sb      2,6       64%   0   1   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   27 sb      2,6       60%   0   1   0   0   1   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   28 sb      2,6       87%   0   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   29 sb      2,6      100%   0   1   0   3   1   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   40 frg    12,0      100%   0   5   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   41 frg    -2,0      100%   0   5   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   42 frg   -12,0      100%   0   5   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   45 sb      2,0       64%   0   3   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   50 pt      4,0      100%   0   2   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   51 pt      4,0       42%   0   1   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   52 pt      4,0      100%   0   2   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   53 pt      4,0      100%   0   2   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   55 pt      4,0       42%   0   1   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   56 pt      4,0      100%   0   2   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   57 pt      4,0      100%   0   2   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   58 pt      4,0       30%   0   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   60 sb      4,0       44%   0   2   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   61 sb      4,0      100%   0   5   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   62 sb      4,0       47%   0   3   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   63 sb      4,0      100%   0   5   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   65 sb      6,0      100%   0   5   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   67 sb      6,0       36%   0   2   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   68 sb      6,0      100%   0   5   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   71 af      2,6      100%   0  20   0  16   4   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   72 sb      2,6      100%   0  20   0   1   4   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   76 dd      6,6      100%   0  20   0  30   4   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   77 sb      6,6      100%   0  20   0  33   4   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   78 dd      8,6      100%   0  20   0  40   4   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   79 na     -2,6      100%   0  20   0  40   4   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   80 dd      2,6      100%   0  20   0  40   4   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1 47 ships
+    Play#0 output Play#0 6 0 640
+    Play#0 input miss s * ?mission#0 q
+    Play#0 command mission
+    Play#0 output Play#0 1 Thing                        x,y     op-sect  rad mission
+    Play#0 output Play#0 1 lc   light cruiser (#1)      2,0       2,0      3 is on an interdiction mission
+    Play#0 output Play#0 1 af   asw frigate (#2)        2,0       2,0      1 is on an interdiction mission
+    Play#0 output Play#0 1 af   asw frigate (#3)        2,0       2,0      1 is on an interdiction mission
+    Play#0 output Play#0 1 af   asw frigate (#4)        2,0       2,0      1 is on an interdiction mission
+    Play#0 output Play#0 1 af   asw frigate (#5)        2,0       2,0      1 is on an interdiction mission
+    Play#0 output Play#0 1 af   asw frigate (#6)        2,0       2,0      1 is on an interdiction mission
+    Play#0 output Play#0 1 pt   patrol boat (#7)        2,0       2,0      0 is on an interdiction mission
+    Play#0 output Play#0 1 af   asw frigate (#16)       2,0       2,0      1 is on an interdiction mission
+    Play#0 output Play#0 1 pt   patrol boat (#24)       2,6       2,6      0 is on an interdiction mission
+    Play#0 output Play#0 1 sb   submarine (#29)         2,6       2,6      1 is on an interdiction mission
+    Play#0 output Play#0 6 0 638
+    Play#0 input read 0
+    Play#0 command read
+    Play#0 output Play#0 1 No telegrams for you at the moment...
+    Play#0 output Play#0 6 0 638
+    Play#0 input read 1
+    Play#0 command read
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 sub in 2,0 torpedoed af   asw frigate (#16) for 67 damage.
+    Play#0 output Play#0 1 Torpedo sighted @ 2,0 by af   asw frigate (#16)
+    Play#0 output Play#0 6 0 638
+    Play#0 input read 2
+    Play#0 command read
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Torpedo sighted @ 2,0 by frg  frigate (#41)
+    Play#0 output Play#0 1 af   asw frigate (#0) in 2,0 torpedoed sb   submarine (#45) for 46 damage.
+    Play#0 output Play#0 1 	sb   submarine (#45) takes 36
+    Play#0 output Play#0 1 Torpedo sighted @ 2,0 by pt   patrol boat (#50)
+    Play#0 output Play#0 1 sub in 2,0 torpedoed pt   patrol boat (#51) for 64 damage.
+    Play#0 output Play#0 1 	pt   patrol boat (#51) takes 58
+    Play#0 output Play#0 1 Torpedo sighted @ 2,0 by pt   patrol boat (#52)
+    Play#0 output Play#0 1 Torpedo sighted @ 2,0 by pt   patrol boat (#53)
+    Play#0 output Play#0 1 af   asw frigate (#15) in 2,0 torpedoed pt   patrol boat (#55) for 64 damage.
+    Play#0 output Play#0 1 	pt   patrol boat (#55) takes 58
+    Play#0 output Play#0 1 Torpedo sighted @ 2,0 by pt   patrol boat (#56)
+    Play#0 output Play#0 1 Torpedo sighted @ 2,0 by pt   patrol boat (#57)
+    Play#0 output Play#0 1 af   asw frigate (#15) in 2,0 torpedoed pt   patrol boat (#58) for 77 damage.
+    Play#0 output Play#0 1 	pt   patrol boat (#58) takes 70
+    Play#0 output Play#0 1 af   asw frigate (#15) in 2,0 torpedoed sb   submarine (#60) for 70 damage.
+    Play#0 output Play#0 1 	sb   submarine (#60) takes 56
+    Play#0 output Play#0 1 Torpedo sighted @ 2,0 by sb   submarine (#61)
+    Play#0 output Play#0 1 af   asw frigate (#15) in 2,0 torpedoed sb   submarine (#62) for 67 damage.
+    Play#0 output Play#0 1 	sb   submarine (#62) takes 53
+    Play#0 output Play#0 1 Torpedo sighted @ 2,0 by sb   submarine (#63)
+    Play#0 output Play#0 1 Torpedo sighted @ 2,0 by sb   submarine (#65)
+    Play#0 output Play#0 1 sub in 2,0 torpedoed sb   submarine (#66) for 114 damage.
+    Play#0 output Play#0 1 	sb   submarine (#66) takes 91
+    Play#0 output Play#0 1 	sb   submarine (#66) sunk!
+    Play#0 output Play#0 1 sub in 2,0 torpedoed sb   submarine (#67) for 81 damage.
+    Play#0 output Play#0 1 	sb   submarine (#67) takes 64
+    Play#0 output Play#0 1 Torpedo sighted @ 2,0 by sb   submarine (#68)
+    Play#0 output Play#0 1 dd   destroyer (#70) fired at pt   patrol boat (#20)
+    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed pt   patrol boat (#20)
+    Play#0 output Play#0 1 bb   battleship (#75) fired at pt   patrol boat (#20)
+    Play#0 output Play#0 1 dd   destroyer (#70) fired at pt   patrol boat (#21)
+    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed pt   patrol boat (#21)
+    Play#0 output Play#0 1 bb   battleship (#75) fired at pt   patrol boat (#21)
+    Play#0 output Play#0 1 dd   destroyer (#76) fired at pt   patrol boat (#21)
+    Play#0 output Play#0 1 pt   patrol boat (#21) in 2,6 torpedoed dd   destroyer (#70) for 94 damage.
+    Play#0 output Play#0 1 	dd   destroyer (#70) takes 64
+    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed pt   patrol boat (#22)
+    Play#0 output Play#0 1 bb   battleship (#75) fired at pt   patrol boat (#22)
+    Play#0 output Play#0 1 dd   destroyer (#76) fired at pt   patrol boat (#22)
+    Play#0 output Play#0 1 sb   submarine (#77) @ 6,6 torpedoed pt   patrol boat (#22)
+    Play#0 output Play#0 1 pt   patrol boat (#22) in 2,6 torpedoed dd   destroyer (#70) for 61 damage.
+    Play#0 output Play#0 1 	dd   destroyer (#70) takes 42
+    Play#0 output Play#0 1 af   asw frigate (#71) missed pt   patrol boat (#23) with a torpedo at 2,6
+    Play#0 output Play#0 1 bb   battleship (#75) fired at pt   patrol boat (#23)
+    Play#0 output Play#0 1 pt   patrol boat (#23) in 2,6 torpedoed dd   destroyer (#70) for 81 damage.
+    Play#0 output Play#0 1 	dd   destroyer (#70) takes 55
+    Play#0 output Play#0 1 	dd   destroyer (#70) sunk!
+    Play#0 output Play#0 1 sub in 2,6 torpedoed bb   battleship (#75) for 64 damage.
+    Play#0 output Play#0 1 	bb   battleship (#75) takes 32
+    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed sub
+    Play#0 output Play#0 1 dd   destroyer (#76) depth charged sub
+    Play#0 output Play#0 1 sub in 2,6 torpedoed bb   battleship (#75) for 79 damage.
+    Play#0 output Play#0 1 	bb   battleship (#75) takes 40
+    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed sub
+    Play#0 output Play#0 1 dd   destroyer (#76) depth charged sub
+    Play#0 output Play#0 1 sub in 2,6 torpedoed bb   battleship (#75) for 60 damage.
+    Play#0 output Play#0 1 	bb   battleship (#75) takes 30
+    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed sub
+    Play#0 output Play#0 1 sub in 2,6 torpedoed bb   battleship (#75) for 73 damage.
+    Play#0 output Play#0 1 	bb   battleship (#75) takes 37
+    Play#0 output Play#0 1 	bb   battleship (#75) sunk!
+    Play#0 output Play#0 1 af   asw frigate (#71) missed sub with a torpedo at 2,6
+    Play#0 output Play#0 1 dd   destroyer (#76) depth charged sub
+    Play#0 output Play#0 6 0 638
+    Play#0 input read 3
+    Play#0 command read
+    Play#0 output Play#0 1 No telegrams for 3 at the moment...
+    Play#0 output Play#0 6 0 638
+    Play#0 input ctld
+    Play#0 output Play#0 1 Bye-bye
+    Play#0 logout 0
+    Play#0 output Play#0 3 so long...
+      Main shutdown
