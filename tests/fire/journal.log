@@ -75,6 +75,14 @@
     Play#1 output Play#1 1 Sector 0,0 ready to fire
     Play#1 output Play#1 1 No such ship exists!
     Play#1 output Play#1 6 0 634
+    Play#1 input fire se 0,0 19
+    Play#1 command fire
+    Play#1 output Play#1 1 Sector 0,0 ready to fire
+    Play#1 output Play#1 1 No such ship exists!
+    Play#1 output Play#1 6 0 633
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
+    Play#1 output Play#1 6 0 634
     Play#1 input move m 0,0 1 nh
     Play#1 command move
     Play#1 output Play#1 1 No mobility used
@@ -526,6 +534,14 @@
     Play#1 command fire
     Play#1 output Play#1 1 bb   battleship (#2) ready to fire
     Play#1 output Play#1 1 No such ship exists!
+    Play#1 output Play#1 6 0 589
+    Play#1 input fire sh 2 19
+    Play#1 command fire
+    Play#1 output Play#1 1 bb   battleship (#2) ready to fire
+    Play#1 output Play#1 1 No such ship exists!
+    Play#1 output Play#1 6 0 588
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
     Play#1 output Play#1 6 0 589
     Play#1 input unload m 2 13
     Play#1 command unload
@@ -1041,6 +1057,14 @@
     Play#1 command fire
     Play#1 output Play#1 1 hat  hvy artillery #2 ready to fire
     Play#1 output Play#1 1 No such ship exists!
+    Play#1 output Play#1 6 0 532
+    Play#1 input fire la 2 19
+    Play#1 command fire
+    Play#1 output Play#1 1 hat  hvy artillery #2 ready to fire
+    Play#1 output Play#1 1 No such ship exists!
+    Play#1 output Play#1 6 0 531
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
     Play#1 output Play#1 6 0 532
     Play#1 input lunload m 2 10
     Play#1 command lunload

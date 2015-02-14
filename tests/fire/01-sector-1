@@ -22,6 +22,8 @@ fire se 0,0 0,0
 fire se 0,0 1,0
 | at ship that doesn't exist
 fire se 0,0 666
+fire se 0,0 19
+__cmd added 1 1 0
 | at valid target, but with insufficient mil
 move m 0,0 1 nh
 fire se 0,0 6,0

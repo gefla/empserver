@@ -21,6 +21,8 @@ fire la 2 3,1
 fire la 2 1,0
 | at ship that doesn't exist
 fire la 2 666
+fire la 2 19
+__cmd added 1 1 0
 | at valid target, but no mil
 lunload m 2 10
 fire la 2 6,0

@@ -21,6 +21,8 @@ fire sh 2 2
 fire sh 2 1,0
 | at ship that doesn't exist
 fire sh 2 666
+fire sh 2 19
+__cmd added 1 1 0
 | at valid target, but no mil
 unload m 2 13
 fire sh 2 6,0
