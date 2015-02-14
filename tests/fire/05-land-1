@@ -8,7 +8,10 @@ lcarg * ?shell>0
 || land not firing
 | nonexistant land
 fire la 666 6,0
-| 100% tra
+| foreign land
+fire la 13 6,0
+__cmd added 1 1 0
+| 100% sup
 fire la 9 6,0
 | 39% hat
 fire la 1 6,0

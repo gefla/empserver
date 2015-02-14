@@ -8,6 +8,9 @@ carg * ?shell>0
 || ship not firing
 | nonexistant ship
 fire sh 666 6,0
+| foreign ship
+fire sh 11 6,0
+__cmd added 1 1 0
 | 100% cs
 fire sh 9 6,0
 | 59% bb

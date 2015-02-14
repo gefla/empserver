@@ -47,6 +47,12 @@
     Play#1 input fire se 1,0 6,0
     Play#1 command fire
     Play#1 output Play#1 6 0 639
+    Play#1 input fire se 2,2 6,0
+    Play#1 command fire
+    Play#1 output Play#1 6 0 638
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
+    Play#1 output Play#1 6 0 639
     Play#1 input fire se -4,0 6,0
     Play#1 command fire
     Play#1 output Play#1 6 0 638
@@ -491,6 +497,12 @@
     Play#1 output Play#1 6 0 595
     Play#1 input fire sh 666 6,0
     Play#1 command fire
+    Play#1 output Play#1 6 0 594
+    Play#1 input fire sh 11 6,0
+    Play#1 command fire
+    Play#1 output Play#1 6 0 593
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
     Play#1 output Play#1 6 0 594
     Play#1 input fire sh 9 6,0
     Play#1 command fire
@@ -1000,6 +1012,12 @@
     Play#1 output Play#1 6 0 538
     Play#1 input fire la 666 6,0
     Play#1 command fire
+    Play#1 output Play#1 6 0 537
+    Play#1 input fire la 13 6,0
+    Play#1 command fire
+    Play#1 output Play#1 6 0 536
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
     Play#1 output Play#1 6 0 537
     Play#1 input fire la 9 6,0
     Play#1 command fire

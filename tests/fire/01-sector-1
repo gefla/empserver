@@ -8,6 +8,9 @@ comm * ?shell>0
 || fort not firing
 | nonexistant sector
 fire se 1,0 6,0
+| foreign sector
+fire se 2,2 6,0
+__cmd added 1 1 0
 | 100% highway
 fire se -4,0 6,0
 | 4% fort
