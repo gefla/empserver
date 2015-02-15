@@ -95,7 +95,7 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 3.0
-    Play#1 output Play#1 1 Whooosh... BOOM!... Torpedo slams into land before reaching target.
+    Play#1 output Play#1 1 Whooosh... Out of range
     Play#1 output Play#1 6 0 595
     Play#1 input torp 0 45
     Play#1 command torpedo

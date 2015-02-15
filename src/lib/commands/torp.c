@@ -161,19 +161,16 @@ torp(void)
 	if (range <= erange) {
 	    pr("Hitchance = %d%%\n", (int)(hitchance * 100));
 	}
-	/* Now, can the torpedo even get there? */
-	if (!line_of_sight(NULL, sub.shp_x, sub.shp_y,
-			   vship.shp_x, vship.shp_y)) {
+	if (range > erange)
+	    pr("Out of range\n");
+	else if (!line_of_sight(NULL, sub.shp_x, sub.shp_y,
+				vship.shp_x, vship.shp_y)) {
 	    pr("BOOM!... Torpedo slams into land before reaching target.\n");
 	    /* We only tell the victim if we were within range. */
-	    if (range <= erange) {
-		if (vshipown != 0)
-		    wu(0, vshipown, "Torpedo sighted @ %s by %s\n",
-		       xyas(sub.shp_x, sub.shp_y, vshipown),
-		       prship(&vship));
-	    }
-	} else if (range > erange) {
-	    pr("Out of range\n");
+	    if (vshipown != 0)
+		wu(0, vshipown, "Torpedo sighted @ %s by %s\n",
+		   xyas(sub.shp_x, sub.shp_y, vshipown),
+		   prship(&vship));
 	} else if (chance(hitchance)) {
 	    pr("BOOM!...\n");
 	    if (vshipown != 0)
