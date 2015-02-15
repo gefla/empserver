@@ -51,13 +51,14 @@ In order to simulate the \*Qreal-time\*U situation,
 your mobility will be decremented by mobility equal to 1/2 the cost
 the torpedo-ship would pay to move a sector for each torpedo fired;
 if it goes to zero (or beyond) you will be forced to stick around.
-If your torpedo scores a hit,
-your victim will be informed of the fact and will be told
-the number of the torpedo-ship, but not the country (so you can deny it).
+.s1
+Victims of submarine torpedoes get only told that a submarine
+attacked, not which one (so you can deny it).
 .s1
 The victim's only automatic protection against sub attacks is that any
 ship of his/hers that is capable of retaliating with depth charges or
-torpedoes will do so.
+torpedoes will do so.  This will reveal number and position of your
+submarine.
 .s1
 Against surface ships launching torpedo attacks, the victim gets to fire
 all his ships & sectors within range at the attackers BEFORE the attackers
