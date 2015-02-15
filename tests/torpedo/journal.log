@@ -361,6 +361,7 @@
     Play#1 input torp 15 16
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
+    Play#1 output Play#1 1 Starting our attack run...
     Play#1 output Play#1 1 Effective torpedo range is 1.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 90%
     Play#1 output Play#1 1 Missed

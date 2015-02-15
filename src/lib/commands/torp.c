@@ -145,8 +145,10 @@ torp(void)
 	    continue;
 	}
 
-	if (!(sub_mcp->m_flags & M_SUB))
+	if (!(sub_mcp->m_flags & M_SUB)) {
+	    pr("Starting our attack run...\n");
 	    anti_torp(sub.shp_uid, ntorping, vshipown);
+	}
 	getship(sub.shp_uid, &sub);
 	if (sub.shp_own == 0)
 	    continue;
@@ -215,9 +217,6 @@ anti_torp(int f, int ntorping, int vshipown)
 
     if (sub.shp_own == vshipown)
 	return;
-
-    if ((mchr[(int)sub.shp_type].m_flags & M_SUB) == 0)
-	pr("Starting our attack run...\n");
 
     x = 0;
     while (getship(x++, &dd) && sub.shp_effic >= SHIP_MINEFF) {
