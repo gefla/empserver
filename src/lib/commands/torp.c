@@ -58,6 +58,7 @@ torp(void)
     double hitchance;
     struct shpstr vship;
     struct shpstr sub;
+    struct mchrstr *sub_mcp;
     char *ptr;
     struct nstr_item nbst;
     char buf[1024];
@@ -90,9 +91,10 @@ torp(void)
 	if (sub.shp_own != player->cnum) {
 	    continue;
 	}
-	if ((mchr[(int)sub.shp_type].m_flags & M_TORP) == 0) {
+	sub_mcp = &mchr[sub.shp_type];
+	if (!(sub_mcp->m_flags & M_TORP)) {
 	    pr("Ship # %d: A %s can't fire torpedoes!\n",
-	       sub.shp_uid, mchr[(int)sub.shp_type].m_name);
+	       sub.shp_uid, sub_mcp->m_name);
 	    continue;
 	}
 	if (sub.shp_item[I_GUN] == 0
@@ -130,7 +132,7 @@ torp(void)
 	    continue;
 	}
 	if (mchr[(int)vship.shp_type].m_flags & M_SUB) {
-	    if (!(mchr[(int)sub.shp_type].m_flags & M_SUBT)) {
+	    if (!(sub_mcp->m_flags & M_SUBT)) {
 		pr("You can't torpedo a submarine!\n");
 		continue;
 	    }
@@ -143,7 +145,7 @@ torp(void)
 	    continue;
 	}
 
-	if ((mchr[(int)sub.shp_type].m_flags & M_SUB) == 0)
+	if (!(sub_mcp->m_flags & M_SUB))
 	    anti_torp(sub.shp_uid, ntorping, vshipown);
 	getship(sub.shp_uid, &sub);
 	if (sub.shp_own == 0)
@@ -198,7 +200,7 @@ torp(void)
 		   xyas(sub.shp_x, sub.shp_y, vshipown), prship(&vship));
 	}
 
-	if (mchr[(int)sub.shp_type].m_flags & M_SUB)
+	if (sub_mcp->m_flags & M_SUB)
 	    anti_torp(sub.shp_uid, ntorping, vshipown);
     }
     return RET_OK;
