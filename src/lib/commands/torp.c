@@ -178,7 +178,8 @@ torp(void)
 	    pr("BOOM!...\n");
 	    if (vshipown != 0)
 		wu(0, vshipown, "%s in %s torpedoed %s for %d damage.\n",
-		   prsub(&sub), xyas(sub.shp_x, sub.shp_y, vshipown),
+		   sub_mcp->m_flags & M_SUB ? "sub" : prship(&sub),
+		   xyas(sub.shp_x, sub.shp_y, vshipown),
 		   prship(&vship), dam);
 	    pr("Torpedo hit %s for %d damage.\n", prsub(&vship), dam);
 	    if (!(mchr[vship.shp_type].m_flags & M_SUB)) {
@@ -338,7 +339,7 @@ char *
 prsub(struct shpstr *sp)
 {
     if (mchr[(int)sp->shp_type].m_flags & M_SUB)
-	return "sub";
+	return prbuf("sub #%d", sp->shp_uid);
     else
 	return prship(sp);
 }

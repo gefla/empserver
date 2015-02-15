@@ -277,21 +277,21 @@
     Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 1.00 (1.33)
     Play#1 output Play#1 1 \007Kawhomp!!!
-    Play#1 output Play#1 1 Shells hit sub in -5,1 for 42 damage.
+    Play#1 output Play#1 1 Shells hit sub #50 in -5,1 for 42 damage.
     Play#1 output Play#1 6 0 613
     Play#1 input fire sh 5 51
     Play#1 command fire
     Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 1.00 (1.33)
     Play#1 output Play#1 1 \007Kawhomp!!!
-    Play#1 output Play#1 1 Shells hit sub in -5,1 for 45 damage.
+    Play#1 output Play#1 1 Shells hit sub #51 in -5,1 for 45 damage.
     Play#1 output Play#1 6 0 612
     Play#1 input fire sh 5 52
     Play#1 command fire
     Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 2.00 (1.33)
     Play#1 output Play#1 1 \007Kawhomp!!!
-    Play#1 output Play#1 1 Shells hit sub in -5,1 for 34 damage.
+    Play#1 output Play#1 1 Shells hit sub #52 in -5,1 for 34 damage.
     Play#1 output Play#1 6 0 611
     Play#1 input navi 5 gyuh
     Play#1 command navigate
@@ -303,7 +303,7 @@
     Play#1 output Play#1 1 dd   destroyer (#5) ready to fire
     Play#1 output Play#1 1 range is 2.00 (1.33)
     Play#1 output Play#1 1 \007Kawhomp!!!
-    Play#1 output Play#1 1 Shells hit sub in -4,-2 for 34 damage.
+    Play#1 output Play#1 1 Shells hit sub #53 in -4,-2 for 34 damage.
     Play#1 output Play#1 1 \007
     Play#1 output Play#1 1 Defenders fire back!
     Play#1 output Play#1 1 Return fire hit dd   destroyer (#5) in -5,-1 for 6 damage.

@@ -481,7 +481,7 @@ do_defdam(struct emp_qelem *list, double odds)
 	    if (vict)
 		wu(0, vict,
 		   "Return fire hit %s in %s for %d damage.\n",
-		   prsub(&ship), xyas(ship.shp_x, ship.shp_y, vict), dam);
+		   prship(&ship), xyas(ship.shp_x, ship.shp_y, vict), dam);
 	    shipdamage(&ship, dam);
 	    putship(ship.shp_uid, &ship);
 	} else {

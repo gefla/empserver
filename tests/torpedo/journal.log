@@ -104,7 +104,7 @@
     Play#1 output Play#1 1 Effective torpedo range is 1.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 90%
     Play#1 output Play#1 1 BOOM!...
-    Play#1 output Play#1 1 Torpedo hit sub for 46 damage.
+    Play#1 output Play#1 1 Torpedo hit sub #45 for 46 damage.
     Play#1 output Play#1 6 0 592
     Play#1 input torp 10 50
     Play#1 command torpedo
@@ -176,7 +176,7 @@
     Play#1 output Play#1 1 Effective torpedo range is 1.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 45%
     Play#1 output Play#1 1 BOOM!...
-    Play#1 output Play#1 1 Torpedo hit sub for 70 damage.
+    Play#1 output Play#1 1 Torpedo hit sub #60 for 70 damage.
     Play#1 output Play#1 6 0 565
     Play#1 input torp 15 61
     Play#1 command torpedo
@@ -193,7 +193,7 @@
     Play#1 output Play#1 1 Effective torpedo range is 1.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 45%
     Play#1 output Play#1 1 BOOM!...
-    Play#1 output Play#1 1 Torpedo hit sub for 67 damage.
+    Play#1 output Play#1 1 Torpedo hit sub #62 for 67 damage.
     Play#1 output Play#1 6 0 559
     Play#1 input torp 15 63
     Play#1 command torpedo
@@ -216,8 +216,8 @@
     Play#1 output Play#1 1 Effective torpedo range is 3.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 36%
     Play#1 output Play#1 1 BOOM!...
-    Play#1 output Play#1 1 Torpedo hit sub for 114 damage.
-    Play#1 output Play#1 1 sub sunk!
+    Play#1 output Play#1 1 Torpedo hit sub #66 for 114 damage.
+    Play#1 output Play#1 1 sub #66 sunk!
     Play#1 output Play#1 6 0 550
     Play#1 input torp 11 67
     Play#1 command torpedo
@@ -225,7 +225,7 @@
     Play#1 output Play#1 1 Effective torpedo range is 3.0
     Play#1 output Play#1 1 Whooosh... Hitchance = 36%
     Play#1 output Play#1 1 BOOM!...
-    Play#1 output Play#1 1 Torpedo hit sub for 81 damage.
+    Play#1 output Play#1 1 Torpedo hit sub #67 for 81 damage.
     Play#1 output Play#1 6 0 547
     Play#1 input torp 11 68
     Play#1 command torpedo
@@ -566,20 +566,20 @@
     Play#0 output Play#0 1 	dd   destroyer (#70) sunk!
     Play#0 output Play#0 1 sub in 2,6 torpedoed bb   battleship (#75) for 64 damage.
     Play#0 output Play#0 1 	bb   battleship (#75) takes 32
-    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed sub
-    Play#0 output Play#0 1 dd   destroyer (#76) depth charged sub
+    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed sub #25
+    Play#0 output Play#0 1 dd   destroyer (#76) depth charged sub #25
     Play#0 output Play#0 1 sub in 2,6 torpedoed bb   battleship (#75) for 79 damage.
     Play#0 output Play#0 1 	bb   battleship (#75) takes 40
-    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed sub
-    Play#0 output Play#0 1 dd   destroyer (#76) depth charged sub
+    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed sub #26
+    Play#0 output Play#0 1 dd   destroyer (#76) depth charged sub #26
     Play#0 output Play#0 1 sub in 2,6 torpedoed bb   battleship (#75) for 60 damage.
     Play#0 output Play#0 1 	bb   battleship (#75) takes 30
-    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed sub
+    Play#0 output Play#0 1 af   asw frigate (#71) @ 2,6 torpedoed sub #27
     Play#0 output Play#0 1 sub in 2,6 torpedoed bb   battleship (#75) for 73 damage.
     Play#0 output Play#0 1 	bb   battleship (#75) takes 37
     Play#0 output Play#0 1 	bb   battleship (#75) sunk!
-    Play#0 output Play#0 1 af   asw frigate (#71) missed sub with a torpedo at 2,6
-    Play#0 output Play#0 1 dd   destroyer (#76) depth charged sub
+    Play#0 output Play#0 1 af   asw frigate (#71) missed sub #28 with a torpedo at 2,6
+    Play#0 output Play#0 1 dd   destroyer (#76) depth charged sub #28
     Play#0 output Play#0 6 0 638
     Play#0 input read 3
     Play#0 command read
