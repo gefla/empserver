@@ -55,13 +55,9 @@ If your torpedo scores a hit,
 your victim will be informed of the fact and will be told
 the number of the torpedo-ship, but not the country (so you can deny it).
 .s1
-The victim's only automatic protection against sub attacks is that
-any ship of his/hers that is near you and has depth-charge ability
-and has shells will drop them on you as depth charges.
-Each depth charge does 10% to 40% damage to your sub, depending
-on the armor of the sub, and the range of the destroyer.
-.s1
-The range a ship can depth charge at is the same as its gun range.
+The victim's only automatic protection against sub attacks is that any
+ship of his/hers that is capable of retaliating with depth charges or
+torpedoes will do so.
 .s1
 Against surface ships launching torpedo attacks, the victim gets to fire
 all his ships & sectors within range at the attackers BEFORE the attackers
