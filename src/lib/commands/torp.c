@@ -169,13 +169,13 @@ torp(void)
 				vship.shp_x, vship.shp_y)) {
 	    pr("BOOM!... Torpedo slams into land before reaching target.\n");
 	    /* We only tell the victim if we were within range. */
-	    if (vshipown != 0)
+	    if (vshipown != 0 && vshipown != player->cnum)
 		wu(0, vshipown, "Torpedo sighted @ %s by %s\n",
 		   xyas(sub.shp_x, sub.shp_y, vshipown),
 		   prship(&vship));
 	} else if (chance(hitchance)) {
 	    pr("BOOM!...\n");
-	    if (vshipown != 0)
+	    if (vshipown != 0 && vshipown != player->cnum)
 		wu(0, vshipown, "%s in %s torpedoed %s for %d damage.\n",
 		   sub_mcp->m_flags & M_SUB ? "sub" : prship(&sub),
 		   xyas(sub.shp_x, sub.shp_y, vshipown),
@@ -195,7 +195,7 @@ torp(void)
 		retreat_ship(&vship, vshipown, 't');
 	} else {
 	    pr("Missed\n");
-	    if (vshipown != 0)
+	    if (vshipown != 0 && vshipown != player->cnum)
 		wu(0, vshipown, "Torpedo sighted @ %s by %s\n",
 		   xyas(sub.shp_x, sub.shp_y, vshipown), prship(&vship));
 	}
