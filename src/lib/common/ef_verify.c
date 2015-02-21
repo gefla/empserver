@@ -371,9 +371,8 @@ verify_products(void)
 	if (!pchr[i].p_sname[0])
 	    continue;
 	if ((pchr[i].p_type >= 0) == (pchr[i].p_level >= 0)) {
-	    fprintf(stderr,
-		"Config %s uid %d field level doesn't match field type\n",
-		ef_nameof(EF_PRODUCT), i);
+	    verify_fail(EF_PRODUCT, i, NULL, 0,
+			"level must be none or type -1");
 	    retval = -1;
 	}
     }
