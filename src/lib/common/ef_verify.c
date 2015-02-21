@@ -329,6 +329,13 @@ verify_ship_chr(void)
 			symbol_by_value(M_DCH, ship_chr_flags));
 	    retval = -1;
 	}
+	if (mchr[i].m_nplanes && !(mchr[i].m_flags & (M_MSL | M_FLY))) {
+	    verify_fail(EF_SHIP_CHR, i, NULL, 0,
+			"non-zero nplanes needs flag %s or %s",
+			symbol_by_value(M_FLY, ship_chr_flags),
+			symbol_by_value(M_MSL, ship_chr_flags));
+	    retval = -1;
+	}
     }
     return retval;
 }

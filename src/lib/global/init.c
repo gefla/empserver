@@ -40,7 +40,6 @@
 #include "sect.h"
 #include "ship.h"
 
-static void init_mchr(void);
 static void init_pchr(void);
 static void init_plchr(void);
 
@@ -50,21 +49,7 @@ global_init(void)
     if (opt_RAILWAYS)
 	intrchr[INT_RAIL].in_enable = 0;
     init_pchr();
-    init_mchr();
     init_plchr();
-}
-
-static void
-init_mchr(void)
-{
-    struct mchrstr *mp;
-
-    for (mp = mchr; mp->m_name; mp++) {
-	if (!mp->m_name[0])
-	    continue;
-	if (mp->m_nplanes && !(mp->m_flags & M_MSL || mp->m_flags & M_FLY))
-	    mp->m_flags |= M_MSL;
-    }
 }
 
 static void
