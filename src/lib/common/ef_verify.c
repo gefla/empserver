@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2006-2014
+ *     Markus Armbruster, 2006-2015
  */
 
 #include <config.h>
@@ -315,6 +315,25 @@ verify_nukes(int may_put)
 }
 
 static int
+verify_ship_chr(void)
+{
+    int retval = 0;
+    int i;
+
+    for (i = 0; mchr[i].m_name; i++) {
+	if (!mchr[i].m_name[0])
+	    continue;
+	if ((mchr[i].m_flags & M_DCH) && !mchr[i].m_glim) {
+	    verify_fail(EF_SHIP_CHR, i, NULL, 0,
+			"flag %s requires non-zero glim",
+			symbol_by_value(M_DCH, ship_chr_flags));
+	    retval = -1;
+	}
+    }
+    return retval;
+}
+
+static int
 verify_products(void)
 {
     int retval = 0;
@@ -350,6 +369,7 @@ ef_verify_config(void)
     }
 
     /* Special checks */
+    retval |= verify_ship_chr();
     retval |= verify_products();
     return retval;
 }
