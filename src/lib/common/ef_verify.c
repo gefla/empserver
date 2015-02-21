@@ -341,6 +341,26 @@ verify_ship_chr(void)
 }
 
 static int
+verify_plane_chr(void)
+{
+    int retval = 0;
+    int i;
+
+    for (i = 0; plchr[i].pl_name; i++) {
+	if (!plchr[i].pl_name[0])
+	    continue;
+	if ((plchr[i].pl_flags & (P_M | P_V)) == P_M) {
+	    verify_fail(EF_PLANE_CHR, i, NULL, 0,
+			"flag %s requires flag %s",
+			symbol_by_value(P_M, plane_chr_flags),
+			symbol_by_value(P_V, plane_chr_flags));
+	    retval = -1;
+	}
+    }
+    return retval;
+}
+
+static int
 verify_products(void)
 {
     int retval = 0;
@@ -377,6 +397,7 @@ ef_verify_config(void)
 
     /* Special checks */
     retval |= verify_ship_chr();
+    retval |= verify_plane_chr();
     retval |= verify_products();
     return retval;
 }

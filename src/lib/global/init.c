@@ -41,7 +41,6 @@
 #include "ship.h"
 
 static void init_pchr(void);
-static void init_plchr(void);
 
 void
 global_init(void)
@@ -49,20 +48,6 @@ global_init(void)
     if (opt_RAILWAYS)
 	intrchr[INT_RAIL].in_enable = 0;
     init_pchr();
-    init_plchr();
-}
-
-static void
-init_plchr(void)
-{
-    struct plchrstr *pp;
-
-    for (pp = plchr; pp->pl_name; pp++) {
-	if (!pp->pl_name[0])
-	    continue;
-	if (pp->pl_flags & P_M)
-	    pp->pl_flags |= P_V;
-    }
 }
 
 static void
