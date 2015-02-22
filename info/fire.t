@@ -79,8 +79,6 @@ pay to move 1 sector for each shot fired. (If the NOMOBCOST
 option is in use, ships pay no mobility for firing.)
 .s1
 The damages inflicted vary with efficiency of the attacker,
-the size of the guns
-(battleship guns are four times as big as patrol boat guns),
 the number of guns fired (7 being the useful max for forts),
 and the armor of the victim.
 Land sectors take damage depending on their defensive strength.
