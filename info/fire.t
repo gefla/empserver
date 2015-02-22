@@ -2,11 +2,6 @@
 .NA fire "Fire artillery from sector/ship/unit on sector/ship"
 .LV Basic
 .SY "fire [sect | ship | land] [<ASECT> | <ASHIP> | <AUNIT>] [<VSECT> | <VSHIP>]
-When the multi-fire option is enabled, the syntax of the fire command
-changes. It is still used to shoot up land sectors or ships. However,
-you may now use multiple ships, units, sectors to fire from. Return
-fire is spread amongst all the firing things.
-.s1
 The general form for shooting at land from a sector is:
 .EX fire sect <ASECTS> <VSECT>
 Where <VSECT> is the victim sector,
@@ -144,9 +139,6 @@ will also fire on you.
 .s1
 All return fire is split evenly over all attacking sectors/units/ships, and is
 adjust by the ratio of defending things to attacking things.
-.s1
-As a change from the original fire command, with multi-fire enabled,
-you will not return fire on yourself.
 .s1
 IMPORTANT NOTE: Gun ranges, both on offense AND defense, are somewhat random.
 If you have a range of 4.16, you can always shoot to 4, and have a 16% chance

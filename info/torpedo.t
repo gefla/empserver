@@ -9,8 +9,6 @@ The <target-SHIP> argument is the victim ship number and
 the <submarine-SHIPS> argument is the number(s) of your submarine or other
 ship(s) with torpedo ability.
 The program will ask for these if not provided on the command line.
-If using the multi-fire option, the program will prompt for targets for
-EACH firing torpedo ship, if no target was given on the command line.
 .s1
 Your <submarine-SHIPS> must meet the following criteria:
 .nf
