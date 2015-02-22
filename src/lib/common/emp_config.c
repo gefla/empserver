@@ -138,7 +138,6 @@ emp_config(char *file)
     fclose(fp);
 
 done:
-    WORLD_X &= ~1;		/* force even */
     if (set_paths(file) < 0)
 	return -1;
 
