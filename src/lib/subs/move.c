@@ -172,13 +172,6 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	}
 	if (dir == DIR_MAP) {
 	    parse(movstr, scanspace, argp, NULL, NULL, NULL);
-	    if (argp[0][1]) {
-		pr("Use of '%c' without a space before its argument is deprecated.\n"
-		   "Support for it will go away in a future release\n",
-		   *movstr);
-		argp[2] = argp[1];
-		argp[1] = argp[0] + 1;
-	    }
 	    if (!exploring)
 		map(curx, cury, argp[1], argp[2]);
 	    *movstr = 0;
