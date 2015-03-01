@@ -91,10 +91,6 @@ add(void)
     case 'v':
 	stat = STAT_VIS;
 	break;
-    case 'n':
-	pr("Argument 'new' is deprecated and will go away in a future release.\n"
-	   "Use 'player' instead.\n");
-	/* fall through */
     case 'p':
 	stat = STAT_NEW;
 	break;
