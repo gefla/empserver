@@ -119,21 +119,11 @@ parse_map_arg(int unit_type, char *arg,
     return RET_OK;
 }
 
-static void
-warn_deprecated_arg(char *what, char *arg, char *use)
-{
-    pr("%s '%s' is deprecated and will go away in a future release.\n"
-       "Use %s instead.\n",
-       what, arg, use);
-}
-
 static int
 parse_map_flags(int bmap, char *str)
 {
     int map_flags;
     char *p;
-    int tflags = 0;
-    char *tp = NULL;
 
     switch (bmap) {
     default: CANT_REACH();
@@ -179,28 +169,9 @@ parse_map_flags(int bmap, char *str)
 	    if (bmap != 'b')
 		goto bad_flag;
 	    map_flags |= MAP_ALT;
-	    /*
-	     * Flags following 't' used to be ignored.  That breaks
-	     * perfectly sensible "ts".  Try to continue, but save
-	     * state for when a bad flag is found.
-	     */
-	    if (!tflags) {
-		tflags = map_flags;
-		tp = p;
-	    }
 	    break;
-	case 'r':
-	    if (bmap != 'b' || tflags)
-		goto bad_flag;
-	    warn_deprecated_arg("Map flag", "r", "argument 'revert'");
-	    return MAP_BMAP_REVERT;
 	default:
 	bad_flag:
-	    if (tflags) {
-		/* ignore bad flags following 't' */
-		warn_deprecated_arg("Argument", tp, "map flag 't'");
-		return tflags;
-	    }
 	    pr("Bad flag %c!\n", *p);
 	    return -1;
 	}
