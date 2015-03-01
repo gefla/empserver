@@ -67,7 +67,7 @@ bridge_support_at(struct sctstr *sp, int ignore_dir)
 	if (opt_EASY_BRIDGES
 	    && sect.sct_type != SCT_WATER && sect.sct_type != SCT_BSPAN)
 	    return 1;
-	if (sect.sct_effic < 20)
+	if (sect.sct_effic < SCT_MINEFF)
 	    continue;
 	if (sect.sct_type == SCT_BHEAD && sect.sct_newtype == SCT_BHEAD)
 	    return 1;
