@@ -7,6 +7,259 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
+Changes to Empire 4.3.33 - Sun Mar  1 10:10:31 UTC 2015
+ * The add syntax deprecated in 4.3.29 is now gone.
+ * The explore, move, test, transport syntax deprecated in 4.3.27 is
+   now gone.
+ * The bmap flag syntax deprecated in 4.3.27 is now gone.
+ * Stricter configuration validation:
+   - Reject odd WORLD_X instead of making it even silently.
+   - Reject odd WORLD_Y.
+   - Reject missiles that lack capability VTOL instead of adding VTOL
+     silently.
+   - Reject ships that can carry planes, but have neither capability
+     plane nor miss, instead of adding miss silently.
+ * Outlaw ships that can drop depth charges, but not fire.  No such
+   ships exist in the stock game.  4.3.31 permitted them, but keeping
+   them working has turned out to be bothersome.
+ * Changes to fire and torpedo:
+   - Don't disclose that the torpedo's path to the target is blocked
+     by land when the target is out of range.  Screwed up in 4.2.2.
+   - When a submarine gets hit by return fire after firing its deck
+     gun, the defender again learns the submarine's uid and type, just
+     like for surface ships.  This is how it worked before Empire 2.3.
+   - When a submarine gets hit by return fire after launching a
+     torpedo, the defender again learns the submarine's uid.  Before
+     Empire 2.3, he learned uid and type.
+   - Print "Kaboom" even when the target is out of range.
+   - Always clear missions when firing guns or dropping depth charges.
+     Screwed up when missions were added in Chainsaw.
+   - Report "Sector X,Y ready to fire" instead of "Sector X,Y firing",
+     because the sector isn't firing, yet, then.  Also report ships
+     and land units ready to fire.
+   - Suppress bulletin when player shells or torpedoes his own ship.
+ * When artillery on a bridge span shelled down the supporting bridge
+   head, the bridge fell and the artillery drowned alright.  But then
+   the bridge rose right back.  Broken in 4.3.14.
+ * Fix board to charge mobility even when defender is less than 100%
+   efficient.  Broken in Empire 2.
+ * The convert command charged security land units mobility until
+   4.3.16 broke that.  Drop this undocumented feature instead of
+   fixing it.
+ * Report the owner of ships sunk by return torpedoes instead of POGO.
+   Screwed up when return torpedoes were added in Chainsaw.
+ * Don't disclose uid, type and owner of torpedoed submarines.  The
+   latter leaked through the news.
+ * Changes to bomb:
+   - Fix damage to mobility when bombing planes.  Has always been
+     broken.
+   - Include position when reporting bombing of a land unit, like we
+     do for ships.
+   - Suppress bulletin when player bombs his own assets.
+   - Report bombing of plane to owner once, not twice.
+   - Don't permit bombing of dead planes.  Missed when we did the same
+     for dead ships and land units in 4.3.16.
+ * Changes to retreat and lretreat:
+   - Be less loquacious when changing orders.
+   - Deprecate pseudo-condition 'c'.  Use retreat path 'h' to cancel
+     retreat orders.
+   - Change query syntax from "retreat SHIPS" to "retreat SHIPS q".
+     Consistent with mission, and makes prompting for arguments more
+     usable.  Keep accepting the old syntax for now, but deprecate it.
+   - Reject invalid retreat paths instead of silently ignoring invalid
+     characters during retreat.  Unfortunately, the path needs to be
+     valid even with deprecated pseudo-condition 'c', where it's not
+     actually used.  This might break some existing usage.
+   - Fail without charging BTUs when the player gives no conditions.
+   - Fix infinite loop when third argument contains '?'.  Broken in
+     4.3.16.
+ * Rename retreat flag "torped" to "torpedoed" in xdump retreat-flags.
+   This could conceivably break clients.  No actual breakage is known.
+ * Rewrite automatic retreat to fix its many bugs and inconsistencies
+   with navigate and march:
+   - When a ship defeats a boarding party, but suffers enough damage
+     to sink, retreat the victim's group (if any) instead of ship#0.
+   - Permit retreat exactly when navigate and march would be
+     permitted.  Before, land units happily retreated while on the
+     trading block (forbidden with march since 4.0.9), crewless
+     (likewise since 4.0.0), kidnapped in a foreign sector
+     (inconsistent since land units were added in Chainsaw 3), loaded
+     on a ship (likewise) or a land unit (inconsistent since that
+     became possible in 4.0.0).  Ships retreated while on the trading
+     block (forbidden with navigate since 4.0.9).
+   - Land units can now retreat into foreign sectors exactly when they
+     could march there: when the sector is allied, or when the land
+     unit is a spy (with the usual risks).
+   - Land units can now retreat into mountains.
+   - Land unit retreat now resets fortification.
+   - Group retreat now happens only along a single path.  Before, you
+     could scatter a group in several directions, and even retreat in
+     far away places.  The latter was a highly abusable design flaw.
+   - Bulletins provide more useful information in fewer words.  In
+     particular, they always report the end sector.
+   - Fix retreat after a torpedo hit to include the torpedo damage in
+     its mobility cost calculation.
+   - When retreat runs into a sector that cannot be entered, don't
+     consume the retreat direction.
+   - Don't charge mobility for retreating in direction 'h'
+   - You can no longer make your own ships or land units retreat.
+   - Clear mission only when the ship or land unit actually retreats.
+   - Land unit group retreat could corrupt the land unit file or crash
+     the server.  Screwed up when Chainsaw added land unit retreat.
+   - Fix ship retreat when helpless.  Surface ships claimed to retreat
+     in a bulletin, but that was a lie.  Submarines didn't even
+     pretend.
+ * Don't tell the player he sunk a ship when it survives an attack
+   with bomb, fire, launch or torpedo, but sinks during retreat.  bomb
+   even reported where it had retreated to when it sank.
+ * Land mine fixes, affecting march and, if option INTERDICT_ATT is
+   enabled, attack and assault:
+   - Fix march sub-command 'm' to not let non-engineers hit mines.
+     Broken in Empire 2.  Fixed in 4.0.17 for ships only.
+   - Engineers now risk hitting mines twice instead of once on sector
+     entry, just like minesweepers.
+   - No sweeping with zero mobility.  Screwed up when Chainsaw added
+     land units.
+ * Navigate and march cleanup and bug hunt:
+   - Stop on non-fatal mine hits, too.  Before, we carried on, and
+     ships that lost all crew were left behind only at the next
+     prompt.  Note that we already stop on non-fatal interdiction
+     damage since Empire 2.
+   - Fix use-after-free when a flagship or leader stays behind without
+     a prompt following immediately.
+   - When something other than movement charged mobility, the charge
+     was lost on the next movement, unless there was a prompt in
+     between.  For instance, mobility lost to mine hits could come
+     back.
+   - Fix parser not to get confused by white-space.
+   - Make ships use radar always, not just most of the time.
+   - Land units now use radar automatically like ships.
+   - Report flagship and leader changes immediately, and always.
+     Before, they were reported only around a prompt.
+   - Wipe mission and retreat orders less eagerly.  Before, they where
+     sometimes wiped even for ships and land units the command
+     rejected.
+   - Give up fortification only when a land unit actually moves or
+     sweeps.
+   - Report where exactly ships and land units sweep mines.
+   - Nicer error messages for sub-command 'm'.
+   - Fix sub-command 'm' not to drop engineers without mobility from
+     the march.
+   - When denying ships entry to an unfriendly sector with canals,
+     don't disclose whether it's above 2%.
+   - Both navigate and march now require all their ships and land
+     units to be in the same sector.  Support for scattered ships and
+     land units complicates the code and blows up the test matrix.
+     It's also rather obscure; I suspect accidental use has been more
+     frequent than intentional use.
+   - Check for sector abandonment before anyone marches instead of
+     right before moving the last land unit.  Fixes a bug that could
+     scatter the group when something interferes while waiting for the
+     player to confirm abandonment.
+   - When marching a mixed group of spies and non-spies into a
+     non-allied sector, remove non-spies from the group, and move the
+     spies.  Before, only the spies before the first non-spy moved
+     into the non-allied sector, which could scatter the group.
+     Screwed up when 4.0.0 added spy units.
+   - Don't permit trains to march out of sectors without rail.
+   - When navigating a mixed group of ships with and without canal
+     capability into a canal, remove incapable ships from the group,
+     and move the capable ships.  Before, only the ships before the
+     first incapable ship moved into the canal, which could scatter
+     the group.  Broken in 4.3.0.
+   - Fix navigate buffer overrun for impossibly long paths taken.  No
+     remotely sane game configuration provides a ship fast enough to
+     trigger it.  Broken in 4.0.0.
+ * Remove option SAIL (commands follow, mquota, sail, unsail; ship
+   selectors mquota, path, follow) and autonav (commands order,
+   qorder, sorder; ship selectors xstart, xend, ystart, yend,
+   cargostart, cargoend, amtstart, amtend, autonav) due to multiple
+   issues:
+   - The orders are executed at the update.  Crafty players can use
+     them to get around the update window.
+   - Usability is poor, especially for autonav.
+   - Few players use them.
+   - Documentation is inaccurate.
+   - Code has bugs, some of them critical.
+   - It's almost 1300 lines of rather crufty code nobody wants to
+     touch.
+   - Code sharing complicates maintenance of the navigate command.
+ * Configuration tables reader and empdump improvements:
+   - Better error messages.
+   - Export now omits redundant data by default.  Use empdump -c to
+     include it.
+   - Import can cope with omitted sectors and realms.  Omitted sectors
+     become sea, and omitted realms become empty.
+   - Column order is now unrestricted.  Before, some tables required
+     an ID field to come first.
+   - Support splitting any table.  Before, tables sect, news, lost,
+     realm, game, infrastructure could not be split.
+   - Support strings longer than 65535 characters.
+ * Fix empdump -i to reject strings that are one character too long.
+   The bug affected ship table columns path, name and rpath, land
+   table column rpath, nat table columns cname, passwd, ip, hostname
+   and userid.
+ * Reject nat selectors relations, contacts and rejects, because they
+   don't actually make sense.  They exist just for xdump.
+ * Drop the code to resolve player IP address.  It's been disabled
+   since 4.2.13.  Deprecate nat selector hostname.
+ * Fix bridge spans next to a bridge tower or head taking damage to
+   fall when they should with EASY_BRIDGES off.  Has always been
+   broken.
+ * Fix bridge spans next to a collapsing bridge tower to fall when
+   they should with EASY_BRIDGES on.  Broken in 4.3.12.
+ * When you scrap a plane, you get crew back only proportionally to
+   plane efficiency.
+ * Changes to build:
+   - Fail the attempt to build a bridge not next to land or bridge
+     tower more nicely.
+   - Deities can now build anywhere, without materials, work or money.
+   - Building a plane no longer uses at least one military.  Military
+     for crew are now rounded just like the other materials.  The
+     special case dates back to 4.2.3.
+   - Report missing materials more nicely.
+   - You now need the required materials rounded up to be present.
+     Actual use is still randomly rounded.  Before, crafty players
+     could exploit the rounding to save materials, or build
+     sufficiently cheap things without materials.  In the stock game,
+     linf and many plane types could be built without materials.
+ * Remove option TREATIES.  Usability is very poor, virtually nobody
+   uses them, conditions are incomplete, the code is buggy, and a
+   burden to maintain.
+ * Test suite improvements:
+   - Coverage extended to commands build, navigate, march, fire,
+     torpedo, retreat, lretreat, falling bridges, automatic retreat,
+     command info page completeness, and the empdump utility program.
+   - Maintainability of tests much improved.
+   - Test harness refactoring.
+   Much work remains.
+ * Adjust stack sizes.  Stack overflow was possibly for tiny worlds.
+ * Fix start, stop to not operate on dead units when used by a deity.
+   Screwed up when start, stop were extended to units in 4.3.6.
+ * Nukes can be grouped into stockpiles, just like ships can be
+   grouped into fleets.  The new command stockpile does for nukes what
+   fleet does for ships.  Likewise the new nuke selector stockpile.
+ * wingadd no longer costs BTUs, for consistency with fleetadd and
+   army.
+ * Changes to edit:
+   - Keep missions centered on ship, plane or land unit centered when
+     teleporting it.  Screwed up when Chainsaw added missions.
+   - Preserve "does not follow" when copying ships.  Preserve "no
+     distribution center" when copying sectors, and don't mess up
+     coastal flag.  Screwed when Chainsaw added the means to copy a
+     ship or sector.
+   - You can now edit nukes.
+   - Suppress bulletin on no-op ship, plane, land unit location
+     change.  Screwed up in 4.3.32.
+   - You can now edit ship, plane and land unit types.
+   - Changing the owner of a ship, plane or land unit away from POGO
+     now works.
+ * Fix "make uninstall" to remove HTML info pages (which are not
+   installed by default) and directory share/empire/.
+ * Fix "make install" to remove stale formatted info pages.
+ * Code refactoring and cleanup.
+ * Info file fixes and improvements.
+
 Changes to Empire 4.3.32 - Sun Aug 25 07:55:34 UTC 2013
  * Fix an LWP stack overflow observed on AIX 7.1.
  * Fix portability bug in standalone client Makefile
