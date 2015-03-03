@@ -46,7 +46,7 @@ keep_journal 2
 GODNEWS 0
 running_test_suite 1
 EOF
-    cp `git ls-files "$srcdir"/src/lib/global | uniq | grep '\.config$'` sandbox/share/empire/builtin
+    cp `perl "$srcdir"/src/scripts/ls-sources.pl "$srcdir"/src/lib/global '\.config$'` sandbox/share/empire/builtin
 }
 
 copy_tables()
@@ -58,6 +58,14 @@ copy_tables()
     done
 }
 
+# sed -i isn't portable...
+sed_i()
+{
+    sed "$@" >sandbox/$$
+    shift $(($#-1))
+    mv sandbox/$$ "$1"
+}
+
 customize()
 {
     local key
@@ -66,7 +74,7 @@ customize()
 	case $key in
 	big-city)
 	    copy_tables sect
-	    sed -i '/"c" .* norm/d;/^#.*"c" .* cana/s/^#/ /' sandbox/etc/empire/sect.config
+	    sed_i '/"c" .* norm/d;/^#.*"c" .* cana/s/^#/ /' sandbox/etc/empire/sect.config
 	    ;;
 	esac
     done
@@ -173,7 +181,7 @@ feed_files()
 
 feed_dir()
 {
-    feed_files `git ls-files "$@" | uniq | grep '/[0-9][0-9]-[^/]*$'`
+    feed_files `perl "$srcdir"/src/scripts/ls-sources.pl "$@" '/[0-9][0-9]-[^/]*$'`
 }
 
 begin_test()
