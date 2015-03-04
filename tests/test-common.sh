@@ -61,9 +61,11 @@ copy_tables()
 # sed -i isn't portable...
 sed_i()
 {
-    sed "$@" >sandbox/$$
-    shift $(($#-1))
-    mv sandbox/$$ "$1"
+    local script="$1"
+    shift
+    for i
+    do sed "$script" "$i" >sandbox/$$ && mv sandbox/$$ "$i"
+    done
 }
 
 customize()
