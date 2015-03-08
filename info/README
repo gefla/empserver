@@ -85,7 +85,8 @@ Fancy troff magic is prone to break HTML output.
 
 4. Format your info page, update table of contents and index
   Run make info html.  If it fails, peruse the error messages and fix
-  your info page.
+  your info page.  Run tests/info-test for additional consistency
+  checking.
 
 
 ==APPENDIX A  -  What exactly the Perl scripts do==
@@ -99,16 +100,3 @@ The output of these scripts is a bunch of .t files.  The file TOP.t is
 the top-level table of contents and lists all of the subjects.  Then
 for each SUBJECT, a SUBJECT.t file is created, listing all of the info
 pages that belong to it.
-
-
-==APPENDIX B  -  The checklist.pl script==
-
-FIXME This does not work at the moment
-
-This little perl script compares the "list" of legal Empire commands
-in your server with the Empire commands documented in info.  To run
-it, login to your game and type:
-
-  [##:##]% list > list.out
-
-Then, move the list.out file to this directory and run checklist.pl.
