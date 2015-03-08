@@ -487,8 +487,7 @@ perform_mission_ship(int dam, struct shpstr *sp, coord x, coord y,
 	wu(0, sp->shp_own,
 	   "\tEffective torpedo range is %d.0\n", range);
 	wu(0, sp->shp_own,
-	   "\tWhooosh... Hitchance = %d%%\n",
-	   (int)(hitchance * 100));
+	   "\tWhooosh... Hitchance = %.0f%%\n", hitchance * 100);
 
 	if (!chance(hitchance)) {
 	    wu(0, sp->shp_own, "\tMissed\n");

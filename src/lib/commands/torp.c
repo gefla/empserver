@@ -161,7 +161,7 @@ torp(void)
 	range = mapdist(sub.shp_x, sub.shp_y, vship.shp_x, vship.shp_y);
 	hitchance = shp_torp_hitchance(&sub, range);
 	if (range <= erange) {
-	    pr("Hitchance = %d%%\n", (int)(hitchance * 100));
+	    pr("Hitchance = %.0f%%\n", hitchance * 100);
 	}
 	if (range > erange)
 	    pr("Out of range\n");
