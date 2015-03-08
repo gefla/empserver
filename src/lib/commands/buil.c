@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2015
  */
 
 #include <config.h>
@@ -652,8 +652,8 @@ static int
 sector_can_build(struct sctstr *sp, short mat[], int work,
 		 int effic, char *what)
 {
-    int i, avail, ret;
-    double needed;
+    int i, avail, ret, req;
+    double used;
 
     if (player->god)
 	return 1;		/* Deity builds ex nihilo */
@@ -674,14 +674,15 @@ sector_can_build(struct sctstr *sp, short mat[], int work,
 
     ret = 1;
     for (i = I_NONE + 1; i <= I_MAX; i++) {
-	needed = mat[i] * (effic / 100.0);
-	if (sp->sct_item[i] < needed) {
-	    pr("Not enough %s in %s (need %g more)\n",
+	used = mat[i] * effic;
+	req = (used + 99) / 100;
+	if (sp->sct_item[i] < req) {
+	    pr("Not enough %s in %s (need %d more)\n",
 	       ichr[i].i_name, xyas(sp->sct_x, sp->sct_y, player->cnum),
-	       ceil(needed - sp->sct_item[i]));
+	       req - sp->sct_item[i]);
 	    ret = 0;
 	}
-	mat[i] = roundavg(needed);
+	mat[i] = roundavg(used / 100.0);
     }
 
     return ret;
