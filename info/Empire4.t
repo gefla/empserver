@@ -7,7 +7,9 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.33 - Sun Mar  1 10:10:31 UTC 2015
+Changes to Empire 4.3.33 - Fri Mar 13 06:03:30 UTC 2015
+ * New client option -r for restricted mode.  Contributed by Marisa
+   Giancarla.
  * The add syntax deprecated in 4.3.29 is now gone.
  * The explore, move, test, transport syntax deprecated in 4.3.27 is
    now gone.
