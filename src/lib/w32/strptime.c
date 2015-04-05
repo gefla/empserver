@@ -48,7 +48,7 @@ static const TimeLocale DefaultTimeLocale =
 
 #define _CurrentTimeLocale (&DefaultTimeLocale)
 #define TM_YEAR_BASE 1900
-#define __UNCONST(a)	((void *)(unsigned long)(const void *)(a))
+#define __UNCONST(a) ((void *)(a))
 
 /*	$NetBSD: strptime.c,v 1.28 2008/04/28 20:23:01 martin Exp $	*/
 
