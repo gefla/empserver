@@ -236,11 +236,18 @@ even more game customization without recompile, and flexible update
 schedule configuration.  New configuration choices include AUTO_POWER,
 RAILWAYS and rollover_avail.  Options SHOWPLANE, SHIPNAMES, NEWPOWER,
 NEW_STARVE, NEW_WORK, ORBIT and PLANENAMES are no longer configurable.
-Options NUKEFAILDETONATE, SLOW_WAR, SNEAK_ATTACK, FUEL, GRAB_THINGS
-and SHIP_DECAY are gone.  Options PINPOINTMISSILE, DEMANDUPDATE,
-UPDATESCHED, DRNUKE, TRADESHIPS, NONUKES, NEUTRON, BIG_CITY,
-DEFENSE_INFRA, LANDSPIES, NO_LCMS, NO_HCMS and NO_OIL
-got replaced by more flexible configuration.
+Options PINPOINTMISSILE, DEMANDUPDATE, UPDATESCHED, DRNUKE,
+TRADESHIPS, NONUKES, NEUTRON, BIG_CITY, DEFENSE_INFRA, LANDSPIES,
+NO_LCMS, NO_HCMS and NO_OIL got replaced by more flexible
+configuration.
+
+Autonav and SAIL had to be sacrificed to make fixing navigate and
+retreat tractable.  Despite their flaws they'll be undoubtedly missed
+by some.
+
+A number of inessential problematic options have been dropped:
+NUKEFAILDETONATE, SLOW_WAR, SNEAK_ATTACK, FUEL, GRAB_THINGS,
+SHIP_DECAY and TREATIES.
 
 The xdump command lets client writers access more game more easily.
 
