@@ -247,7 +247,8 @@ parse_time(time_t *t, char *s, time_t *anchor)
 static char *
 parse_every(time_t *secs, char *s)
 {
-    int nch, delta;
+    int nch;
+    unsigned delta;
 
     nch = -1;
     sscanf(s, " every %u hours%n", &delta, &nch);
