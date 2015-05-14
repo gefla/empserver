@@ -64,7 +64,7 @@ enum {
 enum {
     UPD_DEMAND_NONE,		/* no demand updates */
     UPD_DEMAND_SCHED,		/* scheduled updates are demand updates */
-    UPD_DEMAND_ASYNC,		/* zdone triggers unscheduled update */
+    UPD_DEMAND_ASYNC		/* zdone triggers unscheduled update */
 };
 
 struct keymatch {

@@ -78,7 +78,7 @@ upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
 	neweff = n;
 	*cost += work_cost;
 	if (!n && IS_BIG_CITY(old_type) && !IS_BIG_CITY(*desig)) {
-	    // FIXME use trunc_people() and total_work()
+	    /* FIXME use trunc_people() and total_work() */
 	    int maxpop = max_population(np->nat_level[NAT_RLEV], *desig, n);
 	    if (vec[I_CIVIL] > maxpop)
 		vec[I_CIVIL] = maxpop;

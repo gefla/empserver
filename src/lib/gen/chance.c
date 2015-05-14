@@ -34,7 +34,6 @@
 
 #include <fcntl.h>
 #include <math.h>
-#include <stdint.h>
 #include <stdlib.h>
 #include <sys/time.h>
 #include <unistd.h>
@@ -120,8 +119,12 @@ seed_prng(unsigned seed)
     init_genrand(seed);
 }
 
-static uint32_t
-djb_hash(uint32_t hash, void *buf, size_t sz)
+/*
+ * Note: this is DJB's hash function when unsigned is 32 bits and hash
+ * is initially 5381.
+ */
+static unsigned
+djb_hash(unsigned hash, void *buf, size_t sz)
 {
     unsigned char *bp;
 
@@ -138,7 +141,7 @@ unsigned
 pick_seed(void)
 {
     int fd;
-    uint32_t seed;
+    unsigned seed;
     int got_seed = 0;
     struct timeval tv;
     pid_t pid;
