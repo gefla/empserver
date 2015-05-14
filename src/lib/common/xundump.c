@@ -714,7 +714,8 @@ static char *
 xuesc(char *buf)
 {
     char *src, *dst;
-    int octal_chr, n;
+    unsigned octal_chr;
+    int n;
 
     dst = buf;
     src = buf;
