@@ -7,7 +7,7 @@ new Empire4 Server.  This outlines the various changes and how they
 will affect you, the player.  These were coded as the Wolfpack project,
 and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
 .NF
-Changes to Empire 4.3.33 - Fri Mar 13 06:03:30 UTC 2015
+Changes to Empire 4.3.33 - Thu May 14 07:43:05 UTC 2015
  * New client option -r for restricted mode.  Contributed by Marisa
    Giancarla.
  * The add syntax deprecated in 4.3.29 is now gone.
@@ -48,8 +48,9 @@ Changes to Empire 4.3.33 - Fri Mar 13 06:03:30 UTC 2015
  * The convert command charged security land units mobility until
    4.3.16 broke that.  Drop this undocumented feature instead of
    fixing it.
- * Report the owner of ships sunk by return torpedoes instead of POGO.
-   Screwed up when return torpedoes were added in Chainsaw.
+ * Fix news to report the actual owner of ships sunk by return
+   torpedoes instead of POGO.  Screwed up when return torpedoes were
+   added in Chainsaw.
  * Don't disclose uid, type and owner of torpedoed submarines.  The
    latter leaked through the news.
  * Changes to bomb:
@@ -259,7 +260,7 @@ Changes to Empire 4.3.33 - Fri Mar 13 06:03:30 UTC 2015
  * Fix "make uninstall" to remove HTML info pages (which are not
    installed by default) and directory share/empire/.
  * Fix "make install" to remove stale formatted info pages.
- * Code refactoring and cleanup.
+ * Code refactoring and cleanup, portability improvements.
  * Info file fixes and improvements.
 
 Changes to Empire 4.3.32 - Sun Aug 25 07:55:34 UTC 2013
