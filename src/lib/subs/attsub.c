@@ -416,7 +416,7 @@ put_combat(struct combat *com)
     }
     com->mobcost = 0;
     /*
-     * FIXME if we just sank the ship att_get_combat() will report
+     * FIXME if we just sank the ship, att_get_combat() will report
      * "not in the same sector", and proceed to clobber *com.  See
      * also the workaround in boar().
      */

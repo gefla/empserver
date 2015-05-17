@@ -158,7 +158,7 @@ boar(void)
      */
 
     /*
-     * Careful: when the fight sinks the ship, putcombat() clobbers
+     * Careful: when the fight sinks the ship, put_combat() clobbers
      * *def (see FIXME there).
      */
     def_uid = def->shp_uid;
