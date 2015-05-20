@@ -1,4 +1,4 @@
-Changes to Empire 4.3.33 - Thu May 14 07:43:05 UTC 2015
+Changes to Empire 4.3.33 - Wed May 20 18:17:43 UTC 2015
  * New client option -r for restricted mode.  Contributed by Marisa
    Giancarla.
  * The add syntax deprecated in 4.3.29 is now gone.
