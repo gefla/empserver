@@ -109,7 +109,7 @@ dnl -Wswitch-default dnl
 ], [], [$cflags_test])
 
 # Our carg() conflicts with libm's TODO clean that up
-MY_APPEND_COMPILE_FLAGS([-fno-builtin-carg])
+MY_APPEND_COMPILE_FLAGS([-fno-builtin-carg -Wno-incompatible-library-redeclaration])
 
 # No multiple definitions of uninitialized global variables
 MY_APPEND_COMPILE_FLAGS([-fno-common])
