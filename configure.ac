@@ -81,16 +81,30 @@ LIBS_server="$LIBS"
 ### Checks for typedefs, structures, and compiler characteristics
 
 # Enable useful warnings
-# clang needs to be tested with -Werror=unknown-warning-option
+# Some of them are commented out because the code needs cleanup first
+# Clang needs to be tested with -Werror=unknown-warning-option
 AX_CHECK_COMPILE_FLAG([-Werror=unknown-warning-option],
 [cflags_test="-Werror=unknown-warning-option"],
 [cflags_test=""])
 MY_APPEND_COMPILE_FLAGS([-Wall -Wextra dnl
+dnl -Wcast-align dnl
+dnl -Wconversion dnl
+-Wdeclaration-after-statement dnl
+dnl -Wformat-nonliteral dnl
+dnl -Wformat-security dnl
+-Winit-self dnl
+-Wlogical-op dnl
 -Wmissing-prototypes dnl
 -Wnested-externs dnl
+-Wold-style-definition dnl
+-Wpacked dnl
 -Wpointer-arith dnl
 -Wredundant-decls dnl
+dnl -Wshadow dnl
 -Wstrict-prototypes dnl
+dnl too prone to false positives: -Wsuggest-attribute=format dnl
+dnl -Wswitch-default dnl
+-Wundef dnl
 -Wno-unused-parameter dnl
 ], [], [$cflags_test])
 
