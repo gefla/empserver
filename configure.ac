@@ -81,8 +81,6 @@ LIBS_server="$LIBS"
 
 ### Checks for typedefs, structures, and compiler characteristics
 
-AC_C_CHAR_UNSIGNED
-
 
 ### Checks for library functions
 
