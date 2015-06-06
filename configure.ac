@@ -50,7 +50,6 @@ AC_PROG_AWK
 AC_PROG_INSTALL
 AC_PROG_RANLIB
 AC_PROG_CC
-AC_SUBST(GCC)
 AM_PROG_CC_C_O
 # Private automake macro, tsk, tsk, tsk...
 _AM_DEPENDENCIES(CC)
@@ -80,6 +79,26 @@ LIBS_server="$LIBS"
 
 
 ### Checks for typedefs, structures, and compiler characteristics
+
+# Enable useful warnings
+# clang needs to be tested with -Werror=unknown-warning-option
+AX_CHECK_COMPILE_FLAG([-Werror=unknown-warning-option],
+[cflags_test="-Werror=unknown-warning-option"],
+[cflags_test=""])
+MY_APPEND_COMPILE_FLAGS([-Wall -Wextra dnl
+-Wmissing-prototypes dnl
+-Wnested-externs dnl
+-Wpointer-arith dnl
+-Wredundant-decls dnl
+-Wstrict-prototypes dnl
+-Wno-unused-parameter dnl
+], [], [$cflags_test])
+
+# Our carg() conflicts with libm's TODO clean that up
+MY_APPEND_COMPILE_FLAGS([-fno-builtin-carg])
+
+# No multiple definitions of uninitialized global variables
+MY_APPEND_COMPILE_FLAGS([-fno-common])
 
 
 ### Checks for library functions
