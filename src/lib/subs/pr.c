@@ -432,7 +432,7 @@ prdate(void)
     time_t now;
 
     (void)time(&now);
-    pr(ctime(&now));
+    pr("%s", ctime(&now));
 }
 
 /*
