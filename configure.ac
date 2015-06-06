@@ -91,7 +91,7 @@ dnl -Wcast-align dnl
 dnl -Wconversion dnl
 -Wdeclaration-after-statement dnl
 dnl -Wformat-nonliteral dnl
-dnl -Wformat-security dnl
+-Wformat-security dnl
 -Winit-self dnl
 -Wlogical-op dnl
 -Wmissing-prototypes dnl
