@@ -42,10 +42,10 @@
  * Signals caught so far.
  * Access only with signals blocked!
  */
-static sigset_t LwpSigCatched;
+static sigset_t LwpSigCaught;
 
 /*
- * LwpSigCatched changed since last
+ * LwpSigCaught changed since last
  */
 static sig_atomic_t LwpSigCheck;
 
@@ -63,7 +63,7 @@ lwpInitSigWait(sigset_t *set)
     struct sigaction act;
     int i;
 
-    sigemptyset(&LwpSigCatched);
+    sigemptyset(&LwpSigCaught);
 
     act.sa_flags = 0;
     act.sa_mask = *set;
@@ -78,7 +78,7 @@ lwpInitSigWait(sigset_t *set)
 static void
 lwpCatchAwaitedSig(int sig)
 {
-    sigaddset(&LwpSigCatched, sig);
+    sigaddset(&LwpSigCaught, sig);
     LwpSigCheck = 1;
 }
 
@@ -96,9 +96,9 @@ lwpGetSig(sigset_t *set)
 
     sigprocmask(SIG_BLOCK, set, &save);
     for (i = NSIG - 1; i > 0; i--) {
-	if (sigismember(set, i) && sigismember(&LwpSigCatched, i)) {
+	if (sigismember(set, i) && sigismember(&LwpSigCaught, i)) {
 	    lwpStatus(LwpCurrent, "Got awaited signal %d", i);
-	    sigdelset(&LwpSigCatched, i);
+	    sigdelset(&LwpSigCaught, i);
 	    break;
 	}
     }
