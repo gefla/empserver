@@ -170,7 +170,7 @@ above the definition.
 Comments to the right of code should start in column 32 if possible
 (counting from zero).
 
-Comment lines should be indented exactly like the code the belong to.
+Comment lines should be indented exactly like the code they belong to.
 
 You are encouraged to format multi-line comments like this:
 
@@ -192,7 +192,6 @@ Do not use
 	// C++/C99 comments
 
 because they are not portable C89.
-
 
 Conditional compilation
 
@@ -247,10 +246,35 @@ Comments
 Every file should have a file comment FIXME
 
 Every function should have a function comment that describes what it
-does.  FIXME elaborate.  Writing such comments helps both future
-maintainers and yourself: if it's too hard to write a concise function
-comment, then your function is likely too complicated and could use a
-redesign.
+does, unless it's blatantly obvious.  If the function is longer than a
+few lines, it's almost certainly not obvious.
+
+The function comment should serve as a contract: state the
+preconditions, side effects, return values.  Make sure to cover error
+conditions.
+
+Writing such comments helps both future maintainers and yourself: when
+writing a concise function comment is too hard, then your function is
+likely too complicated and could use a redesign.
+
+Use @param to refer to parameters.  Use func() to refer to functions
+or function-like macros.  Use arr[] to refer to arrays.  This is to
+make the references stand out and to avoid ambiguity.
+
+Example:
+
+    /*
+     * Read update schedule from file @fname.
+     * Put the first @n-1 updates after @t0 into @sched[] in ascending order,
+     * terminated with a zero.
+     * Use @anchor as initial anchor for anchor-relative times.
+     * Return 0 on success, -1 on failure.
+     */
+    int
+    read_schedule(char *fname, time_t sched[], int n, time_t t0, time_t anchor)
+
+When documenting a struct or union, use @member to refer to its
+members.
 
 The existing code has very little useful comments, and it'll likely
 take us years to fix it.  Please don't make it harder than it already
