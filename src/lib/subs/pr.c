@@ -436,7 +436,7 @@ prdate(void)
 }
 
 /*
- * Print coordinates @x, @y.
+ * Print coordinates @x,@y.
  * @format must be a printf-style format string that converts exactly
  * two int values.
  */

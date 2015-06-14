@@ -675,7 +675,7 @@ ef_make_stale(void)
     ef_generation++;
 }
 
-/* Mark copy of an element of table TYPE in BUF fresh.  */
+/* Mark copy of an element of table TYPE in BUF fresh. */
 void
 ef_mark_fresh(int type, void *buf)
 {
@@ -976,7 +976,7 @@ ef_check(int type)
 }
 
 /*
- * Ensure table contains element @id.
+ * Ensure table @type contains element @id.
  * If necessary, extend it in steps of @count elements.
  * Return non-zero on success, zero on failure.
  */

@@ -91,7 +91,7 @@ info(void)
     snprintf(filename, sizeof(filename), "%s/%s", infodir, name);
     fp = fopen(filename, "r");
     if (fp == NULL) {
-	/* may be a "partial" request.  */
+	/* may be a "partial" request. */
 	info_dp = opendir(infodir);
 	if (!info_dp) {
 	    pr("Can't open info dir\n");
@@ -300,7 +300,7 @@ info(void)
     snprintf(filename, sizeof(filename) - 1, "%s\\%s", infodir, name);
     fp = fopen(filename, "rb");
     if (fp == NULL) {
-	/* may be a "partial" request.  */
+	/* may be a "partial" request. */
 	HANDLE hDir;
 	WIN32_FIND_DATA fData;
 	strcat(filename, "*");

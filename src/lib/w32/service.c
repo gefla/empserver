@@ -153,7 +153,7 @@ service_ctrl_handler(DWORD Opcode)
 	    return;
 
 	case SERVICE_CONTROL_INTERROGATE:
-	/* Fall through to send current status.  */
+	/* Fall through to send current status. */
 	    break;
 
 	default:

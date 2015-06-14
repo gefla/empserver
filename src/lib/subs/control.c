@@ -67,7 +67,7 @@ military_control(struct sctstr *sp)
 /*
  * Ask user to confirm abandonment of sector @sp, if any.
  * If removing @amnt commodities of type @vtype and the land units in
- * @list would abandon their sector, ask the user to confirm.
+ * @list would abandon the sector, ask the user to confirm.
  * All land units in @list must be in this sector.  @list may be null.
  * Return zero when abandonment was declined, else non-zero.
  */

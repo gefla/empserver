@@ -39,7 +39,7 @@
 #include "lwpint.h"
 
 /*
- * Signals catched so far.
+ * Signals caught so far.
  * Access only with signals blocked!
  */
 static sigset_t LwpSigCatched;
@@ -83,8 +83,8 @@ lwpCatchAwaitedSig(int sig)
 }
 
 /*
- * Test whether a signal from @set has been catched.
- * If yes, delete that signal from the set of catched signals, and
+ * Test whether a signal from @set has been caught.
+ * If yes, delete that signal from the set of caught signals, and
  * return its number.
  * Else return 0.
  */

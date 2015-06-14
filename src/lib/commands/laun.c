@@ -143,7 +143,7 @@ launch_as(struct plnstr *pp)
 	|| !pln_is_in_orbit(&plane)) {
 	pr("No such satellite exists!\n");
 	return RET_FAIL;
-	/* Can be abused to find satellite ids.  Tolerable.  */
+	/* Can be abused to find satellite ids.  Tolerable. */
     }
 
     if (mapdist(pp->pln_x, pp->pln_y, plane.pln_x, plane.pln_y)
@@ -284,7 +284,7 @@ launch_missile(struct plnstr *pp)
 }
 
 /*
- * Launch a satellite.
+ * Launch satellite @pp.
  * Return RET_OK if launched (even when satellite fails),
  * else RET_SYN or RET_FAIL.
  */

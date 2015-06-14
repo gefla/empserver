@@ -92,7 +92,7 @@ tel_read_header(FILE *fp, char *mbox, struct telstr *tel)
  * @tel is the header.
  * Unless @sink is null, it is called like @sink(CHUNK, SZ, @arg) to
  * consume the body, chunk by chunk.  The chunks are UTF-8, and
- * CHUNK[SZ} is 0.  Reading fails when @sink() returns a negative
+ * CHUNK[SZ] is 0.  Reading fails when @sink() returns a negative
  * value.
  * Return 0 on success, -1 on failure.
  */

@@ -202,7 +202,7 @@ nstr_comp(struct nscstr *np, int len, int type, char *str)
     return i + 1;
 }
 
-/* Like strcmp(S1, S2), but limit length of S1 to SZ1 and of S2 to SZ2.  */
+/* Like strcmp(S1, S2), but limit length of S1 to SZ1 and of S2 to SZ2. */
 static int
 strnncmp(char *s1, size_t sz1, char *s2, size_t sz2)
 {

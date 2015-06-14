@@ -90,7 +90,7 @@ ring_peek(struct ring *r, int n)
 
 /*
  * Get and remove the oldest byte from the ring buffer.
- * Return it as unsigned char coverted to int, or EOF if the buffer was
+ * Return it as unsigned char converted to int, or EOF if the buffer was
  * empty.
  */
 int

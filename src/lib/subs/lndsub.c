@@ -711,7 +711,7 @@ lnd_check_mines(struct emp_qelem *land_list)
     return stopping;
 }
 
-/* Return whether and why SP would be stuck in SECTP.  */
+/* Return whether and why SP would be stuck in SECTP. */
 enum lnd_stuck
 lnd_check_mar(struct lndstr *lp, struct sctstr *sectp)
 {

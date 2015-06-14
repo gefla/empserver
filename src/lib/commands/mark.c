@@ -95,7 +95,7 @@ display_mark(i_type only_itype, int only_cheapest)
     int cheapest_items[I_MAX + 1];
     i_type i;
 
-    /* Execute trades so report lists only lots that are still available.  */
+    /* Execute trades so report lists only lots that are still available. */
     check_market();
     check_trade();
 

@@ -41,7 +41,7 @@
 static int findlost(int, natid, int, coord, coord, int);
 
 /*
- * Record item @id of type @type changed owner from @exown to @own at @x, @y.
+ * Record item @id of @type changed owner from @exown to @own at @x,@y.
  */
 void
 lost_and_found(int type, natid exown, natid own, int id, coord x, coord y)

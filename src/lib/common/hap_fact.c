@@ -54,7 +54,7 @@ hap_fact(struct natstr *tnat, struct natstr *vnat)
     return LIMIT_TO(hap_fact, 0.8, 2.0);
 }
 
-/* Return happiness required to keep NP's citizens happy.  */
+/* Return happiness required to keep NP's citizens happy. */
 double
 hap_req(struct natstr *np)
 {

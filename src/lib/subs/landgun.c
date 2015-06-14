@@ -145,7 +145,8 @@ shp_dchrg(struct shpstr *sp)
 
 /*
  * Fire torpedo from ship @sp.
- * Use ammo and mobility, resupply if necessary.
+ * Use ammo, resupply if necessary.
+ * Use mobility if @usemob is non-zero.
  * Return damage if the ship fires, else -1.
  */
 int
@@ -203,7 +204,7 @@ lnd_fire(struct lndstr *lp)
 }
 
 /*
- * Sabotage with land unit @lp.
+ * Sabotage with land unit @lp, target has @item[] commodities.
  * Use ammo.
  * Return damage if the land unit sabotages, else -1.
  */
@@ -293,7 +294,7 @@ shp_torp_hitchance(struct shpstr *sp, int range)
 }
 
 /*
- * Return firing range for land unit @sp.
+ * Return firing range for land unit @lp.
  */
 double
 lnd_fire_range(struct lndstr *lp)

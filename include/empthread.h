@@ -55,7 +55,7 @@
 
 /* Abstract data types */
 
-/* A thread.  */
+/* A thread. */
 typedef struct lwpProc empth_t;
 
 /* A read-write lock, perferring writers */

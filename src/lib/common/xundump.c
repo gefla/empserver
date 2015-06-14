@@ -136,7 +136,7 @@ can_fill_gaps(int type)
 }
 
 /*
- * Is table @type's @id-th record @obj redundant for xundump()
+ * Is table @type's @id-th record @obj redundant for xundump()?
  */
 int
 xundump_redundant(int type, int id, void *obj)
@@ -173,7 +173,7 @@ gripe(char *fmt, ...)
     return -1;
 }
 
-/* Make TYPE the current table.  */
+/* Make TYPE the current table. */
 static void
 tbl_start(int type)
 {
@@ -185,7 +185,7 @@ tbl_start(int type)
     idgap_len = 0;
 }
 
-/* End the current table.  */
+/* End the current table. */
 static void
 tbl_end(void)
 {

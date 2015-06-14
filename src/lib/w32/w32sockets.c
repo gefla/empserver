@@ -84,7 +84,7 @@ w32_set_winsock_errno(void)
     int err = WSAGetLastError();
     WSASetLastError(0);
 
-    /* Map some WSAE* errors to the runtime library's error codes.  */
+    /* Map some WSAE* errors to the runtime library's error codes. */
     switch (err) {
     case WSA_INVALID_HANDLE:
 	errno = EBADF;

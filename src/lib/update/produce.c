@@ -232,7 +232,7 @@ prod_resource_limit(struct pchrstr *pp, unsigned char *resource)
 /*
  * Return p.e. for sector type @type.
  * Zero means level is too low for production.
- * @level is the affecting production of PP; it must match PP->p_nlndx.
+ * @level is the level affecting production.
  */
 double
 prod_eff(int type, float level)

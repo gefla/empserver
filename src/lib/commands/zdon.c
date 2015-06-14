@@ -40,13 +40,6 @@
  *         Y  = Yes, wants an update.
  *         N  = No, change status to not wanting an update.
  *         C  = Check (the default), check how many want an update.
- *
- * Sets/Unsets a nation flag.
- *
- * Only considers NORMAL, active countries.  No Deities or sanctuaries.
- *
- * After the change, send a message to the "tm" for it to check
- * if an update should occur.
  */
 
 #include <config.h>

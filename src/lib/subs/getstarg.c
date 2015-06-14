@@ -38,7 +38,8 @@
 
 /*
  * Get string argument.
- * If @input is not empty, use it, else prompt for more input using @prompt.
+ * If @input is not empty, use it.
+ * Else prompt for more input using @prompt.
  * Copy input to @buf[1024].
  * Return @buf on success, else NULL.
  */

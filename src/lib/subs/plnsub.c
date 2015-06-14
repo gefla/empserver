@@ -82,7 +82,8 @@ get_planes(struct nstr_item *ni_bomb, struct nstr_item *ni_esc,
 
 /*
  * Get assembly point argument.
- * If @input is not empty, use it, else prompt for more input using @prompt.
+ * If @input is not empty, use it.
+ * Else prompt for more input using @prompt.
  * If this yields a valid assembly point, read it into *@ap_sect and
  * return @ap_sect.
  * Else complain and return NULL.

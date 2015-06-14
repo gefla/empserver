@@ -301,7 +301,7 @@ xdcolhdr(struct xdstr *xd, struct castr ca[])
     xd->pr("\n");
 }
 
-/* Dump footer for a dump that dumped N objects to XD.  */
+/* Dump footer for a dump that dumped N objects to XD. */
 void
 xdftr(struct xdstr *xd, int n)
 {

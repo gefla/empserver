@@ -43,7 +43,7 @@
 #include "budg.h"
 #include "update.h"
 
-/* Item types we want to track.  */
+/* Item types we want to track. */
 enum bp_item_idx {
     BP_NONE = -1,		/* not tracked */
     BP_MILIT, BP_LCM, BP_HCM,
@@ -59,14 +59,14 @@ struct bp {
     short bp_avail;
 };
 
-/* Map i_type to enum bp_item_idx.  */
+/* Map i_type to enum bp_item_idx. */
 static enum bp_item_idx bud_key[I_MAX + 1] = {
     BP_NONE, BP_MILIT, BP_NONE, BP_NONE,
     BP_NONE, BP_NONE, BP_NONE, BP_NONE, BP_NONE, BP_NONE,
     BP_LCM, BP_HCM, BP_NONE, BP_NONE
 };
 
-/* Return pointer to the element of BP belonging to SP.  */
+/* Return pointer to the element of BP belonging to SP. */
 static struct bp *
 bp_ref(struct bp *bp, struct sctstr *sp)
 {
@@ -87,7 +87,9 @@ bp_get_item(struct bp *bp, struct sctstr *sp, i_type comm)
     return bp_ref(bp, sp)->bp_item[idx];
 }
 
-/* Set the item value tracked in @bp for sector @sp's item @comm. */
+/*
+ * Set item value tracked in @bp for sector @sp's item @comm to @amount.
+ */
 void
 bp_put_item(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
 {
@@ -119,7 +121,7 @@ bp_get_avail(struct bp *bp, struct sctstr *sp)
     return bp_ref(bp, sp)->bp_avail;
 }
 
-/* Set avail tracked in @bp for sector @sp. */
+/* Set avail tracked in @bp for sector @sp to @amount. */
 void
 bp_put_avail(struct bp *bp, struct sctstr *sp, int amount)
 {

@@ -44,7 +44,8 @@
 
 /*
  * Get nation argument.
- * If @arg is not empty, use it, else prompt for input using @prompt.
+ * If @arg is not empty, use it
+ * Else prompt for input using @prompt.
  * If no input is provided, return NULL.
  * If the argument identifies a country, return its getnatp() value.
  * Else complain and return NULL.
@@ -79,7 +80,8 @@ natargp(char *arg, char *prompt)
 
 /*
  * Get nation argument.
- * If @arg is not empty, use it, else prompt for input using @prompt.
+ * If @arg is not empty, use it.
+ * Else prompt for input using @prompt.
  * If no input is provided, return -1.
  * If the argument identifies a country, return its number.  getnatp()
  * can be assumed to succeed for this number.

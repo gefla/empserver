@@ -132,7 +132,7 @@ static double pf_sumcost;
 #endif	/* !PATH_FIND_STATS */
 
 #ifndef NDEBUG			/* silence "not used" warning */
-/* Is sector with uid @uid open?  */
+/* Is sector with uid @uid open? */
 static int
 pf_is_open(int uid)
 {
@@ -140,7 +140,7 @@ pf_is_open(int uid)
 }
 #endif
 
-/* Is sector with uid @uid closed?  */
+/* Is sector with uid @uid closed? */
 static int
 pf_is_closed(int uid)
 {
@@ -151,7 +151,7 @@ pf_is_closed(int uid)
     return pf_map[uid].visit > pf_visit;
 }
 
-/* Is sector with uid @uid unvisited?  */
+/* Is sector with uid @uid unvisited? */
 static int
 pf_is_unvisited(int uid)
 {
@@ -328,7 +328,7 @@ y_in_dir(coord y, int dir)
 /*
  * Set the current source and cost function.
  * @sx,@sy is the source.
- * The cost to enter the sector with uid u is @cost(@actor, u).
+ * The cost to enter the sector with uid ID is @cost(@actor, ID).
  * Negative value means the sector can't be entered.
  */
 static void
@@ -413,10 +413,11 @@ path_find_to(coord dx, coord dy)
 }
 
 /*
- * Write route from @sx,@sy to @dx,@dy to @buf[@bufsiz], return its length.
+ * Write route from @sx,@sy to @dx,@dy to array @buf[@bufsiz].
  * If the route is longer than @bufsiz-1 characters, it's truncated.
  * You must compute path cost first, with path_find_to().
  * @sx,@sy must be on a shortest path from the current source to @dx,@dy.
+ * Return length of the (untruncated) route.
  */
 size_t
 path_find_route(char *buf, size_t bufsz,

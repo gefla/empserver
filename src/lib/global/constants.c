@@ -169,7 +169,7 @@ float hap_avg = 16.0 * 3.0;
 float edu_avg = 16.0 * 12.0;
 
 
-/* tech build limitations.  */
+/* tech build limitations. */
 float easy_tech = 1.00;		/* amount of tech built with no penality */
 float tech_log_base = 2.0;	/* base of log to take of in-efficient tech */
 

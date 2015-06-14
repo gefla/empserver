@@ -68,7 +68,7 @@ static void plchr_oninit(void *);
 static void lchr_oninit(void *);
 static void nchr_oninit(void *);
 
-/* Number of elements in ARRAY.  */
+/* Number of elements in ARRAY. */
 #define SZ(array) (sizeof(array) / sizeof((array)[0]))
 
 /* Initializers for members flags... */

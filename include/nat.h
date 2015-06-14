@@ -135,8 +135,8 @@ struct natstr {
 
 /*
  * Number of updates contact lasts for various ways of making contact.
- * These are only useful with option LOSE_CONTACT option, which
- * implies option HIDDEN.
+ * These are only useful with option LOSE_CONTACT, which implies
+ * option HIDDEN.
  */
 /* Planes spotting and being spotted */
 #define FOUND_FLY	3

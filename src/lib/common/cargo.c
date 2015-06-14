@@ -371,7 +371,7 @@ lnd_first_on_ship(struct shpstr *sp)
 }
 
 /*
- * If @sp carries land units, return the uid of the first one, else -1.
+ * If @lp carries land units, return the uid of the first one, else -1.
  */
 int
 lnd_first_on_land(struct lndstr *lp)
@@ -400,6 +400,7 @@ nuk_on_plane(struct plnstr *pp)
 
 /*
  * Return length of a carrier's cargo list for file type @cargo_type.
+ * Use carrier @uid of type @type.
  */
 int
 unit_cargo_count(int type, int uid, int cargo_type)

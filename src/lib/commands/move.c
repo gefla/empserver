@@ -250,7 +250,7 @@ move(void)
     if (amount > ITEM_MAX - amt_dst) {
 	pr("Only enough room for %d in %s.  The goods will be returned.\n",
 	   ITEM_MAX - amt_dst, xyas(sect.sct_x, sect.sct_y, player->cnum));
-	/* FIXME Not nice.  Move what we can and return the rest.  */
+	/* FIXME Not nice.  Move what we can and return the rest. */
 	getsect(x, y, &sect);
     }
 

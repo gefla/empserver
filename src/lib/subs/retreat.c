@@ -111,7 +111,7 @@ retreat_ship(struct shpstr *sp, natid own, char code)
 	}
     }
 
-    /* Loop similar to the one in unit_move().  Keep it that way!  */
+    /* Loop similar to the one in unit_move().  Keep it that way! */
     for (i = 0; i < n && !QEMPTY(&list); i++) {
 	/*
 	 * Invariant: shp_may_nav() true for all ships
@@ -211,7 +211,7 @@ retreat_land(struct lndstr *lp, natid own, char code)
 	}
     }
 
-    /* Loop similar to the one in unit_move().  Keep it that way!  */
+    /* Loop similar to the one in unit_move().  Keep it that way! */
     for (i = 0; i < n && !QEMPTY(&list); i++) {
 	/*
 	 * Invariant: lnd_may_nav() true for all land units

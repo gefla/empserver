@@ -65,7 +65,8 @@ is_wday_allowed(int wday, char *days)
 }
 
 /*
- * Is day time @dtime (minutes since midnight) allowed by restriction @times?
+ * Is day time @dtime allowed by restriction @times?
+ * @dtime is in minutes since midnight.
  * If @times is not empty, it lists the allowed day time ranges.  See
  * daytime_range() for syntax.
  */
@@ -171,8 +172,8 @@ daytime(char *str, int *min)
 
 /*
  * Parse a day time range in @str.
- * On success store minutes since midnight in *@from and *@to, return
- * pointer to first character not parsed.
+ * On success, store minutes since midnight in *@from_min, *@to_min,
+ * and return pointer to first character not parsed.
  * Else return NULL.
  * Format is HOUR:MINUTE-HOUR:MINUTE.  Initial whitespace is ignored.
  */
