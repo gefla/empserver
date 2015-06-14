@@ -39,10 +39,10 @@
 #include "update.h"
 
 /*
- * Get build materials from sector SP.
- * BP is the sector's build pointer.
- * MVEC[] defines the materials needed to build 100%.
- * PCT is the percentage to build.
+ * Get build materials from sector @sp.
+ * @bp is the sector's build pointer.
+ * @mvec[] defines the materials needed to build 100%.
+ * @pct is the percentage to build.
  * Adjust build percentage downwards so that available materials
  * suffice.  Remove the materials.
  * Return adjusted build percentage.

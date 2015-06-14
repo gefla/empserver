@@ -145,7 +145,7 @@ shp_sel(struct nstr_item *ni, struct emp_qelem *list)
 }
 
 /*
- * Append SP to LIST.
+ * Append @sp to @list.
  * Return the new list link.
  */
 struct ulist *
@@ -224,11 +224,11 @@ shp_nav_put_one(struct ulist *mlp)
 }
 
 /*
- * Sweep seamines with engineers in SHIP_LIST for ACTOR.
- * All ships in SHIP_LIST must be in the same sector.
- * If EXPLICIT is non-zero, this is for an explicit sweep command from
+ * Sweep seamines with engineers in @ship_list for @actor.
+ * All ships in @ship_list must be in the same sector.
+ * If @explicit is non-zero, this is for an explicit sweep command from
  * a player.  Else it's an automatic "on the move" sweep.
- * If TAKEMOB is non-zero, require and charge mobility.
+ * If @takemob is non-zero, require and charge mobility.
  * Return non-zero when the ships should stop.
  */
 int
@@ -347,7 +347,7 @@ shp_check_mines(struct emp_qelem *ship_list)
 }
 
 /*
- * Return whether and why SP would be stuck in SECTP.
+ * Return whether and why @sp would be stuck in @sectp.
  */
 enum shp_stuck
 shp_check_nav(struct shpstr *sp, struct sctstr *sectp)
@@ -1005,7 +1005,7 @@ shp_mobcost(struct shpstr *sp)
 }
 
 /*
- * Set SP's tech to TLEV along with everything else that depends on it.
+ * Set @sp's tech to @tlev along with everything else that depends on it.
  */
 void
 shp_set_tech(struct shpstr *sp, int tlev)

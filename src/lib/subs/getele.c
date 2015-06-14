@@ -40,8 +40,8 @@
 static int tilde_escape(char *s);
 
 /*
- * Read a telegram for RECIPIENT into BUF, in UTF-8.
- * BUF must have space for MAXTELSIZE+1 characters.
+ * Read a telegram for @recipient into @buf, in UTF-8.
+ * @buf must have space for MAXTELSIZE+1 characters.
  * Return telegram length, or -1 on error.
  */
 int

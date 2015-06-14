@@ -49,7 +49,7 @@ mailbox(char *buf, natid cn)
 }
 
 /*
- * Create an empty telegram file named MBOX.
+ * Create an empty telegram file named @mbox.
  * Return 0 on success, -1 on failure.
  */
 int
@@ -66,8 +66,8 @@ mailbox_create(char *mbox)
 }
 
 /*
- * Read telegram header from FP into TEL.
- * MBOX is the file name, it is used for logging errors.
+ * Read telegram header from @fp into @tel.
+ * @mbox is the file name, it is used for logging errors.
  * Return 1 on success, 0 on EOF, -1 on error.
  */
 int
@@ -87,12 +87,12 @@ tel_read_header(FILE *fp, char *mbox, struct telstr *tel)
 }
 
 /*
- * Read telegram body from FP.
- * MBOX is the file name, it is used for logging errors.
- * TEL is the header.
- * Unless SINK is null, it is called like SINK(CHUNK, SZ, ARG) to
+ * Read telegram body from @fp.
+ * @mbox is the file name, it is used for logging errors.
+ * @tel is the header.
+ * Unless @sink is null, it is called like @sink(CHUNK, SZ, @arg) to
  * consume the body, chunk by chunk.  The chunks are UTF-8, and
- * CHUNK[SZ} is 0.  Reading fails when SINK() returns a negative
+ * CHUNK[SZ} is 0.  Reading fails when @sink() returns a negative
  * value.
  * Return 0 on success, -1 on failure.
  */

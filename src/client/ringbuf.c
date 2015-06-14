@@ -69,9 +69,9 @@ ring_space(struct ring *r)
 
 /*
  * Peek at ring buffer contents.
- * N must be between -RING_SIZE-1 and RING_SIZE.
- * If N>=0, peek at the (N+1)-th byte to be gotten.
- * If N<0, peek at the -N-th byte that has been put in.
+ * @n must be between -RING_SIZE-1 and RING_SIZE.
+ * If @n>=0, peek at the (@n+1)-th byte to be gotten.
+ * If @n<0, peek at the -@n-th byte that has been put in.
  * Return the byte as unsigned char coverted to int, or EOF if there
  * aren't that many bytes in the ring buffer.
  */
@@ -102,8 +102,8 @@ ring_getc(struct ring *r)
 }
 
 /*
- * Attempt to put byte C into the ring buffer.
- * Return EOF when the buffer is full, else C.
+ * Attempt to put byte @c into the ring buffer.
+ * Return EOF when the buffer is full, else @c.
  */
 int
 ring_putc(struct ring *r, unsigned char c)
@@ -114,7 +114,7 @@ ring_putc(struct ring *r, unsigned char c)
 }
 
 /*
- * Attempt to put SZ bytes from BUF into the ring buffer.
+ * Attempt to put @sz bytes from @buf into the ring buffer.
  * Return space left in ring buffer when it fits, else don't change
  * the ring buffer and return how much space is missing times -1.
  */
@@ -168,7 +168,7 @@ ring_search(struct ring *r, char *s)
 }
 
 /*
- * Fill ring buffer from file referred by file descriptor FD.
+ * Fill ring buffer from file referred by file descriptor @fd.
  * If ring buffer is already full, do nothing and return 0.
  * Else attempt to read as many bytes as space permits, with readv(),
  * and return its value.
@@ -206,7 +206,7 @@ ring_from_file(struct ring *r, int fd)
 }
 
 /*
- * Drain ring buffer to file referred by file descriptor FD.
+ * Drain ring buffer to file referred by file descriptor @fd.
  * If ring buffer is already empty, do nothing and return 0.
  * Else attempt to write complete contents with writev(), and return
  * its value.

@@ -50,7 +50,7 @@ chance(double d)
 }
 
 /*
- * Return non-zero with probability PCT%.
+ * Return non-zero with probability @pct%.
  */
 int
 pct_chance(int pct)
@@ -98,8 +98,8 @@ roll(int n)
 }
 
 /*
- * Round VAL to nearest integer (on the average).
- * VAL's fractional part is chance to round up.
+ * Round @val to nearest integer (on the average).
+ * @val's fractional part is chance to round up.
  */
 int
 roundavg(double val)
@@ -109,7 +109,7 @@ roundavg(double val)
 }
 
 /*
- * Seed the pseudo-random number generator with SEED.
+ * Seed the pseudo-random number generator with @seed.
  * The sequence of pseudo-random numbers is repeatable by seeding it
  * with the same value.
  */

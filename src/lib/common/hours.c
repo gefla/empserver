@@ -45,8 +45,8 @@ static char *weekday(char *str, int *wday);
 static char *daytime_range(char *str, int *from_min, int *to_min);
 
 /*
- * Is week day WDAY (Sunday is 0) allowed by restriction DAYS?
- * If DAYS is not empty, it lists the allowed week day names.  See
+ * Is week day @wday (Sunday is 0) allowed by restriction @days?
+ * If @days is not empty, it lists the allowed week day names.  See
  * weekday() for syntax.
  */
 int
@@ -65,8 +65,8 @@ is_wday_allowed(int wday, char *days)
 }
 
 /*
- * Is day time DTIME (minutes since midnight) allowed by restriction TIMES?
- * If TIMES is not empty, it lists the allowed day time ranges.  See
+ * Is day time @dtime (minutes since midnight) allowed by restriction @times?
+ * If @times is not empty, it lists the allowed day time ranges.  See
  * daytime_range() for syntax.
  */
 int
@@ -99,8 +99,8 @@ gamehours(time_t t)
 }
 
 /*
- * Parse weekday name in STR.
- * On success assign day number (Sunday is 0) to *WDAY and return
+ * Parse weekday name in @str.
+ * On success assign day number (Sunday is 0) to *@wday and return
  * pointer to first character not parsed.
  * Else return NULL.
  * Abbreviated names are recognized, but not single characters.
@@ -135,8 +135,8 @@ weekday(char *str, int *wday)
 }
 
 /*
- * Parse day time in STR.
- * On success store minutes since midnight in *MIN and return pointer
+ * Parse day time in @str.
+ * On success store minutes since midnight in *@min and return pointer
  * to first character not parsed.
  * Else return NULL.
  * Time format is HOUR:MINUTE.  Initial whitespace is ignored.
@@ -170,8 +170,8 @@ daytime(char *str, int *min)
 }
 
 /*
- * Parse a day time range in STR.
- * On success store minutes since midnight in *FROM and *TO, return
+ * Parse a day time range in @str.
+ * On success store minutes since midnight in *@from and *@to, return
  * pointer to first character not parsed.
  * Else return NULL.
  * Format is HOUR:MINUTE-HOUR:MINUTE.  Initial whitespace is ignored.

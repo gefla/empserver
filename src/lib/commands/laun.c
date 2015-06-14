@@ -124,7 +124,7 @@ laun(void)
 }
 
 /*
- * Launch anti-sat weapon PP.
+ * Launch anti-sat weapon @pp.
  * Return RET_OK if launched (even when missile explodes),
  * else RET_SYN or RET_FAIL.
  */
@@ -169,7 +169,7 @@ launch_as(struct plnstr *pp)
 }
 
 /*
- * Launch missile PP.
+ * Launch missile @pp.
  * Return RET_OK if launched (even when missile explodes),
  * else RET_SYN or RET_FAIL.
  */

@@ -213,7 +213,7 @@ trade_getitem(struct trdstr *tp, union empobj_storage *tgp)
 }
 
 /*
- * Return amount due for LOAN at time PAYTIME.
+ * Return amount due for @loan at time @paytime.
  */
 double
 loan_owed(struct lonstr *loan, time_t paytime)

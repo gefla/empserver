@@ -59,9 +59,9 @@ static signed char **vis;
 static signed char *visbuf;
 
 /*
- * Draw a radar map for radar at CX,CY.
- * EFF is the radar's efficiency, TLEV its tech level, SPY its power.
- * Submarines are detected at fraction SEESUB of the range.
+ * Draw a radar map for radar at @cx,@cy.
+ * @eff is the radar's efficiency, @tlev its tech level, @spy its power.
+ * Submarines are detected at fraction @seesub of the range.
  */
 void
 radmap(int cx, int cy, int eff, double tlev, int spy, double seesub)
@@ -160,9 +160,9 @@ radmap(int cx, int cy, int eff, double tlev, int spy, double seesub)
 }
 
 /*
- * Return distance from left edge of R to X.
+ * Return distance from left edge of @r to @x.
  * Value is between 0 (inclusive) and WORLD_X (exclusive).
- * X must be normalized.
+ * @x must be normalized.
  */
 int
 deltx(struct range *r, coord x)
@@ -173,9 +173,9 @@ deltx(struct range *r, coord x)
 }
 
 /*
- * Return distance from top edge of R to Y.
+ * Return distance from top edge of @r to @y.
  * Value is between 0 (inclusive) and WORLD_Y (exclusive).
- * Y must be normalized.
+ * @y must be normalized.
  */
 int
 delty(struct range *r, coord y)
@@ -186,8 +186,8 @@ delty(struct range *r, coord y)
 }
 
 /*
- * Update OWNER's bmap for radar at CX,CY.
- * EFF is the radar's efficiency, TLEV its tech level, SPY its power.
+ * Update @owner's bmap for radar at @cx,@cy.
+ * @eff is the radar's efficiency, @tlev its tech level, @spy its power.
  */
 void
 rad_map_set(natid owner, int cx, int cy, int eff, double tlev, int spy)
@@ -208,7 +208,7 @@ rad_map_set(natid owner, int cx, int cy, int eff, double tlev, int spy)
 }
 
 /*
- * Range of a radar with EFF efficiency, TLEV tech, and SPY power.
+ * Range of a radar with @eff efficiency, @tlev tech, and @spy power.
  */
 static int
 rad_range(int eff, double tlev, int spy)
@@ -223,9 +223,9 @@ rad_range(int eff, double tlev, int spy)
 }
 
 /*
- * Return character to use in radar maps for sector SP.
- * DIST is the distance from the radar, RANGE its range.
- * Country CN is using the radar.
+ * Return character to use in radar maps for sector @SP.
+ * @dist is the distance from the radar, @range its range.
+ * Country @cn is using the radar.
  */
 static char
 rad_char(struct sctstr *sp, int dist, int range, natid cn)

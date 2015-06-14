@@ -39,7 +39,7 @@
 #include "xdump.h"
 
 /*
- * Is object P of type TYPE visible to the player?
+ * Is object @p of type @type visible to the player?
  * TODO: Fold this into interators.
  */
 static int
@@ -99,8 +99,8 @@ xdvisible(int type, void *p)
 }
 
 /*
- * Dump meta-data for items of type TYPE to XD.
- * Return RET_SYN when TYPE doesn't have meta-data, else RET_OK.
+ * Dump meta-data for items of type @type to @xd.
+ * Return RET_SYN when @type doesn't have meta-data, else RET_OK.
  */
 static int
 xdmeta(struct xdstr *xd, int type)
@@ -131,7 +131,7 @@ xdmeta(struct xdstr *xd, int type)
 }
 
 /*
- * Dump items of type TYPE selected by ARG to XD.
+ * Dump items of type @type selected by @arg to @xd.
  * Return RET_OK on success, RET_SYN on error.
  */
 static int

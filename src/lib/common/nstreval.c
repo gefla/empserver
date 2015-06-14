@@ -43,8 +43,8 @@
 #include "optlist.h"
 
 /*
- * Initialize VAL to symbolic value for selector CA with index IDX.
- * Return VAL.
+ * Initialize @val to symbolic value for selector @ca with index @idx.
+ * Return @val.
  */
 struct valstr *
 nstr_mksymval(struct valstr *val, struct castr *ca, int idx)
@@ -60,17 +60,17 @@ nstr_mksymval(struct valstr *val, struct castr *ca, int idx)
 }
 
 /*
- * Evaluate VAL.
- * If VAL has category NSC_OFF, read the value from the context object
- * PTR, and translate it for country CNUM (coordinate system and
- * contact status).  No translation when CNUM is NATID_BAD.
- * PTR points to a context object of the type that was used to compile
+ * Evaluate @val.
+ * If @val has category NSC_OFF, read the value from the context object
+ * @ptr, and translate it for country @cnum (coordinate system and
+ * contact status).  No translation when @cnum is NATID_BAD.
+ * @ptr points to a context object of the type that was used to compile
  * the value.
- * Unless WANT is NSC_NOTYPE, coerce the value to promoted value type
- * WANT.  VAL must be coercible.
+ * Unless @want is NSC_NOTYPE, coerce the value to promoted value type
+ * @want.  @val must be coercible.
  * The result's type is promoted on success, NSC_NOTYPE on error.
  * In either case, the category is NSC_VAL.
- * Return VAL.
+ * Return @val.
  */
 struct valstr *
 nstr_eval(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
@@ -212,10 +212,10 @@ nstr_eval(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 }
 
 /*
- * Promote VALTYPE.
- * If VALTYPE is an integer type, return NSC_LONG.
- * If VALTYPE is a floating-point type, return NSC_DOUBLE.
- * If VALTYPE is a string type, return NSC_STRING.
+ * Promote @valtype.
+ * If @valtype is an integer type, return NSC_LONG.
+ * If @valtype is a floating-point type, return NSC_DOUBLE.
+ * If @valtype is a string type, return NSC_STRING.
  */
 int
 nstr_promote(int valtype)

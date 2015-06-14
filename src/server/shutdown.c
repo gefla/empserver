@@ -44,8 +44,8 @@ static empth_t *shutdown_thread;
 static void shutdown_sequence(void *unused);
 
 /*
- * Initiate shutdown in MINS_FROM_NOW minutes.
- * If MINS_FROM_NOW is negative, cancel any pending shutdown instead.
+ * Initiate shutdown in @mins_from_now minutes.
+ * If @mins_from_now is negative, cancel any pending shutdown instead.
  * Return -1 on error, zero when no shutdown was pending, positive
  * number when a pending shutdown was modified.
  */

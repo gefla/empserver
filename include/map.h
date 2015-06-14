@@ -36,15 +36,15 @@
 #include "types.h"
 
 /*
- * Width of the body of a map using PERSEC characters per sector.
+ * Width of the body of a map using @persec characters per sector.
  *
  * One row shows WORLD_X/2 sectors, separated by one space.  Requires
- * WORLD_X/2 * (PERSEC+1) - 1 characters.
+ * WORLD_X/2 * (@persec+1) - 1 characters.
  *
  * Every other row is indented so that the center of the first sector
  * is aligned with the space separating the first two sectors in the
- * adjacent rows.  For odd PERSEC, that's (PERSEC+1)/2 additional
- * characters.  For even PERSEC, it's either PERSEC/2 or PERSEC/2 + 1,
+ * adjacent rows.  For odd @persec, that's (@persec+1)/2 additional
+ * characters.  For even @persec, it's either @persec/2 or @persec/2 + 1,
  * depending on whether we align the character left or right of the
  * center with the space (the map will look rather odd either way).
  *

@@ -49,8 +49,8 @@
 static void knockdown(struct sctstr *);
 
 /*
- * Is there support for a bridge at SP?
- * Ignore support coming from direction IGNORE_DIR.
+ * Is there support for a bridge at @sp?
+ * Ignore support coming from direction @ignore_dir.
  */
 int
 bridge_support_at(struct sctstr *sp, int ignore_dir)
@@ -78,10 +78,10 @@ bridge_support_at(struct sctstr *sp, int ignore_dir)
 }
 
 /*
- * Check bridges at and around SP after damage to SP.
- * If SP is an inefficent bridge, splash it.
- * If SP can't support a bridge, splash unsupported adjacent bridges.
- * Write back splashed bridges, except for SP; writing that one is
+ * Check bridges at and around @sp after damage to @sp.
+ * If @sp is an inefficent bridge, splash it.
+ * If @sp can't support a bridge, splash unsupported adjacent bridges.
+ * Write back splashed bridges, except for @sp; writing that one is
  * left to the caller.
  */
 void

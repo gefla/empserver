@@ -106,7 +106,7 @@ game_note_bsanct(void)
 }
 
 /*
- * Record an update in the game file, the current time is NOW.
+ * Record an update in the game file, the current time is @now.
  * This starts the Empire clock if it hasn't been started yet.
  */
 void
@@ -166,7 +166,7 @@ game_tick_tick(void)
 }
 
 /*
- * Set ETU timestamp *TICK to the current ETU time.
+ * Set ETU timestamp *@tick to the current ETU time.
  * Return by how many ETUs it was increased.
  */
 int
@@ -176,7 +176,7 @@ game_tick_to_now(short *tick)
 }
 
 /*
- * Set ETU timestamp *TICK to the ETU time recorded in the game struct.
+ * Set ETU timestamp *@tick to the ETU time recorded in the game struct.
  * The Empire clock is not updated.
  * Return by how many ETUs it was increased.
  */
@@ -193,7 +193,7 @@ game_step_a_tick(struct gamestr *game, short *tick)
 }
 
 /*
- * Reset ETU timestamp *TICK to zero.
+ * Reset ETU timestamp *@tick to zero.
  * Return how many ETUs it had left until etu_per_update.
  */
 int

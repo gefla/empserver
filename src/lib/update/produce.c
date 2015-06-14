@@ -170,8 +170,8 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 }
 
 /*
- * Return how much of product PP can be made from materials VEC[].
- * Store amount of work per unit in *COSTP.
+ * Return how much of product @pp can be made from materials @vec[].
+ * Store amount of work per unit in *@costp.
  */
 int
 prod_materials_cost(struct pchrstr *pp, short vec[], int *costp)
@@ -216,8 +216,8 @@ materials_charge(struct pchrstr *pp, short *vec, int count)
 }
 
 /*
- * Return how much of product PP can be made from its resource.
- * If PP depletes a resource, RESOURCE must point to its value.
+ * Return how much of product @pp can be made from its resource.
+ * If @pp depletes a resource, @resource must point to its value.
  */
 int
 prod_resource_limit(struct pchrstr *pp, unsigned char *resource)
@@ -230,9 +230,9 @@ prod_resource_limit(struct pchrstr *pp, unsigned char *resource)
 }
 
 /*
- * Return p.e. for sector type TYPE.
+ * Return p.e. for sector type @type.
  * Zero means level is too low for production.
- * LEVEL is the affecting production of PP; it must match PP->p_nlndx.
+ * @level is the affecting production of PP; it must match PP->p_nlndx.
  */
 double
 prod_eff(int type, float level)

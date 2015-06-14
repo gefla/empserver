@@ -72,7 +72,7 @@ static struct clink *clink[EF_NUKE + 1];
 static int nclink[EF_NUKE + 1];
 
 /*
- * Return pointer to CL's cargo list head for file type TYPE.
+ * Return pointer to @cl's cargo list head for file type @type.
  */
 static int *
 clink_headp(struct clink *cl, int type)
@@ -87,7 +87,7 @@ clink_headp(struct clink *cl, int type)
 }
 
 /*
- * Initialize cargo list link CL to empty.
+ * Initialize cargo list link @cl to empty.
  */
 static void
 clink_init(struct clink *cl)
@@ -100,7 +100,7 @@ clink_init(struct clink *cl)
 }
 
 /*
- * Check whether *UIDP is a valid uid for file type TYPE.
+ * Check whether *@uidp is a valid uid for file type @type.
  */
 static void
 clink_check1(int *uidp, int type)
@@ -110,7 +110,7 @@ clink_check1(int *uidp, int type)
 }
 
 /*
- * Check validity of cargo lists for file type TYPE.
+ * Check validity of cargo lists for file type @type.
  */
 static void
 clink_check(int type)
@@ -131,8 +131,8 @@ clink_check(int type)
 }
 
 /*
- * Add to CL's cargo list for type TYPE the uid UID.
- * UID must not be on any cargo list already.
+ * Add to @cl's cargo list for type @type the uid @uid.
+ * @uid must not be on any cargo list already.
  */
 static void
 clink_add(struct clink *cl, int type, int uid)
@@ -150,8 +150,8 @@ clink_add(struct clink *cl, int type, int uid)
 }
 
 /*
- * Remove from CL's cargo list for type TYPE the uid UID.
- * UID must be on that cargo list.
+ * Remove from @cl's cargo list for type @type the uid @uid.
+ * @uid must be on that cargo list.
  */
 static void
 clink_rem(struct clink *cl, int type, int uid)
@@ -176,8 +176,8 @@ clink_rem(struct clink *cl, int type, int uid)
 }
 
 /*
- * Update cargo lists for a change of CARGO's carrier.
- * Carrier is of type TYPE, and changes from uid OLD to NEW.
+ * Update cargo lists for a change of @cargo's carrier.
+ * Carrier is of type @type, and changes from uid @old to @new.
  * Negative uids mean no carrier.
  */
 void
@@ -192,8 +192,8 @@ unit_carrier_change(struct empobj *cargo, int type, int old, int new)
 }
 
 /*
- * Update cargo lists for a change of PP's carrier.
- * Carrier is of type TYPE, and changes from uid OLD to NEW.
+ * Update cargo lists for a change of @pp's carrier.
+ * Carrier is of type @type, and changes from uid @old to @new.
  * Negative uids mean no carrier.
  */
 void
@@ -203,8 +203,8 @@ pln_carrier_change(struct plnstr *pp, int type, int old, int new)
 }
 
 /*
- * Update cargo lists for a change of LP's carrier.
- * Carrier is of type TYPE, and changes from uid OLD to NEW.
+ * Update cargo lists for a change of @lp's carrier.
+ * Carrier is of type @type, and changes from uid @old to @new.
  * Negative uids mean no carrier.
  */
 void
@@ -214,8 +214,8 @@ lnd_carrier_change(struct lndstr *lp, int type, int old, int new)
 }
 
 /*
- * Update cargo lists for a change of NP's carrier.
- * Carrier is of type TYPE, and changes from uid OLD to NEW.
+ * Update cargo lists for a change of @np's carrier.
+ * Carrier is of type @type, and changes from uid @old to @new.
  * Negative uids mean no carrier.
  */
 void
@@ -272,7 +272,7 @@ unit_cargo_init(void)
 }
 
 /*
- * Resize clink[TYPE] to match ef_nelem(TYPE).
+ * Resize clink[@type] to match ef_nelem(@type).
  * Return 0 on success, -1 on error.
  * This is the struct empfile onresize callback for units.
  */
@@ -298,8 +298,8 @@ unit_onresize(int type)
 }
 
 /*
- * Find first unit on a carrier's cargo list for file type CARGO_TYPE.
- * Search carrier UID of type TYPE.
+ * Find first unit on a carrier's cargo list for file type @cargo_type.
+ * Search carrier @uid of type @type.
  * Return first unit's uid, or -1 if the carrier isn't carrying such
  * units.
  */
@@ -319,8 +319,8 @@ unit_cargo_first(int type, int uid, int cargo_type)
 }
 
 /*
- * Find the next unit on a cargo list for file type CARGO_TYPE.
- * Get the unit after CARGO_UID.
+ * Find the next unit on a cargo list for file type @cargo_type.
+ * Get the unit after @cargo_uid.
  * Return its uid, or -1 if there are no more on this list.
  */
 int
@@ -334,7 +334,7 @@ unit_cargo_next(int cargo_type, int cargo_uid)
 }
 
 /*
- * If SP carries planes, return the uid of the first one, else -1.
+ * If @sp carries planes, return the uid of the first one, else -1.
  */
 int
 pln_first_on_ship(struct shpstr *sp)
@@ -343,7 +343,7 @@ pln_first_on_ship(struct shpstr *sp)
 }
 
 /*
- * If LP carries planes, return the uid of the first one, else -1.
+ * If @lp carries planes, return the uid of the first one, else -1.
  */
 int
 pln_first_on_land(struct lndstr *lp)
@@ -352,7 +352,7 @@ pln_first_on_land(struct lndstr *lp)
 }
 
 /*
- * Find the next plane on the same carrier as plane#UID.
+ * Find the next plane on the same carrier as plane#@uid.
  * Return its uid, or -1 if there are no more.
  */
 int
@@ -362,7 +362,7 @@ pln_next_on_unit(int uid)
 }
 
 /*
- * If SP carries land units, return the uid of the first one, else -1.
+ * If @sp carries land units, return the uid of the first one, else -1.
  */
 int
 lnd_first_on_ship(struct shpstr *sp)
@@ -371,7 +371,7 @@ lnd_first_on_ship(struct shpstr *sp)
 }
 
 /*
- * If SP carries land units, return the uid of the first one, else -1.
+ * If @sp carries land units, return the uid of the first one, else -1.
  */
 int
 lnd_first_on_land(struct lndstr *lp)
@@ -380,7 +380,7 @@ lnd_first_on_land(struct lndstr *lp)
 }
 
 /*
- * Find the next land unit on the same carrier as land#UID.
+ * Find the next land unit on the same carrier as land#@uid.
  * Return its uid, or -1 if there are no more.
  */
 int
@@ -390,7 +390,7 @@ lnd_next_on_unit(int uid)
 }
 
 /*
- * If PP carries a nuke, return its uid, else -1.
+ * If @pp carries a nuke, return its uid, else -1.
  */
 int
 nuk_on_plane(struct plnstr *pp)
@@ -399,7 +399,7 @@ nuk_on_plane(struct plnstr *pp)
 }
 
 /*
- * Return length of a carrier's cargo list for file type CARGO_TYPE.
+ * Return length of a carrier's cargo list for file type @cargo_type.
  */
 int
 unit_cargo_count(int type, int uid, int cargo_type)
@@ -416,7 +416,7 @@ unit_cargo_count(int type, int uid, int cargo_type)
 }
 
 /*
- * Return number of land units loaded on SP.
+ * Return number of land units loaded on @sp.
  */
 int
 shp_nland(struct shpstr *sp)
@@ -425,7 +425,7 @@ shp_nland(struct shpstr *sp)
 }
 
 /*
- * Return number of land units loaded on LP.
+ * Return number of land units loaded on @lp.
  */
 int
 lnd_nland(struct lndstr *lp)

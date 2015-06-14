@@ -105,9 +105,9 @@ io_open(int fd, int flags, int bufsize)
 }
 
 /*
- * Close IOP.
+ * Close @iop.
  * Flush output and wait for the client to close the connection.
- * Wait at most until DEADLINE.  (time_t)-1 means wait as long as it
+ * Wait at most until @deadline.  (time_t)-1 means wait as long as it
  * takes (no timeout).
  * Both the flush and the wait can be separately cut short by
  * empth_wakeup().  This is almost certainly not what you want.  If
@@ -161,10 +161,10 @@ io_timeout(struct timeval *timeout, time_t deadline)
 }
 
 /*
- * Read input from IOP and enqueue it.
- * Wait at most until DEADLINE for input to arrive.  (time_t)-1 means
+ * Read input from @iop and enqueue it.
+ * Wait at most until @deadline for input to arrive.  (time_t)-1 means
  * wait as long as it takes (no timeout).
- * Does not yield the processor when DEADLINE is zero.
+ * Does not yield the processor when @deadline is zero.
  * A wait for input can be cut short by empth_wakeup().
  * Return number of bytes read on success, -1 on error.
  * In particular, return zero on timeout, early wakeup or EOF.  Use
@@ -224,10 +224,10 @@ io_outputwaiting(struct iop *iop)
 }
 
 /*
- * Write output queued in IOP.
- * Wait at most until DEADLINE for input to arrive.  (time_t)-1 means
+ * Write output queued in @iop.
+ * Wait at most until @deadline for input to arrive.  (time_t)-1 means
  * wait as long as it takes (no timeout).
- * Does not yield the processor when DEADLINE is zero.
+ * Does not yield the processor when @deadline is zero.
  * A wait for output can be cut short by empth_wakeup().
  * Return number of bytes written on success, -1 on error.
  * In particular, return zero when nothing was written because the
@@ -280,11 +280,11 @@ io_output(struct iop *iop, time_t deadline)
 }
 
 /*
- * Write output queued in IOP if enough have been enqueued.
+ * Write output queued in @iop if enough have been enqueued.
  * Write if at least one buffer has been filled since the last write.
- * Wait at most until DEADLINE for output to be accepted.  (time_t)-1
+ * Wait at most until @deadline for output to be accepted.  (time_t)-1
  * means wait as long as it takes (no timeout).
- * Does not yield the processor when DEADLINE is zero.
+ * Does not yield the processor when @deadline is zero.
  * A wait for output can be cut short by empth_wakeup().
  * Return number of bytes written on success, -1 on error.
  * In particular, return zero when nothing was written because the
@@ -364,8 +364,8 @@ io_eof(struct iop *iop)
 }
 
 /*
- * Discard IOP's buffered input and set its EOF flag.
- * No more input can be read from IOP.
+ * Discard @iop's buffered input and set its EOF flag.
+ * No more input can be read from @iop.
  */
 void
 io_set_eof(struct iop *iop)

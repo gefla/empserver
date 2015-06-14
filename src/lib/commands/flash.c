@@ -79,9 +79,9 @@ wall(void)
 }
 
 /*
- * Send flash message(s) from US to TO.
- * Null TO broadcasts to all.
- * MESSAGE is UTF-8.  If it is null, prompt for messages interactively.
+ * Send flash message(s) from @us to @to.
+ * Null @to broadcasts to all.
+ * @message is UTF-8.  If it is null, prompt for messages interactively.
  * Return RET_OK.
  */
 static int
@@ -107,11 +107,11 @@ chat(struct natstr *to, char *message)
 }
 
 /*
- * Send flash message MESSAGE from US to TO.
- * MESSAGE is UTF-8.
- * Null TO broadcasts to all.
- * A header identifying US is prepended to the message.  It is more
- * verbose if VERBOSE.
+ * Send flash message @message from @us to @to.
+ * @message is UTF-8.
+ * Null @to broadcasts to all.
+ * A header identifying @us is prepended to the message.  It is more
+ * verbose if @verbose.
  */
 static int
 sendmessage(struct natstr *to, char *message, int verbose)

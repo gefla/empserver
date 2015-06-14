@@ -78,7 +78,7 @@ landunitgun(int effic, int guns)
 }
 
 /*
- * Fire from fortress SP.
+ * Fire from fortress @sp.
  * Use ammo, resupply if necessary.
  * Return damage if the fortress fires, else -1.
  */
@@ -98,7 +98,7 @@ fort_fire(struct sctstr *sp)
 }
 
 /*
- * Fire from ship SP.
+ * Fire from ship @sp.
  * Use ammo, resupply if necessary.
  * Return damage if the ship fires, else -1.
  */
@@ -122,7 +122,7 @@ shp_fire(struct shpstr *sp)
 }
 
 /*
- * Drop depth-charges from ship SP.
+ * Drop depth-charges from ship @sp.
  * Use ammo, resupply if necessary.
  * Return damage if the ship drops depth-charges, else -1.
  */
@@ -144,7 +144,7 @@ shp_dchrg(struct shpstr *sp)
 }
 
 /*
- * Fire torpedo from ship SP.
+ * Fire torpedo from ship @sp.
  * Use ammo and mobility, resupply if necessary.
  * Return damage if the ship fires, else -1.
  */
@@ -166,7 +166,7 @@ shp_torp(struct shpstr *sp, int usemob)
 }
 
 /*
- * Fire from land unit LP.
+ * Fire from land unit @lp.
  * Use ammo, resupply if necessary.
  * Return damage if the land unit fires, else -1.
  */
@@ -203,7 +203,7 @@ lnd_fire(struct lndstr *lp)
 }
 
 /*
- * Sabotage with land unit LP.
+ * Sabotage with land unit @lp.
  * Use ammo.
  * Return damage if the land unit sabotages, else -1.
  */
@@ -228,7 +228,7 @@ lnd_sabo(struct lndstr *lp, short item[])
 }
 
 /*
- * Return number of guns ship SP can fire.
+ * Return number of guns ship @sp can fire.
  */
 int
 shp_usable_guns(struct shpstr *sp)
@@ -237,7 +237,7 @@ shp_usable_guns(struct shpstr *sp)
 }
 
 /*
- * Return effective firing range for range factor RNG at tech TLEV.
+ * Return effective firing range for range factor @rng at tech @tlev.
  */
 static double
 effrange(int rng, double tlev)
@@ -247,7 +247,7 @@ effrange(int rng, double tlev)
 }
 
 /*
- * Return firing range for sector SP.
+ * Return firing range for sector @sp.
  */
 double
 fortrange(struct sctstr *sp)
@@ -265,7 +265,7 @@ fortrange(struct sctstr *sp)
 }
 
 /*
- * Return firing range for ship SP.
+ * Return firing range for ship @sp.
  */
 double
 shp_fire_range(struct shpstr *sp)
@@ -274,7 +274,7 @@ shp_fire_range(struct shpstr *sp)
 }
 
 /*
- * Return torpedo range for ship SP.
+ * Return torpedo range for ship @sp.
  */
 double
 torprange(struct shpstr *sp)
@@ -284,7 +284,7 @@ torprange(struct shpstr *sp)
 }
 
 /*
- * Return hit chance for torpedo from ship SP at range RANGE.
+ * Return hit chance for torpedo from ship @sp at range @range.
  */
 double
 shp_torp_hitchance(struct shpstr *sp, int range)
@@ -293,7 +293,7 @@ shp_torp_hitchance(struct shpstr *sp, int range)
 }
 
 /*
- * Return firing range for land unit SP.
+ * Return firing range for land unit @sp.
  */
 double
 lnd_fire_range(struct lndstr *lp)

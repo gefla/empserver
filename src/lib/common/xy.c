@@ -149,11 +149,11 @@ xydist_range(coord x, coord y, int dist, struct range *rp)
 }
 
 /*
- * Convert initial part of STR to normalized x-coordinate.
+ * Convert initial part of @str to normalized x-coordinate.
  * Return -1 on error.  This works, as normalized coordinates are
  * non-negative.
- * Assign pointer to first character after the coordinate to *END,
- * unless END is a null pointer.
+ * Assign pointer to first character after the coordinate to *@end,
+ * unless @end is a null pointer.
  */
 coord
 strtox(char *str, char **end)
@@ -168,11 +168,11 @@ strtox(char *str, char **end)
 }
 
 /*
- * Convert initial part of STR to normalized y-coordinate.
+ * Convert initial part of @str to normalized y-coordinate.
  * Return -1 on error.  This works, as normalized coordinates are
  * non-negative.
- * Assign pointer to first character after the coordinate to *END,
- * unless END is a null pointer.
+ * Assign pointer to first character after the coordinate to *@end,
+ * unless @end is a null pointer.
  */
 coord
 strtoy(char *str, char **end)

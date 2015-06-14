@@ -171,7 +171,7 @@ feed_people(short *vec, int etu)
 }
 
 /*
- * Return food eaten by people in VEC[] in ETU ETUs.
+ * Return food eaten by people in @vec[] in @etu ETUs.
  */
 double
 food_needed(short *vec, int etu)
@@ -182,7 +182,7 @@ food_needed(short *vec, int etu)
 }
 
 /*
- * Return number of famine victims in VEC[] for ETU ETUs.
+ * Return number of famine victims in @vec[] for @etu ETUs.
  */
 int
 famine_victims(short *vec, int etu)
@@ -197,7 +197,7 @@ famine_victims(short *vec, int etu)
 }
 
 /*
- * Starve up to NUM people of VEC[WHOM].
+ * Starve up to @num people of @vec[@whom].
  * Return the number of actually starved.
  */
 static int
@@ -252,10 +252,10 @@ grow_people(struct sctstr *sp, int etu,
 }
 
 /*
- * Return the number of babies born to ADULTS in ETU ETUs.
- * BRATE is the birth rate.
- * FOOD is the food available for growing babies.
- * MAXPOP is the population limit.
+ * Return the number of babies born to @adults in @etu ETUs.
+ * @brate is the birth rate.
+ * @food is the food available for growing babies.
+ * @maxpop is the population limit.
  */
 static int
 babies(int adults, int etu, double brate, int food, int maxpop)

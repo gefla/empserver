@@ -121,7 +121,7 @@ lwpSleepFd(int fd, int mask, struct timeval *timeout)
 }
 
 /*
- * Wake up PROC if it is sleeping in lwpSleepFd().
+ * Wake up @proc if it is sleeping in lwpSleepFd().
  * Must be followed by lwpWakeupSleep() before the next lwpReschedule().
  */
 static void

@@ -52,11 +52,11 @@ static struct valstr *nstr_resolve_val(struct valstr *, int, struct castr *);
 static int nstr_optype(enum nsc_type, enum nsc_type);
 
 /*
- * Compile conditions into array NP[LEN].
+ * Compile conditions into array @np[@len].
  * Return number of conditions, or -1 on error.
- * It is an error if there are more than LEN conditions.
- * TYPE is the context type, a file type.
- * STR is the condition string, in Empire syntax, without the leading
+ * It is an error if there are more than @len conditions.
+ * @type is the context type, a file type.
+ * @str is the condition string, in Empire syntax, without the leading
  * '?'.
  */
 int
@@ -223,9 +223,9 @@ strnncmp(char *s1, size_t sz1, char *s2, size_t sz2)
      : (CANT_REACH(), 0))
 
 /*
- * Evaluate compiled conditions in array NP[NCOND].
+ * Evaluate compiled conditions in array @np[@ncond].
  * Return non-zero iff they are all true.
- * PTR points to a context object of the type that was used to compile
+ * @ptr points to a context object of the type that was used to compile
  * the conditions.
  */
 int
@@ -271,7 +271,7 @@ nstr_exec(struct nscstr *np, int ncond, void *ptr)
 }
 
 /*
- * Parse a value in STR into VAL.
+ * Parse a value in @str into @val.
  * Return a pointer to the first character after the value.
  * Value is either evaluated into NSC_STRING, NSC_DOUBLE or NSC_LONG,
  * or an identifier.
@@ -333,10 +333,10 @@ nstr_parse_val(char *str, struct valstr *val)
 }
 
 /*
- * Match VAL in table of selector descriptors CA, return index.
+ * Match @val in table of selector descriptors @ca, return index.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
- * A VAL that is not an identifier doesn't match anything.  A null CA
+ * A @val that is not an identifier doesn't match anything.  A null @ca
  * is considered empty.
  */
 static int
@@ -358,10 +358,10 @@ nstr_match_ca(struct valstr *val, struct castr *ca)
 }
 
 /*
- * Is identifier VAL the name of the selector given by CA and IDX?
- * Return non-zero if and only if IDX is non-negative and VAL is the
- * name of CA[IDX].
- * IDX must have been obtained from nstr_match_ca(VAL, CA).
+ * Is identifier @val the name of the selector given by @ca and @idx?
+ * Return non-zero if and only if @idx is non-negative and @val is the
+ * name of @ca[@idx].
+ * @idx must have been obtained from nstr_match_ca(@val, @ca).
  */
 static int
 nstr_is_name_of_ca(struct valstr *val, struct castr *ca, int idx)
@@ -373,8 +373,8 @@ nstr_is_name_of_ca(struct valstr *val, struct castr *ca, int idx)
 
 /*
  * Do we have two comparable selectors?
- * Check selector descriptors CA[LFT_IDX] (unless LFT_IDX is negative)
- * and CA[RGT_IDX] (unless RGT_IDX is negative).  CA may be null when
+ * Check selector descriptors @ca[@lft_idx] (unless @lft_idx is negative)
+ * and @ca[@rgt_idx] (unless @rgt_idx is negative).  @ca may be null when
  * both are negative.
  */
 static int
@@ -389,9 +389,9 @@ nstr_ca_comparable(struct castr *ca, int lft_idx, int rgt_idx)
 }
 
 /*
- * Match VAL in a selector's values, return its (non-negative) value.
- * Match values of selector descriptor CA[IDX], provided IDX is not
- * negative.  CA may be null when IDX is negative.
+ * Match @val in a selector's values, return its (non-negative) value.
+ * Match values of selector descriptor @ca[@idx], provided @idx is not
+ * negative.  @ca may be null when @idx is negative.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
  */
@@ -419,10 +419,10 @@ nstr_match_val(struct valstr *val, struct castr *ca, int idx)
 }
 
 /*
- * Change VAL to resolve identifier to selector.
- * Return VAL on success, NULL on error.
- * No change if VAL is not an identifier.
- * Else change VAL into symbolic value for selector CA[IDX] if IDX >=
+ * Change @val to resolve identifier to selector.
+ * Return @val on success, NULL on error.
+ * No change if @val is not an identifier.
+ * Else change @val into symbolic value for selector @ca[@idx] if @idx >=
  * 0, and error if not.
  */
 static struct valstr *
@@ -463,10 +463,10 @@ nstr_resolve_id(struct valstr *val, struct castr *ca, int idx)
 }
 
 /*
- * Change VAL to resolve identifier to value SELVAL for selector CA.
- * Return VAL.
- * VAL must be an identifier, and SELVAL must have been obtained from
- * nstr_match_val(VAL, CA0, IDX), where CA = &CA0[IDX].
+ * Change @val to resolve identifier to value @selval for selector @ca.
+ * Return @val.
+ * @val must be an identifier, and @selval must have been obtained from
+ * nstr_match_val(@val, CA0, @idx), where @ca = &CA0[@IDX].
  */
 static struct valstr *
 nstr_resolve_val(struct valstr *val, int selval, struct castr *ca)
@@ -500,7 +500,7 @@ nstr_resolve_val(struct valstr *val, int selval, struct castr *ca)
 }
 
 /*
- * Return operator type for operand types LFT, RGT.
+ * Return operator type for operand types @lft, @rgt.
  */
 static int
 nstr_optype(enum nsc_type lft, enum nsc_type rgt)
@@ -517,10 +517,10 @@ nstr_optype(enum nsc_type lft, enum nsc_type rgt)
 }
 
 /*
- * Compile a value in STR into VAL.
+ * Compile a value in @str into @val.
  * Return a pointer to the first character after the value on success,
  * NULL on error.
- * TYPE is the context type, a file type.
+ * @type is the context type, a file type.
  */
 char *
 nstr_comp_val(char *str, struct valstr *val, int type)

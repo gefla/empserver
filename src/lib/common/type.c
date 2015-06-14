@@ -47,7 +47,7 @@
 #include "ship.h"
 
 /*
- * Return index of sector called NAME in dchr[], or M_NOTFOUND.
+ * Return index of sector called @name in dchr[], or M_NOTFOUND.
  */
 int
 sct_typematch(char *name)
@@ -62,7 +62,7 @@ sct_typematch(char *name)
 }
 
 /*
- * Search table TYPE for an element matching NAME, return its index.
+ * Search table @type for an element matching @name, return its index.
  * Accepts EF_BAD, but of course never finds anything then.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.

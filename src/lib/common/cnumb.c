@@ -38,7 +38,7 @@
 #include "prototypes.h"
 
 /*
- * Search for a country matching CNTRY, return its number.
+ * Search for a country matching @cntry, return its number.
  * Return M_NOTFOUND if no such country exists, M_NOTUNIQUE if there
  * are several.
  */

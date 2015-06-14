@@ -43,7 +43,7 @@
  * Receive a line of input from the current player.
  * If the player's aborted flag is set, return -1 without receiving
  * input.
- * Else receive one line and store it in CMD[SIZE].
+ * Else receive one line and store it in @cmd[@size].
  * This may block for input, yielding the processor.  Flush buffered
  * output when blocking, to make sure player sees the prompt.
  * If the player's connection has the I/O error or EOF indicator set,

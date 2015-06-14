@@ -605,7 +605,7 @@ show_updates(int n)
 }
 
 /*
- * Return T formatted according to RFC 2822.
+ * Return @t formatted according to RFC 2822.
  * The return value is statically allocated and overwritten on
  * subsequent calls.
  */

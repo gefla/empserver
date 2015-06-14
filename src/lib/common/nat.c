@@ -81,7 +81,7 @@ getrel(struct natstr *np, natid them)
 }
 
 /*
- * Return relations US has with THEM.
+ * Return relations @us has with @them.
  * Countries are considered allied to themselves.
  */
 int
@@ -157,8 +157,8 @@ influx(struct natstr *np)
 }
 
 /*
- * Initialize NATP for country #CNUM in status STAT.
- * STAT must be STAT_UNUSED, STAT_NEW, STAT_VIS or STAT_GOD.
+ * Initialize @natp for country #@cnum in status @stat.
+ * @stat must be STAT_UNUSED, STAT_NEW, STAT_VIS or STAT_GOD.
  * Also wipe realms and telegrams.
  */
 struct natstr *

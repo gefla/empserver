@@ -37,10 +37,10 @@
 #include "prototypes.h"
 
 /*
- * Search for COMMAND in COMS[], return its index.
+ * Search for @command in @coms[], return its index.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several, M_IGNORE if the command should be ignored.
- * Ignore commands that require more permissions than COMSTAT.
+ * Ignore commands that require more permissions than @comstat.
  */
 int
 comtch(char *command, struct cmndstr *coms, int comstat)

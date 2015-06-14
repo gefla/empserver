@@ -134,7 +134,7 @@ player_prev(struct player *lp)
 }
 
 /*
- * Return player in state PS_PLAYING for CNUM.
+ * Return player in state PS_PLAYING for @cnum.
  */
 struct player *
 getplayer(natid cnum)

@@ -181,8 +181,8 @@ meltitems(int etus, int fallout, int own, short *vec,
 }
 
 /*
- * Do fallout meltdown for sector SP.
- * ETUS above 24 are treated as 24 to avoid *huge* kill offs in
+ * Do fallout meltdown for sector @sp.
+ * @etus above 24 are treated as 24 to avoid *huge* kill offs in
  * large ETU games.
  */
 void

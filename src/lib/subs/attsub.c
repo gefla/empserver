@@ -745,8 +745,8 @@ att_ask_offense(int combat_mode, struct combat *off, struct combat *def,
 }
 
 /*
- * Return path cost for ATTACKER to enter sector given by DEF.
- * MOBTYPE is a mobility type accepted by sector_mcost().
+ * Return path cost for @attacker to enter sector given by @def.
+ * @mobtype is a mobility type accepted by sector_mcost().
  */
 static double
 att_mobcost(natid attacker, struct combat *def, int mobtype)

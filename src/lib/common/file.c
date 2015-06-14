@@ -64,8 +64,8 @@ static int ef_check(int);
 static unsigned ef_generation;
 
 /*
- * Open the file-backed table TYPE (EF_SECTOR, ...).
- * HOW are flags to control operation.  Naturally, immutable flags are
+ * Open the file-backed table @type (EF_SECTOR, ...).
+ * @how are flags to control operation.  Naturally, immutable flags are
  * not permitted.
  * The table must not be already open.
  * Return non-zero on success, zero on failure.
@@ -200,7 +200,7 @@ open_locked(char *name, int oflags, mode_t mode)
 }
 
 /*
- * Reallocate cache for table EP to hold COUNT slots.
+ * Reallocate cache for table @ep to hold @count slots.
  * The table must not be allocated statically.
  * The cache may still be unmapped.
  * If reallocation succeeds, any pointers obtained from ef_ptr()
@@ -234,7 +234,7 @@ ef_realloc_cache(struct empfile *ep, int count)
 }
 
 /*
- * Open the table TYPE, which is a view of a base table
+ * Open the table @type, which is a view of a base table
  * The table must not be already open.
  * Return non-zero on success, zero on failure.
  * Beware: views work only as long as the base table doesn't change size!
@@ -270,7 +270,7 @@ ef_open_view(int type)
 }
 
 /*
- * Close the open table TYPE (EF_SECTOR, ...).
+ * Close the open table @type (EF_SECTOR, ...).
  * Return non-zero on success, zero on failure.
  */
 int
@@ -308,7 +308,7 @@ ef_close(int type)
 }
 
 /*
- * Flush file-backed table TYPE (EF_SECTOR, ...) to its backing file.
+ * Flush file-backed table @type (EF_SECTOR, ...) to its backing file.
  * Do nothing if the table is privately mapped.
  * Update timestamps of written elements if table is EFF_TYPED.
  * Return non-zero on success, zero on failure.
@@ -340,7 +340,7 @@ ef_flush(int type)
 }
 
 /*
- * Return pointer to element ID in table TYPE if it exists, else NULL.
+ * Return pointer to element @id in table @type if it exists, else NULL.
  * The table must be fully cached, i.e. flags & EFF_MEM.
  * The caller is responsible for flushing changes he makes.
  */
@@ -360,9 +360,9 @@ ef_ptr(int type, int id)
 }
 
 /*
- * Read element ID from table TYPE into buffer INTO.
+ * Read element @id from table @type into buffer @into.
  * FIXME pass buffer size!
- * INTO is marked fresh with ef_mark_fresh().
+ * @into is marked fresh with ef_mark_fresh().
  * Return non-zero on success, zero on failure.
  */
 int
@@ -397,7 +397,7 @@ ef_read(int type, int id, void *into)
 }
 
 /*
- * Fill cache of file-backed EP with elements starting at ID.
+ * Fill cache of file-backed @ep with elements starting at @id.
  * If any were read, return their number.
  * Else return -1 and leave the cache unchanged.
  */
@@ -459,7 +459,7 @@ do_read(struct empfile *ep, void *buf, int id, int count)
 }
 
 /*
- * Write COUNT elements starting at ID from BUF to file-backed EP.
+ * Write @count elements starting at @id from @buf to file-backed @ep.
  * Update the timestamp if the table is EFF_TYPED.
  * Don't actually write if table is privately mapped.
  * Return 0 on success, -1 on error (file may be corrupt then).
@@ -523,14 +523,14 @@ do_write(struct empfile *ep, void *buf, int id, int count)
 }
 
 /*
- * Write element ID into table TYPE from buffer FROM.
+ * Write element @id into table @type from buffer @from.
  * FIXME pass buffer size!
- * Update timestamp in FROM if table is EFF_TYPED.
+ * Update timestamp in @from if table is EFF_TYPED.
  * If table is file-backed and not privately mapped, write through
  * cache straight to disk.
  * Cannot write beyond the end of fully cached table (flags & EFF_MEM).
  * Can write at the end of partially cached table.
- * FROM must be fresh; see ef_make_stale().
+ * @from must be fresh; see ef_make_stale().
  * Return non-zero on success, zero on failure.
  */
 int
@@ -577,9 +577,9 @@ ef_write(int type, int id, void *from)
 
 /*
  * Change element id.
- * BUF is an element of table TYPE.
- * ID is its new element ID.
- * If table is EFF_TYPED, change id and sequence number stored in BUF.
+ * @buf is an element of table @type.
+ * @id is its new element ID.
+ * If table is EFF_TYPED, change id and sequence number stored in @buf.
  * Else do nothing.
  */
 void
@@ -614,7 +614,7 @@ ef_typedstr_eq(struct ef_typedstr *a, struct ef_typedstr *b)
 }
 
 /*
- * Return sequence number of element ID in table EP.
+ * Return sequence number of element @id in table @ep.
  * Return zero if table is not EFF_TYPED (it has no sequence number
  * then).
  */
@@ -641,10 +641,10 @@ get_seqno(struct empfile *ep, int id)
 }
 
 /*
- * Increment sequence number in BUF, which is about to be written to EP.
+ * Increment sequence number in @buf, which is about to be written to @ep.
  * Do nothing if table is not EFF_TYPED (it has no sequence number
  * then).
- * Else, BUF's sequence number must match the one in EP's cache.  If
+ * Else, @buf's sequence number must match the one in @ep's cache.  If
  * it doesn't, we're about to clobber a previous write.
  */
 static void
@@ -700,7 +700,7 @@ must_be_fresh(struct empfile *ep, void *buf)
 }
 
 /*
- * Extend table TYPE by COUNT elements.
+ * Extend table @type by @count elements.
  * Any pointers obtained from ef_ptr() become invalid.
  * Return non-zero on success, zero on failure.
  */
@@ -772,9 +772,9 @@ do_extend(struct empfile *ep, int count)
 }
 
 /*
- * Initialize element ID for table TYPE in BUF.
+ * Initialize element @id for table @type in @buf.
  * FIXME pass buffer size!
- * BUF is marked fresh with ef_mark_fresh().
+ * @buf is marked fresh with ef_mark_fresh().
  */
 void
 ef_blank(int type, int id, void *buf)
@@ -794,7 +794,7 @@ ef_blank(int type, int id, void *buf)
 }
 
 /*
- * Initialize COUNT elements of EP in BUF, starting with element ID.
+ * Initialize @count elements of @ep in @buf, starting with element @id.
  */
 static void
 do_blank(struct empfile *ep, void *buf, int id, int count)
@@ -815,7 +815,7 @@ do_blank(struct empfile *ep, void *buf, int id, int count)
 }
 
 /*
- * Truncate table TYPE to COUNT elements.
+ * Truncate table @type to @count elements.
  * Any pointers obtained from ef_ptr() become invalid.
  * Return non-zero on success, zero on failure.
  */
@@ -903,7 +903,7 @@ ef_mtime(int type)
 }
 
 /*
- * Search for a table matching NAME, return its table type.
+ * Search for a table matching @name, return its table type.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
  */
@@ -915,10 +915,10 @@ ef_byname(char *name)
 }
 
 /*
- * Search CHOICES[] for a table type matching NAME, return it.
+ * Search @choices[] for a table type matching @name, return it.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
- * CHOICES[] must be terminated with a negative value.
+ * @choices[] must be terminated with a negative value.
  */
 int
 ef_byname_from(char *name, int choices[])
@@ -946,7 +946,7 @@ ef_byname_from(char *name, int choices[])
 }
 
 /*
- * Return name of table TYPE.  Always a single, short word.
+ * Return name of table @type.  Always a single, short word.
  */
 char *
 ef_nameof(int type)
@@ -957,7 +957,7 @@ ef_nameof(int type)
 }
 
 /*
- * Return "pretty" name of table TYPE.
+ * Return "pretty" name of table @type.
  */
 char *
 ef_nameof_pretty(int type)
@@ -976,8 +976,8 @@ ef_check(int type)
 }
 
 /*
- * Ensure table contains element ID.
- * If necessary, extend it in steps of COUNT elements.
+ * Ensure table contains element @id.
+ * If necessary, extend it in steps of @count elements.
  * Return non-zero on success, zero on failure.
  */
 int
@@ -994,7 +994,7 @@ ef_ensure_space(int type, int id, int count)
 }
 
 /*
- * Return maximum ID acceptable for table TYPE.
+ * Return maximum ID acceptable for table @type.
  * Assuming infinite memory and disk space.
  */
 int

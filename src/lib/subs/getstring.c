@@ -35,8 +35,8 @@
 #include "prototypes.h"
 
 /*
- * Print sub-prompt PROMPT, receive a line of input into BUF[1024].
- * Return BUF on success, else NULL.
+ * Print sub-prompt @prompt, receive a line of input into @buf[1024].
+ * Return @buf on success, else NULL.
  */
 char *
 getstring(char *prompt, char *buf)
@@ -48,8 +48,8 @@ getstring(char *prompt, char *buf)
 }
 
 /*
- * Print sub-prompt PROMPT, receive a line of UTF-8 input into BUF[1024].
- * Return BUF on success, else NULL.
+ * Print sub-prompt @prompt, receive a line of UTF-8 input into @buf[1024].
+ * Return @buf on success, else NULL.
  */
 char *
 ugetstring(char *prompt, char *buf)

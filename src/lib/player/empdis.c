@@ -59,7 +59,7 @@ static int player_commands_index = 0;
 static void disable_coms(void);
 
 /*
- * Get a command from the current player into COMBUFP[1024], in UTF-8.
+ * Get a command from the current player into @combufp[1024], in UTF-8.
  * This may block for input, yielding the processor.  Flush buffered
  * output when blocking, to make sure player sees the prompt.
  * Return command's byte length on success, -1 on error.

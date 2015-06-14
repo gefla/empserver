@@ -38,9 +38,9 @@
 
 /*
  * Get string argument.
- * If INPUT is not empty, use it, else prompt for more input using PROMPT.
- * Copy input to BUF[1024].
- * Return BUF on success, else NULL.
+ * If @input is not empty, use it, else prompt for more input using @prompt.
+ * Copy input to @buf[1024].
+ * Return @buf on success, else NULL.
  */
 char *
 getstarg(char *input, char *prompt, char *buf)

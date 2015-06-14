@@ -404,7 +404,7 @@ ef_verify_config(void)
 /*
  * Verify game state is sane.
  * Correct minor problems, but write corrections to backing files only
- * if MAY_PUT is non-zero.
+ * if @may_put is non-zero.
  * Return -1 if uncorrected problems remain, else 0.
  */
 int

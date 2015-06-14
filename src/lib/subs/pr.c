@@ -70,7 +70,7 @@ static void player_output_some(void);
 
 /*
  * Print to current player similar to printf().
- * Use printf-style FORMAT with the optional arguments.
+ * Use printf-style @format with the optional arguments.
  * Note: `to print' without further qualifications means sending
  * C_DATA text.
  */
@@ -92,7 +92,7 @@ pr(char *format, ...)
 }
 
 /*
- * Print UTF-8 text BUF to current player.
+ * Print UTF-8 text @buf to current player.
  */
 void
 uprnf(char *buf)
@@ -109,8 +109,8 @@ uprnf(char *buf)
 }
 
 /*
- * Send some text to P with id ID, line-buffered.
- * Format text to send using printf-style FORMAT and optional
+ * Send some text to @p with id @id, line-buffered.
+ * Format text to send using printf-style @format and optional
  * arguments.  It is assumed to be already user text.  Plain ASCII and
  * text received from the same player are fine, for anything else the
  * caller has to deal with output filtering.
@@ -134,8 +134,8 @@ pr_id(struct player *p, int id, char *format, ...)
 }
 
 /*
- * Send C_FLASH text to PL.
- * Format text to send using printf-style FORMAT and optional
+ * Send C_FLASH text to @pl.
+ * Format text to send using printf-style @format and optional
  * arguments.  It is assumed to be UTF-8.
  * Initiate an output queue flush, but do not wait for it to complete.
  */
@@ -157,8 +157,8 @@ pr_flash(struct player *pl, char *format, ...)
 }
 
 /*
- * Send C_INFORM text to PL.
- * Format text to send using printf-style FORMAT and optional
+ * Send C_INFORM text to @pl.
+ * Format text to send using printf-style @format and optional
  * arguments.  It is assumed to be plain ASCII.
  * Initiate an output queue flush, but do not wait for it to complete.
  */
@@ -179,7 +179,7 @@ pr_inform(struct player *pl, char *format, ...)
 
 /*
  * Send C_FLASH text to everyone.
- * Format text to send using printf-style FORMAT and optional
+ * Format text to send using printf-style @format and optional
  * arguments.  It is assumed to be plain ASCII.
  * Prefix text it with a header suitable for broadcast from deity.
  * Initiate an output queue flush, but do not wait for it to complete.
@@ -211,8 +211,8 @@ pr_wall(char *format, ...)
 }
 
 /*
- * Send ID text BUF to PL, line-buffered.
- * BUF is user text.
+ * Send @id text @buf to @pl, line-buffered.
+ * @buf is user text.
  * If a partial line with different id is buffered, terminate it with
  * a newline first.
  */
@@ -250,7 +250,7 @@ pr_player(struct player *pl, int id, char *buf)
 }
 
 /*
- * Send ID text BUF to PL, line-buffered.
+ * Send @id text @buf to @pl, line-buffered.
  * This function translates from normal text to user text.
  * If a partial line with different id is buffered, terminate it with
  * a newline first.
@@ -305,7 +305,7 @@ upr_player(struct player *pl, int id, char *buf)
 }
 
 /*
- * Send id N to PL.
+ * Send id @n to @pl.
  * This runs always at the beginning of a line.
  */
 static void
@@ -336,8 +336,8 @@ player_output_some(void)
 }
 
 /*
- * Send redirection request REDIR to the current player.
- * REDIR is UTF-8, but non-ASCII characters can occur only if the
+ * Send redirection request @redir to the current player.
+ * @redir is UTF-8, but non-ASCII characters can occur only if the
  * player sent them.  Therefore, it is also user text.
  */
 void
@@ -347,8 +347,8 @@ prredir(char *redir)
 }
 
 /*
- * Send script execute request FILE to the current player.
- * FILE is UTF-8, but non-ASCII characters can occur only if the
+ * Send script execute request @file to the current player.
+ * @file is UTF-8, but non-ASCII characters can occur only if the
  * player sent them.  Therefore, it is also user text.
  */
 void
@@ -368,11 +368,11 @@ prprompt(int min, int btu)
 
 /*
  * Prompt for a line of non-command input.
- * Send C_FLUSH prompt PROMPT to the current player.
- * Read a line of input into BUF[SIZE] and convert it to ASCII.
+ * Send C_FLUSH prompt @prompt to the current player.
+ * Read a line of input into @buf[@size] and convert it to ASCII.
  * This may block for input, yielding the processor.  Flush buffered
  * output when blocking, to make sure player sees the prompt.
- * Return number of bytes in BUF[], not counting the terminating 0,
+ * Return number of bytes in @buf[], not counting the terminating 0,
  * or -1 on error.
  */
 int
@@ -396,12 +396,12 @@ prmptrd(char *prompt, char *buf, int size)
 
 /*
  * Prompt for a line of non-command, UTF-8 input.
- * Send C_FLUSH prompt PROMPT to the current player.
- * Read a line of input into BUF[SIZE], replacing funny characters by
+ * Send C_FLUSH prompt @prompt to the current player.
+ * Read a line of input into @buf[@size], replacing funny characters by
  * '?'.  The result is UTF-8.
  * This may block for input, yielding the processor.  Flush buffered
  * output when blocking, to make sure player sees the prompt.
- * Return number of bytes in BUF[], not counting the terminating 0,
+ * Return number of bytes in @buf[], not counting the terminating 0,
  * or -1 on error.
  */
 int
@@ -436,8 +436,8 @@ prdate(void)
 }
 
 /*
- * Print coordinates X, Y.
- * FORMAT must be a printf-style format string that converts exactly
+ * Print coordinates @x, @y.
+ * @format must be a printf-style format string that converts exactly
  * two int values.
  */
 void
@@ -462,11 +462,11 @@ pr_beep(void)
 }
 
 /*
- * Print complete lines to country CN similar to printf().
- * Use printf-style FORMAT with the optional arguments.  FORMAT must
+ * Print complete lines to country @cn similar to printf().
+ * Use printf-style @format with the optional arguments.  @format must
  * end with '\n'.
- * If CN is zero, don't print anything.
- * Else, if CN is the current player and we're not in the update,
+ * If @cn is zero, don't print anything.
+ * Else, if @cn is the current player and we're not in the update,
  * print just like pr().  Else print into a bulletin.
  * Because printing like pr() requires normal text, and bulletins
  * require user text, only plain ASCII is allowed.
@@ -490,11 +490,11 @@ mpr(int cn, char *format, ...)
 }
 
 /*
- * Copy SRC without funny characters to DST.
+ * Copy @src without funny characters to @dst.
  * Drop control characters, except for '\t'.
  * Replace non-ASCII characters by '?'.
- * Return length of DST.
- * DST must have space.  If it overlaps SRC, then DST <= SRC must
+ * Return length of @dst.
+ * @dst must have space.  If it overlaps @src, then @dst <= @src must
  * hold.
  */
 size_t
@@ -518,11 +518,11 @@ copy_ascii_no_funny(char *dst, char *src)
 }
 
 /*
- * Copy UTF-8 SRC without funny characters to DST.
+ * Copy UTF-8 @src without funny characters to @dst.
  * Drop control characters, except for '\t'.
  * FIXME Replace malformed UTF-8 sequences by '?'.
- * Return byte length of DST.
- * DST must have space.  If it overlaps SRC, then DST <= SRC must
+ * Return byte length of @dst.
+ * @dst must have space.  If it overlaps @src, then @dst <= @src must
  * hold.
  */
 size_t
@@ -545,11 +545,11 @@ copy_utf8_no_funny(char *dst, char *src)
 }
 
 /*
- * Copy UTF-8 SRC without funny characters to ASCII DST.
+ * Copy UTF-8 @src without funny characters to ASCII @dst.
  * Drop control characters, except for '\t'.
  * Replace non-ASCII characters by '?'.
- * Return length of DST.
- * DST must have space.  If it overlaps SRC, then DST <= SRC must
+ * Return length of @dst.
+ * @dst must have space.  If it overlaps @src, then @dst <= @src must
  * hold.
  */
 size_t
@@ -576,8 +576,8 @@ copy_utf8_to_ascii_no_funny(char *dst, char *src)
 }
 
 /*
- * Return byte-index of the N-th UTF-8 character in UTF-8 string S.
- * If S doesn't have that many characters, return its length instead.
+ * Return byte-index of the @n-th UTF-8 character in UTF-8 string @s.
+ * If @s doesn't have that many characters, return its length instead.
  */
 int
 ufindpfx(char *s, int n)

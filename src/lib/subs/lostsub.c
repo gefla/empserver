@@ -41,7 +41,7 @@
 static int findlost(int, natid, int, coord, coord, int);
 
 /*
- * Record item ID of type TYPE changed owner from EXOWN to OWN at X, Y.
+ * Record item @id of type @type changed owner from @exown to @own at @x, @y.
  */
 void
 lost_and_found(int type, natid exown, natid own, int id, coord x, coord y)
@@ -87,8 +87,8 @@ makenotlost(int type, natid owner, int id, coord x, coord y)
 
 /*
  * Find a suitable slot in the lost file.
- * If a record for TYPE, OWNER, ID, X, Y exists, return its index.
- * Else if FREE is non-zero, return the index of an unused record.
+ * If a record for @type, @owner, @id, @x, @y exists, return its index.
+ * Else if @free is non-zero, return the index of an unused record.
  * Else return -1.
  */
 static int

@@ -193,7 +193,7 @@ rea(void)
 }
 
 /*
- * Print first telegram in file FNAME.
+ * Print first telegram in file @fname.
  */
 int
 show_first_tel(char *fname)

@@ -202,7 +202,7 @@ status(void)
 }
 
 /*
- * Make all objects stale if ARG is one of the player's command arguments.
+ * Make all objects stale if @arg is one of the player's command arguments.
  * See ef_make_stale() for what "making stale" means.
  * Useful for functions that prompt for missing arguments.
  * These can yield the processor, so we'd like to call ef_make_stale()

@@ -41,7 +41,7 @@ static struct ring recent_input;
 static size_t saved_bytes;
 
 /*
- * Remember line of input INP for a while.
+ * Remember line of input @inp for a while.
  * It must end with a newline.
  * Return value is suitable for forget_input(): it makes it forget all
  * input up to and including this line.
@@ -64,9 +64,9 @@ save_input(char *inp)
 }
 
 /*
- * Can you still remember a line of input that ends with TAIL?
+ * Can you still remember a line of input that ends with @tail?
  * It must end with a newline.
- * Return non-zero iff TAIL can be remembered.
+ * Return non-zero iff @tail can be remembered.
  * Passing that value to forget_input() will forget all input up to
  * and including this line.
  */
@@ -88,8 +88,8 @@ seen_input(char *tail)
 }
 
 /*
- * Forget remembered input up to SEEN.
- * SEEN should be obtained from save_input() or seen_input().
+ * Forget remembered input up to @seen.
+ * @seen should be obtained from save_input() or seen_input().
  */
 void
 forget_input(size_t seen)

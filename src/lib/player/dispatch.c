@@ -55,9 +55,9 @@ int test_suite_prng_seed;
 
 /*
  * Execute command named by player->argp[0].
- * BUF is the raw UTF-8 command line.  It should have been passed to
+ * @buf is the raw UTF-8 command line.  It should have been passed to
  * parse() to set up player->argp.
- * If REDIR is not null, it's the command's redirection, in UTF-8.
+ * If @redir is not null, it's the command's redirection, in UTF-8.
  * Return -1 if the command is not unique or doesn't exist, else 0.
  */
 int

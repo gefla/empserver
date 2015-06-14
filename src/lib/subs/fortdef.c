@@ -146,7 +146,7 @@ dd(natid att, natid def_own, coord ax, coord ay, int noisy, int defending)
 }
 
 /*
- * Shall CN attempt to help FRIEND against FOE?
+ * Shall @cn attempt to help @friend against @foe?
  */
 int
 feels_like_helping(natid cn, natid friend, natid foe)

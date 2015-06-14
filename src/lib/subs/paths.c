@@ -66,8 +66,8 @@ direrr(char *stop_msg, char *view_msg, char *map_msg)
 }
 
 /*
- * Map direction DIR to a direction index DIR_STOP..DIR_LAST.
- * DIR must be a valid direction.
+ * Map direction @dir to a direction index DIR_STOP..DIR_LAST.
+ * @dir must be a valid direction.
  */
 int
 diridx(char dir)

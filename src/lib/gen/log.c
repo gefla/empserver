@@ -51,7 +51,7 @@ static int logfd = -1;
 static int logopen(void);
 
 /*
- * Points log file at PROGRAM.log
+ * Points log file at @program.log
  */
 int
 loginit(char *program)
@@ -123,7 +123,7 @@ logerror(char *format, ...)
 }
 
 /*
- * Log internal error MSG occured in FILE:LINE, call oops handler.
+ * Log internal error @msg occured in @file:@line, call oops handler.
  */
 void
 oops(char *msg, char *file, int line)

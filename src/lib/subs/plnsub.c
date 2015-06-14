@@ -59,12 +59,12 @@ static int inc_shp_nplane(struct plnstr *, int *, int *, int *);
 
 /*
  * Get planes and escorts argument.
- * Read planes into *NI_BOMB, and (optional) escorts into *NI_ESC.
- * If INPUT_BOMB is not empty, use it, else prompt for more input.
- * Same for INPUT_ESC.
- * If we got a plane argument, initialize *NI_BOMB and *NI_ESC, and
+ * Read planes into *@ni_bomb, and (optional) escorts into *@ni_esc.
+ * If @input_bomb is not empty, use it, else prompt for more input.
+ * Same for @input_esc.
+ * If we got a plane argument, initialize *@ni_bomb and *@ni_esc, and
  * return 0.
- * Else return -1 (*NI_BOMB and *NI_ESC may be modified).
+ * Else return -1 (*@ni_bomb and *@ni_esc may be modified).
  */
 int
 get_planes(struct nstr_item *ni_bomb, struct nstr_item *ni_esc,
@@ -82,11 +82,11 @@ get_planes(struct nstr_item *ni_bomb, struct nstr_item *ni_esc,
 
 /*
  * Get assembly point argument.
- * If INPUT is not empty, use it, else prompt for more input using PROMPT.
- * If this yields a valid assembly point, read it into *AP_SECT and
- * return AP_SECT.
+ * If @input is not empty, use it, else prompt for more input using @prompt.
+ * If this yields a valid assembly point, read it into *@ap_sect and
+ * return @ap_sect.
  * Else complain and return NULL.
- * *AP_SECT and BUF[1024] may be modified in either case.
+ * *@ap_sect and @buf[1024] may be modified in either case.
  */
 struct sctstr *
 get_assembly_point(char *input, struct sctstr *ap_sect, char *buf)
@@ -120,10 +120,10 @@ get_assembly_point(char *input, struct sctstr *ap_sect, char *buf)
 }
 
 /*
- * Find out whether planes can fly one-way to X,Y.
+ * Find out whether planes can fly one-way to @x,@y.
  * Offer the player any carriers there.  If he chooses one, read it
- * into TARGET->ship.  Else read the target sector into TARGET->sect.
- * If planes can land there, set required plane flags in *FLAGSP, and
+ * into @target->ship.  Else read the target sector into @target->sect.
+ * If planes can land there, set required plane flags in *@flagsp, and
  * return 0.  Else return -1.
  */
 int
@@ -369,13 +369,13 @@ pln_mine(struct emp_qelem *list, coord tx, coord ty)
 }
 
 /*
- * Has PP's type capabilities satisfying WANTFLAGS and NOWANTFLAGS?
+ * Has @pp's type capabilities satisfying @wantflags and @nowantflags?
  * A plane type is capable unless
- * - it lacks all of the P_B, P_T in WANTFLAGS, or
- * - it lacks all of the P_F, P_ESC in WANTFLAGS, or
- * - it lacks all of the P_E, P_L, P_K in WANTFLAGS, or
- * - it lacks any of the other capabilities in WANTFLAGS, or
- * - it has any of the capabilities in NOWANTFLAGS.
+ * - it lacks all of the P_B, P_T in @wantflags, or
+ * - it lacks all of the P_F, P_ESC in @wantflags, or
+ * - it lacks all of the P_E, P_L, P_K in @wantflags, or
+ * - it lacks any of the other capabilities in @wantflags, or
+ * - it has any of the capabilities in @nowantflags.
  */
 int
 pln_capable(struct plnstr *pp, int wantflags, int nowantflags)
@@ -410,7 +410,7 @@ pln_capable(struct plnstr *pp, int wantflags, int nowantflags)
 }
 
 /*
- * Return union of capabilities of planes in LIST.
+ * Return union of capabilities of planes in @list.
  */
 int
 pln_caps(struct emp_qelem *list)
@@ -429,10 +429,10 @@ pln_caps(struct emp_qelem *list)
 }
 
 /*
- * Find plane types that can operate from carrier SP.
- * If MSL find missile types, else non-missile types.
+ * Find plane types that can operate from carrier @sp.
+ * If @msl find missile types, else non-missile types.
  * Return a combination of P_L, P_K, P_E.
- * It's zero if SP can't support air operations due to its type or
+ * It's zero if @sp can't support air operations due to its type or
  * state (low efficiency).
  */
 int
@@ -837,9 +837,9 @@ pln_put1(struct plist *plp)
 }
 
 /*
- * Can a carrier of SP's type carry this load of planes?
- * The load consists of N planes, of which NCH are choppers, NXL
- * xlight, NMSL light missiles, and the rest are light fixed-wing
+ * Can a carrier of @sp's type carry this load of planes?
+ * The load consists of @n planes, of which @nch are choppers, @nxl
+ * xlight, @nmsl light missiles, and the rest are light fixed-wing
  * planes.
  */
 static int
@@ -860,10 +860,10 @@ ship_can_carry(struct shpstr *sp, int n, int nch, int nxl, int nmsl)
 }
 
 /*
- * Increment carrier plane counters for PP.
- * If it's a chopper, increment *NCH.
- * Else, if it's x-light, increment *NXL.
- * Else, if it's a light missile, increment *MSL.
+ * Increment carrier plane counters for @pp.
+ * If it's a chopper, increment *@nch.
+ * Else, if it's x-light, increment *@nxl.
+ * Else, if it's a light missile, increment *@msl.
  * Return non-zero if it's a chopper, x-light or light.
  */
 static int
@@ -883,7 +883,7 @@ inc_shp_nplane(struct plnstr *pp, int *nch, int *nxl, int *nmsl)
 }
 
 /*
- * Can PP be loaded on a ship of SP's type?
+ * Can @pp be loaded on a ship of @sp's type?
  */
 int
 could_be_on_ship(struct plnstr *pp, struct shpstr *sp)
@@ -1102,7 +1102,7 @@ pln_is_in_orbit(struct plnstr *pp)
 }
 
 /*
- * Set PP's tech to TLEV along with everything else that depends on it.
+ * Set @pp's tech to @tlev along with everything else that depends on it.
  */
 void
 pln_set_tech(struct plnstr *pp, int tlev)

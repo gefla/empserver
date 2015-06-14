@@ -60,8 +60,8 @@
 #define days(x)		(60*60*24*(x))
 
 /*
- * If EXPR is true, an internal error occured.
- * Return EXPR != 0.
+ * If @expr is true, an internal error occured.
+ * Return @expr != 0.
  * Usage: if (CANT_HAPPEN(...)) <recovery code>;
  */
 #define CANT_HAPPEN(expr) ((expr) ? oops(#expr, __FILE__, __LINE__), 1 : 0)

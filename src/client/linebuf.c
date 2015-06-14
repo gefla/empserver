@@ -38,7 +38,7 @@
 
 /*
  * Initialize empty line buffer.
- * Not necessary if *LBUF is already zeroed.
+ * Not necessary if *@lbuf is already zeroed.
  */
 void
 lbuf_init(struct lbuf *lbuf)
@@ -57,7 +57,7 @@ lbuf_len(struct lbuf *lbuf)
 }
 
 /*
- * Is LBUF full (i.e. we got the newline)?
+ * Is @lbuf full (i.e. we got the newline)?
  */
 int
 lbuf_full(struct lbuf *lbuf)
@@ -79,9 +79,9 @@ lbuf_line(struct lbuf *lbuf)
 }
 
 /*
- * Append CH to the line buffered in LBUF.
- * LBUF must not be full.
- * If CH is a newline, the buffer is now full.  Return the line
+ * Append @ch to the line buffered in @lbuf.
+ * @lbuf must not be full.
+ * If @ch is a newline, the buffer is now full.  Return the line
  * length, including the newline.
  * Else return 0 if there was space, and -1 if not.
  */

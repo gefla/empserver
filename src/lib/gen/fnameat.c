@@ -38,9 +38,9 @@
 static int fname_is_abs(const char *);
 
 /*
- * Interpret FNAME relative to directory DIR.
- * Return FNAME if it is absolute, or DIR is null or empty.
- * Else return a malloc'ed string containing DIR/FNAME, or null
+ * Interpret @fname relative to directory @dir.
+ * Return @fname if it is absolute, or @dir is null or empty.
+ * Else return a malloc'ed string containing @dir/@fname, or null
  * pointer when that fails.
  */
 char *
@@ -73,8 +73,8 @@ fname_is_abs(const char *fname)
 
 /*
  * Open a stream like fopen(), optionally relative to a directory.
- * This is exactly like fopen(), except FNAME is interpreted relative
- * to DIR if that is neither null nor empty.
+ * This is exactly like fopen(), except @fname is interpreted relative
+ * to @dir if that is neither null nor empty.
  */
 FILE *
 fopenat(const char *fname, const char *mode, const char *dir)

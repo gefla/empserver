@@ -70,17 +70,17 @@ report_god_gives(char *prefix, char *what, natid to)
 }
 
 /*
- * Report deity meddling with sector SP.
+ * Report deity meddling with sector @sp.
  * Print a message (always), send a bulletin to the sector owner and
  * report news (sometimes).
- * NAME names what is being changed in the sector.
- * If CHANGE is zero, the meddling is a no-op (bulletin suppressed).
- * If CHANGE is negative, it's secret (bulletin suppressed).
- * If a bulletin is sent, report N_AIDS news for positive GOODNESS,
- * N_HURTS news for negative GOODNESS
- * The bulletin's text is like "NAME of sector X,Y changed <how> by an
+ * @name names what is being changed in the sector.
+ * If @change is zero, the meddling is a no-op (bulletin suppressed).
+ * If @change is negative, it's secret (bulletin suppressed).
+ * If a bulletin is sent, report N_AIDS news for positive @goodness,
+ * N_HURTS news for negative @goodness
+ * The bulletin's text is like "@name of sector X,Y changed <how> by an
  * act of <deity>, where <deity> is the deity's name, and <how> comes
- * from formatting printf-style FMT with optional arguments.
+ * from formatting printf-style @fmt with optional arguments.
  */
 void
 divine_sct_change(struct sctstr *sp, char *name,
@@ -110,7 +110,7 @@ divine_sct_change(struct sctstr *sp, char *name,
 }
 
 /*
- * Report deity meddling with NP.
+ * Report deity meddling with @np.
  * Just like divine_sct_change(), only for nations.
  */
 void
@@ -138,7 +138,7 @@ divine_nat_change(struct natstr *np, char *name,
 }
 
 /*
- * Report deity meddling with UNIT.
+ * Report deity meddling with @unit.
  * Just like divine_sct_change(), only for ships, planes, land units,
  * nukes.
  */
@@ -232,8 +232,8 @@ divine_flag_change(struct empobj *unit, char *name,
 }
 
 /*
- * Report deity giving/taking commodities to/from WHOM.
- * Give AMT of IP in PLACE.
+ * Report deity giving/taking commodities to/from @whom.
+ * Give @amt of @ip in @place.
  */
 void
 report_divine_gift(natid whom, struct ichrstr *ip, int amt, char *place)

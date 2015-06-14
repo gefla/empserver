@@ -86,10 +86,10 @@ enum nsc_cat {
  * Value, possibly symbolic
  *
  * If type is NSC_NOTYPE, it's an error value.
- * If category is NSC_VAL, the value is in val_as, and the type is a
+ * If category is NSC_VAL, the value is in @val_as, and the type is a
  * promoted type.
  * If category is NSC_OFF, the value is in a context object, and
- * val_as.sym specifies how to get it, as follows.
+ * @val_as.sym specifies how to get it, as follows.
  * If sym.get is null, and type is NSC_STRINGY, the value is a string
  * stored in sym.len characters starting at sym.offs in the context
  * object.  sym.idx must be zero.  Ugly wart: if sym.len is one, the
@@ -180,7 +180,7 @@ struct nstr_item {
 };
 
 /*
- * Symbol binding: associate NAME with VALUE.
+ * Symbol binding: associate @name with @value.
  */
 struct symbol {
     int value;
@@ -200,16 +200,16 @@ enum {
  * Selector descriptor
  *
  * A selector describes an attribute of some context object.
- * A selector with ca_type NSC_NOTYPE is invalid.
- * If ca_get is null, the selector describes a datum of type ca_type
- * at offset ca_offs in the context object.
+ * A selector with @ca_type NSC_NOTYPE is invalid.
+ * If @ca_get is null, the selector describes a datum of type @ca_type
+ * at offset @ca_offs in the context object.
  * A datum of type NSC_STRINGY is a string stored in an array of
- * ca_len characters.  Ugly wart: if ca_len is one, the terminating
+ * @ca_len characters.  Ugly wart: if @ca_len is one, the terminating
  * null character may be omitted.
  * A datum of any other type is either a scalar of that type (if
- * ca_len is zero), or an array of ca_len elements of that type.
- * If ca_get is not null, the selector is virtual.  Values can be
- * obtained by calling ca_get(VAL, NP, CTXO), where VAL has been
+ * @ca_len is zero), or an array of @ca_len elements of that type.
+ * If @ca_get is not null, the selector is virtual.  Values can be
+ * obtained by calling @ca_get(VAL, NP, CTXO), where VAL has been
  * initialized from the selector and an index by nstr_mksymval(),
  * NP points to the country to use for coordinate translation and
  * access control (null for none), and CTXO is the context object.
@@ -224,8 +224,8 @@ enum {
  * elements, indexed by country number, and the context object must be
  * EF_NATION.  Array elements are masked for contact when opt_HIDDEN
  * is on.
- * If ca_table is not EF_BAD, the datum refers to that Empire table;
- * ca_type must be an integer type.  If flag NSC_BITS is set, the
+ * If @ca_table is not EF_BAD, the datum refers to that Empire table;
+ * @ca_type must be an integer type.  If flag NSC_BITS is set, the
  * datum consists of flag bits, and the referred table must be a
  * symbol table defining those bits.
  */

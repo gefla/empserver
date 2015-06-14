@@ -132,7 +132,7 @@ static double pf_sumcost;
 #endif	/* !PATH_FIND_STATS */
 
 #ifndef NDEBUG			/* silence "not used" warning */
-/* Is sector with uid UID open?  */
+/* Is sector with uid @uid open?  */
 static int
 pf_is_open(int uid)
 {
@@ -140,7 +140,7 @@ pf_is_open(int uid)
 }
 #endif
 
-/* Is sector with uid UID closed?  */
+/* Is sector with uid @uid closed?  */
 static int
 pf_is_closed(int uid)
 {
@@ -151,7 +151,7 @@ pf_is_closed(int uid)
     return pf_map[uid].visit > pf_visit;
 }
 
-/* Is sector with uid UID unvisited?  */
+/* Is sector with uid @uid unvisited?  */
 static int
 pf_is_unvisited(int uid)
 {
@@ -188,7 +188,7 @@ pf_check(void)
 #define pf_check() ((void)0)
 #endif
 
-/* Swap pf_heap's I-th and J-th elements.  */
+/* Swap pf_heap's @i-th and @j-th elements. */
 static void
 pf_heap_swap(int i, int j)
 {
@@ -203,7 +203,7 @@ pf_heap_swap(int i, int j)
     pf_map[pf_heap[j].uid].heapi = j;
 }
 
-/* Restore heap property after N-th element's cost increased.  */
+/* Restore heap property after @n-th element's cost increased. */
 static void
 pf_sift_down(int n)
 {
@@ -219,7 +219,7 @@ pf_sift_down(int n)
     }
 }
 
-/* Restore heap property after N-th element's cost decreased.  */
+/* Restore heap property after @n-th element's cost decreased. */
 static void
 pf_sift_up(int n)
 {
@@ -234,9 +234,9 @@ pf_sift_up(int n)
 }
 
 /*
- * Open the unvisited sector X,Y.
- * UID is sector uid, it equals XYOFFSET(X,Y).
- * Cheapest path from source comes from direction DIR and has cost COST.
+ * Open the unvisited sector @x,@y.
+ * @uid is sector uid, it equals XYOFFSET(@x,@y).
+ * Cheapest path from source comes from direction @dir and has cost @cost.
  */
 static void
 pf_open(int uid, coord x, coord y, int dir, double cost)
@@ -284,7 +284,7 @@ pf_close(void)
 /* silence "not used" warning */
 #ifdef PATH_FIND_DEBUG
 /*
- * Return cost from source to sector with uid UID.
+ * Return cost from source to sector with uid @uid.
  * It must be visited, i.e. open or closed.
  */
 static double
@@ -327,8 +327,8 @@ y_in_dir(coord y, int dir)
 
 /*
  * Set the current source and cost function.
- * SX,SY is the source.
- * The cost to enter the sector with uid u is COST(ACTOR, u).
+ * @sx,@sy is the source.
+ * The cost to enter the sector with uid u is @cost(@actor, u).
  * Negative value means the sector can't be entered.
  */
 static void
@@ -359,7 +359,7 @@ pf_set_source(coord sx, coord sy, natid actor, double (*cost)(natid, int))
 }
 
 /*
- * Find cheapest path from current source to DX,DY, return its cost.
+ * Find cheapest path from current source to @dx,@dy, return its cost.
  */
 double
 path_find_to(coord dx, coord dy)
@@ -413,10 +413,10 @@ path_find_to(coord dx, coord dy)
 }
 
 /*
- * Write route from SX,SY to DX,DY to BUF[BUFSIZ], return its length.
- * If the route is longer than BUFSIZ-1 characters, it's truncated.
+ * Write route from @sx,@sy to @dx,@dy to @buf[@bufsiz], return its length.
+ * If the route is longer than @bufsiz-1 characters, it's truncated.
  * You must compute path cost first, with path_find_to().
- * SX,SY must be on a shortest path from the current source to DX,DY.
+ * @sx,@sy must be on a shortest path from the current source to @dx,@dy.
  */
 size_t
 path_find_route(char *buf, size_t bufsz,
@@ -465,7 +465,7 @@ path_find_route(char *buf, size_t bufsz,
 }
 
 /*
- * Rotate BUF[BUFSZ] to put BUF[I] into BUF[0], and zero-terminate.
+ * Rotate @buf[@bufsz] to put @buf[@i] into @buf[0], and zero-terminate.
  */
 static char *
 bufrotate(char *buf, size_t bufsz, size_t i)
@@ -632,8 +632,8 @@ static double (*cost_tab[])(natid, int) = {
 };
 
 /*
- * Start finding paths from SX,SY.
- * Use mobility costs for ACTOR and MOBTYPE.
+ * Start finding paths from @sx,@sy.
+ * Use mobility costs for @actor and @mobtype.
  */
 void
 path_find_from(coord sx, coord sy, natid actor, int mobtype)
@@ -642,8 +642,8 @@ path_find_from(coord sx, coord sy, natid actor, int mobtype)
 }
 
 /*
- * Find cheapest path from SX,SY to DX,DY, return its mobility cost.
- * Use mobility costs for ACTOR and MOBTYPE.
+ * Find cheapest path from @sx,@sy to @dx,@dy, return its mobility cost.
+ * Use mobility costs for @actor and @mobtype.
  */
 double
 path_find(coord sx, coord sy, coord dx, coord dy, natid actor, int mobtype)

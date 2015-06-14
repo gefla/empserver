@@ -96,7 +96,7 @@ static int xubody(FILE *);
 static int xutail(FILE *, struct castr *);
 
 /*
- * Does the code hardcode indexes for table TYPE?
+ * Does the code hardcode indexes for table @type?
  */
 static int
 have_hardcoded_indexes(int type)
@@ -106,7 +106,7 @@ have_hardcoded_indexes(int type)
 }
 
 /*
- * Okay to truncate table TYPE?
+ * Okay to truncate table @type?
  */
 static int
 may_truncate(int type)
@@ -115,7 +115,7 @@ may_truncate(int type)
 }
 
 /*
- * Is TYPE's 0-th selector a usable ID?
+ * Is @type's 0-th selector a usable ID?
  */
 static int
 ca0_is_id(int type)
@@ -126,7 +126,7 @@ ca0_is_id(int type)
 }
 
 /*
- * Can we fill in gaps in table TYPE?
+ * Can we fill in gaps in table @type?
  */
 static int
 can_fill_gaps(int type)
@@ -136,7 +136,7 @@ can_fill_gaps(int type)
 }
 
 /*
- * Is table TYPE's ID-th record OBJ redundant for xundump()
+ * Is table @type's @id-th record @obj redundant for xundump()
  */
 int
 xundump_redundant(int type, int id, void *obj)
@@ -194,9 +194,9 @@ tbl_end(void)
 }
 
 /*
- * Seek to current table's ID-th object.
+ * Seek to current table's @id-th object.
  * Extend the table if necessary.
- * Save ID in cur_id.
+ * Save @id in cur_id.
  * Return the object on success, NULL on failure.
  */
 static void *
@@ -219,7 +219,7 @@ tbl_seek(int id)
 }
 
 /*
- * Omit ID1..ID2-1.
+ * Omit @id1..@id2-1.
  * Reset the omitted objects to default state.
  */
 static void
@@ -241,7 +241,7 @@ omit_ids(int id1, int id2)
 }
 
 /*
- * Return the smallest non-omitted ID in ID1..ID2-1 if any, else -1.
+ * Return the smallest non-omitted ID in @id1..@id2-1 if any, else -1.
  */
 static int
 expected_id(int id1, int id2)
@@ -290,8 +290,8 @@ tbl_part_done(void)
 }
 
 /*
- * Get selector for field FLDNO.
- * Assign the field's selector index to *IDX, unless it is null.
+ * Get selector for field @fldno.
+ * Assign the field's selector index to *@idx, unless it is null.
  * Return the selector on success, null pointer on error.
  */
 static struct castr *
@@ -309,7 +309,7 @@ getfld(int fldno, int *idx)
 }
 
 /*
- * Find the field for selector CA with index IDX.
+ * Find the field for selector @ca with index @idx.
  * Return the field number if it exists, else -1.
  */
 static int
@@ -365,7 +365,7 @@ rowid(void)
 }
 
 /*
- * Find the field NAME with index IDX and value representable as long.
+ * Find the field @name with index @idx and value representable as long.
  * Return the field number if it exists, else -1.
  */
 static int
@@ -493,7 +493,7 @@ rowobj(void)
 }
 
 /*
- * Is a new value for field FLDNO required to match the old one?
+ * Is a new value for field @fldno required to match the old one?
  */
 static int
 fldval_must_match(int fldno)
@@ -511,7 +511,7 @@ fldval_must_match(int fldno)
 }
 
 /*
- * Set OBJ's field FLDNO to DBL.
+ * Set @obj's field @fldno to @dbl.
  * Return 0 on success, -1 on error.
  */
 static int
@@ -594,7 +594,7 @@ putnum(void *obj, int fldno, double dbl)
 }
 
 /*
- * Set obj's field FLDNO to STR.
+ * Set obj's field @fldno to @str.
  * Return 0 on success, -1 on error.
  */
 static int
@@ -685,7 +685,7 @@ putrow(void)
 }
 
 /*
- * Read and ignore field separators from FP.
+ * Read and ignore field separators from @fp.
  * Return first character that is not a field separator.
  */
 static int
@@ -707,8 +707,8 @@ skipfs(FILE *fp)
 }
 
 /*
- * Decode escape sequences in BUF.
- * Return BUF on success, null pointer on failure.
+ * Decode escape sequences in @buf.
+ * Return @buf on success, null pointer on failure.
  */
 static char *
 xuesc(char *buf)
@@ -733,8 +733,8 @@ xuesc(char *buf)
 }
 
 /*
- * Read an identifier from FP into BUF.
- * BUF must have space for 1024 characters.
+ * Read an identifier from @fp into @buf.
+ * @buf must have space for 1024 characters.
  * Return number of characters read on success, -1 on failure.
  */
 static int
@@ -749,9 +749,9 @@ getid(FILE *fp, char *buf)
 }
 
 /*
- * Try to read a field name from FP.
- * I is the field number, counting from zero.
- * If a name is read, set fldca[I] and fldidx[I] for it, and update
+ * Try to read a field name from @fp.
+ * @i is the field number, counting from zero.
+ * If a name is read, set fldca[@i] and fldidx[@i] for it, and update
  * caflds[].
  * Return 1 if a name or ... was read, 0 on end of line, -1 on error.
  */
@@ -814,8 +814,8 @@ xufldname(FILE *fp, int i)
 }
 
 /*
- * Try to read a field value from FP.
- * I is the field number, counting from zero.
+ * Try to read a field value from @fp.
+ * @i is the field number, counting from zero.
  * Return 1 if a value was read, 0 on end of line, -1 on error.
  */
 static int
@@ -891,8 +891,8 @@ xufld(FILE *fp, int i)
 }
 
 /*
- * Read fields from FP.
- * Use PARSE() to read each field.
+ * Read fields from @fp.
+ * Use @parse() to read each field.
  * Return number of fields read on success, -1 on error.
  */
 static int
@@ -915,9 +915,9 @@ xuflds(FILE *fp, int (*parse)(FILE *, int))
 }
 
 /*
- * Define the FLDNO-th field.
- * If IDX is negative, define as selector NAME, else as NAME(IDX).
- * Set fldca[FLDNO] and fldidx[FLDNO] accordingly.
+ * Define the @fldno-th field.
+ * If @idx is negative, define as selector @name, else as @name(@idx).
+ * Set fldca[@fldno] and fldidx[@fldno] accordingly.
  * Update caflds[].
  * Return 1 on success, -1 on error.
  */
@@ -993,7 +993,7 @@ chkflds(void)
 }
 
 /*
- * Set value of field FLDNO in current row to DBL.
+ * Set value of field @fldno in current row to @dbl.
  * Return 1 on success, -1 on error.
  */
 static int
@@ -1008,7 +1008,7 @@ setnum(int fldno, double dbl)
 }
 
 /*
- * Set value of field FLDNO in current row to STR.
+ * Set value of field @fldno in current row to @str.
  * Return 1 on success, -1 on error.
  */
 static int
@@ -1025,8 +1025,8 @@ setstr(int fldno, char *str)
 }
 
 /*
- * Resolve symbol name ID in table referred to by CA.
- * Use field number N for error messages.
+ * Resolve symbol name @id in table referred to by @ca.
+ * Use field number @n for error messages.
  * Return index in referred table on success, -1 on failure.
  */
 static int
@@ -1042,7 +1042,7 @@ xunsymbol(char *id, struct castr *ca, int n)
 
 /*
  * Map symbol index to symbol value.
- * CA is the table, and I is the index in it.
+ * @ca is the table, and @i is the index in it.
  */
 static int
 symval(struct castr *ca, int i)
@@ -1057,7 +1057,7 @@ symval(struct castr *ca, int i)
 }
 
 /*
- * Set value of field FLDNO in current object to value of symbol SYM.
+ * Set value of field @fldno in current object to value of symbol @sym.
  * Return 1 on success, -1 on error.
  */
 static int
@@ -1080,7 +1080,7 @@ setsym(int fldno, char *sym)
 }
 
 /*
- * Create an empty symbol set for field FLDNO in *SET.
+ * Create an empty symbol set for field @fldno in *@set.
  * Return 1 on success, -1 on error.
  */
 static int
@@ -1100,8 +1100,8 @@ mtsymset(int fldno, long *set)
 }
 
 /*
- * Add a symbol to a symbol set for field FLDNO in *SET.
- * SYM is the name of the symbol to add.
+ * Add a symbol to a symbol set for field @fldno in *@set.
+ * @sym is the name of the symbol to add.
  * Return 1 on success, -1 on error.
  */
 static int
@@ -1122,8 +1122,8 @@ add2symset(int fldno, long *set, char *sym)
 }
 
 /*
- * Read an xdump table header line from FP.
- * Expect header for EXPECTED_TABLE, unless it is EF_BAD.
+ * Read an xdump table header line from @fp.
+ * Expect header for @expected_table, unless it is EF_BAD.
  * Recognize header for machine- and human-readable syntax, and set
  * human accordingly.
  * Return table type on success, -2 on EOF before header, -1 on failure.
@@ -1171,8 +1171,8 @@ xuheader(FILE *fp, int expected_table)
 
 /*
  * Find fields in this xdump.
- * If reading human-readable syntax, read a field header line from FP.
- * Else take fields from the table's selectors in CA[].
+ * If reading human-readable syntax, read a field header line from @fp.
+ * Else take fields from the table's selectors in @ca[].
  * Set ellipsis, nflds, fldca[], fldidx[] and caflds[] accordingly.
  * Return 0 on success, -1 on failure.
  */
@@ -1215,9 +1215,9 @@ xufldhdr(FILE *fp, struct castr ca[])
 }
 
 /*
- * Read xdump footer from FP.
- * CA[] contains the table's selectors.
- * The body had RECS records.
+ * Read xdump footer from @fp.
+ * @ca[] contains the table's selectors.
+ * The body had @recs records.
  * Update cafldspp[] from caflds[].
  * Return 0 on success, -1 on failure.
  */
@@ -1251,12 +1251,12 @@ xufooter(FILE *fp, struct castr ca[], int recs)
 }
 
 /*
- * Read an xdump table from FP.
+ * Read an xdump table from @fp.
  * Both machine- and human-readable xdump syntax are recognized.
- * Expect table EXPECTED_TABLE, unless it is EF_BAD.
+ * Expect table @expected_table, unless it is EF_BAD.
  * Report errors to stderr.
- * Messages assume FP starts in the file FILE at line *PLNO.
- * Update *PLNO to reflect lines read from FP.
+ * Messages assume @fp starts in the file @file at line *@plno.
+ * Update *@plno to reflect lines read from @fp.
  * Return table type on success, -2 on EOF before header, -1 on failure.
  */
 int
@@ -1308,8 +1308,8 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
 }
 
 /*
- * Read the remainder of an xdump after the table header line from FP.
- * CA[] contains the table's selectors.
+ * Read the remainder of an xdump after the table header line from @fp.
+ * @ca[] contains the table's selectors.
  * Return 0 on success, -1 on failure.
  */
 static int
@@ -1332,7 +1332,7 @@ xutail(FILE *fp, struct castr *ca)
 }
 
 /*
- * Read the body of an xdump table from FP.
+ * Read the body of an xdump table from @fp.
  * Return number of rows read on success, -1 on failure.
  */
 static int

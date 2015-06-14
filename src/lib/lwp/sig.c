@@ -55,7 +55,7 @@ static struct lwpProc *LwpSigWaiter;
 static void lwpCatchAwaitedSig(int);
 
 /*
- * Initialize waiting for signals in SET.
+ * Initialize waiting for signals in @set.
  */
 void
 lwpInitSigWait(sigset_t *set)
@@ -83,7 +83,7 @@ lwpCatchAwaitedSig(int sig)
 }
 
 /*
- * Test whether a signal from SET has been catched.
+ * Test whether a signal from @set has been catched.
  * If yes, delete that signal from the set of catched signals, and
  * return its number.
  * Else return 0.
@@ -107,8 +107,8 @@ lwpGetSig(sigset_t *set)
 }
 
 /*
- * Wait until a signal from SET arrives.
- * Assign its number to *SIG and return 0.
+ * Wait until a signal from @set arrives.
+ * Assign its number to *@sig and return 0.
  * If another thread is already waiting for signals, return EBUSY
  * without waiting.
  */

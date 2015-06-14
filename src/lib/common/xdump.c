@@ -80,13 +80,13 @@
 #include "xdump.h"
 
 /*
- * Initialize XD.
- * Translate dump for country CNUM, except when CNUM is NATID_BAD.
- * If HUMAN, dump in human-readable format.
- * If SLOPPY, try to cope with invalid data (may result in invalid
+ * Initialize @xd.
+ * Translate dump for country @cnum, except when @cnum is NATID_BAD.
+ * If @human, dump in human-readable format.
+ * If @sloppy, try to cope with invalid data (may result in invalid
  * dump).
- * Dump is to be delivered through callback PR.
- * Return XD.
+ * Dump is to be delivered through callback @pr.
+ * Return @xd.
  */
 struct xdstr *
 xdinit(struct xdstr *xd, natid cnum, int human, int sloppy,
@@ -101,11 +101,11 @@ xdinit(struct xdstr *xd, natid cnum, int human, int sloppy,
 }
 
 /*
- * Evaluate a attribute of an object into VAL, return VAL.
- * CA describes the attribute.
- * XD is the xdump descriptor.
- * PTR points to the context object.
- * IDX is the index within the attribute.
+ * Evaluate a attribute of an object into @val, return @val.
+ * @ca describes the attribute.
+ * @xd is the xdump descriptor.
+ * @ptr points to the context object.
+ * @idx is the index within the attribute.
  */
 static struct valstr *
 xdeval(struct valstr *val, struct xdstr *xd,
@@ -116,8 +116,8 @@ xdeval(struct valstr *val, struct xdstr *xd,
 }
 
 /*
- * Dump string STR to XD with funny characters escaped.
- * Dump at most N characters.
+ * Dump string @str to @xd with funny characters escaped.
+ * Dump at most @n characters.
  */
 static void
 xdpresc(struct xdstr *xd, char *str, size_t n)
@@ -140,8 +140,8 @@ xdpresc(struct xdstr *xd, char *str, size_t n)
 }
 
 /*
- * Dump VAL prefixed with SEP to XD, in machine readable format.
- * VAL must be evaluated.
+ * Dump @val prefixed with @sep to @xd, in machine readable format.
+ * @val must be evaluated.
  * Return " ".
  */
 static char *
@@ -175,8 +175,8 @@ xdprval_nosym(struct xdstr *xd, struct valstr *val, char *sep)
 }
 
 /*
- * Dump symbol with value KEY from symbol table TYPE to XD.
- * Prefix with SEP, return " ".
+ * Dump symbol with value @key from symbol table @type to @xd.
+ * Prefix with @sep, return " ".
  */
 static char *
 xdprsym(struct xdstr *xd, int key, int type, char *sep)
@@ -194,9 +194,9 @@ xdprsym(struct xdstr *xd, int key, int type, char *sep)
 }
 
 /*
- * Dump VAL prefixed with SEP to XD, return " ".
- * VAL must be evaluated.
- * CA describes the field from which the value was fetched.
+ * Dump @val prefixed with @sep to @xd, return " ".
+ * @val must be evaluated.
+ * @ca describes the field from which the value was fetched.
  */
 static char *
 xdprval_sym(struct xdstr *xd, struct valstr *val, struct castr *ca,
@@ -228,9 +228,9 @@ xdprval_sym(struct xdstr *xd, struct valstr *val, struct castr *ca,
 }
 
 /*
- * Dump field values of a context object to XD.
- * CA[] describes fields.
- * PTR points to context object.
+ * Dump field values of a context object to @xd.
+ * @ca[] describes fields.
+ * @ptr points to context object.
  */
 void
 xdflds(struct xdstr *xd, struct castr ca[], void *ptr)
@@ -254,8 +254,8 @@ xdflds(struct xdstr *xd, struct castr ca[], void *ptr)
 }
 
 /*
- * Dump header for dump NAME to XD.
- * If META, it's for the meta-data dump rather than the data dump.
+ * Dump header for dump @name to @xd.
+ * If @meta, it's for the meta-data dump rather than the data dump.
  */
 void
 xdhdr(struct xdstr *xd, char *name, int meta)
@@ -269,9 +269,9 @@ xdhdr(struct xdstr *xd, char *name, int meta)
 }
 
 /*
- * Dump column header to XD.
- * CA[] describes fields.
- * Does nothing unless XD is human-readable.
+ * Dump column header to @xd.
+ * @ca[] describes fields.
+ * Does nothing unless @xd is human-readable.
  */
 void
 xdcolhdr(struct xdstr *xd, struct castr ca[])

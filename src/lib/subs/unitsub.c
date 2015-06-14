@@ -464,8 +464,8 @@ unit_move(struct emp_qelem *list)
 }
 
 /*
- * Teleport UNIT to X,Y.
- * If UNIT's mission op-area is centered on it, keep it centered.
+ * Teleport @unit to @x,@y.
+ * If @unit's mission op-area is centered on it, keep it centered.
  */
 void
 unit_teleport(struct empobj *unit, coord x, coord y)
@@ -479,7 +479,7 @@ unit_teleport(struct empobj *unit, coord x, coord y)
 }
 
 /*
- * Update cargo of CARRIER for movement or destruction.
+ * Update cargo of @carrier for movement or destruction.
  * If the carrier is destroyed, destroy its cargo (planes, land units,
  * nukes).
  * Else update their location to the carrier's.  Any op sectors equal
@@ -511,8 +511,8 @@ unit_update_cargo(struct empobj *carrier)
 }
 
 /*
- * Drop cargo of UNIT.
- * Give it to NEWOWN, unless it's zero.
+ * Drop cargo of @unit.
+ * Give it to @newown, unless it's zero.
  */
 void
 unit_drop_cargo(struct empobj *unit, natid newown)
@@ -547,9 +547,9 @@ unit_drop_cargo(struct empobj *unit, natid newown)
 }
 
 /*
- * Give UNIT and its cargo to RECIPIENT.
- * No action if RECIPIENT already owns UNIT.
- * If GIVER is non-zero, inform RECIPIENT and GIVER of the transaction.
+ * Give @unit and its cargo to @recipient.
+ * No action if @recipient already owns @unit.
+ * If @giver is non-zero, inform @recipient and @giver of the transaction.
  * Clears mission and group on the units given away.
  */
 void
@@ -581,7 +581,7 @@ unit_give_away(struct empobj *unit, natid recipient, natid giver)
 }
 
 /*
- * Wipe orders and such from UNIT.
+ * Wipe orders and such from @unit.
  */
 void
 unit_wipe_orders(struct empobj *unit)

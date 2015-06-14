@@ -53,10 +53,10 @@ static int insert_update(time_t, time_t[], int, time_t);
 static int delete_update(time_t, time_t[], int);
 
 /*
- * Read update schedule from file FNAME.
- * Put the first N-1 updates after T0 into SCHED[] in ascending order,
+ * Read update schedule from file @fname.
+ * Put the first @n-1 updates after @t0 into @sched[] in ascending order,
  * terminated with a zero.
- * Use ANCHOR as initial anchor for anchor-relative times.
+ * Use @anchor as initial anchor for anchor-relative times.
  * Return 0 on success, -1 on failure.
  */
 int
@@ -97,10 +97,10 @@ read_schedule(char *fname, time_t sched[], int n, time_t t0, time_t anchor)
 }
 
 /*
- * Parse an update schedule directive from LINE.
- * Update SCHED[] and ANCHOR accordingly.
- * SCHED[] holds the first N-1 updates after T0 in ascending order.
- * FNAME and LNO file name and line number for reporting errors.
+ * Parse an update schedule directive from @line.
+ * Update @sched[] and @anchor accordingly.
+ * @sched[] holds the first N-1 updates after @t0 in ascending order.
+ * @fname and @lno file name and line number for reporting errors.
  */
 static int
 parse_schedule_line(char *line, time_t sched[], int n,
@@ -149,8 +149,8 @@ parse_schedule_line(char *line, time_t sched[], int n,
 }
 
 /*
- * Complain and return zero when T is bad, else return non-zero.
- * FNAME and LNO file name and line number.
+ * Complain and return zero when @t is bad, else return non-zero.
+ * @fname and @lno file name and line number.
  */
 static int
 time_ok(time_t t, char *fname, int lno)
@@ -163,8 +163,8 @@ time_ok(time_t t, char *fname, int lno)
 }
 
 /*
- * Parse a time from S into *T.
- * *ANCHOR is the base for anchor-relative time.
+ * Parse a time from @s into *@t.
+ * *@anchor is the base for anchor-relative time.
  * Return pointer to first character not parsed on success,
  * null pointer on failure.
  */
@@ -240,7 +240,7 @@ parse_time(time_t *t, char *s, time_t *anchor)
 }
 
 /*
- * Parse an every clause from S into *SECS.
+ * Parse an every clause from @s into *@secs.
  * Return pointer to first character not parsed on success,
  * null pointer on failure.
  */
@@ -263,8 +263,8 @@ parse_every(time_t *secs, char *s)
 }
 
 /*
- * Parse an until clause from S into *T.
- * *ANCHOR is the base for anchor-relative time.
+ * Parse an until clause from @s into *@t.
+ * *@anchor is the base for anchor-relative time.
  * Return pointer to first character not parsed on success,
  * null pointer on failure.
  */
@@ -281,8 +281,8 @@ parse_until(time_t *t, char *s, time_t *anchor)
 }
 
 /*
- * Parse an skip clause from S into *T.
- * *ANCHOR is the base for anchor-relative time.
+ * Parse an skip clause from @s into *@t.
+ * *@anchor is the base for anchor-relative time.
  * Return pointer to first character not parsed on success,
  * null pointer on failure.
  */
@@ -299,7 +299,7 @@ parse_skip(time_t *t, char *s, time_t *anchor)
 }
 
 /*
- * Return the index of the first update at or after T in SCHED[].
+ * Return the index of the first update at or after @t in @sched[].
  */
 static int
 find_update(time_t t, time_t sched[])
@@ -312,11 +312,11 @@ find_update(time_t t, time_t sched[])
 }
 
 /*
- * Insert update at T into SCHED[].
- * SCHED[] holds the first N-1 updates after T0 in ascending order.
- * If T is before T0 or outside game_days/game_hours, return -1.
- * If there's no space for T in SCHED[], return N-1.
- * Else insert T into SCHED[] and return its index in SCHED[].
+ * Insert update at @t into @sched[].
+ * @sched[] holds the first @n-1 updates after @t0 in ascending order.
+ * If @t is before @t0 or outside game_days/game_hours, return -1.
+ * If there's no space for @t in @sched[], return N-1.
+ * Else insert @t into @sched[] and return its index in @sched[].
  */
 static int
 insert_update(time_t t, time_t sched[], int n, time_t t0)
@@ -334,9 +334,9 @@ insert_update(time_t t, time_t sched[], int n, time_t t0)
 }
 
 /*
- * Delete update T from SCHED[].
- * SCHED[] holds N-1 updates in ascending order.
- * Return the index of the first update after T in SCHED[].
+ * Delete update @t from @sched[].
+ * @sched[] holds @n-1 updates in ascending order.
+ * Return the index of the first update after @t in @sched[].
  */
 static int
 delete_update(time_t t, time_t sched[], int n)

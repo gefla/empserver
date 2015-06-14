@@ -36,19 +36,19 @@
 #include "prototypes.h"
 
 /*
- * Parse user command in BUF.
- * BUF is UTF-8.
- * Command name and arguments are copied into SPACE[], whose size must
- * be at least strlen(BUF) + 1.
- * Set ARG[0] to the zero-terminated command name.
- * Set ARG[1..N] to the zero-terminated arguments, where N is the
- * number of arguments.  Set ARG[N+1..127] to NULL.
- * Set TAIL[0..N] to beginning of ARG[0] in BUF[].
- * If CONDP is not null, recognize conditional argument syntax, and
- * set *CONDP to the conditional argument if present, else NULL.
- * If REDIR is not null, recognize redirection syntax, and set *REDIR
+ * Parse user command in @buf.
+ * @buf is UTF-8.
+ * Command name and arguments are copied into @space[], whose size must
+ * be at least strlen(@buf) + 1.
+ * Set @arg[0] to the zero-terminated command name.
+ * Set @arg[1..N] to the zero-terminated arguments, where N is the
+ * number of arguments.  Set @arg[N+1..127] to NULL.
+ * Set @tail[0..N] to beginning of @arg[0] in @buf[].
+ * If @condp is not null, recognize conditional argument syntax, and
+ * set *@condp to the conditional argument if present, else NULL.
+ * If @redir is not null, recognize redirection syntax, and set *@redir
  * to UTF-8 redirection string if present, else NULL.
- * Return number of slots used in ARG[], or -1 on error.
+ * Return number of slots used in @arg[], or -1 on error.
  */
 int
 parse(char *buf, char *space, char **arg,

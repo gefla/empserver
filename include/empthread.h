@@ -101,8 +101,8 @@ void empth_request_shutdown(void);
 
 /*
  * Initialize thread package.
- * CTX points to a thread context variable; see empth_create().
- * FLAGS request optional features.
+ * @ctx points to a thread context variable; see empth_create().
+ * @flags request optional features.
  * Should return 0 on success, -1 on error, but currently always
  * returns 0.
  */
@@ -110,12 +110,12 @@ int empth_init(void **ctx, int flags);
 
 /*
  * Create a new thread.
- * ENTRY is the entry point.  It will be called with argument UD.
+ * @entry is the entry point.  It will be called with argument @ud.
  * If it returns, the thread terminates as if it called empth_exit().
- * Thread stack is at least SIZE bytes.
- * FLAGS should be the same as were passed to empth_init(), or zero.
- * NAME is the thread's name, it is used for logging and debugging.
- * UD is the value to pass to ENTRY.  It is also assigned to the
+ * Thread stack is at least @size bytes.
+ * @flags should be the same as were passed to empth_init(), or zero.
+ * @name is the thread's name, it is used for logging and debugging.
+ * @ud is the value to pass to @entry.  It is also assigned to the
  * context variable defined with empth_init() whenever the thread gets
  * scheduled.
  * Yield the processor.
@@ -131,12 +131,12 @@ empth_t *empth_create(void (*entry)(void *),
 empth_t *empth_self(void);
 
 /*
- * Return THREAD's name.
+ * Return @thread's name.
  */
 char *empth_name(empth_t *thread);
 
 /*
- * Set THREAD's name to NAME.
+ * Set @thread's name to @name.
  */
 void empth_set_name(empth_t *thread, char *name);
 
@@ -155,27 +155,27 @@ void empth_exit(void);
 void empth_yield(void);
 
 /*
- * Put current thread to sleep until file descriptor FD is ready for I/O.
- * If FLAGS & EMPTH_FD_READ, wake up if FD is ready for input.
- * If FLAGS & EMPTH_FD_WRITE, wake up if FD is ready for output.
+ * Put current thread to sleep until file descriptor @fd is ready for I/O.
+ * If @flags & EMPTH_FD_READ, wake up if @fd is ready for input.
+ * If @flags & EMPTH_FD_WRITE, wake up if @fd is ready for output.
  * At most one thread may sleep on the same file descriptor.
- * TIMEOUT, if non-null, limits the sleep time.
- * Return one when the FD is ready, zero on timeout or early wakeup by
+ * @timeout, if non-null, limits the sleep time.
+ * Return one when the @fd is ready, zero on timeout or early wakeup by
  * empth_wakeup(), -1 on error with errno set.
- * Note: Currently, Empire sleeps only on network I/O, i.e. FD is a
+ * Note: Currently, Empire sleeps only on network I/O, i.e. @fd is a
  * socket.  Implementations should not rely on that.
  */
 int empth_select(int fd, int flags, struct timeval *timeout);
 
 /*
- * Awaken THREAD if it is sleeping in empth_select() or empth_sleep().
+ * Awaken @thread if it is sleeping in empth_select() or empth_sleep().
  * This does not awaken threads sleeping in other functions.
  * Does not yield the processor.
  */
 void empth_wakeup(empth_t *thread);
 
 /*
- * Put current thread to sleep until the time is UNTIL.
+ * Put current thread to sleep until the time is @until.
  * Return 0 if it slept until that time.
  * Return -1 if woken up early, by empth_wakeup().
  */
@@ -189,18 +189,18 @@ int empth_wait_for_signal(void);
 
 /*
  * Create a read-write lock.
- * NAME is its name, it is used for debugging.
+ * @name is its name, it is used for debugging.
  * Return the read-write lock, or NULL on error.
  */
 empth_rwlock_t *empth_rwlock_create(char *name);
 
 /*
- * Destroy RWLOCK.
+ * Destroy @rwlock.
  */
 void empth_rwlock_destroy(empth_rwlock_t *rwlock);
 
 /*
- * Lock RWLOCK for writing.
+ * Lock @rwlock for writing.
  * A read-write lock can be locked for writing only when it is
  * unlocked.  If this is not the case, put the current thread to sleep
  * until it is.
@@ -208,7 +208,7 @@ void empth_rwlock_destroy(empth_rwlock_t *rwlock);
 void empth_rwlock_wrlock(empth_rwlock_t *rwlock);
 
 /*
- * Lock RWLOCK for reading.
+ * Lock @rwlock for reading.
  * A read-write lock can be locked for reading only when it is not
  * locked for writing, and no other thread is attempting to lock it
  * for writing.  If this is not the case, put the current thread to
@@ -217,8 +217,8 @@ void empth_rwlock_wrlock(empth_rwlock_t *rwlock);
 void empth_rwlock_rdlock(empth_rwlock_t *rwlock);
 
 /*
- * Unlock read-write lock RWLOCK.
- * The current thread must hold RWLOCK.
+ * Unlock read-write lock @rwlock.
+ * The current thread must hold @rwlock.
  * Wake up threads that can now lock it.
  */
 void empth_rwlock_unlock(empth_rwlock_t *rwlock);

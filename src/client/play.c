@@ -309,7 +309,7 @@ int send_eof;				/* need to send EOF_COOKIE */
 static volatile sig_atomic_t send_intr; /* need to send INTR_COOKIE */
 
 /*
- * Receive and process server output from SOCK.
+ * Receive and process server output from @sock.
  * Return number of characters received on success, -1 on error.
  */
 static int
@@ -398,7 +398,7 @@ recv_output(int sock)
 }
 
 /*
- * Receive command input from FD into INBUF.
+ * Receive command input from @fd into @inbuf.
  * Return 1 on receipt of input, zero on EOF, -1 on error.
  */
 static int
@@ -449,7 +449,7 @@ intr(int sig)
 }
 
 /*
- * Play on SOCK.
+ * Play on @sock.
  * The session must be in the playing phase.
  * Return 0 when the session ended, -1 on error.
  */

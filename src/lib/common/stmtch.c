@@ -35,14 +35,14 @@
 #include "match.h"
 
 /*
- * Find element named NEEDLE in array HAYSTACK[], return its index.
+ * Find element named @needle in array @haystack[], return its index.
  * Return M_NOTFOUND if there are no matches, M_NOTUNIQUE if there are
  * several.
- * Each array element has a pointer to its name stored at offset OFFS.
+ * Each array element has a pointer to its name stored at offset @offs.
  * Search stops when this name is a null pointer.
  * It ignores elements with an empty name.
- * NEEDLE is compared to element names with mineq(NEEDLE, NAME).
- * SIZE gives the size of an array element.
+ * @needle is compared to element names with mineq(@needle, NAME).
+ * @size gives the size of an array element.
  */
 int
 stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t size)
@@ -74,10 +74,10 @@ stmtch(char *needle, void *haystack, ptrdiff_t offs, size_t size)
 }
 
 /*
- * Compare A with B.
- * Return ME_EXACT if they are the same, or A is a prefix of B
- * followed by a space in B.
- * Return ME_PARTIAL if A is a prefix of B not followed by a space.
+ * Compare @a with @b.
+ * Return ME_EXACT if they are the same, or @a is a prefix of @b
+ * followed by a space in @b.
+ * Return ME_PARTIAL if @a is a prefix of @b not followed by a space.
  * Else return ME_MISMATCH.
  */
 int

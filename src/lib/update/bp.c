@@ -74,8 +74,8 @@ bp_ref(struct bp *bp, struct sctstr *sp)
 }
 
 /*
- * Return the item value tracked in BP for sector SP's item COMM.
- * COMM must be a tracked item type.
+ * Return the item value tracked in @bp for sector @sp's item @comm.
+ * @comm must be a tracked item type.
  */
 int
 bp_get_item(struct bp *bp, struct sctstr *sp, i_type comm)
@@ -87,7 +87,7 @@ bp_get_item(struct bp *bp, struct sctstr *sp, i_type comm)
     return bp_ref(bp, sp)->bp_item[idx];
 }
 
-/* Set the item value tracked in BP for sector SP's item COMM.  */
+/* Set the item value tracked in @bp for sector @sp's item @comm. */
 void
 bp_put_item(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
 {
@@ -97,7 +97,7 @@ bp_put_item(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
 	bp_ref(bp, sp)->bp_item[idx] = amount;
 }
 
-/* Set the item values tracked in BP for sector SP from VEC.  */
+/* Set the item values tracked in @bp for sector @sp from @vec. */
 void
 bp_put_items(struct bp *bp, struct sctstr *sp, short *vec)
 {
@@ -112,21 +112,21 @@ bp_put_items(struct bp *bp, struct sctstr *sp, short *vec)
     }
 }
 
-/* Return avail tracked in BP for sector SP.  */
+/* Return avail tracked in @bp for sector @sp. */
 int
 bp_get_avail(struct bp *bp, struct sctstr *sp)
 {
     return bp_ref(bp, sp)->bp_avail;
 }
 
-/* Set avail tracked in BP for sector SP.  */
+/* Set avail tracked in @bp for sector @sp. */
 void
 bp_put_avail(struct bp *bp, struct sctstr *sp, int amount)
 {
     bp_ref(bp, sp)->bp_avail = amount;
 }
 
-/* Set the values tracked in BP for sector SP to the values in SP.  */
+/* Set the values tracked in @bp for sector @sp to the values in @sp. */
 void
 bp_set_from_sect(struct bp *bp, struct sctstr *sp)
 {

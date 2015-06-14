@@ -233,8 +233,8 @@ def_support(coord x, coord y, natid victim, natid actee)
 }
 
 /*
- * Perform support missions in X,Y against VICTIM for ACTEE.
- * MISSION is either MI_OSUPPORT or MI_DSUPPORT.
+ * Perform support missions in @x,@y against @victim for @actee.
+ * @mission is either MI_OSUPPORT or MI_DSUPPORT.
  * Return total damage.
  */
 static int
@@ -747,7 +747,7 @@ mission_name(int mission)
 }
 
 /*
- * Maximum distance GP can perform its mission.
+ * Maximum distance @gp can perform its mission.
  * Note: this has nothing to do with the radius of the op-area.
  * oprange() governs where the unit *can* strike, the op-area governs
  * where the player wants it to strike.
@@ -773,7 +773,7 @@ oprange(struct empobj *gp)
 }
 
 /*
- * Does GP's mission op area cover X,Y?
+ * Does @gp's mission op area cover @x,@y?
  */
 int
 in_oparea(struct empobj *gp, coord x, coord y)

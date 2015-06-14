@@ -489,7 +489,7 @@ lnd_sel(struct nstr_item *ni, struct emp_qelem *list)
 }
 
 /*
- * Append LP to LIST.
+ * Append @lp to @list.
  * Return the new list link.
  */
 struct ulist *
@@ -587,11 +587,11 @@ lnd_put_one(struct ulist *llp)
 }
 
 /*
- * Sweep landmines with engineers in LAND_LIST for ACTOR.
- * All land units in LAND_LIST must be in the same sector.
- * If EXPLICIT is non-zero, this is for an explicit sweep command from
+ * Sweep landmines with engineers in @land_list for @actor.
+ * All land units in @land_list must be in the same sector.
+ * If @explicit is non-zero, this is for an explicit sweep command from
  * a player.  Else it's an automatic "on the move" sweep.
- * If TAKEMOB is non-zero, require and charge mobility.
+ * If @takemob is non-zero, require and charge mobility.
  * Return non-zero when the land units should stop.
  */
 int
@@ -954,8 +954,8 @@ lnd_mobcost(struct lndstr *lp, struct sctstr *sp)
 
 /*
  * Ask user to confirm sector abandonment, if any.
- * All land units in LIST must be in the same sector.
- * If removing the land units in LIST would abandon their sector, ask
+ * All land units in @list must be in the same sector.
+ * If removing the land units in @list would abandon their sector, ask
  * the user to confirm.
  * Return zero when abandonment was declined, else non-zero.
  */
@@ -1132,8 +1132,8 @@ lnd_mar_gauntlet(struct emp_qelem *list, int interdict, natid actor)
 }
 
 /*
- * Fire land unit support against VICTIM for ATTACKER, at X,Y.
- * If DEFENDING, this is defensive support, else offensive support.
+ * Fire land unit support against @victim for @attacker, at @x,@y.
+ * If @defending, this is defensive support, else offensive support.
  * Return total damage.
  */
 int
@@ -1192,8 +1192,8 @@ lnd_can_attack(struct lndstr *lp)
 }
 
 /*
- * Increase fortification value of LP.
- * Fortification costs mobility.  Use up to MOB mobility.
+ * Increase fortification value of @lp.
+ * Fortification costs mobility.  Use up to @mob mobility.
  * Return actual fortification increase.
  */
 int
@@ -1226,7 +1226,7 @@ lnd_fortify(struct lndstr *lp, int mob)
 }
 
 /*
- * Is there a engineer unit at X,Y that can help nation CN?
+ * Is there a engineer unit at @x,@y that can help nation @cn?
  */
 static int
 has_helpful_engineer(coord x, coord y, natid cn)
@@ -1246,7 +1246,7 @@ has_helpful_engineer(coord x, coord y, natid cn)
 }
 
 /*
- * Set LP's tech to TLEV along with everything else that depends on it.
+ * Set @lp's tech to @tlev along with everything else that depends on it.
  */
 void
 lnd_set_tech(struct lndstr *lp, int tlev)

@@ -353,8 +353,8 @@ bmnxtsct(struct nstr_sect *np)
 }
 
 /*
- * Return character to use in maps for sector type TYPE owned by OWN.
- * If OWNER_OR_GOD, the map is for the sector's owner or a deity.
+ * Return character to use in maps for sector type @type owned by @own.
+ * If @owner_or_god, the map is for the sector's owner or a deity.
  */
 static char
 map_char(int type, natid own, int owner_or_god)

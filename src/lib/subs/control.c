@@ -65,10 +65,10 @@ military_control(struct sctstr *sp)
 }
 
 /*
- * Ask user to confirm abandonment of sector SP, if any.
- * If removing AMNT commodities of type VTYPE and the land units in
- * LIST would abandon their sector, ask the user to confirm.
- * All land units in LIST must be in this sector.  LIST may be null.
+ * Ask user to confirm abandonment of sector @sp, if any.
+ * If removing @amnt commodities of type @vtype and the land units in
+ * @list would abandon their sector, ask the user to confirm.
+ * All land units in @list must be in this sector.  @list may be null.
  * Return zero when abandonment was declined, else non-zero.
  */
 int
@@ -91,10 +91,10 @@ abandon_askyn(struct sctstr *sp, i_type vtype, int amnt,
 }
 
 /*
- * Would removing this stuff from SP abandon it?
- * Consider removal of AMNT commodities of type VTYPE and the land
- * units in LIST.
- * All land units in LIST must be in this sector.  LIST may be null.
+ * Would removing this stuff from @sp abandon it?
+ * Consider removal of @amnt commodities of type @vtype and the land
+ * units in @list.
+ * All land units in @list must be in this sector.  @list may be null.
  */
 int
 would_abandon(struct sctstr *sp, i_type vtype, int amnt,

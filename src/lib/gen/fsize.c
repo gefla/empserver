@@ -52,7 +52,7 @@ fsize(int fd)
 }
 
 /*
- * Return the preferred block size for I/O on FD.
+ * Return the preferred block size for I/O on @fd.
  */
 int
 blksize(int fd)

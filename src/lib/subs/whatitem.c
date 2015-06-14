@@ -36,7 +36,7 @@
 
 /*
  * Get item type argument.
- * If INPUT is not empty, use it, else prompt for more input using PROMPT.
+ * If @input is not empty, use it, else prompt for more input using @prompt.
  * Return item characteristics on success, else NULL.
  */
 struct ichrstr *
@@ -56,7 +56,7 @@ whatitem(char *input, char *prompt)
 }
 
 /*
- * Map item type name STR to item characteristics, NULL if not found.
+ * Map item type name @str to item characteristics, NULL if not found.
  */
 struct ichrstr *
 item_by_name(char *str)
