@@ -2,10 +2,6 @@
 .NA Options "Server options"
 .LV Expert
 .nf
-The following options are from KSU code:
-
-SAIL:		another way to automatically move ships (may also be buggy)
-
 The following options were introduced in the Chainsaw server:
 
 EASY_BRIDGES:	bridges can be built from any sector
