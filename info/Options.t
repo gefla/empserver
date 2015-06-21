@@ -37,7 +37,7 @@ Allows real-time updating of mobility.
 .L NOFOOD
 No food is required.
 .L NOMOBCOST
-Ships pay 0 mob to fire. Subs pay 1/2 a sect's movement cost.
+Firing a ship's guns costs no mobility.
 .L NO_FORT_FIRE
 Forts cannot fire.
 .L NO_PLAGUE

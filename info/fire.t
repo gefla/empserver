@@ -74,8 +74,7 @@ also hit subs using ASW planes or subs which have sub-torp capability.)
 The program then prints a satisfying \*QKaboom!!!\*U and,
 assuming you were in range, inflicts damage.
 .s1
-Ships lose mobility points equal to 1/2 the cost they would
-pay to move 1 sector for each shot fired. (If the NOMOBCOST
+Ships lose 15 mobility points for each shot fired. (If the NOMOBCOST
 option is in use, ships pay no mobility for firing.)
 .s1
 The damages inflicted vary with efficiency of the attacker,
