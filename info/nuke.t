@@ -23,7 +23,7 @@ the nuke's current location,
 .L s
 the \*Qstockpile\*U designation letter,
 .L eff
-the nuke's efficiency, prefixed by \*Q=\*U if stopped,
+the nuke's efficiency, prefixed by \*Q!\*U if stopped,
 .L tech
 the tech level at which it was created,
 .L carry

@@ -23,7 +23,7 @@ the ship's current location,
 .L flt
 the fleet designation letter (set by \*Qfleetadd\*U command),
 .L eff
-the ship's efficiency, prefixed by \*Q=\*U if stopped,
+the ship's efficiency, prefixed by \*Q!\*U if stopped,
 .L civ
 the number of civilians on board,
 .L mil

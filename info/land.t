@@ -25,7 +25,7 @@ the land unit's current location,
 .L a
 the army designation letter (set by \*Qarmy\*U command),
 .L eff
-the land unit's efficiency, prefixed by \*Q=\*U if stopped,
+the land unit's efficiency, prefixed by \*Q!\*U if stopped,
 .L mil
 the number of mil currently in the land unit,
 .L frt

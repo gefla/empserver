@@ -25,7 +25,7 @@ the plane's current location,
 .L w
 the \*Qair wing\*U designation letter (set by \*Qwingadd\*U command),
 .L eff
-the plane's efficiency, prefixed by \*Q=\*U if stopped,
+the plane's efficiency, prefixed by \*Q!\*U if stopped,
 .L mu
 the number of mobility points the plane has,
 .L def
