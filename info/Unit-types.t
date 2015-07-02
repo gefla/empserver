@@ -168,8 +168,6 @@ The abilities are as follows.
 .EX show land capabilities
 .s1
 .in \w'engineer\0\0'u
-.L xlight
-the unit can carry xlight planes. (If the XLIGHT option is used)
 .L engineer
 the unit can lay/sweep mines, work on sectors/fortifications/etc.
 .L supply
