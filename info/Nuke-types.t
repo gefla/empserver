@@ -16,7 +16,7 @@ The details of the nuclear devices present in Empire can be seen using
 the show command.
 The meaning of the fields are as follows:
 .s1
-.in \w'name\0\0'u
+.in \w'abilities\0\0'u
 .L name
 The nukes name.
 .L lcm
@@ -27,15 +27,14 @@ The amount of hcm needed to build the nuke
 The amount of crude oil required to build it.
 .L rad
 The number of radioactive products required to build it.
+.L avail
+The avail (work) required to build the nuke.
 .L tech
 The minimum tech level required to construct the nuke.
+.L res
+The minimum research level required to construct the nuke.
 .L $
 The cost of the nuke to construct.
-.s1
-.in
-The other fields given in the capabilities are as follows.
-.s1
-.in \w'blst\0\0'u
 .L blst
 The blast type of the nuke
 .L dam
@@ -43,6 +42,15 @@ The damage rating of the nuke
 .L lbs
 the weight of the warhead, limiting missile and plane nuclear
 device carrying capacity.
+.L abilities
+Special abilties, if any
+.in
+.s1
+The abilities are as follows:
+.s1
+.in \w'neutron\00'u
+.L neutron
+Creates much more severe nuclear fallout.
 .in
 .s1
 As a guide (these numbers are subject to change):
@@ -70,4 +78,4 @@ by experimentation,
 although research suggests that radioactivity left behind by nuclear
 detonations may have lasting effects.
 .s1
-.SA "launch, fly, build, transport, show, Planes, Nukes"
+.SA "launch, fly, build, transport, show, Planes, Nukes, Fallout"
