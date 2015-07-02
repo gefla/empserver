@@ -247,8 +247,6 @@ The vessel can lay mines
 The vessel can sweep the sector for mines and recover them
 .L sub
 The vessel is a submarine
-.L spy
-The vessel can engage in spying activities
 .L land
 The vessel can be used as a landing craft. (see info assault)
 .L semi-land
