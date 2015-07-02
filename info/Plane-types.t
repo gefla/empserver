@@ -237,12 +237,8 @@ full imaging capability - satellites with this ability show much more
 (see info satellite)
 .L satellite
 a satellite - stays in orbit until shot down
-.L stealth
-a stealth plane - has a chance of not triggering intercepts
 .L SDI
 Intercepts tactical missiles.
-.L half-stealth
-a stealth plane - has a smaller chance of not triggering intercepts
 .L x-light
 xtra-light, can be carried and used on any ship or land unit with a non-zero
 xl capacity. (see info Ship-types)
