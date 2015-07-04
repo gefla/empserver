@@ -54,18 +54,13 @@ clear_telegram_is_new(natid to)
     last_tel[to].tel_from = NATID_BAD;
 }
 
-/*
- * telegram_is_new counts new telegrams the same as read_telegrams in
- * lib/commands/mail.c and lib/commands/rea.c
- */
-
 static int
 telegram_is_new(natid to, struct telstr *tel)
 {
     if (tel->tel_from != last_tel[to].tel_from
 	|| tel->tel_type != last_tel[to].tel_type
 	|| (tel->tel_type != TEL_UPDATE
-	    && abs(tel->tel_date - last_tel[to].tel_date) > TEL_SECONDS)) {
+	    && tel->tel_date - last_tel[to].tel_date > TEL_SECONDS)) {
 	last_tel[to] = *tel;
 	return 1;
     }
