@@ -67,12 +67,14 @@ enum nsc_type {
 #define NSC_IS_PROMOTED(type) (NSC_LONG <= (type) && (type) <= NSC_STRING)
 
 /* Return nsc_type for a signed integer with the same size as TYPE. */
-#define NSC_SITYPE(type)				\
+#define NSC_SITYPE(type) \
+    (BUILD_ASSERT_ONE(NSC_SITYPE_(type) != NSC_NOTYPE) * NSC_SITYPE_(type))
+#define NSC_SITYPE_(type)				\
     (sizeof(type) == 1 ? NSC_CHAR			\
      : sizeof(type) == sizeof(short) ? NSC_SHORT	\
      : sizeof(type) == sizeof(int) ? NSC_INT		\
      : sizeof(type) == sizeof(long) ? NSC_LONG		\
-     : 1/0)
+     : NSC_NOTYPE)
 
 /* Value category */
 enum nsc_cat {

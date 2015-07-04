@@ -75,6 +75,13 @@
 extern void oops(char *, char *, int);
 extern void (*oops_handler)(void);
 
+/*
+ * Assert constant expression @cond, return 1.
+ * If @cond is zero, force a compilation error.
+ */
+#define BUILD_ASSERT_ONE(cond) \
+    (sizeof(char[1 - 2 * !(cond)]))
+
 void exit_nomem(void) ATTRIBUTE((noreturn));
 
 	/* return codes from command routines */
