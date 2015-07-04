@@ -516,7 +516,7 @@ show_product(int tlev)
 	   pp->p_sname,
 	   pp->p_type < 0 ? ' ' : ichr[pp->p_type].i_mnem,
 	   pp->p_cost);
-	(void)CANT_HAPPEN(MAXPRCON > 3); /* output has only three columns */
+	BUILD_ASSERT(MAXPRCON <= 3); /* output has only three columns */
 	for (i = 0; i < 3; i++) {
 	    if (i < MAXPRCON && pp->p_camt[i]
 		&& pp->p_ctype[i] > I_NONE && pp->p_ctype[i] <= I_MAX)
