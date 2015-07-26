@@ -72,8 +72,6 @@ para(void)
     getsect(tx, ty, &target);
     pr("LZ is %s\n", xyas(tx, ty, player->cnum));
     ap_to_target = strlen(flightpath);
-    if (flightpath[ap_to_target - 1] == 'h')
-	ap_to_target--;
     pr("range to target is %d\n", ap_to_target);
     if (target.sct_own == player->cnum) {
 	pr("You can't air-assault your own sector!\n");

@@ -75,8 +75,6 @@ reco(void)
     cno = target.gen.ef_type == EF_SHIP ? target.gen.uid : -1;
 
     ap_to_target = strlen(flightpath);
-    if (flightpath[ap_to_target - 1] == 'h')
-	ap_to_target--;
     pr("range to target is %d\n", ap_to_target);
     /*
      * select planes within range
