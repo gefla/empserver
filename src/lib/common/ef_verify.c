@@ -97,7 +97,7 @@ verify_tabref(int type, int row, struct castr *ca, int idx, long val)
 	if (CANT_HAPPEN(ca_sym != symbol_ca))
 	    return -1;
 	for (i = 0; i < (int)sizeof(long) * 8; i++) {
-	    if (val & (1L << i)) {
+	    if (val & (1UL << i)) {
 		if (!symbol_by_value(1L << i, ef_ptr(tabno, 0))) {
 		    verify_fail(type, row, ca, idx,
 				"bit %d is not in symbol table %s",

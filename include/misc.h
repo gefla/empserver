@@ -52,7 +52,7 @@
 #endif
 
 #ifndef bit
-#define bit(x)		(1<<(x))
+#define bit(x)		(1U<<(x))
 #endif
 
 #define minutes(x)	(60*(x))
