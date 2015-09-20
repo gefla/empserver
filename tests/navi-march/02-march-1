@@ -73,6 +73,9 @@ n
 march 84/83/80/81/82
 jjun
 h
+| run out of mob, stop
+march 85 y
+__cmd added 1 1 0
 || path finding
 | within own
 march 90 4,4

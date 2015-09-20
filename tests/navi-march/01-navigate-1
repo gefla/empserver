@@ -72,6 +72,9 @@ h
 navi 84/83/80/81/82
 yyyy
 h
+| run out of mob, stop
+navi 85 y
+__cmd added 1 1 0
 || path finding
 | to sea, sea, land
 navi 90 -3,-3

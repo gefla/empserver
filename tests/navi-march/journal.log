@@ -345,6 +345,15 @@
     Play#1 output Play#1 1 cs   cargo ship (#80) stopped at -4,-4
     Play#1 output Play#1 1 cs   cargo ship (#81) stopped at -4,-4
     Play#1 output Play#1 6 0 611
+    Play#1 input navi 85 y
+    Play#1 command navigate
+    Play#1 output Play#1 1 Flagship is cs   cargo ship (#85)
+    Play#1 output Play#1 1 cs   cargo ship (#85) is out of mobility & stays in 0,0
+    Play#1 output Play#1 1 No ships left
+    Play#1 output Play#1 6 0 610
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
+    Play#1 output Play#1 6 0 611
     Play#1 input navi 90 -3,-3
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is pt   patrol boat (#90)
@@ -1027,6 +1036,15 @@
     Play#1 output Play#1 1 cav  cavalry #80 stopped at 9,5
     Play#1 output Play#1 1 cav  cavalry #81 stopped at 9,5
     Play#1 output Play#1 6 0 566
+    Play#1 input march 85 y
+    Play#1 command march
+    Play#1 output Play#1 1 Leader is cav  cavalry #85
+    Play#1 output Play#1 1 cav  cavalry #85 is out of mobility & stays in 3,5
+    Play#1 output Play#1 1 No lands left
+    Play#1 output Play#1 6 0 565
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
+    Play#1 output Play#1 6 0 566
     Play#1 input march 90 4,4
     Play#1 command march
     Play#1 output Play#1 1 Leader is cav  cavalry #90
@@ -1455,6 +1473,7 @@
     Play#0 output Play#0 1   1   82 cs   cargo ship    -3,-3      100%   0   5   0   0  0  0  0  0 -13   20
     Play#0 output Play#0 1   1   83 cs   cargo ship    -1,-1      100%   0   5   0   0  0  0  0  0 -13   20
     Play#0 output Play#0 1   1   84 cs   cargo ship     0,0       100%   0   5   0   0  0  0  0  0   0   20
+    Play#0 output Play#0 1   1   85 cs   cargo ship     0,0       100%   0   5   0   0  0  0  0  0   0   20
     Play#0 output Play#0 1   1   90 pt   patrol boat    0,-4      100%   0   2   0   0  0  0  0  0  81   40
     Play#0 output Play#0 1   1   91 pt   patrol boat   -3,1       100%   0   2   0   0  0  0  0  0 108   40
     Play#0 output Play#0 1   1   92 pt   patrol boat    0,0       100%   0   2   0   0  0  0  0  0 127   40
@@ -1474,7 +1493,7 @@
     Play#0 output Play#0 1   1  137 pt   patrol boat   11,-5      100%   0   2   0   0  0  0  0  0 117   40
     Play#0 output Play#0 1   1  138 pt   patrol boat   11,-5       80%   0   1   0   0  0  0  0  0  93   40
     Play#0 output Play#0 1   1  139 pt   patrol boat   11,-5       74%   0   1   0   0  0  0  0  0  86   40
-    Play#0 output Play#0 1 71 ships
+    Play#0 output Play#0 1 72 ships
     Play#0 output Play#0 6 0 640
     Play#0 input carg * ?shell#0
     Play#0 command cargo
@@ -1569,6 +1588,7 @@
     Play#0 output Play#0 1   1   82 cav  cavalry       8,4       100%   5   0 -14   0  30  42%  0  0
     Play#0 output Play#0 1   1   83 cav  cavalry       5,5       100%   5   0 -10   0  30  42%  0  0
     Play#0 output Play#0 1   1   84 cav  cavalry       3,5       100%   5 127   0   0  30  42%  0  0
+    Play#0 output Play#0 1   1   85 cav  cavalry       3,5       100%   5 127   0   0  30  42%  0  0
     Play#0 output Play#0 1   1   90 cav  cavalry       4,2       100%   5   0  24   0  30  42%  0  0
     Play#0 output Play#0 1   1   91 cav  cavalry       1,1       100%   5 127 127   0  30  42%  0  0
     Play#0 output Play#0 1   1  100 rad  radar unit   -4,4       100%   5   0  67   0 270  42%  0  0
@@ -1585,7 +1605,7 @@
     Play#0 output Play#0 1   1  137 cav  cavalry       8,6       100%   5   0 104   0  30  42%  0  0
     Play#0 output Play#0 1   1  138 cav  cavalry       8,6       100%   5   0 104   0  30  42%  0  0
     Play#0 output Play#0 1   1  139 cav  cavalry       8,6        84%   4   0  88   0  30  42%  0  0
-    Play#0 output Play#0 1 68 units
+    Play#0 output Play#0 1 69 units
     Play#0 output Play#0 6 0 637
     Play#0 input lcar * ?shell#0
     Play#0 command lcargo
