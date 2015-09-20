@@ -1098,25 +1098,28 @@ lnd_mar_dir(struct emp_qelem *list, int dir, natid actor)
 	}
     }
 
-    return 0;
+    return QEMPTY(list);
 }
 
 int
 lnd_mar_gauntlet(struct emp_qelem *list, int interdict, natid actor)
 {
     struct ulist *mlp = (struct ulist *)list->q_back;
-    coord newx = mlp->unit.land.lnd_x;
-    coord newy = mlp->unit.land.lnd_y;
+    coord newx, newy;
     int stopping, visible;
     struct emp_qelem *qp, *next;
     struct ulist *llp;
 
+    if (CANT_HAPPEN(QEMPTY(list)))
+	return 1;
+    newx = mlp->unit.land.lnd_x;
+    newy = mlp->unit.land.lnd_y;
     stopping = lnd_sweep(list, 0, 1, actor);
     if (QEMPTY(list))
-	return stopping;
+	return 1;
     stopping |= lnd_check_mines(list);
     if (QEMPTY(list))
-	return stopping;
+	return 1;
 
     visible = 0;
     for (qp = list->q_back; qp != list; qp = next) {

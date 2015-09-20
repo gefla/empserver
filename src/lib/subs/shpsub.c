@@ -876,23 +876,26 @@ shp_nav_dir(struct emp_qelem *list, int dir, natid actor)
 	putship(mlp->unit.ship.shp_uid, &mlp->unit.ship);
     }
 
-    return 0;
+    return QEMPTY(list);
 }
 
 int
 shp_nav_gauntlet(struct emp_qelem *list, int interdict, natid actor)
 {
     struct ulist *mlp = (struct ulist *)list->q_back;
-    coord newx = mlp->unit.ship.shp_x;
-    coord newy = mlp->unit.ship.shp_y;
+    coord newx, newy;
     int stopping;
 
+    if (CANT_HAPPEN(QEMPTY(list)))
+	return 1;
+    newx = mlp->unit.ship.shp_x;
+    newy = mlp->unit.ship.shp_y;
     stopping = shp_sweep(list, 0, 0, actor);
     if (QEMPTY(list))
-	return stopping;
+	return 1;
     stopping |= shp_check_mines(list);
     if (QEMPTY(list))
-	return stopping;
+	return 1;
     if (interdict)
 	stopping |= shp_interdict(list, newx, newy, actor);
 
