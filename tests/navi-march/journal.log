@@ -1013,6 +1013,8 @@
     Play#1 output Play#1 1 Leader is cav  cavalry #78
     Play#1 output Play#1 4 Do you really want to abandon 3,7 [yn]?
     Play#1 input n
+    Play#1 output Play#1 1 cav  cavalry #78 stopped at 3,7
+    Play#1 output Play#1 1 cav  cavalry #79 stopped at 3,7
     Play#1 output Play#1 1 command failed
     Play#1 output Play#1 6 0 567
     Play#1 input march 84/83/80/81/82

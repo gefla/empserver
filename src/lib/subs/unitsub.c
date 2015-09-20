@@ -406,8 +406,13 @@ unit_move(struct emp_qelem *list)
 	 */
 	if (!*cp) {
 	    cp = unit_move_getpath(list, suppress_map, path);
-	    if (!cp)
+	    if (!cp) {
+		if (type == EF_SHIP)
+		    shp_nav_put(list, player->cnum);
+		else
+		    lnd_mar_put(list, player->cnum);
 		return RET_FAIL;
+	    }
 	    cp = unit_move_route(leader, path, sizeof(path));
 	    if (!cp || !*cp)
 		cp = "h";
@@ -418,13 +423,17 @@ unit_move(struct emp_qelem *list)
 		stopping = shp_nav_dir(list, dir, player->cnum)
 		    || shp_nav_gauntlet(list, 1, player->cnum);
 	    else {
-		if (!moved && !lnd_abandon_askyn(list))
+		if (!moved && !lnd_abandon_askyn(list)) {
+		    lnd_mar_put(list, player->cnum);
 		    return RET_FAIL;
+		}
 		stopping = lnd_mar_dir(list, dir, player->cnum)
 		    || lnd_mar_gauntlet(list, 1, player->cnum);
 	    }
-	    if (dir == DIR_STOP)
+	    if (dir == DIR_STOP) {
+		CANT_HAPPEN(!QEMPTY(list));
 		return RET_OK;
+	    }
 	    moved = 1;
 	    if (stopping)
 		cp = "";
