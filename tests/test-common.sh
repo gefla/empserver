@@ -20,6 +20,11 @@ empdump="src/util/empdump -e $econfig"
 files="src/util/files -e $econfig"
 fairland="src/util/fairland -e $econfig"
 
+# GNU libc memory allocation checking, see mallopt(3)
+# $RANDOM isn't portable
+malloc_perturb=${EMPIRE_CHECK_MALLOC_PERTURB:-$(perl -e 'print int(rand(255))')}
+env="MALLOC_CHECK_=3 MALLOC_PERTURB_=$malloc_perturb"
+
 empthread=`sed -n 's/empthread *:= *\(.*\)/\1/p' <GNUmakefile`
 warn_empthread=y
 
@@ -36,6 +41,7 @@ create_sandbox()
 {
     rm -rf sandbox
     mkdir -p sandbox/etc/empire sandbox/share/empire/builtin $data
+    echo $malloc_perturb >sandbox/malloc-perturb
     touch $schedule
     cat >$econfig <<EOF
 data "../../var/empire"
@@ -94,7 +100,7 @@ run()
     local name=$1 ret
     shift
     set +e
-    "$@" >>sandbox/$name.out 2>>sandbox/$name.err
+    env $env "$@" >>sandbox/$name.out 2>>sandbox/$name.err
     ret=$?
     set -e
     echo $ret >>sandbox/$name.status
@@ -126,7 +132,7 @@ start_server()
     check_empthread
 
     pid=
-    src/server/emp_server -e $econfig -R 1 -s -E crash-dump
+    env $env src/server/emp_server -e $econfig -R 1 -s -E crash-dump
     timeout=$((`now`+5))
     until pid=`cat $pidfile 2>/dev/null` && [ -n "$pid" ]
     do
