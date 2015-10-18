@@ -114,6 +114,32 @@ MY_APPEND_COMPILE_FLAGS([-fno-builtin-carg -Wno-incompatible-library-redeclarati
 # No multiple definitions of uninitialized global variables
 MY_APPEND_COMPILE_FLAGS([-fno-common])
 
+# Reign in overzealous optimizers
+#
+# Contemporary compilers can squeeze out some extra performance by
+# assuming the program never executes code that has undefined behavior
+# according to the C standard.  Unfortunately, this can break
+# programs.  Pointing out that these programs are non-conforming is as
+# correct as it is unhelpful, at least as long as the compiler is
+# unable to diagnose the non-conformingness.
+#
+# Since keeping our programs working is a lot more important to us
+# than running them as fast as possible, forbid some assumptions that
+# are known to break real-world programs:
+#
+# * Aliasing: perfectly clean programs don't engage in type-punning,
+#   and perfectly conforming programs do it only in full accordance
+#   with the standard's (subtle!) aliasing rules.  Neither kind of
+#   perfection is realistic for us, therefore -fno-strict-aliasing.
+#
+# * Signed integer overflow: perfectly clean programs won't ever do
+#   signed integer arithmetic that overflows.  This is an imperfect
+#   program, therefore -fno-strict-overflow.
+#
+MY_APPEND_COMPILE_FLAGS([dnl
+-fno-strict-aliasing dnl
+-fno-strict-overflow])
+
 
 ### Checks for library functions
 
