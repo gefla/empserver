@@ -46,6 +46,14 @@
 #include "proto.h"
 #include "secure.h"
 
+#ifdef HAVE_LIBREADLINE
+#  if defined(HAVE_READLINE_READLINE_H)
+#    include <readline/readline.h>
+#  elif defined(HAVE_READLINE_H)
+#    include <readline.h>
+#  endif /* defined(HAVE_READLINE_H) */
+#endif /* HAVE_LIBREADLINE */
+
 int eight_bit_clean;
 FILE *auxfp;
 int restricted;
@@ -131,10 +139,18 @@ static void
 prompt(int code, char *prompt, char *teles)
 {
     char *nl;
+    char pr[1024];
 
     nl = code == C_PROMPT || code == C_INFORM ? "\n" : "";
-    printf("%s%s%s", nl, teles, prompt);
+    snprintf(pr, sizeof(pr), "%s%s", teles, prompt);
+#ifdef HAVE_LIBREADLINE
+    rl_set_prompt(pr);
+    printf("%s", nl);
+    rl_forced_update_display();
+#else  /* !HAVE_LIBREADLINE */
+    printf("%s%s", nl, pr);
     fflush(stdout);
+#endif /* !HAVE_LIBREADLINE */
     if (auxfp) {
 	fprintf(auxfp, "%s%s%s", nl, teles, prompt);
 	fflush(auxfp);

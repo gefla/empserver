@@ -40,6 +40,7 @@
 #include <string.h>
 #ifdef _WIN32
 #include <windows.h>
+#include <shlobj.h>
 #include "sys/socket.h"
 #else
 #include <pwd.h>
@@ -55,6 +56,7 @@
 
 struct passwd {
     char *pw_name;
+    char *pw_dir;
 };
 
 static struct passwd *w32_getpw(void);
@@ -72,6 +74,9 @@ print_usage(char *program_name)
 	   "  -r              Restricted mode, no redirections\n"
 	   "  -s [HOST:]PORT  Specify server HOST and PORT\n"
 	   "  -u              Use UTF-8\n"
+#ifdef HAVE_READLINE_HISTORY
+	   "  -H              Save readline command history to file\n"
+#endif /* HAVE_READLINE_HISTORY */
 	   "  -h              display this help and exit\n"
 	   "  -v              display version information and exit\n",
 	   program_name);
@@ -82,6 +87,7 @@ main(int argc, char **argv)
 {
     int opt;
     char *auxfname = NULL;
+    int use_history_file = 0;
     int send_kill = 0;
     char *host = NULL;
     char *port = NULL;
@@ -90,14 +96,20 @@ main(int argc, char **argv)
     char *country;
     char *passwd;
     char *uname;
+    char *udir;
     char *colon;
     int sock;
 
-    while ((opt = getopt(argc, argv, "2:krs:uhv")) != EOF) {
+    while ((opt = getopt(argc, argv, "2:krs:uHhv")) != EOF) {
 	switch (opt) {
 	case '2':
 	    auxfname = optarg;
 	    break;
+#ifdef HAVE_READLINE_HISTORY
+	case 'H':
+	    use_history_file = 1;
+	    break;
+#endif /* HAVE_READLINE_HISTORY */
 	case 'k':
 	    send_kill = 1;
 	    break;
@@ -146,7 +158,8 @@ main(int argc, char **argv)
     if (!host)
 	host = empirehost;
     uname = getenv("LOGNAME");
-    if (uname == NULL) {
+    udir = getenv("HOME");
+    if (!uname || !udir) {
 	struct passwd *pwd;
 
 	pwd = getpwuid(getuid());
@@ -154,7 +167,10 @@ main(int argc, char **argv)
 	    fprintf(stderr, "You don't exist.  Go away\n");
 	    exit(1);
 	}
-	uname = pwd->pw_name;
+	if (!uname)
+	    uname = pwd->pw_name;
+	if (!udir)
+	    udir = pwd->pw_dir;
     }
     if (*ap) {
 	fprintf(stderr, "%s: extra operand %s\n", argv[0], *ap);
@@ -172,6 +188,12 @@ main(int argc, char **argv)
 
     sock = tcp_connect(host, port);
 
+    if (use_history_file) {
+	history_file = malloc(1024);
+	strncpy(history_file, udir, 1000);
+	strcat(history_file, "/.empire.history");
+    }
+
     if (!login(sock, uname, country, passwd, send_kill, utf8))
 	exit(1);
 
@@ -183,12 +205,13 @@ main(int argc, char **argv)
 
 #ifdef _WIN32
 /*
- * Get Windows user name
+ * Get Windows user name and directory
  */
 static struct passwd *
 w32_getpw(void)
 {
     static char unamebuf[128];
+    static char udirbuf[MAX_PATH];
     static struct passwd pwd;
     DWORD unamesize;
 
@@ -199,6 +222,9 @@ w32_getpw(void)
 	    pwd.pw_name = "nobody";
     } else
 	pwd.pw_name = "nobody";
+    if (SUCCEEDED(SHGetFolderPathA(NULL, CSIDL_PROFILE, NULL, 0, udirbuf))
+	&& strlen(udirbuf) == 0)
+	pwd.pw_dir = udirbuf;
     return &pwd;
 }
 

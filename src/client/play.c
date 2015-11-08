@@ -51,6 +51,28 @@
 #include "ringbuf.h"
 #include "secure.h"
 
+#ifdef HAVE_LIBREADLINE
+#  if defined(HAVE_READLINE_READLINE_H)
+#    include <readline/readline.h>
+#  elif defined(HAVE_READLINE_H)
+#    include <readline.h>
+#  else /* !defined(HAVE_READLINE_H) */
+extern char *readline ();
+#  endif /* !defined(HAVE_READLINE_H) */
+#endif /* HAVE_LIBREADLINE */
+
+#ifdef HAVE_READLINE_HISTORY
+#  if defined(HAVE_READLINE_HISTORY_H)
+#    include <readline/history.h>
+#  elif defined(HAVE_HISTORY_H)
+#    include <history.h>
+#  else /* !defined(HAVE_HISTORY_H) */
+extern void add_history ();
+extern int write_history ();
+extern int read_history ();
+#  endif /* !defined(HAVE_HISTORY_H) */
+#endif /* HAVE_READLINE_HISTORY */
+
 #define EOF_COOKIE "ctld\n"
 #define INTR_COOKIE "aborted\n"
 
@@ -414,6 +436,24 @@ recv_output(int sock)
     return n;
 }
 
+char *history_file = NULL;
+#ifdef HAVE_LIBREADLINE
+static char *input_from_rl;
+static int has_rl_input;
+
+static void
+input_handler(char *line)
+{
+    input_from_rl = line;
+    has_rl_input = 1;
+    rl_already_prompted = 1;
+#ifdef HAVE_READLINE_HISTORY
+    if (line && *line)
+	add_history(line);
+#endif /* HAVE_READLINE_HISTORY */
+}
+#endif /* HAVE_LIBREADLINE */
+
 /*
  * Receive player input from @fd into @inbuf.
  * Return 1 on receipt of input, zero on EOF, -1 on error.
@@ -423,8 +463,33 @@ recv_input(int fd, struct ring *inbuf)
 {
     int n;
     int res = 1;
+#ifdef HAVE_LIBREADLINE
+    size_t len;
 
-    n = ring_from_file(inbuf, fd);
+    if (fd == 0) {
+	if (!has_rl_input)
+	    rl_callback_read_char();
+	if (!has_rl_input)
+	    return 1;
+	if (input_from_rl) {
+	    len = strlen(input_from_rl);
+	    n = ring_space(inbuf);
+	    assert(n);
+	    if (len >= (size_t)n) {
+		ring_putm(inbuf, input_from_rl, n);
+		memmove(input_from_rl, input_from_rl + n, len - n + 1);
+	    } else {
+		ring_putm(inbuf, input_from_rl, len);
+		ring_putc(inbuf, '\n');
+		free(input_from_rl);
+		has_rl_input = 0;
+		n = len + 1;
+	    }
+	} else
+	    n = 0;
+    } else
+#endif
+	n = ring_from_file(inbuf, fd);
     if (n < 0)
 	return -1;
     if (n == 0) {
@@ -490,6 +555,7 @@ play(int sock)
     int send_eof;		/* need to send EOF_COOKIE */
     fd_set rdfd, wrfd;
     int n;
+    int ret = -1;
 
     sa.sa_flags = 0;
     sigemptyset(&sa.sa_mask);
@@ -497,6 +563,14 @@ play(int sock)
     sigaction(SIGINT, &sa, NULL);
     sa.sa_handler = SIG_IGN;
     sigaction(SIGPIPE, &sa, NULL);
+#ifdef HAVE_LIBREADLINE
+#ifdef HAVE_READLINE_HISTORY
+    if (history_file)
+	read_history(history_file);
+#endif /* HAVE_READLINE_HISTORY */
+    rl_bind_key('\t', rl_insert);  /* Disable tab completion */
+    rl_callback_handler_install("", input_handler);
+#endif /* HAVE_LIBREADLINE */
 
     ring_init(&inbuf);
     eof_fd0 = partial_line_sent = send_eof = send_intr = 0;
@@ -525,7 +599,7 @@ play(int sock)
 	if (n < 0) {
 	    if (errno != EINTR) {
 		perror("select");
-		return -1;
+		break;
 	    }
 	}
 
@@ -544,7 +618,6 @@ play(int sock)
 		input_fd = 0;
 	    }
 	}
-
 	if (n < 0)
 	    continue;
 
@@ -571,7 +644,7 @@ play(int sock)
 		    sigaction(SIGINT, &sa, NULL);
 		    send_intr = 0;
 		}
-	    } else
+	    } else if (ring_len(&inbuf) > 0)
 		partial_line_sent = ring_peek(&inbuf, -1) != '\n';
 	}
 
@@ -580,7 +653,7 @@ play(int sock)
 	    n = send_input(sock, &inbuf);
 	    if (n < 0) {
 		perror("write socket");
-		return -1;
+		break;
 	    }
 	}
 
@@ -589,10 +662,22 @@ play(int sock)
 	    n = recv_output(sock);
 	    if (n < 0) {
 		perror("read socket");
-		return -1;
+		break;
 	    }
-	    if (n == 0)
-		return 0;
+	    if (n == 0) {
+#ifdef HAVE_LIBREADLINE
+#ifdef HAVE_READLINE_HISTORY
+		if (history_file)
+		    write_history(history_file);
+#endif /* HAVE_READLINE_HISTORY */
+#endif /* HAVE_LIBREADLINE */
+		ret = 0;
+		break;
+	    }
 	}
     }
+#ifdef HAVE_LIBREADLINE
+    rl_callback_handler_remove();
+#endif
+    return ret;
 }

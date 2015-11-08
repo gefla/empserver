@@ -44,6 +44,7 @@ extern char empireport[];
 extern int eight_bit_clean;
 extern FILE *auxfp;
 extern int restricted;
+extern char *history_file;
 
 #ifdef HAVE_CURSES_TERMINFO
 void getsose(void);

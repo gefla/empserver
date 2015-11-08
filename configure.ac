@@ -73,6 +73,7 @@ LIBS_util="$LIBS"
 LIBS="$LIBS_SOCKETS $LIBS"
 AX_LIB_SOCKET_NSL
 LIBS_server="$LIBS"
+AX_LIB_READLINE
 
 
 ### Checks for header files
