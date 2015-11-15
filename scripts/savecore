@@ -41,20 +41,23 @@ mailx=mailx
 # End of configuration
 
 saved=
+core_name=
 
 alert_deity ()
 {
     local msg;
     if [ "$saved" ]
     then msg="Core dump $saved_core saved."
-    else msg="Could not save core dump."
+    elif [ "$core_name" ]
+    then msg="Could not save core dump $core_name."
+    else msg="Could not find core dump to save."
     fi
-    echo $msg | $mailx -s "emp_server dumped core in $PWD" "$privlog"
+    echo "$msg" | $mailx -s "emp_server dumped core in $PWD" "$privlog"
 }
 
 test -n "$privlog" && trap 'alert_deity' EXIT
 
-core_name=`ls -td $core_pattern | head -n 1`
+core_name=`ls -td $core_pattern 2>/dev/null | head -n 1`
 test -n "$core_name"
 test -r "$core_name"
 tstamp=`/bin/date +%Y-%m-%d-%H:%M`
