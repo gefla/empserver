@@ -140,6 +140,23 @@ MY_APPEND_COMPILE_FLAGS([dnl
 -fno-strict-aliasing dnl
 -fno-strict-overflow])
 
+# Emit extra code to check for buffer overflows
+# Could fall back to -fstack-protector when -fstack-protector-strong
+# isnt't supported, for users of older compilers.  Doesn't seem worth
+# the trouble, though.
+# Some ports of the GNU toolchain reportedly support it in the
+# compiler, but not libc.  Use a test program that makes the compiler
+# emit the extra stack checking code, and test it compiles and links.
+AX_APPEND_LINK_FLAGS([-fstack-protector-strong], [], [],
+    [AC_LANG_SOURCE([[
+int
+main(int argc, char *argv[])
+{
+    char arr[64], *dst = arr, *src = argv[0];
+    while ((*dst++ = *src++)) ;
+}
+    ]])])
+
 
 ### Checks for library functions
 

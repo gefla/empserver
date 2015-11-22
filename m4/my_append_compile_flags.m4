@@ -1,6 +1,6 @@
 # SYNOPSIS
 #
-#   MY_APPEND_COMPILE_FLAGS([FLAG1 FLAG2 ...], [FLAGS-VARIABLE], [EXTRA-FLAGS])
+#   MY_APPEND_COMPILE_FLAGS([FLAG1 FLAG2 ...], [FLAGS-VARIABLE], [EXTRA-FLAGS], [INPUT])
 #
 # DESCRIPTION
 #
@@ -19,6 +19,8 @@
 #   flags (e.g. CFLAGS) when the check is done.  The check is thus made with
 #   the flags: "CFLAGS EXTRA-FLAGS FLAG".  This can for example be used to
 #   force the compiler to issue an error when a bad flag is given.
+#
+#   INPUT gives an alternative input source to AC_COMPILE_IFELSE.
 #
 #   NOTE: This macro depends on the AX_APPEND_FLAG and
 #   AX_CHECK_COMPILE_FLAG. Please keep this macro in sync with
@@ -62,6 +64,6 @@ AC_DEFUN([MY_APPEND_COMPILE_FLAGS],
 AX_REQUIRE_DEFINED([AX_APPEND_FLAG])
 for flag in $1; do
   tflag=`echo "$flag" | sed 's/^-Wno-/-W/'`
-  AX_CHECK_COMPILE_FLAG([$tflag], [AX_APPEND_FLAG([$flag], [$2])], [], [$3])
+  AX_CHECK_COMPILE_FLAG([$tflag], [AX_APPEND_FLAG([$flag], [$2])], [], [$3], [$4])
 done
 ])dnl MY_APPEND_COMPILE_FLAGS
