@@ -28,13 +28,14 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2006-2012
+ *     Markus Armbruster, 2006-2015
  *     Ron Koenderink, 2009
  */
 
 #include <config.h>
 
 #include "empio.h"
+#include "file.h"
 #include "journal.h"
 #include "player.h"
 #include "prototypes.h"
@@ -68,6 +69,8 @@ recvclient(char *cmd, int size)
 	count = io_gets(player->iop, cmd, size);
 	if (count >= 0) {
 	    /* got it */
+	    if (player_io_deadline(player, 0))
+		ef_make_stale();
 	    if (strcmp(cmd, "ctld") == 0)
 		player->aborted = player->got_ctld = 1;
 	    if (strcmp(cmd, "aborted") == 0)
