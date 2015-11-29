@@ -12,10 +12,6 @@ tester@127.0.0.1 logged out, country #1
 Connect from 127.0.0.1
 tester@127.0.0.1 using country #1
 tester@127.0.0.1 logged in as country #1
-Oops: elt->generation != (ef_generation & 0xfff) in ../src/lib/common/file.c:699
-Crash dump complete
-Oops: elt->generation != (ef_generation & 0xfff) in ../src/lib/common/file.c:699
-Crash dump complete
 tester@127.0.0.1 logged out, country #1
 Connect from 127.0.0.1
 tester@127.0.0.1 using country #0

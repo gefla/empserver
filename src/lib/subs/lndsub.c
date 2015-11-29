@@ -963,21 +963,21 @@ int lnd_abandon_askyn(struct emp_qelem *list)
 {
     struct ulist *llp;
     struct sctstr sect;
+    int abandon;
     struct emp_qelem *qp;
 
     if (QEMPTY(list))
 	return 1;
     llp = (struct ulist *)list->q_back;
     getsect(llp->unit.land.lnd_x, llp->unit.land.lnd_y, &sect);
-    if (!abandon_askyn(&sect, I_CIVIL, 0, llp))
-	return 0;
+    abandon = abandon_askyn(&sect, I_CIVIL, 0, llp);
     if (!check_sect_ok(&sect))
 	return 0;
     for (qp = list->q_back; qp != list; qp = qp->q_back) {
 	if (!check_land_ok(&((struct ulist *)qp)->unit.land))
 	    return 0;
     }
-    return 1;
+    return abandon;
 }
 
 int
