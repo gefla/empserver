@@ -1,8 +1,11 @@
-|| list, change leader, nonsense
+|| list, change leader, nonsense, abort command
 navi 2/3/0 i
 fi
 X
 
+navi 0
+aborted
+__cmd added 1 1 0
 || stuck in starting sector
 | on sale/unremarkable/dead/foreign/crewless in 0,0
 set s 12 500

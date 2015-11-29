@@ -58,6 +58,20 @@
     Play#1 output Play#1 1 pt   patrol boat (#0) stopped at 1,1
     Play#1 output Play#1 1 dd   destroyer (#2) stopped at 1,1
     Play#1 output Play#1 6 0 639
+    Play#1 input navi 0
+    Play#1 command navigate
+    Play#1 output Play#1 1 Flagship is pt   patrol boat (#0)
+    Play#1 output Play#1 1  . =
+    Play#1 output Play#1 1 h h h
+    Play#1 output Play#1 1  c c
+    Play#1 output Play#1 4 <127.0:127.0: 1,1>
+    Play#1 input aborted
+    Play#1 output Play#1 1 pt   patrol boat (#0) stopped at 1,1
+    Play#1 output Play#1 1 command failed
+    Play#1 output Play#1 6 0 638
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
+    Play#1 output Play#1 6 0 639
     Play#1 input set s 12 500
     Play#1 command set
     Play#1 output Play#1 1 pt   patrol boat #12 (lot #0) price set to $500
@@ -771,6 +785,20 @@
     Play#1 output Play#1 1 rad  radar unit #3 stopped at 1,1
     Play#1 output Play#1 1 cav  cavalry #0 stopped at 1,1
     Play#1 output Play#1 1 spy  infiltrator #2 stopped at 1,1
+    Play#1 output Play#1 6 0 589
+    Play#1 input navi 0
+    Play#1 command navigate
+    Play#1 output Play#1 1 Flagship is pt   patrol boat (#0)
+    Play#1 output Play#1 1  . =
+    Play#1 output Play#1 1 h h h
+    Play#1 output Play#1 1  c c
+    Play#1 output Play#1 4 <127.0:127.0: 1,1>
+    Play#1 input aborted
+    Play#1 output Play#1 1 pt   patrol boat (#0) stopped at 1,1
+    Play#1 output Play#1 1 command failed
+    Play#1 output Play#1 6 0 588
+    Play#1 input __cmd added 1 1 0
+    Play#1 command __cmd
     Play#1 output Play#1 6 0 589
     Play#1 input set l 12 500
     Play#1 command set

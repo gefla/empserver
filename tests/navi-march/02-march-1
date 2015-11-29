@@ -1,8 +1,11 @@
-|| list, change flagship, nonsense
+|| list, change flagship, nonsense, abort command
 march 2/3/0 i
 fi
 X
 
+navi 0
+aborted
+__cmd added 1 1 0
 || stuck in starting sector
 | on sale/unremarkable/dead/foreign/crewless/loaded in 1,1
 set l 12 500
