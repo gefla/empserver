@@ -407,10 +407,13 @@ unit_move(struct emp_qelem *list)
 	if (!*cp) {
 	    cp = unit_move_getpath(list, suppress_map, path);
 	    if (!cp) {
-		if (type == EF_SHIP)
+		if (type == EF_SHIP) {
+		    shp_nav_stay_behind(list, player->cnum);
 		    shp_nav_put(list, player->cnum);
-		else
+		} else {
+		    lnd_mar_stay_behind(list, player->cnum);
 		    lnd_mar_put(list, player->cnum);
+		}
 		return RET_FAIL;
 	    }
 	    cp = unit_move_route(leader, path, sizeof(path));
