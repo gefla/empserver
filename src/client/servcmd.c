@@ -89,6 +89,7 @@ servercmd(int code, char *arg, int len)
 		(void)fclose(redir_fp);
 	    redir_fp = NULL;
 	}
+	outch('\n');
 	prompt(code, the_prompt, teles);
 	executing = 0;
 	break;
@@ -115,6 +116,7 @@ servercmd(int code, char *arg, int len)
 	if (arg[0] != '\n') {
 	    snprintf(teles, sizeof(teles), "(%.*s) ", len - 1, arg);
 	    if (!redir_fp) {
+		outch('\n');
 		putchar('\07');
 		prompt(code, the_prompt, teles);
 	    }
@@ -138,21 +140,18 @@ servercmd(int code, char *arg, int len)
 static void
 prompt(int code, char *prompt, char *teles)
 {
-    char *nl;
     char pr[1024];
 
-    nl = code == C_PROMPT || code == C_INFORM ? "\n" : "";
     snprintf(pr, sizeof(pr), "%s%s", teles, prompt);
 #ifdef HAVE_LIBREADLINE
     rl_set_prompt(pr);
-    printf("%s", nl);
     rl_forced_update_display();
 #else  /* !HAVE_LIBREADLINE */
-    printf("%s%s", nl, pr);
+    printf("%s", pr);
     fflush(stdout);
 #endif /* !HAVE_LIBREADLINE */
     if (auxfp) {
-	fprintf(auxfp, "%s%s%s", nl, teles, prompt);
+	fprintf(auxfp, "%s%s", teles, prompt);
 	fflush(auxfp);
     }
 }
