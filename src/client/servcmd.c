@@ -46,14 +46,6 @@
 #include "proto.h"
 #include "secure.h"
 
-#ifdef HAVE_LIBREADLINE
-#  if defined(HAVE_READLINE_READLINE_H)
-#    include <readline/readline.h>
-#  elif defined(HAVE_READLINE_H)
-#    include <readline.h>
-#  endif /* defined(HAVE_READLINE_H) */
-#endif /* HAVE_LIBREADLINE */
-
 int eight_bit_clean;
 FILE *auxfp;
 int restricted;
@@ -62,7 +54,6 @@ static FILE *redir_fp;
 static int redir_is_pipe;
 static int executing;
 
-static void prompt(int, char *, char *);
 static void doredir(char *p);
 static void dopipe(char *p);
 static int doexecute(char *p);
@@ -135,25 +126,6 @@ servercmd(int code, char *arg, int len)
     }
 
     return 0;
-}
-
-static void
-prompt(int code, char *prompt, char *teles)
-{
-    char pr[1024];
-
-    snprintf(pr, sizeof(pr), "%s%s", teles, prompt);
-#ifdef HAVE_LIBREADLINE
-    rl_set_prompt(pr);
-    rl_forced_update_display();
-#else  /* !HAVE_LIBREADLINE */
-    printf("%s", pr);
-    fflush(stdout);
-#endif /* !HAVE_LIBREADLINE */
-    if (auxfp) {
-	fprintf(auxfp, "%s%s", teles, prompt);
-	fflush(auxfp);
-    }
 }
 
 static char *

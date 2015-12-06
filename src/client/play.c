@@ -699,3 +699,22 @@ play(int sock, char *history_file)
 #endif
     return ret;
 }
+
+void
+prompt(int code, char *prompt, char *teles)
+{
+    char pr[1024];
+
+    snprintf(pr, sizeof(pr), "%s%s", teles, prompt);
+#ifdef HAVE_LIBREADLINE
+    rl_set_prompt(pr);
+    rl_forced_update_display();
+#else  /* !HAVE_LIBREADLINE */
+    printf("%s", pr);
+    fflush(stdout);
+#endif /* !HAVE_LIBREADLINE */
+    if (auxfp) {
+	fprintf(auxfp, "%s%s", teles, prompt);
+	fflush(auxfp);
+    }
+}

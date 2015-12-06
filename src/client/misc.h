@@ -61,6 +61,7 @@ int expect(int s, int match, char *buf);
 int tcp_connect(char *, char *);
 int login(int s, char *uname, char *cname, char *cpass, int kill_proc, int);
 int play(int, char *);
+void prompt(int, char *, char *);
 void sendcmd(int s, char *cmd, char *arg);
 int servercmd(int, char *, int);
 void outch(char);
