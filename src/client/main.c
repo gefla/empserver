@@ -75,9 +75,9 @@ print_usage(char *program_name)
 	   "  -r              Restricted mode, no redirections\n"
 	   "  -s [HOST:]PORT  Specify server HOST and PORT\n"
 	   "  -u              Use UTF-8\n"
-#ifdef HAVE_READLINE_HISTORY
+#ifdef HAVE_LIBREADLINE
 	   "  -H              Save readline command history to file\n"
-#endif /* HAVE_READLINE_HISTORY */
+#endif /* HAVE_LIBREADLINE */
 	   "  -h              display this help and exit\n"
 	   "  -v              display version information and exit\n",
 	   program_name);
@@ -107,11 +107,11 @@ main(int argc, char **argv)
 	case '2':
 	    auxfname = optarg;
 	    break;
-#ifdef HAVE_READLINE_HISTORY
+#ifdef HAVE_LIBREADLINE
 	case 'H':
 	    use_history_file = 1;
 	    break;
-#endif /* HAVE_READLINE_HISTORY */
+#endif /* HAVE_LIBREADLINE */
 	case 'k':
 	    send_kill = 1;
 	    break;

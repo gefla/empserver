@@ -58,7 +58,7 @@ if test "$Windows_API" = yes; then
 	AC_LIBOBJ([w32/w32io])
 	AC_LIBOBJ([w32/w32sockets])
 fi
-AX_LIB_READLINE
+MY_LIB_READLINE
 
 
 ### Checks for header files.

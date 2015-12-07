@@ -53,26 +53,9 @@
 #include "secure.h"
 
 #ifdef HAVE_LIBREADLINE
-#  if defined(HAVE_READLINE_READLINE_H)
-#    include <readline/readline.h>
-#  elif defined(HAVE_READLINE_H)
-#    include <readline.h>
-#  else /* !defined(HAVE_READLINE_H) */
-extern char *readline ();
-#  endif /* !defined(HAVE_READLINE_H) */
-#endif /* HAVE_LIBREADLINE */
-
-#ifdef HAVE_READLINE_HISTORY
-#  if defined(HAVE_READLINE_HISTORY_H)
-#    include <readline/history.h>
-#  elif defined(HAVE_HISTORY_H)
-#    include <history.h>
-#  else /* !defined(HAVE_HISTORY_H) */
-extern void add_history ();
-extern int write_history ();
-extern int read_history ();
-#  endif /* !defined(HAVE_HISTORY_H) */
-#endif /* HAVE_READLINE_HISTORY */
+#include <readline/readline.h>
+#include <readline/history.h>
+#endif
 
 #define EOF_COOKIE "ctld\n"
 #define INTR_COOKIE "aborted\n"
@@ -446,10 +429,8 @@ input_handler(char *line)
 {
     input_from_rl = line;
     has_rl_input = 1;
-#ifdef HAVE_READLINE_HISTORY
     if (line && *line)
 	add_history(line);
-#endif /* HAVE_READLINE_HISTORY */
 }
 
 static int
@@ -583,10 +564,8 @@ play(int sock, char *history_file)
     sigaction(SIGPIPE, &sa, NULL);
 #ifdef HAVE_LIBREADLINE
     rl_already_prompted = 1;
-#ifdef HAVE_READLINE_HISTORY
     if (history_file)
 	read_history(history_file);
-#endif /* HAVE_READLINE_HISTORY */
     rl_bind_key('\t', rl_insert);  /* Disable tab completion */
     rl_callback_handler_install("", input_handler);
 #endif /* HAVE_LIBREADLINE */
@@ -692,10 +671,8 @@ play(int sock, char *history_file)
 
 #ifdef HAVE_LIBREADLINE
     rl_callback_handler_remove();
-#ifdef HAVE_READLINE_HISTORY
     if (history_file)
 	write_history(history_file);
-#endif /* HAVE_READLINE_HISTORY */
 #endif
     return ret;
 }
