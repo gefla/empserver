@@ -23,3 +23,18 @@ AC_DEFUN([MY_LIB_READLINE], [
 		  [Define if you have libreadline])
     fi
 ])
+
+AC_DEFUN([MY_WITH_READLINE],
+[
+  AC_ARG_WITH([readline],
+    [AS_HELP_STRING([--with-readline],
+      [support fancy command line editing @<:@default=check@:>@])],
+    [],
+    [with_readline=check])
+  if test "x$with_readline" != xno; then
+      MY_LIB_READLINE
+      if test "x$have_readline$with_readline" = xnoyes; then
+	  AC_MSG_FAILURE([--with-readline was given, but test for readline failed])
+      fi
+      with_readline="$have_readline"
+  fi])
