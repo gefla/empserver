@@ -14,11 +14,11 @@ AC_DEFUN([MY_WITH_TERMINFO],
 [
 	AC_ARG_WITH([terminfo],
 		AS_HELP_STRING([--with-terminfo],
-			[use terminfo for highlighting (default check)]))
+			[use terminfo for highlighting @<:@default check@:>@]))
 	if test "x$with_terminfo" != xno; then
 		MY_CURSES_TERMINFO
 		if test "$have_terminfo$with_terminfo" = noyes
-		then AC_MSG_FAILURE([Can't satisfy --with-terminfo])
+		then AC_MSG_FAILURE([--with-terminfo was given, but test for terminfo failed])
 		fi
 		with_terminfo="$have_terminfo"
 	fi
