@@ -33,7 +33,9 @@
 #include <config.h>
 
 #include <errno.h>
-#include "prototypes.h"
+#include <stdlib.h>
+#include <string.h>
+#include "fnameat.h"
 
 static int fname_is_abs(const char *);
 
