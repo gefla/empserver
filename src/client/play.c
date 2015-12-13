@@ -567,6 +567,7 @@ play(int sock, char *history_file)
     if (isatty(0)) {
 	use_readline = 1;
 	rl_already_prompted = 1;
+	rl_readline_name = "Empire";
 	if (history_file)
 	    read_history(history_file);
 	rl_bind_key('\t', rl_insert);  /* Disable tab completion */
