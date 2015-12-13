@@ -47,6 +47,7 @@
 #include <pwd.h>
 #endif
 #include <unistd.h>
+#include "fnameat.h"
 #include "misc.h"
 #include "version.h"
 
@@ -190,12 +191,8 @@ main(int argc, char **argv)
 
     sock = tcp_connect(host, port);
 
-    if (use_history_file) {
-	/* FIXME don't truncate udir */
-	history_file = malloc(1024);
-	strncpy(history_file, udir, 1000);
-	strcat(history_file, "/.empire.history");
-    }
+    if (use_history_file)
+	history_file = fnameat(".empire_history", udir);
 
     if (!login(sock, uname, country, passwd, send_kill, utf8))
 	exit(1);

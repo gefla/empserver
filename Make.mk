@@ -314,7 +314,7 @@ info.html/%.html: info/%.t
 $(server): $(filter src/server/% src/lib/commands/% src/lib/player/% src/lib/subs/% src/lib/update/%, $(obj)) $(empth_obj) $(empth_lib) $(libs)
 	$(call quiet-command,$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@,LINK $@)
 
-$(client): $(filter src/client/%, $(obj)) src/lib/global/version.o
+$(client): $(filter src/client/%, $(obj)) src/lib/global/version.o src/lib/gen/fnameat.o
 	$(call quiet-command,$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@,LINK $@)
 
 $(util): $(libs)
@@ -373,8 +373,9 @@ dist-client: $(cli_distgen)
 	$(tarball) $(TARNAME)-client-$(VERSION)				\
 	-C $(srcdir)/src/client						\
 		$(notdir $(filter src/client/%, $(src))	$(cli_distgen))	\
-	-C $(srcdir)/include proto.h version.h				\
+	-C $(srcdir)/include fnameat.h proto.h version.h		\
 	-C $(srcdir)/src/lib/global version.c				\
+	-C $(srcdir)/src/lib/gen fnameat.c				\
 	-C $(srcdir)/src/lib $(addprefix w32/, $(client/w32))		\
 	-C $(srcdir)/man empire.6					\
 	-C $(srcdir)/build-aux install-sh				\
