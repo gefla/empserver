@@ -155,9 +155,9 @@ If you want to submit a single commit, prepare it like this:
 This produces a file 0001-<subject>.patch, where <subject> is derived
 from the first line of the commit message.
 
-If you want to submit a a whole topic branch based on master, do:
+If you want to submit a whole topic branch based on master, do:
 
-    $ git format-patch -ns --cover-letter
+    $ git format-patch -ns --cover-letter master
 
 This produces 0000-cover-letter.patch 0001-<subject1>.patch
 0002-<subject2>.patch and so on.  Edit 0000-cover-letter.patch so it
