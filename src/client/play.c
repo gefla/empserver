@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Markus Armbruster, 2007-2017
  *     Ron Koenderink, 2007-2009
+ *     Martin Haukeli, 2015
  */
 
 #include <config.h>
@@ -436,7 +437,6 @@ recv_output(int sock)
     return n;
 }
 
-char *history_file = NULL;
 #ifdef HAVE_LIBREADLINE
 static char *input_from_rl;
 static int has_rl_input;
@@ -446,7 +446,6 @@ input_handler(char *line)
 {
     input_from_rl = line;
     has_rl_input = 1;
-    rl_already_prompted = 1;
 #ifdef HAVE_READLINE_HISTORY
     if (line && *line)
 	add_history(line);
@@ -536,11 +535,12 @@ intr(int sig)
 
 /*
  * Play on @sock.
+ * @history_file is the name of the history file, or null.
  * The session must be in the playing phase.
  * Return 0 when the session ended, -1 on error.
  */
 int
-play(int sock)
+play(int sock, char *history_file)
 {
     /*
      * Player input flows from INPUT_FD through recv_input() into ring
@@ -564,6 +564,7 @@ play(int sock)
     sa.sa_handler = SIG_IGN;
     sigaction(SIGPIPE, &sa, NULL);
 #ifdef HAVE_LIBREADLINE
+    rl_already_prompted = 1;
 #ifdef HAVE_READLINE_HISTORY
     if (history_file)
 	read_history(history_file);
@@ -665,19 +666,18 @@ play(int sock)
 		break;
 	    }
 	    if (n == 0) {
-#ifdef HAVE_LIBREADLINE
-#ifdef HAVE_READLINE_HISTORY
-		if (history_file)
-		    write_history(history_file);
-#endif /* HAVE_READLINE_HISTORY */
-#endif /* HAVE_LIBREADLINE */
 		ret = 0;
 		break;
 	    }
 	}
     }
+
 #ifdef HAVE_LIBREADLINE
     rl_callback_handler_remove();
+#ifdef HAVE_READLINE_HISTORY
+    if (history_file)
+	write_history(history_file);
+#endif /* HAVE_READLINE_HISTORY */
 #endif
     return ret;
 }

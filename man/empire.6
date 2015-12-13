@@ -3,7 +3,7 @@
 empire \- Empire client
 .SH SYNOPSIS
 .B empire
-[\fB\-hkruv\fP]
+[\fB\-hHkruv\fP]
 [\fB\-2\fP \fIoutfile\fP]
 [\fB\-s\fP \fI[host:]port\fP]
 [\fIcountry\fP
@@ -24,6 +24,11 @@ the thin veneer of civilization that hides the maniac within.
 .B \-h
 Help.  Print brief usage information and exit.
 .TP
+.B \-H
+Save readline command history to file.
+.IP
+Only available when compiled the GNU \fBreadline\fP library.
+.TP
 .B \-k
 If someone else is connected to your country, kill their connection.
 .TP
@@ -38,11 +43,6 @@ Use UTF-8 rather than ASCII character set.
 .IP
 This requires server version 4.2.21 or later, and a terminal that
 understands UTF-8.
-.TP
-.B \-H
-Save readline command history to file.
-.IP
-Only available when compiled with readline and history support.
 .TP
 .B \-v
 Print version information and exit.
@@ -79,8 +79,20 @@ representative.
 .TP
 .I LOGNAME
 Your user name.
+.TP
+.I INPUTRC
+The filename for the \fBreadline\fP startup file, overriding the
+default of \fI~/.inputrc\fP (see \fBREADLINE\fP below).
+.SH READLINE
+When compiled with the GNU \fBreadline\fP library, the client supports
+fancy line editing and, with option \fB-H\fP, persistent history.  See
+the readline documentation for details.
 .SH "SEE ALSO"
-\fIemp_server\fR(6).
+\fIemp_server\fR(6), \fIreadline\fR(3).
+.SH FILES
+.TP
+.I ~/.inputrc
+Individual \fBreadline\fP initialization file
 .SH AUTHORS
 .nf
 Primary Author is Dave Pare <mr-frog@scam.berkeley.edu>
@@ -90,6 +102,7 @@ Jeff Anton <anton@postgres.berkeley.edu>
 Markus Armbruster <armbru@pond.sub.org>
 Phill Everson <everson@compsci.bristol.ac.uk>
 Steven Grimm <koreth@ucscb.UCSC.EDU>
+Martin Haukeli <martin.haukeli@gmail.com>
 Lewis R. Jansen <lrj@helios.tn.cornell.edu>
 Mike St. Johns <stjohns@edn-vax.arpa>
 Ron Koenderink <rkoenderink@yahoo.ca>

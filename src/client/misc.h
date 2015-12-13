@@ -44,7 +44,6 @@ extern char empireport[];
 extern int eight_bit_clean;
 extern FILE *auxfp;
 extern int restricted;
-extern char *history_file;
 
 #ifdef HAVE_CURSES_TERMINFO
 void getsose(void);
@@ -61,7 +60,7 @@ int parseid(char *);
 int expect(int s, int match, char *buf);
 int tcp_connect(char *, char *);
 int login(int s, char *uname, char *cname, char *cpass, int kill_proc, int);
-int play(int);
+int play(int, char *);
 void sendcmd(int s, char *cmd, char *arg);
 int servercmd(int, char *, int);
 void outch(char);

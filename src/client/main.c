@@ -30,8 +30,9 @@
  *     Dave Pare, 1986
  *     Steve McClure, 1998
  *     Ron Koenderink, 2004-2007
- *     Markus Armbruster, 2005-2010
+ *     Markus Armbruster, 2005-2015
  *     Tom Dickson-Hunt, 2010
+ *     Martin Haukeli, 2015
  */
 
 #include <config.h>
@@ -99,8 +100,9 @@ main(int argc, char **argv)
     char *udir;
     char *colon;
     int sock;
+    char *history_file;
 
-    while ((opt = getopt(argc, argv, "2:krs:uHhv")) != EOF) {
+    while ((opt = getopt(argc, argv, "2:Hkrs:uhv")) != EOF) {
 	switch (opt) {
 	case '2':
 	    auxfname = optarg;
@@ -189,6 +191,7 @@ main(int argc, char **argv)
     sock = tcp_connect(host, port);
 
     if (use_history_file) {
+	/* FIXME don't truncate udir */
 	history_file = malloc(1024);
 	strncpy(history_file, udir, 1000);
 	strcat(history_file, "/.empire.history");
@@ -197,7 +200,7 @@ main(int argc, char **argv)
     if (!login(sock, uname, country, passwd, send_kill, utf8))
 	exit(1);
 
-    if (play(sock) < 0)
+    if (play(sock, history_file) < 0)
 	exit(1);
 
     return 0;
