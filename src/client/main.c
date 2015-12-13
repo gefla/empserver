@@ -77,7 +77,8 @@ print_usage(char *program_name)
 	   "  -s [HOST:]PORT  Specify server HOST and PORT\n"
 	   "  -u              Use UTF-8\n"
 #ifdef HAVE_LIBREADLINE
-	   "  -H              Save readline command history to file\n"
+	   "  -H FILE         Load and save command history from FILE\n"
+	   "                  (default ~/.empire_history with -r, none without -r)\n"
 #endif /* HAVE_LIBREADLINE */
 	   "  -h              display this help and exit\n"
 	   "  -v              display version information and exit\n",
@@ -89,7 +90,7 @@ main(int argc, char **argv)
 {
     int opt;
     char *auxfname = NULL;
-    int use_history_file = 0;
+    char *history_file = NULL;
     int send_kill = 0;
     char *host = NULL;
     char *port = NULL;
@@ -101,16 +102,15 @@ main(int argc, char **argv)
     char *udir;
     char *colon;
     int sock;
-    char *history_file;
 
-    while ((opt = getopt(argc, argv, "2:Hkrs:uhv")) != EOF) {
+    while ((opt = getopt(argc, argv, "2:H:krs:uhv")) != EOF) {
 	switch (opt) {
 	case '2':
 	    auxfname = optarg;
 	    break;
 #ifdef HAVE_LIBREADLINE
 	case 'H':
-	    use_history_file = 1;
+	    history_file = optarg;
 	    break;
 #endif /* HAVE_LIBREADLINE */
 	case 'k':
@@ -191,8 +191,10 @@ main(int argc, char **argv)
 
     sock = tcp_connect(host, port);
 
-    if (use_history_file)
-	history_file = fnameat(".empire_history", udir);
+    if (!restricted && !history_file)
+	history_file = ".empire_history";
+    if (history_file)
+	history_file = fnameat(history_file, udir);
 
     if (!login(sock, uname, country, passwd, send_kill, utf8))
 	exit(1);
