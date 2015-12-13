@@ -36,7 +36,10 @@ Only available when compiled the GNU \fBreadline\fP library.
 If someone else is connected to your country, kill their connection.
 .TP
 .B \-r
-Restricted mode: disable redirections and execute command.
+Restricted mode: disable redirections and execute command.  This is
+useful when you want to grant somebody access to just Empire, but not
+to the host system's user account that runs the client.  Be careful
+with \fB\-H\fP and \fB\-2\fP then.
 .TP
 .BI \-s " [host:]port"
 Specify server \fIhost\fR and \fIport\fR.
