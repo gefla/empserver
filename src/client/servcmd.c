@@ -52,7 +52,6 @@ int restricted;
 static FILE *redir_fp;
 static int redir_is_pipe;
 static int executing;
-static size_t input_to_forget;
 
 static void prompt(int, char *, char *);
 static void doredir(char *p);
@@ -80,10 +79,6 @@ servercmd(int code, char *arg, int len)
 	    else
 		(void)fclose(redir_fp);
 	    redir_fp = NULL;
-	}
-	if (input_to_forget) {
-	    forget_input(input_to_forget);
-	    input_to_forget = 0;
 	}
 	prompt(code, the_prompt, teles);
 	executing = 0;
@@ -161,20 +156,17 @@ fname(char *s)
 static int
 redir_authorized(char *arg, char *attempt, int expected)
 {
-    size_t seen = seen_input(arg);
-
     if (!expected) {
 	fprintf(stderr, "Warning: dropped conflicting %s %s",
 		attempt, arg);
 	return 0;
     }
 
-    if (!seen || (input_to_forget && input_to_forget != seen)) {
+    if (!seen_input(arg)) {
 	fprintf(stderr, "Warning: server attempted to %s %s",
 		attempt, arg);
 	return 0;
     }
-    input_to_forget = seen;
 
     if (restricted) {
 	fprintf(stderr, "Can't %s in restricted mode\n", attempt);

@@ -27,7 +27,7 @@
  *  secure.c: Check redir etc. to protect against tampering deity
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2015
  */
 
 #include <config.h>
@@ -38,15 +38,12 @@
 #include "secure.h"
 
 static struct ring recent_input;
-static size_t saved_bytes;
 
 /*
  * Remember line of input @inp for a while.
  * It must end with a newline.
- * Return value is suitable for forget_input(): it makes it forget all
- * input up to and including this line.
  */
-size_t
+void
 save_input(char *inp)
 {
     size_t len = strlen(inp);
@@ -59,47 +56,17 @@ save_input(char *inp)
 	assert(eol >= 0);
 	ring_discard(&recent_input, eol + 1);
     }
-    saved_bytes += len;
-    return saved_bytes;
 }
 
 /*
  * Can you still remember a line of input that ends with @tail?
  * It must end with a newline.
- * Return non-zero iff @tail can be remembered.
- * Passing that value to forget_input() will forget all input up to
- * and including this line.
  */
-size_t
+int
 seen_input(char *tail)
 {
     size_t len = strlen(tail);
-    size_t remembered = ring_len(&recent_input);
-    int dist;
 
     assert(len && tail[len - 1] == '\n');
-
-    dist = ring_search(&recent_input, tail);
-    if (dist < 0)
-	return 0;
-
-    assert(dist + len <= remembered && remembered <= saved_bytes);
-    return saved_bytes - remembered + dist + len;
-}
-
-/*
- * Forget remembered input up to @seen.
- * @seen should be obtained from save_input() or seen_input().
- */
-void
-forget_input(size_t seen)
-{
-    size_t forgotten = saved_bytes - ring_len(&recent_input);
-
-    assert(seen);
-
-    if (seen > forgotten) {
-	assert(ring_peek(&recent_input, seen - forgotten - 1) == '\n');
-	ring_discard(&recent_input, seen - forgotten);
-    }
+    return ring_search(&recent_input, tail) >= 0;
 }
