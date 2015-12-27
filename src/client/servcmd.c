@@ -30,7 +30,7 @@
  *     Dave Pare, 1989
  *     Steve McClure, 1998
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2010
+ *     Markus Armbruster, 2005-2015
  */
 
 #include <config.h>
@@ -69,7 +69,7 @@ servercmd(int code, char *arg, int len)
     switch (code) {
     case C_PROMPT:
 	if (sscanf(arg, "%d %d", &nmin, &nbtu) != 2) {
-	    fprintf(stderr, "prompt: bad server prompt %s\n", arg);
+	    fprintf(stderr, "prompt: bad server prompt %s", arg);
 	}
 	snprintf(the_prompt, sizeof(the_prompt), "[%d:%d] Command : ",
 		 nmin, nbtu);
@@ -179,7 +179,7 @@ redir_authorized(char *arg, char *attempt, int expected)
     }
 
     if (!seen || (input_to_forget && input_to_forget != seen)) {
-	fprintf(stderr, "WARNING!  Server attempted to %s %s\n",
+	fprintf(stderr, "WARNING!  Server attempted to %s %s",
 		attempt, arg);
 	return 0;
     }
@@ -240,6 +240,9 @@ dopipe(char *p)
 	fprintf(stderr, "Redirection lacks a command\n");
 	return;
     }
+
+    /* strip newline */
+    p[strlen(p) - 1] = 0;
 
     redir_is_pipe = 1;
     if ((redir_fp = popen(p, "w")) == NULL) {
