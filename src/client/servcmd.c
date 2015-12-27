@@ -69,7 +69,8 @@ servercmd(int code, char *arg, int len)
     switch (code) {
     case C_PROMPT:
 	if (sscanf(arg, "%d %d", &nmin, &nbtu) != 2) {
-	    fprintf(stderr, "prompt: bad server prompt %s", arg);
+	    fprintf(stderr, "Warning: server sent malformed prompt %s",
+		    arg);
 	}
 	snprintf(the_prompt, sizeof(the_prompt), "[%d:%d] Command : ",
 		 nmin, nbtu);
@@ -162,6 +163,19 @@ redir_authorized(char *arg, char *attempt, int expected)
 {
     size_t seen = seen_input(arg);
 
+    if (!expected) {
+	fprintf(stderr, "Warning: dropped conflicting %s %s",
+		attempt, arg);
+	return 0;
+    }
+
+    if (!seen || (input_to_forget && input_to_forget != seen)) {
+	fprintf(stderr, "Warning: server attempted to %s %s",
+		attempt, arg);
+	return 0;
+    }
+    input_to_forget = seen;
+
     if (restricted) {
 	fprintf(stderr, "Can't %s in restricted mode\n", attempt);
 	return 0;
@@ -171,19 +185,6 @@ redir_authorized(char *arg, char *attempt, int expected)
 	fprintf(stderr, "Can't %s in a batch file\n", attempt);
 	return 0;
     }
-
-    if (!expected) {
-	fprintf(stderr, "WARNING!  Server attempted to %s unexpectedly\n",
-		attempt);
-	return 0;
-    }
-
-    if (!seen || (input_to_forget && input_to_forget != seen)) {
-	fprintf(stderr, "WARNING!  Server attempted to %s %s",
-		attempt, arg);
-	return 0;
-    }
-    input_to_forget = seen;
     return 1;
 }
 
@@ -196,7 +197,7 @@ doredir(char *p)
     if (!redir_authorized(p, "redirect to file", !redir_fp))
 	return;
     if (*p++ != '>') {
-	fprintf(stderr, "WARNING!  Weird redirection %s", p);
+	fprintf(stderr, "Warning: dropped weird redirection %s", p);
 	return;
     }
 
@@ -231,7 +232,7 @@ dopipe(char *p)
     if (!redir_authorized(p, "pipe to shell command", !redir_fp))
 	return;
     if (*p++ != '|') {
-	fprintf(stderr, "WARNING!  Weird pipe %s", p);
+	fprintf(stderr, "Warning: dropped weird pipe %s", p);
 	return;
     }
 
@@ -245,9 +246,10 @@ dopipe(char *p)
     p[strlen(p) - 1] = 0;
 
     redir_is_pipe = 1;
+    errno = 0;
     if ((redir_fp = popen(p, "w")) == NULL) {
-	fprintf(stderr, "Can't redirect to pipe %s: %s\n",
-		p, strerror(errno));
+	fprintf(stderr, "Can't redirect to pipe %s%s%s\n",
+		p, errno ? ": " : "", errno ? strerror(errno) : "");
     }
 }
 
@@ -266,7 +268,7 @@ doexecute(char *p)
     }
 
     if ((fd = open(p, O_RDONLY)) < 0) {
-	fprintf(stderr, "Can't open execute file %s: %s\n",
+	fprintf(stderr, "Can't open batch file %s: %s\n",
 		p, strerror(errno));
 	return -1;
     }
