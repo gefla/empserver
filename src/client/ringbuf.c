@@ -27,7 +27,7 @@
  *  ringbuf.c: Simple ring buffer
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2009
+ *     Markus Armbruster, 2007-2015
  */
 
 #include <config.h>
@@ -82,9 +82,17 @@ ring_peek(struct ring *r, int n)
 
     assert(-RING_SIZE - 1 <= n && n <= RING_SIZE);
 
-    idx = n >= 0 ? r->cons + n : r->prod - -n;
-    if (idx < r->cons && idx >= r->prod)
-	return EOF;
+    if (n >= 0) {
+	idx = r->cons + n;
+	if (idx >= r->prod)
+	    return EOF;
+    } else {
+	/* Beware, r->prod - -n can wrap around, avoid that */
+	if (r->prod < r->cons + -n)
+	    return EOF;
+	idx = r->prod - -n;
+    }
+
     return r->buf[idx % RING_SIZE];
 }
 
