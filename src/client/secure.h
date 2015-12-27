@@ -37,5 +37,6 @@
 
 extern void save_input(char *);
 extern int seen_input(char *);
+extern int seen_exec_input(char *);
 
 #endif

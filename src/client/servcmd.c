@@ -154,20 +154,8 @@ fname(char *s)
 }
 
 static int
-redir_authorized(char *arg, char *attempt, int expected)
+common_authorized(char *arg, char *attempt)
 {
-    if (!expected) {
-	fprintf(stderr, "Warning: dropped conflicting %s %s",
-		attempt, arg);
-	return 0;
-    }
-
-    if (!seen_input(arg)) {
-	fprintf(stderr, "Warning: server attempted to %s %s",
-		attempt, arg);
-	return 0;
-    }
-
     if (restricted) {
 	fprintf(stderr, "Can't %s in restricted mode\n", attempt);
 	return 0;
@@ -180,13 +168,43 @@ redir_authorized(char *arg, char *attempt, int expected)
     return 1;
 }
 
+static int
+redir_authorized(char *arg, char *attempt)
+{
+    if (redir_fp) {
+	fprintf(stderr, "Warning: dropped conflicting %s %s",
+		attempt, arg);
+	return 0;
+    }
+
+    if (!seen_input(arg)) {
+	fprintf(stderr, "Warning: server attempted to %s %s",
+		attempt, arg);
+	return 0;
+    }
+
+    return common_authorized(arg, attempt);
+}
+
+static int
+exec_authorized(char *arg)
+{
+    if (!seen_exec_input(arg)) {
+	fprintf(stderr,
+		"Warning: server attempted to execute batch file %s", arg);
+	return 0;
+    }
+
+    return common_authorized(arg, "execute batch file");
+}
+
 static void
 doredir(char *p)
 {
     int mode;
     int fd;
 
-    if (!redir_authorized(p, "redirect to file", !redir_fp))
+    if (!redir_authorized(p, "redirect to file"))
 	return;
     if (*p++ != '>') {
 	fprintf(stderr, "Warning: dropped weird redirection %s", p);
@@ -221,7 +239,7 @@ doredir(char *p)
 static void
 dopipe(char *p)
 {
-    if (!redir_authorized(p, "pipe to shell command", !redir_fp))
+    if (!redir_authorized(p, "pipe to shell command"))
 	return;
     if (*p++ != '|') {
 	fprintf(stderr, "Warning: dropped weird pipe %s", p);
@@ -250,7 +268,7 @@ doexecute(char *p)
 {
     int fd;
 
-    if (!redir_authorized(p, "execute batch file", 1))
+    if (!exec_authorized(p))
 	return -1;
 
     p = fname(p);

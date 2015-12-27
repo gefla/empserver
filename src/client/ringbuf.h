@@ -27,7 +27,7 @@
  *  ringbuf.h: Simple ring buffer
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2015
  */
 
 #ifndef RINGBUF_H
@@ -59,7 +59,7 @@ extern int ring_getc(struct ring *);
 extern int ring_putc(struct ring *, unsigned char);
 extern int ring_putm(struct ring *, void *, size_t);
 extern void ring_discard(struct ring *, int);
-extern int ring_search(struct ring *, char *);
+extern int ring_search(struct ring *, char *, int);
 extern int ring_from_file(struct ring *, int fd);
 extern int ring_to_file(struct ring *, int fd);
 

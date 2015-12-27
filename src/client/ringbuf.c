@@ -157,16 +157,17 @@ ring_discard(struct ring *r, int n)
 
 /*
  * Search the ring buffer for zero-terminated string S.
- * If found, return a non-negative value referring to the beginning of
- * S in the buffer when passed to ring_peek().  Else return -1.
+ * Start at the @(n+1)-th byte to be gotten.
+ * If found, return the number of bytes in the buffer before S.
+ * Else return -1.
  */
 int
-ring_search(struct ring *r, char *s)
+ring_search(struct ring *r, char *s, int n)
 {
     size_t len = strlen(s);
     size_t i, j;
 
-    for (i = r->cons; i + len <= r->prod; i++) {
+    for (i = r->cons + n; i + len <= r->prod; i++) {
 	for (j = 0; s[j] && s[j] == (char)r->buf[(i + j) % RING_SIZE]; j++)
 	    ;
 	if (!s[j])
