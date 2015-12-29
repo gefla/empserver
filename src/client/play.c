@@ -27,7 +27,7 @@
  *  play.c: Playing the game
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2010
+ *     Markus Armbruster, 2007-2015
  *     Ron Koenderink, 2007-2009
  */
 
@@ -304,8 +304,14 @@ w32_ring_from_file_or_bounce_buf(struct ring *r, int fd)
 #define EOF_COOKIE "ctld\n"
 #define INTR_COOKIE "aborted\n"
 
+/*
+ * Player input file descriptor
+ * 0 while reading interactive input
+ * >0 while reading a batch file
+ * <0 during error handling
+ */
 int input_fd;
-int send_eof;				/* need to send EOF_COOKIE */
+
 static volatile sig_atomic_t send_intr; /* need to send INTR_COOKIE */
 
 /*
@@ -398,7 +404,7 @@ recv_output(int sock)
 }
 
 /*
- * Receive command input from @fd into @inbuf.
+ * Receive player input from @fd into @inbuf.
  * Return 1 on receipt of input, zero on EOF, -1 on error.
  */
 static int
@@ -455,6 +461,7 @@ play(int sock)
     struct ring inbuf;		/* input buffer, draining to SOCK */
     int eof_fd0;		/* read fd 0 hit EOF? */
     int partial_line_sent;	/* partial input line sent? */
+    int send_eof;		/* need to send EOF_COOKIE */
     fd_set rdfd, wrfd;
     int n;
 
@@ -476,10 +483,11 @@ play(int sock)
 
 	/*
 	 * Want to read player input only when we don't need to send
-	 * cookies, and INPUT_FD is still open, and INBUF can accept
+	 * cookies, haven't reached EOF on fd 0, and @inbuf can accept
 	 * some.
 	 */
-	if (!send_intr && !send_eof && input_fd >= 0 && ring_space(&inbuf))
+	if (!send_intr && !send_eof && (input_fd || !eof_fd0)
+	    && ring_space(&inbuf))
 	    FD_SET(input_fd, &rdfd);
 	/* Want to send player input only when we have something */
 	if (send_intr || send_eof || ring_len(&inbuf))
@@ -507,7 +515,7 @@ play(int sock)
 	    if (input_fd) {
 		/* execute aborted, switch back to fd 0 */
 		close(input_fd);
-		input_fd = eof_fd0 ? -1 : 0;
+		input_fd = 0;
 	    }
 	}
 
@@ -515,23 +523,24 @@ play(int sock)
 	    continue;
 
 	/* read player input */
-	if (input_fd >= 0 && FD_ISSET(input_fd, &rdfd)) {
+	if (FD_ISSET(input_fd, &rdfd)) {
 	    n = recv_input(input_fd, &inbuf);
-	    if (n < 0) {
-		perror("read stdin"); /* FIXME stdin misleading, could be execing */
-		n = 0;
-	    }
-	    if (n == 0) {
-		/* EOF on input */
-		send_eof++;
+	    if (n <= 0) {
 		if (input_fd) {
 		    /* execute done, switch back to fd 0 */
+		    if (n < 0) {
+			perror("read batch file");
+			send_intr = 1;
+		    } else
+			send_eof++;
 		    close(input_fd);
-		    input_fd = eof_fd0 ? -1 : 0;
+		    input_fd = 0;
 		} else {
 		    /* stop reading input, drain socket ring buffers */
+		    if (n < 0)
+			perror("read stdin");
+		    send_eof++;
 		    eof_fd0 = 1;
-		    input_fd = -1;
 		    sa.sa_handler = SIG_DFL;
 		    sigaction(SIGINT, &sa, NULL);
 		}
@@ -557,6 +566,11 @@ play(int sock)
 	    }
 	    if (n == 0)
 		return 0;
+	    if (input_fd < 0) {
+		/* execute failed */
+		send_intr = 1;
+		input_fd = 0;
+	    }
 	}
     }
 }

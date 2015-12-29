@@ -41,6 +41,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include "misc.h"
 #include "proto.h"
 #include "secure.h"
@@ -89,12 +90,14 @@ servercmd(int code, char *arg, int len)
 	break;
     case C_EXECUTE:
 	fd = doexecute(arg);
-	if (fd < 0)
-	    send_eof++;
-	else {
-	    input_fd = fd;
+	if (fd < 0) {
+	    if (input_fd)
+		close(input_fd);
+	} else {
+	    assert(!input_fd);
 	    executing = 1;
 	}
+	input_fd = fd;
 	break;
     case C_EXIT:
 	printf("Exit: %s", arg);
