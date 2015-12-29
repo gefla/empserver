@@ -508,7 +508,7 @@ play(int sock)
 	    partial_line_sent = 0;
 	if (send_eof && !partial_line_sent
 	    && ring_putm(&inbuf, EOF_COOKIE, sizeof(EOF_COOKIE) - 1) >= 0)
-	    send_eof--;
+	    send_eof = 0;
 	if (send_intr && !partial_line_sent
 	    && ring_putm(&inbuf, INTR_COOKIE, sizeof(INTR_COOKIE) - 1) >= 0) {
 	    send_intr = 0;
@@ -532,14 +532,14 @@ play(int sock)
 			perror("read batch file");
 			send_intr = 1;
 		    } else
-			send_eof++;
+			send_eof = 1;
 		    close(input_fd);
 		    input_fd = 0;
 		} else {
 		    /* stop reading input, drain socket ring buffers */
 		    if (n < 0)
 			perror("read stdin");
-		    send_eof++;
+		    send_eof = 1;
 		    eof_fd0 = 1;
 		    sa.sa_handler = SIG_DFL;
 		    sigaction(SIGINT, &sa, NULL);
