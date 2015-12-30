@@ -543,6 +543,7 @@ play(int sock)
 		    eof_fd0 = 1;
 		    sa.sa_handler = SIG_DFL;
 		    sigaction(SIGINT, &sa, NULL);
+		    send_intr = 0;
 		}
 	    } else
 		partial_line_sent = ring_peek(&inbuf, -1) != '\n';
