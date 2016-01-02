@@ -27,7 +27,7 @@
  *  play.c: Playing the game
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2015
+ *     Markus Armbruster, 2007-2016
  *     Ron Koenderink, 2007-2009
  */
 
@@ -523,7 +523,7 @@ play(int sock)
 	    continue;
 
 	/* read player input */
-	if (FD_ISSET(input_fd, &rdfd)) {
+	if (FD_ISSET(input_fd, &rdfd) && ring_space(&inbuf)) {
 	    n = recv_input(input_fd, &inbuf);
 	    if (n <= 0) {
 		if (input_fd) {
