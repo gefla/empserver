@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2006-2007
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -226,10 +226,6 @@ look_land(struct lndstr *lookland)
 	    continue;
 	/* Don't always see spies */
 	if (lchr[(int)lp->lnd_type].l_flags & L_SPY) {
-	    /* If it's on a ship or unit, assume it's hidden
-	       enough not to be seen */
-	    if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
-		continue;
 	    if (!(chance(LND_SPY_DETECT_CHANCE(lp->lnd_effic))))
 		continue;
 	}
