@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2015
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -194,7 +194,7 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
 	    pr("Some subs are present in the sector.\n");
     }
     nplanes = planesatxy(target->sct_x, target->sct_y, 0, 0);
-    nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0);
+    nunits = unitsatxy(target->sct_x, target->sct_y, 0, L_SPY);
   retry:
     p = getstring("Bomb what? (ship, plane, land unit, efficiency, commodities) ",
 		  buf);
@@ -599,7 +599,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	plp = (struct plist *)qp;
 	if (changed_plane_aborts(plp))
 	    continue;
-	nunits = unitsatxy(target->sct_x, target->sct_y, 0, 0);
+	nunits = unitsatxy(target->sct_x, target->sct_y, 0, L_SPY);
 	if (nunits == 0) {
 	    pr("%s could not find any units!\n", prplane(&plp->plane));
 	    continue;
@@ -615,7 +615,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	    if (*q == '~')
 		break;
 	    if (*q == '?') {
-		unitsatxy(target->sct_x, target->sct_y, 0, 0);
+		unitsatxy(target->sct_x, target->sct_y, 0, L_SPY);
 		continue;
 	    }
 	    n = atoi(q);
@@ -623,6 +623,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 		continue;
 	    if (getland(n, &land) && land.lnd_own &&
 		land.lnd_ship < 0 && land.lnd_land < 0 &&
+		!(lchr[land.lnd_type].l_flags & L_SPY) &&
 		land.lnd_x == target->sct_x && land.lnd_y == target->sct_y)
 		unitno = n;
 	    else
