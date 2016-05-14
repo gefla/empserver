@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2015
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -660,13 +660,16 @@ free_flist(struct emp_qelem *list)
 }
 
 static int
-uid_eq(struct emp_qelem *elem, void *key)
+flist_eq(struct emp_qelem *elem, void *key)
 {
-    return ((struct flist *)elem)->uid == ((struct empobj *)key)->uid;
+    struct flist *e = (struct flist *)elem;
+    struct flist *k = key;
+
+    return e->type == k->type && e->uid == k->uid;
 }
 
 static struct flist *
 search_flist(struct emp_qelem *list, struct empobj *gp)
 {
-    return (struct flist *)emp_searchque(list, gp, uid_eq);
+    return (struct flist *)emp_searchque(list, gp, flist_eq);
 }
