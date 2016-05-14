@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -83,9 +83,12 @@ sct_prewrite(int id, void *old, void *new)
 	sp->sct_oldown = own;
     }
 
+    /*
+     * Without civilians, military and land units, revert to deity.
+     * Note: would_abandon() must match this condition.
+     */
     if (own && !civs && !mil && !has_units(sp->sct_x, sp->sct_y, own)
 	&& !(sp->sct_flags & MOVE_IN_PROGRESS)) {
-	/* more cruft! */
 	own = sp->sct_own = 0;
 	sp->sct_mobil = 0;
 	if (sp->sct_type == SCT_CAPIT || sp->sct_type == SCT_MOUNT)

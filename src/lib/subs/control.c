@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2014
+ *     Markus Armbruster, 2014-2016
  */
 
 #include <config.h>
@@ -68,7 +68,8 @@ military_control(struct sctstr *sp)
  * Ask user to confirm abandonment of sector @sp, if any.
  * If removing @amnt commodities of type @vtype and the land units in
  * @list would abandon the sector, ask the user to confirm.
- * All land units in @list must be in this sector.  @list may be null.
+ * All land units in @land_list must be in this sector, owned by the
+ * player, and not loaded onto anything.  @land_list may be null.
  * Return zero when abandonment was declined, else non-zero.
  */
 int
@@ -93,14 +94,22 @@ abandon_askyn(struct sctstr *sp, i_type vtype, int amnt,
 /*
  * Would removing this stuff from @sp abandon it?
  * Consider removal of @amnt commodities of type @vtype and the land
- * units in @list.
- * All land units in @list must be in this sector.  @list may be null.
+ * units in @land_list.
+ * All land units in @land_list must be in this sector, owned by the
+ * player, and not loaded onto anything.  @land_list may be null.
  */
 int
 would_abandon(struct sctstr *sp, i_type vtype, int amnt,
 	      struct ulist *land_list)
 {
     int mil, civs, nland;
+    struct nstr_item ni;
+    struct lndstr land;
+
+    /*
+     * sct_prewrite() abandons when there are no civilians, military
+     * and own units left.
+     */
 
     if (vtype != I_CIVIL && vtype != I_MILIT)
 	return 0;
@@ -115,7 +124,23 @@ would_abandon(struct sctstr *sp, i_type vtype, int amnt,
 
     if (!sp->sct_own || civs > 0 || mil > 0)
 	return 0;
-    nland = unitsatxy(sp->sct_x, sp->sct_y, 0, 0, 1);
+
+    /*
+     * Okay, no civilians and no military would be left.  Any own land
+     * units left?  Land units on ships stay, so count them.  Land
+     * units not on anything stay unless in @land_list, so count them,
+     * then subtract length of @land_list.  Land units on land units
+     * stay if their carrier stays, and therefore won't change the
+     * outcome; don't count them.
+     */
+
+    nland = 0;
+    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
+    while (nxtitem(&ni, &land)) {
+	if (land.lnd_own == player->cnum && land.lnd_land < 0)
+	    ++nland;
+    }
+
     if (land_list)
 	nland -= emp_quelen(&land_list->queue);
     return nland <= 0;

@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2015
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -954,7 +954,8 @@ lnd_mobcost(struct lndstr *lp, struct sctstr *sp)
 
 /*
  * Ask user to confirm sector abandonment, if any.
- * All land units in @list must be in the same sector.
+ * All land units in @list must be in the same sector, owned by the
+ * player, and not loaded onto anything.
  * If removing the land units in @list would abandon their sector, ask
  * the user to confirm.
  * Return zero when abandonment was declined, else non-zero.
