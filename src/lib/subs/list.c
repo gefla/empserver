@@ -113,7 +113,7 @@ carriersatxy(coord x, coord y, natid own)
 }
 
 int
-unitsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
+unitsatxy(coord x, coord y, int wantflags, int nowantflags)
 {
     int units;
     struct nstr_item ni;
@@ -144,12 +144,10 @@ unitsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
 		continue;
 	}
 
-	if (!only_count) {
-	    if (!units)
-		pr(" #          owner           eff       type\n");
-	    pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
-	       cname(land.lnd_own), effadv(land.lnd_effic), prland(&land));
-	}
+	if (!units)
+	    pr(" #          owner           eff       type\n");
+	pr("(#%3d) %10.10s  %12.12s  %s\n", ni.cur,
+	   cname(land.lnd_own), effadv(land.lnd_effic), prland(&land));
 	units++;
     }
     return units;
