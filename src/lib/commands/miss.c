@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Thomas Ruschak, 1992
  *     Steve McClure, 2000
- *     Markus Armbruster, 2005-2013
+ *     Markus Armbruster, 2005-2016
  */
 
 #include <config.h>
@@ -244,7 +244,8 @@ mission(void)
 	}
 
 	if (type == EF_PLANE && nuk_on_plane((struct plnstr *)gp) >= 0) {
-	    pr("%s can't perform a mission while it carries a nuclear weapon",
+	    pr("%s can't perform a mission"
+	       " while it is carrying a nuclear weapon\n",
 	       unit_nameof(gp));
 	    continue;
 	}
