@@ -131,6 +131,7 @@ int
 pln_where_to_land(coord x, coord y,
 		  union empobj_storage *target, int *flagsp)
 {
+    /* Keep conditions for landing consistent with pln_airbase_ok() */
     int nships;
     int cno;
     int fl;
@@ -176,11 +177,10 @@ pln_where_to_land(coord x, coord y,
 	pr("Nowhere to land at sector %s!\n", xyas(x, y, player->cnum));
 	return -1;
     }
-    if (target->sect.sct_type == SCT_MOUNT) {
-	pr("Nowhere to land at sector %s!\n", xyas(x, y, player->cnum));
-	return -1;
-    }
     /* clear to land at sector */
+    if (target->sect.sct_type == SCT_MOUNT) {
+	*flagsp |= P_K;
+    }
     if (target->sect.sct_type != SCT_AIRPT || target->sect.sct_effic < 60)
 	*flagsp |= P_V;
     return 0;
@@ -457,9 +457,15 @@ carrier_planes(struct shpstr *sp, int msl)
     return res;
 }
 
+/*
+ * Can @pp operate out its sector?
+ * If @oneway, consider only takeoff, else takeoff and landing.
+ * If @noisy, report to current player when it can't.
+ */
 int
 pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 {
+    /* Keep conditions for landing consistent with pln_where_to_land() */
     struct shpstr ship;
     struct lndstr land;
     struct sctstr sect;
@@ -501,9 +507,16 @@ pln_airbase_ok(struct plnstr *pp, int oneway, int noisy)
 	    return 0;
 
     } else {
-	/* sector: needs to be own or allied, efficient airfield */
+	/* sector: needs to be own or allied, efficient, suitable type */
 	if (!getsect(pp->pln_x, pp->pln_y, &sect)) {
 	    CANT_REACH();
+	    return 0;
+	}
+	/* mountain requires helo or missile */
+	if (sect.sct_type == SCT_MOUNT && !(pcp->pl_flags & (P_K | P_M))) {
+	    if (noisy)
+		pr("(note) %s is in a mountain and can't take off\n",
+		   prplane(pp));
 	    return 0;
 	}
 
