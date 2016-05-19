@@ -5,7 +5,7 @@
 The launch command is used to launch missiles (or satellites)
 from sectors or submarines owned by you.
 .s1
-There are 5 classes of missiles:
+There are five classes of missiles:
 .NF
 1. "marine" missiles may only be fired at ships.  They may be given
    "interdiction" mission.
@@ -16,14 +16,11 @@ There are 5 classes of missiles:
    automatically intercept planes.
 4. "satellite" missiles may only be fired against satellites in orbit.
    They will automatically attempt to intercept AT_WAR satellites
-   being launched into orbit.
+   being launched into orbit.  Unlike other missiles, they don't get
+   used up.
 5. "SDI" (anti-ballistic-missiles) can't be launched manually.  They
    automatically intercept incoming "tactical" (non-"marine")
    missiles.
-
-As well, there are "satellites" which are like missiles in that they
-can be launched, but unlike missiles in that they don't get destroyed
-as soon as they are launched.
 .FI
 .s1
 In certain cases, a missile will require petrol or shells to be in the
