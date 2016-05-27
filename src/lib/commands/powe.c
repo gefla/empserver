@@ -300,16 +300,6 @@ gen_power(struct powstr *powbuf, int save)
 	    f_ptr++;
 	}
     }
-    for (i = 1; i < MAXNOC; i++) {
-	struct natstr *np;
-	int maxpop;
-
-	if (opt_RES_POP) {
-	    np = getnatp(i);
-	    maxpop = max_population(np->nat_level[NAT_RLEV], SCT_MINE, 0);
-	    powbuf[i].p_power *= 1.0 + maxpop / 10000.0;
-	}
-    }
     qsort(&powbuf[1], MAXNOC - 1, sizeof(*powbuf), powcmp);
     if (!save)
 	return;

@@ -81,10 +81,6 @@ power factor += ((nation money / 100) + (petrol / 500) +
                  (guns / 2.5) + (lcms / 10) + (hcms / 5))
 power factor += ((number of sectors * (average sector effic / 100)) * 10)
 power factor = ((power factor) * (nation tech level / 500))
-power factor = ((power factor) * (research factor))
 .FI
-.s1
-The research factor is either 1, if RES_POP is not being used, or 1+(max
-pop in a sector)/10000, if it is being used.
 .s1
 .SA "census, nation, Communication, Nations, Diplomacy"
