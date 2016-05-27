@@ -51,6 +51,7 @@ static void out5(double, int, int);
 static void gen_power(struct powstr *, int);
 static int powcmp(const void *, const void *);
 static void addtopow(short *, struct powstr *);
+static float item_power(short[]);
 
 int
 powe(void)
@@ -285,13 +286,6 @@ gen_power(struct powstr *powbuf, int save)
 	pow->p_money = natp->nat_money;
 	pow->p_power += pow->p_money / 100.;
 
-	pow->p_power += pow->p_petrol / 500.0;
-
-	pow->p_power += (pow->p_civil + pow->p_milit) / 10.0;
-	pow->p_power += pow->p_shell / 12.5;
-	pow->p_power += pow->p_iron / 100.0;
-	pow->p_power += pow->p_dust / 5 + pow->p_oil / 10 + pow->p_bars;
-	pow->p_power += pow->p_guns / 2.5;
 	if (pow->p_sects > 0)
 	    pow->p_power += pow->p_sects
 		* (pow->p_effic / pow->p_sects / 100.0)
@@ -357,6 +351,23 @@ addtopow(short *vec, struct powstr *pow)
     pow->p_food += vec[I_FOOD];
     pow->p_oil += vec[I_OIL];
     pow->p_bars += vec[I_BAR];
-    pow->p_power += vec[I_LCM] / 10.0;
-    pow->p_power += vec[I_HCM] / 5.0;
+    pow->p_power += item_power(vec);
+}
+
+static float
+item_power(short item[])
+{
+    static float pow_denom[I_MAX + 1] = {
+	10, 10, 12.5, 2.5, 500, 100, 5, 1, 0, 10, 10, 5, 0, 0
+    };
+    float p;
+    int i;
+
+    p = 0.0;
+    for (i = I_NONE + 1; i <= I_MAX; i++) {
+	if (pow_denom[i])
+	    p += item[i] / pow_denom[i];
+    }
+
+    return p;
 }
