@@ -86,9 +86,8 @@ The power value of a ship or land unit is (lcm cost / 10 + hcm cost +
 The power value of a plane is 20 * efficiency / 100 * (20 + nation
 tech level) / 500.
 .s1
-The power value of commodities is civilians / 10 + military / 10 +
-shells / 12.5 + guns / 2.5 + petrol / 500 + iron / 100 + dust / 5 +
-bars + oil / 10 lcms / 10 + hcms / 5.
+The power value of commodities is amount * type factor.  \*Qshow
+item\*U shows the type factor in column \*Qpower\*U.
 .s1
 Efficiency is in percent.
 .s1
