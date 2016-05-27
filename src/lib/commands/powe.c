@@ -274,7 +274,7 @@ gen_power(struct powstr *powbuf, int save)
 	pow->p_planes += 1.0;
 	natp = getnatp(plane.pln_own);
 	pow->p_power += 20 * (plane.pln_effic / 100.0) *
-	    (natp->nat_level[NAT_TLEV] / 500.0);
+	    (20 + natp->nat_level[NAT_TLEV]) / 500.0;
     }
     for (i = 1; NULL != (natp = getnatp(i)); i++) {
 	pow = &powbuf[i];
@@ -290,7 +290,7 @@ gen_power(struct powstr *powbuf, int save)
 	    pow->p_power += pow->p_sects
 		* (pow->p_effic / pow->p_sects / 100.0)
 		* 10.0;
-	pow->p_power *= MAX(1.0, natp->nat_level[NAT_TLEV]) / 500.0;
+	pow->p_power *= (20 + natp->nat_level[NAT_TLEV]) / 500.0;
 	/* ack.  add this vec to the "world power" element */
 	f_pt2 = &powbuf[0].p_sects;
 	f_ptr = &pow->p_sects;

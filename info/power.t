@@ -72,7 +72,7 @@ power factor = (  power value of money
                 + power value of commodities in sectors
                 + power value of ships, planes and land units
                 + power value of commodities loaded on ships and land units)
-               * nation tech level / 500
+               * (20 + nation tech level) / 500
 .FI
 .s1
 The power value of money is dollars / 100.
@@ -82,8 +82,8 @@ The power value of a sector is efficiency / 10.
 The power value of a ship or land unit is (lcm cost / 10 + hcm cost +
 10) * efficiency / 100 * 2.
 .s1
-The power value of a plane is 20 * efficiency / 100 * nation tech
-level / 500.
+The power value of a plane is 20 * efficiency / 100 * (20 + nation
+tech level) / 500.
 .s1
 The power value of commodities is civilians / 10 + military / 10 +
 shells / 12.5 + guns / 2.5 + petrol / 500 + iron / 100 + dust / 5 +
