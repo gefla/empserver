@@ -952,12 +952,13 @@
     Play#0 output Play#0 1 "uid" 4 0 0 16
     Play#0 output Play#0 1 "name" 3 0 0 -1
     Play#0 output Play#0 1 "mnem" 13 4 1 -1
+    Play#0 output Play#0 1 "power" 8 0 0 -1
     Play#0 output Play#0 1 "value" 8 0 0 -1
     Play#0 output Play#0 1 "sell" 8 0 0 -1
     Play#0 output Play#0 1 "lbs" 8 0 0 -1
     Play#0 output Play#0 1 "pkg" 8 0 5 -1
     Play#0 output Play#0 1 "melt_denom" 8 0 0 -1
-    Play#0 output Play#0 1 /8
+    Play#0 output Play#0 1 /9
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 17
     Play#0 command xdump
@@ -1451,20 +1452,20 @@
     Play#0 input xdump item *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP item 0
-    Play#0 output Play#0 1 0 "civilians" "c" 1 0 1 1 10 10 10 10 4
-    Play#0 output Play#0 1 1 "military" "m" 0 1 1 1 1 1 1 1 20
-    Play#0 output Play#0 1 2 "shells" "s" 5 1 1 1 1 10 1 1 80
-    Play#0 output Play#0 1 3 "guns" "g" 60 1 10 1 1 10 1 1 100
-    Play#0 output Play#0 1 4 "petrol" "p" 4 1 1 1 1 10 1 1 50
-    Play#0 output Play#0 1 5 "iron\\040ore" "i" 2 1 1 1 1 10 1 1 100
-    Play#0 output Play#0 1 6 "dust\\040(gold)" "d" 20 1 5 1 1 10 1 1 100
-    Play#0 output Play#0 1 7 "bars\\040of\\040gold" "b" 280 1 50 1 1 5 1 4 200
-    Play#0 output Play#0 1 8 "food" "f" 0 1 1 1 1 10 1 1 2
-    Play#0 output Play#0 1 9 "oil" "o" 8 1 1 1 1 10 1 1 50
-    Play#0 output Play#0 1 10 "light\\040products" "l" 2 1 1 1 1 10 1 1 100
-    Play#0 output Play#0 1 11 "heavy\\040products" "h" 4 1 1 1 1 10 1 1 100
-    Play#0 output Play#0 1 12 "uncompensated\\040workers" "u" 1 1 2 1 1 2 1 1 2
-    Play#0 output Play#0 1 13 "radioactive\\040materials" "r" 150 1 8 1 1 10 1 1 1000
+    Play#0 output Play#0 1 0 "civilians" "c" 100 1 0 1 1 10 10 10 10 4
+    Play#0 output Play#0 1 1 "military" "m" 100 0 1 1 1 1 1 1 1 20
+    Play#0 output Play#0 1 2 "shells" "s" 80 5 1 1 1 1 10 1 1 80
+    Play#0 output Play#0 1 3 "guns" "g" 400 60 1 10 1 1 10 1 1 100
+    Play#0 output Play#0 1 4 "petrol" "p" 2 4 1 1 1 1 10 1 1 50
+    Play#0 output Play#0 1 5 "iron\\040ore" "i" 10 2 1 1 1 1 10 1 1 100
+    Play#0 output Play#0 1 6 "dust\\040(gold)" "d" 200 20 1 5 1 1 10 1 1 100
+    Play#0 output Play#0 1 7 "bars\\040of\\040gold" "b" 1000 280 1 50 1 1 5 1 4 200
+    Play#0 output Play#0 1 8 "food" "f" 0 0 1 1 1 1 10 1 1 2
+    Play#0 output Play#0 1 9 "oil" "o" 100 8 1 1 1 1 10 1 1 50
+    Play#0 output Play#0 1 10 "light\\040products" "l" 100 2 1 1 1 1 10 1 1 100
+    Play#0 output Play#0 1 11 "heavy\\040products" "h" 200 4 1 1 1 1 10 1 1 100
+    Play#0 output Play#0 1 12 "uncompensated\\040workers" "u" 0 1 1 2 1 1 2 1 1 2
+    Play#0 output Play#0 1 13 "radioactive\\040materials" "r" 0 150 1 8 1 1 10 1 1 1000
     Play#0 output Play#0 1 /14
     Play#0 output Play#0 6 0 640
     Play#0 input xdump product *
@@ -2172,20 +2173,20 @@
     Play#1 input xdump item *
     Play#1 command xdump
     Play#1 output Play#1 1 XDUMP item 0
-    Play#1 output Play#1 1 0 "civilians" "c" 1 0 1 1 10 10 10 10 4
-    Play#1 output Play#1 1 1 "military" "m" 0 1 1 1 1 1 1 1 20
-    Play#1 output Play#1 1 2 "shells" "s" 5 1 1 1 1 10 1 1 80
-    Play#1 output Play#1 1 3 "guns" "g" 60 1 10 1 1 10 1 1 100
-    Play#1 output Play#1 1 4 "petrol" "p" 4 1 1 1 1 10 1 1 50
-    Play#1 output Play#1 1 5 "iron\\040ore" "i" 2 1 1 1 1 10 1 1 100
-    Play#1 output Play#1 1 6 "dust\\040(gold)" "d" 20 1 5 1 1 10 1 1 100
-    Play#1 output Play#1 1 7 "bars\\040of\\040gold" "b" 280 1 50 1 1 5 1 4 200
-    Play#1 output Play#1 1 8 "food" "f" 0 1 1 1 1 10 1 1 2
-    Play#1 output Play#1 1 9 "oil" "o" 8 1 1 1 1 10 1 1 50
-    Play#1 output Play#1 1 10 "light\\040products" "l" 2 1 1 1 1 10 1 1 100
-    Play#1 output Play#1 1 11 "heavy\\040products" "h" 4 1 1 1 1 10 1 1 100
-    Play#1 output Play#1 1 12 "uncompensated\\040workers" "u" 1 1 2 1 1 2 1 1 2
-    Play#1 output Play#1 1 13 "radioactive\\040materials" "r" 150 1 8 1 1 10 1 1 1000
+    Play#1 output Play#1 1 0 "civilians" "c" 100 1 0 1 1 10 10 10 10 4
+    Play#1 output Play#1 1 1 "military" "m" 100 0 1 1 1 1 1 1 1 20
+    Play#1 output Play#1 1 2 "shells" "s" 80 5 1 1 1 1 10 1 1 80
+    Play#1 output Play#1 1 3 "guns" "g" 400 60 1 10 1 1 10 1 1 100
+    Play#1 output Play#1 1 4 "petrol" "p" 2 4 1 1 1 1 10 1 1 50
+    Play#1 output Play#1 1 5 "iron\\040ore" "i" 10 2 1 1 1 1 10 1 1 100
+    Play#1 output Play#1 1 6 "dust\\040(gold)" "d" 200 20 1 5 1 1 10 1 1 100
+    Play#1 output Play#1 1 7 "bars\\040of\\040gold" "b" 1000 280 1 50 1 1 5 1 4 200
+    Play#1 output Play#1 1 8 "food" "f" 0 0 1 1 1 1 10 1 1 2
+    Play#1 output Play#1 1 9 "oil" "o" 100 8 1 1 1 1 10 1 1 50
+    Play#1 output Play#1 1 10 "light\\040products" "l" 100 2 1 1 1 1 10 1 1 100
+    Play#1 output Play#1 1 11 "heavy\\040products" "h" 200 4 1 1 1 1 10 1 1 100
+    Play#1 output Play#1 1 12 "uncompensated\\040workers" "u" 0 1 1 2 1 1 2 1 1 2
+    Play#1 output Play#1 1 13 "radioactive\\040materials" "r" 0 150 1 8 1 1 10 1 1 1000
     Play#1 output Play#1 1 /14
     Play#1 output Play#1 6 0 0
     Play#1 input xdump product *

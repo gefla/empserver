@@ -358,17 +358,11 @@ power_tech_factor(float tech)
 static float
 item_power(short item[])
 {
-    static float pow_denom[I_MAX + 1] = {
-	10, 10, 12.5, 2.5, 500, 100, 5, 1, 0, 10, 10, 5, 0, 0
-    };
-    float p;
-    int i;
+    int pow, i;
 
-    p = 0.0;
-    for (i = I_NONE + 1; i <= I_MAX; i++) {
-	if (pow_denom[i])
-	    p += item[i] / pow_denom[i];
-    }
+    pow = 0;
+    for (i = I_NONE + 1; i <= I_MAX; i++)
+	pow += item[i] * ichr[i].i_power;
 
-    return p;
+    return pow / 1000.0;
 }

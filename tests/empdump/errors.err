@@ -86,6 +86,7 @@ tests/empdump/xundump-errors/fld-malstr:2: malformed string in field 1
 tests/empdump/xundump-errors/fld-many:2: too many fields, expected only 6
 tests/empdump/xundump-errors/fld-miss:2: field 'name' missing
 tests/empdump/xundump-errors/fld-miss:2: field 'mnem' missing
+tests/empdump/xundump-errors/fld-miss:2: field 'power' missing
 tests/empdump/xundump-errors/fld-miss:2: field 'value' missing
 tests/empdump/xundump-errors/fld-miss:2: field 'sell' missing
 tests/empdump/xundump-errors/fld-miss:2: field 'lbs' missing

@@ -27,7 +27,7 @@
  *  item.h: Definitions for item characteristics stuff
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2004-2016
  */
 
 #ifndef ITEM_H
@@ -70,6 +70,7 @@ typedef enum {
 struct ichrstr {
     char i_mnem;		/* usually the initial letter */
     i_type i_uid;		/* index in ichr[] */
+    int i_power;		/* power value of 1000 items */
     int i_value;		/* mortgage value */
     int i_sell;			/* can this be sold? */
     int i_lbs;			/* how hard to move */

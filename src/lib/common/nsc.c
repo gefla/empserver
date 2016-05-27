@@ -99,6 +99,7 @@ struct castr ichr_ca[] = {
     {"uid", fldoff(i_uid), NSC_SITYPE(i_type), 0, NULL, EF_ITEM, 0},
     {"name", fldoff(i_name), NSC_STRING, 0, NULL, EF_BAD, 0},
     {"mnem", fldoff(i_mnem), NSC_STRINGY, 1, NULL, EF_BAD, NSC_CONST},
+    {"power", fldoff(i_power), NSC_INT, 0, NULL, EF_BAD, 0},
     {"value", fldoff(i_value), NSC_INT, 0, NULL, EF_BAD, 0},
     {"sell", fldoff(i_sell), NSC_INT, 0, NULL, EF_BAD, 0},
     {"lbs", fldoff(i_lbs), NSC_INT, 0, NULL, EF_BAD, 0},
