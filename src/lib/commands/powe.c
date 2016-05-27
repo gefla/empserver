@@ -51,6 +51,8 @@ static void out5(double, int, int);
 static void gen_power(struct powstr *, int);
 static int powcmp(const void *, const void *);
 static void addtopow(short *, struct powstr *);
+static float empunit_power(int, int, short[], int);
+static float money_power(int);
 static float power_tech_factor(float);
 static float item_power(short[]);
 
@@ -223,12 +225,14 @@ gen_power(struct powstr *powbuf, int save)
     int i;
     struct sctstr sect;
     struct plnstr plane;
+    struct plchrstr *pcp;
     struct shpstr ship;
+    struct mchrstr *mcp;
     struct lndstr land;
+    struct lchrstr *lcp;
     struct nstr_item ni;
     struct nstr_sect ns;
     struct natstr *natp;
-    float f;
 
     player->btused += 10;
     memset(powbuf, 0, MAXNOC * sizeof(*powbuf));
@@ -246,39 +250,37 @@ gen_power(struct powstr *powbuf, int save)
     while (nxtitem(&ni, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
+	lcp = &lchr[land.lnd_type];
 	pow = &powbuf[land.lnd_own];
 	addtopow(land.lnd_item, pow);
-	f = (lchr[land.lnd_type].l_mat[I_LCM] / 10.0)
-	    * (land.lnd_effic / 100.0);
-	f += (lchr[land.lnd_type].l_mat[I_HCM] / 10.0)
-	    * (land.lnd_effic / 100.0);
-	upower[land.lnd_own] += f * 2 * power_tech_factor(land.lnd_tech);
-	if (!(lchr[(int)land.lnd_type].l_flags & L_SPY))
+	upower[land.lnd_own] += empunit_power(land.lnd_effic,
+					      land.lnd_tech,
+					      lcp->l_mat, lcp->l_cost);
+	if (!(lcp->l_flags & L_SPY))
 	    pow->p_units += 1.0;
     }
     snxtitem_all(&ni, EF_SHIP);
     while (nxtitem(&ni, &ship)) {
 	if (ship.shp_own == 0)
 	    continue;
+	mcp = &mchr[ship.shp_type];
 	pow = &powbuf[ship.shp_own];
 	addtopow(ship.shp_item, pow);
-	f = (mchr[ship.shp_type].m_mat[I_LCM] / 10.0)
-	    * (ship.shp_effic / 100.0);
-	f += (mchr[ship.shp_type].m_mat[I_HCM] / 10.0)
-	    * (ship.shp_effic / 100.0);
-	upower[ship.shp_own] += f * 2 * power_tech_factor(ship.shp_tech);
+	upower[ship.shp_own] += empunit_power(ship.shp_effic,
+					      ship.shp_tech,
+					      mcp->m_mat, mcp->m_cost);
 	pow->p_ships += 1.0;
     }
     snxtitem_all(&ni, EF_PLANE);
     while (nxtitem(&ni, &plane)) {
 	if (plane.pln_own == 0)
 	    continue;
+	pcp = &plchr[plane.pln_type];
 	pow = &powbuf[plane.pln_own];
+	upower[plane.pln_own] += empunit_power(plane.pln_effic,
+					       plane.pln_tech,
+					       pcp->pl_mat, pcp->pl_cost);
 	pow->p_planes += 1.0;
-	natp = getnatp(plane.pln_own);
-	f = 20 * (plane.pln_effic / 100.0) *
-	    (20 + natp->nat_level[NAT_TLEV]) / 500.0;
-	upower[plane.pln_own] += f * power_tech_factor(plane.pln_tech);
     }
     for (i = 1; NULL != (natp = getnatp(i)); i++) {
 	pow = &powbuf[i];
@@ -288,7 +290,7 @@ gen_power(struct powstr *powbuf, int save)
 	    continue;
 	}
 	pow->p_money = natp->nat_money;
-	pow->p_power += pow->p_money / 100.;
+	pow->p_power += money_power(natp->nat_money);
 
 	if (pow->p_sects > 0)
 	    pow->p_power += pow->p_sects
@@ -347,6 +349,19 @@ addtopow(short *vec, struct powstr *pow)
     pow->p_oil += vec[I_OIL];
     pow->p_bars += vec[I_BAR];
     pow->p_power += item_power(vec);
+}
+
+static float
+empunit_power(int effic, int tech, short mat[], int cost)
+{
+    return (item_power(mat) + money_power(cost)) * (effic / 100.0)
+	* power_tech_factor(tech);
+}
+
+static float
+money_power(int money)
+{
+    return money / 100.0;
 }
 
 static float

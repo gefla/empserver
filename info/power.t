@@ -80,11 +80,8 @@ The power value of money is dollars / 100.
 .s1
 The power value of a sector is efficiency / 10.
 .s1
-The power value of a ship or land unit is (lcm cost / 10 + hcm cost +
-10) * efficiency / 100 * 2.
-.s1
-The power value of a plane is 20 * efficiency / 100 * (20 + nation
-tech level) / 500.
+The power value of a ship, plane or land unit is the power value of
+the materials and money needed to build * efficiency / 100.
 .s1
 The power value of commodities is amount * type factor.  \*Qshow
 item\*U shows the type factor in column \*Qpower\*U.

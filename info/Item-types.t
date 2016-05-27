@@ -11,20 +11,20 @@ The show command displays the detailed characteristics of items.
 .NF
 item power value sell lbs    packing     melt  item
 mnem                      in no wh ur bk deno  name
-  c    100     1   no   1  1 10 10 10 10    4  civilians
+  c     50     1   no   1  1 10 10 10 10    4  civilians
   m    100     0  yes   1  1  1  1  1  1   20  military
-  s     80     5  yes   1  1  1 10  1  1   80  shells
-  g    400    60  yes  10  1  1 10  1  1  100  guns
-  p      2     4  yes   1  1  1 10  1  1   50  petrol
+  s    125     5  yes   1  1  1 10  1  1   80  shells
+  g    950    60  yes  10  1  1 10  1  1  100  guns
+  p      7     4  yes   1  1  1 10  1  1   50  petrol
   i     10     2  yes   1  1  1 10  1  1  100  iron ore
   d    200    20  yes   5  1  1 10  1  1  100  dust (gold)
-  b   1000   280  yes  50  1  1  5  1  4  200  bars of gold
+  b   2500   280  yes  50  1  1  5  1  4  200  bars of gold
   f      0     0  yes   1  1  1 10  1  1    2  food
-  o    100     8  yes   1  1  1 10  1  1   50  oil
-  l    100     2  yes   1  1  1 10  1  1  100  light products
-  h    200     4  yes   1  1  1 10  1  1  100  heavy products
-  u      0     1  yes   2  1  1  2  1  1    2  uncompensated workers
-  r      0   150  yes   8  1  1 10  1  1 1000  radioactive materials
+  o     50     8  yes   1  1  1 10  1  1   50  oil
+  l     20     2  yes   1  1  1 10  1  1  100  light products
+  h     40     4  yes   1  1  1 10  1  1  100  heavy products
+  u     50     1  yes   2  1  1  2  1  1    2  uncompensated workers
+  r     50   150  yes   8  1  1 10  1  1 1000  radioactive materials
 .FI
 .s1
 The meaning of the headings are:
