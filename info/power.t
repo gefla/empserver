@@ -70,9 +70,10 @@ The \*Qpower factor\*U is determined by the following equation:
 power factor = (  power value of money
                 + power value of sectors
                 + power value of commodities in sectors
-                + power value of ships, planes and land units
                 + power value of commodities loaded on ships and land units)
                * (20 + nation tech level) / 500
+             + power value of ships, planes and land units
+               * (20 + their tech level) / 500
 .FI
 .s1
 The power value of money is dollars / 100.

@@ -51,6 +51,7 @@ static void out5(double, int, int);
 static void gen_power(struct powstr *, int);
 static int powcmp(const void *, const void *);
 static void addtopow(short *, struct powstr *);
+static float power_tech_factor(float);
 static float item_power(short[]);
 
 int
@@ -215,6 +216,7 @@ update_power(void)
 static void
 gen_power(struct powstr *powbuf, int save)
 {
+    float upower[MAXNOC];
     float *f_ptr;
     float *f_pt2;
     struct powstr *pow;
@@ -230,6 +232,7 @@ gen_power(struct powstr *powbuf, int save)
 
     player->btused += 10;
     memset(powbuf, 0, MAXNOC * sizeof(*powbuf));
+    memset(upower, 0, sizeof(upower));
     snxtsct_all(&ns);
     while (nxtsct(&ns, &sect)) {
 	if (sect.sct_own == 0)
@@ -249,7 +252,7 @@ gen_power(struct powstr *powbuf, int save)
 	    * (land.lnd_effic / 100.0);
 	f += (lchr[land.lnd_type].l_mat[I_HCM] / 10.0)
 	    * (land.lnd_effic / 100.0);
-	pow->p_power += f * 2;
+	upower[land.lnd_own] += f * 2 * power_tech_factor(land.lnd_tech);
 	if (!(lchr[(int)land.lnd_type].l_flags & L_SPY))
 	    pow->p_units += 1.0;
     }
@@ -263,7 +266,7 @@ gen_power(struct powstr *powbuf, int save)
 	    * (ship.shp_effic / 100.0);
 	f += (mchr[ship.shp_type].m_mat[I_HCM] / 10.0)
 	    * (ship.shp_effic / 100.0);
-	pow->p_power += f * 2;
+	upower[ship.shp_own] += f * 2 * power_tech_factor(ship.shp_tech);
 	pow->p_ships += 1.0;
     }
     snxtitem_all(&ni, EF_PLANE);
@@ -273,8 +276,9 @@ gen_power(struct powstr *powbuf, int save)
 	pow = &powbuf[plane.pln_own];
 	pow->p_planes += 1.0;
 	natp = getnatp(plane.pln_own);
-	pow->p_power += 20 * (plane.pln_effic / 100.0) *
+	f = 20 * (plane.pln_effic / 100.0) *
 	    (20 + natp->nat_level[NAT_TLEV]) / 500.0;
+	upower[plane.pln_own] += f * power_tech_factor(plane.pln_tech);
     }
     for (i = 1; NULL != (natp = getnatp(i)); i++) {
 	pow = &powbuf[i];
@@ -290,7 +294,8 @@ gen_power(struct powstr *powbuf, int save)
 	    pow->p_power += pow->p_sects
 		* (pow->p_effic / pow->p_sects / 100.0)
 		* 10.0;
-	pow->p_power *= (20 + natp->nat_level[NAT_TLEV]) / 500.0;
+	pow->p_power *= power_tech_factor(natp->nat_level[NAT_TLEV]);
+	pow->p_power += upower[i];
 	/* ack.  add this vec to the "world power" element */
 	f_pt2 = &powbuf[0].p_sects;
 	f_ptr = &pow->p_sects;
@@ -342,6 +347,12 @@ addtopow(short *vec, struct powstr *pow)
     pow->p_oil += vec[I_OIL];
     pow->p_bars += vec[I_BAR];
     pow->p_power += item_power(vec);
+}
+
+static float
+power_tech_factor(float tech)
+{
+    return (20 + tech) / 500.0;
 }
 
 static float
