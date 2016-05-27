@@ -37,6 +37,7 @@
 #define PLANE_H
 
 #include <time.h>
+#include "item.h"
 #include "queue.h"
 #include "types.h"
 
@@ -79,8 +80,8 @@ struct plnstr {
 
 struct plchrstr {
     char *pl_name;		/* full name of type of plane */
-    int pl_lcm;			/* costs to build */
-    int pl_hcm;
+    short pl_mat[I_MAX+1];	/* materials to build 100% */
+				/* only I_LCM, I_HCM, I_MILIT non-zero */
     int pl_bwork;		/* work to build 100% */
     int pl_tech;		/* tech needed to build */
     int pl_cost;		/* how much it costs to build */
@@ -89,7 +90,6 @@ struct plchrstr {
     int pl_att;			/* air-air attack/defense strengths */
     int pl_def;
     int pl_range;		/* how many sectors it can fly */
-    int pl_crew;		/* number of mil to crew it */
     int pl_fuel;		/* fuel consumption */
     int pl_stealth;		/* how stealthy is it? */
     int pl_flags;		/* description of capability */

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ville Virrankoski, 1995
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2016
  */
 
 #ifndef BUDG_H
@@ -49,7 +49,7 @@ void bp_put_items(struct bp *, struct sctstr *, short *);
 int bp_get_avail(struct bp *, struct sctstr *);
 void bp_put_avail(struct bp *, struct sctstr *, int);
 
-int get_materials(struct sctstr *, struct bp *, int *, int);
+int get_materials(struct sctstr *, struct bp *, short[], int);
 
 extern int money[MAXNOC];
 extern int pops[MAXNOC];

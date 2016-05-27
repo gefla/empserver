@@ -213,9 +213,7 @@ build_ship(struct sctstr *sp, int type, int tlev)
     short mat[I_MAX+1];
     struct shpstr ship;
 
-    memset(mat, 0, sizeof(mat));
-    mat[I_LCM] = mp->m_lcm;
-    mat[I_HCM] = mp->m_hcm;
+    memcpy(mat, mp->m_mat, sizeof(mat));
 
     if (sp->sct_type != SCT_HARBR && !player->god) {
 	pr("Ships must be built in harbours.\n");
@@ -264,9 +262,7 @@ build_land(struct sctstr *sp, int type, int tlev)
     short mat[I_MAX+1];
     struct lndstr land;
 
-    memset(mat, 0, sizeof(mat));
-    mat[I_LCM] = lp->l_lcm;
-    mat[I_HCM] = lp->l_hcm;
+    memcpy(mat, lp->l_mat, sizeof(mat));
 
     if (sp->sct_type != SCT_HEADQ && !player->god) {
 	pr("Land units must be built in headquarters.\n");
@@ -323,11 +319,7 @@ build_nuke(struct sctstr *sp, int type, int tlev)
      * make them start at 20%.  Since they don't have efficiency
      * now, we charge all the work right away.
      */
-    memset(mat, 0, sizeof(mat));
-    mat[I_LCM] = np->n_lcm;
-    mat[I_HCM] = np->n_hcm;
-    mat[I_OIL] = np->n_oil;
-    mat[I_RAD] = np->n_rad;
+    memcpy(mat, np->n_mat, sizeof(mat));
 
     if (!sector_can_build(sp, mat, np->n_bwork, 100, np->n_name))
 	return 0;
@@ -358,10 +350,7 @@ build_plane(struct sctstr *sp, int type, int tlev)
     short mat[I_MAX+1];
     struct plnstr plane;
 
-    memset(mat, 0, sizeof(mat));
-    mat[I_MILIT] = pp->pl_crew;
-    mat[I_LCM] = pp->pl_lcm;
-    mat[I_HCM] = pp->pl_hcm;
+    memcpy(mat, pp->pl_mat, sizeof(mat));
 
     if (sp->sct_type != SCT_AIRPT && !player->god) {
 	pr("Planes must be built in airports.\n");

@@ -116,7 +116,7 @@ upd_plane(struct plnstr *pp, int etus,
 	    np->nat_money -= cost;
 	}
 	/* flight pay is 5x the pay received by other military */
-	np->nat_money += etus * pcp->pl_crew * money_mil * 5;
+	np->nat_money += etus * pcp->pl_mat[I_MILIT] * money_mil * 5;
     }
 }
 
@@ -124,7 +124,6 @@ static void
 planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
 {
     int build;
-    int mvec[I_MAX + 1];
     struct shpstr *carrier;
     struct plchrstr *pcp = &plchr[(int)pp->pln_type];
     struct sctstr *sp = getsectp(pp->pln_x, pp->pln_y);
@@ -173,11 +172,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     if (delta > 100 - pp->pln_effic)
 	delta = 100 - pp->pln_effic;
 
-    memset(mvec, 0, sizeof(mvec));
-    mvec[I_MILIT] = pcp->pl_crew;
-    mvec[I_LCM] = pcp->pl_lcm;
-    mvec[I_HCM] = pcp->pl_hcm;
-    build = get_materials(sp, bp, mvec, delta);
+    build = get_materials(sp, bp, pcp->pl_mat, delta);
 
     if (carrier)
 	build = delta;

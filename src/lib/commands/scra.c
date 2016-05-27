@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -55,6 +55,8 @@ scra(void)
     char prompt[128];
     char buf[1024];
     float eff;
+    short *mvec;
+    int amt;
 
     if (!(p = getstarg(player->argp[1], "Ship, land, or plane? ", buf)))
 	return RET_SYN;
@@ -148,8 +150,7 @@ scra(void)
 				 -item.ship.shp_item[i]))
 		    sect.sct_item[i] += item.ship.shp_item[i];
 	    }
-	    sect.sct_item[I_LCM] += mp->m_lcm * 2 / 3 * eff;
-	    sect.sct_item[I_HCM] += mp->m_hcm * 2 / 3 * eff;
+	    mvec = mp->m_mat;
 	    if (item.ship.shp_pstage == PLG_INFECT
 		&& sect.sct_pstage == PLG_HEALTHY)
 		sect.sct_pstage = PLG_EXPOSED;
@@ -161,23 +162,25 @@ scra(void)
 				 -item.land.lnd_item[i]))
 		    sect.sct_item[i] += item.land.lnd_item[i];
 	    }
-	    sect.sct_item[I_LCM] += lp->l_lcm * 2 / 3 * eff;
-	    sect.sct_item[I_HCM] += lp->l_hcm * 2 / 3 * eff;
+	    mvec = lp->l_mat;
 	    if (item.land.lnd_pstage == PLG_INFECT
 		&& sect.sct_pstage == PLG_HEALTHY)
 		sect.sct_pstage = PLG_EXPOSED;
 	} else {
 	    eff = item.land.lnd_effic / 100.0;
 	    pp = &plchr[(int)item.plane.pln_type];
-	    sect.sct_item[I_LCM] += pp->pl_lcm * 2 / 3 * eff;
-	    sect.sct_item[I_HCM] += pp->pl_hcm * 2 / 3 * eff;
-	    sect.sct_item[I_MILIT] += roundavg(pp->pl_crew * eff);
+	    mvec = pp->pl_mat;
 	}
 	item.gen.effic = 0;
 	put_empobj(type, item.gen.uid, &item.gen);
 	for (i = I_NONE + 1; i <= I_MAX; i++) {
-	    if (sect.sct_item[i] > ITEM_MAX)
-		sect.sct_item[i] = ITEM_MAX;
+	    if (i == I_CIVIL || i == I_MILIT || i == I_UW)
+		amt = sect.sct_item[i] + mvec[i] * eff;
+	    else
+		amt = sect.sct_item[i] + mvec[i] * 2 / 3 * eff;
+	    if (amt > ITEM_MAX)
+		amt = ITEM_MAX;
+	    sect.sct_item[i] = amt;
 	}
 	putsect(&sect);
     }

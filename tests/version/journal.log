@@ -1020,8 +1020,8 @@
     Play#0 output Play#0 1 "hcm" 6 0 0 -1
     Play#0 output Play#0 1 "uw" 6 0 0 -1
     Play#0 output Play#0 1 "rad" 6 0 0 -1
-    Play#0 output Play#0 1 "l_build" 8 0 0 -1
-    Play#0 output Play#0 1 "h_build" 8 0 0 -1
+    Play#0 output Play#0 1 "l_build" 6 0 0 -1
+    Play#0 output Play#0 1 "h_build" 6 0 0 -1
     Play#0 output Play#0 1 "armor" 8 0 0 -1
     Play#0 output Play#0 1 "speed" 8 0 0 -1
     Play#0 output Play#0 1 "visib" 8 0 0 -1
@@ -1043,8 +1043,8 @@
     Play#0 output Play#0 1 XDUMP meta plane-chr 0
     Play#0 output Play#0 1 "type" 4 0 0 20
     Play#0 output Play#0 1 "name" 3 0 0 -1
-    Play#0 output Play#0 1 "l_build" 8 0 0 -1
-    Play#0 output Play#0 1 "h_build" 8 0 0 -1
+    Play#0 output Play#0 1 "l_build" 6 0 0 -1
+    Play#0 output Play#0 1 "h_build" 6 0 0 -1
     Play#0 output Play#0 1 "bwork" 8 0 0 -1
     Play#0 output Play#0 1 "tech" 8 0 0 -1
     Play#0 output Play#0 1 "cost" 8 0 0 -1
@@ -1053,7 +1053,7 @@
     Play#0 output Play#0 1 "att" 8 0 0 -1
     Play#0 output Play#0 1 "def" 8 0 0 -1
     Play#0 output Play#0 1 "range" 8 0 0 -1
-    Play#0 output Play#0 1 "crew" 8 0 0 -1
+    Play#0 output Play#0 1 "crew" 6 0 0 -1
     Play#0 output Play#0 1 "fuel" 8 0 0 -1
     Play#0 output Play#0 1 "stealth" 8 0 0 -1
     Play#0 output Play#0 1 "flags" 8 8 0 43
@@ -1078,8 +1078,8 @@
     Play#0 output Play#0 1 "hcm" 6 0 0 -1
     Play#0 output Play#0 1 "uw" 6 0 0 -1
     Play#0 output Play#0 1 "rad" 6 0 0 -1
-    Play#0 output Play#0 1 "l_build" 8 0 0 -1
-    Play#0 output Play#0 1 "h_build" 8 0 0 -1
+    Play#0 output Play#0 1 "l_build" 6 0 0 -1
+    Play#0 output Play#0 1 "h_build" 6 0 0 -1
     Play#0 output Play#0 1 "bwork" 8 0 0 -1
     Play#0 output Play#0 1 "tech" 8 0 0 -1
     Play#0 output Play#0 1 "cost" 8 0 0 -1
@@ -1105,10 +1105,10 @@
     Play#0 output Play#0 1 XDUMP meta nuke-chr 0
     Play#0 output Play#0 1 "type" 4 0 0 22
     Play#0 output Play#0 1 "name" 3 0 0 -1
-    Play#0 output Play#0 1 "l_build" 8 0 0 -1
-    Play#0 output Play#0 1 "h_build" 8 0 0 -1
-    Play#0 output Play#0 1 "o_build" 8 0 0 -1
-    Play#0 output Play#0 1 "r_build" 8 0 0 -1
+    Play#0 output Play#0 1 "l_build" 6 0 0 -1
+    Play#0 output Play#0 1 "h_build" 6 0 0 -1
+    Play#0 output Play#0 1 "o_build" 6 0 0 -1
+    Play#0 output Play#0 1 "r_build" 6 0 0 -1
     Play#0 output Play#0 1 "blast" 8 0 0 -1
     Play#0 output Play#0 1 "dam" 8 0 0 -1
     Play#0 output Play#0 1 "bwork" 8 0 0 -1

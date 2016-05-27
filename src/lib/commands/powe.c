@@ -30,7 +30,7 @@
  *     Dave Pare
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2016
  *     Ron Koenderink, 2005-2008
  */
 
@@ -244,8 +244,10 @@ gen_power(struct powstr *powbuf, int save)
 	    continue;
 	pow = &powbuf[land.lnd_own];
 	addtopow(land.lnd_item, pow);
-	f = (lchr[(int)land.lnd_type].l_lcm / 10.0) * (land.lnd_effic / 100.0);
-	f += (lchr[(int)land.lnd_type].l_hcm / 10.0) * (land.lnd_effic / 100.0);
+	f = (lchr[land.lnd_type].l_mat[I_LCM] / 10.0)
+	    * (land.lnd_effic / 100.0);
+	f += (lchr[land.lnd_type].l_mat[I_HCM] / 10.0)
+	    * (land.lnd_effic / 100.0);
 	pow->p_power += f * 2;
 	if (!(lchr[(int)land.lnd_type].l_flags & L_SPY))
 	    pow->p_units += 1.0;
@@ -256,8 +258,10 @@ gen_power(struct powstr *powbuf, int save)
 	    continue;
 	pow = &powbuf[ship.shp_own];
 	addtopow(ship.shp_item, pow);
-	f = (mchr[(int)ship.shp_type].m_lcm / 10.0) * (ship.shp_effic / 100.0);
-	f += (mchr[(int)ship.shp_type].m_hcm / 10.0) * (ship.shp_effic / 100.0);
+	f = (mchr[ship.shp_type].m_mat[I_LCM] / 10.0)
+	    * (ship.shp_effic / 100.0);
+	f += (mchr[ship.shp_type].m_mat[I_HCM] / 10.0)
+	    * (ship.shp_effic / 100.0);
 	pow->p_power += f * 2;
 	pow->p_ships += 1.0;
     }

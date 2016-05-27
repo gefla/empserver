@@ -198,8 +198,8 @@ show_nuke_build(int tlev)
     for (i = 0; i < n; i++) {
 	np = &nchr[chridx[i].type];
 	pr("%-13.13s %3d %3d %4d %4d %5d %4d %3.0f $%6d\n",
-	   np->n_name, np->n_lcm, np->n_hcm, np->n_oil,
-	   np->n_rad, np->n_bwork, np->n_tech,
+	   np->n_name, np->n_mat[I_LCM], np->n_mat[I_HCM],
+	   np->n_mat[I_OIL], np->n_mat[I_RAD], np->n_bwork, np->n_tech,
 	   drnuke_const > MIN_DRNUKE_CONST ?
 		ceil(np->n_tech * drnuke_const) : 0.0,
 	   np->n_cost);
@@ -240,7 +240,7 @@ show_ship_build(int tlev)
     for (i = 0; i < n; i++) {
 	mp = &mchr[chridx[i].type];
 	pr("%-25.25s %3d %3d %5d %4d $%d\n",
-	   mp->m_name, mp->m_lcm, mp->m_hcm,
+	   mp->m_name, mp->m_mat[I_LCM], mp->m_mat[I_HCM],
 	   mp->m_bwork, mp->m_tech, mp->m_cost);
     }
 }
@@ -331,8 +331,8 @@ show_plane_build(int tlev)
     for (i = 0; i < n; i++) {
 	pp = &plchr[chridx[i].type];
 	pr("%-25.25s %3d %3d %4d %5d %4d $%d\n",
-	   pp->pl_name, pp->pl_lcm,
-	   pp->pl_hcm, pp->pl_crew,
+	   pp->pl_name, pp->pl_mat[I_LCM],
+	   pp->pl_mat[I_HCM], pp->pl_mat[I_MILIT],
 	   pp->pl_bwork, pp->pl_tech, pp->pl_cost);
     }
 }
@@ -349,9 +349,9 @@ show_land_build(int tlev)
     for (i = 0; i < n; i++) {
 	lp = &lchr[chridx[i].type];
 	pr("%-25.25s %3d %3d %4d %5d %4d $%d\n",
-	   lp->l_name, lp->l_lcm,
-	   lp->l_hcm,
-	   lp->l_gun,
+	   lp->l_name, lp->l_mat[I_LCM],
+	   lp->l_mat[I_HCM],
+	   lp->l_mat[I_GUN],
 	   lp->l_bwork, lp->l_tech, lp->l_cost);
     }
 }

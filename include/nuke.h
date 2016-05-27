@@ -35,6 +35,7 @@
 #define NUKE_H
 
 #include <time.h>
+#include "item.h"
 #include "types.h"
 
 #define N_MAXNUKE	20
@@ -64,12 +65,10 @@ struct nukstr {
 
 struct nchrstr {
     char *n_name;		/* warhead unit name */
-    int n_lcm;			/* costs to build */
-    int n_hcm;
-    int n_oil;
-    int n_rad;
     int n_blast;		/* blast radius */
     int n_dam;			/* damage at center */
+    short n_mat[I_MAX+1];	/* materials to build 100% */
+				/* only I_LCM, I_HCM, I_OIL, I_RAD non-zero */
     int n_bwork;		/* work to build 100% */
     int n_tech;			/* tech needed to build */
     int n_cost;			/* how much it costs to build */

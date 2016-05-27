@@ -82,8 +82,6 @@ struct shpstr {
 
 struct mchrstr {
     short m_item[I_MAX+1];	/* load limit */
-    int m_lcm;			/* units of lcm to build */
-    int m_hcm;			/* units of hcm to build */
     int m_armor;		/* how well armored it is */
     int m_speed;		/* how fast it can go */
     int m_visib;		/* how well it can be seen */
@@ -93,6 +91,8 @@ struct mchrstr {
     unsigned char m_nxlight;	/* maximum number of xlight planes */
     unsigned char m_nchoppers;	/* maximum number of choppers */
     char *m_name;		/* full name of type of ship */
+    short m_mat[I_MAX+1];	/* materials to build 100% */
+				/* only I_LCM and I_HCM non-zero */
     int m_bwork;		/* work to build 100% */
     int m_tech;			/* tech required to build */
     int m_cost;			/* how much it costs to build */

@@ -200,7 +200,6 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
     int build;
     int avail;
     int mult;
-    int mvec[I_MAX + 1];
 
     lp = &lchr[(int)land->lnd_type];
     sp = getsectp(land->lnd_x, land->lnd_y);
@@ -230,10 +229,7 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
     if (delta > 100 - land->lnd_effic)
 	delta = 100 - land->lnd_effic;
 
-    memset(mvec, 0, sizeof(mvec));
-    mvec[I_LCM] = lp->l_lcm;
-    mvec[I_HCM] = lp->l_hcm;
-    build = get_materials(sp, bp, mvec, delta);
+    build = get_materials(sp, bp, lp->l_mat, delta);
 
     if ((sp->sct_type != SCT_HEADQ) && (sp->sct_type != SCT_FORTR))
 	build /= 3;

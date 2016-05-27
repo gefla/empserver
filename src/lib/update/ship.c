@@ -248,7 +248,6 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
     int wf;
     int avail;
     int mult;
-    int mvec[I_MAX + 1];
 
     mp = &mchr[(int)ship->shp_type];
     sp = getsectp(ship->shp_x, ship->shp_y);
@@ -293,10 +292,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
     if (delta > 100 - ship->shp_effic)
 	delta = 100 - ship->shp_effic;
 
-    memset(mvec, 0, sizeof(mvec));
-    mvec[I_LCM] = mp->m_lcm;
-    mvec[I_HCM] = mp->m_hcm;
-    build = get_materials(sp, bp, mvec, delta);
+    build = get_materials(sp, bp, mp->m_mat, delta);
 
     if (sp->sct_type != SCT_HARBR)
 	build = delta;

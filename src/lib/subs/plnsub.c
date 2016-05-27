@@ -239,7 +239,7 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 		       cname(player->cnum), prplane(&plp->plane),
 		       prship(&ship));
 		}
-		if (plp->pcp->pl_crew && plp->pstage == PLG_INFECT
+		if (plp->pcp->pl_mat[I_MILIT] && plp->pstage == PLG_INFECT
 		    && ship.shp_pstage == PLG_HEALTHY)
 		    ship.shp_pstage = PLG_EXPOSED;
 	    }
@@ -253,7 +253,7 @@ pln_newlanding(struct emp_qelem *list, coord tx, coord ty, int cno)
 		   cname(player->cnum),
 		   prplane(&plp->plane), xyas(tx, ty, sect.sct_own));
 	    }
-	    if (plp->pcp->pl_crew && plp->pstage == PLG_INFECT
+	    if (plp->pcp->pl_mat[I_MILIT] && plp->pstage == PLG_INFECT
 		&& sect.sct_pstage == PLG_HEALTHY)
 		sect.sct_pstage = PLG_EXPOSED;
 	    plp->plane.pln_ship = cno;

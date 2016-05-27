@@ -81,11 +81,8 @@ struct lndstr {
 struct lchrstr {
     short l_item[I_MAX+1];	/* load limit */
     char *l_name;		/* full name of type of land unit */
-    int l_lcm;			/* units of lcm to build */
-    int l_hcm;			/* units of hcm to build */
-    int l_mil;			/* how many mil it takes to build (unused) */
-    int l_gun;			/* how many guns it takes to build (unused) */
-    int l_shell;		/* #shells it takes to build (unused) */
+    short l_mat[I_MAX+1];	/* materials to build 100% */
+				/* only I_LCM and I_HCM non-zero */
     int l_bwork;		/* work to build 100% */
     int l_tech;			/* tech required to build */
     int l_cost;			/* how much it costs to build */

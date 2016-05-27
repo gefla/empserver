@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -193,7 +193,7 @@ tran_plane(void)
 		return RET_FAIL;
 	    }
 	}
-	weight += plchr[type].pl_lcm + (plchr[type].pl_hcm * 2);
+	weight += plchr[type].pl_mat[I_LCM] + (plchr[type].pl_mat[I_HCM] * 2);
 	++count;
     }
     if (count == 0) {

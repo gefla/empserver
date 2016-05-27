@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ville Virrankoski, 1996
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2016
  */
 
 #include <config.h>
@@ -41,14 +41,14 @@
 /*
  * Get build materials from sector @sp.
  * @bp is the sector's build pointer.
- * @mvec[] defines the materials needed to build 100%.
+ * Array @mvec[ITEM_MAX+1] defines the materials needed to build 100%.
  * @pct is the percentage to build.
  * Adjust build percentage downwards so that available materials
  * suffice.  Remove the materials.
  * Return adjusted build percentage.
  */
 int
-get_materials(struct sctstr *sp, struct bp *bp, int *mvec, int pct)
+get_materials(struct sctstr *sp, struct bp *bp, short mvec[], int pct)
 {
     int i, amt;
 
