@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1998
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -131,7 +131,6 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     int delta;
     int mult;
     int avail;
-    int w_p_eff;
     int used;
 
     carrier = NULL;
@@ -166,8 +165,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     if (carrier)
 	avail += etus * carrier->shp_item[I_MILIT] / 2;
 
-    w_p_eff = PLN_BLD_WORK(pcp->pl_lcm, pcp->pl_hcm);
-    delta = roundavg((double)avail / w_p_eff);
+    delta = roundavg((double)avail / pcp->pl_bwork);
     if (delta <= 0)
 	return;
     if (delta > (int)((float)etus * plane_grow_scale))
@@ -184,7 +182,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     if (carrier)
 	build = delta;
 
-    used = build * w_p_eff;
+    used = build * pcp->pl_bwork;
     /*
      * I didn't use roundavg here, because I want to
      * penalize the player with a large number of planes.

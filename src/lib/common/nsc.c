@@ -27,7 +27,7 @@
  *  nsc.c: Empire selection global structures
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2016
  */
 
 /*
@@ -271,6 +271,7 @@ struct castr mchr_ca[] = {
     {"glim", fldoff(m_glim), NSC_INT, 0, NULL, EF_BAD, 0},
     {"nxlight", fldoff(m_nxlight), NSC_UCHAR, 0, NULL, EF_BAD, 0},
     {"nchoppers", fldoff(m_nchoppers), NSC_UCHAR, 0, NULL, EF_BAD, 0},
+    {"bwork", fldoff(m_bwork), NSC_INT, 0, NULL, EF_BAD, 0},
     {"tech", fldoff(m_tech), NSC_INT, 0, NULL, EF_BAD, 0},
     {"cost", fldoff(m_cost), NSC_INT, 0, NULL, EF_BAD, 0},
     {"flags", fldoff(m_flags), NSC_INT, 0, NULL,
@@ -306,8 +307,9 @@ struct castr plchr_ca[] = {
     {"name", fldoff(pl_name), NSC_STRING, 0, NULL, EF_BAD, 0},
     {"l_build", fldoff(pl_lcm), NSC_INT, 0, NULL, EF_BAD, 0},
     {"h_build", fldoff(pl_hcm), NSC_INT, 0, NULL, EF_BAD, 0},
-    {"cost", fldoff(pl_cost), NSC_INT, 0, NULL, EF_BAD, 0},
+    {"bwork", fldoff(pl_bwork), NSC_INT, 0, NULL, EF_BAD, 0},
     {"tech", fldoff(pl_tech), NSC_INT, 0, NULL, EF_BAD, 0},
+    {"cost", fldoff(pl_cost), NSC_INT, 0, NULL, EF_BAD, 0},
     {"acc", fldoff(pl_acc), NSC_INT, 0, NULL, EF_BAD, 0},
     {"load", fldoff(pl_load), NSC_INT, 0, NULL, EF_BAD, 0},
     {"att", fldoff(pl_att), NSC_INT, 0, NULL, EF_BAD, 0},
@@ -367,6 +369,7 @@ struct castr lchr_ca[] = {
     NSC_IVEC(fldoff(l_item), ""),
     {"l_build", fldoff(l_lcm), NSC_INT, 0, NULL, EF_BAD, 0},
     {"h_build", fldoff(l_hcm), NSC_INT, 0, NULL, EF_BAD, 0},
+    {"bwork", fldoff(l_bwork), NSC_INT, 0, NULL, EF_BAD, 0},
     {"tech", fldoff(l_tech), NSC_INT, 0, NULL, EF_BAD, 0},
     {"cost", fldoff(l_cost), NSC_INT, 0, NULL, EF_BAD, 0},
     {"att", fldoff(l_att), NSC_FLOAT, 0, NULL, EF_BAD, 0},
@@ -408,8 +411,9 @@ struct castr nchr_ca[] = {
     {"r_build", fldoff(n_rad), NSC_INT, 0, NULL, EF_BAD, 0},
     {"blast", fldoff(n_blast), NSC_INT, 0, NULL, EF_BAD, 0},
     {"dam", fldoff(n_dam), NSC_INT, 0, NULL, EF_BAD, 0},
-    {"cost", fldoff(n_cost), NSC_INT, 0, NULL, EF_BAD, 0},
+    {"bwork", fldoff(n_bwork), NSC_INT, 0, NULL, EF_BAD, 0},
     {"tech", fldoff(n_tech), NSC_INT, 0, NULL, EF_BAD, 0},
+    {"cost", fldoff(n_cost), NSC_INT, 0, NULL, EF_BAD, 0},
     {"weight", fldoff(n_weight), NSC_INT, 0, NULL, EF_BAD, 0},
     {"flags", fldoff(n_flags), NSC_INT, 0, NULL,
      EF_NUKE_CHR_FLAGS, NSC_BITS},

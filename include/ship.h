@@ -31,7 +31,7 @@
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2015
+ *     Markus Armbruster, 2004-2016
  */
 
 #ifndef SHIP_H
@@ -93,6 +93,7 @@ struct mchrstr {
     unsigned char m_nxlight;	/* maximum number of xlight planes */
     unsigned char m_nchoppers;	/* maximum number of choppers */
     char *m_name;		/* full name of type of ship */
+    int m_bwork;		/* work to build 100% */
     int m_tech;			/* tech required to build */
     int m_cost;			/* how much it costs to build */
     int m_flags;		/* what special things can this ship do */
@@ -130,9 +131,6 @@ struct mchrstr {
 #define getshipp(n) ((struct shpstr *)ef_ptr(EF_SHIP, (n)))
 
 extern struct mchrstr mchr[SHP_TYPE_MAX + 2];
-
-/* Work required for building 100% */
-#define SHP_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))
 
 enum {
     SHP_AIROPS_EFF = 50,	/* min. efficiency for air ops */

@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2016
  */
 
 #ifndef PLANE_H
@@ -81,8 +81,9 @@ struct plchrstr {
     char *pl_name;		/* full name of type of plane */
     int pl_lcm;			/* costs to build */
     int pl_hcm;
-    int pl_cost;
+    int pl_bwork;		/* work to build 100% */
     int pl_tech;		/* tech needed to build */
+    int pl_cost;		/* how much it costs to build */
     int pl_acc;			/* bombing accuracy (higher the better) */
     int pl_load;		/* bomb load, also for carrying cargo */
     int pl_att;			/* air-air attack/defense strengths */
@@ -140,9 +141,6 @@ struct shiplist {
     int uid;
     struct shiplist *next;
 };
-
-/* Work required for building 100% */
-#define PLN_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))
 
 extern int pl_att(struct plchrstr *, int);
 extern int pl_def(struct plchrstr *, int);

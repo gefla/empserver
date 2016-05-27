@@ -30,7 +30,7 @@
  *     Thomas Ruschak, 1992
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2015
+ *     Markus Armbruster, 2004-2016
  */
 
 #ifndef LAND_H
@@ -86,6 +86,7 @@ struct lchrstr {
     int l_mil;			/* how many mil it takes to build (unused) */
     int l_gun;			/* how many guns it takes to build (unused) */
     int l_shell;		/* #shells it takes to build (unused) */
+    int l_bwork;		/* work to build 100% */
     int l_tech;			/* tech required to build */
     int l_cost;			/* how much it costs to build */
     float l_att;		/* attack multiplier */
@@ -119,9 +120,6 @@ struct lchrstr {
 #define L_SPY		bit(10)	/* spy unit - way cool */
 #define L_TRAIN		bit(11)	/* train unit - neato */
 #define L_HEAVY		bit(12)	/* heavy unit - can't go on trains */
-
-/* Work required for building 100% */
-#define LND_BLD_WORK(lcm, hcm) (20 + (lcm) + 2 * (hcm))
 
 /* Chance to detect L_SPY unit (percent) */
 #define LND_SPY_DETECT_CHANCE(eff) ((110-(eff))/100.0)

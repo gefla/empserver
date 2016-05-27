@@ -33,7 +33,7 @@ tests/empdump/xundump-errors/colhdr-sep:2: bad field separator after field 1
 tests/empdump/xundump-errors/colhdr-symidx:2: symbolic index in header field 1 not yet implemented
 tests/empdump/xundump-errors/colhdr-unexp2:2: expected header 'pkg(0)' in field 7
 tests/empdump/xundump-errors/colhdr-unk:2: unknown header 'xxx' in field 1
-tests/empdump/xundump-errors/fld-ambsym:2: ambiguous flags symbol 's' in field 29
+tests/empdump/xundump-errors/fld-ambsym:2: ambiguous flags symbol 's' in field 30
 tests/empdump/xundump-errors/fld-badnum:3: field 2 can't hold this value
 tests/empdump/xundump-errors/fld-constnum:3: value for field 1 must be 0
 tests/empdump/xundump-errors/fld-conststr:3: value for field 1 must be "road network"
@@ -63,6 +63,7 @@ tests/empdump/xundump-errors/fld-eof:2: field 'frnge' missing
 tests/empdump/xundump-errors/fld-eof:2: field 'glim' missing
 tests/empdump/xundump-errors/fld-eof:2: field 'nxlight' missing
 tests/empdump/xundump-errors/fld-eof:2: field 'nchoppers' missing
+tests/empdump/xundump-errors/fld-eof:2: field 'bwork' missing
 tests/empdump/xundump-errors/fld-eof:2: field 'tech' missing
 tests/empdump/xundump-errors/fld-eof:2: field 'cost' missing
 tests/empdump/xundump-errors/fld-eof:2: field 'flags' missing

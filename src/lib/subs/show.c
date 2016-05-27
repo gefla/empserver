@@ -31,7 +31,7 @@
  *     Jeff Bailey, 1990
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005-2009
- *     Markus Armbruster, 2006-2015
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -192,16 +192,14 @@ show_nuke_build(int tlev)
     int n = make_nchr_index(chridx, tlev);
     int i;
     struct nchrstr *np;
-    int avail;
 
     pr("%13s lcm hcm  oil  rad avail tech res $\n", "");
 
     for (i = 0; i < n; i++) {
 	np = &nchr[chridx[i].type];
-	avail = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
 	pr("%-13.13s %3d %3d %4d %4d %5d %4d %3.0f $%6d\n",
 	   np->n_name, np->n_lcm, np->n_hcm, np->n_oil,
-	   np->n_rad, avail, np->n_tech,
+	   np->n_rad, np->n_bwork, np->n_tech,
 	   drnuke_const > MIN_DRNUKE_CONST ?
 		ceil(np->n_tech * drnuke_const) : 0.0,
 	   np->n_cost);
@@ -243,7 +241,7 @@ show_ship_build(int tlev)
 	mp = &mchr[chridx[i].type];
 	pr("%-25.25s %3d %3d %5d %4d $%d\n",
 	   mp->m_name, mp->m_lcm, mp->m_hcm,
-	   SHP_BLD_WORK(mp->m_lcm, mp->m_hcm), mp->m_tech, mp->m_cost);
+	   mp->m_bwork, mp->m_tech, mp->m_cost);
     }
 }
 
@@ -335,7 +333,7 @@ show_plane_build(int tlev)
 	pr("%-25.25s %3d %3d %4d %5d %4d $%d\n",
 	   pp->pl_name, pp->pl_lcm,
 	   pp->pl_hcm, pp->pl_crew,
-	   PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm), pp->pl_tech, pp->pl_cost);
+	   pp->pl_bwork, pp->pl_tech, pp->pl_cost);
     }
 }
 
@@ -354,7 +352,7 @@ show_land_build(int tlev)
 	   lp->l_name, lp->l_lcm,
 	   lp->l_hcm,
 	   lp->l_gun,
-	   LND_BLD_WORK(lp->l_lcm, lp->l_hcm), lp->l_tech, lp->l_cost);
+	   lp->l_bwork, lp->l_tech, lp->l_cost);
     }
 }
 

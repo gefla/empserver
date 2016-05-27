@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
+ *     Markus Armbruster, 2004-2016
  */
 
 #ifndef NUKE_H
@@ -69,8 +70,9 @@ struct nchrstr {
     int n_rad;
     int n_blast;		/* blast radius */
     int n_dam;			/* damage at center */
-    int n_cost;
+    int n_bwork;		/* work to build 100% */
     int n_tech;			/* tech needed to build */
+    int n_cost;			/* how much it costs to build */
     int n_weight;
     int n_flags;		/* description of capability */
     signed char n_type;		/* index in nchr[] */
@@ -81,10 +83,6 @@ struct nchrstr {
 #define getnuke(n, p) ef_read(EF_NUKE, (n), (p))
 #define putnuke(n, p) ef_write(EF_NUKE, (n), (p))
 #define getnukep(n) ((struct nukstr *)ef_ptr(EF_NUKE, (n)))
-
-/* Work required for building */
-#define NUK_BLD_WORK(lcm, hcm, oil, rad) \
-  (((lcm) + 2 * (hcm) + (oil) + (rad) + 4) / 5)
 
 extern struct nchrstr nchr[N_MAXNUKE + 1];
 

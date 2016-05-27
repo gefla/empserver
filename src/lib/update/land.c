@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992
  *     Steve McClure, 1996
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -199,7 +199,6 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
     struct lchrstr *lp;
     int build;
     int avail;
-    int w_p_eff;
     int mult;
     int mvec[I_MAX + 1];
 
@@ -223,8 +222,7 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
     else
 	avail = bp_get_avail(bp, sp) * 100;
 
-    w_p_eff = LND_BLD_WORK(lp->l_lcm, lp->l_hcm);
-    delta = roundavg((double)avail / w_p_eff);
+    delta = roundavg((double)avail / lp->l_bwork);
     if (delta <= 0)
 	return;
     if (delta > (int)((float)etus * land_grow_scale))
@@ -240,7 +238,7 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
     if ((sp->sct_type != SCT_HEADQ) && (sp->sct_type != SCT_FORTR))
 	build /= 3;
 
-    avail -= build * w_p_eff;
+    avail -= build * lp->l_bwork;
     if (avail < 0)
 	avail = 0;
     if (!player->simulation)

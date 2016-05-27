@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Steve McClure, 1996
  *     Ron Koenderink, 2004
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -247,7 +247,6 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
     int build;
     int wf;
     int avail;
-    int w_p_eff;
     int mult;
     int mvec[I_MAX + 1];
 
@@ -274,8 +273,6 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 	    avail = wf + bp_get_avail(bp, sp) * 100;
     }
 
-    w_p_eff = SHP_BLD_WORK(mp->m_lcm, mp->m_hcm);
-
     if ((sp->sct_off) && (sp->sct_own == ship->shp_own))
 	return;
 
@@ -288,7 +285,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 	return;
     }
 
-    delta = roundavg((double)avail / w_p_eff);
+    delta = roundavg((double)avail / mp->m_bwork);
     if (delta <= 0)
 	return;
     if (delta > (int)((float)etus * ship_grow_scale))
@@ -304,7 +301,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
     if (sp->sct_type != SCT_HARBR)
 	build = delta;
 
-    wf -= build * w_p_eff;
+    wf -= build * mp->m_bwork;
     if (wf < 0) {
 	/*
 	 * I didn't use roundavg here, because I want to penalize

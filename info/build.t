@@ -56,12 +56,6 @@ military crew.  So, for maximum efficiency growth,
 put full crews on your newly built
 ships and leave them in harbor until they reach 100%.
 .s1
-The work required to add a point of efficiency to a ship is
-.s1
-.NF
-(20 + (lcm_to_build + 2 * hcm_to_build))/100
-.FI
-.s1
 Ships at sea have only their crews to make repairs.
 A small crew on a large ship
 may not be able to make any repairs at all.
@@ -80,11 +74,6 @@ A plane is not capable of leaving the ground until
 it has reached 40% efficiency.  Planes below 10% efficiency are
 destroyed.
 .s1
-The work required to add a point of efficiency to a plane is
-.s1
-.NF
-(20 + (lcm_to_build + 2 * hcm_to_build))/100
-.FI
 .s1
 Planes will also gain efficiency in non-airport sectors, but at only 1/3rd
 the normal rate.
@@ -104,12 +93,6 @@ appear at 10% efficiency (a unit of less than 10% efficiency is
 dead). Then,
 each update, the unit will grow in efficiency, and use up more
 of the required goods until it reaches 100%.
-.s1
-The work required to add a point of efficiency to a land unit is
-.s1
-.NF
-(20 + (lcm_to_build + 2 * hcm_to_build))/100
-.FI
 .s1
 Land units can also gain efficiency in fortress sectors, but cannot
 be built there.

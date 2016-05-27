@@ -1030,12 +1030,13 @@
     Play#0 output Play#0 1 "glim" 8 0 0 -1
     Play#0 output Play#0 1 "nxlight" 5 0 0 -1
     Play#0 output Play#0 1 "nchoppers" 5 0 0 -1
+    Play#0 output Play#0 1 "bwork" 8 0 0 -1
     Play#0 output Play#0 1 "tech" 8 0 0 -1
     Play#0 output Play#0 1 "cost" 8 0 0 -1
     Play#0 output Play#0 1 "flags" 8 8 0 48
     Play#0 output Play#0 1 "nplanes" 5 0 0 -1
     Play#0 output Play#0 1 "nland" 5 0 0 -1
-    Play#0 output Play#0 1 /31
+    Play#0 output Play#0 1 /32
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 20
     Play#0 command xdump
@@ -1044,8 +1045,9 @@
     Play#0 output Play#0 1 "name" 3 0 0 -1
     Play#0 output Play#0 1 "l_build" 8 0 0 -1
     Play#0 output Play#0 1 "h_build" 8 0 0 -1
-    Play#0 output Play#0 1 "cost" 8 0 0 -1
+    Play#0 output Play#0 1 "bwork" 8 0 0 -1
     Play#0 output Play#0 1 "tech" 8 0 0 -1
+    Play#0 output Play#0 1 "cost" 8 0 0 -1
     Play#0 output Play#0 1 "acc" 8 0 0 -1
     Play#0 output Play#0 1 "load" 8 0 0 -1
     Play#0 output Play#0 1 "att" 8 0 0 -1
@@ -1055,7 +1057,7 @@
     Play#0 output Play#0 1 "fuel" 8 0 0 -1
     Play#0 output Play#0 1 "stealth" 8 0 0 -1
     Play#0 output Play#0 1 "flags" 8 8 0 43
-    Play#0 output Play#0 1 /15
+    Play#0 output Play#0 1 /16
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 21
     Play#0 command xdump
@@ -1078,6 +1080,7 @@
     Play#0 output Play#0 1 "rad" 6 0 0 -1
     Play#0 output Play#0 1 "l_build" 8 0 0 -1
     Play#0 output Play#0 1 "h_build" 8 0 0 -1
+    Play#0 output Play#0 1 "bwork" 8 0 0 -1
     Play#0 output Play#0 1 "tech" 8 0 0 -1
     Play#0 output Play#0 1 "cost" 8 0 0 -1
     Play#0 output Play#0 1 "att" 12 0 0 -1
@@ -1095,7 +1098,7 @@
     Play#0 output Play#0 1 "flags" 8 8 0 30
     Play#0 output Play#0 1 "nxlight" 5 0 0 -1
     Play#0 output Play#0 1 "nland" 5 0 0 -1
-    Play#0 output Play#0 1 /35
+    Play#0 output Play#0 1 /36
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 22
     Play#0 command xdump
@@ -1108,11 +1111,12 @@
     Play#0 output Play#0 1 "r_build" 8 0 0 -1
     Play#0 output Play#0 1 "blast" 8 0 0 -1
     Play#0 output Play#0 1 "dam" 8 0 0 -1
-    Play#0 output Play#0 1 "cost" 8 0 0 -1
+    Play#0 output Play#0 1 "bwork" 8 0 0 -1
     Play#0 output Play#0 1 "tech" 8 0 0 -1
+    Play#0 output Play#0 1 "cost" 8 0 0 -1
     Play#0 output Play#0 1 "weight" 8 0 0 -1
     Play#0 output Play#0 1 "flags" 8 8 0 39
-    Play#0 output Play#0 1 /12
+    Play#0 output Play#0 1 /13
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 23
     Play#0 command xdump
@@ -1525,127 +1529,127 @@
     Play#0 input xdump ship-chr *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP ship-chr 0
-    Play#0 output Play#0 1 0 "fb\\040\\040\\040fishing\\040boat" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 10 15 2 0 0 0 0 0 180 524289 0 0
-    Play#0 output Play#0 1 1 "ft\\040\\040\\040fishing\\040trawler" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 25 15 2 0 0 0 0 35 300 524289 0 0
-    Play#0 output Play#0 1 2 "cs\\040\\040\\040cargo\\040ship" 600 50 300 50 0 0 0 0 900 0 1400 900 250 0 60 40 20 25 35 3 0 0 1 0 20 500 262144 0 2
-    Play#0 output Play#0 1 3 "os\\040\\040\\040ore\\040ship" 30 5 0 0 0 990 990 0 200 0 0 0 45 990 60 40 20 25 35 3 0 0 1 0 20 500 0 0 0
-    Play#0 output Play#0 1 4 "ss\\040\\040\\040slave\\040ship" 20 80 0 0 0 0 0 0 200 0 0 0 1200 0 60 40 20 10 35 3 0 0 1 0 0 300 0 0 0
-    Play#0 output Play#0 1 6 "frg\\040\\040frigate" 0 60 10 2 0 0 0 0 60 0 0 0 0 0 30 30 50 25 25 3 1 1 1 0 0 600 16384 0 2
-    Play#0 output Play#0 1 7 "oe\\040\\040\\040oil\\040exploration\\040boat" 10 5 0 0 0 0 0 0 100 1 0 0 0 0 25 15 10 25 15 2 0 0 0 0 40 800 524320 0 0
-    Play#0 output Play#0 1 8 "od\\040\\040\\040oil\\040derrick" 990 80 0 0 0 0 0 0 990 990 0 0 990 0 60 60 30 15 65 3 0 0 2 0 50 1500 32 0 0
-    Play#0 output Play#0 1 9 "pt\\040\\040\\040patrol\\040boat" 0 2 12 2 0 0 0 0 5 0 0 0 0 0 20 10 10 38 10 2 1 1 0 0 40 300 524290 0 0
-    Play#0 output Play#0 1 10 "lc\\040\\040\\040light\\040cruiser" 0 100 40 5 0 0 0 0 100 0 0 0 0 0 30 40 50 30 30 5 6 3 1 0 45 800 128 0 2
-    Play#0 output Play#0 1 11 "hc\\040\\040\\040heavy\\040cruiser" 0 120 100 8 0 0 0 0 200 0 0 0 0 0 40 50 70 30 30 5 8 4 1 0 50 1200 0 0 4
-    Play#0 output Play#0 1 12 "tt\\040\\040\\040troop\\040transport" 0 120 20 4 0 0 0 0 120 0 0 0 0 0 50 50 60 20 35 3 1 2 1 0 10 800 16384 0 2
-    Play#0 output Play#0 1 13 "bb\\040\\040\\040battleship" 0 200 200 10 0 0 0 0 900 0 0 0 0 0 50 70 95 25 35 6 10 7 1 0 45 1800 0 0 2
-    Play#0 output Play#0 1 14 "bbc\\040\\040battlecruiser" 0 180 100 10 0 0 0 0 400 0 0 0 0 0 50 60 55 30 35 6 10 6 1 0 75 1500 0 0 2
-    Play#0 output Play#0 1 15 "tk\\040\\040\\040tanker" 30 5 0 0 990 0 0 0 200 990 0 0 25 0 60 40 75 25 45 3 0 0 1 0 35 600 262144 0 0
-    Play#0 output Play#0 1 16 "ms\\040\\040\\040minesweeper" 0 10 100 1 0 0 0 0 90 0 0 0 0 0 25 15 10 25 15 2 0 0 0 0 40 400 524672 0 0
-    Play#0 output Play#0 1 17 "dd\\040\\040\\040destroyer" 0 60 40 4 0 0 0 0 80 0 0 0 0 0 30 30 45 35 20 4 6 3 1 0 70 600 196 0 1
-    Play#0 output Play#0 1 18 "sb\\040\\040\\040submarine" 0 25 36 5 0 0 0 0 80 0 0 0 0 0 30 30 25 20 5 4 3 3 0 0 60 650 706 0 0
-    Play#0 output Play#0 1 19 "sbc\\040\\040cargo\\040submarine" 5 10 104 20 100 0 0 0 900 0 500 300 0 0 40 40 50 30 2 3 0 0 0 0 150 1200 262720 0 0
-    Play#0 output Play#0 1 20 "cal\\040\\040light\\040carrier" 0 175 250 4 300 0 0 0 180 0 0 0 0 0 50 60 60 30 40 5 2 2 4 20 80 2700 8 20 0
-    Play#0 output Play#0 1 21 "car\\040\\040aircraft\\040carrier" 0 350 500 4 500 0 0 0 900 0 0 0 0 0 60 70 80 35 40 7 2 2 10 40 160 4500 8 40 0
-    Play#0 output Play#0 1 22 "can\\040\\040nuc\\040carrier" 0 350 999 4 999 0 0 0 900 0 0 0 0 0 70 80 100 45 40 9 2 2 20 4 305 8000 262152 60 0
-    Play#0 output Play#0 1 23 "ls\\040\\040\\040landing\\040ship" 0 400 10 1 0 0 0 0 300 0 0 0 0 0 60 40 40 30 30 2 0 0 2 0 145 1000 2048 0 6
-    Play#0 output Play#0 1 24 "af\\040\\040\\040asw\\040frigate" 0 60 60 4 0 0 0 0 120 0 0 0 0 0 40 30 50 35 30 5 2 2 4 0 220 800 4166 0 0
-    Play#0 output Play#0 1 25 "na\\040\\040\\040nuc\\040attack\\040sub" 0 25 60 6 0 0 0 0 500 0 0 0 0 0 30 40 45 40 3 6 5 3 0 0 260 1200 4802 0 0
-    Play#0 output Play#0 1 26 "ad\\040\\040\\040asw\\040destroyer" 0 100 80 6 40 0 0 0 500 0 0 0 0 0 40 40 60 40 35 6 8 3 10 2 240 1500 4166 0 0
-    Play#0 output Play#0 1 27 "nm\\040\\040\\040nuc\\040miss\\040sub" 0 25 200 1 0 0 0 0 500 0 0 0 0 0 30 40 55 35 2 6 0 0 0 0 270 1500 592 20 0
-    Play#0 output Play#0 1 28 "msb\\040\\040missile\\040sub" 0 25 100 1 0 0 0 0 500 0 0 0 0 0 30 30 35 30 3 3 0 0 0 0 230 1200 592 10 0
-    Play#0 output Play#0 1 29 "mb\\040\\040\\040missile\\040boat" 0 5 100 3 0 0 0 0 500 0 0 0 0 0 20 20 15 40 15 3 2 2 0 0 180 500 16 10 0
-    Play#0 output Play#0 1 30 "mf\\040\\040\\040missile\\040frigate" 0 60 220 4 0 0 0 0 120 0 0 0 0 0 40 30 50 35 30 5 2 2 2 0 280 1000 16 20 0
-    Play#0 output Play#0 1 31 "mc\\040\\040\\040missile\\040cruiser" 0 120 500 6 160 0 0 0 200 0 0 0 0 0 50 50 70 35 35 8 8 6 8 8 290 1500 1048592 40 0
-    Play#0 output Play#0 1 32 "aac\\040\\040aa\\040cruiser" 0 100 100 15 0 0 0 0 200 0 0 0 0 0 50 60 80 35 30 6 1 8 1 0 130 1500 1048576 0 4
-    Play#0 output Play#0 1 33 "agc\\040\\040aegis\\040cruiser" 0 200 400 25 40 0 0 0 900 0 0 0 0 0 50 60 80 35 30 6 1 16 30 2 265 4000 1048592 32 0
-    Play#0 output Play#0 1 34 "ncr\\040\\040nuc\\040cruiser" 0 200 400 8 40 0 0 0 900 0 0 0 0 0 50 50 100 45 35 6 14 7 10 2 325 1800 1048592 20 0
-    Play#0 output Play#0 1 35 "nas\\040\\040nuc\\040asw\\040cruiser" 0 200 120 6 160 0 0 0 500 0 0 0 0 0 50 50 80 45 35 9 10 4 25 8 330 1800 4166 0 0
-    Play#0 output Play#0 1 36 "nsp\\040\\040nuc\\040supply\\040ship" 50 50 600 50 999 0 0 0 999 0 1500 900 0 0 60 40 40 45 35 6 0 0 10 2 360 1500 262144 0 2
+    Play#0 output Play#0 1 0 "fb\\040\\040\\040fishing\\040boat" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 10 15 2 0 0 0 0 75 0 180 524289 0 0
+    Play#0 output Play#0 1 1 "ft\\040\\040\\040fishing\\040trawler" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 25 15 2 0 0 0 0 75 35 300 524289 0 0
+    Play#0 output Play#0 1 2 "cs\\040\\040\\040cargo\\040ship" 600 50 300 50 0 0 0 0 900 0 1400 900 250 0 60 40 20 25 35 3 0 0 1 0 160 20 500 262144 0 2
+    Play#0 output Play#0 1 3 "os\\040\\040\\040ore\\040ship" 30 5 0 0 0 990 990 0 200 0 0 0 45 990 60 40 20 25 35 3 0 0 1 0 160 20 500 0 0 0
+    Play#0 output Play#0 1 4 "ss\\040\\040\\040slave\\040ship" 20 80 0 0 0 0 0 0 200 0 0 0 1200 0 60 40 20 10 35 3 0 0 1 0 160 0 300 0 0 0
+    Play#0 output Play#0 1 6 "frg\\040\\040frigate" 0 60 10 2 0 0 0 0 60 0 0 0 0 0 30 30 50 25 25 3 1 1 1 0 110 0 600 16384 0 2
+    Play#0 output Play#0 1 7 "oe\\040\\040\\040oil\\040exploration\\040boat" 10 5 0 0 0 0 0 0 100 1 0 0 0 0 25 15 10 25 15 2 0 0 0 0 75 40 800 524320 0 0
+    Play#0 output Play#0 1 8 "od\\040\\040\\040oil\\040derrick" 990 80 0 0 0 0 0 0 990 990 0 0 990 0 60 60 30 15 65 3 0 0 2 0 200 50 1500 32 0 0
+    Play#0 output Play#0 1 9 "pt\\040\\040\\040patrol\\040boat" 0 2 12 2 0 0 0 0 5 0 0 0 0 0 20 10 10 38 10 2 1 1 0 0 60 40 300 524290 0 0
+    Play#0 output Play#0 1 10 "lc\\040\\040\\040light\\040cruiser" 0 100 40 5 0 0 0 0 100 0 0 0 0 0 30 40 50 30 30 5 6 3 1 0 130 45 800 128 0 2
+    Play#0 output Play#0 1 11 "hc\\040\\040\\040heavy\\040cruiser" 0 120 100 8 0 0 0 0 200 0 0 0 0 0 40 50 70 30 30 5 8 4 1 0 160 50 1200 0 0 4
+    Play#0 output Play#0 1 12 "tt\\040\\040\\040troop\\040transport" 0 120 20 4 0 0 0 0 120 0 0 0 0 0 50 50 60 20 35 3 1 2 1 0 170 10 800 16384 0 2
+    Play#0 output Play#0 1 13 "bb\\040\\040\\040battleship" 0 200 200 10 0 0 0 0 900 0 0 0 0 0 50 70 95 25 35 6 10 7 1 0 210 45 1800 0 0 2
+    Play#0 output Play#0 1 14 "bbc\\040\\040battlecruiser" 0 180 100 10 0 0 0 0 400 0 0 0 0 0 50 60 55 30 35 6 10 6 1 0 190 75 1500 0 0 2
+    Play#0 output Play#0 1 15 "tk\\040\\040\\040tanker" 30 5 0 0 990 0 0 0 200 990 0 0 25 0 60 40 75 25 45 3 0 0 1 0 160 35 600 262144 0 0
+    Play#0 output Play#0 1 16 "ms\\040\\040\\040minesweeper" 0 10 100 1 0 0 0 0 90 0 0 0 0 0 25 15 10 25 15 2 0 0 0 0 75 40 400 524672 0 0
+    Play#0 output Play#0 1 17 "dd\\040\\040\\040destroyer" 0 60 40 4 0 0 0 0 80 0 0 0 0 0 30 30 45 35 20 4 6 3 1 0 110 70 600 196 0 1
+    Play#0 output Play#0 1 18 "sb\\040\\040\\040submarine" 0 25 36 5 0 0 0 0 80 0 0 0 0 0 30 30 25 20 5 4 3 3 0 0 110 60 650 706 0 0
+    Play#0 output Play#0 1 19 "sbc\\040\\040cargo\\040submarine" 5 10 104 20 100 0 0 0 900 0 500 300 0 0 40 40 50 30 2 3 0 0 0 0 140 150 1200 262720 0 0
+    Play#0 output Play#0 1 20 "cal\\040\\040light\\040carrier" 0 175 250 4 300 0 0 0 180 0 0 0 0 0 50 60 60 30 40 5 2 2 4 20 190 80 2700 8 20 0
+    Play#0 output Play#0 1 21 "car\\040\\040aircraft\\040carrier" 0 350 500 4 500 0 0 0 900 0 0 0 0 0 60 70 80 35 40 7 2 2 10 40 220 160 4500 8 40 0
+    Play#0 output Play#0 1 22 "can\\040\\040nuc\\040carrier" 0 350 999 4 999 0 0 0 900 0 0 0 0 0 70 80 100 45 40 9 2 2 20 4 250 305 8000 262152 60 0
+    Play#0 output Play#0 1 23 "ls\\040\\040\\040landing\\040ship" 0 400 10 1 0 0 0 0 300 0 0 0 0 0 60 40 40 30 30 2 0 0 2 0 160 145 1000 2048 0 6
+    Play#0 output Play#0 1 24 "af\\040\\040\\040asw\\040frigate" 0 60 60 4 0 0 0 0 120 0 0 0 0 0 40 30 50 35 30 5 2 2 4 0 120 220 800 4166 0 0
+    Play#0 output Play#0 1 25 "na\\040\\040\\040nuc\\040attack\\040sub" 0 25 60 6 0 0 0 0 500 0 0 0 0 0 30 40 45 40 3 6 5 3 0 0 130 260 1200 4802 0 0
+    Play#0 output Play#0 1 26 "ad\\040\\040\\040asw\\040destroyer" 0 100 80 6 40 0 0 0 500 0 0 0 0 0 40 40 60 40 35 6 8 3 10 2 140 240 1500 4166 0 0
+    Play#0 output Play#0 1 27 "nm\\040\\040\\040nuc\\040miss\\040sub" 0 25 200 1 0 0 0 0 500 0 0 0 0 0 30 40 55 35 2 6 0 0 0 0 130 270 1500 592 20 0
+    Play#0 output Play#0 1 28 "msb\\040\\040missile\\040sub" 0 25 100 1 0 0 0 0 500 0 0 0 0 0 30 30 35 30 3 3 0 0 0 0 110 230 1200 592 10 0
+    Play#0 output Play#0 1 29 "mb\\040\\040\\040missile\\040boat" 0 5 100 3 0 0 0 0 500 0 0 0 0 0 20 20 15 40 15 3 2 2 0 0 80 180 500 16 10 0
+    Play#0 output Play#0 1 30 "mf\\040\\040\\040missile\\040frigate" 0 60 220 4 0 0 0 0 120 0 0 0 0 0 40 30 50 35 30 5 2 2 2 0 120 280 1000 16 20 0
+    Play#0 output Play#0 1 31 "mc\\040\\040\\040missile\\040cruiser" 0 120 500 6 160 0 0 0 200 0 0 0 0 0 50 50 70 35 35 8 8 6 8 8 170 290 1500 1048592 40 0
+    Play#0 output Play#0 1 32 "aac\\040\\040aa\\040cruiser" 0 100 100 15 0 0 0 0 200 0 0 0 0 0 50 60 80 35 30 6 1 8 1 0 190 130 1500 1048576 0 4
+    Play#0 output Play#0 1 33 "agc\\040\\040aegis\\040cruiser" 0 200 400 25 40 0 0 0 900 0 0 0 0 0 50 60 80 35 30 6 1 16 30 2 190 265 4000 1048592 32 0
+    Play#0 output Play#0 1 34 "ncr\\040\\040nuc\\040cruiser" 0 200 400 8 40 0 0 0 900 0 0 0 0 0 50 50 100 45 35 6 14 7 10 2 170 325 1800 1048592 20 0
+    Play#0 output Play#0 1 35 "nas\\040\\040nuc\\040asw\\040cruiser" 0 200 120 6 160 0 0 0 500 0 0 0 0 0 50 50 80 45 35 9 10 4 25 8 170 330 1800 4166 0 0
+    Play#0 output Play#0 1 36 "nsp\\040\\040nuc\\040supply\\040ship" 50 50 600 50 999 0 0 0 999 0 1500 900 0 0 60 40 40 45 35 6 0 0 10 2 160 360 1500 262144 0 2
     Play#0 output Play#0 1 /36
     Play#0 output Play#0 6 0 640
     Play#0 input xdump plane-chr *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP plane-chr 0
-    Play#0 output Play#0 1 0 "f1\\040\\040\\040Sopwith\\040Camel" 8 2 400 50 90 1 1 1 4 1 1 0 22
-    Play#0 output Play#0 1 1 "f2\\040\\040\\040P-51\\040Mustang" 8 2 400 80 80 1 4 4 8 1 1 0 70
-    Play#0 output Play#0 1 2 "jf1\\040\\040F-4\\040Phantom" 12 4 1000 125 45 1 14 14 11 2 3 0 70
-    Play#0 output Play#0 1 3 "jf2\\040\\040AV-8B\\040Harrier" 12 4 1400 195 30 1 17 17 14 2 3 0 86
-    Play#0 output Play#0 1 4 "sf\\040\\040\\040F-117A\\040Nighthawk" 15 5 3000 325 45 3 19 19 20 2 4 80 70
-    Play#0 output Play#0 1 5 "es\\040\\040\\040P-38\\040Lightning" 9 3 700 90 60 1 5 5 15 1 2 0 131074
-    Play#0 output Play#0 1 6 "jes\\040\\040F-14E\\040jet\\040escort" 14 8 1400 160 60 1 10 10 25 2 3 0 131074
-    Play#0 output Play#0 1 7 "lb\\040\\040\\040TBD-1\\040Devastator" 10 3 550 60 50 2 0 3 7 1 1 0 83
-    Play#0 output Play#0 1 8 "jl\\040\\040\\040A-6\\040Intruder" 14 4 1000 130 25 3 0 9 11 2 3 0 67
-    Play#0 output Play#0 1 9 "mb\\040\\040\\040medium\\040bomber" 14 5 1000 80 45 4 0 5 14 3 3 0 3
-    Play#0 output Play#0 1 10 "jfb\\040\\040FB-111\\040Aardvark\\040f/b" 20 10 1800 140 30 7 8 8 20 5 5 0 3
-    Play#0 output Play#0 1 11 "hb\\040\\040\\040B-26B\\040Marauder" 20 6 1100 90 90 5 0 4 15 2 2 0 1
-    Play#0 output Play#0 1 12 "jhb\\040\\040B-52\\040Strato-Fortress" 26 13 3200 150 80 12 0 11 35 5 6 0 1
-    Play#0 output Play#0 1 13 "sb\\040\\040\\040B-2\\040stealth\\040bomber" 15 5 4000 325 25 8 0 15 28 2 5 80 3
-    Play#0 output Play#0 1 14 "as\\040\\040\\040anti-sub\\040plane" 10 3 550 100 85 2 0 3 15 2 2 0 819202
-    Play#0 output Play#0 1 15 "np\\040\\040\\040naval\\040plane" 20 10 1800 135 70 3 0 4 28 4 2 0 819274
-    Play#0 output Play#0 1 16 "nc\\040\\040\\040AH-1\\040Cobra" 8 2 800 160 55 2 0 3 11 2 2 0 573458
-    Play#0 output Play#0 1 17 "ac\\040\\040\\040AH-64\\040Apache" 8 2 800 200 15 1 0 9 11 2 2 40 16402
-    Play#0 output Play#0 1 18 "tc\\040\\040\\040transport\\040chopper" 8 2 800 135 0 5 0 3 7 2 2 40 81944
-    Play#0 output Play#0 1 19 "tr\\040\\040\\040C-56\\040Lodestar" 14 5 1000 85 0 7 0 2 15 3 3 0 65544
-    Play#0 output Play#0 1 20 "jt\\040\\040\\040C-141\\040Starlifter" 18 5 1500 160 0 16 0 9 35 3 4 0 65544
-    Play#0 output Play#0 1 21 "zep\\040\\040Zeppelin" 6 2 1000 70 60 2 0 -3 15 3 2 0 154
-    Play#0 output Play#0 1 22 "re\\040\\040\\040recon" 12 4 800 130 0 0 0 4 15 2 2 20 128
-    Play#0 output Play#0 1 23 "sp\\040\\040\\040E2-C\\040Hawkeye" 15 5 2000 190 0 0 0 11 32 2 5 50 128
-    Play#0 output Play#0 1 24 "lst\\040\\040landsat" 20 20 2000 245 0 0 0 3 41 0 9 0 512
-    Play#0 output Play#0 1 25 "ss\\040\\040\\040KH-7\\040spysat" 20 20 4000 305 0 0 0 3 61 0 9 0 896
-    Play#0 output Play#0 1 26 "mi\\040\\040\\040Harpoon" 8 2 300 160 50 6 0 5 6 0 0 0 1048690
-    Play#0 output Play#0 1 27 "sam\\040\\040Sea\\040Sparrow" 3 1 200 180 0 0 0 18 2 0 0 0 8308
-    Play#0 output Play#0 1 28 "ssm\\040\\040V2" 15 15 800 145 60 3 0 3 4 0 0 0 50
-    Play#0 output Play#0 1 29 "srbm\\040Atlas" 20 20 1000 200 60 6 0 5 9 0 0 0 50
-    Play#0 output Play#0 1 30 "irbm\\040Titan" 20 20 1500 260 60 8 0 10 15 0 0 0 50
-    Play#0 output Play#0 1 31 "icbm\\040Minuteman" 20 20 3000 310 60 10 0 15 41 0 0 0 50
-    Play#0 output Play#0 1 32 "slbm\\040Trident" 20 20 2000 280 60 8 0 6 23 0 0 0 114
-    Play#0 output Play#0 1 33 "asat\\040anti-sat" 20 20 2000 305 50 6 0 7 13 0 4 0 560
-    Play#0 output Play#0 1 34 "abm\\040\\040Patriot" 16 8 1500 270 50 0 0 31 12 0 0 0 2096
+    Play#0 output Play#0 1 0 "f1\\040\\040\\040Sopwith\\040Camel" 8 2 32 50 400 90 1 1 1 4 1 1 0 22
+    Play#0 output Play#0 1 1 "f2\\040\\040\\040P-51\\040Mustang" 8 2 32 80 400 80 1 4 4 8 1 1 0 70
+    Play#0 output Play#0 1 2 "jf1\\040\\040F-4\\040Phantom" 12 4 40 125 1000 45 1 14 14 11 2 3 0 70
+    Play#0 output Play#0 1 3 "jf2\\040\\040AV-8B\\040Harrier" 12 4 40 195 1400 30 1 17 17 14 2 3 0 86
+    Play#0 output Play#0 1 4 "sf\\040\\040\\040F-117A\\040Nighthawk" 15 5 45 325 3000 45 3 19 19 20 2 4 80 70
+    Play#0 output Play#0 1 5 "es\\040\\040\\040P-38\\040Lightning" 9 3 35 90 700 60 1 5 5 15 1 2 0 131074
+    Play#0 output Play#0 1 6 "jes\\040\\040F-14E\\040jet\\040escort" 14 8 50 160 1400 60 1 10 10 25 2 3 0 131074
+    Play#0 output Play#0 1 7 "lb\\040\\040\\040TBD-1\\040Devastator" 10 3 36 60 550 50 2 0 3 7 1 1 0 83
+    Play#0 output Play#0 1 8 "jl\\040\\040\\040A-6\\040Intruder" 14 4 42 130 1000 25 3 0 9 11 2 3 0 67
+    Play#0 output Play#0 1 9 "mb\\040\\040\\040medium\\040bomber" 14 5 44 80 1000 45 4 0 5 14 3 3 0 3
+    Play#0 output Play#0 1 10 "jfb\\040\\040FB-111\\040Aardvark\\040f/b" 20 10 60 140 1800 30 7 8 8 20 5 5 0 3
+    Play#0 output Play#0 1 11 "hb\\040\\040\\040B-26B\\040Marauder" 20 6 52 90 1100 90 5 0 4 15 2 2 0 1
+    Play#0 output Play#0 1 12 "jhb\\040\\040B-52\\040Strato-Fortress" 26 13 72 150 3200 80 12 0 11 35 5 6 0 1
+    Play#0 output Play#0 1 13 "sb\\040\\040\\040B-2\\040stealth\\040bomber" 15 5 45 325 4000 25 8 0 15 28 2 5 80 3
+    Play#0 output Play#0 1 14 "as\\040\\040\\040anti-sub\\040plane" 10 3 36 100 550 85 2 0 3 15 2 2 0 819202
+    Play#0 output Play#0 1 15 "np\\040\\040\\040naval\\040plane" 20 10 60 135 1800 70 3 0 4 28 4 2 0 819274
+    Play#0 output Play#0 1 16 "nc\\040\\040\\040AH-1\\040Cobra" 8 2 32 160 800 55 2 0 3 11 2 2 0 573458
+    Play#0 output Play#0 1 17 "ac\\040\\040\\040AH-64\\040Apache" 8 2 32 200 800 15 1 0 9 11 2 2 40 16402
+    Play#0 output Play#0 1 18 "tc\\040\\040\\040transport\\040chopper" 8 2 32 135 800 0 5 0 3 7 2 2 40 81944
+    Play#0 output Play#0 1 19 "tr\\040\\040\\040C-56\\040Lodestar" 14 5 44 85 1000 0 7 0 2 15 3 3 0 65544
+    Play#0 output Play#0 1 20 "jt\\040\\040\\040C-141\\040Starlifter" 18 5 48 160 1500 0 16 0 9 35 3 4 0 65544
+    Play#0 output Play#0 1 21 "zep\\040\\040Zeppelin" 6 2 30 70 1000 60 2 0 -3 15 3 2 0 154
+    Play#0 output Play#0 1 22 "re\\040\\040\\040recon" 12 4 40 130 800 0 0 0 4 15 2 2 20 128
+    Play#0 output Play#0 1 23 "sp\\040\\040\\040E2-C\\040Hawkeye" 15 5 45 190 2000 0 0 0 11 32 2 5 50 128
+    Play#0 output Play#0 1 24 "lst\\040\\040landsat" 20 20 80 245 2000 0 0 0 3 41 0 9 0 512
+    Play#0 output Play#0 1 25 "ss\\040\\040\\040KH-7\\040spysat" 20 20 80 305 4000 0 0 0 3 61 0 9 0 896
+    Play#0 output Play#0 1 26 "mi\\040\\040\\040Harpoon" 8 2 32 160 300 50 6 0 5 6 0 0 0 1048690
+    Play#0 output Play#0 1 27 "sam\\040\\040Sea\\040Sparrow" 3 1 25 180 200 0 0 0 18 2 0 0 0 8308
+    Play#0 output Play#0 1 28 "ssm\\040\\040V2" 15 15 65 145 800 60 3 0 3 4 0 0 0 50
+    Play#0 output Play#0 1 29 "srbm\\040Atlas" 20 20 80 200 1000 60 6 0 5 9 0 0 0 50
+    Play#0 output Play#0 1 30 "irbm\\040Titan" 20 20 80 260 1500 60 8 0 10 15 0 0 0 50
+    Play#0 output Play#0 1 31 "icbm\\040Minuteman" 20 20 80 310 3000 60 10 0 15 41 0 0 0 50
+    Play#0 output Play#0 1 32 "slbm\\040Trident" 20 20 80 280 2000 60 8 0 6 23 0 0 0 114
+    Play#0 output Play#0 1 33 "asat\\040anti-sat" 20 20 80 305 2000 50 6 0 7 13 0 4 0 560
+    Play#0 output Play#0 1 34 "abm\\040\\040Patriot" 16 8 52 270 1500 50 0 0 31 12 0 0 0 2096
     Play#0 output Play#0 1 /35
     Play#0 output Play#0 6 0 640
     Play#0 input xdump land-chr *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP land-chr 0
-    Play#0 output Play#0 1 0 "cav\\040\\040cavalry" 0 20 0 0 0 0 0 0 12 0 0 0 0 0 10 5 30 500 1.20000 0.500000 80 32 18 4 3 0 0 0 0 0 80 0 0
-    Play#0 output Play#0 1 1 "linf\\040light\\040infantry" 0 25 1 0 0 0 0 0 15 0 0 0 0 0 8 4 40 300 1.00000 1.50000 60 28 15 2 1 0 0 0 1 1 272 0 0
-    Play#0 output Play#0 1 2 "inf\\040\\040infantry" 0 100 0 0 0 0 0 0 24 0 0 0 0 0 10 5 50 500 1.00000 1.50000 60 25 15 2 1 0 0 0 0 0 272 0 0
-    Play#0 output Play#0 1 3 "mtif\\040motor\\040inf" 0 100 8 0 0 0 0 0 60 0 0 0 0 0 15 10 190 400 1.20000 2.20000 60 33 17 1 3 0 0 0 2 3 16 0 0
-    Play#0 output Play#0 1 4 "mif\\040\\040mech\\040inf" 0 100 8 0 0 0 0 0 60 0 0 0 0 0 15 10 190 800 1.50000 2.50000 50 33 17 1 3 0 0 0 2 3 16 0 0
-    Play#0 output Play#0 1 5 "mar\\040\\040marines" 0 100 4 0 0 0 0 0 60 0 0 0 0 0 10 5 140 1000 1.40000 2.40000 60 25 14 2 1 0 0 0 1 2 304 0 0
-    Play#0 output Play#0 1 6 "sup\\040\\040supply" 0 25 200 10 300 100 100 10 300 0 200 100 0 0 10 5 50 500 0.100000 0.200000 80 25 20 1 0 0 0 0 0 0 20 0 0
-    Play#0 output Play#0 1 7 "tra\\040\\040train" 0 990 990 200 990 500 500 100 990 990 990 990 0 150 100 50 40 3500 0.00000 0.00000 120 10 25 3 0 0 0 0 0 0 6148 5 12
-    Play#0 output Play#0 1 8 "spy\\040\\040infiltrator" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 5 40 750 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
-    Play#0 output Play#0 1 9 "com\\040\\040commando" 0 0 3 0 0 0 0 0 0 0 0 0 0 0 10 5 55 1500 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
-    Play#0 output Play#0 1 10 "aau\\040\\040aa\\040unit" 0 20 5 0 0 0 0 0 12 0 0 0 0 0 20 10 70 500 0.500000 1.00000 60 18 20 1 1 0 0 0 1 2 528 0 0
-    Play#0 output Play#0 1 11 "art\\040\\040artillery" 0 25 40 10 0 0 0 0 24 0 0 0 0 0 20 10 35 800 0.100000 0.400000 70 18 20 1 0 8 50 5 2 1 16 0 0
-    Play#0 output Play#0 1 12 "lat\\040\\040lt\\040artillery" 0 25 20 6 0 0 0 0 12 0 0 0 0 0 20 10 70 500 0.200000 0.600000 60 30 18 1 1 5 10 3 1 1 16 0 0
-    Play#0 output Play#0 1 13 "hat\\040\\040hvy\\040artillery" 0 25 80 12 0 0 0 0 24 0 0 0 0 0 40 20 100 800 0.00000 0.200000 60 12 20 1 0 11 99 8 4 1 0 0 0
-    Play#0 output Play#0 1 14 "mat\\040\\040mech\\040artillery" 0 25 40 10 0 0 0 0 15 0 0 0 0 0 20 10 200 1000 0.200000 0.600000 50 35 17 1 1 8 35 6 3 3 16 0 0
-    Play#0 output Play#0 1 15 "eng\\040\\040engineer" 0 20 3 0 0 0 0 0 12 0 0 0 0 0 10 5 130 3000 1.20000 2.40000 50 25 14 2 1 0 0 0 1 1 274 0 0
-    Play#0 output Play#0 1 16 "meng\\040mech\\040engineer" 0 20 4 0 0 0 0 0 15 0 0 0 0 0 10 5 260 4500 1.80000 3.50000 45 33 15 3 3 0 0 0 1 5 274 0 0
-    Play#0 output Play#0 1 17 "lar\\040\\040lt\\040armor" 0 50 4 0 0 0 0 0 30 0 0 0 0 0 10 5 150 600 2.00000 1.00000 50 42 15 4 4 0 0 0 1 2 80 0 0
-    Play#0 output Play#0 1 18 "har\\040\\040hvy\\040armor" 0 100 3 0 0 0 0 0 48 0 0 0 0 0 20 10 120 500 2.00000 0.800000 50 18 17 1 1 0 0 0 2 1 0 0 0
-    Play#0 output Play#0 1 19 "arm\\040\\040armor" 0 50 4 0 0 0 0 0 30 0 0 0 0 0 20 10 170 1000 3.00000 1.50000 40 33 16 2 2 0 0 0 1 2 16 0 0
-    Play#0 output Play#0 1 20 "sec\\040\\040security" 0 50 4 0 0 0 0 0 30 0 0 0 0 0 10 5 170 600 1.00000 2.00000 60 25 15 2 1 0 0 0 1 1 24 0 0
-    Play#0 output Play#0 1 21 "rad\\040\\040radar\\040unit" 0 10 0 0 0 0 0 0 7 0 0 0 0 0 10 5 270 1000 0.00000 0.00000 50 33 15 3 0 0 0 0 0 2 144 1 0
+    Play#0 output Play#0 1 0 "cav\\040\\040cavalry" 0 20 0 0 0 0 0 0 12 0 0 0 0 0 10 5 40 30 500 1.20000 0.500000 80 32 18 4 3 0 0 0 0 0 80 0 0
+    Play#0 output Play#0 1 1 "linf\\040light\\040infantry" 0 25 1 0 0 0 0 0 15 0 0 0 0 0 8 4 36 40 300 1.00000 1.50000 60 28 15 2 1 0 0 0 1 1 272 0 0
+    Play#0 output Play#0 1 2 "inf\\040\\040infantry" 0 100 0 0 0 0 0 0 24 0 0 0 0 0 10 5 40 50 500 1.00000 1.50000 60 25 15 2 1 0 0 0 0 0 272 0 0
+    Play#0 output Play#0 1 3 "mtif\\040motor\\040inf" 0 100 8 0 0 0 0 0 60 0 0 0 0 0 15 10 55 190 400 1.20000 2.20000 60 33 17 1 3 0 0 0 2 3 16 0 0
+    Play#0 output Play#0 1 4 "mif\\040\\040mech\\040inf" 0 100 8 0 0 0 0 0 60 0 0 0 0 0 15 10 55 190 800 1.50000 2.50000 50 33 17 1 3 0 0 0 2 3 16 0 0
+    Play#0 output Play#0 1 5 "mar\\040\\040marines" 0 100 4 0 0 0 0 0 60 0 0 0 0 0 10 5 40 140 1000 1.40000 2.40000 60 25 14 2 1 0 0 0 1 2 304 0 0
+    Play#0 output Play#0 1 6 "sup\\040\\040supply" 0 25 200 10 300 100 100 10 300 0 200 100 0 0 10 5 40 50 500 0.100000 0.200000 80 25 20 1 0 0 0 0 0 0 20 0 0
+    Play#0 output Play#0 1 7 "tra\\040\\040train" 0 990 990 200 990 500 500 100 990 990 990 990 0 150 100 50 220 40 3500 0.00000 0.00000 120 10 25 3 0 0 0 0 0 0 6148 5 12
+    Play#0 output Play#0 1 8 "spy\\040\\040infiltrator" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 5 40 40 750 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
+    Play#0 output Play#0 1 9 "com\\040\\040commando" 0 0 3 0 0 0 0 0 0 0 0 0 0 0 10 5 40 55 1500 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
+    Play#0 output Play#0 1 10 "aau\\040\\040aa\\040unit" 0 20 5 0 0 0 0 0 12 0 0 0 0 0 20 10 60 70 500 0.500000 1.00000 60 18 20 1 1 0 0 0 1 2 528 0 0
+    Play#0 output Play#0 1 11 "art\\040\\040artillery" 0 25 40 10 0 0 0 0 24 0 0 0 0 0 20 10 60 35 800 0.100000 0.400000 70 18 20 1 0 8 50 5 2 1 16 0 0
+    Play#0 output Play#0 1 12 "lat\\040\\040lt\\040artillery" 0 25 20 6 0 0 0 0 12 0 0 0 0 0 20 10 60 70 500 0.200000 0.600000 60 30 18 1 1 5 10 3 1 1 16 0 0
+    Play#0 output Play#0 1 13 "hat\\040\\040hvy\\040artillery" 0 25 80 12 0 0 0 0 24 0 0 0 0 0 40 20 100 100 800 0.00000 0.200000 60 12 20 1 0 11 99 8 4 1 0 0 0
+    Play#0 output Play#0 1 14 "mat\\040\\040mech\\040artillery" 0 25 40 10 0 0 0 0 15 0 0 0 0 0 20 10 60 200 1000 0.200000 0.600000 50 35 17 1 1 8 35 6 3 3 16 0 0
+    Play#0 output Play#0 1 15 "eng\\040\\040engineer" 0 20 3 0 0 0 0 0 12 0 0 0 0 0 10 5 40 130 3000 1.20000 2.40000 50 25 14 2 1 0 0 0 1 1 274 0 0
+    Play#0 output Play#0 1 16 "meng\\040mech\\040engineer" 0 20 4 0 0 0 0 0 15 0 0 0 0 0 10 5 40 260 4500 1.80000 3.50000 45 33 15 3 3 0 0 0 1 5 274 0 0
+    Play#0 output Play#0 1 17 "lar\\040\\040lt\\040armor" 0 50 4 0 0 0 0 0 30 0 0 0 0 0 10 5 40 150 600 2.00000 1.00000 50 42 15 4 4 0 0 0 1 2 80 0 0
+    Play#0 output Play#0 1 18 "har\\040\\040hvy\\040armor" 0 100 3 0 0 0 0 0 48 0 0 0 0 0 20 10 60 120 500 2.00000 0.800000 50 18 17 1 1 0 0 0 2 1 0 0 0
+    Play#0 output Play#0 1 19 "arm\\040\\040armor" 0 50 4 0 0 0 0 0 30 0 0 0 0 0 20 10 60 170 1000 3.00000 1.50000 40 33 16 2 2 0 0 0 1 2 16 0 0
+    Play#0 output Play#0 1 20 "sec\\040\\040security" 0 50 4 0 0 0 0 0 30 0 0 0 0 0 10 5 40 170 600 1.00000 2.00000 60 25 15 2 1 0 0 0 1 1 24 0 0
+    Play#0 output Play#0 1 21 "rad\\040\\040radar\\040unit" 0 10 0 0 0 0 0 0 7 0 0 0 0 0 10 5 40 270 1000 0.00000 0.00000 50 33 15 3 0 0 0 0 0 2 144 1 0
     Play#0 output Play#0 1 /22
     Play#0 output Play#0 6 0 640
     Play#0 input xdump nuke-chr *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP nuke-chr 0
-    Play#0 output Play#0 1 0 "10kt\\040\\040fission" 50 50 25 70 3 70 10000 280 4 0
-    Play#0 output Play#0 1 1 "15kt\\040\\040fission" 50 50 25 80 3 90 15000 290 5 0
-    Play#0 output Play#0 1 2 "50kt\\040\\040fission" 60 60 30 90 3 100 25000 300 6 0
-    Play#0 output Play#0 1 3 "100kt\\040fission" 75 75 40 120 4 125 30000 310 8 0
-    Play#0 output Play#0 1 4 "5kt\\040\\040\\040fusion" 15 15 15 30 2 80 12500 315 1 0
-    Play#0 output Play#0 1 5 "75kt\\040\\040fusion" 40 40 35 50 3 90 20000 320 3 0
-    Play#0 output Play#0 1 6 "250kt\\040fusion" 50 50 45 60 4 110 25000 330 4 0
-    Play#0 output Play#0 1 7 "500kt\\040fusion" 60 60 50 80 5 120 35000 340 5 0
-    Play#0 output Play#0 1 8 "1mt\\040\\040\\040fusion" 75 75 50 110 6 150 40000 350 5 0
-    Play#0 output Play#0 1 9 "60kt\\040\\040neutron" 60 60 30 100 3 30 30000 355 2 1
-    Play#0 output Play#0 1 10 "3mt\\040\\040\\040fusion" 100 100 75 130 7 170 45000 360 6 0
-    Play#0 output Play#0 1 11 "5mt\\040\\040\\040fusion" 120 120 100 150 8 190 50000 370 8 0
-    Play#0 output Play#0 1 12 "120kt\\040neutron" 75 75 40 120 5 50 36000 375 3 1
+    Play#0 output Play#0 1 0 "10kt\\040\\040fission" 50 50 25 70 3 70 49 280 10000 4 0
+    Play#0 output Play#0 1 1 "15kt\\040\\040fission" 50 50 25 80 3 90 51 290 15000 5 0
+    Play#0 output Play#0 1 2 "50kt\\040\\040fission" 60 60 30 90 3 100 60 300 25000 6 0
+    Play#0 output Play#0 1 3 "100kt\\040fission" 75 75 40 120 4 125 77 310 30000 8 0
+    Play#0 output Play#0 1 4 "5kt\\040\\040\\040fusion" 15 15 15 30 2 80 18 315 12500 1 0
+    Play#0 output Play#0 1 5 "75kt\\040\\040fusion" 40 40 35 50 3 90 41 320 20000 3 0
+    Play#0 output Play#0 1 6 "250kt\\040fusion" 50 50 45 60 4 110 51 330 25000 4 0
+    Play#0 output Play#0 1 7 "500kt\\040fusion" 60 60 50 80 5 120 62 340 35000 5 0
+    Play#0 output Play#0 1 8 "1mt\\040\\040\\040fusion" 75 75 50 110 6 150 77 350 40000 5 0
+    Play#0 output Play#0 1 9 "60kt\\040\\040neutron" 60 60 30 100 3 30 62 355 30000 2 1
+    Play#0 output Play#0 1 10 "3mt\\040\\040\\040fusion" 100 100 75 130 7 170 101 360 45000 6 0
+    Play#0 output Play#0 1 11 "5mt\\040\\040\\040fusion" 120 120 100 150 8 190 122 370 50000 8 0
+    Play#0 output Play#0 1 12 "120kt\\040neutron" 75 75 40 120 5 50 77 375 36000 3 1
     Play#0 output Play#0 1 /13
     Play#0 output Play#0 6 0 640
     Play#0 input xdump news-chr *
@@ -2246,57 +2250,57 @@
     Play#1 input xdump ship-chr *
     Play#1 command xdump
     Play#1 output Play#1 1 XDUMP ship-chr 0
-    Play#1 output Play#1 1 0 "fb\\040\\040\\040fishing\\040boat" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 10 15 2 0 0 0 0 0 180 524289 0 0
-    Play#1 output Play#1 1 1 "ft\\040\\040\\040fishing\\040trawler" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 25 15 2 0 0 0 0 35 300 524289 0 0
-    Play#1 output Play#1 1 2 "cs\\040\\040\\040cargo\\040ship" 600 50 300 50 0 0 0 0 900 0 1400 900 250 0 60 40 20 25 35 3 0 0 1 0 20 500 262144 0 2
-    Play#1 output Play#1 1 3 "os\\040\\040\\040ore\\040ship" 30 5 0 0 0 990 990 0 200 0 0 0 45 990 60 40 20 25 35 3 0 0 1 0 20 500 0 0 0
-    Play#1 output Play#1 1 4 "ss\\040\\040\\040slave\\040ship" 20 80 0 0 0 0 0 0 200 0 0 0 1200 0 60 40 20 10 35 3 0 0 1 0 0 300 0 0 0
-    Play#1 output Play#1 1 6 "frg\\040\\040frigate" 0 60 10 2 0 0 0 0 60 0 0 0 0 0 30 30 50 25 25 3 1 1 1 0 0 600 16384 0 2
-    Play#1 output Play#1 1 7 "oe\\040\\040\\040oil\\040exploration\\040boat" 10 5 0 0 0 0 0 0 100 1 0 0 0 0 25 15 10 25 15 2 0 0 0 0 40 800 524320 0 0
-    Play#1 output Play#1 1 8 "od\\040\\040\\040oil\\040derrick" 990 80 0 0 0 0 0 0 990 990 0 0 990 0 60 60 30 15 65 3 0 0 2 0 50 1500 32 0 0
-    Play#1 output Play#1 1 9 "pt\\040\\040\\040patrol\\040boat" 0 2 12 2 0 0 0 0 5 0 0 0 0 0 20 10 10 38 10 2 1 1 0 0 40 300 524290 0 0
-    Play#1 output Play#1 1 10 "lc\\040\\040\\040light\\040cruiser" 0 100 40 5 0 0 0 0 100 0 0 0 0 0 30 40 50 30 30 5 6 3 1 0 45 800 128 0 2
-    Play#1 output Play#1 1 11 "hc\\040\\040\\040heavy\\040cruiser" 0 120 100 8 0 0 0 0 200 0 0 0 0 0 40 50 70 30 30 5 8 4 1 0 50 1200 0 0 4
-    Play#1 output Play#1 1 12 "tt\\040\\040\\040troop\\040transport" 0 120 20 4 0 0 0 0 120 0 0 0 0 0 50 50 60 20 35 3 1 2 1 0 10 800 16384 0 2
-    Play#1 output Play#1 1 13 "bb\\040\\040\\040battleship" 0 200 200 10 0 0 0 0 900 0 0 0 0 0 50 70 95 25 35 6 10 7 1 0 45 1800 0 0 2
-    Play#1 output Play#1 1 14 "bbc\\040\\040battlecruiser" 0 180 100 10 0 0 0 0 400 0 0 0 0 0 50 60 55 30 35 6 10 6 1 0 75 1500 0 0 2
-    Play#1 output Play#1 1 15 "tk\\040\\040\\040tanker" 30 5 0 0 990 0 0 0 200 990 0 0 25 0 60 40 75 25 45 3 0 0 1 0 35 600 262144 0 0
-    Play#1 output Play#1 1 16 "ms\\040\\040\\040minesweeper" 0 10 100 1 0 0 0 0 90 0 0 0 0 0 25 15 10 25 15 2 0 0 0 0 40 400 524672 0 0
-    Play#1 output Play#1 1 17 "dd\\040\\040\\040destroyer" 0 60 40 4 0 0 0 0 80 0 0 0 0 0 30 30 45 35 20 4 6 3 1 0 70 600 196 0 1
-    Play#1 output Play#1 1 18 "sb\\040\\040\\040submarine" 0 25 36 5 0 0 0 0 80 0 0 0 0 0 30 30 25 20 5 4 3 3 0 0 60 650 706 0 0
-    Play#1 output Play#1 1 20 "cal\\040\\040light\\040carrier" 0 175 250 4 300 0 0 0 180 0 0 0 0 0 50 60 60 30 40 5 2 2 4 20 80 2700 8 20 0
+    Play#1 output Play#1 1 0 "fb\\040\\040\\040fishing\\040boat" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 10 15 2 0 0 0 0 75 0 180 524289 0 0
+    Play#1 output Play#1 1 1 "ft\\040\\040\\040fishing\\040trawler" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 25 15 2 0 0 0 0 75 35 300 524289 0 0
+    Play#1 output Play#1 1 2 "cs\\040\\040\\040cargo\\040ship" 600 50 300 50 0 0 0 0 900 0 1400 900 250 0 60 40 20 25 35 3 0 0 1 0 160 20 500 262144 0 2
+    Play#1 output Play#1 1 3 "os\\040\\040\\040ore\\040ship" 30 5 0 0 0 990 990 0 200 0 0 0 45 990 60 40 20 25 35 3 0 0 1 0 160 20 500 0 0 0
+    Play#1 output Play#1 1 4 "ss\\040\\040\\040slave\\040ship" 20 80 0 0 0 0 0 0 200 0 0 0 1200 0 60 40 20 10 35 3 0 0 1 0 160 0 300 0 0 0
+    Play#1 output Play#1 1 6 "frg\\040\\040frigate" 0 60 10 2 0 0 0 0 60 0 0 0 0 0 30 30 50 25 25 3 1 1 1 0 110 0 600 16384 0 2
+    Play#1 output Play#1 1 7 "oe\\040\\040\\040oil\\040exploration\\040boat" 10 5 0 0 0 0 0 0 100 1 0 0 0 0 25 15 10 25 15 2 0 0 0 0 75 40 800 524320 0 0
+    Play#1 output Play#1 1 8 "od\\040\\040\\040oil\\040derrick" 990 80 0 0 0 0 0 0 990 990 0 0 990 0 60 60 30 15 65 3 0 0 2 0 200 50 1500 32 0 0
+    Play#1 output Play#1 1 9 "pt\\040\\040\\040patrol\\040boat" 0 2 12 2 0 0 0 0 5 0 0 0 0 0 20 10 10 38 10 2 1 1 0 0 60 40 300 524290 0 0
+    Play#1 output Play#1 1 10 "lc\\040\\040\\040light\\040cruiser" 0 100 40 5 0 0 0 0 100 0 0 0 0 0 30 40 50 30 30 5 6 3 1 0 130 45 800 128 0 2
+    Play#1 output Play#1 1 11 "hc\\040\\040\\040heavy\\040cruiser" 0 120 100 8 0 0 0 0 200 0 0 0 0 0 40 50 70 30 30 5 8 4 1 0 160 50 1200 0 0 4
+    Play#1 output Play#1 1 12 "tt\\040\\040\\040troop\\040transport" 0 120 20 4 0 0 0 0 120 0 0 0 0 0 50 50 60 20 35 3 1 2 1 0 170 10 800 16384 0 2
+    Play#1 output Play#1 1 13 "bb\\040\\040\\040battleship" 0 200 200 10 0 0 0 0 900 0 0 0 0 0 50 70 95 25 35 6 10 7 1 0 210 45 1800 0 0 2
+    Play#1 output Play#1 1 14 "bbc\\040\\040battlecruiser" 0 180 100 10 0 0 0 0 400 0 0 0 0 0 50 60 55 30 35 6 10 6 1 0 190 75 1500 0 0 2
+    Play#1 output Play#1 1 15 "tk\\040\\040\\040tanker" 30 5 0 0 990 0 0 0 200 990 0 0 25 0 60 40 75 25 45 3 0 0 1 0 160 35 600 262144 0 0
+    Play#1 output Play#1 1 16 "ms\\040\\040\\040minesweeper" 0 10 100 1 0 0 0 0 90 0 0 0 0 0 25 15 10 25 15 2 0 0 0 0 75 40 400 524672 0 0
+    Play#1 output Play#1 1 17 "dd\\040\\040\\040destroyer" 0 60 40 4 0 0 0 0 80 0 0 0 0 0 30 30 45 35 20 4 6 3 1 0 110 70 600 196 0 1
+    Play#1 output Play#1 1 18 "sb\\040\\040\\040submarine" 0 25 36 5 0 0 0 0 80 0 0 0 0 0 30 30 25 20 5 4 3 3 0 0 110 60 650 706 0 0
+    Play#1 output Play#1 1 20 "cal\\040\\040light\\040carrier" 0 175 250 4 300 0 0 0 180 0 0 0 0 0 50 60 60 30 40 5 2 2 4 20 190 80 2700 8 20 0
     Play#1 output Play#1 1 /19
     Play#1 output Play#1 6 0 0
     Play#1 input xdump plane-chr *
     Play#1 command xdump
     Play#1 output Play#1 1 XDUMP plane-chr 0
-    Play#1 output Play#1 1 0 "f1\\040\\040\\040Sopwith\\040Camel" 8 2 400 50 90 1 1 1 4 1 1 0 22
-    Play#1 output Play#1 1 1 "f2\\040\\040\\040P-51\\040Mustang" 8 2 400 80 80 1 4 4 8 1 1 0 70
-    Play#1 output Play#1 1 2 "jf1\\040\\040F-4\\040Phantom" 12 4 1000 125 45 1 14 14 11 2 3 0 70
-    Play#1 output Play#1 1 5 "es\\040\\040\\040P-38\\040Lightning" 9 3 700 90 60 1 5 5 15 1 2 0 131074
-    Play#1 output Play#1 1 7 "lb\\040\\040\\040TBD-1\\040Devastator" 10 3 550 60 50 2 0 3 7 1 1 0 83
-    Play#1 output Play#1 1 9 "mb\\040\\040\\040medium\\040bomber" 14 5 1000 80 45 4 0 5 14 3 3 0 3
-    Play#1 output Play#1 1 11 "hb\\040\\040\\040B-26B\\040Marauder" 20 6 1100 90 90 5 0 4 15 2 2 0 1
-    Play#1 output Play#1 1 14 "as\\040\\040\\040anti-sub\\040plane" 10 3 550 100 85 2 0 3 15 2 2 0 819202
-    Play#1 output Play#1 1 19 "tr\\040\\040\\040C-56\\040Lodestar" 14 5 1000 85 0 7 0 2 15 3 3 0 65544
-    Play#1 output Play#1 1 21 "zep\\040\\040Zeppelin" 6 2 1000 70 60 2 0 -3 15 3 2 0 154
+    Play#1 output Play#1 1 0 "f1\\040\\040\\040Sopwith\\040Camel" 8 2 32 50 400 90 1 1 1 4 1 1 0 22
+    Play#1 output Play#1 1 1 "f2\\040\\040\\040P-51\\040Mustang" 8 2 32 80 400 80 1 4 4 8 1 1 0 70
+    Play#1 output Play#1 1 2 "jf1\\040\\040F-4\\040Phantom" 12 4 40 125 1000 45 1 14 14 11 2 3 0 70
+    Play#1 output Play#1 1 5 "es\\040\\040\\040P-38\\040Lightning" 9 3 35 90 700 60 1 5 5 15 1 2 0 131074
+    Play#1 output Play#1 1 7 "lb\\040\\040\\040TBD-1\\040Devastator" 10 3 36 60 550 50 2 0 3 7 1 1 0 83
+    Play#1 output Play#1 1 9 "mb\\040\\040\\040medium\\040bomber" 14 5 44 80 1000 45 4 0 5 14 3 3 0 3
+    Play#1 output Play#1 1 11 "hb\\040\\040\\040B-26B\\040Marauder" 20 6 52 90 1100 90 5 0 4 15 2 2 0 1
+    Play#1 output Play#1 1 14 "as\\040\\040\\040anti-sub\\040plane" 10 3 36 100 550 85 2 0 3 15 2 2 0 819202
+    Play#1 output Play#1 1 19 "tr\\040\\040\\040C-56\\040Lodestar" 14 5 44 85 1000 0 7 0 2 15 3 3 0 65544
+    Play#1 output Play#1 1 21 "zep\\040\\040Zeppelin" 6 2 30 70 1000 60 2 0 -3 15 3 2 0 154
     Play#1 output Play#1 1 /10
     Play#1 output Play#1 6 0 0
     Play#1 input xdump land-chr *
     Play#1 command xdump
     Play#1 output Play#1 1 XDUMP land-chr 0
-    Play#1 output Play#1 1 0 "cav\\040\\040cavalry" 0 20 0 0 0 0 0 0 12 0 0 0 0 0 10 5 30 500 1.20000 0.500000 80 32 18 4 3 0 0 0 0 0 80 0 0
-    Play#1 output Play#1 1 1 "linf\\040light\\040infantry" 0 25 1 0 0 0 0 0 15 0 0 0 0 0 8 4 40 300 1.00000 1.50000 60 28 15 2 1 0 0 0 1 1 272 0 0
-    Play#1 output Play#1 1 2 "inf\\040\\040infantry" 0 100 0 0 0 0 0 0 24 0 0 0 0 0 10 5 50 500 1.00000 1.50000 60 25 15 2 1 0 0 0 0 0 272 0 0
-    Play#1 output Play#1 1 6 "sup\\040\\040supply" 0 25 200 10 300 100 100 10 300 0 200 100 0 0 10 5 50 500 0.100000 0.200000 80 25 20 1 0 0 0 0 0 0 20 0 0
-    Play#1 output Play#1 1 7 "tra\\040\\040train" 0 990 990 200 990 500 500 100 990 990 990 990 0 150 100 50 40 3500 0.00000 0.00000 120 10 25 3 0 0 0 0 0 0 6148 5 12
-    Play#1 output Play#1 1 8 "spy\\040\\040infiltrator" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 5 40 750 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
-    Play#1 output Play#1 1 9 "com\\040\\040commando" 0 0 3 0 0 0 0 0 0 0 0 0 0 0 10 5 55 1500 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
-    Play#1 output Play#1 1 10 "aau\\040\\040aa\\040unit" 0 20 5 0 0 0 0 0 12 0 0 0 0 0 20 10 70 500 0.500000 1.00000 60 18 20 1 1 0 0 0 1 2 528 0 0
-    Play#1 output Play#1 1 11 "art\\040\\040artillery" 0 25 40 10 0 0 0 0 24 0 0 0 0 0 20 10 35 800 0.100000 0.400000 70 18 20 1 0 8 50 5 2 1 16 0 0
-    Play#1 output Play#1 1 12 "lat\\040\\040lt\\040artillery" 0 25 20 6 0 0 0 0 12 0 0 0 0 0 20 10 70 500 0.200000 0.600000 60 30 18 1 1 5 10 3 1 1 16 0 0
-    Play#1 output Play#1 1 13 "hat\\040\\040hvy\\040artillery" 0 25 80 12 0 0 0 0 24 0 0 0 0 0 40 20 100 800 0.00000 0.200000 60 12 20 1 0 11 99 8 4 1 0 0 0
-    Play#1 output Play#1 1 18 "har\\040\\040hvy\\040armor" 0 100 3 0 0 0 0 0 48 0 0 0 0 0 20 10 120 500 2.00000 0.800000 50 18 17 1 1 0 0 0 2 1 0 0 0
+    Play#1 output Play#1 1 0 "cav\\040\\040cavalry" 0 20 0 0 0 0 0 0 12 0 0 0 0 0 10 5 40 30 500 1.20000 0.500000 80 32 18 4 3 0 0 0 0 0 80 0 0
+    Play#1 output Play#1 1 1 "linf\\040light\\040infantry" 0 25 1 0 0 0 0 0 15 0 0 0 0 0 8 4 36 40 300 1.00000 1.50000 60 28 15 2 1 0 0 0 1 1 272 0 0
+    Play#1 output Play#1 1 2 "inf\\040\\040infantry" 0 100 0 0 0 0 0 0 24 0 0 0 0 0 10 5 40 50 500 1.00000 1.50000 60 25 15 2 1 0 0 0 0 0 272 0 0
+    Play#1 output Play#1 1 6 "sup\\040\\040supply" 0 25 200 10 300 100 100 10 300 0 200 100 0 0 10 5 40 50 500 0.100000 0.200000 80 25 20 1 0 0 0 0 0 0 20 0 0
+    Play#1 output Play#1 1 7 "tra\\040\\040train" 0 990 990 200 990 500 500 100 990 990 990 990 0 150 100 50 220 40 3500 0.00000 0.00000 120 10 25 3 0 0 0 0 0 0 6148 5 12
+    Play#1 output Play#1 1 8 "spy\\040\\040infiltrator" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 5 40 40 750 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
+    Play#1 output Play#1 1 9 "com\\040\\040commando" 0 0 3 0 0 0 0 0 0 0 0 0 0 0 10 5 40 55 1500 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
+    Play#1 output Play#1 1 10 "aau\\040\\040aa\\040unit" 0 20 5 0 0 0 0 0 12 0 0 0 0 0 20 10 60 70 500 0.500000 1.00000 60 18 20 1 1 0 0 0 1 2 528 0 0
+    Play#1 output Play#1 1 11 "art\\040\\040artillery" 0 25 40 10 0 0 0 0 24 0 0 0 0 0 20 10 60 35 800 0.100000 0.400000 70 18 20 1 0 8 50 5 2 1 16 0 0
+    Play#1 output Play#1 1 12 "lat\\040\\040lt\\040artillery" 0 25 20 6 0 0 0 0 12 0 0 0 0 0 20 10 60 70 500 0.200000 0.600000 60 30 18 1 1 5 10 3 1 1 16 0 0
+    Play#1 output Play#1 1 13 "hat\\040\\040hvy\\040artillery" 0 25 80 12 0 0 0 0 24 0 0 0 0 0 40 20 100 100 800 0.00000 0.200000 60 12 20 1 0 11 99 8 4 1 0 0 0
+    Play#1 output Play#1 1 18 "har\\040\\040hvy\\040armor" 0 100 3 0 0 0 0 0 48 0 0 0 0 0 20 10 60 120 500 2.00000 0.800000 50 18 17 1 1 0 0 0 2 1 0 0 0
     Play#1 output Play#1 1 /12
     Play#1 output Play#1 6 0 0
     Play#1 input xdump nuke-chr *

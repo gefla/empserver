@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2015
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -211,23 +211,21 @@ build_ship(struct sctstr *sp, int type, int tlev)
 {
     struct mchrstr *mp = &mchr[type];
     short mat[I_MAX+1];
-    int work;
     struct shpstr ship;
 
     memset(mat, 0, sizeof(mat));
     mat[I_LCM] = mp->m_lcm;
     mat[I_HCM] = mp->m_hcm;
-    work = SHP_BLD_WORK(mp->m_lcm, mp->m_hcm);
 
     if (sp->sct_type != SCT_HARBR && !player->god) {
 	pr("Ships must be built in harbours.\n");
 	return 0;
     }
-    if (!sector_can_build(sp, mat, work, SHIP_MINEFF, mp->m_name))
+    if (!sector_can_build(sp, mat, mp->m_bwork, SHIP_MINEFF, mp->m_name))
 	return 0;
     if (!build_can_afford(mp->m_cost, SHIP_MINEFF, mp->m_name))
 	return 0;
-    build_charge(sp, mat, work, mp->m_cost, SHIP_MINEFF);
+    build_charge(sp, mat, mp->m_bwork, mp->m_cost, SHIP_MINEFF);
 
     ef_blank(EF_SHIP, pick_unused_unit_uid(EF_SHIP), &ship);
     ship.shp_x = sp->sct_x;
@@ -264,23 +262,21 @@ build_land(struct sctstr *sp, int type, int tlev)
 {
     struct lchrstr *lp = &lchr[type];
     short mat[I_MAX+1];
-    int work;
     struct lndstr land;
 
     memset(mat, 0, sizeof(mat));
     mat[I_LCM] = lp->l_lcm;
     mat[I_HCM] = lp->l_hcm;
-    work = LND_BLD_WORK(lp->l_lcm, lp->l_hcm);
 
     if (sp->sct_type != SCT_HEADQ && !player->god) {
 	pr("Land units must be built in headquarters.\n");
 	return 0;
     }
-    if (!sector_can_build(sp, mat, work, LAND_MINEFF, lp->l_name))
+    if (!sector_can_build(sp, mat, lp->l_bwork, LAND_MINEFF, lp->l_name))
 	return 0;
     if (!build_can_afford(lp->l_cost, LAND_MINEFF, lp->l_name))
 	return 0;
-    build_charge(sp, mat, work, lp->l_cost, LAND_MINEFF);
+    build_charge(sp, mat, lp->l_bwork, lp->l_cost, LAND_MINEFF);
 
     ef_blank(EF_LAND, pick_unused_unit_uid(EF_LAND), &land);
     land.lnd_x = sp->sct_x;
@@ -316,7 +312,6 @@ build_nuke(struct sctstr *sp, int type, int tlev)
 {
     struct nchrstr *np = &nchr[type];
     short mat[I_MAX+1];
-    int work;
     struct nukstr nuke;
 
     if (sp->sct_type != SCT_NUKE && !player->god) {
@@ -333,13 +328,12 @@ build_nuke(struct sctstr *sp, int type, int tlev)
     mat[I_HCM] = np->n_hcm;
     mat[I_OIL] = np->n_oil;
     mat[I_RAD] = np->n_rad;
-    work = NUK_BLD_WORK(np->n_lcm, np->n_hcm, np->n_oil, np->n_rad);
 
-    if (!sector_can_build(sp, mat, work, 100, np->n_name))
+    if (!sector_can_build(sp, mat, np->n_bwork, 100, np->n_name))
 	return 0;
     if (!build_can_afford(np->n_cost, 100, np->n_name))
 	return 0;
-    build_charge(sp, mat, work, np->n_cost, 100);
+    build_charge(sp, mat, np->n_bwork, np->n_cost, 100);
 
     ef_blank(EF_NUKE, pick_unused_unit_uid(EF_NUKE), &nuke);
     nuke.nuk_x = sp->sct_x;
@@ -362,24 +356,22 @@ build_plane(struct sctstr *sp, int type, int tlev)
 {
     struct plchrstr *pp = &plchr[type];
     short mat[I_MAX+1];
-    int work;
     struct plnstr plane;
 
     memset(mat, 0, sizeof(mat));
     mat[I_MILIT] = pp->pl_crew;
     mat[I_LCM] = pp->pl_lcm;
     mat[I_HCM] = pp->pl_hcm;
-    work = PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm);
 
     if (sp->sct_type != SCT_AIRPT && !player->god) {
 	pr("Planes must be built in airports.\n");
 	return 0;
     }
-    if (!sector_can_build(sp, mat, work, PLANE_MINEFF, pp->pl_name))
+    if (!sector_can_build(sp, mat, pp->pl_bwork, PLANE_MINEFF, pp->pl_name))
 	return 0;
     if (!build_can_afford(pp->pl_cost, PLANE_MINEFF, pp->pl_name))
 	return 0;
-    build_charge(sp, mat, work, pp->pl_cost, PLANE_MINEFF);
+    build_charge(sp, mat, pp->pl_bwork, pp->pl_cost, PLANE_MINEFF);
 
     ef_blank(EF_PLANE, pick_unused_unit_uid(EF_PLANE), &plane);
     plane.pln_x = sp->sct_x;

@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1996-2000
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -106,7 +107,7 @@ lupgr(void)
 	}
 	n++;
 	lp = &lchr[(int)land.lnd_type];
-	avail = (LND_BLD_WORK(lp->l_lcm, lp->l_hcm) * UPGR_COST + 99) / 100;
+	avail = (lp->l_bwork * UPGR_COST + 99) / 100;
 	if (sect.sct_avail < avail) {
 	    pr("Not enough available work in %s to upgrade a %s\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), lp->l_name);
@@ -186,7 +187,7 @@ supgr(void)
 	}
 	n++;
 	mp = &mchr[(int)ship.shp_type];
-	avail = (SHP_BLD_WORK(mp->m_lcm, mp->m_hcm) * UPGR_COST + 99) / 100;
+	avail = (mp->m_bwork * UPGR_COST + 99) / 100;
 	if (sect.sct_avail < avail) {
 	    pr("Not enough available work in %s to upgrade a %s\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), mp->m_name);
@@ -271,7 +272,7 @@ pupgr(void)
 	    continue;
 	n++;
 	pp = &plchr[(int)plane.pln_type];
-	avail = (PLN_BLD_WORK(pp->pl_lcm, pp->pl_hcm) * UPGR_COST + 99) / 100;
+	avail = (pp->pl_bwork * UPGR_COST + 99) / 100;
 	if (sect.sct_avail < avail) {
 	    pr("Not enough available work in %s to upgrade a %s\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), pp->pl_name);
