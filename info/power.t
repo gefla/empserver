@@ -67,20 +67,28 @@ cash on hand
 The \*Qpower factor\*U is determined by the following equation:
 .s1
 .NF
-power factor = for each land unit calculate and add the following
-                ((((land unit lcm cost / 10) * (land unit effic / 100)) +
-                  ((land unit hcm cost / 10) * (land unit effic / 100))) * 2)
-power factor += for each ship calculate and add the following:
-                ((((ship lcm cost / 10) * (ship effic / 100)) +
-                  ((ship hcm cost / 10) * (ship effic / 100))) * 2)
-power factor += for each plane calculate and add the following:
-                (20 * (plane effic / 100) * (nation tech level / 500))
-power factor += ((nation money / 100) + (petrol / 500) +
-                 ((civilians + military) / 10) + (shells / 12.5) +
-                 (iron / 100) + (dust / 5) + (oil / 10) + bars +
-                 (guns / 2.5) + (lcms / 10) + (hcms / 5))
-power factor += ((number of sectors * (average sector effic / 100)) * 10)
-power factor = ((power factor) * (nation tech level / 500))
+power factor = (  power value of money
+                + power value of sectors
+                + power value of commodities in sectors
+                + power value of ships, planes and land units
+                + power value of commodities loaded on ships and land units)
+               * nation tech level / 500
 .FI
+.s1
+The power value of money is dollars / 100.
+.s1
+The power value of a sector is efficiency / 10.
+.s1
+The power value of a ship or land unit is (lcm cost / 10 + hcm cost +
+10) * efficiency / 100 * 2.
+.s1
+The power value of a plane is 20 * efficiency / 100 * nation tech
+level / 500.
+.s1
+The power value of commodities is civilians / 10 + military / 10 +
+shells / 12.5 + guns / 2.5 + petrol / 500 + iron / 100 + dust / 5 +
+bars + oil / 10 lcms / 10 + hcms / 5.
+.s1
+Efficiency is in percent.
 .s1
 .SA "census, nation, Communication, Nations, Diplomacy"
