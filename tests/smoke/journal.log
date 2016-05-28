@@ -12879,7 +12879,7 @@
     Play#1 command transport
     Play#1 output Play#1 1 Looking for best path to 11,-1
     Play#1 output Play#1 1 Using best path 'uuujjjh', movement cost 0.802
-    Play#1 output Play#1 1 Total movement cost = 29
+    Play#1 output Play#1 1 Total movement cost = 26
     Play#1 output Play#1 6 0 625
     Play#1 input reco 0 . 11,-1 ujbgh
     Play#1 command recon
@@ -13030,7 +13030,7 @@
     Play#1 output Play#1 1    7,1    d  100%     127 .. ..     1000    0    0    0 100%  489        0   1
     Play#1 output Play#1 1   -2,2    i  100%     127 .. ..     1000    0    0    0 100%    2        0   1
     Play#1 output Play#1 1    0,2    m  100%     127 .. ..     1000    0    0    0 100%    0        0
-    Play#1 output Play#1 1    2,2    *  100%      98 .. ..     1000   30    0    0 100%  569        0   1
+    Play#1 output Play#1 1    2,2    *  100%     101 .. ..     1000   30    0    0 100%  569        0   1
     Play#1 output Play#1 1    4,2    r  100%     127 .. ..     1000    0    0    0 100%  489        0   1
     Play#1 output Play#1 1    6,2    w  100%     127 .. ..     1000   75    0    0 100%  660        0   1
     Play#1 output Play#1 1    8,2    e  100%     127 .. ..      966    1    0    0 100%  649        0   1
@@ -13575,7 +13575,7 @@
     Play#0 output Play#0 1  10  -11,-11  g  100%     127 .. ..     1000    0    0    0 100%  650    0   1
     Play#0 output Play#0 1   1    3,-11  i  100%     127 .. ..     1000    0    0    0 100%    2    0   1
     Play#0 output Play#0 1   1    5,-11  m  100%     127 .. ..     1000    0    0    0 100%    0    0
-    Play#0 output Play#0 1   1    7,-11  *  100%      98 .. ..     1000   30    0    0 100%  569    0   1
+    Play#0 output Play#0 1   1    7,-11  *  100%     101 .. ..     1000   30    0    0 100%  569    0   1
     Play#0 output Play#0 1   1    9,-11  r  100%     127 .. ..     1000    0    0    0 100%  489    0   1
     Play#0 output Play#0 1   1   11,-11  w  100%     127 .. ..     1000   75    0    0 100%  660    0   1
     Play#0 output Play#0 1   1   13,-11  e  100%     127 .. ..      966    1    0    0 100%  649    0   1

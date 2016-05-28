@@ -42,6 +42,7 @@ static int tran_pmap(coord, coord, char *, char *);
 static int tran_nmap(coord, coord, char *, char *);
 static int tran_nuke(void);
 static int tran_plane(void);
+static int pln_weight(struct plnstr *);
 
 int
 tran(void)
@@ -147,7 +148,7 @@ tran_plane(void)
     coord dstx, dsty;
     int mcost;
     int weight, count;
-    int type, dam;
+    int dam;
     struct nstr_item nstr;
     struct plnstr plane;
     struct sctstr sect;
@@ -166,7 +167,6 @@ tran_plane(void)
     while (nxtitem(&nstr, &plane)) {
 	if (!player->owner)
 	    continue;
-	type = plane.pln_type;
 	if (plane.pln_ship >= 0) {
 	    pr("%s is stowed on ship #%d, and can't be transported\n",
 	       prplane(&plane), plane.pln_ship);
@@ -193,7 +193,7 @@ tran_plane(void)
 		return RET_FAIL;
 	    }
 	}
-	weight += plchr[type].pl_mat[I_LCM] + (plchr[type].pl_mat[I_HCM] * 2);
+	weight += pln_weight(&plane);
 	++count;
     }
     if (count == 0) {
@@ -239,6 +239,17 @@ tran_plane(void)
 	sect.sct_mobil = 0;
     putsect(&sect);
     return RET_OK;
+}
+
+static int
+pln_weight(struct plnstr *pp)
+{
+    int w, i;
+
+    w = 0;
+    for (i = I_NONE + 1; i <= I_MAX; i++)
+	w += plchr[pp->pln_type].pl_mat[i] * ichr[i].i_lbs;
+    return w;
 }
 
 /*
