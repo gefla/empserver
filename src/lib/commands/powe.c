@@ -41,6 +41,7 @@
 #include "commands.h"
 #include "item.h"
 #include "land.h"
+#include "nuke.h"
 #include "optlist.h"
 #include "plane.h"
 #include "power.h"
@@ -230,6 +231,8 @@ gen_power(struct powstr *powbuf, int save)
     struct mchrstr *mcp;
     struct lndstr land;
     struct lchrstr *lcp;
+    struct nukstr nuke;
+    struct nchrstr *ncp;
     struct nstr_item ni;
     struct nstr_sect ns;
     struct natstr *natp;
@@ -281,6 +284,16 @@ gen_power(struct powstr *powbuf, int save)
 					       plane.pln_tech,
 					       pcp->pl_mat, pcp->pl_cost);
 	pow->p_planes += 1.0;
+    }
+    snxtitem_all(&ni, EF_NUKE);
+    while (nxtitem(&ni, &nuke)) {
+	if (nuke.nuk_own == 0)
+	    continue;
+	ncp = &nchr[nuke.nuk_type];
+	pow = &powbuf[nuke.nuk_own];
+	upower[nuke.nuk_own] += empunit_power(nuke.nuk_effic,
+					      nuke.nuk_tech,
+					      ncp->n_mat, ncp->n_cost);
     }
     for (i = 1; NULL != (natp = getnatp(i)); i++) {
 	pow = &powbuf[i];

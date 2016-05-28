@@ -72,7 +72,7 @@ power factor = (  power value of money
                 + power value of commodities in sectors
                 + power value of commodities loaded on ships and land units)
                * (20 + nation tech level) / 500
-             + power value of ships, planes and land units
+             + power value of ships, planes, land units and nukes
                * (20 + their tech level) / 500
 .FI
 .s1
@@ -80,8 +80,8 @@ The power value of money is dollars / 100.
 .s1
 The power value of a sector is efficiency / 10.
 .s1
-The power value of a ship, plane or land unit is the power value of
-the materials and money needed to build * efficiency / 100.
+The power value of a ship, plane, land unit or nuke is the power value
+of the materials and money needed to build * efficiency / 100.
 .s1
 The power value of commodities is amount * type factor.  \*Qshow
 item\*U shows the type factor in column \*Qpower\*U.
