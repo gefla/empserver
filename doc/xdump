@@ -260,6 +260,8 @@ of xdump meta T are:
   - "const", field cannot be changed
   - "bits", field is a symbol set, field type must encode symbol "d",
     field table must not be -1.
+  - "hidden", field value is masked for contact when option HIDDEN is
+    enabled.  Masked values are replaced by -1.
 
 * len: If non-zero, then the record encodes an array with that many
   elements.  If field type encodes symbol "c", it is a character
@@ -311,7 +313,7 @@ its meta-data, and to make sense of that table, we need meta-meta
 data.  So we start with that:
 
     [3:640] Command : xdump meta meta
-    XDUMP meta meta 1391339695
+    XDUMP meta meta 1464537892
     "name" 3 4 0 -1
     "type" 8 4 0 33
     "flags" 8 12 0 32
@@ -340,7 +342,7 @@ know, namely the table of tables.  Let's dump that next, starting with
 its meta-data:
 
     [3:640] Command : xdump meta table
-    XDUMP meta table 1391339775
+    XDUMP meta table 1464537892
     "uid" 8 0 0 26
     "name" 3 4 0 -1
     /2
@@ -352,7 +354,7 @@ table itself.  Indeed, its value matches the one we got in xdump meta
 meta.  Let's try to dump the table:
 
     [5:640] Command : xdump 26 *
-    XDUMP table 1391339794
+    XDUMP table 1464537892
     0 "sect"
     1 "ship"
 [...]
@@ -371,13 +373,13 @@ Now dump the two symbol tables we postponed.  Because xdump accepts
 table IDs as well as names, we don't have to know their names:
 
     [5:640] Command : xdump meta 33
-    XDUMP meta meta-type 1391339879
+    XDUMP meta meta-type 1464537892
     "value" 8 4 0 -1
     "name" 3 4 0 -1
     /2
 
     [6:640] Command : xdump 33 *
-    XDUMP meta-type 1391339892
+    XDUMP meta-type 1464537892
     1 "d"
     2 "g"
     3 "s"
@@ -389,24 +391,24 @@ table IDs as well as names, we don't have to know their names:
     9 "d"
     10 "d"
     11 "d"
-    12 "d"
-    13 "g"
-    14 "c"
-    /14
+    12 "g"
+    13 "c"
+    /13
 
     [7:640] Command : xdump meta 32
-    XDUMP meta meta-flags 1391339904
+    XDUMP meta meta-flags 1464537892
     "value" 8 4 0 -1
     "name" 3 4 0 -1
     /2
 
     [7:640] Command : xdump 32 *
-    XDUMP meta-flags 1391339919
+    XDUMP meta-flags 1464537892
     1 "deity"
     2 "extra"
     4 "const"
     8 "bits"
-    /4
+    16 "hidden"
+    /5
 
 We now have complete meta-meta information:
 
@@ -422,7 +424,7 @@ Dumping the remaining tables is easy: just walk the table of tables.
 Here's the first one:
 
     [7:640] Command : xdump meta 0
-    XDUMP meta sect 1391339937
+    XDUMP meta sect 1464537892
     "owner" 5 0 0 8
     "xloc" 9 4 0 -1
     "yloc" 10 4 0 -1
