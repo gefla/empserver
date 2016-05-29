@@ -27,7 +27,7 @@
  *  xdump.c: Extended dumps
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2016
  */
 
 /*
@@ -242,7 +242,7 @@ xdflds(struct xdstr *xd, struct castr ca[], void *ptr)
     for (i = 0; ca[i].ca_name; ++i) {
 	if (ca[i].ca_flags & NSC_DEITY && !xd->divine)
 	    continue;
-	if (ca[i].ca_flags & NSC_EXTRA)
+	if (ca[i].ca_dump == CA_DUMP_NONE)
 	    continue;
 	n = CA_ARRAY_LEN(&ca[i]);
 	j = 0;
@@ -285,7 +285,7 @@ xdcolhdr(struct xdstr *xd, struct castr ca[])
     for (i = 0; ca[i].ca_name; ++i) {
 	if (ca[i].ca_flags & NSC_DEITY && !xd->divine)
 	    continue;
-	if (ca[i].ca_flags & NSC_EXTRA)
+	if (ca[i].ca_dump == CA_DUMP_NONE)
 	    continue;
 	n = CA_ARRAY_LEN(&ca[i]);
 	if (n) {

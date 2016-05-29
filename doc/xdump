@@ -256,8 +256,6 @@ of xdump meta T are:
 
 * flags: The field's flags, a symbol set.  Flags are:
   - "deity", field visible only to deities
-  - "extra", field not to be dumped
-  - "const", field cannot be changed
   - "bits", field is a symbol set, field type must encode symbol "d",
     field table must not be -1.
   - "hidden", field value is masked for contact when option HIDDEN is
@@ -298,8 +296,8 @@ in other places as well:
   for another table (new struct castr member ca_table).  The selector
   code doesn't use that, yet.
 
-* Selector flag NSC_EXTRA to flag redundant selectors, so that xdump
-  can ignore them.
+* Redundant selectors can be marked so that xdump ignores them (new
+  struct castr member ca_dump).
 
 Meta-data is in empfile[] (table meta-data), src/lib/global/nsc.c
 (selector meta-data), src/lib/global/symbol.c (symbol tables).  The
@@ -313,12 +311,12 @@ its meta-data, and to make sense of that table, we need meta-meta
 data.  So we start with that:
 
     [3:640] Command : xdump meta meta
-    XDUMP meta meta 1464537892
-    "name" 3 4 0 -1
-    "type" 8 4 0 33
-    "flags" 8 12 0 32
-    "len" 7 4 0 -1
-    "table" 8 4 0 26
+    XDUMP meta meta 1464554085
+    "name" 3 0 0 -1
+    "type" 8 0 0 33
+    "flags" 8 8 0 32
+    "len" 7 0 0 -1
+    "table" 8 0 0 26
     /5
 
 To interpret this table, we have to know the field names and their
@@ -342,9 +340,9 @@ know, namely the table of tables.  Let's dump that next, starting with
 its meta-data:
 
     [3:640] Command : xdump meta table
-    XDUMP meta table 1464537892
+    XDUMP meta table 1464554085
     "uid" 8 0 0 26
-    "name" 3 4 0 -1
+    "name" 3 0 0 -1
     /2
 
 Because xdump table is referenced from elsewhere (xdump meta meta
@@ -354,7 +352,7 @@ table itself.  Indeed, its value matches the one we got in xdump meta
 meta.  Let's try to dump the table:
 
     [5:640] Command : xdump 26 *
-    XDUMP table 1464537892
+    XDUMP table 1464554085
     0 "sect"
     1 "ship"
 [...]
@@ -373,13 +371,14 @@ Now dump the two symbol tables we postponed.  Because xdump accepts
 table IDs as well as names, we don't have to know their names:
 
     [5:640] Command : xdump meta 33
-    XDUMP meta meta-type 1464537892
-    "value" 8 4 0 -1
-    "name" 3 4 0 -1
+    xdump meta 33
+    XDUMP meta meta-type 1464554085
+    "value" 8 0 0 -1
+    "name" 3 0 0 -1
     /2
 
     [6:640] Command : xdump 33 *
-    XDUMP meta-type 1464537892
+    XDUMP meta-type 1464554085
     1 "d"
     2 "g"
     3 "s"
@@ -396,19 +395,17 @@ table IDs as well as names, we don't have to know their names:
     /13
 
     [7:640] Command : xdump meta 32
-    XDUMP meta meta-flags 1464537892
-    "value" 8 4 0 -1
-    "name" 3 4 0 -1
+    XDUMP meta meta-flags 1464554085
+    "value" 8 0 0 -1
+    "name" 3 0 0 -1
     /2
 
     [7:640] Command : xdump 32 *
-    XDUMP meta-flags 1464537892
+    XDUMP meta-flags 1464554085
     1 "deity"
-    2 "extra"
-    4 "const"
     8 "bits"
     16 "hidden"
-    /5
+    /3
 
 We now have complete meta-meta information:
 
@@ -424,10 +421,10 @@ Dumping the remaining tables is easy: just walk the table of tables.
 Here's the first one:
 
     [7:640] Command : xdump meta 0
-    XDUMP meta sect 1464537892
+    XDUMP meta sect 1464554085
     "owner" 5 0 0 8
-    "xloc" 9 4 0 -1
-    "yloc" 10 4 0 -1
+    "xloc" 9 0 0 -1
+    "yloc" 10 0 0 -1
     "des" 4 0 0 18
 [...]
     /78
@@ -621,8 +618,9 @@ symbol table packing.
 
 Configuration tables contain values that are not meant to be
 customized.  For instance, meta-data and symbol tables reflect the
-encoding of C language constructs in the server.  Selector flag
-NSC_CONST marks them, so that the code can prohibit changes.
+encoding of C language constructs in the server.  Such selectors are
+marked (struct castr member ca_dump), so that the code can prohibit
+changes.
 
 All tables are checked against meta-data on server startup by
 ef_verify().  More elaborate checking would be nice, and probably

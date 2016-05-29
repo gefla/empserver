@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2014
+ *     Markus Armbruster, 2005-2016
  */
 
 /*
@@ -122,7 +122,7 @@ ca0_is_id(int type)
 {
     struct castr *ca = ef_cadef(type);
 
-    return ca[0].ca_table == type && !(ca[0].ca_flags & NSC_EXTRA);
+    return ca[0].ca_table == type && ca[0].ca_dump <= CA_DUMP_CONST;
 }
 
 /*
@@ -506,7 +506,7 @@ fldval_must_match(int fldno)
      * it's for a const selector, unless the object is still blank, or
      * it was already given in a previous part of a split table.
      */
-    return (cur_id < old_nelem && (fldca[fldno]->ca_flags & NSC_CONST))
+    return (cur_id < old_nelem && (fldca[fldno]->ca_dump == CA_DUMP_CONST))
 	|| fldidx[fldno] < cafldspp[i];
 }
 
@@ -933,7 +933,7 @@ deffld(int fldno, char *name, int idx)
 	return gripe("%s header '%s' in field %d",
 		     res == M_NOTUNIQUE ? "ambiguous" : "unknown",
 		     name, fldno + 1);
-    if ((ca[res].ca_flags & NSC_EXTRA) || CANT_HAPPEN(ca[res].ca_get))
+    if (ca[res].ca_dump > CA_DUMP_CONST || CANT_HAPPEN(ca[res].ca_get))
 	return gripe("extraneous header '%s' in field %d", name, fldno + 1);
     if (CA_IS_ARRAY(&ca[res])) {
 	if (idx < 0)
@@ -976,7 +976,7 @@ chkflds(void)
     /* Check for missing fields */
     for (i = 0; ca[i].ca_name; i++) {
 	cafldsmax = MAX(caflds[i], cafldspp[i]);
-	if (ca[i].ca_flags & NSC_EXTRA)
+	if (ca[i].ca_dump > CA_DUMP_CONST)
 	    continue;
 	len = CA_ARRAY_LEN(&ca[i]);
 	if (!len && !cafldsmax)
@@ -1198,7 +1198,7 @@ xufldhdr(FILE *fp, struct castr ca[])
 	fidx = fldidx;
 
 	for (i = 0; ca[i].ca_name; i++) {
-	    if ((ca[i].ca_flags & NSC_EXTRA))
+	    if (ca[i].ca_dump > CA_DUMP_CONST)
 		continue;
 	    n = CA_ARRAY_LEN(&ca[i]);
 	    j = 0;
@@ -1278,7 +1278,7 @@ xundump(FILE *fp, char *file, int *plno, int expected_table)
     nca = nf = 0;
     for (i = 0; ca[i].ca_name; i++) {
 	nca++;
-	if (!(ca[i].ca_flags & NSC_EXTRA))
+	if (ca[i].ca_dump <= CA_DUMP_CONST)
 	    nf += MAX(1, CA_ARRAY_LEN(&ca[i]));
     }
     fldca = malloc(nf * sizeof(*fldca));

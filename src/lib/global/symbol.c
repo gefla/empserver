@@ -79,8 +79,6 @@ struct symbol level[] = {
 
 struct symbol meta_flags[] = {
     {NSC_DEITY, "deity"},
-    {NSC_EXTRA, "extra"},
-    {NSC_CONST, "const"},
     {NSC_BITS, "bits"},
     {NSC_HIDDEN, "hidden"},
     {0, NULL}

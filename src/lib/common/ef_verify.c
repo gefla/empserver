@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2006-2015
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -74,13 +74,14 @@ verify_ca(int type)
 
     for (i = 0; ca[i].ca_name; i++) {
 	/*
-	 * Virtual selectors must be NSC_EXTRA, because xundump can't
-	 * cope with them without setter methods.  Exception: if
-	 * EFF_MEM is not set, xundump doesn't touch the table.
+	 * Virtual selectors can't be used in xundump, since we lack a
+	 * setter to go with ca_get().  Exception: if EFF_MEM is not
+	 * set, xundump doesn't touch the table.
 	 */
 	if (CANT_HAPPEN((ef_flags(type) & EFF_MEM)
-			&& ca[i].ca_get && !(ca[i].ca_flags & NSC_EXTRA)))
-	    ca[i].ca_flags |= NSC_EXTRA;
+			&& ca[i].ca_get
+			&& ca[i].ca_dump <= CA_DUMP_CONST))
+	    ca[i].ca_dump = CA_DUMP_NONE;
     }
     return 0;
 }

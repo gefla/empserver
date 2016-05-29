@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1989
- *     Markus Armbruster, 2004-2015
+ *     Markus Armbruster, 2004-2016
  */
 
 #ifndef NSC_H
@@ -192,10 +192,16 @@ struct symbol {
 /* Selector flags */
 enum {
     NSC_DEITY = bit(0),		/* access restricted to deity */
-    NSC_EXTRA = bit(1),		/* computable from other selectors */
-    NSC_CONST = bit(2),		/* field cannot be changed */
     NSC_BITS = bit(3),		/* value consists of flag bits */
     NSC_HIDDEN = bit(4)		/* visibility depends on contact */
+};
+
+/* Selector use by xdump and xundump */
+enum ca_dump {
+    /* order is relevant */
+    CA_DUMP,			/* xdump and xundump normally */
+    CA_DUMP_CONST,		/* same, but value can't be changed  */
+    CA_DUMP_NONE		/* do not xdump or xundump */
 };
 
 /*
@@ -217,19 +223,18 @@ enum {
  * access control (null for none), and CTXO is the context object.
  * See struct valstr for details.
  * Because virtual selectors don't have a setter method, xundump must
- * be made to ignore them, by setting NSC_EXTRA.
- * If flag NSC_DEITY is set, only deities can use this selector.
- * If flag NSC_EXTRA is set, xdump and xundump ignore this selector.
- * If flag NSC_CONST is set, the datum can't be changed from its
- * initial value (xundump obeys that).
- * If flag NSC_HIDDEN is set, the selector must be an array of MAXNOC
- * elements, indexed by country number, and the context object must be
- * EF_NATION.  Array elements are masked for contact when opt_HIDDEN
- * is on.
+ * be made to ignore them, by setting @ca_dump to CA_DUMP_NONE.
  * If @ca_table is not EF_BAD, the datum refers to that Empire table;
- * @ca_type must be an integer type.  If flag NSC_BITS is set, the
- * datum consists of flag bits, and the referred table must be a
- * symbol table defining those bits.
+ * @ca_type must be an integer type.
+ * If NSC_BITS is set in @ca_flags, the datum consists of flag bits,
+ * and the referred table must be a symbol table defining those bits.
+ * If NSC_DEITY is set in @ca_flags, only deities can use this
+ * selector.
+ * If NSC_HIDDEN is set in @ca_flags, the selector must be an array of
+ * MAXNOC elements, indexed by country number, and the context object
+ * must be EF_NATION.  Array elements are masked for contact when
+ * opt_HIDDEN is on.
+ * @ca_dump specifies how xdump and xundump are to use the selector.
  */
 struct castr {
     char *ca_name;
@@ -239,6 +244,7 @@ struct castr {
     void *(*ca_get)(struct valstr *, struct natstr *, void *);
     int ca_table;
     int ca_flags;
+    enum ca_dump ca_dump;
 };
 
 /* Is CA an array? */

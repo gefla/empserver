@@ -27,7 +27,7 @@
  *  xdump.c: Extended dump
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -118,7 +118,7 @@ xdmeta(struct xdstr *xd, int type)
     for (i = 0; ca[i].ca_name; i++) {
 	if (ca[i].ca_flags & NSC_DEITY && !xd->divine)
 	    continue;
-	if (ca[i].ca_flags & NSC_EXTRA)
+	if (ca[i].ca_dump == CA_DUMP_NONE)
 	    continue;
 	xdflds(xd, mdchr_ca, &ca[i]);
 	xd->pr("\n");
