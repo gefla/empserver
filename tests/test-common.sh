@@ -84,6 +84,9 @@ customize()
 	    copy_tables sect
 	    sed_i '/"c" .* norm/d;/^#.*"c" .* cana/s/^#/ /' sandbox/etc/empire/sect.config
 	    ;;
+	trade-ship)
+	    copy_tables ship
+	    sed_i '/"ts   trade ship"//^#/ /' sandbox/etc/empire/ship.config
 	esac
     done
     echo "custom_tables \"`cd sandbox/etc/empire && echo *.config`\"" >>$econfig

@@ -1,0 +1,2980 @@
+      Main startup
+      Main prng MT19937 1
+     Conn0 output Conn0 2 Empire server ready
+     Conn0 input user tester
+     Conn0 output Conn0 0 hello tester
+     Conn0 input coun red
+     Conn0 output Conn0 10 country red does not exist
+     Conn0 output Conn0 3 so long...
+     Conn1 output Conn1 2 Empire server ready
+     Conn1 input user tester
+     Conn1 output Conn1 0 hello tester
+     Conn1 input coun POGO
+     Conn1 output Conn1 0 country name POGO
+     Conn1 input pass peter
+     Conn1 output Conn1 0 password ok
+     Conn1 input play
+     Conn1 login 0 127.0.0.1 tester
+    Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
+    Play#0 output Play#0 6 0 640
+    Play#0 input version
+    Play#0 command version
+    Play#0 output Play#0 1 Wolfpack Empire 4.3.34
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 The following parameters have been set for this game:
+    Play#0 output Play#0 1 World size is 64 by 32.
+    Play#0 output Play#0 1 There can be up to 99 countries.
+    Play#0 output Play#0 1 By default, countries use their own coordinate system.
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Use the 'show' command to find out the time of the next update.
+    Play#0 output Play#0 1 The current time is Thu Jan  1 00:00:00.
+    Play#0 output Play#0 1 An update consists of 60 empire time units.
+    Play#0 output Play#0 1 Each country is allowed to be logged in 1440 minutes a day.
+    Play#0 output Play#0 1 It takes 8.33 civilians to produce a BTU in one time unit.
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 A non-aggi, 100 fertility sector can grow 0.12 food per etu.
+    Play#0 output Play#0 1 1000 civilians will harvest 1.3 food per etu.
+    Play#0 output Play#0 1 1000 civilians will give birth to 5.0 babies per etu.
+    Play#0 output Play#0 1 1000 uncompensated workers will give birth to 2.5 babies.
+    Play#0 output Play#0 1 In one time unit, 1000 people eat 0.5 units of food.
+    Play#0 output Play#0 1 1000 babies eat 6.0 units of food becoming adults.
+    Play#0 output Play#0 1 No food is needed!
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Banks pay $250.00 in interest per 1000 gold bars per etu.
+    Play#0 output Play#0 1 1000 civilians generate $8.33, uncompensated workers $1.78 each time unit.
+    Play#0 output Play#0 1 1000 active military cost $83.33, reserves cost $8.33.
+    Play#0 output Play#0 1 Up to 50 avail can roll over an update.
+    Play#0 output Play#0 1 Happiness p.e. requires 1 happy stroller per 10000 civ.
+    Play#0 output Play#0 1 Education p.e. requires 1 class of graduates per 10000 civ.
+    Play#0 output Play#0 1 Happiness is averaged over 48 time units.
+    Play#0 output Play#0 1 Education is averaged over 192 time units.
+    Play#0 output Play#0 1 The technology/research boost you get from the world is 50.00%.
+    Play#0 output Play#0 1 Nation levels (tech etc.) decline 1% every 96 time units.
+    Play#0 output Play#0 1 Tech buildup is limited to logarithmic growth (base 2.00) after 1.00.
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 				Sectors	Ships	Planes	Units
+    Play#0 output Play#0 1 Maximum mobility		127	127	127	127
+    Play#0 output Play#0 1 Max mob gain per update		60	90	60	60
+    Play#0 output Play#0 1 Max eff gain per update		--	100	100	100
+    Play#0 output Play#0 1 Maintenance cost per update	--	6.0%	6.0%	6.0%
+    Play#0 output Play#0 1 Max interdiction range		8	8	--	8
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 The maximum amount of mobility used for land unit combat is 5.00.
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Fire ranges are scaled by 1.00.
+    Play#0 output Play#0 1 Flak damage is scaled by 1.75.
+    Play#0 output Play#0 1 Torpedo damage is 2d40+38.
+    Play#0 output Play#0 1 The attack factor for para & assault troops is 0.50.
+    Play#0 output Play#0 1 12% of fallout leaks into each surrounding sector.
+    Play#0 output Play#0 1 Fallout decays by 28% per update.
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Damage to			Spills to
+    Play#0 output Play#0 1 	      Sector  People  Mater.   Ships  Planes  LandU.
+    Play#0 output Play#0 1 Sector		 --	100%	100%	  0%	  4%	 30%
+    Play#0 output Play#0 1 People		 10%	 --	 --	 --	 --	 --
+    Play#0 output Play#0 1 Materials	 10%	 --	 --	 --	 --	 --
+    Play#0 output Play#0 1 Efficiency	 10%	 --	 --	 --	 --	 --
+    Play#0 output Play#0 1 Ships		 10%	100%	100%	 --	  0%	  0%
+    Play#0 output Play#0 1 Planes		 10%	  0%	  0%	 --	 --	 --
+    Play#0 output Play#0 1 Land units	 10%	  0%	100%	 --	  0%	  0%
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 You can have at most 640 BTUs.
+    Play#0 output Play#0 1 You are disconnected after 15 minutes of idle time.
+    Play#0 output Play#0 1 Visitors are disconnected after 5 minutes of idle time.
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Options enabled in this game:
+    Play#0 output Play#0 1 	ALL_BLEED, BLITZ, EASY_BRIDGES, FALLOUT, INTERDICT_ATT, NOFOOD,
+    Play#0 output Play#0 1 	NOMOBCOST, NO_PLAGUE, RAILWAYS
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Options disabled in this game:
+    Play#0 output Play#0 1 	AUTO_POWER, BRIDGETOWERS, GODNEWS, GO_RENEW, GUINEA_PIGS, HIDDEN,
+    Play#0 output Play#0 1 	LOANS, LOSE_CONTACT, MARKET, MOB_ACCESS, NO_FORT_FIRE, RES_POP,
+    Play#0 output Play#0 1 	SUPER_BARS, TECH_POP
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 See "info Options" for a detailed list of options and descriptions.
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 The person to annoy if something goes wrong is:
+    Play#0 output Play#0 1 	Deity forgot to edit econfig <careless@invalid>.
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 You can get your own copy of the source from <http://www.wolfpackempire.com/>.
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Copyright (C) 1986-2016, Dave Pare, Jeff Bailey, Thomas Ruschak,
+    Play#0 output Play#0 1               Ken Stevens, Steve McClure, Markus Armbruster
+    Play#0 output Play#0 1 This is free software; see the source for copying conditions.  There is NO
+    Play#0 output Play#0 1 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    Play#0 output Play#0 6 0 640
+    Play#0 input show sect b
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1                         desig   build 100% eff  maint
+    Play#0 output Play#0 1 sector type                 $   lcm  hcm     $      $
+    Play#0 output Play#0 1 - wilderness                0     0    0     0      0
+    Play#0 output Play#0 1 c capital                   0     0    0   100     60
+    Play#0 output Play#0 1 f fortress                  0     0  100   500      0
+    Play#0 output Play#0 1 any other                   0     0    0   100      0
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Infrastructure building - adding 1 point of efficiency costs:
+    Play#0 output Play#0 1        type          lcms    hcms    mobility    $$$$
+    Play#0 output Play#0 1 road network            2       2           1       2
+    Play#0 output Play#0 6 0 640
+    Play#0 input show sect c
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1   sector type             product  p.e.
+    Play#0 output Play#0 1 ^ mountain                dust      75%
+    Play#0 output Play#0 1 u uranium mine            rad      100%
+    Play#0 output Play#0 1 p park                    happy    100%
+    Play#0 output Play#0 1 d defense plant           guns     100%
+    Play#0 output Play#0 1 i shell industry          shells   100%
+    Play#0 output Play#0 1 m mine                    iron     100%
+    Play#0 output Play#0 1 g gold mine               dust     100%
+    Play#0 output Play#0 1 a agribusiness            food     900%
+    Play#0 output Play#0 1 o oil field               oil      100%
+    Play#0 output Play#0 1 j light manufacturing     lcm      100%
+    Play#0 output Play#0 1 k heavy manufacturing     hcm      100%
+    Play#0 output Play#0 1 t technical center        tech     100%
+    Play#0 output Play#0 1 r research lab            medical  100%
+    Play#0 output Play#0 1 l library/school          edu      100%
+    Play#0 output Play#0 1 b bank                    bars     100%
+    Play#0 output Play#0 1 % refinery                petrol  1000%
+    Play#0 output Play#0 6 0 640
+    Play#0 input show sect s
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1                         mob cost   max   max   naviga    packing   max
+    Play#0 output Play#0 1   sector type            0% 100%   off   def   bility      bonus   pop
+    Play#0 output Play#0 1 . sea                    no way    0.00  0.00     sea     normal     0
+    Play#0 output Play#0 1 ^ mountain              2.4  1.2   1.00  4.00    land     normal   100
+    Play#0 output Play#0 1 s sanctuary              no way    0.00 99.00    land     normal  1000
+    Play#0 output Play#0 1 \\ wasteland              no way    0.00 99.00    land     normal     0
+    Play#0 output Play#0 1 - wilderness            0.4  0.4   1.00  2.00    land     normal  1000
+    Play#0 output Play#0 1 c capital               0.4  0.2   1.00  2.00    land     normal  1000
+    Play#0 output Play#0 1 u uranium mine          0.4  0.2   1.00  2.00    land     normal  1000
+    Play#0 output Play#0 1 p park                  0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 d defense plant         0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 i shell industry        0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 m mine                  0.4  0.2   1.00  2.00    land     normal  1000
+    Play#0 output Play#0 1 g gold mine             0.4  0.2   1.00  2.00    land     normal  1000
+    Play#0 output Play#0 1 h harbor                0.4  0.2   1.00  1.50  harbor  warehouse  1000
+    Play#0 output Play#0 1 w warehouse             0.4  0.2   1.00  1.50    land  warehouse  1000
+    Play#0 output Play#0 1 * airfield              0.4  0.2   1.00  1.25    land     normal  1000
+    Play#0 output Play#0 1 a agribusiness          0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 o oil field             0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 j light manufacturing   0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 k heavy manufacturing   0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 f fortress              0.4  0.2   2.00  4.00    land     normal  1000
+    Play#0 output Play#0 1 t technical center      0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 r research lab          0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 n nuclear plant         0.4  0.2   1.00  2.00    land     normal  1000
+    Play#0 output Play#0 1 l library/school        0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 + highway               0.4  0.0   1.00  1.00    land     normal  1000
+    Play#0 output Play#0 1 ) radar installation    0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 ! headquarters          0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 # bridge head           0.4  0.0   1.00  1.00    land     normal  1000
+    Play#0 output Play#0 1 = bridge span           0.4  0.0   1.00  1.00  bridge     normal   100
+    Play#0 output Play#0 1 b bank                  0.4  0.2   1.00  2.25    land       bank  1000
+    Play#0 output Play#0 1 % refinery              0.4  0.2   1.00  1.50    land     normal  1000
+    Play#0 output Play#0 1 e enlistment center     0.4  0.2   1.00  2.00    land     normal  1000
+    Play#0 output Play#0 1 ~ plains                0.4  0.2   1.00  1.50    land     normal   100
+    Play#0 output Play#0 1 @ bridge tower          0.4  0.0   1.00  1.50    land     normal   100
+    Play#0 output Play#0 6 0 640
+    Play#0 input show ship b
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1                           lcm hcm avail tech $
+    Play#0 output Play#0 1 fb   fishing boat          25  15    75    0 $180
+    Play#0 output Play#0 1 ss   slave ship            60  40   160    0 $300
+    Play#0 output Play#0 1 frg  frigate               30  30   110    0 $600
+    Play#0 output Play#0 1 tt   troop transport       50  50   170   10 $800
+    Play#0 output Play#0 1 cs   cargo ship            60  40   160   20 $500
+    Play#0 output Play#0 1 os   ore ship              60  40   160   20 $500
+    Play#0 output Play#0 1 ft   fishing trawler       25  15    75   35 $300
+    Play#0 output Play#0 1 tk   tanker                60  40   160   35 $600
+    Play#0 output Play#0 1 oe   oil exploration boat  25  15    75   40 $800
+    Play#0 output Play#0 1 pt   patrol boat           20  10    60   40 $300
+    Play#0 output Play#0 1 ms   minesweeper           25  15    75   40 $400
+    Play#0 output Play#0 1 lc   light cruiser         30  40   130   45 $800
+    Play#0 output Play#0 1 bb   battleship            50  70   210   45 $1800
+    Play#0 output Play#0 1 od   oil derrick           60  60   200   50 $1500
+    Play#0 output Play#0 1 hc   heavy cruiser         40  50   160   50 $1200
+    Play#0 output Play#0 1 sb   submarine             30  30   110   60 $650
+    Play#0 output Play#0 1 dd   destroyer             30  30   110   70 $600
+    Play#0 output Play#0 1 bbc  battlecruiser         50  60   190   75 $1500
+    Play#0 output Play#0 1 cal  light carrier         50  60   190   80 $2700
+    Play#0 output Play#0 1 aac  aa cruiser            50  60   190  130 $1500
+    Play#0 output Play#0 1 ls   landing ship          60  40   160  145 $1000
+    Play#0 output Play#0 1 sbc  cargo submarine       40  40   140  150 $1200
+    Play#0 output Play#0 1 car  aircraft carrier      60  70   220  160 $4500
+    Play#0 output Play#0 1 mb   missile boat          20  20    80  180 $500
+    Play#0 output Play#0 1 af   asw frigate           40  30   120  220 $800
+    Play#0 output Play#0 1 msb  missile sub           30  30   110  230 $1200
+    Play#0 output Play#0 1 ad   asw destroyer         40  40   140  240 $1500
+    Play#0 output Play#0 1 na   nuc attack sub        30  40   130  260 $1200
+    Play#0 output Play#0 1 agc  aegis cruiser         50  60   190  265 $4000
+    Play#0 output Play#0 1 nm   nuc miss sub          30  40   130  270 $1500
+    Play#0 output Play#0 1 mf   missile frigate       40  30   120  280 $1000
+    Play#0 output Play#0 1 mc   missile cruiser       50  50   170  290 $1500
+    Play#0 output Play#0 1 can  nuc carrier           70  80   250  305 $8000
+    Play#0 output Play#0 1 ncr  nuc cruiser           50  50   170  325 $1800
+    Play#0 output Play#0 1 nas  nuc asw cruiser       50  50   170  330 $1800
+    Play#0 output Play#0 1 nsp  nuc supply ship       60  40   160  360 $1500
+    Play#0 output Play#0 6 0 640
+    Play#0 input show ship c
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1                           cargos & capabilities
+    Play#0 output Play#0 1 fb   fishing boat          300c 10m 900f 15u fish canal
+    Play#0 output Play#0 1 ss   slave ship            20c 80m 200f 1200u
+    Play#0 output Play#0 1 frg  frigate               60m 10s 2g 60f semi-land
+    Play#0 output Play#0 1 tt   troop transport       120m 20s 4g 120f semi-land
+    Play#0 output Play#0 1 cs   cargo ship            600c 50m 300s 50g 900f 1400l 900h 250u supply
+    Play#0 output Play#0 1 os   ore ship              30c 5m 990i 990d 200f 45u 990r
+    Play#0 output Play#0 1 ft   fishing trawler       300c 10m 900f 15u fish canal
+    Play#0 output Play#0 1 tk   tanker                30c 5m 990p 200f 990o 25u supply
+    Play#0 output Play#0 1 oe   oil exploration boat  10c 5m 100f 1o oil canal
+    Play#0 output Play#0 1 pt   patrol boat           2m 12s 2g 5f torp canal
+    Play#0 output Play#0 1 ms   minesweeper           10m 100s 1g 90f mine sweep canal
+    Play#0 output Play#0 1 lc   light cruiser         100m 40s 5g 100f mine
+    Play#0 output Play#0 1 bb   battleship            200m 200s 10g 900f
+    Play#0 output Play#0 1 od   oil derrick           990c 80m 990f 990o 990u oil
+    Play#0 output Play#0 1 hc   heavy cruiser         120m 100s 8g 200f
+    Play#0 output Play#0 1 sb   submarine             25m 36s 5g 80f torp sonar mine sub
+    Play#0 output Play#0 1 dd   destroyer             60m 40s 4g 80f dchrg sonar mine
+    Play#0 output Play#0 1 bbc  battlecruiser         180m 100s 10g 400f
+    Play#0 output Play#0 1 cal  light carrier         175m 250s 4g 300p 180f plane
+    Play#0 output Play#0 1 aac  aa cruiser            100m 100s 15g 200f anti-missile
+    Play#0 output Play#0 1 ls   landing ship          400m 10s 1g 300f land
+    Play#0 output Play#0 1 sbc  cargo submarine       5c 10m 104s 20g 100p 900f 500l 300h sonar sub supply
+    Play#0 output Play#0 1 car  aircraft carrier      350m 500s 4g 500p 900f plane
+    Play#0 output Play#0 1 mb   missile boat          5m 100s 3g 500f miss
+    Play#0 output Play#0 1 af   asw frigate           60m 60s 4g 120f torp dchrg sonar sub-torp
+    Play#0 output Play#0 1 msb  missile sub           25m 100s 1g 500f miss sonar sub
+    Play#0 output Play#0 1 ad   asw destroyer         100m 80s 6g 40p 500f torp dchrg sonar sub-torp
+    Play#0 output Play#0 1 na   nuc attack sub        25m 60s 6g 500f torp sonar mine sub sub-torp
+    Play#0 output Play#0 1 agc  aegis cruiser         200m 400s 25g 40p 900f miss anti-missile
+    Play#0 output Play#0 1 nm   nuc miss sub          25m 200s 1g 500f miss sonar sub
+    Play#0 output Play#0 1 mf   missile frigate       60m 220s 4g 120f miss
+    Play#0 output Play#0 1 mc   missile cruiser       120m 500s 6g 160p 200f miss anti-missile
+    Play#0 output Play#0 1 can  nuc carrier           350m 999s 4g 999p 900f plane supply
+    Play#0 output Play#0 1 ncr  nuc cruiser           200m 400s 8g 40p 900f miss anti-missile
+    Play#0 output Play#0 1 nas  nuc asw cruiser       200m 120s 6g 160p 500f torp dchrg sonar sub-torp
+    Play#0 output Play#0 1 nsp  nuc supply ship       50c 50m 600s 50g 999p 999f 1500l 900h supply
+    Play#0 output Play#0 6 0 640
+    Play#0 input show ship s
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1                                s  v  s  r  f  l  p  h  x
+    Play#0 output Play#0 1                                p  i  p  n  i  n  l  e  p
+    Play#0 output Play#0 1                           def  d  s  y  g  r  d  n  l  l
+    Play#0 output Play#0 1 fb   fishing boat          18 19  5  2  0  0  0  0  0  0
+    Play#0 output Play#0 1 ss   slave ship            37 19 12  3  0  0  0  0  0  1
+    Play#0 output Play#0 1 frg  frigate               93 48  9  3  1  1  2  0  0  1
+    Play#0 output Play#0 1 tt   troop transport      112 38 12  3  1  3  2  0  0  1
+    Play#0 output Play#0 1 cs   cargo ship            37 48 13  3  0  0  2  0  0  1
+    Play#0 output Play#0 1 os   ore ship              37 48 13  3  0  0  0  0  0  1
+    Play#0 output Play#0 1 ft   fishing trawler       18 48  5  2  0  0  0  0  0  0
+    Play#0 output Play#0 1 tk   tanker               139 48 17  3  0  0  0  0  0  1
+    Play#0 output Play#0 1 oe   oil exploration boat  18 48  5  2  0  0  0  0  0  0
+    Play#0 output Play#0 1 pt   patrol boat           18 73  3  2  1  1  0  0  0  0
+    Play#0 output Play#0 1 ms   minesweeper           18 48  5  2  0  0  0  0  0  0
+    Play#0 output Play#0 1 lc   light cruiser         93 57 11  5 11  5  2  0  0  1
+    Play#0 output Play#0 1 bb   battleship           176 48 13  6 19 11  2  0  0  1
+    Play#0 output Play#0 1 od   oil derrick           55 28 24  3  0  0  0  0  0  2
+    Play#0 output Play#0 1 hc   heavy cruiser        130 57 11  5 15  6  4  0  0  1
+    Play#0 output Play#0 1 sb   submarine             46 38  1  4  5  5  0  0  0  0
+    Play#0 output Play#0 1 dd   destroyer             83 67  7  4 11  5  1  0  0  1
+    Play#0 output Play#0 1 bbc  battlecruiser        101 57 13  6 19 10  2  0  0  1
+    Play#0 output Play#0 1 cal  light carrier        110 57 15  5  3  3  0 20 20  4
+    Play#0 output Play#0 1 aac  aa cruiser           146 66 12  6  1 13  4  0  0  1
+    Play#0 output Play#0 1 ls   landing ship          73 56 12  2  0  0  6  0  0  2
+    Play#0 output Play#0 1 sbc  cargo submarine       91 56  0  3  0  0  0  0  0  0
+    Play#0 output Play#0 1 car  aircraft carrier     146 66 16  7  3  3  0 40 40 10
+    Play#0 output Play#0 1 mb   missile boat          27 75  6  3  3  3  0 10  0  0
+    Play#0 output Play#0 1 af   asw frigate           90 65 13  5  3  3  0  0  0  4
+    Play#0 output Play#0 1 msb  missile sub           63 56  1  3  0  0  0 10  0  0
+    Play#0 output Play#0 1 ad   asw destroyer        107 74 15  6 14  4  0  0  2 10
+    Play#0 output Play#0 1 na   nuc attack sub        80 74  1  6  9  4  0  0  0  0
+    Play#0 output Play#0 1 agc  aegis cruiser        143 64 13  6  1 25  0 32  2 30
+    Play#0 output Play#0 1 nm   nuc miss sub          98 64  0  6  0  0  0 20  0  0
+    Play#0 output Play#0 1 mf   missile frigate       89 64 13  5  3  3  0 20  0  2
+    Play#0 output Play#0 1 mc   missile cruiser      124 64 16  8 14  9  0 40  8  8
+    Play#0 output Play#0 1 can  nuc carrier          177 82 18  9  3  3  0 60  4 20
+    Play#0 output Play#0 1 ncr  nuc cruiser          176 82 16  6 25 11  0 20  2 10
+    Play#0 output Play#0 1 nas  nuc asw cruiser      141 82 16  9 18  6  0  0  8 25
+    Play#0 output Play#0 1 nsp  nuc supply ship       70 81 17  6  0  0  2  0  2 10
+    Play#0 output Play#0 6 0 640
+    Play#0 input show plan b
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1                           lcm hcm crew avail tech $
+    Play#0 output Play#0 1 f1   Sopwith Camel          8   2    1    32   50 $400
+    Play#0 output Play#0 1 lb   TBD-1 Devastator      10   3    1    36   60 $550
+    Play#0 output Play#0 1 zep  Zeppelin               6   2    3    30   70 $1000
+    Play#0 output Play#0 1 f2   P-51 Mustang           8   2    1    32   80 $400
+    Play#0 output Play#0 1 mb   medium bomber         14   5    3    44   80 $1000
+    Play#0 output Play#0 1 tr   C-56 Lodestar         14   5    3    44   85 $1000
+    Play#0 output Play#0 1 es   P-38 Lightning         9   3    1    35   90 $700
+    Play#0 output Play#0 1 hb   B-26B Marauder        20   6    2    52   90 $1100
+    Play#0 output Play#0 1 as   anti-sub plane        10   3    2    36  100 $550
+    Play#0 output Play#0 1 jf1  F-4 Phantom           12   4    2    40  125 $1000
+    Play#0 output Play#0 1 jl   A-6 Intruder          14   4    2    42  130 $1000
+    Play#0 output Play#0 1 re   recon                 12   4    2    40  130 $800
+    Play#0 output Play#0 1 np   naval plane           20  10    4    60  135 $1800
+    Play#0 output Play#0 1 tc   transport chopper      8   2    2    32  135 $800
+    Play#0 output Play#0 1 jfb  FB-111 Aardvark f/b   20  10    5    60  140 $1800
+    Play#0 output Play#0 1 ssm  V2                    15  15    0    65  145 $800
+    Play#0 output Play#0 1 jhb  B-52 Strato-Fortress  26  13    5    72  150 $3200
+    Play#0 output Play#0 1 jes  F-14E jet escort      14   8    2    50  160 $1400
+    Play#0 output Play#0 1 nc   AH-1 Cobra             8   2    2    32  160 $800
+    Play#0 output Play#0 1 jt   C-141 Starlifter      18   5    3    48  160 $1500
+    Play#0 output Play#0 1 mi   Harpoon                8   2    0    32  160 $300
+    Play#0 output Play#0 1 sam  Sea Sparrow            3   1    0    25  180 $200
+    Play#0 output Play#0 1 sp   E2-C Hawkeye          15   5    2    45  190 $2000
+    Play#0 output Play#0 1 jf2  AV-8B Harrier         12   4    2    40  195 $1400
+    Play#0 output Play#0 1 ac   AH-64 Apache           8   2    2    32  200 $800
+    Play#0 output Play#0 1 srbm Atlas                 20  20    0    80  200 $1000
+    Play#0 output Play#0 1 lst  landsat               20  20    0    80  245 $2000
+    Play#0 output Play#0 1 irbm Titan                 20  20    0    80  260 $1500
+    Play#0 output Play#0 1 abm  Patriot               16   8    0    52  270 $1500
+    Play#0 output Play#0 1 slbm Trident               20  20    0    80  280 $2000
+    Play#0 output Play#0 1 ss   KH-7 spysat           20  20    0    80  305 $4000
+    Play#0 output Play#0 1 asat anti-sat              20  20    0    80  305 $2000
+    Play#0 output Play#0 1 icbm Minuteman             20  20    0    80  310 $3000
+    Play#0 output Play#0 1 sf   F-117A Nighthawk      15   5    2    45  325 $3000
+    Play#0 output Play#0 1 sb   B-2 stealth bomber    15   5    2    45  325 $4000
+    Play#0 output Play#0 6 0 640
+    Play#0 input show plan c
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1                           capabilities
+    Play#0 output Play#0 1 f1   Sopwith Camel         tactical intercept VTOL
+    Play#0 output Play#0 1 lb   TBD-1 Devastator      bomber tactical VTOL light
+    Play#0 output Play#0 1 zep  Zeppelin              tactical cargo VTOL spy
+    Play#0 output Play#0 1 f2   P-51 Mustang          tactical intercept light
+    Play#0 output Play#0 1 mb   medium bomber         bomber tactical
+    Play#0 output Play#0 1 tr   C-56 Lodestar         cargo para
+    Play#0 output Play#0 1 es   P-38 Lightning        tactical escort
+    Play#0 output Play#0 1 hb   B-26B Marauder        bomber
+    Play#0 output Play#0 1 as   anti-sub plane        tactical ASW mine sweep
+    Play#0 output Play#0 1 jf1  F-4 Phantom           tactical intercept light
+    Play#0 output Play#0 1 jl   A-6 Intruder          bomber tactical light
+    Play#0 output Play#0 1 re   recon                 spy
+    Play#0 output Play#0 1 np   naval plane           tactical cargo light ASW mine sweep
+    Play#0 output Play#0 1 tc   transport chopper     cargo VTOL helo para
+    Play#0 output Play#0 1 jfb  FB-111 Aardvark f/b   bomber tactical
+    Play#0 output Play#0 1 ssm  V2                    tactical VTOL missile
+    Play#0 output Play#0 1 jhb  B-52 Strato-Fortress  bomber
+    Play#0 output Play#0 1 jes  F-14E jet escort      tactical escort
+    Play#0 output Play#0 1 nc   AH-1 Cobra            tactical VTOL helo ASW sweep
+    Play#0 output Play#0 1 jt   C-141 Starlifter      cargo para
+    Play#0 output Play#0 1 mi   Harpoon               tactical VTOL missile light marine
+    Play#0 output Play#0 1 sam  Sea Sparrow           intercept VTOL missile light x-light
+    Play#0 output Play#0 1 sp   E2-C Hawkeye          spy
+    Play#0 output Play#0 1 jf2  AV-8B Harrier         tactical intercept VTOL light
+    Play#0 output Play#0 1 ac   AH-64 Apache          tactical VTOL helo
+    Play#0 output Play#0 1 srbm Atlas                 tactical VTOL missile
+    Play#0 output Play#0 1 lst  landsat               satellite
+    Play#0 output Play#0 1 irbm Titan                 tactical VTOL missile
+    Play#0 output Play#0 1 abm  Patriot               VTOL missile SDI
+    Play#0 output Play#0 1 slbm Trident               tactical VTOL missile light
+    Play#0 output Play#0 1 ss   KH-7 spysat           spy image satellite
+    Play#0 output Play#0 1 asat anti-sat              VTOL missile satellite
+    Play#0 output Play#0 1 icbm Minuteman             tactical VTOL missile
+    Play#0 output Play#0 1 sf   F-117A Nighthawk      tactical intercept light
+    Play#0 output Play#0 1 sb   B-2 stealth bomber    bomber tactical
+    Play#0 output Play#0 6 0 640
+    Play#0 input show plan s
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1                           acc load att def ran fuel stlth
+    Play#0 output Play#0 1 f1   Sopwith Camel         34    1  11  11  13    1    0%
+    Play#0 output Play#0 1 lb   TBD-1 Devastator      19    3   0  13  16    1    0%
+    Play#0 output Play#0 1 zep  Zeppelin              23    3   0   7  24    2    0%
+    Play#0 output Play#0 1 f2   P-51 Mustang          31    1  14  14  17    1    0%
+    Play#0 output Play#0 1 mb   medium bomber         17    6   0  15  23    3    0%
+    Play#0 output Play#0 1 tr   C-56 Lodestar          0   12   0  12  24    3    0%
+    Play#0 output Play#0 1 es   P-38 Lightning        23    1  15  15  24    2    0%
+    Play#0 output Play#0 1 hb   B-26B Marauder        35    8   0  14  24    2    0%
+    Play#0 output Play#0 1 as   anti-sub plane        34    3   0  13  24    2    0%
+    Play#0 output Play#0 1 jf1  F-4 Phantom           18    1  24  24  20    3    0%
+    Play#0 output Play#0 1 jl   A-6 Intruder          10    5   0  19  20    3    0%
+    Play#0 output Play#0 1 re   recon                  0    0   0  14  24    2   20%
+    Play#0 output Play#0 1 np   naval plane           28    5   0  14  37    2    0%
+    Play#0 output Play#0 1 tc   transport chopper      0    8   0  13  16    2   40%
+    Play#0 output Play#0 1 jfb  FB-111 Aardvark f/b   12   12  18  18  29    5    0%
+    Play#0 output Play#0 1 ssm  V2                    24    5   0  13  13    0    0%
+    Play#0 output Play#0 1 jhb  B-52 Strato-Fortress  33   20   0  21  44    6    0%
+    Play#0 output Play#0 1 jes  F-14E jet escort      25    1  20  20  34    3    0%
+    Play#0 output Play#0 1 nc   AH-1 Cobra            23    3   0  13  20    2    0%
+    Play#0 output Play#0 1 jt   C-141 Starlifter       0   27   0  19  44    4    0%
+    Play#0 output Play#0 1 mi   Harpoon               21   10   0  15  15    0    0%
+    Play#0 output Play#0 1 sam  Sea Sparrow            0    0   0  28  11    0    0%
+    Play#0 output Play#0 1 sp   E2-C Hawkeye           0    0   0  21  41    5   50%
+    Play#0 output Play#0 1 jf2  AV-8B Harrier         12    1  27  27  23    3    0%
+    Play#0 output Play#0 1 ac   AH-64 Apache           6    1   0  19  20    2   40%
+    Play#0 output Play#0 1 srbm Atlas                 26   10   0  15  18    0    0%
+    Play#0 output Play#0 1 lst  landsat                0    0   0  13  50    9    0%
+    Play#0 output Play#0 1 irbm Titan                 27   13   0  20  24    0    0%
+    Play#0 output Play#0 1 abm  Patriot               22    0   0  41  21    0    0%
+    Play#0 output Play#0 1 slbm Trident               27   13   0  16  32    0    0%
+    Play#0 output Play#0 1 ss   KH-7 spysat            0    0   0  13  70    9    0%
+    Play#0 output Play#0 1 asat anti-sat              23   10   0  17  22    4    0%
+    Play#0 output Play#0 1 icbm Minuteman             28   16   0  25  50    0    0%
+    Play#0 output Play#0 1 sf   F-117A Nighthawk      21    4  29  29  29    4   80%
+    Play#0 output Play#0 1 sb   B-2 stealth bomber    12   13   0  25  37    5   80%
+    Play#0 output Play#0 6 0 640
+    Play#0 input show land b
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1                           lcm hcm guns avail tech $
+    Play#0 output Play#0 1 cav  cavalry               10   5    0    40   30 $500
+    Play#0 output Play#0 1 art  artillery             20  10    0    60   35 $800
+    Play#0 output Play#0 1 linf light infantry         8   4    0    36   40 $300
+    Play#0 output Play#0 1 tra  train                100  50    0   220   40 $3500
+    Play#0 output Play#0 1 spy  infiltrator           10   5    0    40   40 $750
+    Play#0 output Play#0 1 inf  infantry              10   5    0    40   50 $500
+    Play#0 output Play#0 1 sup  supply                10   5    0    40   50 $500
+    Play#0 output Play#0 1 com  commando              10   5    0    40   55 $1500
+    Play#0 output Play#0 1 aau  aa unit               20  10    0    60   70 $500
+    Play#0 output Play#0 1 lat  lt artillery          20  10    0    60   70 $500
+    Play#0 output Play#0 1 hat  hvy artillery         40  20    0   100  100 $800
+    Play#0 output Play#0 1 har  hvy armor             20  10    0    60  120 $500
+    Play#0 output Play#0 1 eng  engineer              10   5    0    40  130 $3000
+    Play#0 output Play#0 1 mar  marines               10   5    0    40  140 $1000
+    Play#0 output Play#0 1 lar  lt armor              10   5    0    40  150 $600
+    Play#0 output Play#0 1 arm  armor                 20  10    0    60  170 $1000
+    Play#0 output Play#0 1 sec  security              10   5    0    40  170 $600
+    Play#0 output Play#0 1 mtif motor inf             15  10    0    55  190 $400
+    Play#0 output Play#0 1 mif  mech inf              15  10    0    55  190 $800
+    Play#0 output Play#0 1 mat  mech artillery        20  10    0    60  200 $1000
+    Play#0 output Play#0 1 meng mech engineer         10   5    0    40  260 $4500
+    Play#0 output Play#0 1 rad  radar unit            10   5    0    40  270 $1000
+    Play#0 output Play#0 6 0 640
+    Play#0 input show land c
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1                           capabilities
+    Play#0 output Play#0 1 cav  cavalry               20m 12f light recon
+    Play#0 output Play#0 1 art  artillery             25m 40s 10g 24f light
+    Play#0 output Play#0 1 linf light infantry        25m 1s 15f light assault
+    Play#0 output Play#0 1 tra  train                 990m 990s 200g 990p 500i 500d 100b 990f 990o 990l 990h 150r supply train heavy
+    Play#0 output Play#0 1 spy  infiltrator           light recon assault spy
+    Play#0 output Play#0 1 inf  infantry              100m 24f light assault
+    Play#0 output Play#0 1 sup  supply                25m 200s 10g 300p 100i 100d 10b 300f 200l 100h supply light
+    Play#0 output Play#0 1 com  commando              3s light recon assault spy
+    Play#0 output Play#0 1 aau  aa unit               20m 5s 12f light flak
+    Play#0 output Play#0 1 lat  lt artillery          25m 20s 6g 12f light
+    Play#0 output Play#0 1 hat  hvy artillery         25m 80s 12g 24f
+    Play#0 output Play#0 1 har  hvy armor             100m 3s 48f
+    Play#0 output Play#0 1 eng  engineer              20m 3s 12f engineer light assault
+    Play#0 output Play#0 1 mar  marines               100m 4s 60f light marine assault
+    Play#0 output Play#0 1 lar  lt armor              50m 4s 30f light recon
+    Play#0 output Play#0 1 arm  armor                 50m 4s 30f light
+    Play#0 output Play#0 1 sec  security              50m 4s 30f security light
+    Play#0 output Play#0 1 mtif motor inf             100m 8s 60f light
+    Play#0 output Play#0 1 mif  mech inf              100m 8s 60f light
+    Play#0 output Play#0 1 mat  mech artillery        25m 40s 10g 15f light
+    Play#0 output Play#0 1 meng mech engineer         20m 4s 15f engineer light assault
+    Play#0 output Play#0 1 rad  radar unit            10m 7f light radar
+    Play#0 output Play#0 6 0 640
+    Play#0 input show land s
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1                                        s  v  s  r  r  a  f  a  a  x  l
+    Play#0 output Play#0 1                                        p  i  p  a  n  c  i  m  a  p  n
+    Play#0 output Play#0 1                           att def vul  d  s  y  d  g  c  r  m  f  l  d
+    Play#0 output Play#0 1 cav  cavalry              2.7 1.1  52 52 18  4  3  0  0  0  0  0  0  0
+    Play#0 output Play#0 1 art  artillery            0.2 0.9  46 29 20  1  0 15 32  8  2  1  0  0
+    Play#0 output Play#0 1 linf light infantry       2.2 3.4  39 46 15  2  1  0  0  0  1  1  0  0
+    Play#0 output Play#0 1 tra  train                0.0 0.0  79 16 25  3  0  0  0  0  0  0  5 12
+    Play#0 output Play#0 1 spy  infiltrator          0.0 0.0  52 52 18  4  3  0  0  0  0  0  0  0
+    Play#0 output Play#0 1 inf  infantry             2.2 3.3  39 41 15  2  1  0  0  0  0  0  0  0
+    Play#0 output Play#0 1 sup  supply               0.2 0.4  52 41 20  1  0  0  0  0  0  0  0  0
+    Play#0 output Play#0 1 com  commando             0.0 0.0  52 52 18  4  3  0  0  0  0  0  0  0
+    Play#0 output Play#0 1 aau  aa unit              1.1 2.2  39 29 20  1  1  0  0  0  1  2  0  0
+    Play#0 output Play#0 1 lat  lt artillery         0.4 1.3  39 49 18  1  1  9  6  5  1  1  0  0
+    Play#0 output Play#0 1 hat  hvy artillery        0.0 0.4  40 19 20  1  0 21 66 13  4  1  0  0
+    Play#0 output Play#0 1 har  hvy armor            4.4 1.7  33 29 17  1  1  0  0  0  2  1  0  0
+    Play#0 output Play#0 1 eng  engineer             2.6 5.2  33 40 14  2  1  0  0  0  1  1  0  0
+    Play#0 output Play#0 1 mar  marines              3.0 5.2  40 40 14  2  1  0  0  0  1  2  0  0
+    Play#0 output Play#0 1 lar  lt armor             4.3 2.2  33 67 15  4  4  0  0  0  1  2  0  0
+    Play#0 output Play#0 1 arm  armor                6.5 3.2  27 52 16  2  2  0  0  0  1  2  0  0
+    Play#0 output Play#0 1 sec  security             2.2 4.3  40 40 15  2  1  0  0  0  1  1  0  0
+    Play#0 output Play#0 1 mtif motor inf            2.6 4.7  41 52 17  1  3  0  0  0  2  3  0  0
+    Play#0 output Play#0 1 mif  mech inf             3.2 5.3  34 52 17  1  3  0  0  0  2  3  0  0
+    Play#0 output Play#0 1 mat  mech artillery       0.4 1.3  34 55 17  1  1 15 24  9  3  3  0  0
+    Play#0 output Play#0 1 meng mech engineer        3.8 7.3  31 51 15  3  3  0  0  0  1  5  0  0
+    Play#0 output Play#0 1 rad  radar unit           0.0 0.0  35 51 15  3  0  0  0  0  0  2  1  0
+    Play#0 output Play#0 6 0 640
+    Play#0 input show nuke b
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1               lcm hcm  oil  rad avail tech res $
+    Play#0 output Play#0 1 10kt  fission  50  50   25   70    49  280   0 $ 10000
+    Play#0 output Play#0 1 15kt  fission  50  50   25   80    51  290   0 $ 15000
+    Play#0 output Play#0 1 50kt  fission  60  60   30   90    60  300   0 $ 25000
+    Play#0 output Play#0 1 100kt fission  75  75   40  120    77  310   0 $ 30000
+    Play#0 output Play#0 1 5kt   fusion   15  15   15   30    18  315   0 $ 12500
+    Play#0 output Play#0 1 75kt  fusion   40  40   35   50    41  320   0 $ 20000
+    Play#0 output Play#0 1 250kt fusion   50  50   45   60    51  330   0 $ 25000
+    Play#0 output Play#0 1 500kt fusion   60  60   50   80    62  340   0 $ 35000
+    Play#0 output Play#0 1 1mt   fusion   75  75   50  110    77  350   0 $ 40000
+    Play#0 output Play#0 1 60kt  neutron  60  60   30  100    62  355   0 $ 30000
+    Play#0 output Play#0 1 3mt   fusion  100 100   75  130   101  360   0 $ 45000
+    Play#0 output Play#0 1 5mt   fusion  120 120  100  150   122  370   0 $ 50000
+    Play#0 output Play#0 1 120kt neutron  75  75   40  120    77  375   0 $ 36000
+    Play#0 output Play#0 6 0 640
+    Play#0 input show nuke c
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1               blst dam lbs tech res $        abilities
+    Play#0 output Play#0 1 10kt  fission    3  70   4  280   0 $  10000
+    Play#0 output Play#0 1 15kt  fission    3  90   5  290   0 $  15000
+    Play#0 output Play#0 1 50kt  fission    3 100   6  300   0 $  25000
+    Play#0 output Play#0 1 100kt fission    4 125   8  310   0 $  30000
+    Play#0 output Play#0 1 5kt   fusion     2  80   1  315   0 $  12500
+    Play#0 output Play#0 1 75kt  fusion     3  90   3  320   0 $  20000
+    Play#0 output Play#0 1 250kt fusion     4 110   4  330   0 $  25000
+    Play#0 output Play#0 1 500kt fusion     5 120   5  340   0 $  35000
+    Play#0 output Play#0 1 1mt   fusion     6 150   5  350   0 $  40000
+    Play#0 output Play#0 1 60kt  neutron    3  30   2  355   0 $  30000 neutron
+    Play#0 output Play#0 1 3mt   fusion     7 170   6  360   0 $  45000
+    Play#0 output Play#0 1 5mt   fusion     8 190   8  370   0 $  50000
+    Play#0 output Play#0 1 120kt neutron    5  50   3  375   0 $  36000 neutron
+    Play#0 output Play#0 6 0 640
+    Play#0 input show nuke s
+    Play#0 command show
+    Play#0 output Play#0 1 Printing for tech level '1000'
+    Play#0 output Play#0 1               blst dam lbs tech res $        abilities
+    Play#0 output Play#0 1 10kt  fission    3  70   4  280   0 $  10000
+    Play#0 output Play#0 1 15kt  fission    3  90   5  290   0 $  15000
+    Play#0 output Play#0 1 50kt  fission    3 100   6  300   0 $  25000
+    Play#0 output Play#0 1 100kt fission    4 125   8  310   0 $  30000
+    Play#0 output Play#0 1 5kt   fusion     2  80   1  315   0 $  12500
+    Play#0 output Play#0 1 75kt  fusion     3  90   3  320   0 $  20000
+    Play#0 output Play#0 1 250kt fusion     4 110   4  330   0 $  25000
+    Play#0 output Play#0 1 500kt fusion     5 120   5  340   0 $  35000
+    Play#0 output Play#0 1 1mt   fusion     6 150   5  350   0 $  40000
+    Play#0 output Play#0 1 60kt  neutron    3  30   2  355   0 $  30000 neutron
+    Play#0 output Play#0 1 3mt   fusion     7 170   6  360   0 $  45000
+    Play#0 output Play#0 1 5mt   fusion     8 190   8  370   0 $  50000
+    Play#0 output Play#0 1 120kt neutron    5  50   3  375   0 $  36000 neutron
+    Play#0 output Play#0 6 0 640
+    Play#0 input show bridge
+    Play#0 command show
+    Play#0 output Play#0 1 Bridges require 10 tech, 100 hcm, 0 workers,
+    Play#0 output Play#0 1 40 available workforce, and cost $1000
+    Play#0 output Play#0 6 0 640
+    Play#0 input show tower
+    Play#0 command show
+    Play#0 output Play#0 1 Bridge towers require 100 tech, 300 hcm, 0 workers,
+    Play#0 output Play#0 1 120 available workforce, and cost $3000
+    Play#0 output Play#0 6 0 640
+    Play#0 input show item
+    Play#0 command show
+    Play#0 output Play#0 1 item value sell lbs    packing     melt  item
+    Play#0 output Play#0 1 mnem                in no wh ur bk deno  name
+    Play#0 output Play#0 1    c     1   no   1  1 10 10 10 10    4  civilians
+    Play#0 output Play#0 1    m     0  yes   1  1  1  1  1  1   20  military
+    Play#0 output Play#0 1    s     5  yes   1  1  1 10  1  1   80  shells
+    Play#0 output Play#0 1    g    60  yes  10  1  1 10  1  1  100  guns
+    Play#0 output Play#0 1    p     4  yes   1  1  1 10  1  1   50  petrol
+    Play#0 output Play#0 1    i     2  yes   1  1  1 10  1  1  100  iron ore
+    Play#0 output Play#0 1    d    20  yes   5  1  1 10  1  1  100  dust (gold)
+    Play#0 output Play#0 1    b   280  yes  50  1  1  5  1  4  200  bars of gold
+    Play#0 output Play#0 1    f     0  yes   1  1  1 10  1  1    2  food
+    Play#0 output Play#0 1    o     8  yes   1  1  1 10  1  1   50  oil
+    Play#0 output Play#0 1    l     2  yes   1  1  1 10  1  1  100  light products
+    Play#0 output Play#0 1    h     4  yes   1  1  1 10  1  1  100  heavy products
+    Play#0 output Play#0 1    u     1  yes   2  1  1  2  1  1    2  uncompensated workers
+    Play#0 output Play#0 1    r   150  yes   8  1  1 10  1  1 1000  radioactive materials
+    Play#0 output Play#0 6 0 640
+    Play#0 input show updates
+    Play#0 command show
+    Play#0 output Play#0 1 Thu, 01 Jan 1970 00:00:00 +0000, Turn 1, ETU 0
+    Play#0 output Play#0 1 There are no updates scheduled.
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 0
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta sect 0
+    Play#0 output Play#0 1 "owner" 5 0 0 8
+    Play#0 output Play#0 1 "xloc" 9 4 0 -1
+    Play#0 output Play#0 1 "yloc" 10 4 0 -1
+    Play#0 output Play#0 1 "des" 4 0 0 18
+    Play#0 output Play#0 1 "effic" 4 0 0 -1
+    Play#0 output Play#0 1 "mobil" 4 0 0 -1
+    Play#0 output Play#0 1 "off" 5 0 0 -1
+    Play#0 output Play#0 1 "loyal" 5 1 0 -1
+    Play#0 output Play#0 1 "terr0" 5 0 0 -1
+    Play#0 output Play#0 1 "terr1" 5 0 0 -1
+    Play#0 output Play#0 1 "terr2" 5 0 0 -1
+    Play#0 output Play#0 1 "terr3" 5 0 0 -1
+    Play#0 output Play#0 1 "dterr" 5 1 0 -1
+    Play#0 output Play#0 1 "xdist" 9 0 0 -1
+    Play#0 output Play#0 1 "ydist" 10 0 0 -1
+    Play#0 output Play#0 1 "avail" 6 0 0 -1
+    Play#0 output Play#0 1 "elev" 6 1 0 -1
+    Play#0 output Play#0 1 "work" 5 0 0 -1
+    Play#0 output Play#0 1 "coastal" 5 0 0 -1
+    Play#0 output Play#0 1 "newdes" 4 0 0 18
+    Play#0 output Play#0 1 "min" 5 0 0 -1
+    Play#0 output Play#0 1 "gold" 5 0 0 -1
+    Play#0 output Play#0 1 "fert" 5 0 0 -1
+    Play#0 output Play#0 1 "ocontent" 5 0 0 -1
+    Play#0 output Play#0 1 "uran" 5 0 0 -1
+    Play#0 output Play#0 1 "oldown" 5 0 0 8
+    Play#0 output Play#0 1 "civil" 6 0 0 -1
+    Play#0 output Play#0 1 "milit" 6 0 0 -1
+    Play#0 output Play#0 1 "shell" 6 0 0 -1
+    Play#0 output Play#0 1 "gun" 6 0 0 -1
+    Play#0 output Play#0 1 "petrol" 6 0 0 -1
+    Play#0 output Play#0 1 "iron" 6 0 0 -1
+    Play#0 output Play#0 1 "dust" 6 0 0 -1
+    Play#0 output Play#0 1 "bar" 6 0 0 -1
+    Play#0 output Play#0 1 "food" 6 0 0 -1
+    Play#0 output Play#0 1 "oil" 6 0 0 -1
+    Play#0 output Play#0 1 "lcm" 6 0 0 -1
+    Play#0 output Play#0 1 "hcm" 6 0 0 -1
+    Play#0 output Play#0 1 "uw" 6 0 0 -1
+    Play#0 output Play#0 1 "rad" 6 0 0 -1
+    Play#0 output Play#0 1 "c_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "m_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "s_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "g_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "p_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "i_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "d_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "b_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "f_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "o_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "l_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "h_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "u_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "r_dist" 6 0 0 -1
+    Play#0 output Play#0 1 "c_del" 6 0 0 -1
+    Play#0 output Play#0 1 "m_del" 6 0 0 -1
+    Play#0 output Play#0 1 "s_del" 6 0 0 -1
+    Play#0 output Play#0 1 "g_del" 6 0 0 -1
+    Play#0 output Play#0 1 "p_del" 6 0 0 -1
+    Play#0 output Play#0 1 "i_del" 6 0 0 -1
+    Play#0 output Play#0 1 "d_del" 6 0 0 -1
+    Play#0 output Play#0 1 "b_del" 6 0 0 -1
+    Play#0 output Play#0 1 "f_del" 6 0 0 -1
+    Play#0 output Play#0 1 "o_del" 6 0 0 -1
+    Play#0 output Play#0 1 "l_del" 6 0 0 -1
+    Play#0 output Play#0 1 "h_del" 6 0 0 -1
+    Play#0 output Play#0 1 "u_del" 6 0 0 -1
+    Play#0 output Play#0 1 "r_del" 6 0 0 -1
+    Play#0 output Play#0 1 "mines" 6 1 0 -1
+    Play#0 output Play#0 1 "pstage" 6 1 0 42
+    Play#0 output Play#0 1 "ptime" 6 1 0 -1
+    Play#0 output Play#0 1 "che" 5 1 0 -1
+    Play#0 output Play#0 1 "che_target" 5 1 0 8
+    Play#0 output Play#0 1 "fallout" 7 0 0 -1
+    Play#0 output Play#0 1 "access" 6 0 0 -1
+    Play#0 output Play#0 1 "road" 5 0 0 -1
+    Play#0 output Play#0 1 "rail" 5 0 0 -1
+    Play#0 output Play#0 1 "dfense" 5 0 0 -1
+    Play#0 output Play#0 1 /78
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 1
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta ship 0
+    Play#0 output Play#0 1 "uid" 8 0 0 1
+    Play#0 output Play#0 1 "owner" 5 0 0 8
+    Play#0 output Play#0 1 "xloc" 9 0 0 -1
+    Play#0 output Play#0 1 "yloc" 10 0 0 -1
+    Play#0 output Play#0 1 "type" 4 0 0 19
+    Play#0 output Play#0 1 "effic" 4 0 0 -1
+    Play#0 output Play#0 1 "mobil" 4 0 0 -1
+    Play#0 output Play#0 1 "off" 5 0 0 -1
+    Play#0 output Play#0 1 "tech" 6 0 0 -1
+    Play#0 output Play#0 1 "opx" 9 0 0 -1
+    Play#0 output Play#0 1 "opy" 10 0 0 -1
+    Play#0 output Play#0 1 "mission" 6 0 0 34
+    Play#0 output Play#0 1 "radius" 6 0 0 -1
+    Play#0 output Play#0 1 "fleet" 13 0 1 -1
+    Play#0 output Play#0 1 "civil" 6 0 0 -1
+    Play#0 output Play#0 1 "milit" 6 0 0 -1
+    Play#0 output Play#0 1 "shell" 6 0 0 -1
+    Play#0 output Play#0 1 "gun" 6 0 0 -1
+    Play#0 output Play#0 1 "petrol" 6 0 0 -1
+    Play#0 output Play#0 1 "iron" 6 0 0 -1
+    Play#0 output Play#0 1 "dust" 6 0 0 -1
+    Play#0 output Play#0 1 "bar" 6 0 0 -1
+    Play#0 output Play#0 1 "food" 6 0 0 -1
+    Play#0 output Play#0 1 "oil" 6 0 0 -1
+    Play#0 output Play#0 1 "lcm" 6 0 0 -1
+    Play#0 output Play#0 1 "hcm" 6 0 0 -1
+    Play#0 output Play#0 1 "uw" 6 0 0 -1
+    Play#0 output Play#0 1 "rad" 6 0 0 -1
+    Play#0 output Play#0 1 "pstage" 6 1 0 42
+    Play#0 output Play#0 1 "ptime" 6 1 0 -1
+    Play#0 output Play#0 1 "access" 6 0 0 -1
+    Play#0 output Play#0 1 "name" 13 0 24 -1
+    Play#0 output Play#0 1 "xbuilt" 9 1 0 -1
+    Play#0 output Play#0 1 "ybuilt" 10 1 0 -1
+    Play#0 output Play#0 1 "builder" 5 1 0 8
+    Play#0 output Play#0 1 "rflags" 8 8 0 46
+    Play#0 output Play#0 1 "rpath" 13 0 10 -1
+    Play#0 output Play#0 1 /37
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 2
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta plane 0
+    Play#0 output Play#0 1 "uid" 8 0 0 2
+    Play#0 output Play#0 1 "owner" 5 0 0 8
+    Play#0 output Play#0 1 "xloc" 9 0 0 -1
+    Play#0 output Play#0 1 "yloc" 10 0 0 -1
+    Play#0 output Play#0 1 "type" 4 0 0 20
+    Play#0 output Play#0 1 "effic" 4 0 0 -1
+    Play#0 output Play#0 1 "mobil" 4 0 0 -1
+    Play#0 output Play#0 1 "off" 5 0 0 -1
+    Play#0 output Play#0 1 "tech" 6 0 0 -1
+    Play#0 output Play#0 1 "opx" 9 0 0 -1
+    Play#0 output Play#0 1 "opy" 10 0 0 -1
+    Play#0 output Play#0 1 "mission" 6 0 0 34
+    Play#0 output Play#0 1 "radius" 6 0 0 -1
+    Play#0 output Play#0 1 "wing" 13 0 1 -1
+    Play#0 output Play#0 1 "range" 5 0 0 -1
+    Play#0 output Play#0 1 "harden" 4 0 0 -1
+    Play#0 output Play#0 1 "ship" 8 0 0 1
+    Play#0 output Play#0 1 "land" 8 0 0 3
+    Play#0 output Play#0 1 "flags" 8 8 0 44
+    Play#0 output Play#0 1 "access" 6 0 0 -1
+    Play#0 output Play#0 1 "theta" 12 0 0 -1
+    Play#0 output Play#0 1 /21
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 3
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta land 0
+    Play#0 output Play#0 1 "uid" 8 0 0 3
+    Play#0 output Play#0 1 "owner" 5 0 0 8
+    Play#0 output Play#0 1 "xloc" 9 0 0 -1
+    Play#0 output Play#0 1 "yloc" 10 0 0 -1
+    Play#0 output Play#0 1 "type" 4 0 0 21
+    Play#0 output Play#0 1 "effic" 4 0 0 -1
+    Play#0 output Play#0 1 "mobil" 4 0 0 -1
+    Play#0 output Play#0 1 "off" 5 0 0 -1
+    Play#0 output Play#0 1 "tech" 6 0 0 -1
+    Play#0 output Play#0 1 "opx" 9 0 0 -1
+    Play#0 output Play#0 1 "opy" 10 0 0 -1
+    Play#0 output Play#0 1 "mission" 6 0 0 34
+    Play#0 output Play#0 1 "radius" 6 0 0 -1
+    Play#0 output Play#0 1 "army" 13 0 1 -1
+    Play#0 output Play#0 1 "ship" 8 0 0 1
+    Play#0 output Play#0 1 "harden" 4 0 0 -1
+    Play#0 output Play#0 1 "retreat" 6 0 0 -1
+    Play#0 output Play#0 1 "rflags" 8 8 0 46
+    Play#0 output Play#0 1 "rpath" 13 0 10 -1
+    Play#0 output Play#0 1 "civil" 6 0 0 -1
+    Play#0 output Play#0 1 "milit" 6 0 0 -1
+    Play#0 output Play#0 1 "shell" 6 0 0 -1
+    Play#0 output Play#0 1 "gun" 6 0 0 -1
+    Play#0 output Play#0 1 "petrol" 6 0 0 -1
+    Play#0 output Play#0 1 "iron" 6 0 0 -1
+    Play#0 output Play#0 1 "dust" 6 0 0 -1
+    Play#0 output Play#0 1 "bar" 6 0 0 -1
+    Play#0 output Play#0 1 "food" 6 0 0 -1
+    Play#0 output Play#0 1 "oil" 6 0 0 -1
+    Play#0 output Play#0 1 "lcm" 6 0 0 -1
+    Play#0 output Play#0 1 "hcm" 6 0 0 -1
+    Play#0 output Play#0 1 "uw" 6 0 0 -1
+    Play#0 output Play#0 1 "rad" 6 0 0 -1
+    Play#0 output Play#0 1 "pstage" 6 1 0 42
+    Play#0 output Play#0 1 "ptime" 6 1 0 -1
+    Play#0 output Play#0 1 "land" 8 0 0 3
+    Play#0 output Play#0 1 "access" 6 0 0 -1
+    Play#0 output Play#0 1 /37
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 4
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta nuke 0
+    Play#0 output Play#0 1 "uid" 8 0 0 4
+    Play#0 output Play#0 1 "owner" 5 0 0 8
+    Play#0 output Play#0 1 "xloc" 9 0 0 -1
+    Play#0 output Play#0 1 "yloc" 10 0 0 -1
+    Play#0 output Play#0 1 "type" 4 0 0 22
+    Play#0 output Play#0 1 "effic" 4 0 0 -1
+    Play#0 output Play#0 1 "mobil" 4 0 0 -1
+    Play#0 output Play#0 1 "off" 5 0 0 -1
+    Play#0 output Play#0 1 "tech" 6 0 0 -1
+    Play#0 output Play#0 1 "opx" 9 0 0 -1
+    Play#0 output Play#0 1 "opy" 10 0 0 -1
+    Play#0 output Play#0 1 "mission" 6 0 0 34
+    Play#0 output Play#0 1 "radius" 6 0 0 -1
+    Play#0 output Play#0 1 "stockpile" 13 0 1 -1
+    Play#0 output Play#0 1 "plane" 8 0 0 2
+    Play#0 output Play#0 1 /15
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 5
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta news 0
+    Play#0 output Play#0 1 "actor" 5 0 0 8
+    Play#0 output Play#0 1 "action" 5 0 0 23
+    Play#0 output Play#0 1 "victim" 5 0 0 8
+    Play#0 output Play#0 1 "times" 4 0 0 -1
+    Play#0 output Play#0 1 "duration" 6 0 0 -1
+    Play#0 output Play#0 1 "time" 11 0 0 -1
+    Play#0 output Play#0 1 /6
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 6
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta trade 0
+    Play#0 output Play#0 1 "uid" 8 0 0 6
+    Play#0 output Play#0 1 "owner" 5 0 0 8
+    Play#0 output Play#0 1 "type" 6 0 0 26
+    Play#0 output Play#0 1 "unitid" 8 0 0 -1
+    Play#0 output Play#0 1 "price" 8 0 0 -1
+    Play#0 output Play#0 1 "maxbidder" 8 0 0 8
+    Play#0 output Play#0 1 "markettime" 11 0 0 -1
+    Play#0 output Play#0 1 "xloc" 9 1 0 -1
+    Play#0 output Play#0 1 "yloc" 10 1 0 -1
+    Play#0 output Play#0 1 /9
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 7
+    Play#0 command xdump
+    Play#0 output Play#0 1 Usage: xdump ["meta"] <TYPE> [<RECORDS>]
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 8
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta nat 0
+    Play#0 output Play#0 1 "cnum" 5 0 0 8
+    Play#0 output Play#0 1 "stat" 8 0 0 38
+    Play#0 output Play#0 1 "flags" 8 9 0 35
+    Play#0 output Play#0 1 "cname" 13 0 20 -1
+    Play#0 output Play#0 1 "passwd" 13 1 20 -1
+    Play#0 output Play#0 1 "ip" 13 1 46 -1
+    Play#0 output Play#0 1 "hostname" 13 1 0 -1
+    Play#0 output Play#0 1 "userid" 13 1 32 -1
+    Play#0 output Play#0 1 "xcap" 9 1 0 -1
+    Play#0 output Play#0 1 "ycap" 10 1 0 -1
+    Play#0 output Play#0 1 "xorg" 9 1 0 -1
+    Play#0 output Play#0 1 "yorg" 10 1 0 -1
+    Play#0 output Play#0 1 "update" 4 1 0 -1
+    Play#0 output Play#0 1 "tgms" 7 1 0 -1
+    Play#0 output Play#0 1 "ann" 7 1 0 -1
+    Play#0 output Play#0 1 "timeused" 8 1 0 -1
+    Play#0 output Play#0 1 "btu" 6 1 0 -1
+    Play#0 output Play#0 1 "access" 6 1 0 -1
+    Play#0 output Play#0 1 "milreserve" 8 1 0 -1
+    Play#0 output Play#0 1 "money" 8 1 0 -1
+    Play#0 output Play#0 1 "login" 11 1 0 -1
+    Play#0 output Play#0 1 "logout" 11 1 0 -1
+    Play#0 output Play#0 1 "newstim" 11 1 0 -1
+    Play#0 output Play#0 1 "annotim" 11 1 0 -1
+    Play#0 output Play#0 1 "tech" 12 1 0 -1
+    Play#0 output Play#0 1 "research" 12 1 0 -1
+    Play#0 output Play#0 1 "education" 12 1 0 -1
+    Play#0 output Play#0 1 "happiness" 12 1 0 -1
+    Play#0 output Play#0 1 "relations" 5 16 99 37
+    Play#0 output Play#0 1 "contacts" 5 1 99 -1
+    Play#0 output Play#0 1 "rejects" 5 8 99 36
+    Play#0 output Play#0 1 /31
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 9
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta loan 0
+    Play#0 output Play#0 1 "uid" 8 0 0 9
+    Play#0 output Play#0 1 "loaner" 5 0 0 8
+    Play#0 output Play#0 1 "loanee" 5 0 0 8
+    Play#0 output Play#0 1 "status" 4 0 0 29
+    Play#0 output Play#0 1 "irate" 8 0 0 -1
+    Play#0 output Play#0 1 "ldur" 8 0 0 -1
+    Play#0 output Play#0 1 "amtpaid" 8 0 0 -1
+    Play#0 output Play#0 1 "amtdue" 8 0 0 -1
+    Play#0 output Play#0 1 "lastpay" 11 0 0 -1
+    Play#0 output Play#0 1 "duedate" 11 0 0 -1
+    Play#0 output Play#0 1 /10
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 10
+    Play#0 command xdump
+    Play#0 output Play#0 1 Usage: xdump ["meta"] <TYPE> [<RECORDS>]
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 11
+    Play#0 command xdump
+    Play#0 output Play#0 1 Usage: xdump ["meta"] <TYPE> [<RECORDS>]
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 12
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta commodity 0
+    Play#0 output Play#0 1 "uid" 8 0 0 12
+    Play#0 output Play#0 1 "owner" 5 0 0 8
+    Play#0 output Play#0 1 "type" 4 0 0 16
+    Play#0 output Play#0 1 "amount" 8 0 0 -1
+    Play#0 output Play#0 1 "price" 12 0 0 -1
+    Play#0 output Play#0 1 "maxbidder" 8 0 0 8
+    Play#0 output Play#0 1 "markettime" 11 0 0 -1
+    Play#0 output Play#0 1 "xbuy" 9 1 0 -1
+    Play#0 output Play#0 1 "ybuy" 9 1 0 -1
+    Play#0 output Play#0 1 "xsell" 9 1 0 -1
+    Play#0 output Play#0 1 "ysell" 10 1 0 -1
+    Play#0 output Play#0 1 /11
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 13
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta lost 0
+    Play#0 output Play#0 1 "timestamp" 11 0 0 -1
+    Play#0 output Play#0 1 "owner" 5 0 0 8
+    Play#0 output Play#0 1 "type" 6 0 0 26
+    Play#0 output Play#0 1 "id" 8 0 0 -1
+    Play#0 output Play#0 1 "x" 9 0 0 -1
+    Play#0 output Play#0 1 "y" 10 0 0 -1
+    Play#0 output Play#0 1 /6
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 14
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta realm 0
+    Play#0 output Play#0 1 "cnum" 5 4 0 8
+    Play#0 output Play#0 1 "realm" 7 4 0 -1
+    Play#0 output Play#0 1 "xl" 9 0 0 -1
+    Play#0 output Play#0 1 "xh" 9 0 0 -1
+    Play#0 output Play#0 1 "yl" 10 0 0 -1
+    Play#0 output Play#0 1 "yh" 10 0 0 -1
+    Play#0 output Play#0 1 /6
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 15
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta game 0
+    Play#0 output Play#0 1 "upd_disable" 4 0 0 -1
+    Play#0 output Play#0 1 "down" 4 0 0 -1
+    Play#0 output Play#0 1 "turn" 6 0 0 -1
+    Play#0 output Play#0 1 "tick" 6 1 0 -1
+    Play#0 output Play#0 1 "rt" 11 1 0 -1
+    Play#0 output Play#0 1 /5
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 16
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta item 0
+    Play#0 output Play#0 1 "uid" 4 0 0 16
+    Play#0 output Play#0 1 "name" 3 0 0 -1
+    Play#0 output Play#0 1 "mnem" 13 4 1 -1
+    Play#0 output Play#0 1 "value" 8 0 0 -1
+    Play#0 output Play#0 1 "sell" 8 0 0 -1
+    Play#0 output Play#0 1 "lbs" 8 0 0 -1
+    Play#0 output Play#0 1 "pkg" 8 0 5 -1
+    Play#0 output Play#0 1 "melt_denom" 8 0 0 -1
+    Play#0 output Play#0 1 /8
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 17
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta product 0
+    Play#0 output Play#0 1 "uid" 8 0 0 17
+    Play#0 output Play#0 1 "name" 3 0 0 -1
+    Play#0 output Play#0 1 "sname" 3 0 0 -1
+    Play#0 output Play#0 1 "ctype" 4 0 3 16
+    Play#0 output Play#0 1 "camt" 7 0 3 -1
+    Play#0 output Play#0 1 "type" 4 0 0 16
+    Play#0 output Play#0 1 "level" 8 0 0 31
+    Play#0 output Play#0 1 "cost" 8 0 0 -1
+    Play#0 output Play#0 1 "nrndx" 8 0 0 45
+    Play#0 output Play#0 1 "nrdep" 8 0 0 -1
+    Play#0 output Play#0 1 "nlndx" 8 0 0 31
+    Play#0 output Play#0 1 "nlmin" 8 0 0 -1
+    Play#0 output Play#0 1 "nllag" 8 0 0 -1
+    Play#0 output Play#0 1 /13
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 18
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta sect-chr 0
+    Play#0 output Play#0 1 "uid" 5 0 0 18
+    Play#0 output Play#0 1 "name" 3 0 0 -1
+    Play#0 output Play#0 1 "mnem" 13 4 1 -1
+    Play#0 output Play#0 1 "terrain" 5 0 0 18
+    Play#0 output Play#0 1 "prd" 8 0 0 17
+    Play#0 output Play#0 1 "peffic" 8 0 0 -1
+    Play#0 output Play#0 1 "mob0" 12 0 0 -1
+    Play#0 output Play#0 1 "mob1" 12 0 0 -1
+    Play#0 output Play#0 1 "nav" 8 0 0 47
+    Play#0 output Play#0 1 "pkg" 8 0 0 40
+    Play#0 output Play#0 1 "ostr" 12 0 0 -1
+    Play#0 output Play#0 1 "dstr" 12 0 0 -1
+    Play#0 output Play#0 1 "value" 8 0 0 -1
+    Play#0 output Play#0 1 "cost" 8 0 0 -1
+    Play#0 output Play#0 1 "build" 8 0 0 -1
+    Play#0 output Play#0 1 "lcms" 8 0 0 -1
+    Play#0 output Play#0 1 "hcms" 8 0 0 -1
+    Play#0 output Play#0 1 "maint" 8 0 0 -1
+    Play#0 output Play#0 1 "maxpop" 8 0 0 -1
+    Play#0 output Play#0 1 /19
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 19
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta ship-chr 0
+    Play#0 output Play#0 1 "type" 4 0 0 19
+    Play#0 output Play#0 1 "name" 3 0 0 -1
+    Play#0 output Play#0 1 "civil" 6 0 0 -1
+    Play#0 output Play#0 1 "milit" 6 0 0 -1
+    Play#0 output Play#0 1 "shell" 6 0 0 -1
+    Play#0 output Play#0 1 "gun" 6 0 0 -1
+    Play#0 output Play#0 1 "petrol" 6 0 0 -1
+    Play#0 output Play#0 1 "iron" 6 0 0 -1
+    Play#0 output Play#0 1 "dust" 6 0 0 -1
+    Play#0 output Play#0 1 "bar" 6 0 0 -1
+    Play#0 output Play#0 1 "food" 6 0 0 -1
+    Play#0 output Play#0 1 "oil" 6 0 0 -1
+    Play#0 output Play#0 1 "lcm" 6 0 0 -1
+    Play#0 output Play#0 1 "hcm" 6 0 0 -1
+    Play#0 output Play#0 1 "uw" 6 0 0 -1
+    Play#0 output Play#0 1 "rad" 6 0 0 -1
+    Play#0 output Play#0 1 "l_build" 8 0 0 -1
+    Play#0 output Play#0 1 "h_build" 8 0 0 -1
+    Play#0 output Play#0 1 "armor" 8 0 0 -1
+    Play#0 output Play#0 1 "speed" 8 0 0 -1
+    Play#0 output Play#0 1 "visib" 8 0 0 -1
+    Play#0 output Play#0 1 "vrnge" 8 0 0 -1
+    Play#0 output Play#0 1 "frnge" 8 0 0 -1
+    Play#0 output Play#0 1 "glim" 8 0 0 -1
+    Play#0 output Play#0 1 "nxlight" 5 0 0 -1
+    Play#0 output Play#0 1 "nchoppers" 5 0 0 -1
+    Play#0 output Play#0 1 "tech" 8 0 0 -1
+    Play#0 output Play#0 1 "cost" 8 0 0 -1
+    Play#0 output Play#0 1 "flags" 8 8 0 48
+    Play#0 output Play#0 1 "nplanes" 5 0 0 -1
+    Play#0 output Play#0 1 "nland" 5 0 0 -1
+    Play#0 output Play#0 1 /31
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 20
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta plane-chr 0
+    Play#0 output Play#0 1 "type" 4 0 0 20
+    Play#0 output Play#0 1 "name" 3 0 0 -1
+    Play#0 output Play#0 1 "l_build" 8 0 0 -1
+    Play#0 output Play#0 1 "h_build" 8 0 0 -1
+    Play#0 output Play#0 1 "cost" 8 0 0 -1
+    Play#0 output Play#0 1 "tech" 8 0 0 -1
+    Play#0 output Play#0 1 "acc" 8 0 0 -1
+    Play#0 output Play#0 1 "load" 8 0 0 -1
+    Play#0 output Play#0 1 "att" 8 0 0 -1
+    Play#0 output Play#0 1 "def" 8 0 0 -1
+    Play#0 output Play#0 1 "range" 8 0 0 -1
+    Play#0 output Play#0 1 "crew" 8 0 0 -1
+    Play#0 output Play#0 1 "fuel" 8 0 0 -1
+    Play#0 output Play#0 1 "stealth" 8 0 0 -1
+    Play#0 output Play#0 1 "flags" 8 8 0 43
+    Play#0 output Play#0 1 /15
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 21
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta land-chr 0
+    Play#0 output Play#0 1 "type" 4 0 0 21
+    Play#0 output Play#0 1 "name" 3 0 0 -1
+    Play#0 output Play#0 1 "civil" 6 0 0 -1
+    Play#0 output Play#0 1 "milit" 6 0 0 -1
+    Play#0 output Play#0 1 "shell" 6 0 0 -1
+    Play#0 output Play#0 1 "gun" 6 0 0 -1
+    Play#0 output Play#0 1 "petrol" 6 0 0 -1
+    Play#0 output Play#0 1 "iron" 6 0 0 -1
+    Play#0 output Play#0 1 "dust" 6 0 0 -1
+    Play#0 output Play#0 1 "bar" 6 0 0 -1
+    Play#0 output Play#0 1 "food" 6 0 0 -1
+    Play#0 output Play#0 1 "oil" 6 0 0 -1
+    Play#0 output Play#0 1 "lcm" 6 0 0 -1
+    Play#0 output Play#0 1 "hcm" 6 0 0 -1
+    Play#0 output Play#0 1 "uw" 6 0 0 -1
+    Play#0 output Play#0 1 "rad" 6 0 0 -1
+    Play#0 output Play#0 1 "l_build" 8 0 0 -1
+    Play#0 output Play#0 1 "h_build" 8 0 0 -1
+    Play#0 output Play#0 1 "tech" 8 0 0 -1
+    Play#0 output Play#0 1 "cost" 8 0 0 -1
+    Play#0 output Play#0 1 "att" 12 0 0 -1
+    Play#0 output Play#0 1 "def" 12 0 0 -1
+    Play#0 output Play#0 1 "vul" 8 0 0 -1
+    Play#0 output Play#0 1 "spd" 8 0 0 -1
+    Play#0 output Play#0 1 "vis" 8 0 0 -1
+    Play#0 output Play#0 1 "spy" 8 0 0 -1
+    Play#0 output Play#0 1 "rmax" 8 0 0 -1
+    Play#0 output Play#0 1 "frg" 8 0 0 -1
+    Play#0 output Play#0 1 "acc" 8 0 0 -1
+    Play#0 output Play#0 1 "dam" 8 0 0 -1
+    Play#0 output Play#0 1 "ammo" 8 0 0 -1
+    Play#0 output Play#0 1 "aaf" 8 0 0 -1
+    Play#0 output Play#0 1 "flags" 8 8 0 30
+    Play#0 output Play#0 1 "nxlight" 5 0 0 -1
+    Play#0 output Play#0 1 "nland" 5 0 0 -1
+    Play#0 output Play#0 1 /35
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 22
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta nuke-chr 0
+    Play#0 output Play#0 1 "type" 4 0 0 22
+    Play#0 output Play#0 1 "name" 3 0 0 -1
+    Play#0 output Play#0 1 "l_build" 8 0 0 -1
+    Play#0 output Play#0 1 "h_build" 8 0 0 -1
+    Play#0 output Play#0 1 "o_build" 8 0 0 -1
+    Play#0 output Play#0 1 "r_build" 8 0 0 -1
+    Play#0 output Play#0 1 "blast" 8 0 0 -1
+    Play#0 output Play#0 1 "dam" 8 0 0 -1
+    Play#0 output Play#0 1 "cost" 8 0 0 -1
+    Play#0 output Play#0 1 "tech" 8 0 0 -1
+    Play#0 output Play#0 1 "weight" 8 0 0 -1
+    Play#0 output Play#0 1 "flags" 8 8 0 39
+    Play#0 output Play#0 1 /12
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 23
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta news-chr 0
+    Play#0 output Play#0 1 "uid" 4 0 0 23
+    Play#0 output Play#0 1 "newstory" 3 0 2 -1
+    Play#0 output Play#0 1 "good_will" 8 0 0 -1
+    Play#0 output Play#0 1 "newspage" 8 0 0 41
+    Play#0 output Play#0 1 /4
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 24
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta infrastructure 0
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 "lcms" 5 0 0 -1
+    Play#0 output Play#0 1 "hcms" 5 0 0 -1
+    Play#0 output Play#0 1 "dcost" 5 0 0 -1
+    Play#0 output Play#0 1 "mcost" 5 0 0 -1
+    Play#0 output Play#0 1 "enable" 5 0 0 -1
+    Play#0 output Play#0 1 /6
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 25
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta updates 0
+    Play#0 output Play#0 1 "time" 11 0 0 -1
+    Play#0 output Play#0 1 /1
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 26
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta table 0
+    Play#0 output Play#0 1 "uid" 8 0 0 26
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 27
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta version 0
+    Play#0 output Play#0 1 "version" 13 0 23 -1
+    Play#0 output Play#0 1 "maxnoc" 1 0 0 -1
+    Play#0 output Play#0 1 "privname" 3 0 0 -1
+    Play#0 output Play#0 1 "privlog" 3 0 0 -1
+    Play#0 output Play#0 1 "WORLD_X" 8 0 0 -1
+    Play#0 output Play#0 1 "WORLD_Y" 8 0 0 -1
+    Play#0 output Play#0 1 "etu_per_update" 8 0 0 -1
+    Play#0 output Play#0 1 "update_window" 8 0 0 -1
+    Play#0 output Play#0 1 "update_demand" 8 0 0 -1
+    Play#0 output Play#0 1 "update_wantmin" 8 0 0 -1
+    Play#0 output Play#0 1 "update_demandtimes" 3 0 0 -1
+    Play#0 output Play#0 1 "game_days" 3 0 0 -1
+    Play#0 output Play#0 1 "game_hours" 3 0 0 -1
+    Play#0 output Play#0 1 "ALL_BLEED" 8 0 0 -1
+    Play#0 output Play#0 1 "AUTO_POWER" 8 0 0 -1
+    Play#0 output Play#0 1 "BLITZ" 8 0 0 -1
+    Play#0 output Play#0 1 "BRIDGETOWERS" 8 0 0 -1
+    Play#0 output Play#0 1 "EASY_BRIDGES" 8 0 0 -1
+    Play#0 output Play#0 1 "FALLOUT" 8 0 0 -1
+    Play#0 output Play#0 1 "GODNEWS" 8 0 0 -1
+    Play#0 output Play#0 1 "GO_RENEW" 8 0 0 -1
+    Play#0 output Play#0 1 "GUINEA_PIGS" 8 0 0 -1
+    Play#0 output Play#0 1 "HIDDEN" 8 0 0 -1
+    Play#0 output Play#0 1 "INTERDICT_ATT" 8 0 0 -1
+    Play#0 output Play#0 1 "LOANS" 8 0 0 -1
+    Play#0 output Play#0 1 "LOSE_CONTACT" 8 0 0 -1
+    Play#0 output Play#0 1 "MARKET" 8 0 0 -1
+    Play#0 output Play#0 1 "MOB_ACCESS" 8 0 0 -1
+    Play#0 output Play#0 1 "NOFOOD" 8 0 0 -1
+    Play#0 output Play#0 1 "NOMOBCOST" 8 0 0 -1
+    Play#0 output Play#0 1 "NO_FORT_FIRE" 8 0 0 -1
+    Play#0 output Play#0 1 "NO_PLAGUE" 8 0 0 -1
+    Play#0 output Play#0 1 "RAILWAYS" 8 0 0 -1
+    Play#0 output Play#0 1 "RES_POP" 8 0 0 -1
+    Play#0 output Play#0 1 "SUPER_BARS" 8 0 0 -1
+    Play#0 output Play#0 1 "TECH_POP" 8 0 0 -1
+    Play#0 output Play#0 1 "btu_build_rate" 12 0 0 -1
+    Play#0 output Play#0 1 "m_m_p_d" 8 0 0 -1
+    Play#0 output Play#0 1 "max_btus" 8 0 0 -1
+    Play#0 output Play#0 1 "max_idle" 8 0 0 -1
+    Play#0 output Play#0 1 "max_idle_visitor" 8 0 0 -1
+    Play#0 output Play#0 1 "login_grace_time" 8 0 0 -1
+    Play#0 output Play#0 1 "players_at_00" 8 0 0 -1
+    Play#0 output Play#0 1 "easy_tech" 12 0 0 -1
+    Play#0 output Play#0 1 "level_age_rate" 12 0 0 -1
+    Play#0 output Play#0 1 "tech_log_base" 12 0 0 -1
+    Play#0 output Play#0 1 "ally_factor" 12 0 0 -1
+    Play#0 output Play#0 1 "edu_avg" 12 0 0 -1
+    Play#0 output Play#0 1 "hap_avg" 12 0 0 -1
+    Play#0 output Play#0 1 "edu_cons" 2 0 0 -1
+    Play#0 output Play#0 1 "hap_cons" 2 0 0 -1
+    Play#0 output Play#0 1 "sect_mob_scale" 12 0 0 -1
+    Play#0 output Play#0 1 "sect_mob_max" 8 0 0 -1
+    Play#0 output Play#0 1 "buil_bh" 8 0 0 -1
+    Play#0 output Play#0 1 "buil_bc" 2 0 0 -1
+    Play#0 output Play#0 1 "buil_bt" 2 0 0 -1
+    Play#0 output Play#0 1 "buil_tower_bh" 8 0 0 -1
+    Play#0 output Play#0 1 "buil_tower_bc" 2 0 0 -1
+    Play#0 output Play#0 1 "buil_tower_bt" 2 0 0 -1
+    Play#0 output Play#0 1 "land_mob_scale" 12 0 0 -1
+    Play#0 output Play#0 1 "land_grow_scale" 12 0 0 -1
+    Play#0 output Play#0 1 "land_mob_max" 8 0 0 -1
+    Play#0 output Play#0 1 "money_land" 2 0 0 -1
+    Play#0 output Play#0 1 "plane_mob_scale" 12 0 0 -1
+    Play#0 output Play#0 1 "plane_grow_scale" 12 0 0 -1
+    Play#0 output Play#0 1 "plane_mob_max" 8 0 0 -1
+    Play#0 output Play#0 1 "money_plane" 2 0 0 -1
+    Play#0 output Play#0 1 "ship_mob_scale" 12 0 0 -1
+    Play#0 output Play#0 1 "ship_grow_scale" 12 0 0 -1
+    Play#0 output Play#0 1 "ship_mob_max" 8 0 0 -1
+    Play#0 output Play#0 1 "money_ship" 2 0 0 -1
+    Play#0 output Play#0 1 "torpedo_damage" 8 0 0 -1
+    Play#0 output Play#0 1 "fort_max_interdiction_range" 8 0 0 -1
+    Play#0 output Play#0 1 "land_max_interdiction_range" 8 0 0 -1
+    Play#0 output Play#0 1 "ship_max_interdiction_range" 8 0 0 -1
+    Play#0 output Play#0 1 "flakscale" 12 0 0 -1
+    Play#0 output Play#0 1 "combat_mob" 2 0 0 -1
+    Play#0 output Play#0 1 "people_damage" 2 0 0 -1
+    Play#0 output Play#0 1 "unit_damage" 2 0 0 -1
+    Play#0 output Play#0 1 "collateral_dam" 2 0 0 -1
+    Play#0 output Play#0 1 "assault_penalty" 2 0 0 -1
+    Play#0 output Play#0 1 "fire_range_factor" 12 0 0 -1
+    Play#0 output Play#0 1 "sect_mob_neg_factor" 8 0 0 -1
+    Play#0 output Play#0 1 "uwbrate" 2 0 0 -1
+    Play#0 output Play#0 1 "money_civ" 2 0 0 -1
+    Play#0 output Play#0 1 "money_mil" 2 0 0 -1
+    Play#0 output Play#0 1 "money_res" 2 0 0 -1
+    Play#0 output Play#0 1 "money_uw" 2 0 0 -1
+    Play#0 output Play#0 1 "babyeat" 2 0 0 -1
+    Play#0 output Play#0 1 "bankint" 2 0 0 -1
+    Play#0 output Play#0 1 "eatrate" 2 0 0 -1
+    Play#0 output Play#0 1 "fcrate" 2 0 0 -1
+    Play#0 output Play#0 1 "fgrate" 2 0 0 -1
+    Play#0 output Play#0 1 "obrate" 2 0 0 -1
+    Play#0 output Play#0 1 "rollover_avail_max" 8 0 0 -1
+    Play#0 output Play#0 1 "decay_per_etu" 2 0 0 -1
+    Play#0 output Play#0 1 "fallout_spread" 2 0 0 -1
+    Play#0 output Play#0 1 "drnuke_const" 12 0 0 -1
+    Play#0 output Play#0 1 "MARK_DELAY" 8 0 0 -1
+    Play#0 output Play#0 1 "TRADE_DELAY" 8 0 0 -1
+    Play#0 output Play#0 1 "buytax" 2 0 0 -1
+    Play#0 output Play#0 1 "tradetax" 2 0 0 -1
+    Play#0 output Play#0 1 "trade_1_dist" 8 0 0 -1
+    Play#0 output Play#0 1 "trade_2_dist" 8 0 0 -1
+    Play#0 output Play#0 1 "trade_3_dist" 8 0 0 -1
+    Play#0 output Play#0 1 "trade_1" 12 0 0 -1
+    Play#0 output Play#0 1 "trade_2" 12 0 0 -1
+    Play#0 output Play#0 1 "trade_3" 12 0 0 -1
+    Play#0 output Play#0 1 "trade_ally_bonus" 12 0 0 -1
+    Play#0 output Play#0 1 "trade_ally_cut" 12 0 0 -1
+    Play#0 output Play#0 1 /110
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 28
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta meta 0
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 "type" 8 4 0 33
+    Play#0 output Play#0 1 "flags" 8 12 0 32
+    Play#0 output Play#0 1 "len" 7 4 0 -1
+    Play#0 output Play#0 1 "table" 8 4 0 26
+    Play#0 output Play#0 1 /5
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 29
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta agreement-status 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 30
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta land-chr-flags 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 31
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta level 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 32
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta meta-flags 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 33
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta meta-type 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 34
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta missions 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 35
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta nation-flags 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 36
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta nation-rejects 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 37
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta nation-relationships 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 38
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta nation-status 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 39
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta nuke-chr-flags 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 40
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta packing 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 41
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta page-headings 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 42
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta plague-stages 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 43
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta plane-chr-flags 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 44
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta plane-flags 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 45
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta resources 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 46
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta retreat-flags 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 47
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta sector-navigation 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 48
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta ship-chr-flags 0
+    Play#0 output Play#0 1 "value" 8 4 0 -1
+    Play#0 output Play#0 1 "name" 3 4 0 -1
+    Play#0 output Play#0 1 /2
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 49
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta country 0
+    Play#0 output Play#0 1 "cnum" 5 0 0 8
+    Play#0 output Play#0 1 "flags" 8 8 0 35
+    Play#0 output Play#0 1 "ip" 13 0 46 -1
+    Play#0 output Play#0 1 "hostname" 13 0 0 -1
+    Play#0 output Play#0 1 "userid" 13 0 32 -1
+    Play#0 output Play#0 1 "xcap" 9 0 0 -1
+    Play#0 output Play#0 1 "ycap" 10 0 0 -1
+    Play#0 output Play#0 1 "update" 4 0 0 -1
+    Play#0 output Play#0 1 "tgms" 7 0 0 -1
+    Play#0 output Play#0 1 "ann" 7 0 0 -1
+    Play#0 output Play#0 1 "timeused" 8 0 0 -1
+    Play#0 output Play#0 1 "btu" 6 0 0 -1
+    Play#0 output Play#0 1 "access" 6 0 0 -1
+    Play#0 output Play#0 1 "milreserve" 8 0 0 -1
+    Play#0 output Play#0 1 "money" 8 0 0 -1
+    Play#0 output Play#0 1 "login" 11 0 0 -1
+    Play#0 output Play#0 1 "logout" 11 0 0 -1
+    Play#0 output Play#0 1 "newstim" 11 0 0 -1
+    Play#0 output Play#0 1 "annotim" 11 0 0 -1
+    Play#0 output Play#0 1 "tech" 12 0 0 -1
+    Play#0 output Play#0 1 "research" 12 0 0 -1
+    Play#0 output Play#0 1 "education" 12 0 0 -1
+    Play#0 output Play#0 1 "happiness" 12 0 0 -1
+    Play#0 output Play#0 1 /23
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta 50
+    Play#0 command xdump
+    Play#0 output Play#0 1 Usage: xdump ["meta"] <TYPE> [<RECORDS>]
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump item *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP item 0
+    Play#0 output Play#0 1 0 "civilians" "c" 1 0 1 1 10 10 10 10 4
+    Play#0 output Play#0 1 1 "military" "m" 0 1 1 1 1 1 1 1 20
+    Play#0 output Play#0 1 2 "shells" "s" 5 1 1 1 1 10 1 1 80
+    Play#0 output Play#0 1 3 "guns" "g" 60 1 10 1 1 10 1 1 100
+    Play#0 output Play#0 1 4 "petrol" "p" 4 1 1 1 1 10 1 1 50
+    Play#0 output Play#0 1 5 "iron\\040ore" "i" 2 1 1 1 1 10 1 1 100
+    Play#0 output Play#0 1 6 "dust\\040(gold)" "d" 20 1 5 1 1 10 1 1 100
+    Play#0 output Play#0 1 7 "bars\\040of\\040gold" "b" 280 1 50 1 1 5 1 4 200
+    Play#0 output Play#0 1 8 "food" "f" 0 1 1 1 1 10 1 1 2
+    Play#0 output Play#0 1 9 "oil" "o" 8 1 1 1 1 10 1 1 50
+    Play#0 output Play#0 1 10 "light\\040products" "l" 2 1 1 1 1 10 1 1 100
+    Play#0 output Play#0 1 11 "heavy\\040products" "h" 4 1 1 1 1 10 1 1 100
+    Play#0 output Play#0 1 12 "uncompensated\\040workers" "u" 1 1 2 1 1 2 1 1 2
+    Play#0 output Play#0 1 13 "radioactive\\040materials" "r" 150 1 8 1 1 10 1 1 1000
+    Play#0 output Play#0 1 /14
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump product *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP product 0
+    Play#0 output Play#0 1 0 "iron\\040ore" "iron" -1 -1 -1 0 0 0 5 -1 0 0 0 -1 0 0
+    Play#0 output Play#0 1 1 "gold\\040dust" "dust" -1 -1 -1 0 0 0 6 -1 0 0 20 -1 0 0
+    Play#0 output Play#0 1 2 "food" "food" -1 -1 -1 0 0 0 8 -1 0 0 0 0 -10 10
+    Play#0 output Play#0 1 3 "oil" "oil" -1 -1 -1 0 0 0 9 -1 0 0 10 0 -10 10
+    Play#0 output Play#0 1 4 "radioactive\\040materials" "rad" -1 -1 -1 0 0 0 13 -1 2 0 35 0 40 10
+    Play#0 output Play#0 1 5 "shells" "shells" 10 11 -1 2 1 0 2 -1 3 0 0 0 20 10
+    Play#0 output Play#0 1 6 "guns" "guns" 9 10 11 1 5 10 3 -1 30 0 0 0 20 10
+    Play#0 output Play#0 1 7 "petrol" "petrol" 9 -1 -1 1 0 0 4 -1 1 0 0 0 20 10
+    Play#0 output Play#0 1 8 "gold\\040bars" "bars" 6 -1 -1 5 0 0 7 -1 10 0 0 -1 0 0
+    Play#0 output Play#0 1 9 "light\\040construction\\040materials" "lcm" 5 -1 -1 1 0 0 10 -1 0 0 0 0 -10 10
+    Play#0 output Play#0 1 10 "heavy\\040construction\\040materials" "hcm" 5 -1 -1 2 0 0 11 -1 0 0 0 0 -10 10
+    Play#0 output Play#0 1 11 "technological\\040breakthroughs" "tech" 6 9 10 1 5 10 -1 0 300 0 0 2 5 10
+    Play#0 output Play#0 1 12 "medical\\040discoveries" "medical" 6 9 10 1 5 10 -1 1 90 0 0 2 5 10
+    Play#0 output Play#0 1 13 "a\\040class\\040of\\040graduates" "edu" 10 -1 -1 1 0 0 -1 2 9 0 0 -1 0 0
+    Play#0 output Play#0 1 14 "happy\\040strollers" "happy" 10 -1 -1 1 0 0 -1 3 9 0 0 -1 0 0
+    Play#0 output Play#0 1 /15
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump sect-chr *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP sect-chr 0
+    Play#0 output Play#0 1 0 "sea" "." 0 -1 0 -1.00000 -1.00000 1 1 0.00000 0.00000 0 -1 0 0 0 0 0
+    Play#0 output Play#0 1 1 "mountain" "^" 1 1 75 2.40000 1.20000 0 1 1.00000 4.00000 5 -1 1 0 0 0 100
+    Play#0 output Play#0 1 2 "sanctuary" "s" 4 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 127 -1 0 0 0 0 1000
+    Play#0 output Play#0 1 3 "wasteland" "\\134" 3 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 0 -1 0 0 0 0 0
+    Play#0 output Play#0 1 4 "wilderness" "-" 4 -1 0 0.400000 0.400000 0 1 1.00000 2.00000 1 0 0 0 0 0 1000
+    Play#0 output Play#0 1 5 "capital" "c" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 30 0 1 0 0 1 1000
+    Play#0 output Play#0 1 6 "uranium\\040mine" "u" 4 4 100 0.400000 0.200000 0 1 1.00000 2.00000 15 0 1 0 0 0 1000
+    Play#0 output Play#0 1 7 "park" "p" 4 14 100 0.400000 0.200000 0 1 1.00000 1.50000 5 0 1 0 0 0 1000
+    Play#0 output Play#0 1 8 "defense\\040plant" "d" 4 6 100 0.400000 0.200000 0 1 1.00000 1.50000 7 0 1 0 0 0 1000
+    Play#0 output Play#0 1 9 "shell\\040industry" "i" 4 5 100 0.400000 0.200000 0 1 1.00000 1.50000 6 0 1 0 0 0 1000
+    Play#0 output Play#0 1 10 "mine" "m" 4 0 100 0.400000 0.200000 0 1 1.00000 2.00000 5 0 1 0 0 0 1000
+    Play#0 output Play#0 1 11 "gold\\040mine" "g" 4 1 100 0.400000 0.200000 0 1 1.00000 2.00000 8 0 1 0 0 0 1000
+    Play#0 output Play#0 1 12 "harbor" "h" 4 -1 0 0.400000 0.200000 2 2 1.00000 1.50000 12 0 1 0 0 0 1000
+    Play#0 output Play#0 1 13 "warehouse" "w" 4 -1 0 0.400000 0.200000 0 2 1.00000 1.50000 7 0 1 0 0 0 1000
+    Play#0 output Play#0 1 14 "airfield" "*" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.25000 12 0 1 0 0 0 1000
+    Play#0 output Play#0 1 15 "agribusiness" "a" 4 2 900 0.400000 0.200000 0 1 1.00000 1.50000 2 0 1 0 0 0 1000
+    Play#0 output Play#0 1 16 "oil\\040field" "o" 4 3 100 0.400000 0.200000 0 1 1.00000 1.50000 5 0 1 0 0 0 1000
+    Play#0 output Play#0 1 17 "light\\040manufacturing" "j" 4 9 100 0.400000 0.200000 0 1 1.00000 1.50000 3 0 1 0 0 0 1000
+    Play#0 output Play#0 1 18 "heavy\\040manufacturing" "k" 4 10 100 0.400000 0.200000 0 1 1.00000 1.50000 4 0 1 0 0 0 1000
+    Play#0 output Play#0 1 19 "fortress" "f" 4 -1 0 0.400000 0.200000 0 1 2.00000 4.00000 10 0 5 0 1 0 1000
+    Play#0 output Play#0 1 20 "technical\\040center" "t" 4 11 100 0.400000 0.200000 0 1 1.00000 1.50000 10 0 1 0 0 0 1000
+    Play#0 output Play#0 1 21 "research\\040lab" "r" 4 12 100 0.400000 0.200000 0 1 1.00000 1.50000 9 0 1 0 0 0 1000
+    Play#0 output Play#0 1 22 "nuclear\\040plant" "n" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 10 0 1 0 0 0 1000
+    Play#0 output Play#0 1 23 "library/school" "l" 4 13 100 0.400000 0.200000 0 1 1.00000 1.50000 4 0 1 0 0 0 1000
+    Play#0 output Play#0 1 24 "highway" "+" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 3 0 1 0 0 0 1000
+    Play#0 output Play#0 1 25 "radar\\040installation" ")" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 4 0 1 0 0 0 1000
+    Play#0 output Play#0 1 26 "headquarters" "!" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 12 0 1 0 0 0 1000
+    Play#0 output Play#0 1 27 "bridge\\040head" "#" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 3 0 1 0 0 0 1000
+    Play#0 output Play#0 1 28 "bridge\\040span" "=" 0 -1 0 0.400000 0.00000 4 1 1.00000 1.00000 5 -1 1 0 0 0 100
+    Play#0 output Play#0 1 29 "bank" "b" 4 8 100 0.400000 0.200000 0 4 1.00000 2.25000 10 0 1 0 0 0 1000
+    Play#0 output Play#0 1 30 "refinery" "%" 4 7 1000 0.400000 0.200000 0 1 1.00000 1.50000 2 0 1 0 0 0 1000
+    Play#0 output Play#0 1 31 "enlistment\\040center" "e" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 7 0 1 0 0 0 1000
+    Play#0 output Play#0 1 32 "plains" "~" 32 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 1 -1 1 0 0 0 100
+    Play#0 output Play#0 1 33 "bridge\\040tower" "@" 0 -1 0 0.400000 0.00000 0 1 1.00000 1.50000 4 -1 1 0 0 0 100
+    Play#0 output Play#0 1 /34
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump ship-chr *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP ship-chr 0
+    Play#0 output Play#0 1 0 "fb\\040\\040\\040fishing\\040boat" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 10 15 2 0 0 0 0 0 180 524289 0 0
+    Play#0 output Play#0 1 1 "ft\\040\\040\\040fishing\\040trawler" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 25 15 2 0 0 0 0 35 300 524289 0 0
+    Play#0 output Play#0 1 2 "cs\\040\\040\\040cargo\\040ship" 600 50 300 50 0 0 0 0 900 0 1400 900 250 0 60 40 20 25 35 3 0 0 1 0 20 500 262144 0 2
+    Play#0 output Play#0 1 3 "os\\040\\040\\040ore\\040ship" 30 5 0 0 0 990 990 0 200 0 0 0 45 990 60 40 20 25 35 3 0 0 1 0 20 500 0 0 0
+    Play#0 output Play#0 1 4 "ss\\040\\040\\040slave\\040ship" 20 80 0 0 0 0 0 0 200 0 0 0 1200 0 60 40 20 10 35 3 0 0 1 0 0 300 0 0 0
+    Play#0 output Play#0 1 6 "frg\\040\\040frigate" 0 60 10 2 0 0 0 0 60 0 0 0 0 0 30 30 50 25 25 3 1 1 1 0 0 600 16384 0 2
+    Play#0 output Play#0 1 7 "oe\\040\\040\\040oil\\040exploration\\040boat" 10 5 0 0 0 0 0 0 100 1 0 0 0 0 25 15 10 25 15 2 0 0 0 0 40 800 524320 0 0
+    Play#0 output Play#0 1 8 "od\\040\\040\\040oil\\040derrick" 990 80 0 0 0 0 0 0 990 990 0 0 990 0 60 60 30 15 65 3 0 0 2 0 50 1500 32 0 0
+    Play#0 output Play#0 1 9 "pt\\040\\040\\040patrol\\040boat" 0 2 12 2 0 0 0 0 5 0 0 0 0 0 20 10 10 38 10 2 1 1 0 0 40 300 524290 0 0
+    Play#0 output Play#0 1 10 "lc\\040\\040\\040light\\040cruiser" 0 100 40 5 0 0 0 0 100 0 0 0 0 0 30 40 50 30 30 5 6 3 1 0 45 800 128 0 2
+    Play#0 output Play#0 1 11 "hc\\040\\040\\040heavy\\040cruiser" 0 120 100 8 0 0 0 0 200 0 0 0 0 0 40 50 70 30 30 5 8 4 1 0 50 1200 0 0 4
+    Play#0 output Play#0 1 12 "tt\\040\\040\\040troop\\040transport" 0 120 20 4 0 0 0 0 120 0 0 0 0 0 50 50 60 20 35 3 1 2 1 0 10 800 16384 0 2
+    Play#0 output Play#0 1 13 "bb\\040\\040\\040battleship" 0 200 200 10 0 0 0 0 900 0 0 0 0 0 50 70 95 25 35 6 10 7 1 0 45 1800 0 0 2
+    Play#0 output Play#0 1 14 "bbc\\040\\040battlecruiser" 0 180 100 10 0 0 0 0 400 0 0 0 0 0 50 60 55 30 35 6 10 6 1 0 75 1500 0 0 2
+    Play#0 output Play#0 1 15 "tk\\040\\040\\040tanker" 30 5 0 0 990 0 0 0 200 990 0 0 25 0 60 40 75 25 45 3 0 0 1 0 35 600 262144 0 0
+    Play#0 output Play#0 1 16 "ms\\040\\040\\040minesweeper" 0 10 100 1 0 0 0 0 90 0 0 0 0 0 25 15 10 25 15 2 0 0 0 0 40 400 524672 0 0
+    Play#0 output Play#0 1 17 "dd\\040\\040\\040destroyer" 0 60 40 4 0 0 0 0 80 0 0 0 0 0 30 30 45 35 20 4 6 3 1 0 70 600 196 0 1
+    Play#0 output Play#0 1 18 "sb\\040\\040\\040submarine" 0 25 36 5 0 0 0 0 80 0 0 0 0 0 30 30 25 20 5 4 3 3 0 0 60 650 706 0 0
+    Play#0 output Play#0 1 19 "sbc\\040\\040cargo\\040submarine" 5 10 104 20 100 0 0 0 900 0 500 300 0 0 40 40 50 30 2 3 0 0 0 0 150 1200 262720 0 0
+    Play#0 output Play#0 1 20 "cal\\040\\040light\\040carrier" 0 175 250 4 300 0 0 0 180 0 0 0 0 0 50 60 60 30 40 5 2 2 4 20 80 2700 8 20 0
+    Play#0 output Play#0 1 21 "car\\040\\040aircraft\\040carrier" 0 350 500 4 500 0 0 0 900 0 0 0 0 0 60 70 80 35 40 7 2 2 10 40 160 4500 8 40 0
+    Play#0 output Play#0 1 22 "can\\040\\040nuc\\040carrier" 0 350 999 4 999 0 0 0 900 0 0 0 0 0 70 80 100 45 40 9 2 2 20 4 305 8000 262152 60 0
+    Play#0 output Play#0 1 23 "ls\\040\\040\\040landing\\040ship" 0 400 10 1 0 0 0 0 300 0 0 0 0 0 60 40 40 30 30 2 0 0 2 0 145 1000 2048 0 6
+    Play#0 output Play#0 1 24 "af\\040\\040\\040asw\\040frigate" 0 60 60 4 0 0 0 0 120 0 0 0 0 0 40 30 50 35 30 5 2 2 4 0 220 800 4166 0 0
+    Play#0 output Play#0 1 25 "na\\040\\040\\040nuc\\040attack\\040sub" 0 25 60 6 0 0 0 0 500 0 0 0 0 0 30 40 45 40 3 6 5 3 0 0 260 1200 4802 0 0
+    Play#0 output Play#0 1 26 "ad\\040\\040\\040asw\\040destroyer" 0 100 80 6 40 0 0 0 500 0 0 0 0 0 40 40 60 40 35 6 8 3 10 2 240 1500 4166 0 0
+    Play#0 output Play#0 1 27 "nm\\040\\040\\040nuc\\040miss\\040sub" 0 25 200 1 0 0 0 0 500 0 0 0 0 0 30 40 55 35 2 6 0 0 0 0 270 1500 592 20 0
+    Play#0 output Play#0 1 28 "msb\\040\\040missile\\040sub" 0 25 100 1 0 0 0 0 500 0 0 0 0 0 30 30 35 30 3 3 0 0 0 0 230 1200 592 10 0
+    Play#0 output Play#0 1 29 "mb\\040\\040\\040missile\\040boat" 0 5 100 3 0 0 0 0 500 0 0 0 0 0 20 20 15 40 15 3 2 2 0 0 180 500 16 10 0
+    Play#0 output Play#0 1 30 "mf\\040\\040\\040missile\\040frigate" 0 60 220 4 0 0 0 0 120 0 0 0 0 0 40 30 50 35 30 5 2 2 2 0 280 1000 16 20 0
+    Play#0 output Play#0 1 31 "mc\\040\\040\\040missile\\040cruiser" 0 120 500 6 160 0 0 0 200 0 0 0 0 0 50 50 70 35 35 8 8 6 8 8 290 1500 1048592 40 0
+    Play#0 output Play#0 1 32 "aac\\040\\040aa\\040cruiser" 0 100 100 15 0 0 0 0 200 0 0 0 0 0 50 60 80 35 30 6 1 8 1 0 130 1500 1048576 0 4
+    Play#0 output Play#0 1 33 "agc\\040\\040aegis\\040cruiser" 0 200 400 25 40 0 0 0 900 0 0 0 0 0 50 60 80 35 30 6 1 16 30 2 265 4000 1048592 32 0
+    Play#0 output Play#0 1 34 "ncr\\040\\040nuc\\040cruiser" 0 200 400 8 40 0 0 0 900 0 0 0 0 0 50 50 100 45 35 6 14 7 10 2 325 1800 1048592 20 0
+    Play#0 output Play#0 1 35 "nas\\040\\040nuc\\040asw\\040cruiser" 0 200 120 6 160 0 0 0 500 0 0 0 0 0 50 50 80 45 35 9 10 4 25 8 330 1800 4166 0 0
+    Play#0 output Play#0 1 36 "nsp\\040\\040nuc\\040supply\\040ship" 50 50 600 50 999 0 0 0 999 0 1500 900 0 0 60 40 40 45 35 6 0 0 10 2 360 1500 262144 0 2
+    Play#0 output Play#0 1 /36
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump plane-chr *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP plane-chr 0
+    Play#0 output Play#0 1 0 "f1\\040\\040\\040Sopwith\\040Camel" 8 2 400 50 90 1 1 1 4 1 1 0 22
+    Play#0 output Play#0 1 1 "f2\\040\\040\\040P-51\\040Mustang" 8 2 400 80 80 1 4 4 8 1 1 0 70
+    Play#0 output Play#0 1 2 "jf1\\040\\040F-4\\040Phantom" 12 4 1000 125 45 1 14 14 11 2 3 0 70
+    Play#0 output Play#0 1 3 "jf2\\040\\040AV-8B\\040Harrier" 12 4 1400 195 30 1 17 17 14 2 3 0 86
+    Play#0 output Play#0 1 4 "sf\\040\\040\\040F-117A\\040Nighthawk" 15 5 3000 325 45 3 19 19 20 2 4 80 70
+    Play#0 output Play#0 1 5 "es\\040\\040\\040P-38\\040Lightning" 9 3 700 90 60 1 5 5 15 1 2 0 131074
+    Play#0 output Play#0 1 6 "jes\\040\\040F-14E\\040jet\\040escort" 14 8 1400 160 60 1 10 10 25 2 3 0 131074
+    Play#0 output Play#0 1 7 "lb\\040\\040\\040TBD-1\\040Devastator" 10 3 550 60 50 2 0 3 7 1 1 0 83
+    Play#0 output Play#0 1 8 "jl\\040\\040\\040A-6\\040Intruder" 14 4 1000 130 25 3 0 9 11 2 3 0 67
+    Play#0 output Play#0 1 9 "mb\\040\\040\\040medium\\040bomber" 14 5 1000 80 45 4 0 5 14 3 3 0 3
+    Play#0 output Play#0 1 10 "jfb\\040\\040FB-111\\040Aardvark\\040f/b" 20 10 1800 140 30 7 8 8 20 5 5 0 3
+    Play#0 output Play#0 1 11 "hb\\040\\040\\040B-26B\\040Marauder" 20 6 1100 90 90 5 0 4 15 2 2 0 1
+    Play#0 output Play#0 1 12 "jhb\\040\\040B-52\\040Strato-Fortress" 26 13 3200 150 80 12 0 11 35 5 6 0 1
+    Play#0 output Play#0 1 13 "sb\\040\\040\\040B-2\\040stealth\\040bomber" 15 5 4000 325 25 8 0 15 28 2 5 80 3
+    Play#0 output Play#0 1 14 "as\\040\\040\\040anti-sub\\040plane" 10 3 550 100 85 2 0 3 15 2 2 0 819202
+    Play#0 output Play#0 1 15 "np\\040\\040\\040naval\\040plane" 20 10 1800 135 70 3 0 4 28 4 2 0 819274
+    Play#0 output Play#0 1 16 "nc\\040\\040\\040AH-1\\040Cobra" 8 2 800 160 55 2 0 3 11 2 2 0 573458
+    Play#0 output Play#0 1 17 "ac\\040\\040\\040AH-64\\040Apache" 8 2 800 200 15 1 0 9 11 2 2 40 16402
+    Play#0 output Play#0 1 18 "tc\\040\\040\\040transport\\040chopper" 8 2 800 135 0 5 0 3 7 2 2 40 81944
+    Play#0 output Play#0 1 19 "tr\\040\\040\\040C-56\\040Lodestar" 14 5 1000 85 0 7 0 2 15 3 3 0 65544
+    Play#0 output Play#0 1 20 "jt\\040\\040\\040C-141\\040Starlifter" 18 5 1500 160 0 16 0 9 35 3 4 0 65544
+    Play#0 output Play#0 1 21 "zep\\040\\040Zeppelin" 6 2 1000 70 60 2 0 -3 15 3 2 0 154
+    Play#0 output Play#0 1 22 "re\\040\\040\\040recon" 12 4 800 130 0 0 0 4 15 2 2 20 128
+    Play#0 output Play#0 1 23 "sp\\040\\040\\040E2-C\\040Hawkeye" 15 5 2000 190 0 0 0 11 32 2 5 50 128
+    Play#0 output Play#0 1 24 "lst\\040\\040landsat" 20 20 2000 245 0 0 0 3 41 0 9 0 512
+    Play#0 output Play#0 1 25 "ss\\040\\040\\040KH-7\\040spysat" 20 20 4000 305 0 0 0 3 61 0 9 0 896
+    Play#0 output Play#0 1 26 "mi\\040\\040\\040Harpoon" 8 2 300 160 50 6 0 5 6 0 0 0 1048690
+    Play#0 output Play#0 1 27 "sam\\040\\040Sea\\040Sparrow" 3 1 200 180 0 0 0 18 2 0 0 0 8308
+    Play#0 output Play#0 1 28 "ssm\\040\\040V2" 15 15 800 145 60 3 0 3 4 0 0 0 50
+    Play#0 output Play#0 1 29 "srbm\\040Atlas" 20 20 1000 200 60 6 0 5 9 0 0 0 50
+    Play#0 output Play#0 1 30 "irbm\\040Titan" 20 20 1500 260 60 8 0 10 15 0 0 0 50
+    Play#0 output Play#0 1 31 "icbm\\040Minuteman" 20 20 3000 310 60 10 0 15 41 0 0 0 50
+    Play#0 output Play#0 1 32 "slbm\\040Trident" 20 20 2000 280 60 8 0 6 23 0 0 0 114
+    Play#0 output Play#0 1 33 "asat\\040anti-sat" 20 20 2000 305 50 6 0 7 13 0 4 0 560
+    Play#0 output Play#0 1 34 "abm\\040\\040Patriot" 16 8 1500 270 50 0 0 31 12 0 0 0 2096
+    Play#0 output Play#0 1 /35
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump land-chr *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP land-chr 0
+    Play#0 output Play#0 1 0 "cav\\040\\040cavalry" 0 20 0 0 0 0 0 0 12 0 0 0 0 0 10 5 30 500 1.20000 0.500000 80 32 18 4 3 0 0 0 0 0 80 0 0
+    Play#0 output Play#0 1 1 "linf\\040light\\040infantry" 0 25 1 0 0 0 0 0 15 0 0 0 0 0 8 4 40 300 1.00000 1.50000 60 28 15 2 1 0 0 0 1 1 272 0 0
+    Play#0 output Play#0 1 2 "inf\\040\\040infantry" 0 100 0 0 0 0 0 0 24 0 0 0 0 0 10 5 50 500 1.00000 1.50000 60 25 15 2 1 0 0 0 0 0 272 0 0
+    Play#0 output Play#0 1 3 "mtif\\040motor\\040inf" 0 100 8 0 0 0 0 0 60 0 0 0 0 0 15 10 190 400 1.20000 2.20000 60 33 17 1 3 0 0 0 2 3 16 0 0
+    Play#0 output Play#0 1 4 "mif\\040\\040mech\\040inf" 0 100 8 0 0 0 0 0 60 0 0 0 0 0 15 10 190 800 1.50000 2.50000 50 33 17 1 3 0 0 0 2 3 16 0 0
+    Play#0 output Play#0 1 5 "mar\\040\\040marines" 0 100 4 0 0 0 0 0 60 0 0 0 0 0 10 5 140 1000 1.40000 2.40000 60 25 14 2 1 0 0 0 1 2 304 0 0
+    Play#0 output Play#0 1 6 "sup\\040\\040supply" 0 25 200 10 300 100 100 10 300 0 200 100 0 0 10 5 50 500 0.100000 0.200000 80 25 20 1 0 0 0 0 0 0 20 0 0
+    Play#0 output Play#0 1 7 "tra\\040\\040train" 0 990 990 200 990 500 500 100 990 990 990 990 0 150 100 50 40 3500 0.00000 0.00000 120 10 25 3 0 0 0 0 0 0 6148 5 12
+    Play#0 output Play#0 1 8 "spy\\040\\040infiltrator" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 5 40 750 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
+    Play#0 output Play#0 1 9 "com\\040\\040commando" 0 0 3 0 0 0 0 0 0 0 0 0 0 0 10 5 55 1500 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
+    Play#0 output Play#0 1 10 "aau\\040\\040aa\\040unit" 0 20 5 0 0 0 0 0 12 0 0 0 0 0 20 10 70 500 0.500000 1.00000 60 18 20 1 1 0 0 0 1 2 528 0 0
+    Play#0 output Play#0 1 11 "art\\040\\040artillery" 0 25 40 10 0 0 0 0 24 0 0 0 0 0 20 10 35 800 0.100000 0.400000 70 18 20 1 0 8 50 5 2 1 16 0 0
+    Play#0 output Play#0 1 12 "lat\\040\\040lt\\040artillery" 0 25 20 6 0 0 0 0 12 0 0 0 0 0 20 10 70 500 0.200000 0.600000 60 30 18 1 1 5 10 3 1 1 16 0 0
+    Play#0 output Play#0 1 13 "hat\\040\\040hvy\\040artillery" 0 25 80 12 0 0 0 0 24 0 0 0 0 0 40 20 100 800 0.00000 0.200000 60 12 20 1 0 11 99 8 4 1 0 0 0
+    Play#0 output Play#0 1 14 "mat\\040\\040mech\\040artillery" 0 25 40 10 0 0 0 0 15 0 0 0 0 0 20 10 200 1000 0.200000 0.600000 50 35 17 1 1 8 35 6 3 3 16 0 0
+    Play#0 output Play#0 1 15 "eng\\040\\040engineer" 0 20 3 0 0 0 0 0 12 0 0 0 0 0 10 5 130 3000 1.20000 2.40000 50 25 14 2 1 0 0 0 1 1 274 0 0
+    Play#0 output Play#0 1 16 "meng\\040mech\\040engineer" 0 20 4 0 0 0 0 0 15 0 0 0 0 0 10 5 260 4500 1.80000 3.50000 45 33 15 3 3 0 0 0 1 5 274 0 0
+    Play#0 output Play#0 1 17 "lar\\040\\040lt\\040armor" 0 50 4 0 0 0 0 0 30 0 0 0 0 0 10 5 150 600 2.00000 1.00000 50 42 15 4 4 0 0 0 1 2 80 0 0
+    Play#0 output Play#0 1 18 "har\\040\\040hvy\\040armor" 0 100 3 0 0 0 0 0 48 0 0 0 0 0 20 10 120 500 2.00000 0.800000 50 18 17 1 1 0 0 0 2 1 0 0 0
+    Play#0 output Play#0 1 19 "arm\\040\\040armor" 0 50 4 0 0 0 0 0 30 0 0 0 0 0 20 10 170 1000 3.00000 1.50000 40 33 16 2 2 0 0 0 1 2 16 0 0
+    Play#0 output Play#0 1 20 "sec\\040\\040security" 0 50 4 0 0 0 0 0 30 0 0 0 0 0 10 5 170 600 1.00000 2.00000 60 25 15 2 1 0 0 0 1 1 24 0 0
+    Play#0 output Play#0 1 21 "rad\\040\\040radar\\040unit" 0 10 0 0 0 0 0 0 7 0 0 0 0 0 10 5 270 1000 0.00000 0.00000 50 33 15 3 0 0 0 0 0 2 144 1 0
+    Play#0 output Play#0 1 /22
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump nuke-chr *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP nuke-chr 0
+    Play#0 output Play#0 1 0 "10kt\\040\\040fission" 50 50 25 70 3 70 10000 280 4 0
+    Play#0 output Play#0 1 1 "15kt\\040\\040fission" 50 50 25 80 3 90 15000 290 5 0
+    Play#0 output Play#0 1 2 "50kt\\040\\040fission" 60 60 30 90 3 100 25000 300 6 0
+    Play#0 output Play#0 1 3 "100kt\\040fission" 75 75 40 120 4 125 30000 310 8 0
+    Play#0 output Play#0 1 4 "5kt\\040\\040\\040fusion" 15 15 15 30 2 80 12500 315 1 0
+    Play#0 output Play#0 1 5 "75kt\\040\\040fusion" 40 40 35 50 3 90 20000 320 3 0
+    Play#0 output Play#0 1 6 "250kt\\040fusion" 50 50 45 60 4 110 25000 330 4 0
+    Play#0 output Play#0 1 7 "500kt\\040fusion" 60 60 50 80 5 120 35000 340 5 0
+    Play#0 output Play#0 1 8 "1mt\\040\\040\\040fusion" 75 75 50 110 6 150 40000 350 5 0
+    Play#0 output Play#0 1 9 "60kt\\040\\040neutron" 60 60 30 100 3 30 30000 355 2 1
+    Play#0 output Play#0 1 10 "3mt\\040\\040\\040fusion" 100 100 75 130 7 170 45000 360 6 0
+    Play#0 output Play#0 1 11 "5mt\\040\\040\\040fusion" 120 120 100 150 8 190 50000 370 8 0
+    Play#0 output Play#0 1 12 "120kt\\040neutron" 75 75 40 120 5 50 36000 375 3 1
+    Play#0 output Play#0 1 /13
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump news-chr *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP news-chr 0
+    Play#0 output Play#0 1 1 "infantry\\040capture\\040%s\\040territory" "shock\\040troops\\040overrun\\040one\\040of\\040%s's\\040sectors" -4 2
+    Play#0 output Play#0 1 2 "infantry\\040beaten\\040back\\040by\\040%s\\040troops" "shock\\040troops\\040annihilated\\040in\\040failed\\040attack\\040on\\040%s" -4 2
+    Play#0 output Play#0 1 3 "spy\\040shot\\040by\\040%s\\040firing\\040squad" "spy\\040captured\\040and\\040shot\\040by\\040%s" -1 10
+    Play#0 output Play#0 1 4 "sends\\040a\\040telegram\\040to\\040%s" "telexes\\040%s" 1 11
+    Play#0 output Play#0 1 6 "bankers\\040make\\040a\\040loan\\040to\\040%s" "Ministry\\040of\\040Finance\\040lends\\040money\\040to\\040%s" 2 7
+    Play#0 output Play#0 1 7 "repays\\040a\\040loan\\040from\\040%s" "makes\\040last\\040payment\\040on\\040loan\\040from\\040%s" 1 7
+    Play#0 output Play#0 1 8 "makes\\040a\\040sale\\040to\\040%s" "sells\\040goods\\040to\\040%s" 0 7
+    Play#0 output Play#0 1 9 "violates\\040%s\\040airspace" "overflies\\040%s\\040territory" -1 4
+    Play#0 output Play#0 1 10 "gunners\\040bombard\\040%s\\040territory" "artillery\\040fires\\040on\\040%s\\040sectors" -2 6
+    Play#0 output Play#0 1 11 "shells\\040a\\040ship\\040owned\\040by\\040%s" "fires\\040on\\040%s\\040ships" -2 3
+    Play#0 output Play#0 1 12 "takes\\040over\\040unoccupied\\040land" "attacks\\040unowned\\040land\\040for\\040some\\040reason" 0 2
+    Play#0 output Play#0 1 13 "ships\\040torpedoed\\040by\\040enemy\\040wolf-packs" "ships\\040torpedoed\\040by\\040marauding\\040U-boats" 0 3
+    Play#0 output Play#0 1 14 "gunners\\040fire\\040on\\040%s\\040in\\040self-defense" "gunners\\040decimate\\040%s\\040aggressors" 0 6
+    Play#0 output Play#0 1 15 "breaks\\040sanctuary" "no\\040longer\\040has\\040a\\040sanctuary" 0 1
+    Play#0 output Play#0 1 16 "planes\\040divebomb\\040one\\040of\\040%s's\\040sectors" "bombers\\040wreak\\040havoc\\040on\\040%s" -2 4
+    Play#0 output Play#0 1 17 "divebombs\\040a\\040ship\\040flying\\040the\\040flag\\040of\\040%s" "airforce\\040bombs\\040%s\\040ships" -2 3
+    Play#0 output Play#0 1 18 "seadogs\\040board\\040one\\040of\\040%s's\\040ships" "pirates\\040board\\040%s\\040ship" -2 3
+    Play#0 output Play#0 1 19 "is\\040repelled\\040by\\040%s\\040while\\040attempting\\040to\\040board\\040a\\040ship" "pirates\\040prove\\040inept\\040at\\040boarding\\040%s's\\040ships" -3 3
+    Play#0 output Play#0 1 21 "seizes\\040a\\040sector\\040from\\040%s\\040to\\040collect\\040on\\040a\\040loan" "collects\\040one\\040of\\040%s's\\040sectors\\040in\\040repayment\\040of\\040a\\040loan" -2 7
+    Play#0 output Play#0 1 25 "ship\\040hits\\040a\\040mine" "ship\\040severely\\040damaged\\040in\\040mine\\040field" 0 3
+    Play#0 output Play#0 1 26 "announces\\040an\\040alliance\\040with\\040%s" "/\\040%s\\040alliance\\040declared" 5 1
+    Play#0 output Play#0 1 28 "declares\\040TOTAL\\040WAR\\040on\\040%s" "gets\\040serious\\040with\\040%s\\040and\\040declares\\040WAR" -5 1
+    Play#0 output Play#0 1 29 "diplomats\\040disavow\\040former\\040alliance\\040with\\040%s" "is\\040no\\040longer\\040allied\\040with\\040%s" 0 1
+    Play#0 output Play#0 1 30 "is\\040no\\040longer\\040at\\040war\\040with\\040%s" "Foreign\\040Ministry\\040declares\\040\\042No\\040more\\040war\\040with\\040%s\\042" 5 1
+    Play#0 output Play#0 1 31 "reports\\040outbreak\\040of\\040the\\040black\\040plague" "sector\\040infected\\040with\\040bubonic\\040plague" 0 9
+    Play#0 output Play#0 1 32 "citizens\\040die\\040from\\040bubonic\\040plague" "sector\\040reports\\040plague\\040deaths" 0 9
+    Play#0 output Play#0 1 33 "goes\\040through\\040a\\040name\\040change" "adopts\\040a\\040new\\040country\\040name" 0 1
+    Play#0 output Play#0 1 34 "citizens\\040starve\\040in\\040disastrous\\040famine" "loses\\040citizens\\040to\\040mass\\040starvation" 0 9
+    Play#0 output Play#0 1 36 "pilots\\040down\\040%s\\040planes" "victorious\\040in\\040air-to-air\\040combat\\040against\\040%s" -3 4
+    Play#0 output Play#0 1 37 "nuclear\\040device\\040devastates\\040%s\\040sector" "explodes\\040a\\040nuclear\\040device\\040damaging\\040%s\\040territory" -10 5
+    Play#0 output Play#0 1 38 "terrorists\\040shoot\\040it\\040out\\040with\\040%s\\040special\\040forces" "underground\\040rises\\040up\\040against\\040%s\\040occupation" 0 9
+    Play#0 output Play#0 1 39 "execution\\040squads\\040gun\\040down\\040helpless\\040%s\\040civilians" "firing\\040squads\\040massacre\\040defenseless\\040%s\\040workers" -2 9
+    Play#0 output Play#0 1 40 "launches\\040a\\040satellite\\040into\\040orbit" "continues\\040its\\040conquest\\040of\\040space\\040with\\040a\\040successful\\040launch" 0 5
+    Play#0 output Play#0 1 41 "strikes\\040a\\040%s\\040big\\040bird" "rockets\\040damage\\040a\\040%s\\040satellite" -8 5
+    Play#0 output Play#0 1 42 "makes\\040a\\040contribution\\040to\\040%s" "helps\\040out\\040%s" 0 7
+    Play#0 output Play#0 1 43 "aids\\040%s\\040with\\040divine\\040intervention" "smiles\\040upon\\040%s" 0 9
+    Play#0 output Play#0 1 44 "hurts\\040%s\\040with\\040divine\\040intervention" "frowns\\040upon\\040%s" 0 9
+    Play#0 output Play#0 1 45 "sacrifices\\040to\\040%s" "makes\\040divine\\040payment\\040to\\040%s" 0 7
+    Play#0 output Play#0 1 46 "abms\\040intercept\\040a\\040%s\\040missile" "strategic\\040defense\\040systems\\040destroy\\040a\\040%s\\040missile" -10 5
+    Play#0 output Play#0 1 47 "missile\\040fired\\040at\\040one\\040of\\040%s's\\040sectors" "missile\\040wreaks\\040havoc\\040on\\040%s" -2 5
+    Play#0 output Play#0 1 48 "missile\\040fired\\040at\\040a\\040ship\\040flying\\040the\\040flag\\040of\\040%s" "missiles\\040hit\\040%s\\040ships" -2 5
+    Play#0 output Play#0 1 49 "engages\\040in\\040friendly\\040trade\\040with\\040%s" "profits\\040from\\040a\\040merchant\\040venture\\040with\\040%s" 2 7
+    Play#0 output Play#0 1 50 "pirates\\040dispose\\040of\\040%s\\040booty\\040in\\040trade" "buccaneers\\040sell\\040their\\040%s\\040goods" 0 7
+    Play#0 output Play#0 1 51 "pirates\\040keep\\040their\\040%s\\040booty" "buccaneers\\040laugh\\040and\\040bury\\040their\\040%s\\040goods" 0 7
+    Play#0 output Play#0 1 52 "ships\\040torpedoed\\040by\\040%s\\040torpedo-boats" "ships\\040sunk\\040by\\040marauding\\040%s\\040torpedo-boats" 0 3
+    Play#0 output Play#0 1 53 "planes\\040bomb\\040a\\040skulking\\040%s\\040submarine" "planes\\040drop\\040depth-charges\\040on\\040a\\040%s\\040sub" 0 3
+    Play#0 output Play#0 1 55 "divebombs\\040a\\040brave\\040%s\\040unit" "airforce\\040bombs\\040%s\\040units" -2 4
+    Play#0 output Play#0 1 56 "troops\\040run\\040afoul\\040of\\040a\\040landmine" "troops\\040severely\\040damaged\\040in\\040mine\\040field" 0 2
+    Play#0 output Play#0 1 57 "fortress\\040gunners\\040support\\040troops\\040attacking\\040%s" "fortress\\040artillery\\040massacres\\040%s\\040defenders" -2 6
+    Play#0 output Play#0 1 58 "gunners\\040support\\040troops\\040attacking\\040%s" "artillery\\040battery\\040massacres\\040%s\\040defenders" -2 6
+    Play#0 output Play#0 1 59 "naval\\040gunners\\040support\\040troops\\040attacking\\040%s" "naval\\040gunfire\\040massacres\\040%s\\040defenders" -2 6
+    Play#0 output Play#0 1 60 "sacks\\040%s\\040capital" "captures\\040and\\040pillages\\040%s's\\040capital" 10 1
+    Play#0 output Play#0 1 61 "announces\\040friendly\\040trade\\040relations\\040with\\040%s" "upgrades\\040%s's\\040trade\\040status\\040to\\040triple-A" 3 1
+    Play#0 output Play#0 1 62 "downgrades\\040relations\\040with\\040%s\\040to\\040friendly" "cools\\040relations\\040with\\040%s\\040to\\040friendly" 0 1
+    Play#0 output Play#0 1 63 "upgrades\\040relations\\040with\\040%s\\040to\\040neutral" "Foreign\\040Ministry\\040declares\\040\\042%s\\040is\\040A-OK.\\042" 2 1
+    Play#0 output Play#0 1 64 "downgrades\\040relations\\040with\\040%s\\040to\\040neutral" "gives\\040the\\040cold\\040shoulder\\040to\\040%s\\040and\\040declares\\040neutral\\040relations" 0 1
+    Play#0 output Play#0 1 65 "upgrades\\040relations\\040with\\040%s\\040to\\040hostile" "forgives\\040%s\\040of\\040past\\040war\\040crimes\\040but\\040remains\\040hostile" 3 1
+    Play#0 output Play#0 1 66 "downgrades\\040relations\\040with\\040%s\\040to\\040hostile" "is\\040suspicious\\040that\\040%s\\040has\\040hostile\\040intentions" 3 1
+    Play#0 output Play#0 1 67 "sector\\040is\\040struck\\040by\\040a\\040sub-launched\\040missile" "sector\\040devastated\\040by\\040missile" 0 5
+    Play#0 output Play#0 1 68 "ship\\040is\\040hit\\040by\\040a\\040sub-launched\\040missile" "ship\\040damaged\\040by\\040marine\\040missile" 0 5
+    Play#0 output Play#0 1 69 "pilgrims\\040settle\\040on\\040a\\040new\\040island" "discovers\\040new\\040land\\040and\\040starts\\040a\\040colony" 0 8
+    Play#0 output Play#0 1 70 "abms\\040intercept\\040an\\040incoming\\040sub-launched\\040missile" "strategic\\040defense\\040systems\\040destroy\\040an\\040incoming\\040sub-launched\\040warhead" 0 5
+    Play#0 output Play#0 1 71 "missile\\040fired\\040at\\040%s\\040ground\\040troops" "missile\\040hits\\040%s\\040troops" 2 5
+    Play#0 output Play#0 1 72 "regiment\\040struck\\040by\\040sub-launched\\040missile" "ground\\040troops\\040hit\\040by\\040missile" 0 5
+    Play#0 output Play#0 1 73 "navy\\040secures\\040a\\040beachhead\\040on\\040%s\\040territory" "sailors\\040take\\040a\\040coastal\\040sector\\040from\\040%s" -4 2
+    Play#0 output Play#0 1 74 "paratroopers\\040comandeer\\040a\\040sector\\040from\\040%s" "air\\040force\\040parachutists\\040overwhelm\\040a\\040%s\\040sector" -4 2
+    Play#0 output Play#0 1 75 "parachutists\\040grab\\040unoccupied\\040land" "paratroopers\\040break\\040new\\040ground" 0 8
+    Play#0 output Play#0 1 76 "sailors\\040repelled\\040by\\040%s\\040coast-guard" "naval\\040forces\\040massacred\\040in\\040failed\\040assault\\040of\\040%s" 4 2
+    Play#0 output Play#0 1 77 "paratroopers\\040destroyed\\040in\\040failed\\040air-assault\\040on\\040%s" "loses\\040parachutists\\040in\\040failed\\040air-assault\\040of\\040%s" 4 2
+    Play#0 output Play#0 1 80 "is\\040unable\\040to\\040fulfill\\040its\\040financial\\040obligations\\040to\\040%s" "welches\\040on\\040a\\040deal\\040with\\040%s" 0 7
+    Play#0 output Play#0 1 81 "is\\040repelled\\040by\\040%s\\040while\\040attempting\\040to\\040board\\040a\\040land\\040unit" "forces\\040prove\\040inept\\040at\\040boarding\\040%s's\\040land\\040unit" -3 2
+    Play#0 output Play#0 1 82 "mercenaries\\040board\\040one\\040of\\040%s's\\040land\\040units" "elite\\040forces\\040board\\040%s\\040land\\040unit" -2 2
+    Play#0 output Play#0 1 /72
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump infrastructure *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP infrastructure 0
+    Play#0 output Play#0 1 "road\\040network" 2 2 2 1 1
+    Play#0 output Play#0 1 "rail\\040network" 1 1 1 1 0
+    Play#0 output Play#0 1 "defense\\040factor" 1 1 1 1 0
+    Play#0 output Play#0 1 /3
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump updates *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP updates 0
+    Play#0 output Play#0 1 /0
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump table *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP table 0
+    Play#0 output Play#0 1 0 "sect"
+    Play#0 output Play#0 1 1 "ship"
+    Play#0 output Play#0 1 2 "plane"
+    Play#0 output Play#0 1 3 "land"
+    Play#0 output Play#0 1 4 "nuke"
+    Play#0 output Play#0 1 5 "news"
+    Play#0 output Play#0 1 6 "trade"
+    Play#0 output Play#0 1 8 "nat"
+    Play#0 output Play#0 1 9 "loan"
+    Play#0 output Play#0 1 12 "commodity"
+    Play#0 output Play#0 1 13 "lost"
+    Play#0 output Play#0 1 14 "realm"
+    Play#0 output Play#0 1 15 "game"
+    Play#0 output Play#0 1 16 "item"
+    Play#0 output Play#0 1 17 "product"
+    Play#0 output Play#0 1 18 "sect-chr"
+    Play#0 output Play#0 1 19 "ship-chr"
+    Play#0 output Play#0 1 20 "plane-chr"
+    Play#0 output Play#0 1 21 "land-chr"
+    Play#0 output Play#0 1 22 "nuke-chr"
+    Play#0 output Play#0 1 23 "news-chr"
+    Play#0 output Play#0 1 24 "infrastructure"
+    Play#0 output Play#0 1 25 "updates"
+    Play#0 output Play#0 1 26 "table"
+    Play#0 output Play#0 1 27 "version"
+    Play#0 output Play#0 1 28 "meta"
+    Play#0 output Play#0 1 29 "agreement-status"
+    Play#0 output Play#0 1 30 "land-chr-flags"
+    Play#0 output Play#0 1 31 "level"
+    Play#0 output Play#0 1 32 "meta-flags"
+    Play#0 output Play#0 1 33 "meta-type"
+    Play#0 output Play#0 1 34 "missions"
+    Play#0 output Play#0 1 35 "nation-flags"
+    Play#0 output Play#0 1 36 "nation-rejects"
+    Play#0 output Play#0 1 37 "nation-relationships"
+    Play#0 output Play#0 1 38 "nation-status"
+    Play#0 output Play#0 1 39 "nuke-chr-flags"
+    Play#0 output Play#0 1 40 "packing"
+    Play#0 output Play#0 1 41 "page-headings"
+    Play#0 output Play#0 1 42 "plague-stages"
+    Play#0 output Play#0 1 43 "plane-chr-flags"
+    Play#0 output Play#0 1 44 "plane-flags"
+    Play#0 output Play#0 1 45 "resources"
+    Play#0 output Play#0 1 46 "retreat-flags"
+    Play#0 output Play#0 1 47 "sector-navigation"
+    Play#0 output Play#0 1 48 "ship-chr-flags"
+    Play#0 output Play#0 1 49 "country"
+    Play#0 output Play#0 1 /47
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump version *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP version 0
+    Play#0 output Play#0 1 "Wolfpack\\040Empire\\0404.3.34" 99 "Deity\\040forgot\\040to\\040edit\\040econfig" "careless@invalid" 64 32 60 0 0 1 "" "" "" 1 0 1 0 1 1 0 0 0 0 1 0 0 0 0 1 1 0 1 1 0 0 0 0.00120000 1440 640 15 5 120 0 1.00000 96.0000 2.00000 2.00000 192.000 48.0000 600000. 600000. 1.00000 127 100 1000.00 10.0000 300 3000.00 100.000 1.00000 2.00000 127 -0.00100000 1.00000 2.00000 127 -0.00100000 1.50000 3.00000 127 -0.00100000 40 8 8 8 1.75000 5.00000 1.00000 0.300000 0.100000 0.500000 1.00000 2 0.00250000 0.00833330 -0.0833333 -0.00833330 0.00177770 0.00600000 0.250000 0.000500000 0.00130000 0.00120000 0.00500000 50 0.00600000 0.00500000 0.00000 7200 7200 1.00000 0.990000 8 14 25 0.0250000 0.0350000 0.0500000 0.200000 0.100000
+    Play#0 output Play#0 1 /1
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta *
+    Play#0 command xdump
+    Play#0 output Play#0 1 Usage: xdump ["meta"] <TYPE> [<RECORDS>]
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump agreement-status *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP agreement-status 0
+    Play#0 output Play#0 1 0 "free"
+    Play#0 output Play#0 1 1 "proposed"
+    Play#0 output Play#0 1 2 "signed"
+    Play#0 output Play#0 1 /3
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump land-chr-flags *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP land-chr-flags 0
+    Play#0 output Play#0 1 2 "engineer"
+    Play#0 output Play#0 1 4 "supply"
+    Play#0 output Play#0 1 8 "security"
+    Play#0 output Play#0 1 16 "light"
+    Play#0 output Play#0 1 32 "marine"
+    Play#0 output Play#0 1 64 "recon"
+    Play#0 output Play#0 1 128 "radar"
+    Play#0 output Play#0 1 256 "assault"
+    Play#0 output Play#0 1 512 "flak"
+    Play#0 output Play#0 1 1024 "spy"
+    Play#0 output Play#0 1 2048 "train"
+    Play#0 output Play#0 1 4096 "heavy"
+    Play#0 output Play#0 1 /12
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump level *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP level 0
+    Play#0 output Play#0 1 -1 "none"
+    Play#0 output Play#0 1 0 "technology"
+    Play#0 output Play#0 1 1 "research"
+    Play#0 output Play#0 1 2 "education"
+    Play#0 output Play#0 1 3 "happiness"
+    Play#0 output Play#0 1 /5
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta-flags *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta-flags 0
+    Play#0 output Play#0 1 1 "deity"
+    Play#0 output Play#0 1 2 "extra"
+    Play#0 output Play#0 1 4 "const"
+    Play#0 output Play#0 1 8 "bits"
+    Play#0 output Play#0 1 16 "hidden"
+    Play#0 output Play#0 1 /5
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump meta-type *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP meta-type 0
+    Play#0 output Play#0 1 1 "d"
+    Play#0 output Play#0 1 2 "g"
+    Play#0 output Play#0 1 3 "s"
+    Play#0 output Play#0 1 4 "d"
+    Play#0 output Play#0 1 5 "d"
+    Play#0 output Play#0 1 6 "d"
+    Play#0 output Play#0 1 7 "d"
+    Play#0 output Play#0 1 8 "d"
+    Play#0 output Play#0 1 9 "d"
+    Play#0 output Play#0 1 10 "d"
+    Play#0 output Play#0 1 11 "d"
+    Play#0 output Play#0 1 12 "g"
+    Play#0 output Play#0 1 13 "c"
+    Play#0 output Play#0 1 /13
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump missions *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP missions 0
+    Play#0 output Play#0 1 0 "none"
+    Play#0 output Play#0 1 1 "interdiction"
+    Play#0 output Play#0 1 2 "support"
+    Play#0 output Play#0 1 3 "reserve"
+    Play#0 output Play#0 1 4 "escort"
+    Play#0 output Play#0 1 6 "air\\040defense"
+    Play#0 output Play#0 1 7 "defensive\\040support"
+    Play#0 output Play#0 1 8 "offensive\\040support"
+    Play#0 output Play#0 1 /8
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump nation-flags *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP nation-flags 0
+    Play#0 output Play#0 1 1 "inform"
+    Play#0 output Play#0 1 2 "flash"
+    Play#0 output Play#0 1 4 "beep"
+    Play#0 output Play#0 1 8 "coastwatch"
+    Play#0 output Play#0 1 16 "sonar"
+    Play#0 output Play#0 1 32 "techlists"
+    Play#0 output Play#0 1 64 "sacked"
+    Play#0 output Play#0 1 /7
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump nation-rejects *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP nation-rejects 0
+    Play#0 output Play#0 1 1 "telegrams"
+    Play#0 output Play#0 1 2 "announcements"
+    Play#0 output Play#0 1 4 "loans"
+    Play#0 output Play#0 1 /3
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump nation-relationships *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP nation-relationships 0
+    Play#0 output Play#0 1 -1 "unknown"
+    Play#0 output Play#0 1 0 "at-war"
+    Play#0 output Play#0 1 1 "hostile"
+    Play#0 output Play#0 1 2 "neutral"
+    Play#0 output Play#0 1 3 "friendly"
+    Play#0 output Play#0 1 4 "allied"
+    Play#0 output Play#0 1 /6
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump nation-status *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP nation-status 0
+    Play#0 output Play#0 1 0 "unused"
+    Play#0 output Play#0 1 1 "new"
+    Play#0 output Play#0 1 2 "visitor"
+    Play#0 output Play#0 1 3 "sanctuary"
+    Play#0 output Play#0 1 4 "active"
+    Play#0 output Play#0 1 5 "deity"
+    Play#0 output Play#0 1 /6
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump nuke-chr-flags *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP nuke-chr-flags 0
+    Play#0 output Play#0 1 1 "neutron"
+    Play#0 output Play#0 1 /1
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump packing *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP packing 0
+    Play#0 output Play#0 1 0 "inefficient"
+    Play#0 output Play#0 1 1 "normal"
+    Play#0 output Play#0 1 2 "warehouse"
+    Play#0 output Play#0 1 3 "urban"
+    Play#0 output Play#0 1 4 "bank"
+    Play#0 output Play#0 1 /5
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump page-headings *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP page-headings 0
+    Play#0 output Play#0 1 0 "Comics"
+    Play#0 output Play#0 1 1 "Foreign\\040Affairs"
+    Play#0 output Play#0 1 2 "The\\040Front\\040Line"
+    Play#0 output Play#0 1 3 "The\\040High\\040Seas"
+    Play#0 output Play#0 1 4 "Sky\\040Watch"
+    Play#0 output Play#0 1 5 "Guidance\\040Systems"
+    Play#0 output Play#0 1 6 "Firestorms"
+    Play#0 output Play#0 1 7 "Business\\040&\\040Economics"
+    Play#0 output Play#0 1 8 "The\\040Frontier"
+    Play#0 output Play#0 1 9 "The\\040Home\\040Front"
+    Play#0 output Play#0 1 10 "Espionage"
+    Play#0 output Play#0 1 11 "Telecommunications"
+    Play#0 output Play#0 1 /12
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump plague-stages *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP plague-stages 0
+    Play#0 output Play#0 1 0 "healthy"
+    Play#0 output Play#0 1 1 "dying"
+    Play#0 output Play#0 1 2 "infect"
+    Play#0 output Play#0 1 3 "incubate"
+    Play#0 output Play#0 1 4 "exposed"
+    Play#0 output Play#0 1 /5
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump plane-chr-flags *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP plane-chr-flags 0
+    Play#0 output Play#0 1 2 "tactical"
+    Play#0 output Play#0 1 1 "bomber"
+    Play#0 output Play#0 1 4 "intercept"
+    Play#0 output Play#0 1 8 "cargo"
+    Play#0 output Play#0 1 16 "VTOL"
+    Play#0 output Play#0 1 32 "missile"
+    Play#0 output Play#0 1 64 "light"
+    Play#0 output Play#0 1 128 "spy"
+    Play#0 output Play#0 1 256 "image"
+    Play#0 output Play#0 1 512 "satellite"
+    Play#0 output Play#0 1 2048 "SDI"
+    Play#0 output Play#0 1 8192 "x-light"
+    Play#0 output Play#0 1 16384 "helo"
+    Play#0 output Play#0 1 32768 "ASW"
+    Play#0 output Play#0 1 65536 "para"
+    Play#0 output Play#0 1 131072 "escort"
+    Play#0 output Play#0 1 262144 "mine"
+    Play#0 output Play#0 1 524288 "sweep"
+    Play#0 output Play#0 1 1048576 "marine"
+    Play#0 output Play#0 1 /19
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump plane-flags *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP plane-flags 0
+    Play#0 output Play#0 1 1 "launched"
+    Play#0 output Play#0 1 2 "synchronous"
+    Play#0 output Play#0 1 4 "airburst"
+    Play#0 output Play#0 1 /3
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump resources *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP resources 0
+    Play#0 output Play#0 1 0 "none"
+    Play#0 output Play#0 1 0 "min"
+    Play#0 output Play#0 1 0 "gold"
+    Play#0 output Play#0 1 0 "fert"
+    Play#0 output Play#0 1 0 "ocontent"
+    Play#0 output Play#0 1 0 "uran"
+    Play#0 output Play#0 1 /6
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump retreat-flags *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP retreat-flags 0
+    Play#0 output Play#0 1 1 "group"
+    Play#0 output Play#0 1 2 "injured"
+    Play#0 output Play#0 1 4 "torpedoed"
+    Play#0 output Play#0 1 8 "sonared"
+    Play#0 output Play#0 1 16 "helpless"
+    Play#0 output Play#0 1 32 "bombed"
+    Play#0 output Play#0 1 64 "depth-charged"
+    Play#0 output Play#0 1 128 "boarded"
+    Play#0 output Play#0 1 /8
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump sector-navigation *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP sector-navigation 0
+    Play#0 output Play#0 1 0 "land"
+    Play#0 output Play#0 1 1 "sea"
+    Play#0 output Play#0 1 2 "harbor"
+    Play#0 output Play#0 1 3 "canal"
+    Play#0 output Play#0 1 4 "bridge"
+    Play#0 output Play#0 1 /5
+    Play#0 output Play#0 6 0 640
+    Play#0 input xdump ship-chr-flags *
+    Play#0 command xdump
+    Play#0 output Play#0 1 XDUMP ship-chr-flags 0
+    Play#0 output Play#0 1 1 "fish"
+    Play#0 output Play#0 1 2 "torp"
+    Play#0 output Play#0 1 4 "dchrg"
+    Play#0 output Play#0 1 8 "plane"
+    Play#0 output Play#0 1 16 "miss"
+    Play#0 output Play#0 1 32 "oil"
+    Play#0 output Play#0 1 64 "sonar"
+    Play#0 output Play#0 1 128 "mine"
+    Play#0 output Play#0 1 256 "sweep"
+    Play#0 output Play#0 1 512 "sub"
+    Play#0 output Play#0 1 2048 "land"
+    Play#0 output Play#0 1 4096 "sub-torp"
+    Play#0 output Play#0 1 8192 "trade"
+    Play#0 output Play#0 1 16384 "semi-land"
+    Play#0 output Play#0 1 262144 "supply"
+    Play#0 output Play#0 1 524288 "canal"
+    Play#0 output Play#0 1 1048576 "anti-missile"
+    Play#0 output Play#0 1 /17
+    Play#0 output Play#0 6 0 640
+    Play#0 input ctld
+    Play#0 output Play#0 1 Bye-bye
+    Play#0 logout 0
+    Play#0 output Play#0 3 so long...
+     Conn2 output Conn2 2 Empire server ready
+     Conn2 input user tester
+     Conn2 output Conn2 0 hello tester
+     Conn2 input coun 1
+     Conn2 output Conn2 0 country name 1
+     Conn2 input pass 1
+     Conn2 output Conn2 0 password ok
+     Conn2 input play
+     Conn2 login 1 127.0.0.1 tester
+    Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
+    Play#1 output Play#1 6 0 0
+    Play#1 input show s b
+    Play#1 command show
+    Play#1 output Play#1 1 Printing for tech level '125'
+    Play#1 output Play#1 1                           lcm hcm avail tech $
+    Play#1 output Play#1 1 fb   fishing boat          25  15    75    0 $180
+    Play#1 output Play#1 1 ss   slave ship            60  40   160    0 $300
+    Play#1 output Play#1 1 frg  frigate               30  30   110    0 $600
+    Play#1 output Play#1 1 tt   troop transport       50  50   170   10 $800
+    Play#1 output Play#1 1 cs   cargo ship            60  40   160   20 $500
+    Play#1 output Play#1 1 os   ore ship              60  40   160   20 $500
+    Play#1 output Play#1 1 ft   fishing trawler       25  15    75   35 $300
+    Play#1 output Play#1 1 tk   tanker                60  40   160   35 $600
+    Play#1 output Play#1 1 oe   oil exploration boat  25  15    75   40 $800
+    Play#1 output Play#1 1 pt   patrol boat           20  10    60   40 $300
+    Play#1 output Play#1 1 ms   minesweeper           25  15    75   40 $400
+    Play#1 output Play#1 1 lc   light cruiser         30  40   130   45 $800
+    Play#1 output Play#1 1 bb   battleship            50  70   210   45 $1800
+    Play#1 output Play#1 1 od   oil derrick           60  60   200   50 $1500
+    Play#1 output Play#1 1 hc   heavy cruiser         40  50   160   50 $1200
+    Play#1 output Play#1 1 sb   submarine             30  30   110   60 $650
+    Play#1 output Play#1 1 dd   destroyer             30  30   110   70 $600
+    Play#1 output Play#1 1 bbc  battlecruiser         50  60   190   75 $1500
+    Play#1 output Play#1 1 cal  light carrier         50  60   190   80 $2700
+    Play#1 output Play#1 6 0 0
+    Play#1 input toggle techlists
+    Play#1 command toggle
+    Play#1 output Play#1 1 techlists flag off
+    Play#1 output Play#1 6 0 0
+    Play#1 input show s b
+    Play#1 command show
+    Play#1 output Play#1 1 Printing for tech level '125'
+    Play#1 output Play#1 1                           lcm hcm avail tech $
+    Play#1 output Play#1 1 fb   fishing boat          25  15    75    0 $180
+    Play#1 output Play#1 1 ft   fishing trawler       25  15    75   35 $300
+    Play#1 output Play#1 1 cs   cargo ship            60  40   160   20 $500
+    Play#1 output Play#1 1 os   ore ship              60  40   160   20 $500
+    Play#1 output Play#1 1 ss   slave ship            60  40   160    0 $300
+    Play#1 output Play#1 1 frg  frigate               30  30   110    0 $600
+    Play#1 output Play#1 1 oe   oil exploration boat  25  15    75   40 $800
+    Play#1 output Play#1 1 od   oil derrick           60  60   200   50 $1500
+    Play#1 output Play#1 1 pt   patrol boat           20  10    60   40 $300
+    Play#1 output Play#1 1 lc   light cruiser         30  40   130   45 $800
+    Play#1 output Play#1 1 hc   heavy cruiser         40  50   160   50 $1200
+    Play#1 output Play#1 1 tt   troop transport       50  50   170   10 $800
+    Play#1 output Play#1 1 bb   battleship            50  70   210   45 $1800
+    Play#1 output Play#1 1 bbc  battlecruiser         50  60   190   75 $1500
+    Play#1 output Play#1 1 tk   tanker                60  40   160   35 $600
+    Play#1 output Play#1 1 ms   minesweeper           25  15    75   40 $400
+    Play#1 output Play#1 1 dd   destroyer             30  30   110   70 $600
+    Play#1 output Play#1 1 sb   submarine             30  30   110   60 $650
+    Play#1 output Play#1 1 cal  light carrier         50  60   190   80 $2700
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump meta game
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP meta game 0
+    Play#1 output Play#1 1 "upd_disable" 4 0 0 -1
+    Play#1 output Play#1 1 "down" 4 0 0 -1
+    Play#1 output Play#1 1 "turn" 6 0 0 -1
+    Play#1 output Play#1 1 /3
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump meta nat
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP meta nat 0
+    Play#1 output Play#1 1 "cnum" 5 0 0 8
+    Play#1 output Play#1 1 "stat" 8 0 0 38
+    Play#1 output Play#1 1 "cname" 13 0 20 -1
+    Play#1 output Play#1 1 "relations" 5 16 99 37
+    Play#1 output Play#1 1 "rejects" 5 8 99 36
+    Play#1 output Play#1 1 /5
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump meta cou
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP meta country 0
+    Play#1 output Play#1 1 "cnum" 5 0 0 8
+    Play#1 output Play#1 1 "flags" 8 8 0 35
+    Play#1 output Play#1 1 "ip" 13 0 46 -1
+    Play#1 output Play#1 1 "hostname" 13 0 0 -1
+    Play#1 output Play#1 1 "userid" 13 0 32 -1
+    Play#1 output Play#1 1 "xcap" 9 0 0 -1
+    Play#1 output Play#1 1 "ycap" 10 0 0 -1
+    Play#1 output Play#1 1 "update" 4 0 0 -1
+    Play#1 output Play#1 1 "tgms" 7 0 0 -1
+    Play#1 output Play#1 1 "ann" 7 0 0 -1
+    Play#1 output Play#1 1 "timeused" 8 0 0 -1
+    Play#1 output Play#1 1 "btu" 6 0 0 -1
+    Play#1 output Play#1 1 "access" 6 0 0 -1
+    Play#1 output Play#1 1 "milreserve" 8 0 0 -1
+    Play#1 output Play#1 1 "money" 8 0 0 -1
+    Play#1 output Play#1 1 "login" 11 0 0 -1
+    Play#1 output Play#1 1 "logout" 11 0 0 -1
+    Play#1 output Play#1 1 "newstim" 11 0 0 -1
+    Play#1 output Play#1 1 "annotim" 11 0 0 -1
+    Play#1 output Play#1 1 "tech" 12 0 0 -1
+    Play#1 output Play#1 1 "research" 12 0 0 -1
+    Play#1 output Play#1 1 "education" 12 0 0 -1
+    Play#1 output Play#1 1 "happiness" 12 0 0 -1
+    Play#1 output Play#1 1 /23
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump item *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP item 0
+    Play#1 output Play#1 1 0 "civilians" "c" 1 0 1 1 10 10 10 10 4
+    Play#1 output Play#1 1 1 "military" "m" 0 1 1 1 1 1 1 1 20
+    Play#1 output Play#1 1 2 "shells" "s" 5 1 1 1 1 10 1 1 80
+    Play#1 output Play#1 1 3 "guns" "g" 60 1 10 1 1 10 1 1 100
+    Play#1 output Play#1 1 4 "petrol" "p" 4 1 1 1 1 10 1 1 50
+    Play#1 output Play#1 1 5 "iron\\040ore" "i" 2 1 1 1 1 10 1 1 100
+    Play#1 output Play#1 1 6 "dust\\040(gold)" "d" 20 1 5 1 1 10 1 1 100
+    Play#1 output Play#1 1 7 "bars\\040of\\040gold" "b" 280 1 50 1 1 5 1 4 200
+    Play#1 output Play#1 1 8 "food" "f" 0 1 1 1 1 10 1 1 2
+    Play#1 output Play#1 1 9 "oil" "o" 8 1 1 1 1 10 1 1 50
+    Play#1 output Play#1 1 10 "light\\040products" "l" 2 1 1 1 1 10 1 1 100
+    Play#1 output Play#1 1 11 "heavy\\040products" "h" 4 1 1 1 1 10 1 1 100
+    Play#1 output Play#1 1 12 "uncompensated\\040workers" "u" 1 1 2 1 1 2 1 1 2
+    Play#1 output Play#1 1 13 "radioactive\\040materials" "r" 150 1 8 1 1 10 1 1 1000
+    Play#1 output Play#1 1 /14
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump product *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP product 0
+    Play#1 output Play#1 1 0 "iron\\040ore" "iron" -1 -1 -1 0 0 0 5 -1 0 0 0 -1 0 0
+    Play#1 output Play#1 1 1 "gold\\040dust" "dust" -1 -1 -1 0 0 0 6 -1 0 0 20 -1 0 0
+    Play#1 output Play#1 1 2 "food" "food" -1 -1 -1 0 0 0 8 -1 0 0 0 0 -10 10
+    Play#1 output Play#1 1 3 "oil" "oil" -1 -1 -1 0 0 0 9 -1 0 0 10 0 -10 10
+    Play#1 output Play#1 1 4 "radioactive\\040materials" "rad" -1 -1 -1 0 0 0 13 -1 2 0 35 0 40 10
+    Play#1 output Play#1 1 5 "shells" "shells" 10 11 -1 2 1 0 2 -1 3 0 0 0 20 10
+    Play#1 output Play#1 1 6 "guns" "guns" 9 10 11 1 5 10 3 -1 30 0 0 0 20 10
+    Play#1 output Play#1 1 7 "petrol" "petrol" 9 -1 -1 1 0 0 4 -1 1 0 0 0 20 10
+    Play#1 output Play#1 1 8 "gold\\040bars" "bars" 6 -1 -1 5 0 0 7 -1 10 0 0 -1 0 0
+    Play#1 output Play#1 1 9 "light\\040construction\\040materials" "lcm" 5 -1 -1 1 0 0 10 -1 0 0 0 0 -10 10
+    Play#1 output Play#1 1 10 "heavy\\040construction\\040materials" "hcm" 5 -1 -1 2 0 0 11 -1 0 0 0 0 -10 10
+    Play#1 output Play#1 1 11 "technological\\040breakthroughs" "tech" 6 9 10 1 5 10 -1 0 300 0 0 2 5 10
+    Play#1 output Play#1 1 12 "medical\\040discoveries" "medical" 6 9 10 1 5 10 -1 1 90 0 0 2 5 10
+    Play#1 output Play#1 1 13 "a\\040class\\040of\\040graduates" "edu" 10 -1 -1 1 0 0 -1 2 9 0 0 -1 0 0
+    Play#1 output Play#1 1 14 "happy\\040strollers" "happy" 10 -1 -1 1 0 0 -1 3 9 0 0 -1 0 0
+    Play#1 output Play#1 1 /15
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump sect-chr *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP sect-chr 0
+    Play#1 output Play#1 1 0 "sea" "." 0 -1 0 -1.00000 -1.00000 1 1 0.00000 0.00000 0 -1 0 0 0 0 0
+    Play#1 output Play#1 1 1 "mountain" "^" 1 1 75 2.40000 1.20000 0 1 1.00000 4.00000 5 -1 1 0 0 0 100
+    Play#1 output Play#1 1 2 "sanctuary" "s" 4 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 127 -1 0 0 0 0 1000
+    Play#1 output Play#1 1 3 "wasteland" "\\134" 3 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 0 -1 0 0 0 0 0
+    Play#1 output Play#1 1 4 "wilderness" "-" 4 -1 0 0.400000 0.400000 0 1 1.00000 2.00000 1 0 0 0 0 0 1000
+    Play#1 output Play#1 1 5 "capital" "c" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 30 0 1 0 0 1 1000
+    Play#1 output Play#1 1 6 "uranium\\040mine" "u" 4 4 100 0.400000 0.200000 0 1 1.00000 2.00000 15 0 1 0 0 0 1000
+    Play#1 output Play#1 1 7 "park" "p" 4 14 100 0.400000 0.200000 0 1 1.00000 1.50000 5 0 1 0 0 0 1000
+    Play#1 output Play#1 1 8 "defense\\040plant" "d" 4 6 100 0.400000 0.200000 0 1 1.00000 1.50000 7 0 1 0 0 0 1000
+    Play#1 output Play#1 1 9 "shell\\040industry" "i" 4 5 100 0.400000 0.200000 0 1 1.00000 1.50000 6 0 1 0 0 0 1000
+    Play#1 output Play#1 1 10 "mine" "m" 4 0 100 0.400000 0.200000 0 1 1.00000 2.00000 5 0 1 0 0 0 1000
+    Play#1 output Play#1 1 11 "gold\\040mine" "g" 4 1 100 0.400000 0.200000 0 1 1.00000 2.00000 8 0 1 0 0 0 1000
+    Play#1 output Play#1 1 12 "harbor" "h" 4 -1 0 0.400000 0.200000 2 2 1.00000 1.50000 12 0 1 0 0 0 1000
+    Play#1 output Play#1 1 13 "warehouse" "w" 4 -1 0 0.400000 0.200000 0 2 1.00000 1.50000 7 0 1 0 0 0 1000
+    Play#1 output Play#1 1 14 "airfield" "*" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.25000 12 0 1 0 0 0 1000
+    Play#1 output Play#1 1 15 "agribusiness" "a" 4 2 900 0.400000 0.200000 0 1 1.00000 1.50000 2 0 1 0 0 0 1000
+    Play#1 output Play#1 1 16 "oil\\040field" "o" 4 3 100 0.400000 0.200000 0 1 1.00000 1.50000 5 0 1 0 0 0 1000
+    Play#1 output Play#1 1 17 "light\\040manufacturing" "j" 4 9 100 0.400000 0.200000 0 1 1.00000 1.50000 3 0 1 0 0 0 1000
+    Play#1 output Play#1 1 18 "heavy\\040manufacturing" "k" 4 10 100 0.400000 0.200000 0 1 1.00000 1.50000 4 0 1 0 0 0 1000
+    Play#1 output Play#1 1 19 "fortress" "f" 4 -1 0 0.400000 0.200000 0 1 2.00000 4.00000 10 0 5 0 1 0 1000
+    Play#1 output Play#1 1 20 "technical\\040center" "t" 4 11 100 0.400000 0.200000 0 1 1.00000 1.50000 10 0 1 0 0 0 1000
+    Play#1 output Play#1 1 21 "research\\040lab" "r" 4 12 100 0.400000 0.200000 0 1 1.00000 1.50000 9 0 1 0 0 0 1000
+    Play#1 output Play#1 1 22 "nuclear\\040plant" "n" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 10 0 1 0 0 0 1000
+    Play#1 output Play#1 1 23 "library/school" "l" 4 13 100 0.400000 0.200000 0 1 1.00000 1.50000 4 0 1 0 0 0 1000
+    Play#1 output Play#1 1 24 "highway" "+" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 3 0 1 0 0 0 1000
+    Play#1 output Play#1 1 25 "radar\\040installation" ")" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 4 0 1 0 0 0 1000
+    Play#1 output Play#1 1 26 "headquarters" "!" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 12 0 1 0 0 0 1000
+    Play#1 output Play#1 1 27 "bridge\\040head" "#" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 3 0 1 0 0 0 1000
+    Play#1 output Play#1 1 28 "bridge\\040span" "=" 0 -1 0 0.400000 0.00000 4 1 1.00000 1.00000 5 -1 1 0 0 0 100
+    Play#1 output Play#1 1 29 "bank" "b" 4 8 100 0.400000 0.200000 0 4 1.00000 2.25000 10 0 1 0 0 0 1000
+    Play#1 output Play#1 1 30 "refinery" "%" 4 7 1000 0.400000 0.200000 0 1 1.00000 1.50000 2 0 1 0 0 0 1000
+    Play#1 output Play#1 1 31 "enlistment\\040center" "e" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 7 0 1 0 0 0 1000
+    Play#1 output Play#1 1 32 "plains" "~" 32 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 1 -1 1 0 0 0 100
+    Play#1 output Play#1 1 33 "bridge\\040tower" "@" 0 -1 0 0.400000 0.00000 0 1 1.00000 1.50000 4 -1 1 0 0 0 100
+    Play#1 output Play#1 1 /34
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump ship-chr *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP ship-chr 0
+    Play#1 output Play#1 1 0 "fb\\040\\040\\040fishing\\040boat" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 10 15 2 0 0 0 0 0 180 524289 0 0
+    Play#1 output Play#1 1 1 "ft\\040\\040\\040fishing\\040trawler" 300 10 0 0 0 0 0 0 900 0 0 0 15 0 25 15 10 25 15 2 0 0 0 0 35 300 524289 0 0
+    Play#1 output Play#1 1 2 "cs\\040\\040\\040cargo\\040ship" 600 50 300 50 0 0 0 0 900 0 1400 900 250 0 60 40 20 25 35 3 0 0 1 0 20 500 262144 0 2
+    Play#1 output Play#1 1 3 "os\\040\\040\\040ore\\040ship" 30 5 0 0 0 990 990 0 200 0 0 0 45 990 60 40 20 25 35 3 0 0 1 0 20 500 0 0 0
+    Play#1 output Play#1 1 4 "ss\\040\\040\\040slave\\040ship" 20 80 0 0 0 0 0 0 200 0 0 0 1200 0 60 40 20 10 35 3 0 0 1 0 0 300 0 0 0
+    Play#1 output Play#1 1 6 "frg\\040\\040frigate" 0 60 10 2 0 0 0 0 60 0 0 0 0 0 30 30 50 25 25 3 1 1 1 0 0 600 16384 0 2
+    Play#1 output Play#1 1 7 "oe\\040\\040\\040oil\\040exploration\\040boat" 10 5 0 0 0 0 0 0 100 1 0 0 0 0 25 15 10 25 15 2 0 0 0 0 40 800 524320 0 0
+    Play#1 output Play#1 1 8 "od\\040\\040\\040oil\\040derrick" 990 80 0 0 0 0 0 0 990 990 0 0 990 0 60 60 30 15 65 3 0 0 2 0 50 1500 32 0 0
+    Play#1 output Play#1 1 9 "pt\\040\\040\\040patrol\\040boat" 0 2 12 2 0 0 0 0 5 0 0 0 0 0 20 10 10 38 10 2 1 1 0 0 40 300 524290 0 0
+    Play#1 output Play#1 1 10 "lc\\040\\040\\040light\\040cruiser" 0 100 40 5 0 0 0 0 100 0 0 0 0 0 30 40 50 30 30 5 6 3 1 0 45 800 128 0 2
+    Play#1 output Play#1 1 11 "hc\\040\\040\\040heavy\\040cruiser" 0 120 100 8 0 0 0 0 200 0 0 0 0 0 40 50 70 30 30 5 8 4 1 0 50 1200 0 0 4
+    Play#1 output Play#1 1 12 "tt\\040\\040\\040troop\\040transport" 0 120 20 4 0 0 0 0 120 0 0 0 0 0 50 50 60 20 35 3 1 2 1 0 10 800 16384 0 2
+    Play#1 output Play#1 1 13 "bb\\040\\040\\040battleship" 0 200 200 10 0 0 0 0 900 0 0 0 0 0 50 70 95 25 35 6 10 7 1 0 45 1800 0 0 2
+    Play#1 output Play#1 1 14 "bbc\\040\\040battlecruiser" 0 180 100 10 0 0 0 0 400 0 0 0 0 0 50 60 55 30 35 6 10 6 1 0 75 1500 0 0 2
+    Play#1 output Play#1 1 15 "tk\\040\\040\\040tanker" 30 5 0 0 990 0 0 0 200 990 0 0 25 0 60 40 75 25 45 3 0 0 1 0 35 600 262144 0 0
+    Play#1 output Play#1 1 16 "ms\\040\\040\\040minesweeper" 0 10 100 1 0 0 0 0 90 0 0 0 0 0 25 15 10 25 15 2 0 0 0 0 40 400 524672 0 0
+    Play#1 output Play#1 1 17 "dd\\040\\040\\040destroyer" 0 60 40 4 0 0 0 0 80 0 0 0 0 0 30 30 45 35 20 4 6 3 1 0 70 600 196 0 1
+    Play#1 output Play#1 1 18 "sb\\040\\040\\040submarine" 0 25 36 5 0 0 0 0 80 0 0 0 0 0 30 30 25 20 5 4 3 3 0 0 60 650 706 0 0
+    Play#1 output Play#1 1 20 "cal\\040\\040light\\040carrier" 0 175 250 4 300 0 0 0 180 0 0 0 0 0 50 60 60 30 40 5 2 2 4 20 80 2700 8 20 0
+    Play#1 output Play#1 1 /19
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump plane-chr *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP plane-chr 0
+    Play#1 output Play#1 1 0 "f1\\040\\040\\040Sopwith\\040Camel" 8 2 400 50 90 1 1 1 4 1 1 0 22
+    Play#1 output Play#1 1 1 "f2\\040\\040\\040P-51\\040Mustang" 8 2 400 80 80 1 4 4 8 1 1 0 70
+    Play#1 output Play#1 1 2 "jf1\\040\\040F-4\\040Phantom" 12 4 1000 125 45 1 14 14 11 2 3 0 70
+    Play#1 output Play#1 1 5 "es\\040\\040\\040P-38\\040Lightning" 9 3 700 90 60 1 5 5 15 1 2 0 131074
+    Play#1 output Play#1 1 7 "lb\\040\\040\\040TBD-1\\040Devastator" 10 3 550 60 50 2 0 3 7 1 1 0 83
+    Play#1 output Play#1 1 9 "mb\\040\\040\\040medium\\040bomber" 14 5 1000 80 45 4 0 5 14 3 3 0 3
+    Play#1 output Play#1 1 11 "hb\\040\\040\\040B-26B\\040Marauder" 20 6 1100 90 90 5 0 4 15 2 2 0 1
+    Play#1 output Play#1 1 14 "as\\040\\040\\040anti-sub\\040plane" 10 3 550 100 85 2 0 3 15 2 2 0 819202
+    Play#1 output Play#1 1 19 "tr\\040\\040\\040C-56\\040Lodestar" 14 5 1000 85 0 7 0 2 15 3 3 0 65544
+    Play#1 output Play#1 1 21 "zep\\040\\040Zeppelin" 6 2 1000 70 60 2 0 -3 15 3 2 0 154
+    Play#1 output Play#1 1 /10
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump land-chr *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP land-chr 0
+    Play#1 output Play#1 1 0 "cav\\040\\040cavalry" 0 20 0 0 0 0 0 0 12 0 0 0 0 0 10 5 30 500 1.20000 0.500000 80 32 18 4 3 0 0 0 0 0 80 0 0
+    Play#1 output Play#1 1 1 "linf\\040light\\040infantry" 0 25 1 0 0 0 0 0 15 0 0 0 0 0 8 4 40 300 1.00000 1.50000 60 28 15 2 1 0 0 0 1 1 272 0 0
+    Play#1 output Play#1 1 2 "inf\\040\\040infantry" 0 100 0 0 0 0 0 0 24 0 0 0 0 0 10 5 50 500 1.00000 1.50000 60 25 15 2 1 0 0 0 0 0 272 0 0
+    Play#1 output Play#1 1 6 "sup\\040\\040supply" 0 25 200 10 300 100 100 10 300 0 200 100 0 0 10 5 50 500 0.100000 0.200000 80 25 20 1 0 0 0 0 0 0 20 0 0
+    Play#1 output Play#1 1 7 "tra\\040\\040train" 0 990 990 200 990 500 500 100 990 990 990 990 0 150 100 50 40 3500 0.00000 0.00000 120 10 25 3 0 0 0 0 0 0 6148 5 12
+    Play#1 output Play#1 1 8 "spy\\040\\040infiltrator" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 5 40 750 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
+    Play#1 output Play#1 1 9 "com\\040\\040commando" 0 0 3 0 0 0 0 0 0 0 0 0 0 0 10 5 55 1500 0.00000 0.00000 80 32 18 4 3 0 0 0 0 0 1360 0 0
+    Play#1 output Play#1 1 10 "aau\\040\\040aa\\040unit" 0 20 5 0 0 0 0 0 12 0 0 0 0 0 20 10 70 500 0.500000 1.00000 60 18 20 1 1 0 0 0 1 2 528 0 0
+    Play#1 output Play#1 1 11 "art\\040\\040artillery" 0 25 40 10 0 0 0 0 24 0 0 0 0 0 20 10 35 800 0.100000 0.400000 70 18 20 1 0 8 50 5 2 1 16 0 0
+    Play#1 output Play#1 1 12 "lat\\040\\040lt\\040artillery" 0 25 20 6 0 0 0 0 12 0 0 0 0 0 20 10 70 500 0.200000 0.600000 60 30 18 1 1 5 10 3 1 1 16 0 0
+    Play#1 output Play#1 1 13 "hat\\040\\040hvy\\040artillery" 0 25 80 12 0 0 0 0 24 0 0 0 0 0 40 20 100 800 0.00000 0.200000 60 12 20 1 0 11 99 8 4 1 0 0 0
+    Play#1 output Play#1 1 18 "har\\040\\040hvy\\040armor" 0 100 3 0 0 0 0 0 48 0 0 0 0 0 20 10 120 500 2.00000 0.800000 50 18 17 1 1 0 0 0 2 1 0 0 0
+    Play#1 output Play#1 1 /12
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump nuke-chr *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP nuke-chr 0
+    Play#1 output Play#1 1 /0
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump news-chr *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP news-chr 0
+    Play#1 output Play#1 1 1 "infantry\\040capture\\040%s\\040territory" "shock\\040troops\\040overrun\\040one\\040of\\040%s's\\040sectors" -4 2
+    Play#1 output Play#1 1 2 "infantry\\040beaten\\040back\\040by\\040%s\\040troops" "shock\\040troops\\040annihilated\\040in\\040failed\\040attack\\040on\\040%s" -4 2
+    Play#1 output Play#1 1 3 "spy\\040shot\\040by\\040%s\\040firing\\040squad" "spy\\040captured\\040and\\040shot\\040by\\040%s" -1 10
+    Play#1 output Play#1 1 4 "sends\\040a\\040telegram\\040to\\040%s" "telexes\\040%s" 1 11
+    Play#1 output Play#1 1 6 "bankers\\040make\\040a\\040loan\\040to\\040%s" "Ministry\\040of\\040Finance\\040lends\\040money\\040to\\040%s" 2 7
+    Play#1 output Play#1 1 7 "repays\\040a\\040loan\\040from\\040%s" "makes\\040last\\040payment\\040on\\040loan\\040from\\040%s" 1 7
+    Play#1 output Play#1 1 8 "makes\\040a\\040sale\\040to\\040%s" "sells\\040goods\\040to\\040%s" 0 7
+    Play#1 output Play#1 1 9 "violates\\040%s\\040airspace" "overflies\\040%s\\040territory" -1 4
+    Play#1 output Play#1 1 10 "gunners\\040bombard\\040%s\\040territory" "artillery\\040fires\\040on\\040%s\\040sectors" -2 6
+    Play#1 output Play#1 1 11 "shells\\040a\\040ship\\040owned\\040by\\040%s" "fires\\040on\\040%s\\040ships" -2 3
+    Play#1 output Play#1 1 12 "takes\\040over\\040unoccupied\\040land" "attacks\\040unowned\\040land\\040for\\040some\\040reason" 0 2
+    Play#1 output Play#1 1 13 "ships\\040torpedoed\\040by\\040enemy\\040wolf-packs" "ships\\040torpedoed\\040by\\040marauding\\040U-boats" 0 3
+    Play#1 output Play#1 1 14 "gunners\\040fire\\040on\\040%s\\040in\\040self-defense" "gunners\\040decimate\\040%s\\040aggressors" 0 6
+    Play#1 output Play#1 1 15 "breaks\\040sanctuary" "no\\040longer\\040has\\040a\\040sanctuary" 0 1
+    Play#1 output Play#1 1 16 "planes\\040divebomb\\040one\\040of\\040%s's\\040sectors" "bombers\\040wreak\\040havoc\\040on\\040%s" -2 4
+    Play#1 output Play#1 1 17 "divebombs\\040a\\040ship\\040flying\\040the\\040flag\\040of\\040%s" "airforce\\040bombs\\040%s\\040ships" -2 3
+    Play#1 output Play#1 1 18 "seadogs\\040board\\040one\\040of\\040%s's\\040ships" "pirates\\040board\\040%s\\040ship" -2 3
+    Play#1 output Play#1 1 19 "is\\040repelled\\040by\\040%s\\040while\\040attempting\\040to\\040board\\040a\\040ship" "pirates\\040prove\\040inept\\040at\\040boarding\\040%s's\\040ships" -3 3
+    Play#1 output Play#1 1 21 "seizes\\040a\\040sector\\040from\\040%s\\040to\\040collect\\040on\\040a\\040loan" "collects\\040one\\040of\\040%s's\\040sectors\\040in\\040repayment\\040of\\040a\\040loan" -2 7
+    Play#1 output Play#1 1 25 "ship\\040hits\\040a\\040mine" "ship\\040severely\\040damaged\\040in\\040mine\\040field" 0 3
+    Play#1 output Play#1 1 26 "announces\\040an\\040alliance\\040with\\040%s" "/\\040%s\\040alliance\\040declared" 5 1
+    Play#1 output Play#1 1 28 "declares\\040TOTAL\\040WAR\\040on\\040%s" "gets\\040serious\\040with\\040%s\\040and\\040declares\\040WAR" -5 1
+    Play#1 output Play#1 1 29 "diplomats\\040disavow\\040former\\040alliance\\040with\\040%s" "is\\040no\\040longer\\040allied\\040with\\040%s" 0 1
+    Play#1 output Play#1 1 30 "is\\040no\\040longer\\040at\\040war\\040with\\040%s" "Foreign\\040Ministry\\040declares\\040\\042No\\040more\\040war\\040with\\040%s\\042" 5 1
+    Play#1 output Play#1 1 31 "reports\\040outbreak\\040of\\040the\\040black\\040plague" "sector\\040infected\\040with\\040bubonic\\040plague" 0 9
+    Play#1 output Play#1 1 32 "citizens\\040die\\040from\\040bubonic\\040plague" "sector\\040reports\\040plague\\040deaths" 0 9
+    Play#1 output Play#1 1 33 "goes\\040through\\040a\\040name\\040change" "adopts\\040a\\040new\\040country\\040name" 0 1
+    Play#1 output Play#1 1 34 "citizens\\040starve\\040in\\040disastrous\\040famine" "loses\\040citizens\\040to\\040mass\\040starvation" 0 9
+    Play#1 output Play#1 1 36 "pilots\\040down\\040%s\\040planes" "victorious\\040in\\040air-to-air\\040combat\\040against\\040%s" -3 4
+    Play#1 output Play#1 1 37 "nuclear\\040device\\040devastates\\040%s\\040sector" "explodes\\040a\\040nuclear\\040device\\040damaging\\040%s\\040territory" -10 5
+    Play#1 output Play#1 1 38 "terrorists\\040shoot\\040it\\040out\\040with\\040%s\\040special\\040forces" "underground\\040rises\\040up\\040against\\040%s\\040occupation" 0 9
+    Play#1 output Play#1 1 39 "execution\\040squads\\040gun\\040down\\040helpless\\040%s\\040civilians" "firing\\040squads\\040massacre\\040defenseless\\040%s\\040workers" -2 9
+    Play#1 output Play#1 1 40 "launches\\040a\\040satellite\\040into\\040orbit" "continues\\040its\\040conquest\\040of\\040space\\040with\\040a\\040successful\\040launch" 0 5
+    Play#1 output Play#1 1 41 "strikes\\040a\\040%s\\040big\\040bird" "rockets\\040damage\\040a\\040%s\\040satellite" -8 5
+    Play#1 output Play#1 1 42 "makes\\040a\\040contribution\\040to\\040%s" "helps\\040out\\040%s" 0 7
+    Play#1 output Play#1 1 43 "aids\\040%s\\040with\\040divine\\040intervention" "smiles\\040upon\\040%s" 0 9
+    Play#1 output Play#1 1 44 "hurts\\040%s\\040with\\040divine\\040intervention" "frowns\\040upon\\040%s" 0 9
+    Play#1 output Play#1 1 45 "sacrifices\\040to\\040%s" "makes\\040divine\\040payment\\040to\\040%s" 0 7
+    Play#1 output Play#1 1 46 "abms\\040intercept\\040a\\040%s\\040missile" "strategic\\040defense\\040systems\\040destroy\\040a\\040%s\\040missile" -10 5
+    Play#1 output Play#1 1 47 "missile\\040fired\\040at\\040one\\040of\\040%s's\\040sectors" "missile\\040wreaks\\040havoc\\040on\\040%s" -2 5
+    Play#1 output Play#1 1 48 "missile\\040fired\\040at\\040a\\040ship\\040flying\\040the\\040flag\\040of\\040%s" "missiles\\040hit\\040%s\\040ships" -2 5
+    Play#1 output Play#1 1 49 "engages\\040in\\040friendly\\040trade\\040with\\040%s" "profits\\040from\\040a\\040merchant\\040venture\\040with\\040%s" 2 7
+    Play#1 output Play#1 1 50 "pirates\\040dispose\\040of\\040%s\\040booty\\040in\\040trade" "buccaneers\\040sell\\040their\\040%s\\040goods" 0 7
+    Play#1 output Play#1 1 51 "pirates\\040keep\\040their\\040%s\\040booty" "buccaneers\\040laugh\\040and\\040bury\\040their\\040%s\\040goods" 0 7
+    Play#1 output Play#1 1 52 "ships\\040torpedoed\\040by\\040%s\\040torpedo-boats" "ships\\040sunk\\040by\\040marauding\\040%s\\040torpedo-boats" 0 3
+    Play#1 output Play#1 1 53 "planes\\040bomb\\040a\\040skulking\\040%s\\040submarine" "planes\\040drop\\040depth-charges\\040on\\040a\\040%s\\040sub" 0 3
+    Play#1 output Play#1 1 55 "divebombs\\040a\\040brave\\040%s\\040unit" "airforce\\040bombs\\040%s\\040units" -2 4
+    Play#1 output Play#1 1 56 "troops\\040run\\040afoul\\040of\\040a\\040landmine" "troops\\040severely\\040damaged\\040in\\040mine\\040field" 0 2
+    Play#1 output Play#1 1 57 "fortress\\040gunners\\040support\\040troops\\040attacking\\040%s" "fortress\\040artillery\\040massacres\\040%s\\040defenders" -2 6
+    Play#1 output Play#1 1 58 "gunners\\040support\\040troops\\040attacking\\040%s" "artillery\\040battery\\040massacres\\040%s\\040defenders" -2 6
+    Play#1 output Play#1 1 59 "naval\\040gunners\\040support\\040troops\\040attacking\\040%s" "naval\\040gunfire\\040massacres\\040%s\\040defenders" -2 6
+    Play#1 output Play#1 1 60 "sacks\\040%s\\040capital" "captures\\040and\\040pillages\\040%s's\\040capital" 10 1
+    Play#1 output Play#1 1 61 "announces\\040friendly\\040trade\\040relations\\040with\\040%s" "upgrades\\040%s's\\040trade\\040status\\040to\\040triple-A" 3 1
+    Play#1 output Play#1 1 62 "downgrades\\040relations\\040with\\040%s\\040to\\040friendly" "cools\\040relations\\040with\\040%s\\040to\\040friendly" 0 1
+    Play#1 output Play#1 1 63 "upgrades\\040relations\\040with\\040%s\\040to\\040neutral" "Foreign\\040Ministry\\040declares\\040\\042%s\\040is\\040A-OK.\\042" 2 1
+    Play#1 output Play#1 1 64 "downgrades\\040relations\\040with\\040%s\\040to\\040neutral" "gives\\040the\\040cold\\040shoulder\\040to\\040%s\\040and\\040declares\\040neutral\\040relations" 0 1
+    Play#1 output Play#1 1 65 "upgrades\\040relations\\040with\\040%s\\040to\\040hostile" "forgives\\040%s\\040of\\040past\\040war\\040crimes\\040but\\040remains\\040hostile" 3 1
+    Play#1 output Play#1 1 66 "downgrades\\040relations\\040with\\040%s\\040to\\040hostile" "is\\040suspicious\\040that\\040%s\\040has\\040hostile\\040intentions" 3 1
+    Play#1 output Play#1 1 67 "sector\\040is\\040struck\\040by\\040a\\040sub-launched\\040missile" "sector\\040devastated\\040by\\040missile" 0 5
+    Play#1 output Play#1 1 68 "ship\\040is\\040hit\\040by\\040a\\040sub-launched\\040missile" "ship\\040damaged\\040by\\040marine\\040missile" 0 5
+    Play#1 output Play#1 1 69 "pilgrims\\040settle\\040on\\040a\\040new\\040island" "discovers\\040new\\040land\\040and\\040starts\\040a\\040colony" 0 8
+    Play#1 output Play#1 1 70 "abms\\040intercept\\040an\\040incoming\\040sub-launched\\040missile" "strategic\\040defense\\040systems\\040destroy\\040an\\040incoming\\040sub-launched\\040warhead" 0 5
+    Play#1 output Play#1 1 71 "missile\\040fired\\040at\\040%s\\040ground\\040troops" "missile\\040hits\\040%s\\040troops" 2 5
+    Play#1 output Play#1 1 72 "regiment\\040struck\\040by\\040sub-launched\\040missile" "ground\\040troops\\040hit\\040by\\040missile" 0 5
+    Play#1 output Play#1 1 73 "navy\\040secures\\040a\\040beachhead\\040on\\040%s\\040territory" "sailors\\040take\\040a\\040coastal\\040sector\\040from\\040%s" -4 2
+    Play#1 output Play#1 1 74 "paratroopers\\040comandeer\\040a\\040sector\\040from\\040%s" "air\\040force\\040parachutists\\040overwhelm\\040a\\040%s\\040sector" -4 2
+    Play#1 output Play#1 1 75 "parachutists\\040grab\\040unoccupied\\040land" "paratroopers\\040break\\040new\\040ground" 0 8
+    Play#1 output Play#1 1 76 "sailors\\040repelled\\040by\\040%s\\040coast-guard" "naval\\040forces\\040massacred\\040in\\040failed\\040assault\\040of\\040%s" 4 2
+    Play#1 output Play#1 1 77 "paratroopers\\040destroyed\\040in\\040failed\\040air-assault\\040on\\040%s" "loses\\040parachutists\\040in\\040failed\\040air-assault\\040of\\040%s" 4 2
+    Play#1 output Play#1 1 80 "is\\040unable\\040to\\040fulfill\\040its\\040financial\\040obligations\\040to\\040%s" "welches\\040on\\040a\\040deal\\040with\\040%s" 0 7
+    Play#1 output Play#1 1 81 "is\\040repelled\\040by\\040%s\\040while\\040attempting\\040to\\040board\\040a\\040land\\040unit" "forces\\040prove\\040inept\\040at\\040boarding\\040%s's\\040land\\040unit" -3 2
+    Play#1 output Play#1 1 82 "mercenaries\\040board\\040one\\040of\\040%s's\\040land\\040units" "elite\\040forces\\040board\\040%s\\040land\\040unit" -2 2
+    Play#1 output Play#1 1 /72
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump infrastructure *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP infrastructure 0
+    Play#1 output Play#1 1 "road\\040network" 2 2 2 1 1
+    Play#1 output Play#1 1 "rail\\040network" 1 1 1 1 0
+    Play#1 output Play#1 1 "defense\\040factor" 1 1 1 1 0
+    Play#1 output Play#1 1 /3
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump updates *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP updates 0
+    Play#1 output Play#1 1 /0
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump table *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP table 0
+    Play#1 output Play#1 1 0 "sect"
+    Play#1 output Play#1 1 1 "ship"
+    Play#1 output Play#1 1 2 "plane"
+    Play#1 output Play#1 1 3 "land"
+    Play#1 output Play#1 1 4 "nuke"
+    Play#1 output Play#1 1 5 "news"
+    Play#1 output Play#1 1 6 "trade"
+    Play#1 output Play#1 1 8 "nat"
+    Play#1 output Play#1 1 9 "loan"
+    Play#1 output Play#1 1 12 "commodity"
+    Play#1 output Play#1 1 13 "lost"
+    Play#1 output Play#1 1 14 "realm"
+    Play#1 output Play#1 1 15 "game"
+    Play#1 output Play#1 1 16 "item"
+    Play#1 output Play#1 1 17 "product"
+    Play#1 output Play#1 1 18 "sect-chr"
+    Play#1 output Play#1 1 19 "ship-chr"
+    Play#1 output Play#1 1 20 "plane-chr"
+    Play#1 output Play#1 1 21 "land-chr"
+    Play#1 output Play#1 1 22 "nuke-chr"
+    Play#1 output Play#1 1 23 "news-chr"
+    Play#1 output Play#1 1 24 "infrastructure"
+    Play#1 output Play#1 1 25 "updates"
+    Play#1 output Play#1 1 26 "table"
+    Play#1 output Play#1 1 27 "version"
+    Play#1 output Play#1 1 28 "meta"
+    Play#1 output Play#1 1 29 "agreement-status"
+    Play#1 output Play#1 1 30 "land-chr-flags"
+    Play#1 output Play#1 1 31 "level"
+    Play#1 output Play#1 1 32 "meta-flags"
+    Play#1 output Play#1 1 33 "meta-type"
+    Play#1 output Play#1 1 34 "missions"
+    Play#1 output Play#1 1 35 "nation-flags"
+    Play#1 output Play#1 1 36 "nation-rejects"
+    Play#1 output Play#1 1 37 "nation-relationships"
+    Play#1 output Play#1 1 38 "nation-status"
+    Play#1 output Play#1 1 39 "nuke-chr-flags"
+    Play#1 output Play#1 1 40 "packing"
+    Play#1 output Play#1 1 41 "page-headings"
+    Play#1 output Play#1 1 42 "plague-stages"
+    Play#1 output Play#1 1 43 "plane-chr-flags"
+    Play#1 output Play#1 1 44 "plane-flags"
+    Play#1 output Play#1 1 45 "resources"
+    Play#1 output Play#1 1 46 "retreat-flags"
+    Play#1 output Play#1 1 47 "sector-navigation"
+    Play#1 output Play#1 1 48 "ship-chr-flags"
+    Play#1 output Play#1 1 49 "country"
+    Play#1 output Play#1 1 /47
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump version *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP version 0
+    Play#1 output Play#1 1 "Wolfpack\\040Empire\\0404.3.34" 99 "Deity\\040forgot\\040to\\040edit\\040econfig" "careless@invalid" 64 32 60 0 0 1 "" "" "" 1 0 1 0 1 1 0 0 0 0 1 0 0 0 0 1 1 0 1 1 0 0 0 0.00120000 1440 640 15 5 120 0 1.00000 96.0000 2.00000 2.00000 192.000 48.0000 600000. 600000. 1.00000 127 100 1000.00 10.0000 300 3000.00 100.000 1.00000 2.00000 127 -0.00100000 1.00000 2.00000 127 -0.00100000 1.50000 3.00000 127 -0.00100000 40 8 8 8 1.75000 5.00000 1.00000 0.300000 0.100000 0.500000 1.00000 2 0.00250000 0.00833330 -0.0833333 -0.00833330 0.00177770 0.00600000 0.250000 0.000500000 0.00130000 0.00120000 0.00500000 50 0.00600000 0.00500000 0.00000 7200 7200 1.00000 0.990000 8 14 25 0.0250000 0.0350000 0.0500000 0.200000 0.100000
+    Play#1 output Play#1 1 /1
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump meta *
+    Play#1 command xdump
+    Play#1 output Play#1 1 Usage: xdump ["meta"] <TYPE> [<RECORDS>]
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump sector-navigation *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP sector-navigation 0
+    Play#1 output Play#1 1 0 "land"
+    Play#1 output Play#1 1 1 "sea"
+    Play#1 output Play#1 1 2 "harbor"
+    Play#1 output Play#1 1 3 "canal"
+    Play#1 output Play#1 1 4 "bridge"
+    Play#1 output Play#1 1 /5
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump agreement-status *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP agreement-status 0
+    Play#1 output Play#1 1 0 "free"
+    Play#1 output Play#1 1 1 "proposed"
+    Play#1 output Play#1 1 2 "signed"
+    Play#1 output Play#1 1 /3
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump land-chr-flags *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP land-chr-flags 0
+    Play#1 output Play#1 1 2 "engineer"
+    Play#1 output Play#1 1 4 "supply"
+    Play#1 output Play#1 1 8 "security"
+    Play#1 output Play#1 1 16 "light"
+    Play#1 output Play#1 1 32 "marine"
+    Play#1 output Play#1 1 64 "recon"
+    Play#1 output Play#1 1 128 "radar"
+    Play#1 output Play#1 1 256 "assault"
+    Play#1 output Play#1 1 512 "flak"
+    Play#1 output Play#1 1 1024 "spy"
+    Play#1 output Play#1 1 2048 "train"
+    Play#1 output Play#1 1 4096 "heavy"
+    Play#1 output Play#1 1 /12
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump level *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP level 0
+    Play#1 output Play#1 1 -1 "none"
+    Play#1 output Play#1 1 0 "technology"
+    Play#1 output Play#1 1 1 "research"
+    Play#1 output Play#1 1 2 "education"
+    Play#1 output Play#1 1 3 "happiness"
+    Play#1 output Play#1 1 /5
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump meta-flags *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP meta-flags 0
+    Play#1 output Play#1 1 1 "deity"
+    Play#1 output Play#1 1 2 "extra"
+    Play#1 output Play#1 1 4 "const"
+    Play#1 output Play#1 1 8 "bits"
+    Play#1 output Play#1 1 16 "hidden"
+    Play#1 output Play#1 1 /5
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump meta-type *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP meta-type 0
+    Play#1 output Play#1 1 1 "d"
+    Play#1 output Play#1 1 2 "g"
+    Play#1 output Play#1 1 3 "s"
+    Play#1 output Play#1 1 4 "d"
+    Play#1 output Play#1 1 5 "d"
+    Play#1 output Play#1 1 6 "d"
+    Play#1 output Play#1 1 7 "d"
+    Play#1 output Play#1 1 8 "d"
+    Play#1 output Play#1 1 9 "d"
+    Play#1 output Play#1 1 10 "d"
+    Play#1 output Play#1 1 11 "d"
+    Play#1 output Play#1 1 12 "g"
+    Play#1 output Play#1 1 13 "c"
+    Play#1 output Play#1 1 /13
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump missions *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP missions 0
+    Play#1 output Play#1 1 0 "none"
+    Play#1 output Play#1 1 1 "interdiction"
+    Play#1 output Play#1 1 2 "support"
+    Play#1 output Play#1 1 3 "reserve"
+    Play#1 output Play#1 1 4 "escort"
+    Play#1 output Play#1 1 6 "air\\040defense"
+    Play#1 output Play#1 1 7 "defensive\\040support"
+    Play#1 output Play#1 1 8 "offensive\\040support"
+    Play#1 output Play#1 1 /8
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump nation-flags *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP nation-flags 0
+    Play#1 output Play#1 1 1 "inform"
+    Play#1 output Play#1 1 2 "flash"
+    Play#1 output Play#1 1 4 "beep"
+    Play#1 output Play#1 1 8 "coastwatch"
+    Play#1 output Play#1 1 16 "sonar"
+    Play#1 output Play#1 1 32 "techlists"
+    Play#1 output Play#1 1 64 "sacked"
+    Play#1 output Play#1 1 /7
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump nation-rejects *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP nation-rejects 0
+    Play#1 output Play#1 1 1 "telegrams"
+    Play#1 output Play#1 1 2 "announcements"
+    Play#1 output Play#1 1 4 "loans"
+    Play#1 output Play#1 1 /3
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump nation-relationships *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP nation-relationships 0
+    Play#1 output Play#1 1 -1 "unknown"
+    Play#1 output Play#1 1 0 "at-war"
+    Play#1 output Play#1 1 1 "hostile"
+    Play#1 output Play#1 1 2 "neutral"
+    Play#1 output Play#1 1 3 "friendly"
+    Play#1 output Play#1 1 4 "allied"
+    Play#1 output Play#1 1 /6
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump nation-status *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP nation-status 0
+    Play#1 output Play#1 1 0 "unused"
+    Play#1 output Play#1 1 1 "new"
+    Play#1 output Play#1 1 2 "visitor"
+    Play#1 output Play#1 1 3 "sanctuary"
+    Play#1 output Play#1 1 4 "active"
+    Play#1 output Play#1 1 5 "deity"
+    Play#1 output Play#1 1 /6
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump nuke-chr-flags *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP nuke-chr-flags 0
+    Play#1 output Play#1 1 1 "neutron"
+    Play#1 output Play#1 1 /1
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump packing *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP packing 0
+    Play#1 output Play#1 1 0 "inefficient"
+    Play#1 output Play#1 1 1 "normal"
+    Play#1 output Play#1 1 2 "warehouse"
+    Play#1 output Play#1 1 3 "urban"
+    Play#1 output Play#1 1 4 "bank"
+    Play#1 output Play#1 1 /5
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump page-headings *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP page-headings 0
+    Play#1 output Play#1 1 0 "Comics"
+    Play#1 output Play#1 1 1 "Foreign\\040Affairs"
+    Play#1 output Play#1 1 2 "The\\040Front\\040Line"
+    Play#1 output Play#1 1 3 "The\\040High\\040Seas"
+    Play#1 output Play#1 1 4 "Sky\\040Watch"
+    Play#1 output Play#1 1 5 "Guidance\\040Systems"
+    Play#1 output Play#1 1 6 "Firestorms"
+    Play#1 output Play#1 1 7 "Business\\040&\\040Economics"
+    Play#1 output Play#1 1 8 "The\\040Frontier"
+    Play#1 output Play#1 1 9 "The\\040Home\\040Front"
+    Play#1 output Play#1 1 10 "Espionage"
+    Play#1 output Play#1 1 11 "Telecommunications"
+    Play#1 output Play#1 1 /12
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump plague-stages *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP plague-stages 0
+    Play#1 output Play#1 1 0 "healthy"
+    Play#1 output Play#1 1 1 "dying"
+    Play#1 output Play#1 1 2 "infect"
+    Play#1 output Play#1 1 3 "incubate"
+    Play#1 output Play#1 1 4 "exposed"
+    Play#1 output Play#1 1 /5
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump plane-chr-flags *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP plane-chr-flags 0
+    Play#1 output Play#1 1 2 "tactical"
+    Play#1 output Play#1 1 1 "bomber"
+    Play#1 output Play#1 1 4 "intercept"
+    Play#1 output Play#1 1 8 "cargo"
+    Play#1 output Play#1 1 16 "VTOL"
+    Play#1 output Play#1 1 32 "missile"
+    Play#1 output Play#1 1 64 "light"
+    Play#1 output Play#1 1 128 "spy"
+    Play#1 output Play#1 1 256 "image"
+    Play#1 output Play#1 1 512 "satellite"
+    Play#1 output Play#1 1 2048 "SDI"
+    Play#1 output Play#1 1 8192 "x-light"
+    Play#1 output Play#1 1 16384 "helo"
+    Play#1 output Play#1 1 32768 "ASW"
+    Play#1 output Play#1 1 65536 "para"
+    Play#1 output Play#1 1 131072 "escort"
+    Play#1 output Play#1 1 262144 "mine"
+    Play#1 output Play#1 1 524288 "sweep"
+    Play#1 output Play#1 1 1048576 "marine"
+    Play#1 output Play#1 1 /19
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump plane-flags *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP plane-flags 0
+    Play#1 output Play#1 1 1 "launched"
+    Play#1 output Play#1 1 2 "synchronous"
+    Play#1 output Play#1 1 4 "airburst"
+    Play#1 output Play#1 1 /3
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump resources *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP resources 0
+    Play#1 output Play#1 1 0 "none"
+    Play#1 output Play#1 1 0 "min"
+    Play#1 output Play#1 1 0 "gold"
+    Play#1 output Play#1 1 0 "fert"
+    Play#1 output Play#1 1 0 "ocontent"
+    Play#1 output Play#1 1 0 "uran"
+    Play#1 output Play#1 1 /6
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump retreat-flags *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP retreat-flags 0
+    Play#1 output Play#1 1 1 "group"
+    Play#1 output Play#1 1 2 "injured"
+    Play#1 output Play#1 1 4 "torpedoed"
+    Play#1 output Play#1 1 8 "sonared"
+    Play#1 output Play#1 1 16 "helpless"
+    Play#1 output Play#1 1 32 "bombed"
+    Play#1 output Play#1 1 64 "depth-charged"
+    Play#1 output Play#1 1 128 "boarded"
+    Play#1 output Play#1 1 /8
+    Play#1 output Play#1 6 0 0
+    Play#1 input xdump ship-chr-flags *
+    Play#1 command xdump
+    Play#1 output Play#1 1 XDUMP ship-chr-flags 0
+    Play#1 output Play#1 1 1 "fish"
+    Play#1 output Play#1 1 2 "torp"
+    Play#1 output Play#1 1 4 "dchrg"
+    Play#1 output Play#1 1 8 "plane"
+    Play#1 output Play#1 1 16 "miss"
+    Play#1 output Play#1 1 32 "oil"
+    Play#1 output Play#1 1 64 "sonar"
+    Play#1 output Play#1 1 128 "mine"
+    Play#1 output Play#1 1 256 "sweep"
+    Play#1 output Play#1 1 512 "sub"
+    Play#1 output Play#1 1 2048 "land"
+    Play#1 output Play#1 1 4096 "sub-torp"
+    Play#1 output Play#1 1 8192 "trade"
+    Play#1 output Play#1 1 16384 "semi-land"
+    Play#1 output Play#1 1 262144 "supply"
+    Play#1 output Play#1 1 524288 "canal"
+    Play#1 output Play#1 1 1048576 "anti-missile"
+    Play#1 output Play#1 1 /17
+    Play#1 output Play#1 6 0 0
+    Play#1 input ctld
+    Play#1 output Play#1 1 Bye-bye
+    Play#1 logout 1
+    Play#1 output Play#1 3 so long...
+     Conn3 output Conn3 2 Empire server ready
+     Conn3 input user tester
+     Conn3 output Conn3 0 hello tester
+     Conn3 input coun v
+     Conn3 output Conn3 0 country name v
+     Conn3 input pass v
+     Conn3 output Conn3 0 password ok
+     Conn3 input play
+     Conn3 login 2 127.0.0.1 tester
+    Play#2 output Play#2 2 2
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 ***          Server configured for testing          ***
+    Play#2 output Play#2 1 *** If you see this in a game, it is misconfigured! ***
+    Play#2 output Play#2 6 0 640
+    Play#2 input version
+    Play#2 command version
+    Play#2 output Play#2 1 Wolfpack Empire 4.3.34
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 The following parameters have been set for this game:
+    Play#2 output Play#2 1 World size is 64 by 32.
+    Play#2 output Play#2 1 There can be up to 99 countries.
+    Play#2 output Play#2 1 By default, countries use their own coordinate system.
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 Use the 'show' command to find out the time of the next update.
+    Play#2 output Play#2 1 The current time is Thu Jan  1 00:00:00.
+    Play#2 output Play#2 1 An update consists of 60 empire time units.
+    Play#2 output Play#2 1 Each country is allowed to be logged in 1440 minutes a day.
+    Play#2 output Play#2 1 It takes 8.33 civilians to produce a BTU in one time unit.
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 A non-aggi, 100 fertility sector can grow 0.12 food per etu.
+    Play#2 output Play#2 1 1000 civilians will harvest 1.3 food per etu.
+    Play#2 output Play#2 1 1000 civilians will give birth to 5.0 babies per etu.
+    Play#2 output Play#2 1 1000 uncompensated workers will give birth to 2.5 babies.
+    Play#2 output Play#2 1 In one time unit, 1000 people eat 0.5 units of food.
+    Play#2 output Play#2 1 1000 babies eat 6.0 units of food becoming adults.
+    Play#2 output Play#2 1 No food is needed!
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 Banks pay $250.00 in interest per 1000 gold bars per etu.
+    Play#2 output Play#2 1 1000 civilians generate $8.33, uncompensated workers $1.78 each time unit.
+    Play#2 output Play#2 1 1000 active military cost $83.33, reserves cost $8.33.
+    Play#2 output Play#2 1 Up to 50 avail can roll over an update.
+    Play#2 output Play#2 1 Happiness p.e. requires 1 happy stroller per 10000 civ.
+    Play#2 output Play#2 1 Education p.e. requires 1 class of graduates per 10000 civ.
+    Play#2 output Play#2 1 Happiness is averaged over 48 time units.
+    Play#2 output Play#2 1 Education is averaged over 192 time units.
+    Play#2 output Play#2 1 The technology/research boost you get from the world is 50.00%.
+    Play#2 output Play#2 1 Nation levels (tech etc.) decline 1% every 96 time units.
+    Play#2 output Play#2 1 Tech buildup is limited to logarithmic growth (base 2.00) after 1.00.
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 				Sectors	Ships	Planes	Units
+    Play#2 output Play#2 1 Maximum mobility		127	127	127	127
+    Play#2 output Play#2 1 Max mob gain per update		60	90	60	60
+    Play#2 output Play#2 1 Max eff gain per update		--	100	100	100
+    Play#2 output Play#2 1 Maintenance cost per update	--	6.0%	6.0%	6.0%
+    Play#2 output Play#2 1 Max interdiction range		8	8	--	8
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 The maximum amount of mobility used for land unit combat is 5.00.
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 Fire ranges are scaled by 1.00.
+    Play#2 output Play#2 1 Flak damage is scaled by 1.75.
+    Play#2 output Play#2 1 Torpedo damage is 2d40+38.
+    Play#2 output Play#2 1 The attack factor for para & assault troops is 0.50.
+    Play#2 output Play#2 1 12% of fallout leaks into each surrounding sector.
+    Play#2 output Play#2 1 Fallout decays by 28% per update.
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 Damage to			Spills to
+    Play#2 output Play#2 1 	      Sector  People  Mater.   Ships  Planes  LandU.
+    Play#2 output Play#2 1 Sector		 --	100%	100%	  0%	  4%	 30%
+    Play#2 output Play#2 1 People		 10%	 --	 --	 --	 --	 --
+    Play#2 output Play#2 1 Materials	 10%	 --	 --	 --	 --	 --
+    Play#2 output Play#2 1 Efficiency	 10%	 --	 --	 --	 --	 --
+    Play#2 output Play#2 1 Ships		 10%	100%	100%	 --	  0%	  0%
+    Play#2 output Play#2 1 Planes		 10%	  0%	  0%	 --	 --	 --
+    Play#2 output Play#2 1 Land units	 10%	  0%	100%	 --	  0%	  0%
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 You can have at most 640 BTUs.
+    Play#2 output Play#2 1 Players are disconnected after 15 minutes of idle time.
+    Play#2 output Play#2 1 You are disconnected after 5 minutes of idle time.
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 Options enabled in this game:
+    Play#2 output Play#2 1 	ALL_BLEED, BLITZ, EASY_BRIDGES, FALLOUT, INTERDICT_ATT, NOFOOD,
+    Play#2 output Play#2 1 	NOMOBCOST, NO_PLAGUE, RAILWAYS
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 Options disabled in this game:
+    Play#2 output Play#2 1 	AUTO_POWER, BRIDGETOWERS, GODNEWS, GO_RENEW, GUINEA_PIGS, HIDDEN,
+    Play#2 output Play#2 1 	LOANS, LOSE_CONTACT, MARKET, MOB_ACCESS, NO_FORT_FIRE, RES_POP,
+    Play#2 output Play#2 1 	SUPER_BARS, TECH_POP
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 See "info Options" for a detailed list of options and descriptions.
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 The person to annoy if something goes wrong is:
+    Play#2 output Play#2 1 	Deity forgot to edit econfig <careless@invalid>.
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 You can get your own copy of the source from <http://www.wolfpackempire.com/>.
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 Copyright (C) 1986-2016, Dave Pare, Jeff Bailey, Thomas Ruschak,
+    Play#2 output Play#2 1               Ken Stevens, Steve McClure, Markus Armbruster
+    Play#2 output Play#2 1 This is free software; see the source for copying conditions.  There is NO
+    Play#2 output Play#2 1 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    Play#2 output Play#2 6 0 640
+    Play#2 input ctld
+    Play#2 output Play#2 1 Bye-bye
+    Play#2 logout 2
+    Play#2 output Play#2 3 so long...
+      Main shutdown
+      Main startup
+      Main prng MT19937 1
+     Conn0 output Conn0 2 Empire server ready
+     Conn0 input user tester
+     Conn0 output Conn0 0 hello tester
+     Conn0 input coun red
+     Conn0 output Conn0 10 country red does not exist
+     Conn0 output Conn0 3 so long...
+     Conn1 output Conn1 2 Empire server ready
+     Conn1 input user tester
+     Conn1 output Conn1 0 hello tester
+     Conn1 input coun 1
+     Conn1 output Conn1 0 country name 1
+     Conn1 input pass 1
+     Conn1 output Conn1 0 password ok
+     Conn1 input play
+     Conn1 login 1 127.0.0.1 tester
+    Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
+    Play#1 output Play#1 6 0 0
+    Play#1 input version
+    Play#1 command version
+    Play#1 output Play#1 1 Wolfpack Empire 4.3.34
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 The following parameters have been set for this game:
+    Play#1 output Play#1 1 World size is 64 by 32.
+    Play#1 output Play#1 1 There can be up to 99 countries.
+    Play#1 output Play#1 1 By default, countries use their own coordinate system.
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 Use the 'show' command to find out the time of the next update.
+    Play#1 output Play#1 1 The current time is Thu Jan  1 00:00:00.
+    Play#1 output Play#1 1 An update consists of 60 empire time units.
+    Play#1 output Play#1 1 Each country is allowed to be logged in 1440 minutes a day.
+    Play#1 output Play#1 1 Game days are Su Mo Tu We Th Fr Sa.
+    Play#1 output Play#1 1 Game hours are 00:00-24:00.
+    Play#1 output Play#1 1 It takes 8.33 civilians to produce a BTU in one time unit.
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 A non-aggi, 100 fertility sector can grow 0.12 food per etu.
+    Play#1 output Play#1 1 1000 civilians will harvest 1.3 food per etu.
+    Play#1 output Play#1 1 1000 civilians will give birth to 5.0 babies per etu.
+    Play#1 output Play#1 1 1000 uncompensated workers will give birth to 2.5 babies.
+    Play#1 output Play#1 1 In one time unit, 1000 people eat 0.5 units of food.
+    Play#1 output Play#1 1 1000 babies eat 6.0 units of food becoming adults.
+    Play#1 output Play#1 1 No food is needed!
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 Banks pay $250.00 in interest per 1000 gold bars per etu.
+    Play#1 output Play#1 1 1000 civilians generate $8.33, uncompensated workers $1.78 each time unit.
+    Play#1 output Play#1 1 1000 active military cost $83.33, reserves cost $8.33.
+    Play#1 output Play#1 1 Up to 50 avail can roll over an update.
+    Play#1 output Play#1 1 Happiness p.e. requires 1 happy stroller per 10000 civ.
+    Play#1 output Play#1 1 Education p.e. requires 1 class of graduates per 10000 civ.
+    Play#1 output Play#1 1 Happiness is averaged over 48 time units.
+    Play#1 output Play#1 1 Education is averaged over 192 time units.
+    Play#1 output Play#1 1 The technology/research boost you get from your allies is 50.00%.
+    Play#1 output Play#1 1 Nation levels (tech etc.) decline 1% every 96 time units.
+    Play#1 output Play#1 1 Tech buildup is not limited.
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 				Sectors	Ships	Planes	Units
+    Play#1 output Play#1 1 Maximum mobility		127	127	127	127
+    Play#1 output Play#1 1 Max mob gain per update		60	90	60	60
+    Play#1 output Play#1 1 Max eff gain per update		--	100	100	100
+    Play#1 output Play#1 1 Maintenance cost per update	--	6.0%	6.0%	6.0%
+    Play#1 output Play#1 1 Max interdiction range		8	8	--	8
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 The maximum amount of mobility used for land unit combat is 5.00.
+    Play#1 output Play#1 1 The starting mobility when acquiring a sector or unit is -30.
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 The tax you pay on selling things on the trading block is 1.0%.
+    Play#1 output Play#1 1 The tax you pay on buying commodities on the market is 0.0%.
+    Play#1 output Play#1 1 The amount of time to bid on commodities is 7200 seconds.
+    Play#1 output Play#1 1 The amount of time to bid on a unit is 7200 seconds.
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 Fire ranges are scaled by 1.00.
+    Play#1 output Play#1 1 Flak damage is scaled by 1.75.
+    Play#1 output Play#1 1 Torpedo damage is 2d40+38.
+    Play#1 output Play#1 1 The attack factor for para & assault troops is 0.50.
+    Play#1 output Play#1 1 12% of fallout leaks into each surrounding sector.
+    Play#1 output Play#1 1 Fallout decays by 28% per update.
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 Damage to			Spills to
+    Play#1 output Play#1 1 	      Sector  People  Mater.   Ships  Planes  LandU.
+    Play#1 output Play#1 1 Sector		 --	100%	100%	  0%	  4%	 30%
+    Play#1 output Play#1 1 People		 10%	 --	 --	 --	 --	 --
+    Play#1 output Play#1 1 Materials	 10%	 --	 --	 --	 --	 --
+    Play#1 output Play#1 1 Efficiency	 10%	 --	 --	 --	 --	 --
+    Play#1 output Play#1 1 Ships		 10%	100%	100%	 --	  0%	  0%
+    Play#1 output Play#1 1 Planes		 10%	  0%	  0%	 --	 --	 --
+    Play#1 output Play#1 1 Land units	 10%	  0%	100%	 --	  0%	  0%
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 You can have at most 640 BTUs.
+    Play#1 output Play#1 1 You are disconnected after 15 minutes of idle time.
+    Play#1 output Play#1 1 Visitors are disconnected after 5 minutes of idle time.
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 Options enabled in this game:
+    Play#1 output Play#1 1 	BLITZ, EASY_BRIDGES, FALLOUT, INTERDICT_ATT, MARKET, MOB_ACCESS,
+    Play#1 output Play#1 1 	NOFOOD, NOMOBCOST, NO_PLAGUE, RAILWAYS, RES_POP
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 Options disabled in this game:
+    Play#1 output Play#1 1 	ALL_BLEED, AUTO_POWER, BRIDGETOWERS, GODNEWS, GO_RENEW, GUINEA_PIGS,
+    Play#1 output Play#1 1 	HIDDEN, LOANS, LOSE_CONTACT, NO_FORT_FIRE, SUPER_BARS, TECH_POP
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 See "info Options" for a detailed list of options and descriptions.
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 Customized in this game:
+    Play#1 output Play#1 1 	sect-chr
+    Play#1 output Play#1 1 Check "show" for details.
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 The person to annoy if something goes wrong is:
+    Play#1 output Play#1 1 	Deity forgot to edit econfig <careless@invalid>.
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 You can get your own copy of the source from <http://www.wolfpackempire.com/>.
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 Copyright (C) 1986-2016, Dave Pare, Jeff Bailey, Thomas Ruschak,
+    Play#1 output Play#1 1               Ken Stevens, Steve McClure, Markus Armbruster
+    Play#1 output Play#1 1 This is free software; see the source for copying conditions.  There is NO
+    Play#1 output Play#1 1 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    Play#1 output Play#1 6 0 0
+    Play#1 input show sect s
+    Play#1 command show
+    Play#1 output Play#1 1 Printing for tech level '125'
+    Play#1 output Play#1 1                         mob cost   max   max   naviga    packing   max
+    Play#1 output Play#1 1   sector type            0% 100%   off   def   bility      bonus   pop
+    Play#1 output Play#1 1 . sea                    no way    0.00  0.00     sea     normal     0
+    Play#1 output Play#1 1 ^ mountain              2.4  1.2   1.00  4.00    land     normal    55
+    Play#1 output Play#1 1 s sanctuary              no way    0.00 99.00    land     normal   550
+    Play#1 output Play#1 1 \\ wasteland              no way    0.00 99.00    land     normal     0
+    Play#1 output Play#1 1 - wilderness            0.4  0.4   1.00  2.00    land     normal   550
+    Play#1 output Play#1 1 c city                  0.4  0.2   1.00  2.00   canal      urban  5499
+    Play#1 output Play#1 1 u uranium mine          0.4  0.2   1.00  2.00    land     normal   550
+    Play#1 output Play#1 1 p park                  0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 d defense plant         0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 i shell industry        0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 m mine                  0.4  0.2   1.00  2.00    land     normal   550
+    Play#1 output Play#1 1 g gold mine             0.4  0.2   1.00  2.00    land     normal   550
+    Play#1 output Play#1 1 h harbor                0.4  0.2   1.00  1.50  harbor  warehouse   550
+    Play#1 output Play#1 1 w warehouse             0.4  0.2   1.00  1.50    land  warehouse   550
+    Play#1 output Play#1 1 * airfield              0.4  0.2   1.00  1.25    land     normal   550
+    Play#1 output Play#1 1 a agribusiness          0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 o oil field             0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 j light manufacturing   0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 k heavy manufacturing   0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 f fortress              0.4  0.2   2.00  4.00    land     normal   550
+    Play#1 output Play#1 1 t technical center      0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 r research lab          0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 n nuclear plant         0.4  0.2   1.00  2.00    land     normal   550
+    Play#1 output Play#1 1 l library/school        0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 + highway               0.4  0.0   1.00  1.00    land     normal   550
+    Play#1 output Play#1 1 ) radar installation    0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 ! headquarters          0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 # bridge head           0.4  0.0   1.00  1.00    land     normal   550
+    Play#1 output Play#1 1 = bridge span           0.4  0.0   1.00  1.00  bridge     normal    55
+    Play#1 output Play#1 1 b bank                  0.4  0.2   1.00  2.25    land       bank   550
+    Play#1 output Play#1 1 % refinery              0.4  0.2   1.00  1.50    land     normal   550
+    Play#1 output Play#1 1 e enlistment center     0.4  0.2   1.00  2.00    land     normal   550
+    Play#1 output Play#1 1 ~ plains                0.4  0.2   1.00  1.50    land     normal    55
+    Play#1 output Play#1 1 @ bridge tower          0.4  0.0   1.00  1.50    land     normal    55
+    Play#1 output Play#1 6 0 0
+    Play#1 input ctld
+    Play#1 output Play#1 1 Bye-bye
+    Play#1 logout 1
+    Play#1 output Play#1 3 so long...
+      Main shutdown

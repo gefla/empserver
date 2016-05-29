@@ -27,7 +27,7 @@
 #   Make.mk: The real Makefile, included by GNUmakefile
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2015
+#      Markus Armbruster, 2005-2016
 #
 
 # This makefile was inspired by `Recursive Make Considered Harmful',
@@ -260,6 +260,7 @@ ifeq ($(empthread),LWP)
 	$(srcdir)/tests/torpedo-test $(srcdir)
 	$(srcdir)/tests/bridgefall-test $(srcdir)
 	$(srcdir)/tests/retreat-test $(srcdir)
+	$(srcdir)/tests/version-test $(srcdir)
 else
 	@echo "$(srcdir)/tests/smoke-test SKIPPED"
 	@echo "$(srcdir)/tests/actofgod-test SKIPPED"
@@ -269,6 +270,7 @@ else
 	@echo "$(srcdir)/tests/torpedo-test SKIPPED"
 	@echo "$(srcdir)/tests/bridgefall-test SKIPPED"
 	@echo "$(srcdir)/tests/retreat-test SKIPPED"
+	@echo "$(srcdir)/tests/version-test SKIPPED"
 endif
 	$(srcdir)/tests/empdump-test $(srcdir)
 
