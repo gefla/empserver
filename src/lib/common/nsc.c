@@ -75,7 +75,7 @@ static void *nsc_nws_timestamp(struct valstr *, struct natstr *, void *);
 
 #define NSC_IELT(name, pfx, sfx, base, itype)	\
     {sizeof(sfx) == 1 ? name : pfx sfx,		\
-     ((base) + (itype)*sizeof(unsigned short)),	\
+     ((base) + (itype)*sizeof(short)),		\
      NSC_SHORT, 0, NULL, EF_BAD, 0}
 
 #define NSC_IVEC(base, sfx)			\
