@@ -302,17 +302,11 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	    return;
 	if (!ip)
 	    continue;
-
-	for (i = I_NONE + 1; i <= I_MAX; i++) {
-	    if (opt_SUPER_BARS && i == I_BAR)
-		continue;
-	    if (&ichr[i] == ip)
-		break;
-	}
-	if (i > I_MAX)
+	if (opt_SUPER_BARS && ip->i_uid == I_BAR) {
 	    pr("You can't bomb %s!\n", ip->i_name);
-	else
-	    break;
+	    continue;
+	}
+	break;
     }
     for (qp = list->q_forw; qp != list; qp = next) {
 	next = qp->q_forw;
