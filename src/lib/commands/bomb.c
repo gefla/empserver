@@ -60,24 +60,6 @@ static int changed_plane_aborts(struct plist *);
 static int pinflak_planedamage(struct plnstr *, struct plchrstr *,
 			       natid, int);
 
-static i_type bombcomm[] = {
-    I_CIVIL,
-    I_MILIT,
-    I_SHELL,
-    I_GUN,
-    I_PETROL,
-    I_IRON,
-    I_DUST,
-    I_BAR,
-    I_FOOD,
-    I_OIL,
-    I_LCM,
-    I_HCM,
-    I_UW,
-    I_RAD
-};
-static int nbomb = sizeof(bombcomm) / sizeof(*bombcomm);
-
 int
 bomb(void)
 {
@@ -236,12 +218,11 @@ pin_bomb(struct emp_qelem *list, struct sctstr *target)
 	ship_bomb(list, target);
 	break;
     case 'c':
-	for (i = 0; i < nbomb; i++) {
-	    if (!target->sct_item[bombcomm[i]])
-		continue;
-	    break;
+	for (i = I_NONE + 1; i <= I_MAX; i++) {
+	    if (target->sct_item[i])
+		break;
 	}
-	if (i >= nbomb) {
+	if (i > I_MAX) {
 	    pr("No bombable commodities in %s\n",
 	       xyas(target->sct_x, target->sct_y, player->cnum));
 	    goto retry;
@@ -308,13 +289,12 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
     struct sctstr sect;
     int dam = 0;
 
-    for (i = 0; i < nbomb; i++) {
-	if (target->sct_item[bombcomm[i]] == 0)
+    for (i = I_NONE + 1; i <= I_MAX; i++) {
+	if (!target->sct_item[i])
 	    continue;
-	if (opt_SUPER_BARS && bombcomm[i] == I_BAR)
+	if (opt_SUPER_BARS && i == I_BAR)
 	    continue;
-	ip = &ichr[bombcomm[i]];
-	pr("some %s\n", ip->i_name);
+	pr("some %s\n", ichr[i].i_name);
     }
     for (;;) {
 	ip = whatitem(NULL, "commodity to bomb? ");
@@ -323,13 +303,13 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	if (!ip)
 	    continue;
 
-	for (i = 0; i < nbomb; i++) {
-	    if (opt_SUPER_BARS && bombcomm[i] == I_BAR)
+	for (i = I_NONE + 1; i <= I_MAX; i++) {
+	    if (opt_SUPER_BARS && i == I_BAR)
 		continue;
-	    if (&ichr[bombcomm[i]] == ip)
+	    if (&ichr[i] == ip)
 		break;
 	}
-	if (i == nbomb)
+	if (i > I_MAX)
 	    pr("You can't bomb %s!\n", ip->i_name);
 	else
 	    break;
