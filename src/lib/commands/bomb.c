@@ -329,16 +329,9 @@ comm_bomb(struct emp_qelem *list, struct sctstr *target)
 	    if (&ichr[bombcomm[i]] == ip)
 		break;
 	}
-	if (i == nbomb) {
+	if (i == nbomb)
 	    pr("You can't bomb %s!\n", ip->i_name);
-	    for (i = 0; i < nbomb; i++) {
-		if (opt_SUPER_BARS && bombcomm[i] == I_BAR)
-		    continue;
-		pr("%s%s", i == 0 ? "Bombable: " : ", ",
-		   ichr[bombcomm[i]].i_name);
-	    }
-	    pr("\n");
-	} else
+	else
 	    break;
     }
     for (qp = list->q_forw; qp != list; qp = next) {
