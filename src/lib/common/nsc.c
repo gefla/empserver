@@ -94,6 +94,26 @@ NSC_IELT("hcm", "h", sfx, base, I_HCM),		\
 NSC_IELT("uw", "u", sfx, base, I_UW),		\
 NSC_IELT("rad", "r", sfx, base, I_RAD)
 
+#define NSC_MELT(name, base, itype, flags, dump)	\
+    {(name), ((base) + (itype)*sizeof(short)),		\
+     NSC_SHORT, 0, NULL, EF_BAD, (flags), (dump) }
+
+#define NSC_MVEC(base, mil_dump, oil_dump, rad_dump)	\
+NSC_MELT("c_build", base, I_CIVIL, 0, CA_DUMP_ONLY),	\
+NSC_MELT("m_build", base, I_MILIT, 0, mil_dump),	\
+NSC_MELT("s_build", base, I_SHELL, 0, CA_DUMP_ONLY),	\
+NSC_MELT("g_build", base, I_GUN, 0, CA_DUMP_ONLY),	\
+NSC_MELT("p_build", base, I_PETROL, 0, CA_DUMP_ONLY),	\
+NSC_MELT("i_build", base, I_IRON, 0, CA_DUMP_ONLY),	\
+NSC_MELT("d_build", base, I_DUST, 0, CA_DUMP_ONLY),	\
+NSC_MELT("b_build", base, I_BAR, 0, CA_DUMP_ONLY),	\
+NSC_MELT("f_build", base, I_FOOD, 0, CA_DUMP_ONLY),	\
+NSC_MELT("o_build", base, I_OIL, 0, oil_dump),		\
+NSC_MELT("l_build", base, I_LCM, 0, CA_DUMP),		\
+NSC_MELT("h_build", base, I_HCM, 0, CA_DUMP),		\
+NSC_MELT("u_build", base, I_UW, 0, CA_DUMP_ONLY),	\
+NSC_MELT("r_build", base, I_RAD, 0, rad_dump)
+
 struct castr ichr_ca[] = {
 #define CURSTR struct ichrstr
     {"uid", fldoff(i_uid), NSC_SITYPE(i_type), 0, NULL, EF_ITEM, 0,
@@ -288,10 +308,7 @@ struct castr mchr_ca[] = {
     {"type", fldoff(m_type), NSC_CHAR, 0, NULL, EF_SHIP_CHR, 0, CA_DUMP},
     {"name", fldoff(m_name), NSC_STRING, 0, NULL, EF_BAD, 0, CA_DUMP},
     NSC_IVEC(fldoff(m_item), ""),
-    {"l_build", fldoff(m_mat[I_LCM]), NSC_SHORT, 0, NULL, EF_BAD, 0,
-     CA_DUMP},
-    {"h_build", fldoff(m_mat[I_HCM]), NSC_SHORT, 0, NULL, EF_BAD, 0,
-     CA_DUMP},
+    NSC_MVEC(fldoff(m_mat), CA_DUMP_ONLY, CA_DUMP_ONLY, CA_DUMP_ONLY),
     {"armor", fldoff(m_armor), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"speed", fldoff(m_speed), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"visib", fldoff(m_visib), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
@@ -336,10 +353,7 @@ struct castr plchr_ca[] = {
 #define CURSTR struct plchrstr
     {"type", fldoff(pl_type), NSC_CHAR, 0, NULL, EF_PLANE_CHR, 0, CA_DUMP},
     {"name", fldoff(pl_name), NSC_STRING, 0, NULL, EF_BAD, 0, CA_DUMP},
-    {"l_build", fldoff(pl_mat[I_LCM]), NSC_SHORT, 0, NULL, EF_BAD, 0,
-     CA_DUMP},
-    {"h_build", fldoff(pl_mat[I_HCM]), NSC_SHORT, 0, NULL, EF_BAD, 0,
-     CA_DUMP},
+    NSC_MVEC(fldoff(pl_mat), CA_DUMP, CA_DUMP_ONLY, CA_DUMP_ONLY),
     {"bwork", fldoff(pl_bwork), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"tech", fldoff(pl_tech), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"cost", fldoff(pl_cost), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
@@ -348,8 +362,6 @@ struct castr plchr_ca[] = {
     {"att", fldoff(pl_att), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"def", fldoff(pl_def), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"range", fldoff(pl_range), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
-    {"crew", fldoff(pl_mat[I_MILIT]), NSC_SHORT, 0, NULL, EF_BAD, 0,
-     CA_DUMP},
     {"fuel", fldoff(pl_fuel), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"stealth", fldoff(pl_stealth), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"flags", fldoff(pl_flags), NSC_INT, 0, NULL,
@@ -406,10 +418,7 @@ struct castr lchr_ca[] = {
     {"type", fldoff(l_type), NSC_CHAR, 0, NULL, EF_LAND_CHR, 0, CA_DUMP},
     {"name", fldoff(l_name), NSC_STRING, 0, NULL, EF_BAD, 0, CA_DUMP},
     NSC_IVEC(fldoff(l_item), ""),
-    {"l_build", fldoff(l_mat[I_LCM]), NSC_SHORT, 0, NULL, EF_BAD, 0,
-     CA_DUMP},
-    {"h_build", fldoff(l_mat[I_HCM]), NSC_SHORT, 0, NULL, EF_BAD, 0,
-     CA_DUMP},
+    NSC_MVEC(fldoff(l_mat), CA_DUMP_ONLY, CA_DUMP_ONLY, CA_DUMP_ONLY),
     {"bwork", fldoff(l_bwork), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"tech", fldoff(l_tech), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"cost", fldoff(l_cost), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
@@ -447,14 +456,7 @@ struct castr nchr_ca[] = {
 #define CURSTR struct nchrstr
     {"type", fldoff(n_type), NSC_CHAR, 0, NULL, EF_NUKE_CHR, 0, CA_DUMP},
     {"name", fldoff(n_name), NSC_STRING, 0, NULL, EF_BAD, 0, CA_DUMP},
-    {"l_build", fldoff(n_mat[I_LCM]), NSC_SHORT, 0, NULL, EF_BAD, 0,
-     CA_DUMP},
-    {"h_build", fldoff(n_mat[I_HCM]), NSC_SHORT, 0, NULL, EF_BAD, 0,
-     CA_DUMP},
-    {"o_build", fldoff(n_mat[I_OIL]), NSC_SHORT, 0, NULL, EF_BAD, 0,
-     CA_DUMP},
-    {"r_build", fldoff(n_mat[I_RAD]), NSC_SHORT, 0, NULL, EF_BAD, 0,
-     CA_DUMP},
+    NSC_MVEC(fldoff(n_mat), CA_DUMP_ONLY, CA_DUMP, CA_DUMP),
     {"blast", fldoff(n_blast), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"dam", fldoff(n_dam), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"bwork", fldoff(n_bwork), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
