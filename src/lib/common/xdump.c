@@ -81,7 +81,10 @@
 
 /*
  * Initialize @xd.
+ * If @cnum is NATID_BAD, this is an empdump export rather than an
+ * xdump command.
  * Translate dump for country @cnum, except when @cnum is NATID_BAD.
+ * Ignore CA_DUMP_ONLY selectors when @cnum is NATID_BAD.
  * If @human, dump in human-readable format.
  * If @sloppy, try to cope with invalid data (may result in invalid
  * dump).
@@ -243,6 +246,8 @@ xdflds(struct xdstr *xd, struct castr ca[], void *ptr)
 	if (ca[i].ca_flags & NSC_DEITY && !xd->divine)
 	    continue;
 	if (ca[i].ca_dump == CA_DUMP_NONE)
+	    continue;
+	if (ca[i].ca_dump == CA_DUMP_ONLY && xd->cnum == NATID_BAD)
 	    continue;
 	n = CA_ARRAY_LEN(&ca[i]);
 	j = 0;

@@ -81,7 +81,7 @@ verify_ca(int type)
 	if (CANT_HAPPEN((ef_flags(type) & EFF_MEM)
 			&& ca[i].ca_get
 			&& ca[i].ca_dump <= CA_DUMP_CONST))
-	    ca[i].ca_dump = CA_DUMP_NONE;
+	    ca[i].ca_dump = CA_DUMP_ONLY;
     }
     return 0;
 }

@@ -201,6 +201,7 @@ enum ca_dump {
     /* order is relevant */
     CA_DUMP,			/* xdump and xundump normally */
     CA_DUMP_CONST,		/* same, but value can't be changed  */
+    CA_DUMP_ONLY,		/* only in xdump command */
     CA_DUMP_NONE		/* do not xdump or xundump */
 };
 
