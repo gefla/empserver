@@ -19,7 +19,7 @@ done
 # Therefore, we have to pre- and postprocess with sed.  Without this
 # bug, a simple find | xargs indent would do.
 
-for i in `find -name \*.[ch]`
+for i
 do
   if sed 's#/\*\([A-Z][A-Z]*\)\*/#/* @@@\1@@@ */#g' <$i | indent $opts | sed 's#/\* @@@\([A-Z][A-Z]*\)@@@ \*/#/*\1*/#g' >$$
   then mv $$ $i
