@@ -28,7 +28,7 @@
 #   ls-sources.pl: List source files
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2015
+#      Markus Armbruster, 2015-2016
 #
 # Usage: ls-sources.pl DIR REGEX
 #
@@ -51,9 +51,9 @@ my $srcdir = $dir;
 my $subdir = "";
 
 while (! -d "$srcdir/.git" and ! -r "$srcdir/sources.mk"
-       and $srcdir =~ m,^(.*)/([^/]*),) {
-    $srcdir = $1;
-    $subdir = "$2/$subdir";
+       and $srcdir =~ m,^((.*)/)?([^/]*),) {
+    $srcdir = $2 || ".";
+    $subdir = "$3/$subdir";
 }
 
 my @sources;
