@@ -50,13 +50,12 @@
  * Return amount of work used.
  */
 static int
-upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
-	     short *vec, int etu, int *desig, int *cost)
+upd_buildeff(struct sctstr *sp, int *workp, short vec[], int *desig,
+	     int *cost)
 {
     int work_cost = 0;
     int buildeff_work = *workp / 2;
     int n, hcms, lcms, neweff;
-    unsigned char old_type = *desig;
 
     *cost = 0;
     neweff = sp->sct_effic;
@@ -77,14 +76,6 @@ upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
 	}
 	neweff = n;
 	*cost += work_cost;
-	if (!n && IS_BIG_CITY(old_type) && !IS_BIG_CITY(*desig)) {
-	    /* FIXME use trunc_people() */
-	    int maxpop = max_population(np->nat_level[NAT_RLEV], *desig, n);
-	    if (vec[I_CIVIL] > maxpop)
-		vec[I_CIVIL] = maxpop;
-	    if (vec[I_UW] > maxpop)
-		vec[I_UW] = maxpop;
-	}
     }
     if (*desig == sp->sct_newtype) {
 	work_cost = 100 - neweff;
@@ -324,7 +315,7 @@ produce_sect(int natnum, int etu, struct bp *bp, int p_sect[][2])
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
-	    neweff = upd_buildeff(np, sp, &work, vec, etu, &desig, &cost);
+	    neweff = upd_buildeff(sp, &work, vec, &desig, &cost);
 	    bp_put_items(bp, sp, vec);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;

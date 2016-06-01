@@ -283,7 +283,6 @@ give h 10,2 10
 edit l 12,2 s c S c e 1
 give l 12,2 10
 give h 12,2 50
-| TODO pop truncation on big city teardown
 || ship building
 | #0 100%
 | #60 stopped
