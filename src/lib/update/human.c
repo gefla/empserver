@@ -45,7 +45,7 @@
 static int growfood(struct sctstr *, short *, int, int);
 static int starve_some(short *, i_type, int);
 static void trunc_people(struct sctstr *, struct natstr *, short *);
-static int grow_people(struct sctstr *, int, struct natstr *, int *, int,
+static int grow_people(struct sctstr *, int, struct natstr *,
 		       short *);
 static int babies(int, int, double, int, int);
 
@@ -62,12 +62,9 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
     int maxworkers;
     int manna;
 
-    /* grow people & stuff */
-    sctwork = sp->sct_work;
-
     maxworkers = max_workers(np->nat_level[NAT_RLEV], sp);
     work_avail = new_work(sp,
-			  total_work(sctwork, etu,
+			  total_work(sp->sct_work, etu,
 				     vec[I_CIVIL], vec[I_MILIT], vec[I_UW],
 				     maxworkers));
 
@@ -94,18 +91,21 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 		    if (starved > 25)
 			nreport(sp->sct_own, N_DIE_FAMINE, 0, 1);
 		}
-		sp->sct_work = 0;
 		sp->sct_loyal += roll(8) + 1;
 	    }
 	    sctwork = 0;
 	} else {
-	    if (sp->sct_work < 100)
-		sctwork = sp->sct_work + 7 + roll(15);
+	    sctwork = sp->sct_work;
+	    if (sctwork < 100)
+		sctwork += 7 + roll(15);
 	    if (sctwork > 100)
 		sctwork = 100;
-	    if (!player->simulation)
-		sp->sct_work = sctwork;
-	    grow_people(sp, etu, np, &work_avail, sctwork, vec);
+	    grow_people(sp, etu, np, vec);
+	    work_avail = new_work(sp,
+				  total_work(sp->sct_work, etu,
+					     vec[I_CIVIL], vec[I_MILIT],
+					     vec[I_UW], maxworkers));
+	    /* FIXME restores work charged for growfood() */
 	    /* age che */
 	    if (!player->simulation)
 		sp->sct_che = age_people(sp->sct_che, etu);
@@ -114,11 +114,13 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 	    /* Take away food we conjured up */
 	    vec[I_FOOD] = 0;
     } else
-	sctwork = sp->sct_work = 100;
+	sctwork = 100;
     /* Here is where we truncate extra people, always */
     trunc_people(sp, np, vec);
 
     *workp = work_avail;
+    if (!player->simulation)
+	sp->sct_work = sctwork;
     return sctwork;
 }
 
@@ -230,7 +232,7 @@ trunc_people(struct sctstr *sp, struct natstr *np, short *vec)
  */
 static int
 grow_people(struct sctstr *sp, int etu,
-	    struct natstr *np, int *workp, int sctwork,
+	    struct natstr *np,
 	    short *vec)
 {
     int newciv;
@@ -247,7 +249,6 @@ grow_people(struct sctstr *sp, int etu,
      */
     if (opt_NOFOOD == 0 && (newciv || newuw))
 	vec[I_FOOD] -= roundavg((newciv + newuw) * babyeat);
-    *workp += total_work(sctwork, etu, newciv, 0, newuw, ITEM_MAX);
     return newciv + newuw;
 }
 
