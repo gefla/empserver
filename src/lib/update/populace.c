@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -124,5 +124,5 @@ total_work(int sctwork, int etu, int civil, int milit, int uw, int maxpop)
     if (uw > maxpop)
 	uw = maxpop;
 
-    return (civil * sctwork / 100.0 + milit * 0.4 + uw) * etu / 100.0;
+    return (civil * sctwork / 100.0 + milit / 2.5 + uw) * etu / 100.0;
 }
