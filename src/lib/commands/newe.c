@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Thomas Ruschak, 1993
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -50,7 +51,7 @@ newe(void)
     int twork;
     int type;
     int eff;
-    int maxpop;
+    int maxworkers;
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -64,11 +65,11 @@ newe(void)
 	    civs = (1.0 + obrate * etu_per_update) * sect.sct_item[I_CIVIL];
 	    uws = (1.0 + uwbrate * etu_per_update) * sect.sct_item[I_UW];
 	    natp = getnatp(sect.sct_own);
-	    maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
+	    maxworkers = max_workers(natp->nat_level[NAT_RLEV], &sect);
 	    work = new_work(&sect,
 			    total_work(sect.sct_work, etu_per_update,
 				       civs, sect.sct_item[I_MILIT], uws,
-				       maxpop));
+				       maxworkers));
 	    bwork = work / 2;
 
 	    type = sect.sct_type;

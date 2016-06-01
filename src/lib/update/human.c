@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -59,17 +59,17 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
     int work_avail;
     int starved, sctwork;
     int needed;
-    int maxpop;
+    int maxworkers;
     int manna;
 
     /* grow people & stuff */
     sctwork = sp->sct_work;
 
-    maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
+    maxworkers = max_workers(np->nat_level[NAT_RLEV], sp);
     work_avail = new_work(sp,
 			  total_work(sctwork, etu,
 				     vec[I_CIVIL], vec[I_MILIT], vec[I_UW],
-				     maxpop));
+				     maxworkers));
 
     if (sp->sct_type != SCT_SANCT) {
 	manna = 0;

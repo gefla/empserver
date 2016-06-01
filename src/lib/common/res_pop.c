@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2005-2016
  */
 
 #include <config.h>
@@ -70,4 +71,10 @@ int
 max_pop(float research, struct sctstr *sp)
 {
     return max_population(research, sp->sct_type, sp->sct_effic);
+}
+
+int
+max_workers(float research, struct sctstr *sp)
+{
+    return max_population(research, sp->sct_type, 0);
 }

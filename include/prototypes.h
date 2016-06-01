@@ -270,6 +270,7 @@ extern int read_schedule(char *, time_t[], int, time_t, time_t);
 /* res_pop.c */
 extern int max_population(float, int, int);
 extern int max_pop(float, struct sctstr *);
+extern int max_workers(float, struct sctstr *);
 /* stmtch.c */
 /* in match.h */
 /* type.c */

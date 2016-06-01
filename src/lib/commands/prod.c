@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     David Muir Sharnoff, 1987
  *     Steve McClure, 1997-2000
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -95,8 +95,7 @@ prod(void)
     int twork;
     int type;
     int eff;
-    int maxpop;
-    int otype;
+    int maxworkers;
     char mnem;
 
     if (!snxtsct(&nstr, player->argp[1]))
@@ -111,12 +110,12 @@ prod(void)
 	civs = (1.0 + obrate * etu_per_update) * sect.sct_item[I_CIVIL];
 	uws = (1.0 + uwbrate * etu_per_update) * sect.sct_item[I_UW];
 	natp = getnatp(sect.sct_own);
-	maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
+	maxworkers = max_workers(natp->nat_level[NAT_RLEV], &sect);
 
 	work = new_work(&sect,
 			total_work(sect.sct_work, etu_per_update,
 				   civs, sect.sct_item[I_MILIT], uws,
-				   maxpop));
+				   maxworkers));
 	bwork = work / 2;
 
 	if (sect.sct_off)
@@ -130,19 +129,9 @@ prod(void)
 	    }
 	    bwork -= twork;
 	    eff -= twork * 4;
-	    otype = type;
 	    if (eff <= 0) {
 		type = sect.sct_newtype;
 		eff = 0;
-	    }
-	    if (!eff && IS_BIG_CITY(otype) && !IS_BIG_CITY(type)) {
-		maxpop = max_population(natp->nat_level[NAT_RLEV],
-					type, eff);
-		work = new_work(&sect,
-				total_work(sect.sct_work, etu_per_update,
-					   civs, sect.sct_item[I_MILIT],
-					   uws, maxpop));
-		bwork = MIN(work / 2, bwork);
 	    }
 	    twork = 100 - eff;
 	    if (twork > bwork) {
@@ -175,6 +164,7 @@ prod(void)
 	    continue;
 
 	if (type == SCT_ENLIST) {
+	    int maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
 	    int maxmil;
 	    int enlisted;
 

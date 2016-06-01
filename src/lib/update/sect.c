@@ -51,7 +51,7 @@
  */
 static int
 upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
-	     short *vec, int etu, int *desig, int sctwork, int *cost)
+	     short *vec, int etu, int *desig, int *cost)
 {
     int work_cost = 0;
     int buildeff_work = *workp / 2;
@@ -78,17 +78,12 @@ upd_buildeff(struct natstr *np, struct sctstr *sp, int *workp,
 	neweff = n;
 	*cost += work_cost;
 	if (!n && IS_BIG_CITY(old_type) && !IS_BIG_CITY(*desig)) {
-	    /* FIXME use trunc_people() and total_work() */
+	    /* FIXME use trunc_people() */
 	    int maxpop = max_population(np->nat_level[NAT_RLEV], *desig, n);
 	    if (vec[I_CIVIL] > maxpop)
 		vec[I_CIVIL] = maxpop;
 	    if (vec[I_UW] > maxpop)
 		vec[I_UW] = maxpop;
-	    *workp = (vec[I_CIVIL] * sctwork) / 100.0
-		+ (vec[I_MILIT] * 2 / 5.0) + vec[I_UW];
-	    *workp = roundavg((etu * *workp) / 100.0);
-
-	    buildeff_work = MIN((int)(*workp / 2), buildeff_work);
 	}
     }
     if (*desig == sp->sct_newtype) {
@@ -262,7 +257,7 @@ produce_sect(int natnum, int etu, struct bp *bp, int p_sect[][2])
     struct natstr *np;
     short buf[I_MAX + 1];
     short *vec;
-    int work, cost, ecost, pcost, sctwork;
+    int work, cost, ecost, pcost;
     int n, desig, neweff, amount;
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
@@ -307,7 +302,7 @@ produce_sect(int natnum, int etu, struct bp *bp, int p_sect[][2])
 	sp->sct_updated = 1;
 	work = 0;
 
-	sctwork = do_feed(sp, np, vec, &work, etu);
+	do_feed(sp, np, vec, &work, etu);
 	bp_put_items(bp, sp, vec);
 
 	if (sp->sct_off || np->nat_money < 0)
@@ -329,8 +324,7 @@ produce_sect(int natnum, int etu, struct bp *bp, int p_sect[][2])
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
-	    neweff = upd_buildeff(np, sp, &work, vec, etu, &desig, sctwork,
-				  &cost);
+	    neweff = upd_buildeff(np, sp, &work, vec, etu, &desig, &cost);
 	    bp_put_items(bp, sp, vec);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;
