@@ -138,19 +138,17 @@ produce(struct natstr *np, struct sctstr *sp, int work,
     /*
      * Reset produced amount by commodity production ratio
      */
-    if (!player->simulation) {
-	materials_charge(product, sp->sct_item, material_consume);
-	if (resource && product->p_nrdep != 0) {
-	    /*
-	     * lower natural resource in sector depending on
-	     * amount produced
-	     */
-	    val = *resource - roundavg(product->p_nrdep *
-				       material_consume / 100.0);
-	    if (val < 0)
-		val = 0;
-	    *resource = val;
-	}
+    materials_charge(product, sp->sct_item, material_consume);
+    if (resource && product->p_nrdep != 0) {
+	/*
+	 * lower natural resource in sector depending on
+	 * amount produced
+	 */
+	val = *resource - roundavg(product->p_nrdep *
+				   material_consume / 100.0);
+	if (val < 0)
+	    val = 0;
+	*resource = val;
     }
     *amount = actual;
     *cost = product->p_cost * material_consume;

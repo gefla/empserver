@@ -91,8 +91,8 @@ do_feed(struct sctstr *sp, struct natstr *np, int *workp, int etu)
 		    if (starved > 25)
 			nreport(sp->sct_own, N_DIE_FAMINE, 0, 1);
 		}
-		sp->sct_loyal += roll(8) + 1;
 	    }
+	    sp->sct_loyal += roll(8) + 1;
 	    sctwork = 0;
 	} else {
 	    sctwork = sp->sct_work;
@@ -109,8 +109,7 @@ do_feed(struct sctstr *sp, struct natstr *np, int *workp, int etu)
 					     maxworkers));
 	    /* FIXME restores work charged for growfood() */
 	    /* age che */
-	    if (!player->simulation)
-		sp->sct_che = age_people(sp->sct_che, etu);
+	    sp->sct_che = age_people(sp->sct_che, etu);
 	}
 	if (manna)
 	    /* Take away food we conjured up */
