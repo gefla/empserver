@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ville Virrankoski, 1996
- *     Markus Armbruster, 2007
+ *     Markus Armbruster, 2007-2016
  */
 
 /*
@@ -99,9 +99,9 @@ bp_put_item(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
 	bp_ref(bp, sp)->bp_item[idx] = amount;
 }
 
-/* Set the item values tracked in @bp for sector @sp from @vec. */
+/* Set the item values tracked in @bp from sector @sp. */
 void
-bp_put_items(struct bp *bp, struct sctstr *sp, short *vec)
+bp_put_items(struct bp *bp, struct sctstr *sp)
 {
     enum bp_item_idx idx;
     struct bp *p = bp_ref(bp, sp);
@@ -110,7 +110,7 @@ bp_put_items(struct bp *bp, struct sctstr *sp, short *vec)
     for (i = I_NONE + 1; i <= I_MAX; i++) {
 	idx = bud_key[i];
 	if (idx >= 0)
-	    p->bp_item[idx] = vec[i];
+	    p->bp_item[idx] = sp->sct_item[i];
     }
 }
 
@@ -132,7 +132,7 @@ bp_put_avail(struct bp *bp, struct sctstr *sp, int amount)
 void
 bp_set_from_sect(struct bp *bp, struct sctstr *sp)
 {
-    bp_put_items(bp, sp, sp->sct_item);
+    bp_put_items(bp, sp);
     bp_put_avail(bp, sp, sp->sct_avail);
 }
 

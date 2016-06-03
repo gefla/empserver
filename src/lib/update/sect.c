@@ -288,7 +288,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	work = 0;
 
 	do_feed(sp, np, sp->sct_item, &work, etu);
-	bp_put_items(bp, sp, sp->sct_item);
+	bp_put_items(bp, sp);
 
 	if (sp->sct_off || np->nat_money < 0)
 	    continue;
@@ -310,7 +310,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
 	    neweff = upd_buildeff(sp, &work, sp->sct_item, &desig, &cost);
-	    bp_put_items(bp, sp, sp->sct_item);
+	    bp_put_items(bp, sp);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;
 	    if (!player->simulation) {
@@ -326,7 +326,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	    p_sect[desig][1] += ecost;
 	    if (!player->simulation)
 		np->nat_money -= ecost;
-	    bp_put_items(bp, sp, sp->sct_item);
+	    bp_put_items(bp, sp);
 	}
 
 	/*
@@ -337,7 +337,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	    if (np->nat_money >= 0 && dchr[desig].d_prd >= 0)
 		work -= produce(np, sp, sp->sct_item, work, desig, neweff,
 				&pcost, &amount);
-	    bp_put_items(bp, sp, sp->sct_item);
+	    bp_put_items(bp, sp);
 	}
 
 	bp_put_avail(bp, sp, work);
