@@ -27,7 +27,7 @@
  *  produce.c: Produce goodies
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -45,7 +45,7 @@ static char *levelnames[] = {
 };
 
 int
-produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
+produce(struct natstr *np, struct sctstr *sp, int work,
 	int desig, int neweff, int *cost, int *amount)
 {
     struct pchrstr *product;
@@ -72,7 +72,8 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
     *amount = 0;
     *cost = 0;
 
-    material_limit = prod_materials_cost(product, vec, &unit_work);
+    material_limit = prod_materials_cost(product, sp->sct_item,
+					 &unit_work);
     if (material_limit <= 0)
 	return 0;
 
@@ -122,8 +123,8 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 	    actual = 999;
 	    material_consume = roundavg(actual / prodeff);
 	}
-	if (vec[item] + actual > ITEM_MAX) {
-	    actual = ITEM_MAX - vec[item];
+	if (sp->sct_item[item] + actual > ITEM_MAX) {
+	    actual = ITEM_MAX - sp->sct_item[item];
 	    material_consume = roundavg(actual / prodeff);
 	    if (material_consume < 0)
 		material_consume = 0;
@@ -132,13 +133,13 @@ produce(struct natstr *np, struct sctstr *sp, short *vec, int work,
 		   "%s production backlog in %s\n",
 		   product->p_name, ownxy(sp));
 	}
-	vec[item] += actual;
+	sp->sct_item[item] += actual;
     }
     /*
      * Reset produced amount by commodity production ratio
      */
     if (!player->simulation) {
-	materials_charge(product, vec, material_consume);
+	materials_charge(product, sp->sct_item, material_consume);
 	if (resource && product->p_nrdep != 0) {
 	    /*
 	     * lower natural resource in sector depending on

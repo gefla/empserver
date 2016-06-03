@@ -335,7 +335,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if (neweff >= 60) {
 	    if (np->nat_money >= 0 && dchr[desig].d_prd >= 0)
-		work -= produce(np, sp, sp->sct_item, work, desig, neweff,
+		work -= produce(np, sp, work, desig, neweff,
 				&pcost, &amount);
 	    bp_put_items(bp, sp);
 	}
