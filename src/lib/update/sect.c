@@ -245,7 +245,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 {
     struct sctstr *sp, scratch_sect;
     int work, cost, ecost, pcost;
-    int n, desig, neweff, amount;
+    int n, desig, amount;
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if (sp->sct_type == SCT_WATER)
@@ -292,7 +292,6 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	if (sp->sct_off || np->nat_money < 0)
 	    continue;
 
-	neweff = sp->sct_effic;
 	amount = 0;
 	pcost = cost = ecost = 0;
 
@@ -308,18 +307,17 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
-	    neweff = upd_buildeff(sp, &work, &desig, &cost);
+	    sp->sct_effic = upd_buildeff(sp, &work, &desig, &cost);
 	    bp_put_items(bp, sp);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;
 	    if (!player->simulation) {
 		np->nat_money -= cost;
 		sp->sct_type = desig;
-		sp->sct_effic = neweff;
 	    }
 	}
 
-	if (desig == SCT_ENLIST && neweff >= 60 &&
+	if (desig == SCT_ENLIST && sp->sct_effic >= 60 &&
 	    sp->sct_own == sp->sct_oldown) {
 	    p_sect[desig][0] += enlist(sp->sct_item, etu, &ecost);
 	    p_sect[desig][1] += ecost;
@@ -332,9 +330,9 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	 * now do the production (if sector effic >= 60%)
 	 */
 
-	if (neweff >= 60) {
+	if (sp->sct_effic >= 60) {
 	    if (np->nat_money >= 0 && dchr[desig].d_prd >= 0)
-		work -= produce(np, sp, work, desig, neweff,
+		work -= produce(np, sp, work, desig, sp->sct_effic,
 				&pcost, &amount);
 	    bp_put_items(bp, sp);
 	}
