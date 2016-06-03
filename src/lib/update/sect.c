@@ -50,8 +50,7 @@
  * Return amount of work used.
  */
 static int
-upd_buildeff(struct sctstr *sp, int *workp, short vec[], int *desig,
-	     int *cost)
+upd_buildeff(struct sctstr *sp, int *workp, int *desig, int *cost)
 {
     int work_cost = 0;
     int buildeff_work = *workp / 2;
@@ -83,13 +82,13 @@ upd_buildeff(struct sctstr *sp, int *workp, short vec[], int *desig,
 	    work_cost = buildeff_work;
 
 	if (dchr[*desig].d_lcms > 0) {
-	    lcms = vec[I_LCM];
+	    lcms = sp->sct_item[I_LCM];
 	    lcms /= dchr[*desig].d_lcms;
 	    if (work_cost > lcms)
 		work_cost = lcms;
 	}
 	if (dchr[*desig].d_hcms > 0) {
-	    hcms = vec[I_HCM];
+	    hcms = sp->sct_item[I_HCM];
 	    hcms /= dchr[*desig].d_hcms;
 	    if (work_cost > hcms)
 		work_cost = hcms;
@@ -100,8 +99,8 @@ upd_buildeff(struct sctstr *sp, int *workp, short vec[], int *desig,
 	buildeff_work -= work_cost;
 
 	if ((dchr[*desig].d_lcms > 0) || (dchr[*desig].d_hcms > 0)) {
-	    vec[I_LCM] -= work_cost * dchr[*desig].d_lcms;
-	    vec[I_HCM] -= work_cost * dchr[*desig].d_hcms;
+	    sp->sct_item[I_LCM] -= work_cost * dchr[*desig].d_lcms;
+	    sp->sct_item[I_HCM] -= work_cost * dchr[*desig].d_hcms;
 	}
     }
     *workp = (*workp + 1) / 2 + buildeff_work;
@@ -309,7 +308,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
-	    neweff = upd_buildeff(sp, &work, sp->sct_item, &desig, &cost);
+	    neweff = upd_buildeff(sp, &work, &desig, &cost);
 	    bp_put_items(bp, sp);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;
