@@ -42,11 +42,10 @@
 #include "update.h"
 #include "xy.h"
 
-static int growfood(struct sctstr *, short *, int, int);
+static int growfood(struct sctstr *, int, int);
 static int starve_some(short *, i_type, int);
-static void trunc_people(struct sctstr *, struct natstr *, short *);
-static int grow_people(struct sctstr *, int, struct natstr *,
-		       short *);
+static void trunc_people(struct sctstr *, struct natstr *);
+static int grow_people(struct sctstr *, int, struct natstr *);
 static int babies(int, int, double, int, int);
 
 /*
@@ -75,8 +74,7 @@ do_feed(struct sctstr *sp, struct natstr *np, int *workp, int etu)
 	    needed = (int)ceil(food_needed(sp->sct_item, etu));
 	    if (sp->sct_item[I_FOOD] < needed) {
 		/* need to grow "emergency rations" */
-		work_avail -= 2 * growfood(sp, sp->sct_item,
-					   work_avail / 2, etu);
+		work_avail -= 2 * growfood(sp, work_avail / 2, etu);
 		/* It's twice as hard to grow those than norm */
 		if (sp->sct_item[I_FOOD] == 0)
 		    /* Conjure up 1f to make life easier for the player */
@@ -102,7 +100,7 @@ do_feed(struct sctstr *sp, struct natstr *np, int *workp, int etu)
 		sctwork += 7 + roll(15);
 	    if (sctwork > 100)
 		sctwork = 100;
-	    grow_people(sp, etu, np, sp->sct_item);
+	    grow_people(sp, etu, np);
 	    work_avail = new_work(sp,
 				  total_work(sp->sct_work, etu,
 					     sp->sct_item[I_CIVIL],
@@ -120,7 +118,7 @@ do_feed(struct sctstr *sp, struct natstr *np, int *workp, int etu)
     } else
 	sctwork = 100;
     /* Here is where we truncate extra people, always */
-    trunc_people(sp, np, sp->sct_item);
+    trunc_people(sp, np);
 
     *workp = work_avail;
     if (!player->simulation)
@@ -138,7 +136,7 @@ new_work(struct sctstr *sp, int delta)
 }
 
 static int
-growfood(struct sctstr *sp, short *vec, int work, int etu)
+growfood(struct sctstr *sp, int work, int etu)
 {
     int food_fertil;
     int food_workers;
@@ -148,9 +146,9 @@ growfood(struct sctstr *sp, short *vec, int work, int etu)
     food_workers = work * fcrate;
     food_fertil = etu * sp->sct_fertil * fgrate;
     food = MIN(food_workers, food_fertil);
-    if (food > ITEM_MAX - vec[I_FOOD])
-	food = ITEM_MAX - vec[I_FOOD];
-    vec[I_FOOD] += food;
+    if (food > ITEM_MAX - sp->sct_item[I_FOOD])
+	food = ITEM_MAX - sp->sct_item[I_FOOD];
+    sp->sct_item[I_FOOD] += food;
     work_used = food / fcrate;
     return work_used;
 }
@@ -218,14 +216,14 @@ starve_some(short *vec, i_type whom, int num)
  * Truncate any extra people that may be around
  */
 static void
-trunc_people(struct sctstr *sp, struct natstr *np, short *vec)
+trunc_people(struct sctstr *sp, struct natstr *np)
 {
     int maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
 
-    if (vec[I_CIVIL] > maxpop)
-	vec[I_CIVIL] = maxpop;
-    if (vec[I_UW] > maxpop)
-	vec[I_UW] = maxpop;
+    if (sp->sct_item[I_CIVIL] > maxpop)
+	sp->sct_item[I_CIVIL] = maxpop;
+    if (sp->sct_item[I_UW] > maxpop)
+	sp->sct_item[I_UW] = maxpop;
 }
 
 /*
@@ -235,24 +233,24 @@ trunc_people(struct sctstr *sp, struct natstr *np, short *vec)
  * production?  Maybe with just high education?
  */
 static int
-grow_people(struct sctstr *sp, int etu,
-	    struct natstr *np,
-	    short *vec)
+grow_people(struct sctstr *sp, int etu, struct natstr *np)
 {
     int newciv;
     int newuw;
     int maxpop = max_pop(np->nat_level[NAT_RLEV], sp);
 
-    newciv = babies(vec[I_CIVIL], etu, obrate, vec[I_FOOD], maxpop);
-    vec[I_CIVIL] += newciv;
-    newuw = babies(vec[I_UW], etu, uwbrate, vec[I_FOOD], maxpop);
-    vec[I_UW] += newuw;
+    newciv = babies(sp->sct_item[I_CIVIL], etu, obrate,
+		    sp->sct_item[I_FOOD], maxpop);
+    sp->sct_item[I_CIVIL] += newciv;
+    newuw = babies(sp->sct_item[I_UW], etu, uwbrate,
+		   sp->sct_item[I_FOOD], maxpop);
+    sp->sct_item[I_UW] += newuw;
     /*
      * subtract the baby eat food (if we are using FOOD) and return
      * # of births.
      */
     if (opt_NOFOOD == 0 && (newciv || newuw))
-	vec[I_FOOD] -= roundavg((newciv + newuw) * babyeat);
+	sp->sct_item[I_FOOD] -= roundavg((newciv + newuw) * babyeat);
     return newciv + newuw;
 }
 
