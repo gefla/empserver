@@ -664,7 +664,7 @@ extern int dodistribute(struct sctstr *, int, double);
 extern void finish_sects(int);
 /* human.c */
 extern int new_work(struct sctstr *, int);
-extern int do_feed(struct sctstr *, struct natstr *, short *, int *, int);
+extern int do_feed(struct sctstr *, struct natstr *, int *, int);
 extern int feed_people(short *, int);
 extern double food_needed(short *, int);
 extern int famine_victims(short *, int);

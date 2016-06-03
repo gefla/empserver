@@ -53,8 +53,7 @@ static int babies(int, int, double, int, int);
  * feed the individual sector
  */
 int
-do_feed(struct sctstr *sp, struct natstr *np, short *vec,
-	int *workp, int etu)
+do_feed(struct sctstr *sp, struct natstr *np, int *workp, int etu)
 {
     int work_avail;
     int starved, sctwork;
@@ -65,23 +64,26 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
     maxworkers = max_workers(np->nat_level[NAT_RLEV], sp);
     work_avail = new_work(sp,
 			  total_work(sp->sct_work, etu,
-				     vec[I_CIVIL], vec[I_MILIT], vec[I_UW],
+				     sp->sct_item[I_CIVIL],
+				     sp->sct_item[I_MILIT],
+				     sp->sct_item[I_UW],
 				     maxworkers));
 
     if (sp->sct_type != SCT_SANCT) {
 	manna = 0;
 	if (opt_NOFOOD == 0) {
-	    needed = (int)ceil(food_needed(vec, etu));
-	    if (vec[I_FOOD] < needed) {
+	    needed = (int)ceil(food_needed(sp->sct_item, etu));
+	    if (sp->sct_item[I_FOOD] < needed) {
 		/* need to grow "emergency rations" */
-		work_avail -= 2 * growfood(sp, vec, work_avail / 2, etu);
+		work_avail -= 2 * growfood(sp, sp->sct_item,
+					   work_avail / 2, etu);
 		/* It's twice as hard to grow those than norm */
-		if (vec[I_FOOD] == 0)
+		if (sp->sct_item[I_FOOD] == 0)
 		    /* Conjure up 1f to make life easier for the player */
-		    manna = vec[I_FOOD] = 1;
+		    manna = sp->sct_item[I_FOOD] = 1;
 	    }
 	}
-	starved = feed_people(vec, etu);
+	starved = feed_people(sp->sct_item, etu);
 	if (starved > 0) {
 	    if (!player->simulation) {
 		/* don't report POGO starvation */
@@ -100,11 +102,13 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 		sctwork += 7 + roll(15);
 	    if (sctwork > 100)
 		sctwork = 100;
-	    grow_people(sp, etu, np, vec);
+	    grow_people(sp, etu, np, sp->sct_item);
 	    work_avail = new_work(sp,
 				  total_work(sp->sct_work, etu,
-					     vec[I_CIVIL], vec[I_MILIT],
-					     vec[I_UW], maxworkers));
+					     sp->sct_item[I_CIVIL],
+					     sp->sct_item[I_MILIT],
+					     sp->sct_item[I_UW],
+					     maxworkers));
 	    /* FIXME restores work charged for growfood() */
 	    /* age che */
 	    if (!player->simulation)
@@ -112,11 +116,11 @@ do_feed(struct sctstr *sp, struct natstr *np, short *vec,
 	}
 	if (manna)
 	    /* Take away food we conjured up */
-	    vec[I_FOOD] = 0;
+	    sp->sct_item[I_FOOD] = 0;
     } else
 	sctwork = 100;
     /* Here is where we truncate extra people, always */
-    trunc_people(sp, np, vec);
+    trunc_people(sp, np, sp->sct_item);
 
     *workp = work_avail;
     if (!player->simulation)
