@@ -244,9 +244,7 @@ decay_fallout(struct sctstr *sp, int etus)
 void
 produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 {
-    struct sctstr *sp;
-    short buf[I_MAX + 1];
-    short *vec;
+    struct sctstr *sp, scratch_sect;
     int work, cost, ecost, pcost;
     int n, desig, neweff, amount;
 
@@ -268,16 +266,15 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if (player->simulation) {
 	    /* work on a copy, which will be discarded */
-	    memcpy(buf, sp->sct_item, sizeof(buf));
-	    vec = buf;
-	} else
-	    vec = sp->sct_item;
+	    scratch_sect = *sp;
+	    sp = &scratch_sect;
+	}
 
 	/* If everybody is dead, the sector reverts to unowned.
 	 * This is also checked at the end of the production in
 	 * they all starved or were plagued off.
 	 */
-	if (vec[I_CIVIL] == 0 && vec[I_MILIT] == 0 &&
+	if (sp->sct_item[I_CIVIL] == 0 && sp->sct_item[I_MILIT] == 0 &&
 	    !has_units(sp->sct_x, sp->sct_y, sp->sct_own)) {
 	    if (!player->simulation) {
 		makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
@@ -290,8 +287,8 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	sp->sct_updated = 1;
 	work = 0;
 
-	do_feed(sp, np, vec, &work, etu);
-	bp_put_items(bp, sp, vec);
+	do_feed(sp, np, sp->sct_item, &work, etu);
+	bp_put_items(bp, sp, sp->sct_item);
 
 	if (sp->sct_off || np->nat_money < 0)
 	    continue;
@@ -312,8 +309,8 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
-	    neweff = upd_buildeff(sp, &work, vec, &desig, &cost);
-	    bp_put_items(bp, sp, vec);
+	    neweff = upd_buildeff(sp, &work, sp->sct_item, &desig, &cost);
+	    bp_put_items(bp, sp, sp->sct_item);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;
 	    if (!player->simulation) {
@@ -325,11 +322,11 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if (desig == SCT_ENLIST && neweff >= 60 &&
 	    sp->sct_own == sp->sct_oldown) {
-	    p_sect[desig][0] += enlist(vec, etu, &ecost);
+	    p_sect[desig][0] += enlist(sp->sct_item, etu, &ecost);
 	    p_sect[desig][1] += ecost;
 	    if (!player->simulation)
 		np->nat_money -= ecost;
-	    bp_put_items(bp, sp, vec);
+	    bp_put_items(bp, sp, sp->sct_item);
 	}
 
 	/*
@@ -338,9 +335,9 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if (neweff >= 60) {
 	    if (np->nat_money >= 0 && dchr[desig].d_prd >= 0)
-		work -= produce(np, sp, vec, work, desig, neweff,
+		work -= produce(np, sp, sp->sct_item, work, desig, neweff,
 				&pcost, &amount);
-	    bp_put_items(bp, sp, vec);
+	    bp_put_items(bp, sp, sp->sct_item);
 	}
 
 	bp_put_avail(bp, sp, work);
