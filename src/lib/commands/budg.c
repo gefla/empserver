@@ -30,7 +30,7 @@
  *     Thomas Ruschak, 1992
  *     Ville Virrankoski, 1995
  *     Steve McClure, 1997-2000
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -229,7 +229,7 @@ calc_all(int p_sect[][2],
     *lmaint = lnd_money[player->cnum];
 
     /* Produce */
-    produce_sect(player->cnum, etu, bp, p_sect);
+    produce_sect(np, etu, bp, p_sect);
 
     /* Build ships */
     sea_money[player->cnum] = 0;

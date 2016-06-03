@@ -30,7 +30,7 @@
  *     Dave Pare, 1994
  *     Steve McClure, 1996
  *     Doug Hay, 1998
- *     Markus Armbruster, 2006-2013
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -119,7 +119,7 @@ update_main(void)
 	prod_land(etu, i, bp, 0);
 
 	/* produce all sects */
-	produce_sect(i, etu, bp, p_sect);
+	produce_sect(np, etu, bp, p_sect);
 
 	/* build units */
 	prod_ship(etu, i, bp, 1);

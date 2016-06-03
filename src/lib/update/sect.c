@@ -242,10 +242,9 @@ decay_fallout(struct sctstr *sp, int etus)
  * Produce for a specific nation
  */
 void
-produce_sect(int natnum, int etu, struct bp *bp, int p_sect[][2])
+produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 {
     struct sctstr *sp;
-    struct natstr *np;
     short buf[I_MAX + 1];
     short *vec;
     int work, cost, ecost, pcost;
@@ -254,7 +253,7 @@ produce_sect(int natnum, int etu, struct bp *bp, int p_sect[][2])
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if (sp->sct_type == SCT_WATER)
 	    continue;
-	if (sp->sct_own != natnum)
+	if (sp->sct_own != np->nat_cnum)
 	    continue;
 	if (sp->sct_updated != 0)
 	    continue;
@@ -266,8 +265,6 @@ produce_sect(int natnum, int etu, struct bp *bp, int p_sect[][2])
 	 */
 	if (running_test_suite)
 	    seed_prng(sp->sct_uid);
-
-	np = getnatp(natnum);
 
 	if (player->simulation) {
 	    /* work on a copy, which will be discarded */
