@@ -45,8 +45,7 @@ static char *levelnames[] = {
 };
 
 int
-produce(struct natstr *np, struct sctstr *sp,
-	int desig, int neweff, int *cost)
+produce(struct natstr *np, struct sctstr *sp, int *cost)
 {
     struct pchrstr *product;
     double p_e;
@@ -61,9 +60,9 @@ produce(struct natstr *np, struct sctstr *sp,
     int material_consume;
     int val;
 
-    if (dchr[desig].d_prd < 0)
+    if (dchr[sp->sct_type].d_prd < 0)
 	return 0;
-    product = &pchr[dchr[desig].d_prd];
+    product = &pchr[dchr[sp->sct_type].d_prd];
     item = product->p_type;
     if (product->p_nrndx)
 	resource = (unsigned char *)sp + product->p_nrndx;
@@ -77,7 +76,7 @@ produce(struct natstr *np, struct sctstr *sp,
 	return 0;
 
     /* sector p.e. */
-    p_e = neweff / 100.0;
+    p_e = sp->sct_effic / 100.0;
     if (resource) {
 	unit_work++;
 	p_e *= *resource / 100.0;
@@ -96,7 +95,7 @@ produce(struct natstr *np, struct sctstr *sp,
     if (material_consume == 0)
 	return 0;
 
-    prodeff = prod_eff(desig, np->nat_level[product->p_nlndx]);
+    prodeff = prod_eff(sp->sct_type, np->nat_level[product->p_nlndx]);
     if (prodeff <= 0.0 && !player->simulation) {
 	wu(0, sp->sct_own,
 	   "%s level too low to produce in %s (need %d)\n",

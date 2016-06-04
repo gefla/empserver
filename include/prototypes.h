@@ -704,7 +704,7 @@ extern int upd_slmilcosts(natid, int);
 extern void prepare_sects(int, struct bp *);
 extern int bank_income(struct sctstr *, int);
 /* produce.c */
-extern int produce(struct natstr *, struct sctstr *, int, int, int *);
+extern int produce(struct natstr *, struct sctstr *, int *);
 extern int prod_materials_cost(struct pchrstr *, short[], int *);
 extern int prod_resource_limit(struct pchrstr *, unsigned char *);
 extern double prod_eff(int, float);

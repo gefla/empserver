@@ -327,7 +327,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if (sp->sct_effic >= 60) {
 	    if (np->nat_money >= 0 && dchr[sp->sct_type].d_prd >= 0)
-		amount = produce(np, sp, sp->sct_type, sp->sct_effic, &pcost);
+		amount = produce(np, sp, &pcost);
 	    bp_put_items(bp, sp);
 	}
 
