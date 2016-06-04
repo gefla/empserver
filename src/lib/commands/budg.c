@@ -197,7 +197,7 @@ calc_all(int p_sect[][2],
 	bp_set_from_sect(bp, sp);
 	if (sp->sct_own == player->cnum) {
 	    sp->sct_updated = 0;
-	    tax(sp, np, etu, &pop, &civ_tax, &uw_tax, &mil_pay);
+	    tax(sp, etu, &pop, &civ_tax, &uw_tax, &mil_pay);
 	    *Ncivs += sp->sct_item[I_CIVIL];
 	    *Nuws += sp->sct_item[I_UW];
 	    *taxes += civ_tax + uw_tax;

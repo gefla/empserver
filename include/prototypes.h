@@ -697,8 +697,7 @@ extern int prod_plane(int, int, struct bp *, int);
 extern void populace(struct natstr *, struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
 /* prepare.c */
-extern void tax(struct sctstr *, struct natstr *, int, int *, int *,
-		int *, int *);
+extern void tax(struct sctstr *, int, int *, int *, int *, int *);
 extern int upd_slmilcosts(natid, int);
 extern void prepare_sects(int, struct bp *);
 extern int bank_income(struct sctstr *, int);

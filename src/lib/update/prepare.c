@@ -91,8 +91,8 @@ prepare_sects(int etu, struct bp *bp)
 	if (np->nat_stat != STAT_SANCT) {
 	    guerrilla(sp);
 	    do_plague(sp, np, etu);
-	    tax(sp, np, etu, &pops[sp->sct_own], &civ_tax, &uw_tax,
-		&mil_pay);
+	    populace(np, sp, etu);
+	    tax(sp, etu, &pops[sp->sct_own], &civ_tax, &uw_tax, &mil_pay);
 	    np->nat_money += civ_tax + uw_tax + mil_pay;
 	    if (sp->sct_type == SCT_BANK)
 		np->nat_money += bank_income(sp, etu);
@@ -104,15 +104,9 @@ prepare_sects(int etu, struct bp *bp)
 }
 
 void
-tax(struct sctstr *sp, struct natstr *np, int etu, int *pop, int *civ_tax,
+tax(struct sctstr *sp, int etu, int *pop, int *civ_tax,
     int *uw_tax, int *mil_pay)
 {
-    *civ_tax = 0;
-    *uw_tax = 0;
-    *mil_pay = 0;
-
-    if (!player->simulation)
-	populace(np, sp, etu);
     *civ_tax = (int)(0.5 + sp->sct_item[I_CIVIL] * sp->sct_effic *
 		     etu * money_civ / 100);
     /*
