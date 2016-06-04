@@ -45,17 +45,17 @@
 #include "update.h"
 
 static int
-upd_buildeff(struct sctstr *sp, int *desig)
+upd_buildeff(struct sctstr *sp)
 {
     int work_cost = 0;
     int avail = sp->sct_avail;
     int buildeff_work = avail / 2;
-    int cost, n, hcms, lcms, neweff;
+    int cost, n, hcms, lcms, neweff, desig;
 
     cost = 0;
     neweff = sp->sct_effic;
 
-    if (*desig != sp->sct_newtype) {
+    if (sp->sct_type != sp->sct_newtype) {
 	/*
 	 * Tear down existing sector.
 	 * Easier to destroy than to build.
@@ -67,36 +67,38 @@ upd_buildeff(struct sctstr *sp, int *desig)
 	n = sp->sct_effic - work_cost * 4;
 	if (n <= 0) {
 	    n = 0;
-	    *desig = sp->sct_newtype;
+	    sp->sct_type = sp->sct_newtype;
 	}
 	neweff = n;
 	cost += work_cost;
     }
-    if (*desig == sp->sct_newtype) {
+
+    desig = sp->sct_type;
+    if (desig == sp->sct_newtype) {
 	work_cost = 100 - neweff;
 	if (work_cost > buildeff_work)
 	    work_cost = buildeff_work;
 
-	if (dchr[*desig].d_lcms > 0) {
+	if (dchr[desig].d_lcms > 0) {
 	    lcms = sp->sct_item[I_LCM];
-	    lcms /= dchr[*desig].d_lcms;
+	    lcms /= dchr[desig].d_lcms;
 	    if (work_cost > lcms)
 		work_cost = lcms;
 	}
-	if (dchr[*desig].d_hcms > 0) {
+	if (dchr[desig].d_hcms > 0) {
 	    hcms = sp->sct_item[I_HCM];
-	    hcms /= dchr[*desig].d_hcms;
+	    hcms /= dchr[desig].d_hcms;
 	    if (work_cost > hcms)
 		work_cost = hcms;
 	}
 
 	neweff += work_cost;
-	cost += work_cost * dchr[*desig].d_build;
+	cost += work_cost * dchr[desig].d_build;
 	buildeff_work -= work_cost;
 
-	if ((dchr[*desig].d_lcms > 0) || (dchr[*desig].d_hcms > 0)) {
-	    sp->sct_item[I_LCM] -= work_cost * dchr[*desig].d_lcms;
-	    sp->sct_item[I_HCM] -= work_cost * dchr[*desig].d_hcms;
+	if ((dchr[desig].d_lcms > 0) || (dchr[desig].d_hcms > 0)) {
+	    sp->sct_item[I_LCM] -= work_cost * dchr[desig].d_lcms;
+	    sp->sct_item[I_HCM] -= work_cost * dchr[desig].d_hcms;
 	}
     }
 
@@ -242,7 +244,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 {
     struct sctstr *sp, scratch_sect;
     int work, cost, ecost, pcost;
-    int n, desig, amount;
+    int n, amount;
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if (sp->sct_type == SCT_WATER)
@@ -292,10 +294,8 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	amount = 0;
 	pcost = cost = ecost = 0;
 
-	desig = sp->sct_type;
-
-	if (dchr[desig].d_maint) {
-	    cost = etu * dchr[desig].d_maint;
+	if (dchr[sp->sct_type].d_maint) {
+	    cost = etu * dchr[sp->sct_type].d_maint;
 	    p_sect[SCT_MAINT][0]++;
 	    p_sect[SCT_MAINT][1] += cost;
 	    if (!player->simulation)
@@ -304,20 +304,18 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
-	    cost = upd_buildeff(sp, &desig);
+	    cost = upd_buildeff(sp);
 	    bp_put_items(bp, sp);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;
-	    if (!player->simulation) {
+	    if (!player->simulation)
 		np->nat_money -= cost;
-		sp->sct_type = desig;
-	    }
 	}
 
-	if (desig == SCT_ENLIST && sp->sct_effic >= 60 &&
+	if (sp->sct_type == SCT_ENLIST && sp->sct_effic >= 60 &&
 	    sp->sct_own == sp->sct_oldown) {
-	    p_sect[desig][0] += enlist(sp->sct_item, etu, &ecost);
-	    p_sect[desig][1] += ecost;
+	    p_sect[sp->sct_type][0] += enlist(sp->sct_item, etu, &ecost);
+	    p_sect[sp->sct_type][1] += ecost;
 	    if (!player->simulation)
 		np->nat_money -= ecost;
 	    bp_put_items(bp, sp);
@@ -328,14 +326,14 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	 */
 
 	if (sp->sct_effic >= 60) {
-	    if (np->nat_money >= 0 && dchr[desig].d_prd >= 0)
-		amount = produce(np, sp, desig, sp->sct_effic, &pcost);
+	    if (np->nat_money >= 0 && dchr[sp->sct_type].d_prd >= 0)
+		amount = produce(np, sp, sp->sct_type, sp->sct_effic, &pcost);
 	    bp_put_items(bp, sp);
 	}
 
 	bp_put_avail(bp, sp, sp->sct_avail);
-	p_sect[desig][0] += amount;
-	p_sect[desig][1] += pcost;
+	p_sect[sp->sct_type][0] += amount;
+	p_sect[sp->sct_type][1] += pcost;
 	if (!player->simulation)
 	    np->nat_money -= pcost;
     }
