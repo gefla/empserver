@@ -80,6 +80,7 @@ sct_prewrite(int id, void *old, void *new)
 
     if (!civs) {
 	sp->sct_work = 100;
+	sp->sct_loyal = 0;
 	sp->sct_oldown = own;
     }
 
@@ -90,6 +91,7 @@ sct_prewrite(int id, void *old, void *new)
     if (own && !civs && !mil && !has_units(sp->sct_x, sp->sct_y, own)
 	&& !(sp->sct_flags & MOVE_IN_PROGRESS)) {
 	own = sp->sct_own = 0;
+	sp->sct_oldown = 0;
 	sp->sct_mobil = 0;
 	if (sp->sct_type == SCT_CAPIT || sp->sct_type == SCT_MOUNT)
 	    caploss(sp, prev_own, "");
