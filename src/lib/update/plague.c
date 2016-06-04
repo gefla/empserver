@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -98,12 +98,6 @@ do_plague(struct sctstr *sp, struct natstr *np, int etu)
 	default:
 	    break;
 	}
-    }
-    if (sp->sct_item[I_CIVIL] == 0 && sp->sct_item[I_MILIT] == 0
-	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own)) {
-	makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
-	sp->sct_own = 0;
-	sp->sct_oldown = 0;
     }
     sp->sct_pstage = pstage;
     sp->sct_ptime = ptime;

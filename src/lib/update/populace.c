@@ -45,18 +45,21 @@ populace(struct natstr *np, struct sctstr *sp, int etu)
     int civ = sp->sct_item[I_CIVIL];
     int mil = sp->sct_item[I_MILIT];
 
-    if (civ == 0 && mil > 0) {
+    if (!civ) {
 	sp->sct_work = 100;
 	sp->sct_loyal = 0;
 	sp->sct_oldown = sp->sct_own;
     }
-    if (!civ && !mil && !sp->sct_item[I_UW]
+    if (sp->sct_own && !civ && !mil
 	&& !has_units(sp->sct_x, sp->sct_y, sp->sct_own)) {
 	makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
 	sp->sct_own = 0;
 	sp->sct_oldown = 0;
-	return;
+	sp->sct_mobil = 0;
     }
+    if (!civ && !mil && !sp->sct_item[I_UW])
+	return;
+
     if (sp->sct_own != sp->sct_oldown && sp->sct_loyal == 0) {
 	sp->sct_oldown = sp->sct_own;
     }

@@ -187,15 +187,10 @@ land 0:31,-16:-1
 | che take over -16:-14,-8 and spread; -14,-8 is a bank
 | plague stage 4 (dying) -16:-1,-6 ship#10 land#10
 | -16,-6 reverts to deity
-| BUG mob not reset
-| BUG work etc. not reset
 | -14,-6 resets work etc.
 | -12,-6 mil all die
 | -10,-6 resets work etc
-| BUG work etc. not reset
 |  -8,-6 reverts to deity
-| BUG mob not reset
-| BUG work etc. not reset
 | plague stage 3..1 -16:-1,-5:-3 ship#11..19 land#10..19
 | plague stage 0 (healthy) -16:-9,-2, 50% chance to become exposed
 | -5,-1 tech too low

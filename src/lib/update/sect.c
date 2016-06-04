@@ -268,17 +268,8 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	    sp = &scratch_sect;
 	}
 
-	/* If everybody is dead, the sector reverts to unowned.
-	 * This is also checked at the end of the production in
-	 * they all starved or were plagued off.
-	 */
 	if (sp->sct_item[I_CIVIL] == 0 && sp->sct_item[I_MILIT] == 0 &&
 	    !has_units(sp->sct_x, sp->sct_y, sp->sct_own)) {
-	    if (!player->simulation) {
-		makelost(EF_SECTOR, sp->sct_own, 0, sp->sct_x, sp->sct_y);
-		sp->sct_own = 0;
-		sp->sct_oldown = 0;
-	    }
 	    continue;
 	}
 
