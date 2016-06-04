@@ -52,7 +52,7 @@ static int babies(int, int, double, int, int);
  * feed the individual sector
  */
 int
-do_feed(struct sctstr *sp, struct natstr *np, int *workp, int etu)
+do_feed(struct sctstr *sp, struct natstr *np, int etu)
 {
     int work_avail;
     int starved, sctwork;
@@ -116,13 +116,12 @@ do_feed(struct sctstr *sp, struct natstr *np, int *workp, int etu)
 	    sp->sct_item[I_FOOD] = 0;
     } else
 	sctwork = 100;
+
     /* Here is where we truncate extra people, always */
     trunc_people(sp, np);
 
-    *workp = work_avail;
-    if (!player->simulation)
-	sp->sct_work = sctwork;
-    return sctwork;
+    sp->sct_work = sctwork;
+    return work_avail;
 }
 
 int

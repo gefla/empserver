@@ -284,9 +284,8 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	}
 
 	sp->sct_updated = 1;
-	work = 0;
 
-	do_feed(sp, np, &work, etu);
+	work = do_feed(sp, np, etu);
 	bp_put_items(bp, sp);
 
 	if (sp->sct_off || np->nat_money < 0)
@@ -337,12 +336,11 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	    bp_put_items(bp, sp);
 	}
 
+	sp->sct_avail = work;
 	bp_put_avail(bp, sp, work);
 	p_sect[desig][0] += amount;
 	p_sect[desig][1] += pcost;
-	if (!player->simulation) {
-	    sp->sct_avail = work;
+	if (!player->simulation)
 	    np->nat_money -= pcost;
-	}
     }
 }
