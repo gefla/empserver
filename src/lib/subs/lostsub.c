@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1997
- *     Markus Armbruster, 2008
+ *     Markus Armbruster, 2008-2016
  */
 
 #include <config.h>
@@ -60,6 +60,8 @@ makelost(int type, natid owner, int id, coord x, coord y)
     struct loststr lost;
     int n;
 
+    if (CANT_HAPPEN(!owner))
+	return;
     n = findlost(type, owner, id, x, y, 1);
     ef_blank(EF_LOST, n, &lost);
     lost.lost_type = type;
@@ -76,6 +78,8 @@ makenotlost(int type, natid owner, int id, coord x, coord y)
     struct loststr lost;
     int n;
 
+    if (CANT_HAPPEN(!owner))
+	return;
     n = findlost(type, owner, id, x, y, 0);
     if (n < 0)
 	return;
