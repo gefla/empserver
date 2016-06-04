@@ -45,13 +45,10 @@ newe(void)
     struct nstr_sect nstr;
     double work, lcms, hcms;
     int nsect;
-    int civs = 0;
-    int uws = 0;
     int bwork;
     int twork;
     int type;
     int eff;
-    int maxworkers;
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -62,14 +59,8 @@ newe(void)
 	if (!player->owner)
 	    continue;
 	if (!sect.sct_off) {
-	    civs = (1.0 + obrate * etu_per_update) * sect.sct_item[I_CIVIL];
-	    uws = (1.0 + uwbrate * etu_per_update) * sect.sct_item[I_UW];
 	    natp = getnatp(sect.sct_own);
-	    maxworkers = max_workers(natp->nat_level[NAT_RLEV], &sect);
-	    work = new_work(&sect,
-			    total_work(sect.sct_work, etu_per_update,
-				       civs, sect.sct_item[I_MILIT], uws,
-				       maxworkers));
+	    work = do_feed(&sect, natp, etu_per_update, 1);
 	    bwork = work / 2;
 
 	    type = sect.sct_type;

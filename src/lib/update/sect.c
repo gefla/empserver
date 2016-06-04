@@ -284,7 +284,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	sp->sct_updated = 1;
 
-	work = do_feed(sp, np, etu);
+	work = do_feed(sp, np, etu, 0);
 	bp_put_items(bp, sp);
 
 	if (sp->sct_off || np->nat_money < 0)
