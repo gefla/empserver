@@ -45,14 +45,14 @@
 #include "update.h"
 
 static int
-upd_buildeff(struct sctstr *sp, int *desig, int *cost)
+upd_buildeff(struct sctstr *sp, int *desig)
 {
     int work_cost = 0;
     int avail = sp->sct_avail;
     int buildeff_work = avail / 2;
-    int n, hcms, lcms, neweff;
+    int cost, n, hcms, lcms, neweff;
 
-    *cost = 0;
+    cost = 0;
     neweff = sp->sct_effic;
 
     if (*desig != sp->sct_newtype) {
@@ -70,7 +70,7 @@ upd_buildeff(struct sctstr *sp, int *desig, int *cost)
 	    *desig = sp->sct_newtype;
 	}
 	neweff = n;
-	*cost += work_cost;
+	cost += work_cost;
     }
     if (*desig == sp->sct_newtype) {
 	work_cost = 100 - neweff;
@@ -91,7 +91,7 @@ upd_buildeff(struct sctstr *sp, int *desig, int *cost)
 	}
 
 	neweff += work_cost;
-	*cost += work_cost * dchr[*desig].d_build;
+	cost += work_cost * dchr[*desig].d_build;
 	buildeff_work -= work_cost;
 
 	if ((dchr[*desig].d_lcms > 0) || (dchr[*desig].d_hcms > 0)) {
@@ -99,9 +99,10 @@ upd_buildeff(struct sctstr *sp, int *desig, int *cost)
 	    sp->sct_item[I_HCM] -= work_cost * dchr[*desig].d_hcms;
 	}
     }
-    sp->sct_avail = (avail + 1) / 2 + buildeff_work;
 
-    return neweff;
+    sp->sct_effic = neweff;
+    sp->sct_avail = (avail + 1) / 2 + buildeff_work;
+    return cost;
 }
 
 /*
@@ -303,7 +304,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
-	    sp->sct_effic = upd_buildeff(sp, &desig, &cost);
+	    cost = upd_buildeff(sp, &desig);
 	    bp_put_items(bp, sp);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;
