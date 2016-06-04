@@ -45,8 +45,8 @@ static char *levelnames[] = {
 };
 
 int
-produce(struct natstr *np, struct sctstr *sp, int work,
-	int desig, int neweff, int *cost, int *amount)
+produce(struct natstr *np, struct sctstr *sp,
+	int desig, int neweff, int *cost)
 {
     struct pchrstr *product;
     double p_e;
@@ -69,7 +69,6 @@ produce(struct natstr *np, struct sctstr *sp, int work,
 	resource = (unsigned char *)sp + product->p_nrndx;
     else
 	resource = NULL;
-    *amount = 0;
     *cost = 0;
 
     material_limit = prod_materials_cost(product, sp->sct_item,
@@ -86,7 +85,7 @@ produce(struct natstr *np, struct sctstr *sp, int work,
     if (unit_work == 0)
 	unit_work = 1;
 
-    worker_limit = work * p_e / unit_work;
+    worker_limit = sp->sct_avail * p_e / unit_work;
     res_limit = prod_resource_limit(product, resource);
 
     material_consume = res_limit;
@@ -150,7 +149,6 @@ produce(struct natstr *np, struct sctstr *sp, int work,
 	    val = 0;
 	*resource = val;
     }
-    *amount = actual;
     *cost = product->p_cost * material_consume;
 
     if (opt_TECH_POP) {
@@ -161,11 +159,12 @@ produce(struct natstr *np, struct sctstr *sp, int work,
     }
 
     if (CANT_HAPPEN(p_e <= 0.0))
-	return 0;
+	return actual;
     work_used = roundavg(unit_work * material_consume / p_e);
-    if (CANT_HAPPEN(work_used > work))
-	return work;
-    return work_used;
+    if (CANT_HAPPEN(work_used > sp->sct_avail))
+	work_used = sp->sct_avail;
+    sp->sct_avail -= work_used;
+    return actual;
 }
 
 /*
