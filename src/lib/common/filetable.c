@@ -27,7 +27,7 @@
  *  filetable.c: Empire game data file descriptions.
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2014
+ *     Markus Armbruster, 2005-2016
  */
 
 #include <config.h>
@@ -282,6 +282,7 @@ sct_oninit(void *ptr)
     sp->sct_dist_x = sp->sct_x;
     sp->sct_dist_y = sp->sct_y;
     sp->sct_newtype = sp->sct_type = SCT_WATER;
+    sp->sct_work = 100;
     sp->sct_coastal = 1;
 }
 

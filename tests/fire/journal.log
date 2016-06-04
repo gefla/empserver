@@ -25,11 +25,11 @@
     Play#1 output Play#1 1 Thu Jan  1 00:00:00 1970
     Play#1 output Play#1 1 CENSUS                   del dst
     Play#1 output Play#1 1   sect        eff prd mob uf uf old  civ  mil   uw food work avail ter fall coa
-    Play#1 output Play#1 1   -4,0    +  100%     127 .. ..      100    5    0    0   0%    0        0   1
-    Play#1 output Play#1 1   -2,0    f    4%     127 .. ..      100    5    0    0   0%    0        0
-    Play#1 output Play#1 1    0,0    f    5%     127 .. ..      100    5    0    0   0%    0        0
-    Play#1 output Play#1 1    2,0    f  100%     127 .. ..      100    5    0    0   0%    0        0
-    Play#1 output Play#1 1    4,0    f  100%     127 .. ..      100    5    0    0   0%    0        0   1
+    Play#1 output Play#1 1   -4,0    +  100%     127 .. ..      100    5    0    0 100%    0        0   1
+    Play#1 output Play#1 1   -2,0    f    4%     127 .. ..      100    5    0    0 100%    0        0
+    Play#1 output Play#1 1    0,0    f    5%     127 .. ..      100    5    0    0 100%    0        0
+    Play#1 output Play#1 1    2,0    f  100%     127 .. ..      100    5    0    0 100%    0        0
+    Play#1 output Play#1 1    4,0    f  100%     127 .. ..      100    5    0    0 100%    0        0   1
     Play#1 output Play#1 1 5 sectors
     Play#1 output Play#1 6 0 640
     Play#1 input comm * ?shell>0
@@ -366,12 +366,12 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     CENSUS                   del dst
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
-    Play#0 output Play#0 1   1   -2,-2   +   67%      85 .. ..       67    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   1    2,-2   s  100%     127 .. ..      100    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   0    6,0    .    0%       0 .. ..        0    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   0   14,0    .    0%       0 .. ..        0    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   2    0,2    +  100%     127 .. ..     1000    0    0    0   0%  100    0   1
-    Play#0 output Play#0 1   2    2,2    h   86%       0 .. ..       86    0    0    0   0%   87    0   1
+    Play#0 output Play#0 1   1   -2,-2   +   67%      85 .. ..       67    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   1    2,-2   s  100%     127 .. ..      100    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   0    6,0    .    0%       0 .. ..        0    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   0   14,0    .    0%       0 .. ..        0    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   2    0,2    +  100%     127 .. ..     1000    0    0    0 100%  100    0   1
+    Play#0 output Play#0 1   2    2,2    h   86%       0 .. ..       86    0    0    0 100%   87    0   1
     Play#0 output Play#0 1 6 sectors
     Play#0 output Play#0 6 0 640
     Play#0 input comm * ?terr=1
@@ -889,12 +889,12 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     CENSUS                   del dst
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
-    Play#0 output Play#0 1   1   -2,-2   +   67%      85 .. ..       67    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   1    2,-2   s  100%     127 .. ..      100    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   0    6,0    .    0%       0 .. ..        0    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   0   14,0    .    0%       0 .. ..        0    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   2    0,2    +    7%       9 .. ..       72    0    0    0   0%    7    0   1
-    Play#0 output Play#0 1   2    2,2    h   86%       0 .. ..       86    0    0    0   0%   87    0   1
+    Play#0 output Play#0 1   1   -2,-2   +   67%      85 .. ..       67    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   1    2,-2   s  100%     127 .. ..      100    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   0    6,0    .    0%       0 .. ..        0    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   0   14,0    .    0%       0 .. ..        0    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   2    0,2    +    7%       9 .. ..       72    0    0    0 100%    7    0   1
+    Play#0 output Play#0 1   2    2,2    h   86%       0 .. ..       86    0    0    0 100%   87    0   1
     Play#0 output Play#0 1 6 sectors
     Play#0 output Play#0 6 0 640
     Play#0 input comm * ?terr=1
@@ -1330,12 +1330,12 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     CENSUS                   del dst
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
-    Play#0 output Play#0 1   1   -2,-2   +   67%      85 .. ..       67    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   1    2,-2   s  100%     127 .. ..      100    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   0    6,0    .    0%       0 .. ..        0    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   0   14,0    .    0%       0 .. ..        0    0    0    0   0%    0    0   1
-    Play#0 output Play#0 1   2    0,2    +    1%       1 .. ..       13    0    0    0   0%    2    0   1
-    Play#0 output Play#0 1   2    2,2    h   86%       0 .. ..       86    0    0    0   0%   87    0   1
+    Play#0 output Play#0 1   1   -2,-2   +   67%      85 .. ..       67    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   1    2,-2   s  100%     127 .. ..      100    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   0    6,0    .    0%       0 .. ..        0    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   0   14,0    .    0%       0 .. ..        0    0    0    0 100%    0    0   1
+    Play#0 output Play#0 1   2    0,2    +    1%       1 .. ..       13    0    0    0 100%    2    0   1
+    Play#0 output Play#0 1   2    2,2    h   86%       0 .. ..       86    0    0    0 100%   87    0   1
     Play#0 output Play#0 1 6 sectors
     Play#0 output Play#0 6 0 640
     Play#0 input comm * ?terr=1
