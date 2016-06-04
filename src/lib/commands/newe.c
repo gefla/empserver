@@ -43,12 +43,7 @@ newe(void)
     struct natstr *natp;
     struct sctstr sect;
     struct nstr_sect nstr;
-    double work, lcms, hcms;
     int nsect;
-    int bwork;
-    int twork;
-    int type;
-    int eff;
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -60,70 +55,16 @@ newe(void)
 	    continue;
 	if (!sect.sct_off) {
 	    natp = getnatp(sect.sct_own);
-	    work = do_feed(&sect, natp, etu_per_update, 1);
-	    bwork = work / 2;
-
-	    type = sect.sct_type;
-	    eff = sect.sct_effic;
-	    if (sect.sct_newtype != type) {
-		twork = (eff + 3) / 4;
-		if (twork > bwork) {
-		    twork = bwork;
-		}
-		bwork -= twork;
-		eff -= twork * 4;
-		if (eff <= 0) {
-		    type = sect.sct_newtype;
-		    eff = 0;
-		}
-
-		twork = 100 - eff;
-		if (twork > bwork) {
-		    twork = bwork;
-		}
-		if (dchr[type].d_lcms > 0) {
-		    lcms = sect.sct_item[I_LCM];
-		    lcms = (int)(lcms / dchr[type].d_lcms);
-		    if (twork > lcms)
-			twork = lcms;
-		}
-		if (dchr[type].d_hcms > 0) {
-		    hcms = sect.sct_item[I_HCM];
-		    hcms = (int)(hcms / dchr[type].d_hcms);
-		    if (twork > hcms)
-			twork = hcms;
-		}
-		eff += twork;
-	    } else if (eff < 100) {
-		twork = 100 - eff;
-		if (twork > bwork) {
-		    twork = bwork;
-		}
-		if (dchr[type].d_lcms > 0) {
-		    lcms = sect.sct_item[I_LCM];
-		    lcms = (int)(lcms / dchr[type].d_lcms);
-		    if (twork > lcms)
-			twork = lcms;
-		}
-		if (dchr[type].d_hcms > 0) {
-		    hcms = sect.sct_item[I_HCM];
-		    hcms = (int)(hcms / dchr[type].d_hcms);
-		    if (twork > hcms)
-			twork = hcms;
-		}
-		eff += twork;
-	    }
-	} else {
-	    eff = sect.sct_effic;
-	    type = sect.sct_type;
+	    sect.sct_avail = do_feed(&sect, natp, etu_per_update, 1);
+	    buildeff(&sect);
 	}
 	if (nsect++ == 0) {
 	    pr("EFFICIENCY SIMULATION\n");
 	    pr("   sect  des    projected eff\n");
 	}
 	prxy("%4d,%-4d", nstr.x, nstr.y);
-	pr(" %c", dchr[type].d_mnem);
-	pr("    %3d%%\n", eff);
+	pr(" %c", dchr[sect.sct_type].d_mnem);
+	pr("    %3d%%\n", sect.sct_effic);
     }
     player->simulation = 0;
     if (nsect == 0) {

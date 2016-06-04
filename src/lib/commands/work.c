@@ -27,7 +27,7 @@
  *  work.c: Implementation of the work command
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2009-2010
+ *     Markus Armbruster, 2009-2016
  */
 
 #include <config.h>
@@ -37,8 +37,6 @@
 #include "land.h"
 #include "optlist.h"
 
-static int buildeff(struct sctstr *, int, double *);
-
 int
 work(void)
 {
@@ -46,7 +44,7 @@ work(void)
     struct nstr_item ni;
     struct sctstr sect;
     struct lndstr land;
-    int work_amt, eff_amt, w;
+    int work_amt, eff_amt, w, sect_avail;
     char *p;
     char buf[1024];
     double cost;
@@ -85,8 +83,11 @@ work(void)
 	       prland(&land));
 	    continue;
 	}
-	cost = 0.0;
-	w = buildeff(&sect, w, &cost);
+	sect_avail = sect.sct_avail;
+	sect.sct_avail = w;
+	cost = buildeff(&sect);
+	w = sect.sct_avail - sect_avail;
+	sect.sct_avail = sect_avail;
 	if (w == 0) {
 	    pr("%s can't change efficiency in %s\n",
 	       prland(&land), xyas(land.lnd_x, land.lnd_y, player->cnum));
@@ -118,60 +119,4 @@ work(void)
     } else
 	pr("%d unit%s\n", nunits, splur(nunits));
     return RET_OK;
-}
-
-static int
-buildeff(struct sctstr *sp, int work, double *money)
-{
-    int work_cost;
-    int n, hcms, lcms;
-    int effdone = 0;
-
-    if (sp->sct_type != sp->sct_newtype) {
-	/*
-	 * Tear down existing sector.
-	 * Easier to destroy than to build.
-	 */
-	work_cost = (sp->sct_effic + 3) / 4;
-	if (work_cost > work)
-	    work_cost = work;
-	n = sp->sct_effic - work_cost * 4;
-	if (n <= 0) {
-	    n = 0;
-	    sp->sct_type = sp->sct_newtype;
-	}
-	sp->sct_effic = n;
-	work -= work_cost;
-	*money += work_cost;
-	effdone += work_cost;
-    }
-    if (sp->sct_type == sp->sct_newtype) {
-	work_cost = 100 - sp->sct_effic;
-	if (work_cost > work)
-	    work_cost = work;
-
-	if (dchr[sp->sct_type].d_lcms > 0) {
-	    lcms = sp->sct_item[I_LCM];
-	    lcms /= dchr[sp->sct_type].d_lcms;
-	    if (work_cost > lcms)
-		work_cost = lcms;
-	}
-	if (dchr[sp->sct_type].d_hcms > 0) {
-	    hcms = sp->sct_item[I_HCM];
-	    hcms /= dchr[sp->sct_type].d_hcms;
-	    if (work_cost > hcms)
-		work_cost = hcms;
-	}
-
-	sp->sct_effic += work_cost;
-	*money += work_cost * dchr[sp->sct_type].d_build;
-
-	if ((dchr[sp->sct_type].d_lcms > 0) ||
-	    (dchr[sp->sct_type].d_hcms > 0)) {
-	    sp->sct_item[I_LCM] -= work_cost * dchr[sp->sct_type].d_lcms;
-	    sp->sct_item[I_HCM] -= work_cost * dchr[sp->sct_type].d_hcms;
-	}
-	effdone += work_cost;
-    }
-    return effdone;
 }

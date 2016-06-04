@@ -44,8 +44,8 @@
 #include "ship.h"
 #include "update.h"
 
-static int
-upd_buildeff(struct sctstr *sp)
+int
+buildeff(struct sctstr *sp)
 {
     int work_cost = 0;
     int avail = sp->sct_avail;
@@ -304,7 +304,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
-	    cost = upd_buildeff(sp);
+	    cost = buildeff(sp);
 	    bp_put_items(bp, sp);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;

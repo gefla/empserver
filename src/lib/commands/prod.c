@@ -39,7 +39,7 @@
 #include "optlist.h"
 #include "product.h"
 
-static void prprod(coord, coord, int, double, double, int, char,
+static void prprod(struct sctstr *, double, double, char,
 		   double, double, double, char[], int[], int[], int);
 
 int
@@ -70,7 +70,6 @@ prod(void)
     double maxr;		/* floating version of max */
     double prodeff;
     double real;		/* floating pt version of act */
-    int work;
     int totpop;
     int material_consume;	/* actual production */
     double cost;
@@ -88,11 +87,6 @@ prod(void)
     unsigned char *resource;
     char cmnem[MAXPRCON];
     int cuse[MAXPRCON], cmax[MAXPRCON];
-    int lcms, hcms;
-    int bwork;
-    int twork;
-    int type;
-    int eff;
     char mnem;
 
     if (!snxtsct(&nstr, player->argp[1]))
@@ -107,53 +101,12 @@ prod(void)
 	    continue;
 
 	natp = getnatp(sect.sct_own);
-	work = do_feed(&sect, natp, etu_per_update, 1);
-	bwork = work / 2;
-
-	type = sect.sct_type;
-	eff = sect.sct_effic;
-	if (sect.sct_newtype != type) {
-	    twork = (eff + 3) / 4;
-	    if (twork > bwork) {
-		twork = bwork;
-	    }
-	    bwork -= twork;
-	    eff -= twork * 4;
-	    if (eff <= 0) {
-		type = sect.sct_newtype;
-		eff = 0;
-	    }
-	    twork = 100 - eff;
-	    if (twork > bwork) {
-		twork = bwork;
-	    }
-	    if (dchr[type].d_lcms > 0) {
-		lcms = sect.sct_item[I_LCM];
-		lcms /= dchr[type].d_lcms;
-		if (twork > lcms)
-		    twork = lcms;
-	    }
-	    if (dchr[type].d_hcms > 0) {
-		hcms = sect.sct_item[I_HCM];
-		hcms /= dchr[type].d_hcms;
-		if (twork > hcms)
-		    twork = hcms;
-	    }
-	    bwork -= twork;
-	    eff += twork;
-	} else if (eff < 100) {
-	    twork = 100 - eff;
-	    if (twork > bwork) {
-		twork = bwork;
-	    }
-	    bwork -= twork;
-	    eff += twork;
-	}
-	work = (work + 1) / 2 + bwork;
-	if (eff < 60)
+	sect.sct_avail = do_feed(&sect, natp, etu_per_update, 1);
+	buildeff(&sect);
+	if (sect.sct_effic < 60)
 	    continue;
 
-	if (type == SCT_ENLIST) {
+	if (sect.sct_type == SCT_ENLIST) {
 	    int maxmil;
 	    int enlisted;
 
@@ -170,15 +123,15 @@ prod(void)
 	    }
 	    if (enlisted < 0)
 		enlisted = 0;
-	    prprod(sect.sct_x, sect.sct_y, type, eff / 100.0, 1.0, work,
+	    prprod(&sect, sect.sct_effic / 100.0, 1.0,
 		   ichr[I_MILIT].i_mnem, enlisted, maxmil, enlisted * 3,
 		   "c\0\0", &enlisted, &enlisted, nsect++);
 	    continue;
 	}
 
-	if (dchr[type].d_prd < 0)
+	if (dchr[sect.sct_type].d_prd < 0)
 	    continue;
-	pp = &pchr[dchr[type].d_prd];
+	pp = &pchr[dchr[sect.sct_type].d_prd];
 	vtype = pp->p_type;
 	if (pp->p_nrndx)
 	    resource = (unsigned char *)&sect + pp->p_nrndx;
@@ -188,7 +141,7 @@ prod(void)
 	mat_limit = prod_materials_cost(pp, sect.sct_item, &unit_work);
 
 	/* sector p.e. */
-	p_e = eff / 100.0;
+	p_e = sect.sct_effic / 100.0;
 	if (resource) {
 	    unit_work++;
 	    p_e *= *resource / 100.0;
@@ -196,7 +149,7 @@ prod(void)
 	if (unit_work == 0)
 	    unit_work = 1;
 
-	worker_limit = work * p_e / (double)unit_work;
+	worker_limit = sect.sct_avail * p_e / (double)unit_work;
 	res_limit = prod_resource_limit(pp, resource);
 
 	max_consume = res_limit;
@@ -204,7 +157,7 @@ prod(void)
 	    max_consume = (int)worker_limit;
 	material_consume = MIN(max_consume, mat_limit);
 
-	prodeff = prod_eff(type, natp->nat_level[pp->p_nlndx]);
+	prodeff = prod_eff(sect.sct_type, natp->nat_level[pp->p_nlndx]);
 	real = (double)material_consume * prodeff;
 	maxr = (double)max_consume * prodeff;
 
@@ -251,8 +204,7 @@ prod(void)
 	    mnem = '.';
 	else
 	    mnem = 0;
-	prprod(sect.sct_x, sect.sct_y, type, p_e, prodeff, work,
-	       mnem, real, maxr, cost,
+	prprod(&sect, p_e, prodeff, mnem, real, maxr, cost,
 	       cmnem, cuse, cmax, nsect++);
     }
     player->simulation = 0;
@@ -268,7 +220,7 @@ prod(void)
 }
 
 static void
-prprod(coord x, coord y, int type, double p_e, double prodeff, int work,
+prprod(struct sctstr *sp, double p_e, double prodeff,
        char mnem, double make, double max, double cost,
        char cmnem[], int cuse[], int cmax[], int nsect)
 {
@@ -279,8 +231,9 @@ prprod(coord x, coord y, int type, double p_e, double prodeff, int work,
 	pr("   sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max\n");
     }
 
-    prxy("%4d,%-4d", x, y);
-    pr(" %c %3.0f%% %5d", dchr[type].d_mnem, p_e * 100.0, work);
+    prxy("%4d,%-4d", sp->sct_x, sp->sct_y);
+    pr(" %c %3.0f%% %5d",
+       dchr[sp->sct_type].d_mnem, p_e * 100.0, sp->sct_avail);
     if (mnem == '.')
 	pr(" %5.2f", make);
     else
