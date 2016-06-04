@@ -30,6 +30,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992
  *     Steve McClure, 1997
+ *     Markus Armbruster, 2016
  */
 
 #include <config.h>
@@ -76,6 +77,8 @@ prepare_sects(int etu, struct bp *bp)
 
 	if (sp->sct_type == SCT_WATER)
 	    continue;
+	if (getnatp(sp->sct_own)->nat_stat == STAT_SANCT)
+	    continue;
 
 	/*
 	 * When running the test suite, reseed PRNG for each sector
@@ -86,17 +89,14 @@ prepare_sects(int etu, struct bp *bp)
 	    seed_prng(sp->sct_uid);
 
 	bp_set_from_sect(bp, sp);
+	guerrilla(sp);
+	do_plague(sp, etu);
+	populace(sp, etu);
 	np = getnatp(sp->sct_own);
-
-	if (np->nat_stat != STAT_SANCT) {
-	    guerrilla(sp);
-	    do_plague(sp, np, etu);
-	    populace(np, sp, etu);
-	    tax(sp, etu, &pops[sp->sct_own], &civ_tax, &uw_tax, &mil_pay);
-	    np->nat_money += civ_tax + uw_tax + mil_pay;
-	    if (sp->sct_type == SCT_BANK)
-		np->nat_money += bank_income(sp, etu);
-	}
+	tax(sp, etu, &pops[sp->sct_own], &civ_tax, &uw_tax, &mil_pay);
+	np->nat_money += civ_tax + uw_tax + mil_pay;
+	if (sp->sct_type == SCT_BANK)
+	    np->nat_money += bank_income(sp, etu);
     }
     for (n = 0; NULL != (np = getnatp(n)); n++) {
 	np->nat_money += upd_slmilcosts(np->nat_cnum, etu);

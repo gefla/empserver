@@ -689,12 +689,12 @@ extern void prod_nat(int);
 /* nxtitemp.c */
 /* in nsc.h */
 /* plague.c */
-extern void do_plague(struct sctstr *, struct natstr *, int);
+extern void do_plague(struct sctstr *, int);
 extern int plague_people(struct natstr *, short *, int *, int *, int);
 /* plane.c */
 extern int prod_plane(int, int, struct bp *, int);
 /* populace.c */
-extern void populace(struct natstr *, struct sctstr *, int);
+extern void populace(struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
 /* prepare.c */
 extern void tax(struct sctstr *, int, int *, int *, int *, int *);

@@ -38,8 +38,9 @@
 #include "update.h"
 
 void
-populace(struct natstr *np, struct sctstr *sp, int etu)
+populace(struct sctstr *sp, int etu)
 {
+    struct natstr *np = getnatp(sp->sct_own);
     double hap, pct;
     int n;
     int civ = sp->sct_item[I_CIVIL];

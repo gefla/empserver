@@ -43,8 +43,9 @@
 static int infect_people(struct natstr *, struct sctstr *);
 
 void
-do_plague(struct sctstr *sp, struct natstr *np, int etu)
+do_plague(struct sctstr *sp, int etu)
 {
+    struct natstr *np = getnatp(sp->sct_own);
     int pstage, ptime;
     int n;
 

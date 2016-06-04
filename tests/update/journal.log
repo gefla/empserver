@@ -1394,7 +1394,7 @@
     Play#0 output Play#0 1 total pop was 24000, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
     Play#0 output Play#0 1 Army delta $-600, Navy delta $-300, Air force delta $0
-    Play#0 output Play#0 1 money delta was $-4749 for this update
+    Play#0 output Play#0 1 money delta was $-6248 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 4
     Play#0 command nation
@@ -1402,7 +1402,7 @@
     Play#0 output Play#0 1 (#4) 4 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at -1,-1 has 130 civilians & 0 military
-    Play#0 output Play#0 1  The treasury has $20251.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $18752.00     Military reserves: 0
     Play#0 output Play#0 1 Education..........  3.05       Happiness.......  4.44
     Play#0 output Play#0 1 Technology......... 31.52       Research........  1.69
     Play#0 output Play#0 1 Technology factor : 35.21%     Plague factor :   1.29%
@@ -1670,7 +1670,7 @@
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 190, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
-    Play#0 output Play#0 1 money delta was $0 for this update
+    Play#0 output Play#0 1 money delta was $1499 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 5
     Play#0 command nation
@@ -1678,7 +1678,7 @@
     Play#0 output Play#0 1 (#5) 5 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 99
     Play#0 output Play#0 1 No capital (was at -16,-8).
-    Play#0 output Play#0 1  The treasury has $25000.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $26499.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
     Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
     Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%

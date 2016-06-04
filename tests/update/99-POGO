@@ -152,7 +152,6 @@ land 0:31,0:15
 | starvation 0:15,0
 | #30 lost 12% to lack of maintenance
 | #31 lost 1%
-| BUG: income from sectors lost to che not lost
 | BUG: no sector maintenance
 | sector building
 | -16:-12,0 no money
@@ -209,7 +208,6 @@ plane -32:-1,-16:-1
 land -32:-1,-16:-1
 || country#5
 | che retake -16:-14,-8
-| BUG: no income from liberated sectors
 read 5
 nation 5
 || country#6
