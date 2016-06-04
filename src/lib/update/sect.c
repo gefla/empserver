@@ -44,16 +44,12 @@
 #include "ship.h"
 #include "update.h"
 
-/*
- * Increase sector efficiency if old type == new type.
- * decrease sector efficiency if old type != new type.
- * Return amount of work used.
- */
 static int
-upd_buildeff(struct sctstr *sp, int *workp, int *desig, int *cost)
+upd_buildeff(struct sctstr *sp, int *desig, int *cost)
 {
     int work_cost = 0;
-    int buildeff_work = *workp / 2;
+    int avail = sp->sct_avail;
+    int buildeff_work = avail / 2;
     int n, hcms, lcms, neweff;
 
     *cost = 0;
@@ -103,7 +99,7 @@ upd_buildeff(struct sctstr *sp, int *workp, int *desig, int *cost)
 	    sp->sct_item[I_HCM] -= work_cost * dchr[*desig].d_hcms;
 	}
     }
-    *workp = (*workp + 1) / 2 + buildeff_work;
+    sp->sct_avail = (avail + 1) / 2 + buildeff_work;
 
     return neweff;
 }
@@ -291,6 +287,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	if (sp->sct_off || np->nat_money < 0)
 	    continue;
 
+	sp->sct_avail = work;
 	amount = 0;
 	pcost = cost = ecost = 0;
 
@@ -306,7 +303,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
-	    sp->sct_effic = upd_buildeff(sp, &work, &desig, &cost);
+	    sp->sct_effic = upd_buildeff(sp, &desig, &cost);
 	    bp_put_items(bp, sp);
 	    p_sect[SCT_EFFIC][0]++;
 	    p_sect[SCT_EFFIC][1] += cost;
@@ -331,13 +328,12 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if (sp->sct_effic >= 60) {
 	    if (np->nat_money >= 0 && dchr[desig].d_prd >= 0)
-		work -= produce(np, sp, work, desig, sp->sct_effic,
-				&pcost, &amount);
+		sp->sct_avail -= produce(np, sp, sp->sct_avail, desig,
+					 sp->sct_effic, &pcost, &amount);
 	    bp_put_items(bp, sp);
 	}
 
-	sp->sct_avail = work;
-	bp_put_avail(bp, sp, work);
+	bp_put_avail(bp, sp, sp->sct_avail);
 	p_sect[desig][0] += amount;
 	p_sect[desig][1] += pcost;
 	if (!player->simulation)
