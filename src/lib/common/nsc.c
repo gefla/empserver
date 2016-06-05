@@ -240,7 +240,7 @@ struct castr dchr_ca[] = {
     {"ostr", fldoff(d_ostr), NSC_FLOAT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"dstr", fldoff(d_dstr), NSC_FLOAT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"value", fldoff(d_value), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
-    {"build", fldoff(d_build), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
+    {"cost", fldoff(d_cost), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"lcms", fldoff(d_lcms), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"hcms", fldoff(d_hcms), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"maint", fldoff(d_maint), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},

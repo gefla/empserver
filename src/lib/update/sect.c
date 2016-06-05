@@ -93,7 +93,7 @@ buildeff(struct sctstr *sp)
 	}
 
 	neweff += work_cost;
-	cost += work_cost * dchr[desig].d_build;
+	cost += (work_cost * dchr[desig].d_cost + 99) / 100;
 	buildeff_work -= work_cost;
 
 	if ((dchr[desig].d_lcms > 0) || (dchr[desig].d_hcms > 0)) {

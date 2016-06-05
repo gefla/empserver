@@ -112,7 +112,7 @@ struct dchrstr {
     float d_ostr;		/* offensive strength */
     float d_dstr;		/* defensive strength */
     int d_value;		/* resale ("collect") value */
-    int d_build;		/* cost multiplier for eff */
+    int d_cost;			/* cost to build 100% */
     int d_lcms;			/* lcm's needed per point of eff */
     int d_hcms;			/* hcm's needed per point of eff */
     int d_maint;		/* maintenance cost per ETU */

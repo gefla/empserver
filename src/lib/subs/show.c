@@ -409,7 +409,7 @@ show_sect_build(int foo)
 	    continue;
 	if (dchr[i].d_mob0 < 0)
 	    continue;
-	if (dchr[i].d_build == 1
+	if (dchr[i].d_cost == 100
 	    && dchr[i].d_lcms == 0 && dchr[i].d_hcms == 0
 	    && dchr[i].d_maint == 0)
 	    continue;		/* the usual, skip */
@@ -417,7 +417,7 @@ show_sect_build(int foo)
 	   dchr[i].d_mnem, dchr[i].d_name,
 	   100 * dchr[i].d_lcms,
 	   100 * dchr[i].d_hcms,
-	   100 * dchr[i].d_build,
+	   dchr[i].d_cost,
 	   dchr[i].d_maint * etu_per_update);
     }
     pr("any other                   0    0   100      0\n");
