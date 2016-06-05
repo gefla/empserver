@@ -35,6 +35,7 @@
 #include <config.h>
 
 #include "budg.h"
+#include "chance.h"
 #include "item.h"
 #include "land.h"
 #include "player.h"
@@ -75,6 +76,15 @@ prepare_sects(int etu, struct bp *bp)
 
 	if (sp->sct_type == SCT_WATER)
 	    continue;
+
+	/*
+	 * When running the test suite, reseed PRNG for each sector
+	 * with its UID, to keep results stable even when the number
+	 * of PRNs consumed changes.
+	 */
+	if (running_test_suite)
+	    seed_prng(sp->sct_uid);
+
 	bp_set_from_sect(bp, sp);
 	np = getnatp(sp->sct_own);
 

@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -272,6 +272,14 @@ produce_sect(int natnum, int etu, struct bp *bp, int p_sect[][2])
 	    continue;
 	if (sp->sct_updated != 0)
 	    continue;
+
+	/*
+	 * When running the test suite, reseed PRNG for each sector
+	 * with its UID, to keep results stable even when the number
+	 * of PRNs consumed changes.
+	 */
+	if (running_test_suite)
+	    seed_prng(sp->sct_uid);
 
 	np = getnatp(natnum);
 

@@ -26,14 +26,14 @@
     Play#1 output Play#1 1 uranium mine     		318 rad    			     740
     Play#1 output Play#1 1 park             		78 happy  			     702
     Play#1 output Play#1 1 defense plant    		13 guns   			     420
-    Play#1 output Play#1 1 shell industry   		157 shells 			     528
+    Play#1 output Play#1 1 shell industry   		156 shells 			     528
     Play#1 output Play#1 1 technical center 		5 tech   			    2700
     Play#1 output Play#1 1 research lab     		6 medical			     900
     Play#1 output Play#1 1 library/school   		178 edu    			    1602
     Play#1 output Play#1 1 bank             		41 bars   			     410
     Play#1 output Play#1 1 refinery         		2581 petrol 			     291
     Play#1 output Play#1 1 enlistment center		75 mil    			     225
-    Play#1 output Play#1 1 Ship building			13 ships        		    1538
+    Play#1 output Play#1 1 Ship building			12 ships        		    1531
     Play#1 output Play#1 1 Ship maintenance		32 ships        		    2202
     Play#1 output Play#1 1 Plane building			13 planes       		    1932
     Play#1 output Play#1 1 Plane maintenance		20 planes       		    1004
@@ -42,12 +42,12 @@
     Play#1 output Play#1 1 Sector building			40 sectors      		     773
     Play#1 output Play#1 1 Sector maintenance		2 sectors       		     120
     Play#1 output Play#1 1 Military payroll		1155 mil, 0 res                     5777
-    Play#1 output Play#1 1 Total expenses.....................................................24674
+    Play#1 output Play#1 1 Total expenses.....................................................24667
     Play#1 output Play#1 1 Income from taxes		26911 civs, 9007 uws              +12625
     Play#1 output Play#1 1 Total income......................................................+12625
     Play#1 output Play#1 1 Balance forward						           25000
-    Play#1 output Play#1 1 Estimated delta						          -12049
-    Play#1 output Play#1 1 Estimated new treasury.............................................12951
+    Play#1 output Play#1 1 Estimated delta						          -12042
+    Play#1 output Play#1 1 Estimated new treasury.............................................12958
     Play#1 output Play#1 6 0 99
     Play#1 input neweff * ?newd#-
     Play#1 command neweff
@@ -533,8 +533,8 @@
     Play#0 output Play#0 1  78 happiness, 178 education produced
     Play#0 output Play#0 1 total pop was 28106, yielding 14.19 hap, 24.57 edu
     Play#0 output Play#0 1 3.4330 tech, 3.3939 research produced
-    Play#0 output Play#0 1 Army delta $-2810, Navy delta $-3725, Air force delta $-2932
-    Play#0 output Play#0 1 money delta was $-12030 for this update
+    Play#0 output Play#0 1 Army delta $-2810, Navy delta $-3738, Air force delta $-2940
+    Play#0 output Play#0 1 money delta was $-12051 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 1
     Play#0 command nation
@@ -542,7 +542,7 @@
     Play#0 output Play#0 1 (#1) 1 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at 0,0 has 650 civilians & 2 military
-    Play#0 output Play#0 1  The treasury has $12970.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $12949.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 21.09       Happiness....... 12.33
     Play#0 output Play#0 1 Technology.........102.79       Research........  3.37
     Play#0 output Play#0 1 Technology factor : 50.46%     Plague factor :   1.96%
@@ -556,14 +556,14 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     CENSUS                   del dst
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
-    Play#0 output Play#0 1   1    0,0    c  100%     120 .. ..      650    2    0   83 100%  281    0
+    Play#0 output Play#0 1   1    0,0    c  100%     120 .. ..      650    2    0   84 100%  281    0
     Play#0 output Play#0 1   1    2,0    +  100%     120 .. ..      783    0  783    0 100%  939    0
-    Play#0 output Play#0 1   1    4,0    +  100%     120 .. ..      866    0  805    0 100% 1002    0
+    Play#0 output Play#0 1   1    4,0    +  100%     120 .. ..      866    0  805    1 100% 1002    0
     Play#0 output Play#0 1   1    6,0    +  100%     120 .. ..      910    0  805    1 100% 1029    0
     Play#0 output Play#0 1   1    8,0    +  100%     120 .. ..     1000    0 1000    9 100% 1200    0
-    Play#0 output Play#0 1   1   10,0    +  100%     120 .. ..      999    0 1000   48 100% 1198    0
+    Play#0 output Play#0 1   1   10,0    +  100%     120 .. ..     1000    0  999   49 100% 1198    0
     Play#0 output Play#0 1   1   12,0    +  100%     120 .. ..      999    0 1000   49 100% 1198    0
-    Play#0 output Play#0 1   1   14,0    +  100%     120 .. ..      999    0  999   49 100% 1198    0   1
+    Play#0 output Play#0 1   1   14,0    +  100%     120 .. ..     1000    0  999   48 100% 1198    0   1
     Play#0 output Play#0 1   1    1,1    +   73%     120 .. ..      100  100   67    0   0%   72    0
     Play#0 output Play#0 1   1    3,1    +   73%     120 .. ..       67  100    0    0   0%   72    0
     Play#0 output Play#0 1   1    5,1    +   73%     120 .. ..       50  100    0    0   0%   72    0
@@ -575,19 +575,19 @@
     Play#0 output Play#0 1   1    0,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   1    2,2    g+  88%     120 .. ..       13    0    0   99 100%    4    0
     Play#0 output Play#0 1   1    4,2    +   14%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   1    6,2    +  100%     120 .. ..      455    0    0   88 100%  148    0
+    Play#0 output Play#0 1   1    6,2    +  100%     120 .. ..      455    0    0   90 100%  148    0
     Play#0 output Play#0 1   1    8,2    f    1%     120 .. ..      130    0    0   97 100%   78    0
     Play#0 output Play#0 1   1   10,2    f   11%     120 .. ..      130    0    0   97 100%   68    0
-    Play#0 output Play#0 1   1   12,2    c   11%     120 .. ..      130    0    0   97 100%   68    0
-    Play#0 output Play#0 1   1   14,2    -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   1   12,2    c   11%     120 .. ..      130    0    0   96 100%   68    0
+    Play#0 output Play#0 1   1   14,2    -   39%     120 .. ..      130    0    0   96 100%   39    0   1
     Play#0 output Play#0 1   1    1,3    m  100%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   1    3,3    m   40%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   1    5,3    -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1    5,3    -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   1    7,3    -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   1    9,3    e  100%     120 .. ..      130   65    0   95 100%   93    0
     Play#0 output Play#0 1   1   11,3    e  100%     120 .. ..      100   30    0   97 100%   78    0
-    Play#0 output Play#0 1   1   13,3    e   79%     120 .. ..       85   50    0   96 100%   40    0
-    Play#0 output Play#0 1   1   15,3    -   39%     120 .. ..      130    0    0   96 100%   39    0   1
+    Play#0 output Play#0 1   1   13,3    e   79%     120 .. ..       85   50    0   97 100%   40    0
+    Play#0 output Play#0 1   1   15,3    -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1 32 sectors
     Play#0 output Play#0 6 0 640
     Play#0 input comm 0:15,0:3
@@ -635,65 +635,65 @@
     Play#0 output Play#0 1     CENSUS                   del dst
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
     Play#0 output Play#0 1   1  -16,4    m  100%     120 .. ..      130    1    0   97 100%    8    0   1
-    Play#0 output Play#0 1   1  -14,4    m  100%     120 .. ..      130    1    0   97 100%    0    0
-    Play#0 output Play#0 1   1  -12,4    m   69%     120 .. ..      130    1    0   97 100%    1    0
+    Play#0 output Play#0 1   1  -14,4    m  100%     120 .. ..      130    1    0   96 100%    0    0
+    Play#0 output Play#0 1   1  -12,4    m   69%     120 .. ..      130    1    0   97 100%    2    0
     Play#0 output Play#0 1   1  -10,4    -   39%     120 .. ..      130    1    0   97 100%   39    0
-    Play#0 output Play#0 1   1   -8,4    g  100%     120 .. ..      130    1    0   96 100%    8    0
+    Play#0 output Play#0 1   1   -8,4    g  100%     120 .. ..      130    1    0   97 100%    8    0
     Play#0 output Play#0 1   1   -6,4    g  100%     120 .. ..      130    1    0   97 100%    0    0
     Play#0 output Play#0 1   1   -4,4    g  100%     120 .. ..     1000    1 1000   40 100%  700    0
     Play#0 output Play#0 1   1   -2,4    ^  100%     120 .. ..      100    1    0   97 100%    0    0
     Play#0 output Play#0 1   1    0,4    a  100%     120 .. ..      130    0    0  155 100%    8    0
-    Play#0 output Play#0 1   1    2,4    a  100%     120 .. ..      130   10    0  756 100%    0    0
+    Play#0 output Play#0 1   1    2,4    a  100%     120 .. ..      130   10    0  757 100%    0    0
     Play#0 output Play#0 1   1    4,4    a  100%     120 .. ..     1000    0    0 1069 100%  479    0
-    Play#0 output Play#0 1   1    6,4    -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1    6,4    -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   1    8,4    o  100%     120 .. ..      130    0    0   97 100%    8    0
     Play#0 output Play#0 1   1   10,4    o  100%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   1   12,4    -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   1   14,4    -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   1   14,4    -   39%     120 .. ..      130    0    0   96 100%   39    0   1
     Play#0 output Play#0 1   1  -15,5    u  100%     120 .. ..      130    1    0   97 100%    8    0   1
     Play#0 output Play#0 1   1  -13,5    u  100%     120 .. ..      130    1    0   97 100%    0    0
     Play#0 output Play#0 1   1  -11,5    u  100%     120 .. ..     1000    1 1000   40 100%  915    0
     Play#0 output Play#0 1   1   -9,5    -   39%     120 .. ..      130    1    0   97 100%   39    0
     Play#0 output Play#0 1   1   -7,5    i  100%     120 .. ..      130    1    0   97 100%    0    0
     Play#0 output Play#0 1   1   -5,5    i  100%     120 .. ..      650    1    0   84 100%  240    0
-    Play#0 output Play#0 1   1   -3,5    i  100%     120 .. ..      650    1    0   84 100%   90    0
+    Play#0 output Play#0 1   1   -3,5    i  100%     120 .. ..      650    1    0   85 100%   90    0
     Play#0 output Play#0 1   1   -1,5    -   39%     120 .. ..      130    1    0   97 100%   39    0
     Play#0 output Play#0 1   1    1,5    d  100%     120 .. ..      130    0    0   97 100%   14    0
     Play#0 output Play#0 1   1    3,5    d  100%     120 .. ..      650    0    0   84 100%  230    0
     Play#0 output Play#0 1   1    5,5    -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   1    7,5    -   39%     120 .. ..      130    0    0   96 100%   39    0
-    Play#0 output Play#0 1   1    9,5    %  100%     120 .. ..      130    0    0   97 100%    0    0
-    Play#0 output Play#0 1   1   11,5    %  100%     120 .. ..      260    0    0   94 100%   56    0
+    Play#0 output Play#0 1   1    9,5    %  100%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   1   11,5    %  100%     120 .. ..      260    0    0   93 100%   56    0
     Play#0 output Play#0 1   1   13,5    %  100%     120 .. ..      650    0    0   84 100%  277    0
-    Play#0 output Play#0 1   1   15,5    -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   1   15,5    -   39%     120 .. ..      130    0    0   96 100%   39    0   1
     Play#0 output Play#0 1   1  -16,6    b  100%     120 .. ..      130    1    0   97 100%    3    0   1
     Play#0 output Play#0 1   1  -14,6    b  100%     120 .. ..      650    1    0   84 100%  290    0
     Play#0 output Play#0 1   1  -12,6    b   79%     120 .. ..      130    1    0   97 100%    1    0
-    Play#0 output Play#0 1   1  -10,6    -   39%     120 .. ..      130    1    0   97 100%   39    0
+    Play#0 output Play#0 1   1  -10,6    -   39%     120 .. ..      130    1    0   96 100%   39    0
     Play#0 output Play#0 1   1   -8,6    j  100%     120 .. ..      130    1    0   97 100%    0    0
-    Play#0 output Play#0 1   1   -6,6    j  100%     120 .. ..      650    1    0   85 100%  290    0
-    Play#0 output Play#0 1   1   -4,6    j  100%     120 .. ..     1000    1 1000   40 100%  111    0
+    Play#0 output Play#0 1   1   -6,6    j  100%     120 .. ..      650    1    0   84 100%  290    0
+    Play#0 output Play#0 1   1   -4,6    j  100%     120 .. ..     1000    1 1000   40 100%  110    0
     Play#0 output Play#0 1   1   -2,6    -   39%     120 .. ..      130    1    0   97 100%   39    0
     Play#0 output Play#0 1   1    0,6    k  100%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   1    2,6    k  100%     120 .. ..      650    0    0   84 100%  290    0
-    Play#0 output Play#0 1   1    4,6    k  100%     120 .. ..      130    0    0   97 100%   38    0
-    Play#0 output Play#0 1   1    6,6    -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1    4,6    k  100%     120 .. ..      130    0    0   97 100%   36    0
+    Play#0 output Play#0 1   1    6,6    -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   1    8,6    f  100%     120 .. ..     1000    0    0   70 100%  564    0
     Play#0 output Play#0 1   1   10,6    !  100%     120 .. ..     1000    0    0   70 100%  544    0
-    Play#0 output Play#0 1   1   12,6    *  100%     120 .. ..     1000    8    0   69 100%  570    0
+    Play#0 output Play#0 1   1   12,6    *  100%     120 .. ..     1000    9    0   70 100%  570    0
     Play#0 output Play#0 1   1   14,6    h  100%     120 .. ..     1000    0    0   70 100%  440    0   1
     Play#0 output Play#0 1   1  -15,7    t  100%     120 .. ..      130    1    0   97 100%   14    0   1
     Play#0 output Play#0 1   1  -13,7    t  100%     120 .. ..      650    1    0   84 100%  310    0
     Play#0 output Play#0 1   1  -11,7    -   39%     120 .. ..      130    1    0   97 100%   39    0
-    Play#0 output Play#0 1   1   -9,7    -   39%     120 .. ..      130    1    0   97 100%   39    0
-    Play#0 output Play#0 1   1   -7,7    r  100%     120 .. ..      130    1    0   95 100%   14    0
-    Play#0 output Play#0 1   1   -5,7    r  100%     120 .. ..      650    1    0   83 100%  294    0
+    Play#0 output Play#0 1   1   -9,7    -   39%     120 .. ..      130    1    0   96 100%   39    0
+    Play#0 output Play#0 1   1   -7,7    r  100%     120 .. ..      130    1    0   96 100%   14    0
+    Play#0 output Play#0 1   1   -5,7    r  100%     120 .. ..      650    1    0   84 100%  294    0
     Play#0 output Play#0 1   1   -3,7    -   39%     120 .. ..      130    1    0   97 100%   39    0
     Play#0 output Play#0 1   1   -1,7    -   39%     120 .. ..      130    1    0   97 100%   39    0
-    Play#0 output Play#0 1   1    1,7    l  100%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   1    1,7    l  100%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   1    3,7    l  100%     120 .. ..      650    0    0   84 100%  290    0
     Play#0 output Play#0 1   1    5,7    -   39%     120 .. ..      130    0    0   96 100%   39    0
-    Play#0 output Play#0 1   1    7,7    -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   1    7,7    -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   1    9,7    p  100%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   1   11,7    p  100%     120 .. ..      130    0    0   97 100%   78    0
     Play#0 output Play#0 1   1   13,7    -   39%     120 .. ..      130    0    0   97 100%   39    0
@@ -718,18 +718,18 @@
     Play#0 output Play#0 1   1   4,4    a .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   6,4    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   8,4    o .......... ..........   0   0    0    0    0   0    6    0    0   0
-    Play#0 output Play#0 1   1  10,4    o .......... ..........   0   0    0    0    0   0   72   20   20   0
+    Play#0 output Play#0 1   1  10,4    o .......... ..........   0   0    0    0    0   0   71   20   20   0
     Play#0 output Play#0 1   1  12,4    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  14,4    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1 -15,5    u .......... ..........   0   0    0    0    0   0    0    0    0   6
-    Play#0 output Play#0 1   1 -13,5    u .......... ..........   0   0    0    0    0   0    0    0    0  66
+    Play#0 output Play#0 1   1 -13,5    u .......... ..........   0   0    0    0    0   0    0    0    0  67
     Play#0 output Play#0 1   1 -11,5    u .......... ..........   0   0    0    0    0   0    0    0    0 244
     Play#0 output Play#0 1   1  -9,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1  -7,5    i .......... ..........  24   0    0    0    0   0    0   48   74   0
-    Play#0 output Play#0 1   1  -5,5    i .......... ..........  45   0    0    0    0   0    0    0   50   0
+    Play#0 output Play#0 1   1  -7,5    i .......... ..........  23   0    0    0    0   0    0   48   74   0
+    Play#0 output Play#0 1   1  -5,5    i .......... ..........  44   0    0    0    0   0    0    0   50   0
     Play#0 output Play#0 1   1  -3,5    i .......... ..........  89   0    0    0    0   0    0  100    0   0
     Play#0 output Play#0 1   1  -1,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1   1,5    d .......... ..........   0   4    0    0    0   0    6   80   60   0
+    Play#0 output Play#0 1   1   1,5    d .......... ..........   0   3    0    0    0   0    6   80   60   0
     Play#0 output Play#0 1   1   3,5    d .......... ..........   0   9    0    0    0   0    0   50    0   0
     Play#0 output Play#0 1   1   5,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   7,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -741,16 +741,16 @@
     Play#0 output Play#0 1   1 -14,6    b .......... ..........   0   0    0    0    0  20    0    0    0   0
     Play#0 output Play#0 1   1 -12,6    b .......... ..........   0   0    0    0   70   6    0    0    0   0
     Play#0 output Play#0 1   1 -10,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1  -8,6    j .......... ..........   0   0    0   22    0   0    0   71    0   0
+    Play#0 output Play#0 1   1  -8,6    j .......... ..........   0   0    0   22    0   0    0   72    0   0
     Play#0 output Play#0 1   1  -6,6    j .......... ..........   0   0    0    0    0   0    0   92    0   0
-    Play#0 output Play#0 1   1  -4,6    j .......... ..........   0   0    0  911    0   0    0  999    0   0
+    Play#0 output Play#0 1   1  -4,6    j .......... ..........   0   0    0  910    0   0    0  999    0   0
     Play#0 output Play#0 1   1  -2,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1   0,6    k .......... ..........   0   0    0   22    0   0    0    0   36   0
+    Play#0 output Play#0 1   1   0,6    k .......... ..........   0   0    0   22    0   0    0    0   35   0
     Play#0 output Play#0 1   1   2,6    k .......... ..........   0   0    0    0    0   0    0    0   46   0
-    Play#0 output Play#0 1   1   4,6    k .......... ..........   0   0    0   60    0   0    0    0 9999   0
+    Play#0 output Play#0 1   1   4,6    k .......... ..........   0   0    0   58    0   0    0    0 9999   0
     Play#0 output Play#0 1   1   6,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   15   0
-    Play#0 output Play#0 1   1  10,6    ! .......... ..........   0   0    0    0    0   0    0    0   14   0
+    Play#0 output Play#0 1   1  10,6    ! .......... ..........   0   0    0    0    0   0    0    0   13   0
     Play#0 output Play#0 1   1  12,6    * .......... ..........   0   0    0    0    0   0    0    0    8   0
     Play#0 output Play#0 1   1  14,6    h .......... ..........   0   0    0    0    0   0    0   40    0   0
     Play#0 output Play#0 1   1 -15,7    t .......... ..........   0   0    0    0    6   0   30   10    0   0
@@ -784,20 +784,20 @@
     Play#0 output Play#0 1   1   43 cs   cargo ship    17,1       100%  17  50   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   60 cs   cargo ship    14,6        20%   0   0   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   70 cs   cargo ship    16,6        20%   4  10   0  10  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   71 cs   cargo ship    16,6        20%   4  10   0   9  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   72 cs   cargo ship    16,6        20%   4  10   0  10  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   73 cs   cargo ship    16,6        20%   4  10   0   9  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   74 cs   cargo ship    16,6        21%  12  10   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   71 cs   cargo ship    16,6        21%   4  10   0  10  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   72 cs   cargo ship    16,6        21%   4  10   0  10  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   73 cs   cargo ship    16,6        21%   4  10   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   74 cs   cargo ship    16,6        21%  12  10   0  10  0  0  0  0  90   20
     Play#0 output Play#0 1   1   75 frg  frigate       16,6        21%   0  11   0   9  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   76 frg  frigate       16,6        80%   0  60   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   76 frg  frigate       16,6        80%   0  60   0   8  0  0  0  0  90   20
     Play#0 output Play#0 1   7   93 fb   fishing boa    0,0        20%   0   0   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   95 cs   cargo ship    14,6       100%   0   0   0   0  0  0  0  0  90  200
     Play#0 output Play#0 1   7   96 cs   cargo ship    14,6        20%   0   0   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   97 cs   cargo ship    14,6        40%   0   0   0   0  0  0  0  0  90   20
-    Play#0 output Play#0 1   1  100 fb   fishing boa   16,4       100% 100   0   0  38  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  100 fb   fishing boa   16,4       100% 100   0   0  37  0  0  0  0  90   20
     Play#0 output Play#0 1   1  101 fb   fishing boa   18,4       100% 100   0   0 412  0  0  0  0  90   20
     Play#0 output Play#0 1   1  102 fb   fishing boa   20,4       100% 100   0   0 412  0  0  0  0  90   20
-    Play#0 output Play#0 1   1  103 fb   fishing boa   18,4        74% 100   0   0 250  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  103 fb   fishing boa   18,4        73% 100   0   0 250  0  0  0  0  90   20
     Play#0 output Play#0 1   1  104 fb   fishing boa   18,4        33% 100   0   0  88  0  0  0  0  90   20
     Play#0 output Play#0 1   1  110 od   oil derrick   16,4       100% 100   0   0   7  0  0  0  0  90   50
     Play#0 output Play#0 1   1  111 od   oil derrick   18,4       100% 100   0   0   7  0  0  0  0  90   50
@@ -819,9 +819,9 @@
     Play#0 output Play#0 1   43 cs     17,1      100%  17  50   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   60 cs     14,6       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   70 cs     16,6       20%   4  10   0   0   0   0   0   0   0   0  10  10   0
-    Play#0 output Play#0 1   71 cs     16,6       20%   4  10   0   0   0   0   0   0   0   0  10  10   0
-    Play#0 output Play#0 1   72 cs     16,6       20%   4  10   0   0   0   0   0   0   0   0  10  10   0
-    Play#0 output Play#0 1   73 cs     16,6       20%   4  10   0   0   0   0   0   0   0   0  10  10   0
+    Play#0 output Play#0 1   71 cs     16,6       21%   4  10   0   0   0   0   0   0   0   0  10  10   0
+    Play#0 output Play#0 1   72 cs     16,6       21%   4  10   0   0   0   0   0   0   0   0  10  10   0
+    Play#0 output Play#0 1   73 cs     16,6       21%   4  10   0   0   0   0   0   0   0   0  10  10   0
     Play#0 output Play#0 1   74 cs     16,6       21%  12  10   0   0   0   0   0   0   0   0  10  10   0
     Play#0 output Play#0 1   75 frg    16,6       21%   0  11   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   76 frg    16,6       80%   0  60   0   0   0   0   0   0   0   0   0   0   0
@@ -832,12 +832,12 @@
     Play#0 output Play#0 1  100 fb     16,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  101 fb     18,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  102 fb     20,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1  103 fb     18,4       74% 100   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  103 fb     18,4       73% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  104 fb     18,4       33% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  110 od     16,4      100% 100   0   0   0   0   0   0   0   0   6   0   0   0
-    Play#0 output Play#0 1  111 od     18,4      100% 100   0   0   0   0   0   0   0   0  52   0   0   0
+    Play#0 output Play#0 1  111 od     18,4      100% 100   0   0   0   0   0   0   0   0  51   0   0   0
     Play#0 output Play#0 1  112 od     20,4      100% 100   0   0   0   0   0   0   0   0  51   0   0   0
-    Play#0 output Play#0 1  113 od     18,4       65% 100   0   0   0   0   0   0   0   0  29   0   0   0
+    Play#0 output Play#0 1  113 od     18,4       65% 100   0   0   0   0   0   0   0   0  30   0   0   0
     Play#0 output Play#0 1  114 od     18,4       25% 100   0   0   0   0   0   0   0   0  10   0   0   0
     Play#0 output Play#0 1 30 ships
     Play#0 output Play#0 6 0 640
@@ -926,33 +926,33 @@
     Play#0 output Play#0 1   2  -14,0    b   30%     120 .. ..     1000  400 1000   28 100%    0    0
     Play#0 output Play#0 1   2  -12,0    b   60%     120 .. ..   5 1000  400 1000   28 100%    0    0
     Play#0 output Play#0 1   2  -10,0    b  100%     120 .. ..     1000  400 1000   28 100%    0    0
-    Play#0 output Play#0 1   2   -8,0    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2   -8,0    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2   -6,0    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2   -4,0    -    0%     120 .. ..      130    0    0   97 100%    0    0
-    Play#0 output Play#0 1   2   -2,0    c   10%     120 .. ..      130    0    0   96 100%    0    0
-    Play#0 output Play#0 1   2  -15,1    c  100%     120 .. ..      130    0    0   96 100%  100    0   1
+    Play#0 output Play#0 1   2   -2,0    c   10%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2  -15,1    c  100%     120 .. ..      130    0    0   97 100%  100    0   1
     Play#0 output Play#0 1   2  -13,1    c  100%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2  -11,1    c  100%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2   -9,1    c  100%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2   -7,1    -    0%     120 .. ..      130    0    0   97 100%    0    0
-    Play#0 output Play#0 1   2   -5,1    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -5,1    -    0%     120 .. ..      130    0    0   96 100%    0    0
     Play#0 output Play#0 1   2   -3,1    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2   -1,1    -    0%     120 .. ..      130    0    0   96 100%    0    0
-    Play#0 output Play#0 1   2  -16,2    -    0%     120 .. ..      130    0    0   96 100%    0    0   1
+    Play#0 output Play#0 1   2  -16,2    -    0%     120 .. ..      130    0    0   97 100%    0    0   1
     Play#0 output Play#0 1   2  -14,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2  -12,2    -    0%     120 .. ..      130    0    0   96 100%    0    0
-    Play#0 output Play#0 1   2  -10,2    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2  -10,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2   -8,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2   -6,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
-    Play#0 output Play#0 1   2   -4,2    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2   -4,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2   -2,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
-    Play#0 output Play#0 1   2  -15,3    -    0%     120 .. ..      130    0    0   96 100%    0    0   1
+    Play#0 output Play#0 1   2  -15,3    -    0%     120 .. ..      130    0    0   97 100%    0    0   1
     Play#0 output Play#0 1   2  -13,3    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2  -11,3    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2   -9,3    -    0%     120 .. ..      130    0    0   97 100%    0    0
-    Play#0 output Play#0 1   2   -7,3    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2   -7,3    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2   -5,3    -    0%     120 .. ..      130    0    0   97 100%    0    0
-    Play#0 output Play#0 1   2   -3,3    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2   -3,3    -    0%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1   2   -1,3    t  100%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1 32 sectors
     Play#0 output Play#0 6 0 640
@@ -1002,12 +1002,12 @@
     Play#0 output Play#0 1 own   sect        eff loyal cnum value  stage time mines
     Play#0 output Play#0 1   2  -16,0    b    1%     0    0    0      0     0    0
     Play#0 output Play#0 1   2  -14,0    b   30%     0    0    0      0     0    0
-    Play#0 output Play#0 1   2  -12,0    b   60%    57    0    0      0     0    0
+    Play#0 output Play#0 1   2  -12,0    b   60%    35    0    0      0     0    0
     Play#0 output Play#0 1   2  -10,0    b  100%     0    0    0      0     0    0
     Play#0 output Play#0 1   2   -8,0    -    0%     0    0    0      0     0    0
     Play#0 output Play#0 1   2   -6,0    -    0%     0    0    0      0     0    0
     Play#0 output Play#0 1   2   -4,0    -    0%     0    0    0      0     0    0
-    Play#0 output Play#0 1   2   -2,0    c   10%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -2,0    c   10%    14    0    0      0     0    0
     Play#0 output Play#0 1   2  -15,1    c  100%     0    0    0      0     0    0
     Play#0 output Play#0 1   2  -13,1    c  100%     0    0    0      0     0    0
     Play#0 output Play#0 1   2  -11,1    c  100%     0    0    0      0     0    0
@@ -1023,7 +1023,7 @@
     Play#0 output Play#0 1   2   -8,2    -    0%     0    0    0      0     0    0
     Play#0 output Play#0 1   2   -6,2    -    0%     0    0    0      0     0    0
     Play#0 output Play#0 1   2   -4,2    -    0%     0    0    0      0     0    0
-    Play#0 output Play#0 1   2   -2,2    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -2,2    -    0%    15    0    0      0     0    0
     Play#0 output Play#0 1   2  -15,3    -    0%     0    0    0      0     0    0
     Play#0 output Play#0 1   2  -13,3    -    0%     0    0    0      0     0    0
     Play#0 output Play#0 1   2  -11,3    -    0%     0    0    0      0     0    0
@@ -1053,10 +1053,10 @@
     Play#0 output Play#0 1   2   31 f1   Sopwith Camel   -16,0        10%  60   1   50   4    0
     Play#0 output Play#0 1   1   61 f1   Sopwith Camel    -6,8        10%  60   1   50   4    0
     Play#0 output Play#0 1   6   62 f1   Sopwith Camel    -6,8        10%  60   1   50   4    0
-    Play#0 output Play#0 1   1   75 f1   Sopwith Camel   -12,8        17%  60   1   50   4    0    3S
-    Play#0 output Play#0 1   1   76 f1   Sopwith Camel   -12,8        18%  60   1   50   4    0    3S
-    Play#0 output Play#0 1   1   77 f1   Sopwith Camel   -12,8        17%  60   1   50   4    0    3S
-    Play#0 output Play#0 1   1   78 f1   Sopwith Camel   -12,8        17%  60   1   50   4    0    3S
+    Play#0 output Play#0 1   1   75 f1   Sopwith Camel   -12,8        18%  60   1   50   4    0    3S
+    Play#0 output Play#0 1   1   76 f1   Sopwith Camel   -12,8        17%  60   1   50   4    0    3S
+    Play#0 output Play#0 1   1   77 f1   Sopwith Camel   -12,8        18%  60   1   50   4    0    3S
+    Play#0 output Play#0 1   1   78 f1   Sopwith Camel   -12,8        18%  60   1   50   4    0    3S
     Play#0 output Play#0 1 8 planes
     Play#0 output Play#0 6 0 640
     Play#0 input land -32:-1,0:15
@@ -1072,25 +1072,18 @@
     Play#0 command read
     Play#0 output Play#0 1
     Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
-    Play#0 output Play#0 1 Civil unrest in 2,-8!
     Play#0 output Play#0 1 Civil unrest in 6,-8!
-    Play#0 output Play#0 1 Civil unrest in 10,-8!
-    Play#0 output Play#0 1 Civil unrest in 12,-8!
-    Play#0 output Play#0 1 Civil unrest in 14,-8!
-    Play#0 output Play#0 1 Civil unrest in 1,-7!
     Play#0 output Play#0 1 Civil unrest in 3,-7!
+    Play#0 output Play#0 1 Civil unrest in 5,-7!
     Play#0 output Play#0 1 Civil unrest in 9,-7!
     Play#0 output Play#0 1 Civil unrest in 11,-7!
-    Play#0 output Play#0 1 Civil unrest in 8,-6!
-    Play#0 output Play#0 1 Civil unrest in 14,-6!
-    Play#0 output Play#0 1 Civil unrest in 1,-5!
-    Play#0 output Play#0 1 Civil unrest in 11,-5!
+    Play#0 output Play#0 1 Civil unrest in 15,-7!
+    Play#0 output Play#0 1 Civil unrest in 2,-6!
+    Play#0 output Play#0 1 Civil unrest in 10,-6!
     Play#0 output Play#0 1 Civil unrest in 13,-5!
-    Play#0 output Play#0 1 Sector 9,-3 is now fully yours
-    Play#0 output Play#0 1 Sector 11,-3 is now fully yours
-    Play#0 output Play#0 1 Sector 13,-3 is now fully yours
+    Play#0 output Play#0 1 Sector 15,-3 is now fully yours
     Play#0 output Play#0 1   0 happiness,   0 education produced
-    Play#0 output Play#0 1 total pop was 16047, yielding 0.00 hap, 0.00 edu
+    Play#0 output Play#0 1 total pop was 15849, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
     Play#0 output Play#0 1 money delta was $4437 for this update
     Play#0 output Play#0 6 0 640
@@ -1114,42 +1107,42 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     CENSUS                   del dst
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
-    Play#0 output Play#0 1   3    0,-8   -    9%     120 .. ..      130    0    0   97  37%   10    0   1
-    Play#0 output Play#0 1   3    2,-8   -   13%     120 .. ..      130    0    0   97  42%   14    0   1
-    Play#0 output Play#0 1   3    4,-8   -   15%     120 .. ..      130    0    0   97  56%   16    0   1
-    Play#0 output Play#0 1   3    6,-8   -   13%     120 .. ..      130    0    0   97  51%   14    0   1
-    Play#0 output Play#0 1   3    8,-8   -   11%     120 .. ..      130    0    0   97  39%   11    0   1
-    Play#0 output Play#0 1   3   10,-8   -   12%     120 .. ..      130    0    0   97  40%   13    0   1
-    Play#0 output Play#0 1   3   12,-8   -   14%     120 .. ..      130    0    0   97  54%   14    0   1
-    Play#0 output Play#0 1   3   14,-8   -   12%     120 .. ..      130    0    0   96  48%   13    0   1
-    Play#0 output Play#0 1   3    1,-7   -   14%     120 .. ..      130    0    0   96  54%   14    0
-    Play#0 output Play#0 1   3    3,-7   -   14%     120 .. ..      130    0    0   97  48%   15    0
-    Play#0 output Play#0 1   3    5,-7   -   13%     120 .. ..      130    0    0   97  45%   13    0
-    Play#0 output Play#0 1   3    7,-7   -   14%     120 .. ..      130    0    0   97  49%   14    0
-    Play#0 output Play#0 1   3    9,-7   -   11%     120 .. ..      130    0    0   97  48%   12    0
-    Play#0 output Play#0 1   3   11,-7   -   15%     120 .. ..      130    0    0   96  58%   16    0
-    Play#0 output Play#0 1   3   13,-7   -   10%     120 .. ..      130    0    0   97  43%   11    0
-    Play#0 output Play#0 1   3   15,-7   -   10%     120 .. ..      130    0    0   97  41%   10    0   1
-    Play#0 output Play#0 1   3    0,-6   -   11%     120 .. ..      130    0    0   97  42%   12    0
-    Play#0 output Play#0 1   3    2,-6   -   15%     120 .. ..      130    0    0   97  56%   15    0
-    Play#0 output Play#0 1   3    4,-6   -   10%     120 .. ..      130    0    0   97  42%   10    0
-    Play#0 output Play#0 1   3    6,-6   -   11%     120 .. ..      130    0    0   97  47%   12    0
-    Play#0 output Play#0 1   3    8,-6   -    9%     120 .. ..      130    0    0   97  36%   10    0
-    Play#0 output Play#0 1   3   10,-6   -   13%     120 .. ..      130    0    0   97  45%   13    0
-    Play#0 output Play#0 1   3   12,-6   -   13%     120 .. ..      130    0    0   97  51%   14    0
-    Play#0 output Play#0 1   3   14,-6   -   14%     120 .. ..      130    0    0   96  48%   15    0   1
-    Play#0 output Play#0 1   3    1,-5   -   13%     120 .. ..      130    0    0   97  52%   14    0
-    Play#0 output Play#0 1   3    3,-5   -   11%     120 .. ..      130    0    0   97  48%   12    0
-    Play#0 output Play#0 1   3    5,-5   -   11%     120 .. ..      130    0    0   96  44%   12    0
-    Play#0 output Play#0 1   3    7,-5   -   12%     120 .. ..      127    0    0   97  48%   13    0
-    Play#0 output Play#0 1   3    9,-5   -   14%     120 .. ..      130    0    0   97  44%   14    0
-    Play#0 output Play#0 1   3   11,-5   -   13%     120 .. ..      130    0    0   96  42%   13    0
-    Play#0 output Play#0 1   3   13,-5   -   13%     120 .. ..      130    0    0   96  45%   13    0
-    Play#0 output Play#0 1   3   15,-5   -   10%     120 .. ..      130    0    0   97  45%   11    0   1
+    Play#0 output Play#0 1   3    0,-8   -   15%     120 .. ..      130    0    0   97  57%   16    0   1
+    Play#0 output Play#0 1   3    2,-8   -   13%     120 .. ..      130    0    0   96  49%   14    0   1
+    Play#0 output Play#0 1   3    4,-8   -   14%     120 .. ..      130    0    0   97  51%   14    0   1
+    Play#0 output Play#0 1   3    6,-8   -   14%     120 .. ..      130    0    0   97  51%   14    0   1
+    Play#0 output Play#0 1   3    8,-8   -   12%     120 .. ..      130    0    0   97  43%   12    0   1
+    Play#0 output Play#0 1   3   10,-8   -   14%     120 .. ..      130    0    0   97  53%   15    0   1
+    Play#0 output Play#0 1   3   12,-8   -   13%     120 .. ..      130    0    0   97  47%   13    0   1
+    Play#0 output Play#0 1   3   14,-8   -   13%     120 .. ..      130    0    0   97  45%   13    0   1
+    Play#0 output Play#0 1   3    1,-7   -   14%     120 .. ..      130    0    0   97  51%   14    0
+    Play#0 output Play#0 1   3    3,-7   -   13%     120 .. ..      130    0    0   97  45%   13    0
+    Play#0 output Play#0 1   3    5,-7   -    9%     120 .. ..      130    0    0   97  33%   10    0
+    Play#0 output Play#0 1   3    7,-7   -   15%     120 .. ..      130    0    0   97  57%   16    0
+    Play#0 output Play#0 1   3    9,-7   -    9%     120 .. ..      130    0    0   97  31%    9    0
+    Play#0 output Play#0 1   3   11,-7   -   11%     120 .. ..      130    0    0   97  39%   12    0
+    Play#0 output Play#0 1   3   13,-7   -   13%     120 .. ..      130    0    0   96  49%   14    0
+    Play#0 output Play#0 1   3   15,-7   -   10%     120 .. ..      130    0    0   97  37%   11    0   1
+    Play#0 output Play#0 1   3    0,-6   -   11%     120 .. ..      130    0    0   97  39%   12    0
+    Play#0 output Play#0 1   3    2,-6   -   13%     120 .. ..      130    0    0   97  47%   13    0
+    Play#0 output Play#0 1   3    4,-6   -    9%     120 .. ..      130    0    0   97  31%    9    0
+    Play#0 output Play#0 1   3    6,-6   -    9%     120 .. ..      130    0    0   97  31%    9    0
+    Play#0 output Play#0 1   3    8,-6   -   14%     120 .. ..      130    0    0   97  51%   14    0
+    Play#0 output Play#0 1   3   10,-6   -   15%     120 .. ..      130    0    0   97  55%   15    0
+    Play#0 output Play#0 1   3   12,-6   -   12%     120 .. ..      130    0    0   97  43%   12    0
+    Play#0 output Play#0 1   3   14,-6   -   15%     120 .. ..      130    0    0   97  55%   15    0   1
+    Play#0 output Play#0 1   3    1,-5   -   13%     120 .. ..      130    0    0   97  49%   14    0
+    Play#0 output Play#0 1   3    3,-5   -   10%     120 .. ..      130    0    0   97  35%   11    0
+    Play#0 output Play#0 1   3    5,-5   -   14%     120 .. ..      130    0    0   96  53%   15    0
+    Play#0 output Play#0 1   3    7,-5   -   15%     120 .. ..      130    0    0   97  55%   15    0
+    Play#0 output Play#0 1   3    9,-5   -    9%     120 .. ..      130    0    0   96  33%   10    0
+    Play#0 output Play#0 1   3   11,-5   -   13%     120 .. ..      130    0    0   97  45%   13    0
+    Play#0 output Play#0 1   3   13,-5   -   16%     120 .. ..      130    0    0   96  59%   16    0
+    Play#0 output Play#0 1   3   15,-5   -   16%     120 .. ..      130    0    0   97  59%   16    0   1
     Play#0 output Play#0 1   3    0,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   3    2,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   3    4,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   3    6,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3    6,-4   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   3    8,-4   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   3   10,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   3   12,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
@@ -1158,26 +1151,26 @@
     Play#0 output Play#0 1   3    3,-3   -   39%     120 .. ..   5  130    0    0   97 100%   39    0
     Play#0 output Play#0 1   3    5,-3   -   39%     120 .. ..   5  130    0    0   97 100%   39    0
     Play#0 output Play#0 1   3    7,-3   -   39%     120 .. ..   5  130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   3    9,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   3   11,-3   -   39%     120 .. ..      130    0    0   96 100%   39    0
-    Play#0 output Play#0 1   3   13,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   3   15,-3   -   39%     120 .. ..   5  130    0    0   97 100%   39    0   1
-    Play#0 output Play#0 1   3    0,-2   ^  100%     120 .. ..      100  150  100   86  68%  114    0
-    Play#0 output Play#0 1   3    2,-2   +  100%     120 .. ..      130    0    0   97  58%   50    0
-    Play#0 output Play#0 1   3    4,-2   +  100%     120 .. ..      130    0    0   96  66%   81    0
-    Play#0 output Play#0 1   3    6,-2   +  100%     120 .. ..      390    0    0   91  72%  178    0
+    Play#0 output Play#0 1   3    9,-3   -   39%     120 .. ..   5  130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   3   11,-3   -   39%     120 .. ..   5  130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3   13,-3   -   39%     120 .. ..   5  130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3   15,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   3    0,-2   ^  100%     120 .. ..      100  150  100   87  64%  114    0
+    Play#0 output Play#0 1   3    2,-2   +  100%     120 .. ..      130    0    0   97  65%   51    0
+    Play#0 output Play#0 1   3    4,-2   +  100%     120 .. ..      130    0    0   97  68%   82    0
+    Play#0 output Play#0 1   3    6,-2   +  100%     120 .. ..      390    0    0   91  70%  177    0
     Play#0 output Play#0 1   3    8,-2   +  100%     120 .. ..      130    0    0   97 100%   75    0
-    Play#0 output Play#0 1   3   10,-2   w   14%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   3   10,-2   w   14%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   3   12,-2   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   3   14,-2   -   39%     120 .. ..      130    0    0   96 100%   39    0   1
     Play#0 output Play#0 1   3    1,-1   c  100%     120 .. ..     9999    0    0  100 100% 5999    0
-    Play#0 output Play#0 1   3    3,-1   -   39%     120 .. ..      130    0    0   96 100%   39    0
-    Play#0 output Play#0 1   3    5,-1   u  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   3    3,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3    5,-1   u  100%     120 .. ..      130    0    0   96 100%    0    0
     Play#0 output Play#0 1   3    7,-1   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   3    9,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   3   11,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   3   13,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   3   15,-1   h  100%     120 .. ..      130   20    0   96 100%   82    0   1
+    Play#0 output Play#0 1   3   15,-1   h  100%     120 .. ..      130   20    0   97 100%   82    0   1
     Play#0 output Play#0 1 64 sectors
     Play#0 output Play#0 6 0 640
     Play#0 input comm 0:15,-8:-1
@@ -1243,7 +1236,7 @@
     Play#0 output Play#0 1   3  14,-2   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3   1,-1   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3   3,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   3   5,-1   u .......... ..........   0   0    0    0    0   0    0    0    0  67
+    Play#0 output Play#0 1   3   5,-1   u .......... ..........   0   0    0    0    0   0    0    0    0  66
     Play#0 output Play#0 1   3   7,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3   9,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  11,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -1256,38 +1249,38 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     HIDDEN VALUES           che-------  plague----
     Play#0 output Play#0 1 own   sect        eff loyal cnum value  stage time mines
-    Play#0 output Play#0 1   3    0,-8   -    9%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    2,-8   -   13%   127    0    0      0     0    0
-    Play#0 output Play#0 1   3    4,-8   -   15%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    6,-8   -   13%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    8,-8   -   11%   127    0    0      0     0    0
-    Play#0 output Play#0 1   3   10,-8   -   12%   127    0    0      0     0    0
-    Play#0 output Play#0 1   3   12,-8   -   14%   127    0    0      0     0    0
-    Play#0 output Play#0 1   3   14,-8   -   12%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3    0,-8   -   15%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    2,-8   -   13%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    4,-8   -   14%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3    6,-8   -   14%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    8,-8   -   12%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3   10,-8   -   14%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3   12,-8   -   13%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   14,-8   -   13%   112    0    0      0     0    0
     Play#0 output Play#0 1   3    1,-7   -   14%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    3,-7   -   14%   127    0    0      0     0    0
-    Play#0 output Play#0 1   3    5,-7   -   13%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    7,-7   -   14%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    9,-7   -   11%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3   11,-7   -   15%   127    0    0      0     0    0
-    Play#0 output Play#0 1   3   13,-7   -   10%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3   15,-7   -   10%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    3,-7   -   13%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    5,-7   -    9%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3    7,-7   -   15%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3    9,-7   -    9%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   11,-7   -   11%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   13,-7   -   13%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   15,-7   -   10%   127    0    0      0     0    0
     Play#0 output Play#0 1   3    0,-6   -   11%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    2,-6   -   15%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    4,-6   -   10%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    6,-6   -   11%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    8,-6   -    9%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3   10,-6   -   13%   127    0    0      0     0    0
-    Play#0 output Play#0 1   3   12,-6   -   13%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3   14,-6   -   14%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    2,-6   -   13%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3    4,-6   -    9%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    6,-6   -    9%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    8,-6   -   14%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   10,-6   -   15%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   12,-6   -   12%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3   14,-6   -   15%   127    0    0      0     0    0
     Play#0 output Play#0 1   3    1,-5   -   13%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    3,-5   -   11%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    5,-5   -   11%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3    7,-5   -   12%   112    3    2      0     0    0
-    Play#0 output Play#0 1   3    9,-5   -   14%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    3,-5   -   10%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    5,-5   -   14%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    7,-5   -   15%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    9,-5   -    9%   112    0    0      0     0    0
     Play#0 output Play#0 1   3   11,-5   -   13%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3   13,-5   -   13%   112    0    0      0     0    0
-    Play#0 output Play#0 1   3   15,-5   -   10%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   13,-5   -   16%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   15,-5   -   16%   127    0    0      0     0    0
     Play#0 output Play#0 1   3    0,-4   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   3    2,-4   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   3    4,-4   -   39%     0    0    0      0     0    0
@@ -1299,11 +1292,11 @@
     Play#0 output Play#0 1   3    1,-3   -   39%    25    0    0      0     0    0
     Play#0 output Play#0 1   3    3,-3   -   39%    25    0    0      0     0    0
     Play#0 output Play#0 1   3    5,-3   -   39%    25    0    0      0     0    0
-    Play#0 output Play#0 1   3    7,-3   -   39%    48    0    0      0     0    0
-    Play#0 output Play#0 1   3    9,-3   -   39%     0    0    0      0     0    0
-    Play#0 output Play#0 1   3   11,-3   -   39%     0    0    0      0     0    0
-    Play#0 output Play#0 1   3   13,-3   -   39%     0    0    0      0     0    0
-    Play#0 output Play#0 1   3   15,-3   -   39%    12    0    0      0     0    0
+    Play#0 output Play#0 1   3    7,-3   -   39%    25    0    0      0     0    0
+    Play#0 output Play#0 1   3    9,-3   -   39%    13    0    0      0     0    0
+    Play#0 output Play#0 1   3   11,-3   -   39%    13    0    0      0     0    0
+    Play#0 output Play#0 1   3   13,-3   -   39%    12    0    0      0     0    0
+    Play#0 output Play#0 1   3   15,-3   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   3    0,-2   ^  100%     0    0    0      0     0    0
     Play#0 output Play#0 1   3    2,-2   +  100%     0    0    0      0     0    0
     Play#0 output Play#0 1   3    4,-2   +  100%     0    0    0      0     0    0
@@ -1373,8 +1366,9 @@
     Play#0 output Play#0 1 -6,-4 battling PLAGUE
     Play#0 output Play#0 1 Outbreak of PLAGUE in -4,-4!
     Play#0 output Play#0 1 Outbreak of PLAGUE in -2,-4!
-    Play#0 output Play#0 1 Outbreak of PLAGUE in -15,-3!
-    Play#0 output Play#0 1 Outbreak of PLAGUE in -11,-3!
+    Play#0 output Play#0 1 Outbreak of PLAGUE in -7,-3!
+    Play#0 output Play#0 1 Outbreak of PLAGUE in -5,-3!
+    Play#0 output Play#0 1 Outbreak of PLAGUE in -3,-3!
     Play#0 output Play#0 1 Outbreak of PLAGUE in -1,-3!
     Play#0 output Play#0 1 1 satellite spotted over -4,-4
     Play#0 output Play#0 1 PLAGUE deaths reported on cs   cargo ship (#10)
@@ -1384,14 +1378,14 @@
     Play#0 output Play#0 1 cs   cargo ship (#14) battling PLAGUE
     Play#0 output Play#0 1 Outbreak of PLAGUE on cs   cargo ship (#15)!
     Play#0 output Play#0 1 Outbreak of PLAGUE on cs   cargo ship (#16)!
-    Play#0 output Play#0 1 Outbreak of PLAGUE on cs   cargo ship (#19)!
+    Play#0 output Play#0 1 Outbreak of PLAGUE on cs   cargo ship (#17)!
+    Play#0 output Play#0 1 Outbreak of PLAGUE on cs   cargo ship (#18)!
     Play#0 output Play#0 1 PLAGUE deaths reported on inf  infantry #10
     Play#0 output Play#0 1 inf  infantry #11 battling PLAGUE
     Play#0 output Play#0 1 inf  infantry #12 battling PLAGUE
     Play#0 output Play#0 1 inf  infantry #13 battling PLAGUE
     Play#0 output Play#0 1 inf  infantry #14 battling PLAGUE
     Play#0 output Play#0 1 Outbreak of PLAGUE on inf  infantry #15!
-    Play#0 output Play#0 1 Outbreak of PLAGUE on inf  infantry #16!
     Play#0 output Play#0 1 Outbreak of PLAGUE on inf  infantry #17!
     Play#0 output Play#0 1 Outbreak of PLAGUE on inf  infantry #19!
     Play#0 output Play#0 1 Technology level too low to produce in -5,-1 (need 40)
@@ -1422,68 +1416,68 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     CENSUS                   del dst
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
-    Play#0 output Play#0 1   5  -16,-8   -    0%     120 .. ..      123    5    0   97 100%    0    0   1
-    Play#0 output Play#0 1   5  -14,-8   b  100%     120 .. ..      123    5    0   97 100%    0    0   1
+    Play#0 output Play#0 1   5  -16,-8   -    0%     120 .. ..      124    5    0   97 100%    0    0   1
+    Play#0 output Play#0 1   5  -14,-8   b  100%     120 .. ..      124    5    0   96 100%    0    0   1
     Play#0 output Play#0 1   4  -12,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
-    Play#0 output Play#0 1   4  -10,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
-    Play#0 output Play#0 1   4   -8,-8   -   39%     120 .. ..      130    0    0   96 100%   39    0   1
+    Play#0 output Play#0 1   4  -10,-8   -   39%     120 .. ..      130    0    0   96 100%   39    0   1
+    Play#0 output Play#0 1   4   -8,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4   -6,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
-    Play#0 output Play#0 1   4   -4,-8   -   39%     120 .. ..      130    0    0   96 100%   39    0   1
+    Play#0 output Play#0 1   4   -4,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4   -2,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4  -15,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4  -13,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4  -11,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4   -9,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4   -7,-7   -   39%     120 .. ..      130    0    0   96 100%   39    0
-    Play#0 output Play#0 1   4   -5,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -9,-7   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   4   -7,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -5,-7   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   4   -3,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4   -1,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   0  -16,-6   -    0%      60 .. ..        0    0    0  100  50%    0    0   1
     Play#0 output Play#0 1   4  -14,-6   -    0%     120 .. ..        0    2    0  100 100%    0    0
-    Play#0 output Play#0 1   4  -12,-6   *  100%     120 .. ..       26    0    0  100  70%   29    0
+    Play#0 output Play#0 1   4  -12,-6   *  100%     120 .. ..       26    0    0   99  58%   29    0
     Play#0 output Play#0 1   4  -10,-6   -    0%     120 .. ..        0    0    0  100  61%    0    0
     Play#0 output Play#0 1   0   -8,-6   -    0%      60 .. ..        0    0   20  100  50%    0    0
-    Play#0 output Play#0 1   4   -6,-6   -    4%     120 .. ..       26    0    0   99  71%    4    0
-    Play#0 output Play#0 1   4   -4,-6   -    4%     120 .. ..       26    0    0  100  69%    4    0
-    Play#0 output Play#0 1   4   -2,-6   -    4%     120 .. ..       26    0    0   99  66%    4    0
+    Play#0 output Play#0 1   4   -6,-6   -    4%     120 .. ..       26    0    0  100  72%    4    0
+    Play#0 output Play#0 1   4   -4,-6   -    4%     120 .. ..       26    0    0  100  70%    4    0
+    Play#0 output Play#0 1   4   -2,-6   -    4%     120 .. ..       26    0    0  100  69%    4    0
     Play#0 output Play#0 1   4  -15,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4  -13,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4  -11,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4  -11,-5   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   4   -9,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4   -7,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4   -5,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -5,-5   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   4   -3,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4   -1,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4  -16,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4  -14,-4   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   4  -12,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4  -10,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4   -8,-4   -   39%     120 .. ..      130    0    0   96 100%   39    0
-    Play#0 output Play#0 1   4   -6,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -8,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -6,-4   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   4   -4,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4   -2,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4  -15,-3   -   39%     120 .. ..      130    0    0   96 100%   39    0   1
+    Play#0 output Play#0 1   4  -15,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4  -13,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4  -11,-3   -   39%     120 .. ..      130    0    0   96 100%   39    0
-    Play#0 output Play#0 1   4   -9,-3   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   4  -11,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -9,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4   -7,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4   -5,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -5,-3   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   4   -3,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4   -1,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -1,-3   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   4  -16,-2   -  100%      60 .. ..     1000    0 1000  235 100% 1100    0   1
     Play#0 output Play#0 1   4  -14,-2   -  100%      60 .. ..     1000    0 1000  235 100% 1100    0
     Play#0 output Play#0 1   4  -12,-2   -  100%      60 .. ..     1000    0 1000  235 100% 1100    0
     Play#0 output Play#0 1   4  -10,-2   -  100%      60 .. ..     1000    0 1000  235 100% 1100    0
-    Play#0 output Play#0 1   4   -8,-2   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -8,-2   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   4   -6,-2   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4   -4,-2   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   4   -4,-2   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4   -2,-2   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4  -15,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4  -13,-1   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   4  -11,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4   -9,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4   -7,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4   -5,-1   u  100%     120 .. ..      130    0    0   96 100%   78    0
+    Play#0 output Play#0 1   4   -5,-1   u  100%     120 .. ..      130    0    0   97 100%   78    0
     Play#0 output Play#0 1   4   -3,-1   t  100%     120 .. ..      130    0    0   97 100%   78    0
     Play#0 output Play#0 1   4   -1,-1   c  100%     120 .. ..      130    0    0   97 100%    0    0
     Play#0 output Play#0 1 64 sectors
@@ -1566,13 +1560,13 @@
     Play#0 output Play#0 1 own   sect        eff loyal cnum value  stage time mines
     Play#0 output Play#0 1   5  -16,-8   -    0%     0    0    0      0     0    0
     Play#0 output Play#0 1   5  -14,-8   b  100%     0    0    0      0     0    0
-    Play#0 output Play#0 1   4  -12,-8   -   39%    10    4   10      0     0    0
+    Play#0 output Play#0 1   4  -12,-8   -   39%     0    4   10      0     0    0
     Play#0 output Play#0 1   4  -10,-8   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -8,-8   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -6,-8   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -4,-8   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -2,-8   -   39%     0    0    0      0     0    0
-    Play#0 output Play#0 1   4  -15,-7   -   39%     0    4   10      0     0    0
+    Play#0 output Play#0 1   4  -15,-7   -   39%     9    4    9      0     0    0
     Play#0 output Play#0 1   4  -13,-7   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4  -11,-7   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -9,-7   -   39%     0    0    0      0     0    0
@@ -1580,42 +1574,42 @@
     Play#0 output Play#0 1   4   -5,-7   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -3,-7   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -1,-7   -   39%     0    0    0      0     0    0
-    Play#0 output Play#0 1   0  -16,-6   -    0%     0    0    0      0    41    0
-    Play#0 output Play#0 1   4  -14,-6   -    0%     0    0    0      0    87    0
-    Play#0 output Play#0 1   4  -12,-6   *  100%     0    0    0      0    84    0
-    Play#0 output Play#0 1   4  -10,-6   -    0%     0    0    0      0    86    0
-    Play#0 output Play#0 1   0   -8,-6   -    0%     0    0    0      0    84    0
-    Play#0 output Play#0 1   4   -6,-6   -    4%     0    0    0      0    45    0
+    Play#0 output Play#0 1   0  -16,-6   -    0%     0    0    0      0    45    0
+    Play#0 output Play#0 1   4  -14,-6   -    0%     0    0    0      0    84    0
+    Play#0 output Play#0 1   4  -12,-6   *  100%     0    0    0      0    46    0
+    Play#0 output Play#0 1   4  -10,-6   -    0%     0    0    0      0    48    0
+    Play#0 output Play#0 1   0   -8,-6   -    0%     0    0    0      0    79    0
+    Play#0 output Play#0 1   4   -6,-6   -    4%     0    0    0      0    75    0
     Play#0 output Play#0 1   4   -4,-6   -    4%     0    0    0      1     1    0
     Play#0 output Play#0 1   4   -2,-6   -    4%     0    0    0      1     1    0
-    Play#0 output Play#0 1   4  -15,-5   -   39%     0    0    0      1    70    0
-    Play#0 output Play#0 1   4  -13,-5   -   39%     0    0    0      1    63    0
-    Play#0 output Play#0 1   4  -11,-5   -   39%     0    0    0      1    51    0
-    Play#0 output Play#0 1   4   -9,-5   -   39%     0    0    0      1    82    0
-    Play#0 output Play#0 1   4   -7,-5   -   39%     0    0    0      1    57    0
-    Play#0 output Play#0 1   4   -5,-5   -   39%     0    0    0      1    50    0
+    Play#0 output Play#0 1   4  -15,-5   -   39%     0    0    0      1    56    0
+    Play#0 output Play#0 1   4  -13,-5   -   39%     0    0    0      1    40    0
+    Play#0 output Play#0 1   4  -11,-5   -   39%     0    0    0      1    60    0
+    Play#0 output Play#0 1   4   -9,-5   -   39%     0    0    0      1    39    0
+    Play#0 output Play#0 1   4   -7,-5   -   39%     0    0    0      1    71    0
+    Play#0 output Play#0 1   4   -5,-5   -   39%     0    0    0      1    80    0
     Play#0 output Play#0 1   4   -3,-5   -   39%     0    0    0      2     1    0
     Play#0 output Play#0 1   4   -1,-5   -   39%     0    0    0      2     1    0
-    Play#0 output Play#0 1   4  -16,-4   -   39%     0    0    0      2    56    0
-    Play#0 output Play#0 1   4  -14,-4   -   39%     0    0    0      2    89    0
-    Play#0 output Play#0 1   4  -12,-4   -   39%     0    0    0      2    52    0
-    Play#0 output Play#0 1   4  -10,-4   -   39%     0    0    0      2    50    0
-    Play#0 output Play#0 1   4   -8,-4   -   39%     0    0    0      2    79    0
-    Play#0 output Play#0 1   4   -6,-4   -   39%     0    0    0      2    68    0
+    Play#0 output Play#0 1   4  -16,-4   -   39%     0    0    0      2    34    0
+    Play#0 output Play#0 1   4  -14,-4   -   39%     0    0    0      2    71    0
+    Play#0 output Play#0 1   4  -12,-4   -   39%     0    0    0      2    57    0
+    Play#0 output Play#0 1   4  -10,-4   -   39%     0    0    0      2    47    0
+    Play#0 output Play#0 1   4   -8,-4   -   39%     0    0    0      2    83    0
+    Play#0 output Play#0 1   4   -6,-4   -   39%     0    0    0      2    60    0
     Play#0 output Play#0 1   4   -4,-4   -   39%     0    0    0      3     1    0
     Play#0 output Play#0 1   4   -2,-4   -   39%     0    0    0      3     1    0
-    Play#0 output Play#0 1   4  -15,-3   -   39%     0    0    0      3    37    0
-    Play#0 output Play#0 1   4  -13,-3   -   39%     0    0    0      3    83    0
-    Play#0 output Play#0 1   4  -11,-3   -   39%     0    0    0      3    56    0
-    Play#0 output Play#0 1   4   -9,-3   -   39%     0    0    0      3    69    0
-    Play#0 output Play#0 1   4   -7,-3   -   39%     0    0    0      3    63    0
-    Play#0 output Play#0 1   4   -5,-3   -   39%     0    0    0      3    61    0
-    Play#0 output Play#0 1   4   -3,-3   -   39%     0    0    0      3    67    0
-    Play#0 output Play#0 1   4   -1,-3   -   39%     0    0    0      3    48    0
+    Play#0 output Play#0 1   4  -15,-3   -   39%     0    0    0      3    72    0
+    Play#0 output Play#0 1   4  -13,-3   -   39%     0    0    0      3    78    0
+    Play#0 output Play#0 1   4  -11,-3   -   39%     0    0    0      3    77    0
+    Play#0 output Play#0 1   4   -9,-3   -   39%     0    0    0      3    65    0
+    Play#0 output Play#0 1   4   -7,-3   -   39%     0    0    0      3    39    0
+    Play#0 output Play#0 1   4   -5,-3   -   39%     0    0    0      3    57    0
+    Play#0 output Play#0 1   4   -3,-3   -   39%     0    0    0      3    52    0
+    Play#0 output Play#0 1   4   -1,-3   -   39%     0    0    0      3    53    0
     Play#0 output Play#0 1   4  -16,-2   -  100%     0    0    0      4     0    0
     Play#0 output Play#0 1   4  -14,-2   -  100%     0    0    0      4     0    0
-    Play#0 output Play#0 1   4  -12,-2   -  100%     0    0    0      4     0    0
-    Play#0 output Play#0 1   4  -10,-2   -  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4  -12,-2   -  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4  -10,-2   -  100%     0    0    0      4     0    0
     Play#0 output Play#0 1   4   -8,-2   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -6,-2   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -4,-2   -   39%     0    0    0      0     0    0
@@ -1633,15 +1627,15 @@
     Play#0 input ship -32:-1,-16:-1
     Play#0 command ship
     Play#0 output Play#0 1 own shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
-    Play#0 output Play#0 1   4   10 cs   cargo ship   -18,-6      100%  20   2   0  17  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   10 cs   cargo ship   -18,-6      100%  20   2   0  16  0  0  0  0  90   20
     Play#0 output Play#0 1   4   11 cs   cargo ship   -18,-6      100% 100  10   1  16  0  0  0  0  90   20
-    Play#0 output Play#0 1   4   12 cs   cargo ship   -18,-6      100% 100  10   1  17  0  0  0  0  90   20
-    Play#0 output Play#0 1   4   13 cs   cargo ship   -18,-6      100% 100  10   1  17  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   12 cs   cargo ship   -18,-6      100% 100  10   1  16  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   13 cs   cargo ship   -18,-6      100% 100  10   1  16  0  0  0  0  90   20
     Play#0 output Play#0 1   4   14 cs   cargo ship   -18,-6      100% 100  10   1  17  0  0  0  0  90   20
     Play#0 output Play#0 1   4   15 cs   cargo ship   -18,-6      100% 100  10   1  16  0  0  0  0  90   20
     Play#0 output Play#0 1   4   16 cs   cargo ship   -18,-6      100% 100  10   1  17  0  0  0  0  90   20
     Play#0 output Play#0 1   4   17 cs   cargo ship   -18,-6      100% 100  10   1  17  0  0  0  0  90   20
-    Play#0 output Play#0 1   4   18 cs   cargo ship   -18,-6      100% 100  10   1  16  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   18 cs   cargo ship   -18,-6      100% 100  10   1  17  0  0  0  0  90   20
     Play#0 output Play#0 1   4   19 cs   cargo ship   -18,-6      100% 100  10   1  16  0  0  0  0  90   20
     Play#0 output Play#0 1 10 ships
     Play#0 output Play#0 6 0 640
@@ -1724,13 +1718,13 @@
     Play#0 output Play#0 1     CENSUS                   del dst
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
     Play#0 output Play#0 1   6    0,8    c  100%     120 .. ..      650   20    0   83 100%  394    0   1
-    Play#0 output Play#0 1   6    2,8    -  100%     120 .. ..      650   20    0   83 100%  294    0   1
-    Play#0 output Play#0 1   6    4,8    f  100%     120 .. ..      650   20    0   84 100%  444    0   1
-    Play#0 output Play#0 1   6    6,8    *  100%     120 .. ..      650   18    0   84 100%  444    0   1
-    Play#0 output Play#0 1   6    8,8    h  100%     120 .. ..      650   20    0   84 100%  444    0   1
-    Play#0 output Play#0 1   6   10,8    !  100%     120 .. ..      650   20    0   83 100%  394    0   1
+    Play#0 output Play#0 1   6    2,8    -  100%     120 .. ..      650   20    0   84 100%  294    0   1
+    Play#0 output Play#0 1   6    4,8    f  100%     120 .. ..      650   20    0   83 100%  444    0   1
+    Play#0 output Play#0 1   6    6,8    *  100%     120 .. ..      650   19    0   85 100%  444    0   1
+    Play#0 output Play#0 1   6    8,8    h  100%     120 .. ..      650   20    0   83 100%  444    0   1
+    Play#0 output Play#0 1   6   10,8    !  100%     120 .. ..      650   20    0   84 100%  394    0   1
     Play#0 output Play#0 1   6   12,8    *  100%     120 .. ..      650   20    0   84 100%  394    0   1
-    Play#0 output Play#0 1   6   14,8    h  100%     120 .. ..      650   20    0   83 100%  394    0   1
+    Play#0 output Play#0 1   6   14,8    h  100%     120 .. ..      650   20    0   84 100%  394    0   1
     Play#0 output Play#0 1 8 sectors
     Play#0 output Play#0 6 0 640
     Play#0 input comm 0:15,8
@@ -1740,8 +1734,8 @@
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
     Play#0 output Play#0 1   6   0,8    c .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6   2,8    - .......... ..........   0   0    0    0    0   0    0  400  400   0
-    Play#0 output Play#0 1   6   4,8    f .......... ..........   0   0    0    0    0   0    0  391  395   0
-    Play#0 output Play#0 1   6   6,8    * .......... ..........   0   0    0    0    0   0    0  386  397   0
+    Play#0 output Play#0 1   6   4,8    f .......... ..........   0   0    0    0    0   0    0  391  396   0
+    Play#0 output Play#0 1   6   6,8    * .......... ..........   0   0    0    0    0   0    0  386  396   0
     Play#0 output Play#0 1   6   8,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6  10,8    ! .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6  12,8    * .......... ..........   0   0    0    0    0   0    0  400  400   0
@@ -1779,11 +1773,11 @@
     Play#0 output Play#0 1     CENSUS                   del dst
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
     Play#0 output Play#0 1   7  -16,8    -  100%     120 .. ..      650   20    0   83 100%  294    0   1
-    Play#0 output Play#0 1   7  -14,8    h  100%     120 .. ..      650   20    0   84 100%  394    0   1
-    Play#0 output Play#0 1   7  -12,8    *  100%     120 .. ..      650   20    0   84 100%  394    0   1
+    Play#0 output Play#0 1   7  -14,8    h  100%     120 .. ..      650   20    0   83 100%  394    0   1
+    Play#0 output Play#0 1   7  -12,8    *  100%     120 .. ..      650   19    0   83 100%  394    0   1
     Play#0 output Play#0 1   7  -10,8    !  100%     120 .. ..      650   20    0   83 100%  394    0   1
-    Play#0 output Play#0 1   7   -8,8    h  100%     120 .. ..      650   20    0   83 100%  444    0   1
-    Play#0 output Play#0 1   7   -6,8    *  100%     120 .. ..      650   20    0   84 100%  444    0   1
+    Play#0 output Play#0 1   7   -8,8    h  100%     120 .. ..      650   20    0   84 100%  444    0   1
+    Play#0 output Play#0 1   7   -6,8    *  100%     120 .. ..      650   20    0   83 100%  444    0   1
     Play#0 output Play#0 1   7   -4,8    f  100%     120 .. ..      650   20    0   83 100%  444    0   1
     Play#0 output Play#0 1   7   -2,8    c  100%     120 .. ..      650   20    0   84 100%  394    0   1
     Play#0 output Play#0 1 8 sectors
@@ -1795,7 +1789,7 @@
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
     Play#0 output Play#0 1   7 -16,8    - .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   7 -14,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
-    Play#0 output Play#0 1   7 -12,8    * .......... ..........   0   0    0    0    0   0    0  398  400   0
+    Play#0 output Play#0 1   7 -12,8    * .......... ..........   0   0    0    0    0   0    0  398  398   0
     Play#0 output Play#0 1   7 -10,8    ! .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   7  -8,8    h .......... ..........   0   0    0    0    0   0    0  352  368   0
     Play#0 output Play#0 1   7  -6,8    * .......... ..........   0   0    0    0    0   0    0  400  400   0
@@ -1821,8 +1815,8 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     RESOURCE
     Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
-    Play#0 output Play#0 1   1   -8,4    g  100%    0    9    0   0    0
-    Play#0 output Play#0 1   1   -6,4    g  100%    0   85    0   0    0
+    Play#0 output Play#0 1   1   -8,4    g  100%    0    8    0   0    0
+    Play#0 output Play#0 1   1   -6,4    g  100%    0   84    0   0    0
     Play#0 output Play#0 1   1   -2,4    ^  100%    0   88    0   0    0
     Play#0 output Play#0 1 3 sectors
     Play#0 output Play#0 6 0 640
@@ -1838,7 +1832,7 @@
     Play#0 output Play#0 1   1    4,4    a  100%    0    0  100   0    0
     Play#0 output Play#0 1   0   16,4    .    0%    0    0   10  10    0
     Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
-    Play#0 output Play#0 1   0   20,4    .    0%    0    0  100  94    0
+    Play#0 output Play#0 1   0   20,4    .    0%    0    0  100  95    0
     Play#0 output Play#0 1 8 sectors
     Play#0 output Play#0 6 0 640
     Play#0 input reso * ?ocont>0
@@ -1846,11 +1840,11 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     RESOURCE
     Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
-    Play#0 output Play#0 1   1    8,4    o  100%    0    0    0   9    0
+    Play#0 output Play#0 1   1    8,4    o  100%    0    0    0  10    0
     Play#0 output Play#0 1   1   10,4    o  100%    0    0    0  92    0
     Play#0 output Play#0 1   0   16,4    .    0%    0    0   10  10    0
     Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
-    Play#0 output Play#0 1   0   20,4    .    0%    0    0  100  94    0
+    Play#0 output Play#0 1   0   20,4    .    0%    0    0  100  95    0
     Play#0 output Play#0 1 5 sectors
     Play#0 output Play#0 6 0 640
     Play#0 input reso * ?uran>0
@@ -1860,10 +1854,9 @@
     Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
     Play#0 output Play#0 1   4   -5,-1   u  100%    0    0    0   0  100
     Play#0 output Play#0 1   3    5,-1   u  100%    0    0    0   0   73
-    Play#0 output Play#0 1   1  -15,5    u  100%    0    0    0   0    8
-    Play#0 output Play#0 1   1  -13,5    u  100%    0    0    0   0   72
-    Play#0 output Play#0 1   1  -11,5    u  100%    0    0    0   0    1
-    Play#0 output Play#0 1 5 sectors
+    Play#0 output Play#0 1   1  -15,5    u  100%    0    0    0   0    7
+    Play#0 output Play#0 1   1  -13,5    u  100%    0    0    0   0   73
+    Play#0 output Play#0 1 4 sectors
     Play#0 output Play#0 6 0 640
     Play#0 input ctld
     Play#0 output Play#0 1 Bye-bye
