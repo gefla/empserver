@@ -96,10 +96,11 @@ produce(struct natstr *np, struct sctstr *sp, int *cost)
 	return 0;
 
     prodeff = prod_eff(sp->sct_type, np->nat_level[product->p_nlndx]);
-    if (prodeff <= 0.0 && !player->simulation) {
-	wu(0, sp->sct_own,
-	   "%s level too low to produce in %s (need %d)\n",
-	   levelnames[product->p_nlndx], ownxy(sp), product->p_nlmin);
+    if (prodeff <= 0.0) {
+	if (!player->simulation)
+	    wu(0, sp->sct_own,
+	       "%s level too low to produce in %s (need %d)\n",
+	       levelnames[product->p_nlndx], ownxy(sp), product->p_nlmin);
 	return 0;
     }
     /*

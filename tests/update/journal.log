@@ -317,18 +317,17 @@
     Play#4 input budget
     Play#4 command budget
     Play#4 output Play#4 1 Sector Type			Production			    Cost
-    Play#4 output Play#4 1 technical center 		0 tech   			     300
     Play#4 output Play#4 1 bank             		4 bars   			      40
     Play#4 output Play#4 1 Ship maintenance		10 ships        		     300
     Play#4 output Play#4 1 Unit maintenance		10 units        		     600
     Play#4 output Play#4 1 Military payroll		1110 mil, 0 res                     5552
-    Play#4 output Play#4 1 Total expenses......................................................6792
+    Play#4 output Play#4 1 Total expenses......................................................6492
     Play#4 output Play#4 1 Income from taxes		23604 civs, 4100 uws                +212
     Play#4 output Play#4 1 Income from bars		100 bars                           +1500
     Play#4 output Play#4 1 Total income.......................................................+1712
     Play#4 output Play#4 1 Balance forward						           25000
-    Play#4 output Play#4 1 Estimated delta						           -5080
-    Play#4 output Play#4 1 Estimated new treasury.............................................19920
+    Play#4 output Play#4 1 Estimated delta						           -4780
+    Play#4 output Play#4 1 Estimated new treasury.............................................20220
     Play#4 output Play#4 6 0 99
     Play#4 input production *
     Play#4 command production
