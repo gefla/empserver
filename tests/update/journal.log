@@ -782,18 +782,18 @@
     Play#0 output Play#0 1   1   42 cs   cargo ship    17,1       100%   0  25   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   43 cs   cargo ship    17,1       100%  17  50   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   60 cs   cargo ship    14,6        20%   0   0   0   0  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   70 cs   cargo ship    16,6        20%   4  10   0  10  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   70 cs   cargo ship    16,6        20%   4  10   0   9  0  0  0  0  90   20
     Play#0 output Play#0 1   1   71 cs   cargo ship    16,6        21%   4  10   0  10  0  0  0  0  90   20
     Play#0 output Play#0 1   1   72 cs   cargo ship    16,6        21%   4  10   0  10  0  0  0  0  90   20
     Play#0 output Play#0 1   1   73 cs   cargo ship    16,6        21%   4  10   0   9  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   74 cs   cargo ship    16,6        21%  12  10   0  10  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   75 frg  frigate       16,6        21%   0  11   0   9  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   76 frg  frigate       16,6        80%   0  60   0   8  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   74 cs   cargo ship    16,6        21%  12  10   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   75 frg  frigate       16,6        21%   0  11   0  10  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   76 frg  frigate       16,6        80%   0  60   0   9  0  0  0  0  90   20
     Play#0 output Play#0 1   7   93 fb   fishing boa    0,0        20%   0   0   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   95 cs   cargo ship    14,6       100%   0   0   0   0  0  0  0  0  90  200
     Play#0 output Play#0 1   7   96 cs   cargo ship    14,6        20%   0   0   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   97 cs   cargo ship    14,6        40%   0   0   0   0  0  0  0  0  90   20
-    Play#0 output Play#0 1   1  100 fb   fishing boa   16,4       100% 100   0   0  37  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  100 fb   fishing boa   16,4       100% 100   0   0  38  0  0  0  0  90   20
     Play#0 output Play#0 1   1  101 fb   fishing boa   18,4       100% 100   0   0 412  0  0  0  0  90   20
     Play#0 output Play#0 1   1  102 fb   fishing boa   20,4       100% 100   0   0 412  0  0  0  0  90   20
     Play#0 output Play#0 1   1  103 fb   fishing boa   18,4        73% 100   0   0 250  0  0  0  0  90   20
@@ -833,11 +833,11 @@
     Play#0 output Play#0 1  102 fb     20,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  103 fb     18,4       73% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  104 fb     18,4       33% 100   0   0   0   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1  110 od     16,4      100% 100   0   0   0   0   0   0   0   0   6   0   0   0
+    Play#0 output Play#0 1  110 od     16,4      100% 100   0   0   0   0   0   0   0   0   5   0   0   0
     Play#0 output Play#0 1  111 od     18,4      100% 100   0   0   0   0   0   0   0   0  51   0   0   0
     Play#0 output Play#0 1  112 od     20,4      100% 100   0   0   0   0   0   0   0   0  51   0   0   0
     Play#0 output Play#0 1  113 od     18,4       65% 100   0   0   0   0   0   0   0   0  30   0   0   0
-    Play#0 output Play#0 1  114 od     18,4       25% 100   0   0   0   0   0   0   0   0  10   0   0   0
+    Play#0 output Play#0 1  114 od     18,4       25% 100   0   0   0   0   0   0   0   0   9   0   0   0
     Play#0 output Play#0 1 30 ships
     Play#0 output Play#0 6 0 640
     Play#0 input plane 0:31,0:15
@@ -1435,7 +1435,7 @@
     Play#0 output Play#0 1   4  -14,-6   -    0%     120 .. ..        0    2    0  100 100%    0    0
     Play#0 output Play#0 1   4  -12,-6   *  100%     120 .. ..       26    0    0   99  58%   28    0
     Play#0 output Play#0 1   4  -10,-6   -    0%     120 .. ..        0    0    0  100 100%    0    0
-    Play#0 output Play#0 1   0   -8,-6   -    0%       0 .. ..        0    0   20  100 100%    0    0
+    Play#0 output Play#0 1   0   -8,-6   -    6%       0 .. ..        0    0   23   99 100%    7    0
     Play#0 output Play#0 1   4   -6,-6   -    3%     120 .. ..       26    0    0  100  72%    4    0
     Play#0 output Play#0 1   4   -4,-6   -    3%     120 .. ..       26    0    0  100  70%    4    0
     Play#0 output Play#0 1   4   -2,-6   -    3%     120 .. ..       26    0    0  100  69%    4    0
@@ -1577,7 +1577,7 @@
     Play#0 output Play#0 1   4  -14,-6   -    0%     0    0    0      0    84    0
     Play#0 output Play#0 1   4  -12,-6   *  100%     0    0    0      0    46    0
     Play#0 output Play#0 1   4  -10,-6   -    0%     0    0    0      0    48    0
-    Play#0 output Play#0 1   0   -8,-6   -    0%     0    0    0      0    79    0
+    Play#0 output Play#0 1   0   -8,-6   -    6%     0    0    0      0    79    0
     Play#0 output Play#0 1   4   -6,-6   -    3%     0    0    0      0    75    0
     Play#0 output Play#0 1   4   -4,-6   -    3%     0    0    0      1     1    0
     Play#0 output Play#0 1   4   -2,-6   -    3%     0    0    0      1     1    0

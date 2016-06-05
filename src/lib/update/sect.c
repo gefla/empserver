@@ -253,6 +253,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	    continue;
 	if (sp->sct_updated != 0)
 	    continue;
+	sp->sct_updated = 1;
 
 	/*
 	 * When running the test suite, reseed PRNG for each sector
@@ -267,13 +268,6 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	    scratch_sect = *sp;
 	    sp = &scratch_sect;
 	}
-
-	if (sp->sct_item[I_CIVIL] == 0 && sp->sct_item[I_MILIT] == 0 &&
-	    !has_units(sp->sct_x, sp->sct_y, sp->sct_own)) {
-	    continue;
-	}
-
-	sp->sct_updated = 1;
 
 	work = do_feed(sp, np, etu, 0);
 	bp_put_items(bp, sp);
