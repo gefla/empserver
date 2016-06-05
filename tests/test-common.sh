@@ -82,7 +82,7 @@ customize()
 	case $key in
 	big-city)
 	    copy_tables sect
-	    sed_i '/"c" .* norm/d;/^#.*"c" .* cana/s/^#/ /' sandbox/etc/empire/sect.config
+	    sed_i '/"c" .* "capital"/d;/^#.*"c" .* "city"/s/^#/ /;/"c" .* norm/d;/^#.*"c" .* cana/s/^#/ /' sandbox/etc/empire/sect.config
 	    ;;
 	trade-ship)
 	    copy_tables ship
