@@ -253,7 +253,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 	return;
 
     sp = getsectp(ship->shp_x, ship->shp_y);
-    if ((sp->sct_off) && (sp->sct_own == ship->shp_own))
+    if (sp->sct_off)
 	return;
 
     if (sp->sct_own != 0
