@@ -66,70 +66,21 @@ static enum bp_item_idx bud_key[I_MAX + 1] = {
     BP_LCM, BP_HCM, BP_NONE, BP_NONE
 };
 
-/*
- * Return the item value tracked in @bp for sector @sp's item @comm.
- * @comm must be a tracked item type.
- */
-int
-bp_get_item(struct bp *bp, struct sctstr *sp, i_type comm)
-{
-    enum bp_item_idx idx = bud_key[comm];
-
-    if (CANT_HAPPEN(idx < 0) || !bp)
-	return sp->sct_item[comm];
-    return bp[sp->sct_uid].bp_item[idx];
-}
-
-/*
- * Set item value tracked in @bp for sector @sp's item @comm to @amount.
- */
+/* Set the values tracked in @bp for sector @sp to the values in @sp. */
 void
-bp_put_item(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
+bp_set_from_sect(struct bp *bp, struct sctstr *sp)
 {
-    enum bp_item_idx idx = bud_key[comm];
-
-    if (bp && idx >= 0)
-	bp[sp->sct_uid].bp_item[idx] = amount;
-}
-
-/* Set the item values tracked in @bp from sector @sp. */
-void
-bp_put_items(struct bp *bp, struct sctstr *sp)
-{
-    enum bp_item_idx idx;
     i_type i;
+    enum bp_item_idx idx;
 
     if (!bp)
 	return;
-
     for (i = I_NONE + 1; i <= I_MAX; i++) {
 	idx = bud_key[i];
 	if (idx >= 0)
 	    bp[sp->sct_uid].bp_item[idx] = sp->sct_item[i];
     }
-}
-
-/* Return avail tracked in @bp for sector @sp. */
-int
-bp_get_avail(struct bp *bp, struct sctstr *sp)
-{
-    return bp ? bp[sp->sct_uid].bp_avail : sp->sct_avail;
-}
-
-/* Set avail tracked in @bp for sector @sp to @amount. */
-void
-bp_put_avail(struct bp *bp, struct sctstr *sp, int amount)
-{
-    if (bp)
-	bp[sp->sct_uid].bp_avail = amount;
-}
-
-/* Set the values tracked in @bp for sector @sp to the values in @sp. */
-void
-bp_set_from_sect(struct bp *bp, struct sctstr *sp)
-{
-    bp_put_items(bp, sp);
-    bp_put_avail(bp, sp, sp->sct_avail);
+    bp[sp->sct_uid].bp_avail = sp->sct_avail;
 }
 
 /* Copy the values tracked in @bp for sector @sp back to @sp. */
