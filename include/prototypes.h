@@ -672,7 +672,7 @@ extern int prod_land(int, int, struct bp *, int);
 /* main.c */
 /* in server.h */
 /* material.c */
-/* in budg.h */
+extern int get_materials(struct sctstr *, short[], int);
 /* mobility.c */
 extern void mob_sect(void);
 extern void mob_ship(void);

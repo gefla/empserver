@@ -33,14 +33,11 @@
 
 #include <config.h>
 
-#include "budg.h"
 #include "chance.h"
-#include "player.h"
 #include "update.h"
 
 /*
  * Get build materials from sector @sp.
- * @bp is the sector's build pointer.
  * Array @mvec[ITEM_MAX+1] defines the materials needed to build 100%.
  * @pct is the percentage to build.
  * Adjust build percentage downwards so that available materials
@@ -48,14 +45,14 @@
  * Return adjusted build percentage.
  */
 int
-get_materials(struct sctstr *sp, struct bp *bp, short mvec[], int pct)
+get_materials(struct sctstr *sp, short mvec[], int pct)
 {
     int i, amt;
 
     for (i = I_NONE + 1; i <= I_MAX; i++) {
 	if (mvec[i] == 0)
 	    continue;
-	amt = bp_get_item(bp, sp, i);
+	amt = sp->sct_item[i];
 	if (amt * 100 < mvec[i] * pct)
 	    pct = amt * 100 / mvec[i];
     }
@@ -63,13 +60,11 @@ get_materials(struct sctstr *sp, struct bp *bp, short mvec[], int pct)
     for (i = I_NONE + 1; i <= I_MAX; i++) {
 	if (mvec[i] == 0)
 	    continue;
-	amt = bp_get_item(bp, sp, i);
+	amt = sp->sct_item[i];
 	amt -= roundavg(mvec[i] * pct / 100.0);
 	if (CANT_HAPPEN(amt < 0))
 	    amt = 0;
-	bp_put_item(bp, sp, i, amt);
-	if (!player->simulation)
-	    sp->sct_item[i] = amt;
+	sp->sct_item[i] = amt;
     }
 
     return pct;

@@ -126,7 +126,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     struct plchrstr *pcp = &plchr[(int)pp->pln_type];
     int build;
     struct shpstr *carrier;
-    struct sctstr *sp;
+    struct sctstr *sp, scratch_sect;
     int delta;
     int mult;
     int avail;
@@ -155,14 +155,17 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
 	    return;
     }
 
+    if (player->simulation) {
+	scratch_sect = *sp;
+	bp_to_sect(bp, &scratch_sect);
+	sp = &scratch_sect;
+    }
+
     mult = 1;
     if (np->nat_level[NAT_TLEV] < pp->pln_tech * 0.85)
 	mult = 2;
 
-    if (!player->simulation)
-	avail = sp->sct_avail * 100;
-    else
-	avail = bp_get_avail(bp, sp) * 100;
+    avail = sp->sct_avail * 100;
     if (carrier)
 	avail += etus * carrier->shp_item[I_MILIT] / 2;
 
@@ -174,7 +177,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     if (delta > 100 - pp->pln_effic)
 	delta = 100 - pp->pln_effic;
 
-    build = get_materials(sp, bp, pcp->pl_mat, delta);
+    build = get_materials(sp, pcp->pl_mat, delta);
 
     if (carrier)
 	build = delta;
@@ -184,17 +187,10 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
      * I didn't use roundavg here, because I want to
      * penalize the player with a large number of planes.
      */
-    if (!player->simulation)
-	avail = (sp->sct_avail * 100 - used) / 100;
-    else
-	avail = (bp_get_avail(bp, sp) * 100 - used) / 100;
-
+    avail = (sp->sct_avail * 100 - used) / 100;
     if (avail < 0)
 	avail = 0;
-    if (!player->simulation)
-	sp->sct_avail = avail;
-    else
-	bp_put_avail(bp, sp, avail);
+    sp->sct_avail = avail;
 
     if (sp->sct_type != SCT_AIRPT)
 	build /= 3;
@@ -203,6 +199,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
 	    build = 80 - pp->pln_effic;
     }
 
+    bp_set_from_sect(bp, sp);
     np->nat_money -= mult * build * pcp->pl_cost / 100.0;
 
     if (!player->simulation)

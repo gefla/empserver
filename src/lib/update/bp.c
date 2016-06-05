@@ -132,6 +132,21 @@ bp_set_from_sect(struct bp *bp, struct sctstr *sp)
     bp_put_avail(bp, sp, sp->sct_avail);
 }
 
+/* Copy the values tracked in @bp for sector @sp back to @sp. */
+void
+bp_to_sect(struct bp *bp, struct sctstr *sp)
+{
+    i_type i;
+    enum bp_item_idx idx;
+
+    for (i = I_NONE + 1; i <= I_MAX; i++) {
+	idx = bud_key[i];
+	if (idx >= 0)
+	    sp->sct_item[i] = bp[sp->sct_uid].bp_item[idx];
+    }
+    sp->sct_avail = bp[sp->sct_uid].bp_avail;
+}
+
 /*
  * Return a new bp map.
  * Caller should pass it to free() when done with it.

@@ -196,7 +196,7 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
 {
     struct lchrstr *lp = &lchr[(int)land->lnd_type];
     int delta;
-    struct sctstr *sp;
+    struct sctstr *sp, scratch_sect;
     int build;
     int avail;
     int mult;
@@ -211,14 +211,17 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
     if (relations_with(sp->sct_own, land->lnd_own) != ALLIED)
 	return;
 
+    if (player->simulation) {
+	scratch_sect = *sp;
+	bp_to_sect(bp, &scratch_sect);
+	sp = &scratch_sect;
+    }
+
     mult = 1;
     if (np->nat_level[NAT_TLEV] < land->lnd_tech * 0.85)
 	mult = 2;
 
-    if (!player->simulation)
-	avail = sp->sct_avail * 100;
-    else
-	avail = bp_get_avail(bp, sp) * 100;
+    avail = sp->sct_avail * 100;
 
     delta = roundavg((double)avail / lp->l_bwork);
     if (delta <= 0)
@@ -228,7 +231,7 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
     if (delta > 100 - land->lnd_effic)
 	delta = 100 - land->lnd_effic;
 
-    build = get_materials(sp, bp, lp->l_mat, delta);
+    build = get_materials(sp, lp->l_mat, delta);
 
     if ((sp->sct_type != SCT_HEADQ) && (sp->sct_type != SCT_FORTR))
 	build /= 3;
@@ -236,13 +239,9 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
     avail -= build * lp->l_bwork;
     if (avail < 0)
 	avail = 0;
-    if (!player->simulation)
-	sp->sct_avail = avail / 100;
-    else
-	bp_put_avail(bp, sp, avail / 100);
+    sp->sct_avail = avail / 100;
 
-    if (build < 0)
-	logerror("land unit %d building %d ! \n", land->lnd_uid, build);
+    bp_set_from_sect(bp, sp);
     np->nat_money -= mult * lp->l_cost * build / 100.0;
     if (!player->simulation) {
 	land->lnd_effic += (signed char)build;

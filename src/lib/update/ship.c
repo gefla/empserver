@@ -243,7 +243,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 {
     struct mchrstr *mp = &mchr[(int)ship->shp_type];
     int delta;
-    struct sctstr *sp;
+    struct sctstr *sp, scratch_sect;
     int build;
     int wf;
     int avail;
@@ -260,6 +260,12 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 	&& relations_with(sp->sct_own, ship->shp_own) < FRIENDLY)
 	return;
 
+    if (player->simulation) {
+	scratch_sect = *sp;
+	bp_to_sect(bp, &scratch_sect);
+	sp = &scratch_sect;
+    }
+
     mult = 1;
     if (np->nat_level[NAT_TLEV] < ship->shp_tech * 0.85)
 	mult = 2;
@@ -273,10 +279,8 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
     if (sp->sct_type != SCT_HARBR) {
 	wf /= 3;
 	avail = wf;
-    } else if (!player->simulation)
+    } else
 	avail = wf + sp->sct_avail * 100;
-    else
-	avail = wf + bp_get_avail(bp, sp) * 100;
 
     delta = roundavg((double)avail / mp->m_bwork);
     if (delta <= 0)
@@ -286,7 +290,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
     if (delta > 100 - ship->shp_effic)
 	delta = 100 - ship->shp_effic;
 
-    build = get_materials(sp, bp, mp->m_mat, delta);
+    build = get_materials(sp, mp->m_mat, delta);
 
     if (sp->sct_type != SCT_HARBR)
 	build = delta;
@@ -297,16 +301,10 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 	 * I didn't use roundavg here, because I want to penalize
 	 * the player with a large number of ships.
 	 */
-	if (!player->simulation)
-	    avail = (sp->sct_avail * 100 + wf) / 100;
-	else
-	    avail = (bp_get_avail(bp, sp) * 100 + wf) / 100;
+	avail = (sp->sct_avail * 100 + wf) / 100;
 	if (avail < 0)
 	    avail = 0;
-	if (!player->simulation)
-	    sp->sct_avail = avail;
-	else
-	    bp_put_avail(bp, sp, avail);
+	sp->sct_avail = avail;
     }
     if (sp->sct_type != SCT_HARBR)
 	if ((build + ship->shp_effic) > 80) {
@@ -315,6 +313,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 		build = 0;
 	}
 
+    bp_set_from_sect(bp, sp);
     np->nat_money -= mult * mp->m_cost * build / 100.0;
     if (!player->simulation)
 	ship->shp_effic += (signed char)build;
