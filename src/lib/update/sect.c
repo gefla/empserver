@@ -47,46 +47,43 @@
 int
 buildeff(struct sctstr *sp)
 {
-    int work_cost = 0;
-    int avail = sp->sct_avail;
-    int buildeff_work = avail / 2;
-    int cost, n, neweff, desig;
+    int avail = sp->sct_avail / 2 * 100;
+    int cost;
+    int delta, build;
+    struct dchrstr *dcp;
 
     cost = 0;
-    neweff = sp->sct_effic;
 
     if (sp->sct_type != sp->sct_newtype) {
 	/*
 	 * Tear down existing sector.
 	 * Easier to destroy than to build.
 	 */
-	work_cost = (sp->sct_effic + 3) / 4;
-	if (work_cost > buildeff_work)
-	    work_cost = buildeff_work;
-	buildeff_work -= work_cost;
-	n = sp->sct_effic - work_cost * 4;
-	if (n <= 0) {
-	    n = 0;
+	dcp = &dchr[sp->sct_type];
+	build = 4 * avail / dcp->d_bwork;
+	if (build <= sp->sct_effic)
+	    sp->sct_effic -= build;
+	else {
+	    build = sp->sct_effic;
+	    sp->sct_effic = 0;
 	    sp->sct_type = sp->sct_newtype;
 	}
-	neweff = n;
-	cost += work_cost;
+	avail -= (build + 3) / 4 * dcp->d_bwork;
+	cost += (build + 3) / 4;
     }
 
-    desig = sp->sct_type;
-    if (desig == sp->sct_newtype) {
-	work_cost = 100 - neweff;
-	if (work_cost > buildeff_work)
-	    work_cost = buildeff_work;
-	work_cost = get_materials(sp, dchr[sp->sct_type].d_mat, work_cost);
-
-	neweff += work_cost;
-	cost += (work_cost * dchr[desig].d_cost + 99) / 100;
-	buildeff_work -= work_cost;
+    if (sp->sct_type == sp->sct_newtype) {
+	dcp = &dchr[sp->sct_type];
+	delta = avail / dcp->d_bwork;
+	if (delta > 100 - sp->sct_effic)
+	    delta = 100 - sp->sct_effic;
+	build = get_materials(sp, dcp->d_mat, delta);
+	sp->sct_effic += build;
+	avail -= build * dcp->d_bwork;
+	cost += (build * dcp->d_cost + 99) / 100;
     }
 
-    sp->sct_effic = neweff;
-    sp->sct_avail = (avail + 1) / 2 + buildeff_work;
+    sp->sct_avail = (sp->sct_avail + 1) / 2 + avail / 100;
     return cost;
 }
 

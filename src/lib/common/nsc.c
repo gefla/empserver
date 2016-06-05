@@ -241,6 +241,7 @@ struct castr dchr_ca[] = {
     {"dstr", fldoff(d_dstr), NSC_FLOAT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"value", fldoff(d_value), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     NSC_MVEC(fldoff(d_mat), CA_DUMP_ONLY, CA_DUMP_ONLY, CA_DUMP_ONLY),
+    {"bwork", fldoff(d_bwork), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"cost", fldoff(d_cost), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"maint", fldoff(d_maint), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"maxpop", fldoff(d_maxpop), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},

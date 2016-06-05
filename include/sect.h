@@ -114,6 +114,7 @@ struct dchrstr {
     int d_value;		/* resale ("collect") value */
     short d_mat[I_MAX+1];	/* materials to build 100% */
 				/* only I_LCM and I_HCM non-zero */
+    int d_bwork;		/* work to build 100% */
     int d_cost;			/* cost to build 100% */
     int d_maint;		/* maintenance cost per ETU */
     int d_maxpop;		/* maximum population */

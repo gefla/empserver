@@ -402,8 +402,8 @@ show_sect_build(int foo)
 {
     int i, first;
 
-    pr("                          build 100%% eff  maint\n"
-       "sector type               lcm  hcm     $      $\n");
+    pr("                         build 100%% efficiency  maint\n"
+       "sector type               lcm  hcm avail     $      $\n");
     for (i = 0; dchr[i].d_name; i++) {
 	if (dchr[i].d_mnem == 0)
 	    continue;
@@ -413,12 +413,13 @@ show_sect_build(int foo)
 	    && !dchr[i].d_mat[I_LCM] && !dchr[i].d_mat[I_HCM]
 	    && dchr[i].d_maint == 0)
 	    continue;		/* the usual, skip */
-	pr("%c %-21.21s %5d%5d %5d  %5d\n",
+	pr("%c %-21.21s  %4d %4d %5d %5d  %5d\n",
 	   dchr[i].d_mnem, dchr[i].d_name,
-	   dchr[i].d_mat[I_LCM], dchr[i].d_mat[I_HCM], dchr[i].d_cost,
+	   dchr[i].d_mat[I_LCM], dchr[i].d_mat[I_HCM],
+	   dchr[i].d_bwork, dchr[i].d_cost,
 	   dchr[i].d_maint * etu_per_update);
     }
-    pr("any other                   0    0   100      0\n");
+    pr("any other                   0    0   100   100      0\n");
 
     first = 1;
     for (i = 0; intrchr[i].in_name; i++) {
