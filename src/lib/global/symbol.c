@@ -27,7 +27,7 @@
  *  symbol.c: Empire symbol tables
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2006-2015
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -240,6 +240,11 @@ struct symbol retreat_flags[] = {
     {RET_BOMBED, "bombed"},
     {RET_DCHRGED, "depth-charged"},
     {RET_BOARDED, "boarded"},
+    {0, NULL}
+};
+
+struct symbol sect_chr_flags[] = {
+    {D_DEITY, "deity"},
     {0, NULL}
 };
 

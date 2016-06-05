@@ -69,6 +69,7 @@ xdump meta 47
 xdump meta 48
 xdump meta 49
 xdump meta 50
+xdump meta 51
 | xdump of game state is in smoke test
 xdump item *
 xdump product *
@@ -102,4 +103,5 @@ xdump plane-flags *
 xdump resources *
 xdump retreat-flags *
 xdump sector-navigation *
+xdump sect-chr-flags *
 xdump ship-chr-flags *

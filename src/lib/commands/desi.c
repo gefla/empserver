@@ -57,7 +57,7 @@ desi(void)
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
-	if (!player->god && dchr[sect.sct_type].d_cost < 0)
+	if ((dchr[sect.sct_type].d_flags & D_DEITY) && !player->god)
 	    continue;
 	sprintf(prompt, "%s %d%% %s  desig? ",
 		xyas(sect.sct_x, sect.sct_y, player->cnum),
@@ -84,7 +84,7 @@ desi(void)
 		rc = RET_FAIL;
 		break;
 	    }
-	    if (dchr[des].d_cost < 0) {
+	    if (dchr[des].d_flags & D_DEITY) {
 		pr("Only %s can designate a %s!\n",
 		   cname(0), dchr[des].d_name);
 		rc = RET_FAIL;

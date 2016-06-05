@@ -466,14 +466,20 @@ show_sect_capab(int foo)
 {
     int i;
 
-    pr("  sector type             product  p.e.\n");
+    pr("  sector type             product  p.e.  capabilities\n");
 
     for (i = 0; dchr[i].d_name; i++) {
-	if (dchr[i].d_mnem == 0 || dchr[i].d_prd < 0)
+	if (dchr[i].d_mnem == 0 || (dchr[i].d_prd < 0 && !dchr[i].d_flags))
 	    continue;
-	pr("%c %-23s %-7s %4d%%\n",
-	   dchr[i].d_mnem, dchr[i].d_name, pchr[dchr[i].d_prd].p_sname,
-	   dchr[i].d_peffic);
+	pr("%c %-23s ",
+	   dchr[i].d_mnem, dchr[i].d_name);
+	if (dchr[i].d_prd >= 0)
+	    pr("%-7s %4d%% ",
+	       pchr[dchr[i].d_prd].p_sname, dchr[i].d_peffic);
+	else
+	    pr("              ");
+	show_capab(dchr[i].d_flags, sect_chr_flags);
+	pr("\n");
     }
 }
 

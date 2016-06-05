@@ -325,27 +325,39 @@ sector type can hold.
 Finally, to check out what sectors can do, use:
 .EX show sect capabilities
 .NF
-  sector type             product  p.e.
-^ mountain                dust      75%
-u uranium mine            rad      100%
-p park                    happy    100%
-d defense plant           guns     100%
-i shell industry          shells   100%
-m mine                    iron     100%
-g gold mine               dust     100%
-a agribusiness            food     900%
-o oil field               oil      100%
-j light manufacturing     lcm      100%
-k heavy manufacturing     hcm      100%
-t technical center        tech     100%
-r research lab            medical  100%
-l library/school          edu      100%
-b bank                    bars     100%
-% refinery                petrol  1000%
+  sector type             product  p.e.  capabilities
+. sea                                    deity
+^ mountain                dust      75%  deity
+s sanctuary                              deity
+\ wasteland                              deity
+u uranium mine            rad      100% 
+p park                    happy    100% 
+d defense plant           guns     100% 
+i shell industry          shells   100% 
+m mine                    iron     100% 
+g gold mine               dust     100% 
+a agribusiness            food     900% 
+o oil field               oil      100% 
+j light manufacturing     lcm      100% 
+k heavy manufacturing     hcm      100% 
+t technical center        tech     100% 
+r research lab            medical  100% 
+l library/school          edu      100% 
+= bridge span                            deity
+b bank                    bars     100% 
+% refinery                petrol  1000% 
+~ plains                                 deity
+@ bridge tower                           deity
 .FI
 Column product shows what the sector produces.  Column p.e. shows the
 sector type's production efficiency.  Use command \*Qshow product\*U
 to find out more about products, and see \*Qinfo Products\*U.
 .s1
+Column capabilities shows special capabilities, if any.  These are:
+.s1
+.in \w'deity\0\0'u
+.L deity
+Can only be designated by a deity.
+.in
 .s1
 .SA "designate, show, improve, BTU, Sectors, Producing, Products, Transportation"

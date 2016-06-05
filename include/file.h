@@ -27,7 +27,7 @@
  *  file.h: Describes Empire tables (`files' for historical reasons)
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2014
+ *     Markus Armbruster, 2005-2016
  */
 
 #ifndef FILE_H
@@ -198,6 +198,7 @@ enum {
     EF_RESOURCES,
     EF_RETREAT_FLAGS,
     EF_SECTOR_NAVIGATION,
+    EF_SECTOR_CHR_FLAGS,
     EF_SHIP_CHR_FLAGS,
     /* Views */
     EF_COUNTRY,

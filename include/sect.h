@@ -30,7 +30,7 @@
  *     Dave Pare
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2016
  */
 
 
@@ -112,14 +112,17 @@ struct dchrstr {
     float d_ostr;		/* offensive strength */
     float d_dstr;		/* defensive strength */
     int d_value;		/* resale ("collect") value */
-    int d_cost;			/* cost to designate the sect */
     int d_build;		/* cost multiplier for eff */
     int d_lcms;			/* lcm's needed per point of eff */
     int d_hcms;			/* hcm's needed per point of eff */
     int d_maint;		/* maintenance cost per ETU */
     int d_maxpop;		/* maximum population */
+    int d_flags;		/* capability flags */
     char *d_name;		/* full name of sector type */
 };
+
+/* Sector capability flags */
+#define D_DEITY		bit(0)	/* Only the deity can designate this */
 
 /* Sector types, must match sect.config */
 #define SCT_WATER	0	/* basics */

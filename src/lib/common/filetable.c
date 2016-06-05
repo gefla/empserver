@@ -261,6 +261,7 @@ struct empfile empfile[] = {
     SYMTAB(EF_RESOURCES, "resources", resources),
     SYMTAB(EF_RETREAT_FLAGS, "retreat-flags", retreat_flags),
     SYMTAB(EF_SECTOR_NAVIGATION, "sector-navigation", sector_navigation),
+    SYMTAB(EF_SECTOR_CHR_FLAGS, "sect-chr-flags", sect_chr_flags),
     SYMTAB(EF_SHIP_CHR_FLAGS, "ship-chr-flags", ship_chr_flags),
 
     /* Views */

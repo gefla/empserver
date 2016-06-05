@@ -299,6 +299,7 @@ extern struct symbol agreement_statuses[];
 extern struct symbol plague_stages[];
 extern struct symbol packing[];
 extern struct symbol resources[];
+extern struct symbol sect_chr_flags[];
 extern struct symbol sector_navigation[];
 
 /* src/lib/common/nstreval.c */
