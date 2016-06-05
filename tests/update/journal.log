@@ -532,8 +532,8 @@
     Play#0 output Play#0 1  78 happiness, 178 education produced
     Play#0 output Play#0 1 total pop was 28106, yielding 14.19 hap, 24.57 edu
     Play#0 output Play#0 1 3.4330 tech, 3.3939 research produced
-    Play#0 output Play#0 1 Army delta $-2810, Navy delta $-3738, Air force delta $-2940
-    Play#0 output Play#0 1 money delta was $-12051 for this update
+    Play#0 output Play#0 1 Army delta $-2810, Navy delta $-3738, Air force delta $-2580
+    Play#0 output Play#0 1 money delta was $-11691 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 1
     Play#0 command nation
@@ -541,7 +541,7 @@
     Play#0 output Play#0 1 (#1) 1 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at 0,0 has 650 civilians & 2 military
-    Play#0 output Play#0 1  The treasury has $12949.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $13309.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 21.09       Happiness....... 12.33
     Play#0 output Play#0 1 Technology.........102.79       Research........  3.37
     Play#0 output Play#0 1 Technology factor : 50.46%     Plague factor :   1.96%
@@ -1433,7 +1433,7 @@
     Play#0 output Play#0 1   4   -1,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   0  -16,-6   -    0%       0 .. ..        0    0    0  100 100%    0    0   1
     Play#0 output Play#0 1   4  -14,-6   -    0%     120 .. ..        0    2    0  100 100%    0    0
-    Play#0 output Play#0 1   4  -12,-6   *  100%     120 .. ..       26    0    0   99  58%   28    0
+    Play#0 output Play#0 1   4  -12,-6   *  100%     120 .. ..       26    0    0   99  58%   57    0
     Play#0 output Play#0 1   4  -10,-6   -    0%     120 .. ..        0    0    0  100 100%    0    0
     Play#0 output Play#0 1   0   -8,-6   -    6%       0 .. ..        0    0   23   99 100%    7    0
     Play#0 output Play#0 1   4   -6,-6   -    3%     120 .. ..       26    0    0  100  72%    4    0
@@ -1504,7 +1504,7 @@
     Play#0 output Play#0 1   4  -1,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   0 -16,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -14,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   4 -12,-6   * .......... ..........   0   0    0    0    0   0    0    3    8   0
+    Play#0 output Play#0 1   4 -12,-6   * .......... ..........   0   0    0    0    0   0    0   10   10   0
     Play#0 output Play#0 1   4 -10,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   0  -8,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4  -6,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -1642,7 +1642,7 @@
     Play#0 command plane
     Play#0 output Play#0 1 own    #    type                x,y    w   eff  mu def tech ran hard carry special
     Play#0 output Play#0 1   1    1 lst  landsat          -4,-4      100%  60   3  245  41    0       orbit
-    Play#0 output Play#0 1   1  100 f1   Sopwith Camel   -12,-6      100%  60   1   50   4    0
+    Play#0 output Play#0 1   1  100 f1   Sopwith Camel   -12,-6       10%  60   1   50   4    0
     Play#0 output Play#0 1 2 planes
     Play#0 output Play#0 6 0 640
     Play#0 input land -32:-1,-16:-1

@@ -44,7 +44,7 @@
 #include "update.h"
 
 void
-prepare_sects(int etu, struct bp *bp)
+prepare_sects(int etu)
 {
     struct sctstr *sp;
     struct natstr *np;
@@ -88,7 +88,6 @@ prepare_sects(int etu, struct bp *bp)
 	if (running_test_suite)
 	    seed_prng(sp->sct_uid);
 
-	bp_set_from_sect(bp, sp);
 	guerrilla(sp);
 	do_plague(sp, etu);
 	populace(sp, etu);

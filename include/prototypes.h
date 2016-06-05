@@ -699,7 +699,7 @@ extern int total_work(int, int, int, int, int, int);
 /* prepare.c */
 extern void tax(struct sctstr *, int, int *, int *, int *, int *);
 extern int upd_slmilcosts(natid, int);
-extern void prepare_sects(int, struct bp *);
+extern void prepare_sects(int);
 extern int bank_income(struct sctstr *, int);
 /* produce.c */
 extern int produce(struct natstr *, struct sctstr *, int *);

@@ -75,7 +75,7 @@ bp_get_item(struct bp *bp, struct sctstr *sp, i_type comm)
 {
     enum bp_item_idx idx = bud_key[comm];
 
-    if (CANT_HAPPEN(idx < 0))
+    if (CANT_HAPPEN(idx < 0) || !bp)
 	return sp->sct_item[comm];
     return bp[sp->sct_uid].bp_item[idx];
 }
@@ -88,7 +88,7 @@ bp_put_item(struct bp *bp, struct sctstr *sp, i_type comm, int amount)
 {
     enum bp_item_idx idx = bud_key[comm];
 
-    if (idx >= 0)
+    if (bp && idx >= 0)
 	bp[sp->sct_uid].bp_item[idx] = amount;
 }
 
@@ -98,6 +98,9 @@ bp_put_items(struct bp *bp, struct sctstr *sp)
 {
     enum bp_item_idx idx;
     i_type i;
+
+    if (!bp)
+	return;
 
     for (i = I_NONE + 1; i <= I_MAX; i++) {
 	idx = bud_key[i];
@@ -110,14 +113,15 @@ bp_put_items(struct bp *bp, struct sctstr *sp)
 int
 bp_get_avail(struct bp *bp, struct sctstr *sp)
 {
-    return bp[sp->sct_uid].bp_avail;
+    return bp ? bp[sp->sct_uid].bp_avail : sp->sct_avail;
 }
 
 /* Set avail tracked in @bp for sector @sp to @amount. */
 void
 bp_put_avail(struct bp *bp, struct sctstr *sp, int amount)
 {
-    bp[sp->sct_uid].bp_avail = amount;
+    if (bp)
+	bp[sp->sct_uid].bp_avail = amount;
 }
 
 /* Set the values tracked in @bp for sector @sp to the values in @sp. */
@@ -135,5 +139,5 @@ bp_set_from_sect(struct bp *bp, struct sctstr *sp)
 struct bp *
 bp_alloc(void)
 {
-    return calloc(WORLD_SZ(), sizeof(struct bp));
+    return malloc(WORLD_SZ() * sizeof(struct bp));
 }
