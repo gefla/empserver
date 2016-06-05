@@ -241,20 +241,28 @@ upd_ship(struct shpstr *sp, int etus,
 static void
 shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 {
+    struct mchrstr *mp = &mchr[(int)ship->shp_type];
     int delta;
     struct sctstr *sp;
-    struct mchrstr *mp;
     int build;
     int wf;
     int avail;
     int mult;
 
-    mp = &mchr[(int)ship->shp_type];
+    if (ship->shp_effic == 100)
+	return;
+
     sp = getsectp(ship->shp_x, ship->shp_y);
+    if ((sp->sct_off) && (sp->sct_own == ship->shp_own))
+	return;
 
     if (sp->sct_own != 0
 	&& relations_with(sp->sct_own, ship->shp_own) < FRIENDLY)
 	return;
+
+    mult = 1;
+    if (np->nat_level[NAT_TLEV] < ship->shp_tech * 0.85)
+	mult = 2;
 
     /* only military can work on a military boat */
     if (mp->m_glim != 0)
@@ -265,24 +273,10 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
     if (sp->sct_type != SCT_HARBR) {
 	wf /= 3;
 	avail = wf;
-    } else {
-	if (!player->simulation)
-	    avail = wf + sp->sct_avail * 100;
-	else
-	    avail = wf + bp_get_avail(bp, sp) * 100;
-    }
-
-    if ((sp->sct_off) && (sp->sct_own == ship->shp_own))
-	return;
-
-    mult = 1;
-    if (np->nat_level[NAT_TLEV] < ship->shp_tech * 0.85)
-	mult = 2;
-
-    if (ship->shp_effic == 100) {
-	/* ship is ok; no repairs needed */
-	return;
-    }
+    } else if (!player->simulation)
+	avail = wf + sp->sct_avail * 100;
+    else
+	avail = wf + bp_get_avail(bp, sp) * 100;
 
     delta = roundavg((double)avail / mp->m_bwork);
     if (delta <= 0)

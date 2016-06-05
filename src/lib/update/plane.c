@@ -123,14 +123,21 @@ upd_plane(struct plnstr *pp, int etus,
 static void
 planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
 {
+    struct plchrstr *pcp = &plchr[(int)pp->pln_type];
     int build;
     struct shpstr *carrier;
-    struct plchrstr *pcp = &plchr[(int)pp->pln_type];
-    struct sctstr *sp = getsectp(pp->pln_x, pp->pln_y);
+    struct sctstr *sp;
     int delta;
     int mult;
     int avail;
     int used;
+
+    if (pp->pln_effic == 100)
+	return;
+
+    sp = getsectp(pp->pln_x, pp->pln_y);
+    if (sp->sct_off)
+	return;
 
     carrier = NULL;
     if (pp->pln_ship >= 0) {
@@ -148,14 +155,9 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
 	    return;
     }
 
-    if (sp->sct_off)
-	return;
     mult = 1;
     if (np->nat_level[NAT_TLEV] < pp->pln_tech * 0.85)
 	mult = 2;
-
-    if (pp->pln_effic == 100)
-	return;
 
     if (!player->simulation)
 	avail = sp->sct_avail * 100;

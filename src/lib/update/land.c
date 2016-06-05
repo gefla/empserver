@@ -194,27 +194,26 @@ upd_land(struct lndstr *lp, int etus,
 static void
 landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
 {
+    struct lchrstr *lp = &lchr[(int)land->lnd_type];
     int delta;
     struct sctstr *sp;
-    struct lchrstr *lp;
     int build;
     int avail;
     int mult;
 
-    lp = &lchr[(int)land->lnd_type];
+    if (land->lnd_effic == 100)
+	return;
+
     sp = getsectp(land->lnd_x, land->lnd_y);
     if (sp->sct_off)
 	return;
+
+    if (relations_with(sp->sct_own, land->lnd_own) != ALLIED)
+	return;
+
     mult = 1;
     if (np->nat_level[NAT_TLEV] < land->lnd_tech * 0.85)
 	mult = 2;
-
-    if (land->lnd_effic == 100) {
-	/* land is ok; no repairs needed */
-	return;
-    }
-    if (relations_with(sp->sct_own, land->lnd_own) != ALLIED)
-	return;
 
     if (!player->simulation)
 	avail = sp->sct_avail * 100;
