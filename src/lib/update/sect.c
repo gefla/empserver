@@ -50,7 +50,7 @@ buildeff(struct sctstr *sp)
     int work_cost = 0;
     int avail = sp->sct_avail;
     int buildeff_work = avail / 2;
-    int cost, n, hcms, lcms, neweff, desig;
+    int cost, n, neweff, desig;
 
     cost = 0;
     neweff = sp->sct_effic;
@@ -78,28 +78,11 @@ buildeff(struct sctstr *sp)
 	work_cost = 100 - neweff;
 	if (work_cost > buildeff_work)
 	    work_cost = buildeff_work;
-
-	if (dchr[desig].d_lcms > 0) {
-	    lcms = sp->sct_item[I_LCM];
-	    lcms /= dchr[desig].d_lcms;
-	    if (work_cost > lcms)
-		work_cost = lcms;
-	}
-	if (dchr[desig].d_hcms > 0) {
-	    hcms = sp->sct_item[I_HCM];
-	    hcms /= dchr[desig].d_hcms;
-	    if (work_cost > hcms)
-		work_cost = hcms;
-	}
+	work_cost = get_materials(sp, dchr[sp->sct_type].d_mat, work_cost);
 
 	neweff += work_cost;
 	cost += (work_cost * dchr[desig].d_cost + 99) / 100;
 	buildeff_work -= work_cost;
-
-	if ((dchr[desig].d_lcms > 0) || (dchr[desig].d_hcms > 0)) {
-	    sp->sct_item[I_LCM] -= work_cost * dchr[desig].d_lcms;
-	    sp->sct_item[I_HCM] -= work_cost * dchr[desig].d_hcms;
-	}
     }
 
     sp->sct_effic = neweff;
