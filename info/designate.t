@@ -34,7 +34,7 @@ Note that you cannot re-designate bridge spans.
 .s1
 Normally, each point of efficiency added costs you $1. Some sectors
 may cost more, and some may also require the expenditure of lcms and/or
-hcms from the sector. In addition, some sectors may cost money merely
-to designate. (see the \*Qshow\*U command and \*Qinfo show\*U for details)
+hcms from the sector. See the \*Qshow\*U command and \*Qinfo
+Sector-types\*U for details.
 .s1
 .SA "Sector-types, Sectors"

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -109,15 +109,6 @@ desi(void)
 	if (sect.sct_type == SCT_SANCT && !player->god)
 	    continue;
 	n = sect.sct_type;
-	if ((sect.sct_newtype != des) && (sect.sct_type != des)
-	    && dchr[des].d_cost > 0) {
-	    if (natp->nat_money < player->dolcost + dchr[des].d_cost) {
-		pr("You can't afford a %s!\n", dchr[des].d_name);
-		rc = RET_FAIL;
-		break;
-	    }
-	    player->dolcost += dchr[des].d_cost;
-	}
 	if (sect.sct_type != des && (sect.sct_effic < 5 || player->god)) {
 	    if (player->god)
 		set_coastal(&sect, sect.sct_type, des);

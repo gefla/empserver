@@ -109,12 +109,12 @@
     Play#0 input show sect b
     Play#0 command show
     Play#0 output Play#0 1 Printing for tech level '1000'
-    Play#0 output Play#0 1                         desig   build 100% eff  maint
-    Play#0 output Play#0 1 sector type                 $   lcm  hcm     $      $
-    Play#0 output Play#0 1 - wilderness                0     0    0     0      0
-    Play#0 output Play#0 1 c capital                   0     0    0   100     60
-    Play#0 output Play#0 1 f fortress                  0     0  100   500      0
-    Play#0 output Play#0 1 any other                   0     0    0   100      0
+    Play#0 output Play#0 1                           build 100% eff  maint
+    Play#0 output Play#0 1 sector type               lcm  hcm     $      $
+    Play#0 output Play#0 1 - wilderness                0    0     0      0
+    Play#0 output Play#0 1 c capital                   0    0   100     60
+    Play#0 output Play#0 1 f fortress                  0  100   500      0
+    Play#0 output Play#0 1 any other                   0    0   100      0
     Play#0 output Play#0 1
     Play#0 output Play#0 1 Infrastructure building - adding 1 point of efficiency costs:
     Play#0 output Play#0 1        type          lcms    hcms    mobility    $$$$

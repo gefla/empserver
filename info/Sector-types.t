@@ -237,12 +237,12 @@ The \*Qshow\*U command can be used to show special things about sector
 types.  To check out build costs, you do:
 .EX show sect build
 .NF
-                        desig   build 100% eff  maint
-sector type                 $   lcm  hcm     $      $
-- wilderness                0     0    0     0      0
-c capital                   0     0    0   100     60
-f fortress                  0     0  100   500      0
-any other                   0     0    0   100      0
+                          build 100% eff  maint
+sector type               lcm  hcm     $      $
+- wilderness                0    0     0      0
+c capital                   0    0   100     60
+f fortress                  0  100   500      0
+any other                   0    0   100      0
 
 Infrastructure building - adding 1 point of efficiency costs:
        type          lcms    hcms    mobility    $$$$
@@ -252,8 +252,6 @@ defense factor          1       1           1       1
 .FI
 .s1
 .in \w'build hcm\0\0'u
-.L "desig $"
-Cost charged by the designate command.
 .L "build lcm"
 The lcm required to build the sector.
 .L "build hcm"
