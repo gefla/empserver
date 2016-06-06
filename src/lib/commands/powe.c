@@ -52,6 +52,7 @@ static void out5(double, int, int);
 static void gen_power(struct powstr *, int);
 static int powcmp(const void *, const void *);
 static void addtopow(short *, struct powstr *);
+static float empobj_power(int, short[], int);
 static float empunit_power(int, int, short[], int);
 static float money_power(int);
 static float power_tech_factor(float);
@@ -225,6 +226,7 @@ gen_power(struct powstr *powbuf, int save)
     struct powstr *pow;
     int i;
     struct sctstr sect;
+    struct dchrstr *dcp;
     struct plnstr plane;
     struct plchrstr *pcp;
     struct shpstr ship;
@@ -244,10 +246,14 @@ gen_power(struct powstr *powbuf, int save)
     while (nxtsct(&ns, &sect)) {
 	if (sect.sct_own == 0)
 	    continue;
+	dcp = &dchr[sect.sct_type];
 	pow = &powbuf[sect.sct_own];
 	pow->p_sects += 1.0;
 	pow->p_effic += sect.sct_effic;
 	addtopow(sect.sct_item, pow);
+	pow->p_power += empobj_power(sect.sct_effic,
+				     dcp->d_mat, dcp->d_cost);
+	pow->p_power += sect.sct_effic / 100.0 * 9.0;
     }
     snxtitem_all(&ni, EF_LAND);
     while (nxtitem(&ni, &land)) {
@@ -304,11 +310,6 @@ gen_power(struct powstr *powbuf, int save)
 	}
 	pow->p_money = natp->nat_money;
 	pow->p_power += money_power(natp->nat_money);
-
-	if (pow->p_sects > 0)
-	    pow->p_power += pow->p_sects
-		* (pow->p_effic / pow->p_sects / 100.0)
-		* 10.0;
 	pow->p_power *= power_tech_factor(natp->nat_level[NAT_TLEV]);
 	pow->p_power += upower[i];
 	/* ack.  add this vec to the "world power" element */
@@ -365,10 +366,15 @@ addtopow(short *vec, struct powstr *pow)
 }
 
 static float
+empobj_power(int effic, short mat[], int cost)
+{
+    return (item_power(mat) + money_power(cost)) * (effic / 100.0);
+}
+
+static float
 empunit_power(int effic, int tech, short mat[], int cost)
 {
-    return (item_power(mat) + money_power(cost)) * (effic / 100.0)
-	* power_tech_factor(tech);
+    return empobj_power(effic, mat, cost) * power_tech_factor(tech);
 }
 
 static float
