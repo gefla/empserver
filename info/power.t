@@ -79,7 +79,8 @@ power factor = (  power value of money
 The power value of money is dollars / 100.
 .s1
 The power value of a sector is (the power value of the materials and
-money needed to build + 9) * efficiency / 100.
+money needed to build + maximum population / 1000 * 8 + 1) *
+efficiency / 100.
 .s1
 The power value of a ship, plane, land unit or nuke is the power value
 of the materials and money needed to build * efficiency / 100.

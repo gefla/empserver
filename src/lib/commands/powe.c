@@ -224,7 +224,7 @@ gen_power(struct powstr *powbuf, int save)
     float *f_ptr;
     float *f_pt2;
     struct powstr *pow;
-    int i;
+    int i, maxpop;
     struct sctstr sect;
     struct dchrstr *dcp;
     struct plnstr plane;
@@ -247,13 +247,15 @@ gen_power(struct powstr *powbuf, int save)
 	if (sect.sct_own == 0)
 	    continue;
 	dcp = &dchr[sect.sct_type];
+	natp = getnatp(sect.sct_own);
 	pow = &powbuf[sect.sct_own];
 	pow->p_sects += 1.0;
 	pow->p_effic += sect.sct_effic;
 	addtopow(sect.sct_item, pow);
 	pow->p_power += empobj_power(sect.sct_effic,
 				     dcp->d_mat, dcp->d_cost);
-	pow->p_power += sect.sct_effic / 100.0 * 9.0;
+	maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
+	pow->p_power += (1.0 + maxpop / 1000.0 * 8) * sect.sct_effic / 100.0;
     }
     snxtitem_all(&ni, EF_LAND);
     while (nxtitem(&ni, &land)) {
