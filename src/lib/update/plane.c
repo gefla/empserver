@@ -169,7 +169,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     if (carrier)
 	avail += etus * carrier->shp_item[I_MILIT] / 2;
 
-    delta = roundavg((double)avail / pcp->pl_bwork);
+    delta = avail / pcp->pl_bwork;
     if (delta <= 0)
 	return;
     if (delta > (int)((float)etus * plane_grow_scale))
@@ -183,11 +183,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
 	build = delta;
 
     used = build * pcp->pl_bwork;
-    /*
-     * I didn't use roundavg here, because I want to
-     * penalize the player with a large number of planes.
-     */
-    avail = (sp->sct_avail * 100 - used) / 100;
+    avail = roundavg((sp->sct_avail * 100 - used) / 100.0);
     if (avail < 0)
 	avail = 0;
     sp->sct_avail = avail;
@@ -200,7 +196,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     }
 
     bp_set_from_sect(bp, sp);
-    np->nat_money -= mult * build * pcp->pl_cost / 100.0;
+    np->nat_money -= roundavg(mult * build * pcp->pl_cost / 100.0);
 
     if (!player->simulation)
 	pp->pln_effic += (signed char)build;

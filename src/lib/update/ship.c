@@ -282,7 +282,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
     } else
 	avail = wf + sp->sct_avail * 100;
 
-    delta = roundavg((double)avail / mp->m_bwork);
+    delta = avail / mp->m_bwork;
     if (delta <= 0)
 	return;
     if (delta > (int)((float)etus * ship_grow_scale))
@@ -297,11 +297,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 
     wf -= build * mp->m_bwork;
     if (wf < 0) {
-	/*
-	 * I didn't use roundavg here, because I want to penalize
-	 * the player with a large number of ships.
-	 */
-	avail = (sp->sct_avail * 100 + wf) / 100;
+	avail = roundavg((sp->sct_avail * 100 + wf) / 100.0);
 	if (avail < 0)
 	    avail = 0;
 	sp->sct_avail = avail;
@@ -314,7 +310,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 	}
 
     bp_set_from_sect(bp, sp);
-    np->nat_money -= mult * mp->m_cost * build / 100.0;
+    np->nat_money -= roundavg(mult * mp->m_cost * build / 100.0);
     if (!player->simulation)
 	ship->shp_effic += (signed char)build;
 }

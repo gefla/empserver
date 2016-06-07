@@ -292,7 +292,7 @@ stop sh 60
 edit s 0 U 61 E 20 L 15,-1 U 62 O 7
 | #65 friendly harbor, no money
 edit s 61 U 65 L -8,8 O 2
-| #70..73 at sea, civilian repairs, +0.5%
+| #70..73 at sea, civilian repairs, +0%
 edit s 61 U 70 L 16,6 c 4 m 10 f 10 l 10 h 10 U 71 U 72 U 73 U 74 c 12
 | #74 at sea, civilian repairs, +1%
 edit s 73 U 74 c 12
@@ -325,7 +325,7 @@ edit p 61 U 70 s 1 U 71 e 79
 | #72 in carrier in allied airfield, +70% (limit 80%)
 edit s 1 U 2 L 6,8
 edit p 70 U 72 s 2
-| #75/76/77/78 in allied carrier in friendly airfield, +7.5%
+| #75/76/77/78 in allied carrier in friendly airfield, +7%
 edit s 1 U 3 O 6 L -12,8
 edit p 61 U 75 s 3 U 76 U 77 U 78
 | #80/81 in the field, +30/20%

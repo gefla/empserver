@@ -223,7 +223,7 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
 
     avail = sp->sct_avail * 100;
 
-    delta = roundavg((double)avail / lp->l_bwork);
+    delta = avail / lp->l_bwork;
     if (delta <= 0)
 	return;
     if (delta > (int)((float)etus * land_grow_scale))
@@ -236,13 +236,13 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus)
     if ((sp->sct_type != SCT_HEADQ) && (sp->sct_type != SCT_FORTR))
 	build /= 3;
 
-    avail -= build * lp->l_bwork;
+    avail = roundavg((avail - build * lp->l_bwork) / 100.0);
     if (avail < 0)
 	avail = 0;
-    sp->sct_avail = avail / 100;
+    sp->sct_avail = avail;
 
     bp_set_from_sect(bp, sp);
-    np->nat_money -= mult * lp->l_cost * build / 100.0;
+    np->nat_money -= roundavg(mult * lp->l_cost * build / 100.0);
     if (!player->simulation) {
 	land->lnd_effic += (signed char)build;
     }
