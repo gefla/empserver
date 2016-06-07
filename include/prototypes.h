@@ -712,7 +712,7 @@ extern int update_removewants(void);
 extern void revolt(struct sctstr *);
 extern void guerrilla(struct sctstr *);
 /* sect.c */
-extern int buildeff(struct sctstr *);
+extern double buildeff(struct sctstr *);
 extern void do_fallout(struct sctstr *, int);
 extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);

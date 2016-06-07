@@ -540,7 +540,7 @@
     Play#0 output Play#0 1
     Play#0 output Play#0 1 (#1) 1 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
-    Play#0 output Play#0 1 100% eff capital at 0,0 has 650 civilians & 2 military
+    Play#0 output Play#0 1 100% eff capital at 0,0 has 650 civilians & 3 military
     Play#0 output Play#0 1  The treasury has $13338.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 21.09       Happiness....... 12.33
     Play#0 output Play#0 1 Technology.........102.79       Research........  3.37
@@ -555,7 +555,7 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     CENSUS                   del dst
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
-    Play#0 output Play#0 1   1    0,0    c  100%     120 .. ..      650    2    0   84 100%  282    0
+    Play#0 output Play#0 1   1    0,0    c  100%     120 .. ..      650    3    0   84 100%  282    0
     Play#0 output Play#0 1   1    2,0    +  100%     120 .. ..      783    0  783    0 100%  939    0
     Play#0 output Play#0 1   1    4,0    +  100%     120 .. ..      866    0  805    1 100% 1002    0
     Play#0 output Play#0 1   1    6,0    +  100%     120 .. ..      910    0  805    1 100% 1029    0
@@ -594,7 +594,7 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1    COMMODITIES deliver--  distribute
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
-    Play#0 output Play#0 1   1   0,0    c .......... ..........   0   0    0    0    0   0    0    7   34   0
+    Play#0 output Play#0 1   1   0,0    c .......... ..........   0   0    0    0    0   0    0    7   32   0
     Play#0 output Play#0 1   1   2,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   4,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   6,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -635,7 +635,7 @@
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
     Play#0 output Play#0 1   1  -16,4    m  100%     120 .. ..      130    1    0   97 100%    8    0   1
     Play#0 output Play#0 1   1  -14,4    m  100%     120 .. ..      130    1    0   96 100%    0    0
-    Play#0 output Play#0 1   1  -12,4    m   69%     120 .. ..      130    1    0   97 100%    2    0
+    Play#0 output Play#0 1   1  -12,4    m   69%     120 .. ..      130    1    0   97 100%    1    0
     Play#0 output Play#0 1   1  -10,4    -   39%     120 .. ..      130    1    0   97 100%   39    0
     Play#0 output Play#0 1   1   -8,4    g  100%     120 .. ..      130    1    0   97 100%    8    0
     Play#0 output Play#0 1   1   -6,4    g  100%     120 .. ..      130    1    0   97 100%    0    0
@@ -679,7 +679,7 @@
     Play#0 output Play#0 1   1    6,6    -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   1    8,6    f  100%     120 .. ..     1000    0    0   70 100%  564    0
     Play#0 output Play#0 1   1   10,6    !  100%     120 .. ..     1000    0    0   70 100%  544    0
-    Play#0 output Play#0 1   1   12,6    *  100%     120 .. ..     1000    8    0   70 100%  570    0
+    Play#0 output Play#0 1   1   12,6    *  100%     120 .. ..     1000    9    0   70 100%  570    0
     Play#0 output Play#0 1   1   14,6    h  100%     120 .. ..     1000    0    0   70 100%  440    0   1
     Play#0 output Play#0 1   1  -15,7    t  100%     120 .. ..      130    1    0   97 100%   14    0   1
     Play#0 output Play#0 1   1  -13,7    t  100%     120 .. ..      650    1    0   84 100%  310    0
@@ -748,7 +748,7 @@
     Play#0 output Play#0 1   1   2,6    k .......... ..........   0   0    0    0    0   0    0    0   46   0
     Play#0 output Play#0 1   1   4,6    k .......... ..........   0   0    0   58    0   0    0    0 9999   0
     Play#0 output Play#0 1   1   6,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   15   0
+    Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   16   0
     Play#0 output Play#0 1   1  10,6    ! .......... ..........   0   0    0    0    0   0    0    0   13   0
     Play#0 output Play#0 1   1  12,6    * .......... ..........   0   0    0    0    0   0    0    0    8   0
     Play#0 output Play#0 1   1  14,6    h .......... ..........   0   0    0    0    0   0    0   40    0   0
@@ -782,13 +782,13 @@
     Play#0 output Play#0 1   1   42 cs   cargo ship    17,1       100%   0  25   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   43 cs   cargo ship    17,1       100%  17  50   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   60 cs   cargo ship    14,6        20%   0   0   0   0  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   70 cs   cargo ship    16,6        20%   4  10   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   70 cs   cargo ship    16,6        20%   4  10   0  10  0  0  0  0  90   20
     Play#0 output Play#0 1   1   71 cs   cargo ship    16,6        20%   4  10   0  10  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   72 cs   cargo ship    16,6        20%   4  10   0  10  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   72 cs   cargo ship    16,6        20%   4  10   0   9  0  0  0  0  90   20
     Play#0 output Play#0 1   1   73 cs   cargo ship    16,6        20%   4  10   0   9  0  0  0  0  90   20
     Play#0 output Play#0 1   1   74 cs   cargo ship    16,6        21%  12  10   0   9  0  0  0  0  90   20
     Play#0 output Play#0 1   1   75 frg  frigate       16,6        21%   0  11   0  10  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   76 frg  frigate       16,6        80%   0  60   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   76 frg  frigate       16,6        80%   0  60   0   8  0  0  0  0  90   20
     Play#0 output Play#0 1   7   93 fb   fishing boa    0,0        20%   0   0   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   95 cs   cargo ship    14,6       100%   0   0   0   0  0  0  0  0  90  200
     Play#0 output Play#0 1   7   96 cs   cargo ship    14,6        20%   0   0   0   0  0  0  0  0  90   20
@@ -834,10 +834,10 @@
     Play#0 output Play#0 1  103 fb     18,4       73% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  104 fb     18,4       33% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  110 od     16,4      100% 100   0   0   0   0   0   0   0   0   5   0   0   0
-    Play#0 output Play#0 1  111 od     18,4      100% 100   0   0   0   0   0   0   0   0  51   0   0   0
-    Play#0 output Play#0 1  112 od     20,4      100% 100   0   0   0   0   0   0   0   0  51   0   0   0
-    Play#0 output Play#0 1  113 od     18,4       65% 100   0   0   0   0   0   0   0   0  30   0   0   0
-    Play#0 output Play#0 1  114 od     18,4       25% 100   0   0   0   0   0   0   0   0   9   0   0   0
+    Play#0 output Play#0 1  111 od     18,4      100% 100   0   0   0   0   0   0   0   0  52   0   0   0
+    Play#0 output Play#0 1  112 od     20,4      100% 100   0   0   0   0   0   0   0   0  52   0   0   0
+    Play#0 output Play#0 1  113 od     18,4       65% 100   0   0   0   0   0   0   0   0  29   0   0   0
+    Play#0 output Play#0 1  114 od     18,4       25% 100   0   0   0   0   0   0   0   0  10   0   0   0
     Play#0 output Play#0 1 30 ships
     Play#0 output Play#0 6 0 640
     Play#0 input plane 0:31,0:15
@@ -1733,8 +1733,8 @@
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
     Play#0 output Play#0 1   6   0,8    c .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6   2,8    - .......... ..........   0   0    0    0    0   0    0  400  400   0
-    Play#0 output Play#0 1   6   4,8    f .......... ..........   0   0    0    0    0   0    0  391  395   0
-    Play#0 output Play#0 1   6   6,8    * .......... ..........   0   0    0    0    0   0    0  385  397   0
+    Play#0 output Play#0 1   6   4,8    f .......... ..........   0   0    0    0    0   0    0  391  396   0
+    Play#0 output Play#0 1   6   6,8    * .......... ..........   0   0    0    0    0   0    0  385  396   0
     Play#0 output Play#0 1   6   8,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6  10,8    ! .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6  12,8    * .......... ..........   0   0    0    0    0   0    0  400  400   0
@@ -1788,7 +1788,7 @@
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
     Play#0 output Play#0 1   7 -16,8    - .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   7 -14,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
-    Play#0 output Play#0 1   7 -12,8    * .......... ..........   0   0    0    0    0   0    0  398  400   0
+    Play#0 output Play#0 1   7 -12,8    * .......... ..........   0   0    0    0    0   0    0  397  400   0
     Play#0 output Play#0 1   7 -10,8    ! .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   7  -8,8    h .......... ..........   0   0    0    0    0   0    0  352  368   0
     Play#0 output Play#0 1   7  -6,8    * .......... ..........   0   0    0    0    0   0    0  400  400   0
@@ -1829,8 +1829,8 @@
     Play#0 output Play#0 1   1    0,4    a  100%    0    0   10   0    0
     Play#0 output Play#0 1   1    2,4    a  100%    0    0  100   0    0
     Play#0 output Play#0 1   1    4,4    a  100%    0    0  100   0    0
-    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10  10    0
-    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
+    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10   9    0
+    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  90    0
     Play#0 output Play#0 1   0   20,4    .    0%    0    0  100  95    0
     Play#0 output Play#0 1 8 sectors
     Play#0 output Play#0 6 0 640
@@ -1841,8 +1841,8 @@
     Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
     Play#0 output Play#0 1   1    8,4    o  100%    0    0    0  10    0
     Play#0 output Play#0 1   1   10,4    o  100%    0    0    0  92    0
-    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10  10    0
-    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
+    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10   9    0
+    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  90    0
     Play#0 output Play#0 1   0   20,4    .    0%    0    0  100  95    0
     Play#0 output Play#0 1 5 sectors
     Play#0 output Play#0 6 0 640

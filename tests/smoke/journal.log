@@ -1260,7 +1260,7 @@
     Play#0 output Play#0 1   1    8,-12  +    0%      60 .. ..        1    0    0    0 100%    0    0
     Play#0 output Play#0 1   1   10,-12  +    0%      60 .. ..        1    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   1   12,-12  +    0%      60 .. ..        1    0    0    0 100%    0    0   1
-    Play#0 output Play#0 1   8   24,-12  g   80%      60 .. ..      268    0    0    0 100%    0    0
+    Play#0 output Play#0 1   8   24,-12  g   80%      60 .. ..      268    0    0    0 100%    1    0
     Play#0 output Play#0 1  10  -11,-11  g   80%      60 .. ..      268    0    0    0 100%    1    0   1
     Play#0 output Play#0 1   1    3,-11  +    0%      60 .. ..        2    0    0    0 100%    1    0   1
     Play#0 output Play#0 1   1    5,-11  +    0%      60 .. ..        2    0    0    0 100%    1    0
@@ -1279,16 +1279,16 @@
     Play#0 output Play#0 1   9  -25,-7   g   80%      60 .. ..      268    0    0    0 100%    5    0   1
     Play#0 output Play#0 1   9  -26,-6   c  100%     127 .. ..     1000   55   86    0 100%  664    0
     Play#0 output Play#0 1   9  -24,-6   c  100%     127 .. ..     1000   55   87    0 100%  665    0
-    Play#0 output Play#0 1   6    3,-3   g   80%      60 .. ..      268    0    0    0 100%    1    0
+    Play#0 output Play#0 1   6    3,-3   g   80%      60 .. ..      268    0    0    0 100%    0    0
     Play#0 output Play#0 1   6    2,-2   c  100%     127 .. ..     1000   55   86    0 100%  664    0
     Play#0 output Play#0 1   6    4,-2   c  100%     127 .. ..     1000   55   86    0 100%  664    0
-    Play#0 output Play#0 1   7   25,-1   g   80%      60 .. ..      268    0    0    0 100%    0    0
-    Play#0 output Play#0 1   4  -14,0    g   80%      60 .. ..      267    0    0    0 100%    0    0
+    Play#0 output Play#0 1   7   25,-1   g   80%      60 .. ..      268    0    0    0 100%    1    0
+    Play#0 output Play#0 1   4  -14,0    g   80%      60 .. ..      267    0    0    0 100%    1    0
     Play#0 output Play#0 1   7   24,0    c  100%     127 .. ..     1000   55   86    0 100%  664    0
     Play#0 output Play#0 1   7   26,0    c  100%     127 .. ..     1000   55   86    0 100%  664    0
     Play#0 output Play#0 1   4  -15,1    c  100%     127 .. ..     1000   55   87    0 100%  665    0
     Play#0 output Play#0 1   4  -13,1    c  100%     127 .. ..     1000   55   87    0 100%  665    0
-    Play#0 output Play#0 1   5  -29,7    g   80%      60 .. ..      268    0    0    0 100%    1    0
+    Play#0 output Play#0 1   5  -29,7    g   80%      60 .. ..      268    0    0    0 100%    0    0
     Play#0 output Play#0 1   5  -30,8    c  100%     127 .. ..     1000   55   86    0 100%  664    0   1
     Play#0 output Play#0 1   5  -28,8    c  100%     127 .. ..     1000   55   86    0 100%  664    0
     Play#0 output Play#0 1   3   -3,9    g   80%      60 .. ..      268    0    0    0 100%    0    0
@@ -1416,7 +1416,7 @@
     Play#0 output Play#0 1   7   26,0    c  100%  100  100  100 100  100
     Play#0 output Play#0 1   4  -15,1    c  100%  100  100  100 100  100
     Play#0 output Play#0 1   4  -13,1    c  100%  100  100  100 100  100
-    Play#0 output Play#0 1   5  -29,7    g   80%  100   64    0   0  100
+    Play#0 output Play#0 1   5  -29,7    g   80%  100   65    0   0  100
     Play#0 output Play#0 1   5  -30,8    c  100%  100  100  100 100  100
     Play#0 output Play#0 1   5  -28,8    c  100%  100  100  100 100  100
     Play#0 output Play#0 1   3   -3,9    g   80%  100   64    0   0  100
@@ -1636,18 +1636,18 @@
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
     Play#0 output Play#0 1         1  30   14% 3.3K   0    0    0    0  2.2K 212    0    0    0    0   25K
     Play#0 output Play#0 1     21.28
-    Play#0 output Play#0 1         6   3  100% 2.3K 110    0    0    0    0  183    0    0    0    0   26K
+    Play#0 output Play#0 1         8   3  100% 2.3K 110    0    0    0    0  183    0    0    0    0   26K
     Play#0 output Play#0 1     18.44
-    Play#0 output Play#0 1         8   3  100% 2.3K 110    0    0    0    0  182    0    0    0    0   26K
+    Play#0 output Play#0 1         6   3  100% 2.3K 110    0    0    0    0  182    0    0    0    0   26K
     Play#0 output Play#0 1     18.43
+    Play#0 output Play#0 1         5   3  100% 2.3K 110    0    0    0    0  169    0    0    0    0   26K
+    Play#0 output Play#0 1     18.32
     Play#0 output Play#0 1         3   3  100% 2.3K 110    0    0    0    0  167    0    0    0    0   26K
     Play#0 output Play#0 1     18.31
-    Play#0 output Play#0 1         5   3  100% 2.3K 110    0    0    0    0  167    0    0    0    0   26K
-    Play#0 output Play#0 1     18.31
-    Play#0 output Play#0 1         7   3  100% 2.3K 110    0    0    0    0  157    0    0    0    0   26K
-    Play#0 output Play#0 1     18.23
-    Play#0 output Play#0 1         4   3  100% 2.3K 110    0    0    0    0  135    0    0    0    0   26K
-    Play#0 output Play#0 1     18.05
+    Play#0 output Play#0 1         7   3  100% 2.3K 110    0    0    0    0  158    0    0    0    0   26K
+    Play#0 output Play#0 1     18.24
+    Play#0 output Play#0 1         4   3  100% 2.3K 110    0    0    0    0  136    0    0    0    0   26K
+    Play#0 output Play#0 1     18.06
     Play#0 output Play#0 1        10   3  100% 2.3K 110    0    0    0    0  105    0    0    0    0   26K
     Play#0 output Play#0 1     17.81
     Play#0 output Play#0 1         2   3  100% 2.3K 110    0    0    0    0   23    0    0    0    0   26K
@@ -1723,12 +1723,12 @@
     Play#0 output Play#0 1   6    2,-2   c  100%     127 .. ..     1000   55   99    0 100%  722    0
     Play#0 output Play#0 1   6    4,-2   c  100%     127 .. ..     1000   55   99    0 100%  722    0
     Play#0 output Play#0 1   7   25,-1   g  100%     120 .. ..      349    0    0    0 100%    0    0
-    Play#0 output Play#0 1   4  -14,0    g  100%     120 .. ..      347    0    0    0 100%    1    0
+    Play#0 output Play#0 1   4  -14,0    g  100%     120 .. ..      347    0    0    0 100%    0    0
     Play#0 output Play#0 1   7   24,0    c  100%     127 .. ..     1000   55   99    0 100%  722    0
     Play#0 output Play#0 1   7   26,0    c  100%     127 .. ..     1000   55   99    0 100%  722    0
     Play#0 output Play#0 1   4  -15,1    c  100%     127 .. ..     1000   55  100    0 100%  723    0
     Play#0 output Play#0 1   4  -13,1    c  100%     127 .. ..     1000   55  100    0 100%  723    0
-    Play#0 output Play#0 1   5  -29,7    g  100%     120 .. ..      348    0    0    0 100%    2    0
+    Play#0 output Play#0 1   5  -29,7    g  100%     120 .. ..      348    0    0    0 100%    0    0
     Play#0 output Play#0 1   5  -30,8    c  100%     127 .. ..     1000   55   99    0 100%  722    0   1
     Play#0 output Play#0 1   5  -28,8    c  100%     127 .. ..     1000   55   99    0 100%  722    0
     Play#0 output Play#0 1   3   -3,9    g  100%     120 .. ..      348    0    0    0 100%    0    0
@@ -1764,7 +1764,7 @@
     Play#0 output Play#0 1   1   8,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  10,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  12,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   8  24,-12  g .......... ..........   0   0    0    0  182   0    0    0    0   0
+    Play#0 output Play#0 1   8  24,-12  g .......... ..........   0   0    0    0  183   0    0    0    0   0
     Play#0 output Play#0 1  10 -11,-11  g .......... ..........   0   0    0    0  105   0    0    0    0   0
     Play#0 output Play#0 1   1   3,-11  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   5,-11  + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -1783,16 +1783,16 @@
     Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   10   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  183   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  182   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  157   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  135   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  158   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  136   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  167   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  169   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  167   0    0    0    0   0
@@ -1844,23 +1844,23 @@
     Play#0 output Play#0 1   1    4,-10  +    0%    0    0  100 100    0
     Play#0 output Play#0 1   1    6,-10  +    1%    0    0  100 100    0
     Play#0 output Play#0 1   1   10,-10  +    0%    0    0  100  98    0
-    Play#0 output Play#0 1   9  -25,-7   g  100%   28    3   37   0    0
+    Play#0 output Play#0 1   9  -25,-7   g  100%   28    2   37   0    0
     Play#0 output Play#0 1   9  -26,-6   c  100%  100  100  100 100  100
     Play#0 output Play#0 1   9  -24,-6   c  100%  100  100  100 100  100
     Play#0 output Play#0 1   6    3,-3   g  100%  100   44    0   0  100
     Play#0 output Play#0 1   6    2,-2   c  100%  100  100  100 100  100
     Play#0 output Play#0 1   6    4,-2   c  100%  100  100  100 100  100
-    Play#0 output Play#0 1   7   25,-1   g  100%  100   38    0   0   97
+    Play#0 output Play#0 1   7   25,-1   g  100%  100   37    0   0   97
     Play#0 output Play#0 1   4  -14,0    g  100%   96   32    0   0   77
     Play#0 output Play#0 1   7   24,0    c  100%  100  100  100 100  100
     Play#0 output Play#0 1   7   26,0    c  100%  100  100  100 100  100
     Play#0 output Play#0 1   4  -15,1    c  100%  100  100  100 100  100
     Play#0 output Play#0 1   4  -13,1    c  100%  100  100  100 100  100
-    Play#0 output Play#0 1   5  -29,7    g  100%  100   40    0   0  100
+    Play#0 output Play#0 1   5  -29,7    g  100%  100   41    0   0  100
     Play#0 output Play#0 1   5  -30,8    c  100%  100  100  100 100  100
     Play#0 output Play#0 1   5  -28,8    c  100%  100  100  100 100  100
     Play#0 output Play#0 1   3   -3,9    g  100%  100   40    0   0  100
-    Play#0 output Play#0 1   2   17,9    g  100%   34    6   28   0    0
+    Play#0 output Play#0 1   2   17,9    g  100%   34    5   28   0    0
     Play#0 output Play#0 1   3   -4,10   c  100%  100  100  100 100  100
     Play#0 output Play#0 1   3   -2,10   c  100%  100  100  100 100  100
     Play#0 output Play#0 1   2   16,10   c  100%  100  100  100 100  100
@@ -2171,24 +2171,24 @@
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
     Play#0 output Play#0 1         1  30   23% 4.2K   0    0    0    0  3.1K 312    0    0    1    0   26K
     Play#0 output Play#0 1     26.99
-    Play#0 output Play#0 1         6   3  100% 2.5K 110    0    0    0    0  302    0    0    0    0   26K
+    Play#0 output Play#0 1         8   4   75% 2.5K 110    0    0    0    0  302    0    0    0    0   26K
     Play#0 output Play#0 1     19.87
-    Play#0 output Play#0 1         8   4   75% 2.5K 110    0    0    0    0  301    0    0    0    0   26K
+    Play#0 output Play#0 1         6   3  100% 2.5K 110    0    0    0    0  301    0    0    0    0   26K
     Play#0 output Play#0 1     19.86
-    Play#0 output Play#0 1         5   3  100% 2.5K 110    0    0    0    0  276    0    0    0    0   26K
-    Play#0 output Play#0 1     19.66
+    Play#0 output Play#0 1         5   3  100% 2.5K 110    0    0    0    0  280    0    0    0    0   26K
+    Play#0 output Play#0 1     19.69
     Play#0 output Play#0 1         3   3  100% 2.5K 110    0    0    0    0  275    0    0    0    0   26K
     Play#0 output Play#0 1     19.66
-    Play#0 output Play#0 1         7   3  100% 2.5K 110    0    0    0    0  260    0    0    0    0   26K
-    Play#0 output Play#0 1     19.54
-    Play#0 output Play#0 1         4   3  100% 2.5K 110    0    0    0    0  221    0    0    0    0   26K
-    Play#0 output Play#0 1     19.22
+    Play#0 output Play#0 1         7   3  100% 2.5K 110    0    0    0    0  258    0    0    0    0   26K
+    Play#0 output Play#0 1     19.52
+    Play#0 output Play#0 1         4   3  100% 2.5K 110    0    0    0    0  222    0    0    0    0   26K
+    Play#0 output Play#0 1     19.23
     Play#0 output Play#0 1        10   3  100% 2.5K 110    0    0    0    0  173    0    0    0    0   26K
     Play#0 output Play#0 1     18.84
-    Play#0 output Play#0 1         2   3  100% 2.5K 110    0    0    0    0   39    0    0    0    0   26K
-    Play#0 output Play#0 1     17.77
-    Play#0 output Play#0 1         9   3  100% 2.5K 110    0    0    0    0   18    0    0    0    0   26K
-    Play#0 output Play#0 1     17.60
+    Play#0 output Play#0 1         2   3  100% 2.5K 110    0    0    0    0   36    0    0    0    0   26K
+    Play#0 output Play#0 1     17.75
+    Play#0 output Play#0 1         9   3  100% 2.5K 110    0    0    0    0   15    0    0    0    0   26K
+    Play#0 output Play#0 1     17.58
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     Play#0 output Play#0 1 worldwide  58   59%  26K 990    0    0    0  3.1K 2.2K   0    0    1    0  261K
     Play#0 output Play#0 1
@@ -2252,14 +2252,14 @@
     Play#0 output Play#0 1   1    4,-10  +    0%     127 .. ..        1    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   1    6,-10  +    2%     127 .. ..        4    0    0    0 100%    2    0   1
     Play#0 output Play#0 1   1   10,-10  +    0%     127 .. ..        1    0    0    0 100%    0    0   1
-    Play#0 output Play#0 1   9  -25,-7   g  100%     127 .. ..      454    0    0    0 100%   24    0   1
+    Play#0 output Play#0 1   9  -25,-7   g  100%     127 .. ..      454    0    0    0 100%   41    0   1
     Play#0 output Play#0 1   9  -26,-6   c  100%     127 .. ..     1000   55  114    0 100%  731    0
     Play#0 output Play#0 1   9  -24,-6   c  100%     127 .. ..     1000   55  115    0 100%  732    0
     Play#0 output Play#0 1   6    3,-3   g  100%     127 .. ..      452    0    0    0 100%    2    0
     Play#0 output Play#0 1   6    2,-2   c  100%     127 .. ..     1000   55  114    0 100%  731    0
     Play#0 output Play#0 1   6    4,-2   c  100%     127 .. ..     1000   55  114    0 100%  731    0
-    Play#0 output Play#0 1   7   25,-1   g  100%     127 .. ..      454    0    0    0 100%    1    0
-    Play#0 output Play#0 1   4  -14,0    g  100%     127 .. ..      451    0    0    0 100%    2    0
+    Play#0 output Play#0 1   7   25,-1   g  100%     127 .. ..      454    0    0    0 100%    2    0
+    Play#0 output Play#0 1   4  -14,0    g  100%     127 .. ..      451    0    0    0 100%    1    0
     Play#0 output Play#0 1   7   24,0    c  100%     127 .. ..     1000   55  114    0 100%  731    0
     Play#0 output Play#0 1   7   26,0    c  100%     127 .. ..     1000   55  114    0 100%  731    0
     Play#0 output Play#0 1   4  -15,1    c  100%     127 .. ..     1000   55  115    0 100%  732    0
@@ -2268,7 +2268,7 @@
     Play#0 output Play#0 1   5  -30,8    c  100%     127 .. ..     1000   55  114    0 100%  731    0   1
     Play#0 output Play#0 1   5  -28,8    c  100%     127 .. ..     1000   55  114    0 100%  731    0
     Play#0 output Play#0 1   3   -3,9    g  100%     127 .. ..      452    0    0    0 100%    1    0
-    Play#0 output Play#0 1   2   17,9    g  100%     127 .. ..      454    0    0    0 100%   10    0   1
+    Play#0 output Play#0 1   2   17,9    g  100%     127 .. ..      454    0    0    0 100%   17    0   1
     Play#0 output Play#0 1   3   -4,10   c  100%     127 .. ..     1000   55  114    0 100%  731    0
     Play#0 output Play#0 1   3   -2,10   c  100%     127 .. ..     1000   55  117    0 100%  733    0
     Play#0 output Play#0 1   2   16,10   c  100%     127 .. ..     1000   55  115    0 100%  732    0
@@ -2301,7 +2301,7 @@
     Play#0 output Play#0 1   1   8,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  10,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  12,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   8  24,-12  g .......... ..........   0   0    0    0  301   0    0    0    0   0
+    Play#0 output Play#0 1   8  24,-12  g .......... ..........   0   0    0    0  302   0    0    0    0   0
     Play#0 output Play#0 1  10 -11,-11  g .......... ..........   0   0    0    0  173   0    0    0    0   0
     Play#0 output Play#0 1   1   3,-11  o .......... ......0...   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   5,-11  + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -2317,23 +2317,23 @@
     Play#0 output Play#0 1   1   4,-10  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   6,-10  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  10,-10  + .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   15   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  302   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  301   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  260   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  221   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  258   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  222   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  276   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  280   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  275   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   39   0    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   36   0    0    0    0   0
     Play#0 output Play#0 1   3  -4,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -2,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  16,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -2388,7 +2388,7 @@
     Play#0 output Play#0 1   6    3,-3   g  100%  100   21    0   0  100
     Play#0 output Play#0 1   6    2,-2   c  100%  100  100  100 100  100
     Play#0 output Play#0 1   6    4,-2   c  100%  100  100  100 100  100
-    Play#0 output Play#0 1   7   25,-1   g  100%  100   18    0   0   97
+    Play#0 output Play#0 1   7   25,-1   g  100%  100   17    0   0   97
     Play#0 output Play#0 1   4  -14,0    g  100%   96   15    0   0   77
     Play#0 output Play#0 1   7   24,0    c  100%  100  100  100 100  100
     Play#0 output Play#0 1   7   26,0    c  100%  100  100  100 100  100
@@ -2679,24 +2679,24 @@
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
     Play#0 output Play#0 1         1  31   30% 5.2K  60    0    0    0  3.8K 422   60    0    1    0   26K
     Play#0 output Play#0 1     31.94
-    Play#0 output Play#0 1         6   3  100% 2.6K 110    0    0    0    0  376    0    0    0    0   27K
-    Play#0 output Play#0 1     21.03
-    Play#0 output Play#0 1         8   3  100% 2.6K 110    0    0    0    0  371    0    0    0    0   27K
-    Play#0 output Play#0 1     20.98
+    Play#0 output Play#0 1         6   3  100% 2.6K 110    0    0    0    0  375    0    0    0    0   27K
+    Play#0 output Play#0 1     21.02
+    Play#0 output Play#0 1         8   3  100% 2.6K 110    0    0    0    0  372    0    0    0    0   27K
+    Play#0 output Play#0 1     20.99
+    Play#0 output Play#0 1         5   3  100% 2.6K 110    0    0    0    0  343    0    0    0    0   27K
+    Play#0 output Play#0 1     20.77
     Play#0 output Play#0 1         3   3  100% 2.6K 110    0    0    0    0  338    0    0    0    0   27K
     Play#0 output Play#0 1     20.74
-    Play#0 output Play#0 1         5   3  100% 2.6K 110    0    0    0    0  339    0    0    0    0   27K
-    Play#0 output Play#0 1     20.74
-    Play#0 output Play#0 1         7   3  100% 2.6K 110    0    0    0    0  323    0    0    0    0   27K
-    Play#0 output Play#0 1     20.62
-    Play#0 output Play#0 1         4   3  100% 2.6K 110    0    0    0    0  273    0    0    0    0   27K
-    Play#0 output Play#0 1     20.21
+    Play#0 output Play#0 1         7   3  100% 2.6K 110    0    0    0    0  318    0    0    0    0   27K
+    Play#0 output Play#0 1     20.58
+    Play#0 output Play#0 1         4   3  100% 2.6K 110    0    0    0    0  274    0    0    0    0   27K
+    Play#0 output Play#0 1     20.22
     Play#0 output Play#0 1        10   3  100% 2.6K 110    0    0    0    0  215    0    0    0    0   27K
     Play#0 output Play#0 1     19.75
-    Play#0 output Play#0 1         2   3  100% 2.6K 110    0    0    0    0   49    0    0    0    0   27K
-    Play#0 output Play#0 1     18.43
-    Play#0 output Play#0 1         9   3  100% 2.6K 110    0    0    0    0   21    0    0    0    0   27K
-    Play#0 output Play#0 1     18.20
+    Play#0 output Play#0 1         2   3  100% 2.6K 110    0    0    0    0   47    0    0    0    0   27K
+    Play#0 output Play#0 1     18.41
+    Play#0 output Play#0 1         9   3  100% 2.6K 110    0    0    0    0   18    0    0    0    0   27K
+    Play#0 output Play#0 1     18.18
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     Play#0 output Play#0 1 worldwide  58   63%  29K 1.1K   0    0    0  3.8K 2.7K  60    0    1    0  266K
     Play#0 output Play#0 1
@@ -2760,14 +2760,14 @@
     Play#0 output Play#0 1   1    4,-10  +    0%     127 .. ..        1    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   1    6,-10  +    4%     127 .. ..        5    0    0    0 100%    3    0   1
     Play#0 output Play#0 1   1   10,-10  +    0%     127 .. ..        1    0    0    0 100%    0    0   1
-    Play#0 output Play#0 1   9  -25,-7   g  100%     127 .. ..      590    0    0    0 100%   78    0   1
+    Play#0 output Play#0 1   9  -25,-7   g  100%     127 .. ..      590    0    0    0 100%   95    0   1
     Play#0 output Play#0 1   9  -26,-6   c  100%     127 .. ..     1000   55  131    0 100%  741    0
     Play#0 output Play#0 1   9  -24,-6   c  100%     127 .. ..     1000   55  133    0 100%  743    0
     Play#0 output Play#0 1   6    3,-3   g  100%     127 .. ..      588    0    0    0 100%    2    0
     Play#0 output Play#0 1   6    2,-2   c  100%     127 .. ..     1000   55  131    0 100%  741    0
     Play#0 output Play#0 1   6    4,-2   c  100%     127 .. ..     1000   55  131    0 100%  741    0
-    Play#0 output Play#0 1   7   25,-1   g  100%     127 .. ..      591    0    0    0 100%    5    0
-    Play#0 output Play#0 1   4  -14,0    g  100%     127 .. ..      586    0    0    0 100%    6    0
+    Play#0 output Play#0 1   7   25,-1   g  100%     127 .. ..      591    0    0    0 100%    3    0
+    Play#0 output Play#0 1   4  -14,0    g  100%     127 .. ..      586    0    0    0 100%    5    0
     Play#0 output Play#0 1   7   24,0    c  100%     127 .. ..     1000   55  131    0 100%  741    0
     Play#0 output Play#0 1   7   26,0    c  100%     127 .. ..     1000   55  131    0 100%  741    0
     Play#0 output Play#0 1   4  -15,1    c  100%     127 .. ..     1000   55  132    0 100%  742    0
@@ -2776,7 +2776,7 @@
     Play#0 output Play#0 1   5  -30,8    c  100%     127 .. ..     1000   55  132    0 100%  742    0   1
     Play#0 output Play#0 1   5  -28,8    c  100%     127 .. ..     1000   55  131    0 100%  741    0
     Play#0 output Play#0 1   3   -3,9    g  100%     127 .. ..      588    0    0    0 100%    3    0
-    Play#0 output Play#0 1   2   17,9    g  100%     127 .. ..      590    0    0    0 100%   30    0   1
+    Play#0 output Play#0 1   2   17,9    g  100%     127 .. ..      590    0    0    0 100%    4    0   1
     Play#0 output Play#0 1   3   -4,10   c  100%     127 .. ..     1000   55  131    0 100%  741    0
     Play#0 output Play#0 1   3   -2,10   c  100%     127 .. ..     1000   55  135    0 100%  744    0
     Play#0 output Play#0 1   2   16,10   c  100%     127 .. ..     1000   55  133    0 100%  743    0
@@ -2809,7 +2809,7 @@
     Play#0 output Play#0 1   1   8,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  10,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  12,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   8  24,-12  g .......... ..........   0   0    0    0  371   0    0    0    0   0
+    Play#0 output Play#0 1   8  24,-12  g .......... ..........   0   0    0    0  372   0    0    0    0   0
     Play#0 output Play#0 1  10 -11,-11  g .......... ..........   0   0    0    0  215   0    0    0    0   0
     Play#0 output Play#0 1   1   3,-11  o .......... ......0...   0   0    0    0    0   0    1    0    0   0
     Play#0 output Play#0 1   1   5,-11  + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -2825,23 +2825,23 @@
     Play#0 output Play#0 1   1   4,-10  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   6,-10  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  10,-10  + .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  376   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  375   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  323   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  273   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  318   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  274   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  339   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  343   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  338   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   49   0    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   47   0    0    0    0   0
     Play#0 output Play#0 1   3  -4,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -2,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  16,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -2896,7 +2896,7 @@
     Play#0 output Play#0 1   6    3,-3   g  100%  100    7    0   0  100
     Play#0 output Play#0 1   6    2,-2   c  100%  100  100  100 100  100
     Play#0 output Play#0 1   6    4,-2   c  100%  100  100  100 100  100
-    Play#0 output Play#0 1   7   25,-1   g  100%  100    6    0   0   97
+    Play#0 output Play#0 1   7   25,-1   g  100%  100    5    0   0   97
     Play#0 output Play#0 1   4  -14,0    g  100%   96    4    0   0   77
     Play#0 output Play#0 1   7   24,0    c  100%  100  100  100 100  100
     Play#0 output Play#0 1   7   26,0    c  100%  100  100  100 100  100
@@ -3061,24 +3061,24 @@
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
     Play#0 output Play#0 1         1  31   37% 6.8K  52    0    0    0  4.4K 422  126    0    1    0   23K
     Play#0 output Play#0 1     42.43
-    Play#0 output Play#0 1         6   3  100% 2.8K 110    0    0    0    0  408    0    0    0    0   27K
-    Play#0 output Play#0 1     23.81
-    Play#0 output Play#0 1         8   3  100% 2.8K 110    0    0    0    0  398    0    0    0    0   27K
-    Play#0 output Play#0 1     23.71
+    Play#0 output Play#0 1         6   3  100% 2.8K 110    0    0    0    0  407    0    0    0    0   27K
+    Play#0 output Play#0 1     23.80
+    Play#0 output Play#0 1         8   3  100% 2.8K 110    0    0    0    0  399    0    0    0    0   27K
+    Play#0 output Play#0 1     23.72
+    Play#0 output Play#0 1         5   3  100% 2.8K 110    0    0    0    0  366    0    0    0    0   27K
+    Play#0 output Play#0 1     23.45
     Play#0 output Play#0 1         3   3  100% 2.8K 110    0    0    0    0  361    0    0    0    0   27K
     Play#0 output Play#0 1     23.42
-    Play#0 output Play#0 1         5   3  100% 2.8K 110    0    0    0    0  362    0    0    0    0   27K
-    Play#0 output Play#0 1     23.41
-    Play#0 output Play#0 1         7   3  100% 2.8K 110    0    0    0    0  350    0    0    0    0   27K
-    Play#0 output Play#0 1     23.32
-    Play#0 output Play#0 1         4   3  100% 2.8K 110    0    0    0    0  291    0    0    0    0   27K
-    Play#0 output Play#0 1     22.79
+    Play#0 output Play#0 1         7   3  100% 2.8K 110    0    0    0    0  341    0    0    0    0   27K
+    Play#0 output Play#0 1     23.24
+    Play#0 output Play#0 1         4   3  100% 2.8K 110    0    0    0    0  292    0    0    0    0   27K
+    Play#0 output Play#0 1     22.80
     Play#0 output Play#0 1        10   3  100% 2.8K 110    0    0    0    0  233    0    0    0    0   27K
     Play#0 output Play#0 1     22.31
-    Play#0 output Play#0 1         2   3  100% 2.8K 110    0    0    0    0   53    0    0    0    0   27K
-    Play#0 output Play#0 1     20.75
-    Play#0 output Play#0 1         9   3  100% 2.8K 110    0    0    0    0   21    0    0    0    0   27K
-    Play#0 output Play#0 1     20.47
+    Play#0 output Play#0 1         2   3  100% 2.8K 110    0    0    0    0   51    0    0    0    0   27K
+    Play#0 output Play#0 1     20.73
+    Play#0 output Play#0 1         9   3  100% 2.8K 110    0    0    0    0   18    0    0    0    0   27K
+    Play#0 output Play#0 1     20.44
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     Play#0 output Play#0 1 worldwide  58   66%  32K 1.0K   0    0    0  4.4K 2.9K 126    0    1    0  270K
     Play#0 output Play#0 1
@@ -3148,8 +3148,8 @@
     Play#0 output Play#0 1   6    3,-3   g  100%     127 .. ..      764    0    0    0 100%    3    0
     Play#0 output Play#0 1   6    2,-2   c  100%     127 .. ..     1000   55  151    0 100%  753    0
     Play#0 output Play#0 1   6    4,-2   c  100%     127 .. ..     1000   55  150    0 100%  753    0
-    Play#0 output Play#0 1   7   25,-1   g  100%     127 .. ..      769    0    0    0 100%   16    0
-    Play#0 output Play#0 1   4  -14,0    g  100%     127 .. ..      761    0    0    0 100%   12    0
+    Play#0 output Play#0 1   7   25,-1   g  100%     127 .. ..      769    0    0    0 100%    4    0
+    Play#0 output Play#0 1   4  -14,0    g  100%     127 .. ..      761    0    0    0 100%   11    0
     Play#0 output Play#0 1   7   24,0    c  100%     127 .. ..     1000   55  151    0 100%  753    0
     Play#0 output Play#0 1   7   26,0    c  100%     127 .. ..     1000   55  150    0 100%  753    0
     Play#0 output Play#0 1   4  -15,1    c  100%     127 .. ..     1000   55  151    0 100%  753    0
@@ -3158,7 +3158,7 @@
     Play#0 output Play#0 1   5  -30,8    c  100%     127 .. ..     1000   55  152    0 100%  754    0   1
     Play#0 output Play#0 1   5  -28,8    c  100%     127 .. ..     1000   55  151    0 100%  753    0
     Play#0 output Play#0 1   3   -3,9    g  100%     127 .. ..      764    0    0    0 100%    1    0
-    Play#0 output Play#0 1   2   17,9    g  100%     127 .. ..      767    0    0    0 100%   90    0   1
+    Play#0 output Play#0 1   2   17,9    g  100%     127 .. ..      767    0    0    0 100%   64    0   1
     Play#0 output Play#0 1   3   -4,10   c  100%     127 .. ..     1000   55  151    0 100%  753    0
     Play#0 output Play#0 1   3   -2,10   c  100%     127 .. ..     1000   55  156    0 100%  756    0
     Play#0 output Play#0 1   2   16,10   c  100%     127 .. ..     1000   55  153    0 100%  755    0
@@ -3191,7 +3191,7 @@
     Play#0 output Play#0 1   1   8,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  10,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  12,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   8  24,-12  g .......... ..........   0   0    0    0  398   0    0    0    0   0
+    Play#0 output Play#0 1   8  24,-12  g .......... ..........   0   0    0    0  399   0    0    0    0   0
     Play#0 output Play#0 1  10 -11,-11  g .......... ..........   0   0    0    0  233   0    0    0    0   0
     Play#0 output Play#0 1   1   3,-11  o .......... ......0...   0   0    0    0    0   0    1    0    0   0
     Play#0 output Play#0 1   1   5,-11  + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -3207,23 +3207,23 @@
     Play#0 output Play#0 1   1   4,-10  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   6,-10  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  10,-10  + .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  408   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  407   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  350   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  341   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  361   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   53   0    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   51   0    0    0    0   0
     Play#0 output Play#0 1   3  -4,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -2,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  16,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -3818,24 +3818,24 @@
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
     Play#0 output Play#0 1         1  31   41% 8.7K  48    0    0    0  4.7K 382  193    0    1    0   22K
     Play#0 output Play#0 1     56.37
-    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  413    0    0    0    0   28K
-    Play#0 output Play#0 1     26.93
-    Play#0 output Play#0 1         8  29   10% 3.0K 110    0    0    0    0  398    0    0    0    0   28K
-    Play#0 output Play#0 1     26.77
+    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  412    0    0    0    0   28K
+    Play#0 output Play#0 1     26.92
+    Play#0 output Play#0 1         8  29   10% 3.0K 110    0    0    0    0  399    0    0    0    0   28K
+    Play#0 output Play#0 1     26.78
+    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   28K
+    Play#0 output Play#0 1     26.49
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  361    0    0    0    0   28K
     Play#0 output Play#0 1     26.46
-    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   28K
-    Play#0 output Play#0 1     26.45
-    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  355    0    0    0    0   28K
-    Play#0 output Play#0 1     26.40
-    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  291    0    0    0    0   28K
-    Play#0 output Play#0 1     25.77
+    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  346    0    0    0    0   28K
+    Play#0 output Play#0 1     26.31
+    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  292    0    0    0    0   28K
+    Play#0 output Play#0 1     25.78
     Play#0 output Play#0 1        10   3  100% 3.0K 110    0    0    0    0  238    0    0    0    0   28K
     Play#0 output Play#0 1     25.30
-    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   58    0    0    0    0   28K
-    Play#0 output Play#0 1     23.60
-    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   21    0    0    0    0   28K
-    Play#0 output Play#0 1     23.25
+    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   56    0    0    0    0   28K
+    Play#0 output Play#0 1     23.58
+    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   18    0    0    0    0   28K
+    Play#0 output Play#0 1     23.23
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     Play#0 output Play#0 1 worldwide  84   47%  36K 1.0K   0    0    0  4.7K 2.9K 193    0    1    0  275K
     Play#0 output Play#0 1
@@ -3931,8 +3931,8 @@
     Play#0 output Play#0 1   6    3,-3   g  100%     127 .. ..      993    0    0    0 100%   98    0
     Play#0 output Play#0 1   6    2,-2   c  100%     127 .. ..     1000   55  174    0 100%  767    0
     Play#0 output Play#0 1   6    4,-2   c  100%     127 .. ..     1000   55  172    0 100%  766    0
-    Play#0 output Play#0 1   7   25,-1   g  100%     127 .. ..     1000    0    0    0 100%  116    0
-    Play#0 output Play#0 1   4  -14,0    g  100%     127 .. ..      989    0    0    0 100%  605    0
+    Play#0 output Play#0 1   7   25,-1   g  100%     127 .. ..     1000    0    0    0 100%  104    0
+    Play#0 output Play#0 1   4  -14,0    g  100%     127 .. ..      989    0    0    0 100%  604    0
     Play#0 output Play#0 1   7   24,0    c  100%     127 .. ..     1000   55  174    0 100%  767    0
     Play#0 output Play#0 1   7   26,0    c  100%     127 .. ..     1000   55  172    0 100%  766    0
     Play#0 output Play#0 1   4  -15,1    c  100%     127 .. ..     1000   55  173    0 100%  767    0
@@ -3989,7 +3989,7 @@
     Play#0 output Play#0 1   1  12,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  20,-12  - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  22,-12  - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   8  24,-12  g .......... ..........   0   0    0    0  398   0    0    0    0   0
+    Play#0 output Play#0 1   8  24,-12  g .......... ..........   0   0    0    0  399   0    0    0    0   0
     Play#0 output Play#0 1   8  26,-12  - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  28,-12  - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  30,-12  - .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -4016,23 +4016,23 @@
     Play#0 output Play#0 1   8  22,-10  - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  24,-10  - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  26,-10  - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  413   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  412   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  355   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  346   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  361   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   58   0    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   56   0    0    0    0   0
     Play#0 output Play#0 1   3  -4,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -2,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  16,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -4790,24 +4790,24 @@
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
     Play#0 output Play#0 1         1  32   44%  11K  48    0    0    0  5.4K 722  235    0    1    0   20K
     Play#0 output Play#0 1     77.37
-    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  413    0    0    0    0   29K
-    Play#0 output Play#0 1     29.72
-    Play#0 output Play#0 1         8  29   10% 3.0K 110    0    0    0    0  398    0    0    0    0   29K
-    Play#0 output Play#0 1     29.64
+    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  412    0    0    0    0   29K
+    Play#0 output Play#0 1     29.71
+    Play#0 output Play#0 1         8  29   10% 3.0K 110    0    0    0    0  399    0    0    0    0   29K
+    Play#0 output Play#0 1     29.65
+    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   29K
+    Play#0 output Play#0 1     29.25
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  361    0    0    0    0   29K
     Play#0 output Play#0 1     29.22
-    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   29K
-    Play#0 output Play#0 1     29.21
-    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  355    0    0    0    0   29K
-    Play#0 output Play#0 1     29.14
-    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  291    0    0    0    0   29K
-    Play#0 output Play#0 1     28.48
+    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  346    0    0    0    0   29K
+    Play#0 output Play#0 1     29.04
+    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  292    0    0    0    0   29K
+    Play#0 output Play#0 1     28.49
     Play#0 output Play#0 1        10   3  100% 3.0K 110    0    0    0    0  238    0    0    0    0   29K
     Play#0 output Play#0 1     27.95
-    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   58    0    0    0    0   29K
-    Play#0 output Play#0 1     26.12
-    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   21    0    0    0    0   29K
-    Play#0 output Play#0 1     25.74
+    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   56    0    0    0    0   29K
+    Play#0 output Play#0 1     26.10
+    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   18    0    0    0    0   29K
+    Play#0 output Play#0 1     25.71
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     Play#0 output Play#0 1 worldwide  85   48%  38K 1.0K   0    0    0  5.4K 3.2K 235    0    1    0  281K
     Play#0 output Play#0 1
@@ -4963,7 +4963,7 @@
     Play#0 output Play#0 1   1  12,-12  + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  20,-12  g .......... ....0.....   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  22,-12  g .......... ....0.....   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   8  24,-12  g .......... ...00.....   0   0    0    0  398   0    0    0    0   0
+    Play#0 output Play#0 1   8  24,-12  g .......... ...00.....   0   0    0    0  399   0    0    0    0   0
     Play#0 output Play#0 1   8  26,-12  g .......... ....0.....   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  28,-12  g .......... ....0.....   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  30,-12  c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -4990,23 +4990,23 @@
     Play#0 output Play#0 1   8  22,-10  - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  24,-10  g .......... ....0.....   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  413   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  412   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  355   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  346   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  361   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   58   0    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   56   0    0    0    0   0
     Play#0 output Play#0 1   3  -4,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -2,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  16,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -5472,7 +5472,7 @@
     Play#8 output Play#8 1    3,-1   g  62%   590  310d 1.00 $0                                      310
     Play#8 output Play#8 1    0,0    m 100%   649  649i 1.00 $0                                      649
     Play#8 output Play#8 1    2,0    m 100%   644  644i 1.00 $0                                      644
-    Play#8 output Play#8 1    4,0    g   6%   277   16d 1.00 $0                                       16
+    Play#8 output Play#8 1    4,0    g   7%   277   19d 1.00 $0                                       19
     Play#8 output Play#8 1 5 sectors
     Play#8 output Play#8 6 0 616
     Play#8 input ctld
@@ -5502,25 +5502,25 @@
     Play#0 output Play#0 1         1  32   54%  13K  48    0    0    0  6.2K 1.6K 246    0    1    0   20K
     Play#0 output Play#0 1    115.35
     Play#0 output Play#0 1         8  29   17% 3.9K 110    0    0    0  475  1.5K   0    0    0    0   29K
-    Play#0 output Play#0 1     47.86
-    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  413    0    0    0    0   30K
-    Play#0 output Play#0 1     32.62
+    Play#0 output Play#0 1     47.87
+    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  412    0    0    0    0   30K
+    Play#0 output Play#0 1     32.61
+    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   30K
+    Play#0 output Play#0 1     32.12
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  361    0    0    0    0   30K
     Play#0 output Play#0 1     32.08
-    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   30K
-    Play#0 output Play#0 1     32.08
-    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  355    0    0    0    0   30K
-    Play#0 output Play#0 1     31.99
-    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  291    0    0    0    0   30K
-    Play#0 output Play#0 1     31.29
+    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  346    0    0    0    0   30K
+    Play#0 output Play#0 1     31.89
+    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  292    0    0    0    0   30K
+    Play#0 output Play#0 1     31.30
     Play#0 output Play#0 1        10   3  100% 3.0K 110    0    0    0    0  238    0    0    0    0   30K
     Play#0 output Play#0 1     30.71
-    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   58    0    0    0    0   30K
-    Play#0 output Play#0 1     28.75
-    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   21    0    0    0    0   30K
-    Play#0 output Play#0 1     28.34
+    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   56    0    0    0    0   30K
+    Play#0 output Play#0 1     28.73
+    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   18    0    0    0    0   30K
+    Play#0 output Play#0 1     28.31
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-    Play#0 output Play#0 1 worldwide  85   55%  41K 1.0K   0    0    0  6.7K 5.2K 246    0    1    0  287K
+    Play#0 output Play#0 1 worldwide  85   55%  41K 1.0K   0    0    0  6.7K 5.1K 246    0    1    0  287K
     Play#0 output Play#0 1
     Play#0 output Play#0 6 0 630
     Play#0 input report *
@@ -5674,7 +5674,7 @@
     Play#0 output Play#0 1   1  12,-12  g .......... ....0.....   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  20,-12  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  22,-12  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
-    Play#0 output Play#0 1   8  24,-12  m .......... ...00.....   0   0    0    1  102   0    0    0    0   0
+    Play#0 output Play#0 1   8  24,-12  m .......... ...00.....   0   0    0    1  103   0    0    0    0   0
     Play#0 output Play#0 1   8  26,-12  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  28,-12  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  30,-12  c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -5701,23 +5701,23 @@
     Play#0 output Play#0 1   8  22,-10  - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  24,-10  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0  474 1213   0    0    0    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  413   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  412   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  355   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  346   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  361   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   58   0    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   56   0    0    0    0   0
     Play#0 output Play#0 1   3  -4,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -2,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  16,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -5781,7 +5781,7 @@
     Play#0 output Play#0 1   8   21,-11  g    0%   85   51    0   0   57
     Play#0 output Play#0 1   8   23,-11  gm 100%  100    0  100 100  100
     Play#0 output Play#0 1   8   25,-11  gm 100%  100    0  100 100  100
-    Play#0 output Play#0 1   8   27,-11  g  100%   39    6   21   0    0
+    Play#0 output Play#0 1   8   27,-11  g  100%   39    7   21   0    0
     Play#0 output Play#0 1   8   29,-11  g    0%   34   10   28   0    0
     Play#0 output Play#0 1   8   31,-11  -    1%    0    0  100 100    0
     Play#0 output Play#0 1  10  -12,-10  c  100%  100  100  100 100  100
@@ -6028,7 +6028,7 @@
     Play#1 output Play#1 1   -2,2    i 100%   474    0s 0.00 $0       0l   0h         0l   0h          0
     Play#1 output Play#1 1    0,2    m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    2,2    k 100%   649  176h 0.74 $0     474i            648i             240
-    Play#1 output Play#1 1    4,2    g   5%   599   25d 1.00 $0                                       25
+    Play#1 output Play#1 1    4,2    g   4%   599   20d 1.00 $0                                       20
     Play#1 output Play#1 1    6,2    g  46%   510  230d 1.00 $0                                      230
     Play#1 output Play#1 1    8,2    g  37%   499  184d 1.00 $0                                      184
     Play#1 output Play#1 1   10,2    g  28%   499  139d 1.00 $0                                      139
@@ -6163,7 +6163,7 @@
     Play#8 output Play#8 1   -2,0    g    0%     127 .. ..        1    0    0    0 100%    0        0   1
     Play#8 output Play#8 1    0,0    m  100%     115 .. ..      769   55  269    0 100%    0        0
     Play#8 output Play#8 1    2,0    m  100%     126 .. ..      769   55  262    0 100%    0        0
-    Play#8 output Play#8 1    4,0    gb 100%     127 .. ..      350    0    0    0 100%   10        0   1
+    Play#8 output Play#8 1    4,0    gb 100%     127 .. ..      350    0    0    0 100%    5        0   1
     Play#8 output Play#8 1    6,0    g    0%     127 .. ..        1    0    0    0 100%    0        0   1
     Play#8 output Play#8 1    8,0    -    2%     127 .. ..        4    0    0    0 100%    2        0   1
     Play#8 output Play#8 1   -3,1    g    0%     127 .. ..        1    0    0    0 100%    0        0   1
@@ -6238,28 +6238,28 @@
     Play#0 output Play#0 1       as of Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-    Play#0 output Play#0 1         1  32   73%  17K  48    0    0    0  7.6K 1.7K 618    0    1    0   20K
+    Play#0 output Play#0 1         1  32   73%  17K  48    0    0    0  7.6K 1.7K 619    0    1    0   20K
     Play#0 output Play#0 1    157.76
     Play#0 output Play#0 1         8  29   21% 5.1K 110    0    0    0  2.4K 1.8K   0    0    0    0   30K
-    Play#0 output Play#0 1     60.95
-    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  413    0    0    0    0   31K
-    Play#0 output Play#0 1     35.63
+    Play#0 output Play#0 1     61.00
+    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  412    0    0    0    0   31K
+    Play#0 output Play#0 1     35.62
+    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   31K
+    Play#0 output Play#0 1     35.10
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  361    0    0    0    0   31K
     Play#0 output Play#0 1     35.06
-    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   31K
-    Play#0 output Play#0 1     35.05
-    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  355    0    0    0    0   31K
-    Play#0 output Play#0 1     34.95
-    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  291    0    0    0    0   31K
-    Play#0 output Play#0 1     34.21
+    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  346    0    0    0    0   31K
+    Play#0 output Play#0 1     34.84
+    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  292    0    0    0    0   31K
+    Play#0 output Play#0 1     34.22
     Play#0 output Play#0 1        10   3  100% 3.0K 110    0    0    0    0  238    0    0    0    0   31K
     Play#0 output Play#0 1     33.59
-    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   58    0    0    0    0   31K
-    Play#0 output Play#0 1     31.49
-    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   21    0    0    0    0   31K
-    Play#0 output Play#0 1     31.05
+    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   56    0    0    0    0   31K
+    Play#0 output Play#0 1     31.46
+    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   18    0    0    0    0   31K
+    Play#0 output Play#0 1     31.02
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-    Play#0 output Play#0 1 worldwide  85   63%  46K 1.0K   0    0    0   10K 5.6K 618    0    1    0  295K
+    Play#0 output Play#0 1 worldwide  85   63%  46K 1.0K   0    0    0   10K 5.6K 619    0    1    0  295K
     Play#0 output Play#0 1
     Play#0 output Play#0 6 0 630
     Play#0 input report *
@@ -6336,7 +6336,7 @@
     Play#0 output Play#0 1   8   21,-11  g    0%     127 .. ..        1    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   8   23,-11  m  100%     115 .. ..      769   55  269    0 100%    0    0
     Play#0 output Play#0 1   8   25,-11  m  100%     126 .. ..      769   55  262    0 100%    0    0
-    Play#0 output Play#0 1   8   27,-11  gb 100%     127 .. ..      350    0    0    0 100%   10    0   1
+    Play#0 output Play#0 1   8   27,-11  gb 100%     127 .. ..      350    0    0    0 100%    5    0   1
     Play#0 output Play#0 1   8   29,-11  g    0%     127 .. ..        1    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   8   31,-11  -    2%     127 .. ..        4    0    0    0 100%    2    0   1
     Play#0 output Play#0 1  10  -12,-10  c  100%     127 .. ..     1000   55  265    0 100%  822    0
@@ -6389,7 +6389,7 @@
     Play#0 output Play#0 1   1   4,-14  b .......... ....3.....   0   0    0    0  300  81    0    0    0   0
     Play#0 output Play#0 1   1   6,-14  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   8,-14  j .......... ...9...0..   0   0    0  999    0   0    0    1    0   0
-    Play#0 output Play#0 1   1  10,-14  h .......... ..........   0   0    0 3475 1383   0  539 1298  908   0
+    Play#0 output Play#0 1   1  10,-14  h .......... ..........   0   0    0 3475 1383   0  540 1298  908   0
     Play#0 output Play#0 1   1  12,-14  = .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  16,-14  ) .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  18,-14  o .......... ......0...   0   0    0    0    0   0    0    0    0   0
@@ -6428,7 +6428,7 @@
     Play#0 output Play#0 1   8  21,-11  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  23,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
     Play#0 output Play#0 1   8  25,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
-    Play#0 output Play#0 1   8  27,-11  g .......... ....3.....   0   0    0    0   56   0    0    0    0   0
+    Play#0 output Play#0 1   8  27,-11  g .......... ....3.....   0   0    0    0   59   0    0    0    0   0
     Play#0 output Play#0 1   8  29,-11  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  31,-11  - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1  10 -12,-10  c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -6439,24 +6439,24 @@
     Play#0 output Play#0 1   8  20,-10  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  22,-10  - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  24,-10  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
-    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 2365 1750   0    0    0    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 2365 1751   0    0    0    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  413   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  412   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  355   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  346   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  361   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   58   0    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   56   0    0    0    0   0
     Play#0 output Play#0 1   3  -4,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -2,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  16,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -6513,14 +6513,14 @@
     Play#0 output Play#0 1   1    3,-11  oi 100%    0    0  100   2    0
     Play#0 output Play#0 1   1    5,-11  m  100%  100    0    0   0  100
     Play#0 output Play#0 1   1    7,-11  k  100%   91    0    0   0   68
-    Play#0 output Play#0 1   1    9,-11  g  100%   85    5    0   0   57
+    Play#0 output Play#0 1   1    9,-11  g  100%   85    4    0   0   57
     Play#0 output Play#0 1   1   11,-11  g    5%   78   46    0   0   45
     Play#0 output Play#0 1   1   13,-11  g    0%   67   37    0   0   25
     Play#0 output Play#0 1   1   15,-11  g    0%   56   28    0   0    5
     Play#0 output Play#0 1   8   21,-11  g    0%   85   51    0   0   57
     Play#0 output Play#0 1   8   23,-11  m  100%  100    0  100 100  100
     Play#0 output Play#0 1   8   25,-11  m  100%  100    0  100 100  100
-    Play#0 output Play#0 1   8   27,-11  gb 100%   39    2   21   0    0
+    Play#0 output Play#0 1   8   27,-11  gb 100%   39    3   21   0    0
     Play#0 output Play#0 1   8   29,-11  g    0%   34   10   28   0    0
     Play#0 output Play#0 1   8   31,-11  -    2%    0    0  100 100    0
     Play#0 output Play#0 1  10  -12,-10  c  100%  100  100  100 100  100
@@ -6916,7 +6916,7 @@
     Play#1 output Play#1 1    4,2    gr 100%     127 .. ..      769    0    0    0 100%   99        0   1
     Play#1 output Play#1 1    6,2    gw 100%     122 .. ..      769    0    0    0 100%   11        0   1
     Play#1 output Play#1 1    8,2    ge 100%     121 .. ..      769    0    0    0 100%    0        0   1
-    Play#1 output Play#1 1   10,2    g! 100%     120 .. ..      769    0    0    0 100%    2        0   1
+    Play#1 output Play#1 1   10,2    g! 100%     120 .. ..      769    0    0    0 100%    3        0   1
     Play#1 output Play#1 1   -1,3    +    0%     127 .. ..      100    0    0    0 100%    0        0   1
     Play#1 output Play#1 1    1,3    +   47%     127 .. ..      100    0    0    0 100%   13        0   1
     Play#1 output Play#1 1    5,3    p    0%     127 .. ..      769    0    0    0 100%    0        0   1
@@ -7164,28 +7164,28 @@
     Play#0 output Play#0 1       as of Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-    Play#0 output Play#0 1         1  33   87%  22K  48    0    0    0  8.7K 2.5K 788    0    1    0   20K
-    Play#0 output Play#0 1    223.52
+    Play#0 output Play#0 1         1  33   87%  22K  48    0    0    0  8.7K 2.5K 789    0    1    0   20K
+    Play#0 output Play#0 1    223.44
     Play#0 output Play#0 1         8  29   29% 6.7K 110    0    0    0  5.0K 2.3K   0    0    0    0   30K
-    Play#0 output Play#0 1     82.10
-    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  413    0    0    0    0   32K
-    Play#0 output Play#0 1     39.11
+    Play#0 output Play#0 1     82.15
+    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  412    0    0    0    0   32K
+    Play#0 output Play#0 1     39.10
+    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   32K
+    Play#0 output Play#0 1     38.54
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  361    0    0    0    0   32K
     Play#0 output Play#0 1     38.51
-    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   32K
-    Play#0 output Play#0 1     38.49
-    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  355    0    0    0    0   32K
-    Play#0 output Play#0 1     38.38
-    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  291    0    0    0    0   32K
-    Play#0 output Play#0 1     37.58
+    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  346    0    0    0    0   32K
+    Play#0 output Play#0 1     38.26
+    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  292    0    0    0    0   32K
+    Play#0 output Play#0 1     37.59
     Play#0 output Play#0 1        10   3  100% 3.0K 110    0    0    0    0  238    0    0    0    0   32K
     Play#0 output Play#0 1     36.92
-    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   58    0    0    0    0   32K
-    Play#0 output Play#0 1     34.66
-    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   21    0    0    0    0   32K
-    Play#0 output Play#0 1     34.20
+    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   56    0    0    0    0   32K
+    Play#0 output Play#0 1     34.64
+    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   18    0    0    0    0   32K
+    Play#0 output Play#0 1     34.16
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-    Play#0 output Play#0 1 worldwide  86   71%  53K 1.0K   0    0    0   14K 6.9K 788    0    1    0  303K
+    Play#0 output Play#0 1 worldwide  86   71%  53K 1.0K   0    0    0   14K 6.9K 789    0    1    0  303K
     Play#0 output Play#0 1
     Play#0 output Play#0 6 0 630
     Play#0 input report *
@@ -7259,7 +7259,7 @@
     Play#0 output Play#0 1   1    9,-11  gr 100%     127 .. ..      769    0    0    0 100%   99    0   1
     Play#0 output Play#0 1   1   11,-11  gw 100%     122 .. ..      769    0    0    0 100%   11    0   1
     Play#0 output Play#0 1   1   13,-11  ge 100%     121 .. ..      769    0    0    0 100%    0    0   1
-    Play#0 output Play#0 1   1   15,-11  g! 100%     120 .. ..      769    0    0    0 100%    2    0   1
+    Play#0 output Play#0 1   1   15,-11  g! 100%     120 .. ..      769    0    0    0 100%    3    0   1
     Play#0 output Play#0 1   8   21,-11  g    0%     127 .. ..        1    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   8   23,-11  m  100%     127 .. ..      769   55  310    0 100%    0    0
     Play#0 output Play#0 1   8   25,-11  m  100%     127 .. ..      769   55  302    0 100%    0    0
@@ -7316,7 +7316,7 @@
     Play#0 output Play#0 1   1   4,-14  b .......... ....3.....   0   0    0    0  305  96    0    0    0   0
     Play#0 output Play#0 1   1   6,-14  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   8,-14  j .......... ...9...0..   0   0    0  999    0   0    0    1    0   0
-    Play#0 output Play#0 1   1  10,-14  h .......... ..........   0   0    0 3828 2150   0  710 1288 1129   0
+    Play#0 output Play#0 1   1  10,-14  h .......... ..........   0   0    0 3828 2145   0  711 1288 1129   0
     Play#0 output Play#0 1   1  12,-14  = .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  14,-14  = .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  16,-14  ) .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -7367,24 +7367,24 @@
     Play#0 output Play#0 1   8  20,-10  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  22,-10  - .......... ...9......   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  24,-10  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
-    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 4032 2005   0    0    0    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 4032 2009   0    0    0    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  413   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  412   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  355   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  346   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  361   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   58   0    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   56   0    0    0    0   0
     Play#0 output Play#0 1   3  -4,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -2,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  16,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -7449,7 +7449,7 @@
     Play#0 output Play#0 1   8   21,-11  g    0%   85   51    0   0   57
     Play#0 output Play#0 1   8   23,-11  m  100%  100    0  100 100  100
     Play#0 output Play#0 1   8   25,-11  m  100%  100    0  100 100  100
-    Play#0 output Play#0 1   8   27,-11  b  100%   39    2   21   0    0
+    Play#0 output Play#0 1   8   27,-11  b  100%   39    3   21   0    0
     Play#0 output Play#0 1   8   29,-11  g    0%   34   10   28   0    0
     Play#0 output Play#0 1   8   31,-11  -    4%    0    0  100 100    0
     Play#0 output Play#0 1  10  -12,-10  c  100%  100  100  100 100  100
@@ -7972,26 +7972,26 @@
     Play#0 output Play#0 1       as of Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-    Play#0 output Play#0 1         1  33   95%  28K  78   51    0    0  9.2K 2.2K 810    0    1    0   23K
-    Play#0 output Play#0 1    294.12
+    Play#0 output Play#0 1         1  33   95%  28K  78   51    0    0  9.2K 2.1K 811    0    1    0   23K
+    Play#0 output Play#0 1    294.03
     Play#0 output Play#0 1         8  29   38% 8.7K 110    0    0    0  7.4K 2.1K 301    0    0    0   31K
-    Play#0 output Play#0 1    107.71
-    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  413    0    0    0    0   33K
-    Play#0 output Play#0 1     42.72
+    Play#0 output Play#0 1    107.76
+    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  412    0    0    0    0   33K
+    Play#0 output Play#0 1     42.70
+    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   33K
+    Play#0 output Play#0 1     42.12
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  361    0    0    0    0   33K
     Play#0 output Play#0 1     42.08
-    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   33K
-    Play#0 output Play#0 1     42.06
-    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  355    0    0    0    0   33K
-    Play#0 output Play#0 1     41.94
-    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  291    0    0    0    0   33K
-    Play#0 output Play#0 1     41.09
+    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  346    0    0    0    0   33K
+    Play#0 output Play#0 1     41.81
+    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  292    0    0    0    0   33K
+    Play#0 output Play#0 1     41.10
     Play#0 output Play#0 1        10   3  100% 3.0K 110    0    0    0    0  238    0    0    0    0   33K
     Play#0 output Play#0 1     40.38
-    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   58    0    0    0    0   33K
-    Play#0 output Play#0 1     37.97
-    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   21    0    0    0    0   33K
-    Play#0 output Play#0 1     37.47
+    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   56    0    0    0    0   33K
+    Play#0 output Play#0 1     37.94
+    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   18    0    0    0    0   33K
+    Play#0 output Play#0 1     37.43
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     Play#0 output Play#0 1 worldwide  86   77%  61K 1.1K  51    0    0   17K 6.4K 1.1K   0    1    0  314K
     Play#0 output Play#0 1
@@ -8124,7 +8124,7 @@
     Play#0 output Play#0 1   1   4,-14  b .......... ....3.....   0   0    0    0  300 157    0    0    0   0
     Play#0 output Play#0 1   1   6,-14  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   8,-14  j .......... ...9...0..   0   0    0  999    0   0    0    1    0   0
-    Play#0 output Play#0 1   1  10,-14  h .......... ...00.022.   0   0    0 4019 1826   0  662 1165 1307   0
+    Play#0 output Play#0 1   1  10,-14  h .......... ...00.022.   0   0    0 4019 1821   0  663 1165 1307   0
     Play#0 output Play#0 1   1  12,-14  = .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  14,-14  = .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  16,-14  ) .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -8175,24 +8175,24 @@
     Play#0 output Play#0 1   8  20,-10  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  22,-10  j .......... ...9...0..   0   0    0  999    0   0    0    0    0   0
     Play#0 output Play#0 1   8  24,-10  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
-    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 4408 1801   0  299   22    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 4408 1805   0  299   23    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  413   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  412   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  355   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  346   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  361   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   58   0    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   56   0    0    0    0   0
     Play#0 output Play#0 1   3  -4,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -2,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  16,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -8257,7 +8257,7 @@
     Play#0 output Play#0 1   8   21,-11  g    0%   85   51    0   0   57
     Play#0 output Play#0 1   8   23,-11  m  100%  100    0  100 100  100
     Play#0 output Play#0 1   8   25,-11  m  100%  100    0  100 100  100
-    Play#0 output Play#0 1   8   27,-11  b  100%   39    2   21   0    0
+    Play#0 output Play#0 1   8   27,-11  b  100%   39    3   21   0    0
     Play#0 output Play#0 1   8   29,-11  g    0%   34   10   28   0    0
     Play#0 output Play#0 1   8   31,-11  -    7%    0    0  100 100    0
     Play#0 output Play#0 1  10  -12,-10  c  100%  100  100  100 100  100
@@ -8674,26 +8674,26 @@
     Play#0 output Play#0 1       as of Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-    Play#0 output Play#0 1         1  33   98%  31K 111  136    5    0  9.3K 1.8K 709    0    4    5   28K
-    Play#0 output Play#0 1    355.48
+    Play#0 output Play#0 1         1  33   98%  31K 111  136    5    0  9.3K 1.8K 710    0    4    5   28K
+    Play#0 output Play#0 1    355.38
     Play#0 output Play#0 1         8  29   44%  11K 110    0    0    0   10K 1.9K 482    0    0    0   32K
-    Play#0 output Play#0 1    136.20
-    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  413    0    0    0    0   33K
-    Play#0 output Play#0 1     46.46
+    Play#0 output Play#0 1    136.25
+    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  412    0    0    0    0   33K
+    Play#0 output Play#0 1     46.44
+    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   33K
+    Play#0 output Play#0 1     45.83
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  361    0    0    0    0   33K
     Play#0 output Play#0 1     45.80
-    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   33K
-    Play#0 output Play#0 1     45.77
-    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  355    0    0    0    0   33K
-    Play#0 output Play#0 1     45.63
-    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  291    0    0    0    0   33K
-    Play#0 output Play#0 1     44.73
+    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  346    0    0    0    0   33K
+    Play#0 output Play#0 1     45.50
+    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  292    0    0    0    0   33K
+    Play#0 output Play#0 1     44.74
     Play#0 output Play#0 1        10   3  100% 3.0K 110    0    0    0    0  238    0    0    0    0   33K
     Play#0 output Play#0 1     43.98
-    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   58    0    0    0    0   33K
-    Play#0 output Play#0 1     41.41
-    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   21    0    0    0    0   33K
-    Play#0 output Play#0 1     40.89
+    Play#0 output Play#0 1         2   3  100% 3.0K 110    0    0    0    0   56    0    0    0    0   33K
+    Play#0 output Play#0 1     41.39
+    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   18    0    0    0    0   33K
+    Play#0 output Play#0 1     40.85
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     Play#0 output Play#0 1 worldwide  86   81%  66K 1.1K 136    5    0   20K 5.8K 1.2K   0    4    5  327K
     Play#0 output Play#0 1
@@ -8843,7 +8843,7 @@
     Play#0 output Play#0 1   8  23,-13  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  25,-13  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  27,-13  - .......... ...9......   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   8  29,-13  g .......... ....0.13..   0   0    0    0   30   0  150  143    0   0
+    Play#0 output Play#0 1   8  29,-13  g .......... ....0.13..   0   0    0    0   30   0  150  144    0   0
     Play#0 output Play#0 1   1   4,-12  k .......... ........0.   0   0    0  481    0   0    0    0    1   0
     Play#0 output Play#0 1   1   6,-12  m ...g...... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   8,-12  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
@@ -8860,7 +8860,7 @@
     Play#0 output Play#0 1   1   5,-11  m ...j...... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   7,-11  k .......... ........0.   0   0    0  601    0   0    0    0    1   0
     Play#0 output Play#0 1   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-    Play#0 output Play#0 1   1  11,-11  w .......... ..........   0   0    0 4234 1500   0  560 1308 1590   0
+    Play#0 output Play#0 1   1  11,-11  w .......... ..........   0   0    0 4234 1495   0  561 1308 1590   0
     Play#0 output Play#0 1   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  15,-11  ! .......... 20.....22. 135   4    0    0    0   0    0  195  198   0
     Play#0 output Play#0 1   8  21,-11  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
@@ -8877,24 +8877,24 @@
     Play#0 output Play#0 1   8  20,-10  g .......... ...90.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  22,-10  j .......... ...9...0..   0   0    0  999    0   0    0    0    0   0
     Play#0 output Play#0 1   8  24,-10  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
-    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 7194 1553   0  330    0    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 7194 1557   0  330    0    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  413   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  412   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  355   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  346   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  361   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   58   0    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    g .......... ..........   0   0    0    0   56   0    0    0    0   0
     Play#0 output Play#0 1   3  -4,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -2,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  16,10   c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -8959,7 +8959,7 @@
     Play#0 output Play#0 1   8   21,-11  g    0%   85   51    0   0   57
     Play#0 output Play#0 1   8   23,-11  m  100%  100    0  100 100  100
     Play#0 output Play#0 1   8   25,-11  m  100%  100    0  100 100  100
-    Play#0 output Play#0 1   8   27,-11  b  100%   39    2   21   0    0
+    Play#0 output Play#0 1   8   27,-11  b  100%   39    3   21   0    0
     Play#0 output Play#0 1   8   29,-11  gh 100%   34    0   28   0    0
     Play#0 output Play#0 1   8   31,-11  -i  12%    0    0  100 100    0
     Play#0 output Play#0 1  10  -12,-10  c  100%  100  100  100 100  100
@@ -10213,26 +10213,26 @@
     Play#0 output Play#0 1       as of Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-    Play#0 output Play#0 1         1  33  100%  31K 143  244   11    0  9.6K 1.5K 588    0    2    4   32K
-    Play#0 output Play#0 1    420.38
+    Play#0 output Play#0 1         1  33  100%  31K 143  244   11    0  9.6K 1.5K 589    0    2    4   32K
+    Play#0 output Play#0 1    420.27
     Play#0 output Play#0 1         8  29   58%  15K 110    0    0    0   12K 1.8K 485    0    0    0   29K
-    Play#0 output Play#0 1    189.01
-    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  413    0    0    0    0   34K
-    Play#0 output Play#0 1     50.24
+    Play#0 output Play#0 1    189.08
+    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  412    0    0    0    0   34K
+    Play#0 output Play#0 1     50.23
+    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   34K
+    Play#0 output Play#0 1     49.59
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  361    0    0    0    0   34K
     Play#0 output Play#0 1     49.56
-    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   34K
-    Play#0 output Play#0 1     49.53
-    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  355    0    0    0    0   34K
-    Play#0 output Play#0 1     49.36
-    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  291    0    0    0    0   34K
-    Play#0 output Play#0 1     48.41
+    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  346    0    0    0    0   34K
+    Play#0 output Play#0 1     49.22
+    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  292    0    0    0    0   34K
+    Play#0 output Play#0 1     48.43
     Play#0 output Play#0 1        10   3  100% 3.0K 110    0    0    0    0  238    0    0    0    0   34K
     Play#0 output Play#0 1     47.62
-    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   21    0    0    0    0   34K
-    Play#0 output Play#0 1     44.37
-    Play#0 output Play#0 1         2  30   10% 3.1K   0    0    0    0    0   58    0    0    0    0   34K
-    Play#0 output Play#0 1     44.08
+    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   18    0    0    0    0   34K
+    Play#0 output Play#0 1     44.32
+    Play#0 output Play#0 1         2  30   10% 3.1K   0    0    0    0    0   56    0    0    0    0   34K
+    Play#0 output Play#0 1     44.05
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     Play#0 output Play#0 1 worldwide 113   65%  70K 1.0K 244   11    0   22K 5.4K 1.1K   0    2    4  336K
     Play#0 output Play#0 1
@@ -10426,14 +10426,14 @@
     Play#0 output Play#0 1   1   5,-11  m .......... ...0......   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   7,-11  k .......... ........0.   0   0    0  601    0   0    0    0    1   0
     Play#0 output Play#0 1   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-    Play#0 output Play#0 1   1  11,-11  w .......... ..........  43   0    0 1367 1175   0  439 1454 1931   0
+    Play#0 output Play#0 1   1  11,-11  w .......... ..........  43   0    0 1367 1170   0  440 1454 1931   0
     Play#0 output Play#0 1   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  15,-11  ! .......... 20.....22. 200  10    0    0    0   0    0  198  199   0
     Play#0 output Play#0 1   8  21,-11  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   8  23,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
     Play#0 output Play#0 1   8  25,-11  m .......... ...0......   0   0    0  781    0   0    0    0    0   0
     Play#0 output Play#0 1   8  27,-11  b .......... ....3.....   0   0    0    0  300 184    0    0    0   0
-    Play#0 output Play#0 1   8  29,-11  h .......... .......22.   0   0    0    0    1   0    0  195  179   0
+    Play#0 output Play#0 1   8  29,-11  h .......... .......22.   0   0    0    0    1   0    0  196  178   0
     Play#0 output Play#0 1   8  31,-11  i .......... 0......63.   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1  10 -12,-10  c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1  10 -10,-10  c .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -10443,20 +10443,20 @@
     Play#0 output Play#0 1   8  20,-10  g .......... ...9...0..   0   0    0  999    1   0    0    0    0   0
     Play#0 output Play#0 1   8  22,-10  j .......... ...9...0..   0   0    0  999    0   0    0    1    0   0
     Play#0 output Play#0 1   8  24,-10  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
-    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 6404 1499   0  333    0    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 6404 1503   0  333    0    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  413   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  412   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  355   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  346   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  10,8    + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -10466,7 +10466,7 @@
     Play#0 output Play#0 1   2   9,9    + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  11,9    g .......... ....0.....   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  15,9    o .......... ......0...   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    g .......... ....3.....   0   0    0    0   58   0    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    g .......... ....3.....   0   0    0    0   56   0    0    0    0   0
     Play#0 output Play#0 1   2  19,9    g .......... ....0.....   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  21,9    g .......... ....0.....   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  23,9    g .......... ....0.....   0   0    0    0    0   0    0    0    0   0
@@ -10552,7 +10552,7 @@
     Play#0 output Play#0 1   8   21,-11  g    0%   85   51    0   0   57
     Play#0 output Play#0 1   8   23,-11  m  100%  100    0  100 100  100
     Play#0 output Play#0 1   8   25,-11  m  100%  100    0  100 100  100
-    Play#0 output Play#0 1   8   27,-11  b  100%   39    2   21   0    0
+    Play#0 output Play#0 1   8   27,-11  b  100%   39    3   21   0    0
     Play#0 output Play#0 1   8   29,-11  h  100%   34    0   28   0    0
     Play#0 output Play#0 1   8   31,-11  i  100%    0    0  100 100    0
     Play#0 output Play#0 1  10  -12,-10  c  100%  100  100  100 100  100
@@ -11130,7 +11130,7 @@
     Play#2 output Play#2 1   -5,-1   g  28%   500  140d 1.00 $0                                      140
     Play#2 output Play#2 1   -1,-1   o 100%   226  170o 0.75 $0                                      170
     Play#2 output Play#2 1    1,-1   b 100%    50   10b 1.00 $100    50d             50d              10
-    Play#2 output Play#2 1    3,-1   g  24%   432  103d 1.00 $0                                      103
+    Play#2 output Play#2 1    3,-1   g  25%   432  108d 1.00 $0                                      108
     Play#2 output Play#2 1    5,-1   g  42%    81   34d 1.00 $0                                       34
     Play#2 output Play#2 1    0,0    m 100%   849  849i 1.00 $0                                      849
     Play#2 output Play#2 1    2,0    m 100%   841  841i 1.00 $0                                      841
@@ -11343,7 +11343,7 @@
     Play#8 output Play#8 1    0,0    m 100%   965  965i 1.00 $0                                      965
     Play#8 output Play#8 1    2,0    m 100%   965  965i 1.00 $0                                      965
     Play#8 output Play#8 1    4,0    b 100%   328   60b 1.00 $600   300d            325d              65
-    Play#8 output Play#8 1    8,0    i 100%   649  101s 0.49 $621   414l 207h       432l 216h        105
+    Play#8 output Play#8 1    8,0    i 100%   649  101s 0.49 $618   412l 206h       432l 216h        105
     Play#8 output Play#8 1   -3,1    j 100%   599  478l 0.80 $0     599i            599i             478
     Play#8 output Play#8 1   -1,1    j 100%   599  478l 0.80 $0     599i            599i             478
     Play#8 output Play#8 1    1,1    g  37%   499  184d 1.00 $0                                      184
@@ -11374,26 +11374,26 @@
     Play#0 output Play#0 1       as of Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-    Play#0 output Play#0 1         1  33  100%  31K 176  373   18    0  9.6K 1.2K 846    0    3    4   39K
-    Play#0 output Play#0 1    501.67
+    Play#0 output Play#0 1         1  33  100%  31K 176  373   18    0  9.6K 1.2K 847    0    3    4   39K
+    Play#0 output Play#0 1    501.55
     Play#0 output Play#0 1         8  29   72%  19K 110    0    0    0   13K 2.1K 367    0    0    0   25K
-    Play#0 output Play#0 1    268.44
+    Play#0 output Play#0 1    268.51
     Play#0 output Play#0 1         2  30   15% 3.7K   0    0    0    0    0  1.1K   0    0    0    0   34K
-    Play#0 output Play#0 1     70.61
-    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  413    0    0    0    0   35K
-    Play#0 output Play#0 1     54.67
+    Play#0 output Play#0 1     70.58
+    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  412    0    0    0    0   35K
+    Play#0 output Play#0 1     54.66
+    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   35K
+    Play#0 output Play#0 1     53.99
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  361    0    0    0    0   35K
     Play#0 output Play#0 1     53.96
-    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   35K
-    Play#0 output Play#0 1     53.92
-    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  355    0    0    0    0   35K
-    Play#0 output Play#0 1     53.73
-    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  291    0    0    0    0   35K
-    Play#0 output Play#0 1     52.74
+    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  346    0    0    0    0   35K
+    Play#0 output Play#0 1     53.58
+    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  292    0    0    0    0   35K
+    Play#0 output Play#0 1     52.75
     Play#0 output Play#0 1        10   3  100% 3.0K 110    0    0    0    0  238    0    0    0    0   35K
     Play#0 output Play#0 1     51.90
-    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   21    0    0    0    0   35K
-    Play#0 output Play#0 1     48.44
+    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   18    0    0    0    0   35K
+    Play#0 output Play#0 1     48.39
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     Play#0 output Play#0 1 worldwide 113   70%  75K 1.1K 373   18    0   23K 6.5K 1.2K   0    3    4  345K
     Play#0 output Play#0 1
@@ -11587,7 +11587,7 @@
     Play#0 output Play#0 1   1   5,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
     Play#0 output Play#0 1   1   7,-11  k .......... ..2....22.   0   0    0    1    0   0    0    0    1   0
     Play#0 output Play#0 1   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-    Play#0 output Play#0 1   1  11,-11  w .......... .......... 172   0    0 2996  850   0  696 1670 2644   0
+    Play#0 output Play#0 1   1  11,-11  w .......... .......... 172   0    0 2996  845   0  697 1671 2644   0
     Play#0 output Play#0 1   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  15,-11  ! .......... 20.....22. 160   7    0    0    0   0    0  200  200   0
     Play#0 output Play#0 1   8  21,-11  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
@@ -11595,7 +11595,7 @@
     Play#0 output Play#0 1   8  25,-11  m .......... ...0......   0   0    0  855    0   0    0    0    0   0
     Play#0 output Play#0 1   8  27,-11  b .......... ....3.....   0   0    0    0  300 244    0    0    0   0
     Play#0 output Play#0 1   8  29,-11  h .......... .......22.   0   0    0    0    1   0    0  200  200   0
-    Play#0 output Play#0 1   8  31,-11  i .......... 0......63.   0   0    0    0    0   0    0  600  207   0
+    Play#0 output Play#0 1   8  31,-11  i .......... 0......63.   0   0    0    0    0   0    0  600  206   0
     Play#0 output Play#0 1  10 -12,-10  c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1  10 -10,-10  c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   4,-10  o .......... ......0...   0   0    0    0    0   0    1    0    0   0
@@ -11604,20 +11604,20 @@
     Play#0 output Play#0 1   8  20,-10  j .......... ...9...0..   0   0    0  999    1   0    0    1    0   0
     Play#0 output Play#0 1   8  22,-10  j .......... ...9...0..   0   0    0  999    0   0    0    1    0   0
     Play#0 output Play#0 1   8  24,-10  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
-    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 6222 1794   0  215   69    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 6222 1798   0  215   70    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  413   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  412   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  355   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  346   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  10,8    + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -11627,7 +11627,7 @@
     Play#0 output Play#0 1   2   9,9    + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  11,9    g .......... ...90.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   2  15,9    o .......... ......0...   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   2  17,9    b .......... ....3.....   0   0    0    0  987  11    0    0    0   0
+    Play#0 output Play#0 1   2  17,9    b .......... ....3.....   0   0    0    0  985  11    0    0    0   0
     Play#0 output Play#0 1   2  19,9    g .......... ....0.....   0   0    0    0  107   0    0    0    0   0
     Play#0 output Play#0 1   2  21,9    g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
     Play#0 output Play#0 1   2  23,9    g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
@@ -11713,7 +11713,7 @@
     Play#0 output Play#0 1   8   21,-11  g    0%   85   51    0   0   57
     Play#0 output Play#0 1   8   23,-11  m  100%  100    0  100 100  100
     Play#0 output Play#0 1   8   25,-11  m  100%  100    0  100 100  100
-    Play#0 output Play#0 1   8   27,-11  b  100%   39    2   21   0    0
+    Play#0 output Play#0 1   8   27,-11  b  100%   39    3   21   0    0
     Play#0 output Play#0 1   8   29,-11  h  100%   34    0   28   0    0
     Play#0 output Play#0 1   8   31,-11  i  100%    0    0  100 100    0
     Play#0 output Play#0 1  10  -12,-10  c  100%  100  100  100 100  100
@@ -11748,7 +11748,7 @@
     Play#0 output Play#0 1   2   11,9    g    0%   56   28    0   0    5
     Play#0 output Play#0 1   2   15,9    o    0%    0    0  100 100    0
     Play#0 output Play#0 1   2   17,9    b  100%   34    0   28   0    0
-    Play#0 output Play#0 1   2   19,9    g  100%   78   24    0   0   45
+    Play#0 output Play#0 1   2   19,9    g  100%   78   25    0   0   45
     Play#0 output Play#0 1   2   21,9    g   39%   74   42    0   0   37
     Play#0 output Play#0 1   2   23,9    g    0%   39   14   21   0    0
     Play#0 output Play#0 1   3   -4,10   c  100%  100  100  100 100  100
@@ -11926,7 +11926,7 @@
     Play#1 output Play#1 1   -4,-2   k  100%     127 .. ..      769    0    0    0 100%    1        0   1
     Play#1 output Play#1 1   -2,-2   j  100%     127 .. ..      769    0    0    0 100%    0        0   1
     Play#1 output Play#1 1    0,-2   c  100%     127 .. ..      769    0    0    0 100%  650        0   1
-    Play#1 output Play#1 1    2,-2   o% 100%     127 .. ..      769    0    0    0 100%    2        0   1
+    Play#1 output Play#1 1    2,-2   o% 100%     127 .. ..      769    0    0    0 100%    1        0   1
     Play#1 output Play#1 1    4,-2   t  100%     127 .. ..      769    0    0    0 100%  410        0   1
     Play#1 output Play#1 1    6,-2   l  100%     127 .. ..      769    0    0    0 100%  250        0   1
     Play#1 output Play#1 1   -1,-1   b  100%     127 .. ..      769    0    0    0 100%  349        0   1
@@ -12119,7 +12119,7 @@
     Play#2 output Play#2 1   -5,-1   gj 100%     119 .. 5.      769    0   80    0 100%    0        0   1
     Play#2 output Play#2 1   -1,-1   o  100%     118 .. ..      769    0    0    0 100%    0        0   1
     Play#2 output Play#2 1    1,-1   b  100%     127 .. ..      385    0    0    0 100%    0        0   1
-    Play#2 output Play#2 1    3,-1   g  100%      98 .. ..      300    0    0    0 100%    3        0   1
+    Play#2 output Play#2 1    3,-1   g  100%      97 .. ..      300    0    0    0 100%    0        0   1
     Play#2 output Play#2 1    5,-1   g  100%     117 .. ..      600    0    0    0 100%    0        0   1
     Play#2 output Play#2 1    7,-1   g    1%     120 .. ..      390    0    0    0 100%    2        0   1
     Play#2 output Play#2 1   -6,0    g    1%     120 .. ..        2    0    0    0 100%    1        0   1
@@ -12181,10 +12181,10 @@
     Play#2 output Play#2 1 PRODUCTION SIMULATION
     Play#2 output Play#2 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#2 output Play#2 1   -5,-1   j 100%   529  405l 0.77 $0     529i            529i             405
-    Play#2 output Play#2 1   -1,-1   o  78%   599  357o 0.77 $0                                      357
+    Play#2 output Play#2 1   -1,-1   o  77%   599  353o 0.77 $0                                      353
     Play#2 output Play#2 1    1,-1   b 100%   300   60b 1.00 $600   300d            300d              60
-    Play#2 output Play#2 1    3,-1   g   3%   237    7d 1.00 $0                                        7
-    Play#2 output Play#2 1    5,-1   g  35%   468  163d 1.00 $0                                      163
+    Play#2 output Play#2 1    3,-1   g   3%   234    7d 1.00 $0                                        7
+    Play#2 output Play#2 1    5,-1   g  36%   468  168d 1.00 $0                                      168
     Play#2 output Play#2 1    7,-1   g  14%   207   28d 1.00 $0                                       28
     Play#2 output Play#2 1    0,0    m 100%   998  998i 1.00 $0                                      998
     Play#2 output Play#2 1    2,0    m 100%   998  998i 1.00 $0                                      998
@@ -12319,7 +12319,7 @@
     Play#8 output Play#8 1   -3,-3   -   40%     127 .. ..      769    0    0    0 100%   13        0   1
     Play#8 output Play#8 1   -1,-3   g! 100%     127 .. ..      769    0    0    0 100%    0        0   1
     Play#8 output Play#8 1    1,-3   l  100%     127 .. ..      769    0    0    0 100%  350        0   1
-    Play#8 output Play#8 1   -4,-2   g* 100%     127 .. ..      769    0    0    0 100%    2        0   1
+    Play#8 output Play#8 1   -4,-2   g* 100%     127 .. ..      769    0    0    0 100%    3        0   1
     Play#8 output Play#8 1   -2,-2   m  100%     127 .. ..      769    0    0    0 100%    0        0
     Play#8 output Play#8 1    0,-2   m  100%     127 .. ..      769    0    0    0 100%    0        0
     Play#8 output Play#8 1    2,-2   k  100%     127 .. ..      769    0    0    0 100%    1        0   1
@@ -12336,7 +12336,7 @@
     Play#8 output Play#8 1    2,0    m  100%     127 .. 5.      769   55  512    0 100%    0        0
     Play#8 output Play#8 1    4,0    b  100%     127 .. ..      769    0    0    0 100%   28        0   1
     Play#8 output Play#8 1    6,0    h  100%     127 .. ..      769    0    0    0 100%  650        0   1
-    Play#8 output Play#8 1    8,0    i  100%     127 .. ..      769    0    0    0 100%   29        0   1
+    Play#8 output Play#8 1    8,0    i  100%     127 .. ..      769    0    0    0 100%   32        0   1
     Play#8 output Play#8 1   -3,1    j  100%     127 .. ..      769    0    0    0 100%    0        0   1
     Play#8 output Play#8 1   -1,1    j  100%     127 .. ..      769    0    0    0 100%    0        0   1
     Play#8 output Play#8 1    1,1    gk 100%     127 .. ..      769    0    0    0 100%    0        0   1
@@ -12370,7 +12370,7 @@
     Play#8 output Play#8 1   0 happiness, 300 education produced
     Play#8 output Play#8 1 total pop was 19025, yielding 0.00 hap, 46.88 edu
     Play#8 output Play#8 1 7.7622 technology (5.5268 + 2.2354), 1.8419 research (0.0000 + 1.8419) produced
-    Play#8 output Play#8 1 money delta was $-3315 for this update
+    Play#8 output Play#8 1 money delta was $-3312 for this update
     Play#8 output Play#8 1
     Play#8 output Play#8 6 0 616
     Play#8 input prod *
@@ -12395,7 +12395,7 @@
     Play#8 output Play#8 1    0,0    m 100%   952  952i 1.00 $0                                      952
     Play#8 output Play#8 1    2,0    m 100%   965  965i 1.00 $0                                      965
     Play#8 output Play#8 1    4,0    b 100%   627   60b 1.00 $600   300d            625d             125
-    Play#8 output Play#8 1    8,0    i 100%   628  132s 0.63 $627   418l 209h       418l 209h        132
+    Play#8 output Play#8 1    8,0    i 100%   631  132s 0.63 $630   420l 210h       420l 210h        132
     Play#8 output Play#8 1   -3,1    j 100%   599  494l 0.82 $0     599i            599i             494
     Play#8 output Play#8 1   -1,1    j 100%   599  494l 0.82 $0     599i            599i             494
     Play#8 output Play#8 1    1,1    k 100%   474    0h 0.82 $0       0i            474i             195
@@ -12425,28 +12425,28 @@
     Play#0 output Play#0 1       as of Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-    Play#0 output Play#0 1         1  33  100%  31K 209  516   26    0  9.9K 851  1.2K   3    5    4   46K
-    Play#0 output Play#0 1    594.24
-    Play#0 output Play#0 1         8  29   92%  25K 110  101    0    0   14K 2.8K 537    0    0    0   21K
-    Play#0 output Play#0 1    384.58
-    Play#0 output Play#0 1         2  30   28% 4.9K   0    0    0    0  1.7K 1.3K 169    0    0    0   35K
-    Play#0 output Play#0 1     92.10
-    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  413    0    0    0    0   36K
-    Play#0 output Play#0 1     59.36
+    Play#0 output Play#0 1         1  33  100%  31K 209  516   26    0  9.9K 846  1.2K   3    5    4   46K
+    Play#0 output Play#0 1    594.11
+    Play#0 output Play#0 1         8  29   92%  25K 110  100    0    0   14K 2.8K 536    0    0    0   21K
+    Play#0 output Play#0 1    384.66
+    Play#0 output Play#0 1         2  30   28% 4.9K   0    0    0    0  1.7K 1.3K 170    0    0    0   35K
+    Play#0 output Play#0 1     92.16
+    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  412    0    0    0    0   36K
+    Play#0 output Play#0 1     59.34
+    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   36K
+    Play#0 output Play#0 1     58.65
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  361    0    0    0    0   36K
     Play#0 output Play#0 1     58.63
-    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   36K
-    Play#0 output Play#0 1     58.58
-    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  355    0    0    0    0   36K
-    Play#0 output Play#0 1     58.36
-    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  291    0    0    0    0   36K
-    Play#0 output Play#0 1     57.31
+    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  346    0    0    0    0   36K
+    Play#0 output Play#0 1     58.21
+    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  292    0    0    0    0   36K
+    Play#0 output Play#0 1     57.33
     Play#0 output Play#0 1        10   3  100% 3.0K 110    0    0    0    0  238    0    0    0    0   36K
     Play#0 output Play#0 1     56.43
-    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   21    0    0    0    0   36K
-    Play#0 output Play#0 1     52.78
+    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   18    0    0    0    0   36K
+    Play#0 output Play#0 1     52.73
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-    Play#0 output Play#0 1 worldwide 113   79%  82K 1.1K 617   26    0   26K 7.0K 1.9K   3    5    4  355K
+    Play#0 output Play#0 1 worldwide 113   79%  82K 1.1K 616   26    0   26K 7.0K 1.9K   3    5    4  355K
     Play#0 output Play#0 1
     Play#0 output Play#0 6 0 630
     Play#0 input report *
@@ -12475,7 +12475,7 @@
     Play#0 output Play#0 1   1    1,-15  k  100%     127 .. ..      769    0    0    0 100%    1    0   1
     Play#0 output Play#0 1   1    3,-15  j  100%     127 .. ..      769    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   1    5,-15  c  100%     127 .. ..      769    0    0    0 100%  650    0   1
-    Play#0 output Play#0 1   1    7,-15  o% 100%     127 .. ..      769    0    0    0 100%    2    0   1
+    Play#0 output Play#0 1   1    7,-15  o% 100%     127 .. ..      769    0    0    0 100%    1    0   1
     Play#0 output Play#0 1   1    9,-15  t  100%     127 .. ..      769    0    0    0 100%  410    0   1
     Play#0 output Play#0 1   1   11,-15  l  100%     127 .. ..      769    0    0    0 100%  250    0   1
     Play#0 output Play#0 1   8   17,-15  of 100%     127 .. ..      769   55    0    0 100%    0    0   1
@@ -12496,7 +12496,7 @@
     Play#0 output Play#0 1   1    5,-13  m  100%     127 .. ..      769    0    0    0 100%    0    0
     Play#0 output Play#0 1   1    7,-13  m  100%     127 .. 5.      769    0  579    0 100%    6    0
     Play#0 output Play#0 1   1    9,-13  k  100%     127 .. 8.      769    0  869    0 100%    0    0   1
-    Play#0 output Play#0 1   8   19,-13  g* 100%     127 .. ..      769    0    0    0 100%    2    0   1
+    Play#0 output Play#0 1   8   19,-13  g* 100%     127 .. ..      769    0    0    0 100%    3    0   1
     Play#0 output Play#0 1   8   21,-13  m  100%     127 .. ..      769    0    0    0 100%    0    0
     Play#0 output Play#0 1   8   23,-13  m  100%     127 .. ..      769    0    0    0 100%    0    0
     Play#0 output Play#0 1   8   25,-13  k  100%     127 .. ..      769    0    0    0 100%    1    0   1
@@ -12526,7 +12526,7 @@
     Play#0 output Play#0 1   8   25,-11  m  100%     127 .. 5.      769   55  512    0 100%    0    0
     Play#0 output Play#0 1   8   27,-11  b  100%     127 .. ..      769    0    0    0 100%   28    0   1
     Play#0 output Play#0 1   8   29,-11  h  100%     127 .. ..      769    0    0    0 100%  650    0   1
-    Play#0 output Play#0 1   8   31,-11  i  100%     127 .. ..      769    0    0    0 100%   29    0   1
+    Play#0 output Play#0 1   8   31,-11  i  100%     127 .. ..      769    0    0    0 100%   32    0   1
     Play#0 output Play#0 1  10  -12,-10  c  100%     127 .. ..     1000   55  615    0 100% 1032    0
     Play#0 output Play#0 1  10  -10,-10  c  100%     127 .. ..     1000   55  615    0 100% 1032    0   1
     Play#0 output Play#0 1   1    4,-10  o  100%     127 .. ..      769    0    0    0 100%    0    0   1
@@ -12559,7 +12559,7 @@
     Play#0 output Play#0 1   2   11,9    gj 100%     119 .. 5.      769    0   80    0 100%    0    0   1
     Play#0 output Play#0 1   2   15,9    o  100%     118 .. ..      769    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   2   17,9    b  100%     127 .. ..      385    0    0    0 100%    0    0   1
-    Play#0 output Play#0 1   2   19,9    g  100%      98 .. ..      300    0    0    0 100%    3    0   1
+    Play#0 output Play#0 1   2   19,9    g  100%      97 .. ..      300    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   2   21,9    g  100%     117 .. ..      600    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   2   23,9    g    1%     120 .. ..      390    0    0    0 100%    2    0   1
     Play#0 output Play#0 1   3   -4,10   c  100%     127 .. ..     1000   55  615    0 100% 1032    0
@@ -12638,7 +12638,7 @@
     Play#0 output Play#0 1   1   5,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
     Play#0 output Play#0 1   1   7,-11  * .......... 1.2....22.   0   0    0    1    0   0    0  197  199   0
     Play#0 output Play#0 1   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-    Play#0 output Play#0 1   1  11,-11  w .......... .......... 275   0    0 3354  525   0  830 1815 3063   0
+    Play#0 output Play#0 1   1  11,-11  w .......... .......... 275   0    0 3354  520   0  831 1816 3063   0
     Play#0 output Play#0 1   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  15,-11  ! .......... 20.....22. 200  15    0    0    0   0    0  200  200   0
     Play#0 output Play#0 1   8  21,-11  g .......... .......0..   0   0    0    0    1   0    0    0    0   0
@@ -12655,24 +12655,24 @@
     Play#0 output Play#0 1   8  20,-10  j .......... ...9...0..   0   0    0  999    1   0    0    1    0   0
     Play#0 output Play#0 1   8  22,-10  j .......... ...9...0..   0   0    0  999    0   0    0    1    0   0
     Play#0 output Play#0 1   8  24,-10  g .......... ...90...0.   0   0    0    0    1   0    0    0    0   0
-    Play#0 output Play#0 1   8  26,-10  w .......... .......... 100   0    0 6354 2438   0  375  441    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   8  26,-10  w .......... ..........  99   0    0 6354 2442   0  374  444    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  413   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  412   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  355   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  346   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  10,8    + .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   2  12,8    w .......... ..........   0   0    0  691 1020   0  167    0    0   0
+    Play#0 output Play#0 1   2  12,8    w .......... ..........   0   0    0  691 1023   0  168    0    0   0
     Play#0 output Play#0 1   2  18,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  361   0    0    0    0   0
     Play#0 output Play#0 1   2   9,9    + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -12715,7 +12715,7 @@
     Play#0 output Play#0 1   1    1,-15  k  100%    6    0   67   0    0
     Play#0 output Play#0 1   1    3,-15  j  100%   11    0   61   0    0
     Play#0 output Play#0 1   1    5,-15  c  100%   28    5   37   0    0
-    Play#0 output Play#0 1   1    7,-15  o% 100%    0    0   76  25    0
+    Play#0 output Play#0 1   1    7,-15  o% 100%    0    0   76  24    0
     Play#0 output Play#0 1   1    9,-15  t  100%   39   14   21   0    0
     Play#0 output Play#0 1   1   11,-15  l  100%    0    0   91  72    0
     Play#0 output Play#0 1   8   17,-15  of 100%    0    0  100   1    0
@@ -12764,7 +12764,7 @@
     Play#0 output Play#0 1   8   21,-11  gp 100%   85    0    0   0   57
     Play#0 output Play#0 1   8   23,-11  m  100%  100    0  100 100  100
     Play#0 output Play#0 1   8   25,-11  m  100%  100    0  100 100  100
-    Play#0 output Play#0 1   8   27,-11  b  100%   39    2   21   0    0
+    Play#0 output Play#0 1   8   27,-11  b  100%   39    3   21   0    0
     Play#0 output Play#0 1   8   29,-11  h  100%   34    0   28   0    0
     Play#0 output Play#0 1   8   31,-11  i  100%    0    0  100 100    0
     Play#0 output Play#0 1  10  -12,-10  c  100%  100  100  100 100  100
@@ -12797,10 +12797,10 @@
     Play#0 output Play#0 1   3   -3,9    g  100%  100    0    0   0  100
     Play#0 output Play#0 1   2    9,9    +    1%    6    0   67  32    0
     Play#0 output Play#0 1   2   11,9    gj 100%   56    0    0   0    5
-    Play#0 output Play#0 1   2   15,9    o  100%    0    0  100  78    0
+    Play#0 output Play#0 1   2   15,9    o  100%    0    0  100  77    0
     Play#0 output Play#0 1   2   17,9    b  100%   34    0   28   0    0
     Play#0 output Play#0 1   2   19,9    g  100%   78    3    0   0   45
-    Play#0 output Play#0 1   2   21,9    g  100%   74   35    0   0   37
+    Play#0 output Play#0 1   2   21,9    g  100%   74   36    0   0   37
     Play#0 output Play#0 1   2   23,9    g    1%   39   14   21   0    0
     Play#0 output Play#0 1   3   -4,10   c  100%  100  100  100 100  100
     Play#0 output Play#0 1   3   -2,10   c  100%  100  100  100 100  100
@@ -13044,7 +13044,7 @@
     Play#1 output Play#1 1   -4,-2   k  100%     127 .. ..     1000    0    0    0 100%    1        0   1
     Play#1 output Play#1 1   -2,-2   j  100%     127 .. ..     1000    0    0    0 100%    0        0   1
     Play#1 output Play#1 1    0,-2   c  100%     127 .. ..     1000    0    0    0 100%  650        0   1
-    Play#1 output Play#1 1    2,-2   %  100%     118 .. ..      769    0    0    0 100%  343        0   1
+    Play#1 output Play#1 1    2,-2   %  100%     118 .. ..      769    0    0    0 100%  342        0   1
     Play#1 output Play#1 1    4,-2   t  100%     122 .. ..      770    0    0    0 100%  410        0   1
     Play#1 output Play#1 1    6,-2   l  100%     123 .. ..      770    0    0    0 100%  200        0   1
     Play#1 output Play#1 1   -1,-1   b  100%     127 .. ..      999    0    0    0 100%  349        0   1
@@ -13130,7 +13130,7 @@
     Play#1 output Play#1 1 total pop was 31449, yielding 12.08 hap, 43.62 edu
     Play#1 output Play#1 1 7.2653 technology (4.4920 + 2.7733), 3.7044 research (3.7044 + 0.0000) produced
     Play#1 output Play#1 1 Army delta $-138, Navy delta $-1650, Air force delta $-1227
-    Play#1 output Play#1 1 money delta was $5350 for this update
+    Play#1 output Play#1 1 money delta was $5349 for this update
     Play#1 output Play#1 1
     Play#1 output Play#1 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#1 output Play#1 1 Flying a support mission from 11,-1 to 12,-2
@@ -13146,7 +13146,7 @@
     Play#1 output Play#1 1    1,-3   j 100%   240  210l 0.87 $0     240i            240i             210
     Play#1 output Play#1 1   -4,-2   k 100%   601  262h 0.87 $0     600i            600i             262
     Play#1 output Play#1 1   -2,-2   j 100%   600  524l 0.87 $0     600i            600i             524
-    Play#1 output Play#1 1    2,-2   % 100%   649  453p 7.95 $57     57o            126o             999
+    Play#1 output Play#1 1    2,-2   % 100%   649  445p 7.95 $56     56o            126o             999
     Play#1 output Play#1 1    4,-2   t 100%   650 11.43 0.76 $4500   15d  75o 150l   40d 200o 400l 30.49
     Play#1 output Play#1 1    6,-2   l 100%   650  450  1.00 $4050  450l            650l             650
     Play#1 output Play#1 1   -1,-1   b 100%   650    0b 1.00 $0       0d            650d             130
@@ -13256,8 +13256,8 @@
     Play#2 output Play#2 1   -5,-1   j  100%     127 .. 5.      769    0  266    0 100%    0        0   1
     Play#2 output Play#2 1   -1,-1   o  100%     127 .. ..      769    0    0    0 100%    0        0   1
     Play#2 output Play#2 1    1,-1   b  100%     127 .. ..      385    0    0    0 100%    0        0   1
-    Play#2 output Play#2 1    3,-1   gl 100%     127 .. ..      300    0    0    0 100%    4        0   1
-    Play#2 output Play#2 1    5,-1   gk 100%     127 .. ..      769    0    0    0 100%    3        0   1
+    Play#2 output Play#2 1    3,-1   gl 100%     127 .. ..      300    0    0    0 100%    1        0   1
+    Play#2 output Play#2 1    5,-1   gk 100%     127 .. ..      769    0    0    0 100%    2        0   1
     Play#2 output Play#2 1    7,-1   g  100%     127 .. ..      400    0    0    0 100%    7        0   1
     Play#2 output Play#2 1   -6,0    g    2%     127 .. ..      769    0    0    0 100%    1        0   1
     Play#2 output Play#2 1   -4,0    g    3%     127 .. ..      500    0    0    0 100%    3        0   1
@@ -13319,7 +13319,7 @@
     Play#2 output Play#2 1    1,-1   b 100%   300   60b 1.00 $600   300d            300d              60
     Play#2 output Play#2 1    3,-1   l  92%   117  107  1.00 $963   107l            107l             107
     Play#2 output Play#2 1    5,-1   k 100%   474  184h 0.78 $0     474i            474i             184
-    Play#2 output Play#2 1    7,-1   g   8%   319   25d 1.00 $0                                       25
+    Play#2 output Play#2 1    7,-1   g   9%   319   28d 1.00 $0                                       28
     Play#2 output Play#2 1   -6,0    g  19%   502   95d 1.00 $0                                       95
     Play#2 output Play#2 1   -4,0    g  33%   296   97d 1.00 $0                                       97
     Play#2 output Play#2 1    0,0    m 100%   998  998i 1.00 $0                                      998
@@ -13436,7 +13436,7 @@
     Play#8 output Play#8 1   0 happiness, 300 education produced
     Play#8 output Play#8 1 total pop was 24734, yielding 0.00 hap, 38.66 edu
     Play#8 output Play#8 1 7.7926 technology (5.5466 + 2.2460), 1.8522 research (0.0000 + 1.8522) produced
-    Play#8 output Play#8 1 money delta was $1127 for this update
+    Play#8 output Play#8 1 money delta was $1124 for this update
     Play#8 output Play#8 1
     Play#8 output Play#8 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#8 output Play#8 1 1 planes spotted over -6,-4
@@ -13489,7 +13489,7 @@
     Play#8 output Play#8 1    0,0    m 100%   952  952i 1.00 $0                                      952
     Play#8 output Play#8 1    2,0    m 100%   965  965i 1.00 $0                                      965
     Play#8 output Play#8 1    4,0    b 100%   649   60b 1.00 $600   300d            645d             129
-    Play#8 output Play#8 1    8,0    i 100%   601   63s 0.71 $267   178l  89h       400l 200h        142
+    Play#8 output Play#8 1    8,0    i 100%   601   63s 0.71 $264   176l  88h       400l 200h        142
     Play#8 output Play#8 1   -3,1    j 100%   599  506l 0.85 $0     599i            599i             506
     Play#8 output Play#8 1   -1,1    j 100%   599  506l 0.85 $0     599i            599i             506
     Play#8 output Play#8 1    1,1    k 100%   649  274h 0.85 $0     648i            648i             274
@@ -13519,28 +13519,28 @@
     Play#0 output Play#0 1       as of Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
-    Play#0 output Play#0 1         1  33  100%  31K 231  661   34  994   10K 526  1.0K   3    5    4   51K
-    Play#0 output Play#0 1    686.43
-    Play#0 output Play#0 1         8  29  100%  29K 105  214    5    0   16K 2.4K 545    0    0    0   22K
-    Play#0 output Play#0 1    486.16
-    Play#0 output Play#0 1         2  30   33% 6.3K   0    0    0    0  3.2K 1.2K 527    0    0    0   36K
-    Play#0 output Play#0 1    122.83
-    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  413    0    0    0    0   37K
-    Play#0 output Play#0 1     64.32
+    Play#0 output Play#0 1         1  33  100%  31K 231  661   34  994   10K 521  1.0K   3    5    4   51K
+    Play#0 output Play#0 1    686.28
+    Play#0 output Play#0 1         8  29  100%  29K 105  213    5    0   16K 2.5K 544    0    0    0   22K
+    Play#0 output Play#0 1    486.24
+    Play#0 output Play#0 1         2  30   33% 6.3K   0    0    0    0  3.2K 1.2K 523    0    0    0   36K
+    Play#0 output Play#0 1    122.96
+    Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  412    0    0    0    0   37K
+    Play#0 output Play#0 1     64.31
+    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  366    0    0    0    0   37K
+    Play#0 output Play#0 1     63.59
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  361    0    0    0    0   37K
     Play#0 output Play#0 1     63.58
-    Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   37K
-    Play#0 output Play#0 1     63.52
-    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  355    0    0    0    0   37K
-    Play#0 output Play#0 1     63.27
-    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  291    0    0    0    0   37K
-    Play#0 output Play#0 1     62.18
+    Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  346    0    0    0    0   37K
+    Play#0 output Play#0 1     63.11
+    Play#0 output Play#0 1         4   3  100% 3.0K 110    0    0    0    0  292    0    0    0    0   37K
+    Play#0 output Play#0 1     62.19
     Play#0 output Play#0 1        10   3  100% 3.0K 110    0    0    0    0  238    0    0    0    0   37K
     Play#0 output Play#0 1     61.24
-    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   21    0    0    0    0   37K
-    Play#0 output Play#0 1     57.40
+    Play#0 output Play#0 1         9   3  100% 3.0K 110    0    0    0    0   18    0    0    0    0   37K
+    Play#0 output Play#0 1     57.34
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-    Play#0 output Play#0 1 worldwide 113   82%  87K 1.1K 875   39  994   29K 6.3K 2.1K   3    5    4  370K
+    Play#0 output Play#0 1 worldwide 113   82%  87K 1.1K 874   39  994   29K 6.2K 2.1K   3    5    4  370K
     Play#0 output Play#0 1
     Play#0 output Play#0 6 0 630
     Play#0 input report *
@@ -13569,7 +13569,7 @@
     Play#0 output Play#0 1   1    1,-15  k  100%     127 .. ..     1000    0    0    0 100%    1    0   1
     Play#0 output Play#0 1   1    3,-15  j  100%     127 .. ..     1000    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   1    5,-15  c  100%     127 .. ..     1000    0    0    0 100%  650    0   1
-    Play#0 output Play#0 1   1    7,-15  %  100%     118 .. ..      769    0    0    0 100%  343    0   1
+    Play#0 output Play#0 1   1    7,-15  %  100%     118 .. ..      769    0    0    0 100%  342    0   1
     Play#0 output Play#0 1   1    9,-15  t  100%     122 .. ..      770    0    0    0 100%  410    0   1
     Play#0 output Play#0 1   1   11,-15  l  100%     123 .. ..      770    0    0    0 100%  200    0   1
     Play#0 output Play#0 1   8   17,-15  f   91%     116 .. ..      700   50    0    0 100%  444    0   1
@@ -13653,8 +13653,8 @@
     Play#0 output Play#0 1   2   11,9    j  100%     127 .. 5.      769    0  266    0 100%    0    0   1
     Play#0 output Play#0 1   2   15,9    o  100%     127 .. ..      769    0    0    0 100%    0    0   1
     Play#0 output Play#0 1   2   17,9    b  100%     127 .. ..      385    0    0    0 100%    0    0   1
-    Play#0 output Play#0 1   2   19,9    gl 100%     127 .. ..      300    0    0    0 100%    4    0   1
-    Play#0 output Play#0 1   2   21,9    gk 100%     127 .. ..      769    0    0    0 100%    3    0   1
+    Play#0 output Play#0 1   2   19,9    gl 100%     127 .. ..      300    0    0    0 100%    1    0   1
+    Play#0 output Play#0 1   2   21,9    gk 100%     127 .. ..      769    0    0    0 100%    2    0   1
     Play#0 output Play#0 1   2   23,9    g  100%     127 .. ..      400    0    0    0 100%    7    0   1
     Play#0 output Play#0 1   3   -4,10   c  100%     127 .. ..     1000   55  707    0 100% 1087    0
     Play#0 output Play#0 1   3   -2,10   c  100%     127 .. ..     1000   55  736    0 100% 1104    0
@@ -13689,7 +13689,7 @@
     Play#0 output Play#0 1   1   1,-15  k .......... ...9....0.   0   0    0  999    0   0    1    0    1   0
     Play#0 output Play#0 1   1   3,-15  j .......... ...9...0..   0   0    0  999    0   0    1    1    0   0
     Play#0 output Play#0 1   1   5,-15  c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1   7,-15  % .......... ..0.......   0   0    1    0    0   0   57    0    0   0
+    Play#0 output Play#0 1   1   7,-15  % .......... ..0.......   0   0    1    0    0   0   56    0    0   0
     Play#0 output Play#0 1   1   9,-15  t .......... ....0.01..   0   0    0    0   15   0   75  150    0   0
     Play#0 output Play#0 1   1  11,-15  l .......... .......4..   0   0    0    0    0   0    0  450    0   0
     Play#0 output Play#0 1   8  17,-15  f .......... 20....0.1. 181   4    0    0    0   0    1    0   91   0
@@ -13704,7 +13704,7 @@
     Play#0 output Play#0 1   1  16,-14  ) .......... 0.0.......  17   0   15    0    0   0    0    0    0   0
     Play#0 output Play#0 1   8  18,-14  o .......... ..........   0   0    0    0    0   0    1    0    0   0
     Play#0 output Play#0 1   8  20,-14  - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   8  22,-14  ! .......... 20.....22.  32   0    0    0    1   0    0  200  200   0
+    Play#0 output Play#0 1   8  22,-14  ! .......... 20.....22.  31   0    0    0    1   0    0  200  200   0
     Play#0 output Play#0 1   8  24,-14  l .......... .......4..   0   0    0    0    1   0    0  400    0   0
     Play#0 output Play#0 1   1   3,-13  j .......... .......0..   0   0    0  600    0   0    0    1    0   0
     Play#0 output Play#0 1   1   5,-13  m ...g...... ..........   0   0    0    0    0   0    0    0    0   0
@@ -13732,7 +13732,7 @@
     Play#0 output Play#0 1   1   5,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
     Play#0 output Play#0 1   1   7,-11  * .......... 1.2....22. 180   0  200    1    0   0    0  200  200   0
     Play#0 output Play#0 1   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-    Play#0 output Play#0 1   1  11,-11  w .......... ..........  27   0  778 3590  500   0  809 2147 3686   0
+    Play#0 output Play#0 1   1  11,-11  w .......... ..........  27   0  778 3590  495   0  810 2148 3686   0
     Play#0 output Play#0 1   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  15,-11  ! .......... 20.....22. 200  15    0    0    0   0    0  200  200   0
     Play#0 output Play#0 1   8  21,-11  p .......... .......0..   0   0    0    0    1   0    0   75    0   0
@@ -13740,7 +13740,7 @@
     Play#0 output Play#0 1   8  25,-11  m .......... ...0......   0   0    0 2738    0   0    0    0    0   0
     Play#0 output Play#0 1   8  27,-11  b .......... ....3.....   0   0    0    0  300 364    0    0    0   0
     Play#0 output Play#0 1   8  29,-11  h .......... .......22.   0   0    0    0    1   0    0  200  200   0
-    Play#0 output Play#0 1   8  31,-11  i .......... 0......63.   1   0    0    0    0   0    0  600   89   0
+    Play#0 output Play#0 1   8  31,-11  i .......... 0......63.   1   0    0    0    0   0    0  600   88   0
     Play#0 output Play#0 1  10 -12,-10  c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1  10 -10,-10  c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   4,-10  o .......... ......0...   0   0    0    0    0   0    1    0    0   0
@@ -13749,24 +13749,24 @@
     Play#0 output Play#0 1   8  20,-10  j .......... ...9...0..   0   0    0  999    1   0    0    1    0   0
     Play#0 output Play#0 1   8  22,-10  j .......... ...9...0..   0   0    0  999    0   0    0    1    0   0
     Play#0 output Play#0 1   8  24,-10  k .......... ...90...0.   0   0    0  999    1   0    0    0    0   0
-    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 5401 2108   0  383  282    0   0
-    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   21   0    0    0    0   0
+    Play#0 output Play#0 1   8  26,-10  w .......... ..........   0   0    0 5401 2112   0  382  283    0   0
+    Play#0 output Play#0 1   9 -25,-7   g .......... ..........   0   0    0    0   18   0    0    0    0   0
     Play#0 output Play#0 1   9 -26,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   9 -24,-6   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  413   0    0    0    0   0
+    Play#0 output Play#0 1   6   3,-3   g .......... ..........   0   0    0    0  412   0    0    0    0   0
     Play#0 output Play#0 1   6   2,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   6   4,-2   c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  355   0    0    0    0   0
-    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  291   0    0    0    0   0
+    Play#0 output Play#0 1   7  25,-1   g .......... ..........   0   0    0    0  346   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,0    g .......... ..........   0   0    0    0  292   0    0    0    0   0
     Play#0 output Play#0 1   7  24,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   7  26,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  362   0    0    0    0   0
+    Play#0 output Play#0 1   5 -29,7    g .......... ..........   0   0    0    0  366   0    0    0    0   0
     Play#0 output Play#0 1   5 -30,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -28,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   2  10,8    + .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   2  12,8    w .......... ..........   0   0    0 1161  918   0  525  104    0   0
+    Play#0 output Play#0 1   2  12,8    w .......... ..........   0   0    0 1161  926   0  521  104    0   0
     Play#0 output Play#0 1   2  18,8    c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  -3,9    g .......... ..........   0   0    0    0  361   0    0    0    0   0
     Play#0 output Play#0 1   2   9,9    + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -13809,7 +13809,7 @@
     Play#0 output Play#0 1   1    1,-15  k  100%    6    0   67   0    0
     Play#0 output Play#0 1   1    3,-15  j  100%   11    0   61   0    0
     Play#0 output Play#0 1   1    5,-15  c  100%   28    5   37   0    0
-    Play#0 output Play#0 1   1    7,-15  %  100%    0    0   76  25    0
+    Play#0 output Play#0 1   1    7,-15  %  100%    0    0   76  24    0
     Play#0 output Play#0 1   1    9,-15  t  100%   39   14   21   0    0
     Play#0 output Play#0 1   1   11,-15  l  100%    0    0   91  72    0
     Play#0 output Play#0 1   8   17,-15  f   91%    0    0  100   1    0
@@ -13858,7 +13858,7 @@
     Play#0 output Play#0 1   8   21,-11  p  100%   85    0    0   0   57
     Play#0 output Play#0 1   8   23,-11  m  100%  100    0  100 100  100
     Play#0 output Play#0 1   8   25,-11  m  100%  100    0  100 100  100
-    Play#0 output Play#0 1   8   27,-11  b  100%   39    2   21   0    0
+    Play#0 output Play#0 1   8   27,-11  b  100%   39    3   21   0    0
     Play#0 output Play#0 1   8   29,-11  h  100%   34    0   28   0    0
     Play#0 output Play#0 1   8   31,-11  i  100%    0    0  100 100    0
     Play#0 output Play#0 1  10  -12,-10  c  100%  100  100  100 100  100
@@ -13895,7 +13895,7 @@
     Play#0 output Play#0 1   2   17,9    b  100%   34    0   28   0    0
     Play#0 output Play#0 1   2   19,9    gl 100%   78    1    0   0   45
     Play#0 output Play#0 1   2   21,9    gk 100%   74    3    0   0   37
-    Play#0 output Play#0 1   2   23,9    g  100%   39    8   21   0    0
+    Play#0 output Play#0 1   2   23,9    g  100%   39    9   21   0    0
     Play#0 output Play#0 1   3   -4,10   c  100%  100  100  100 100  100
     Play#0 output Play#0 1   3   -2,10   c  100%  100  100  100 100  100
     Play#0 output Play#0 1   2   10,10   g    2%   45   19   13   0    0
@@ -14030,7 +14030,7 @@
     Play#0 output Play#0 1 5 4 62 "5" "5" "127.0.0.1" "" "tester" -30 8 -30 8 0 17 1 255 640 0 0 38174 0 0 0 0 27.2882 10.8553 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 6 4 62 "6" "6" "127.0.0.1" "" "tester" 2 -2 2 -2 0 17 1 255 640 0 0 38160 0 0 0 0 27.2882 10.8553 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 7 4 62 "7" "7" "127.0.0.1" "" "tester" 24 0 24 0 0 17 1 255 640 0 0 38168 0 0 0 0 27.2882 10.8553 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 8 4 62 "8" "8" "127.0.0.1" "" "tester" 30 -12 23 -11 0 1 0 255 640 0 0 27539 0 0 0 0 52.0603 10.8553 40.5106 6.99218 2 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 8 4 62 "8" "8" "127.0.0.1" "" "tester" 30 -12 23 -11 0 1 0 255 640 0 0 27543 0 0 0 0 52.0603 10.8553 40.5106 6.99218 2 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 9 4 62 "9" "9" "127.0.0.1" "" "tester" -26 -6 -26 -6 0 17 1 255 640 0 0 38181 0 0 0 0 27.2882 10.8553 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 10 4 62 "10" "10" "127.0.0.1" "" "tester" -12 -10 -12 -10 0 17 1 255 640 0 0 38176 0 0 0 0 27.2882 10.8553 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 11 2 62 "visitor" "visitor" "" "" "" 0 0 0 0 0 0 0 255 640 0 0 0 0 0 0 0 0.00000 0.00000 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
