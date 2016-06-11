@@ -50,6 +50,7 @@ coll(void)
     char *p;
     struct lonstr loan;
     struct sctstr sect;
+    struct natstr *lonee_np;
     coord x, y;
     double owed;
     double pay;
@@ -76,6 +77,7 @@ coll(void)
 	return RET_FAIL;
     }
 
+    lonee_np = getnatp(loan.l_lonee);
     pr("You are owed $%.2f on that loan.\n", owed);
     p = getstarg(player->argp[2],
 		 "What sector do you wish to confiscate? ", buf);
@@ -106,6 +108,12 @@ coll(void)
 	   owed);
 	return RET_FAIL;
     }
+    if (!influx(lonee_np)
+	&& sect.sct_x == lonee_np->nat_xcap
+	&& sect.sct_y == lonee_np->nat_ycap) {
+	pr("%s's capital cannot be confiscated.\n", cname(loan.l_lonee));
+	return RET_FAIL;
+    }
     pr("That sector (and its contents) is valued at $%.2f\n", pay);
 
     sect.sct_item[I_MILIT] = 1;	/* FIXME now where did this guy come from? */
@@ -115,15 +123,11 @@ coll(void)
      * unwanted things, like generate che.
      */
     sect.sct_own = player->cnum;
-
     memset(sect.sct_dist, 0, sizeof(sect.sct_dist));
     memset(sect.sct_del, 0, sizeof(sect.sct_del));
     sect.sct_off = 1;
     sect.sct_dist_x = sect.sct_x;
     sect.sct_dist_y = sect.sct_y;
-
-    if (sect.sct_type == SCT_CAPIT || sect.sct_type == SCT_MOUNT)
-	caploss(&sect, loan.l_lonee, "that was %s's capital!\n");
     putsect(&sect);
     nreport(player->cnum, N_SEIZE_SECT, loan.l_lonee, 1);
     owed = loan_owed(&loan, time(&now));

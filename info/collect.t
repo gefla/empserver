@@ -8,8 +8,6 @@ Through the collect command overdue loans can be \*Qcleared up\*U.
 If you should find that you have a problem debtor who refuses
 to pay up on your kind loan you can always seize one or more
 of his/her sectors.
-Perhaps the mere threat of a collection on
-someone's capital may do the trick!
 .s1
 To settle up accounts on overdue loan #9 you would type:
 .EX collect 9
