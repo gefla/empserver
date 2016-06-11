@@ -1,13 +1,13 @@
 tests/empdump/xundump-errors/colhdr-amb:2: ambiguous header 'm' in field 3
 tests/empdump/xundump-errors/colhdr-dup:2: duplicate header 'name' in field 2
 tests/empdump/xundump-errors/colhdr-dup2:6: duplicate header 'name' in field 3
-tests/empdump/xundump-errors/colhdr-dup3:2: expected header 'pkg(1)' in field 8
+tests/empdump/xundump-errors/colhdr-dup3:2: expected header 'pkg(1)' in field 7
 tests/empdump/xundump-errors/colhdr-ellipsis:2: header fields expected
 tests/empdump/xundump-errors/colhdr-ellipsis2:2: junk after ...
 tests/empdump/xundump-errors/colhdr-eof:2: unexpected EOF
-tests/empdump/xundump-errors/colhdr-idxbig:2: unexpected header 'pkg(99)' in field 12
-tests/empdump/xundump-errors/colhdr-idxneg:2: index must not be negative in header field 7
-tests/empdump/xundump-errors/colhdr-idxreq:2: header 'pkg' requires an index in field 7
+tests/empdump/xundump-errors/colhdr-idxbig:2: unexpected header 'pkg(99)' in field 11
+tests/empdump/xundump-errors/colhdr-idxneg:2: index must not be negative in header field 6
+tests/empdump/xundump-errors/colhdr-idxreq:2: header 'pkg' requires an index in field 6
 tests/empdump/xundump-errors/colhdr-junk:2: junk in header field 1
 tests/empdump/xundump-errors/colhdr-junk2:2: junk in header field 1
 tests/empdump/xundump-errors/colhdr-junk3:2: junk in header field 1
@@ -31,7 +31,7 @@ tests/empdump/xundump-errors/colhdr-miss2:21: header 'nllag' missing
 tests/empdump/xundump-errors/colhdr-noidx:2: header 'name' doesn't take an index in field 1
 tests/empdump/xundump-errors/colhdr-sep:2: bad field separator after field 1
 tests/empdump/xundump-errors/colhdr-symidx:2: symbolic index in header field 1 not yet implemented
-tests/empdump/xundump-errors/colhdr-unexp2:2: expected header 'pkg(0)' in field 7
+tests/empdump/xundump-errors/colhdr-unexp2:2: expected header 'pkg(0)' in field 6
 tests/empdump/xundump-errors/colhdr-unk:2: unknown header 'xxx' in field 1
 tests/empdump/xundump-errors/fld-ambsym:2: ambiguous flags symbol 's' in field 30
 tests/empdump/xundump-errors/fld-badnum:3: field 2 can't hold this value
@@ -87,7 +87,6 @@ tests/empdump/xundump-errors/fld-many:2: too many fields, expected only 6
 tests/empdump/xundump-errors/fld-miss:2: field 'name' missing
 tests/empdump/xundump-errors/fld-miss:2: field 'mnem' missing
 tests/empdump/xundump-errors/fld-miss:2: field 'power' missing
-tests/empdump/xundump-errors/fld-miss:2: field 'value' missing
 tests/empdump/xundump-errors/fld-miss:2: field 'sell' missing
 tests/empdump/xundump-errors/fld-miss:2: field 'lbs' missing
 tests/empdump/xundump-errors/fld-miss:2: field 'pkg(0)' missing

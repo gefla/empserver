@@ -581,22 +581,22 @@
     Play#0 output Play#0 6 0 640
     Play#0 input show item
     Play#0 command show
-    Play#0 output Play#0 1 item power value sell lbs    packing     melt  item
-    Play#0 output Play#0 1 mnem                      in no wh ur bk deno  name
-    Play#0 output Play#0 1   c     50     1   no   1  1 10 10 10 10    4  civilians
-    Play#0 output Play#0 1   m    100     0  yes   1  1  1  1  1  1   20  military
-    Play#0 output Play#0 1   s    125     5  yes   1  1  1 10  1  1   80  shells
-    Play#0 output Play#0 1   g    950    60  yes  10  1  1 10  1  1  100  guns
-    Play#0 output Play#0 1   p      7     4  yes   1  1  1 10  1  1   50  petrol
-    Play#0 output Play#0 1   i     10     2  yes   1  1  1 10  1  1  100  iron ore
-    Play#0 output Play#0 1   d    200    20  yes   5  1  1 10  1  1  100  dust (gold)
-    Play#0 output Play#0 1   b   2500   280  yes  50  1  1  5  1  4  200  bars of gold
-    Play#0 output Play#0 1   f      0     0  yes   1  1  1 10  1  1    2  food
-    Play#0 output Play#0 1   o     50     8  yes   1  1  1 10  1  1   50  oil
-    Play#0 output Play#0 1   l     20     2  yes   1  1  1 10  1  1  100  light products
-    Play#0 output Play#0 1   h     40     4  yes   1  1  1 10  1  1  100  heavy products
-    Play#0 output Play#0 1   u     50     1  yes   2  1  1  2  1  1    2  uncompensated workers
-    Play#0 output Play#0 1   r     50   150  yes   8  1  1 10  1  1 1000  radioactive materials
+    Play#0 output Play#0 1 item power sell lbs    packing     melt  item
+    Play#0 output Play#0 1 mnem                in no wh ur bk deno  name
+    Play#0 output Play#0 1   c     50   no   1  1 10 10 10 10    4  civilians
+    Play#0 output Play#0 1   m    100  yes   1  1  1  1  1  1   20  military
+    Play#0 output Play#0 1   s    125  yes   1  1  1 10  1  1   80  shells
+    Play#0 output Play#0 1   g    950  yes  10  1  1 10  1  1  100  guns
+    Play#0 output Play#0 1   p      7  yes   1  1  1 10  1  1   50  petrol
+    Play#0 output Play#0 1   i     10  yes   1  1  1 10  1  1  100  iron ore
+    Play#0 output Play#0 1   d    200  yes   5  1  1 10  1  1  100  dust (gold)
+    Play#0 output Play#0 1   b   2500  yes  50  1  1  5  1  4  200  bars of gold
+    Play#0 output Play#0 1   f      0  yes   1  1  1 10  1  1    2  food
+    Play#0 output Play#0 1   o     50  yes   1  1  1 10  1  1   50  oil
+    Play#0 output Play#0 1   l     20  yes   1  1  1 10  1  1  100  light products
+    Play#0 output Play#0 1   h     40  yes   1  1  1 10  1  1  100  heavy products
+    Play#0 output Play#0 1   u     50  yes   2  1  1  2  1  1    2  uncompensated workers
+    Play#0 output Play#0 1   r     50  yes   8  1  1 10  1  1 1000  radioactive materials
     Play#0 output Play#0 6 0 640
     Play#0 input show updates
     Play#0 command show
@@ -959,12 +959,11 @@
     Play#0 output Play#0 1 "name" 3 0 0 -1
     Play#0 output Play#0 1 "mnem" 13 0 1 -1
     Play#0 output Play#0 1 "power" 8 0 0 -1
-    Play#0 output Play#0 1 "value" 8 0 0 -1
     Play#0 output Play#0 1 "sell" 8 0 0 -1
     Play#0 output Play#0 1 "lbs" 8 0 0 -1
     Play#0 output Play#0 1 "pkg" 8 0 5 -1
     Play#0 output Play#0 1 "melt_denom" 8 0 0 -1
-    Play#0 output Play#0 1 /9
+    Play#0 output Play#0 1 /8
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 17
     Play#0 command xdump
@@ -999,7 +998,6 @@
     Play#0 output Play#0 1 "pkg" 8 0 0 40
     Play#0 output Play#0 1 "ostr" 12 0 0 -1
     Play#0 output Play#0 1 "dstr" 12 0 0 -1
-    Play#0 output Play#0 1 "value" 8 0 0 -1
     Play#0 output Play#0 1 "c_build" 6 0 0 -1
     Play#0 output Play#0 1 "m_build" 6 0 0 -1
     Play#0 output Play#0 1 "s_build" 6 0 0 -1
@@ -1019,7 +1017,7 @@
     Play#0 output Play#0 1 "maint" 8 0 0 -1
     Play#0 output Play#0 1 "maxpop" 8 0 0 -1
     Play#0 output Play#0 1 "flags" 8 8 0 48
-    Play#0 output Play#0 1 /32
+    Play#0 output Play#0 1 /31
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 19
     Play#0 command xdump
@@ -1523,20 +1521,20 @@
     Play#0 input xdump item *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP item 0
-    Play#0 output Play#0 1 0 "civilians" "c" 50 1 0 1 1 10 10 10 10 4
-    Play#0 output Play#0 1 1 "military" "m" 100 0 1 1 1 1 1 1 1 20
-    Play#0 output Play#0 1 2 "shells" "s" 125 5 1 1 1 1 10 1 1 80
-    Play#0 output Play#0 1 3 "guns" "g" 950 60 1 10 1 1 10 1 1 100
-    Play#0 output Play#0 1 4 "petrol" "p" 7 4 1 1 1 1 10 1 1 50
-    Play#0 output Play#0 1 5 "iron\\040ore" "i" 10 2 1 1 1 1 10 1 1 100
-    Play#0 output Play#0 1 6 "dust\\040(gold)" "d" 200 20 1 5 1 1 10 1 1 100
-    Play#0 output Play#0 1 7 "bars\\040of\\040gold" "b" 2500 280 1 50 1 1 5 1 4 200
-    Play#0 output Play#0 1 8 "food" "f" 0 0 1 1 1 1 10 1 1 2
-    Play#0 output Play#0 1 9 "oil" "o" 50 8 1 1 1 1 10 1 1 50
-    Play#0 output Play#0 1 10 "light\\040products" "l" 20 2 1 1 1 1 10 1 1 100
-    Play#0 output Play#0 1 11 "heavy\\040products" "h" 40 4 1 1 1 1 10 1 1 100
-    Play#0 output Play#0 1 12 "uncompensated\\040workers" "u" 50 1 1 2 1 1 2 1 1 2
-    Play#0 output Play#0 1 13 "radioactive\\040materials" "r" 50 150 1 8 1 1 10 1 1 1000
+    Play#0 output Play#0 1 0 "civilians" "c" 50 0 1 1 10 10 10 10 4
+    Play#0 output Play#0 1 1 "military" "m" 100 1 1 1 1 1 1 1 20
+    Play#0 output Play#0 1 2 "shells" "s" 125 1 1 1 1 10 1 1 80
+    Play#0 output Play#0 1 3 "guns" "g" 950 1 10 1 1 10 1 1 100
+    Play#0 output Play#0 1 4 "petrol" "p" 7 1 1 1 1 10 1 1 50
+    Play#0 output Play#0 1 5 "iron\\040ore" "i" 10 1 1 1 1 10 1 1 100
+    Play#0 output Play#0 1 6 "dust\\040(gold)" "d" 200 1 5 1 1 10 1 1 100
+    Play#0 output Play#0 1 7 "bars\\040of\\040gold" "b" 2500 1 50 1 1 5 1 4 200
+    Play#0 output Play#0 1 8 "food" "f" 0 1 1 1 1 10 1 1 2
+    Play#0 output Play#0 1 9 "oil" "o" 50 1 1 1 1 10 1 1 50
+    Play#0 output Play#0 1 10 "light\\040products" "l" 20 1 1 1 1 10 1 1 100
+    Play#0 output Play#0 1 11 "heavy\\040products" "h" 40 1 1 1 1 10 1 1 100
+    Play#0 output Play#0 1 12 "uncompensated\\040workers" "u" 50 1 2 1 1 2 1 1 2
+    Play#0 output Play#0 1 13 "radioactive\\040materials" "r" 50 1 8 1 1 10 1 1 1000
     Play#0 output Play#0 1 /14
     Play#0 output Play#0 6 0 640
     Play#0 input xdump product *
@@ -1562,40 +1560,40 @@
     Play#0 input xdump sect-chr *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP sect-chr 0
-    Play#0 output Play#0 1 0 "sea" "." 0 -1 0 -1.00000 -1.00000 1 1 0.00000 0.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-    Play#0 output Play#0 1 1 "mountain" "^" 1 1 75 2.40000 1.20000 0 1 1.00000 4.00000 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
-    Play#0 output Play#0 1 2 "sanctuary" "s" 4 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 127 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 1000 1
-    Play#0 output Play#0 1 3 "wasteland" "\\134" 3 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 0 1
-    Play#0 output Play#0 1 4 "wilderness" "-" 4 -1 0 0.400000 0.400000 0 1 1.00000 2.00000 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 1000 0
-    Play#0 output Play#0 1 5 "capital" "c" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 30 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 1 1000 0
-    Play#0 output Play#0 1 6 "uranium\\040mine" "u" 4 4 100 0.400000 0.200000 0 1 1.00000 2.00000 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 7 "park" "p" 4 14 100 0.400000 0.200000 0 1 1.00000 1.50000 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 8 "defense\\040plant" "d" 4 6 100 0.400000 0.200000 0 1 1.00000 1.50000 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 9 "shell\\040industry" "i" 4 5 100 0.400000 0.200000 0 1 1.00000 1.50000 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 10 "mine" "m" 4 0 100 0.400000 0.200000 0 1 1.00000 2.00000 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 11 "gold\\040mine" "g" 4 1 100 0.400000 0.200000 0 1 1.00000 2.00000 8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 12 "harbor" "h" 4 -1 0 0.400000 0.200000 2 2 1.00000 1.50000 12 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 13 "warehouse" "w" 4 -1 0 0.400000 0.200000 0 2 1.00000 1.50000 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 14 "airfield" "*" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.25000 12 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 15 "agribusiness" "a" 4 2 900 0.400000 0.200000 0 1 1.00000 1.50000 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 16 "oil\\040field" "o" 4 3 100 0.400000 0.200000 0 1 1.00000 1.50000 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 17 "light\\040manufacturing" "j" 4 9 100 0.400000 0.200000 0 1 1.00000 1.50000 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 18 "heavy\\040manufacturing" "k" 4 10 100 0.400000 0.200000 0 1 1.00000 1.50000 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 19 "fortress" "f" 4 -1 0 0.400000 0.200000 0 1 2.00000 4.00000 10 0 0 0 0 0 0 0 0 0 0 0 100 0 0 100 500 0 1000 0
-    Play#0 output Play#0 1 20 "technical\\040center" "t" 4 11 100 0.400000 0.200000 0 1 1.00000 1.50000 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 21 "research\\040lab" "r" 4 12 100 0.400000 0.200000 0 1 1.00000 1.50000 9 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 22 "nuclear\\040plant" "n" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 23 "library/school" "l" 4 13 100 0.400000 0.200000 0 1 1.00000 1.50000 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 24 "highway" "+" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 25 "radar\\040installation" ")" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 26 "headquarters" "!" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 12 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 27 "bridge\\040head" "#" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 28 "bridge\\040span" "=" 0 -1 0 0.400000 0.00000 4 1 1.00000 1.00000 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
-    Play#0 output Play#0 1 29 "bank" "b" 4 8 100 0.400000 0.200000 0 4 1.00000 2.25000 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 30 "refinery" "%" 4 7 1000 0.400000 0.200000 0 1 1.00000 1.50000 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 31 "enlistment\\040center" "e" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 32 "plains" "~" 32 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
-    Play#0 output Play#0 1 33 "bridge\\040tower" "@" 0 -1 0 0.400000 0.00000 0 1 1.00000 1.50000 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
+    Play#0 output Play#0 1 0 "sea" "." 0 -1 0 -1.00000 -1.00000 1 1 0.00000 0.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+    Play#0 output Play#0 1 1 "mountain" "^" 1 1 75 2.40000 1.20000 0 1 1.00000 4.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
+    Play#0 output Play#0 1 2 "sanctuary" "s" 4 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 1000 1
+    Play#0 output Play#0 1 3 "wasteland" "\\134" 3 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 0 1
+    Play#0 output Play#0 1 4 "wilderness" "-" 4 -1 0 0.400000 0.400000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 1000 0
+    Play#0 output Play#0 1 5 "capital" "c" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 1 1000 0
+    Play#0 output Play#0 1 6 "uranium\\040mine" "u" 4 4 100 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 7 "park" "p" 4 14 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 8 "defense\\040plant" "d" 4 6 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 9 "shell\\040industry" "i" 4 5 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 10 "mine" "m" 4 0 100 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 11 "gold\\040mine" "g" 4 1 100 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 12 "harbor" "h" 4 -1 0 0.400000 0.200000 2 2 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 13 "warehouse" "w" 4 -1 0 0.400000 0.200000 0 2 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 14 "airfield" "*" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.25000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 15 "agribusiness" "a" 4 2 900 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 16 "oil\\040field" "o" 4 3 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 17 "light\\040manufacturing" "j" 4 9 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 18 "heavy\\040manufacturing" "k" 4 10 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 19 "fortress" "f" 4 -1 0 0.400000 0.200000 0 1 2.00000 4.00000 0 0 0 0 0 0 0 0 0 0 0 100 0 0 100 500 0 1000 0
+    Play#0 output Play#0 1 20 "technical\\040center" "t" 4 11 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 21 "research\\040lab" "r" 4 12 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 22 "nuclear\\040plant" "n" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 23 "library/school" "l" 4 13 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 24 "highway" "+" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 25 "radar\\040installation" ")" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 26 "headquarters" "!" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 27 "bridge\\040head" "#" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 28 "bridge\\040span" "=" 0 -1 0 0.400000 0.00000 4 1 1.00000 1.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
+    Play#0 output Play#0 1 29 "bank" "b" 4 8 100 0.400000 0.200000 0 4 1.00000 2.25000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 30 "refinery" "%" 4 7 1000 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 31 "enlistment\\040center" "e" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#0 output Play#0 1 32 "plains" "~" 32 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
+    Play#0 output Play#0 1 33 "bridge\\040tower" "@" 0 -1 0 0.400000 0.00000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
     Play#0 output Play#0 1 /34
     Play#0 output Play#0 6 0 640
     Play#0 input xdump ship-chr *
@@ -2249,20 +2247,20 @@
     Play#1 input xdump item *
     Play#1 command xdump
     Play#1 output Play#1 1 XDUMP item 0
-    Play#1 output Play#1 1 0 "civilians" "c" 50 1 0 1 1 10 10 10 10 4
-    Play#1 output Play#1 1 1 "military" "m" 100 0 1 1 1 1 1 1 1 20
-    Play#1 output Play#1 1 2 "shells" "s" 125 5 1 1 1 1 10 1 1 80
-    Play#1 output Play#1 1 3 "guns" "g" 950 60 1 10 1 1 10 1 1 100
-    Play#1 output Play#1 1 4 "petrol" "p" 7 4 1 1 1 1 10 1 1 50
-    Play#1 output Play#1 1 5 "iron\\040ore" "i" 10 2 1 1 1 1 10 1 1 100
-    Play#1 output Play#1 1 6 "dust\\040(gold)" "d" 200 20 1 5 1 1 10 1 1 100
-    Play#1 output Play#1 1 7 "bars\\040of\\040gold" "b" 2500 280 1 50 1 1 5 1 4 200
-    Play#1 output Play#1 1 8 "food" "f" 0 0 1 1 1 1 10 1 1 2
-    Play#1 output Play#1 1 9 "oil" "o" 50 8 1 1 1 1 10 1 1 50
-    Play#1 output Play#1 1 10 "light\\040products" "l" 20 2 1 1 1 1 10 1 1 100
-    Play#1 output Play#1 1 11 "heavy\\040products" "h" 40 4 1 1 1 1 10 1 1 100
-    Play#1 output Play#1 1 12 "uncompensated\\040workers" "u" 50 1 1 2 1 1 2 1 1 2
-    Play#1 output Play#1 1 13 "radioactive\\040materials" "r" 50 150 1 8 1 1 10 1 1 1000
+    Play#1 output Play#1 1 0 "civilians" "c" 50 0 1 1 10 10 10 10 4
+    Play#1 output Play#1 1 1 "military" "m" 100 1 1 1 1 1 1 1 20
+    Play#1 output Play#1 1 2 "shells" "s" 125 1 1 1 1 10 1 1 80
+    Play#1 output Play#1 1 3 "guns" "g" 950 1 10 1 1 10 1 1 100
+    Play#1 output Play#1 1 4 "petrol" "p" 7 1 1 1 1 10 1 1 50
+    Play#1 output Play#1 1 5 "iron\\040ore" "i" 10 1 1 1 1 10 1 1 100
+    Play#1 output Play#1 1 6 "dust\\040(gold)" "d" 200 1 5 1 1 10 1 1 100
+    Play#1 output Play#1 1 7 "bars\\040of\\040gold" "b" 2500 1 50 1 1 5 1 4 200
+    Play#1 output Play#1 1 8 "food" "f" 0 1 1 1 1 10 1 1 2
+    Play#1 output Play#1 1 9 "oil" "o" 50 1 1 1 1 10 1 1 50
+    Play#1 output Play#1 1 10 "light\\040products" "l" 20 1 1 1 1 10 1 1 100
+    Play#1 output Play#1 1 11 "heavy\\040products" "h" 40 1 1 1 1 10 1 1 100
+    Play#1 output Play#1 1 12 "uncompensated\\040workers" "u" 50 1 2 1 1 2 1 1 2
+    Play#1 output Play#1 1 13 "radioactive\\040materials" "r" 50 1 8 1 1 10 1 1 1000
     Play#1 output Play#1 1 /14
     Play#1 output Play#1 6 0 0
     Play#1 input xdump product *
@@ -2288,40 +2286,40 @@
     Play#1 input xdump sect-chr *
     Play#1 command xdump
     Play#1 output Play#1 1 XDUMP sect-chr 0
-    Play#1 output Play#1 1 0 "sea" "." 0 -1 0 -1.00000 -1.00000 1 1 0.00000 0.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-    Play#1 output Play#1 1 1 "mountain" "^" 1 1 75 2.40000 1.20000 0 1 1.00000 4.00000 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
-    Play#1 output Play#1 1 2 "sanctuary" "s" 4 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 127 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 1000 1
-    Play#1 output Play#1 1 3 "wasteland" "\\134" 3 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 0 1
-    Play#1 output Play#1 1 4 "wilderness" "-" 4 -1 0 0.400000 0.400000 0 1 1.00000 2.00000 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 1000 0
-    Play#1 output Play#1 1 5 "capital" "c" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 30 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 1 1000 0
-    Play#1 output Play#1 1 6 "uranium\\040mine" "u" 4 4 100 0.400000 0.200000 0 1 1.00000 2.00000 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 7 "park" "p" 4 14 100 0.400000 0.200000 0 1 1.00000 1.50000 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 8 "defense\\040plant" "d" 4 6 100 0.400000 0.200000 0 1 1.00000 1.50000 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 9 "shell\\040industry" "i" 4 5 100 0.400000 0.200000 0 1 1.00000 1.50000 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 10 "mine" "m" 4 0 100 0.400000 0.200000 0 1 1.00000 2.00000 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 11 "gold\\040mine" "g" 4 1 100 0.400000 0.200000 0 1 1.00000 2.00000 8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 12 "harbor" "h" 4 -1 0 0.400000 0.200000 2 2 1.00000 1.50000 12 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 13 "warehouse" "w" 4 -1 0 0.400000 0.200000 0 2 1.00000 1.50000 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 14 "airfield" "*" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.25000 12 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 15 "agribusiness" "a" 4 2 900 0.400000 0.200000 0 1 1.00000 1.50000 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 16 "oil\\040field" "o" 4 3 100 0.400000 0.200000 0 1 1.00000 1.50000 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 17 "light\\040manufacturing" "j" 4 9 100 0.400000 0.200000 0 1 1.00000 1.50000 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 18 "heavy\\040manufacturing" "k" 4 10 100 0.400000 0.200000 0 1 1.00000 1.50000 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 19 "fortress" "f" 4 -1 0 0.400000 0.200000 0 1 2.00000 4.00000 10 0 0 0 0 0 0 0 0 0 0 0 100 0 0 100 500 0 1000 0
-    Play#1 output Play#1 1 20 "technical\\040center" "t" 4 11 100 0.400000 0.200000 0 1 1.00000 1.50000 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 21 "research\\040lab" "r" 4 12 100 0.400000 0.200000 0 1 1.00000 1.50000 9 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 22 "nuclear\\040plant" "n" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 23 "library/school" "l" 4 13 100 0.400000 0.200000 0 1 1.00000 1.50000 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 24 "highway" "+" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 25 "radar\\040installation" ")" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 26 "headquarters" "!" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 12 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 27 "bridge\\040head" "#" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 28 "bridge\\040span" "=" 0 -1 0 0.400000 0.00000 4 1 1.00000 1.00000 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
-    Play#1 output Play#1 1 29 "bank" "b" 4 8 100 0.400000 0.200000 0 4 1.00000 2.25000 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 30 "refinery" "%" 4 7 1000 0.400000 0.200000 0 1 1.00000 1.50000 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 31 "enlistment\\040center" "e" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 32 "plains" "~" 32 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
-    Play#1 output Play#1 1 33 "bridge\\040tower" "@" 0 -1 0 0.400000 0.00000 0 1 1.00000 1.50000 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
+    Play#1 output Play#1 1 0 "sea" "." 0 -1 0 -1.00000 -1.00000 1 1 0.00000 0.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+    Play#1 output Play#1 1 1 "mountain" "^" 1 1 75 2.40000 1.20000 0 1 1.00000 4.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
+    Play#1 output Play#1 1 2 "sanctuary" "s" 4 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 1000 1
+    Play#1 output Play#1 1 3 "wasteland" "\\134" 3 -1 0 -1.00000 -1.00000 0 1 0.00000 99.0000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 0 1
+    Play#1 output Play#1 1 4 "wilderness" "-" 4 -1 0 0.400000 0.400000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 1000 0
+    Play#1 output Play#1 1 5 "capital" "c" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 1 1000 0
+    Play#1 output Play#1 1 6 "uranium\\040mine" "u" 4 4 100 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 7 "park" "p" 4 14 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 8 "defense\\040plant" "d" 4 6 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 9 "shell\\040industry" "i" 4 5 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 10 "mine" "m" 4 0 100 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 11 "gold\\040mine" "g" 4 1 100 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 12 "harbor" "h" 4 -1 0 0.400000 0.200000 2 2 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 13 "warehouse" "w" 4 -1 0 0.400000 0.200000 0 2 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 14 "airfield" "*" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.25000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 15 "agribusiness" "a" 4 2 900 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 16 "oil\\040field" "o" 4 3 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 17 "light\\040manufacturing" "j" 4 9 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 18 "heavy\\040manufacturing" "k" 4 10 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 19 "fortress" "f" 4 -1 0 0.400000 0.200000 0 1 2.00000 4.00000 0 0 0 0 0 0 0 0 0 0 0 100 0 0 100 500 0 1000 0
+    Play#1 output Play#1 1 20 "technical\\040center" "t" 4 11 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 21 "research\\040lab" "r" 4 12 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 22 "nuclear\\040plant" "n" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 23 "library/school" "l" 4 13 100 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 24 "highway" "+" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 25 "radar\\040installation" ")" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 26 "headquarters" "!" 4 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 27 "bridge\\040head" "#" 4 -1 0 0.400000 0.00000 0 1 1.00000 1.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 28 "bridge\\040span" "=" 0 -1 0 0.400000 0.00000 4 1 1.00000 1.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
+    Play#1 output Play#1 1 29 "bank" "b" 4 8 100 0.400000 0.200000 0 4 1.00000 2.25000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 30 "refinery" "%" 4 7 1000 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 31 "enlistment\\040center" "e" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
+    Play#1 output Play#1 1 32 "plains" "~" 32 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
+    Play#1 output Play#1 1 33 "bridge\\040tower" "@" 0 -1 0 0.400000 0.00000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
     Play#1 output Play#1 1 /34
     Play#1 output Play#1 6 0 0
     Play#1 input xdump ship-chr *

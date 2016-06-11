@@ -1,4 +1,4 @@
 config item
-uid name mnem value sell lbs pkg(0) pkg(0)
-# expected header 'pkg(1)' in field 8
+uid name mnem sell lbs pkg(0) pkg(0)
+# expected header 'pkg(1)' in field 7
 /config

@@ -71,7 +71,6 @@ struct ichrstr {
     char i_mnem;		/* usually the initial letter */
     i_type i_uid;		/* index in ichr[] */
     int i_power;		/* power value of 1000 items */
-    int i_value;		/* mortgage value */
     int i_sell;			/* can this be sold? */
     int i_lbs;			/* how hard to move */
     int i_pkg[NUMPKG];		/* units for reg, ware, urb, bank */

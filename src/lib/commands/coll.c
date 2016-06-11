@@ -40,12 +40,12 @@
 #include "news.h"
 #include "optlist.h"
 
+static double appraise_sect(struct sctstr *);
+
 int
 coll(void)
 {
     int arg;
-    int i;
-    int val;
     time_t now;
     char *p;
     struct lonstr loan;
@@ -96,13 +96,7 @@ coll(void)
 	   xyas(x, y, player->cnum), cname(loan.l_lonee));
 	return RET_FAIL;
     }
-    pay = dchr[sect.sct_type].d_value * (sect.sct_effic + 100.0);
-    for (i = 0; ichr[i].i_name; i++) {
-	if (ichr[i].i_value == 0 || ichr[i].i_uid == I_NONE)
-	    continue;
-	val = sect.sct_item[ichr[i].i_uid];
-	pay += val * ichr[i].i_value;
-    }
+    pay = appraise_sect(&sect);
     if (pay > owed * 1.2) {
 	pr("That sector (and its contents) is valued at more than %.2f.\n",
 	   owed);
@@ -154,4 +148,30 @@ coll(void)
     }
     putloan(arg, &loan);
     return RET_OK;
+}
+
+static double
+appraise_items(short item[])
+{
+    double total, val;
+    int i;
+
+    total = 0.0;
+    for (i = I_NONE + 1; i <= I_MAX; i++) {
+	val = ichr[i].i_power / 10.0;
+	if (i == I_MILIT || i == I_CIVIL || i == I_UW)
+	    val /= 5.0;		/* collect-specific fudge factor */
+	total += item[i] * val;
+    }
+    return total;
+}
+
+static double
+appraise_sect(struct sctstr *sp)
+{
+    struct dchrstr *dcp = &dchr[sp->sct_type];
+    double bld_val = appraise_items(dcp->d_mat) + dcp->d_cost;
+
+    return bld_val * sp->sct_effic / 100.0 + dcp->d_maxpop
+	+ appraise_items(sp->sct_item);
 }

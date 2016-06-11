@@ -111,7 +111,6 @@ struct dchrstr {
     enum i_packing d_pkg;	/* type of packaging in these sects */
     float d_ostr;		/* offensive strength */
     float d_dstr;		/* defensive strength */
-    int d_value;		/* resale ("collect") value */
     short d_mat[I_MAX+1];	/* materials to build 100% */
 				/* only I_LCM and I_HCM non-zero */
     int d_bwork;		/* work to build 100% */
