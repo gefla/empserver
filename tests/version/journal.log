@@ -114,6 +114,7 @@
     Play#0 output Play#0 1 - wilderness                0    0   100     0      0
     Play#0 output Play#0 1 c capital                   0    0   100   100     60
     Play#0 output Play#0 1 f fortress                  0  100   100   500      0
+    Play#0 output Play#0 1 ~ plains                    0    0   100     0      0
     Play#0 output Play#0 1 any other                   0    0   100   100      0
     Play#0 output Play#0 1
     Play#0 output Play#0 1 Infrastructure building - adding 1 point of efficiency costs:
@@ -184,7 +185,7 @@
     Play#0 output Play#0 1 b bank                  0.4  0.2   1.00  2.25    land       bank  1000
     Play#0 output Play#0 1 % refinery              0.4  0.2   1.00  1.50    land     normal  1000
     Play#0 output Play#0 1 e enlistment center     0.4  0.2   1.00  2.00    land     normal  1000
-    Play#0 output Play#0 1 ~ plains                0.4  0.2   1.00  1.50    land     normal   100
+    Play#0 output Play#0 1 ~ plains                0.4  0.4   1.00  1.50    land     normal   100
     Play#0 output Play#0 1 @ bridge tower          0.4  0.0   1.00  1.50    land     normal   100
     Play#0 output Play#0 6 0 640
     Play#0 input show ship b
@@ -1592,7 +1593,7 @@
     Play#0 output Play#0 1 29 "bank" "b" 4 8 100 0.400000 0.200000 0 4 1.00000 2.25000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
     Play#0 output Play#0 1 30 "refinery" "%" 4 7 1000 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
     Play#0 output Play#0 1 31 "enlistment\\040center" "e" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#0 output Play#0 1 32 "plains" "~" 32 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
+    Play#0 output Play#0 1 32 "plains" "~" 32 -1 0 0.400000 0.400000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 100 1
     Play#0 output Play#0 1 33 "bridge\\040tower" "@" 0 -1 0 0.400000 0.00000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
     Play#0 output Play#0 1 /34
     Play#0 output Play#0 6 0 640
@@ -2318,7 +2319,7 @@
     Play#1 output Play#1 1 29 "bank" "b" 4 8 100 0.400000 0.200000 0 4 1.00000 2.25000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
     Play#1 output Play#1 1 30 "refinery" "%" 4 7 1000 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
     Play#1 output Play#1 1 31 "enlistment\\040center" "e" 4 -1 0 0.400000 0.200000 0 1 1.00000 2.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 1000 0
-    Play#1 output Play#1 1 32 "plains" "~" 32 -1 0 0.400000 0.200000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
+    Play#1 output Play#1 1 32 "plains" "~" 32 -1 0 0.400000 0.400000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 0 0 100 1
     Play#1 output Play#1 1 33 "bridge\\040tower" "@" 0 -1 0 0.400000 0.00000 0 1 1.00000 1.50000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 100 100 0 100 1
     Play#1 output Play#1 1 /34
     Play#1 output Play#1 6 0 0
@@ -3048,7 +3049,7 @@
     Play#1 output Play#1 1 b bank                  0.4  0.2   1.00  2.25    land       bank   550
     Play#1 output Play#1 1 % refinery              0.4  0.2   1.00  1.50    land     normal   550
     Play#1 output Play#1 1 e enlistment center     0.4  0.2   1.00  2.00    land     normal   550
-    Play#1 output Play#1 1 ~ plains                0.4  0.2   1.00  1.50    land     normal    55
+    Play#1 output Play#1 1 ~ plains                0.4  0.4   1.00  1.50    land     normal    55
     Play#1 output Play#1 1 @ bridge tower          0.4  0.0   1.00  1.50    land     normal    55
     Play#1 output Play#1 6 0 0
     Play#1 input ctld
