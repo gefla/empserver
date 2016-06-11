@@ -24,11 +24,12 @@
  *
  *  ---
  *
- *  coll.c: Collet on a loan
+ *  coll.c: Collect on a loan
  *
  *  Known contributors to this file:
  *     Pat Loney, 1992
  *     Steve McClure, 1996-2000
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -100,11 +101,13 @@ coll(void)
 	val = sect.sct_item[ichr[i].i_uid];
 	pay += val * ichr[i].i_value;
     }
-    pr("That sector (and its contents) is valued at $%.2f\n", pay);
     if (pay > owed * 1.2) {
-	pr("That is more than is owed!\n");
+	pr("That sector (and its contents) is valued at more than %.2f.\n",
+	   owed);
 	return RET_FAIL;
     }
+    pr("That sector (and its contents) is valued at $%.2f\n", pay);
+
     sect.sct_item[I_MILIT] = 1;	/* FIXME now where did this guy come from? */
 
     /*

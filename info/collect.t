@@ -23,10 +23,7 @@ debtor to which you are adjacent.
 Any adjacent sector includes any sector you have that borders the
 sector you wish to confiscate.
 .s1
-The program then paws over the sector and assesses its value:
-.NF
-That sector (and its contents) is valued at $2345.00
-.FI
+The program then paws over the sector and assesses its value.
 If the amount you are owed exceeds this amount the sector
 becomes yours!
 If the value of the sector is close enough to the
