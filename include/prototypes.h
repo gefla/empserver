@@ -450,7 +450,6 @@ extern int asw_shipsatxy(coord, coord, int, int, struct plnstr *,
 extern void print_shiplist(struct shiplist *);
 extern int has_units(coord, coord, natid);
 extern int adj_units(coord, coord, natid);
-extern int islist(char *);
 /* maps.c */
 /* in map.h */
 /* mission.c */

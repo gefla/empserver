@@ -266,17 +266,3 @@ has_units(coord x, coord y, natid cn)
 
     return 0;
 }
-
-/*
- * is p a list of ships/planes/units?
- */
-
-int
-islist(char *p)
-{
-    for (; *p; p++) {
-	if (!isdigit(*p) && *p != '/')
-	    return 0;
-    }
-    return 1;
-}
