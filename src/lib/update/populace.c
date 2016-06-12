@@ -129,5 +129,6 @@ total_work(int sctwork, int etu, int civil, int milit, int uw,
     if (uw > maxworkers)
 	uw = maxworkers;
 
-    return (civil * sctwork / 100.0 + milit / 2.5 + uw) * etu / 100.0;
+    return roundavg((civil * sctwork / 100.0 + milit / 2.5 + uw)
+		    * etu / 100.0);
 }
