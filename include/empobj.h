@@ -95,7 +95,6 @@ union empobj_storage {
 #define get_empobjp(type, n) ((struct empobj *)ef_ptr((type), (n)))
 
 extern char *empobj_chr_name(struct empobj *gp);
-extern int get_empobj_mob_max(int type);
 extern int empobj_in_use(int, void *);
 
 #endif

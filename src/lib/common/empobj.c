@@ -60,23 +60,6 @@ empobj_chr_name(struct empobj *gp)
 }
 
 int
-get_empobj_mob_max(int type)
-{
-    switch (type) {
-    case EF_SHIP:
-	return ship_mob_max;
-    case EF_LAND:
-	return land_mob_max;
-    case EF_PLANE:
-	return plane_mob_max;
-    case EF_SECTOR:
-	return sect_mob_max;
-    }
-    CANT_REACH();
-    return -1;
-}
-
-int
 empobj_in_use(int type, void *p)
 {
     switch (type) {
