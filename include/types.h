@@ -58,7 +58,6 @@ struct shiplist;
 struct shpstr;
 struct symbol;
 struct trdstr;
-struct trtstr;
 struct comstr;
 struct cmndstr;
 struct ulist;

@@ -45,7 +45,6 @@
 #define SHP_TYPE_MAX	46
 #define SHIP_MINEFF	20
 
-#define MAXSHPPATH	28
 #define MAXSHPNAMLEN	24
 
 struct shpstr {

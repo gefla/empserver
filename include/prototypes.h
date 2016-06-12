@@ -226,7 +226,6 @@ int togg(void);
 int torp(void);
 int trad(void);
 int tran(void);
-int trea(void);
 int turn(void);
 int upda(void);
 int upgr(void);
@@ -236,7 +235,6 @@ int wing(void);
 int wipe(void);
 int work(void);
 int xdump(void);
-int xedit(void);
 int zdon(void);
 
 /*
@@ -420,8 +418,6 @@ extern int commdamage(int, int, i_type);
 extern int detonate(struct nukstr *, coord, coord, int);
 /* disloan.c */
 extern int disloan(int, struct lonstr *);
-/* distrea.c */
-extern int distrea(int, struct trtstr *);
 /* fileinit.c */
 extern void ef_init_srv(int);
 extern void ef_fin_srv(void);
@@ -637,8 +633,6 @@ extern void takeover_ship(struct shpstr *, natid);
 extern void takeover_plane(struct plnstr *, natid);
 /* trdsub.c */
 /* in trade.h */
-/* trechk.c */
-extern int trechk(natid, natid, int);
 /* whatitem.c */
 /* in item.h */
 /* wu.c */
