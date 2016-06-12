@@ -128,10 +128,16 @@ do_feed(struct sctstr *sp, struct natstr *np, int etu,
 static int
 new_work(struct sctstr *sp, int delta)
 {
-    if (sp->sct_type == sp->sct_newtype)
-	return MIN(rollover_avail_max, sp->sct_avail) + delta;
+    int rollover = sp->sct_avail;
 
-    return delta;
+    if (sp->sct_type != sp->sct_newtype)
+	rollover = 0;
+    if (rollover > rollover_avail_max)
+	rollover = rollover_avail_max;
+    if (rollover > delta / 2 + 1)
+	rollover = delta / 2 + 1;
+
+    return rollover + delta;
 }
 
 static int
