@@ -70,9 +70,6 @@ struct budget {
 extern struct budget nat_budget[MAXNOC];
 extern int money[MAXNOC];
 extern int pops[MAXNOC];
-extern int sea_money[MAXNOC];
-extern int lnd_money[MAXNOC];
-extern int air_money[MAXNOC];
 extern int tpops[MAXNOC];
 /* nat.c */
 extern float levels[MAXNOC][4];

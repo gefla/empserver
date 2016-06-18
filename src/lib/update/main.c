@@ -49,9 +49,6 @@
 struct budget nat_budget[MAXNOC];
 int money[MAXNOC];
 int pops[MAXNOC];
-int sea_money[MAXNOC];
-int lnd_money[MAXNOC];
-int air_money[MAXNOC];
 int tpops[MAXNOC];
 
 void
@@ -89,9 +86,6 @@ update_main(void)
      */
     memset(nat_budget, 0, sizeof(nat_budget));
     memset(pops, 0, sizeof(pops));
-    memset(air_money, 0, sizeof(air_money));
-    memset(sea_money, 0, sizeof(sea_money));
-    memset(lnd_money, 0, sizeof(lnd_money));
     for (n = 0; n < MAXNOC; n++) {
 	money[n] = 0;
 	if (!(np = getnatp(n)))
@@ -123,12 +117,6 @@ update_main(void)
 	prod_ship(etu, i, NULL, 1);
 	prod_plane(etu, i, NULL, 1);
 	prod_land(etu, i, NULL, 1);
-	sea_money[i] += nat_budget[i].bm[BUDG_SHP_MAINT].money
-	    + nat_budget[i].bm[BUDG_SHP_BUILD].money;
-	air_money[i] += nat_budget[i].bm[BUDG_PLN_MAINT].money
-	    + nat_budget[i].bm[BUDG_PLN_BUILD].money;
-	lnd_money[i] += nat_budget[i].bm[BUDG_LND_MAINT].money
-	    + nat_budget[i].bm[BUDG_LND_BUILD].money;
     }
     logerror("done producing for countries.");
 

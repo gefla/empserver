@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1997
- *     Markus Armbruster, 2006-2015
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -127,11 +127,13 @@ prod_nat(int etu)
     float edu;
     float hap_edu;
     int pop;
+    int sea_money, air_money, lnd_money;
     double rlev;
     double tlev;
     double tech[MAXNOC];
     double res[MAXNOC];
     double newvalue;
+    struct budg_item *bm;
     natid n;
     int cn;
     struct natstr *cnp;
@@ -204,11 +206,14 @@ prod_nat(int etu)
 	    np->nat_level[NAT_RLEV] += rlev;
 	if (tlev != 0.0)
 	    np->nat_level[NAT_TLEV] += tlev;
-	if ((sea_money[n] != 0) || (air_money[n] != 0) ||
-	    (lnd_money[n] != 0))
+	bm = nat_budget[n].bm;
+	sea_money = bm[BUDG_SHP_MAINT].money + bm[BUDG_SHP_BUILD].money;
+	air_money = bm[BUDG_PLN_MAINT].money + bm[BUDG_PLN_BUILD].money;
+	lnd_money = bm[BUDG_LND_MAINT].money + bm[BUDG_LND_BUILD].money;
+	if (sea_money || air_money || lnd_money)
 	    wu(0, n,
 	       "Army delta $%d, Navy delta $%d, Air force delta $%d\n",
-	       lnd_money[n], sea_money[n], air_money[n]);
+	       lnd_money, sea_money, air_money);
 	wu(0, n, "money delta was $%d for this update\n",
 	   np->nat_money - money[n]);
 	if (opt_LOSE_CONTACT) {
