@@ -38,8 +38,12 @@
 #include <stdlib.h>
 #include <sys/resource.h>
 #include "distribute.h"
+#include "file.h"
+#include "nat.h"
+#include "optlist.h"
 #include "path.h"
-#include "update.h"
+#include "sect.h"
+#include "prototypes.h"
 
 static void assemble_dist_paths(double *);
 

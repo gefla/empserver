@@ -33,9 +33,13 @@
 #include <config.h>
 
 #include <math.h>
+#include "file.h"
+#include "nat.h"
 #include "nsc.h"
+#include "optlist.h"
 #include "plane.h"
-#include "update.h"
+#include "prototypes.h"
+#include "sect.h"
 
 #ifndef PI
 #define PI	3.14159265358979323846

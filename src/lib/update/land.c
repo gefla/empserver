@@ -38,12 +38,16 @@
 #include <math.h>
 #include "budg.h"
 #include "chance.h"
+#include "file.h"
 #include "land.h"
 #include "lost.h"
+#include "nat.h"
 #include "news.h"
+#include "optlist.h"
 #include "plague.h"
 #include "player.h"
-#include "update.h"
+#include "prototypes.h"
+#include "sect.h"
 
 static void landrepair(struct lndstr *, struct natstr *, struct bp *, int);
 static void upd_land(struct lndstr *, int, struct natstr *, struct bp *, int);

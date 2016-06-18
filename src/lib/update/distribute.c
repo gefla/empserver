@@ -35,11 +35,13 @@
 #include <config.h>
 
 #include "distribute.h"
+#include "file.h"
 #include "item.h"
+#include "optlist.h"
 #include "path.h"
 #include "plague.h"
 #include "prototypes.h"
-#include "update.h"
+#include "sect.h"
 
 #ifdef DISTRIBUTE_DEBUG
 #define DPRINTF(fmt, ...) ((void)printf(fmt , ## __VA_ARGS__))

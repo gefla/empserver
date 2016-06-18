@@ -34,9 +34,12 @@
 
 #include "budg.h"
 #include "chance.h"
+#include "nat.h"
+#include "optlist.h"
 #include "player.h"
 #include "product.h"
-#include "update.h"
+#include "prototypes.h"
+#include "sect.h"
 
 static void materials_charge(struct pchrstr *, short *, int);
 

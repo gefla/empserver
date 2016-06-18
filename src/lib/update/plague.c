@@ -34,11 +34,15 @@
 #include <config.h>
 
 #include "chance.h"
+#include "file.h"
 #include "item.h"
 #include "lost.h"
+#include "optlist.h"
+#include "nat.h"
 #include "news.h"
 #include "plague.h"
-#include "update.h"
+#include "prototypes.h"
+#include "sect.h"
 
 static int infect_people(struct natstr *, struct sctstr *);
 

@@ -32,7 +32,9 @@
 
 #include <config.h>
 
-#include "update.h"
+#include "file.h"
+#include "nat.h"
+#include "prototypes.h"
 
 int
 update_removewants(void)

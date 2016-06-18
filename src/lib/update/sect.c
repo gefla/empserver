@@ -36,13 +36,17 @@
 
 #include "budg.h"
 #include "chance.h"
+#include "file.h"
 #include "item.h"
 #include "land.h"
 #include "lost.h"
+#include "nat.h"
+#include "optlist.h"
 #include "path.h"
 #include "player.h"
+#include "prototypes.h"
+#include "sect.h"
 #include "ship.h"
-#include "update.h"
 
 double
 buildeff(struct sctstr *sp)

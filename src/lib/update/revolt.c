@@ -35,14 +35,17 @@
 #include <config.h>
 
 #include "chance.h"
+#include "file.h"
 #include "land.h"
 #include "lost.h"
+#include "nat.h"
 #include "news.h"
 #include "nsc.h"
 #include "nuke.h"
 #include "path.h"
 #include "plane.h"
-#include "update.h"
+#include "prototypes.h"
+#include "sect.h"
 
 static void take_casualties(struct sctstr *, int);
 static void lnd_dies_fighting_che(struct lndstr *);

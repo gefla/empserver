@@ -34,7 +34,8 @@
 #include <config.h>
 
 #include "chance.h"
-#include "update.h"
+#include "sect.h"
+#include "prototypes.h"
 
 /*
  * Get build materials from sector @sp.

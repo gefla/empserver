@@ -38,11 +38,13 @@
 #include <sys/resource.h>
 #include "budg.h"
 #include "empthread.h"
+#include "file.h"
 #include "game.h"
 #include "journal.h"
+#include "optlist.h"
+#include "prototypes.h"
 #include "server.h"
 #include "unit.h"
-#include "update.h"
 
 int money[MAXNOC];
 int pops[MAXNOC];

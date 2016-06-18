@@ -34,8 +34,12 @@
 #include <config.h>
 
 #include "chance.h"
+#include "file.h"
 #include "lost.h"
-#include "update.h"
+#include "optlist.h"
+#include "prototypes.h"
+#include "nat.h"
+#include "sect.h"
 
 void
 populace(struct sctstr *sp, int etu)

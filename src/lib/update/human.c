@@ -37,9 +37,12 @@
 #include <math.h>
 #include "chance.h"
 #include "item.h"
+#include "optlist.h"
+#include "nat.h"
 #include "news.h"
 #include "player.h"
-#include "update.h"
+#include "prototypes.h"
+#include "sect.h"
 #include "xy.h"
 
 static int new_work(struct sctstr *, int);

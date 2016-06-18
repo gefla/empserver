@@ -38,14 +38,18 @@
 #include <math.h>
 #include "budg.h"
 #include "chance.h"
+#include "file.h"
 #include "land.h"
 #include "lost.h"
+#include "nat.h"
 #include "news.h"
+#include "optlist.h"
 #include "plague.h"
 #include "player.h"
 #include "product.h"
+#include "prototypes.h"
+#include "sect.h"
 #include "ship.h"
-#include "update.h"
 
 static void shiprepair(struct shpstr *, struct natstr *, struct bp *, int);
 static void upd_ship(struct shpstr *, int, struct natstr *, struct bp *, int);

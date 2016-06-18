@@ -32,10 +32,13 @@
 
 #include <config.h>
 
+#include "file.h"
 #include "item.h"
+#include "optlist.h"
 #include "path.h"
 #include "plague.h"
-#include "update.h"
+#include "sect.h"
+#include "prototypes.h"
 
 #define DELIVER_BONUS 4.0
 

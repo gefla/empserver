@@ -33,11 +33,12 @@
 #include <config.h>
 
 #include "empobj.h"
+#include "file.h"
 #include "land.h"
 #include "nsc.h"
+#include "prototypes.h"
 #include "ship.h"
 #include "unit.h"
-#include "update.h"
 
 void *
 nxtitemp(struct nstr_item *np)
