@@ -49,6 +49,19 @@ static char *dotsprintf(char *buf, char *format, int data);
 int
 budg(void)
 {
+    static struct {
+	char *activity;
+	char *object;
+    } bm_name[] = {
+	{ "Ship building", "ship" },
+	{ "Ship maintenance", "ship" },
+	{ "Plane building", "plane" },
+	{ "Plane maintenance", "plane" },
+	{ "Unit building", "unit" },
+	{ "Unit maintenance", "unit" },
+	{ "Sector building", "sector" },
+	{ "Sector maintenance", "sector" }
+    };
     int i;
     int taxes, Ncivs, Nuws, bars, Nbars;
     struct budget *budget;
@@ -81,75 +94,17 @@ budg(void)
 	expenses -= budget->prod[i].money;
     }
 
-    if (budget->bm[BUDG_SHP_BUILD].money) {
-	snprintf(buf, sizeof(buf), "%d ship%s",
-		 budget->bm[BUDG_SHP_BUILD].count,
-		 splur(budget->bm[BUDG_SHP_BUILD].count));
-	pr("Ship building\t\t\t%-16s\t\t%8d\n",
-	   buf, -budget->bm[BUDG_SHP_BUILD].money);
-	expenses -= budget->bm[BUDG_SHP_BUILD].money;
+    for (i = 0; i <= BUDG_BLD_MAX; i++) {
+	if (!budget->bm[i].money)
+	    continue;
+	snprintf(buf, sizeof(buf), "%d %s%s",
+		 budget->bm[i].count, bm_name[i].object,
+		 splur(budget->bm[i].count));
+	pr("%-20s\t\t%-16s\t\t%8d\n",
+	   bm_name[i].activity, buf, -budget->bm[i].money);
+	expenses -= budget->bm[i].money;
     }
 
-    if (budget->bm[BUDG_SHP_MAINT].money) {
-	snprintf(buf, sizeof(buf), "%d ship%s",
-		 budget->bm[BUDG_SHP_MAINT].count,
-		 splur(budget->bm[BUDG_SHP_MAINT].count));
-	pr("Ship maintenance\t\t%-16s\t\t%8d\n",
-	   buf, -budget->bm[BUDG_SHP_MAINT].money);
-	expenses -= budget->bm[BUDG_SHP_MAINT].money;
-    }
-
-    if (budget->bm[BUDG_PLN_BUILD].money) {
-	snprintf(buf, sizeof(buf), "%d plane%s",
-		 budget->bm[BUDG_PLN_BUILD].count,
-		 splur(budget->bm[BUDG_PLN_BUILD].count));
-	pr("Plane building\t\t\t%-16s\t\t%8d\n",
-	   buf, -budget->bm[BUDG_PLN_BUILD].money);
-	expenses -= budget->bm[BUDG_PLN_BUILD].money;
-    }
-
-    if (budget->bm[BUDG_PLN_MAINT].money) {
-	snprintf(buf, sizeof(buf), "%d plane%s",
-		 budget->bm[BUDG_PLN_MAINT].count,
-		 splur(budget->bm[BUDG_PLN_MAINT].count));
-	pr("Plane maintenance\t\t%-16s\t\t%8d\n",
-	   buf, -budget->bm[BUDG_PLN_MAINT].money);
-	expenses -= budget->bm[BUDG_PLN_MAINT].money;
-    }
-    if (budget->bm[BUDG_LND_BUILD].money) {
-	snprintf(buf, sizeof(buf), "%d unit%s",
-		 budget->bm[BUDG_LND_BUILD].count,
-		 splur(budget->bm[BUDG_LND_BUILD].count));
-	pr("Unit building\t\t\t%-16s\t\t%8d\n",
-	   buf, -budget->bm[BUDG_LND_BUILD].money);
-	expenses -= budget->bm[BUDG_LND_BUILD].money;
-    }
-
-    if (budget->bm[BUDG_LND_MAINT].money) {
-	snprintf(buf, sizeof(buf), "%d unit%s",
-		 budget->bm[BUDG_LND_MAINT].count,
-		 splur(budget->bm[BUDG_LND_MAINT].count));
-	pr("Unit maintenance\t\t%-16s\t\t%8d\n",
-	   buf, -budget->bm[BUDG_LND_MAINT].money);
-	expenses -= budget->bm[BUDG_LND_MAINT].money;
-    }
-
-    if (budget->bm[BUDG_SCT_BUILD].money) {
-	snprintf(buf, sizeof(buf), "%d sector%s",
-		 budget->bm[BUDG_SCT_BUILD].count,
-		 splur(budget->bm[BUDG_SCT_BUILD].count));
-	pr("Sector building\t\t\t%-16s\t\t%8d\n",
-	   buf, -budget->bm[BUDG_SCT_BUILD].money);
-	expenses -= budget->bm[BUDG_SCT_BUILD].money;
-    }
-    if (budget->bm[BUDG_SCT_MAINT].count) {
-	snprintf(buf, sizeof(buf), "%d sector%s",
-		 budget->bm[BUDG_SCT_MAINT].count,
-		 splur(budget->bm[BUDG_SCT_MAINT].count));
-	pr("Sector maintenance\t\t%-16s\t\t%8d\n",
-	   buf, -budget->bm[BUDG_SCT_MAINT].money);
-	expenses -= budget->bm[BUDG_SCT_MAINT].money;
-    }
     if (budget->mil.money) {
 	snprintf(buf, sizeof(buf), "%d mil, %d res",
 		 budget->mil.count, np->nat_reserve);
