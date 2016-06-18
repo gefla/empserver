@@ -42,7 +42,7 @@
 #include "product.h"
 #include "update.h"
 
-static struct budget *calc_all(int *bars, int *Nbars);
+static struct budget *calc_all(void);
 static char *dotsprintf(char *buf, char *format, int data);
 
 int
@@ -62,21 +62,19 @@ budg(void)
 	{ "Sector maintenance", "sector" }
     };
     int i;
-    int bars, Nbars;
     struct budget *budget;
     int income, expenses, taxes;
     struct natstr *np;
     char buf[1024];
-    char in[80];
 
     np = getnatp(player->cnum);
 
     player->simulation = 1;
-    budget = calc_all(&bars, &Nbars);
+    budget = calc_all();
     player->simulation = 0;
 
-    income = bars;
-    expenses = 0;
+    income = expenses = 0;
+
     pr("Sector Type\t\t\tProduction\t\t\t    Cost\n");
     for (i = 0; i <= SCT_TYPE_MAX; i++) {
 	if (!budget->prod[i].money)
@@ -121,9 +119,12 @@ budg(void)
 	pr("Income from taxes\t\t%-32s%+8d\n", buf, taxes);
 	income += taxes;
     }
-    if (bars) {
-	sprintf(in, "%d bar%s", Nbars, splur(Nbars));
-	pr("Income from bars\t\t%-32s%+8d\n", in, bars);
+    if (budget->bars.money) {
+	snprintf(buf, sizeof(buf), "%d bar%s",
+		 budget->bars.count, splur(budget->bars.count));
+	pr("Income from bars\t\t%-32s%+8d\n",
+	   buf, budget->bars.money);
+	income += budget->bars.money;
     }
     pr("Total income%s\n", dotsprintf(buf, "%+60d", income));
     pr("Balance forward\t\t\t\t\t\t      %10d\n", np->nat_money);
@@ -139,7 +140,7 @@ budg(void)
 }
 
 static struct budget *
-calc_all(int *bars, int *Nbars)
+calc_all(void)
 {
     struct budget *budget = &nat_budget[player->cnum];
     struct natstr *np;
@@ -150,7 +151,6 @@ calc_all(int *bars, int *Nbars)
     int etu = etu_per_update;
 
     memset(nat_budget, 0, sizeof(nat_budget));
-    *bars = *Nbars = 0;
 
     np = getnatp(player->cnum);
     bp = bp_alloc();
@@ -159,10 +159,8 @@ calc_all(int *bars, int *Nbars)
 	if (sp->sct_own == player->cnum) {
 	    sp->sct_updated = 0;
 	    tax(sp, etu, &pop);
-	    if (sp->sct_type == SCT_BANK) {
-		*bars += bank_income(sp, etu);
-		*Nbars += sp->sct_item[I_BAR];
-	    }
+	    if (sp->sct_type == SCT_BANK)
+		bank_income(sp, etu);
 	}
     }
     tpops[player->cnum] = pop;

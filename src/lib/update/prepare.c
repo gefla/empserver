@@ -94,10 +94,9 @@ prepare_sects(int etu)
 	guerrilla(sp);
 	do_plague(sp, etu);
 	populace(sp, etu);
-	np = getnatp(sp->sct_own);
 	tax(sp, etu, &pops[sp->sct_own]);
 	if (sp->sct_type == SCT_BANK)
-	    np->nat_money += bank_income(sp, etu);
+	    bank_income(sp, etu);
     }
     for (n = 0; NULL != (np = getnatp(n)); n++) {
 	upd_slmilcosts(etu, np->nat_cnum);
@@ -105,6 +104,7 @@ prepare_sects(int etu)
 	np->nat_money += nat_budget[n].mil.money;
 	np->nat_money += nat_budget[n].civ.money;
 	np->nat_money += nat_budget[n].uw.money;
+	np->nat_money += nat_budget[n].bars.money;
     }
 }
 
@@ -165,10 +165,14 @@ upd_slmilcosts(int etu, natid n)
     nat_budget[n].mil.money += mil * etu * money_mil;
 }
 
-int
+void
 bank_income(struct sctstr *sp, int etu)
 {
-    return (int)(sp->sct_item[I_BAR] * etu * bankint * sp->sct_effic / 100);
+    int inc;
+
+    inc = (int)(sp->sct_item[I_BAR] * etu * bankint * sp->sct_effic / 100);
+    nat_budget[sp->sct_own].bars.count += sp->sct_item[I_BAR];
+    nat_budget[sp->sct_own].bars.money += inc;
 }
 
 void
