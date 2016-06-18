@@ -36,6 +36,9 @@
 
 #include "sect.h"
 
+#define IMPORT	0
+#define EXPORT	1
+
 #define SCT_EFFIC (SCT_TYPE_MAX + 1)
 #define SCT_MAINT (SCT_TYPE_MAX + 2)
 #define SCT_BUDG_MAX SCT_MAINT
