@@ -40,6 +40,12 @@
 #define EXPORT	1
 
 enum {
+    BUDG_SHP_BUILD,
+    BUDG_SHP_MAINT,
+    BUDG_PLN_BUILD,
+    BUDG_PLN_MAINT,
+    BUDG_LND_BUILD,
+    BUDG_LND_MAINT,
     BUDG_SCT_BUILD,
     BUDG_SCT_MAINT,
     BUDG_BLD_MAX = BUDG_SCT_MAINT
@@ -92,7 +98,7 @@ extern int feed_people(short *, int);
 extern double food_needed(short *, int);
 extern int famine_victims(short *, int);
 /* land.c */
-extern int prod_land(int, int, struct bp *, int);
+extern void prod_land(int, int, struct bp *, int);
 /* main.c */
 /* in server.h */
 /* material.c */
@@ -116,7 +122,7 @@ extern void prod_nat(int);
 extern void do_plague(struct sctstr *, int);
 extern int plague_people(struct natstr *, short *, int *, int *, int);
 /* plane.c */
-extern int prod_plane(int, int, struct bp *, int);
+extern void prod_plane(int, int, struct bp *, int);
 /* populace.c */
 extern void populace(struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
@@ -143,6 +149,6 @@ extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);
 extern void produce_sect(struct natstr *, int, struct bp *);
 /* ship.c */
-extern int prod_ship(int, int, struct bp *, int);
+extern void prod_ship(int, int, struct bp *, int);
 
 #endif

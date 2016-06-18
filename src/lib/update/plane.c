@@ -45,19 +45,20 @@
 #include "ship.h"
 #include "update.h"
 
-static void planerepair(struct plnstr *, struct natstr *, struct bp *, int);
 static void upd_plane(struct plnstr *, int, struct natstr *, struct bp *, int);
+static void planerepair(struct plnstr *, struct natstr *, struct bp *,
+			int, struct budget *);
 
-int
+void
 prod_plane(int etus, int natnum, struct bp *bp, int buildem)
 		 /* Build = 1, maintain =0 */
 {
     struct plnstr *pp;
     struct natstr *np;
-    int n, k = 0;
+    int i;
     int start_money;
 
-    for (n = 0; NULL != (pp = getplanep(n)); n++) {
+    for (i = 0; (pp = getplanep(i)); i++) {
 	if (pp->pln_own == 0)
 	    continue;
 	if (pp->pln_own != natnum)
@@ -79,32 +80,29 @@ prod_plane(int etus, int natnum, struct bp *bp, int buildem)
 	np = getnatp(pp->pln_own);
 	start_money = np->nat_money;
 	upd_plane(pp, etus, np, bp, buildem);
-	air_money[pp->pln_own] += np->nat_money - start_money;
-	if (buildem == 0 || np->nat_money != start_money)
-	    k++;
 	if (player->simulation)
 	    np->nat_money = start_money;
     }
-
-    return k;
 }
 
 static void
 upd_plane(struct plnstr *pp, int etus,
 	  struct natstr *np, struct bp *bp, int build)
 {
+    struct budget *budget = &nat_budget[pp->pln_own];
     struct plchrstr *pcp = &plchr[(int)pp->pln_type];
     int mult, cost, eff_lost;
 
     if (build == 1) {
 	if (!pp->pln_off && np->nat_money >= 0)
-	    planerepair(pp, np, bp, etus);
+	    planerepair(pp, np, bp, etus, budget);
 	if (!player->simulation)
 	    pp->pln_off = 0;
     } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < pp->pln_tech * 0.85)
 	    mult = 2;
+	budget->bm[BUDG_PLN_MAINT].count++;
 	cost = -(mult * etus * MIN(0.0, pcp->pl_cost * money_plane));
 	if (np->nat_money < cost && !player->simulation) {
 	    eff_lost = etus / 5;
@@ -116,15 +114,19 @@ upd_plane(struct plnstr *pp, int etus,
 		pp->pln_effic -= eff_lost;
 	    }
 	} else {
+	    budget->bm[BUDG_PLN_MAINT].money -= cost;
 	    np->nat_money -= cost;
 	}
 	/* flight pay is 5x the pay received by other military */
-	np->nat_money += etus * pcp->pl_mat[I_MILIT] * money_mil * 5;
+	cost = etus * pcp->pl_mat[I_MILIT] * -money_mil * 5;
+	budget->bm[BUDG_PLN_MAINT].money -= cost;
+	np->nat_money -= cost;
     }
 }
 
 static void
-planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
+planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus,
+	    struct budget *budget)
 {
     struct plchrstr *pcp = &plchr[(int)pp->pln_type];
     int build;
@@ -134,6 +136,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     int mult;
     int avail;
     int used;
+    int cost;
 
     if (pp->pln_effic == 100)
 	return;
@@ -199,8 +202,11 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus)
     }
 
     bp_set_from_sect(bp, sp);
-    np->nat_money -= roundavg(mult * build * pcp->pl_cost / 100.0);
-
-    if (!player->simulation)
+    cost = roundavg(mult * build * pcp->pl_cost / 100.0);
+    budget->bm[BUDG_PLN_BUILD].count += !!build;
+    budget->bm[BUDG_PLN_BUILD].money -= cost;
+    np->nat_money -= cost;
+    if (!player->simulation) {
 	pp->pln_effic += (signed char)build;
+    }
 }

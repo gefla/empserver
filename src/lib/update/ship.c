@@ -50,20 +50,21 @@
 #include "ship.h"
 #include "update.h"
 
-static void shiprepair(struct shpstr *, struct natstr *, struct bp *, int);
 static void upd_ship(struct shpstr *, int, struct natstr *, struct bp *, int);
+static void shiprepair(struct shpstr *, struct natstr *, struct bp *,
+		       int, struct budget *);
 static int feed_ship(struct shpstr *, int);
 
-int
+void
 prod_ship(int etus, int natnum, struct bp *bp, int build)
 		/* build = 1, maintain = 0 */
 {
     struct shpstr *sp;
     struct natstr *np;
-    int n, k = 0;
+    int i;
     int start_money;
 
-    for (n = 0; NULL != (sp = getshipp(n)); n++) {
+    for (i = 0; (sp = getshipp(i)); i++) {
 	if (sp->shp_own == 0)
 	    continue;
 	if (sp->shp_own != natnum)
@@ -78,14 +79,9 @@ prod_ship(int etus, int natnum, struct bp *bp, int build)
 	np = getnatp(sp->shp_own);
 	start_money = np->nat_money;
 	upd_ship(sp, etus, np, bp, build);
-	sea_money[sp->shp_own] += np->nat_money - start_money;
-	if (!build || np->nat_money != start_money)
-	    k++;
 	if (player->simulation)
 	    np->nat_money = start_money;
     }
-
-    return k;
 }
 
 static void
@@ -93,6 +89,7 @@ upd_ship(struct shpstr *sp, int etus,
 	 struct natstr *np, struct bp *bp, int build)
 	       /* build = 1, maintain = 0 */
 {
+    struct budget *budget = &nat_budget[sp->shp_own];
     struct sctstr *sectp;
     struct mchrstr *mp;
     int pstage, ptime;
@@ -107,13 +104,14 @@ upd_ship(struct shpstr *sp, int etus,
     mp = &mchr[(int)sp->shp_type];
     if (build == 1) {
 	if (!sp->shp_off && np->nat_money >= 0)
-	    shiprepair(sp, np, bp, etus);
+	    shiprepair(sp, np, bp, etus, budget);
 	if (!player->simulation)
 	    sp->shp_off = 0;
     } else {
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < sp->shp_tech * 0.85)
 	    mult = 2;
+	budget->bm[BUDG_SHP_MAINT].count++;
 	cost = -(mult * etus * MIN(0.0, money_ship * mp->m_cost));
 	if (np->nat_money < cost && !player->simulation) {
 	    eff_lost = etus / 5;
@@ -125,6 +123,7 @@ upd_ship(struct shpstr *sp, int etus,
 		sp->shp_effic -= eff_lost;
 	    }
 	} else {
+	    budget->bm[BUDG_SHP_MAINT].money -= cost;
 	    np->nat_money -= cost;
 	}
 
@@ -242,7 +241,8 @@ upd_ship(struct shpstr *sp, int etus,
  * 8 * 8 * $40 = $2560!
  */
 static void
-shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
+shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus,
+	   struct budget *budget)
 {
     struct mchrstr *mp = &mchr[(int)ship->shp_type];
     int delta;
@@ -251,6 +251,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
     int wf;
     int avail;
     int mult;
+    int cost;
 
     if (ship->shp_effic == 100)
 	return;
@@ -313,7 +314,10 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus)
 	}
 
     bp_set_from_sect(bp, sp);
-    np->nat_money -= roundavg(mult * mp->m_cost * build / 100.0);
+    cost = roundavg(mult * mp->m_cost * build / 100.0);
+    budget->bm[BUDG_SHP_BUILD].count += !!build;
+    budget->bm[BUDG_SHP_BUILD].money -= cost;
+    np->nat_money -= cost;
     if (!player->simulation)
 	ship->shp_effic += (signed char)build;
 }

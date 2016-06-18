@@ -43,10 +43,7 @@
 #include "update.h"
 
 static struct budget *calc_all(int *taxes, int *Ncivs,
-		     int *Nuws, int *bars, int *Nbars,
-		     int *ships, int *sbuild, int *nsbuild, int *smaint,
-		     int *units, int *lbuild, int *nlbuild, int *lmaint,
-		     int *planes, int *pbuild, int *npbuild, int *pmaint);
+			       int *Nuws, int *bars, int *Nbars);
 static char *dotsprintf(char *buf, char *format, int data);
 
 int
@@ -54,9 +51,6 @@ budg(void)
 {
     int i;
     int taxes, Ncivs, Nuws, bars, Nbars;
-    int ships, sbuild, nsbuild, smaint;
-    int units, lbuild, nlbuild, lmaint;
-    int planes, pbuild, npbuild, pmaint;
     struct budget *budget;
     int income, expenses;
     struct natstr *np;
@@ -66,10 +60,7 @@ budg(void)
     np = getnatp(player->cnum);
 
     player->simulation = 1;
-    budget = calc_all(&taxes, &Ncivs, &Nuws, &bars, &Nbars,
-		      &ships, &sbuild, &nsbuild, &smaint,
-		      &units, &lbuild, &nlbuild, &lmaint,
-		      &planes, &pbuild, &npbuild, &pmaint);
+    budget = calc_all(&taxes, &Ncivs, &Nuws, &bars, &Nbars);
     player->simulation = 0;
 
     income = taxes + bars;
@@ -90,39 +81,57 @@ budg(void)
 	expenses -= budget->prod[i].money;
     }
 
-    if (sbuild) {
-	sprintf(buf, "%d ship%s", nsbuild, splur(nsbuild));
-	pr("Ship building\t\t\t%-16s\t\t%8d\n", buf, -sbuild);
-	expenses += -sbuild;
+    if (budget->bm[BUDG_SHP_BUILD].money) {
+	snprintf(buf, sizeof(buf), "%d ship%s",
+		 budget->bm[BUDG_SHP_BUILD].count,
+		 splur(budget->bm[BUDG_SHP_BUILD].count));
+	pr("Ship building\t\t\t%-16s\t\t%8d\n",
+	   buf, -budget->bm[BUDG_SHP_BUILD].money);
+	expenses -= budget->bm[BUDG_SHP_BUILD].money;
     }
 
-    if (smaint) {
-	sprintf(buf, "%d ship%s", ships, splur(ships));
-	pr("Ship maintenance\t\t%-16s\t\t%8d\n", buf, -smaint);
-	expenses += -smaint;
+    if (budget->bm[BUDG_SHP_MAINT].money) {
+	snprintf(buf, sizeof(buf), "%d ship%s",
+		 budget->bm[BUDG_SHP_MAINT].count,
+		 splur(budget->bm[BUDG_SHP_MAINT].count));
+	pr("Ship maintenance\t\t%-16s\t\t%8d\n",
+	   buf, -budget->bm[BUDG_SHP_MAINT].money);
+	expenses -= budget->bm[BUDG_SHP_MAINT].money;
     }
 
-    if (pbuild) {
-	sprintf(buf, "%d plane%s", npbuild, splur(npbuild));
-	pr("Plane building\t\t\t%-16s\t\t%8d\n", buf, -pbuild);
-	expenses += -pbuild;
+    if (budget->bm[BUDG_PLN_BUILD].money) {
+	snprintf(buf, sizeof(buf), "%d plane%s",
+		 budget->bm[BUDG_PLN_BUILD].count,
+		 splur(budget->bm[BUDG_PLN_BUILD].count));
+	pr("Plane building\t\t\t%-16s\t\t%8d\n",
+	   buf, -budget->bm[BUDG_PLN_BUILD].money);
+	expenses -= budget->bm[BUDG_PLN_BUILD].money;
     }
 
-    if (pmaint) {
-	sprintf(buf, "%d plane%s", planes, splur(planes));
-	pr("Plane maintenance\t\t%-16s\t\t%8d\n", buf, -pmaint);
-	expenses += -pmaint;
+    if (budget->bm[BUDG_PLN_MAINT].money) {
+	snprintf(buf, sizeof(buf), "%d plane%s",
+		 budget->bm[BUDG_PLN_MAINT].count,
+		 splur(budget->bm[BUDG_PLN_MAINT].count));
+	pr("Plane maintenance\t\t%-16s\t\t%8d\n",
+	   buf, -budget->bm[BUDG_PLN_MAINT].money);
+	expenses -= budget->bm[BUDG_PLN_MAINT].money;
     }
-    if (lbuild) {
-	sprintf(buf, "%d unit%s", nlbuild, splur(nlbuild));
-	pr("Unit building\t\t\t%-16s\t\t%8d\n", buf, -lbuild);
-	expenses += -lbuild;
+    if (budget->bm[BUDG_LND_BUILD].money) {
+	snprintf(buf, sizeof(buf), "%d unit%s",
+		 budget->bm[BUDG_LND_BUILD].count,
+		 splur(budget->bm[BUDG_LND_BUILD].count));
+	pr("Unit building\t\t\t%-16s\t\t%8d\n",
+	   buf, -budget->bm[BUDG_LND_BUILD].money);
+	expenses -= budget->bm[BUDG_LND_BUILD].money;
     }
 
-    if (lmaint) {
-	sprintf(buf, "%d unit%s", units, splur(units));
-	pr("Unit maintenance\t\t%-16s\t\t%8d\n", buf, -lmaint);
-	expenses += -lmaint;
+    if (budget->bm[BUDG_LND_MAINT].money) {
+	snprintf(buf, sizeof(buf), "%d unit%s",
+		 budget->bm[BUDG_LND_MAINT].count,
+		 splur(budget->bm[BUDG_LND_MAINT].count));
+	pr("Unit maintenance\t\t%-16s\t\t%8d\n",
+	   buf, -budget->bm[BUDG_LND_MAINT].money);
+	expenses -= budget->bm[BUDG_LND_MAINT].money;
     }
 
     if (budget->bm[BUDG_SCT_BUILD].money) {
@@ -173,10 +182,7 @@ budg(void)
 }
 
 static struct budget *
-calc_all(int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars,
-	 int *ships, int *sbuild, int *nsbuild, int *smaint,
-	 int *units, int *lbuild, int *nlbuild, int *lmaint,
-	 int *planes, int *pbuild, int *npbuild, int *pmaint)
+calc_all(int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars)
 {
     struct budget *budget = &nat_budget[player->cnum];
     struct natstr *np;
@@ -188,9 +194,6 @@ calc_all(int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars,
 
     memset(nat_budget, 0, sizeof(nat_budget));
     *taxes = *Ncivs = *Nuws = *bars = *Nbars = 0;
-    *ships = *sbuild = *nsbuild = *smaint = 0;
-    *units = *lbuild = *nlbuild = *lmaint = 0;
-    *planes = *pbuild = *npbuild = *pmaint = 0;
 
     np = getnatp(player->cnum);
     bp = bp_alloc();
@@ -212,41 +215,18 @@ calc_all(int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars,
     upd_slmilcosts(etu, player->cnum);
     pay_reserve(np, etu);
 
-    /* Maintain ships */
-    sea_money[player->cnum] = 0;
-    *ships = prod_ship(etu, player->cnum, bp, 0);
-    *smaint = sea_money[player->cnum];
-
-    /* Maintain planes */
-    air_money[player->cnum] = 0;
-    *planes = prod_plane(etu, player->cnum, bp, 0);
-    *pmaint = air_money[player->cnum];
-
-    /* Maintain land units */
-    lnd_money[player->cnum] = 0;
-    *units = prod_land(etu, player->cnum, bp, 0);
-    *lmaint = lnd_money[player->cnum];
+    /* Maintain ships, planes and land units */
+    prod_ship(etu, player->cnum, bp, 0);
+    prod_plane(etu, player->cnum, bp, 0);
+    prod_land(etu, player->cnum, bp, 0);
 
     /* Produce */
     produce_sect(np, etu, bp);
 
-    /* Build ships */
-    sea_money[player->cnum] = 0;
-    *nsbuild = prod_ship(etu, player->cnum, bp, 1);
-    *sbuild = sea_money[player->cnum];
-    sea_money[player->cnum] = 0;
-
-    /* Build planes */
-    air_money[player->cnum] = 0;
-    *npbuild = prod_plane(etu, player->cnum, bp, 1);
-    *pbuild = air_money[player->cnum];
-    air_money[player->cnum] = 0;
-
-    /* Build land units */
-    lnd_money[player->cnum] = 0;
-    *nlbuild = prod_land(etu, player->cnum, bp, 1);
-    *lbuild = lnd_money[player->cnum];
-    lnd_money[player->cnum] = 0;
+    /* Build ships, planes and land units */
+    prod_ship(etu, player->cnum, bp, 1);
+    prod_plane(etu, player->cnum, bp, 1);
+    prod_land(etu, player->cnum, bp, 1);
 
     free(bp);
     return budget;

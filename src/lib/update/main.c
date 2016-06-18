@@ -123,6 +123,12 @@ update_main(void)
 	prod_ship(etu, i, NULL, 1);
 	prod_plane(etu, i, NULL, 1);
 	prod_land(etu, i, NULL, 1);
+	sea_money[i] += nat_budget[i].bm[BUDG_SHP_MAINT].money
+	    + nat_budget[i].bm[BUDG_SHP_BUILD].money;
+	air_money[i] += nat_budget[i].bm[BUDG_PLN_MAINT].money
+	    + nat_budget[i].bm[BUDG_PLN_BUILD].money;
+	lnd_money[i] += nat_budget[i].bm[BUDG_LND_MAINT].money
+	    + nat_budget[i].bm[BUDG_LND_BUILD].money;
     }
     logerror("done producing for countries.");
 
