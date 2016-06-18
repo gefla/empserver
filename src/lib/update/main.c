@@ -46,6 +46,7 @@
 #include "unit.h"
 #include "update.h"
 
+struct budget nat_budget[MAXNOC];
 int money[MAXNOC];
 int pops[MAXNOC];
 int sea_money[MAXNOC];
@@ -86,6 +87,7 @@ update_main(void)
      * sector production routine (for producing education,
      * happiness, and printing out the state of the nation)
      */
+    memset(nat_budget, 0, sizeof(nat_budget));
     memset(pops, 0, sizeof(pops));
     memset(air_money, 0, sizeof(air_money));
     memset(sea_money, 0, sizeof(sea_money));
@@ -111,7 +113,6 @@ update_main(void)
 	if (np->nat_stat == STAT_SANCT) {
 	    continue;
 	}
-	np->nat_money += (int)(np->nat_reserve * money_res * etu);
 
 	/* maintain units */
 	prod_ship(etu, i, NULL, 0);

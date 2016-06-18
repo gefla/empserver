@@ -41,7 +41,7 @@
     Play#1 output Play#1 1 Unit maintenance		16 units        		     510
     Play#1 output Play#1 1 Sector building			40 sectors      		     774
     Play#1 output Play#1 1 Sector maintenance		2 sectors       		     120
-    Play#1 output Play#1 1 Military payroll		1155 mil, 0 res                     5777
+    Play#1 output Play#1 1 Military payroll		1164 mil, 0 res                     5777
     Play#1 output Play#1 1 Total expenses.....................................................24647
     Play#1 output Play#1 1 Income from taxes		26911 civs, 9007 uws              +12625
     Play#1 output Play#1 1 Total income......................................................+12625
@@ -234,7 +234,7 @@
     Play#2 output Play#2 1 Unit maintenance		3 units         		      90
     Play#2 output Play#2 1 Sector building			26 sectors      		     209
     Play#2 output Play#2 1 Sector maintenance		5 sectors       		     300
-    Play#2 output Play#2 1 Military payroll		1898 mil, 1000 res                  9994
+    Play#2 output Play#2 1 Military payroll		1900 mil, 1000 res                  9994
     Play#2 output Play#2 1 Total expenses.....................................................12390
     Play#2 output Play#2 1 Income from taxes		6800 civs, 4000 uws                +1076
     Play#2 output Play#2 1 Income from bars		400 bars                           +2865
@@ -279,7 +279,7 @@
     Play#3 input budget
     Play#3 command budget
     Play#3 output Play#3 1 Sector Type			Production			    Cost
-    Play#3 output Play#3 1 Military payroll		169 mil, 0 res                       848
+    Play#3 output Play#3 1 Military payroll		170 mil, 0 res                       848
     Play#3 output Play#3 1 Total expenses.......................................................848
     Play#3 output Play#3 1 Income from taxes		16549 civs, 150 uws                +5540
     Play#3 output Play#3 1 Total income.......................................................+5540
@@ -320,7 +320,7 @@
     Play#4 output Play#4 1 bank             		4 bars   			      40
     Play#4 output Play#4 1 Ship maintenance		10 ships        		     300
     Play#4 output Play#4 1 Unit maintenance		10 units        		     600
-    Play#4 output Play#4 1 Military payroll		1110 mil, 0 res                     5552
+    Play#4 output Play#4 1 Military payroll		1111 mil, 0 res                     5552
     Play#4 output Play#4 1 Total expenses......................................................6492
     Play#4 output Play#4 1 Income from taxes		23604 civs, 4100 uws                +212
     Play#4 output Play#4 1 Income from bars		100 bars                           +1500
@@ -393,7 +393,7 @@
     Play#6 output Play#6 1 Plane maintenance		3 planes        		     147
     Play#6 output Play#6 1 Unit maintenance		3 units         		      90
     Play#6 output Play#6 1 Sector maintenance		1 sector        		      60
-    Play#6 output Play#6 1 Military payroll		166 mil, 0 res                       831
+    Play#6 output Play#6 1 Military payroll		168 mil, 0 res                       831
     Play#6 output Play#6 1 Total expenses......................................................1668
     Play#6 output Play#6 1 Income from taxes		4000 civs, 0 uws                   +1750
     Play#6 output Play#6 1 Total income.......................................................+1750
@@ -424,7 +424,7 @@
     Play#7 output Play#7 1 Sector Type			Production			    Cost
     Play#7 output Play#7 1 Ship maintenance		3 ships         		      70
     Play#7 output Play#7 1 Sector maintenance		1 sector        		      60
-    Play#7 output Play#7 1 Military payroll		158 mil, 0 res                       792
+    Play#7 output Play#7 1 Military payroll		160 mil, 0 res                       792
     Play#7 output Play#7 1 Total expenses.......................................................922
     Play#7 output Play#7 1 Income from taxes		4000 civs, 0 uws                   +1750
     Play#7 output Play#7 1 Total income.......................................................+1750

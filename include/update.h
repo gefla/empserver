@@ -43,7 +43,19 @@
 #define SCT_MAINT (SCT_TYPE_MAX + 2)
 #define SCT_BUDG_MAX SCT_MAINT
 
+struct budg_item {
+    int money;			/* money delta */
+    int count;			/* #things making/consuming the money */
+};
+
+/* A nation's budget for an update */
+struct budget {
+    /* military payroll */
+    struct budg_item mil;
+};
+
 /* main.c */
+extern struct budget nat_budget[MAXNOC];
 extern int money[MAXNOC];
 extern int pops[MAXNOC];
 extern int sea_money[MAXNOC];
@@ -103,10 +115,11 @@ extern int prod_plane(int, int, struct bp *, int);
 extern void populace(struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
 /* prepare.c */
-extern void tax(struct sctstr *, int, int *, int *, int *, int *);
-extern int upd_slmilcosts(natid, int);
 extern void prepare_sects(int);
+extern void tax(struct sctstr *, int, int *, int *, int *);
+extern void upd_slmilcosts(int, natid);
 extern int bank_income(struct sctstr *, int);
+extern void pay_reserve(struct natstr *, int);
 /* produce.c */
 extern int produce(struct natstr *, struct sctstr *, int *);
 extern int prod_materials_cost(struct pchrstr *, short[], int *);

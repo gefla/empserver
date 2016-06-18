@@ -42,8 +42,8 @@
 #include "product.h"
 #include "update.h"
 
-static void calc_all(int (*p_sect)[2], int *taxes, int *Ncivs,
-		     int *Nuws, int *bars, int *Nbars, int *mil,
+static struct budget *calc_all(int (*p_sect)[2], int *taxes, int *Ncivs,
+		     int *Nuws, int *bars, int *Nbars,
 		     int *ships, int *sbuild, int *nsbuild, int *smaint,
 		     int *units, int *lbuild, int *nlbuild, int *lmaint,
 		     int *planes, int *pbuild, int *npbuild, int *pmaint);
@@ -54,26 +54,24 @@ budg(void)
 {
     int i;
     int p_sect[SCT_BUDG_MAX+1][2];
-    int taxes, Ncivs, Nuws, bars, Nbars, mil;
+    int taxes, Ncivs, Nuws, bars, Nbars;
     int ships, sbuild, nsbuild, smaint;
     int units, lbuild, nlbuild, lmaint;
     int planes, pbuild, npbuild, pmaint;
-    int n, etu;
+    struct budget *budget;
     int income, expenses;
     struct natstr *np;
     char buf[1024];
     char in[80];
 
-    etu = etu_per_update;
-
     np = getnatp(player->cnum);
 
     player->simulation = 1;
-    calc_all(p_sect,
-	     &taxes, &Ncivs, &Nuws, &bars, &Nbars, &mil,
-	     &ships, &sbuild, &nsbuild, &smaint,
-	     &units, &lbuild, &nlbuild, &lmaint,
-	     &planes, &pbuild, &npbuild, &pmaint);
+    budget = calc_all(p_sect,
+		      &taxes, &Ncivs, &Nuws, &bars, &Nbars,
+		      &ships, &sbuild, &nsbuild, &smaint,
+		      &units, &lbuild, &nlbuild, &lmaint,
+		      &planes, &pbuild, &npbuild, &pmaint);
     player->simulation = 0;
 
     income = taxes + bars;
@@ -142,12 +140,14 @@ budg(void)
 	   buf, p_sect[SCT_MAINT][1]);
 	expenses += p_sect[SCT_MAINT][1];
     }
-    if (mil) {
-	n = (mil - np->nat_reserve * money_res * etu) / (etu * money_mil);
-	sprintf(in, "%d mil, %d res", n, np->nat_reserve);
-	pr("Military payroll\t\t%-32s%8d\n", in, -mil);
-	expenses -= mil;
+    if (budget->mil.money) {
+	snprintf(buf, sizeof(buf), "%d mil, %d res",
+		 budget->mil.count, np->nat_reserve);
+	pr("Military payroll\t\t%-32s%8d\n",
+	   buf, -budget->mil.money);
+	expenses -= budget->mil.money;
     }
+
     pr("Total expenses%s\n", dotsprintf(buf, "%58d", expenses));
     if (taxes) {
 	sprintf(in, "%d civ%s, %d uw%s",
@@ -171,22 +171,24 @@ budg(void)
     return RET_OK;
 }
 
-static void
+static struct budget *
 calc_all(int p_sect[][2],
-	 int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars, int *mil,
+	 int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars,
 	 int *ships, int *sbuild, int *nsbuild, int *smaint,
 	 int *units, int *lbuild, int *nlbuild, int *lmaint,
 	 int *planes, int *pbuild, int *npbuild, int *pmaint)
 {
+    struct budget *budget = &nat_budget[player->cnum];
     struct natstr *np;
     struct bp *bp;
     int pop = 0;
-    int n, civ_tax, uw_tax, mil_pay;
+    int n, civ_tax, uw_tax;
     struct sctstr *sp;
     int etu = etu_per_update;
 
+    memset(nat_budget, 0, sizeof(nat_budget));
     memset(p_sect, 0, sizeof(**p_sect) * (SCT_BUDG_MAX+1) * 2);
-    *taxes = *Ncivs = *Nuws = *bars = *Nbars = *mil = 0;
+    *taxes = *Ncivs = *Nuws = *bars = *Nbars = 0;
     *ships = *sbuild = *nsbuild = *smaint = 0;
     *units = *lbuild = *nlbuild = *lmaint = 0;
     *planes = *pbuild = *npbuild = *pmaint = 0;
@@ -197,11 +199,10 @@ calc_all(int p_sect[][2],
 	bp_set_from_sect(bp, sp);
 	if (sp->sct_own == player->cnum) {
 	    sp->sct_updated = 0;
-	    tax(sp, etu, &pop, &civ_tax, &uw_tax, &mil_pay);
+	    tax(sp, etu, &pop, &civ_tax, &uw_tax);
 	    *Ncivs += sp->sct_item[I_CIVIL];
 	    *Nuws += sp->sct_item[I_UW];
 	    *taxes += civ_tax + uw_tax;
-	    *mil += mil_pay;
 	    if (sp->sct_type == SCT_BANK) {
 		*bars += bank_income(sp, etu);
 		*Nbars += sp->sct_item[I_BAR];
@@ -209,9 +210,8 @@ calc_all(int p_sect[][2],
 	}
     }
     tpops[player->cnum] = pop;
-    *mil += (int)(np->nat_reserve * money_res * etu);
-
-    *mil += upd_slmilcosts(np->nat_cnum, etu);
+    upd_slmilcosts(etu, player->cnum);
+    pay_reserve(np, etu);
 
     /* Maintain ships */
     sea_money[player->cnum] = 0;
@@ -250,6 +250,7 @@ calc_all(int p_sect[][2],
     lnd_money[player->cnum] = 0;
 
     free(bp);
+    return budget;
 }
 
 static char *

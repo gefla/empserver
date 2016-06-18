@@ -51,7 +51,7 @@ prepare_sects(int etu)
 {
     struct sctstr *sp;
     struct natstr *np;
-    int n, civ_tax, uw_tax, mil_pay;
+    int n, civ_tax, uw_tax;
 
     memset(levels, 0, sizeof(levels));
 
@@ -95,20 +95,24 @@ prepare_sects(int etu)
 	do_plague(sp, etu);
 	populace(sp, etu);
 	np = getnatp(sp->sct_own);
-	tax(sp, etu, &pops[sp->sct_own], &civ_tax, &uw_tax, &mil_pay);
-	np->nat_money += civ_tax + uw_tax + mil_pay;
+	tax(sp, etu, &pops[sp->sct_own], &civ_tax, &uw_tax);
+	np->nat_money += civ_tax + uw_tax;
 	if (sp->sct_type == SCT_BANK)
 	    np->nat_money += bank_income(sp, etu);
     }
     for (n = 0; NULL != (np = getnatp(n)); n++) {
-	np->nat_money += upd_slmilcosts(np->nat_cnum, etu);
+	upd_slmilcosts(etu, np->nat_cnum);
+	pay_reserve(np, etu);
+	np->nat_money += nat_budget[n].mil.money;
     }
 }
 
 void
-tax(struct sctstr *sp, int etu, int *pop, int *civ_tax,
-    int *uw_tax, int *mil_pay)
+tax(struct sctstr *sp, int etu, int *pop, int *civ_tax, int *uw_tax)
 {
+    struct budget *budget = &nat_budget[sp->sct_own];
+    int mil_pay;
+
     *civ_tax = (int)(0.5 + sp->sct_item[I_CIVIL] * sp->sct_effic *
 		     etu * money_civ / 100);
     /*
@@ -118,7 +122,10 @@ tax(struct sctstr *sp, int etu, int *pop, int *civ_tax,
 	*civ_tax = *civ_tax / 4;
     *uw_tax = (int)(0.5 + sp->sct_item[I_UW] * sp->sct_effic *
 		    etu * money_uw / 100);
-    *mil_pay = sp->sct_item[I_MILIT] * etu * money_mil;
+
+    mil_pay = sp->sct_item[I_MILIT] * etu * money_mil;
+    budget->mil.count += sp->sct_item[I_MILIT];
+    budget->mil.money += mil_pay;
 
     /*
      * only non-captured civs add to census for nation
@@ -127,13 +134,12 @@ tax(struct sctstr *sp, int etu, int *pop, int *civ_tax,
 	*pop += sp->sct_item[I_CIVIL];
 }
 
-int
-upd_slmilcosts(natid n, int etu)
+void
+upd_slmilcosts(int etu, natid n)
 {
     struct shpstr *sp;
     struct lndstr *lp;
     int mil, i;
-    int mil_pay;
 
     mil = 0;
 
@@ -149,12 +155,19 @@ upd_slmilcosts(natid n, int etu)
 	mil += lp->lnd_item[I_MILIT];
     }
 
-    mil_pay = mil * etu * money_mil;
-    return mil_pay;
+    nat_budget[n].mil.count += mil;
+    nat_budget[n].mil.money += mil * etu * money_mil;
 }
 
 int
 bank_income(struct sctstr *sp, int etu)
 {
     return (int)(sp->sct_item[I_BAR] * etu * bankint * sp->sct_effic / 100);
+}
+
+void
+pay_reserve(struct natstr *np, int etu)
+{
+    nat_budget[np->nat_cnum].mil.money
+	+= (int)(np->nat_reserve * money_res * etu);
 }

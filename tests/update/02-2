@@ -1,5 +1,5 @@
 budget
-| BUG: military payroll slightly low, both #mil and $
+| BUG: military payroll slightly low
 | BUG: expenses ignore going broke
 | TODO is it accurate?
 production *
