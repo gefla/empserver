@@ -132,24 +132,24 @@ upd_slmilcosts(natid n, int etu)
 {
     struct shpstr *sp;
     struct lndstr *lp;
-    int mil = 0;
-    int totalmil = 0;
-    int mil_pay = 0;
-    int i;
+    int mil, i;
+    int mil_pay;
 
-    for (i = 0; NULL != (sp = getshipp(i)); i++) {
+    mil = 0;
+
+    for (i = 0; (sp = getshipp(i)); i++) {
 	if (!sp->shp_own || sp->shp_own != n)
 	    continue;
-	if ((mil = sp->shp_item[I_MILIT]) > 0)
-	    totalmil += mil;
+	mil += sp->shp_item[I_MILIT];
     }
-    for (i = 0; NULL != (lp = getlandp(i)); i++) {
+
+    for (i = 0; (lp = getlandp(i)); i++) {
 	if (!lp->lnd_own || lp->lnd_own != n)
 	    continue;
-	if ((mil = lp->lnd_item[I_MILIT]) > 0)
-	    totalmil += mil;
+	mil += lp->lnd_item[I_MILIT];
     }
-    mil_pay = totalmil * etu * money_mil;
+
+    mil_pay = mil * etu * money_mil;
     return mil_pay;
 }
 
