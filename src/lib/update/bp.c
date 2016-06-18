@@ -41,9 +41,8 @@
 #include <config.h>
 
 #include <stdlib.h>
-#include "budg.h"
 #include "optlist.h"
-#include "sect.h"
+#include "update.h"
 
 /* Item types we want to track. */
 enum bp_item_idx {

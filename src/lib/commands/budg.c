@@ -36,11 +36,11 @@
 #include <config.h>
 
 #include <ctype.h>
-#include "budg.h"
 #include "commands.h"
 #include "item.h"
 #include "optlist.h"
 #include "product.h"
+#include "update.h"
 
 static void calc_all(int (*p_sect)[2], int *taxes, int *Ncivs,
 		     int *Nuws, int *bars, int *Nbars, int *mil,

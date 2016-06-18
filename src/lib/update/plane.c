@@ -34,7 +34,6 @@
 
 #include <config.h>
 
-#include "budg.h"
 #include "chance.h"
 #include "file.h"
 #include "lost.h"
@@ -43,8 +42,8 @@
 #include "plane.h"
 #include "player.h"
 #include "prototypes.h"
-#include "sect.h"
 #include "ship.h"
+#include "update.h"
 
 static void planerepair(struct plnstr *, struct natstr *, struct bp *, int);
 static void upd_plane(struct plnstr *, int, struct natstr *, struct bp *, int);

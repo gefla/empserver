@@ -32,14 +32,13 @@
 
 #include <config.h>
 
-#include "budg.h"
 #include "chance.h"
 #include "nat.h"
 #include "optlist.h"
 #include "player.h"
 #include "product.h"
 #include "prototypes.h"
-#include "sect.h"
+#include "update.h"
 
 static void materials_charge(struct pchrstr *, short *, int);
 

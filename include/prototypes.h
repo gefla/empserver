@@ -648,7 +648,7 @@ extern void age_levels(int);
 /* anno.c */
 extern void delete_old_announcements(void);
 /* bp.c */
-/* in budg.h */
+/* in update.h */
 /* deliver.c */
 extern void dodeliver(struct sctstr *);
 /* distribute.c */

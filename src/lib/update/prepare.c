@@ -35,7 +35,6 @@
 
 #include <config.h>
 
-#include "budg.h"
 #include "chance.h"
 #include "file.h"
 #include "item.h"
@@ -44,8 +43,8 @@
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
-#include "sect.h"
 #include "ship.h"
+#include "update.h"
 
 void
 prepare_sects(int etu)

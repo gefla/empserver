@@ -36,7 +36,6 @@
 #include <config.h>
 
 #include <sys/resource.h>
-#include "budg.h"
 #include "empthread.h"
 #include "file.h"
 #include "game.h"
@@ -45,6 +44,7 @@
 #include "prototypes.h"
 #include "server.h"
 #include "unit.h"
+#include "update.h"
 
 int money[MAXNOC];
 int pops[MAXNOC];

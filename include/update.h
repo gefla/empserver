@@ -24,18 +24,17 @@
  *
  *  ---
  *
- *  budg.h: Budget related definitions
+ *  update.h: Definitions related to the update
  *
  *  Known contributors to this file:
  *     Ville Virrankoski, 1995
  *     Markus Armbruster, 2004-2016
  */
 
-#ifndef BUDG_H
-#define BUDG_H
+#ifndef UPDATE_H
+#define UPDATE_H
 
-#include "types.h"
-#include "item.h"
+#include "sect.h"
 
 #define SCT_EFFIC (SCT_TYPE_MAX + 1)
 #define SCT_MAINT (SCT_TYPE_MAX + 2)
