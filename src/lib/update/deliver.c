@@ -39,6 +39,7 @@
 #include "plague.h"
 #include "sect.h"
 #include "prototypes.h"
+#include "update.h"
 
 #define DELIVER_BONUS 4.0
 

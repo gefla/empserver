@@ -40,6 +40,7 @@
 #include "plane.h"
 #include "prototypes.h"
 #include "sect.h"
+#include "update.h"
 
 #ifndef PI
 #define PI	3.14159265358979323846

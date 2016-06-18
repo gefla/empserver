@@ -43,6 +43,7 @@
 #include "prototypes.h"
 #include "sect.h"
 #include "ship.h"
+#include "update.h"
 
 static int s_commod(struct empobj *, short *, i_type, int, int, int);
 static int get_minimum(struct lndstr *, i_type);

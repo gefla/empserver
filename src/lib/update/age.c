@@ -36,7 +36,7 @@
 #include "file.h"
 #include "nat.h"
 #include "optlist.h"
-#include "prototypes.h"
+#include "update.h"
 
 int
 age_people(int n, int etu)

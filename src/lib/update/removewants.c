@@ -34,7 +34,7 @@
 
 #include "file.h"
 #include "nat.h"
-#include "prototypes.h"
+#include "update.h"
 
 int
 update_removewants(void)

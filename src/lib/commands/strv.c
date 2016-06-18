@@ -38,6 +38,7 @@
 #include "land.h"
 #include "optlist.h"
 #include "ship.h"
+#include "update.h"
 
 static void starv_sects(char *range);
 static void starv_ships(char *range);

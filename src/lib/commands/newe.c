@@ -36,6 +36,7 @@
 #include "commands.h"
 #include "item.h"
 #include "optlist.h"
+#include "update.h"
 
 int
 newe(void)

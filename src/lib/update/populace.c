@@ -40,6 +40,7 @@
 #include "prototypes.h"
 #include "nat.h"
 #include "sect.h"
+#include "update.h"
 
 void
 populace(struct sctstr *sp, int etu)

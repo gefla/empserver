@@ -42,6 +42,7 @@
 #include "plague.h"
 #include "prototypes.h"
 #include "sect.h"
+#include "update.h"
 
 #ifdef DISTRIBUTE_DEBUG
 #define DPRINTF(fmt, ...) ((void)printf(fmt , ## __VA_ARGS__))

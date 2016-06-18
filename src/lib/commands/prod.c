@@ -38,6 +38,7 @@
 #include "item.h"
 #include "optlist.h"
 #include "product.h"
+#include "update.h"
 
 static void prprod(struct sctstr *, double, double, char,
 		   double, double, double, char[], int[], int[], int);

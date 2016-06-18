@@ -41,6 +41,7 @@
 #include "player.h"
 #include "prototypes.h"
 #include "unit.h"
+#include "update.h"
 
 void
 lnd_postread(int n, void *ptr)

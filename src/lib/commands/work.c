@@ -36,6 +36,7 @@
 #include "commands.h"
 #include "land.h"
 #include "optlist.h"
+#include "update.h"
 
 int
 work(void)

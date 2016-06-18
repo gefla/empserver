@@ -44,6 +44,7 @@
 #include "path.h"
 #include "sect.h"
 #include "prototypes.h"
+#include "update.h"
 
 static void assemble_dist_paths(double *);
 

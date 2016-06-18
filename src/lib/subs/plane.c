@@ -42,6 +42,7 @@
 #include "player.h"
 #include "prototypes.h"
 #include "unit.h"
+#include "update.h"
 
 void
 pln_postread(int n, void *ptr)

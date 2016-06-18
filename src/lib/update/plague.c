@@ -43,6 +43,7 @@
 #include "plague.h"
 #include "prototypes.h"
 #include "sect.h"
+#include "update.h"
 
 static int infect_people(struct natstr *, struct sctstr *);
 

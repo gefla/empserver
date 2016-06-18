@@ -39,10 +39,10 @@
 #include "land.h"
 #include "optlist.h"
 #include "plane.h"
-#include "prototypes.h"
 #include "sect.h"
 #include "server.h"
 #include "ship.h"
+#include "update.h"
 
 static int do_upd_checking;
 

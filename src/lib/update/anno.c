@@ -44,6 +44,7 @@
 #include "optlist.h"
 #include "prototypes.h"
 #include "tel.h"
+#include "update.h"
 
 static int copy_and_expire(FILE *, FILE *, char *, time_t);
 static int copy_sink(char *, size_t, void *);

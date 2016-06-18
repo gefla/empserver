@@ -42,6 +42,7 @@
 #include "prototypes.h"
 #include "ship.h"
 #include "unit.h"
+#include "update.h"
 
 void
 shp_postread(int n, void *ptr)

@@ -642,76 +642,7 @@ extern int wu(natid, natid, char *, ...) ATTRIBUTE((format (printf, 3, 4)));
 /*
  * src/lib/update/ *.c
  */
-/* age.c */
-extern int age_people(int, int);
-extern void age_levels(int);
-/* anno.c */
-extern void delete_old_announcements(void);
-/* bp.c */
 /* in update.h */
-/* deliver.c */
-extern void dodeliver(struct sctstr *);
-/* distribute.c */
-extern int dodistribute(struct sctstr *, int, double);
-/* finish.c */
-extern void finish_sects(int);
-/* human.c */
-extern void do_feed(struct sctstr *, struct natstr *, int, int);
-extern int feed_people(short *, int);
-extern double food_needed(short *, int);
-extern int famine_victims(short *, int);
-/* land.c */
-extern int prod_land(int, int, struct bp *, int);
-/* main.c */
-/* in server.h */
-/* material.c */
-extern int get_materials(struct sctstr *, short[], int);
-/* mobility.c */
-extern void mob_sect(void);
-extern void mob_ship(void);
-extern void mob_land(void);
-extern void mob_plane(void);
-extern void sct_do_upd_mob(struct sctstr *sp);
-extern void shp_do_upd_mob(struct shpstr *sp);
-extern void lnd_do_upd_mob(struct lndstr *lp);
-extern void pln_do_upd_mob(struct plnstr *pp);
-/* move_sat.c */
-extern void move_sat(struct plnstr *);
-/* nat.c */
-extern void prod_nat(int);
-/* nxtitemp.c */
-/* in nsc.h */
-/* plague.c */
-extern void do_plague(struct sctstr *, int);
-extern int plague_people(struct natstr *, short *, int *, int *, int);
-/* plane.c */
-extern int prod_plane(int, int, struct bp *, int);
-/* populace.c */
-extern void populace(struct sctstr *, int);
-extern int total_work(int, int, int, int, int, int);
-/* prepare.c */
-extern void tax(struct sctstr *, int, int *, int *, int *, int *);
-extern int upd_slmilcosts(natid, int);
-extern void prepare_sects(int);
-extern int bank_income(struct sctstr *, int);
-/* produce.c */
-extern int produce(struct natstr *, struct sctstr *, int *);
-extern int prod_materials_cost(struct pchrstr *, short[], int *);
-extern int prod_resource_limit(struct pchrstr *, unsigned char *);
-extern double prod_eff(int, float);
-/* removewants.c */
-extern int update_removewants(void);
-/* revolt.c */
-extern void revolt(struct sctstr *);
-extern void guerrilla(struct sctstr *);
-/* sect.c */
-extern double buildeff(struct sctstr *);
-extern void do_fallout(struct sctstr *, int);
-extern void spread_fallout(struct sctstr *, int);
-extern void decay_fallout(struct sctstr *, int);
-extern void produce_sect(struct natstr *, int, struct bp *, int[][2]);
-/* ship.c */
-extern int prod_ship(int, int, struct bp *, int);
 
 /*
  * src/server

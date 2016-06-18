@@ -46,6 +46,7 @@
 #include "plane.h"
 #include "prototypes.h"
 #include "sect.h"
+#include "update.h"
 
 static void take_casualties(struct sctstr *, int);
 static void lnd_dies_fighting_che(struct lndstr *);
