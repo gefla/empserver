@@ -62,8 +62,8 @@ struct budget {
     struct budg_item prod[SCT_TYPE_MAX + 1];
     /* building and maintenance */
     struct budg_item bm[BUDG_BLD_MAX + 1];
-    /* military payroll */
-    struct budg_item mil;
+    /* population, taxes, military payroll */
+    struct budg_item civ, mil, uw;
 };
 
 /* main.c */
@@ -128,7 +128,7 @@ extern void populace(struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
 /* prepare.c */
 extern void prepare_sects(int);
-extern void tax(struct sctstr *, int, int *, int *, int *);
+extern void tax(struct sctstr *, int, int *);
 extern void upd_slmilcosts(int, natid);
 extern int bank_income(struct sctstr *, int);
 extern void pay_reserve(struct natstr *, int);

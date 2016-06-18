@@ -51,7 +51,7 @@ prepare_sects(int etu)
 {
     struct sctstr *sp;
     struct natstr *np;
-    int n, civ_tax, uw_tax;
+    int n;
 
     memset(levels, 0, sizeof(levels));
 
@@ -95,8 +95,7 @@ prepare_sects(int etu)
 	do_plague(sp, etu);
 	populace(sp, etu);
 	np = getnatp(sp->sct_own);
-	tax(sp, etu, &pops[sp->sct_own], &civ_tax, &uw_tax);
-	np->nat_money += civ_tax + uw_tax;
+	tax(sp, etu, &pops[sp->sct_own]);
 	if (sp->sct_type == SCT_BANK)
 	    np->nat_money += bank_income(sp, etu);
     }
@@ -104,24 +103,31 @@ prepare_sects(int etu)
 	upd_slmilcosts(etu, np->nat_cnum);
 	pay_reserve(np, etu);
 	np->nat_money += nat_budget[n].mil.money;
+	np->nat_money += nat_budget[n].civ.money;
+	np->nat_money += nat_budget[n].uw.money;
     }
 }
 
 void
-tax(struct sctstr *sp, int etu, int *pop, int *civ_tax, int *uw_tax)
+tax(struct sctstr *sp, int etu, int *pop)
 {
     struct budget *budget = &nat_budget[sp->sct_own];
-    int mil_pay;
+    int civ_tax, uw_tax, mil_pay;
 
-    *civ_tax = (int)(0.5 + sp->sct_item[I_CIVIL] * sp->sct_effic *
-		     etu * money_civ / 100);
+    civ_tax = (int)(0.5 + sp->sct_item[I_CIVIL] * sp->sct_effic *
+		    etu * money_civ / 100);
     /*
      * captured civs only pay 1/4 taxes
      */
     if (sp->sct_own != sp->sct_oldown)
-	*civ_tax = *civ_tax / 4;
-    *uw_tax = (int)(0.5 + sp->sct_item[I_UW] * sp->sct_effic *
-		    etu * money_uw / 100);
+	civ_tax /= 4;
+    budget->civ.count += sp->sct_item[I_CIVIL];
+    budget->civ.money += civ_tax;
+
+    uw_tax = (int)(0.5 + sp->sct_item[I_UW] * sp->sct_effic *
+		   etu * money_uw / 100);
+    budget->uw.count += sp->sct_item[I_UW];
+    budget->uw.money += uw_tax;
 
     mil_pay = sp->sct_item[I_MILIT] * etu * money_mil;
     budget->mil.count += sp->sct_item[I_MILIT];

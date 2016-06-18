@@ -42,8 +42,7 @@
 #include "product.h"
 #include "update.h"
 
-static struct budget *calc_all(int *taxes, int *Ncivs,
-			       int *Nuws, int *bars, int *Nbars);
+static struct budget *calc_all(int *bars, int *Nbars);
 static char *dotsprintf(char *buf, char *format, int data);
 
 int
@@ -63,9 +62,9 @@ budg(void)
 	{ "Sector maintenance", "sector" }
     };
     int i;
-    int taxes, Ncivs, Nuws, bars, Nbars;
+    int bars, Nbars;
     struct budget *budget;
-    int income, expenses;
+    int income, expenses, taxes;
     struct natstr *np;
     char buf[1024];
     char in[80];
@@ -73,10 +72,10 @@ budg(void)
     np = getnatp(player->cnum);
 
     player->simulation = 1;
-    budget = calc_all(&taxes, &Ncivs, &Nuws, &bars, &Nbars);
+    budget = calc_all(&bars, &Nbars);
     player->simulation = 0;
 
-    income = taxes + bars;
+    income = bars;
     expenses = 0;
     pr("Sector Type\t\t\tProduction\t\t\t    Cost\n");
     for (i = 0; i <= SCT_TYPE_MAX; i++) {
@@ -114,10 +113,13 @@ budg(void)
     }
 
     pr("Total expenses%s\n", dotsprintf(buf, "%58d", expenses));
+    taxes = budget->civ.money + budget->uw.money;
     if (taxes) {
-	sprintf(in, "%d civ%s, %d uw%s",
-		Ncivs, splur(Ncivs), Nuws, splur(Nuws));
-	pr("Income from taxes\t\t%-32s%+8d\n", in, taxes);
+	snprintf(buf, sizeof(buf), "%d civ%s, %d uw%s",
+		 budget->civ.count, splur(budget->civ.count),
+		 budget->uw.count, splur(budget->uw.count));
+	pr("Income from taxes\t\t%-32s%+8d\n", buf, taxes);
+	income += taxes;
     }
     if (bars) {
 	sprintf(in, "%d bar%s", Nbars, splur(Nbars));
@@ -137,18 +139,18 @@ budg(void)
 }
 
 static struct budget *
-calc_all(int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars)
+calc_all(int *bars, int *Nbars)
 {
     struct budget *budget = &nat_budget[player->cnum];
     struct natstr *np;
     struct bp *bp;
     int pop = 0;
-    int n, civ_tax, uw_tax;
+    int n;
     struct sctstr *sp;
     int etu = etu_per_update;
 
     memset(nat_budget, 0, sizeof(nat_budget));
-    *taxes = *Ncivs = *Nuws = *bars = *Nbars = 0;
+    *bars = *Nbars = 0;
 
     np = getnatp(player->cnum);
     bp = bp_alloc();
@@ -156,10 +158,7 @@ calc_all(int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars)
 	bp_set_from_sect(bp, sp);
 	if (sp->sct_own == player->cnum) {
 	    sp->sct_updated = 0;
-	    tax(sp, etu, &pop, &civ_tax, &uw_tax);
-	    *Ncivs += sp->sct_item[I_CIVIL];
-	    *Nuws += sp->sct_item[I_UW];
-	    *taxes += civ_tax + uw_tax;
+	    tax(sp, etu, &pop);
 	    if (sp->sct_type == SCT_BANK) {
 		*bars += bank_income(sp, etu);
 		*Nbars += sp->sct_item[I_BAR];
