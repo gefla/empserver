@@ -42,7 +42,7 @@
 #include "product.h"
 #include "update.h"
 
-static struct budget *calc_all(int (*p_sect)[2], int *taxes, int *Ncivs,
+static struct budget *calc_all(int *taxes, int *Ncivs,
 		     int *Nuws, int *bars, int *Nbars,
 		     int *ships, int *sbuild, int *nsbuild, int *smaint,
 		     int *units, int *lbuild, int *nlbuild, int *lmaint,
@@ -53,7 +53,6 @@ int
 budg(void)
 {
     int i;
-    int p_sect[SCT_BUDG_MAX+1][2];
     int taxes, Ncivs, Nuws, bars, Nbars;
     int ships, sbuild, nsbuild, smaint;
     int units, lbuild, nlbuild, lmaint;
@@ -67,8 +66,7 @@ budg(void)
     np = getnatp(player->cnum);
 
     player->simulation = 1;
-    budget = calc_all(p_sect,
-		      &taxes, &Ncivs, &Nuws, &bars, &Nbars,
+    budget = calc_all(&taxes, &Ncivs, &Nuws, &bars, &Nbars,
 		      &ships, &sbuild, &nsbuild, &smaint,
 		      &units, &lbuild, &nlbuild, &lmaint,
 		      &planes, &pbuild, &npbuild, &pmaint);
@@ -78,17 +76,18 @@ budg(void)
     expenses = 0;
     pr("Sector Type\t\t\tProduction\t\t\t    Cost\n");
     for (i = 0; i <= SCT_TYPE_MAX; i++) {
-	if (!p_sect[i][1])
+	if (!budget->prod[i].money)
 	    continue;
 	pr("%-17s\t\t", dchr[i].d_name);
 	if (i == SCT_ENLIST)
-	    pr("%d mil    \t", p_sect[i][0]);
+	    pr("%d mil    \t", budget->prod[i].count);
 	else if (dchr[i].d_prd >= 0)
-	    pr("%d %-7s\t", p_sect[i][0], pchr[dchr[i].d_prd].p_sname);
+	    pr("%d %-7s\t", budget->prod[i].count,
+	       pchr[dchr[i].d_prd].p_sname);
 	else
 	    pr("\t\t");
-	pr("\t\t%8d\n", p_sect[i][1]);
-	expenses += p_sect[i][1];
+	pr("\t\t%8d\n", -budget->prod[i].money);
+	expenses -= budget->prod[i].money;
     }
 
     if (sbuild) {
@@ -126,19 +125,21 @@ budg(void)
 	expenses += -lmaint;
     }
 
-    if (p_sect[SCT_EFFIC][1]) {
-	sprintf(buf, "%d sector%s",
-		p_sect[SCT_EFFIC][0], splur(p_sect[SCT_EFFIC][0]));
+    if (budget->bm[BUDG_SCT_BUILD].money) {
+	snprintf(buf, sizeof(buf), "%d sector%s",
+		 budget->bm[BUDG_SCT_BUILD].count,
+		 splur(budget->bm[BUDG_SCT_BUILD].count));
 	pr("Sector building\t\t\t%-16s\t\t%8d\n",
-	   buf, p_sect[SCT_EFFIC][1]);
-	expenses += p_sect[SCT_EFFIC][1];
+	   buf, -budget->bm[BUDG_SCT_BUILD].money);
+	expenses -= budget->bm[BUDG_SCT_BUILD].money;
     }
-    if (p_sect[SCT_MAINT][0]) {
-	sprintf(buf, "%d sector%s",
-		p_sect[SCT_MAINT][0], splur(p_sect[SCT_MAINT][0]));
+    if (budget->bm[BUDG_SCT_MAINT].count) {
+	snprintf(buf, sizeof(buf), "%d sector%s",
+		 budget->bm[BUDG_SCT_MAINT].count,
+		 splur(budget->bm[BUDG_SCT_MAINT].count));
 	pr("Sector maintenance\t\t%-16s\t\t%8d\n",
-	   buf, p_sect[SCT_MAINT][1]);
-	expenses += p_sect[SCT_MAINT][1];
+	   buf, -budget->bm[BUDG_SCT_MAINT].money);
+	expenses -= budget->bm[BUDG_SCT_MAINT].money;
     }
     if (budget->mil.money) {
 	snprintf(buf, sizeof(buf), "%d mil, %d res",
@@ -172,8 +173,7 @@ budg(void)
 }
 
 static struct budget *
-calc_all(int p_sect[][2],
-	 int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars,
+calc_all(int *taxes, int *Ncivs, int *Nuws, int *bars, int *Nbars,
 	 int *ships, int *sbuild, int *nsbuild, int *smaint,
 	 int *units, int *lbuild, int *nlbuild, int *lmaint,
 	 int *planes, int *pbuild, int *npbuild, int *pmaint)
@@ -187,7 +187,6 @@ calc_all(int p_sect[][2],
     int etu = etu_per_update;
 
     memset(nat_budget, 0, sizeof(nat_budget));
-    memset(p_sect, 0, sizeof(**p_sect) * (SCT_BUDG_MAX+1) * 2);
     *taxes = *Ncivs = *Nuws = *bars = *Nbars = 0;
     *ships = *sbuild = *nsbuild = *smaint = 0;
     *units = *lbuild = *nlbuild = *lmaint = 0;
@@ -229,7 +228,7 @@ calc_all(int p_sect[][2],
     *lmaint = lnd_money[player->cnum];
 
     /* Produce */
-    produce_sect(np, etu, bp, p_sect);
+    produce_sect(np, etu, bp);
 
     /* Build ships */
     sea_money[player->cnum] = 0;

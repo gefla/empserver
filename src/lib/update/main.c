@@ -105,9 +105,6 @@ update_main(void)
     logerror("done preparing sectors.");
     logerror("producing for countries...");
     for (i = 0; i < MAXNOC; i++) {
-	int p_sect[SCT_BUDG_MAX+1][2];
-
-	memset(p_sect, 0, sizeof(p_sect));
 	if (!(np = getnatp(i)))
 	    continue;
 	if (np->nat_stat == STAT_SANCT) {
@@ -120,7 +117,7 @@ update_main(void)
 	prod_land(etu, i, NULL, 0);
 
 	/* produce all sects */
-	produce_sect(np, etu, NULL, p_sect);
+	produce_sect(np, etu, NULL);
 
 	/* build units */
 	prod_ship(etu, i, NULL, 1);

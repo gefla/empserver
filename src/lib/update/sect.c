@@ -223,8 +223,9 @@ decay_fallout(struct sctstr *sp, int etus)
  * Produce for a specific nation
  */
 void
-produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
+produce_sect(struct natstr *np, int etu, struct bp *bp)
 {
+    struct budget *budget = &nat_budget[np->nat_cnum];
     struct sctstr *sp, scratch_sect;
     int cost, ecost, pcost;
     int n, amount;
@@ -265,8 +266,8 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 
 	if (dchr[sp->sct_type].d_maint) {
 	    cost = etu * dchr[sp->sct_type].d_maint;
-	    p_sect[SCT_MAINT][0]++;
-	    p_sect[SCT_MAINT][1] += cost;
+	    budget->bm[BUDG_SCT_MAINT].count++;
+	    budget->bm[BUDG_SCT_MAINT].money -= cost;
 	    if (!player->simulation)
 		np->nat_money -= cost;
 	}
@@ -274,16 +275,17 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    np->nat_money >= 0) {
 	    cost = roundavg(buildeff(sp));
-	    p_sect[SCT_EFFIC][0]++;
-	    p_sect[SCT_EFFIC][1] += cost;
+	    budget->bm[BUDG_SCT_BUILD].count++;
+	    budget->bm[BUDG_SCT_BUILD].money -= cost;
 	    if (!player->simulation)
 		np->nat_money -= cost;
 	}
 
 	if (sp->sct_type == SCT_ENLIST && sp->sct_effic >= 60 &&
 	    sp->sct_own == sp->sct_oldown) {
-	    p_sect[sp->sct_type][0] += enlist(sp->sct_item, etu, &ecost);
-	    p_sect[sp->sct_type][1] += ecost;
+	    budget->prod[sp->sct_type].count
+		+= enlist(sp->sct_item, etu, &ecost);
+	    budget->prod[sp->sct_type].money -= ecost;
 	    if (!player->simulation)
 		np->nat_money -= ecost;
 	}
@@ -298,8 +300,8 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	}
 
 	bp_set_from_sect(bp, sp);
-	p_sect[sp->sct_type][0] += amount;
-	p_sect[sp->sct_type][1] += pcost;
+	budget->prod[sp->sct_type].count += amount;
+	budget->prod[sp->sct_type].money -= pcost;
 	if (!player->simulation)
 	    np->nat_money -= pcost;
     }

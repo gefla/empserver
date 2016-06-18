@@ -39,9 +39,11 @@
 #define IMPORT	0
 #define EXPORT	1
 
-#define SCT_EFFIC (SCT_TYPE_MAX + 1)
-#define SCT_MAINT (SCT_TYPE_MAX + 2)
-#define SCT_BUDG_MAX SCT_MAINT
+enum {
+    BUDG_SCT_BUILD,
+    BUDG_SCT_MAINT,
+    BUDG_BLD_MAX = BUDG_SCT_MAINT
+};
 
 struct budg_item {
     int money;			/* money delta */
@@ -50,6 +52,10 @@ struct budg_item {
 
 /* A nation's budget for an update */
 struct budget {
+    /* production by sector type */
+    struct budg_item prod[SCT_TYPE_MAX + 1];
+    /* building and maintenance */
+    struct budg_item bm[BUDG_BLD_MAX + 1];
     /* military payroll */
     struct budg_item mil;
 };
@@ -135,7 +141,7 @@ extern double buildeff(struct sctstr *);
 extern void do_fallout(struct sctstr *, int);
 extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);
-extern void produce_sect(struct natstr *, int, struct bp *, int[][2]);
+extern void produce_sect(struct natstr *, int, struct bp *);
 /* ship.c */
 extern int prod_ship(int, int, struct bp *, int);
 
