@@ -68,8 +68,8 @@ produce(struct natstr *np, struct sctstr *sp)
     cost = product->p_cost * output / prodeff;
     if (opt_TECH_POP) {
 	if (product->p_level == NAT_TLEV) {
-	    if (tpops[sp->sct_own] > 50000)
-		cost *= tpops[sp->sct_own] / 50000.0;
+	    if (budget->oldowned_civs > 50000)
+		cost *= budget->oldowned_civs / 50000.0;
 	}
     }
 

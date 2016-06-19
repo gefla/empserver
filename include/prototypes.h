@@ -59,7 +59,6 @@ extern int edit_sect_i(struct sctstr *, char *, int);
 extern int load_comm_ok(struct sctstr *, natid, i_type, int);
 extern void gift(natid, natid, void *, char *);
 extern int display_mark(i_type, int);
-extern int count_pop(int);
 extern int line_of_sight(char **rad, int ax, int ay, int bx, int by);
 extern void plane_sona(struct emp_qelem *, int, int, struct shiplist **);
 extern char *prsub(struct shpstr *);

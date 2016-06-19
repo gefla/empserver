@@ -73,7 +73,6 @@ struct budget {
 
 /* main.c */
 extern struct budget nat_budget[MAXNOC];
-extern int tpops[MAXNOC];
 /* nat.c */
 extern float levels[MAXNOC][4];
 

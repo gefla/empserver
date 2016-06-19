@@ -37,27 +37,42 @@
 #include <math.h>
 #include "commands.h"
 #include "item.h"
+#include "land.h"
 #include "optlist.h"
 #include "product.h"
+#include "ship.h"
 #include "update.h"
 
 static void prprod(struct sctstr *, double, double, char,
 		   double, double, double, char[], int[], int[], int);
 
-int
-count_pop(int n)
+static int
+count_pop(void)
 {
+    /* FIXME don't duplicate the update's workings, use its code */
     int i;
     int pop = 0;
-    struct sctstr *sp;
+    struct sctstr *sectp;
+    struct shpstr *sp;
+    struct lndstr *lp;
 
-    for (i = 0; NULL != (sp = getsectid(i)); i++) {
-	if (sp->sct_own != n)
-	    continue;
-	if (sp->sct_oldown != n)
-	    continue;
-	pop += sp->sct_item[I_CIVIL];
+    for (i = 0; (sectp = getsectid(i)); i++) {
+	if (sectp->sct_own == player->cnum) {
+	    if (sectp->sct_own == sectp->sct_oldown)
+		pop += sectp->sct_item[I_CIVIL];
+	}
     }
+
+    for (i = 0; (sp = getshipp(i)); i++) {
+	if (sp->shp_own == player->cnum)
+	    pop += sp->shp_item[I_CIVIL];
+    }
+
+    for (i = 0; (lp = getlandp(i)); i++) {
+	if (lp->lnd_own == player->cnum)
+	    pop += lp->lnd_item[I_CIVIL];
+    }
+
     return pop;
 }
 
@@ -70,7 +85,7 @@ prod(void)
     struct pchrstr *pp;
     double p_e;
     double prodeff;
-    int totpop;
+    int totpop = -1;
     double cost;
     int i;
     int nsect;
@@ -155,7 +170,8 @@ prod(void)
 	cost = take * pp->p_cost;
 	if (opt_TECH_POP) {
 	    if (pp->p_level == NAT_TLEV) {
-		totpop = count_pop(sect.sct_own);
+		if (totpop < 0)
+		    totpop = count_pop();
 		if (totpop > 50000)
 		    cost *= totpop / 50000.0;
 	    }

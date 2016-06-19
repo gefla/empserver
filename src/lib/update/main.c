@@ -47,7 +47,6 @@
 #include "update.h"
 
 struct budget nat_budget[MAXNOC];
-int tpops[MAXNOC];
 
 void
 update_main(void)
@@ -87,7 +86,6 @@ update_main(void)
 	if (!(np = getnatp(n)))
 	    continue;
 	nat_budget[n].start_money = nat_budget[n].money = np->nat_money;
-	tpops[n] = count_pop(n);
     }
 
     logerror("preparing sectors...");

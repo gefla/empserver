@@ -163,7 +163,6 @@ calc_all(void)
 		bank_income(sp, etu);
 	}
     }
-    tpops[player->cnum] = budget->oldowned_civs;
     upd_slmilcosts(etu, player->cnum);
     pay_reserve(np, etu);
 
