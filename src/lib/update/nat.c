@@ -73,8 +73,6 @@ static void share_incr(double[], double[]);
 static float level_easy[4] = { 0.75, 0.75, 5.00, 5.00 };
 static float level_log[4] = { 1.75, 2.00, 4.00, 6.00 };
 
-float levels[MAXNOC][4];
-
 /*
  * technique to limit the sharpers who turn entire countries
  * into tech plants overnight...
@@ -124,6 +122,7 @@ void
 prod_nat(int etu)
 {
     struct natstr *np;
+    float *level;
     float hap;
     float edu;
     float hap_edu;
@@ -143,6 +142,7 @@ prod_nat(int etu)
 	grant_btus(np, game_reset_tick(&np->nat_access));
 	if (np->nat_stat < STAT_ACTIVE)
 	    continue;
+	level = nat_budget[n].level;
 	/*
 	 * hap_edu: the more education people have, the
 	 * more happiness they want.
@@ -155,11 +155,11 @@ prod_nat(int etu)
 	 * see what the total per-civilian production is
 	 * for this time period.
 	 */
-	hap = levels[n][NAT_HLEV] * hap_edu * hap_cons /
+	hap = level[NAT_HLEV] * hap_edu * hap_cons /
 	    ((float)pop * etu);
-	edu = levels[n][NAT_ELEV] * edu_cons / ((float)pop * etu);
+	edu = level[NAT_ELEV] * edu_cons / ((float)pop * etu);
 	wu(0, n, "%3.0f happiness, %3.0f education produced\n",
-	   levels[n][NAT_HLEV], levels[n][NAT_ELEV]);
+	   level[NAT_HLEV], level[NAT_ELEV]);
 	hap = limit_level(hap, NAT_HLEV, 1);
 	edu = limit_level(edu, NAT_ELEV, 1);
 	/*
@@ -176,10 +176,10 @@ prod_nat(int etu)
 	/*
 	 * limit tech/research production
 	 */
-	levels[n][NAT_TLEV] =
-	    limit_level(levels[n][NAT_TLEV] / 1, NAT_TLEV, 0) * 1;
-	levels[n][NAT_RLEV] =
-	    limit_level(levels[n][NAT_RLEV] / 1, NAT_RLEV, 0) * 1;
+	level[NAT_TLEV] =
+	    limit_level(level[NAT_TLEV] / 1, NAT_TLEV, 0) * 1;
+	level[NAT_RLEV] =
+	    limit_level(level[NAT_RLEV] / 1, NAT_RLEV, 0) * 1;
 	wu(0, n, "total pop was %d, yielding %4.2f hap, %4.2f edu\n",
 	   pop - 1, hap, edu);
     }
@@ -192,8 +192,9 @@ prod_nat(int etu)
     for (n = 0; NULL != (np = getnatp(n)); n++) {
 	if (np->nat_stat < STAT_ACTIVE)
 	    continue;
-	tlev = levels[n][NAT_TLEV];
-	rlev = levels[n][NAT_RLEV];
+	level = nat_budget[n].level;
+	tlev = level[NAT_TLEV];
+	rlev = level[NAT_RLEV];
 	if (tech[n] != 0.0 || res[n] != 0.0) {
 	    wu(0, n, "%5.4f technology (%5.4f + %5.4f), "
 	       "%5.4f research (%5.4f + %5.4f) produced\n",
@@ -258,8 +259,8 @@ share_incr(double res[], double tech[])
 		    continue;
 	    }
 
-	    other_tlev = levels[j][NAT_TLEV];
-	    other_rlev = levels[j][NAT_RLEV];
+	    other_tlev = nat_budget[j].level[NAT_TLEV];
+	    other_rlev = nat_budget[j].level[NAT_RLEV];
 
 	    if (!opt_ALL_BLEED) {
 		if (relations_with(i, j) != ALLIED)

@@ -73,6 +73,8 @@ produce(struct natstr *np, struct sctstr *sp)
 	}
     }
 
+    if (product->p_level >= 0)
+	budget->level[product->p_level] += output;
     budget->prod[sp->sct_type].count += ldround(output, 1);
     budget->prod[sp->sct_type].money -= cost;
     budget->money -= cost;
@@ -134,7 +136,6 @@ prod_output(struct sctstr *sp, double prodeff)
     output = material_consume * prodeff;
     if (item == I_NONE) {
 	if (!player->simulation) {
-	    levels[sp->sct_own][product->p_level] += output;
 	    wu(0, sp->sct_own, "%s (%.2f) produced in %s\n",
 	       product->p_name, output, ownxy(sp));
 	}

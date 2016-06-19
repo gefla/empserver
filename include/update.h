@@ -60,6 +60,8 @@ struct budg_item {
 struct budget {
     /* production by sector type */
     struct budg_item prod[SCT_TYPE_MAX + 1];
+    /* level production output */
+    float level[4];
     /* building and maintenance */
     struct budg_item bm[BUDG_BLD_MAX + 1];
     /* population, taxes, military payroll, bank interest */
@@ -73,8 +75,6 @@ struct budget {
 
 /* main.c */
 extern struct budget nat_budget[MAXNOC];
-/* nat.c */
-extern float levels[MAXNOC][4];
 
 /* age.c */
 extern int age_people(int, int);

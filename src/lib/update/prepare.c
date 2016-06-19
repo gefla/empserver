@@ -53,8 +53,6 @@ prepare_sects(int etu)
     struct natstr *np;
     int n;
 
-    memset(levels, 0, sizeof(levels));
-
 /* Process all the fallout. */
     if (opt_FALLOUT) {
 	if (!player->simulation) {
