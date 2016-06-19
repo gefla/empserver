@@ -55,7 +55,7 @@
  * level of 0 yields (1) 0.4, (6) 2.2, (12) 3.9, (18) 5.2.
  */
 
-static void share_incr(double *, double *);
+static void share_incr(double[], double[]);
 
 /*
  * for values below the "easy level" values, production is
@@ -235,19 +235,18 @@ prod_nat(int etu)
  * find out everyones increment
  */
 static void
-share_incr(double *res, double *tech)
+share_incr(double res[], double tech[])
 {
-    struct natstr *np;
-    struct natstr *other;
-    natid i;
-    natid j;
-    int rnc;
-    int tnc;
+    struct natstr *np, *other;
+    natid i, j;
+    int rnc, tnc;
+    float other_tlev, other_rlev;
 
     for (i = 0; NULL != (np = getnatp(i)); i++) {
 	res[i] = tech[i] = 0.0;
 	if (np->nat_stat < STAT_SANCT || np->nat_stat == STAT_GOD)
 	    continue;
+
 	rnc = tnc = 0;
 	for (j = 0; NULL != (other = getnatp(j)); j++) {
 	    if (j == i)
@@ -258,22 +257,26 @@ share_incr(double *res, double *tech)
 		if (!getcontact(np, j))
 		    continue;
 	    }
+
+	    other_tlev = levels[j][NAT_TLEV];
+	    other_rlev = levels[j][NAT_RLEV];
+
 	    if (!opt_ALL_BLEED) {
 		if (relations_with(i, j) != ALLIED)
 		    continue;
 		if (relations_with(j, i) != ALLIED)
 		    continue;
-		res[i] += levels[j][NAT_RLEV];
-		tech[i] += levels[j][NAT_TLEV];
+		res[i] += other_rlev;
+		tech[i] += other_tlev;
 		rnc++;
 		tnc++;
 	    } else {
-		if (levels[j][NAT_TLEV] > 0.001) {
-		    tech[i] += levels[j][NAT_TLEV];
+		if (other_tlev > 0.001) {
+		    tech[i] += other_tlev;
 		    tnc++;
 		}
-		if (levels[j][NAT_RLEV] > 0.001) {
-		    res[i] += levels[j][NAT_RLEV];
+		if (other_rlev > 0.001) {
+		    res[i] += other_rlev;
 		    rnc++;
 		}
 	    }
