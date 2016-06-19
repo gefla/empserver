@@ -102,6 +102,7 @@ upd_land(struct lndstr *lp, int etus, struct bp *bp, int build)
 	if (!player->simulation)
 	    lp->lnd_off = 0;
     } else {
+	budget->oldowned_civs += lp->lnd_item[I_CIVIL];
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < lp->lnd_tech * 0.85)
 	    mult = 2;

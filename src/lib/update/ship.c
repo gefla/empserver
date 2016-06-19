@@ -102,6 +102,7 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
 	if (!player->simulation)
 	    sp->shp_off = 0;
     } else {
+	budget->oldowned_civs += sp->shp_item[I_CIVIL];
 	mult = 1;
 	if (np->nat_level[NAT_TLEV] < sp->shp_tech * 0.85)
 	    mult = 2;
@@ -224,7 +225,6 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
 		sp->shp_pstage = pstage;
 		sp->shp_ptime = ptime;
 	    }
-	    budget->oldowned_civs += sp->shp_item[I_CIVIL];
 	}
     }
 }

@@ -527,7 +527,7 @@
     Play#0 output Play#0 1 medical discoveries (2.92) produced in -7,7
     Play#0 output Play#0 1 medical discoveries (3.60) produced in -5,7
     Play#0 output Play#0 1  78 happiness, 178 education produced
-    Play#0 output Play#0 1 total pop was 28106, yielding 14.19 hap, 24.57 edu
+    Play#0 output Play#0 1 total pop was 28109, yielding 14.19 hap, 24.57 edu
     Play#0 output Play#0 1 3.5668 tech, 3.5102 research produced
     Play#0 output Play#0 1 Army delta $-2810, Navy delta $-3726, Air force delta $-2567
     Play#0 output Play#0 1 money delta was $-12027 for this update
@@ -1386,7 +1386,7 @@
     Play#0 output Play#0 1 Technology level too low to produce in -5,-1 (need 40)
     Play#0 output Play#0 1 Education level too low to produce in -3,-1 (need 5)
     Play#0 output Play#0 1   0 happiness,   0 education produced
-    Play#0 output Play#0 1 total pop was 24000, yielding 0.00 hap, 0.00 edu
+    Play#0 output Play#0 1 total pop was 24080, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
     Play#0 output Play#0 1 Army delta $-600, Navy delta $-300, Air force delta $0
     Play#0 output Play#0 1 money delta was $-6250 for this update
