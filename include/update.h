@@ -67,11 +67,12 @@ struct budget {
     /* treasury */
     int start_money;		/* at beginning of update */
     double money;		/* current */
+    /* population before growth */
+    int oldowned_civs;
 };
 
 /* main.c */
 extern struct budget nat_budget[MAXNOC];
-extern int pops[MAXNOC];
 extern int tpops[MAXNOC];
 /* nat.c */
 extern float levels[MAXNOC][4];
@@ -127,7 +128,7 @@ extern void populace(struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
 /* prepare.c */
 extern void prepare_sects(int);
-extern void tax(struct sctstr *, int, int *);
+extern void tax(struct sctstr *, int);
 extern void upd_slmilcosts(int, natid);
 extern void bank_income(struct sctstr *, int);
 extern void pay_reserve(struct natstr *, int);

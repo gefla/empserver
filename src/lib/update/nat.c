@@ -149,7 +149,7 @@ prod_nat(int etu)
 	 */
 	hap_edu = np->nat_level[NAT_ELEV];
 	hap_edu = 1.5 - ((hap_edu + 10.0) / (hap_edu + 20.0));
-	pop = pops[n] + 1;
+	pop = nat_budget[n].oldowned_civs + 1;
 	/*
 	 * get per-population happiness and education
 	 * see what the total per-civilian production is

@@ -47,7 +47,6 @@
 #include "update.h"
 
 struct budget nat_budget[MAXNOC];
-int pops[MAXNOC];
 int tpops[MAXNOC];
 
 void
@@ -84,7 +83,6 @@ update_main(void)
      * happiness, and printing out the state of the nation)
      */
     memset(nat_budget, 0, sizeof(nat_budget));
-    memset(pops, 0, sizeof(pops));
     for (n = 0; n < MAXNOC; n++) {
 	if (!(np = getnatp(n)))
 	    continue;

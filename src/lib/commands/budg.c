@@ -145,7 +145,6 @@ calc_all(void)
     struct budget *budget = &nat_budget[player->cnum];
     struct natstr *np;
     struct bp *bp;
-    int pop = 0;
     int n;
     struct sctstr *sp;
     int etu = etu_per_update;
@@ -159,12 +158,12 @@ calc_all(void)
 	bp_set_from_sect(bp, sp);
 	if (sp->sct_own == player->cnum) {
 	    sp->sct_updated = 0;
-	    tax(sp, etu, &pop);
+	    tax(sp, etu);
 	    if (sp->sct_type == SCT_BANK)
 		bank_income(sp, etu);
 	}
     }
-    tpops[player->cnum] = pop;
+    tpops[player->cnum] = budget->oldowned_civs;
     upd_slmilcosts(etu, player->cnum);
     pay_reserve(np, etu);
 

@@ -224,7 +224,7 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
 		sp->shp_pstage = pstage;
 		sp->shp_ptime = ptime;
 	    }
-	    pops[sp->shp_own] += sp->shp_item[I_CIVIL];
+	    budget->oldowned_civs += sp->shp_item[I_CIVIL];
 	}
     }
 }

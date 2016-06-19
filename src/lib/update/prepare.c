@@ -94,7 +94,7 @@ prepare_sects(int etu)
 	guerrilla(sp);
 	do_plague(sp, etu);
 	populace(sp, etu);
-	tax(sp, etu, &pops[sp->sct_own]);
+	tax(sp, etu);
 	if (sp->sct_type == SCT_BANK)
 	    bank_income(sp, etu);
     }
@@ -105,17 +105,16 @@ prepare_sects(int etu)
 }
 
 void
-tax(struct sctstr *sp, int etu, int *pop)
+tax(struct sctstr *sp, int etu)
 {
     struct budget *budget = &nat_budget[sp->sct_own];
     double civ_tax, uw_tax, mil_pay;
 
     civ_tax = sp->sct_item[I_CIVIL] * etu * money_civ * sp->sct_effic / 100;
-    /*
-     * captured civs only pay 1/4 taxes
-     */
-    if (sp->sct_own != sp->sct_oldown)
-	civ_tax /= 4;
+    if (sp->sct_own == sp->sct_oldown)
+	budget->oldowned_civs += sp->sct_item[I_CIVIL];
+    else
+	civ_tax /= 4;		/* captured civs pay less */
     budget->civ.count += sp->sct_item[I_CIVIL];
     budget->civ.money += civ_tax;
     budget->money += civ_tax;
@@ -129,12 +128,6 @@ tax(struct sctstr *sp, int etu, int *pop)
     budget->mil.count += sp->sct_item[I_MILIT];
     budget->mil.money += mil_pay;
     budget->money += mil_pay;
-
-    /*
-     * only non-captured civs add to census for nation
-     */
-    if (sp->sct_oldown == sp->sct_own)
-	*pop += sp->sct_item[I_CIVIL];
 }
 
 void
