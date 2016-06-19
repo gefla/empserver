@@ -64,11 +64,13 @@ struct budget {
     struct budg_item bm[BUDG_BLD_MAX + 1];
     /* population, taxes, military payroll, bank interest */
     struct budg_item civ, mil, uw, bars;
+    /* treasury */
+    int start_money;		/* at beginning of update */
+    int money;			/* current */
 };
 
 /* main.c */
 extern struct budget nat_budget[MAXNOC];
-extern int money[MAXNOC];
 extern int pops[MAXNOC];
 extern int tpops[MAXNOC];
 /* nat.c */

@@ -101,10 +101,6 @@ prepare_sects(int etu)
     for (n = 0; NULL != (np = getnatp(n)); n++) {
 	upd_slmilcosts(etu, np->nat_cnum);
 	pay_reserve(np, etu);
-	np->nat_money += nat_budget[n].mil.money;
-	np->nat_money += nat_budget[n].civ.money;
-	np->nat_money += nat_budget[n].uw.money;
-	np->nat_money += nat_budget[n].bars.money;
     }
 }
 
@@ -123,15 +119,18 @@ tax(struct sctstr *sp, int etu, int *pop)
 	civ_tax /= 4;
     budget->civ.count += sp->sct_item[I_CIVIL];
     budget->civ.money += civ_tax;
+    budget->money += civ_tax;
 
     uw_tax = (int)(0.5 + sp->sct_item[I_UW] * sp->sct_effic *
 		   etu * money_uw / 100);
     budget->uw.count += sp->sct_item[I_UW];
     budget->uw.money += uw_tax;
+    budget->money += uw_tax;
 
     mil_pay = sp->sct_item[I_MILIT] * etu * money_mil;
     budget->mil.count += sp->sct_item[I_MILIT];
     budget->mil.money += mil_pay;
+    budget->money += mil_pay;
 
     /*
      * only non-captured civs add to census for nation
@@ -145,7 +144,7 @@ upd_slmilcosts(int etu, natid n)
 {
     struct shpstr *sp;
     struct lndstr *lp;
-    int mil, i;
+    int mil, i, mil_pay;
 
     mil = 0;
 
@@ -161,8 +160,10 @@ upd_slmilcosts(int etu, natid n)
 	mil += lp->lnd_item[I_MILIT];
     }
 
+    mil_pay = mil * etu * money_mil;
     nat_budget[n].mil.count += mil;
-    nat_budget[n].mil.money += mil * etu * money_mil;
+    nat_budget[n].mil.money += mil_pay;
+    nat_budget[n].money += mil_pay;
 }
 
 void
@@ -173,11 +174,14 @@ bank_income(struct sctstr *sp, int etu)
     inc = (int)(sp->sct_item[I_BAR] * etu * bankint * sp->sct_effic / 100);
     nat_budget[sp->sct_own].bars.count += sp->sct_item[I_BAR];
     nat_budget[sp->sct_own].bars.money += inc;
+    nat_budget[sp->sct_own].money += inc;
 }
 
 void
 pay_reserve(struct natstr *np, int etu)
 {
-    nat_budget[np->nat_cnum].mil.money
-	+= (int)(np->nat_reserve * money_res * etu);
+    int pay = (int)(np->nat_reserve * money_res * etu);
+
+    nat_budget[np->nat_cnum].mil.money += pay;
+    nat_budget[np->nat_cnum].money += pay;
 }

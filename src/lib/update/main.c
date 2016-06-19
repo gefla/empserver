@@ -47,7 +47,6 @@
 #include "update.h"
 
 struct budget nat_budget[MAXNOC];
-int money[MAXNOC];
 int pops[MAXNOC];
 int tpops[MAXNOC];
 
@@ -87,10 +86,9 @@ update_main(void)
     memset(nat_budget, 0, sizeof(nat_budget));
     memset(pops, 0, sizeof(pops));
     for (n = 0; n < MAXNOC; n++) {
-	money[n] = 0;
 	if (!(np = getnatp(n)))
 	    continue;
-	money[n] = np->nat_money;
+	nat_budget[n].start_money = nat_budget[n].money = np->nat_money;
 	tpops[n] = count_pop(n);
     }
 

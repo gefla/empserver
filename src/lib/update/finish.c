@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1993
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -52,7 +52,6 @@ finish_sects(int etu)
 {
     static double *import_cost;
     struct sctstr *sp;
-    struct natstr *np;
     int n;
     struct rusage rus1, rus2;
 
@@ -72,8 +71,7 @@ finish_sects(int etu)
 	    continue;
 	if (sp->sct_own == 0)
 	    continue;
-	np = getnatp(sp->sct_own);
-	if (np->nat_money < 0)
+	if (nat_budget[sp->sct_own].money < 0)
 	    continue;
 	dodeliver(sp);
     }
@@ -93,8 +91,7 @@ finish_sects(int etu)
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if (!sp->sct_own)
 	    continue;
-	np = getnatp(sp->sct_own);
-	if (np->nat_money < 0)
+	if (nat_budget[sp->sct_own].money < 0)
 	    continue;
 	dodistribute(sp, EXPORT, import_cost[n]);
     }
@@ -105,8 +102,7 @@ finish_sects(int etu)
 	sp->sct_off = 0;
 	if (!sp->sct_own)
 	    continue;
-	np = getnatp(sp->sct_own);
-	if (np->nat_money < 0)
+	if (nat_budget[sp->sct_own].money < 0)
 	    continue;
 	dodistribute(sp, IMPORT, import_cost[n]);
     }

@@ -206,6 +206,7 @@ prod_nat(int etu)
 	    np->nat_level[NAT_RLEV] += rlev;
 	if (tlev != 0.0)
 	    np->nat_level[NAT_TLEV] += tlev;
+
 	bm = nat_budget[n].bm;
 	sea_money = bm[BUDG_SHP_MAINT].money + bm[BUDG_SHP_BUILD].money;
 	air_money = bm[BUDG_PLN_MAINT].money + bm[BUDG_PLN_BUILD].money;
@@ -214,8 +215,12 @@ prod_nat(int etu)
 	    wu(0, n,
 	       "Army delta $%d, Navy delta $%d, Air force delta $%d\n",
 	       lnd_money, sea_money, air_money);
+	if (CANT_HAPPEN(np->nat_money != nat_budget[n].start_money))
+	    nat_budget[n].money += np->nat_money - nat_budget[n].start_money;
 	wu(0, n, "money delta was $%d for this update\n",
-	   np->nat_money - money[n]);
+	   nat_budget[n].money - nat_budget[n].start_money);
+	np->nat_money = nat_budget[n].money;
+
 	if (opt_LOSE_CONTACT) {
 	    for (cn = 1; cn < MAXNOC; cn++) {
 		if ((cnp = getnatp(cn)) != NULL)

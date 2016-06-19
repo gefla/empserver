@@ -163,8 +163,7 @@ produce(struct natstr *np, struct sctstr *sp)
 
     budget->prod[sp->sct_type].count += actual;
     budget->prod[sp->sct_type].money -= cost;
-    if (!player->simulation)
-	np->nat_money -= cost;
+    budget->money -= cost;
 
     if (CANT_HAPPEN(p_e <= 0.0))
 	return;

@@ -45,7 +45,7 @@
 #include "ship.h"
 #include "update.h"
 
-static void upd_plane(struct plnstr *, int, struct natstr *, struct bp *, int);
+static void upd_plane(struct plnstr *, int, struct bp *, int);
 static void planerepair(struct plnstr *, struct natstr *, struct bp *,
 			int, struct budget *);
 
@@ -54,9 +54,7 @@ prod_plane(int etus, int natnum, struct bp *bp, int buildem)
 		 /* Build = 1, maintain =0 */
 {
     struct plnstr *pp;
-    struct natstr *np;
     int i;
-    int start_money;
 
     for (i = 0; (pp = getplanep(i)); i++) {
 	if (pp->pln_own == 0)
@@ -77,24 +75,20 @@ prod_plane(int etus, int natnum, struct bp *bp, int buildem)
 	    continue;
 	}
 
-	np = getnatp(pp->pln_own);
-	start_money = np->nat_money;
-	upd_plane(pp, etus, np, bp, buildem);
-	if (player->simulation)
-	    np->nat_money = start_money;
+	upd_plane(pp, etus, bp, buildem);
     }
 }
 
 static void
-upd_plane(struct plnstr *pp, int etus,
-	  struct natstr *np, struct bp *bp, int build)
+upd_plane(struct plnstr *pp, int etus, struct bp *bp, int build)
 {
     struct budget *budget = &nat_budget[pp->pln_own];
-    struct plchrstr *pcp = &plchr[(int)pp->pln_type];
+    struct plchrstr *pcp = &plchr[pp->pln_type];
+    struct natstr *np = getnatp(pp->pln_own);
     int mult, cost, eff_lost;
 
     if (build == 1) {
-	if (!pp->pln_off && np->nat_money >= 0)
+	if (!pp->pln_off && budget->money >= 0)
 	    planerepair(pp, np, bp, etus, budget);
 	if (!player->simulation)
 	    pp->pln_off = 0;
@@ -104,7 +98,7 @@ upd_plane(struct plnstr *pp, int etus,
 	    mult = 2;
 	budget->bm[BUDG_PLN_MAINT].count++;
 	cost = -(mult * etus * MIN(0.0, pcp->pl_cost * money_plane));
-	if (np->nat_money < cost && !player->simulation) {
+	if (budget->money < cost && !player->simulation) {
 	    eff_lost = etus / 5;
 	    if (pp->pln_effic - eff_lost < PLANE_MINEFF)
 		eff_lost = pp->pln_effic - PLANE_MINEFF;
@@ -115,12 +109,12 @@ upd_plane(struct plnstr *pp, int etus,
 	    }
 	} else {
 	    budget->bm[BUDG_PLN_MAINT].money -= cost;
-	    np->nat_money -= cost;
+	    budget->money -= cost;
 	}
 	/* flight pay is 5x the pay received by other military */
 	cost = etus * pcp->pl_mat[I_MILIT] * -money_mil * 5;
 	budget->bm[BUDG_PLN_MAINT].money -= cost;
-	np->nat_money -= cost;
+	budget->money -= cost;
     }
 }
 
@@ -205,8 +199,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus,
     cost = roundavg(mult * build * pcp->pl_cost / 100.0);
     budget->bm[BUDG_PLN_BUILD].count += !!build;
     budget->bm[BUDG_PLN_BUILD].money -= cost;
-    np->nat_money -= cost;
-    if (!player->simulation) {
+    budget->money -= cost;
+    if (!player->simulation)
 	pp->pln_effic += (signed char)build;
-    }
 }

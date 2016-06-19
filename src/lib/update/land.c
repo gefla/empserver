@@ -48,7 +48,7 @@
 #include "prototypes.h"
 #include "update.h"
 
-static void upd_land(struct lndstr *, int, struct natstr *, struct bp *, int);
+static void upd_land(struct lndstr *, int, struct bp *, int);
 static void landrepair(struct lndstr *, struct natstr *, struct bp *,
 		       int, struct budget *);
 static int feed_land(struct lndstr *, int);
@@ -59,9 +59,7 @@ prod_land(int etus, int natnum, struct bp *bp, int build)
 {
     struct lndstr *lp;
     struct sctstr *sp;
-    struct natstr *np;
     int i;
-    int start_money;
 
     for (i = 0; (lp = getlandp(i)); i++) {
 	if (lp->lnd_own == 0)
@@ -78,21 +76,17 @@ prod_land(int etus, int natnum, struct bp *bp, int build)
 	sp = getsectp(lp->lnd_x, lp->lnd_y);
 	if (sp->sct_type == SCT_SANCT)
 	    continue;
-	np = getnatp(lp->lnd_own);
-	start_money = np->nat_money;
-	upd_land(lp, etus, np, bp, build);
-	if (player->simulation)
-	    np->nat_money = start_money;
+	upd_land(lp, etus, bp, build);
     }
 }
 
 static void
-upd_land(struct lndstr *lp, int etus,
-	 struct natstr *np, struct bp *bp, int build)
+upd_land(struct lndstr *lp, int etus, struct bp *bp, int build)
 	       /* build = 1, maintain = 0 */
 {
     struct budget *budget = &nat_budget[lp->lnd_own];
-    struct lchrstr *lcp;
+    struct lchrstr *lcp = &lchr[lp->lnd_type];
+    struct natstr *np = getnatp(lp->lnd_own);
     int pstage, ptime;
     int min = morale_base - (int)np->nat_level[NAT_HLEV];
     int n, mult, cost, eff_lost;
@@ -101,9 +95,8 @@ upd_land(struct lndstr *lp, int etus,
 	if (lp->lnd_retreat < min)
 	    lp->lnd_retreat = min;
 
-    lcp = &lchr[(int)lp->lnd_type];
     if (build == 1) {
-	if (!lp->lnd_off && np->nat_money >= 0)
+	if (!lp->lnd_off && budget->money >= 0)
 	    landrepair(lp, np, bp, etus, budget);
 	if (!player->simulation)
 	    lp->lnd_off = 0;
@@ -115,7 +108,7 @@ upd_land(struct lndstr *lp, int etus,
 	    mult *= 3;
 	budget->bm[BUDG_LND_MAINT].count++;
 	cost = -(mult * etus * MIN(0.0, money_land * lcp->l_cost));
-	if (np->nat_money < cost && !player->simulation) {
+	if (budget->money < cost && !player->simulation) {
 	    eff_lost = etus / 5;
 	    if (lp->lnd_effic - eff_lost < LAND_MINEFF)
 		eff_lost = lp->lnd_effic - LAND_MINEFF;
@@ -126,7 +119,7 @@ upd_land(struct lndstr *lp, int etus,
 	    }
 	} else {
 	    budget->bm[BUDG_LND_MAINT].money -= cost;
-	    np->nat_money -= cost;
+	    budget->money -= cost;
 	}
 
 	if (!player->simulation) {
@@ -249,7 +242,7 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus,
     cost = roundavg(mult * lp->l_cost * build / 100.0);
     budget->bm[BUDG_LND_BUILD].count += !!build;
     budget->bm[BUDG_LND_BUILD].money -= cost;
-    np->nat_money -= cost;
+    budget->money -= cost;
     if (!player->simulation)
 	land->lnd_effic += (signed char)build;
 }

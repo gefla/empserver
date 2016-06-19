@@ -114,8 +114,7 @@ enlist(struct natstr *np, short *vec, int etu)
 
     nat_budget[np->nat_cnum].prod[SCT_ENLIST].count += enlisted;
     nat_budget[np->nat_cnum].prod[SCT_ENLIST].money -= enlisted * 3;
-    if (!player->simulation)
-	np->nat_money -= enlisted * 3;
+    nat_budget[np->nat_cnum].money -= enlisted * 3;
 }
 
 /* Fallout is calculated here. */
@@ -258,7 +257,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
 
 	do_feed(sp, np, etu, 0);
 
-	if (sp->sct_off || np->nat_money < 0) {
+	if (sp->sct_off || budget->money < 0) {
 	    sp->sct_avail = 0;
 	    bp_set_from_sect(bp, sp);
 	    continue;
@@ -268,17 +267,15 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
 	    cost = etu * dchr[sp->sct_type].d_maint;
 	    budget->bm[BUDG_SCT_MAINT].count++;
 	    budget->bm[BUDG_SCT_MAINT].money -= cost;
-	    if (!player->simulation)
-		np->nat_money -= cost;
+	    budget->money -= cost;
 	}
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
-	    np->nat_money >= 0) {
+	    budget->money >= 0) {
 	    cost = roundavg(buildeff(sp));
 	    budget->bm[BUDG_SCT_BUILD].count++;
 	    budget->bm[BUDG_SCT_BUILD].money -= cost;
-	    if (!player->simulation)
-		np->nat_money -= cost;
+	    budget->money -= cost;
 	}
 
 	if (sp->sct_type == SCT_ENLIST && sp->sct_effic >= 60 &&
@@ -291,7 +288,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
 	 */
 
 	if (sp->sct_effic >= 60) {
-	    if (np->nat_money >= 0 && dchr[sp->sct_type].d_prd >= 0)
+	    if (budget->money >= 0 && dchr[sp->sct_type].d_prd >= 0)
 		produce(np, sp);
 	}
 

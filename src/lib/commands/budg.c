@@ -151,9 +151,10 @@ calc_all(void)
     int etu = etu_per_update;
 
     memset(nat_budget, 0, sizeof(nat_budget));
-
     np = getnatp(player->cnum);
+    budget->start_money = budget->money = np->nat_money;
     bp = bp_alloc();
+
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	bp_set_from_sect(bp, sp);
 	if (sp->sct_own == player->cnum) {
@@ -179,6 +180,9 @@ calc_all(void)
     prod_ship(etu, player->cnum, bp, 1);
     prod_plane(etu, player->cnum, bp, 1);
     prod_land(etu, player->cnum, bp, 1);
+
+    if (CANT_HAPPEN(np->nat_money != budget->start_money))
+	np->nat_money = budget->start_money;
 
     free(bp);
     return budget;

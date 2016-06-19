@@ -225,23 +225,17 @@
     Play#2 input budget
     Play#2 command budget
     Play#2 output Play#2 1 Sector Type			Production			    Cost
-    Play#2 output Play#2 1 technical center 		1 tech   			     300
-    Play#2 output Play#2 1 Ship building       		2 ships         		     450
     Play#2 output Play#2 1 Ship maintenance    		3 ships         		      90
-    Play#2 output Play#2 1 Plane building      		1 plane         		     360
     Play#2 output Play#2 1 Plane maintenance   		3 planes        		     144
-    Play#2 output Play#2 1 Unit building       		1 unit          		     450
     Play#2 output Play#2 1 Unit maintenance    		3 units         		      90
-    Play#2 output Play#2 1 Sector building     		26 sectors      		     209
-    Play#2 output Play#2 1 Sector maintenance  		5 sectors       		     300
     Play#2 output Play#2 1 Military payroll		1900 mil, 1000 res                  9994
-    Play#2 output Play#2 1 Total expenses.....................................................12387
+    Play#2 output Play#2 1 Total expenses.....................................................10318
     Play#2 output Play#2 1 Income from taxes		6800 civs, 4000 uws                +1076
     Play#2 output Play#2 1 Income from bars		400 bars                           +2865
     Play#2 output Play#2 1 Total income.......................................................+3941
     Play#2 output Play#2 1 Balance forward						             100
-    Play#2 output Play#2 1 Estimated delta						           -8446
-    Play#2 output Play#2 1 Estimated new treasury.............................................-8346
+    Play#2 output Play#2 1 Estimated delta						           -6377
+    Play#2 output Play#2 1 Estimated new treasury.............................................-6277
     Play#2 output Play#2 1 After processsing sectors, you will be broke!
     Play#2 output Play#2 1 Sectors will not produce, distribute, or deliver!
     Play#2 output Play#2 1
@@ -279,13 +273,16 @@
     Play#3 input budget
     Play#3 command budget
     Play#3 output Play#3 1 Sector Type			Production			    Cost
+    Play#3 output Play#3 1 uranium mine     		67 rad    			     156
+    Play#3 output Play#3 1 Sector building     		56 sectors      		      39
+    Play#3 output Play#3 1 Sector maintenance  		1 sector        		      60
     Play#3 output Play#3 1 Military payroll		170 mil, 0 res                       848
-    Play#3 output Play#3 1 Total expenses.......................................................848
+    Play#3 output Play#3 1 Total expenses......................................................1103
     Play#3 output Play#3 1 Income from taxes		16549 civs, 150 uws                +5540
     Play#3 output Play#3 1 Total income.......................................................+5540
     Play#3 output Play#3 1 Balance forward						            -100
-    Play#3 output Play#3 1 Estimated delta						           +4692
-    Play#3 output Play#3 1 Estimated new treasury..............................................4592
+    Play#3 output Play#3 1 Estimated delta						           +4437
+    Play#3 output Play#3 1 Estimated new treasury..............................................4337
     Play#3 output Play#3 6 0 99
     Play#3 input production *
     Play#3 command production
