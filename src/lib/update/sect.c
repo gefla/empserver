@@ -96,8 +96,8 @@ buildeff(struct sctstr *sp)
  * Conversion will happen much more slowly without
  * some mil initially.
  */
-static int
-enlist(short *vec, int etu, int *cost)
+static void
+enlist(struct natstr *np, short *vec, int etu)
 {
     int maxmil;
     int enlisted;
@@ -111,8 +111,11 @@ enlist(short *vec, int etu, int *cost)
 	vec[I_CIVIL] -= enlisted;
 	vec[I_MILIT] += enlisted;
     }
-    *cost = enlisted * 3;
-    return enlisted;
+
+    nat_budget[np->nat_cnum].prod[SCT_ENLIST].count += enlisted;
+    nat_budget[np->nat_cnum].prod[SCT_ENLIST].money -= enlisted * 3;
+    if (!player->simulation)
+	np->nat_money -= enlisted * 3;
 }
 
 /* Fallout is calculated here. */
@@ -227,8 +230,8 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
 {
     struct budget *budget = &nat_budget[np->nat_cnum];
     struct sctstr *sp, scratch_sect;
-    int cost, ecost, pcost;
-    int n, amount;
+    int cost;
+    int n;
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if (sp->sct_type == SCT_WATER)
@@ -261,9 +264,6 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
 	    continue;
 	}
 
-	amount = 0;
-	pcost = cost = ecost = 0;
-
 	if (dchr[sp->sct_type].d_maint) {
 	    cost = etu * dchr[sp->sct_type].d_maint;
 	    budget->bm[BUDG_SCT_MAINT].count++;
@@ -283,11 +283,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
 
 	if (sp->sct_type == SCT_ENLIST && sp->sct_effic >= 60 &&
 	    sp->sct_own == sp->sct_oldown) {
-	    budget->prod[sp->sct_type].count
-		+= enlist(sp->sct_item, etu, &ecost);
-	    budget->prod[sp->sct_type].money -= ecost;
-	    if (!player->simulation)
-		np->nat_money -= ecost;
+	    enlist(np, sp->sct_item, etu);
 	}
 
 	/*
@@ -296,13 +292,9 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
 
 	if (sp->sct_effic >= 60) {
 	    if (np->nat_money >= 0 && dchr[sp->sct_type].d_prd >= 0)
-		amount = produce(np, sp, &pcost);
+		produce(np, sp);
 	}
 
 	bp_set_from_sect(bp, sp);
-	budget->prod[sp->sct_type].count += amount;
-	budget->prod[sp->sct_type].money -= pcost;
-	if (!player->simulation)
-	    np->nat_money -= pcost;
     }
 }
