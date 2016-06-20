@@ -43,8 +43,8 @@
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
-#include "server.h"
 #include "tel.h"
+#include "update.h"
 
 static struct telstr last_tel[MAXNOC];
 

@@ -40,7 +40,6 @@
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
-#include "server.h"
 #include "ship.h"
 #include "unit.h"
 #include "update.h"

@@ -39,7 +39,7 @@
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
-#include "server.h"
+#include "update.h"
 
 void
 setrel(natid us, natid them, int rel)

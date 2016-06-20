@@ -50,12 +50,6 @@
 #include "prototypes.h"
 #include "server.h"
 
-/*
- * Update is running.
- * Can be used to suppress messages, or direct them to bulletins.
- */
-int update_running;
-
 static time_t update_schedule_anchor;
 static int update_wanted;
 
@@ -205,9 +199,7 @@ update_run(void)
 	    return;
 	}
     }
-    update_running = 1;
     update_main();
-    update_running = 0;
     empth_rwlock_unlock(update_lock);
 }
 

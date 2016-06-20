@@ -46,6 +46,12 @@
 #include "unit.h"
 #include "update.h"
 
+/*
+ * Update is running.
+ * Can be used to suppress messages, or direct them to bulletins.
+ */
+int update_running;
+
 struct budget nat_budget[MAXNOC];
 
 void
@@ -57,6 +63,7 @@ update_main(void)
     int i;
     struct natstr *np;
 
+    update_running = 1;
     logerror("production update (%d etus)", etu);
     getrusage(RUSAGE_SELF, &rus1);
     game_record_update(time(NULL));
@@ -134,4 +141,5 @@ update_main(void)
 	     - (rus1.ru_utime.tv_sec + rus1.ru_utime.tv_usec / 1e6),
 	     rus2.ru_stime.tv_sec + rus2.ru_stime.tv_usec / 1e6
 	     - (rus1.ru_stime.tv_sec + rus1.ru_stime.tv_usec / 1e6));
+    update_running = 0;
 }

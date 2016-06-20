@@ -41,7 +41,6 @@
 #include "plane.h"
 #include "player.h"
 #include "prototypes.h"
-#include "server.h"
 #include "unit.h"
 #include "update.h"
 

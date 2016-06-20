@@ -74,6 +74,7 @@ struct budget {
 };
 
 /* main.c */
+extern int update_running;
 extern struct budget nat_budget[MAXNOC];
 
 /* age.c */
