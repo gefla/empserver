@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -40,6 +40,7 @@
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
+#include "server.h"
 #include "unit.h"
 #include "update.h"
 
@@ -54,9 +55,10 @@ lnd_postread(int n, void *ptr)
 	memset(lp, 0, sizeof(struct lndstr));
     }
 
-    if (opt_MOB_ACCESS)
-	lnd_do_upd_mob(lp);
     player->owner = (player->god || lp->lnd_own == player->cnum);
+
+    if (opt_MOB_ACCESS && lp->lnd_own && !update_running)
+	mob_inc_land(lp, game_tick_to_now(&lp->lnd_access));
 }
 
 void

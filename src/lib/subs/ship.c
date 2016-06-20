@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -40,6 +40,7 @@
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
+#include "server.h"
 #include "ship.h"
 #include "unit.h"
 #include "update.h"
@@ -55,9 +56,10 @@ shp_postread(int n, void *ptr)
 	memset(sp, 0, sizeof(struct shpstr));
     }
 
-    if (opt_MOB_ACCESS)
-	shp_do_upd_mob(sp);
     player->owner = (player->god || sp->shp_own == player->cnum);
+
+    if (opt_MOB_ACCESS & sp->shp_own && !update_running)
+	mob_inc_ship(sp, game_tick_to_now(&sp->shp_access));
 }
 
 void

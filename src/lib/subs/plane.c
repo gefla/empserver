@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -41,6 +41,7 @@
 #include "plane.h"
 #include "player.h"
 #include "prototypes.h"
+#include "server.h"
 #include "unit.h"
 #include "update.h"
 
@@ -54,9 +55,11 @@ pln_postread(int n, void *ptr)
 		 pp->pln_uid, n);
 	memset(pp, 0, sizeof(struct plnstr));
     }
+
     player->owner = (player->god || pp->pln_own == player->cnum);
-    if (opt_MOB_ACCESS)
-	pln_do_upd_mob(pp);
+
+    if (opt_MOB_ACCESS && pp->pln_own && !update_running)
+	mob_inc_plane(pp, game_tick_to_now(&pp->pln_access));
 }
 
 void

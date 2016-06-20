@@ -36,6 +36,7 @@
 
 #include <ctype.h>
 #include "file.h"
+#include "game.h"
 #include "lost.h"
 #include "misc.h"
 #include "nsc.h"
@@ -43,6 +44,7 @@
 #include "player.h"
 #include "prototypes.h"
 #include "sect.h"
+#include "server.h"
 #include "update.h"
 #include "xy.h"
 
@@ -52,8 +54,10 @@ sct_postread(int id, void *ptr)
     struct sctstr *sp = ptr;
 
     player->owner = (player->god || sp->sct_own == player->cnum);
-    if (opt_MOB_ACCESS)
-	sct_do_upd_mob(sp);
+
+    if (opt_MOB_ACCESS && sp->sct_own && sp->sct_type != SCT_SANCT
+	&& !update_running)
+	mob_inc_sect(sp, game_tick_to_now(&sp->sct_access));
 }
 
 void
