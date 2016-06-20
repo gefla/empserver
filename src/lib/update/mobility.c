@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1998-1999
- *     Markus Armbruster, 2004-2008
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -125,21 +125,41 @@ pln_do_upd_mob(struct plnstr *pp)
     do_upd_checking = 0;
 }
 
+/* Increase mobility of everything for @etus ETUs, update timestamps */
 void
-mob_sect(void)
+mob_inc_all(int etus)
 {
-    struct sctstr *sp;
-    int n, etus;
+    struct sctstr *sectp;
+    struct shpstr *sp;
+    struct plnstr *pp;
+    struct lndstr *lp;
+    int i;
     time_t now;
 
     time(&now);
-    for (n = 0; NULL != (sp = getsectid(n)); n++) {
-	sp->sct_timestamp = now;
-	if (opt_MOB_ACCESS)
-	    etus = game_reset_tick(&sp->sct_access);
-	else
-	    etus = etu_per_update;
-	do_mob_sect(sp, etus);
+
+    for (i = 0; (sectp = getsectid(i)); i++) {
+	sectp->sct_timestamp = now;
+	if (!opt_MOB_ACCESS)
+	    do_mob_sect(sectp, etus);
+    }
+
+    for (i = 0; (sp = getshipp(i)); i++) {
+	sp->shp_timestamp = now;
+	if (!opt_MOB_ACCESS)
+	    do_mob_ship(sp, etus);
+    }
+
+    for (i = 0; (pp = getplanep(i)); i++) {
+	pp->pln_timestamp = now;
+	if (!opt_MOB_ACCESS)
+	    do_mob_plane(pp, etus);
+    }
+
+    for (i = 0; (lp = getlandp(i)); i++) {
+	lp->lnd_timestamp = now;
+	if (!opt_MOB_ACCESS)
+	    do_mob_land(lp, etus);
     }
 }
 
@@ -162,24 +182,6 @@ do_mob_sect(struct sctstr *sp, int etus)
     sp->sct_mobil = value;
 }
 
-void
-mob_ship(void)
-{
-    struct shpstr *sp;
-    int n, etus;
-    time_t now;
-
-    time(&now);
-    for (n = 0; NULL != (sp = getshipp(n)); n++) {
-	sp->shp_timestamp = now;
-	if (opt_MOB_ACCESS)
-	    etus = game_reset_tick(&sp->shp_access);
-	else
-	    etus = etu_per_update;
-	do_mob_ship(sp, etus);
-    }
-}
-
 static void
 do_mob_ship(struct shpstr *sp, int etus)
 {
@@ -195,24 +197,6 @@ do_mob_ship(struct shpstr *sp, int etus)
     if (value > ship_mob_max)
 	value = ship_mob_max;
     sp->shp_mobil = (signed char)value;
-}
-
-void
-mob_land(void)
-{
-    struct lndstr *lp;
-    int n, etus;
-    time_t now;
-
-    time(&now);
-    for (n = 0; NULL != (lp = getlandp(n)); n++) {
-	lp->lnd_timestamp = now;
-	if (opt_MOB_ACCESS)
-	    etus = game_reset_tick(&lp->lnd_access);
-	else
-	    etus = etu_per_update;
-	do_mob_land(lp, etus);
-    }
 }
 
 static void
@@ -246,24 +230,6 @@ do_mob_land(struct lndstr *lp, int etus)
     lp->lnd_mobil = value;
 }
 
-void
-mob_plane(void)
-{
-    struct plnstr *pp;
-    int n, etus;
-    time_t now;
-
-    time(&now);
-    for (n = 0; NULL != (pp = getplanep(n)); n++) {
-	pp->pln_timestamp = now;
-	if (opt_MOB_ACCESS)
-	    etus = game_reset_tick(&pp->pln_access);
-	else
-	    etus = etu_per_update;
-	do_mob_plane(pp, etus);
-    }
-}
-
 static void
 do_mob_plane(struct plnstr *pp, int etus)
 {
@@ -279,4 +245,33 @@ do_mob_plane(struct plnstr *pp, int etus)
     if (value > plane_mob_max)
 	value = plane_mob_max;
     pp->pln_mobil = value;
+}
+
+/*
+ * Credit the turn's remaining MOB_ACCESS mobility.
+ * Exactly as if everything was accessed right now.
+ */
+void
+mob_access_all(void)
+{
+    struct sctstr *sectp;
+    struct shpstr *sp;
+    struct plnstr *pp;
+    struct lndstr *lp;
+    int i;
+
+    if (CANT_HAPPEN(!opt_MOB_ACCESS))
+	return;
+
+    for (i = 0; (sectp = getsectid(i)); i++)
+	do_mob_sect(sectp, game_reset_tick(&sectp->sct_access));
+
+    for (i = 0; (sp = getshipp(i)); i++)
+	do_mob_ship(sp, game_reset_tick(&sp->shp_access));
+
+    for (i = 0; (pp = getplanep(i)); i++)
+	do_mob_plane(pp, game_reset_tick(&pp->pln_access));
+
+    for (i = 0; (lp = getlandp(i)); i++)
+	do_mob_land(lp, game_reset_tick(&lp->lnd_access));
 }

@@ -65,13 +65,9 @@ update_main(void)
     for (n = 0; n < MAXNOC; n++)
 	clear_telegram_is_new(n);
 
-    /* First, make sure all mobility is updated correctly. */
-    if (opt_MOB_ACCESS) {
-	mob_ship();
-	mob_sect();
-	mob_plane();
-	mob_land();
-    }
+    /* Credit the turn's remaining MOB_ACCESS mobility */
+    if (opt_MOB_ACCESS)
+	mob_access_all();
 
     if (opt_AUTO_POWER)
 	update_power();
@@ -117,15 +113,8 @@ update_main(void)
     finish_sects(etu);
     prod_nat(etu);
     age_levels(etu);
+    mob_inc_all(etu);
 
-    /* Only update mobility for non-MOB_ACCESS here, since it doesn't
-       get done for MOB_ACCESS anyway during the update */
-    if (!opt_MOB_ACCESS) {
-	mob_ship();
-	mob_sect();
-	mob_plane();
-	mob_land();
-    }
     if (update_demand == UPD_DEMAND_SCHED
 	|| update_demand == UPD_DEMAND_ASYNC)
 	update_removewants();

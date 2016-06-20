@@ -103,14 +103,12 @@ extern void prod_land(int, int, struct bp *, int);
 /* material.c */
 extern int get_materials(struct sctstr *, short[], int);
 /* mobility.c */
-extern void mob_sect(void);
-extern void mob_ship(void);
-extern void mob_land(void);
-extern void mob_plane(void);
+extern void mob_inc_all(int);
 extern void sct_do_upd_mob(struct sctstr *sp);
 extern void shp_do_upd_mob(struct shpstr *sp);
 extern void lnd_do_upd_mob(struct lndstr *lp);
 extern void pln_do_upd_mob(struct plnstr *pp);
+extern void mob_access_all(void);
 /* move_sat.c */
 extern void move_sat(struct plnstr *);
 /* nat.c */
