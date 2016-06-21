@@ -68,13 +68,6 @@ prod_plane(int etus, int natnum, struct bp *bp, int buildem)
 	    continue;
 	}
 
-	if (pln_is_in_orbit(pp)) {
-	    if (!player->simulation && buildem == 0
-		&& !(pp->pln_flags & PLN_SYNCHRONOUS))
-		move_sat(pp);
-	    continue;
-	}
-
 	upd_plane(pp, etus, bp, buildem);
     }
 }
@@ -116,6 +109,11 @@ upd_plane(struct plnstr *pp, int etus, struct bp *bp, int build)
 	cost = etus * pcp->pl_mat[I_MILIT] * -money_mil * 5;
 	budget->bm[BUDG_PLN_MAINT].money -= cost;
 	budget->money -= cost;
+
+	if (pln_is_in_orbit(pp) && !(pp->pln_flags & PLN_SYNCHRONOUS)) {
+	    if (!player->simulation)
+		move_sat(pp);
+	}
     }
 }
 

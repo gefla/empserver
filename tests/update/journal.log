@@ -36,18 +36,18 @@
     Play#1 output Play#1 1 Ship building       		10 ships        		    1520
     Play#1 output Play#1 1 Ship maintenance    		32 ships        		    2207
     Play#1 output Play#1 1 Plane building      		13 planes       		    1924
-    Play#1 output Play#1 1 Plane maintenance   		20 planes       		    1004
+    Play#1 output Play#1 1 Plane maintenance   		21 planes       		    1244
     Play#1 output Play#1 1 Unit building       		6 units         		    2300
     Play#1 output Play#1 1 Unit maintenance    		16 units        		     510
     Play#1 output Play#1 1 Sector building     		40 sectors      		     774
     Play#1 output Play#1 1 Sector maintenance  		2 sectors       		     120
     Play#1 output Play#1 1 Military payroll		1164 mil, 0 res                     5820
-    Play#1 output Play#1 1 Total expenses.....................................................25009
+    Play#1 output Play#1 1 Total expenses.....................................................25249
     Play#1 output Play#1 1 Income from taxes		26911 civs, 9007 uws              +12627
     Play#1 output Play#1 1 Total income......................................................+12627
     Play#1 output Play#1 1 Balance forward						           25000
-    Play#1 output Play#1 1 Estimated delta						          -12382
-    Play#1 output Play#1 1 Estimated new treasury.............................................12618
+    Play#1 output Play#1 1 Estimated delta						          -12622
+    Play#1 output Play#1 1 Estimated new treasury.............................................12378
     Play#1 output Play#1 6 0 99
     Play#1 input neweff * ?newd#-
     Play#1 command neweff
@@ -529,8 +529,8 @@
     Play#0 output Play#0 1  78 happiness, 178 education produced
     Play#0 output Play#0 1 total pop was 28109, yielding 14.19 hap, 24.57 edu
     Play#0 output Play#0 1 3.5668 tech, 3.5102 research produced
-    Play#0 output Play#0 1 Army delta $-2810, Navy delta $-3726, Air force delta $-2567
-    Play#0 output Play#0 1 money delta was $-12027 for this update
+    Play#0 output Play#0 1 Army delta $-2810, Navy delta $-3726, Air force delta $-2807
+    Play#0 output Play#0 1 money delta was $-12267 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 1
     Play#0 command nation
@@ -538,7 +538,7 @@
     Play#0 output Play#0 1 (#1) 1 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at 0,0 has 650 civilians & 2 military
-    Play#0 output Play#0 1  The treasury has $12973.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $12733.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 21.09       Happiness....... 12.33
     Play#0 output Play#0 1 Technology.........102.92       Research........  3.49
     Play#0 output Play#0 1 Technology factor : 50.48%     Plague factor :   1.96%
