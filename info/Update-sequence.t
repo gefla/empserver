@@ -19,7 +19,7 @@ This document gives a rough order of events during the update.
 2) Then, in order of country #, deal with each country:
 	a) pay for military reserves.
 	b) ship maintenance
-		pay maintenance, produce, then feed and plague people on board
+		pay maintenance, then feed and plague people on board
 	c) plane maintenance
 	d) land unit maintenance
 		pay maintenance, then feed and plague people on board
@@ -38,6 +38,7 @@ This document gives a rough order of events during the update.
                 f) first increase eff
                 g) then make things
 	f) ship building
+	        first increase efficiency, then produce
                 stopped ships are started, but not built (see info stop)
 	g) plane building
                 stopped planes are started, but not built (see info stop)

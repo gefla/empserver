@@ -53,6 +53,7 @@
 static void upd_ship(struct shpstr *, int, struct bp *, int);
 static void shiprepair(struct shpstr *, struct natstr *, struct bp *,
 		       int, struct budget *);
+static void ship_produce(struct shpstr *, int, struct budget *);
 static int feed_ship(struct shpstr *, int);
 
 void
@@ -85,20 +86,14 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
     struct budget *budget = &nat_budget[sp->shp_own];
     struct mchrstr *mp = &mchr[sp->shp_type];
     struct natstr *np = getnatp(sp->shp_own);
-    struct sctstr *sectp;
     int pstage, ptime;
-    int oil_gained;
-    int max_oil;
-    int max_food;
-    struct pchrstr *product;
-    unsigned char *resource;
-    int dep;
     int n, mult, eff_lost;
     double cost;
 
     if (build == 1) {
 	if (!sp->shp_off && budget->money >= 0)
 	    shiprepair(sp, np, bp, etus, budget);
+	ship_produce(sp, etus, budget);
 	if (!player->simulation)
 	    sp->shp_off = 0;
     } else {
@@ -123,56 +118,12 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
 	}
 
 	if (!player->simulation) {
-	    sectp = getsectp(sp->shp_x, sp->shp_y);
-
-	    /* produce oil */
-	    if (!sp->shp_off && budget->money >= 0
-		&& (mp->m_flags & M_OIL) && sectp->sct_type == SCT_WATER) {
-		product = &pchr[dchr[SCT_OIL].d_prd];
-		oil_gained = roundavg(total_work(100, etus,
-						 sp->shp_item[I_CIVIL],
-						 sp->shp_item[I_MILIT],
-						 sp->shp_item[I_UW],
-						 ITEM_MAX)
-				      * sp->shp_effic / 100.0
-				      * sectp->sct_oil / 100.0
-				      * prod_eff(SCT_OIL, sp->shp_tech));
-		max_oil = mp->m_item[I_OIL];
-		if (sp->shp_item[I_OIL] + oil_gained > max_oil)
-		    oil_gained = max_oil - sp->shp_item[I_OIL];
-		if (product->p_nrdep != 0 && oil_gained > 0) {
-		    resource = (unsigned char *)sectp + product->p_nrndx;
-		    if (*resource * 100 < product->p_nrdep * oil_gained)
-			oil_gained = *resource * 100 / product->p_nrdep;
-		    dep = roundavg(oil_gained * product->p_nrdep / 100.0);
-		    if (CANT_HAPPEN(dep > *resource))
-			dep = *resource;
-		    *resource -= dep;
-		}
-		sp->shp_item[I_OIL] += oil_gained;
-	    }
-	    /* produce fish */
-	    if (!sp->shp_off && budget->money >= 0
-		&& (mp->m_flags & M_FOOD) && sectp->sct_type == SCT_WATER) {
-		sp->shp_item[I_FOOD]
-		    += roundavg(total_work(100, etus,
-					   sp->shp_item[I_CIVIL],
-					   sp->shp_item[I_MILIT],
-					   sp->shp_item[I_UW],
-					   ITEM_MAX)
-				* sp->shp_effic / 100.0
-				* sectp->sct_fertil / 100.0
-				* prod_eff(SCT_AGRI, sp->shp_tech));
-	    }
 	    /* feed */
 	    if ((n = feed_ship(sp, etus)) > 0) {
 		wu(0, sp->shp_own, "%d starved on %s\n", n, prship(sp));
 		if (n > 10)
 		    nreport(sp->shp_own, N_DIE_FAMINE, 0, 1);
 	    }
-	    max_food = mp->m_item[I_FOOD];
-	    if (sp->shp_item[I_FOOD] > max_food)
-		sp->shp_item[I_FOOD] = max_food;
 	    /*
 	     * do plague stuff.  plague can't break out on ships,
 	     * but it can still kill people.
@@ -314,6 +265,65 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus,
     budget->money -= cost;
     if (!player->simulation)
 	ship->shp_effic += (signed char)build;
+}
+
+static void
+ship_produce(struct shpstr *sp, int etus, struct budget *budget)
+{
+    struct mchrstr *mp = &mchr[sp->shp_type];
+    struct sctstr *sectp = getsectp(sp->shp_x, sp->shp_y);
+    int oil_gained;
+    int max_oil;
+    int max_food;
+    struct pchrstr *product;
+    unsigned char *resource;
+    int dep;
+
+    if (player->simulation)
+	return;
+
+    /* produce oil */
+    if (!sp->shp_off && budget->money >= 0
+	&& (mp->m_flags & M_OIL) && sectp->sct_type == SCT_WATER) {
+	product = &pchr[dchr[SCT_OIL].d_prd];
+	oil_gained = roundavg(total_work(100, etus,
+					 sp->shp_item[I_CIVIL],
+					 sp->shp_item[I_MILIT],
+					 sp->shp_item[I_UW],
+					 ITEM_MAX)
+			      * sp->shp_effic / 100.0
+			      * sectp->sct_oil / 100.0
+			      * prod_eff(SCT_OIL, sp->shp_tech));
+	max_oil = mp->m_item[I_OIL];
+	if (sp->shp_item[I_OIL] + oil_gained > max_oil)
+	    oil_gained = max_oil - sp->shp_item[I_OIL];
+	if (product->p_nrdep != 0 && oil_gained > 0) {
+	    resource = (unsigned char *)sectp + product->p_nrndx;
+	    if (*resource * 100 < product->p_nrdep * oil_gained)
+		oil_gained = *resource * 100 / product->p_nrdep;
+	    dep = roundavg(oil_gained * product->p_nrdep / 100.0);
+	    if (CANT_HAPPEN(dep > *resource))
+		dep = *resource;
+	    *resource -= dep;
+	}
+	sp->shp_item[I_OIL] += oil_gained;
+    }
+    /* produce fish */
+    if (!sp->shp_off && budget->money >= 0
+	&& (mp->m_flags & M_FOOD) && sectp->sct_type == SCT_WATER) {
+	sp->shp_item[I_FOOD]
+	    += roundavg(total_work(100, etus,
+				   sp->shp_item[I_CIVIL],
+				   sp->shp_item[I_MILIT],
+				   sp->shp_item[I_UW],
+				   ITEM_MAX)
+			* sp->shp_effic / 100.0
+			* sectp->sct_fertil / 100.0
+			* prod_eff(SCT_AGRI, sp->shp_tech));
+    }
+    max_food = mp->m_item[I_FOOD];
+    if (sp->shp_item[I_FOOD] > max_food)
+	sp->shp_item[I_FOOD] = max_food;
 }
 
 /*

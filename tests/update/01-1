@@ -1,5 +1,4 @@
 budget
-| BUG: fb#100 won't actually starve
 | Note: f1#100 not actually built (plague kills off mil)
 | TODO is it accurate?
 neweff * ?newd#-

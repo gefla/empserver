@@ -512,6 +512,7 @@
     Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 25 starved on cs   cargo ship (#42)
     Play#0 output Play#0 1 33 starved on cs   cargo ship (#43)
+    Play#0 output Play#0 1 50 starved on fb   fishing boat (#100)
     Play#0 output Play#0 1 25 starved in inf  infantry #42
     Play#0 output Play#0 1 33 starved in 1,1.
     Play#0 output Play#0 1 133 starved in 3,1.
@@ -593,7 +594,7 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1    COMMODITIES deliver--  distribute
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
-    Play#0 output Play#0 1   1   0,0    c .......... ..........   0   0    0    0    0   0    0    6   34   0
+    Play#0 output Play#0 1   1   0,0    c .......... ..........   0   0    0    0    0   0    0    7   33   0
     Play#0 output Play#0 1   1   2,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   4,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   6,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -792,11 +793,11 @@
     Play#0 output Play#0 1   1   95 cs   cargo ship    14,6       100%   0   0   0   0  0  0  0  0  90  200
     Play#0 output Play#0 1   7   96 cs   cargo ship    14,6        20%   0   0   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   97 cs   cargo ship    14,6        40%   0   0   0   0  0  0  0  0  90   20
-    Play#0 output Play#0 1   1  100 fb   fishing boa   16,4       100% 100   0   0  38  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  100 fb   fishing boa   16,4       100%  50   0   0  20  0  0  0  0  90   20
     Play#0 output Play#0 1   1  101 fb   fishing boa   18,4       100% 100   0   0 412  0  0  0  0  90   20
     Play#0 output Play#0 1   1  102 fb   fishing boa   20,4       100% 100   0   0   7  0  0  0  0  90   20
-    Play#0 output Play#0 1   1  103 fb   fishing boa   18,4        73% 100   0   0 250  0  0  0  0  90   20
-    Play#0 output Play#0 1   1  104 fb   fishing boa   18,4        33% 100   0   0  88  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  103 fb   fishing boa   18,4        73% 100   0   0 303  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  104 fb   fishing boa   18,4        33% 100   0   0 141  0  0  0  0  90   20
     Play#0 output Play#0 1   1  110 od   oil derrick   16,4       100% 100   0   0   7  0  0  0  0  90   50
     Play#0 output Play#0 1   1  111 od   oil derrick   18,4       100% 100   0   0   7  0  0  0  0  90   50
     Play#0 output Play#0 1   1  112 od   oil derrick   20,4       100% 100   0   0   7  0  0  0  0  90   50
@@ -827,7 +828,7 @@
     Play#0 output Play#0 1   95 cs     14,6      100%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   96 cs     14,6       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1   97 cs     14,6       40%   0   0   0   0   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1  100 fb     16,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  100 fb     16,4      100%  50   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  101 fb     18,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  102 fb     20,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  103 fb     18,4       73% 100   0   0   0   0   0   0   0   0   0   0   0   0
@@ -835,8 +836,8 @@
     Play#0 output Play#0 1  110 od     16,4      100% 100   0   0   0   0   0   0   0   0   5   0   0   0
     Play#0 output Play#0 1  111 od     18,4      100% 100   0   0   0   0   0   0   0   0  51   0   0   0
     Play#0 output Play#0 1  112 od     20,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1  113 od     18,4       65% 100   0   0   0   0   0   0   0   0  30   0   0   0
-    Play#0 output Play#0 1  114 od     18,4       25% 100   0   0   0   0   0   0   0   0   9   0   0   0
+    Play#0 output Play#0 1  113 od     18,4       65% 100   0   0   0   0   0   0   0   0  32   0   0   0
+    Play#0 output Play#0 1  114 od     18,4       25% 100   0   0   0   0   0   0   0   0  12   0   0   0
     Play#0 output Play#0 1 30 ships
     Play#0 output Play#0 6 0 640
     Play#0 input plane 0:31,0:15
@@ -1717,7 +1718,7 @@
     Play#0 output Play#0 1   6    0,8    c  100%     120 .. ..      650   20    0   84 100%  395    0   1
     Play#0 output Play#0 1   6    2,8    -  100%     120 .. ..      650   20    0   83 100%  295    0   1
     Play#0 output Play#0 1   6    4,8    f  100%     120 .. ..      650   20    0   83 100%  444    0   1
-    Play#0 output Play#0 1   6    6,8    *  100%     120 .. ..      650   19    0   84 100%  444    0   1
+    Play#0 output Play#0 1   6    6,8    *  100%     120 .. ..      650   18    0   84 100%  444    0   1
     Play#0 output Play#0 1   6    8,8    h  100%     120 .. ..      650   20    0   83 100%  445    0   1
     Play#0 output Play#0 1   6   10,8    !  100%     120 .. ..      650   20    0   84 100%  394    0   1
     Play#0 output Play#0 1   6   12,8    *  100%     120 .. ..      650   20    0   83 100%  395    0   1
@@ -1786,7 +1787,7 @@
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
     Play#0 output Play#0 1   7 -16,8    - .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   7 -14,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
-    Play#0 output Play#0 1   7 -12,8    * .......... ..........   0   0    0    0    0   0    0  399  400   0
+    Play#0 output Play#0 1   7 -12,8    * .......... ..........   0   0    0    0    0   0    0  397  399   0
     Play#0 output Play#0 1   7 -10,8    ! .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   7  -8,8    h .......... ..........   0   0    0    0    0   0    0  352  368   0
     Play#0 output Play#0 1   7  -6,8    * .......... ..........   0   0    0    0    0   0    0  400  400   0
@@ -1828,7 +1829,7 @@
     Play#0 output Play#0 1   1    2,4    a  100%    0    0  100   0    0
     Play#0 output Play#0 1   1    4,4    a  100%    0    0  100   0    0
     Play#0 output Play#0 1   0   16,4    .    0%    0    0   10   9    0
-    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
+    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  90    0
     Play#0 output Play#0 1   0   20,4    .    0%    0    0  100 100    0
     Play#0 output Play#0 1 8 sectors
     Play#0 output Play#0 6 0 640
@@ -1840,7 +1841,7 @@
     Play#0 output Play#0 1   1    8,4    o  100%    0    0    0   9    0
     Play#0 output Play#0 1   1   10,4    o  100%    0    0    0  92    0
     Play#0 output Play#0 1   0   16,4    .    0%    0    0   10   9    0
-    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
+    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  90    0
     Play#0 output Play#0 1   0   20,4    .    0%    0    0  100 100    0
     Play#0 output Play#0 1 5 sectors
     Play#0 output Play#0 6 0 640
