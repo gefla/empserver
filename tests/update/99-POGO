@@ -127,13 +127,11 @@ read 0
 | 100 +40.5f with 100% eff 10 fert
 | 101 +405f with 100% eff 100 fert
 | 102 stopped
-|     BUG: produces anyway
 | 103 +243f with 60% eff
 | 104 +81f with 20% eff
 | 110 +5.14o 100% eff 10 ocont
 | 111 +51.4o with 100% eff 100 ocont
 | 112 stopped
-|     BUG: produces anyway
 | 113 +29.0o-29.3o with 60% eff 94-95 ocont
 | 114 +9.2-9.6o with 20% eff 91-93 ocont, 90-93 ocont left
 read 1
