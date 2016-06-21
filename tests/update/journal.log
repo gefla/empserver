@@ -228,14 +228,15 @@
     Play#2 output Play#2 1 Ship maintenance    		3 ships         		      90
     Play#2 output Play#2 1 Plane maintenance   		3 planes        		     147
     Play#2 output Play#2 1 Unit maintenance    		3 units         		      90
+    Play#2 output Play#2 1 Sector maintenance  		5 sectors       		     300
     Play#2 output Play#2 1 Military payroll		1900 mil, 1000 res                 10000
-    Play#2 output Play#2 1 Total expenses.....................................................10325
+    Play#2 output Play#2 1 Total expenses.....................................................10625
     Play#2 output Play#2 1 Income from taxes		6800 civs, 4000 uws                +1076
     Play#2 output Play#2 1 Income from bars		400 bars                           +2865
     Play#2 output Play#2 1 Total income.......................................................+3941
     Play#2 output Play#2 1 Balance forward						             100
-    Play#2 output Play#2 1 Estimated delta						           -6384
-    Play#2 output Play#2 1 Estimated new treasury.............................................-6284
+    Play#2 output Play#2 1 Estimated delta						           -6684
+    Play#2 output Play#2 1 Estimated new treasury.............................................-6584
     Play#2 output Play#2 1 After processsing sectors, you will be broke!
     Play#2 output Play#2 1 Sectors will not produce, distribute, or deliver!
     Play#2 output Play#2 1
@@ -317,14 +318,15 @@
     Play#4 output Play#4 1 bank             		4 bars   			      40
     Play#4 output Play#4 1 Ship maintenance    		10 ships        		     300
     Play#4 output Play#4 1 Unit maintenance    		10 units        		     600
+    Play#4 output Play#4 1 Sector maintenance  		1 sector        		      60
     Play#4 output Play#4 1 Military payroll		1111 mil, 0 res                     5555
-    Play#4 output Play#4 1 Total expenses......................................................6494
+    Play#4 output Play#4 1 Total expenses......................................................6554
     Play#4 output Play#4 1 Income from taxes		23604 civs, 4100 uws                +212
     Play#4 output Play#4 1 Income from bars		100 bars                           +1500
     Play#4 output Play#4 1 Total income.......................................................+1712
     Play#4 output Play#4 1 Balance forward						           25000
-    Play#4 output Play#4 1 Estimated delta						           -4782
-    Play#4 output Play#4 1 Estimated new treasury.............................................20218
+    Play#4 output Play#4 1 Estimated delta						           -4842
+    Play#4 output Play#4 1 Estimated new treasury.............................................20158
     Play#4 output Play#4 6 0 99
     Play#4 input production *
     Play#4 command production
@@ -896,7 +898,7 @@
     Play#0 output Play#0 1 total pop was 6100, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
     Play#0 output Play#0 1 Army delta $0, Navy delta $0, Air force delta $-74
-    Play#0 output Play#0 1 money delta was $-6021 for this update
+    Play#0 output Play#0 1 money delta was $-6321 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 2
     Play#0 command nation
@@ -904,7 +906,7 @@
     Play#0 output Play#0 1 (#2) 2 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 193
     Play#0 output Play#0 1 10% eff capital at -2,0 has 130 civilians & 0 military
-    Play#0 output Play#0 1  The treasury has $-5921.00     Military reserves: 975
+    Play#0 output Play#0 1  The treasury has $-6221.00     Military reserves: 975
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  2.74
     Play#0 output Play#0 1 Technology.........101.15       Research........  1.74
     Play#0 output Play#0 1 Technology factor : 50.19%     Plague factor :   1.98%
@@ -1389,7 +1391,7 @@
     Play#0 output Play#0 1 total pop was 24080, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
     Play#0 output Play#0 1 Army delta $-600, Navy delta $-300, Air force delta $0
-    Play#0 output Play#0 1 money delta was $-6250 for this update
+    Play#0 output Play#0 1 money delta was $-6310 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 4
     Play#0 command nation
@@ -1397,7 +1399,7 @@
     Play#0 output Play#0 1 (#4) 4 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at -1,-1 has 130 civilians & 0 military
-    Play#0 output Play#0 1  The treasury has $18750.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $18690.00     Military reserves: 0
     Play#0 output Play#0 1 Education..........  3.05       Happiness.......  4.44
     Play#0 output Play#0 1 Technology......... 31.58       Research........  1.74
     Play#0 output Play#0 1 Technology factor : 35.23%     Plague factor :   1.29%
