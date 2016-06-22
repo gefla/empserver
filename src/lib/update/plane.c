@@ -49,12 +49,11 @@ static void upd_plane(struct plnstr *, int, struct bp *, int);
 static void planerepair(struct plnstr *, struct natstr *, struct bp *,
 			int, struct budget *);
 
-void
-prod_plane(int etus, int natnum, struct bp *bp, int buildem)
-		 /* Build = 1, maintain =0 */
+void prep_planes(int etus, natid natnum)
 {
+    int mil, i;
+    double mil_pay;
     struct plnstr *pp;
-    int i;
 
     for (i = 0; (pp = getplanep(i)); i++) {
 	if (pp->pln_own == 0)
@@ -68,6 +67,26 @@ prod_plane(int etus, int natnum, struct bp *bp, int buildem)
 	    continue;
 	}
 
+	mil = plchr[pp->pln_type].pl_mat[I_MILIT];
+	/* flight pay is 5x the pay received by other military */
+	mil_pay = mil * etus * money_mil * 5;
+	nat_budget[natnum].bm[BUDG_PLN_MAINT].money += mil_pay;
+	nat_budget[natnum].money += mil_pay;
+    }
+}
+
+void
+prod_plane(int etus, int natnum, struct bp *bp, int buildem)
+		 /* Build = 1, maintain =0 */
+{
+    struct plnstr *pp;
+    int i;
+
+    for (i = 0; (pp = getplanep(i)); i++) {
+	if (pp->pln_own == 0)
+	    continue;
+	if (pp->pln_own != natnum)
+	    continue;
 	upd_plane(pp, etus, bp, buildem);
     }
 }
@@ -105,10 +124,6 @@ upd_plane(struct plnstr *pp, int etus, struct bp *bp, int build)
 	    budget->bm[BUDG_PLN_MAINT].money -= cost;
 	    budget->money -= cost;
 	}
-	/* flight pay is 5x the pay received by other military */
-	cost = etus * pcp->pl_mat[I_MILIT] * -money_mil * 5;
-	budget->bm[BUDG_PLN_MAINT].money -= cost;
-	budget->money -= cost;
 
 	if (pln_is_in_orbit(pp) && !(pp->pln_flags & PLN_SYNCHRONOUS)) {
 	    if (!player->simulation)

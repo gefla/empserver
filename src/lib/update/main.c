@@ -94,6 +94,13 @@ update_main(void)
     logerror("preparing sectors...");
     prepare_sects(etu);
     logerror("done preparing sectors.");
+    for (i = 0; i < MAXNOC; i++) {
+	prep_ships(etu, i);
+	prep_planes(etu, i);
+	prep_lands(etu, i);
+	pay_reserve(getnatp(i), etu);
+    }
+
     logerror("producing for countries...");
     for (i = 0; i < MAXNOC; i++) {
 	if (!(np = getnatp(i)))

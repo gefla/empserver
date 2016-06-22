@@ -38,19 +38,16 @@
 #include "chance.h"
 #include "file.h"
 #include "item.h"
-#include "land.h"
 #include "nat.h"
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
-#include "ship.h"
 #include "update.h"
 
 void
 prepare_sects(int etu)
 {
     struct sctstr *sp;
-    struct natstr *np;
     int n;
 
 /* Process all the fallout. */
@@ -96,10 +93,6 @@ prepare_sects(int etu)
 	if (sp->sct_type == SCT_BANK)
 	    bank_income(sp, etu);
     }
-    for (n = 0; NULL != (np = getnatp(n)); n++) {
-	upd_slmilcosts(etu, np->nat_cnum);
-	pay_reserve(np, etu);
-    }
 }
 
 void
@@ -126,34 +119,6 @@ tax(struct sctstr *sp, int etu)
     budget->mil.count += sp->sct_item[I_MILIT];
     budget->mil.money += mil_pay;
     budget->money += mil_pay;
-}
-
-void
-upd_slmilcosts(int etu, natid n)
-{
-    struct shpstr *sp;
-    struct lndstr *lp;
-    int mil, i;
-    double mil_pay;
-
-    mil = 0;
-
-    for (i = 0; (sp = getshipp(i)); i++) {
-	if (!sp->shp_own || sp->shp_own != n)
-	    continue;
-	mil += sp->shp_item[I_MILIT];
-    }
-
-    for (i = 0; (lp = getlandp(i)); i++) {
-	if (!lp->lnd_own || lp->lnd_own != n)
-	    continue;
-	mil += lp->lnd_item[I_MILIT];
-    }
-
-    mil_pay = mil * etu * money_mil;
-    nat_budget[n].mil.count += mil;
-    nat_budget[n].mil.money += mil_pay;
-    nat_budget[n].money += mil_pay;
 }
 
 void

@@ -163,7 +163,9 @@ calc_all(void)
 		bank_income(sp, etu);
 	}
     }
-    upd_slmilcosts(etu, player->cnum);
+    prep_ships(etu, player->cnum);
+    prep_planes(etu, player->cnum);
+    prep_lands(etu, player->cnum);
     pay_reserve(np, etu);
 
     /* Maintain ships, planes and land units */
