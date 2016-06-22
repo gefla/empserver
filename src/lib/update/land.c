@@ -146,9 +146,7 @@ upd_land(struct lndstr *lp, int etus, struct bp *bp, int build)
 	if (!player->simulation) {
 	    /* feed */
 	    if ((n = feed_land(lp, etus)) > 0) {
-		wu(0, lp->lnd_own, "%d starved in %s%s\n",
-		   n, prland(lp),
-		   (lp->lnd_effic < LAND_MINEFF ? ", killing it" : ""));
+		wu(0, lp->lnd_own, "%d starved in %s\n", n, prland(lp));
 		if (n > 10)
 		    nreport(lp->lnd_own, N_DIE_FAMINE, 0, 1);
 	    }
