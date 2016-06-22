@@ -119,6 +119,7 @@ extern void prod_nat(int);
 /* plague.c */
 extern void do_plague(struct sctstr *, int);
 extern int plague_people(struct natstr *, short *, int *, int *, int);
+extern void plague_report(natid, int, int, int, int, char *, char *);
 /* plane.c */
 extern void prod_plane(int, int, struct bp *, int);
 /* populace.c */

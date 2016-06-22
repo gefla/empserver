@@ -132,47 +132,9 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
 	    ptime = sp->shp_ptime;
 	    if (pstage != PLG_HEALTHY) {
 		n = plague_people(np, sp->shp_item, &pstage, &ptime, etus);
-		switch (n) {
-		case PLG_DYING:
-		    wu(0, sp->shp_own,
-		       "PLAGUE deaths reported on %s\n", prship(sp));
-		    nreport(sp->shp_own, N_DIE_PLAGUE, 0, 1);
-		    break;
-		case PLG_INFECT:
-		    wu(0, sp->shp_own, "%s battling PLAGUE\n", prship(sp));
-		    break;
-		case PLG_INCUBATE:
-		    /* Are we still incubating? */
-		    if (n == pstage) {
-			/* Yes. Will it turn "infectious" next time? */
-			if (ptime <= etus) {
-			    /* Yes.  Report an outbreak. */
-			    wu(0, sp->shp_own,
-			       "Outbreak of PLAGUE on %s!\n", prship(sp));
-			    nreport(sp->shp_own, N_OUT_PLAGUE, 0, 1);
-			}
-		    } else {
-			/* It has already moved on to "infectious" */
-			wu(0, sp->shp_own,
-			   "%s battling PLAGUE\n", prship(sp));
-		    }
-		    break;
-		case PLG_EXPOSED:
-		    /* Has the plague moved to "incubation" yet? */
-		    if (n != pstage) {
-			/* Yes. Will it turn "infectious" next time? */
-			if (ptime <= etus) {
-			    /* Yes.  Report an outbreak. */
-			    wu(0, sp->shp_own,
-			       "Outbreak of PLAGUE on %s!\n", prship(sp));
-			    nreport(sp->shp_own, N_OUT_PLAGUE, 0, 1);
-			}
-		    }
-		    break;
-		default:
-		    break;
-		}
-
+		if (n != PLG_HEALTHY)
+		    plague_report(sp->shp_own, n, pstage, ptime, etus,
+				  "on", prship(sp));
 		sp->shp_pstage = pstage;
 		sp->shp_ptime = ptime;
 	    }

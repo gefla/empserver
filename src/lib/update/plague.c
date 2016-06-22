@@ -65,45 +65,9 @@ do_plague(struct sctstr *sp, int etu)
 	ptime = 0;
     } else {
 	n = plague_people(np, sp->sct_item, &pstage, &ptime, etu);
-	switch (n) {
-	case PLG_DYING:
-	    wu(0, sp->sct_own, "PLAGUE deaths reported in %s.\n",
-	       ownxy(sp));
-	    nreport(sp->sct_own, N_DIE_PLAGUE, 0, 1);
-	    break;
-	case PLG_INFECT:
-	    wu(0, sp->sct_own, "%s battling PLAGUE\n", ownxy(sp));
-	    break;
-	case PLG_INCUBATE:
-	    /* Are we still incubating? */
-	    if (n == pstage) {
-		/* Yes. Will it turn "infectious" next time? */
-		if (ptime <= etu) {
-		    /* Yes.  Report an outbreak. */
-		    wu(0, sp->sct_own,
-		       "Outbreak of PLAGUE in %s!\n", ownxy(sp));
-		    nreport(sp->sct_own, N_OUT_PLAGUE, 0, 1);
-		}
-	    } else {
-		/* It has already moved on to "infectious" */
-		wu(0, sp->sct_own, "%s battling PLAGUE\n", ownxy(sp));
-	    }
-	    break;
-	case PLG_EXPOSED:
-	    /* Has the plague moved to "incubation" yet? */
-	    if (n != pstage) {
-		/* Yes. Will it turn "infectious" next time? */
-		if (ptime <= etu) {
-		    /* Yes.  Report an outbreak. */
-		    wu(0, sp->sct_own,
-		       "Outbreak of PLAGUE in %s!\n", ownxy(sp));
-		    nreport(sp->sct_own, N_OUT_PLAGUE, 0, 1);
-		}
-	    }
-	    break;
-	default:
-	    break;
-	}
+	if (n != PLG_HEALTHY)
+	    plague_report(sp->sct_own, n, pstage, ptime, etu,
+			  "in", ownxy(sp));
     }
     sp->sct_pstage = pstage;
     sp->sct_ptime = ptime;
@@ -186,4 +150,48 @@ plague_people(struct natstr *np, short *vec,
 	*ptime = etus / 2 + roll0(etus);
     }
     return stage;
+}
+
+void
+plague_report(natid victim, int new_pstage, int pstage, int ptime,
+	      int etus, char *in_on, char *place)
+{
+    switch (new_pstage) {
+    case PLG_DYING:
+	wu(0, victim, "PLAGUE deaths reported %s %s\n", in_on, place);
+	nreport(victim, N_DIE_PLAGUE, 0, 1);
+	break;
+    case PLG_INFECT:
+	wu(0, victim, "%s battling PLAGUE\n", place);
+	break;
+    case PLG_INCUBATE:
+	/* Are we still incubating? */
+	if (new_pstage == pstage) {
+	    /* Yes. Will it turn "infectious" next time? */
+	    if (ptime <= etus) {
+		/* Yes.  Report an outbreak. */
+		wu(0, victim,
+		   "Outbreak of PLAGUE %s %s!\n", in_on, place);
+		nreport(victim, N_OUT_PLAGUE, 0, 1);
+	    }
+	} else {
+	    /* It has already moved on to "infectious" */
+	    wu(0, victim, "%s battling PLAGUE\n", place);
+	}
+	break;
+    case PLG_EXPOSED:
+	/* Has the plague moved to "incubation" yet? */
+	if (new_pstage != pstage) {
+	    /* Yes. Will it turn "infectious" next time? */
+	    if (ptime <= etus) {
+		/* Yes.  Report an outbreak. */
+		wu(0, victim,
+		   "Outbreak of PLAGUE %s %s!\n", in_on, place);
+		nreport(victim, N_OUT_PLAGUE, 0, 1);
+	    }
+	}
+	break;
+    default:
+	break;
+    }
 }
