@@ -49,6 +49,7 @@
 #include "update.h"
 
 static void upd_land(struct lndstr *, int, struct bp *, int);
+static void plague_land(struct lndstr *, int);
 static void landrepair(struct lndstr *, struct natstr *, struct bp *,
 		       int, struct budget *);
 static int feed_land(struct lndstr *, int);
@@ -87,7 +88,6 @@ upd_land(struct lndstr *lp, int etus, struct bp *bp, int build)
     struct budget *budget = &nat_budget[lp->lnd_own];
     struct lchrstr *lcp = &lchr[lp->lnd_type];
     struct natstr *np = getnatp(lp->lnd_own);
-    int pstage, ptime;
     int min = morale_base - (int)np->nat_level[NAT_HLEV];
     int n, mult, eff_lost;
     double cost;
@@ -133,21 +133,28 @@ upd_land(struct lndstr *lp, int etus, struct bp *bp, int build)
 		if (n > 10)
 		    nreport(lp->lnd_own, N_DIE_FAMINE, 0, 1);
 	    }
-	    /*
-	     * do plague stuff.  plague can't break out on land units,
-	     * but it can still kill people on them.
-	     */
-	    pstage = lp->lnd_pstage;
-	    ptime = lp->lnd_ptime;
-	    if (pstage != PLG_HEALTHY) {
-		n = plague_people(np, lp->lnd_item, &pstage, &ptime, etus);
-		if (n != PLG_HEALTHY)
-		    plague_report(lp->lnd_own, n, pstage, ptime, etus,
-				  "on", prland(lp));
-		lp->lnd_pstage = pstage;
-		lp->lnd_ptime = ptime;
-	    }
+	    plague_land(lp, etus);
 	}			/* end !player->simulation */
+    }
+}
+
+void
+plague_land(struct lndstr *lp, int etus)
+{
+    struct natstr *np = getnatp(lp->lnd_own);
+    int pstage, ptime;
+    int n;
+
+    /* Plague can't break out on land units, but it can still kill people */
+    pstage = lp->lnd_pstage;
+    ptime = lp->lnd_ptime;
+    if (pstage != PLG_HEALTHY) {
+	n = plague_people(np, lp->lnd_item, &pstage, &ptime, etus);
+	if (n != PLG_HEALTHY)
+	    plague_report(lp->lnd_own, n, pstage, ptime, etus,
+			  "on", prland(lp));
+	lp->lnd_pstage = pstage;
+	lp->lnd_ptime = ptime;
     }
 }
 

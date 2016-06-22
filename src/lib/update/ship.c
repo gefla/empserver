@@ -51,6 +51,7 @@
 #include "update.h"
 
 static void upd_ship(struct shpstr *, int, struct bp *, int);
+static void plague_ship(struct shpstr *, int);
 static void shiprepair(struct shpstr *, struct natstr *, struct bp *,
 		       int, struct budget *);
 static void ship_produce(struct shpstr *, int, struct budget *);
@@ -86,7 +87,6 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
     struct budget *budget = &nat_budget[sp->shp_own];
     struct mchrstr *mp = &mchr[sp->shp_type];
     struct natstr *np = getnatp(sp->shp_own);
-    int pstage, ptime;
     int n, mult, eff_lost;
     double cost;
 
@@ -124,21 +124,28 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
 		if (n > 10)
 		    nreport(sp->shp_own, N_DIE_FAMINE, 0, 1);
 	    }
-	    /*
-	     * do plague stuff.  plague can't break out on ships,
-	     * but it can still kill people.
-	     */
-	    pstage = sp->shp_pstage;
-	    ptime = sp->shp_ptime;
-	    if (pstage != PLG_HEALTHY) {
-		n = plague_people(np, sp->shp_item, &pstage, &ptime, etus);
-		if (n != PLG_HEALTHY)
-		    plague_report(sp->shp_own, n, pstage, ptime, etus,
-				  "on", prship(sp));
-		sp->shp_pstage = pstage;
-		sp->shp_ptime = ptime;
-	    }
+	    plague_ship(sp, etus);
 	}
+    }
+}
+
+static void
+plague_ship(struct shpstr *sp, int etus)
+{
+    struct natstr *np = getnatp(sp->shp_own);
+    int pstage, ptime;
+    int n;
+
+    /* Plague can't break out on ships, but it can still kill people */
+    pstage = sp->shp_pstage;
+    ptime = sp->shp_ptime;
+    if (pstage != PLG_HEALTHY) {
+	n = plague_people(np, sp->shp_item, &pstage, &ptime, etus);
+	if (n != PLG_HEALTHY)
+	    plague_report(sp->shp_own, n, pstage, ptime, etus,
+			  "on", prship(sp));
+	sp->shp_pstage = pstage;
+	sp->shp_ptime = ptime;
     }
 }
 
