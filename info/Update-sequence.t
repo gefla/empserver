@@ -5,25 +5,33 @@
 This document gives a rough order of events during the update.
 .s1
 .nf
-1) First, prepare all sectors in the world, row by row, going from top
-	to bottom, left to right
+1) Prepare
+	a) prepare all sectors
+		a) fallout is checked, if FALLOUT is defined
+		b) guerrilla warfare is checked
+		c) if the sector doesn't have the plague, see if it
+			catches it
+			otherwise plague the people
+		d) if there are no civs or mil in the sector, it
+			reverts to the deity
+		e) taxes are collected from civs & uws; mil are paid.
+		f) if the sector is a bank it makes $$ proportional to
+			its efficiency
+	b) prepare all ships
+		a) pay military on board
+	c) prepare all planes
+		a) pay crew
+	d) prepare all land units
+		a) pay military on board
+	e) pay for military reserves.
 
-	a) fallout is checked, if FALLOUT is defined
-	b) guerrilla warfare is checked
-	c) if the sector doesn't have the plague, see if it catches it
-		otherwise plague the people
-	d) if there are no civs or mil in the sector, it reverts to the deity
-	e) taxes are collected from civs & uws; mil are paid.
-	f) if the sector is a bank it makes $$ proportional to its efficiency
-
-2) Then, in order of country #, deal with each country:
-	a) pay for military reserves.
-	b) ship maintenance
+2) Produce, in order of country #
+	a) ship maintenance
 		pay maintenance, then feed and plague people on board
-	c) plane maintenance
-	d) land unit maintenance
+	b) plane maintenance
+	c) land unit maintenance
 		pay maintenance, then feed and plague people on board
-	e) produce for all sectors
+	d) produce for all sectors
                 a) people in non-sanctuary sectors eat
                         If not enough is available, the excess people will
 			starve off.  No more than 50% of the people
@@ -37,12 +45,12 @@ This document gives a rough order of events during the update.
                 e) sectors that are stopped are skipped (see info stop)
                 f) first increase eff
                 g) then make things
-	f) ship building
+	e) ship building
 	        first increase efficiency, then produce
                 stopped ships are started, but not built (see info stop)
-	g) plane building
+	f) plane building
                 stopped planes are started, but not built (see info stop)
-	h) land unit building
+	g) land unit building
                 stopped land units are started, but not built (see info stop)
 
 3) Then, do deliveries for all sectors in the world, row by row, going from
