@@ -103,19 +103,13 @@ update_main(void)
 
     logerror("producing for countries...");
     for (i = 0; i < MAXNOC; i++) {
-	if (!(np = getnatp(i)))
-	    continue;
-	if (np->nat_stat == STAT_SANCT) {
-	    continue;
-	}
-
 	/* maintain units */
 	prod_ship(etu, i, NULL, 0);
 	prod_plane(etu, i, NULL, 0);
 	prod_land(etu, i, NULL, 0);
 
 	/* produce all sects */
-	produce_sect(np, etu, NULL);
+	produce_sect(getnatp(i), etu, NULL);
 
 	/* build units */
 	prod_ship(etu, i, NULL, 1);

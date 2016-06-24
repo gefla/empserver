@@ -58,7 +58,7 @@ prepare_sects(int etu)
 		sp->sct_updated = sp->sct_fallout != 0;
 	    /* Next, we process the fallout there */
 	    for (n = 0; NULL != (sp = getsectid(n)); n++)
-		if (sp->sct_updated)
+		if (sp->sct_updated && sp->sct_type != SCT_SANCT)
 		    do_fallout(sp, etu);
 	    /* Next, we spread the fallout */
 	    for (n = 0; NULL != (sp = getsectid(n)); n++)
@@ -70,12 +70,11 @@ prepare_sects(int etu)
 		    decay_fallout(sp, etu);
 	}
     }
+
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	sp->sct_updated = 0;
 
-	if (sp->sct_type == SCT_WATER)
-	    continue;
-	if (getnatp(sp->sct_own)->nat_stat == STAT_SANCT)
+	if (sp->sct_type == SCT_WATER || sp->sct_type == SCT_SANCT)
 	    continue;
 
 	/*

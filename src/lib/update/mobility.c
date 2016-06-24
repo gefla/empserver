@@ -92,7 +92,7 @@ mob_inc_sect(struct sctstr *sp, int etus)
 
     if (sp->sct_own == 0)
 	return;
-    if (sp->sct_type == SCT_SANCT)
+    if (sp->sct_type == SCT_WATER || sp->sct_type == SCT_SANCT)
 	return;
 
     value = sp->sct_mobil + ((float)etus * sect_mob_scale);

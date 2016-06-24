@@ -67,9 +67,7 @@ finish_sects(int etu)
     logerror("delivering...\n");
     /* Do deliveries */
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
-	if (sp->sct_type == SCT_WATER)
-	    continue;
-	if (sp->sct_own == 0)
+	if (!sp->sct_own || sp->sct_type == SCT_SANCT)
 	    continue;
 	if (nat_budget[sp->sct_own].money < 0)
 	    continue;
@@ -89,7 +87,7 @@ finish_sects(int etu)
 
     logerror("exporting...");
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
-	if (!sp->sct_own)
+	if (!sp->sct_own || sp->sct_type == SCT_SANCT)
 	    continue;
 	if (nat_budget[sp->sct_own].money < 0)
 	    continue;
@@ -100,7 +98,7 @@ finish_sects(int etu)
     logerror("importing...");
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	sp->sct_off = 0;
-	if (!sp->sct_own)
+	if (!sp->sct_own || sp->sct_type == SCT_SANCT)
 	    continue;
 	if (nat_budget[sp->sct_own].money < 0)
 	    continue;

@@ -73,7 +73,8 @@ do_feed(struct sctstr *sp, struct natstr *np, int etu,
 				     sp->sct_item[I_MILIT],
 				     sp->sct_item[I_UW],
 				     maxworkers));
-    if (sp->sct_type != SCT_SANCT) {
+
+    if (sp->sct_type != SCT_WATER && sp->sct_type != SCT_SANCT) {
 	manna = 0;
 	if (opt_NOFOOD == 0) {
 	    needed = (int)ceil(food_needed(sp->sct_item, etu));

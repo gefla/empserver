@@ -85,16 +85,12 @@ prod_land(int etus, int natnum, struct bp *bp, int build)
 		/* build = 1, maintain = 0 */
 {
     struct lndstr *lp;
-    struct sctstr *sp;
     int i;
 
     for (i = 0; (lp = getlandp(i)); i++) {
 	if (lp->lnd_own == 0)
 	    continue;
 	if (lp->lnd_own != natnum)
-	    continue;
-	sp = getsectp(lp->lnd_x, lp->lnd_y);
-	if (sp->sct_type == SCT_SANCT)
 	    continue;
 	upd_land(lp, etus, bp, build);
     }
