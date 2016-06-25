@@ -29,7 +29,7 @@
 #
 #   Known contributors to this file:
 #      Ken Stevens (when it was still info.pl)
-#      Markus Armbruster, 2006-2014
+#      Markus Armbruster, 2006-2016
 #
 # Usage: mksubj.pl SUBJECT... INFO-FILE...
 #
@@ -259,6 +259,7 @@ sub write_toc {
     open(TOC, ">info/toc")
 	or die "Can't open info/toc for writing: $!";
     print TOC join("\n", sort @toc);
+    print TOC "\n";
     close TOC;
 }
 
