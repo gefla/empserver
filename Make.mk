@@ -125,7 +125,6 @@ client := src/client/empire$(EXEEXT)
 server := src/server/emp_server$(EXEEXT)
 # Info subjects:
 tsubj := $(addprefix info/, $(addsuffix .t, $(subjects)))
-ttop := info/TOP.t
 # Formatted info:
 info.nr := $(addprefix info.nr/, $(info))
 info.html := $(addprefix info.html/, $(addsuffix .html, $(info)))
@@ -156,7 +155,7 @@ endif
 # Each generated file should be in one of the following sets.
 # Removed by clean:
 clean := $(obj) $(deps) $(libs) $(util) $(client) $(server) $(tsubj)	\
-$(ttop) $(info.all) $(empth_obj) $(empth_lib) sandbox
+info/toc info/TOP.t $(info.all) $(empth_obj) $(empth_lib) sandbox
 # Removed by distclean:
 distclean := $(ac) $(mk)
 # Distributed by dist-source from $(srcdir):
@@ -346,7 +345,7 @@ info/stamp-subj: info/mksubj.pl $(tsrc)
 	$(call quiet-command,perl $(srcdir)/info/mksubj.pl $(subjects) $(filter %.t, $^),GEN '$(tsubj) info/toc')
 	>$@
 
-$(ttop): info/mktop.pl info/subjects.mk
+info/TOP.t: info/mktop.pl info/subjects.mk
 	$(call quiet-command,perl $(srcdir)/info/mktop.pl $@ $(subjects),GEN $@)
 
 info.nr/all: $(filter-out info.nr/all, $(info.nr))
@@ -360,7 +359,7 @@ $(info.nr): info/CRT.MAC info/INFO.MAC info/Blank.awk
 
 $(info.html): info/emp2html.pl
 
-info.ps: info/TROFF.MAC info/INFO.MAC $(ttop) $(tsubj) $(tsrc)
+info.ps: info/TROFF.MAC info/INFO.MAC info/TOP.t $(tsubj) $(tsrc)
 	groff $^ >$@
 
 # Distributing
