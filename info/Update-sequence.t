@@ -66,10 +66,10 @@ This document gives a rough order of events during the update.
    Also start sectors that are stopped
 
 6) modify tech/res/hap/edu levels & do tech bleed
-7) decrease levels due to passing of time
-8) update war declarations (for slow war)
 
-9) If MOB_ACCESS is not enabled, mobility is updated as follows:
+7) decrease levels due to passing of time
+
+8) If MOB_ACCESS is not enabled, mobility is updated as follows:
    a) Add mobility to ships
    b) Add mobility to sectors
    c) Add mobility to planes
