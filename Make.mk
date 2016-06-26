@@ -47,8 +47,13 @@ all:
 # Source files
 ifeq ($(revctrl),git)
 src := $(shell cd $(srcdir) && git ls-files | uniq)
+version := $(shell cd $(srcdir) && build-aux/git-version-gen /dev/null)
 else
 include $(srcdir)/sources.mk
+version := $(shell cat $(srcdir)/.tarball-version || echo "UNKNOWN")
+endif
+ifeq ($(version),UNKNOWN)
+$(error cannot figure out version)
 endif
 dirs := $(sort $(dir $(src)))
 csrc := $(filter %.c, $(src))
@@ -333,6 +338,19 @@ $(libs) $(empth_lib):
 	$(call quiet-command,$(AR) rc $@ $?,AR $@)
 	$(RANLIB) $@
 
+src/lib/global/version.o: CPPFLAGS += -DVERSION='"$(version)"'
+src/lib/global/version.o: $(src)
+
+ifneq ($(revctrl),git)
+$(srcdir)/.tarball-version: $(src)
+	v=`sed -e 's/-dirty$$//' <$@`; echo "$$v-dirty" >$@
+# Force Make to start over after updating .tarball-version, so that
+# $(version) gets the new value
+$(srcdir)/.dirty-stamp: .tarball-version
+	>$@
+include $(srcdir)/.dirty-stamp
+endif
+
 # Info formatting
 
 # mksubj.pl reads $(tsrc) and writes $(tsubj).  A naive rule
@@ -367,7 +385,7 @@ info.ps: info/TROFF.MAC info/INFO.MAC info/TOP.t $(tsubj) $(tsrc)
 
 .PHONY: dist-source
 dist-source: $(src_distgen)
-	$(tarball) $(TARNAME)-$(VERSION) -C $(srcdir) $(src_distgen) $(src)
+	$(tarball) $(TARNAME) $(version) -C $(srcdir) $(src_distgen) $(src)
 
 ifeq ($(revctrl),git)
 .PHONY: $(srcdir)/sources.mk
@@ -377,7 +395,7 @@ endif
 
 .PHONY: dist-client
 dist-client: $(cli_distgen)
-	$(tarball) $(TARNAME)-client-$(VERSION)				\
+	$(tarball) $(TARNAME)-client $(version)				\
 	-C $(srcdir)/src/client						\
 		$(notdir $(filter src/client/%, $(src))	$(cli_distgen))	\
 	-C $(srcdir)/include proto.h version.h				\
@@ -389,8 +407,8 @@ dist-client: $(cli_distgen)
 
 .PHONY: dist-info
 dist-info: info html
-	$(tarball) $(TARNAME)-info-text-$(VERSION) -C info.nr $(info)
-	$(tarball) $(TARNAME)-info-html-$(VERSION) -C info.html $(addsuffix .html, $(info))
+	$(tarball) $(TARNAME)-info-text $(version) -C info.nr $(info)
+	$(tarball) $(TARNAME)-info-html $(version) -C info.html $(addsuffix .html, $(info))
 
 # Dependencies
 

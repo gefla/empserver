@@ -27,7 +27,7 @@
 #   configure.ac: Autoconf input file
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2015
+#      Markus Armbruster, 2005-2016
 #
 # Process this file with autoconf to produce a configure script.
 
@@ -37,7 +37,9 @@
 # whether it's worth fixing.
 
 AC_PREREQ(2.69)
-AC_INIT([Wolfpack Empire], [4.3.34], [wolfpack@wolfpackempire.com], [empire],
+AC_INIT([Wolfpack Empire],
+	m4_esyscmd([build-aux/git-version-gen .tarball-version]),
+	[wolfpack@wolfpackempire.com], [empire],
 	[http://www.wolfpackempire.com/])
 AC_CONFIG_SRCDIR([include/combat.h])
 AC_CONFIG_AUX_DIR([build-aux])
@@ -58,8 +60,12 @@ AC_ARG_VAR(NROFF, [nroff command])
 AC_CHECK_PROG(NROFF, groff, [GROFF_NO_SGR= groff -Tascii -U], nroff)
 
 # not really a check for a program, but close enough
-if test -d $srcdir/.git; then revctrl=git
+if test -d $srcdir/.git
+then revctrl=git
 else revctrl=
+fi
+if test "$revctrl" && test -r .tarball-version
+then AC_MSG_ERROR([.tarball-version must not exist])
 fi
 AC_SUBST(revctrl,$revctrl)
 

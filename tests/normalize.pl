@@ -87,6 +87,8 @@ while (<>) {
 	    and (/\: No (sector|ship|plane|unit|nuke)\(s\)|\: Nothing lost/
 		 or /^[0-9]+ (sector|ship|plane|unit|nuke|lost item)/));
 
+    ### Version
+    s/(Wolfpack( |\\\\040)Empire( |\\\\040))[0-9][^ "]*/${1}4.3.34/;
     ### Formatted time
     # nat_timeused in prompt
     s/^\[[0-9]+(:[0-9]+\] Command \:)/[0$1/;

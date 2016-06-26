@@ -5,9 +5,13 @@ if [ $# = 0 ]; then
     exit 1
 fi
 
-name=$1; shift
+name="$1-$2"
+version="$2"
+shift; shift
 
 mkdir $name
+printf "%s" $version >$name/.tarball-version
+>$name/.dirty-stamp
 
 # arrange cleanup
 trap 'rm -rf "$name"' 0
