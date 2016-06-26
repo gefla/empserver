@@ -40,6 +40,7 @@
 #include "misc.h"
 #include "nsc.h"
 #include "product.h"
+#include "xdump.h"
 
 static void verify_fail(int, int, struct castr *, int, char *, ...)
     ATTRIBUTE((format (printf, 5, 6)));
@@ -74,10 +75,9 @@ verify_ca(int type)
     for (i = 0; ca[i].ca_name; i++) {
 	/*
 	 * Virtual selectors can't be used in xundump, since we lack a
-	 * setter to go with ca_get().  Exception: if EFF_MEM is not
-	 * set, xundump doesn't touch the table.
+	 * setter to go with ca_get().
 	 */
-	if (CANT_HAPPEN((ef_flags(type) & EFF_MEM)
+	if (CANT_HAPPEN(xundumpable(type)
 			&& ca[i].ca_get
 			&& ca[i].ca_dump <= CA_DUMP_CONST))
 	    ca[i].ca_dump = CA_DUMP_ONLY;

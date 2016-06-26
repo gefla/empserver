@@ -1155,8 +1155,7 @@ xuheader(FILE *fp, int expected_table)
 	return gripe("expected table '%s', not '%s'",
 		     ef_nameof(expected_table), name);
 
-    if (!empfile[type].file
-	|| !ef_cadef(type) || !(ef_flags(type) & EFF_MEM)) {
+    if (!xundumpable(type)) {
 	CANT_HAPPEN(expected_table != EF_BAD);
 	return gripe("table '%s' is not permitted here", name);
     }
@@ -1166,6 +1165,16 @@ xuheader(FILE *fp, int expected_table)
     lineno++;
 
     return type;
+}
+
+/*
+ * Can table @type be xundumped?
+ */
+int
+xundumpable(int type)
+{
+    return empfile[type].file && ef_cadef(type)
+	&& (ef_flags(type) & EFF_MEM);
 }
 
 /*

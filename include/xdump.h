@@ -27,7 +27,7 @@
  *  xdump.h: Extended dumps
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2008-2014
+ *     Markus Armbruster, 2008-2016
  */
 
 #ifndef XDUMP_H
@@ -54,6 +54,7 @@ extern void xdcolhdr(struct xdstr *, struct castr[]);
 extern void xdflds(struct xdstr *, struct castr[], void *);
 extern void xdftr(struct xdstr *, int);
 extern int xundump(FILE *, char *, int *, int);
+extern int xundumpable(int);
 extern int xundump_redundant(int, int, void *);
 
 #endif
