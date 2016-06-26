@@ -602,7 +602,6 @@ struct castr cou_ca[] = {
      EF_BAD, NSC_DEITY, CA_DUMP_NONE},
     {"ip", fldoff(nat_hostaddr), NSC_STRINGY, 46, NULL, EF_BAD, 0,
      CA_DUMP},
-    {"hostname", 0, NSC_STRINGY, 0, NULL, EF_BAD, 0, CA_DUMP},	/* deprecated */
     {"userid", fldoff(nat_userid), NSC_STRINGY, 32, NULL, EF_BAD, 0,
      CA_DUMP},
     {"xcap", fldoff(nat_xcap), NSC_XCOORD, 0, NULL, EF_BAD, 0, CA_DUMP},

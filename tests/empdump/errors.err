@@ -125,14 +125,20 @@ tests/empdump/xundump-errors/hdr-noperm:1: table 'map' is not permitted here
 tests/empdump/xundump-errors/hdr-noperm2:1: table 'table' is not permitted here
 tests/empdump/xundump-errors/hdr-unexp:4: expected table 'ship', not 'plane'
 tests/empdump/xundump-errors/hdr-unktab:1: unknown table 'xxx'
+tests/empdump/verify-prep:2: unknown header 'hostname' in field 6
+File plane uid 0 field owner: value 1 refers to missing element of table nat
 File plane uid 0 field flags: bit 8 is not in symbol table plane-flags
+File plane uid 1 field owner: value 1 refers to missing element of table nat
 File plane uid 1 field mission: value 99 is not in symbol table missions
 File plane uid 2 field owner: value 255 indexes table nat out of bounds 0..99
 File plane uid 2 field ship: value 42 indexes table ship out of bounds 0..0
+File plane uid 3 field owner: value 1 refers to missing element of table nat
 File plane uid 3 field ship: value 0 indexes table ship out of bounds 0..0
+File land uid 0 field owner: value 1 refers to missing element of table nat
 File land uid 0 field ship: value 0 indexes table ship out of bounds 0..0
 File plane uid 3: on two carriers
 File land uid 0: on two carriers
+File plane uid 0 field owner: value 1 refers to missing element of table nat
 File plane uid 0: stuck in the air (fixed)
 File plane uid 1: ghost stuck on carrier (fixed)
 File land uid 0: ghost stuck on carrier (fixed)
