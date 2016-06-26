@@ -116,10 +116,6 @@ while (<>) {
     # duration in xdump news (column 4)
     s/^(($xdfld_re ){4})([0-9]+) /${1}0 /
 	if $dump eq 'news';
-    ### nsc_type values in xdump
-    # Can vary between systems, because the width of enumeration types
-    # is implementation-defined.
-    # TODO type in xdump meta
     ### nrndx values in xdump
     # Encoding depends on the host, see resources[].  Too clever by half;
     # perhaps we should change it.

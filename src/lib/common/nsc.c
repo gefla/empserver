@@ -67,6 +67,8 @@ static void *nsc_lnd_dam(struct valstr *, struct natstr *, void *);
 static void *nsc_lnd_aaf(struct valstr *, struct natstr *, void *);
 static void *nsc_lchr(struct valstr *, struct natstr *, void *);
 static void *nsc_nws_timestamp(struct valstr *, struct natstr *, void *);
+static void *nsc_meta_type(struct valstr *, struct natstr *, void *);
+static void *nsc_meta_len(struct valstr *, struct natstr *, void *);
 
 /* Ugly hacks to avoid illegibly long lines */
 #define fldoff(fld) offsetof(CURSTR, fld)
@@ -737,11 +739,12 @@ struct castr mdchr_ca[] = {
     /* name must come first, clients may rely on it */
     {"name", fldoff(ca_name), NSC_STRING, 0, NULL, EF_BAD, 0,
      CA_DUMP_CONST},
-    {"type", fldoff(ca_type), NSC_SITYPE(enum nsc_type), 0, NULL,
+    {"type", fldoff(ca_type), NSC_LONG, 0, nsc_meta_type,
      EF_META_TYPE, 0, CA_DUMP_CONST},
     {"flags", fldoff(ca_flags), NSC_INT, 0, NULL,
      EF_META_FLAGS, NSC_BITS, CA_DUMP_CONST},
-    {"len", fldoff(ca_len), NSC_USHORT, 0, NULL, EF_BAD, 0, CA_DUMP_CONST},
+    {"len", fldoff(ca_len), NSC_LONG, 0, nsc_meta_len,
+     EF_BAD, 0, CA_DUMP_CONST},
     {"table", fldoff(ca_table), NSC_INT, 0, NULL, EF_TABLE, 0,
      CA_DUMP_CONST},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0, CA_DUMP}
@@ -975,5 +978,21 @@ nsc_nws_timestamp(struct valstr *val, struct natstr *natp, void *ptr)
     struct nwsstr *np = ptr;
 
     val->val_as.lng = np->nws_when + np->nws_duration;
+    return NULL;
+}
+
+static void *
+nsc_meta_type(struct valstr *val, struct natstr *natp, void *ptr)
+{
+    val->val_as.lng = nstr_promote(((struct castr *)ptr)->ca_type);
+    return NULL;
+}
+
+static void *
+nsc_meta_len(struct valstr *val, struct natstr *natp, void *ptr)
+{
+    struct castr *ca = ptr;
+
+    val->val_as.lng = ca->ca_type == NSC_STRINGY ? 0 : ca->ca_len;
     return NULL;
 }

@@ -253,7 +253,7 @@ of xdump meta T are:
   - "d", field uses intnum syntax
   - "g", field uses flonum syntax
   - "s", field uses string syntax
-  - "c", field uses string syntax
+  - "c", field uses string syntax (only until version 4.3.33)
 
 * flags: The field's flags, a symbol set.  Flags are:
   - "deity", field visible only to deities
@@ -263,9 +263,10 @@ of xdump meta T are:
     enabled.  Masked values are replaced by -1.
 
 * len: If non-zero, then the record encodes an array with that many
-  elements.  If field type encodes symbol "c", it is a character
-  array, which is dumped as a single string field.  Else, the array is
-  dumped as len fields.
+  elements.  The array is dumped as len fields.
+
+  Only until version 4.3.33: if field type encodes symbol "c", it is a
+  character array, and is dumped as a single string field.
 
 * table: Key for xdump table.  Unless -1, it defines the table
   referenced by the field value.  Field type must encode symbol "d"
@@ -312,12 +313,12 @@ its meta-data, and to make sense of that table, we need meta-meta
 data.  So we start with that:
 
     [3:640] Command : xdump meta meta
-    XDUMP meta meta 1464554085
+    XDUMP meta meta 1466920477
     "name" 3 0 0 -1
-    "type" 8 0 0 33
-    "flags" 8 8 0 32
-    "len" 7 0 0 -1
-    "table" 8 0 0 26
+    "type" 1 0 0 33
+    "flags" 1 8 0 32
+    "len" 1 0 0 -1
+    "table" 1 0 0 26
     /5
 
 To interpret this table, we have to know the field names and their
@@ -341,8 +342,8 @@ know, namely the table of tables.  Let's dump that next, starting with
 its meta-data:
 
     [3:640] Command : xdump meta table
-    XDUMP meta table 1464554085
-    "uid" 8 0 0 26
+    XDUMP meta table 1466920477
+    "uid" 1 0 0 26
     "name" 3 0 0 -1
     /2
 
@@ -353,7 +354,7 @@ table itself.  Indeed, its value matches the one we got in xdump meta
 meta.  Let's try to dump the table:
 
     [5:640] Command : xdump 26 *
-    XDUMP table 1464554085
+    XDUMP table 1466920477
     0 "sect"
     1 "ship"
 [...]
@@ -364,7 +365,7 @@ meta.  Let's try to dump the table:
 [...]
     26 "table"
 [...]
-    /47
+    /48
 
 It worked!
 
@@ -372,37 +373,26 @@ Now dump the two symbol tables we postponed.  Because xdump accepts
 table IDs as well as names, we don't have to know their names:
 
     [5:640] Command : xdump meta 33
-    xdump meta 33
-    XDUMP meta meta-type 1464554085
-    "value" 8 0 0 -1
+    XDUMP meta meta-type 1466920477
+    "value" 1 0 0 -1
     "name" 3 0 0 -1
     /2
 
     [6:640] Command : xdump 33 *
-    XDUMP meta-type 1464554085
+    XDUMP meta-type 1466920477
     1 "d"
     2 "g"
     3 "s"
-    4 "d"
-    5 "d"
-    6 "d"
-    7 "d"
-    8 "d"
-    9 "d"
-    10 "d"
-    11 "d"
-    12 "g"
-    13 "c"
-    /13
+    /3
 
     [7:640] Command : xdump meta 32
-    XDUMP meta meta-flags 1464554085
-    "value" 8 0 0 -1
+    XDUMP meta meta-flags 1466920477
+    "value" 1 0 0 -1
     "name" 3 0 0 -1
     /2
 
     [7:640] Command : xdump 32 *
-    XDUMP meta-flags 1464554085
+    XDUMP meta-flags 1466920477
     1 "deity"
     8 "bits"
     16 "hidden"
@@ -422,11 +412,11 @@ Dumping the remaining tables is easy: just walk the table of tables.
 Here's the first one:
 
     [7:640] Command : xdump meta 0
-    XDUMP meta sect 1464554085
-    "owner" 5 0 0 8
-    "xloc" 9 0 0 -1
-    "yloc" 10 0 0 -1
-    "des" 4 0 0 18
+    XDUMP meta sect 1466920477
+    "owner" 1 0 0 8
+    "xloc" 1 0 0 -1
+    "yloc" 1 0 0 -1
+    "des" 1 0 0 18
 [...]
     /78
 
