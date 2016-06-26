@@ -72,7 +72,7 @@ verify_ca(int type)
     struct castr *ca = ef_cadef(type);
     int i;
 
-    for (i = 0; ca[i].ca_name; i++) {
+    for (i = 0; ca && ca[i].ca_name; i++) {
 	/*
 	 * Virtual selectors can't be used in xundump, since we lack a
 	 * setter to go with ca_get().
@@ -160,7 +160,7 @@ verify_row(int type, int row)
     if (!empobj_in_use(type, row_ref))
 	goto out;
 
-    for (i = 0; ca[i].ca_name; ++i) {
+    for (i = 0; ca && ca[i].ca_name; ++i) {
 	if (ca[i].ca_get)
 	    continue;		/* virtual */
 	n = CA_ARRAY_LEN(&ca[i]);
@@ -201,8 +201,6 @@ verify_table(int type)
     int retval = 0;
     int i;
 
-    if (!ef_cadef(type))
-	return 0;
     verify_ca(type);
     for (i = 0; i < ef_nelem(type); i++)
 	retval |= verify_row(type, i);
