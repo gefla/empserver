@@ -51,7 +51,6 @@
 #include "ship.h"
 #include "server.h"
 #include "trade.h"
-#include "version.h"
 #include "xy.h"
 
 static void sct_oninit(void *);
@@ -66,6 +65,8 @@ static void mchr_oninit(void *);
 static void plchr_oninit(void *);
 static void lchr_oninit(void *);
 static void nchr_oninit(void *);
+
+static char dummy_cache;
 
 /* Number of elements in ARRAY. */
 #define SZ(array) (sizeof(array) / sizeof((array)[0]))
@@ -225,7 +226,7 @@ struct empfile empfile[] = {
      ARRAY_TABLE(empfile, EF_MAX, EFF_CFG),
      NULL, NULL, NULL, NULL},
     {EF_VERSION, "version", NULL, NULL, NULL, EF_BAD,
-     sizeof(PACKAGE_STRING), -1, EFF_STATIC, version, 1, 0, 1, 1, -1,
+     0, -1, EFF_MEM | EFF_STATIC, &dummy_cache, 1, 0, 1, 1, -1,
      NULL, NULL, NULL, NULL},
     {EF_META, "meta", NULL, NULL, mdchr_ca, EF_BAD,
      PTR_CACHE(mdchr_ca, EFF_CFG),

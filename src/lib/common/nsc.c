@@ -37,6 +37,7 @@
 
 #include <config.h>
 
+#include <limits.h>
 #include <stdlib.h>
 #include "empobj.h"
 #include "optlist.h"
@@ -44,9 +45,11 @@
 #include "nsc.h"
 #include "product.h"
 #include "unit.h"
+#include "version.h"
 
 static void *nsc_ver(struct valstr *, struct natstr *, void *);
 static void *nsc_ver_maxnoc(struct valstr *, struct natstr *, void *);
+static void *nsc_ver_version(struct valstr *, struct natstr *, void *);
 static void *nsc_sct_terr(struct valstr *, struct natstr *, void *);
 static void *nsc_sct_track(struct valstr *, struct natstr *, void *);
 static void *nsc_cargo_nplane(struct valstr *, struct natstr *, void *);
@@ -755,8 +758,7 @@ void
 nsc_init(void)
 {
     static struct castr version_ca0 = {
-	"version", 0, NSC_STRINGY, sizeof(PACKAGE_STRING), NULL, EF_BAD, 0,
-	    CA_DUMP
+	"version", 0, NSC_STRING, 0, nsc_ver_version, EF_BAD, 0, CA_DUMP
     };
     static struct castr version_ca1 = {
 	"maxnoc", 0, NSC_LONG, 0, nsc_ver_maxnoc, EF_BAD, 0, CA_DUMP
@@ -817,6 +819,14 @@ static void *
 nsc_ver_maxnoc(struct valstr *val, struct natstr *np, void *ptr)
 {
     val->val_as.lng = MAXNOC;
+    return NULL;
+}
+
+static void *
+nsc_ver_version(struct valstr *val, struct natstr *np, void *ptr)
+{
+    val->val_as.str.base = version;
+    val->val_as.str.maxsz = INT_MAX; /* really SIZE_MAX, but that's C99 */
     return NULL;
 }
 
