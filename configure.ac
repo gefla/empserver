@@ -36,7 +36,7 @@
 # POSIX, and when something breaks on some oddball machine, see
 # whether it's worth fixing.
 
-AC_PREREQ(2.64)
+AC_PREREQ(2.69)
 AC_INIT([Wolfpack Empire], [4.3.34], [wolfpack@wolfpackempire.com], [empire],
 	[http://www.wolfpackempire.com/])
 AC_CONFIG_SRCDIR([include/combat.h])
