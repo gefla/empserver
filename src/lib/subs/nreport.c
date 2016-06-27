@@ -30,7 +30,7 @@
  *     Dave Pare, 1994
  *     Steve McClure, 1997
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -169,7 +169,7 @@ ncache(int actor, int event, int victim, int times)
 	if (dur > minutes(5))
 	    continue;
 	if (np->news.nws_vrb == event && np->news.nws_vno == victim &&
-	    np->news.nws_ntm + times <= 127) {
+	    np->news.nws_ntm + times <= 65535) {
 	    np->news.nws_ntm += times;
 	    np->news.nws_duration = dur;
 	    return np;

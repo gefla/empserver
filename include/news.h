@@ -30,6 +30,7 @@
  *     Dave Pare
  *     Thomas Ruschak
  *     Steve McClure
+ *     Markus Armbruster, 2004-2016
  */
 
 /*
@@ -47,7 +48,7 @@ struct nwsstr {
     natid nws_ano;		/* "actor" country # */
     unsigned char nws_vrb;	/* action (verb) */
     natid nws_vno;		/* "victim" country # */
-    signed char nws_ntm;	/* number of times */
+    unsigned short nws_ntm;	/* number of times */
     short nws_duration;		/* last time at nws_when + nws_duration */
     time_t nws_when;		/* time of action */
 };
