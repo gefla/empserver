@@ -15,11 +15,13 @@ die "$0: either -j or -s, not both\n"
 
 my $dow_re = qr/(Sun|Mon|Tue|Wed|Thu|Fri|Sat)/;
 my $mon_re = qr/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/;
-my $tod_re = qr/[0-2][0-9]:[0-5][0-9]:[0-6][0-9]/;
+my $hm_re = qr/[0-2][0-9]:[0-5][0-9]/;
+my $hms_re = qr/$hm_re:[0-6][0-9]/;
 my $year_re = qr/[0-9][0-9][0-9][0-9]/;
-my $ctime19_re = qr/$dow_re $mon_re [ 123][0-9] $tod_re/;
-my $ctime_re = qr/$dow_re $mon_re [ 123][0-9] $tod_re $year_re/;
-my $fmttime2822_re = qr/$dow_re, [0123][0-9] $mon_re $year_re $tod_re [-+][0-9][0-9][0-9][0-9]/;
+my $ctime16_re = qr/$dow_re $mon_re [ 123][0-9] $hm_re/;
+my $ctime19_re = qr/$dow_re $mon_re [ 123][0-9] $hms_re/;
+my $ctime_re = qr/$dow_re $mon_re [ 123][0-9] $hms_re $year_re/;
+my $fmttime2822_re = qr/$dow_re, [0123][0-9] $mon_re $year_re $hms_re [-+][0-9][0-9][0-9][0-9]/;
 my $xdfld_re = qr/\([^)]*\)|[^ (][^ ]*/;
 
 # Current dump, if any
@@ -32,6 +34,7 @@ sub norm_ctime {
     my ($s) = @_;
     $s =~ s/$ctime_re/Thu Jan  1 00:00:00 1970/g;
     $s =~ s/$ctime19_re/Thu Jan  1 00:00:00/g;
+    $s =~ s/$ctime16_re/Thu Jan  1 00:00/g;
     $s =~ s/$fmttime2822_re/Thu, 01 Jan 1970 00:00:00 +0000/g;
     return $s;
 }

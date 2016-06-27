@@ -12201,6 +12201,53 @@
     Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have a new telegram waiting ...
     Play#8 output Play#8 6 0 640
+    Play#8 input news
+    Play#8 command newspaper
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1         -=[  EMPIRE NEWS  ]=-
+    Play#8 output Play#8 1 ::::::::::::::::::::::::::::::::::::::::::::::::::
+    Play#8 output Play#8 1 !       "All the news that fits, we print."      !
+    Play#8 output Play#8 1 ::::::::::::::::::::::::::::::::::::::::::::::::::
+    Play#8 output Play#8 1        Thu Jan  1 00:00:00 1970
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 Relative calm prevails.
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 The details of Empire news since Thu Jan  1 00:00:00 1970
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 	 ===  Foreign Affairs  ===
+    Play#8 output Play#8 1 Thu Jan  1 00:00  1 no longer has a sanctuary
+    Play#8 output Play#8 1 Thu Jan  1 00:00  2 no longer has a sanctuary
+    Play#8 output Play#8 1 Thu Jan  1 00:00  3 breaks sanctuary
+    Play#8 output Play#8 1 Thu Jan  1 00:00  4 no longer has a sanctuary
+    Play#8 output Play#8 1 Thu Jan  1 00:00  5 breaks sanctuary
+    Play#8 output Play#8 1 Thu Jan  1 00:00  6 breaks sanctuary
+    Play#8 output Play#8 1 Thu Jan  1 00:00  7 breaks sanctuary
+    Play#8 output Play#8 1 Thu Jan  1 00:00  8 breaks sanctuary
+    Play#8 output Play#8 1 Thu Jan  1 00:00  9 no longer has a sanctuary
+    Play#8 output Play#8 1 Thu Jan  1 00:00  10 no longer has a sanctuary
+    Play#8 output Play#8 1 Thu Jan  1 00:00  1 gets serious with 8 and declares WAR
+    Play#8 output Play#8 1 Thu Jan  1 00:00  1 announces an alliance with 2
+    Play#8 output Play#8 1 Thu Jan  1 00:00  2 / 1 alliance declared
+    Play#8 output Play#8 1 Thu Jan  1 00:00  2 is suspicious that 8 has hostile intentions
+    Play#8 output Play#8 1 Thu Jan  1 00:00  8 declares TOTAL WAR on 1
+    Play#8 output Play#8 1 Thu Jan  1 00:00  8 downgrades relations with 2 to hostile
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 	 ===  The Front Line  ===
+    Play#8 output Play#8 1 Thu Jan  1 00:00  1 sailors take a coastal sector from 8
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 	 ===  The Home Front  ===
+    Play#8 output Play#8 1 Thu Jan  1 00:00  8 underground rises up against 1 occupation two times
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 	 ===  Telecommunications  ===
+    Play#8 output Play#8 1 Thu Jan  1 00:00  1 sends a telegram to 2
+    Play#8 output Play#8 1
+    Play#8 output Play#8 1 	 ===  The Bottom Line   ==
+    Play#8 output Play#8 1 1 stole one sector from 8
+    Play#8 output Play#8 6 0 640
+    Play#8 input __cmd added 1 0 0
+    Play#8 command __cmd
+    Play#8 output Play#8 6 0 640
     Play#8 input des 5,-1 d
     Play#8 command designate
     Play#8 output Play#8 6 0 639
