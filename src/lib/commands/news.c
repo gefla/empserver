@@ -38,6 +38,12 @@
 #include "optlist.h"
 
 static void preport(struct nwsstr *np);
+static int sectwon_cmp(const void *p, const void *q);
+
+struct sectwon {
+    natid ano, vno;
+    unsigned short num;
+};
 
 int
 news(void)
@@ -50,13 +56,10 @@ news(void)
     struct nwsstr nws;
     struct nstr_item nstr;
     int page_has_news[N_MAX_PAGE + 1];
-    short sectors_taken[MAXNOC][MAXNOC];
-    short sectors_delta;
-    short max_delta = -1;
-    short abs_delta;
-    short k;
-    int sectors_were_taken = 0;
+    unsigned short sectors_taken[MAXNOC][MAXNOC];
     natid i, j;
+    int k, n, diff;
+    struct sectwon *sectwon;
     char num[128];
     char *verb;
 
@@ -111,13 +114,10 @@ news(void)
 		pr("\n\t ===  %s  ===\n", page_headings[page].name);
 		heading = page;
 	    }
-	    if (page == N_FRONT &&
-		(nws.nws_vrb == N_WON_SECT ||
-		 nws.nws_vrb == N_AWON_SECT ||
-		 nws.nws_vrb == N_PWON_SECT)) {
+	    if (nws.nws_vrb == N_WON_SECT ||
+		nws.nws_vrb == N_AWON_SECT ||
+		nws.nws_vrb == N_PWON_SECT)
 		sectors_taken[nws.nws_ano][nws.nws_vno] += nws.nws_ntm;
-		sectors_were_taken += nws.nws_ntm;
-	    }
 	    preport(&nws);
 	}
     }
@@ -127,45 +127,52 @@ news(void)
 	return RET_OK;
     }
 
-    if (sectors_were_taken) {
-	for (i = 0; i < MAXNOC; ++i) {
-	    for (j = 0; j < i; ++j) {
-		sectors_delta = sectors_taken[i][j] - sectors_taken[j][i];
-		if (max_delta < abs(sectors_delta))
-		    max_delta = abs(sectors_delta);
-	    }
-	}
-	pr("\n\t ===  The Bottom Line   ==\n");
-	for (k = max_delta; k > 0; --k) {
-	    for (i = 0; i < MAXNOC; ++i) {
-		for (j = 0; j < i; ++j) {
-		    sectors_delta = sectors_taken[i][j] -
-			sectors_taken[j][i];
-		    abs_delta = abs(sectors_delta);
-		    if (abs_delta != k)
-			continue;
-		    if (abs_delta == 1)
-			verb = "stole";
-		    else if (abs_delta < 4)
-			verb = "took";
-		    else if (abs_delta < 8)
-			verb = "captured";
-		    else
-			verb = "seized";
-		    if (sectors_delta > 0) {
-			numstr(num, abs_delta);
-			pr("%s %s %s sector%s from %s\n", cname(i), verb,
-			   num, splur(sectors_delta), cname(j));
-		    } else if (sectors_delta < 0) {
-			numstr(num, abs_delta);
-			pr("%s %s %s sector%s from %s\n", cname(j), verb,
-			   num, splur(-sectors_delta), cname(i));
-		    }
-		}
+    n = 0;
+    for (i = 0; i < MAXNOC; ++i) {
+	for (j = 0; j < i; ++j)
+	    n += !!(sectors_taken[i][j] - sectors_taken[j][i]);
+    }
+    sectwon = malloc(sizeof(*sectwon) * n);
+
+    n = 0;
+    for (i = 0; i < MAXNOC; ++i) {
+	for (j = 0; j < i; ++j) {
+	    diff = sectors_taken[i][j] - sectors_taken[j][i];
+	    if (diff > 0) {
+		sectwon[n].ano = i;
+		sectwon[n].vno = j;
+		sectwon[n].num = diff;
+		n++;
+	    } else if (diff < 0) {
+		sectwon[n].ano = j;
+		sectwon[n].vno = i;
+		sectwon[n].num = -diff;
+		n++;
 	    }
 	}
     }
 
+    qsort(sectwon, n, sizeof(*sectwon), sectwon_cmp);
+
+    if (n) {
+	pr("\n\t ===  The Bottom Line   ==\n");
+	for (k = 0; k < n; k++) {
+	    if (sectwon[k].num == 1)
+		verb = "stole";
+	    else if (sectwon[k].num < 4)
+		verb = "took";
+	    else if (sectwon[k].num < 8)
+		verb = "captured";
+	    else
+		verb = "seized";
+	    numstr(num, sectwon[k].num);
+	    pr("%s %s %s sector%s from %s\n",
+	       cname(sectwon[k].ano), verb, num, splur(sectwon[k].num),
+	       cname(sectwon[k].vno));
+	}
+    }
+
+    free(sectwon);
     return RET_OK;
 }
 
@@ -211,4 +218,19 @@ preport(struct nwsstr *np)
     }
     np->nws_ntm = 0;
     return;
+}
+
+static int
+sectwon_cmp(const void *p, const void *q)
+{
+    const struct sectwon *a = p, *b = q;
+    int cmp;
+
+    cmp = b->num - a->num;
+    if (cmp)
+       return cmp;
+    cmp = b->ano - a->ano;
+    if (cmp)
+       return cmp;
+    return b->vno - a->vno;
 }
