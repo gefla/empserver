@@ -1,5 +1,11 @@
-# Travis CI configuration
+## Travis CI configuration
 language: c
+branches:
+  only:
+  - changeling
+  - fever
+  - master
+  - travis
 # Test with both gcc and clang:
 compiler:
   - gcc
