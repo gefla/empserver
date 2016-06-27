@@ -27,7 +27,7 @@
  *  news.c: Show current Empire news
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2006-2012
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -44,13 +44,12 @@ news(void)
 {
     struct natstr *natp;
     time_t now;
-    int page;
+    int heading, page;
     time_t then;
     time_t delta;
     struct nwsstr nws;
     struct nstr_item nstr;
     int page_has_news[N_MAX_PAGE + 1];
-    int there_is_news = 0;
     short sectors_taken[MAXNOC][MAXNOC];
     short sectors_delta;
     short max_delta = -1;
@@ -63,7 +62,6 @@ news(void)
 
     if (!snxtitem(&nstr, EF_NEWS, "*", NULL))
 	return RET_SYN;
-    memset(page_has_news, 0, sizeof(page_has_news));
     memset(sectors_taken, 0, sizeof(sectors_taken));
     (void)time(&now);
     natp = getnatp(player->cnum);
@@ -84,39 +82,34 @@ news(void)
     natp->nat_newstim = now;
     head();
     pr("\nThe details of Empire news since %s", ctime(&then));
-    while (nxtitem(&nstr, &nws)) {
-	if (!nws.nws_vrb || CANT_HAPPEN(nws.nws_vrb > N_MAX_VERB))
-	    continue;
-	if (nws.nws_when < then)
-	    continue;
-	if (opt_HIDDEN) {
-	    if (!player->god &&
-		!(getcontact(getnatp(player->cnum), nws.nws_ano) &&
-		  getcontact(getnatp(player->cnum), nws.nws_vno)))
-		continue;
-	}
-	++page_has_news[rpt[(int)nws.nws_vrb].r_newspage];
-	++there_is_news;
-    }
-    for (page = 1; page <= N_MAX_PAGE; page++) {
+
+    heading = 0;
+    memset(page_has_news, 0, sizeof(page_has_news));
+    page_has_news[0] = 1;
+
+    for (page = 0; page <= N_MAX_PAGE; page++) {
 	if (!page_has_news[page])
 	    continue;
-	pr("\n\t ===  %s  ===\n", page_headings[page].name);
 	snxtitem_rewind(&nstr);
 	while (nxtitem(&nstr, &nws)) {
 	    if (CANT_HAPPEN(nws.nws_vrb > N_MAX_VERB))
 		continue;
-	    if (rpt[(int)nws.nws_vrb].r_newspage != page)
-		continue;
 	    if (nws.nws_when < then)
 		continue;
-	    if (nws.nws_ntm == 0)
+	    if (CANT_HAPPEN(nws.nws_ntm <= 0))
 		nws.nws_ntm = 1;
 	    if (opt_HIDDEN) {
 		if (!player->god &&
 		    !(getcontact(getnatp(player->cnum), nws.nws_ano) &&
 		      getcontact(getnatp(player->cnum), nws.nws_vno)))
 		    continue;
+	    }
+	    page_has_news[rpt[nws.nws_vrb].r_newspage] = 1;
+	    if (rpt[nws.nws_vrb].r_newspage != page)
+		continue;
+	    if (heading != page) {
+		pr("\n\t ===  %s  ===\n", page_headings[page].name);
+		heading = page;
 	    }
 	    if (page == N_FRONT &&
 		(nws.nws_vrb == N_WON_SECT ||
@@ -128,6 +121,12 @@ news(void)
 	    preport(&nws);
 	}
     }
+
+    if (!heading) {
+	pr("\nNo news at the moment...\n");
+	return RET_OK;
+    }
+
     if (sectors_were_taken) {
 	for (i = 0; i < MAXNOC; ++i) {
 	    for (j = 0; j < i; ++j) {
@@ -166,9 +165,8 @@ news(void)
 	    }
 	}
     }
-    if (!there_is_news)
-	pr("\nNo news at the moment...\n");
-    return 0;
+
+    return RET_OK;
 }
 
 static void
