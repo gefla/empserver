@@ -260,6 +260,7 @@ ifeq ($(empthread),LWP)
 	$(srcdir)/tests/torpedo-test $(srcdir)
 	$(srcdir)/tests/bridgefall-test $(srcdir)
 	$(srcdir)/tests/retreat-test $(srcdir)
+	$(srcdir)/tests/update-test $(srcdir)
 	$(srcdir)/tests/version-test $(srcdir)
 else
 	@echo "$(srcdir)/tests/smoke-test SKIPPED"
@@ -270,6 +271,7 @@ else
 	@echo "$(srcdir)/tests/torpedo-test SKIPPED"
 	@echo "$(srcdir)/tests/bridgefall-test SKIPPED"
 	@echo "$(srcdir)/tests/retreat-test SKIPPED"
+	@echo "$(srcdir)/tests/update-test SKIPPED"
 	@echo "$(srcdir)/tests/version-test SKIPPED"
 endif
 	$(srcdir)/tests/empdump-test $(srcdir)

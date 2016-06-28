@@ -1,0 +1,507 @@
+|| create land
+desi -16:15,-8:8 -
+| populate
+give c * ?des#. 100
+give f * ?des#. 100
+edit l * ?des#. m 60 w 100
+|| country#1
+add 1 1 1 p
+edit c 1 c 0,0 s 4 b 100 M 25000 T 100 E 20 H 10
+edit l 0:15,0:3 o 1 O 1
+edit l -16:15,4:7 o 1 O 1
+desi 0,0 c
+give c 0,0 400
+desi 8,6 f
+desi 10,6 !
+desi 12,6 *
+desi 14,6 h
+build s 14,6 cs
+edit s 0 E 100
+build p 12,6 f1
+edit p 0/1 e 100
+build l 10,6 inf
+edit u 0 e 100
+give c 8:14,6 900
+| materials for 80/20% cs
+give l 14,6 100
+give h 14,6 40
+| materials for 50/50% f1
+give l 12,6 8
+give h 12,6 10
+give m 12,6 10
+| materials for 90/50% inf
+give l 8:10,6 14
+give h 8:10,6 20
+|| country#2, unhappy, going broke, inefficient capital
+add 2 2 2 p
+edit c 2 c -2,0 s 4 b 100 M 100 T 100 E 20 H 6.17
+edit l -16:-1,0:3 o 2 O 2
+desi -2,0 c
+edit l -2,0 e 10
+|| country#3, becoming solvent
+add 3 3 3 p
+edit c 3 c 1,-1 s 4 b 100 M -100 T 100 E 20 H 10
+edit l 0:15,-8:-1 o 3 O 3
+desi 1,-1 c
+give c 1,-1 9999
+give f 1,-1 300
+| neutral harbor
+desi 15,-1 h
+give l 15,-1 400
+give h 15,-1 400
+give m 15,-1 20
+|| country#4, allied to #1
+add 4 4 4 p
+edit c 4 c -1,-1 s 4 b 100 M 25000 T 30 E 4 H 10
+edit l -16:-1,-8:-1 o 4 O 4
+desi -1,-1 c
+decl a 1 4
+|| country#5, in flux
+add 5 5 5 p
+edit c 5 c -16,-8 s 4 b 100 M 25000 T 100 E 20 H 10
+|| country#6, allied to all, #1 mutual
+add 6 6 6 p
+edit c 6 c 0,8 s 4 b 100 M 25000 T 100 E 20 H 10
+edit l 0:15,8 o 6 O 6
+give c 0:15,8 400
+desi 0,8 c
+decl a * 6
+decl a 6 1
+| harbor, airfield, fort with avail
+desi 8,8 h
+desi 6,8 *
+desi 4,8 f
+edit l 4:8,8 a 600
+| harbor, airfield, hq without avail
+desi 14,8 h
+desi 10,8 !
+desi 12,8 *
+| build materials
+give l 0:15,8 400
+give h 0:15,8 400
+give m 0:15,8 20
+|| country#7, friendly to all, #1 mutual
+add 7 7 7 p
+edit c 7 c -2,8 s 4 b 100 M 25000 T 100 E 20 H 10
+edit l -16:-1,8 o 7 O 7
+give c -16:-1,8 400
+desi -2,8 c
+decl f * 7
+decl f 7 1
+| harbor, airfield, fort with avail
+desi -8,8 h
+desi -6,8 *
+desi -4,8 f
+edit l -8:-4,8 a 600
+| harbor, airfield, hq without avail
+desi -14,8 h
+desi -12,8 *
+desi -10,8 !
+| build materials
+give l -16:-1,8 400
+give h -16:-1,8 400
+give m -16:-1,8 20
+|| TODO fallout
+|| guerrilla
+| che take over -16:-14,-8 and spread; -14,-8 is a bank
+edit l -16:-14,-8 x 10 X 4 O 5 l 50
+des -14,-8 b
+give b -14,-8 100
+give d -14,-8 20
+| TODO security, retiring che, shoot out, blow up, catch, move
+|| plague
+| plague stage 1 (dying) -16:-1,-6 ship#10 land#10
+| -16,-6 everybody dies, sector reverts to deity
+| -14,-6 civs all die, mil survive, sector resets work etc.
+| -12,-6 civs survive, mil all die, airfield (see plane building below)
+| -10,-6 everybody dies, land units present, sector resets work etc.
+|  -8,-6 civs all die, uw survive, sector reverts to deity
+edit l -16:-1,-6 p 1 w 50
+edit l -4:-1,-6 t 61
+give c -16:-14,-6 -99
+give m -14,-6 10
+desi -12,-6 *
+give m -12,-6 1
+give c -10:-8,-6 -99
+give u -8,-6 100
+edit s 0 U 10 L -18,-6 O 4 c 100 m 10 u 1 f 20 a 1
+edit u 0 U 10 L -10,-6 O 4 m 100 f 10 A 1
+| plague stage 2 (infect) -16:-1,-5 ship#11 land#11
+edit l -16:-1,-5 p 2
+edit l -4:-1,-5 t 61
+edit s 10 U 11 a 2
+edit u 10 U 11 A 2
+| plague stage 3 (incubate) -16:-1,-4 ship#12..15 land#12..15
+edit l -16:-1,-4 p 3
+edit l -4:-1,-4 t 61
+edit s 10 U 12 a 3 U 13 U 14 U 15 b 61
+edit u 10 U 12 A 3 U 13 U 14 U 15 b 61
+| plague stage 4 (exposed) -16:-1,-3 ship#16..19 land#16..#19
+edit l -16:-1,-3 p 4
+edit l -4:-1,-3 t 61
+edit s 10 U 16 a 4 U 17 U 18 U 19 b 61
+edit u 10 U 16 A 4 U 17 U 18 U 19 b 61
+| plague stage 0 (healthy) -16:-9,-2, ~50% chance to become exposed
+give c -16:-9,-2 4400
+give f -16:-9,-2 300
+give u -16:-9,-2 1000
+give i -16:-9,-2 5000
+give o -16:-9,-2 1000
+give r -16:-9,-2 1000
+edit l -16:-9,-2 m 0
+|| populace
+| civil unrest 0:15,-8:-5
+edit l 0:15,-8:-5 l 127
+| loyalty recovery and conversion 0:15,-3
+edit l 0:15,-3 O 5
+edit l 0:7,-3 l 40
+edit l 8:15,-3 l 5
+|| tax & bank income
+| see also bank -14,-8 taken over by che
+| -16:-1,0
+desi -16:-9,0 b
+give c -16:-9,0 900
+give m -16:-9,0 400
+give u -16:-9,0 1000
+give b -16:-9,0 100
+edit l -16,0 e 1
+edit l -14,0 e 30 O 5
+edit l -12,0 e 60 O 5 l 50
+| single mil -16:-1,4:7
+give m -16:-1,4:7 1
+| mil on ship#30/31, plane#30/31, land#30/31
+edit s 0 U 30 L -18,0 O 2 c 150 m 50 u 100 f 20 U 31
+edit p 0 U 30 l -16,0 O 2 U 31
+edit u 0 U 30 L -16,0 O 2 m 100 f 10 U 31
+| reserves
+edit c 2 m 1000
+|| sector maintenance
+| cities -16:-9,1
+des -16:-9,1 c
+| also active capitals of #1..#4, stop #4's
+stop se -1,-1
+|| maintenance ship#30/31/35, plane#30/31/35, land unit#30/31/35
+edit s 31 E 21
+edit p 31 e 11
+edit u 31 e 11
+edit s 30 U 35 L 16,0 O 1
+edit p 30 U 35 l 14,0 O 1
+edit u 30 U 35 L 14,0 O 1
+|| satellite movement
+edit p 0 U 1 T lst f 1 l -10,-10
+| TODO other values of theta
+|| work, rollover, work percentage recovery
+| 0:15,-2
+edit l 0:6,-2 w 50
+edit l 8,-2 w 95
+| pop limit
+desi 0,-2 ^
+give c 0,-2 50
+give m 0,-2 150
+give u 0,-2 150
+| rollover
+edit l 2,-2 a 10
+edit l 4,-2 a 40
+edit l 6,-2 a 80
+give c 6,-2 200
+edit l 10,-2 a 50 s + S w
+| rollover when going broke
+edit l -15,1 a 100
+desi 2:8,-2 +
+|| grow people
+desi 2:15,0 +
+| just 1f, 2f, 3f 2:6,0
+give c 2:6,0 600
+give u 2:6,0 700
+give f 2,0 -57
+give f 4,0 -56
+give f 6,0 -55
+| grow beyond pop limit, truncate 8,0
+give c 8,0 2000
+give u 8,0 900
+| grow to pop limit
+give c 10:14,0 669
+give u 10:14,0 869
+| also truncated: -16:-9,2
+|| starvation
+| 100 people eat 3f
+| 1,1 100c 100m 100u, 1f short, starve 33u
+| 3,1 100c 100m 100u, 4f short, starve 100u 33c
+| 5,1 100c 100m 100u, 8f short, starve 100u 50c
+| 7,1  20c 180m 100u, 8f short, starve 100u 20c 30m
+give u 0:7,1 100
+give m 0:5,1 100
+give m 7,1 180
+give c 7,1 -80
+give f 1,1 -92
+give f 3,1 -95
+give f 5:7,1 -99
+desi 0:7,1 +
+edit l 0:7,1 e 1
+| no food (1f is conjured up)
+| 9,1  50c, starve 16c
+| 11,1 40c, starve 6c
+| 13,1 34c, starve none
+| 15,1 50m, starve 16m
+give f 8:15,1 -100
+give c 9,1 -50
+give c 11,1 -60
+desi 8:11,1 +
+edit l 8:11,1 e 1
+give c 13,1 -66
+give m 15,1 50
+give c 15,1 -100
+desi 13:15,1 a
+edit l 13:15,1 f 100
+| #40 1m 0f, starve none
+| #41 34m 1f, starve none
+| #42 50m 0f, starve 25m
+| #43 20c 50m 30u 2f, starve 30u 3c
+edit s 0 U 40 L 17,1 m 1
+edit u 0 U 40 L 15,1 m 1
+edit s 0 U 41 L 17,1 m 34 f 1
+edit u 0 U 41 L 15,1 m 34 f 1
+edit s 0 U 42 L 17,1 m 50
+edit u 0 U 42 L 15,1 m 50
+edit s 0 U 43 L 17,1 c 20 m 50 u 30 f 2
+|| age che 1,1
+edit l 1,1 x 100 X 5
+|| sector building
+| 0:15,2
+| stopped 0,2
+stop se 0,2
+| no money see #2
+| limited by work 2:4,2
+edit l 2:4,2 s g S +
+give c 2,2 -90
+| not limited 6,2
+edit l 6,2 s g S +
+give c 6,2 250
+| limited by material 8:12,2
+edit l 8:10,2 s f S f e 1
+give h 10,2 10
+edit l 12,2 s c S c e 1
+give l 12,2 10
+give h 12,2 50
+| TODO pop truncation on big city teardown
+|| ship building
+| #0 100%
+| #60 stopped
+edit s 0 U 60 E 20
+stop sh 60
+| #61/62 neutral harbor
+edit s 0 U 61 E 20 L 15,-1 U 62 O 7
+| #65 friendly harbor, no money
+edit s 61 U 65 L -8,8 O 2
+| #70..73 at sea, civilian repairs, +0.5%
+edit s 61 U 70 L 16,6 c 4 m 10 f 10 l 10 h 10 U 71 U 72 U 73 U 74 c 12
+| #74 at sea, civilian repairs, +1%
+edit s 73 U 74 c 12
+| #75 at sea, military repairs, +1%
+edit s 61 U 75 L 16,6 t frg m 11 f 10
+| #76 at sea, military repairs, +2% (limit 80%)
+edit s 75 U 76 m 60 E 78
+| also #103/104 +13-14%
+| also #113/114 +5%
+| #90/91 friendly harbor with and without old work, +80%
+edit s 61 U 90 L -8,8 U 91 L -14,8
+| #92/93 friendly city without old work, +0/0%
+edit s 61 U 92 t fb L -2,8 U 93 L 0,0 O 7
+| #95/97 own harbor, #96 friendly, materials for 100%, +80/0/20%
+| #95 costs double due to tech
+edit s 61 U 95 L 14,6 U 97 U 96 O 7
+edit s 95 T 200
+|| plane building
+| #0 100%
+| #60 stopped
+edit p 0 U 60 e 10
+stop p 60
+| #61/62 friendly airfield
+edit p 0 U 61 e 10 l -6,8 U 62 O 6
+| #65 allied airfield, no money
+edit p 61 U 65 l 6,8 O 2
+| #70/71 in carrier at sea, +2/1% (limit 80%)
+edit s 0 U 1 t car m 8 f 10 L 16,6
+edit p 61 U 70 s 1 U 71 e 79
+| #72 in carrier in allied airfield, +70% (limit 80%)
+edit s 1 U 2 L 6,8
+edit p 70 U 72 s 2
+| #75/76/77/78 in allied carrier in friendly airfield, +7.5%
+edit s 1 U 3 O 6 L -12,8
+edit p 61 U 75 s 3 U 76 U 77 U 78
+| #80/81 in the field, +30/20%
+edit p 61 U 80 l 0,0 U 81 e 40
+give l 0,0 50
+give h 0,0 50
+give m 0,0 5
+| #82 in the field, but work used up by production
+edit p 80 U 82 l 2,4
+give l 2,4 50
+give h 2,4 50
+give m 2,4 10
+| #90/91 allied airfield with and without old work, +90%
+edit p 61 U 90 l 6,8 U 91 l 12,8
+| #92/93 allied city without old work, +30%
+edit p 61 U 92 l 2,8 U 93 l 0,0 O 6
+| #95/97 own airfield, #96 allied, materials for 100%, +50/0/50%
+| #95 costs double due to tech
+edit p 61 U 95 e 50 l 12,6 U 97 U 96 O 6
+edit p 95 t 200
+| #100 allied airfield, plague kills off mil
+edit p 61 U 100 l -12,-6
+give l -12,-6 10
+give h -12,-6 10
+edit l -12,-6 a 50
+|| land unit building
+| #0 100%
+| #60 stopped
+edit u 0 U 60 e 10
+stop l 60
+| #61/62 friendly fort
+edit u 0 U 61 e 10 L -4,8 U 62 O 6
+| #65 allied hq, no money
+edit u 61 U 65 L 4,8 O 2
+| #80/81 in the field, +30/20%
+edit u 61 U 80 L 0,0 U 81 e 40
+| #82 in the field, but work used up by production
+edit u 80 U 82 L 10,4
+give l 10,4 20
+give h 10,4 20
+| #90/91 allied fort/hq with and without old work, +90%
+edit u 61 U 90 L 4,8 U 91 L 10,8
+| #92/93 allied city without old work, +30%
+edit u 61 U 92 L 2,8 U 93 L 0,0 O 6
+| #95/97 own hq, #96 allied, materials for 140%, +90/0/50%
+| #95 costs double due to tech
+edit u 61 U 95 L 10,6 U 97 U 96 O 6
+edit u 95 t 200
+| #98 own fort, +90%
+edit u 61 U 98 L 8,6
+|| sector production
+| stopped, inefficient 1:3,3
+desi -1:3,3 m
+edit l -1:3,3 i 100
+stop se 1,3
+edit l 3,3 e 1
+| no money -1,3
+desi -1,3 t
+give d -1,3 1
+give o -1,3 5
+give l -1,3 10
+| enlist 9:13,3
+des 9:13,3 e
+give m 9,3 65
+give m 13,3 5
+edit l 13,3 e 40
+| iron -16:-12,4 low and high resource, low eff
+desi -16:-12,4 m
+edit l -16,4 i 10
+edit l -14:-12,4 i 100
+edit l -12,4 e 30
+| dust -8:-4,4 low and high resource, resource limit, mountain
+desi -8:-4,4 g
+desi -2,4 ^
+edit l -8,4 g 10
+edit l -6:-2,4 g 100
+give c -4,4 900
+give u -4,4 1000
+| food 0:4,4 low and high resource, product limit
+desi 0:4,4 a
+edit l 0,4 f 10
+edit l 2:4,4 f 100
+give c 4,4 900
+| oil 8:10,4 low and high resource
+desi 8:10,4 o
+edit l 8,4 c 10
+edit l 10,4 c 100
+| rad -15:-11,5 low and high resource, resource limit
+desi -15:-11,5 u
+edit l -15,5 u 10
+edit l -13:-11,5 u 100
+give c -11,5 900
+give u -11,5 1000
+| rad -5,-1 #4 tech too low
+desi -5,-1 u
+edit l -5,-1 u 100
+| rad 5,-1 becoming solvent
+desi 5,-1 u
+edit l 5,-1 u 100
+| shells -7:-3,5 work limit, material limit 1 & 2
+desi -7:-3,5 i
+give l -7:-5,5 100
+give l -3,5 300
+give h -7:-3,5 100
+give c -5:-3,5 400
+| guns 1:3,5 work limit, material limit 3
+desi 1:3,5 d
+give o 1:3,5 10
+give l 1:3,5 100
+give h 1:3,5 100
+give c 3,5 400
+| petrol 9:13,5 work limit, material limit, product limit
+desi 9:13,5 %
+give o 9:11,5 100
+give c 11,5 100
+give o 13,5 200
+give c 13,5 400
+| bars -16:-12,6 work limit, material limit 1, low eff
+desi -16:-12,6 b
+give d -16:-12,6 100
+give c -14,6 400
+edit l -12,6 e 40
+| lcm -8:-4,6 work limit, material limit 1, product limit
+desi -8:-4,6 j
+give i -8:-6,6 100
+give c -6,6 400
+give i -4,6 2000
+give c -4,6 900
+give u -4,6 1000
+| hcm 0:4,6 work limit, material limit 1, backlog
+desi 0:4,6 k
+give i 0:4,6 100
+give c 2,6 400
+give h 4,6 9980
+| tech -15:-13,7 work limit, material limit 3
+desi -15:-13,7 t
+give d -15:-13,7 10
+give o -15:-13,7 50
+give l -15:-13,7 50
+give c -13,7 400
+| tech -3,-1 #4 edu too low
+desi -3,-1 t
+give d -3,-1 1
+give o -3,-1 5
+give l -3,-1 10
+| also -1,3 no money
+| medical -7:-5,7 work limit, material limit 2
+desi -7:-5,7 r
+give d -7:-5,7 10
+give o -7:-5,7 30
+give l -7:-5,7 100
+give c -5,7 400
+| edu 1:3,7 work limit, material limit 1
+desi 1:3,7 l
+give l 1:3,7 100
+give c 3,7 400
+| happy 9:11,7
+desi 9:11,7 p work limit, material limit 1
+give l 9,7 100
+|| ship production
+| fish: 100 low resource, 101 normal, 102 stopped, 103/104 low eff
+edit s 0 U 100 t fb L 16,4 c 100 U 101 f 10 L 18,4 U 102 L 20,4
+edit s 101 U 103 E 60 U 104 E 20
+stop sh 102
+edit l 16,4 f 10
+edit l 18:20,4 f 100
+| oil: 110 low resource, 111 normal, 112 stopped, 113/114 low eff
+edit s 0 U 110 t od L 16,4 c 100 f 10 U 111 L 18,4 U 112 L 20,4
+edit s 111 U 113 E 60 U 114 E 20
+stop sh 112
+edit l 16,4 c 10
+edit l 18:20,4 c 100
+|| delivery TODO
+|| distribution TODO
+|| finishing touches to land
+edit l * ?des#.&des#-&eff=0 e 100
+|
+map *

@@ -1,0 +1,8 @@
+budget
+| BUG: fb#100 won't actually starve
+| TODO is it accurate?
+neweff * ?newd#-
+production *
+| TODO is it accurate?
+starvation
+| TODO is it accurate?

@@ -1,0 +1,28 @@
+#!/bin/sh -e
+# Update test for Empire
+
+if [ $# -ne 1 ]
+then echo "Usage: $0 SRCDIR" >&2; exit 1
+fi
+
+srcdir="$1"
+
+. "$srcdir"/tests/test-common.sh
+
+create_sandbox
+cat >>$econfig <<EOF
+AUTO_POWER 1
+FALLOUT 1
+NOFOOD 0
+NO_PLAGUE 0
+update_demand 2
+EOF
+customize big-city
+# TODO cover ALL_BLEED 0
+# TODO cover LOSE_CONTACT 1
+
+begin_test "$srcdir"/tests/update/setup-POGO
+feed_dir "$srcdir"/tests/update
+end_test
+
+cmp_logs_xdump

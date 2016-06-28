@@ -1,0 +1,1872 @@
+      Main startup
+      Main prng MT19937 1
+     Conn0 output Conn0 2 Empire server ready
+     Conn0 input user tester
+     Conn0 output Conn0 0 hello tester
+     Conn0 input coun red
+     Conn0 output Conn0 10 country red does not exist
+     Conn0 output Conn0 3 so long...
+     Conn1 output Conn1 2 Empire server ready
+     Conn1 input user tester
+     Conn1 output Conn1 0 hello tester
+     Conn1 input coun 1
+     Conn1 output Conn1 0 country name 1
+     Conn1 input pass 1
+     Conn1 output Conn1 0 password ok
+     Conn1 input play
+     Conn1 login 1 127.0.0.1 tester
+    Play#1 output Play#1 2 2
+    Play#1 output Play#1 1
+    Play#1 output Play#1 1 ***          Server configured for testing          ***
+    Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
+    Play#1 output Play#1 6 0 100
+    Play#1 input budget
+    Play#1 command budget
+    Play#1 output Play#1 1 Sector Type			Production			    Cost
+    Play#1 output Play#1 1 uranium mine     		318 rad    			     740
+    Play#1 output Play#1 1 park             		78 happy  			     702
+    Play#1 output Play#1 1 defense plant    		13 guns   			     420
+    Play#1 output Play#1 1 shell industry   		157 shells 			     528
+    Play#1 output Play#1 1 technical center 		5 tech   			    2700
+    Play#1 output Play#1 1 research lab     		6 medical			     900
+    Play#1 output Play#1 1 library/school   		178 edu    			    1602
+    Play#1 output Play#1 1 bank             		41 bars   			     410
+    Play#1 output Play#1 1 refinery         		2581 petrol 			     291
+    Play#1 output Play#1 1 enlistment center		75 mil    			     225
+    Play#1 output Play#1 1 Ship building			13 ships        		    1538
+    Play#1 output Play#1 1 Ship maintenance		32 ships        		    2202
+    Play#1 output Play#1 1 Plane building			13 planes       		    1932
+    Play#1 output Play#1 1 Plane maintenance		20 planes       		    1004
+    Play#1 output Play#1 1 Unit building			6 units         		    2300
+    Play#1 output Play#1 1 Unit maintenance		16 units        		     510
+    Play#1 output Play#1 1 Sector building			40 sectors      		     773
+    Play#1 output Play#1 1 Sector maintenance		2 sectors       		     120
+    Play#1 output Play#1 1 Military payroll		1155 mil, 0 res                     5777
+    Play#1 output Play#1 1 Total expenses.....................................................24674
+    Play#1 output Play#1 1 Income from taxes		26911 civs, 9007 uws              +12625
+    Play#1 output Play#1 1 Total income......................................................+12625
+    Play#1 output Play#1 1 Balance forward						           25000
+    Play#1 output Play#1 1 Estimated delta						          -12049
+    Play#1 output Play#1 1 Estimated new treasury.............................................12951
+    Play#1 output Play#1 6 0 99
+    Play#1 input neweff * ?newd#-
+    Play#1 command neweff
+    Play#1 output Play#1 1 Thu Jan  1 00:00:00 1970
+    Play#1 output Play#1 1 EFFICIENCY SIMULATION
+    Play#1 output Play#1 1    sect  des    projected eff
+    Play#1 output Play#1 1    0,0    c    100%
+    Play#1 output Play#1 1    2,0    +    100%
+    Play#1 output Play#1 1    4,0    +    100%
+    Play#1 output Play#1 1    6,0    +    100%
+    Play#1 output Play#1 1    8,0    +    100%
+    Play#1 output Play#1 1   10,0    +    100%
+    Play#1 output Play#1 1   12,0    +    100%
+    Play#1 output Play#1 1   14,0    +    100%
+    Play#1 output Play#1 1    1,1    +     86%
+    Play#1 output Play#1 1    3,1    +     86%
+    Play#1 output Play#1 1    5,1    +     86%
+    Play#1 output Play#1 1    7,1    +     64%
+    Play#1 output Play#1 1    9,1    +     20%
+    Play#1 output Play#1 1   11,1    +     16%
+    Play#1 output Play#1 1   13,1    a    100%
+    Play#1 output Play#1 1   15,1    a    100%
+    Play#1 output Play#1 1    2,2    g     88%
+    Play#1 output Play#1 1    4,2    +     14%
+    Play#1 output Play#1 1    6,2    +    100%
+    Play#1 output Play#1 1    8,2    f      1%
+    Play#1 output Play#1 1   10,2    f     11%
+    Play#1 output Play#1 1   12,2    c     11%
+    Play#1 output Play#1 1    1,3    m    100%
+    Play#1 output Play#1 1    3,3    m     40%
+    Play#1 output Play#1 1    9,3    e    100%
+    Play#1 output Play#1 1   11,3    e    100%
+    Play#1 output Play#1 1   13,3    e     79%
+    Play#1 output Play#1 1  -16,4    m    100%
+    Play#1 output Play#1 1  -14,4    m    100%
+    Play#1 output Play#1 1  -12,4    m     69%
+    Play#1 output Play#1 1   -8,4    g    100%
+    Play#1 output Play#1 1   -6,4    g    100%
+    Play#1 output Play#1 1   -4,4    g    100%
+    Play#1 output Play#1 1   -2,4    ^    100%
+    Play#1 output Play#1 1    0,4    a    100%
+    Play#1 output Play#1 1    2,4    a    100%
+    Play#1 output Play#1 1    4,4    a    100%
+    Play#1 output Play#1 1    8,4    o    100%
+    Play#1 output Play#1 1   10,4    o    100%
+    Play#1 output Play#1 1  -15,5    u    100%
+    Play#1 output Play#1 1  -13,5    u    100%
+    Play#1 output Play#1 1  -11,5    u    100%
+    Play#1 output Play#1 1   -7,5    i    100%
+    Play#1 output Play#1 1   -5,5    i    100%
+    Play#1 output Play#1 1   -3,5    i    100%
+    Play#1 output Play#1 1    1,5    d    100%
+    Play#1 output Play#1 1    3,5    d    100%
+    Play#1 output Play#1 1    9,5    %    100%
+    Play#1 output Play#1 1   11,5    %    100%
+    Play#1 output Play#1 1   13,5    %    100%
+    Play#1 output Play#1 1  -16,6    b    100%
+    Play#1 output Play#1 1  -14,6    b    100%
+    Play#1 output Play#1 1  -12,6    b     79%
+    Play#1 output Play#1 1   -8,6    j    100%
+    Play#1 output Play#1 1   -6,6    j    100%
+    Play#1 output Play#1 1   -4,6    j    100%
+    Play#1 output Play#1 1    0,6    k    100%
+    Play#1 output Play#1 1    2,6    k    100%
+    Play#1 output Play#1 1    4,6    k    100%
+    Play#1 output Play#1 1    8,6    f    100%
+    Play#1 output Play#1 1   10,6    !    100%
+    Play#1 output Play#1 1   12,6    *    100%
+    Play#1 output Play#1 1   14,6    h    100%
+    Play#1 output Play#1 1  -15,7    t    100%
+    Play#1 output Play#1 1  -13,7    t    100%
+    Play#1 output Play#1 1   -7,7    r    100%
+    Play#1 output Play#1 1   -5,7    r    100%
+    Play#1 output Play#1 1    1,7    l    100%
+    Play#1 output Play#1 1    3,7    l    100%
+    Play#1 output Play#1 1    9,7    p    100%
+    Play#1 output Play#1 1   11,7    p    100%
+    Play#1 output Play#1 1 71 sectors
+    Play#1 output Play#1 6 0 99
+    Play#1 input production *
+    Play#1 command production
+    Play#1 output Play#1 1 Thu Jan  1 00:00:00 1970
+    Play#1 output Play#1 1 PRODUCTION SIMULATION
+    Play#1 output Play#1 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
+    Play#1 output Play#1 1   13,1    a 100%    26  214f 8.25 $0                                      214
+    Play#1 output Play#1 1   15,1    a 100%    12   99f 8.25 $0                                       99
+    Play#1 output Play#1 1    2,2    g   0%     4    0d 1.00 $0                                        0
+    Play#1 output Play#1 1    9,3    e 100%    93    0m 1.00 $0       0c              0c               0
+    Play#1 output Play#1 1   11,3    e 100%    78   30m 1.00 $90     30c             30c              65
+    Play#1 output Play#1 1   13,3    e  79%    40   45m 1.00 $135    45c             45c              60
+    Play#1 output Play#1 1  -16,4    m  10%    78    7i 1.00 $0                                        7
+    Play#1 output Play#1 1  -14,4    m 100%    78   78i 1.00 $0                                       78
+    Play#1 output Play#1 1  -12,4    m  69%    39   26i 1.00 $0                                       26
+    Play#1 output Play#1 1   -8,4    g  10%    78    7d 1.00 $0                                        7
+    Play#1 output Play#1 1   -6,4    g 100%    78   78d 1.00 $0                                       78
+    Play#1 output Play#1 1   -4,4    g 100%  1200  500d 1.00 $0                                      500
+    Play#1 output Play#1 1   -2,4    ^ 100%    60   45d 0.75 $0                                       45
+    Play#1 output Play#1 1    0,4    a  10%    78   58f 8.25 $0                                       58
+    Play#1 output Play#1 1    2,4    a 100%    80  660f 8.25 $0                                      660
+    Play#1 output Play#1 1    4,4    a 100%   600  999f 8.25 $0                                      999
+    Play#1 output Play#1 1    8,4    o  10%    78    6o 0.92 $0                                        6
+    Play#1 output Play#1 1   10,4    o 100%    78   72o 0.92 $0                                       72
+    Play#1 output Play#1 1  -15,5    u  10%    78    6r 0.86 $14                                       6
+    Play#1 output Play#1 1  -13,5    u 100%    78   67r 0.86 $156                                     67
+    Play#1 output Play#1 1  -11,5    u 100%  1200  244r 0.86 $570                                    244
+    Play#1 output Play#1 1   -7,5    i 100%    78   23s 0.89 $78     52l  26h        52l  26h         23
+    Play#1 output Play#1 1   -5,5    i 100%   390   44s 0.89 $150   100l  50h       260l 130h        116
+    Play#1 output Play#1 1   -3,5    i 100%   390   89s 0.89 $300   200l 100h       260l 130h        116
+    Play#1 output Play#1 1    1,5    d 100%    78    4g 0.89 $120     4o  20l  40h    4o  20l  40h     4
+    Play#1 output Play#1 1    3,5    d 100%   390    9g 0.89 $300    10o  50l 100h   24o 120l 240h    21
+    Play#1 output Play#1 1    9,5    % 100%    78  693p 8.89 $78     78o             78o             693
+    Play#1 output Play#1 1   11,5    % 100%   156  889p 8.89 $100   100o            112o             999
+    Play#1 output Play#1 1   13,5    % 100%   390  999p 8.89 $112   112o            112o             999
+    Play#1 output Play#1 1  -16,6    b 100%    78   15b 1.00 $150    75d             75d              15
+    Play#1 output Play#1 1  -14,6    b 100%   390   20b 1.00 $200   100d            390d              78
+    Play#1 output Play#1 1  -12,6    b  79%    39    6b 1.00 $60     30d             30d               6
+    Play#1 output Play#1 1   -8,6    j 100%    78   72l 0.92 $0      78i             78i              72
+    Play#1 output Play#1 1   -6,6    j 100%   390   92l 0.92 $0     100i            390i             358
+    Play#1 output Play#1 1   -4,6    j 100%  1200  999l 0.92 $0    1090i           1090i             999
+    Play#1 output Play#1 1    0,6    k 100%    78   36h 0.92 $0      78i             78i              36
+    Play#1 output Play#1 1    2,6    k 100%   390   46h 0.92 $0     100i            390i             179
+    Play#1 output Play#1 1    4,6    k 100%    78   19h 0.92 $0      41i             78i              36
+    Play#1 output Play#1 1  -15,7    t 100%    78  2.40 0.60 $1200    4d  20o  40l    4d  20o  40l  2.40
+    Play#1 output Play#1 1  -13,7    t 100%   390  3.00 0.60 $1500    5d  25o  50l   24d 120o 240l 14.40
+    Play#1 output Play#1 1   -7,7    r 100%    78  2.40 0.60 $360     4d  20o  40l    4d  20o  40l  2.40
+    Play#1 output Play#1 1   -5,7    r 100%   390  3.60 0.60 $540     6d  30o  60l   24d 120o 240l 14.40
+    Play#1 output Play#1 1    1,7    l 100%    78   78  1.00 $702    78l             78l              78
+    Play#1 output Play#1 1    3,7    l 100%   390  100  1.00 $900   100l            390l             390
+    Play#1 output Play#1 1    9,7    p 100%    78   78  1.00 $702    78l             78l              78
+    Play#1 output Play#1 1   11,7    p 100%    78    0  1.00 $0       0l             78l              78
+    Play#1 output Play#1 1 46 sectors
+    Play#1 output Play#1 6 0 99
+    Play#1 input starvation
+    Play#1 command starvation
+    Play#1 output Play#1 1 Thu Jan  1 00:00:00 1970
+    Play#1 output Play#1 1 Starvation
+    Play#1 output Play#1 1   sect         eff
+    Play#1 output Play#1 1    1,1    +      1% will starve 33 people. 1 more food needed
+    Play#1 output Play#1 1    3,1    +      1% will starve 133 people. 4 more food needed
+    Play#1 output Play#1 1    5,1    +      1% will starve 150 people. 8 more food needed
+    Play#1 output Play#1 1    7,1    +      1% will starve 150 people. 8 more food needed
+    Play#1 output Play#1 1    9,1    +      1% will starve 16 people. 2 more food needed
+    Play#1 output Play#1 1   11,1    +      1% will starve 6 people. 2 more food needed
+    Play#1 output Play#1 1   15,1    a    100% will starve 16 people. 2 more food needed
+    Play#1 output Play#1 1 7 sectors
+    Play#1 output Play#1 1 Starvation
+    Play#1 output Play#1 1  shp#     ship type
+    Play#1 output Play#1 1    42 cs   cargo ship   will starve 25 people. 2 more food needed
+    Play#1 output Play#1 1    43 cs   cargo ship   will starve 33 people. 1 more food needed
+    Play#1 output Play#1 1   100 fb   fishing boa  will starve 50 people. 3 more food needed
+    Play#1 output Play#1 1 3 ships
+    Play#1 output Play#1 1 Starvation
+    Play#1 output Play#1 1  lnd#     unit type
+    Play#1 output Play#1 1    42 inf  infantry     will starve 25 people. 2 more food needed
+    Play#1 output Play#1 1 1 unit
+    Play#1 output Play#1 6 0 99
+    Play#1 input ctld
+    Play#1 output Play#1 1 Bye-bye
+    Play#1 logout 1
+    Play#1 output Play#1 3 so long...
+     Conn2 output Conn2 2 Empire server ready
+     Conn2 input user tester
+     Conn2 output Conn2 0 hello tester
+     Conn2 input coun 2
+     Conn2 output Conn2 0 country name 2
+     Conn2 input pass 2
+     Conn2 output Conn2 0 password ok
+     Conn2 input play
+     Conn2 login 2 127.0.0.1 tester
+    Play#2 output Play#2 2 2
+    Play#2 output Play#2 1
+    Play#2 output Play#2 1 ***          Server configured for testing          ***
+    Play#2 output Play#2 1 *** If you see this in a game, it is misconfigured! ***
+    Play#2 output Play#2 6 0 100
+    Play#2 input budget
+    Play#2 command budget
+    Play#2 output Play#2 1 Sector Type			Production			    Cost
+    Play#2 output Play#2 1 technical center 		1 tech   			     300
+    Play#2 output Play#2 1 Ship building			2 ships         		     450
+    Play#2 output Play#2 1 Ship maintenance		3 ships         		      90
+    Play#2 output Play#2 1 Plane building			1 plane         		     360
+    Play#2 output Play#2 1 Plane maintenance		3 planes        		     147
+    Play#2 output Play#2 1 Unit building			1 unit          		     450
+    Play#2 output Play#2 1 Unit maintenance		3 units         		      90
+    Play#2 output Play#2 1 Sector building			26 sectors      		     209
+    Play#2 output Play#2 1 Sector maintenance		5 sectors       		     300
+    Play#2 output Play#2 1 Military payroll		1898 mil, 1000 res                  9994
+    Play#2 output Play#2 1 Total expenses.....................................................12390
+    Play#2 output Play#2 1 Income from taxes		6800 civs, 4000 uws                +1076
+    Play#2 output Play#2 1 Income from bars		400 bars                           +2865
+    Play#2 output Play#2 1 Total income.......................................................+3941
+    Play#2 output Play#2 1 Balance forward						             100
+    Play#2 output Play#2 1 Estimated delta						           -8449
+    Play#2 output Play#2 1 Estimated new treasury.............................................-8349
+    Play#2 output Play#2 1 After processsing sectors, you will be broke!
+    Play#2 output Play#2 1 Sectors will not produce, distribute, or deliver!
+    Play#2 output Play#2 1
+    Play#2 output Play#2 6 0 99
+    Play#2 input production *
+    Play#2 command production
+    Play#2 output Play#2 1 Thu Jan  1 00:00:00 1970
+    Play#2 output Play#2 1 PRODUCTION SIMULATION
+    Play#2 output Play#2 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
+    Play#2 output Play#2 1  -16,0    b 100%  1197    0b 1.00 $0       0d           1195d             239
+    Play#2 output Play#2 1  -14,0    b 100%  1226    0b 1.00 $0       0d           1225d             245
+    Play#2 output Play#2 1  -12,0    b 100%  1256    0b 1.00 $0       0d           1255d             251
+    Play#2 output Play#2 1  -10,0    b 100%  1296    0b 1.00 $0       0d           1295d             259
+    Play#2 output Play#2 1   -1,3    t 100%    78  0.60 0.60 $300     1d   5o  10l    4d  20o  40l  2.40
+    Play#2 output Play#2 1 5 sectors
+    Play#2 output Play#2 6 0 99
+    Play#2 input ctld
+    Play#2 output Play#2 1 Bye-bye
+    Play#2 logout 2
+    Play#2 output Play#2 3 so long...
+     Conn3 output Conn3 2 Empire server ready
+     Conn3 input user tester
+     Conn3 output Conn3 0 hello tester
+     Conn3 input coun 3
+     Conn3 output Conn3 0 country name 3
+     Conn3 input pass 3
+     Conn3 output Conn3 0 password ok
+     Conn3 input play
+     Conn3 login 3 127.0.0.1 tester
+    Play#3 output Play#3 2 2
+    Play#3 output Play#3 1
+    Play#3 output Play#3 1 ***          Server configured for testing          ***
+    Play#3 output Play#3 1 *** If you see this in a game, it is misconfigured! ***
+    Play#3 output Play#3 6 0 100
+    Play#3 input budget
+    Play#3 command budget
+    Play#3 output Play#3 1 Sector Type			Production			    Cost
+    Play#3 output Play#3 1 Military payroll		169 mil, 0 res                       848
+    Play#3 output Play#3 1 Total expenses.......................................................848
+    Play#3 output Play#3 1 Income from taxes		16549 civs, 150 uws                +5540
+    Play#3 output Play#3 1 Total income.......................................................+5540
+    Play#3 output Play#3 1 Balance forward						            -100
+    Play#3 output Play#3 1 Estimated delta						           +4692
+    Play#3 output Play#3 1 Estimated new treasury..............................................4592
+    Play#3 output Play#3 6 0 99
+    Play#3 input production *
+    Play#3 command production
+    Play#3 output Play#3 1 Thu Jan  1 00:00:00 1970
+    Play#3 output Play#3 1 PRODUCTION SIMULATION
+    Play#3 output Play#3 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
+    Play#3 output Play#3 1    0,-2   ^   0%   114    0d 0.75 $0                                        0
+    Play#3 output Play#3 1    5,-1   u 100%    78   67r 0.86 $156                                     67
+    Play#3 output Play#3 1 2 sectors
+    Play#3 output Play#3 6 0 99
+    Play#3 input ctld
+    Play#3 output Play#3 1 Bye-bye
+    Play#3 logout 3
+    Play#3 output Play#3 3 so long...
+     Conn4 output Conn4 2 Empire server ready
+     Conn4 input user tester
+     Conn4 output Conn4 0 hello tester
+     Conn4 input coun 4
+     Conn4 output Conn4 0 country name 4
+     Conn4 input pass 4
+     Conn4 output Conn4 0 password ok
+     Conn4 input play
+     Conn4 login 4 127.0.0.1 tester
+    Play#4 output Play#4 2 2
+    Play#4 output Play#4 1
+    Play#4 output Play#4 1 ***          Server configured for testing          ***
+    Play#4 output Play#4 1 *** If you see this in a game, it is misconfigured! ***
+    Play#4 output Play#4 6 0 100
+    Play#4 input budget
+    Play#4 command budget
+    Play#4 output Play#4 1 Sector Type			Production			    Cost
+    Play#4 output Play#4 1 technical center 		0 tech   			     300
+    Play#4 output Play#4 1 bank             		4 bars   			      40
+    Play#4 output Play#4 1 Ship maintenance		10 ships        		     300
+    Play#4 output Play#4 1 Unit maintenance		10 units        		     600
+    Play#4 output Play#4 1 Military payroll		1110 mil, 0 res                     5552
+    Play#4 output Play#4 1 Total expenses......................................................6792
+    Play#4 output Play#4 1 Income from taxes		23604 civs, 4100 uws                +212
+    Play#4 output Play#4 1 Income from bars		100 bars                           +1500
+    Play#4 output Play#4 1 Total income.......................................................+1712
+    Play#4 output Play#4 1 Balance forward						           25000
+    Play#4 output Play#4 1 Estimated delta						           -5080
+    Play#4 output Play#4 1 Estimated new treasury.............................................19920
+    Play#4 output Play#4 6 0 99
+    Play#4 input production *
+    Play#4 command production
+    Play#4 output Play#4 1 Thu Jan  1 00:00:00 1970
+    Play#4 output Play#4 1 PRODUCTION SIMULATION
+    Play#4 output Play#4 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
+    Play#4 output Play#4 1  -14,-8   b 100%    78    4b 1.00 $40     20d             75d              15
+    Play#4 output Play#4 1   -5,-1   u 100%    78    0r 0.00 $0                                        0
+    Play#4 output Play#4 1   -3,-1   t 100%    78  0.00 0.00 $0       0d   0o   0l    0d   0o   0l  0.00
+    Play#4 output Play#4 1 3 sectors
+    Play#4 output Play#4 6 0 99
+    Play#4 input ctld
+    Play#4 output Play#4 1 Bye-bye
+    Play#4 logout 4
+    Play#4 output Play#4 3 so long...
+     Conn5 output Conn5 2 Empire server ready
+     Conn5 input user tester
+     Conn5 output Conn5 0 hello tester
+     Conn5 input coun 5
+     Conn5 output Conn5 0 country name 5
+     Conn5 input pass 5
+     Conn5 output Conn5 0 password ok
+     Conn5 input play
+     Conn5 login 5 127.0.0.1 tester
+    Play#5 output Play#5 2 2
+    Play#5 output Play#5 1
+    Play#5 output Play#5 1 ***          Server configured for testing          ***
+    Play#5 output Play#5 1 *** If you see this in a game, it is misconfigured! ***
+    Play#5 output Play#5 1 You lost your capital... better designate one (see info capital)
+    Play#5 output Play#5 6 0 100
+    Play#5 input budget
+    Play#5 command budget
+    Play#5 output Play#5 1 Sector Type			Production			    Cost
+    Play#5 output Play#5 1 Total expenses.........................................................0
+    Play#5 output Play#5 1 Total income..........................................................+0
+    Play#5 output Play#5 1 Balance forward						           25000
+    Play#5 output Play#5 1 Estimated delta						              +0
+    Play#5 output Play#5 1 Estimated new treasury.............................................25000
+    Play#5 output Play#5 1 You lost your capital... better designate one (see info capital)
+    Play#5 output Play#5 6 0 99
+    Play#5 input ctld
+    Play#5 output Play#5 1 Bye-bye
+    Play#5 logout 5
+    Play#5 output Play#5 3 so long...
+     Conn6 output Conn6 2 Empire server ready
+     Conn6 input user tester
+     Conn6 output Conn6 0 hello tester
+     Conn6 input coun 6
+     Conn6 output Conn6 0 country name 6
+     Conn6 input pass 6
+     Conn6 output Conn6 0 password ok
+     Conn6 input play
+     Conn6 login 6 127.0.0.1 tester
+    Play#6 output Play#6 2 2
+    Play#6 output Play#6 1
+    Play#6 output Play#6 1 ***          Server configured for testing          ***
+    Play#6 output Play#6 1 *** If you see this in a game, it is misconfigured! ***
+    Play#6 output Play#6 6 0 100
+    Play#6 input budget
+    Play#6 command budget
+    Play#6 output Play#6 1 Sector Type			Production			    Cost
+    Play#6 output Play#6 1 Ship maintenance		1 ship          		     540
+    Play#6 output Play#6 1 Plane maintenance		3 planes        		     147
+    Play#6 output Play#6 1 Unit maintenance		3 units         		      90
+    Play#6 output Play#6 1 Sector maintenance		1 sector        		      60
+    Play#6 output Play#6 1 Military payroll		166 mil, 0 res                       831
+    Play#6 output Play#6 1 Total expenses......................................................1668
+    Play#6 output Play#6 1 Income from taxes		4000 civs, 0 uws                   +1750
+    Play#6 output Play#6 1 Total income.......................................................+1750
+    Play#6 output Play#6 1 Balance forward						           25000
+    Play#6 output Play#6 1 Estimated delta						             +82
+    Play#6 output Play#6 1 Estimated new treasury.............................................25082
+    Play#6 output Play#6 6 0 99
+    Play#6 input ctld
+    Play#6 output Play#6 1 Bye-bye
+    Play#6 logout 6
+    Play#6 output Play#6 3 so long...
+     Conn7 output Conn7 2 Empire server ready
+     Conn7 input user tester
+     Conn7 output Conn7 0 hello tester
+     Conn7 input coun 7
+     Conn7 output Conn7 0 country name 7
+     Conn7 input pass 7
+     Conn7 output Conn7 0 password ok
+     Conn7 input play
+     Conn7 login 7 127.0.0.1 tester
+    Play#7 output Play#7 2 2
+    Play#7 output Play#7 1
+    Play#7 output Play#7 1 ***          Server configured for testing          ***
+    Play#7 output Play#7 1 *** If you see this in a game, it is misconfigured! ***
+    Play#7 output Play#7 6 0 100
+    Play#7 input budget
+    Play#7 command budget
+    Play#7 output Play#7 1 Sector Type			Production			    Cost
+    Play#7 output Play#7 1 Ship maintenance		3 ships         		      70
+    Play#7 output Play#7 1 Sector maintenance		1 sector        		      60
+    Play#7 output Play#7 1 Military payroll		158 mil, 0 res                       792
+    Play#7 output Play#7 1 Total expenses.......................................................922
+    Play#7 output Play#7 1 Income from taxes		4000 civs, 0 uws                   +1750
+    Play#7 output Play#7 1 Total income.......................................................+1750
+    Play#7 output Play#7 1 Balance forward						           25000
+    Play#7 output Play#7 1 Estimated delta						            +828
+    Play#7 output Play#7 1 Estimated new treasury.............................................25828
+    Play#7 output Play#7 6 0 99
+    Play#7 input show updates
+    Play#7 command show
+    Play#7 output Play#7 1 Thu, 01 Jan 1970 00:00:00 +0000, Turn 1, ETU 0
+    Play#7 output Play#7 1 There are no updates scheduled.
+    Play#7 output Play#7 1 Demand updates occur right after the demand is set.
+    Play#7 output Play#7 1 Demand updates require 1 country(s) to want one.
+    Play#7 output Play#7 6 0 99
+    Play#7 input power
+    Play#7 command power
+    Play#7 output Play#7 1 Power for this game has not been built yet.
+    Play#7 output Play#7 1 command failed
+    Play#7 output Play#7 6 0 99
+    Play#7 input ctld
+    Play#7 output Play#7 1 Bye-bye
+    Play#7 logout 7
+    Play#7 output Play#7 3 so long...
+     Conn8 output Conn8 2 Empire server ready
+     Conn8 input user tester
+     Conn8 output Conn8 0 hello tester
+     Conn8 input coun POGO
+     Conn8 output Conn8 0 country name POGO
+     Conn8 input pass peter
+     Conn8 output Conn8 0 password ok
+     Conn8 input play
+     Conn8 login 0 127.0.0.1 tester
+    Play#0 output Play#0 2 2
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 ***          Server configured for testing          ***
+    Play#0 output Play#0 1 *** If you see this in a game, it is misconfigured! ***
+    Play#0 output Play#0 6 0 640
+    Play#0 input force
+    Play#0 command force
+    Update update 60
+    Play#0 output Play#0 1 You have a new telegram waiting ...
+    Play#0 output Play#0 6 0 640
+    Play#0 input show updates
+    Play#0 command show
+    Play#0 output Play#0 1 Thu, 01 Jan 1970 00:00:00 +0000, Turn 2, ETU 0
+    Play#0 output Play#0 1 There are no updates scheduled.
+    Play#0 output Play#0 1 Demand updates occur right after the demand is set.
+    Play#0 output Play#0 1 Demand updates require 1 country(s) to want one.
+    Play#0 output Play#0 6 0 640
+    Play#0 input power
+    Play#0 command power
+    Play#0 output Play#0 1      - = [   Empire Power Report   ] = -
+    Play#0 output Play#0 1       as of Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
+    Play#0 output Play#0 1         1  96   62%  28K 1.2K   0    0    0  2.5K 340  580   21   32   16   25K
+    Play#0 output Play#0 1   1327.68
+    Play#0 output Play#0 1         3  64   14%  17K 170    0    0    0    0    0    0    0    0    0 -100
+    Play#0 output Play#0 1    376.18
+    Play#0 output Play#0 1         6   8   88% 4.0K 168    0    0    0    0    0    0    3    1    3   25K
+    Play#0 output Play#0 1    345.30
+    Play#0 output Play#0 1         7   8   88% 4.0K 160    0    0    0    0    0    0    0    3    0   25K
+    Play#0 output Play#0 1    341.12
+    Play#0 output Play#0 1         2  32   22% 7.1K 1.9K   0    0    0    0    1    5    3    3    3  100
+    Play#0 output Play#0 1    281.89
+    Play#0 output Play#0 1         4  64    8%  25K 1.1K   0    0    0   20K  21  4.0K   0   10   10   25K
+    Play#0 output Play#0 1    228.61
+    Play#0 output Play#0 1         5   0    0%   0    0    0    0    0    0    0    0    0    0    0   25K
+    Play#0 output Play#0 1     50.00
+    Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+    Play#0 output Play#0 1 worldwide 272   35%  84K 4.7K   0    0    0   22K 362  4.6K  27   49   32  125K
+    Play#0 output Play#0 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 0
+    Play#0 command read
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1   0 happiness,   0 education produced
+    Play#0 output Play#0 1 total pop was 0, yielding 0.00 hap, 0.00 edu
+    Play#0 output Play#0 1 0.0000 tech, 0.0000 research produced
+    Play#0 output Play#0 1 money delta was $0 for this update
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 1
+    Play#0 command read
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 25 starved on cs   cargo ship (#42)
+    Play#0 output Play#0 1 33 starved on cs   cargo ship (#43)
+    Play#0 output Play#0 1 25 starved in inf  infantry #42
+    Play#0 output Play#0 1 33 starved in 1,1.
+    Play#0 output Play#0 1 133 starved in 3,1.
+    Play#0 output Play#0 1 150 starved in 5,1.
+    Play#0 output Play#0 1 150 starved in 7,1.
+    Play#0 output Play#0 1 16 starved in 9,1.
+    Play#0 output Play#0 1 6 starved in 11,1.
+    Play#0 output Play#0 1 16 starved in 15,1.
+    Play#0 output Play#0 1 heavy construction materials production backlog in 4,6
+    Play#0 output Play#0 1 a class of graduates (78.00) produced in 1,7
+    Play#0 output Play#0 1 a class of graduates (100.00) produced in 3,7
+    Play#0 output Play#0 1 happy strollers (78.00) produced in 9,7
+    Play#0 output Play#0 1 technological breakthroughs (2.40) produced in -15,7
+    Play#0 output Play#0 1 technological breakthroughs (3.00) produced in -13,7
+    Play#0 output Play#0 1 medical discoveries (2.40) produced in -7,7
+    Play#0 output Play#0 1 medical discoveries (3.60) produced in -5,7
+    Play#0 output Play#0 1  78 happiness, 178 education produced
+    Play#0 output Play#0 1 total pop was 28106, yielding 14.19 hap, 24.57 edu
+    Play#0 output Play#0 1 3.4330 tech, 3.3939 research produced
+    Play#0 output Play#0 1 Army delta $-2810, Navy delta $-3725, Air force delta $-2932
+    Play#0 output Play#0 1 money delta was $-12030 for this update
+    Play#0 output Play#0 6 0 640
+    Play#0 input nation 1
+    Play#0 command nation
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 (#1) 1 Nation Report	Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
+    Play#0 output Play#0 1 100% eff capital at 0,0 has 650 civilians & 2 military
+    Play#0 output Play#0 1  The treasury has $12970.00     Military reserves: 0
+    Play#0 output Play#0 1 Education.......... 21.09       Happiness....... 12.33
+    Play#0 output Play#0 1 Technology.........102.79       Research........  3.37
+    Play#0 output Play#0 1 Technology factor : 50.46%     Plague factor :   1.96%
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Max population : 1000
+    Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
+    Play#0 output Play#0 1 Happiness needed is 8.60
+    Play#0 output Play#0 6 0 640
+    Play#0 input cens 0:15,0:3
+    Play#0 command census
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     CENSUS                   del dst
+    Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
+    Play#0 output Play#0 1   1    0,0    c  100%     120 .. ..      650    2    0   83 100%  281    0
+    Play#0 output Play#0 1   1    2,0    +  100%     120 .. ..      783    0  783    0 100%  939    0
+    Play#0 output Play#0 1   1    4,0    +  100%     120 .. ..      866    0  805    0 100% 1002    0
+    Play#0 output Play#0 1   1    6,0    +  100%     120 .. ..      910    0  805    1 100% 1029    0
+    Play#0 output Play#0 1   1    8,0    +  100%     120 .. ..     1000    0 1000    9 100% 1200    0
+    Play#0 output Play#0 1   1   10,0    +  100%     120 .. ..      999    0 1000   48 100% 1198    0
+    Play#0 output Play#0 1   1   12,0    +  100%     120 .. ..      999    0 1000   49 100% 1198    0
+    Play#0 output Play#0 1   1   14,0    +  100%     120 .. ..      999    0  999   49 100% 1198    0   1
+    Play#0 output Play#0 1   1    1,1    +   73%     120 .. ..      100  100   67    0   0%   72    0
+    Play#0 output Play#0 1   1    3,1    +   73%     120 .. ..       67  100    0    0   0%   72    0
+    Play#0 output Play#0 1   1    5,1    +   73%     120 .. ..       50  100    0    0   0%   72    0
+    Play#0 output Play#0 1   1    7,1    +   58%     120 .. ..        0  150    0    0   0%   58    0
+    Play#0 output Play#0 1   1    9,1    +   16%     120 .. ..       34    0    0    0   0%   15    0
+    Play#0 output Play#0 1   1   11,1    +   13%     120 .. ..       34    0    0    0   0%   12    0
+    Play#0 output Play#0 1   1   13,1    a  100%     120 .. ..       34    0    0  165 100%    0    0
+    Play#0 output Play#0 1   1   15,1    a  100%     120 .. ..        0   34    0   99   0%    0    0   1
+    Play#0 output Play#0 1   1    0,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   1    2,2    g+  88%     120 .. ..       13    0    0   99 100%    4    0
+    Play#0 output Play#0 1   1    4,2    +   14%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1    6,2    +  100%     120 .. ..      455    0    0   88 100%  148    0
+    Play#0 output Play#0 1   1    8,2    f    1%     120 .. ..      130    0    0   97 100%   78    0
+    Play#0 output Play#0 1   1   10,2    f   11%     120 .. ..      130    0    0   97 100%   68    0
+    Play#0 output Play#0 1   1   12,2    c   11%     120 .. ..      130    0    0   97 100%   68    0
+    Play#0 output Play#0 1   1   14,2    -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   1    1,3    m  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   1    3,3    m   40%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1    5,3    -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1    7,3    -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1    9,3    e  100%     120 .. ..      130   65    0   95 100%   93    0
+    Play#0 output Play#0 1   1   11,3    e  100%     120 .. ..      100   30    0   97 100%   78    0
+    Play#0 output Play#0 1   1   13,3    e   79%     120 .. ..       85   50    0   96 100%   40    0
+    Play#0 output Play#0 1   1   15,3    -   39%     120 .. ..      130    0    0   96 100%   39    0   1
+    Play#0 output Play#0 1 32 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input comm 0:15,0:3
+    Play#0 command commodity
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1    COMMODITIES deliver--  distribute
+    Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
+    Play#0 output Play#0 1   1   0,0    c .......... ..........   0   0    0    0    0   0    0    7   34   0
+    Play#0 output Play#0 1   1   2,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   4,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   6,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   8,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  10,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  12,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  14,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   1,1    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   3,1    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   5,1    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   7,1    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   9,1    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  11,1    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  13,1    a .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  15,1    a .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   0,2    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   2,2    g .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   4,2    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   6,2    + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   8,2    f .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  10,2    f .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  12,2    c .......... ..........   0   0    0    0    0   0    0    0   30   0
+    Play#0 output Play#0 1   1  14,2    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   1,3    m .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   3,3    m .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   5,3    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   7,3    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   9,3    e .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  11,3    e .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  13,3    e .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  15,3    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1 32 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input cens -16:15,4:7
+    Play#0 command census
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     CENSUS                   del dst
+    Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
+    Play#0 output Play#0 1   1  -16,4    m  100%     120 .. ..      130    1    0   97 100%    8    0   1
+    Play#0 output Play#0 1   1  -14,4    m  100%     120 .. ..      130    1    0   97 100%    0    0
+    Play#0 output Play#0 1   1  -12,4    m   69%     120 .. ..      130    1    0   97 100%    1    0
+    Play#0 output Play#0 1   1  -10,4    -   39%     120 .. ..      130    1    0   97 100%   39    0
+    Play#0 output Play#0 1   1   -8,4    g  100%     120 .. ..      130    1    0   96 100%    8    0
+    Play#0 output Play#0 1   1   -6,4    g  100%     120 .. ..      130    1    0   97 100%    0    0
+    Play#0 output Play#0 1   1   -4,4    g  100%     120 .. ..     1000    1 1000   40 100%  700    0
+    Play#0 output Play#0 1   1   -2,4    ^  100%     120 .. ..      100    1    0   97 100%    0    0
+    Play#0 output Play#0 1   1    0,4    a  100%     120 .. ..      130    0    0  155 100%    8    0
+    Play#0 output Play#0 1   1    2,4    a  100%     120 .. ..      130   10    0  756 100%    0    0
+    Play#0 output Play#0 1   1    4,4    a  100%     120 .. ..     1000    0    0 1069 100%  479    0
+    Play#0 output Play#0 1   1    6,4    -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1    8,4    o  100%     120 .. ..      130    0    0   97 100%    8    0
+    Play#0 output Play#0 1   1   10,4    o  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   1   12,4    -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1   14,4    -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   1  -15,5    u  100%     120 .. ..      130    1    0   97 100%    8    0   1
+    Play#0 output Play#0 1   1  -13,5    u  100%     120 .. ..      130    1    0   97 100%    0    0
+    Play#0 output Play#0 1   1  -11,5    u  100%     120 .. ..     1000    1 1000   40 100%  915    0
+    Play#0 output Play#0 1   1   -9,5    -   39%     120 .. ..      130    1    0   97 100%   39    0
+    Play#0 output Play#0 1   1   -7,5    i  100%     120 .. ..      130    1    0   97 100%    0    0
+    Play#0 output Play#0 1   1   -5,5    i  100%     120 .. ..      650    1    0   84 100%  240    0
+    Play#0 output Play#0 1   1   -3,5    i  100%     120 .. ..      650    1    0   84 100%   90    0
+    Play#0 output Play#0 1   1   -1,5    -   39%     120 .. ..      130    1    0   97 100%   39    0
+    Play#0 output Play#0 1   1    1,5    d  100%     120 .. ..      130    0    0   97 100%   14    0
+    Play#0 output Play#0 1   1    3,5    d  100%     120 .. ..      650    0    0   84 100%  230    0
+    Play#0 output Play#0 1   1    5,5    -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1    7,5    -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   1    9,5    %  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   1   11,5    %  100%     120 .. ..      260    0    0   94 100%   56    0
+    Play#0 output Play#0 1   1   13,5    %  100%     120 .. ..      650    0    0   84 100%  277    0
+    Play#0 output Play#0 1   1   15,5    -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   1  -16,6    b  100%     120 .. ..      130    1    0   97 100%    3    0   1
+    Play#0 output Play#0 1   1  -14,6    b  100%     120 .. ..      650    1    0   84 100%  290    0
+    Play#0 output Play#0 1   1  -12,6    b   79%     120 .. ..      130    1    0   97 100%    1    0
+    Play#0 output Play#0 1   1  -10,6    -   39%     120 .. ..      130    1    0   97 100%   39    0
+    Play#0 output Play#0 1   1   -8,6    j  100%     120 .. ..      130    1    0   97 100%    0    0
+    Play#0 output Play#0 1   1   -6,6    j  100%     120 .. ..      650    1    0   85 100%  290    0
+    Play#0 output Play#0 1   1   -4,6    j  100%     120 .. ..     1000    1 1000   40 100%  111    0
+    Play#0 output Play#0 1   1   -2,6    -   39%     120 .. ..      130    1    0   97 100%   39    0
+    Play#0 output Play#0 1   1    0,6    k  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   1    2,6    k  100%     120 .. ..      650    0    0   84 100%  290    0
+    Play#0 output Play#0 1   1    4,6    k  100%     120 .. ..      130    0    0   97 100%   38    0
+    Play#0 output Play#0 1   1    6,6    -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1    8,6    f  100%     120 .. ..     1000    0    0   70 100%  564    0
+    Play#0 output Play#0 1   1   10,6    !  100%     120 .. ..     1000    0    0   70 100%  544    0
+    Play#0 output Play#0 1   1   12,6    *  100%     120 .. ..     1000    8    0   69 100%  570    0
+    Play#0 output Play#0 1   1   14,6    h  100%     120 .. ..     1000    0    0   70 100%  440    0   1
+    Play#0 output Play#0 1   1  -15,7    t  100%     120 .. ..      130    1    0   97 100%   14    0   1
+    Play#0 output Play#0 1   1  -13,7    t  100%     120 .. ..      650    1    0   84 100%  310    0
+    Play#0 output Play#0 1   1  -11,7    -   39%     120 .. ..      130    1    0   97 100%   39    0
+    Play#0 output Play#0 1   1   -9,7    -   39%     120 .. ..      130    1    0   97 100%   39    0
+    Play#0 output Play#0 1   1   -7,7    r  100%     120 .. ..      130    1    0   95 100%   14    0
+    Play#0 output Play#0 1   1   -5,7    r  100%     120 .. ..      650    1    0   83 100%  294    0
+    Play#0 output Play#0 1   1   -3,7    -   39%     120 .. ..      130    1    0   97 100%   39    0
+    Play#0 output Play#0 1   1   -1,7    -   39%     120 .. ..      130    1    0   97 100%   39    0
+    Play#0 output Play#0 1   1    1,7    l  100%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   1    3,7    l  100%     120 .. ..      650    0    0   84 100%  290    0
+    Play#0 output Play#0 1   1    5,7    -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   1    7,7    -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   1    9,7    p  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   1   11,7    p  100%     120 .. ..      130    0    0   97 100%   78    0
+    Play#0 output Play#0 1   1   13,7    -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   1   15,7    -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1 64 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input comm -16:15,4:7
+    Play#0 command commodity
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1    COMMODITIES deliver--  distribute
+    Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
+    Play#0 output Play#0 1   1 -16,4    m .......... ..........   0   0    0    7    0   0    0    0    0   0
+    Play#0 output Play#0 1   1 -14,4    m .......... ..........   0   0    0   78    0   0    0    0    0   0
+    Play#0 output Play#0 1   1 -12,4    m .......... ..........   0   0    0   26    0   0    0    0    0   0
+    Play#0 output Play#0 1   1 -10,4    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  -8,4    g .......... ..........   0   0    0    0    7   0    0    0    0   0
+    Play#0 output Play#0 1   1  -6,4    g .......... ..........   0   0    0    0   78   0    0    0    0   0
+    Play#0 output Play#0 1   1  -4,4    g .......... ..........   0   0    0    0  500   0    0    0    0   0
+    Play#0 output Play#0 1   1  -2,4    ^ .......... ..........   0   0    0    0   45   0    0    0    0   0
+    Play#0 output Play#0 1   1   0,4    a .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   2,4    a .......... ..........   0   0    0    0    0   0    0   50   50   0
+    Play#0 output Play#0 1   1   4,4    a .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   6,4    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   8,4    o .......... ..........   0   0    0    0    0   0    6    0    0   0
+    Play#0 output Play#0 1   1  10,4    o .......... ..........   0   0    0    0    0   0   72   20   20   0
+    Play#0 output Play#0 1   1  12,4    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  14,4    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1 -15,5    u .......... ..........   0   0    0    0    0   0    0    0    0   6
+    Play#0 output Play#0 1   1 -13,5    u .......... ..........   0   0    0    0    0   0    0    0    0  66
+    Play#0 output Play#0 1   1 -11,5    u .......... ..........   0   0    0    0    0   0    0    0    0 244
+    Play#0 output Play#0 1   1  -9,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  -7,5    i .......... ..........  24   0    0    0    0   0    0   48   74   0
+    Play#0 output Play#0 1   1  -5,5    i .......... ..........  45   0    0    0    0   0    0    0   50   0
+    Play#0 output Play#0 1   1  -3,5    i .......... ..........  89   0    0    0    0   0    0  100    0   0
+    Play#0 output Play#0 1   1  -1,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   1,5    d .......... ..........   0   4    0    0    0   0    6   80   60   0
+    Play#0 output Play#0 1   1   3,5    d .......... ..........   0   9    0    0    0   0    0   50    0   0
+    Play#0 output Play#0 1   1   5,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   7,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   9,5    % .......... ..........   0   0  693    0    0   0   22    0    0   0
+    Play#0 output Play#0 1   1  11,5    % .......... ..........   0   0  889    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  13,5    % .......... ..........   0   0  999    0    0   0   87    0    0   0
+    Play#0 output Play#0 1   1  15,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1 -16,6    b .......... ..........   0   0    0    0   25  15    0    0    0   0
+    Play#0 output Play#0 1   1 -14,6    b .......... ..........   0   0    0    0    0  20    0    0    0   0
+    Play#0 output Play#0 1   1 -12,6    b .......... ..........   0   0    0    0   70   6    0    0    0   0
+    Play#0 output Play#0 1   1 -10,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  -8,6    j .......... ..........   0   0    0   22    0   0    0   71    0   0
+    Play#0 output Play#0 1   1  -6,6    j .......... ..........   0   0    0    0    0   0    0   92    0   0
+    Play#0 output Play#0 1   1  -4,6    j .......... ..........   0   0    0  911    0   0    0  999    0   0
+    Play#0 output Play#0 1   1  -2,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   0,6    k .......... ..........   0   0    0   22    0   0    0    0   36   0
+    Play#0 output Play#0 1   1   2,6    k .......... ..........   0   0    0    0    0   0    0    0   46   0
+    Play#0 output Play#0 1   1   4,6    k .......... ..........   0   0    0   60    0   0    0    0 9999   0
+    Play#0 output Play#0 1   1   6,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   15   0
+    Play#0 output Play#0 1   1  10,6    ! .......... ..........   0   0    0    0    0   0    0    0   14   0
+    Play#0 output Play#0 1   1  12,6    * .......... ..........   0   0    0    0    0   0    0    0    8   0
+    Play#0 output Play#0 1   1  14,6    h .......... ..........   0   0    0    0    0   0    0   40    0   0
+    Play#0 output Play#0 1   1 -15,7    t .......... ..........   0   0    0    0    6   0   30   10    0   0
+    Play#0 output Play#0 1   1 -13,7    t .......... ..........   0   0    0    0    5   0   25    0    0   0
+    Play#0 output Play#0 1   1 -11,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  -9,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  -7,7    r .......... ..........   0   0    0    0    6   0   10   60    0   0
+    Play#0 output Play#0 1   1  -5,7    r .......... ..........   0   0    0    0    4   0    0   40    0   0
+    Play#0 output Play#0 1   1  -3,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  -1,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   1,7    l .......... ..........   0   0    0    0    0   0    0   22    0   0
+    Play#0 output Play#0 1   1   3,7    l .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   5,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   7,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1   9,7    p .......... ..........   0   0    0    0    0   0    0   22    0   0
+    Play#0 output Play#0 1   1  11,7    p .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  13,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  15,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1 64 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input ship 0:31,0:15
+    Play#0 command ship
+    Play#0 output Play#0 1 own shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
+    Play#0 output Play#0 1   1    0 cs   cargo ship    14,6       100%   0   0   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1    1 car  aircraft ca   16,6       100%   0   8   0  10  2  0  0  0  90  160
+    Play#0 output Play#0 1   1    2 car  aircraft ca    6,8       100%   0   8   0  10  1  0  0  0  90  160
+    Play#0 output Play#0 1   1   35 cs   cargo ship    16,0       100% 150  50 100  11  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   40 cs   cargo ship    17,1       100%   0   1   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   41 cs   cargo ship    17,1       100%   0  34   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   42 cs   cargo ship    17,1       100%   0  25   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   43 cs   cargo ship    17,1       100%  17  50   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   60 cs   cargo ship    14,6        20%   0   0   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   70 cs   cargo ship    16,6        20%   4  10   0  10  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   71 cs   cargo ship    16,6        20%   4  10   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   72 cs   cargo ship    16,6        20%   4  10   0  10  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   73 cs   cargo ship    16,6        20%   4  10   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   74 cs   cargo ship    16,6        21%  12  10   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   75 frg  frigate       16,6        21%   0  11   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   76 frg  frigate       16,6        80%   0  60   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   7   93 fb   fishing boa    0,0        20%   0   0   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   95 cs   cargo ship    14,6       100%   0   0   0   0  0  0  0  0  90  200
+    Play#0 output Play#0 1   7   96 cs   cargo ship    14,6        20%   0   0   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   97 cs   cargo ship    14,6        40%   0   0   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  100 fb   fishing boa   16,4       100% 100   0   0  38  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  101 fb   fishing boa   18,4       100% 100   0   0 412  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  102 fb   fishing boa   20,4       100% 100   0   0 412  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  103 fb   fishing boa   18,4        74% 100   0   0 250  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  104 fb   fishing boa   18,4        33% 100   0   0  88  0  0  0  0  90   20
+    Play#0 output Play#0 1   1  110 od   oil derrick   16,4       100% 100   0   0   7  0  0  0  0  90   50
+    Play#0 output Play#0 1   1  111 od   oil derrick   18,4       100% 100   0   0   7  0  0  0  0  90   50
+    Play#0 output Play#0 1   1  112 od   oil derrick   20,4       100% 100   0   0   7  0  0  0  0  90   50
+    Play#0 output Play#0 1   1  113 od   oil derrick   18,4        65% 100   0   0   7  0  0  0  0  90   50
+    Play#0 output Play#0 1   1  114 od   oil derrick   18,4        25% 100   0   0   7  0  0  0  0  90   50
+    Play#0 output Play#0 1 30 ships
+    Play#0 output Play#0 6 0 640
+    Play#0 input carg 0:31,0:15
+    Play#0 command cargo
+    Play#0 output Play#0 1 shp#         x,y   flt eff  civ mil  uw  sh gun pet irn dst bar oil lcm hcm rad
+    Play#0 output Play#0 1    0 cs     14,6      100%   0   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    1 car    16,6      100%   0   8   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1    2 car     6,8      100%   0   8   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   35 cs     16,0      100% 150  50 100   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   40 cs     17,1      100%   0   1   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   41 cs     17,1      100%   0  34   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   42 cs     17,1      100%   0  25   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   43 cs     17,1      100%  17  50   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   60 cs     14,6       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   70 cs     16,6       20%   4  10   0   0   0   0   0   0   0   0  10  10   0
+    Play#0 output Play#0 1   71 cs     16,6       20%   4  10   0   0   0   0   0   0   0   0  10  10   0
+    Play#0 output Play#0 1   72 cs     16,6       20%   4  10   0   0   0   0   0   0   0   0  10  10   0
+    Play#0 output Play#0 1   73 cs     16,6       20%   4  10   0   0   0   0   0   0   0   0  10  10   0
+    Play#0 output Play#0 1   74 cs     16,6       21%  12  10   0   0   0   0   0   0   0   0  10  10   0
+    Play#0 output Play#0 1   75 frg    16,6       21%   0  11   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   76 frg    16,6       80%   0  60   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   93 fb      0,0       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   95 cs     14,6      100%   0   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   96 cs     14,6       20%   0   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1   97 cs     14,6       40%   0   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  100 fb     16,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  101 fb     18,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  102 fb     20,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  103 fb     18,4       74% 100   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  104 fb     18,4       33% 100   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  110 od     16,4      100% 100   0   0   0   0   0   0   0   0   6   0   0   0
+    Play#0 output Play#0 1  111 od     18,4      100% 100   0   0   0   0   0   0   0   0  52   0   0   0
+    Play#0 output Play#0 1  112 od     20,4      100% 100   0   0   0   0   0   0   0   0  51   0   0   0
+    Play#0 output Play#0 1  113 od     18,4       65% 100   0   0   0   0   0   0   0   0  29   0   0   0
+    Play#0 output Play#0 1  114 od     18,4       25% 100   0   0   0   0   0   0   0   0  10   0   0   0
+    Play#0 output Play#0 1 30 ships
+    Play#0 output Play#0 6 0 640
+    Play#0 input plane 0:31,0:15
+    Play#0 command plane
+    Play#0 output Play#0 1 own    #    type                x,y    w   eff  mu def tech ran hard carry special
+    Play#0 output Play#0 1   1    0 f1   Sopwith Camel    12,6       100%  60   1   50   4    0
+    Play#0 output Play#0 1   1   35 f1   Sopwith Camel    14,0       100%  60   1   50   4    0
+    Play#0 output Play#0 1   1   60 f1   Sopwith Camel    12,6        10%  60   1   50   4    0
+    Play#0 output Play#0 1   2   65 f1   Sopwith Camel     6,8        10%  60   1   50   4    0
+    Play#0 output Play#0 1   1   70 f1   Sopwith Camel    16,6        12%  60   1   50   4    0    1S
+    Play#0 output Play#0 1   1   71 f1   Sopwith Camel    16,6        80%  60   1   50   4    0    1S
+    Play#0 output Play#0 1   1   72 f1   Sopwith Camel     6,8        80%  60   1   50   4    0    2S
+    Play#0 output Play#0 1   1   80 f1   Sopwith Camel     0,0        40%  60   1   50   4    0
+    Play#0 output Play#0 1   1   81 f1   Sopwith Camel     0,0        60%  60   1   50   4    0
+    Play#0 output Play#0 1   1   82 f1   Sopwith Camel     2,4        10%  60   1   50   4    0
+    Play#0 output Play#0 1   1   90 f1   Sopwith Camel     6,8       100%  60   1   50   4    0
+    Play#0 output Play#0 1   1   91 f1   Sopwith Camel    12,8        10%  60   1   50   4    0
+    Play#0 output Play#0 1   1   92 f1   Sopwith Camel     2,8        10%  60   1   50   4    0
+    Play#0 output Play#0 1   6   93 f1   Sopwith Camel     0,0        40%  60   1   50   4    0
+    Play#0 output Play#0 1   1   95 f1   Sopwith Camel    12,6       100%  60   8  200  11    0
+    Play#0 output Play#0 1   6   96 f1   Sopwith Camel    12,6        50%  60   1   50   4    0
+    Play#0 output Play#0 1   1   97 f1   Sopwith Camel    12,6       100%  60   1   50   4    0
+    Play#0 output Play#0 1 17 planes
+    Play#0 output Play#0 6 0 640
+    Play#0 input land 0:31,0:15
+    Play#0 command land
+    Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
+    Play#0 output Play#0 1   1    0 inf  infantry     10,6       100%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   35 inf  infantry     14,0       100% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   1   40 inf  infantry     15,1       100%   1   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   41 inf  infantry     15,1       100%  34   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   42 inf  infantry     15,1       100%  25   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   60 inf  infantry     10,6        10%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   2   65 inf  infantry      4,8        10%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   80 inf  infantry      0,0        40%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   81 inf  infantry      0,0        60%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   82 inf  infantry     10,4        10%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   90 inf  infantry      4,8       100%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   91 inf  infantry     10,8        10%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   92 inf  infantry      2,8        10%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   6   93 inf  infantry      0,0        40%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   95 inf  infantry     10,6       100%   0   0  60   0 200  42%  0  0
+    Play#0 output Play#0 1   6   96 inf  infantry     10,6        10%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   97 inf  infantry     10,6        60%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   1   98 inf  infantry      8,6       100%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1 18 units
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 2
+    Play#0 command read
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 cs   cargo ship (#30) lost 12% to lack of maintenance
+    Play#0 output Play#0 1 cs   cargo ship (#31) lost 1% to lack of maintenance
+    Play#0 output Play#0 1 f1   Sopwith Camel #30 lost 12% to lack of maintenance
+    Play#0 output Play#0 1 f1   Sopwith Camel #31 lost 1% to lack of maintenance
+    Play#0 output Play#0 1 inf  infantry #30 lost 12% to lack of maintenance
+    Play#0 output Play#0 1 inf  infantry #31 lost 1% to lack of maintenance
+    Play#0 output Play#0 1   0 happiness,   0 education produced
+    Play#0 output Play#0 1 total pop was 6100, yielding 0.00 hap, 0.00 edu
+    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
+    Play#0 output Play#0 1 Army delta $0, Navy delta $0, Air force delta $-72
+    Play#0 output Play#0 1 money delta was $-6012 for this update
+    Play#0 output Play#0 6 0 640
+    Play#0 input nation 2
+    Play#0 command nation
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 (#2) 2 Nation Report	Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 193
+    Play#0 output Play#0 1 10% eff capital at -2,0 has 130 civilians & 0 military
+    Play#0 output Play#0 1  The treasury has $-5912.00     Military reserves: 975
+    Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  2.74
+    Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
+    Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Max population : 1000
+    Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
+    Play#0 output Play#0 1 Happiness needed is 6.61
+    Play#0 output Play#0 6 0 640
+    Play#0 input cens -16:-1,0:3
+    Play#0 command census
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     CENSUS                   del dst
+    Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
+    Play#0 output Play#0 1   2  -16,0    b    1%     120 .. ..     1000  400 1000   28 100%    0    0   1
+    Play#0 output Play#0 1   2  -14,0    b   30%     120 .. ..     1000  400 1000   28 100%    0    0
+    Play#0 output Play#0 1   2  -12,0    b   60%     120 .. ..   5 1000  400 1000   28 100%    0    0
+    Play#0 output Play#0 1   2  -10,0    b  100%     120 .. ..     1000  400 1000   28 100%    0    0
+    Play#0 output Play#0 1   2   -8,0    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2   -6,0    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -4,0    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -2,0    c   10%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2  -15,1    c  100%     120 .. ..      130    0    0   96 100%  100    0   1
+    Play#0 output Play#0 1   2  -13,1    c  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2  -11,1    c  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -9,1    c  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -7,1    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -5,1    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -3,1    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -1,1    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2  -16,2    -    0%     120 .. ..      130    0    0   96 100%    0    0   1
+    Play#0 output Play#0 1   2  -14,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2  -12,2    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2  -10,2    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2   -8,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -6,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -4,2    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2   -2,2    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2  -15,3    -    0%     120 .. ..      130    0    0   96 100%    0    0   1
+    Play#0 output Play#0 1   2  -13,3    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2  -11,3    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -9,3    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -7,3    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2   -5,3    -    0%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   2   -3,3    -    0%     120 .. ..      130    0    0   96 100%    0    0
+    Play#0 output Play#0 1   2   -1,3    t  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1 32 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input comm -16:-1,0:3
+    Play#0 command commodity
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1    COMMODITIES deliver--  distribute
+    Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
+    Play#0 output Play#0 1   2 -16,0    b .......... ..........   0   0    0    0    0 100    0    0    0   0
+    Play#0 output Play#0 1   2 -14,0    b .......... ..........   0   0    0    0    0 100    0    0    0   0
+    Play#0 output Play#0 1   2 -12,0    b .......... ..........   0   0    0    0    0 100    0    0    0   0
+    Play#0 output Play#0 1   2 -10,0    b .......... ..........   0   0    0    0    0 100    0    0    0   0
+    Play#0 output Play#0 1   2  -8,0    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -6,0    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -4,0    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -2,0    c .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2 -15,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2 -13,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2 -11,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -9,1    c .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -7,1    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -5,1    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -3,1    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -1,1    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2 -16,2    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2 -14,2    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2 -12,2    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2 -10,2    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -8,2    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -6,2    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -4,2    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -2,2    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2 -15,3    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2 -13,3    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2 -11,3    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -9,3    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -7,3    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -5,3    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -3,3    - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   2  -1,3    t .......... ..........   0   0    0    0    1   0    5   10    0   0
+    Play#0 output Play#0 1 32 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input peek -16:-1,0:3
+    Play#0 command peek
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     HIDDEN VALUES           che-------  plague----
+    Play#0 output Play#0 1 own   sect        eff loyal cnum value  stage time mines
+    Play#0 output Play#0 1   2  -16,0    b    1%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -14,0    b   30%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -12,0    b   60%    57    0    0      0     0    0
+    Play#0 output Play#0 1   2  -10,0    b  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -8,0    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -6,0    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -4,0    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -2,0    c   10%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -15,1    c  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -13,1    c  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -11,1    c  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -9,1    c  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -7,1    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -5,1    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -3,1    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -1,1    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -16,2    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -14,2    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -12,2    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -10,2    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -8,2    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -6,2    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -4,2    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -2,2    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -15,3    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -13,3    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2  -11,3    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -9,3    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -7,3    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -5,3    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -3,3    -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   2   -1,3    t  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1 32 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input ship -32:-1,0:15
+    Play#0 command ship
+    Play#0 output Play#0 1 own shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
+    Play#0 output Play#0 1   6    3 car  aircraft ca  -12,8       100%   0   8   0  10  4  0  0  0  90  160
+    Play#0 output Play#0 1   2   30 cs   cargo ship   -18,0        88% 150  50 100  11  0  0  0  0  90   20
+    Play#0 output Play#0 1   2   31 cs   cargo ship   -18,0        20% 150  50 100  11  0  0  0  0  90   20
+    Play#0 output Play#0 1   2   65 cs   cargo ship    -8,8        20%   0   0   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   90 cs   cargo ship    -8,8       100%   0   0   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   91 cs   cargo ship   -14,8        20%   0   0   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   92 fb   fishing boa   -2,8        20%   0   0   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1 7 ships
+    Play#0 output Play#0 6 0 640
+    Play#0 input plane -32:-1,0:15
+    Play#0 command plane
+    Play#0 output Play#0 1 own    #    type                x,y    w   eff  mu def tech ran hard carry special
+    Play#0 output Play#0 1   2   30 f1   Sopwith Camel   -16,0        88%  60   1   50   4    0
+    Play#0 output Play#0 1   2   31 f1   Sopwith Camel   -16,0        10%  60   1   50   4    0
+    Play#0 output Play#0 1   1   61 f1   Sopwith Camel    -6,8        10%  60   1   50   4    0
+    Play#0 output Play#0 1   6   62 f1   Sopwith Camel    -6,8        10%  60   1   50   4    0
+    Play#0 output Play#0 1   1   75 f1   Sopwith Camel   -12,8        17%  60   1   50   4    0    3S
+    Play#0 output Play#0 1   1   76 f1   Sopwith Camel   -12,8        18%  60   1   50   4    0    3S
+    Play#0 output Play#0 1   1   77 f1   Sopwith Camel   -12,8        17%  60   1   50   4    0    3S
+    Play#0 output Play#0 1   1   78 f1   Sopwith Camel   -12,8        17%  60   1   50   4    0    3S
+    Play#0 output Play#0 1 8 planes
+    Play#0 output Play#0 6 0 640
+    Play#0 input land -32:-1,0:15
+    Play#0 command land
+    Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
+    Play#0 output Play#0 1   2   30 inf  infantry    -16,0        88% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   2   31 inf  infantry    -16,0        10% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   1   61 inf  infantry     -4,8        10%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1   6   62 inf  infantry     -4,8        10%   0   0  60   0  50  42%  0  0
+    Play#0 output Play#0 1 4 units
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 3
+    Play#0 command read
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Civil unrest in 2,-8!
+    Play#0 output Play#0 1 Civil unrest in 6,-8!
+    Play#0 output Play#0 1 Civil unrest in 10,-8!
+    Play#0 output Play#0 1 Civil unrest in 12,-8!
+    Play#0 output Play#0 1 Civil unrest in 14,-8!
+    Play#0 output Play#0 1 Civil unrest in 1,-7!
+    Play#0 output Play#0 1 Civil unrest in 3,-7!
+    Play#0 output Play#0 1 Civil unrest in 9,-7!
+    Play#0 output Play#0 1 Civil unrest in 11,-7!
+    Play#0 output Play#0 1 Civil unrest in 8,-6!
+    Play#0 output Play#0 1 Civil unrest in 14,-6!
+    Play#0 output Play#0 1 Civil unrest in 1,-5!
+    Play#0 output Play#0 1 Civil unrest in 11,-5!
+    Play#0 output Play#0 1 Civil unrest in 13,-5!
+    Play#0 output Play#0 1 Sector 9,-3 is now fully yours
+    Play#0 output Play#0 1 Sector 11,-3 is now fully yours
+    Play#0 output Play#0 1 Sector 13,-3 is now fully yours
+    Play#0 output Play#0 1   0 happiness,   0 education produced
+    Play#0 output Play#0 1 total pop was 16047, yielding 0.00 hap, 0.00 edu
+    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
+    Play#0 output Play#0 1 money delta was $4437 for this update
+    Play#0 output Play#0 6 0 640
+    Play#0 input nation 3
+    Play#0 command nation
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 (#3) 3 Nation Report	Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
+    Play#0 output Play#0 1 100% eff capital at 1,-1 has 9999 civilians & 0 military
+    Play#0 output Play#0 1  The treasury has $4337.00     Military reserves: 0
+    Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
+    Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
+    Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Max population : 1000
+    Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
+    Play#0 output Play#0 1 Happiness needed is 6.61
+    Play#0 output Play#0 6 0 640
+    Play#0 input cens 0:15,-8:-1
+    Play#0 command census
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     CENSUS                   del dst
+    Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
+    Play#0 output Play#0 1   3    0,-8   -    9%     120 .. ..      130    0    0   97  37%   10    0   1
+    Play#0 output Play#0 1   3    2,-8   -   13%     120 .. ..      130    0    0   97  42%   14    0   1
+    Play#0 output Play#0 1   3    4,-8   -   15%     120 .. ..      130    0    0   97  56%   16    0   1
+    Play#0 output Play#0 1   3    6,-8   -   13%     120 .. ..      130    0    0   97  51%   14    0   1
+    Play#0 output Play#0 1   3    8,-8   -   11%     120 .. ..      130    0    0   97  39%   11    0   1
+    Play#0 output Play#0 1   3   10,-8   -   12%     120 .. ..      130    0    0   97  40%   13    0   1
+    Play#0 output Play#0 1   3   12,-8   -   14%     120 .. ..      130    0    0   97  54%   14    0   1
+    Play#0 output Play#0 1   3   14,-8   -   12%     120 .. ..      130    0    0   96  48%   13    0   1
+    Play#0 output Play#0 1   3    1,-7   -   14%     120 .. ..      130    0    0   96  54%   14    0
+    Play#0 output Play#0 1   3    3,-7   -   14%     120 .. ..      130    0    0   97  48%   15    0
+    Play#0 output Play#0 1   3    5,-7   -   13%     120 .. ..      130    0    0   97  45%   13    0
+    Play#0 output Play#0 1   3    7,-7   -   14%     120 .. ..      130    0    0   97  49%   14    0
+    Play#0 output Play#0 1   3    9,-7   -   11%     120 .. ..      130    0    0   97  48%   12    0
+    Play#0 output Play#0 1   3   11,-7   -   15%     120 .. ..      130    0    0   96  58%   16    0
+    Play#0 output Play#0 1   3   13,-7   -   10%     120 .. ..      130    0    0   97  43%   11    0
+    Play#0 output Play#0 1   3   15,-7   -   10%     120 .. ..      130    0    0   97  41%   10    0   1
+    Play#0 output Play#0 1   3    0,-6   -   11%     120 .. ..      130    0    0   97  42%   12    0
+    Play#0 output Play#0 1   3    2,-6   -   15%     120 .. ..      130    0    0   97  56%   15    0
+    Play#0 output Play#0 1   3    4,-6   -   10%     120 .. ..      130    0    0   97  42%   10    0
+    Play#0 output Play#0 1   3    6,-6   -   11%     120 .. ..      130    0    0   97  47%   12    0
+    Play#0 output Play#0 1   3    8,-6   -    9%     120 .. ..      130    0    0   97  36%   10    0
+    Play#0 output Play#0 1   3   10,-6   -   13%     120 .. ..      130    0    0   97  45%   13    0
+    Play#0 output Play#0 1   3   12,-6   -   13%     120 .. ..      130    0    0   97  51%   14    0
+    Play#0 output Play#0 1   3   14,-6   -   14%     120 .. ..      130    0    0   96  48%   15    0   1
+    Play#0 output Play#0 1   3    1,-5   -   13%     120 .. ..      130    0    0   97  52%   14    0
+    Play#0 output Play#0 1   3    3,-5   -   11%     120 .. ..      130    0    0   97  48%   12    0
+    Play#0 output Play#0 1   3    5,-5   -   11%     120 .. ..      130    0    0   96  44%   12    0
+    Play#0 output Play#0 1   3    7,-5   -   12%     120 .. ..      127    0    0   97  48%   13    0
+    Play#0 output Play#0 1   3    9,-5   -   14%     120 .. ..      130    0    0   97  44%   14    0
+    Play#0 output Play#0 1   3   11,-5   -   13%     120 .. ..      130    0    0   96  42%   13    0
+    Play#0 output Play#0 1   3   13,-5   -   13%     120 .. ..      130    0    0   96  45%   13    0
+    Play#0 output Play#0 1   3   15,-5   -   10%     120 .. ..      130    0    0   97  45%   11    0   1
+    Play#0 output Play#0 1   3    0,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3    2,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3    4,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3    6,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3    8,-4   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   3   10,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3   12,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3   14,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   3    1,-3   -   39%     120 .. ..   5  130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3    3,-3   -   39%     120 .. ..   5  130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3    5,-3   -   39%     120 .. ..   5  130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3    7,-3   -   39%     120 .. ..   5  130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3    9,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3   11,-3   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   3   13,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3   15,-3   -   39%     120 .. ..   5  130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   3    0,-2   ^  100%     120 .. ..      100  150  100   86  68%  114    0
+    Play#0 output Play#0 1   3    2,-2   +  100%     120 .. ..      130    0    0   97  58%   50    0
+    Play#0 output Play#0 1   3    4,-2   +  100%     120 .. ..      130    0    0   96  66%   81    0
+    Play#0 output Play#0 1   3    6,-2   +  100%     120 .. ..      390    0    0   91  72%  178    0
+    Play#0 output Play#0 1   3    8,-2   +  100%     120 .. ..      130    0    0   97 100%   75    0
+    Play#0 output Play#0 1   3   10,-2   w   14%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   3   12,-2   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3   14,-2   -   39%     120 .. ..      130    0    0   96 100%   39    0   1
+    Play#0 output Play#0 1   3    1,-1   c  100%     120 .. ..     9999    0    0  100 100% 5999    0
+    Play#0 output Play#0 1   3    3,-1   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   3    5,-1   u  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   3    7,-1   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   3    9,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3   11,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3   13,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   3   15,-1   h  100%     120 .. ..      130   20    0   96 100%   82    0   1
+    Play#0 output Play#0 1 64 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input comm 0:15,-8:-1
+    Play#0 command commodity
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1    COMMODITIES deliver--  distribute
+    Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
+    Play#0 output Play#0 1   3   0,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   2,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   4,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   6,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   8,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  10,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  12,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  14,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   1,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   3,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   5,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   7,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   9,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  11,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  13,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  15,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   0,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   2,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   4,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   6,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   8,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  10,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  12,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  14,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   1,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   3,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   5,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   7,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   9,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  11,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  13,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  15,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   0,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   2,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   4,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   6,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   8,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  10,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  12,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  14,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   1,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   3,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   5,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   7,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   9,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  11,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  13,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  15,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   0,-2   ^ .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   2,-2   + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   4,-2   + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   6,-2   + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   8,-2   + .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  10,-2   w .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  12,-2   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  14,-2   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   1,-1   c .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   3,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   5,-1   u .......... ..........   0   0    0    0    0   0    0    0    0  67
+    Play#0 output Play#0 1   3   7,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3   9,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  11,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  13,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   3  15,-1   h .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1 64 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input peek 0:15,-8:-1
+    Play#0 command peek
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     HIDDEN VALUES           che-------  plague----
+    Play#0 output Play#0 1 own   sect        eff loyal cnum value  stage time mines
+    Play#0 output Play#0 1   3    0,-8   -    9%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    2,-8   -   13%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3    4,-8   -   15%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    6,-8   -   13%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    8,-8   -   11%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3   10,-8   -   12%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3   12,-8   -   14%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3   14,-8   -   12%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3    1,-7   -   14%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    3,-7   -   14%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3    5,-7   -   13%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    7,-7   -   14%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    9,-7   -   11%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   11,-7   -   15%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3   13,-7   -   10%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   15,-7   -   10%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    0,-6   -   11%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    2,-6   -   15%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    4,-6   -   10%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    6,-6   -   11%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    8,-6   -    9%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   10,-6   -   13%   127    0    0      0     0    0
+    Play#0 output Play#0 1   3   12,-6   -   13%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   14,-6   -   14%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    1,-5   -   13%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    3,-5   -   11%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    5,-5   -   11%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    7,-5   -   12%   112    3    2      0     0    0
+    Play#0 output Play#0 1   3    9,-5   -   14%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   11,-5   -   13%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   13,-5   -   13%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3   15,-5   -   10%   112    0    0      0     0    0
+    Play#0 output Play#0 1   3    0,-4   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    2,-4   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    4,-4   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    6,-4   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    8,-4   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   10,-4   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   12,-4   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   14,-4   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    1,-3   -   39%    25    0    0      0     0    0
+    Play#0 output Play#0 1   3    3,-3   -   39%    25    0    0      0     0    0
+    Play#0 output Play#0 1   3    5,-3   -   39%    25    0    0      0     0    0
+    Play#0 output Play#0 1   3    7,-3   -   39%    48    0    0      0     0    0
+    Play#0 output Play#0 1   3    9,-3   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   11,-3   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   13,-3   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   15,-3   -   39%    12    0    0      0     0    0
+    Play#0 output Play#0 1   3    0,-2   ^  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    2,-2   +  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    4,-2   +  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    6,-2   +  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    8,-2   +  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   10,-2   w   14%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   12,-2   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   14,-2   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    1,-1   c  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    3,-1   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    5,-1   u  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    7,-1   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3    9,-1   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   11,-1   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   13,-1   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   3   15,-1   h  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1 64 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input ship 0:31,-16:-1
+    Play#0 command ship
+    Play#0 output Play#0 1 own shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
+    Play#0 output Play#0 1   1   61 cs   cargo ship    15,-1       20%   0   0   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1   7   62 cs   cargo ship    15,-1       20%   0   0   0   0  0  0  0  0  90   20
+    Play#0 output Play#0 1 2 ships
+    Play#0 output Play#0 6 0 640
+    Play#0 input plane 0:31,-16:-1
+    Play#0 command plane
+    Play#0 output Play#0 1 0:31,-16:-1: No plane(s)
+    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 6 0 640
+    Play#0 input land 0:31,-16:-1
+    Play#0 command land
+    Play#0 output Play#0 1 0:31,-16:-1: No unit(s)
+    Play#0 output Play#0 1 command failed
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 4
+    Play#0 command read
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Revolutionary subversion reported in -16,-8!
+    Play#0 output Play#0 1 Partisans take over -16,-8!
+    Play#0 output Play#0 1 Revolutionary subversion reported in -14,-8!
+    Play#0 output Play#0 1 Partisans take over -14,-8!
+    Play#0 output Play#0 1 Revolutionary subversion reported in -12,-8!
+    Play#0 output Play#0 1 Revolutionary subversion reported in -15,-7!
+    Play#0 output Play#0 1 PLAGUE deaths reported in -16,-6.
+    Play#0 output Play#0 1 PLAGUE deaths reported in -14,-6.
+    Play#0 output Play#0 1 PLAGUE deaths reported in -12,-6.
+    Play#0 output Play#0 1 PLAGUE deaths reported in -10,-6.
+    Play#0 output Play#0 1 PLAGUE deaths reported in -8,-6.
+    Play#0 output Play#0 1 PLAGUE deaths reported in -6,-6.
+    Play#0 output Play#0 1 PLAGUE deaths reported in -4,-6.
+    Play#0 output Play#0 1 PLAGUE deaths reported in -2,-6.
+    Play#0 output Play#0 1 -15,-5 battling PLAGUE
+    Play#0 output Play#0 1 -13,-5 battling PLAGUE
+    Play#0 output Play#0 1 -11,-5 battling PLAGUE
+    Play#0 output Play#0 1 -9,-5 battling PLAGUE
+    Play#0 output Play#0 1 -7,-5 battling PLAGUE
+    Play#0 output Play#0 1 -5,-5 battling PLAGUE
+    Play#0 output Play#0 1 -3,-5 battling PLAGUE
+    Play#0 output Play#0 1 -1,-5 battling PLAGUE
+    Play#0 output Play#0 1 -16,-4 battling PLAGUE
+    Play#0 output Play#0 1 -14,-4 battling PLAGUE
+    Play#0 output Play#0 1 -12,-4 battling PLAGUE
+    Play#0 output Play#0 1 -10,-4 battling PLAGUE
+    Play#0 output Play#0 1 -8,-4 battling PLAGUE
+    Play#0 output Play#0 1 -6,-4 battling PLAGUE
+    Play#0 output Play#0 1 Outbreak of PLAGUE in -4,-4!
+    Play#0 output Play#0 1 Outbreak of PLAGUE in -2,-4!
+    Play#0 output Play#0 1 Outbreak of PLAGUE in -15,-3!
+    Play#0 output Play#0 1 Outbreak of PLAGUE in -11,-3!
+    Play#0 output Play#0 1 Outbreak of PLAGUE in -1,-3!
+    Play#0 output Play#0 1 1 satellite spotted over -4,-4
+    Play#0 output Play#0 1 PLAGUE deaths reported on cs   cargo ship (#10)
+    Play#0 output Play#0 1 cs   cargo ship (#11) battling PLAGUE
+    Play#0 output Play#0 1 cs   cargo ship (#12) battling PLAGUE
+    Play#0 output Play#0 1 cs   cargo ship (#13) battling PLAGUE
+    Play#0 output Play#0 1 cs   cargo ship (#14) battling PLAGUE
+    Play#0 output Play#0 1 Outbreak of PLAGUE on cs   cargo ship (#15)!
+    Play#0 output Play#0 1 Outbreak of PLAGUE on cs   cargo ship (#16)!
+    Play#0 output Play#0 1 Outbreak of PLAGUE on cs   cargo ship (#19)!
+    Play#0 output Play#0 1 PLAGUE deaths reported on inf  infantry #10
+    Play#0 output Play#0 1 inf  infantry #11 battling PLAGUE
+    Play#0 output Play#0 1 inf  infantry #12 battling PLAGUE
+    Play#0 output Play#0 1 inf  infantry #13 battling PLAGUE
+    Play#0 output Play#0 1 inf  infantry #14 battling PLAGUE
+    Play#0 output Play#0 1 Outbreak of PLAGUE on inf  infantry #15!
+    Play#0 output Play#0 1 Outbreak of PLAGUE on inf  infantry #16!
+    Play#0 output Play#0 1 Outbreak of PLAGUE on inf  infantry #17!
+    Play#0 output Play#0 1 Outbreak of PLAGUE on inf  infantry #19!
+    Play#0 output Play#0 1 Technology level too low to produce in -5,-1 (need 40)
+    Play#0 output Play#0 1 Education level too low to produce in -3,-1 (need 5)
+    Play#0 output Play#0 1   0 happiness,   0 education produced
+    Play#0 output Play#0 1 total pop was 24000, yielding 0.00 hap, 0.00 edu
+    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
+    Play#0 output Play#0 1 Army delta $-600, Navy delta $-300, Air force delta $0
+    Play#0 output Play#0 1 money delta was $-4749 for this update
+    Play#0 output Play#0 6 0 640
+    Play#0 input nation 4
+    Play#0 command nation
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 (#4) 4 Nation Report	Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
+    Play#0 output Play#0 1 100% eff capital at -1,-1 has 130 civilians & 0 military
+    Play#0 output Play#0 1  The treasury has $20251.00     Military reserves: 0
+    Play#0 output Play#0 1 Education..........  3.05       Happiness.......  4.44
+    Play#0 output Play#0 1 Technology......... 31.52       Research........  1.69
+    Play#0 output Play#0 1 Technology factor : 35.21%     Plague factor :   1.29%
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Max population : 1000
+    Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
+    Play#0 output Play#0 1 Happiness needed is 0.80
+    Play#0 output Play#0 6 0 640
+    Play#0 input cens -16:-1,-8:-1
+    Play#0 command census
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     CENSUS                   del dst
+    Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
+    Play#0 output Play#0 1   5  -16,-8   -    0%     120 .. ..      123    5    0   97 100%    0    0   1
+    Play#0 output Play#0 1   5  -14,-8   b  100%     120 .. ..      123    5    0   97 100%    0    0   1
+    Play#0 output Play#0 1   4  -12,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   4  -10,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   4   -8,-8   -   39%     120 .. ..      130    0    0   96 100%   39    0   1
+    Play#0 output Play#0 1   4   -6,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   4   -4,-8   -   39%     120 .. ..      130    0    0   96 100%   39    0   1
+    Play#0 output Play#0 1   4   -2,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   4  -15,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   4  -13,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4  -11,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -9,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -7,-7   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   4   -5,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -3,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -1,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   0  -16,-6   -    0%      60 .. ..        0    0    0  100  50%    0    0   1
+    Play#0 output Play#0 1   4  -14,-6   -    0%     120 .. ..        0    2    0  100 100%    0    0
+    Play#0 output Play#0 1   4  -12,-6   *  100%     120 .. ..       26    0    0  100  70%   29    0
+    Play#0 output Play#0 1   4  -10,-6   -    0%     120 .. ..        0    0    0  100  61%    0    0
+    Play#0 output Play#0 1   0   -8,-6   -    0%      60 .. ..        0    0   20  100  50%    0    0
+    Play#0 output Play#0 1   4   -6,-6   -    4%     120 .. ..       26    0    0   99  71%    4    0
+    Play#0 output Play#0 1   4   -4,-6   -    4%     120 .. ..       26    0    0  100  69%    4    0
+    Play#0 output Play#0 1   4   -2,-6   -    4%     120 .. ..       26    0    0   99  66%    4    0
+    Play#0 output Play#0 1   4  -15,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   4  -13,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4  -11,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -9,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -7,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -5,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -3,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -1,-5   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4  -16,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   4  -14,-4   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   4  -12,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4  -10,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -8,-4   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   4   -6,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -4,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -2,-4   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4  -15,-3   -   39%     120 .. ..      130    0    0   96 100%   39    0   1
+    Play#0 output Play#0 1   4  -13,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4  -11,-3   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   4   -9,-3   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   4   -7,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -5,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -3,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -1,-3   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4  -16,-2   -  100%      60 .. ..     1000    0 1000  235 100% 1100    0   1
+    Play#0 output Play#0 1   4  -14,-2   -  100%      60 .. ..     1000    0 1000  235 100% 1100    0
+    Play#0 output Play#0 1   4  -12,-2   -  100%      60 .. ..     1000    0 1000  235 100% 1100    0
+    Play#0 output Play#0 1   4  -10,-2   -  100%      60 .. ..     1000    0 1000  235 100% 1100    0
+    Play#0 output Play#0 1   4   -8,-2   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -6,-2   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -4,-2   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   4   -2,-2   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4  -15,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   4  -13,-1   -   39%     120 .. ..      130    0    0   96 100%   39    0
+    Play#0 output Play#0 1   4  -11,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -9,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -7,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4   -5,-1   u  100%     120 .. ..      130    0    0   96 100%   78    0
+    Play#0 output Play#0 1   4   -3,-1   t  100%     120 .. ..      130    0    0   97 100%   78    0
+    Play#0 output Play#0 1   4   -1,-1   c  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1 64 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input comm -16:-1,-8:-1
+    Play#0 command commodity
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1    COMMODITIES deliver--  distribute
+    Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
+    Play#0 output Play#0 1   5 -16,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   5 -14,-8   b .......... ..........   0   0    0    0   20 100    0    0    0   0
+    Play#0 output Play#0 1   4 -12,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -10,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -8,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -6,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -4,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -2,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -15,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -13,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -11,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -9,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -7,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -5,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -3,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -1,-7   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   0 -16,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -12,-6   * .......... ..........   0   0    0    0    0   0    0    3    8   0
+    Play#0 output Play#0 1   4 -10,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   0  -8,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -6,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -4,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -2,-6   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -15,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -13,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -11,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -9,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -7,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -5,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -3,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -1,-5   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -16,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -14,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -12,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -10,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -8,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -6,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -4,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -2,-4   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -15,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -13,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -11,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -9,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -7,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -5,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -3,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -1,-3   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -16,-2   - .......... ..........   0   0    0 5000    0   0 1000    0    01000
+    Play#0 output Play#0 1   4 -14,-2   - .......... ..........   0   0    0 5000    0   0 1000    0    01000
+    Play#0 output Play#0 1   4 -12,-2   - .......... ..........   0   0    0 5000    0   0 1000    0    01000
+    Play#0 output Play#0 1   4 -10,-2   - .......... ..........   0   0    0 5000    0   0 1000    0    01000
+    Play#0 output Play#0 1   4  -8,-2   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -6,-2   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -4,-2   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -2,-2   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -15,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -13,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4 -11,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -9,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -7,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -5,-1   u .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   4  -3,-1   t .......... ..........   0   0    0    0    1   0    5   10    0   0
+    Play#0 output Play#0 1   4  -1,-1   c .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1 64 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input peek -16:-1,-8:-1
+    Play#0 command peek
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     HIDDEN VALUES           che-------  plague----
+    Play#0 output Play#0 1 own   sect        eff loyal cnum value  stage time mines
+    Play#0 output Play#0 1   5  -16,-8   -    0%     0    0    0      0     0    0
+    Play#0 output Play#0 1   5  -14,-8   b  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4  -12,-8   -   39%    10    4   10      0     0    0
+    Play#0 output Play#0 1   4  -10,-8   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -8,-8   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -6,-8   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -4,-8   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -2,-8   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4  -15,-7   -   39%     0    4   10      0     0    0
+    Play#0 output Play#0 1   4  -13,-7   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4  -11,-7   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -9,-7   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -7,-7   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -5,-7   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -3,-7   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -1,-7   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   0  -16,-6   -    0%     0    0    0      0    41    0
+    Play#0 output Play#0 1   4  -14,-6   -    0%     0    0    0      0    87    0
+    Play#0 output Play#0 1   4  -12,-6   *  100%     0    0    0      0    84    0
+    Play#0 output Play#0 1   4  -10,-6   -    0%     0    0    0      0    86    0
+    Play#0 output Play#0 1   0   -8,-6   -    0%     0    0    0      0    84    0
+    Play#0 output Play#0 1   4   -6,-6   -    4%     0    0    0      0    45    0
+    Play#0 output Play#0 1   4   -4,-6   -    4%     0    0    0      1     1    0
+    Play#0 output Play#0 1   4   -2,-6   -    4%     0    0    0      1     1    0
+    Play#0 output Play#0 1   4  -15,-5   -   39%     0    0    0      1    70    0
+    Play#0 output Play#0 1   4  -13,-5   -   39%     0    0    0      1    63    0
+    Play#0 output Play#0 1   4  -11,-5   -   39%     0    0    0      1    51    0
+    Play#0 output Play#0 1   4   -9,-5   -   39%     0    0    0      1    82    0
+    Play#0 output Play#0 1   4   -7,-5   -   39%     0    0    0      1    57    0
+    Play#0 output Play#0 1   4   -5,-5   -   39%     0    0    0      1    50    0
+    Play#0 output Play#0 1   4   -3,-5   -   39%     0    0    0      2     1    0
+    Play#0 output Play#0 1   4   -1,-5   -   39%     0    0    0      2     1    0
+    Play#0 output Play#0 1   4  -16,-4   -   39%     0    0    0      2    56    0
+    Play#0 output Play#0 1   4  -14,-4   -   39%     0    0    0      2    89    0
+    Play#0 output Play#0 1   4  -12,-4   -   39%     0    0    0      2    52    0
+    Play#0 output Play#0 1   4  -10,-4   -   39%     0    0    0      2    50    0
+    Play#0 output Play#0 1   4   -8,-4   -   39%     0    0    0      2    79    0
+    Play#0 output Play#0 1   4   -6,-4   -   39%     0    0    0      2    68    0
+    Play#0 output Play#0 1   4   -4,-4   -   39%     0    0    0      3     1    0
+    Play#0 output Play#0 1   4   -2,-4   -   39%     0    0    0      3     1    0
+    Play#0 output Play#0 1   4  -15,-3   -   39%     0    0    0      3    37    0
+    Play#0 output Play#0 1   4  -13,-3   -   39%     0    0    0      3    83    0
+    Play#0 output Play#0 1   4  -11,-3   -   39%     0    0    0      3    56    0
+    Play#0 output Play#0 1   4   -9,-3   -   39%     0    0    0      3    69    0
+    Play#0 output Play#0 1   4   -7,-3   -   39%     0    0    0      3    63    0
+    Play#0 output Play#0 1   4   -5,-3   -   39%     0    0    0      3    61    0
+    Play#0 output Play#0 1   4   -3,-3   -   39%     0    0    0      3    67    0
+    Play#0 output Play#0 1   4   -1,-3   -   39%     0    0    0      3    48    0
+    Play#0 output Play#0 1   4  -16,-2   -  100%     0    0    0      4     0    0
+    Play#0 output Play#0 1   4  -14,-2   -  100%     0    0    0      4     0    0
+    Play#0 output Play#0 1   4  -12,-2   -  100%     0    0    0      4     0    0
+    Play#0 output Play#0 1   4  -10,-2   -  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -8,-2   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -6,-2   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -4,-2   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -2,-2   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4  -15,-1   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4  -13,-1   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4  -11,-1   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -9,-1   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -7,-1   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -5,-1   u  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -3,-1   t  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4   -1,-1   c  100%     0    0    0      0     0    0
+    Play#0 output Play#0 1 64 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input ship -32:-1,-16:-1
+    Play#0 command ship
+    Play#0 output Play#0 1 own shp#     ship type       x,y   fl   eff civ mil  uw  fd pn he xl ln mob tech
+    Play#0 output Play#0 1   4   10 cs   cargo ship   -18,-6      100%  20   2   0  17  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   11 cs   cargo ship   -18,-6      100% 100  10   1  16  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   12 cs   cargo ship   -18,-6      100% 100  10   1  17  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   13 cs   cargo ship   -18,-6      100% 100  10   1  17  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   14 cs   cargo ship   -18,-6      100% 100  10   1  17  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   15 cs   cargo ship   -18,-6      100% 100  10   1  16  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   16 cs   cargo ship   -18,-6      100% 100  10   1  17  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   17 cs   cargo ship   -18,-6      100% 100  10   1  17  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   18 cs   cargo ship   -18,-6      100% 100  10   1  16  0  0  0  0  90   20
+    Play#0 output Play#0 1   4   19 cs   cargo ship   -18,-6      100% 100  10   1  16  0  0  0  0  90   20
+    Play#0 output Play#0 1 10 ships
+    Play#0 output Play#0 6 0 640
+    Play#0 input plane -32:-1,-16:-1
+    Play#0 command plane
+    Play#0 output Play#0 1 own    #    type                x,y    w   eff  mu def tech ran hard carry special
+    Play#0 output Play#0 1   1    1 lst  landsat          -4,-4      100%  60   3  245  41    0       orbit
+    Play#0 output Play#0 1   1  100 f1   Sopwith Camel   -12,-6      100%  60   1   50   4    0
+    Play#0 output Play#0 1 2 planes
+    Play#0 output Play#0 6 0 640
+    Play#0 input land -32:-1,-16:-1
+    Play#0 command land
+    Play#0 output Play#0 1 own    # unit type          x,y    a   eff mil frt  mu  fd tch retr xl ln carry
+    Play#0 output Play#0 1   4   10 inf  infantry    -10,-6      100%  20   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   4   11 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   4   12 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   4   13 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   4   14 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   4   15 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   4   16 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   4   17 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   4   18 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1   4   19 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
+    Play#0 output Play#0 1 10 units
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 5
+    Play#0 command read
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Sector -16,-8 has been retaken!
+    Play#0 output Play#0 1 Sector -14,-8 has been retaken!
+    Play#0 output Play#0 1   0 happiness,   0 education produced
+    Play#0 output Play#0 1 total pop was 190, yielding 0.00 hap, 0.00 edu
+    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
+    Play#0 output Play#0 1 money delta was $0 for this update
+    Play#0 output Play#0 6 0 640
+    Play#0 input nation 5
+    Play#0 command nation
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 (#5) 5 Nation Report	Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 99
+    Play#0 output Play#0 1 No capital (was at -16,-8).
+    Play#0 output Play#0 1  The treasury has $25000.00     Military reserves: 0
+    Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
+    Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
+    Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Max population : 1000
+    Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
+    Play#0 output Play#0 1 Happiness needed is 6.61
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 6
+    Play#0 command read
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1   0 happiness,   0 education produced
+    Play#0 output Play#0 1 total pop was 4000, yielding 0.00 hap, 0.00 edu
+    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
+    Play#0 output Play#0 1 Army delta $-240, Navy delta $-540, Air force delta $-267
+    Play#0 output Play#0 1 money delta was $-188 for this update
+    Play#0 output Play#0 6 0 640
+    Play#0 input nation 6
+    Play#0 command nation
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 (#6) 6 Nation Report	Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
+    Play#0 output Play#0 1 100% eff capital at 0,8 has 650 civilians & 20 military
+    Play#0 output Play#0 1  The treasury has $24812.00     Military reserves: 0
+    Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
+    Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
+    Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Max population : 1000
+    Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
+    Play#0 output Play#0 1 Happiness needed is 6.61
+    Play#0 output Play#0 6 0 640
+    Play#0 input cens 0:15,8
+    Play#0 command census
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     CENSUS                   del dst
+    Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
+    Play#0 output Play#0 1   6    0,8    c  100%     120 .. ..      650   20    0   83 100%  394    0   1
+    Play#0 output Play#0 1   6    2,8    -  100%     120 .. ..      650   20    0   83 100%  294    0   1
+    Play#0 output Play#0 1   6    4,8    f  100%     120 .. ..      650   20    0   84 100%  444    0   1
+    Play#0 output Play#0 1   6    6,8    *  100%     120 .. ..      650   18    0   84 100%  444    0   1
+    Play#0 output Play#0 1   6    8,8    h  100%     120 .. ..      650   20    0   84 100%  444    0   1
+    Play#0 output Play#0 1   6   10,8    !  100%     120 .. ..      650   20    0   83 100%  394    0   1
+    Play#0 output Play#0 1   6   12,8    *  100%     120 .. ..      650   20    0   84 100%  394    0   1
+    Play#0 output Play#0 1   6   14,8    h  100%     120 .. ..      650   20    0   83 100%  394    0   1
+    Play#0 output Play#0 1 8 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input comm 0:15,8
+    Play#0 command commodity
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1    COMMODITIES deliver--  distribute
+    Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
+    Play#0 output Play#0 1   6   0,8    c .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1   6   2,8    - .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1   6   4,8    f .......... ..........   0   0    0    0    0   0    0  391  395   0
+    Play#0 output Play#0 1   6   6,8    * .......... ..........   0   0    0    0    0   0    0  386  397   0
+    Play#0 output Play#0 1   6   8,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1   6  10,8    ! .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1   6  12,8    * .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1   6  14,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1 8 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input read 7
+    Play#0 command read
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1   0 happiness,   0 education produced
+    Play#0 output Play#0 1 total pop was 4000, yielding 0.00 hap, 0.00 edu
+    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
+    Play#0 output Play#0 1 Army delta $0, Navy delta $-70, Air force delta $0
+    Play#0 output Play#0 1 money delta was $828 for this update
+    Play#0 output Play#0 6 0 640
+    Play#0 input nation 7
+    Play#0 command nation
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 (#7) 7 Nation Report	Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
+    Play#0 output Play#0 1 100% eff capital at -2,8 has 650 civilians & 20 military
+    Play#0 output Play#0 1  The treasury has $25828.00     Military reserves: 0
+    Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
+    Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
+    Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
+    Play#0 output Play#0 1
+    Play#0 output Play#0 1 Max population : 1000
+    Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
+    Play#0 output Play#0 1 Happiness needed is 6.61
+    Play#0 output Play#0 6 0 640
+    Play#0 input cens -16:-1,8
+    Play#0 command census
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     CENSUS                   del dst
+    Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
+    Play#0 output Play#0 1   7  -16,8    -  100%     120 .. ..      650   20    0   83 100%  294    0   1
+    Play#0 output Play#0 1   7  -14,8    h  100%     120 .. ..      650   20    0   84 100%  394    0   1
+    Play#0 output Play#0 1   7  -12,8    *  100%     120 .. ..      650   20    0   84 100%  394    0   1
+    Play#0 output Play#0 1   7  -10,8    !  100%     120 .. ..      650   20    0   83 100%  394    0   1
+    Play#0 output Play#0 1   7   -8,8    h  100%     120 .. ..      650   20    0   83 100%  444    0   1
+    Play#0 output Play#0 1   7   -6,8    *  100%     120 .. ..      650   20    0   84 100%  444    0   1
+    Play#0 output Play#0 1   7   -4,8    f  100%     120 .. ..      650   20    0   83 100%  444    0   1
+    Play#0 output Play#0 1   7   -2,8    c  100%     120 .. ..      650   20    0   84 100%  394    0   1
+    Play#0 output Play#0 1 8 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input comm -16:-1,8
+    Play#0 command commodity
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1    COMMODITIES deliver--  distribute
+    Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
+    Play#0 output Play#0 1   7 -16,8    - .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1   7 -14,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1   7 -12,8    * .......... ..........   0   0    0    0    0   0    0  398  400   0
+    Play#0 output Play#0 1   7 -10,8    ! .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1   7  -8,8    h .......... ..........   0   0    0    0    0   0    0  352  368   0
+    Play#0 output Play#0 1   7  -6,8    * .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1   7  -4,8    f .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1   7  -2,8    c .......... ..........   0   0    0    0    0   0    0  400  400   0
+    Play#0 output Play#0 1 8 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input reso * ?min>0
+    Play#0 command resource
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     RESOURCE
+    Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
+    Play#0 output Play#0 1   2   -1,3    t  100%  100    0    0   0    0
+    Play#0 output Play#0 1   1    1,3    m  100%  100    0    0   0    0
+    Play#0 output Play#0 1   1    3,3    m   40%  100    0    0   0    0
+    Play#0 output Play#0 1   1  -16,4    m  100%   10    0    0   0    0
+    Play#0 output Play#0 1   1  -14,4    m  100%  100    0    0   0    0
+    Play#0 output Play#0 1   1  -12,4    m   69%  100    0    0   0    0
+    Play#0 output Play#0 1 6 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input reso * ?gold>0
+    Play#0 command resource
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     RESOURCE
+    Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
+    Play#0 output Play#0 1   1   -8,4    g  100%    0    9    0   0    0
+    Play#0 output Play#0 1   1   -6,4    g  100%    0   85    0   0    0
+    Play#0 output Play#0 1   1   -2,4    ^  100%    0   88    0   0    0
+    Play#0 output Play#0 1 3 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input reso * ?fert>0
+    Play#0 command resource
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     RESOURCE
+    Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
+    Play#0 output Play#0 1   1   13,1    a  100%    0    0  100   0    0
+    Play#0 output Play#0 1   1   15,1    a  100%    0    0  100   0    0
+    Play#0 output Play#0 1   1    0,4    a  100%    0    0   10   0    0
+    Play#0 output Play#0 1   1    2,4    a  100%    0    0  100   0    0
+    Play#0 output Play#0 1   1    4,4    a  100%    0    0  100   0    0
+    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10  10    0
+    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
+    Play#0 output Play#0 1   0   20,4    .    0%    0    0  100  94    0
+    Play#0 output Play#0 1 8 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input reso * ?ocont>0
+    Play#0 command resource
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     RESOURCE
+    Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
+    Play#0 output Play#0 1   1    8,4    o  100%    0    0    0   9    0
+    Play#0 output Play#0 1   1   10,4    o  100%    0    0    0  92    0
+    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10  10    0
+    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
+    Play#0 output Play#0 1   0   20,4    .    0%    0    0  100  94    0
+    Play#0 output Play#0 1 5 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input reso * ?uran>0
+    Play#0 command resource
+    Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1     RESOURCE
+    Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
+    Play#0 output Play#0 1   4   -5,-1   u  100%    0    0    0   0  100
+    Play#0 output Play#0 1   3    5,-1   u  100%    0    0    0   0   73
+    Play#0 output Play#0 1   1  -15,5    u  100%    0    0    0   0    8
+    Play#0 output Play#0 1   1  -13,5    u  100%    0    0    0   0   72
+    Play#0 output Play#0 1   1  -11,5    u  100%    0    0    0   0    1
+    Play#0 output Play#0 1 5 sectors
+    Play#0 output Play#0 6 0 640
+    Play#0 input ctld
+    Play#0 output Play#0 1 Bye-bye
+    Play#0 logout 0
+    Play#0 output Play#0 3 so long...
+      Main shutdown
