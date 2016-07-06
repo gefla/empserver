@@ -32,6 +32,7 @@
 
 #include <config.h>
 
+#include <math.h>
 #include "chance.h"
 #include "nat.h"
 #include "optlist.h"
@@ -40,7 +41,7 @@
 #include "prototypes.h"
 #include "update.h"
 
-static void materials_charge(struct pchrstr *, short *, int);
+static void materials_charge(struct pchrstr *, short *, double);
 
 static char *levelnames[] = {
     "Technology", "Research", "Education", "Happiness"
@@ -55,12 +56,10 @@ produce(struct natstr *np, struct sctstr *sp)
     double prodeff;
     unsigned char *resource;
     double output;
-    int actual;
     int unit_work, work_used;
     i_type item;
-    double worker_limit;
-    int material_limit, res_limit;
-    int material_consume;
+    double material_limit, worker_limit, res_limit;
+    double material_consume;
     int val;
     double cost;
 
@@ -75,8 +74,6 @@ produce(struct natstr *np, struct sctstr *sp)
 
     material_limit = prod_materials_cost(product, sp->sct_item,
 					 &unit_work);
-    if (material_limit <= 0)
-	return;
 
     /* sector p.e. */
     p_e = sp->sct_effic / 100.0;
@@ -92,10 +89,12 @@ produce(struct natstr *np, struct sctstr *sp)
 
     material_consume = res_limit;
     if (material_consume > worker_limit)
-	material_consume = (int)worker_limit;
+	material_consume = worker_limit;
     if (material_consume > material_limit)
 	material_consume = material_limit;
-    if (material_consume == 0)
+    if (CANT_HAPPEN(material_consume < 0.0))
+	material_consume = 0.0;
+    if (material_consume == 0.0)
 	return;
 
     prodeff = prod_eff(sp->sct_type, np->nat_level[product->p_nlndx]);
@@ -111,32 +110,26 @@ produce(struct natstr *np, struct sctstr *sp)
      */
     output = material_consume * prodeff;
     if (item == I_NONE) {
-	actual = ldround(output, 1);
 	if (!player->simulation) {
 	    levels[sp->sct_own][product->p_level] += output;
 	    wu(0, sp->sct_own, "%s (%.2f) produced in %s\n",
 	       product->p_name, output, ownxy(sp));
 	}
     } else {
-	actual = roundavg(output);
-	if (actual <= 0)
-	    return;
-	if (actual > 999) {
-	    actual = 999;
-	    material_consume = roundavg(actual / prodeff);
-	}
-	if (sp->sct_item[item] + actual > ITEM_MAX) {
-	    actual = ITEM_MAX - sp->sct_item[item];
-	    material_consume = roundavg(actual / prodeff);
-	    if (material_consume < 0)
-		material_consume = 0;
+	output = floor(output);
+	if (output > 999.0)
+	    output = 999.0;
+	if (sp->sct_item[item] + output > ITEM_MAX) {
+	    output = ITEM_MAX - sp->sct_item[item];
 	    if (sp->sct_own && !player->simulation)
 		wu(0, sp->sct_own,
 		   "%s production backlog in %s\n",
 		   product->p_name, ownxy(sp));
 	}
-	sp->sct_item[item] += actual;
+	material_consume = output / prodeff;
+	sp->sct_item[item] += output;
     }
+
     /*
      * Reset produced amount by commodity production ratio
      */
@@ -161,7 +154,7 @@ produce(struct natstr *np, struct sctstr *sp)
 	}
     }
 
-    budget->prod[sp->sct_type].count += actual;
+    budget->prod[sp->sct_type].count += ldround(output, 1);
     budget->prod[sp->sct_type].money -= cost;
     budget->money -= cost;
 
@@ -177,12 +170,11 @@ produce(struct natstr *np, struct sctstr *sp)
  * Return how much of product @pp can be made from materials @vec[].
  * Store amount of work per unit in *@costp.
  */
-int
+double
 prod_materials_cost(struct pchrstr *pp, short vec[], int *costp)
 {
-    int count;
-    int cost;
-    int i, n;
+    double count, n;
+    int cost, i;
 
     count = ITEM_MAX;
     cost = 0;
@@ -191,7 +183,7 @@ prod_materials_cost(struct pchrstr *pp, short vec[], int *costp)
 	    continue;
 	if (CANT_HAPPEN(pp->p_ctype[i] <= I_NONE || I_MAX < pp->p_ctype[i]))
 	    continue;
-	n = vec[pp->p_ctype[i]] / pp->p_camt[i];
+	n = (double)vec[pp->p_ctype[i]] / pp->p_camt[i];
 	if (n < count)
 	    count = n;
 	cost += pp->p_camt[i];
@@ -201,10 +193,11 @@ prod_materials_cost(struct pchrstr *pp, short vec[], int *costp)
 }
 
 static void
-materials_charge(struct pchrstr *pp, short *vec, int count)
+materials_charge(struct pchrstr *pp, short *vec, double count)
 {
-    int i, n;
+    int i;
     i_type item;
+    double n;
 
     for (i = 0; i < MAXPRCON; ++i) {
 	item = pp->p_ctype[i];
@@ -213,9 +206,9 @@ materials_charge(struct pchrstr *pp, short *vec, int count)
 	if (CANT_HAPPEN(item <= I_NONE || I_MAX < item))
 	    continue;
 	n = vec[item] - pp->p_camt[i] * count;
-	if (CANT_HAPPEN(n < 0))
-	    n = 0;
-	vec[item] = n;
+	if (CANT_HAPPEN(n < 0.0))
+	    n = 0.0;
+	vec[item] = roundavg(n);
     }
 }
 
@@ -223,13 +216,13 @@ materials_charge(struct pchrstr *pp, short *vec, int count)
  * Return how much of product @pp can be made from its resource.
  * If @pp depletes a resource, @resource must point to its value.
  */
-int
+double
 prod_resource_limit(struct pchrstr *pp, unsigned char *resource)
 {
     if (CANT_HAPPEN(pp->p_nrndx && !resource))
 	return 0;
     if (resource && pp->p_nrdep != 0)
-	return *resource * 100 / pp->p_nrdep;
+	return *resource * 100.0 / pp->p_nrdep;
     return ITEM_MAX;
 }
 

@@ -34,6 +34,7 @@
 
 #include <config.h>
 
+#include <math.h>
 #include "commands.h"
 #include "item.h"
 #include "optlist.h"
@@ -68,21 +69,18 @@ prod(void)
     struct nstr_sect nstr;
     struct pchrstr *pp;
     double p_e;
-    double maxr;		/* floating version of max */
     double prodeff;
-    double real;		/* floating pt version of act */
     int totpop;
-    int material_consume;	/* actual production */
+    double material_consume;	/* actual production */
     double cost;
     int i;
-    int max_consume;		/* production w/infinite materials */
+    double max_consume;		/* production w/infinite materials */
     int nsect;
-    double take;
-    double mtake;
+    double real, maxr;
+    double take, mtake;
     int there;
     int unit_work;		/* sum of component amounts */
-    int mat_limit, res_limit;
-    double worker_limit;
+    double mat_limit, worker_limit, res_limit;
     i_type it;
     i_type vtype;
     unsigned char *resource;
@@ -155,18 +153,22 @@ prod(void)
 
 	max_consume = res_limit;
 	if (max_consume > worker_limit)
-	    max_consume = (int)worker_limit;
+	    max_consume = worker_limit;
 	material_consume = MIN(max_consume, mat_limit);
 
 	prodeff = prod_eff(sect.sct_type, natp->nat_level[pp->p_nlndx]);
-	real = (double)material_consume * prodeff;
-	maxr = (double)max_consume * prodeff;
+	real = material_consume * prodeff;
+	maxr = max_consume * prodeff;
 
 	if (vtype != I_NONE) {
+	    real = floor(real);
+	    maxr = floor(maxr);
 	    real = MIN(999.0, real);
 	    maxr = MIN(999.0, maxr);
-	    if (real < 0.0)
-		real = 0.0;
+	    if (CANT_HAPPEN(real < 0.0))
+		real = 0;
+	    if (CANT_HAPPEN(maxr < 0.0))
+		maxr = 0;
 	    /* production backlog? */
 	    there = MIN(ITEM_MAX, sect.sct_item[vtype]);
 	    real = MIN(real, ITEM_MAX - there);
@@ -195,8 +197,8 @@ prod(void)
 	    if (CANT_HAPPEN(it <= I_NONE || I_MAX < it))
 		continue;
 	    cmnem[i] = ichr[it].i_mnem;
-	    cuse[i] = (int)(take * pp->p_camt[i] + 0.5);
-	    cmax[i] = (int)(mtake * pp->p_camt[i] + 0.5);
+	    cuse[i] = (int)ceil(take * pp->p_camt[i]);
+	    cmax[i] = (int)ceil(mtake * pp->p_camt[i]);
 	}
 
 	if (pp->p_type != I_NONE)

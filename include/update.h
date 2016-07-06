@@ -133,8 +133,8 @@ extern void bank_income(struct sctstr *, int);
 extern void pay_reserve(struct natstr *, int);
 /* produce.c */
 extern void produce(struct natstr *, struct sctstr *);
-extern int prod_materials_cost(struct pchrstr *, short[], int *);
-extern int prod_resource_limit(struct pchrstr *, unsigned char *);
+extern double prod_materials_cost(struct pchrstr *, short[], int *);
+extern double prod_resource_limit(struct pchrstr *, unsigned char *);
 extern double prod_eff(int, float);
 /* removewants.c */
 extern int update_removewants(void);

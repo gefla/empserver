@@ -23,15 +23,15 @@
     Play#1 input budget
     Play#1 command budget
     Play#1 output Play#1 1 Sector Type			Production			    Cost
-    Play#1 output Play#1 1 uranium mine     		317 rad    			     740
+    Play#1 output Play#1 1 uranium mine     		316 rad    			     737
     Play#1 output Play#1 1 park             		78 happy  			     702
-    Play#1 output Play#1 1 defense plant    		13 guns   			     420
-    Play#1 output Play#1 1 shell industry   		156 shells 			     528
-    Play#1 output Play#1 1 technical center 		5 tech   			    2700
-    Play#1 output Play#1 1 research lab     		6 medical			     900
+    Play#1 output Play#1 1 defense plant    		12 guns   			     405
+    Play#1 output Play#1 1 shell industry   		155 shells 			     523
+    Play#1 output Play#1 1 technical center 		6 tech   			    2962
+    Play#1 output Play#1 1 research lab     		7 medical			     979
     Play#1 output Play#1 1 library/school   		178 edu    			    1602
     Play#1 output Play#1 1 bank             		41 bars   			     410
-    Play#1 output Play#1 1 refinery         		2581 petrol 			     290
+    Play#1 output Play#1 1 refinery         		2580 petrol 			     290
     Play#1 output Play#1 1 enlistment center		75 mil    			     225
     Play#1 output Play#1 1 Ship building       		10 ships        		    1520
     Play#1 output Play#1 1 Ship maintenance    		32 ships        		    2207
@@ -42,12 +42,12 @@
     Play#1 output Play#1 1 Sector building     		40 sectors      		     774
     Play#1 output Play#1 1 Sector maintenance  		2 sectors       		     120
     Play#1 output Play#1 1 Military payroll		1164 mil, 0 res                     5820
-    Play#1 output Play#1 1 Total expenses.....................................................24692
+    Play#1 output Play#1 1 Total expenses.....................................................25009
     Play#1 output Play#1 1 Income from taxes		26911 civs, 9007 uws              +12627
     Play#1 output Play#1 1 Total income......................................................+12627
     Play#1 output Play#1 1 Balance forward						           25000
-    Play#1 output Play#1 1 Estimated delta						          -12065
-    Play#1 output Play#1 1 Estimated new treasury.............................................12935
+    Play#1 output Play#1 1 Estimated delta						          -12382
+    Play#1 output Play#1 1 Estimated new treasury.............................................12618
     Play#1 output Play#1 6 0 99
     Play#1 input neweff * ?newd#-
     Play#1 command neweff
@@ -145,35 +145,35 @@
     Play#1 output Play#1 1   -6,4    g 100%    78   78d 1.00 $0                                       78
     Play#1 output Play#1 1   -4,4    g 100%  1200  500d 1.00 $0                                      500
     Play#1 output Play#1 1   -2,4    ^ 100%    60   45d 0.75 $0                                       45
-    Play#1 output Play#1 1    0,4    a  10%    78   58f 8.25 $0                                       58
+    Play#1 output Play#1 1    0,4    a  10%    78   64f 8.25 $0                                       64
     Play#1 output Play#1 1    2,4    a 100%    80  660f 8.25 $0                                      660
     Play#1 output Play#1 1    4,4    a 100%   600  999f 8.25 $0                                      999
-    Play#1 output Play#1 1    8,4    o  10%    78    6o 0.92 $0                                        6
-    Play#1 output Play#1 1   10,4    o 100%    78   72o 0.92 $0                                       72
+    Play#1 output Play#1 1    8,4    o  10%    78    7o 0.92 $0                                        7
+    Play#1 output Play#1 1   10,4    o 100%    78   71o 0.92 $0                                       71
     Play#1 output Play#1 1  -15,5    u  10%    79    6r 0.86 $14                                       6
-    Play#1 output Play#1 1  -13,5    u 100%    78   67r 0.86 $156                                     67
-    Play#1 output Play#1 1  -11,5    u 100%  1201  244r 0.86 $570                                    244
+    Play#1 output Play#1 1  -13,5    u 100%    78   66r 0.86 $154                                     66
+    Play#1 output Play#1 1  -11,5    u 100%  1201  244r 0.86 $569                                    244
     Play#1 output Play#1 1   -7,5    i 100%    78   23s 0.89 $78     52l  26h        52l  26h         23
-    Play#1 output Play#1 1   -5,5    i 100%   390   44s 0.89 $150   100l  50h       260l 130h        116
-    Play#1 output Play#1 1   -3,5    i 100%   390   89s 0.89 $300   200l 100h       260l 130h        116
-    Play#1 output Play#1 1    1,5    d 100%    78    4g 0.89 $120     4o  20l  40h    4o  20l  40h     4
-    Play#1 output Play#1 1    3,5    d 100%   390    9g 0.89 $300    10o  50l 100h   24o 120l 240h    21
+    Play#1 output Play#1 1   -5,5    i 100%   390   44s 0.89 $148    99l  50h       259l 130h        115
+    Play#1 output Play#1 1   -3,5    i 100%   390   88s 0.89 $297   198l  99h       259l 130h        115
+    Play#1 output Play#1 1    1,5    d 100%    78    4g 0.89 $135     5o  23l  45h    5o  23l  45h     4
+    Play#1 output Play#1 1    3,5    d 100%   390    8g 0.89 $270     9o  45l  90h   24o 119l 237h    21
     Play#1 output Play#1 1    9,5    % 100%    78  693p 8.89 $78     78o             78o             693
-    Play#1 output Play#1 1   11,5    % 100%   156  889p 8.89 $100   100o            112o             999
-    Play#1 output Play#1 1   13,5    % 100%   390  999p 8.89 $112   112o            112o             999
+    Play#1 output Play#1 1   11,5    % 100%   156  888p 8.89 $100   100o            113o             999
+    Play#1 output Play#1 1   13,5    % 100%   390  999p 8.89 $112   113o            113o             999
     Play#1 output Play#1 1  -16,6    b 100%    78   15b 1.00 $150    75d             75d              15
     Play#1 output Play#1 1  -14,6    b 100%   390   20b 1.00 $200   100d            390d              78
     Play#1 output Play#1 1  -12,6    b  79%    39    6b 1.00 $60     30d             30d               6
     Play#1 output Play#1 1   -8,6    j 100%    79   72l 0.92 $0      79i             79i              72
-    Play#1 output Play#1 1   -6,6    j 100%   390   92l 0.92 $0     100i            390i             358
+    Play#1 output Play#1 1   -6,6    j 100%   390   91l 0.92 $0     100i            390i             357
     Play#1 output Play#1 1   -4,6    j 100%  1200  999l 0.92 $0    1090i           1090i             999
-    Play#1 output Play#1 1    0,6    k 100%    78   36h 0.92 $0      78i             78i              36
-    Play#1 output Play#1 1    2,6    k 100%   390   46h 0.92 $0     100i            390i             179
-    Play#1 output Play#1 1    4,6    k 100%    78   19h 0.92 $0      41i             78i              36
-    Play#1 output Play#1 1  -15,7    t 100%    78  2.40 0.60 $1200    4d  20o  40l    4d  20o  40l  2.40
-    Play#1 output Play#1 1  -13,7    t 100%   390  3.00 0.60 $1500    5d  25o  50l   24d 120o 240l 14.40
-    Play#1 output Play#1 1   -7,7    r 100%    78  2.40 0.60 $360     4d  20o  40l    4d  20o  40l  2.40
-    Play#1 output Play#1 1   -5,7    r 100%   390  3.60 0.60 $540     6d  30o  60l   24d 120o 240l 14.40
+    Play#1 output Play#1 1    0,6    k 100%    78   35h 0.92 $0      77i             77i              35
+    Play#1 output Play#1 1    2,6    k 100%   390   45h 0.92 $0      99i            389i             178
+    Play#1 output Play#1 1    4,6    k 100%    78   19h 0.92 $0      42i             77i              35
+    Play#1 output Play#1 1  -15,7    t 100%    78  2.92 0.60 $1462    5d  25o  49l    5d  25o  49l  2.92
+    Play#1 output Play#1 1  -13,7    t 100%   390  3.00 0.60 $1500    5d  25o  50l   25d 122o 244l 14.62
+    Play#1 output Play#1 1   -7,7    r 100%    78  2.92 0.60 $439     5d  25o  49l    5d  25o  49l  2.92
+    Play#1 output Play#1 1   -5,7    r 100%   390  3.60 0.60 $540     6d  30o  60l   25d 122o 244l 14.62
     Play#1 output Play#1 1    1,7    l 100%    78   78  1.00 $702    78l             78l              78
     Play#1 output Play#1 1    3,7    l 100%   390  100  1.00 $900   100l            390l             390
     Play#1 output Play#1 1    9,7    p 100%    78   78  1.00 $702    78l             78l              78
@@ -249,7 +249,7 @@
     Play#2 output Play#2 1  -14,0    b 100%  1226    0b 1.00 $0       0d           1225d             245
     Play#2 output Play#2 1  -12,0    b 100%  1256    0b 1.00 $0       0d           1255d             251
     Play#2 output Play#2 1  -10,0    b 100%  1296    0b 1.00 $0       0d           1295d             259
-    Play#2 output Play#2 1   -1,3    t 100%    78  0.60 0.60 $300     1d   5o  10l    4d  20o  40l  2.40
+    Play#2 output Play#2 1   -1,3    t 100%    78  0.60 0.60 $300     1d   5o  10l    5d  25o  49l  2.92
     Play#2 output Play#2 1 5 sectors
     Play#2 output Play#2 6 0 99
     Play#2 input ctld
@@ -273,16 +273,16 @@
     Play#3 input budget
     Play#3 command budget
     Play#3 output Play#3 1 Sector Type			Production			    Cost
-    Play#3 output Play#3 1 uranium mine     		67 rad    			     156
+    Play#3 output Play#3 1 uranium mine     		66 rad    			     154
     Play#3 output Play#3 1 Sector building     		56 sectors      		      39
     Play#3 output Play#3 1 Sector maintenance  		1 sector        		      60
     Play#3 output Play#3 1 Military payroll		170 mil, 0 res                       850
-    Play#3 output Play#3 1 Total expenses......................................................1104
+    Play#3 output Play#3 1 Total expenses......................................................1102
     Play#3 output Play#3 1 Income from taxes		16549 civs, 150 uws                +5540
     Play#3 output Play#3 1 Total income.......................................................+5540
     Play#3 output Play#3 1 Balance forward						            -100
-    Play#3 output Play#3 1 Estimated delta						           +4436
-    Play#3 output Play#3 1 Estimated new treasury..............................................4336
+    Play#3 output Play#3 1 Estimated delta						           +4438
+    Play#3 output Play#3 1 Estimated new treasury..............................................4338
     Play#3 output Play#3 6 0 99
     Play#3 input production *
     Play#3 command production
@@ -290,7 +290,7 @@
     Play#3 output Play#3 1 PRODUCTION SIMULATION
     Play#3 output Play#3 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#3 output Play#3 1    0,-2   ^   0%   114    0d 0.75 $0                                        0
-    Play#3 output Play#3 1    5,-1   u 100%    78   67r 0.86 $156                                     67
+    Play#3 output Play#3 1    5,-1   u 100%    78   66r 0.86 $154                                     66
     Play#3 output Play#3 1 2 sectors
     Play#3 output Play#3 6 0 99
     Play#3 input ctld
@@ -522,15 +522,15 @@
     Play#0 output Play#0 1 a class of graduates (78.00) produced in 1,7
     Play#0 output Play#0 1 a class of graduates (100.00) produced in 3,7
     Play#0 output Play#0 1 happy strollers (78.00) produced in 9,7
-    Play#0 output Play#0 1 technological breakthroughs (2.40) produced in -15,7
+    Play#0 output Play#0 1 technological breakthroughs (2.92) produced in -15,7
     Play#0 output Play#0 1 technological breakthroughs (3.00) produced in -13,7
-    Play#0 output Play#0 1 medical discoveries (2.40) produced in -7,7
+    Play#0 output Play#0 1 medical discoveries (2.92) produced in -7,7
     Play#0 output Play#0 1 medical discoveries (3.60) produced in -5,7
     Play#0 output Play#0 1  78 happiness, 178 education produced
     Play#0 output Play#0 1 total pop was 28106, yielding 14.19 hap, 24.57 edu
-    Play#0 output Play#0 1 3.4330 tech, 3.3939 research produced
+    Play#0 output Play#0 1 3.5668 tech, 3.5102 research produced
     Play#0 output Play#0 1 Army delta $-2810, Navy delta $-3726, Air force delta $-2567
-    Play#0 output Play#0 1 money delta was $-11708 for this update
+    Play#0 output Play#0 1 money delta was $-12027 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 1
     Play#0 command nation
@@ -538,10 +538,10 @@
     Play#0 output Play#0 1 (#1) 1 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at 0,0 has 650 civilians & 2 military
-    Play#0 output Play#0 1  The treasury has $13292.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $12973.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 21.09       Happiness....... 12.33
-    Play#0 output Play#0 1 Technology.........102.79       Research........  3.37
-    Play#0 output Play#0 1 Technology factor : 50.46%     Plague factor :   1.96%
+    Play#0 output Play#0 1 Technology.........102.92       Research........  3.49
+    Play#0 output Play#0 1 Technology factor : 50.48%     Plague factor :   1.96%
     Play#0 output Play#0 1
     Play#0 output Play#0 1 Max population : 1000
     Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
@@ -632,34 +632,34 @@
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
     Play#0 output Play#0 1   1  -16,4    m  100%     120 .. ..      130    1    0   96 100%    9    0   1
     Play#0 output Play#0 1   1  -14,4    m  100%     120 .. ..      130    1    0   97 100%    0    0
-    Play#0 output Play#0 1   1  -12,4    m   69%     120 .. ..      130    1    0   97 100%    2    0
+    Play#0 output Play#0 1   1  -12,4    m   69%     120 .. ..      130    1    0   97 100%    1    0
     Play#0 output Play#0 1   1  -10,4    -   39%     120 .. ..      130    1    0   96 100%   39    0
     Play#0 output Play#0 1   1   -8,4    g  100%     120 .. ..      130    1    0   97 100%    9    0
     Play#0 output Play#0 1   1   -6,4    g  100%     120 .. ..      130    1    0   97 100%    0    0
     Play#0 output Play#0 1   1   -4,4    g  100%     120 .. ..     1000    1 1000   40 100%  701    0
     Play#0 output Play#0 1   1   -2,4    ^  100%     120 .. ..      100    1    0   97 100%    0    0
-    Play#0 output Play#0 1   1    0,4    a  100%     120 .. ..      130    0    0  154 100%    8    0
+    Play#0 output Play#0 1   1    0,4    a  100%     120 .. ..      130    0    0  160 100%    0    0
     Play#0 output Play#0 1   1    2,4    a  100%     120 .. ..      130   10    0  757 100%    0    0
     Play#0 output Play#0 1   1    4,4    a  100%     120 .. ..     1000    0    0 1069 100%  479    0
     Play#0 output Play#0 1   1    6,4    -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   1    8,4    o  100%     120 .. ..      130    0    0   97 100%    8    0
+    Play#0 output Play#0 1   1    8,4    o  100%     120 .. ..      130    0    0   97 100%    2    0
     Play#0 output Play#0 1   1   10,4    o  100%     120 .. ..      130    0    0   96 100%    0    0
     Play#0 output Play#0 1   1   12,4    -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   1   14,4    -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   1  -15,5    u  100%     120 .. ..      130    1    0   97 100%    8    0   1
-    Play#0 output Play#0 1   1  -13,5    u  100%     120 .. ..      130    1    0   97 100%    0    0
+    Play#0 output Play#0 1   1  -13,5    u  100%     120 .. ..      130    1    0   97 100%    1    0
     Play#0 output Play#0 1   1  -11,5    u  100%     120 .. ..     1000    1 1000   40 100%  915    0
     Play#0 output Play#0 1   1   -9,5    -   39%     120 .. ..      130    1    0   96 100%   40    0
     Play#0 output Play#0 1   1   -7,5    i  100%     120 .. ..      130    1    0   97 100%    0    0
-    Play#0 output Play#0 1   1   -5,5    i  100%     120 .. ..      650    1    0   84 100%  240    0
-    Play#0 output Play#0 1   1   -3,5    i  100%     120 .. ..      650    1    0   84 100%   90    0
+    Play#0 output Play#0 1   1   -5,5    i  100%     120 .. ..      650    1    0   84 100%  241    0
+    Play#0 output Play#0 1   1   -3,5    i  100%     120 .. ..      650    1    0   84 100%   93    0
     Play#0 output Play#0 1   1   -1,5    -   39%     120 .. ..      130    1    0   96 100%   39    0
-    Play#0 output Play#0 1   1    1,5    d  100%     120 .. ..      130    0    0   97 100%   14    0
-    Play#0 output Play#0 1   1    3,5    d  100%     120 .. ..      650    0    0   84 100%  230    0
+    Play#0 output Play#0 1   1    1,5    d  100%     120 .. ..      130    0    0   97 100%    6    0
+    Play#0 output Play#0 1   1    3,5    d  100%     120 .. ..      650    0    0   84 100%  246    0
     Play#0 output Play#0 1   1    5,5    -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   1    7,5    -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   1    9,5    %  100%     120 .. ..      130    0    0   97 100%    0    0
-    Play#0 output Play#0 1   1   11,5    %  100%     120 .. ..      260    0    0   94 100%   56    0
+    Play#0 output Play#0 1   1   11,5    %  100%     120 .. ..      260    0    0   94 100%   57    0
     Play#0 output Play#0 1   1   13,5    %  100%     120 .. ..      650    0    0   84 100%  278    0
     Play#0 output Play#0 1   1   15,5    -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   1  -16,6    b  100%     120 .. ..      130    1    0   97 100%    3    0   1
@@ -667,22 +667,22 @@
     Play#0 output Play#0 1   1  -12,6    b   79%     120 .. ..      130    1    0   97 100%    2    0
     Play#0 output Play#0 1   1  -10,6    -   39%     120 .. ..      130    1    0   97 100%   40    0
     Play#0 output Play#0 1   1   -8,6    j  100%     120 .. ..      130    1    0   97 100%    0    0
-    Play#0 output Play#0 1   1   -6,6    j  100%     120 .. ..      650    1    0   84 100%  290    0
+    Play#0 output Play#0 1   1   -6,6    j  100%     120 .. ..      650    1    0   84 100%  291    0
     Play#0 output Play#0 1   1   -4,6    j  100%     120 .. ..     1000    1 1000   40 100%  111    0
     Play#0 output Play#0 1   1   -2,6    -   39%     120 .. ..      130    1    0   97 100%   39    0
-    Play#0 output Play#0 1   1    0,6    k  100%     120 .. ..      130    0    0   97 100%    0    0
-    Play#0 output Play#0 1   1    2,6    k  100%     120 .. ..      650    0    0   84 100%  290    0
-    Play#0 output Play#0 1   1    4,6    k  100%     120 .. ..      130    0    0   97 100%   36    0
+    Play#0 output Play#0 1   1    0,6    k  100%     120 .. ..      130    0    0   97 100%    1    0
+    Play#0 output Play#0 1   1    2,6    k  100%     120 .. ..      650    0    0   84 100%  292    0
+    Play#0 output Play#0 1   1    4,6    k  100%     120 .. ..      130    0    0   97 100%   37    0
     Play#0 output Play#0 1   1    6,6    -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   1    8,6    f  100%     120 .. ..     1000    0    0   70 100%  564    0
     Play#0 output Play#0 1   1   10,6    !  100%     120 .. ..     1000    0    0   70 100%  544    0
     Play#0 output Play#0 1   1   12,6    *  100%     120 .. ..     1000    8    0   70 100%  571    0
     Play#0 output Play#0 1   1   14,6    h  100%     120 .. ..     1000    0    0   70 100%  440    0   1
-    Play#0 output Play#0 1   1  -15,7    t  100%     120 .. ..      130    1    0   96 100%   14    0   1
+    Play#0 output Play#0 1   1  -15,7    t  100%     120 .. ..      130    1    0   96 100%    0    0   1
     Play#0 output Play#0 1   1  -13,7    t  100%     120 .. ..      650    1    0   85 100%  310    0
     Play#0 output Play#0 1   1  -11,7    -   39%     120 .. ..      130    1    0   97 100%   39    0
     Play#0 output Play#0 1   1   -9,7    -   39%     120 .. ..      130    1    0   97 100%   40    0
-    Play#0 output Play#0 1   1   -7,7    r  100%     120 .. ..      130    1    0   97 100%   14    0
+    Play#0 output Play#0 1   1   -7,7    r  100%     120 .. ..      130    1    0   97 100%    0    0
     Play#0 output Play#0 1   1   -5,7    r  100%     120 .. ..      650    1    0   84 100%  294    0
     Play#0 output Play#0 1   1   -3,7    -   39%     120 .. ..      130    1    0   96 100%   39    0
     Play#0 output Play#0 1   1   -1,7    -   39%     120 .. ..      130    1    0   97 100%   39    0
@@ -714,23 +714,23 @@
     Play#0 output Play#0 1   1   4,4    a .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   6,4    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   8,4    o .......... ..........   0   0    0    0    0   0    7    0    0   0
-    Play#0 output Play#0 1   1  10,4    o .......... ..........   0   0    0    0    0   0   72   20   20   0
+    Play#0 output Play#0 1   1  10,4    o .......... ..........   0   0    0    0    0   0   71   20   20   0
     Play#0 output Play#0 1   1  12,4    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  14,4    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1 -15,5    u .......... ..........   0   0    0    0    0   0    0    0    0   6
-    Play#0 output Play#0 1   1 -13,5    u .......... ..........   0   0    0    0    0   0    0    0    0  67
+    Play#0 output Play#0 1   1 -13,5    u .......... ..........   0   0    0    0    0   0    0    0    0  66
     Play#0 output Play#0 1   1 -11,5    u .......... ..........   0   0    0    0    0   0    0    0    0 244
     Play#0 output Play#0 1   1  -9,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  -7,5    i .......... ..........  23   0    0    0    0   0    0   48   74   0
-    Play#0 output Play#0 1   1  -5,5    i .......... ..........  44   0    0    0    0   0    0    0   50   0
-    Play#0 output Play#0 1   1  -3,5    i .......... ..........  89   0    0    0    0   0    0  100    0   0
+    Play#0 output Play#0 1   1  -5,5    i .......... ..........  44   0    0    0    0   0    0    1   50   0
+    Play#0 output Play#0 1   1  -3,5    i .......... ..........  88   0    0    0    0   0    0  102    1   0
     Play#0 output Play#0 1   1  -1,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1   1,5    d .......... ..........   0   4    0    0    0   0    6   80   60   0
-    Play#0 output Play#0 1   1   3,5    d .......... ..........   0   9    0    0    0   0    0   50    0   0
+    Play#0 output Play#0 1   1   1,5    d .......... ..........   0   4    0    0    0   0    6   77   55   0
+    Play#0 output Play#0 1   1   3,5    d .......... ..........   0   8    0    0    0   0    1   55   10   0
     Play#0 output Play#0 1   1   5,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   7,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   9,5    % .......... ..........   0   0  693    0    0   0   22    0    0   0
-    Play#0 output Play#0 1   1  11,5    % .......... ..........   0   0  889    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   1  11,5    % .......... ..........   0   0  888    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  13,5    % .......... ..........   0   0  999    0    0   0   88    0    0   0
     Play#0 output Play#0 1   1  15,5    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1 -16,6    b .......... ..........   0   0    0    0   25  15    0    0    0   0
@@ -739,21 +739,21 @@
     Play#0 output Play#0 1   1 -10,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  -8,6    j .......... ..........   0   0    0   22    0   0    0   71    0   0
     Play#0 output Play#0 1   1  -6,6    j .......... ..........   0   0    0    0    0   0    0   91    0   0
-    Play#0 output Play#0 1   1  -4,6    j .......... ..........   0   0    0  911    0   0    0  999    0   0
+    Play#0 output Play#0 1   1  -4,6    j .......... ..........   0   0    0  910    0   0    0  999    0   0
     Play#0 output Play#0 1   1  -2,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1   0,6    k .......... ..........   0   0    0   22    0   0    0    0   36   0
-    Play#0 output Play#0 1   1   2,6    k .......... ..........   0   0    0    0    0   0    0    0   46   0
-    Play#0 output Play#0 1   1   4,6    k .......... ..........   0   0    0   58    0   0    0    0 9999   0
+    Play#0 output Play#0 1   1   0,6    k .......... ..........   0   0    0   24    0   0    0    0   35   0
+    Play#0 output Play#0 1   1   2,6    k .......... ..........   0   0    0    2    0   0    0    0   45   0
+    Play#0 output Play#0 1   1   4,6    k .......... ..........   0   0    0   59    0   0    0    0 9999   0
     Play#0 output Play#0 1   1   6,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   15   0
     Play#0 output Play#0 1   1  10,6    ! .......... ..........   0   0    0    0    0   0    0    0   13   0
     Play#0 output Play#0 1   1  12,6    * .......... ..........   0   0    0    0    0   0    0    0    8   0
     Play#0 output Play#0 1   1  14,6    h .......... ..........   0   0    0    0    0   0    0   40    0   0
-    Play#0 output Play#0 1   1 -15,7    t .......... ..........   0   0    0    0    6   0   30   10    0   0
+    Play#0 output Play#0 1   1 -15,7    t .......... ..........   0   0    0    0    5   0   25    1    0   0
     Play#0 output Play#0 1   1 -13,7    t .......... ..........   0   0    0    0    5   0   25    0    0   0
     Play#0 output Play#0 1   1 -11,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  -9,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1  -7,7    r .......... ..........   0   0    0    0    6   0   10   60    0   0
+    Play#0 output Play#0 1   1  -7,7    r .......... ..........   0   0    0    0    5   0    5   51    0   0
     Play#0 output Play#0 1   1  -5,7    r .......... ..........   0   0    0    0    4   0    0   40    0   0
     Play#0 output Play#0 1   1  -3,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  -1,7    - .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -894,7 +894,7 @@
     Play#0 output Play#0 1 inf  infantry #31 lost 1% to lack of maintenance
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 6100, yielding 0.00 hap, 0.00 edu
-    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
+    Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
     Play#0 output Play#0 1 Army delta $0, Navy delta $0, Air force delta $-74
     Play#0 output Play#0 1 money delta was $-6021 for this update
     Play#0 output Play#0 6 0 640
@@ -906,8 +906,8 @@
     Play#0 output Play#0 1 10% eff capital at -2,0 has 130 civilians & 0 military
     Play#0 output Play#0 1  The treasury has $-5921.00     Military reserves: 975
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  2.74
-    Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
-    Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
+    Play#0 output Play#0 1 Technology.........101.15       Research........  1.74
+    Play#0 output Play#0 1 Technology factor : 50.19%     Plague factor :   1.98%
     Play#0 output Play#0 1
     Play#0 output Play#0 1 Max population : 1000
     Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
@@ -1080,8 +1080,8 @@
     Play#0 output Play#0 1 Sector 15,-3 is now fully yours
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 15849, yielding 0.00 hap, 0.00 edu
-    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
-    Play#0 output Play#0 1 money delta was $4435 for this update
+    Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
+    Play#0 output Play#0 1 money delta was $4437 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 3
     Play#0 command nation
@@ -1089,10 +1089,10 @@
     Play#0 output Play#0 1 (#3) 3 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at 1,-1 has 9999 civilians & 0 military
-    Play#0 output Play#0 1  The treasury has $4335.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $4337.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
-    Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
-    Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
+    Play#0 output Play#0 1 Technology.........101.15       Research........  1.74
+    Play#0 output Play#0 1 Technology factor : 50.19%     Plague factor :   1.98%
     Play#0 output Play#0 1
     Play#0 output Play#0 1 Max population : 1000
     Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
@@ -1161,7 +1161,7 @@
     Play#0 output Play#0 1   3   14,-2   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   3    1,-1   c  100%     120 .. ..     9999    0    0  100 100%  600    0
     Play#0 output Play#0 1   3    3,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   3    5,-1   u  100%     120 .. ..      130    0    0   97 100%    0    0
+    Play#0 output Play#0 1   3    5,-1   u  100%     120 .. ..      130    0    0   97 100%    1    0
     Play#0 output Play#0 1   3    7,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   3    9,-1   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   3   11,-1   -   39%     120 .. ..      130    0    0   96 100%   39    0
@@ -1232,7 +1232,7 @@
     Play#0 output Play#0 1   3  14,-2   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3   1,-1   c .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3   3,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   3   5,-1   u .......... ..........   0   0    0    0    0   0    0    0    0  67
+    Play#0 output Play#0 1   3   5,-1   u .......... ..........   0   0    0    0    0   0    0    0    0  66
     Play#0 output Play#0 1   3   7,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3   9,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   3  11,-1   - .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -1387,7 +1387,7 @@
     Play#0 output Play#0 1 Education level too low to produce in -3,-1 (need 5)
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 24000, yielding 0.00 hap, 0.00 edu
-    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
+    Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
     Play#0 output Play#0 1 Army delta $-600, Navy delta $-300, Air force delta $0
     Play#0 output Play#0 1 money delta was $-6250 for this update
     Play#0 output Play#0 6 0 640
@@ -1399,12 +1399,12 @@
     Play#0 output Play#0 1 100% eff capital at -1,-1 has 130 civilians & 0 military
     Play#0 output Play#0 1  The treasury has $18750.00     Military reserves: 0
     Play#0 output Play#0 1 Education..........  3.05       Happiness.......  4.44
-    Play#0 output Play#0 1 Technology......... 31.52       Research........  1.69
-    Play#0 output Play#0 1 Technology factor : 35.21%     Plague factor :   1.29%
+    Play#0 output Play#0 1 Technology......... 31.58       Research........  1.74
+    Play#0 output Play#0 1 Technology factor : 35.23%     Plague factor :   1.29%
     Play#0 output Play#0 1
     Play#0 output Play#0 1 Max population : 1000
     Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
-    Play#0 output Play#0 1 Happiness needed is 0.80
+    Play#0 output Play#0 1 Happiness needed is 0.81
     Play#0 output Play#0 6 0 640
     Play#0 input cens -16:-1,-8:-1
     Play#0 command census
@@ -1664,7 +1664,7 @@
     Play#0 output Play#0 1 Sector -14,-8 has been retaken!
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 190, yielding 0.00 hap, 0.00 edu
-    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
+    Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
     Play#0 output Play#0 1 money delta was $1498 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 5
@@ -1675,8 +1675,8 @@
     Play#0 output Play#0 1 No capital (was at -16,-8).
     Play#0 output Play#0 1  The treasury has $26498.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
-    Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
-    Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
+    Play#0 output Play#0 1 Technology.........101.15       Research........  1.74
+    Play#0 output Play#0 1 Technology factor : 50.19%     Plague factor :   1.98%
     Play#0 output Play#0 1
     Play#0 output Play#0 1 Max population : 1000
     Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
@@ -1688,7 +1688,7 @@
     Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 4000, yielding 0.00 hap, 0.00 edu
-    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
+    Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
     Play#0 output Play#0 1 Army delta $-240, Navy delta $-540, Air force delta $-266
     Play#0 output Play#0 1 money delta was $-197 for this update
     Play#0 output Play#0 6 0 640
@@ -1700,8 +1700,8 @@
     Play#0 output Play#0 1 100% eff capital at 0,8 has 650 civilians & 20 military
     Play#0 output Play#0 1  The treasury has $24803.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
-    Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
-    Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
+    Play#0 output Play#0 1 Technology.........101.15       Research........  1.74
+    Play#0 output Play#0 1 Technology factor : 50.19%     Plague factor :   1.98%
     Play#0 output Play#0 1
     Play#0 output Play#0 1 Max population : 1000
     Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
@@ -1743,7 +1743,7 @@
     Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 4000, yielding 0.00 hap, 0.00 edu
-    Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
+    Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
     Play#0 output Play#0 1 Army delta $0, Navy delta $-70, Air force delta $0
     Play#0 output Play#0 1 money delta was $819 for this update
     Play#0 output Play#0 6 0 640
@@ -1755,8 +1755,8 @@
     Play#0 output Play#0 1 100% eff capital at -2,8 has 650 civilians & 20 military
     Play#0 output Play#0 1  The treasury has $25819.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
-    Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
-    Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
+    Play#0 output Play#0 1 Technology.........101.15       Research........  1.74
+    Play#0 output Play#0 1 Technology factor : 50.19%     Plague factor :   1.98%
     Play#0 output Play#0 1
     Play#0 output Play#0 1 Max population : 1000
     Play#0 output Play#0 1 Max safe population for civs/uws: 769/869
@@ -1811,7 +1811,7 @@
     Play#0 output Play#0 1     RESOURCE
     Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
     Play#0 output Play#0 1   1   -8,4    g  100%    0    9    0   0    0
-    Play#0 output Play#0 1   1   -6,4    g  100%    0   84    0   0    0
+    Play#0 output Play#0 1   1   -6,4    g  100%    0   85    0   0    0
     Play#0 output Play#0 1   1   -2,4    ^  100%    0   88    0   0    0
     Play#0 output Play#0 1 3 sectors
     Play#0 output Play#0 6 0 640
@@ -1835,7 +1835,7 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     RESOURCE
     Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
-    Play#0 output Play#0 1   1    8,4    o  100%    0    0    0  10    0
+    Play#0 output Play#0 1   1    8,4    o  100%    0    0    0   9    0
     Play#0 output Play#0 1   1   10,4    o  100%    0    0    0  92    0
     Play#0 output Play#0 1   0   16,4    .    0%    0    0   10   9    0
     Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
@@ -1849,8 +1849,8 @@
     Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
     Play#0 output Play#0 1   4   -5,-1   u  100%    0    0    0   0  100
     Play#0 output Play#0 1   3    5,-1   u  100%    0    0    0   0   73
-    Play#0 output Play#0 1   1  -15,5    u  100%    0    0    0   0    7
-    Play#0 output Play#0 1   1  -13,5    u  100%    0    0    0   0   72
+    Play#0 output Play#0 1   1  -15,5    u  100%    0    0    0   0    8
+    Play#0 output Play#0 1   1  -13,5    u  100%    0    0    0   0   73
     Play#0 output Play#0 1 4 sectors
     Play#0 output Play#0 6 0 640
     Play#0 input ctld
