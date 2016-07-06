@@ -229,8 +229,8 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
 {
     struct budget *budget = &nat_budget[np->nat_cnum];
     struct sctstr *sp, scratch_sect;
-    int cost;
     int n;
+    double cost;
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if (sp->sct_type == SCT_WATER)
@@ -272,7 +272,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
 
 	if ((sp->sct_effic < 100 || sp->sct_type != sp->sct_newtype) &&
 	    budget->money >= 0) {
-	    cost = roundavg(buildeff(sp));
+	    cost = buildeff(sp);
 	    budget->bm[BUDG_SCT_BUILD].count++;
 	    budget->bm[BUDG_SCT_BUILD].money -= cost;
 	    budget->money -= cost;

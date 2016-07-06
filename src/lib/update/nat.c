@@ -35,6 +35,7 @@
 #include <config.h>
 
 #include <math.h>
+#include "chance.h"
 #include "file.h"
 #include "game.h"
 #include "item.h"
@@ -217,9 +218,9 @@ prod_nat(int etu)
 	       lnd_money, sea_money, air_money);
 	if (CANT_HAPPEN(np->nat_money != nat_budget[n].start_money))
 	    nat_budget[n].money += np->nat_money - nat_budget[n].start_money;
+	np->nat_money = roundavg(nat_budget[n].money);
 	wu(0, n, "money delta was $%d for this update\n",
-	   nat_budget[n].money - nat_budget[n].start_money);
-	np->nat_money = nat_budget[n].money;
+	   np->nat_money - nat_budget[n].start_money);
 
 	if (opt_LOSE_CONTACT) {
 	    for (cn = 1; cn < MAXNOC; cn++) {

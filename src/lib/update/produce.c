@@ -62,7 +62,7 @@ produce(struct natstr *np, struct sctstr *sp)
     int material_limit, res_limit;
     int material_consume;
     int val;
-    int cost;
+    double cost;
 
     if (dchr[sp->sct_type].d_prd < 0)
 	return;

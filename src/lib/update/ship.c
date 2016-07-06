@@ -93,7 +93,8 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
     struct pchrstr *product;
     unsigned char *resource;
     int dep;
-    int n, mult, cost, eff_lost;
+    int n, mult, eff_lost;
+    double cost;
 
     if (build == 1) {
 	if (!sp->shp_off && budget->money >= 0)
@@ -105,7 +106,7 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
 	if (np->nat_level[NAT_TLEV] < sp->shp_tech * 0.85)
 	    mult = 2;
 	budget->bm[BUDG_SHP_MAINT].count++;
-	cost = -(mult * etus * MIN(0.0, money_ship * mp->m_cost));
+	cost = mult * etus * -money_ship * mp->m_cost;
 	if (budget->money < cost && !player->simulation) {
 	    eff_lost = etus / 5;
 	    if (sp->shp_effic - eff_lost < SHIP_MINEFF)
@@ -244,7 +245,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus,
     int wf;
     int avail;
     int mult;
-    int cost;
+    double cost;
 
     if (ship->shp_effic == 100)
 	return;
@@ -307,7 +308,7 @@ shiprepair(struct shpstr *ship, struct natstr *np, struct bp *bp, int etus,
 	}
 
     bp_set_from_sect(bp, sp);
-    cost = roundavg(mult * mp->m_cost * build / 100.0);
+    cost = mult * mp->m_cost * build / 100.0;
     budget->bm[BUDG_SHP_BUILD].count += !!build;
     budget->bm[BUDG_SHP_BUILD].money -= cost;
     budget->money -= cost;

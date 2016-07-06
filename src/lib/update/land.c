@@ -89,7 +89,8 @@ upd_land(struct lndstr *lp, int etus, struct bp *bp, int build)
     struct natstr *np = getnatp(lp->lnd_own);
     int pstage, ptime;
     int min = morale_base - (int)np->nat_level[NAT_HLEV];
-    int n, mult, cost, eff_lost;
+    int n, mult, eff_lost;
+    double cost;
 
     if (!player->simulation)
 	if (lp->lnd_retreat < min)
@@ -107,7 +108,7 @@ upd_land(struct lndstr *lp, int etus, struct bp *bp, int build)
 	if (lcp->l_flags & L_ENGINEER)
 	    mult *= 3;
 	budget->bm[BUDG_LND_MAINT].count++;
-	cost = -(mult * etus * MIN(0.0, money_land * lcp->l_cost));
+	cost = mult * etus * -money_land * lcp->l_cost;
 	if (budget->money < cost && !player->simulation) {
 	    eff_lost = etus / 5;
 	    if (lp->lnd_effic - eff_lost < LAND_MINEFF)
@@ -196,7 +197,7 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus,
     int build;
     int avail;
     int mult;
-    int cost;
+    double cost;
 
     if (land->lnd_effic == 100)
 	return;
@@ -239,7 +240,7 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus,
     sp->sct_avail = avail;
 
     bp_set_from_sect(bp, sp);
-    cost = roundavg(mult * lp->l_cost * build / 100.0);
+    cost = mult * lp->l_cost * build / 100.0;
     budget->bm[BUDG_LND_BUILD].count += !!build;
     budget->bm[BUDG_LND_BUILD].money -= cost;
     budget->money -= cost;

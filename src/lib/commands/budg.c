@@ -87,7 +87,7 @@ budg(void)
 	       pchr[dchr[i].d_prd].p_sname);
 	else
 	    pr("\t\t");
-	pr("\t\t%8d\n", -budget->prod[i].money);
+	pr("\t\t%8.0f\n", -budget->prod[i].money);
 	expenses -= budget->prod[i].money;
     }
 
@@ -97,7 +97,7 @@ budg(void)
 	snprintf(buf, sizeof(buf), "%d %s%s",
 		 budget->bm[i].count, bm_name[i].object,
 		 splur(budget->bm[i].count));
-	pr("%-20s\t\t%-16s\t\t%8d\n",
+	pr("%-20s\t\t%-16s\t\t%8.0f\n",
 	   bm_name[i].activity, buf, -budget->bm[i].money);
 	expenses -= budget->bm[i].money;
     }
@@ -105,7 +105,7 @@ budg(void)
     if (budget->mil.money) {
 	snprintf(buf, sizeof(buf), "%d mil, %d res",
 		 budget->mil.count, np->nat_reserve);
-	pr("Military payroll\t\t%-32s%8d\n",
+	pr("Military payroll\t\t%-32s%8.0f\n",
 	   buf, -budget->mil.money);
 	expenses -= budget->mil.money;
     }
@@ -122,7 +122,7 @@ budg(void)
     if (budget->bars.money) {
 	snprintf(buf, sizeof(buf), "%d bar%s",
 		 budget->bars.count, splur(budget->bars.count));
-	pr("Income from bars\t\t%-32s%+8d\n",
+	pr("Income from bars\t\t%-32s%+8.0f\n",
 	   buf, budget->bars.money);
 	income += budget->bars.money;
     }

@@ -108,10 +108,9 @@ void
 tax(struct sctstr *sp, int etu, int *pop)
 {
     struct budget *budget = &nat_budget[sp->sct_own];
-    int civ_tax, uw_tax, mil_pay;
+    double civ_tax, uw_tax, mil_pay;
 
-    civ_tax = (int)(0.5 + sp->sct_item[I_CIVIL] * sp->sct_effic *
-		    etu * money_civ / 100);
+    civ_tax = sp->sct_item[I_CIVIL] * etu * money_civ * sp->sct_effic / 100;
     /*
      * captured civs only pay 1/4 taxes
      */
@@ -121,8 +120,7 @@ tax(struct sctstr *sp, int etu, int *pop)
     budget->civ.money += civ_tax;
     budget->money += civ_tax;
 
-    uw_tax = (int)(0.5 + sp->sct_item[I_UW] * sp->sct_effic *
-		   etu * money_uw / 100);
+    uw_tax = sp->sct_item[I_UW] * etu * money_uw * sp->sct_effic / 100;
     budget->uw.count += sp->sct_item[I_UW];
     budget->uw.money += uw_tax;
     budget->money += uw_tax;
@@ -144,7 +142,8 @@ upd_slmilcosts(int etu, natid n)
 {
     struct shpstr *sp;
     struct lndstr *lp;
-    int mil, i, mil_pay;
+    int mil, i;
+    double mil_pay;
 
     mil = 0;
 
@@ -169,18 +168,18 @@ upd_slmilcosts(int etu, natid n)
 void
 bank_income(struct sctstr *sp, int etu)
 {
-    int inc;
+    double income;
 
-    inc = (int)(sp->sct_item[I_BAR] * etu * bankint * sp->sct_effic / 100);
+    income = sp->sct_item[I_BAR] * etu * bankint * sp->sct_effic / 100;
     nat_budget[sp->sct_own].bars.count += sp->sct_item[I_BAR];
-    nat_budget[sp->sct_own].bars.money += inc;
-    nat_budget[sp->sct_own].money += inc;
+    nat_budget[sp->sct_own].bars.money += income;
+    nat_budget[sp->sct_own].money += income;
 }
 
 void
 pay_reserve(struct natstr *np, int etu)
 {
-    int pay = (int)(np->nat_reserve * money_res * etu);
+    double pay = np->nat_reserve * money_res * etu;
 
     nat_budget[np->nat_cnum].mil.money += pay;
     nat_budget[np->nat_cnum].money += pay;

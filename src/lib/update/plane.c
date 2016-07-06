@@ -85,7 +85,8 @@ upd_plane(struct plnstr *pp, int etus, struct bp *bp, int build)
     struct budget *budget = &nat_budget[pp->pln_own];
     struct plchrstr *pcp = &plchr[pp->pln_type];
     struct natstr *np = getnatp(pp->pln_own);
-    int mult, cost, eff_lost;
+    int mult, eff_lost;
+    double cost;
 
     if (build == 1) {
 	if (!pp->pln_off && budget->money >= 0)
@@ -97,7 +98,7 @@ upd_plane(struct plnstr *pp, int etus, struct bp *bp, int build)
 	if (np->nat_level[NAT_TLEV] < pp->pln_tech * 0.85)
 	    mult = 2;
 	budget->bm[BUDG_PLN_MAINT].count++;
-	cost = -(mult * etus * MIN(0.0, pcp->pl_cost * money_plane));
+	cost = mult * etus * -money_plane * pcp->pl_cost;
 	if (budget->money < cost && !player->simulation) {
 	    eff_lost = etus / 5;
 	    if (pp->pln_effic - eff_lost < PLANE_MINEFF)
@@ -130,7 +131,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus,
     int mult;
     int avail;
     int used;
-    int cost;
+    double cost;
 
     if (pp->pln_effic == 100)
 	return;
@@ -196,7 +197,7 @@ planerepair(struct plnstr *pp, struct natstr *np, struct bp *bp, int etus,
     }
 
     bp_set_from_sect(bp, sp);
-    cost = roundavg(mult * build * pcp->pl_cost / 100.0);
+    cost = mult * pcp->pl_cost * build / 100.0;
     budget->bm[BUDG_PLN_BUILD].count += !!build;
     budget->bm[BUDG_PLN_BUILD].money -= cost;
     budget->money -= cost;

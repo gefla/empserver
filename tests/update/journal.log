@@ -33,21 +33,21 @@
     Play#1 output Play#1 1 bank             		41 bars   			     410
     Play#1 output Play#1 1 refinery         		2581 petrol 			     290
     Play#1 output Play#1 1 enlistment center		75 mil    			     225
-    Play#1 output Play#1 1 Ship building       		10 ships        		    1519
-    Play#1 output Play#1 1 Ship maintenance    		32 ships        		    2202
+    Play#1 output Play#1 1 Ship building       		10 ships        		    1520
+    Play#1 output Play#1 1 Ship maintenance    		32 ships        		    2207
     Play#1 output Play#1 1 Plane building      		13 planes       		    1924
-    Play#1 output Play#1 1 Plane maintenance   		20 planes       		     984
+    Play#1 output Play#1 1 Plane maintenance   		20 planes       		    1004
     Play#1 output Play#1 1 Unit building       		6 units         		    2300
     Play#1 output Play#1 1 Unit maintenance    		16 units        		     510
     Play#1 output Play#1 1 Sector building     		40 sectors      		     774
     Play#1 output Play#1 1 Sector maintenance  		2 sectors       		     120
-    Play#1 output Play#1 1 Military payroll		1164 mil, 0 res                     5777
-    Play#1 output Play#1 1 Total expenses.....................................................24627
-    Play#1 output Play#1 1 Income from taxes		26911 civs, 9007 uws              +12625
-    Play#1 output Play#1 1 Total income......................................................+12625
+    Play#1 output Play#1 1 Military payroll		1164 mil, 0 res                     5820
+    Play#1 output Play#1 1 Total expenses.....................................................24692
+    Play#1 output Play#1 1 Income from taxes		26911 civs, 9007 uws              +12627
+    Play#1 output Play#1 1 Total income......................................................+12627
     Play#1 output Play#1 1 Balance forward						           25000
-    Play#1 output Play#1 1 Estimated delta						          -12002
-    Play#1 output Play#1 1 Estimated new treasury.............................................12998
+    Play#1 output Play#1 1 Estimated delta						          -12065
+    Play#1 output Play#1 1 Estimated new treasury.............................................12935
     Play#1 output Play#1 6 0 99
     Play#1 input neweff * ?newd#-
     Play#1 command neweff
@@ -226,16 +226,16 @@
     Play#2 command budget
     Play#2 output Play#2 1 Sector Type			Production			    Cost
     Play#2 output Play#2 1 Ship maintenance    		3 ships         		      90
-    Play#2 output Play#2 1 Plane maintenance   		3 planes        		     144
+    Play#2 output Play#2 1 Plane maintenance   		3 planes        		     147
     Play#2 output Play#2 1 Unit maintenance    		3 units         		      90
-    Play#2 output Play#2 1 Military payroll		1900 mil, 1000 res                  9994
-    Play#2 output Play#2 1 Total expenses.....................................................10318
+    Play#2 output Play#2 1 Military payroll		1900 mil, 1000 res                 10000
+    Play#2 output Play#2 1 Total expenses.....................................................10325
     Play#2 output Play#2 1 Income from taxes		6800 civs, 4000 uws                +1076
     Play#2 output Play#2 1 Income from bars		400 bars                           +2865
     Play#2 output Play#2 1 Total income.......................................................+3941
     Play#2 output Play#2 1 Balance forward						             100
-    Play#2 output Play#2 1 Estimated delta						           -6377
-    Play#2 output Play#2 1 Estimated new treasury.............................................-6277
+    Play#2 output Play#2 1 Estimated delta						           -6384
+    Play#2 output Play#2 1 Estimated new treasury.............................................-6284
     Play#2 output Play#2 1 After processsing sectors, you will be broke!
     Play#2 output Play#2 1 Sectors will not produce, distribute, or deliver!
     Play#2 output Play#2 1
@@ -276,13 +276,13 @@
     Play#3 output Play#3 1 uranium mine     		67 rad    			     156
     Play#3 output Play#3 1 Sector building     		56 sectors      		      39
     Play#3 output Play#3 1 Sector maintenance  		1 sector        		      60
-    Play#3 output Play#3 1 Military payroll		170 mil, 0 res                       848
-    Play#3 output Play#3 1 Total expenses......................................................1103
+    Play#3 output Play#3 1 Military payroll		170 mil, 0 res                       850
+    Play#3 output Play#3 1 Total expenses......................................................1104
     Play#3 output Play#3 1 Income from taxes		16549 civs, 150 uws                +5540
     Play#3 output Play#3 1 Total income.......................................................+5540
     Play#3 output Play#3 1 Balance forward						            -100
-    Play#3 output Play#3 1 Estimated delta						           +4437
-    Play#3 output Play#3 1 Estimated new treasury..............................................4337
+    Play#3 output Play#3 1 Estimated delta						           +4436
+    Play#3 output Play#3 1 Estimated new treasury..............................................4336
     Play#3 output Play#3 6 0 99
     Play#3 input production *
     Play#3 command production
@@ -317,14 +317,14 @@
     Play#4 output Play#4 1 bank             		4 bars   			      40
     Play#4 output Play#4 1 Ship maintenance    		10 ships        		     300
     Play#4 output Play#4 1 Unit maintenance    		10 units        		     600
-    Play#4 output Play#4 1 Military payroll		1111 mil, 0 res                     5552
-    Play#4 output Play#4 1 Total expenses......................................................6492
+    Play#4 output Play#4 1 Military payroll		1111 mil, 0 res                     5555
+    Play#4 output Play#4 1 Total expenses......................................................6494
     Play#4 output Play#4 1 Income from taxes		23604 civs, 4100 uws                +212
     Play#4 output Play#4 1 Income from bars		100 bars                           +1500
     Play#4 output Play#4 1 Total income.......................................................+1712
     Play#4 output Play#4 1 Balance forward						           25000
-    Play#4 output Play#4 1 Estimated delta						           -4780
-    Play#4 output Play#4 1 Estimated new treasury.............................................20220
+    Play#4 output Play#4 1 Estimated delta						           -4782
+    Play#4 output Play#4 1 Estimated new treasury.............................................20218
     Play#4 output Play#4 6 0 99
     Play#4 input production *
     Play#4 command production
@@ -387,16 +387,16 @@
     Play#6 command budget
     Play#6 output Play#6 1 Sector Type			Production			    Cost
     Play#6 output Play#6 1 Ship maintenance    		1 ship          		     540
-    Play#6 output Play#6 1 Plane maintenance   		3 planes        		     144
+    Play#6 output Play#6 1 Plane maintenance   		3 planes        		     147
     Play#6 output Play#6 1 Unit maintenance    		3 units         		      90
     Play#6 output Play#6 1 Sector maintenance  		1 sector        		      60
-    Play#6 output Play#6 1 Military payroll		168 mil, 0 res                       831
-    Play#6 output Play#6 1 Total expenses......................................................1665
-    Play#6 output Play#6 1 Income from taxes		4000 civs, 0 uws                   +1750
-    Play#6 output Play#6 1 Total income.......................................................+1750
+    Play#6 output Play#6 1 Military payroll		168 mil, 0 res                       840
+    Play#6 output Play#6 1 Total expenses......................................................1675
+    Play#6 output Play#6 1 Income from taxes		4000 civs, 0 uws                   +1749
+    Play#6 output Play#6 1 Total income.......................................................+1749
     Play#6 output Play#6 1 Balance forward						           25000
-    Play#6 output Play#6 1 Estimated delta						             +85
-    Play#6 output Play#6 1 Estimated new treasury.............................................25085
+    Play#6 output Play#6 1 Estimated delta						             +74
+    Play#6 output Play#6 1 Estimated new treasury.............................................25074
     Play#6 output Play#6 6 0 99
     Play#6 input ctld
     Play#6 output Play#6 1 Bye-bye
@@ -419,15 +419,15 @@
     Play#7 input budget
     Play#7 command budget
     Play#7 output Play#7 1 Sector Type			Production			    Cost
-    Play#7 output Play#7 1 Ship maintenance    		3 ships         		      70
+    Play#7 output Play#7 1 Ship maintenance    		3 ships         		      71
     Play#7 output Play#7 1 Sector maintenance  		1 sector        		      60
-    Play#7 output Play#7 1 Military payroll		160 mil, 0 res                       792
-    Play#7 output Play#7 1 Total expenses.......................................................922
-    Play#7 output Play#7 1 Income from taxes		4000 civs, 0 uws                   +1750
-    Play#7 output Play#7 1 Total income.......................................................+1750
+    Play#7 output Play#7 1 Military payroll		160 mil, 0 res                       800
+    Play#7 output Play#7 1 Total expenses.......................................................929
+    Play#7 output Play#7 1 Income from taxes		4000 civs, 0 uws                   +1749
+    Play#7 output Play#7 1 Total income.......................................................+1749
     Play#7 output Play#7 1 Balance forward						           25000
-    Play#7 output Play#7 1 Estimated delta						            +828
-    Play#7 output Play#7 1 Estimated new treasury.............................................25828
+    Play#7 output Play#7 1 Estimated delta						            +820
+    Play#7 output Play#7 1 Estimated new treasury.............................................25820
     Play#7 output Play#7 6 0 99
     Play#7 input show updates
     Play#7 command show
@@ -529,8 +529,8 @@
     Play#0 output Play#0 1  78 happiness, 178 education produced
     Play#0 output Play#0 1 total pop was 28106, yielding 14.19 hap, 24.57 edu
     Play#0 output Play#0 1 3.4330 tech, 3.3939 research produced
-    Play#0 output Play#0 1 Army delta $-2810, Navy delta $-3721, Air force delta $-2548
-    Play#0 output Play#0 1 money delta was $-11642 for this update
+    Play#0 output Play#0 1 Army delta $-2810, Navy delta $-3726, Air force delta $-2567
+    Play#0 output Play#0 1 money delta was $-11708 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 1
     Play#0 command nation
@@ -538,7 +538,7 @@
     Play#0 output Play#0 1 (#1) 1 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at 0,0 has 650 civilians & 2 military
-    Play#0 output Play#0 1  The treasury has $13358.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $13292.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 21.09       Happiness....... 12.33
     Play#0 output Play#0 1 Technology.........102.79       Research........  3.37
     Play#0 output Play#0 1 Technology factor : 50.46%     Plague factor :   1.96%
@@ -591,7 +591,7 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1    COMMODITIES deliver--  distribute
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
-    Play#0 output Play#0 1   1   0,0    c .......... ..........   0   0    0    0    0   0    0    7   32   0
+    Play#0 output Play#0 1   1   0,0    c .......... ..........   0   0    0    0    0   0    0    6   34   0
     Play#0 output Play#0 1   1   2,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   4,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   6,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -632,7 +632,7 @@
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
     Play#0 output Play#0 1   1  -16,4    m  100%     120 .. ..      130    1    0   96 100%    9    0   1
     Play#0 output Play#0 1   1  -14,4    m  100%     120 .. ..      130    1    0   97 100%    0    0
-    Play#0 output Play#0 1   1  -12,4    m   69%     120 .. ..      130    1    0   97 100%    1    0
+    Play#0 output Play#0 1   1  -12,4    m   69%     120 .. ..      130    1    0   97 100%    2    0
     Play#0 output Play#0 1   1  -10,4    -   39%     120 .. ..      130    1    0   96 100%   39    0
     Play#0 output Play#0 1   1   -8,4    g  100%     120 .. ..      130    1    0   97 100%    9    0
     Play#0 output Play#0 1   1   -6,4    g  100%     120 .. ..      130    1    0   97 100%    0    0
@@ -745,7 +745,7 @@
     Play#0 output Play#0 1   1   2,6    k .......... ..........   0   0    0    0    0   0    0    0   46   0
     Play#0 output Play#0 1   1   4,6    k .......... ..........   0   0    0   58    0   0    0    0 9999   0
     Play#0 output Play#0 1   1   6,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   16   0
+    Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   15   0
     Play#0 output Play#0 1   1  10,6    ! .......... ..........   0   0    0    0    0   0    0    0   13   0
     Play#0 output Play#0 1   1  12,6    * .......... ..........   0   0    0    0    0   0    0    0    8   0
     Play#0 output Play#0 1   1  14,6    h .......... ..........   0   0    0    0    0   0    0   40    0   0
@@ -779,13 +779,13 @@
     Play#0 output Play#0 1   1   42 cs   cargo ship    17,1       100%   0  25   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   43 cs   cargo ship    17,1       100%  17  50   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   60 cs   cargo ship    14,6        20%   0   0   0   0  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   70 cs   cargo ship    16,6        20%   4  10   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   70 cs   cargo ship    16,6        20%   4  10   0  10  0  0  0  0  90   20
     Play#0 output Play#0 1   1   71 cs   cargo ship    16,6        20%   4  10   0   9  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   72 cs   cargo ship    16,6        20%   4  10   0  10  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   72 cs   cargo ship    16,6        20%   4  10   0   9  0  0  0  0  90   20
     Play#0 output Play#0 1   1   73 cs   cargo ship    16,6        20%   4  10   0  10  0  0  0  0  90   20
     Play#0 output Play#0 1   1   74 cs   cargo ship    16,6        21%  12  10   0  10  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   75 frg  frigate       16,6        21%   0  11   0   9  0  0  0  0  90   20
-    Play#0 output Play#0 1   1   76 frg  frigate       16,6        80%   0  60   0   9  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   75 frg  frigate       16,6        21%   0  11   0  10  0  0  0  0  90   20
+    Play#0 output Play#0 1   1   76 frg  frigate       16,6        80%   0  60   0   8  0  0  0  0  90   20
     Play#0 output Play#0 1   7   93 fb   fishing boa    0,0        20%   0   0   0   0  0  0  0  0  90   20
     Play#0 output Play#0 1   1   95 cs   cargo ship    14,6       100%   0   0   0   0  0  0  0  0  90  200
     Play#0 output Play#0 1   7   96 cs   cargo ship    14,6        20%   0   0   0   0  0  0  0  0  90   20
@@ -831,10 +831,10 @@
     Play#0 output Play#0 1  103 fb     18,4       73% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  104 fb     18,4       33% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  110 od     16,4      100% 100   0   0   0   0   0   0   0   0   5   0   0   0
-    Play#0 output Play#0 1  111 od     18,4      100% 100   0   0   0   0   0   0   0   0  52   0   0   0
+    Play#0 output Play#0 1  111 od     18,4      100% 100   0   0   0   0   0   0   0   0  51   0   0   0
     Play#0 output Play#0 1  112 od     20,4      100% 100   0   0   0   0   0   0   0   0  51   0   0   0
     Play#0 output Play#0 1  113 od     18,4       65% 100   0   0   0   0   0   0   0   0  29   0   0   0
-    Play#0 output Play#0 1  114 od     18,4       25% 100   0   0   0   0   0   0   0   0   9   0   0   0
+    Play#0 output Play#0 1  114 od     18,4       25% 100   0   0   0   0   0   0   0   0  10   0   0   0
     Play#0 output Play#0 1 30 ships
     Play#0 output Play#0 6 0 640
     Play#0 input plane 0:31,0:15
@@ -895,8 +895,8 @@
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 6100, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
-    Play#0 output Play#0 1 Army delta $0, Navy delta $0, Air force delta $-72
-    Play#0 output Play#0 1 money delta was $-6012 for this update
+    Play#0 output Play#0 1 Army delta $0, Navy delta $0, Air force delta $-74
+    Play#0 output Play#0 1 money delta was $-6021 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 2
     Play#0 command nation
@@ -904,7 +904,7 @@
     Play#0 output Play#0 1 (#2) 2 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 193
     Play#0 output Play#0 1 10% eff capital at -2,0 has 130 civilians & 0 military
-    Play#0 output Play#0 1  The treasury has $-5912.00     Military reserves: 975
+    Play#0 output Play#0 1  The treasury has $-5921.00     Military reserves: 975
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  2.74
     Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
     Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
@@ -1081,7 +1081,7 @@
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 15849, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
-    Play#0 output Play#0 1 money delta was $4437 for this update
+    Play#0 output Play#0 1 money delta was $4435 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 3
     Play#0 command nation
@@ -1089,7 +1089,7 @@
     Play#0 output Play#0 1 (#3) 3 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at 1,-1 has 9999 civilians & 0 military
-    Play#0 output Play#0 1  The treasury has $4337.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $4335.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
     Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
     Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
@@ -1389,7 +1389,7 @@
     Play#0 output Play#0 1 total pop was 24000, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
     Play#0 output Play#0 1 Army delta $-600, Navy delta $-300, Air force delta $0
-    Play#0 output Play#0 1 money delta was $-6248 for this update
+    Play#0 output Play#0 1 money delta was $-6250 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 4
     Play#0 command nation
@@ -1397,7 +1397,7 @@
     Play#0 output Play#0 1 (#4) 4 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at -1,-1 has 130 civilians & 0 military
-    Play#0 output Play#0 1  The treasury has $18752.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $18750.00     Military reserves: 0
     Play#0 output Play#0 1 Education..........  3.05       Happiness.......  4.44
     Play#0 output Play#0 1 Technology......... 31.52       Research........  1.69
     Play#0 output Play#0 1 Technology factor : 35.21%     Plague factor :   1.29%
@@ -1665,7 +1665,7 @@
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 190, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
-    Play#0 output Play#0 1 money delta was $1499 for this update
+    Play#0 output Play#0 1 money delta was $1498 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 5
     Play#0 command nation
@@ -1673,7 +1673,7 @@
     Play#0 output Play#0 1 (#5) 5 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 99
     Play#0 output Play#0 1 No capital (was at -16,-8).
-    Play#0 output Play#0 1  The treasury has $26499.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $26498.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
     Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
     Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
@@ -1689,8 +1689,8 @@
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 4000, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
-    Play#0 output Play#0 1 Army delta $-240, Navy delta $-540, Air force delta $-264
-    Play#0 output Play#0 1 money delta was $-185 for this update
+    Play#0 output Play#0 1 Army delta $-240, Navy delta $-540, Air force delta $-266
+    Play#0 output Play#0 1 money delta was $-197 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 6
     Play#0 command nation
@@ -1698,7 +1698,7 @@
     Play#0 output Play#0 1 (#6) 6 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at 0,8 has 650 civilians & 20 military
-    Play#0 output Play#0 1  The treasury has $24815.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $24803.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
     Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
     Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
@@ -1715,7 +1715,7 @@
     Play#0 output Play#0 1   6    0,8    c  100%     120 .. ..      650   20    0   84 100%  395    0   1
     Play#0 output Play#0 1   6    2,8    -  100%     120 .. ..      650   20    0   83 100%  295    0   1
     Play#0 output Play#0 1   6    4,8    f  100%     120 .. ..      650   20    0   83 100%  444    0   1
-    Play#0 output Play#0 1   6    6,8    *  100%     120 .. ..      650   18    0   84 100%  444    0   1
+    Play#0 output Play#0 1   6    6,8    *  100%     120 .. ..      650   19    0   84 100%  444    0   1
     Play#0 output Play#0 1   6    8,8    h  100%     120 .. ..      650   20    0   83 100%  445    0   1
     Play#0 output Play#0 1   6   10,8    !  100%     120 .. ..      650   20    0   84 100%  394    0   1
     Play#0 output Play#0 1   6   12,8    *  100%     120 .. ..      650   20    0   83 100%  395    0   1
@@ -1730,7 +1730,7 @@
     Play#0 output Play#0 1   6   0,8    c .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6   2,8    - .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6   4,8    f .......... ..........   0   0    0    0    0   0    0  391  396   0
-    Play#0 output Play#0 1   6   6,8    * .......... ..........   0   0    0    0    0   0    0  386  396   0
+    Play#0 output Play#0 1   6   6,8    * .......... ..........   0   0    0    0    0   0    0  385  396   0
     Play#0 output Play#0 1   6   8,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6  10,8    ! .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6  12,8    * .......... ..........   0   0    0    0    0   0    0  400  400   0
@@ -1745,7 +1745,7 @@
     Play#0 output Play#0 1 total pop was 4000, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7165 technology (0.0000 + 1.7165), 1.6969 research (0.0000 + 1.6969) produced
     Play#0 output Play#0 1 Army delta $0, Navy delta $-70, Air force delta $0
-    Play#0 output Play#0 1 money delta was $828 for this update
+    Play#0 output Play#0 1 money delta was $819 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 7
     Play#0 command nation
@@ -1753,7 +1753,7 @@
     Play#0 output Play#0 1 (#7) 7 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at -2,8 has 650 civilians & 20 military
-    Play#0 output Play#0 1  The treasury has $25828.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $25819.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
     Play#0 output Play#0 1 Technology.........101.08       Research........  1.69
     Play#0 output Play#0 1 Technology factor : 50.18%     Plague factor :   1.98%
@@ -1769,7 +1769,7 @@
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
     Play#0 output Play#0 1   7  -16,8    -  100%     120 .. ..      650   20    0   83 100%  295    0   1
     Play#0 output Play#0 1   7  -14,8    h  100%     120 .. ..      650   20    0   83 100%  395    0   1
-    Play#0 output Play#0 1   7  -12,8    *  100%     120 .. ..      650   20    0   83 100%  394    0   1
+    Play#0 output Play#0 1   7  -12,8    *  100%     120 .. ..      650   19    0   83 100%  394    0   1
     Play#0 output Play#0 1   7  -10,8    !  100%     120 .. ..      650   20    0   84 100%  395    0   1
     Play#0 output Play#0 1   7   -8,8    h  100%     120 .. ..      650   20    0   83 100%  445    0   1
     Play#0 output Play#0 1   7   -6,8    *  100%     120 .. ..      650   20    0   83 100%  445    0   1
@@ -1784,7 +1784,7 @@
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
     Play#0 output Play#0 1   7 -16,8    - .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   7 -14,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
-    Play#0 output Play#0 1   7 -12,8    * .......... ..........   0   0    0    0    0   0    0  397  399   0
+    Play#0 output Play#0 1   7 -12,8    * .......... ..........   0   0    0    0    0   0    0  399  400   0
     Play#0 output Play#0 1   7 -10,8    ! .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   7  -8,8    h .......... ..........   0   0    0    0    0   0    0  352  368   0
     Play#0 output Play#0 1   7  -6,8    * .......... ..........   0   0    0    0    0   0    0  400  400   0
@@ -1825,8 +1825,8 @@
     Play#0 output Play#0 1   1    0,4    a  100%    0    0   10   0    0
     Play#0 output Play#0 1   1    2,4    a  100%    0    0  100   0    0
     Play#0 output Play#0 1   1    4,4    a  100%    0    0  100   0    0
-    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10  10    0
-    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  90    0
+    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10   9    0
+    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
     Play#0 output Play#0 1   0   20,4    .    0%    0    0  100  95    0
     Play#0 output Play#0 1 8 sectors
     Play#0 output Play#0 6 0 640
@@ -1837,8 +1837,8 @@
     Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
     Play#0 output Play#0 1   1    8,4    o  100%    0    0    0  10    0
     Play#0 output Play#0 1   1   10,4    o  100%    0    0    0  92    0
-    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10  10    0
-    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  90    0
+    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10   9    0
+    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
     Play#0 output Play#0 1   0   20,4    .    0%    0    0  100  95    0
     Play#0 output Play#0 1 5 sectors
     Play#0 output Play#0 6 0 640

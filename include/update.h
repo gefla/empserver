@@ -52,7 +52,7 @@ enum {
 };
 
 struct budg_item {
-    int money;			/* money delta */
+    double money;		/* money delta */
     int count;			/* #things making/consuming the money */
 };
 
@@ -66,7 +66,7 @@ struct budget {
     struct budg_item civ, mil, uw, bars;
     /* treasury */
     int start_money;		/* at beginning of update */
-    int money;			/* current */
+    double money;		/* current */
 };
 
 /* main.c */
