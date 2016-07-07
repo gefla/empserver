@@ -52,21 +52,44 @@ produce(struct natstr *np, struct sctstr *sp)
 {
     struct budget *budget = &nat_budget[sp->sct_own];
     struct pchrstr *product;
-    double p_e;
     double prodeff;
-    unsigned char *resource;
     double output;
-    int unit_work, work_used;
-    i_type item;
-    double material_limit, worker_limit, res_limit;
-    double material_consume;
-    int val;
     double cost;
 
     if (dchr[sp->sct_type].d_prd < 0)
 	return;
     product = &pchr[dchr[sp->sct_type].d_prd];
-    item = product->p_type;
+
+    prodeff = prod_eff(sp->sct_type, np->nat_level[product->p_nlndx]);
+    output = prod_output(sp, prodeff);
+    if (!output)
+	return;
+
+    cost = product->p_cost * output / prodeff;
+    if (opt_TECH_POP) {
+	if (product->p_level == NAT_TLEV) {
+	    if (tpops[sp->sct_own] > 50000)
+		cost *= tpops[sp->sct_own] / 50000.0;
+	}
+    }
+
+    budget->prod[sp->sct_type].count += ldround(output, 1);
+    budget->prod[sp->sct_type].money -= cost;
+    budget->money -= cost;
+}
+
+double
+prod_output(struct sctstr *sp, double prodeff)
+{
+    struct pchrstr *product = &pchr[dchr[sp->sct_type].d_prd];
+    i_type item = product->p_type;
+    unsigned char *resource;
+    double p_e;
+    double material_limit, worker_limit, res_limit;
+    double material_consume, output;
+    int unit_work, work_used;
+    int val;
+
     if (product->p_nrndx)
 	resource = (unsigned char *)sp + product->p_nrndx;
     else
@@ -95,16 +118,16 @@ produce(struct natstr *np, struct sctstr *sp)
     if (CANT_HAPPEN(material_consume < 0.0))
 	material_consume = 0.0;
     if (material_consume == 0.0)
-	return;
+	return 0.0;
 
-    prodeff = prod_eff(sp->sct_type, np->nat_level[product->p_nlndx]);
     if (prodeff <= 0.0) {
 	if (!player->simulation)
 	    wu(0, sp->sct_own,
 	       "%s level too low to produce in %s (need %d)\n",
 	       levelnames[product->p_nlndx], ownxy(sp), product->p_nlmin);
-	return;
+	return 0.0;
     }
+
     /*
      * Adjust produced amount by commodity production ratio
      */
@@ -146,24 +169,14 @@ produce(struct natstr *np, struct sctstr *sp)
 	*resource = val;
     }
 
-    cost = product->p_cost * material_consume;
-    if (opt_TECH_POP) {
-	if (product->p_level == NAT_TLEV) {
-	    if (tpops[sp->sct_own] > 50000)
-		cost *= tpops[sp->sct_own] / 50000.0;
-	}
-    }
-
-    budget->prod[sp->sct_type].count += ldround(output, 1);
-    budget->prod[sp->sct_type].money -= cost;
-    budget->money -= cost;
-
     if (CANT_HAPPEN(p_e <= 0.0))
-	return;
+	return 0.0;
     work_used = roundavg(unit_work * material_consume / p_e);
     if (CANT_HAPPEN(work_used > sp->sct_avail))
 	work_used = sp->sct_avail;
     sp->sct_avail -= work_used;
+
+    return output;
 }
 
 /*

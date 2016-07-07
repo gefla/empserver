@@ -2052,13 +2052,13 @@
     Play#1 output Play#1 1 PRODUCTION SIMULATION
     Play#1 output Play#1 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#1 output Play#1 1    6,-2   l 100%   104  102  1.00 $918   102l            104l             104
-    Play#1 output Play#1 1   -1,-1   b 100%   456    0b 1.00 $0       0d            455d              91
+    Play#1 output Play#1 1   -1,-1   b 100%   455    0b 1.00 $0       0d            455d              91
     Play#1 output Play#1 1    1,-1   m 100%   600  600i 1.00 $0                                      600
     Play#1 output Play#1 1    3,-1   j 100%   485  242l 0.50 $0     484i            484i             242
-    Play#1 output Play#1 1    0,0    g  38%   287  109d 1.00 $0                                      109
-    Play#1 output Play#1 1    2,0    m 100%   703  703i 1.00 $0                                      703
+    Play#1 output Play#1 1    0,0    g  38%   288  109d 1.00 $0                                      109
+    Play#1 output Play#1 1    2,0    m 100%   704  704i 1.00 $0                                      704
     Play#1 output Play#1 1    4,0    k 100%   110   27h 0.50 $0     108i            108i              27
-    Play#1 output Play#1 1   -2,2    o  87%   135   58o 0.50 $0                                       58
+    Play#1 output Play#1 1   -2,2    o  87%   136   59o 0.50 $0                                       59
     Play#1 output Play#1 1 8 sectors
     Play#1 output Play#1 6 0 554
     Play#1 input ctld
@@ -2570,8 +2570,8 @@
     Play#1 output Play#1 1    6,-2   l 100%   199  148  1.00 $1332  148l            199l             199
     Play#1 output Play#1 1   -1,-1   b 100%   649   10b 1.00 $100    50d            645d             129
     Play#1 output Play#1 1    1,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#1 output Play#1 1    3,-1   j 100%   598  299l 0.50 $0     598i            598i             299
-    Play#1 output Play#1 1    0,0    g  16%   374   59d 1.00 $0                                       59
+    Play#1 output Play#1 1    3,-1   j 100%   599  299l 0.50 $0     598i            598i             299
+    Play#1 output Play#1 1    0,0    g  16%   373   59d 1.00 $0                                       59
     Play#1 output Play#1 1    2,0    m 100%   781  781i 1.00 $0                                      781
     Play#1 output Play#1 1    4,0    k 100%   143   35h 0.50 $0     140i            140i              35
     Play#1 output Play#1 1   -2,2    o  75%   305  114o 0.50 $0                                      114
@@ -3022,8 +3022,8 @@
     Play#1 output Play#1 1    6,-2   l 100%   245  150  1.00 $1350  150l            245l             245
     Play#1 output Play#1 1   -1,-1   b 100%   649   10b 1.00 $100    50d            645d             129
     Play#1 output Play#1 1    1,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#1 output Play#1 1    3,-1   j 100%   598  341l 0.57 $0     597i            597i             341
-    Play#1 output Play#1 1    0,0    g   4%   604   20d 1.00 $0                                       20
+    Play#1 output Play#1 1    3,-1   j 100%   599  342l 0.57 $0     599i            599i             342
+    Play#1 output Play#1 1    0,0    g   4%   603   20d 1.00 $0                                       20
     Play#1 output Play#1 1    2,0    m 100%   808  808i 1.00 $0                                      808
     Play#1 output Play#1 1    4,0    k 100%   602  171h 0.57 $0     599i            599i             171
     Play#1 output Play#1 1   -2,2    o  52%   397  117o 0.57 $0                                      117
@@ -4450,17 +4450,17 @@
     Play#1 output Play#1 1    4,-2   t 100%   339  7.78 0.78 $3000   10d  50o 100l   22d 106o 212l 16.48
     Play#1 output Play#1 1    6,-2   l 100%   214  150  1.00 $1350  150l            214l             214
     Play#1 output Play#1 1   -1,-1   b 100%   118   23b 1.00 $230   115d            115d              23
-    Play#1 output Play#1 1    1,-1   m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1    1,-1   m 100%   598  598i 1.00 $0                                      598
     Play#1 output Play#1 1    3,-1   j 100%   601  406l 0.68 $0     600i            600i             406
-    Play#1 output Play#1 1   -2,0    j 100%   650  320l 0.68 $0     473i            650i             440
-    Play#1 output Play#1 1    0,0    m 100%   599  599i 1.00 $0                                      599
-    Play#1 output Play#1 1    2,0    m 100%   877  877i 1.00 $0                                      877
+    Play#1 output Play#1 1   -2,0    j 100%   649  320l 0.68 $0     473i            649i             439
+    Play#1 output Play#1 1    0,0    m 100%   598  598i 1.00 $0                                      598
+    Play#1 output Play#1 1    2,0    m 100%   876  876i 1.00 $0                                      876
     Play#1 output Play#1 1    4,0    k 100%   602  203h 0.68 $0     600i            600i             203
-    Play#1 output Play#1 1    1,1    m 100%   474  474i 1.00 $0                                      474
+    Play#1 output Play#1 1    1,1    m 100%   473  473i 1.00 $0                                      473
     Play#1 output Play#1 1    3,1    g  65%   498  323d 1.00 $0                                      323
     Play#1 output Play#1 1   -2,2    o  17%   599   68o 0.68 $0                                       68
     Play#1 output Play#1 1    0,2    g  74%   540  370d 1.00 $0                                      370
-    Play#1 output Play#1 1    2,2    g  56%   505  280d 1.00 $0                                      280
+    Play#1 output Play#1 1    2,2    g  56%   504  280d 1.00 $0                                      280
     Play#1 output Play#1 1 14 sectors
     Play#1 output Play#1 6 0 521
     Play#1 input ctld
@@ -4749,10 +4749,10 @@
     Play#8 output Play#8 1 PRODUCTION SIMULATION
     Play#8 output Play#8 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#8 output Play#8 1    1,-1   m 100%   475  475i 1.00 $0                                      475
-    Play#8 output Play#8 1    3,-1   g  67%    91   60d 1.00 $0                                       60
+    Play#8 output Play#8 1    3,-1   g  67%    91   61d 1.00 $0                                       61
     Play#8 output Play#8 1    0,0    g 100%   626  500d 1.00 $0                                      500
-    Play#8 output Play#8 1    2,0    g 100%   626  500d 1.00 $0                                      500
-    Play#8 output Play#8 1    4,0    g  14%   261   36d 1.00 $0                                       36
+    Play#8 output Play#8 1    2,0    g 100%   625  500d 1.00 $0                                      500
+    Play#8 output Play#8 1    4,0    g  14%   260   36d 1.00 $0                                       36
     Play#8 output Play#8 1 5 sectors
     Play#8 output Play#8 6 0 619
     Play#8 input ctld
@@ -5326,18 +5326,18 @@
     Play#1 output Play#1 1    4,-2   t 100%   339  7.81 0.78 $3000   10d  50o 100l   22d 106o 212l 16.55
     Play#1 output Play#1 1    6,-2   l 100%   214  150  1.00 $1350  150l            214l             214
     Play#1 output Play#1 1   -1,-1   b 100%    81   16b 1.00 $160    80d             80d              16
-    Play#1 output Play#1 1    1,-1   m 100%   600  600i 1.00 $0                                      600
+    Play#1 output Play#1 1    1,-1   m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    3,-1   j 100%   601  428l 0.71 $0     601i            601i             428
-    Play#1 output Play#1 1   -2,0    j 100%   650  428l 0.71 $0     601i            650i             463
+    Play#1 output Play#1 1   -2,0    j 100%   649  428l 0.71 $0     601i            649i             462
     Play#1 output Play#1 1    0,0    m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    2,0    m 100%   919  919i 1.00 $0                                      919
-    Play#1 output Play#1 1    4,0    k 100%   601  214h 0.71 $0     601i            601i             214
+    Play#1 output Play#1 1    4,0    k 100%   602  214h 0.71 $0     601i            601i             214
     Play#1 output Play#1 1   -1,1    k 100%   505  168h 0.71 $0     472i            505i             180
     Play#1 output Play#1 1    1,1    m 100%   600  600i 1.00 $0                                      600
-    Play#1 output Play#1 1    3,1    m 100%   475  475i 1.00 $0                                      475
+    Play#1 output Play#1 1    3,1    m 100%   474  474i 1.00 $0                                      474
     Play#1 output Play#1 1   -2,2    o   7%   600   29o 0.71 $0                                       29
-    Play#1 output Play#1 1    0,2    m 100%   475  475i 1.00 $0                                      475
-    Play#1 output Play#1 1    2,2    k 100%   474    0h 0.71 $0       0i            472i             168
+    Play#1 output Play#1 1    0,2    m 100%   474  474i 1.00 $0                                      474
+    Play#1 output Play#1 1    2,2    k 100%   475    0h 0.71 $0       0i            475i             169
     Play#1 output Play#1 1    4,2    g  51%   452  230d 1.00 $0                                      230
     Play#1 output Play#1 1 19 sectors
     Play#1 output Play#1 6 0 618
@@ -5457,7 +5457,7 @@
     Play#8 output Play#8 1 PRODUCTION SIMULATION
     Play#8 output Play#8 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#8 output Play#8 1    1,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#8 output Play#8 1    3,-1   g  62%   592  310d 1.00 $0                                      310
+    Play#8 output Play#8 1    3,-1   g  62%   591  310d 1.00 $0                                      310
     Play#8 output Play#8 1    0,0    m 100%   646  646i 1.00 $0                                      646
     Play#8 output Play#8 1    2,0    m 100%   646  646i 1.00 $0                                      646
     Play#8 output Play#8 1    4,0    g   7%   277   19d 1.00 $0                                       19
@@ -5998,25 +5998,25 @@
     Play#1 output Play#1 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#1 output Play#1 1    1,-3   o  29%   600  129o 0.74 $0                                      129
     Play#1 output Play#1 1   -4,-2   o  16%   603   71o 0.74 $0                                       71
-    Play#1 output Play#1 1   -2,-2   o  10%   604   44o 0.74 $0                                       44
+    Play#1 output Play#1 1   -2,-2   o  10%   603   44o 0.74 $0                                       44
     Play#1 output Play#1 1    4,-2   t 100%   339 11.65 0.78 $4500   15d  75o 150l   22d 106o 212l 16.46
-    Play#1 output Play#1 1    6,-2   l 100%   213  150  1.00 $1350  150l            213l             213
+    Play#1 output Play#1 1    6,-2   l 100%   214  150  1.00 $1350  150l            214l             214
     Play#1 output Play#1 1   -1,-1   b 100%    79   15b 1.00 $150    75d             75d              15
     Play#1 output Play#1 1    1,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#1 output Play#1 1    3,-1   j 100%   600  444l 0.74 $0     599i            599i             444
-    Play#1 output Play#1 1   -2,0    j 100%   649  444l 0.74 $0     599i            649i             481
+    Play#1 output Play#1 1    3,-1   j 100%   601  445l 0.74 $0     601i            601i             445
+    Play#1 output Play#1 1   -2,0    j 100%   648  444l 0.74 $0     599i            648i             480
     Play#1 output Play#1 1    0,0    m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    2,0    m 100%   961  961i 1.00 $0                                      961
     Play#1 output Play#1 1    4,0    k 100%   601  222h 0.74 $0     599i            599i             222
     Play#1 output Play#1 1   -1,1    k 100%   633  223h 0.74 $0     602i            632i             234
-    Play#1 output Play#1 1    1,1    m 100%   600  600i 1.00 $0                                      600
+    Play#1 output Play#1 1    1,1    m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    3,1    m 100%   600  600i 1.00 $0                                      600
     Play#1 output Play#1 1    5,1    g  23%   499  114d 1.00 $0                                      114
     Play#1 output Play#1 1    7,1    g  33%   497  164d 1.00 $0                                      164
-    Play#1 output Play#1 1   -2,2    i 100%   475    0s 0.00 $0       0l   0h         0l   0h          0
-    Play#1 output Play#1 1    0,2    m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1   -2,2    i 100%   474    0s 0.00 $0       0l   0h         0l   0h          0
+    Play#1 output Play#1 1    0,2    m 100%   600  600i 1.00 $0                                      600
     Play#1 output Play#1 1    2,2    k 100%   650  176h 0.74 $0     475i            648i             240
-    Play#1 output Play#1 1    4,2    g   5%   600   25d 1.00 $0                                       25
+    Play#1 output Play#1 1    4,2    g   5%   599   25d 1.00 $0                                       25
     Play#1 output Play#1 1    6,2    g  46%   498  229d 1.00 $0                                      229
     Play#1 output Play#1 1    8,2    g  37%   497  183d 1.00 $0                                      183
     Play#1 output Play#1 1   10,2    g  28%   499  139d 1.00 $0                                      139
@@ -6957,19 +6957,19 @@
     Play#1 output Play#1 1    1,-3   o  12%   599   55o 0.77 $0                                       55
     Play#1 output Play#1 1   -4,-2   o   7%   603   32o 0.77 $0                                       32
     Play#1 output Play#1 1   -2,-2   o   4%   609   18o 0.77 $0                                       18
-    Play#1 output Play#1 1    4,-2   t 100%   649 11.48 0.77 $4500   15d  75o 150l   41d 203o 406l 31.04
+    Play#1 output Play#1 1    4,-2   t 100%   650 11.48 0.77 $4500   15d  75o 150l   41d 204o 407l 31.09
     Play#1 output Play#1 1    6,-2   l 100%   649  150  1.00 $1350  150l            649l             649
-    Play#1 output Play#1 1   -1,-1   b 100%   604   61b 1.00 $610   305d            600d             120
-    Play#1 output Play#1 1    1,-1   m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1   -1,-1   b 100%   603   61b 1.00 $610   305d            600d             120
+    Play#1 output Play#1 1    1,-1   m 100%   600  600i 1.00 $0                                      600
     Play#1 output Play#1 1    3,-1   j 100%   601  461l 0.77 $0     601i            601i             461
     Play#1 output Play#1 1   -2,0    j 100%   649  461l 0.77 $0     601i            649i             498
     Play#1 output Play#1 1    0,0    m 100%   599  599i 1.00 $0                                      599
-    Play#1 output Play#1 1    2,0    m 100%  1016  999i 1.00 $0                                      999
-    Play#1 output Play#1 1    4,0    k 100%   610  234h 0.77 $0     610i            610i             234
-    Play#1 output Play#1 1   -1,1    k 100%   632  230h 0.77 $0     600i            631i             242
-    Play#1 output Play#1 1    1,1    m 100%   600  600i 1.00 $0                                      600
-    Play#1 output Play#1 1    3,1    m 100%   600  600i 1.00 $0                                      600
-    Play#1 output Play#1 1    5,1    j 100%   474  363l 0.77 $0     473i            473i             363
+    Play#1 output Play#1 1    2,0    m 100%  1015  999i 1.00 $0                                      999
+    Play#1 output Play#1 1    4,0    k 100%   609  233h 0.77 $0     607i            607i             233
+    Play#1 output Play#1 1   -1,1    k 100%   631  230h 0.77 $0     600i            631i             242
+    Play#1 output Play#1 1    1,1    m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1    3,1    m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1    5,1    j 100%   475  364l 0.77 $0     475i            475i             364
     Play#1 output Play#1 1    7,1    d 100%   474    0g 0.24 $0       0o   0l   0h   26o 128l 255h     6
     Play#1 output Play#1 1   -2,2    i 100%   649   50s 0.24 $637   425l 213h       425l 213h         50
     Play#1 output Play#1 1    0,2    m 100%   599  599i 1.00 $0                                      599
@@ -7120,11 +7120,11 @@
     Play#8 output Play#8 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#8 output Play#8 1   -6,-4   o  87%   504  299o 0.68 $0                                      299
     Play#8 output Play#8 1    1,-3   g  19%   499   94d 1.00 $0                                       94
-    Play#8 output Play#8 1   -3,-1   j 100%   474  323l 0.68 $0     473i            473i             323
-    Play#8 output Play#8 1   -1,-1   g   0%   600    0d 1.00 $0                                        0
-    Play#8 output Play#8 1    1,-1   m 100%   599  599i 1.00 $0                                      599
+    Play#8 output Play#8 1   -3,-1   j 100%   475  324l 0.68 $0     475i            475i             324
+    Play#8 output Play#8 1   -1,-1   g   0%   599    0d 1.00 $0                                        0
+    Play#8 output Play#8 1    1,-1   m 100%   600  600i 1.00 $0                                      600
     Play#8 output Play#8 1    3,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#8 output Play#8 1    0,0    m 100%   823  823i 1.00 $0                                      823
+    Play#8 output Play#8 1    0,0    m 100%   822  822i 1.00 $0                                      822
     Play#8 output Play#8 1    2,0    m 100%   823  823i 1.00 $0                                      823
     Play#8 output Play#8 1    4,0    b 100%   323   60b 1.00 $600   300d            320d              64
     Play#8 output Play#8 1 9 sectors
@@ -7729,27 +7729,27 @@
     Play#1 output Play#1 1 PRODUCTION SIMULATION
     Play#1 output Play#1 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#1 output Play#1 1    1,-3   o   6%   609   28o 0.79 $0                                       28
-    Play#1 output Play#1 1   -4,-2   o   3%   607   14o 0.79 $0                                       14
-    Play#1 output Play#1 1   -2,-2   o   2%   623    9o 0.79 $0                                        9
+    Play#1 output Play#1 1   -4,-2   o   3%   608   14o 0.79 $0                                       14
+    Play#1 output Play#1 1   -2,-2   o   2%   624    9o 0.79 $0                                        9
     Play#1 output Play#1 1    4,-2   t 100%   649 11.23 0.75 $4500   15d  75o 150l   41d 203o 406l 30.36
-    Play#1 output Play#1 1    6,-2   l 100%   649  250  1.00 $2250  250l            649l             649
-    Play#1 output Play#1 1   -1,-1   b 100%   650   60b 1.00 $600   300d            650d             130
+    Play#1 output Play#1 1    6,-2   l 100%   650  250  1.00 $2250  250l            650l             650
+    Play#1 output Play#1 1   -1,-1   b 100%   649   60b 1.00 $600   300d            645d             129
     Play#1 output Play#1 1    1,-1   m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    3,-1   j 100%   600  473l 0.79 $0     600i            600i             473
     Play#1 output Play#1 1   -2,0    j 100%   648  473l 0.79 $0     600i            648i             511
     Play#1 output Play#1 1    0,0    m 100%   599  599i 1.00 $0                                      599
-    Play#1 output Play#1 1    2,0    m 100%  1016  999i 1.00 $0                                      999
+    Play#1 output Play#1 1    2,0    m 100%  1015  999i 1.00 $0                                      999
     Play#1 output Play#1 1    4,0    k 100%   795  313h 0.79 $0     794i            794i             313
-    Play#1 output Play#1 1   -1,1    k 100%   633  237h 0.79 $0     601i            632i             249
-    Play#1 output Play#1 1    1,1    m 100%   599  599i 1.00 $0                                      599
-    Play#1 output Play#1 1    3,1    m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1   -1,1    k 100%   632  237h 0.79 $0     601i            632i             249
+    Play#1 output Play#1 1    1,1    m 100%   600  600i 1.00 $0                                      600
+    Play#1 output Play#1 1    3,1    m 100%   600  600i 1.00 $0                                      600
     Play#1 output Play#1 1    5,1    j 100%   601  474l 0.79 $0     601i            601i             474
     Play#1 output Play#1 1    7,1    d 100%   650    4g 0.43 $281    10o  47l  94h   40o 200l 399h    17
     Play#1 output Play#1 1   -2,2    i 100%   601   85s 0.43 $598   399l 200h       399l 200h         85
-    Play#1 output Play#1 1    0,2    m 100%   600  600i 1.00 $0                                      600
-    Play#1 output Play#1 1    2,2    k 100%   649  237h 0.79 $0     601i            649i             256
-    Play#1 output Play#1 1    4,2    r 100%   650  7.48 0.75 $900    10d  50o 100l   41d 204o 407l 30.40
-    Play#1 output Play#1 1    8,2    e 100%   650   33m 1.00 $99     33c             33c             498
+    Play#1 output Play#1 1    0,2    m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1    2,2    k 100%   650  237h 0.79 $0     601i            649i             256
+    Play#1 output Play#1 1    4,2    r 100%   649  7.48 0.75 $900    10d  50o 100l   41d 203o 406l 30.36
+    Play#1 output Play#1 1    8,2    e 100%   649   33m 1.00 $99     33c             33c             498
     Play#1 output Play#1 1    5,3    p 100%   649   75  1.00 $675    75l            649l             649
     Play#1 output Play#1 1 23 sectors
     Play#1 output Play#1 6 0 632
@@ -7922,15 +7922,15 @@
     Play#8 output Play#8 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#8 output Play#8 1   -6,-4   o  43%   602  182o 0.70 $0                                      182
     Play#8 output Play#8 1    1,-3   l 100%   475  300  1.00 $2700  300l            475l             475
-    Play#8 output Play#8 1    6,-2   g   5%   597   25d 1.00 $0                                       25
+    Play#8 output Play#8 1    6,-2   g   5%   596   25d 1.00 $0                                       25
     Play#8 output Play#8 1   -3,-1   j 100%   599  421l 0.70 $0     599i            599i             421
     Play#8 output Play#8 1   -1,-1   m 100%   475  475i 1.00 $0                                      475
     Play#8 output Play#8 1    1,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#8 output Play#8 1    3,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#8 output Play#8 1    0,0    m 100%   855  855i 1.00 $0                                      855
+    Play#8 output Play#8 1    3,-1   m 100%   600  600i 1.00 $0                                      600
+    Play#8 output Play#8 1    0,0    m 100%   854  854i 1.00 $0                                      854
     Play#8 output Play#8 1    2,0    m 100%   854  854i 1.00 $0                                      854
     Play#8 output Play#8 1    4,0    b 100%   296   59b 1.00 $590   295d            295d              59
-    Play#8 output Play#8 1    6,0    g  10%   500   50d 1.00 $0                                       50
+    Play#8 output Play#8 1    6,0    g  10%   499   49d 1.00 $0                                       49
     Play#8 output Play#8 1 11 sectors
     Play#8 output Play#8 6 0 575
     Play#8 input ctld
@@ -8447,28 +8447,28 @@
     Play#1 output Play#1 1 PRODUCTION SIMULATION
     Play#1 output Play#1 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#1 output Play#1 1    1,-3   o   3%   556   13o 0.81 $0                                       13
-    Play#1 output Play#1 1   -4,-2   o   2%   615    9o 0.81 $0                                        9
-    Play#1 output Play#1 1   -2,-2   o   1%   649    5o 0.81 $0                                        5
+    Play#1 output Play#1 1   -4,-2   o   2%   616    9o 0.81 $0                                        9
+    Play#1 output Play#1 1   -2,-2   o   1%   650    5o 0.81 $0                                        5
     Play#1 output Play#1 1    4,-2   t 100%   649 11.13 0.74 $4500   15d  75o 150l   41d 203o 406l 30.11
-    Play#1 output Play#1 1    6,-2   l 100%   649  300  1.00 $2700  300l            649l             649
+    Play#1 output Play#1 1    6,-2   l 100%   650  300  1.00 $2700  300l            650l             650
     Play#1 output Play#1 1   -1,-1   b 100%   650   60b 1.00 $600   300d            650d             130
     Play#1 output Play#1 1    1,-1   m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    3,-1   j 100%   600  483l 0.81 $0     599i            599i             483
     Play#1 output Play#1 1   -2,0    j 100%   648  483l 0.81 $0     599i            648i             522
-    Play#1 output Play#1 1    0,0    m 100%   600  600i 1.00 $0                                      600
-    Play#1 output Play#1 1    2,0    m 100%  1016  999i 1.00 $0                                      999
+    Play#1 output Play#1 1    0,0    m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1    2,0    m 100%  1015  999i 1.00 $0                                      999
     Play#1 output Play#1 1    4,0    k 100%   887  357h 0.81 $0     886i            886i             357
     Play#1 output Play#1 1   -1,1    k 100%   631  194h 0.81 $0     481i            630i             254
     Play#1 output Play#1 1    1,1    m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    3,1    m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    5,1    j 100%   599  483l 0.81 $0     599i            599i             483
-    Play#1 output Play#1 1    7,1    d 100%   649    5g 0.54 $278    10o  47l  93h   39o 195l 390h    21
-    Play#1 output Play#1 1   -2,2    i 100%   603  108s 0.54 $600   401l 201h       401l 201h        108
-    Play#1 output Play#1 1    0,2    m 100%   600  600i 1.00 $0                                      600
-    Play#1 output Play#1 1    2,2    k 100%   649  241h 0.81 $0     598i            648i             261
+    Play#1 output Play#1 1    7,1    d 100%   650    5g 0.54 $278    10o  47l  93h   39o 195l 390h    21
+    Play#1 output Play#1 1   -2,2    i 100%   602  108s 0.54 $600   401l 201h       401l 201h        108
+    Play#1 output Play#1 1    0,2    m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1    2,2    k 100%   648  241h 0.81 $0     598i            648i             261
     Play#1 output Play#1 1    4,2    r 100%   649  7.42 0.74 $900    10d  50o 100l   41d 203o 406l 30.11
     Play#1 output Play#1 1    8,2    e 100%   650   33m 1.00 $99     33c             33c             498
-    Play#1 output Play#1 1    5,3    p 100%   650   75  1.00 $675    75l            650l             650
+    Play#1 output Play#1 1    5,3    p 100%   649   75  1.00 $675    75l            649l             649
     Play#1 output Play#1 1 23 sectors
     Play#1 output Play#1 6 0 635
     Play#1 input ctld
@@ -8620,18 +8620,18 @@
     Play#8 output Play#8 1 PRODUCTION SIMULATION
     Play#8 output Play#8 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#8 output Play#8 1   -6,-4   o  17%   602   73o 0.72 $0                                       73
-    Play#8 output Play#8 1    0,-4   k 100%   502  181h 0.72 $0     502i            502i             181
+    Play#8 output Play#8 1    0,-4   k 100%   501  180h 0.72 $0     500i            500i             180
     Play#8 output Play#8 1    1,-3   l 100%   649  300  1.00 $2700  300l            649l             649
     Play#8 output Play#8 1    6,-2   t 100%   475  8.81 0.61 $4350   15d  73o 145l   30d 149o 297l 18.04
     Play#8 output Play#8 1   -3,-1   j 100%   599  431l 0.72 $0     598i            598i             431
-    Play#8 output Play#8 1   -1,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#8 output Play#8 1    1,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#8 output Play#8 1    3,-1   m 100%   600  600i 1.00 $0                                      600
+    Play#8 output Play#8 1   -1,-1   m 100%   600  600i 1.00 $0                                      600
+    Play#8 output Play#8 1    1,-1   m 100%   600  600i 1.00 $0                                      600
+    Play#8 output Play#8 1    3,-1   m 100%   599  599i 1.00 $0                                      599
     Play#8 output Play#8 1    0,0    m 100%   891  891i 1.00 $0                                      891
     Play#8 output Play#8 1    2,0    m 100%   891  891i 1.00 $0                                      891
     Play#8 output Play#8 1    4,0    b 100%   274   54b 1.00 $540   270d            270d              54
-    Play#8 output Play#8 1    8,0    i 100%   496    0s 0.00 $0       0l   0h         0l   0h          0
-    Play#8 output Play#8 1   -3,1    g  46%   505  230d 1.00 $0                                      230
+    Play#8 output Play#8 1    8,0    i 100%   495    0s 0.00 $0       0l   0h         0l   0h          0
+    Play#8 output Play#8 1   -3,1    g  46%   506  230d 1.00 $0                                      230
     Play#8 output Play#8 1   -1,1    j 100%   501  361l 0.72 $0     501i            501i             361
     Play#8 output Play#8 1 14 sectors
     Play#8 output Play#8 6 0 564
@@ -9347,29 +9347,29 @@
     Play#1 output Play#1 1 PRODUCTION SIMULATION
     Play#1 output Play#1 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#1 output Play#1 1    1,-3   j 100%   301  249l 0.83 $0     301i            301i             249
-    Play#1 output Play#1 1   -4,-2   k 100%   474  196h 0.83 $0     474i            474i             196
-    Play#1 output Play#1 1   -2,-2   j 100%   475  393l 0.83 $0     475i            475i             393
-    Play#1 output Play#1 1    4,-2   t 100%   649 11.11 0.74 $4500   15d  75o 150l   41d 203o 406l 30.04
-    Play#1 output Play#1 1    6,-2   l 100%   649  300  1.00 $2700  300l            649l             649
+    Play#1 output Play#1 1   -4,-2   k 100%   475  196h 0.83 $0     474i            474i             196
+    Play#1 output Play#1 1   -2,-2   j 100%   474  392l 0.83 $0     474i            474i             392
+    Play#1 output Play#1 1    4,-2   t 100%   650 11.11 0.74 $4500   15d  75o 150l   41d 204o 407l 30.09
+    Play#1 output Play#1 1    6,-2   l 100%   650  300  1.00 $2700  300l            650l             650
     Play#1 output Play#1 1   -1,-1   b 100%   649   60b 1.00 $600   300d            645d             129
-    Play#1 output Play#1 1    1,-1   m 100%   600  600i 1.00 $0                                      600
-    Play#1 output Play#1 1    3,-1   m  96%   475  456i 1.00 $0                                      456
-    Play#1 output Play#1 1   -2,0    j 100%   650  497l 0.83 $0     601i            649i             537
-    Play#1 output Play#1 1    0,0    m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1    1,-1   m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1    3,-1   m  96%   474  455i 1.00 $0                                      455
+    Play#1 output Play#1 1   -2,0    j 100%   649  497l 0.83 $0     601i            649i             537
+    Play#1 output Play#1 1    0,0    m 100%   600  600i 1.00 $0                                      600
     Play#1 output Play#1 1    2,0    m 100%  1015  999i 1.00 $0                                      999
     Play#1 output Play#1 1    4,0    k 100%   989  409h 0.83 $0     989i            989i             409
     Play#1 output Play#1 1   -1,1    k 100%   649  248h 0.83 $0     600i            648i             268
-    Play#1 output Play#1 1    1,1    m 100%   600  600i 1.00 $0                                      600
-    Play#1 output Play#1 1    3,1    m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1    1,1    m 100%   599  599i 1.00 $0                                      599
+    Play#1 output Play#1 1    3,1    m 100%   600  600i 1.00 $0                                      600
     Play#1 output Play#1 1    5,1    j 100%   601  497l 0.83 $0     601i            601i             497
-    Play#1 output Play#1 1    7,1    d 100%   649    6g 0.64 $280    10o  47l  94h   41o 203l 405h    26
+    Play#1 output Play#1 1    7,1    d 100%   650    6g 0.64 $280    10o  47l  94h   41o 203l 405h    26
     Play#1 output Play#1 1   -2,2    i 100%   602  129s 0.64 $602   402l 201h       402l 201h        129
     Play#1 output Play#1 1    0,2    m 100%   600  600i 1.00 $0                                      600
     Play#1 output Play#1 1    2,2    k 100%   649  249h 0.83 $0     602i            648i             268
-    Play#1 output Play#1 1    4,2    r 100%   649  7.41 0.74 $900    10d  50o 100l   41d 203o 406l 30.04
+    Play#1 output Play#1 1    4,2    r 100%   650  7.41 0.74 $900    10d  50o 100l   41d 204o 407l 30.09
     Play#1 output Play#1 1    8,2    e 100%   650   33m 1.00 $99     33c             33c             498
     Play#1 output Play#1 1   -1,3    o 100%   474  392o 0.83 $0                                      392
-    Play#1 output Play#1 1    5,3    p 100%   650   75  1.00 $675    75l            650l             650
+    Play#1 output Play#1 1    5,3    p 100%   649   75  1.00 $675    75l            649l             649
     Play#1 output Play#1 1 24 sectors
     Play#1 output Play#1 6 0 587
     Play#1 input ctld
@@ -10156,22 +10156,22 @@
     Play#8 output Play#8 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#8 output Play#8 1   -6,-4   o   7%   607   32o 0.76 $0                                       32
     Play#8 output Play#8 1    0,-4   k 100%   599  228h 0.76 $0     599i            599i             228
-    Play#8 output Play#8 1    1,-3   l 100%   650  300  1.00 $2700  300l            650l             650
+    Play#8 output Play#8 1    1,-3   l 100%   649  300  1.00 $2700  300l            649l             649
     Play#8 output Play#8 1   -2,-2   g  60%   506  300d 1.00 $0                                      300
-    Play#8 output Play#8 1    0,-2   g  65%   500  325d 1.00 $0                                      325
+    Play#8 output Play#8 1    0,-2   g  65%   499  324d 1.00 $0                                      324
     Play#8 output Play#8 1    2,-2   k 100%   497    0h 0.76 $0       0i            496i             189
     Play#8 output Play#8 1    4,-2   j 100%   499  380l 0.76 $0     499i            499i             380
-    Play#8 output Play#8 1    6,-2   t 100%   650 21.95 0.73 $9000   30d 150o 300l   41d 204o 407l 29.72
+    Play#8 output Play#8 1    6,-2   t 100%   649 21.95 0.73 $9000   30d 150o 300l   41d 203o 406l 29.68
     Play#8 output Play#8 1   -3,-1   j 100%   600  457l 0.76 $0     600i            600i             457
     Play#8 output Play#8 1   -1,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#8 output Play#8 1    1,-1   m 100%   600  600i 1.00 $0                                      600
-    Play#8 output Play#8 1    3,-1   m 100%   600  600i 1.00 $0                                      600
+    Play#8 output Play#8 1    1,-1   m 100%   599  599i 1.00 $0                                      599
+    Play#8 output Play#8 1    3,-1   m 100%   599  599i 1.00 $0                                      599
     Play#8 output Play#8 1    0,0    m 100%   933  933i 1.00 $0                                      933
     Play#8 output Play#8 1    2,0    m 100%   933  933i 1.00 $0                                      933
     Play#8 output Play#8 1    4,0    b 100%   316   60b 1.00 $600   300d            315d              63
-    Play#8 output Play#8 1    8,0    i 100%   650    0s 0.17 $0       0l   0h       427l 214h         37
+    Play#8 output Play#8 1    8,0    i 100%   649    0s 0.17 $0       0l   0h       427l 214h         37
     Play#8 output Play#8 1   -3,1    j 100%   475  362l 0.76 $0     475i            475i             362
-    Play#8 output Play#8 1   -1,1    j 100%   599  456l 0.76 $0     599i            599i             456
+    Play#8 output Play#8 1   -1,1    j 100%   600  457l 0.76 $0     600i            600i             457
     Play#8 output Play#8 1 18 sectors
     Play#8 output Play#8 6 0 552
     Play#8 input ctld
@@ -10825,28 +10825,28 @@
     Play#1 output Play#1 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#1 output Play#1 1    1,-3   j 100%   201  170l 0.85 $0     201i            201i             170
     Play#1 output Play#1 1   -4,-2   k 100%   600  253h 0.85 $0     599i            599i             253
-    Play#1 output Play#1 1   -2,-2   j 100%   600  507l 0.85 $0     600i            600i             507
-    Play#1 output Play#1 1    2,-2   o  47%   475  188o 0.85 $0                                      188
+    Play#1 output Play#1 1   -2,-2   j 100%   599  506l 0.85 $0     599i            599i             506
+    Play#1 output Play#1 1    2,-2   o  47%   474  188o 0.85 $0                                      188
     Play#1 output Play#1 1    4,-2   t 100%   649 11.09 0.74 $4500   15d  75o 150l   41d 203o 406l 29.99
     Play#1 output Play#1 1    6,-2   l 100%   649  400  1.00 $3600  400l            649l             649
     Play#1 output Play#1 1   -1,-1   b 100%   650   60b 1.00 $600   300d            650d             130
-    Play#1 output Play#1 1    1,-1   m 100%   600  600i 1.00 $0                                      600
+    Play#1 output Play#1 1    1,-1   m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    3,-1   m  96%   599  575i 1.00 $0                                      575
     Play#1 output Play#1 1   -2,0    j 100%   648  507l 0.85 $0     600i            648i             548
-    Play#1 output Play#1 1    0,0    m 100%   600  600i 1.00 $0                                      600
+    Play#1 output Play#1 1    0,0    m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    2,0    m 100%  1016  999i 1.00 $0                                      999
     Play#1 output Play#1 1    4,0    k 100%  1110  469h 0.85 $0    1109i           1109i             469
     Play#1 output Play#1 1   -1,1    k 100%   649  244h 0.85 $0     577i            648i             274
-    Play#1 output Play#1 1    1,1    m 100%   600  600i 1.00 $0                                      600
+    Play#1 output Play#1 1    1,1    m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    3,1    m 100%   599  599i 1.00 $0                                      599
-    Play#1 output Play#1 1    5,1    j 100%   599  506l 0.85 $0     599i            599i             506
-    Play#1 output Play#1 1    7,1    d 100%   650    7g 0.71 $294    10o  50l  99h   41o 204l 407h    29
-    Play#1 output Play#1 1   -2,2    i 100%   601  143s 0.71 $601   401l 201h       401l 201h        143
-    Play#1 output Play#1 1    0,2    m 100%   600  600i 1.00 $0                                      600
+    Play#1 output Play#1 1    5,1    j 100%   600  507l 0.85 $0     600i            600i             507
+    Play#1 output Play#1 1    7,1    d 100%   649    7g 0.71 $294    10o  50l  99h   40o 197l 393h    28
+    Play#1 output Play#1 1   -2,2    i 100%   602  143s 0.71 $601   401l 201h       401l 201h        143
+    Play#1 output Play#1 1    0,2    m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    4,2    r 100%   649  7.39 0.74 $900    10d  50o 100l   41d 203o 406l 29.99
     Play#1 output Play#1 1    8,2    e 100%   650   33m 1.00 $99     33c             33c             498
-    Play#1 output Play#1 1   -1,3    o  53%   600  269o 0.85 $0                                      269
-    Play#1 output Play#1 1    5,3    p 100%   649   75  1.00 $675    75l            649l             649
+    Play#1 output Play#1 1   -1,3    o  53%   601  269o 0.85 $0                                      269
+    Play#1 output Play#1 1    5,3    p 100%   650   75  1.00 $675    75l            650l             650
     Play#1 output Play#1 1 24 sectors
     Play#1 output Play#1 6 0 622
     Play#1 input ctld
@@ -11117,8 +11117,8 @@
     Play#2 output Play#2 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#2 output Play#2 1   -5,-1   g  28%   500  140d 1.00 $0                                      140
     Play#2 output Play#2 1   -1,-1   o 100%   227  170o 0.75 $0                                      170
-    Play#2 output Play#2 1    1,-1   b 100%     2    0b 1.00 $0       0d              0d               0
-    Play#2 output Play#2 1    3,-1   g  25%   433  108d 1.00 $0                                      108
+    Play#2 output Play#2 1    1,-1   b 100%     1    0b 1.00 $0       0d              0d               0
+    Play#2 output Play#2 1    3,-1   g  25%   432  108d 1.00 $0                                      108
     Play#2 output Play#2 1    5,-1   g  42%    82   34d 1.00 $0                                       34
     Play#2 output Play#2 1    0,0    m 100%   843  843i 1.00 $0                                      843
     Play#2 output Play#2 1    2,0    m 100%   850  850i 1.00 $0                                      850
@@ -11313,28 +11313,28 @@
     Play#8 output Play#8 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#8 output Play#8 1   -6,-4   o   3%   606   14o 0.80 $0                                       14
     Play#8 output Play#8 1    0,-4   k 100%   601  239h 0.80 $0     599i            599i             239
-    Play#8 output Play#8 1   -5,-3   o  72%   507  291o 0.80 $0                                      291
+    Play#8 output Play#8 1   -5,-3   o  72%   508  292o 0.80 $0                                      292
     Play#8 output Play#8 1   -1,-3   g  23%   540  115d 1.00 $0                                      115
     Play#8 output Play#8 1    1,-3   l 100%   650  300  1.00 $2700  300l            650l             650
-    Play#8 output Play#8 1   -4,-2   g  28%   500  140d 1.00 $0                                      140
+    Play#8 output Play#8 1   -4,-2   g  28%   499  139d 1.00 $0                                      139
     Play#8 output Play#8 1   -2,-2   m  96%   474  455i 1.00 $0                                      455
-    Play#8 output Play#8 1    0,-2   m 100%   475  475i 1.00 $0                                      475
-    Play#8 output Play#8 1    2,-2   k 100%   650  259h 0.80 $0     649i            649i             259
-    Play#8 output Play#8 1    4,-2   j 100%   601  479l 0.80 $0     600i            600i             479
-    Play#8 output Play#8 1    6,-2   t 100%   650 23.05 0.77 $9000   30d 150o 300l   41d 204o 407l 31.22
+    Play#8 output Play#8 1    0,-2   m 100%   474  474i 1.00 $0                                      474
+    Play#8 output Play#8 1    2,-2   k 100%   649  259h 0.80 $0     649i            649i             259
+    Play#8 output Play#8 1    4,-2   j 100%   600  479l 0.80 $0     600i            600i             479
+    Play#8 output Play#8 1    6,-2   t 100%   649 23.05 0.77 $9000   30d 150o 300l   41d 203o 406l 31.17
     Play#8 output Play#8 1   -3,-1   j 100%   599  478l 0.80 $0     599i            599i             478
-    Play#8 output Play#8 1   -1,-1   m 100%   631  631i 1.00 $0                                      631
+    Play#8 output Play#8 1   -1,-1   m 100%   630  630i 1.00 $0                                      630
     Play#8 output Play#8 1    1,-1   m 100%   600  600i 1.00 $0                                      600
-    Play#8 output Play#8 1    3,-1   m 100%   599  599i 1.00 $0                                      599
+    Play#8 output Play#8 1    3,-1   m 100%   600  600i 1.00 $0                                      600
     Play#8 output Play#8 1    5,-1   g  56%   537  280d 1.00 $0                                      280
     Play#8 output Play#8 1   -2,0    g  51%   499  254d 1.00 $0                                      254
     Play#8 output Play#8 1    0,0    m 100%   966  966i 1.00 $0                                      966
     Play#8 output Play#8 1    2,0    m 100%   965  965i 1.00 $0                                      965
     Play#8 output Play#8 1    4,0    b 100%   328   60b 1.00 $600   300d            325d              65
     Play#8 output Play#8 1    8,0    i 100%   649  101s 0.49 $618   413l 207h       429l 215h        105
-    Play#8 output Play#8 1   -3,1    j 100%   600  479l 0.80 $0     600i            600i             479
-    Play#8 output Play#8 1   -1,1    j 100%   600  479l 0.80 $0     600i            600i             479
-    Play#8 output Play#8 1    1,1    g  37%   533  185d 1.00 $0                                      185
+    Play#8 output Play#8 1   -3,1    j 100%   599  478l 0.80 $0     599i            599i             478
+    Play#8 output Play#8 1   -1,1    j 100%   601  479l 0.80 $0     600i            600i             479
+    Play#8 output Play#8 1    1,1    g  37%   534  185d 1.00 $0                                      185
     Play#8 output Play#8 1 24 sectors
     Play#8 output Play#8 6 0 546
     Play#8 input ctld
@@ -12013,26 +12013,26 @@
     Play#1 output Play#1 1 PRODUCTION SIMULATION
     Play#1 output Play#1 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#1 output Play#1 1    1,-3   j  97%    41   34l 0.86 $0      40i             40i              34
-    Play#1 output Play#1 1   -4,-2   k 100%   599  257h 0.86 $0     598i            598i             257
+    Play#1 output Play#1 1   -4,-2   k 100%   600  258h 0.86 $0     600i            600i             258
     Play#1 output Play#1 1   -2,-2   j 100%   600  516l 0.86 $0     600i            600i             516
-    Play#1 output Play#1 1    2,-2   % 100%   474  999p 7.61 $131   132o            132o             999
+    Play#1 output Play#1 1    2,-2   % 100%   475  999p 7.61 $131   132o            132o             999
     Play#1 output Play#1 1    4,-2   t 100%   650 11.25 0.75 $4500   15d  75o 150l   41d 204o 407l 30.48
     Play#1 output Play#1 1    6,-2   l 100%   649  450  1.00 $4050  450l            649l             649
-    Play#1 output Play#1 1   -1,-1   b 100%   649   60b 1.00 $600   300d            645d             129
-    Play#1 output Play#1 1    1,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#1 output Play#1 1    3,-1   m  96%   599  575i 1.00 $0                                      575
+    Play#1 output Play#1 1   -1,-1   b 100%   650   60b 1.00 $600   300d            650d             130
+    Play#1 output Play#1 1    1,-1   m 100%   600  600i 1.00 $0                                      600
+    Play#1 output Play#1 1    3,-1   m  96%   600  576i 1.00 $0                                      576
     Play#1 output Play#1 1   -2,0    j 100%   648  516l 0.86 $0     600i            648i             557
     Play#1 output Play#1 1    0,0    m 100%   600  600i 1.00 $0                                      600
     Play#1 output Play#1 1    2,0    m 100%  1015  999i 1.00 $0                                      999
-    Play#1 output Play#1 1    4,0    k 100%  1200  516h 0.86 $0    1199i           1199i             516
+    Play#1 output Play#1 1    4,0    k 100%  1201  516h 0.86 $0    1199i           1199i             516
     Play#1 output Play#1 1   -1,1    k 100%   649  230h 0.86 $0     535i            649i             279
-    Play#1 output Play#1 1    1,1    m 100%   600  600i 1.00 $0                                      600
+    Play#1 output Play#1 1    1,1    m 100%   599  599i 1.00 $0                                      599
     Play#1 output Play#1 1    3,1    m 100%   647  647i 1.00 $0                                      647
-    Play#1 output Play#1 1    5,1    j 100%   599  515l 0.86 $0     599i            599i             515
-    Play#1 output Play#1 1    7,1    d 100%   649    7g 0.76 $276    10o  46l  92h   40o 198l 395h    30
-    Play#1 output Play#1 1   -2,2    i 100%   600  152s 0.76 $599   400l 200h       400l 200h        152
-    Play#1 output Play#1 1    0,2    m 100%   599  599i 1.00 $0                                      599
-    Play#1 output Play#1 1    4,2    r 100%   649  7.50 0.75 $900    10d  50o 100l   41d 203o 406l 30.43
+    Play#1 output Play#1 1    5,1    j 100%   600  516l 0.86 $0     600i            600i             516
+    Play#1 output Play#1 1    7,1    d 100%   650    7g 0.76 $276    10o  46l  92h   40o 198l 395h    30
+    Play#1 output Play#1 1   -2,2    i 100%   601  152s 0.76 $599   400l 200h       400l 200h        152
+    Play#1 output Play#1 1    0,2    m 100%   600  600i 1.00 $0                                      600
+    Play#1 output Play#1 1    4,2    r 100%   650  7.50 0.75 $900    10d  50o 100l   41d 204o 407l 30.48
     Play#1 output Play#1 1    8,2    e 100%   650   33m 1.00 $99     33c             33c             498
     Play#1 output Play#1 1   -1,3    o  21%   600  108o 0.86 $0                                      108
     Play#1 output Play#1 1    5,3    p 100%   649   75  1.00 $675    75l            649l             649
@@ -12174,8 +12174,8 @@
     Play#2 output Play#2 1    3,-1   g   3%   235    7d 1.00 $0                                        7
     Play#2 output Play#2 1    5,-1   g  36%   469  168d 1.00 $0                                      168
     Play#2 output Play#2 1    7,-1   g  14%   208   29d 1.00 $0                                       29
-    Play#2 output Play#2 1    0,0    m 100%   998  998i 1.00 $0                                      998
-    Play#2 output Play#2 1    2,0    m 100%   998  998i 1.00 $0                                      998
+    Play#2 output Play#2 1    0,0    m 100%   999  999i 1.00 $0                                      999
+    Play#2 output Play#2 1    2,0    m 100%   999  999i 1.00 $0                                      999
     Play#2 output Play#2 1 8 sectors
     Play#2 output Play#2 6 0 618
     Play#2 input ctld
@@ -12370,23 +12370,23 @@
     Play#8 output Play#8 1 PRODUCTION SIMULATION
     Play#8 output Play#8 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#8 output Play#8 1    0,-4   k 100%   600  247h 0.82 $0     599i            599i             247
-    Play#8 output Play#8 1   -5,-3   o  35%   599  172o 0.82 $0                                      172
+    Play#8 output Play#8 1   -5,-3   o  35%   600  173o 0.82 $0                                      173
     Play#8 output Play#8 1    1,-3   l 100%   650  300  1.00 $2700  300l            650l             650
     Play#8 output Play#8 1   -2,-2   m  96%   599  575i 1.00 $0                                      575
     Play#8 output Play#8 1    0,-2   m 100%   599  599i 1.00 $0                                      599
     Play#8 output Play#8 1    2,-2   k 100%   601  247h 0.82 $0     599i            599i             247
     Play#8 output Play#8 1    4,-2   j 100%   599  494l 0.82 $0     599i            599i             494
-    Play#8 output Play#8 1    6,-2   t 100%   649 23.37 0.78 $9000   30d 150o 300l   41d 203o 406l 31.60
+    Play#8 output Play#8 1    6,-2   t 100%   650 23.37 0.78 $9000   30d 150o 300l   41d 204o 407l 31.65
     Play#8 output Play#8 1   -3,-1   j 100%   599  494l 0.82 $0     599i            599i             494
     Play#8 output Play#8 1   -1,-1   m 100%   742  742i 1.00 $0                                      742
     Play#8 output Play#8 1    1,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#8 output Play#8 1    3,-1   m 100%   600  600i 1.00 $0                                      600
-    Play#8 output Play#8 1    5,-1   d 100%   474    6g 0.63 $285    10o  48l  96h   29o 143l 286h    18
-    Play#8 output Play#8 1   -2,0    p 100%   475    0  1.00 $0       0l            475l             475
-    Play#8 output Play#8 1    0,0    m 100%   953  953i 1.00 $0                                      953
-    Play#8 output Play#8 1    2,0    m 100%   965  965i 1.00 $0                                      965
-    Play#8 output Play#8 1    4,0    b 100%   628   60b 1.00 $600   300d            625d             125
-    Play#8 output Play#8 1    8,0    i 100%   631  132s 0.63 $627   419l 210h       419l 210h        132
+    Play#8 output Play#8 1    3,-1   m 100%   599  599i 1.00 $0                                      599
+    Play#8 output Play#8 1    5,-1   d 100%   475    6g 0.63 $285    10o  48l  96h   29o 143l 286h    18
+    Play#8 output Play#8 1   -2,0    p 100%   474    0  1.00 $0       0l            474l             474
+    Play#8 output Play#8 1    0,0    m 100%   952  952i 1.00 $0                                      952
+    Play#8 output Play#8 1    2,0    m 100%   966  966i 1.00 $0                                      966
+    Play#8 output Play#8 1    4,0    b 100%   627   60b 1.00 $600   300d            625d             125
+    Play#8 output Play#8 1    8,0    i 100%   632  133s 0.63 $632   422l 211h       422l 211h        133
     Play#8 output Play#8 1   -3,1    j 100%   599  494l 0.82 $0     599i            599i             494
     Play#8 output Play#8 1   -1,1    j 100%   601  495l 0.82 $0     601i            601i             495
     Play#8 output Play#8 1    1,1    k 100%   474    0h 0.82 $0       0i            473i             195
@@ -13306,15 +13306,15 @@
     Play#2 output Play#2 1 PRODUCTION SIMULATION
     Play#2 output Play#2 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#2 output Play#2 1   -5,-1   j 100%   785  610l 0.78 $0     785i            785i             610
-    Play#2 output Play#2 1   -1,-1   o  30%   599  139o 0.78 $0                                      139
+    Play#2 output Play#2 1   -1,-1   o  30%   600  139o 0.78 $0                                      139
     Play#2 output Play#2 1    1,-1   b 100%   302   60b 1.00 $600   300d            300d              60
     Play#2 output Play#2 1    3,-1   l  92%   117  108  1.00 $969   108l            108l             108
     Play#2 output Play#2 1    5,-1   k 100%   474  184h 0.78 $0     474i            474i             184
     Play#2 output Play#2 1    7,-1   g   8%   313   25d 1.00 $0                                       25
     Play#2 output Play#2 1   -6,0    g  19%   505   95d 1.00 $0                                       95
     Play#2 output Play#2 1   -4,0    g  33%   296   97d 1.00 $0                                       97
-    Play#2 output Play#2 1    0,0    m 100%   998  998i 1.00 $0                                      998
-    Play#2 output Play#2 1    2,0    m 100%   998  998i 1.00 $0                                      998
+    Play#2 output Play#2 1    0,0    m 100%   999  999i 1.00 $0                                      999
+    Play#2 output Play#2 1    2,0    m 100%   999  999i 1.00 $0                                      999
     Play#2 output Play#2 1 10 sectors
     Play#2 output Play#2 6 0 629
     Play#2 input ctld
@@ -13463,27 +13463,27 @@
     Play#8 output Play#8 1 PRODUCTION SIMULATION
     Play#8 output Play#8 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
     Play#8 output Play#8 1   -4,-4   o 100%   456  385o 0.85 $0                                      385
-    Play#8 output Play#8 1    0,-4   k 100%   602  254h 0.85 $0     601i            601i             254
+    Play#8 output Play#8 1    0,-4   k 100%   601  254h 0.85 $0     601i            601i             254
     Play#8 output Play#8 1   -5,-3   o  14%   599   70o 0.85 $0                                       70
     Play#8 output Play#8 1    1,-3   l 100%   650  400  1.00 $3600  400l            650l             650
-    Play#8 output Play#8 1   -2,-2   m  96%   600  576i 1.00 $0                                      576
-    Play#8 output Play#8 1    0,-2   m 100%   599  599i 1.00 $0                                      599
-    Play#8 output Play#8 1    2,-2   k 100%   602  254h 0.85 $0     601i            601i             254
+    Play#8 output Play#8 1   -2,-2   m  96%   599  575i 1.00 $0                                      575
+    Play#8 output Play#8 1    0,-2   m 100%   600  600i 1.00 $0                                      600
+    Play#8 output Play#8 1    2,-2   k 100%   601  254h 0.85 $0     601i            601i             254
     Play#8 output Play#8 1    4,-2   j 100%   600  507l 0.85 $0     600i            600i             507
-    Play#8 output Play#8 1    6,-2   t 100%   650 23.32 0.78 $9000   30d 150o 300l   41d 204o 407l 31.57
+    Play#8 output Play#8 1    6,-2   t 100%   649 23.32 0.78 $9000   30d 150o 300l   41d 203o 406l 31.52
     Play#8 output Play#8 1   -3,-1   j 100%   600  507l 0.85 $0     600i            600i             507
-    Play#8 output Play#8 1   -1,-1   m 100%   870  870i 1.00 $0                                      870
+    Play#8 output Play#8 1   -1,-1   m 100%   869  869i 1.00 $0                                      869
     Play#8 output Play#8 1    1,-1   m 100%   600  600i 1.00 $0                                      600
     Play#8 output Play#8 1    3,-1   m 100%   599  599i 1.00 $0                                      599
-    Play#8 output Play#8 1    5,-1   d 100%   650    0g 0.71 $0       0o   0l   0h   40o 197l 394h    28
+    Play#8 output Play#8 1    5,-1   d 100%   649    0g 0.71 $0       0o   0l   0h   40o 197l 394h    28
     Play#8 output Play#8 1   -2,0    p 100%   649   75  1.00 $675    75l            649l             649
     Play#8 output Play#8 1    0,0    m 100%   952  952i 1.00 $0                                      952
-    Play#8 output Play#8 1    2,0    m 100%   965  965i 1.00 $0                                      965
+    Play#8 output Play#8 1    2,0    m 100%   966  966i 1.00 $0                                      966
     Play#8 output Play#8 1    4,0    b 100%   649   60b 1.00 $600   300d            645d             129
     Play#8 output Play#8 1    8,0    i 100%   600   64s 0.71 $270   180l  90h       400l 200h        142
-    Play#8 output Play#8 1   -3,1    j 100%   600  507l 0.85 $0     600i            600i             507
+    Play#8 output Play#8 1   -3,1    j 100%   601  508l 0.85 $0     601i            601i             508
     Play#8 output Play#8 1   -1,1    j 100%   600  507l 0.85 $0     600i            600i             507
-    Play#8 output Play#8 1    1,1    k 100%   650  274h 0.85 $0     649i            649i             274
+    Play#8 output Play#8 1    1,1    k 100%   649  274h 0.85 $0     649i            649i             274
     Play#8 output Play#8 1 22 sectors
     Play#8 output Play#8 6 0 637
     Play#8 input ctld

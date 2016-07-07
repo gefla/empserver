@@ -350,7 +350,7 @@ b bank                    bars     100%
 @ bridge tower                           deity
 .FI
 Column product shows what the sector produces.  Column p.e. shows the
-sector type's production efficiency.  Use command \*Qshow product\*U
+sector type's process efficiency.  Use command \*Qshow product\*U
 to find out more about products, and see \*Qinfo Products\*U.
 .s1
 Column capabilities shows special capabilities, if any.  These are:

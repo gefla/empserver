@@ -65,24 +65,18 @@ int
 prod(void)
 {
     struct natstr *natp;
-    struct sctstr sect;
+    struct sctstr sect, scratch_sect;
     struct nstr_sect nstr;
     struct pchrstr *pp;
     double p_e;
     double prodeff;
     int totpop;
-    double material_consume;	/* actual production */
     double cost;
     int i;
-    double max_consume;		/* production w/infinite materials */
     int nsect;
     double real, maxr;
     double take, mtake;
-    int there;
-    int unit_work;		/* sum of component amounts */
-    double mat_limit, worker_limit, res_limit;
     i_type it;
-    i_type vtype;
     unsigned char *resource;
     char cmnem[MAXPRCON];
     int cuse[MAXPRCON], cmax[MAXPRCON];
@@ -131,48 +125,26 @@ prod(void)
 	if (dchr[sect.sct_type].d_prd < 0)
 	    continue;
 	pp = &pchr[dchr[sect.sct_type].d_prd];
-	vtype = pp->p_type;
 	if (pp->p_nrndx)
 	    resource = (unsigned char *)&sect + pp->p_nrndx;
 	else
 	    resource = NULL;
 
-	mat_limit = prod_materials_cost(pp, sect.sct_item, &unit_work);
-
 	/* sector p.e. */
 	p_e = sect.sct_effic / 100.0;
-	if (resource) {
-	    unit_work++;
+	if (resource)
 	    p_e *= *resource / 100.0;
-	}
-	if (unit_work == 0)
-	    unit_work = 1;
-
-	worker_limit = sect.sct_avail * p_e / (double)unit_work;
-	res_limit = prod_resource_limit(pp, resource);
-
-	max_consume = res_limit;
-	if (max_consume > worker_limit)
-	    max_consume = worker_limit;
-	material_consume = MIN(max_consume, mat_limit);
 
 	prodeff = prod_eff(sect.sct_type, natp->nat_level[pp->p_nlndx]);
-	real = material_consume * prodeff;
-	maxr = max_consume * prodeff;
 
-	if (vtype != I_NONE) {
-	    real = floor(real);
-	    maxr = floor(maxr);
-	    real = MIN(999.0, real);
-	    maxr = MIN(999.0, maxr);
-	    if (CANT_HAPPEN(real < 0.0))
-		real = 0;
-	    if (CANT_HAPPEN(maxr < 0.0))
-		maxr = 0;
-	    /* production backlog? */
-	    there = MIN(ITEM_MAX, sect.sct_item[vtype]);
-	    real = MIN(real, ITEM_MAX - there);
-	}
+	scratch_sect = sect;
+	real = prod_output(&scratch_sect, prodeff);
+
+	scratch_sect = sect;
+	for (i = 0; i < MAXPRCON; ++i)
+	    scratch_sect.sct_item[pp->p_ctype[i]] = ITEM_MAX;
+	scratch_sect.sct_item[pp->p_type] = 0;
+	maxr = prod_output(&scratch_sect, prodeff);
 
 	if (prodeff != 0) {
 	    take = real / prodeff;
@@ -202,7 +174,7 @@ prod(void)
 	}
 
 	if (pp->p_type != I_NONE)
-	    mnem = ichr[vtype].i_mnem;
+	    mnem = ichr[pp->p_type].i_mnem;
 	else if (pp->p_level == NAT_TLEV || pp->p_level == NAT_RLEV)
 	    mnem = '.';
 	else

@@ -135,12 +135,12 @@
     Play#1 output Play#1 1   13,1    a 100%    20  165f 8.25 $0                                      165
     Play#1 output Play#1 1   15,1    a 100%    12   99f 8.25 $0                                       99
     Play#1 output Play#1 1    2,2    g   0%     4    0d 1.00 $0                                        0
-    Play#1 output Play#1 1    9,3    e 100%    93    0m 1.00 $0       0c              0c               0
+    Play#1 output Play#1 1    9,3    e 100%    94    0m 1.00 $0       0c              0c               0
     Play#1 output Play#1 1   11,3    e 100%    78   30m 1.00 $90     30c             30c              65
     Play#1 output Play#1 1   13,3    e  79%    40   45m 1.00 $135    45c             45c              60
     Play#1 output Play#1 1  -16,4    m  10%    78    7i 1.00 $0                                        7
     Play#1 output Play#1 1  -14,4    m 100%    79   79i 1.00 $0                                       79
-    Play#1 output Play#1 1  -12,4    m  69%    39   26i 1.00 $0                                       26
+    Play#1 output Play#1 1  -12,4    m  69%    40   27i 1.00 $0                                       27
     Play#1 output Play#1 1   -8,4    g  10%    78    7d 1.00 $0                                        7
     Play#1 output Play#1 1   -6,4    g 100%    78   78d 1.00 $0                                       78
     Play#1 output Play#1 1   -4,4    g 100%  1200  500d 1.00 $0                                      500
@@ -150,12 +150,12 @@
     Play#1 output Play#1 1    4,4    a 100%   600  999f 8.25 $0                                      999
     Play#1 output Play#1 1    8,4    o  10%    78    7o 0.92 $0                                        7
     Play#1 output Play#1 1   10,4    o 100%    78   71o 0.92 $0                                       71
-    Play#1 output Play#1 1  -15,5    u  10%    79    6r 0.86 $14                                       6
+    Play#1 output Play#1 1  -15,5    u  10%    78    6r 0.86 $14                                       6
     Play#1 output Play#1 1  -13,5    u 100%    78   66r 0.86 $154                                     66
-    Play#1 output Play#1 1  -11,5    u 100%  1201  244r 0.86 $569                                    244
-    Play#1 output Play#1 1   -7,5    i 100%    78   23s 0.89 $78     52l  26h        52l  26h         23
-    Play#1 output Play#1 1   -5,5    i 100%   390   44s 0.89 $148    99l  50h       259l 130h        115
-    Play#1 output Play#1 1   -3,5    i 100%   390   88s 0.89 $297   198l  99h       259l 130h        115
+    Play#1 output Play#1 1  -11,5    u 100%  1200  244r 0.86 $569                                    244
+    Play#1 output Play#1 1   -7,5    i 100%    79   23s 0.89 $78     52l  26h        52l  26h         23
+    Play#1 output Play#1 1   -5,5    i 100%   391   44s 0.89 $148    99l  50h       259l 130h        115
+    Play#1 output Play#1 1   -3,5    i 100%   391   88s 0.89 $297   198l  99h       259l 130h        115
     Play#1 output Play#1 1    1,5    d 100%    78    4g 0.89 $135     5o  23l  45h    5o  23l  45h     4
     Play#1 output Play#1 1    3,5    d 100%   390    8g 0.89 $270     9o  45l  90h   24o 119l 237h    21
     Play#1 output Play#1 1    9,5    % 100%    78  693p 8.89 $78     78o             78o             693
@@ -165,7 +165,7 @@
     Play#1 output Play#1 1  -14,6    b 100%   390   20b 1.00 $200   100d            390d              78
     Play#1 output Play#1 1  -12,6    b  79%    39    6b 1.00 $60     30d             30d               6
     Play#1 output Play#1 1   -8,6    j 100%    79   72l 0.92 $0      79i             79i              72
-    Play#1 output Play#1 1   -6,6    j 100%   390   91l 0.92 $0     100i            390i             357
+    Play#1 output Play#1 1   -6,6    j 100%   391   91l 0.92 $0     100i            391i             358
     Play#1 output Play#1 1   -4,6    j 100%  1200  999l 0.92 $0    1090i           1090i             999
     Play#1 output Play#1 1    0,6    k 100%    78   35h 0.92 $0      77i             77i              35
     Play#1 output Play#1 1    2,6    k 100%   390   45h 0.92 $0      99i            389i             178
