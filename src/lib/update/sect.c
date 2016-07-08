@@ -223,7 +223,7 @@ void
 produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 {
     struct sctstr *sp, scratch_sect;
-    int work, cost, ecost, pcost;
+    int cost, ecost, pcost;
     int n, amount;
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
@@ -249,14 +249,14 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	    sp = &scratch_sect;
 	}
 
-	work = do_feed(sp, np, etu, 0);
+	sp->sct_avail = do_feed(sp, np, etu, 0);
 
 	if (sp->sct_off || np->nat_money < 0) {
+	    sp->sct_avail = 0;
 	    bp_set_from_sect(bp, sp);
 	    continue;
 	}
 
-	sp->sct_avail = work;
 	amount = 0;
 	pcost = cost = ecost = 0;
 
