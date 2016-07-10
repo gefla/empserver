@@ -36,7 +36,6 @@ read 0
 |  75  +1% at sea
 |  76  +2% at sea limit 80%
 |  90/91 friendly harbor with and without work
-|     BUG: 91 not built
 |  92/93 +0% friendly city without work
 |     odd: cities don't repair ships
 |  95 +80% own harbor
@@ -57,9 +56,7 @@ read 0
 |  81 +20% in the field (weird limit "at most (100-eff)/3")
 |  82 no work
 |  90/91 +90% allied airfield with and without work
-|     BUG: 91 not built
 |  92/93 +30% allied city without work
-|     BUG: 92 not built
 |  95 +50% own airfield
 |  97 +50% own airfield
 | 100 allied airfield where plague killed off mil
@@ -70,9 +67,7 @@ read 0
 |  81 +20% in the field (weird limit "at most (100-eff)/3")
 |  82 no work
 |  90/91 allied fort/hq with and without work
-|     BUG: 91 not built
 |  92/93 +30% allied city without work
-|     BUG: 92 not built
 |  95 +90% own hq
 |  97 +50% own hq, materials limit
 |  98 +90% own fort

@@ -102,16 +102,19 @@ update_main(void)
     }
 
     logerror("producing for countries...");
+    /* maintain units */
     for (i = 0; i < MAXNOC; i++) {
-	/* maintain units */
 	prod_ship(etu, i, NULL, 0);
 	prod_plane(etu, i, NULL, 0);
 	prod_land(etu, i, NULL, 0);
+    }
 
-	/* produce all sects */
+    /* produce all sects */
+    for (i = 0; i < MAXNOC; i++)
 	produce_sect(getnatp(i), etu, NULL);
 
-	/* build units */
+    /* build units */
+    for (i = 0; i < MAXNOC; i++) {
 	prod_ship(etu, i, NULL, 1);
 	prod_plane(etu, i, NULL, 1);
 	prod_land(etu, i, NULL, 1);

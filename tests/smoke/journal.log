@@ -2428,6 +2428,9 @@
     Play#1 output Play#1 1 ***          Server configured for testing          ***
     Play#1 output Play#1 1 *** If you see this in a game, it is misconfigured! ***
     Play#1 output Play#1 1 You have a new telegram waiting ...
+    Play#1 output Play#1 6 0 555
+    Play#1 input __cmd added 0 -1 0
+    Play#1 command __cmd
     Play#1 output Play#1 6 0 554
     Play#1 input cen *
     Play#1 command census
@@ -2507,7 +2510,7 @@
     Play#1 command enlist
     Play#1 output Play#1 1  60 enlisted in -2,0 (60)
     Play#1 output Play#1 1 Total new enlistment : 60
-    Play#1 output Play#1 1 Military reserves stand at 42
+    Play#1 output Play#1 1 Military reserves stand at 41
     Play#1 output Play#1 1 Paperwork at recruiting stations ... 1
     Play#1 output Play#1 6 0 550
     Play#1 input mov m -2,0 60 5,-1
@@ -2631,7 +2634,7 @@
     Play#8 output Play#8 1   0 happiness,   0 education produced
     Play#8 output Play#8 1 total pop was 2454, yielding 0.00 hap, 0.00 edu
     Play#8 output Play#8 1 0.0000 tech, 0.0000 research produced
-    Play#8 output Play#8 1 money delta was $537 for this update
+    Play#8 output Play#8 1 money delta was $538 for this update
     Play#8 output Play#8 1
     Play#8 output Play#8 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#8 output Play#8 1 1 frg  frigate (#0) sighted at -9,-3
@@ -3535,7 +3538,7 @@
     Play#1 output Play#1 1 total pop was 6705, yielding 0.00 hap, 61.08 edu
     Play#1 output Play#1 1 3.8260 tech, 0.0000 research produced
     Play#1 output Play#1 1 Army delta $0, Navy delta $-36, Air force delta $0
-    Play#1 output Play#1 1 money delta was $-1344 for this update
+    Play#1 output Play#1 1 money delta was $-1343 for this update
     Play#1 output Play#1 1
     Play#1 output Play#1 6 0 515
     Play#1 input prod *
@@ -3814,7 +3817,7 @@
     Play#0 output Play#0 1         8  29   10% 3.0K 110    0    0    0    0  405    0    0    0    0   28K
     Play#0 output Play#0 1     26.85
     Play#0 output Play#0 1         5   3  100% 3.0K 110    0    0    0    0  379    0    0    0    0   28K
-    Play#0 output Play#0 1     26.60
+    Play#0 output Play#0 1     26.59
     Play#0 output Play#0 1         3   3  100% 3.0K 110    0    0    0    0  362    0    0    0    0   28K
     Play#0 output Play#0 1     26.47
     Play#0 output Play#0 1         7   3  100% 3.0K 110    0    0    0    0  341    0    0    0    0   28K
@@ -4439,7 +4442,7 @@
     Play#1 output Play#1 1 total pop was 8713, yielding 0.00 hap, 50.06 edu
     Play#1 output Play#1 1 3.9288 tech, 0.0000 research produced
     Play#1 output Play#1 1 Army delta $0, Navy delta $-36, Air force delta $0
-    Play#1 output Play#1 1 money delta was $-582 for this update
+    Play#1 output Play#1 1 money delta was $-581 for this update
     Play#1 output Play#1 1
     Play#1 output Play#1 6 0 521
     Play#1 input prod *
@@ -6946,7 +6949,7 @@
     Play#1 output Play#1 1 total pop was 17159, yielding 0.00 hap, 30.62 edu
     Play#1 output Play#1 1 4.5424 tech, 0.0000 research produced
     Play#1 output Play#1 1 Army delta $0, Navy delta $-36, Air force delta $0
-    Play#1 output Play#1 1 money delta was $970 for this update
+    Play#1 output Play#1 1 money delta was $971 for this update
     Play#1 output Play#1 1
     Play#1 output Play#1 6 0 595
     Play#1 input prod *
@@ -8438,7 +8441,7 @@
     Play#1 output Play#1 1 total pop was 28417, yielding 12.92 hap, 30.76 edu
     Play#1 output Play#1 1 4.4887 tech, 3.7012 research produced
     Play#1 output Play#1 1 Army delta $0, Navy delta $-36, Air force delta $0
-    Play#1 output Play#1 1 money delta was $5653 for this update
+    Play#1 output Play#1 1 money delta was $5654 for this update
     Play#1 output Play#1 1
     Play#1 output Play#1 6 0 635
     Play#1 input prod *
@@ -8660,7 +8663,7 @@
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
     Play#0 output Play#0 1         1  33   98%  31K 111  136    4    0  9.3K 1.8K 734    0    4    5   28K
-    Play#0 output Play#0 1    355.26
+    Play#0 output Play#0 1    355.27
     Play#0 output Play#0 1         8  29   45%  11K 110    0    0    0   10K 1.9K 479    0    0    0   32K
     Play#0 output Play#0 1    136.48
     Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  407    0    0    0    0   33K
@@ -10146,7 +10149,7 @@
     Play#8 output Play#8 1   0 happiness, 300 education produced
     Play#8 output Play#8 1 total pop was 11252, yielding 0.00 hap, 69.97 edu
     Play#8 output Play#8 1 6.3774 technology (4.1390 + 2.2384), 1.8448 research (0.0000 + 1.8448) produced
-    Play#8 output Play#8 1 money delta was $-2687 for this update
+    Play#8 output Play#8 1 money delta was $-2686 for this update
     Play#8 output Play#8 1
     Play#8 output Play#8 6 0 552
     Play#8 input prod *
@@ -10411,7 +10414,7 @@
     Play#0 output Play#0 1   1   5,-11  m .......... ...0......   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   7,-11  k .......... ........0.   0   0    0  602    0   0    0    0    1   0
     Play#0 output Play#0 1   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-    Play#0 output Play#0 1   1  11,-11  w .......... ..........  43   0    0 1363 1178   0  474 1468 1958   0
+    Play#0 output Play#0 1   1  11,-11  w .......... ..........  43   0    0 1363 1178   0  474 1468 1957   0
     Play#0 output Play#0 1   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  15,-11  ! .......... 20.....22. 200   8    0    0    0   0    0  198  199   0
     Play#0 output Play#0 1   8  21,-11  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
@@ -10815,7 +10818,7 @@
     Play#1 output Play#1 1 total pop was 31146, yielding 12.22 hap, 32.78 edu
     Play#1 output Play#1 1 7.2017 technology (4.4737 + 2.7280), 3.6866 research (3.6866 + 0.0000) produced
     Play#1 output Play#1 1 Army delta $-858, Navy delta $-66, Air force delta $0
-    Play#1 output Play#1 1 money delta was $7020 for this update
+    Play#1 output Play#1 1 money delta was $7021 for this update
     Play#1 output Play#1 1
     Play#1 output Play#1 6 0 622
     Play#1 input prod *
@@ -10867,9 +10870,6 @@
     Play#2 output Play#2 1 ***          Server configured for testing          ***
     Play#2 output Play#2 1 *** If you see this in a game, it is misconfigured! ***
     Play#2 output Play#2 1 You have three new telegrams waiting ...
-    Play#2 output Play#2 6 0 560
-    Play#2 input __cmd added 0 1 0
-    Play#2 command __cmd
     Play#2 output Play#2 6 0 561
     Play#2 input des 0:2,0 m
     Play#2 command designate
@@ -11365,7 +11365,7 @@
     Play#0 output Play#0 1         1  33   98%  31K 176  373   15    0  9.7K 1.2K 882    0    3    4   39K
     Play#0 output Play#0 1    501.05
     Play#0 output Play#0 1         8  29   73%  19K 110    0    0    0   13K 2.1K 362    0    0    0   24K
-    Play#0 output Play#0 1    269.19
+    Play#0 output Play#0 1    269.20
     Play#0 output Play#0 1         2  30   15% 3.7K   0    0    0    0    0  1.1K   0    0    0    0   34K
     Play#0 output Play#0 1     70.14
     Play#0 output Play#0 1         6   3  100% 3.0K 110    0    0    0    0  407    0    0    0    0   35K
@@ -11575,7 +11575,7 @@
     Play#0 output Play#0 1   1   5,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
     Play#0 output Play#0 1   1   7,-11  k .......... ..2....22.   0   0    0    0    0   0    0    0    1   0
     Play#0 output Play#0 1   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-    Play#0 output Play#0 1   1  11,-11  w .......... .......... 172   0    0 3079  853   0  732 1607 2685   0
+    Play#0 output Play#0 1   1  11,-11  w .......... .......... 172   0    0 3079  853   0  732 1607 2684   0
     Play#0 output Play#0 1   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  15,-11  ! .......... 20.....22. 160   4    0    0    0   0    0  200  200   0
     Play#0 output Play#0 1   8  21,-11  g .......... ....0.....   0   0    0    0    1   0    0    0    0   0
@@ -12004,7 +12004,7 @@
     Play#1 output Play#1 1 total pop was 31054, yielding 12.25 hap, 40.38 edu
     Play#1 output Play#1 1 7.2347 technology (4.4712 + 2.7635), 3.6842 research (3.6842 + 0.0000) produced
     Play#1 output Play#1 1 Army delta $-138, Navy delta $-582, Air force delta $0
-    Play#1 output Play#1 1 money delta was $7058 for this update
+    Play#1 output Play#1 1 money delta was $7059 for this update
     Play#1 output Play#1 1
     Play#1 output Play#1 6 0 625
     Play#1 input prod *
@@ -12196,8 +12196,8 @@
     Play#8 output Play#8 1 ***          Server configured for testing          ***
     Play#8 output Play#8 1 *** If you see this in a game, it is misconfigured! ***
     Play#8 output Play#8 1 You have a new telegram waiting ...
-    Play#8 output Play#8 6 0 573
-    Play#8 input __cmd added 0 67 0
+    Play#8 output Play#8 6 0 574
+    Play#8 input __cmd added 0 66 0
     Play#8 command __cmd
     Play#8 output Play#8 6 0 640
     Play#8 input des 5,-1 d
@@ -12361,7 +12361,7 @@
     Play#8 output Play#8 1   0 happiness, 300 education produced
     Play#8 output Play#8 1 total pop was 19018, yielding 0.00 hap, 46.89 edu
     Play#8 output Play#8 1 7.7625 technology (5.5269 + 2.2356), 1.8421 research (0.0000 + 1.8421) produced
-    Play#8 output Play#8 1 money delta was $-2965 for this update
+    Play#8 output Play#8 1 money delta was $-2964 for this update
     Play#8 output Play#8 1
     Play#8 output Play#8 6 0 616
     Play#8 input prod *
@@ -12629,7 +12629,7 @@
     Play#0 output Play#0 1   1   5,-11  m .......... ...0......   0   0    0    1    0   0    0    0    0   0
     Play#0 output Play#0 1   1   7,-11  * .......... 1.2....22.   0   0    0    0    0   0    0  197  199   0
     Play#0 output Play#0 1   1   9,-11  r .......... ....0.01..   0   0    0    0   10   0   50  100    0   0
-    Play#0 output Play#0 1   1  11,-11  w .......... .......... 275   0    0 3545  528   0  867 1643 3115   0
+    Play#0 output Play#0 1   1  11,-11  w .......... .......... 275   0    0 3545  528   0  867 1643 3114   0
     Play#0 output Play#0 1   1  13,-11  e .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1  15,-11  ! .......... 20.....22. 200  11    0    0    0   0    0  200  200   0
     Play#0 output Play#0 1   8  21,-11  g .......... .......0..   0   0    0    0    1   0    0    0    0   0
@@ -13297,7 +13297,7 @@
     Play#2 output Play#2 1   0 happiness,   0 education produced
     Play#2 output Play#2 1 total pop was 4864, yielding 0.00 hap, 0.00 edu
     Play#2 output Play#2 1 2.5097 technology (0.0000 + 2.5097), 1.8523 research (0.0000 + 1.8523) produced
-    Play#2 output Play#2 1 money delta was $1440 for this update
+    Play#2 output Play#2 1 money delta was $1439 for this update
     Play#2 output Play#2 1
     Play#2 output Play#2 6 0 629
     Play#2 input prod *
@@ -13427,7 +13427,7 @@
     Play#8 output Play#8 1   0 happiness, 300 education produced
     Play#8 output Play#8 1 total pop was 24724, yielding 0.00 hap, 38.67 edu
     Play#8 output Play#8 1 7.7928 technology (5.5467 + 2.2462), 1.8523 research (0.0000 + 1.8523) produced
-    Play#8 output Play#8 1 money delta was $1018 for this update
+    Play#8 output Play#8 1 money delta was $1019 for this update
     Play#8 output Play#8 1
     Play#8 output Play#8 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#8 output Play#8 1 1 planes spotted over -6,-4
@@ -13511,7 +13511,7 @@
     Play#0 output Play#0 1
     Play#0 output Play#0 1          sects  eff civ  mil  shell gun pet  iron dust oil  pln ship unit money
     Play#0 output Play#0 1         1  33   98%  31K 230  661   29  994   10K 529  1.0K   3    5    4   51K
-    Play#0 output Play#0 1    684.52
+    Play#0 output Play#0 1    684.53
     Play#0 output Play#0 1         8  29  100%  29K 105  215    5    0   16K 2.5K 531    0    0    0   22K
     Play#0 output Play#0 1    486.85
     Play#0 output Play#0 1         2  30   34% 6.3K   0    0    0    0  3.2K 1.3K 524    0    0    0   36K
@@ -14014,15 +14014,15 @@
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP nat 0
     Play#0 output Play#0 1 0 5 62 "POGO" "peter" "127.0.0.1" "" "tester" 0 0 0 0 0 0 0 255 640 0 0 123456789 0 0 0 0 0.00000 0.00000 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 1 4 62 "1" "1" "127.0.0.1" "" "tester" 5 -15 5 -13 0 1 0 255 640 0 31 59312 0 0 0 0 65.6259 21.7134 38.6834 12.0073 2 2 4 2 2 2 2 2 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 2 4 62 "2" "2" "127.0.0.1" "" "tester" 18 8 16 10 0 1 0 255 640 0 98 37763 0 0 0 0 27.3097 10.8567 11.8207 0.00000 2 4 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 3 4 62 "3" "3" "127.0.0.1" "" "tester" -4 10 -4 10 0 17 1 255 640 0 0 38145 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 4 4 62 "4" "4" "127.0.0.1" "" "tester" -15 1 -15 1 0 17 1 255 640 0 0 38131 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 5 4 62 "5" "5" "127.0.0.1" "" "tester" -30 8 -30 8 0 17 1 255 640 0 0 38118 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 6 4 62 "6" "6" "127.0.0.1" "" "tester" 2 -2 2 -2 0 17 1 255 640 0 0 38130 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 7 4 62 "7" "7" "127.0.0.1" "" "tester" 24 0 24 0 0 17 1 255 640 0 0 38131 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 8 4 62 "8" "8" "127.0.0.1" "" "tester" 30 -12 23 -11 0 1 0 255 640 0 0 27564 0 0 0 0 52.1197 10.8567 40.5195 6.99195 2 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-    Play#0 output Play#0 1 9 4 62 "9" "9" "127.0.0.1" "" "tester" -26 -6 -26 -6 0 17 1 255 640 0 0 38128 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 1 4 62 "1" "1" "127.0.0.1" "" "tester" 5 -15 5 -13 0 1 0 255 640 0 29 59318 0 0 0 0 65.6259 21.7134 38.6834 12.0073 2 2 4 2 2 2 2 2 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 2 4 62 "2" "2" "127.0.0.1" "" "tester" 18 8 16 10 0 1 0 255 640 0 98 37761 0 0 0 0 27.3097 10.8567 11.8207 0.00000 2 4 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 3 4 62 "3" "3" "127.0.0.1" "" "tester" -4 10 -4 10 0 17 1 255 640 0 0 38144 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 4 4 62 "4" "4" "127.0.0.1" "" "tester" -15 1 -15 1 0 17 1 255 640 0 0 38133 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 5 4 62 "5" "5" "127.0.0.1" "" "tester" -30 8 -30 8 0 17 1 255 640 0 0 38116 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 6 4 62 "6" "6" "127.0.0.1" "" "tester" 2 -2 2 -2 0 17 1 255 640 0 0 38129 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 7 4 62 "7" "7" "127.0.0.1" "" "tester" 24 0 24 0 0 17 1 255 640 0 0 38129 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 8 4 62 "8" "8" "127.0.0.1" "" "tester" 30 -12 23 -11 0 1 0 255 640 0 0 27569 0 0 0 0 52.1197 10.8567 40.5195 6.99195 2 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Play#0 output Play#0 1 9 4 62 "9" "9" "127.0.0.1" "" "tester" -26 -6 -26 -6 0 17 1 255 640 0 0 38125 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 10 4 62 "10" "10" "127.0.0.1" "" "tester" -12 -10 -12 -10 0 17 1 255 640 0 0 38118 0 0 0 0 27.3097 10.8567 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 11 2 62 "visitor" "visitor" "" "" "" 0 0 0 0 0 0 0 255 640 0 0 0 0 0 0 0 0.00000 0.00000 0.00000 0.00000 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     Play#0 output Play#0 1 /12
@@ -14261,7 +14261,7 @@
     Play#1 input xdump country *
     Play#1 command xdump
     Play#1 output Play#1 1 XDUMP country 0
-    Play#1 output Play#1 1 1 62 "127.0.0.1" "" "tester" 0 -2 0 0 0 255 640 0 31 59312 0 0 0 0 65.6259 21.7134 38.6834 12.0073
+    Play#1 output Play#1 1 1 62 "127.0.0.1" "" "tester" 0 -2 0 0 0 255 640 0 29 59318 0 0 0 0 65.6259 21.7134 38.6834 12.0073
     Play#1 output Play#1 1 /1
     Play#1 output Play#1 6 0 640
     Play#1 input ctld

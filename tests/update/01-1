@@ -1,5 +1,12 @@
 budget
 | Note: f1#100 not actually built (plague kills off mil)
+| BUG: missing cs#91
+| BUG: mispredicts f1#75..78
+| BUG: missing f1#91
+| BUG: missing f1#92
+| BUG: f1#100 not actually built
+| BUG: missing inf#91
+| BUG: missing inf#92
 | TODO is it accurate?
 neweff * ?newd#-
 production *
