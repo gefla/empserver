@@ -54,7 +54,7 @@ static void landrepair(struct lndstr *, struct natstr *, struct bp *,
 		       int, struct budget *);
 static int feed_land(struct lndstr *, int);
 
-void prep_lands(int etus, natid natnum)
+void prep_lands(int etus)
 {
     int mil, i;
     double mil_pay;
@@ -62,8 +62,6 @@ void prep_lands(int etus, natid natnum)
 
     for (i = 0; (lp = getlandp(i)); i++) {
 	if (lp->lnd_own == 0)
-	    continue;
-	if (lp->lnd_own != natnum)
 	    continue;
 	if (CANT_HAPPEN(lp->lnd_effic < LAND_MINEFF)) {
 	    makelost(EF_LAND, lp->lnd_own, lp->lnd_uid,
@@ -74,14 +72,14 @@ void prep_lands(int etus, natid natnum)
 
 	mil = lp->lnd_item[I_MILIT];
 	mil_pay = mil * etus * money_mil;
-	nat_budget[natnum].mil.count += mil;
-	nat_budget[natnum].mil.money += mil_pay;
-	nat_budget[natnum].money += mil_pay;
+	nat_budget[lp->lnd_own].mil.count += mil;
+	nat_budget[lp->lnd_own].mil.money += mil_pay;
+	nat_budget[lp->lnd_own].money += mil_pay;
     }
 }
 
 void
-prod_land(int etus, int natnum, struct bp *bp, int build)
+prod_land(int etus, struct bp *bp, int build)
 		/* build = 1, maintain = 0 */
 {
     struct lndstr *lp;
@@ -89,8 +87,6 @@ prod_land(int etus, int natnum, struct bp *bp, int build)
 
     for (i = 0; (lp = getlandp(i)); i++) {
 	if (lp->lnd_own == 0)
-	    continue;
-	if (lp->lnd_own != natnum)
 	    continue;
 	upd_land(lp, etus, bp, build);
     }

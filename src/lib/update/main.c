@@ -94,31 +94,26 @@ update_main(void)
     logerror("preparing sectors...");
     prepare_sects(etu, NULL);
     logerror("done preparing sectors.");
-    for (i = 0; i < MAXNOC; i++) {
-	prep_ships(etu, i);
-	prep_planes(etu, i);
-	prep_lands(etu, i);
+    prep_ships(etu);
+    prep_planes(etu);
+    prep_lands(etu);
+    for (i = 0; i < MAXNOC; i++)
 	pay_reserve(getnatp(i), etu);
-    }
 
     logerror("producing for countries...");
     /* maintain units */
-    for (i = 0; i < MAXNOC; i++) {
-	prod_ship(etu, i, NULL, 0);
-	prod_plane(etu, i, NULL, 0);
-	prod_land(etu, i, NULL, 0);
-    }
+    prod_ship(etu, NULL, 0);
+    prod_plane(etu, NULL, 0);
+    prod_land(etu, NULL, 0);
 
     /* produce all sects */
     for (i = 0; i < MAXNOC; i++)
 	produce_sect(getnatp(i), etu, NULL);
 
     /* build units */
-    for (i = 0; i < MAXNOC; i++) {
-	prod_ship(etu, i, NULL, 1);
-	prod_plane(etu, i, NULL, 1);
-	prod_land(etu, i, NULL, 1);
-    }
+    prod_ship(etu, NULL, 1);
+    prod_plane(etu, NULL, 1);
+    prod_land(etu, NULL, 1);
     logerror("done producing for countries.");
 
     finish_sects(etu);

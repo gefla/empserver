@@ -49,7 +49,7 @@ static void upd_plane(struct plnstr *, int, struct bp *, int);
 static void planerepair(struct plnstr *, struct natstr *, struct bp *,
 			int, struct budget *);
 
-void prep_planes(int etus, natid natnum)
+void prep_planes(int etus)
 {
     int mil, i;
     double mil_pay;
@@ -57,8 +57,6 @@ void prep_planes(int etus, natid natnum)
 
     for (i = 0; (pp = getplanep(i)); i++) {
 	if (pp->pln_own == 0)
-	    continue;
-	if (pp->pln_own != natnum)
 	    continue;
 	if (pp->pln_effic < PLANE_MINEFF) {
 	    makelost(EF_PLANE, pp->pln_own, pp->pln_uid,
@@ -70,13 +68,13 @@ void prep_planes(int etus, natid natnum)
 	mil = plchr[pp->pln_type].pl_mat[I_MILIT];
 	/* flight pay is 5x the pay received by other military */
 	mil_pay = mil * etus * money_mil * 5;
-	nat_budget[natnum].bm[BUDG_PLN_MAINT].money += mil_pay;
-	nat_budget[natnum].money += mil_pay;
+	nat_budget[pp->pln_own].bm[BUDG_PLN_MAINT].money += mil_pay;
+	nat_budget[pp->pln_own].money += mil_pay;
     }
 }
 
 void
-prod_plane(int etus, int natnum, struct bp *bp, int buildem)
+prod_plane(int etus, struct bp *bp, int buildem)
 		 /* Build = 1, maintain =0 */
 {
     struct plnstr *pp;
@@ -84,8 +82,6 @@ prod_plane(int etus, int natnum, struct bp *bp, int buildem)
 
     for (i = 0; (pp = getplanep(i)); i++) {
 	if (pp->pln_own == 0)
-	    continue;
-	if (pp->pln_own != natnum)
 	    continue;
 	upd_plane(pp, etus, bp, buildem);
     }

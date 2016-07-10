@@ -57,7 +57,7 @@ static void shiprepair(struct shpstr *, struct natstr *, struct bp *,
 static void ship_produce(struct shpstr *, int, struct budget *);
 static int feed_ship(struct shpstr *, int);
 
-void prep_ships(int etus, natid natnum)
+void prep_ships(int etus)
 {
     int mil, i;
     double mil_pay;
@@ -65,8 +65,6 @@ void prep_ships(int etus, natid natnum)
 
     for (i = 0; (sp = getshipp(i)); i++) {
 	if (sp->shp_own == 0)
-	    continue;
-	if (sp->shp_own != natnum)
 	    continue;
 	if (CANT_HAPPEN(sp->shp_effic < SHIP_MINEFF)) {
 	    makelost(EF_SHIP, sp->shp_own, sp->shp_uid,
@@ -77,14 +75,14 @@ void prep_ships(int etus, natid natnum)
 
 	mil = sp->shp_item[I_MILIT];
 	mil_pay = mil * etus * money_mil;
-	nat_budget[natnum].mil.count += mil;
-	nat_budget[natnum].mil.money += mil_pay;
-	nat_budget[natnum].money += mil_pay;
+	nat_budget[sp->shp_own].mil.count += mil;
+	nat_budget[sp->shp_own].mil.money += mil_pay;
+	nat_budget[sp->shp_own].money += mil_pay;
     }
 }
 
 void
-prod_ship(int etus, int natnum, struct bp *bp, int build)
+prod_ship(int etus, struct bp *bp, int build)
 		/* build = 1, maintain = 0 */
 {
     struct shpstr *sp;
@@ -92,8 +90,6 @@ prod_ship(int etus, int natnum, struct bp *bp, int build)
 
     for (i = 0; (sp = getshipp(i)); i++) {
 	if (sp->shp_own == 0)
-	    continue;
-	if (sp->shp_own != natnum)
 	    continue;
 	upd_ship(sp, etus, bp, build);
     }

@@ -26,12 +26,12 @@ This document gives a rough order of events during the update.
 	e) pay for military reserves.
 
 2) Produce
-	a) ship maintenance, in order of country number
+	a) ship maintenance, in order of ship number
 		pay maintenance, then feed and plague people on board
-	b) plane maintenance, in order of country number
-	c) land unit maintenance, in order of country number
+	b) plane maintenance, in order of plane number
+	c) land unit maintenance, in order of land unit number
 		pay maintenance, then feed and plague people on board
-	g) sectors, in order of country number
+	d) sectors, in order of country number
                 a) people in non-sanctuary sectors eat
                         If not enough is available, the excess people will
 			starve off.  No more than 50% of the people
@@ -45,12 +45,12 @@ This document gives a rough order of events during the update.
                 e) sectors that are stopped are skipped (see info stop)
                 f) first increase eff
                 g) then make things
-	d) ship building, in order of country number
+	d) ship building, in order of ship number
 	        first increase efficiency, then produce
                 stopped ships are started, but not built (see info stop)
-	e) plane building, in order of country number
+	e) plane building, in order of plane number
                 stopped planes are started, but not built (see info stop)
-	f) land unit building, in order of country number
+	f) land unit building, in order of land unit number
                 stopped land units are started, but not built (see info stop)
 
 3) Then, do deliveries for all sectors in the world, row by row, going from

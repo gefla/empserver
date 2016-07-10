@@ -306,7 +306,7 @@ edit s 75 U 76 m 60 E 78
 edit s 61 U 90 L -8,8 U 91 L -14,8
 | #92/93 friendly city without old work, +0/0%
 edit s 61 U 92 t fb L -2,8 U 93 L 0,0 O 7
-| #95/97 own harbor, #96 friendly, materials for 100%, +80/0/20%
+| #95/97 own harbor, #96 friendly, materials for 100%, +80/20/0%
 | #95 costs double due to tech
 edit s 61 U 95 L 14,6 U 97 U 96 O 7
 edit s 95 T 200
@@ -342,7 +342,7 @@ give m 2,4 10
 edit p 61 U 90 l 6,8 U 91 l 12,8
 | #92/93 allied city without old work, +30%
 edit p 61 U 92 l 2,8 U 93 l 0,0 O 6
-| #95/97 own airfield, #96 allied, materials for 100%, +50/0/50%
+| #95/97 own airfield, #96 allied, materials for 100%, +50/50/0%
 | #95 costs double due to tech
 edit p 61 U 95 e 50 l 12,6 U 97 U 96 O 6
 edit p 95 t 200
@@ -370,7 +370,7 @@ give h 10,4 20
 edit u 61 U 90 L 4,8 U 91 L 10,8
 | #92/93 allied city without old work, +30%
 edit u 61 U 92 L 2,8 U 93 L 0,0 O 6
-| #95/97 own hq, #96 allied, materials for 140%, +90/0/50%
+| #95/97 own hq, #96 allied, materials for 140%, +90/50/0%
 | #95 costs double due to tech
 edit u 61 U 95 L 10,6 U 97 U 96 O 6
 edit u 95 t 200

@@ -98,8 +98,8 @@ extern int feed_people(short *, int);
 extern double food_needed(short *, int);
 extern int famine_victims(short *, int);
 /* land.c */
-extern void prep_lands(int, natid);
-extern void prod_land(int, int, struct bp *, int);
+extern void prep_lands(int);
+extern void prod_land(int, struct bp *, int);
 /* main.c */
 /* in server.h */
 /* material.c */
@@ -122,8 +122,8 @@ extern void do_plague(struct sctstr *, int);
 extern int plague_people(struct natstr *, short *, int *, int *, int);
 extern void plague_report(natid, int, int, int, int, char *, char *);
 /* plane.c */
-extern void prep_planes(int, natid);
-extern void prod_plane(int, int, struct bp *, int);
+extern void prep_planes(int);
+extern void prod_plane(int, struct bp *, int);
 /* populace.c */
 extern void populace(struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
@@ -148,7 +148,7 @@ extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);
 extern void produce_sect(struct natstr *, int, struct bp *);
 /* ship.c */
-extern void prep_ships(int, natid);
-extern void prod_ship(int, int, struct bp *, int);
+extern void prep_ships(int);
+extern void prod_ship(int, struct bp *, int);
 
 #endif

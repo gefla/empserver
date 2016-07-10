@@ -39,7 +39,7 @@ read 0
 |  92/93 +0% friendly city without work
 |     odd: cities don't repair ships
 |  95 +80% own harbor
-|  97 +20% own harbor, materials limit
+|  97 +0% own harbor, materials limit
 | 103 +13% at sea
 | 104 +13% at sea
 | 113 +5%  at sea
@@ -58,7 +58,7 @@ read 0
 |  90/91 +90% allied airfield with and without work
 |  92/93 +30% allied city without work
 |  95 +50% own airfield
-|  97 +50% own airfield
+|  97 +0% own airfield, materials limit
 | 100 allied airfield where plague killed off mil
 | land unit building
 |  60 stopped
@@ -69,7 +69,7 @@ read 0
 |  90/91 allied fort/hq with and without work
 |  92/93 +30% allied city without work
 |  95 +90% own hq
-|  97 +50% own hq, materials limit
+|  97 +0% own hq, materials limit
 |  98 +90% own fort
 | produce sect
 |          make    units  avail
@@ -204,10 +204,10 @@ nation 5
 || country#6
 | plane building
 |  62 friendly airfield
-|  96 allied airfield, no materials left
+|  96 +50% allied airfield
 | land unit building
 |  62 friendly hq
-|  96 allied hq, no materials left
+|  96 +50% allied hq, materials limit
 read 6
 nation 6
 cens 0:15,8
@@ -215,7 +215,7 @@ comm 0:15,8
 || country#7
 | ship building
 |  62 neutral harbor
-|  96 friendly harbor, no materials left
+|  96 +20% friendly harbor, materials limit
 read 7
 nation 7
 cens -16:-1,8
