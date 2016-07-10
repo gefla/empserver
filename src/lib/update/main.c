@@ -92,7 +92,7 @@ update_main(void)
     }
 
     logerror("preparing sectors...");
-    prepare_sects(etu);
+    prepare_sects(etu, NULL);
     logerror("done preparing sectors.");
     for (i = 0; i < MAXNOC; i++) {
 	prep_ships(etu, i);

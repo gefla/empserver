@@ -35,7 +35,7 @@
 
 #include <config.h>
 
-#include <ctype.h>
+#include <limits.h>
 #include "commands.h"
 #include "item.h"
 #include "optlist.h"
@@ -145,41 +145,42 @@ calc_all(void)
     struct budget *budget = &nat_budget[player->cnum];
     struct natstr *np;
     struct bp *bp;
-    int n;
-    struct sctstr *sp;
+    int i;
     int etu = etu_per_update;
 
     memset(nat_budget, 0, sizeof(nat_budget));
     np = getnatp(player->cnum);
+    /* Take care not to disclose others going broke: */
+    for (i = 0; i < MAXNOC; i++)
+	nat_budget[i].start_money = nat_budget[i].money = INT_MAX;
     budget->start_money = budget->money = np->nat_money;
     bp = bp_alloc();
 
-    for (n = 0; NULL != (sp = getsectid(n)); n++) {
-	bp_set_from_sect(bp, sp);
-	if (sp->sct_own == player->cnum) {
-	    sp->sct_updated = 0;
-	    tax(sp, etu);
-	    if (sp->sct_type == SCT_BANK)
-		bank_income(sp, etu);
-	}
+    prepare_sects(etu, bp);
+    for (i = 0; i < MAXNOC; i++) {
+	prep_ships(etu, i);
+	prep_planes(etu, i);
+	prep_lands(etu, i);
+	pay_reserve(getnatp(i), etu);
     }
-    prep_ships(etu, player->cnum);
-    prep_planes(etu, player->cnum);
-    prep_lands(etu, player->cnum);
-    pay_reserve(np, etu);
 
     /* Maintain ships, planes and land units */
-    prod_ship(etu, player->cnum, bp, 0);
-    prod_plane(etu, player->cnum, bp, 0);
-    prod_land(etu, player->cnum, bp, 0);
+    for (i = 0; i < MAXNOC; i++) {
+	prod_ship(etu, i, bp, 0);
+	prod_plane(etu, i, bp, 0);
+	prod_land(etu, i, bp, 0);
+    }
 
     /* Produce */
-    produce_sect(np, etu, bp);
+    for (i = 0; i < MAXNOC; i++)
+	produce_sect(getnatp(i), etu, bp);
 
     /* Build ships, planes and land units */
-    prod_ship(etu, player->cnum, bp, 1);
-    prod_plane(etu, player->cnum, bp, 1);
-    prod_land(etu, player->cnum, bp, 1);
+    for (i = 0; i < MAXNOC; i++) {
+	prod_ship(etu, i, bp, 1);
+	prod_plane(etu, i, bp, 1);
+	prod_land(etu, i, bp, 1);
+    }
 
     if (CANT_HAPPEN(np->nat_money != budget->start_money))
 	np->nat_money = budget->start_money;

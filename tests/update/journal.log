@@ -33,21 +33,21 @@
     Play#1 output Play#1 1 bank             		41 bars   			     410
     Play#1 output Play#1 1 refinery         		2580 petrol 			     290
     Play#1 output Play#1 1 enlistment center		75 mil    			     225
-    Play#1 output Play#1 1 Ship building       		10 ships        		    1520
+    Play#1 output Play#1 1 Ship building       		11 ships        		    1920
     Play#1 output Play#1 1 Ship maintenance    		32 ships        		    2207
-    Play#1 output Play#1 1 Plane building      		13 planes       		    1924
+    Play#1 output Play#1 1 Plane building      		15 planes       		    3412
     Play#1 output Play#1 1 Plane maintenance   		21 planes       		    1244
-    Play#1 output Play#1 1 Unit building       		6 units         		    2300
+    Play#1 output Play#1 1 Unit building       		8 units         		    2900
     Play#1 output Play#1 1 Unit maintenance    		16 units        		     510
     Play#1 output Play#1 1 Sector building     		40 sectors      		     774
     Play#1 output Play#1 1 Sector maintenance  		2 sectors       		     120
     Play#1 output Play#1 1 Military payroll		1164 mil, 0 res                     5820
-    Play#1 output Play#1 1 Total expenses.....................................................25249
+    Play#1 output Play#1 1 Total expenses.....................................................27737
     Play#1 output Play#1 1 Income from taxes		26911 civs, 9007 uws              +12627
     Play#1 output Play#1 1 Total income......................................................+12627
     Play#1 output Play#1 1 Balance forward						           25000
-    Play#1 output Play#1 1 Estimated delta						          -12622
-    Play#1 output Play#1 1 Estimated new treasury.............................................12378
+    Play#1 output Play#1 1 Estimated delta						          -15110
+    Play#1 output Play#1 1 Estimated new treasury..............................................9890
     Play#1 output Play#1 6 0 99
     Play#1 input neweff * ?newd#-
     Play#1 command neweff
@@ -389,16 +389,18 @@
     Play#6 command budget
     Play#6 output Play#6 1 Sector Type			Production			    Cost
     Play#6 output Play#6 1 Ship maintenance    		1 ship          		     540
+    Play#6 output Play#6 1 Plane building      		1 plane         		     120
     Play#6 output Play#6 1 Plane maintenance   		3 planes        		     147
+    Play#6 output Play#6 1 Unit building       		1 unit          		     150
     Play#6 output Play#6 1 Unit maintenance    		3 units         		      90
     Play#6 output Play#6 1 Sector maintenance  		1 sector        		      60
     Play#6 output Play#6 1 Military payroll		168 mil, 0 res                       840
-    Play#6 output Play#6 1 Total expenses......................................................1675
+    Play#6 output Play#6 1 Total expenses......................................................1945
     Play#6 output Play#6 1 Income from taxes		4000 civs, 0 uws                   +1749
     Play#6 output Play#6 1 Total income.......................................................+1749
     Play#6 output Play#6 1 Balance forward						           25000
-    Play#6 output Play#6 1 Estimated delta						             +74
-    Play#6 output Play#6 1 Estimated new treasury.............................................25074
+    Play#6 output Play#6 1 Estimated delta						            -196
+    Play#6 output Play#6 1 Estimated new treasury.............................................24804
     Play#6 output Play#6 6 0 99
     Play#6 input ctld
     Play#6 output Play#6 1 Bye-bye

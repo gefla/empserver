@@ -128,9 +128,7 @@ extern void prod_plane(int, int, struct bp *, int);
 extern void populace(struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
 /* prepare.c */
-extern void prepare_sects(int);
-extern void tax(struct sctstr *, int);
-extern void bank_income(struct sctstr *, int);
+extern void prepare_sects(int, struct bp *);
 extern void pay_reserve(struct natstr *, int);
 /* produce.c */
 extern void produce(struct natstr *, struct sctstr *);

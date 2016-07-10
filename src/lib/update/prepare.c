@@ -44,10 +44,13 @@
 #include "prototypes.h"
 #include "update.h"
 
+static void tax(struct sctstr *, int);
+static void bank_income(struct sctstr *, int);
+
 void
-prepare_sects(int etu)
+prepare_sects(int etu, struct bp *bp)
 {
-    struct sctstr *sp;
+    struct sctstr *sp, scratch_sect;
     int n;
 
 /* Process all the fallout. */
@@ -72,6 +75,7 @@ prepare_sects(int etu)
     }
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
+	bp_set_from_sect(bp, sp);
 	sp->sct_updated = 0;
 
 	if (sp->sct_type == SCT_WATER || sp->sct_type == SCT_SANCT)
@@ -85,16 +89,25 @@ prepare_sects(int etu)
 	if (running_test_suite)
 	    seed_prng(sp->sct_uid);
 
-	guerrilla(sp);
-	do_plague(sp, etu);
-	populace(sp, etu);
+	if (player->simulation) {
+	    /* work on a copy, which will be discarded */
+	    scratch_sect = *sp;
+	    sp = &scratch_sect;
+	}
+
+	if (!player->simulation) {
+	    guerrilla(sp);
+	    do_plague(sp, etu);
+	    populace(sp, etu);
+	}
 	tax(sp, etu);
 	if (sp->sct_type == SCT_BANK)
 	    bank_income(sp, etu);
+	bp_set_from_sect(bp, sp);
     }
 }
 
-void
+static void
 tax(struct sctstr *sp, int etu)
 {
     struct budget *budget = &nat_budget[sp->sct_own];
@@ -120,7 +133,7 @@ tax(struct sctstr *sp, int etu)
     budget->money += mil_pay;
 }
 
-void
+static void
 bank_income(struct sctstr *sp, int etu)
 {
     double income;

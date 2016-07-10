@@ -252,6 +252,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
 	if (player->simulation) {
 	    /* work on a copy, which will be discarded */
 	    scratch_sect = *sp;
+	    bp_to_sect(bp, &scratch_sect);
 	    sp = &scratch_sect;
 	}
 
