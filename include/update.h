@@ -146,7 +146,7 @@ extern double buildeff(struct sctstr *);
 extern void do_fallout(struct sctstr *, int);
 extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);
-extern void produce_sect(struct natstr *, int, struct bp *);
+extern void produce_sect(int, struct bp *);
 /* ship.c */
 extern void prep_ships(int);
 extern void prod_ship(int, struct bp *, int);

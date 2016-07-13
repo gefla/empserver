@@ -107,8 +107,7 @@ update_main(void)
     prod_land(etu, NULL, 0);
 
     /* produce all sects */
-    for (i = 0; i < MAXNOC; i++)
-	produce_sect(getnatp(i), etu, NULL);
+    produce_sect(etu, NULL);
 
     /* build units */
     prod_ship(etu, NULL, 1);

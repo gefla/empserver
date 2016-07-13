@@ -225,9 +225,10 @@ decay_fallout(struct sctstr *sp, int etus)
  * Produce for a specific nation
  */
 void
-produce_sect(struct natstr *np, int etu, struct bp *bp)
+produce_sect(int etu, struct bp *bp)
 {
-    struct budget *budget = &nat_budget[np->nat_cnum];
+    struct budget *budget;
+    struct natstr *np;
     struct sctstr *sp, scratch_sect;
     int n;
     double cost;
@@ -235,11 +236,6 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if (sp->sct_type == SCT_WATER || sp->sct_type == SCT_SANCT)
 	    continue;
-	if (sp->sct_own != np->nat_cnum)
-	    continue;
-	if (sp->sct_updated != 0)
-	    continue;
-	sp->sct_updated = 1;
 
 	/*
 	 * When running the test suite, reseed PRNG for each sector
@@ -255,6 +251,9 @@ produce_sect(struct natstr *np, int etu, struct bp *bp)
 	    bp_to_sect(bp, &scratch_sect);
 	    sp = &scratch_sect;
 	}
+
+	budget = &nat_budget[sp->sct_own];
+	np = getnatp(sp->sct_own);
 
 	do_feed(sp, np, etu, 0);
 

@@ -597,7 +597,7 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1    COMMODITIES deliver--  distribute
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
-    Play#0 output Play#0 1   1   0,0    c .......... ..........   0   0    0    0    0   0    0    8   33   0
+    Play#0 output Play#0 1   1   0,0    c .......... ..........   0   0    0    0    0   0    0    7   33   0
     Play#0 output Play#0 1   1   2,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   4,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   6,0    + .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -751,8 +751,8 @@
     Play#0 output Play#0 1   1   2,6    k .......... ..........   0   0    0    2    0   0    0    0   45   0
     Play#0 output Play#0 1   1   4,6    k .......... ..........   0   0    0   59    0   0    0    0 9999   0
     Play#0 output Play#0 1   1   6,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   16   0
-    Play#0 output Play#0 1   1  10,6    ! .......... ..........   0   0    0    0    0   0    0    0   12   0
+    Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   15   0
+    Play#0 output Play#0 1   1  10,6    ! .......... ..........   0   0    0    0    0   0    0    0   13   0
     Play#0 output Play#0 1   1  12,6    * .......... ..........   0   0    0    0    0   0    0    0    8   0
     Play#0 output Play#0 1   1  14,6    h .......... ..........   0   0    0    0    0   0    0   40    0   0
     Play#0 output Play#0 1   1 -15,7    t .......... ..........   0   0    0    0    5   0   25    1    0   0
@@ -837,9 +837,9 @@
     Play#0 output Play#0 1  103 fb     18,4       73% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  104 fb     18,4       33% 100   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  110 od     16,4      100% 100   0   0   0   0   0   0   0   0   5   0   0   0
-    Play#0 output Play#0 1  111 od     18,4      100% 100   0   0   0   0   0   0   0   0  52   0   0   0
+    Play#0 output Play#0 1  111 od     18,4      100% 100   0   0   0   0   0   0   0   0  51   0   0   0
     Play#0 output Play#0 1  112 od     20,4      100% 100   0   0   0   0   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1  113 od     18,4       65% 100   0   0   0   0   0   0   0   0  32   0   0   0
+    Play#0 output Play#0 1  113 od     18,4       65% 100   0   0   0   0   0   0   0   0  31   0   0   0
     Play#0 output Play#0 1  114 od     18,4       25% 100   0   0   0   0   0   0   0   0  12   0   0   0
     Play#0 output Play#0 1 30 ships
     Play#0 output Play#0 6 0 640
@@ -908,7 +908,7 @@
     Play#0 command nation
     Play#0 output Play#0 1
     Play#0 output Play#0 1 (#2) 2 Nation Report	Thu Jan  1 00:00:00 1970
-    Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 193
+    Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 192
     Play#0 output Play#0 1 10% eff capital at -2,0 has 130 civilians & 0 military
     Play#0 output Play#0 1  The treasury has $-6221.00     Military reserves: 975
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  2.74
@@ -1720,10 +1720,10 @@
     Play#0 output Play#0 1   6    0,8    c  100%     120 .. ..      650   20    0   84 100%  395    0   1
     Play#0 output Play#0 1   6    2,8    -  100%     120 .. ..      650   19    0   83 100%  255    0   1
     Play#0 output Play#0 1   6    4,8    f  100%     120 .. ..      650   20    0   83 100%  408    0   1
-    Play#0 output Play#0 1   6    6,8    *  100%     120 .. ..      650   18    0   84 100%  387    0   1
+    Play#0 output Play#0 1   6    6,8    *  100%     120 .. ..      650   19    0   84 100%  388    0   1
     Play#0 output Play#0 1   6    8,8    h  100%     120 .. ..      650   20    0   83 100%  445    0   1
     Play#0 output Play#0 1   6   10,8    !  100%     120 .. ..      650   20    0   84 100%  358    0   1
-    Play#0 output Play#0 1   6   12,8    *  100%     120 .. ..      650   19    0   83 100%  366    0   1
+    Play#0 output Play#0 1   6   12,8    *  100%     120 .. ..      650   19    0   83 100%  367    0   1
     Play#0 output Play#0 1   6   14,8    h  100%     120 .. ..      650   20    0   83 100%  395    0   1
     Play#0 output Play#0 1 8 sectors
     Play#0 output Play#0 6 0 640
@@ -1733,9 +1733,9 @@
     Play#0 output Play#0 1    COMMODITIES deliver--  distribute
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
     Play#0 output Play#0 1   6   0,8    c .......... ..........   0   0    0    0    0   0    0  400  400   0
-    Play#0 output Play#0 1   6   2,8    - .......... ..........   0   0    0    0    0   0    0  384  394   0
+    Play#0 output Play#0 1   6   2,8    - .......... ..........   0   0    0    0    0   0    0  384  395   0
     Play#0 output Play#0 1   6   4,8    f .......... ..........   0   0    0    0    0   0    0  391  396   0
-    Play#0 output Play#0 1   6   6,8    * .......... ..........   0   0    0    0    0   0    0  386  396   0
+    Play#0 output Play#0 1   6   6,8    * .......... ..........   0   0    0    0    0   0    0  385  397   0
     Play#0 output Play#0 1   6   8,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6  10,8    ! .......... ..........   0   0    0    0    0   0    0  391  396   0
     Play#0 output Play#0 1   6  12,8    * .......... ..........   0   0    0    0    0   0    0  392  398   0
@@ -1774,7 +1774,7 @@
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
     Play#0 output Play#0 1   7  -16,8    -  100%     120 .. ..      650   20    0   83 100%  295    0   1
     Play#0 output Play#0 1   7  -14,8    h  100%     120 .. ..      650   20    0   83 100%  267    0   1
-    Play#0 output Play#0 1   7  -12,8    *  100%     120 .. ..      650   16    0   83 100%  278    0   1
+    Play#0 output Play#0 1   7  -12,8    *  100%     120 .. ..      650   17    0   83 100%  279    0   1
     Play#0 output Play#0 1   7  -10,8    !  100%     120 .. ..      650   20    0   84 100%  395    0   1
     Play#0 output Play#0 1   7   -8,8    h  100%     120 .. ..      650   20    0   83 100%  317    0   1
     Play#0 output Play#0 1   7   -6,8    *  100%     120 .. ..      650   20    0   83 100%  445    0   1
@@ -1789,7 +1789,7 @@
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
     Play#0 output Play#0 1   7 -16,8    - .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   7 -14,8    h .......... ..........   0   0    0    0    0   0    0  352  368   0
-    Play#0 output Play#0 1   7 -12,8    * .......... ..........   0   0    0    0    0   0    0  371  393   0
+    Play#0 output Play#0 1   7 -12,8    * .......... ..........   0   0    0    0    0   0    0  372  393   0
     Play#0 output Play#0 1   7 -10,8    ! .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   7  -8,8    h .......... ..........   0   0    0    0    0   0    0  352  368   0
     Play#0 output Play#0 1   7  -6,8    * .......... ..........   0   0    0    0    0   0    0  400  400   0
@@ -1830,8 +1830,8 @@
     Play#0 output Play#0 1   1    0,4    a  100%    0    0   10   0    0
     Play#0 output Play#0 1   1    2,4    a  100%    0    0  100   0    0
     Play#0 output Play#0 1   1    4,4    a  100%    0    0  100   0    0
-    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10   9    0
-    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  90    0
+    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10  10    0
+    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
     Play#0 output Play#0 1   0   20,4    .    0%    0    0  100 100    0
     Play#0 output Play#0 1 8 sectors
     Play#0 output Play#0 6 0 640
@@ -1842,8 +1842,8 @@
     Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
     Play#0 output Play#0 1   1    8,4    o  100%    0    0    0   9    0
     Play#0 output Play#0 1   1   10,4    o  100%    0    0    0  92    0
-    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10   9    0
-    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  90    0
+    Play#0 output Play#0 1   0   16,4    .    0%    0    0   10  10    0
+    Play#0 output Play#0 1   0   18,4    .    0%    0    0  100  91    0
     Play#0 output Play#0 1   0   20,4    .    0%    0    0  100 100    0
     Play#0 output Play#0 1 5 sectors
     Play#0 output Play#0 6 0 640

@@ -68,16 +68,16 @@ prepare_sects(int etu, struct bp *bp)
 		if (sp->sct_updated)
 		    spread_fallout(sp, etu);
 	    /* Next, we decay the fallout */
-	    for (n = 0; NULL != (sp = getsectid(n)); n++)
+	    for (n = 0; NULL != (sp = getsectid(n)); n++) {
 		if (sp->sct_fallout)
 		    decay_fallout(sp, etu);
+		sp->sct_updated = 0;
+	    }
 	}
     }
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	bp_set_from_sect(bp, sp);
-	sp->sct_updated = 0;
-
 	if (sp->sct_type == SCT_WATER || sp->sct_type == SCT_SANCT)
 	    continue;
 

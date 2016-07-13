@@ -169,8 +169,7 @@ calc_all(void)
     prod_land(etu, bp, 0);
 
     /* Produce */
-    for (i = 0; i < MAXNOC; i++)
-	produce_sect(getnatp(i), etu, bp);
+    produce_sect(etu, bp);
 
     /* Build ships, planes and land units */
     prod_ship(etu, bp, 1);

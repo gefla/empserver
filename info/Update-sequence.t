@@ -31,7 +31,7 @@ This document gives a rough order of events during the update.
 	b) plane maintenance, in order of plane number
 	c) land unit maintenance, in order of land unit number
 		pay maintenance, then feed and plague people on board
-	d) sectors, in order of country number
+	d) sectors, top to bottom, left to right
                 a) people in non-sanctuary sectors eat
                         If not enough is available, the excess people will
 			starve off.  No more than 50% of the people
