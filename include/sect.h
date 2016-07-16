@@ -164,8 +164,8 @@ struct dchrstr {
 
 #define getsect(x, y, p) ef_read(EF_SECTOR, sctoff((x), (y)), (p))
 #define putsect(p) ef_write(EF_SECTOR, (p)->sct_uid, (p))
-#define getsectp(x, y) (struct sctstr *)ef_ptr(EF_SECTOR, sctoff((x), (y)))
-#define getsectid(id) (struct sctstr *)ef_ptr(EF_SECTOR, (id))
+#define getsectp(x, y) ((struct sctstr *)ef_ptr(EF_SECTOR, sctoff((x), (y))))
+#define getsectid(id) ((struct sctstr *)ef_ptr(EF_SECTOR, (id)))
 
 extern struct dchrstr dchr[SCT_TYPE_MAX + 2];
 #define IS_BIG_CITY(type) (dchr[(type)].d_pkg == UPKG)
