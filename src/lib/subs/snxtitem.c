@@ -38,7 +38,6 @@
 #include "player.h"
 #include "xy.h"
 #include "nsc.h"
-#include "file.h"
 #include "prototypes.h"
 #include "unit.h"
 

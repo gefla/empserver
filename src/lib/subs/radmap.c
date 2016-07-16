@@ -34,7 +34,6 @@
 #include <config.h>
 
 #include <stdlib.h>
-#include "file.h"
 #include "map.h"
 #include "misc.h"
 #include "nat.h"

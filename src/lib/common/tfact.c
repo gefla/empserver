@@ -32,7 +32,6 @@
 
 #include <config.h>
 
-#include "file.h"
 #include "nat.h"
 
 double

@@ -38,7 +38,6 @@
 #include "chance.h"
 #include "damage.h"
 #include "empobj.h"
-#include "file.h"
 #include "map.h"
 #include "misc.h"
 #include "mission.h"

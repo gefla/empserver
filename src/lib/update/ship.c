@@ -37,7 +37,6 @@
 
 #include <math.h>
 #include "chance.h"
-#include "file.h"
 #include "land.h"
 #include "lost.h"
 #include "nat.h"

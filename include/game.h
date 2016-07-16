@@ -33,7 +33,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <time.h>
+#include "file.h"
 
 struct gamestr {
     /* initial part must match struct empobj */

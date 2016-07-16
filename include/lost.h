@@ -33,7 +33,7 @@
 #ifndef LOST_H
 #define LOST_H
 
-#include <time.h>
+#include "file.h"
 #include "types.h"
 
 struct loststr {

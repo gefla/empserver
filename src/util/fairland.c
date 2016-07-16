@@ -72,7 +72,6 @@ static int quiet = 0;
 #include <stdio.h>
 #include <unistd.h>
 #include "chance.h"
-#include "file.h"
 #include "optlist.h"
 #include "prototypes.h"
 #include "sect.h"

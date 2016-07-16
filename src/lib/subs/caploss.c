@@ -34,7 +34,6 @@
 #include <config.h>
 
 #include "commodity.h"
-#include "file.h"
 #include "loan.h"
 #include "nat.h"
 #include "news.h"

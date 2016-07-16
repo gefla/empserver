@@ -34,7 +34,7 @@
 #ifndef NUKE_H
 #define NUKE_H
 
-#include <time.h>
+#include "file.h"
 #include "item.h"
 #include "types.h"
 

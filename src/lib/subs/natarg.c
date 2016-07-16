@@ -34,7 +34,6 @@
 
 #include <ctype.h>
 #include <stdlib.h>
-#include "file.h"
 #include "match.h"
 #include "misc.h"
 #include "nat.h"

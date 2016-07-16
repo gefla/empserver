@@ -38,7 +38,6 @@
 #include <ctype.h>
 #include "com.h"
 #include "empobj.h"
-#include "file.h"
 #include "land.h"
 #include "map.h"
 #include "match.h"

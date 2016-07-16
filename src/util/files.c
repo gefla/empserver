@@ -38,7 +38,6 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include "file.h"
 #include "nat.h"
 #include "optlist.h"
 #include "prototypes.h"

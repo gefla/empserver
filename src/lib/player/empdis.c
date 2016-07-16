@@ -38,7 +38,6 @@
 #include <stdio.h>
 #include <time.h>
 #include "com.h"
-#include "file.h"
 #include "game.h"
 #include "match.h"
 #include "misc.h"

@@ -35,7 +35,6 @@
 #include <config.h>
 
 #include "chance.h"
-#include "file.h"
 #include "empobj.h"
 #include "game.h"
 #include "land.h"

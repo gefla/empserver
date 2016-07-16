@@ -32,7 +32,6 @@
 
 #include <config.h>
 
-#include "file.h"
 #include "game.h"
 #include "news.h"
 #include "player.h"

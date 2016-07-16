@@ -36,7 +36,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "file.h"
 #include "nat.h"
 #include "optlist.h"
 #include "path.h"

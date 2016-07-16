@@ -34,7 +34,6 @@
 
 #include <config.h>
 
-#include "file.h"
 #include "nsc.h"
 #include "path.h"
 #include "player.h"

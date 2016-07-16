@@ -37,7 +37,6 @@
 #include <config.h>
 
 #include <math.h>
-#include "file.h"
 #include "game.h"
 #include "item.h"
 #include "land.h"

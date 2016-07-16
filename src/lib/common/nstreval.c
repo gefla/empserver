@@ -37,7 +37,6 @@
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
-#include "file.h"
 #include "nat.h"
 #include "nsc.h"
 #include "optlist.h"

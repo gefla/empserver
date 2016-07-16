@@ -34,7 +34,6 @@
 
 #include "chance.h"
 #include "damage.h"
-#include "file.h"
 #include "land.h"
 #include "nat.h"
 #include "optlist.h"

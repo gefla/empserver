@@ -33,7 +33,6 @@
 
 #include <config.h>
 
-#include "file.h"
 #include "land.h"
 #include "lost.h"
 #include "misc.h"

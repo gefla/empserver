@@ -53,7 +53,6 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "empio.h"
-#include "file.h"
 #include "journal.h"
 #include "misc.h"
 #include "nat.h"

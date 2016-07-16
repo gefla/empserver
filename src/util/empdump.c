@@ -37,7 +37,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "file.h"
 #include "optlist.h"
 #include "nat.h"
 #include "prototypes.h"

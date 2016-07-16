@@ -35,7 +35,6 @@
 #include <config.h>
 
 #include "chance.h"
-#include "file.h"
 #include "lost.h"
 #include "nat.h"
 #include "optlist.h"

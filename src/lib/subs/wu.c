@@ -37,7 +37,6 @@
 #include <stdarg.h>
 #include <sys/uio.h>
 #include <unistd.h>
-#include "file.h"
 #include "misc.h"
 #include "nat.h"
 #include "optlist.h"

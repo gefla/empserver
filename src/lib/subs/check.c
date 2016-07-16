@@ -36,7 +36,6 @@
 #include <ctype.h>
 #include "commodity.h"
 #include "empobj.h"
-#include "file.h"
 #include "player.h"
 #include "prototypes.h"
 #include "xy.h"

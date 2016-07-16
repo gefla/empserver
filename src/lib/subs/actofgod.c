@@ -34,7 +34,6 @@
 
 #include <stdarg.h>
 #include "actofgod.h"
-#include "file.h"
 #include "news.h"
 #include "optlist.h"
 #include "player.h"

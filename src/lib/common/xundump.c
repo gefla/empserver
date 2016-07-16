@@ -58,7 +58,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "file.h"
 #include "match.h"
 #include "nat.h"
 #include "nsc.h"

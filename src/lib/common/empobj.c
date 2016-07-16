@@ -35,7 +35,6 @@
 #include <config.h>
 
 #include "empobj.h"
-#include "file.h"
 #include "news.h"
 #include "optlist.h"
 #include "product.h"

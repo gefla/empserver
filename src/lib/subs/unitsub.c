@@ -34,7 +34,6 @@
 #include <config.h>
 
 #include <math.h>
-#include "file.h"
 #include "map.h"
 #include "optlist.h"
 #include "path.h"

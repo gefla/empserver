@@ -37,7 +37,7 @@
 #ifndef NAT_H
 #define NAT_H
 
-#include <time.h>
+#include "file.h"
 #include "types.h"
 
 #define NATID_BAD 255

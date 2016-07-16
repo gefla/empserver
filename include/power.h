@@ -33,6 +33,7 @@
 #ifndef POWER_H
 #define POWER_H
 
+#include "file.h"
 #include "types.h"
 
 struct powstr {

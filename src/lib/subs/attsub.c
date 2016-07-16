@@ -39,7 +39,6 @@
 #include "chance.h"
 #include "combat.h"
 #include "empobj.h"
-#include "file.h"
 #include "map.h"
 #include "misc.h"
 #include "mission.h"

@@ -33,7 +33,6 @@
 
 #include <config.h>
 
-#include "file.h"
 #include "nat.h"
 #include "news.h"
 #include "optlist.h"

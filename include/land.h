@@ -36,7 +36,7 @@
 #ifndef LAND_H
 #define LAND_H
 
-#include <time.h>
+#include "file.h"
 #include "item.h"
 #include "retreat.h"
 #include "types.h"

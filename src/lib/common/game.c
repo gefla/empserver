@@ -43,7 +43,6 @@
 #include <config.h>
 
 #include <math.h>
-#include "file.h"
 #include "game.h"
 #include "optlist.h"
 #include "server.h"

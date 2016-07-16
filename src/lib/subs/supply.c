@@ -35,7 +35,6 @@
 #include <math.h>
 #include "chance.h"
 #include "empobj.h"
-#include "file.h"
 #include "land.h"
 #include "nat.h"
 #include "optlist.h"

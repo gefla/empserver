@@ -75,7 +75,6 @@
 
 #include <ctype.h>
 #include <limits.h>
-#include "file.h"
 #include "nat.h"
 #include "xdump.h"
 

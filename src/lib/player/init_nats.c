@@ -34,7 +34,6 @@
 
 #include <config.h>
 
-#include "file.h"
 #include "game.h"
 #include "misc.h"
 #include "nat.h"

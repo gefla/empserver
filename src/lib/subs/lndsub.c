@@ -40,7 +40,6 @@
 #include "combat.h"
 #include "damage.h"
 #include "empobj.h"
-#include "file.h"
 #include "misc.h"
 #include "mission.h"
 #include "news.h"

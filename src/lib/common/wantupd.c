@@ -33,7 +33,6 @@
 #include <config.h>
 
 #include <time.h>
-#include "file.h"
 #include "game.h"
 #include "misc.h"
 #include "nat.h"

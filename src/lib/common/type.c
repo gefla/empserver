@@ -34,7 +34,6 @@
 
 #include <config.h>
 
-#include "file.h"
 #include "item.h"
 #include "land.h"
 #include "match.h"

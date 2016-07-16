@@ -37,7 +37,6 @@
 
 #include "chance.h"
 #include "empobj.h"
-#include "file.h"
 #include "item.h"
 #include "land.h"
 #include "map.h"

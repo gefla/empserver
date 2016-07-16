@@ -36,7 +36,6 @@
 
 #include <math.h>
 #include "chance.h"
-#include "file.h"
 #include "game.h"
 #include "item.h"
 #include "optlist.h"

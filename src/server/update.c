@@ -42,7 +42,6 @@
 #include <time.h>
 #include "chance.h"
 #include "empthread.h"
-#include "file.h"
 #include "game.h"
 #include "misc.h"
 #include "optlist.h"

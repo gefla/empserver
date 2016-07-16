@@ -33,7 +33,6 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
-#include "file.h"
 #include "nat.h"
 #include "nsc.h"
 #include "player.h"

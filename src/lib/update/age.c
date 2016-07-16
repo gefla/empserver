@@ -33,7 +33,6 @@
 #include <config.h>
 
 #include "chance.h"
-#include "file.h"
 #include "nat.h"
 #include "optlist.h"
 #include "update.h"

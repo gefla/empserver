@@ -36,7 +36,7 @@
 #ifndef TRADE_H
 #define TRADE_H
 
-#include <time.h>
+#include "file.h"
 #include "types.h"
 
 struct trdstr {

@@ -35,7 +35,6 @@
 #include <config.h>
 
 #include <ctype.h>
-#include "file.h"
 #include "game.h"
 #include "lost.h"
 #include "misc.h"

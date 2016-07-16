@@ -32,7 +32,6 @@
 
 #include <config.h>
 
-#include "file.h"
 #include "path.h"
 #include "prototypes.h"
 #include "sect.h"

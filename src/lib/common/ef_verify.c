@@ -37,7 +37,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "empobj.h"
-#include "file.h"
 #include "misc.h"
 #include "nsc.h"
 #include "product.h"

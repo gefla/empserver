@@ -37,7 +37,6 @@
 #include <stdlib.h>
 #include "chance.h"
 #include "empobj.h"
-#include "file.h"
 #include "item.h"
 #include "misc.h"
 #include "mission.h"

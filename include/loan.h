@@ -33,7 +33,7 @@
 #ifndef LOAN_H
 #define LOAN_H
 
-#include <time.h>
+#include "file.h"
 #include "types.h"
 
 #define MAXLOAN		100000

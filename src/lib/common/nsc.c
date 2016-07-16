@@ -39,7 +39,6 @@
 
 #include <stdlib.h>
 #include "empobj.h"
-#include "file.h"
 #include "optlist.h"
 #include "news.h"
 #include "nsc.h"

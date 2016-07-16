@@ -33,7 +33,6 @@
 
 #include <config.h>
 
-#include "file.h"
 #include "nsc.h"
 #include "prototypes.h"
 #include "unit.h"

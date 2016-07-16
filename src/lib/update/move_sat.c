@@ -33,7 +33,6 @@
 #include <config.h>
 
 #include <math.h>
-#include "file.h"
 #include "nat.h"
 #include "nsc.h"
 #include "optlist.h"

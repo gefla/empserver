@@ -35,7 +35,6 @@
 
 #include "combat.h"
 #include "damage.h"
-#include "file.h"
 #include "land.h"
 #include "misc.h"
 #include "nsc.h"

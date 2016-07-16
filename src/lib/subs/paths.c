@@ -32,7 +32,6 @@
 
 #include <config.h>
 
-#include "file.h"
 #include "optlist.h"
 #include "path.h"
 #include "player.h"

@@ -36,7 +36,6 @@
 #include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include "file.h"
 #include "misc.h"
 #include "nat.h"
 #include "optlist.h"
