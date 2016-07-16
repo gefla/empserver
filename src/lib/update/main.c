@@ -90,12 +90,12 @@ update_main(void)
 	nat_budget[n].start_money = nat_budget[n].money = np->nat_money;
     }
 
+    prep_ships(etu, NULL);
+    prep_planes(etu, NULL);
+    prep_lands(etu, NULL);
     logerror("preparing sectors...");
     prepare_sects(etu, NULL);
     logerror("done preparing sectors.");
-    prep_ships(etu);
-    prep_planes(etu);
-    prep_lands(etu);
     for (i = 0; i < MAXNOC; i++)
 	pay_reserve(getnatp(i), etu);
 

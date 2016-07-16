@@ -48,7 +48,7 @@ static void upd_plane(struct plnstr *, int, struct bp *, int);
 static void planerepair(struct plnstr *, struct natstr *, struct bp *,
 			int, struct budget *);
 
-void prep_planes(int etus)
+void prep_planes(int etus, struct bp *bp)
 {
     int mil, i;
     double mil_pay;
@@ -64,6 +64,7 @@ void prep_planes(int etus)
 	    continue;
 	}
 
+	bp_consider_unit(bp, (struct empobj *)pp);
 	mil = plchr[pp->pln_type].pl_mat[I_MILIT];
 	/* flight pay is 5x the pay received by other military */
 	mil_pay = mil * etus * money_mil * 5;
@@ -81,6 +82,8 @@ prod_plane(int etus, struct bp *bp, int buildem)
 
     for (i = 0; (pp = getplanep(i)); i++) {
 	if (pp->pln_own == 0)
+	    continue;
+	if (bp_skip_unit(bp, (struct empobj *)pp))
 	    continue;
 	upd_plane(pp, etus, bp, buildem);
     }

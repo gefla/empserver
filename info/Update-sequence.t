@@ -6,7 +6,13 @@ This document gives a rough order of events during the update.
 .s1
 .nf
 1) Prepare
-	a) prepare all sectors
+	a) prepare all ships
+		a) pay military on board
+	b) prepare all planes
+		a) pay crew
+	c) prepare all land units
+		a) pay military on board
+	d) prepare all sectors
 		a) fallout is checked, if FALLOUT is defined
 		b) guerrilla warfare is checked
 		c) if the sector doesn't have the plague, see if it
@@ -17,12 +23,6 @@ This document gives a rough order of events during the update.
 		e) taxes are collected from civs & uws; mil are paid.
 		f) if the sector is a bank it makes $$ proportional to
 			its efficiency
-	b) prepare all ships
-		a) pay military on board
-	c) prepare all planes
-		a) pay crew
-	d) prepare all land units
-		a) pay military on board
 	e) pay for military reserves.
 
 2) Produce

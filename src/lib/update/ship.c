@@ -56,7 +56,7 @@ static void shiprepair(struct shpstr *, struct natstr *, struct bp *,
 static void ship_produce(struct shpstr *, int, struct budget *);
 static int feed_ship(struct shpstr *, int);
 
-void prep_ships(int etus)
+void prep_ships(int etus, struct bp *bp)
 {
     int mil, i;
     double mil_pay;
@@ -72,6 +72,7 @@ void prep_ships(int etus)
 	    continue;
 	}
 
+	bp_consider_unit(bp, (struct empobj *)sp);
 	mil = sp->shp_item[I_MILIT];
 	mil_pay = mil * etus * money_mil;
 	nat_budget[sp->shp_own].mil.count += mil;
@@ -89,6 +90,8 @@ prod_ship(int etus, struct bp *bp, int build)
 
     for (i = 0; (sp = getshipp(i)); i++) {
 	if (sp->shp_own == 0)
+	    continue;
+	if (bp_skip_unit(bp, (struct empobj *)sp))
 	    continue;
 	upd_ship(sp, etus, bp, build);
     }

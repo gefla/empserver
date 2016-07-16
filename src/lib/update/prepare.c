@@ -76,6 +76,8 @@ prepare_sects(int etu, struct bp *bp)
     }
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
+	if (bp_skip_sect(bp, sp))
+	    continue;
 	bp_set_from_sect(bp, sp);
 	if (sp->sct_type == SCT_WATER || sp->sct_type == SCT_SANCT)
 	    continue;

@@ -53,7 +53,7 @@ static void landrepair(struct lndstr *, struct natstr *, struct bp *,
 		       int, struct budget *);
 static int feed_land(struct lndstr *, int);
 
-void prep_lands(int etus)
+void prep_lands(int etus, struct bp *bp)
 {
     int mil, i;
     double mil_pay;
@@ -69,6 +69,7 @@ void prep_lands(int etus)
 	    continue;
 	}
 
+	bp_consider_unit(bp, (struct empobj *)lp);
 	mil = lp->lnd_item[I_MILIT];
 	mil_pay = mil * etus * money_mil;
 	nat_budget[lp->lnd_own].mil.count += mil;
@@ -86,6 +87,8 @@ prod_land(int etus, struct bp *bp, int build)
 
     for (i = 0; (lp = getlandp(i)); i++) {
 	if (lp->lnd_own == 0)
+	    continue;
+	if (bp_skip_unit(bp, (struct empobj *)lp))
 	    continue;
 	upd_land(lp, etus, bp, build);
     }

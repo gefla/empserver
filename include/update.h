@@ -84,6 +84,9 @@ extern void age_levels(int);
 extern void delete_old_announcements(void);
 /* bp.c */
 extern struct bp *bp_alloc(void);
+extern int bp_skip_sect(struct bp *, struct sctstr *);
+extern int bp_skip_unit(struct bp *, struct empobj *);
+extern void bp_consider_unit(struct bp *, struct empobj *);
 extern void bp_set_from_sect(struct bp *, struct sctstr *);
 extern void bp_to_sect(struct bp *, struct sctstr *);
 /* deliver.c */
@@ -98,7 +101,7 @@ extern int feed_people(short *, int);
 extern double food_needed(short *, int);
 extern int famine_victims(short *, int);
 /* land.c */
-extern void prep_lands(int);
+extern void prep_lands(int, struct bp *);
 extern void prod_land(int, struct bp *, int);
 /* main.c */
 /* in server.h */
@@ -122,13 +125,14 @@ extern void do_plague(struct sctstr *, int);
 extern int plague_people(struct natstr *, short *, int *, int *, int);
 extern void plague_report(natid, int, int, int, int, char *, char *);
 /* plane.c */
-extern void prep_planes(int);
+extern void prep_planes(int, struct bp *);
 extern void prod_plane(int, struct bp *, int);
 /* populace.c */
 extern void populace(struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
 /* prepare.c */
 extern void prepare_sects(int, struct bp *);
+extern void prep_one_sect(struct sctstr *, int, struct bp *);
 extern void pay_reserve(struct natstr *, int);
 /* produce.c */
 extern void produce(struct natstr *, struct sctstr *);
@@ -148,7 +152,7 @@ extern void spread_fallout(struct sctstr *, int);
 extern void decay_fallout(struct sctstr *, int);
 extern void produce_sect(int, struct bp *);
 /* ship.c */
-extern void prep_ships(int);
+extern void prep_ships(int, struct bp *);
 extern void prod_ship(int, struct bp *, int);
 
 #endif

@@ -233,6 +233,8 @@ produce_sect(int etu, struct bp *bp)
     double cost;
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
+	if (bp_skip_sect(bp, sp))
+	    continue;
 	if (sp->sct_type == SCT_WATER || sp->sct_type == SCT_SANCT)
 	    continue;
 

@@ -156,12 +156,11 @@ calc_all(void)
     budget->start_money = budget->money = np->nat_money;
     bp = bp_alloc();
 
+    prep_ships(etu, bp);
+    prep_planes(etu, bp);
+    prep_lands(etu, bp);
     prepare_sects(etu, bp);
-    prep_ships(etu);
-    prep_planes(etu);
-    prep_lands(etu);
-    for (i = 0; i < MAXNOC; i++)
-	pay_reserve(getnatp(i), etu);
+    pay_reserve(np, etu);
 
     /* Maintain ships, planes and land units */
     prod_ship(etu, bp, 0);
