@@ -93,6 +93,8 @@ extern void bp_to_sect(struct bp *, struct sctstr *);
 extern void dodeliver(struct sctstr *);
 /* distribute.c */
 extern int dodistribute(struct sctstr *, int, double);
+/* fallout.c */
+extern void fallout(int);
 /* finish.c */
 extern void finish_sects(int);
 /* human.c */
@@ -147,9 +149,6 @@ extern void revolt(struct sctstr *);
 extern void guerrilla(struct sctstr *);
 /* sect.c */
 extern double buildeff(struct sctstr *);
-extern void do_fallout(struct sctstr *, int);
-extern void spread_fallout(struct sctstr *, int);
-extern void decay_fallout(struct sctstr *, int);
 extern void produce_sect(int, struct bp *);
 /* ship.c */
 extern void prep_ships(int, struct bp *);

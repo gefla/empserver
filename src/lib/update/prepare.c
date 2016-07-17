@@ -52,28 +52,8 @@ prepare_sects(int etu, struct bp *bp)
     struct sctstr *sp, scratch_sect;
     int n;
 
-/* Process all the fallout. */
-    if (opt_FALLOUT) {
-	if (!player->simulation) {
-	    /* First, we determine which sectors to process fallout in */
-	    for (n = 0; NULL != (sp = getsectid(n)); n++)
-		sp->sct_updated = sp->sct_fallout != 0;
-	    /* Next, we process the fallout there */
-	    for (n = 0; NULL != (sp = getsectid(n)); n++)
-		if (sp->sct_updated && sp->sct_type != SCT_SANCT)
-		    do_fallout(sp, etu);
-	    /* Next, we spread the fallout */
-	    for (n = 0; NULL != (sp = getsectid(n)); n++)
-		if (sp->sct_updated)
-		    spread_fallout(sp, etu);
-	    /* Next, we decay the fallout */
-	    for (n = 0; NULL != (sp = getsectid(n)); n++) {
-		if (sp->sct_fallout)
-		    decay_fallout(sp, etu);
-		sp->sct_updated = 0;
-	    }
-	}
-    }
+    if (!player->simulation)
+	fallout(etu);
 
     for (n = 0; NULL != (sp = getsectid(n)); n++) {
 	if (bp_skip_sect(bp, sp))
