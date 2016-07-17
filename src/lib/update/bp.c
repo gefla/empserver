@@ -57,6 +57,7 @@ enum bp_item_idx {
 struct bp {
     short bp_item[BP_MAX + 1];
     short bp_avail;
+    unsigned char bp_tracked;
 };
 
 /* Map i_type to enum bp_item_idx. */
@@ -81,14 +82,21 @@ bp_set_from_sect(struct bp *bp, struct sctstr *sp)
 	    bp[sp->sct_uid].bp_item[idx] = sp->sct_item[i];
     }
     bp[sp->sct_uid].bp_avail = sp->sct_avail;
+    bp[sp->sct_uid].bp_tracked = 1;
 }
 
-/* Copy the values tracked in @bp for sector @sp back to @sp. */
+/*
+ * Copy the values tracked in @bp for sector @sp back to @sp.
+ * Values must have been set with bp_set_from_sect().
+ */
 void
 bp_to_sect(struct bp *bp, struct sctstr *sp)
 {
     i_type i;
     enum bp_item_idx idx;
+
+    if (CANT_HAPPEN(!bp[sp->sct_uid].bp_tracked))
+	return;
 
     for (i = I_NONE + 1; i <= I_MAX; i++) {
 	idx = bud_key[i];
@@ -105,5 +113,11 @@ bp_to_sect(struct bp *bp, struct sctstr *sp)
 struct bp *
 bp_alloc(void)
 {
-    return malloc(WORLD_SZ() * sizeof(struct bp));
+    int n = WORLD_SZ();
+    struct bp *bp = malloc(n * sizeof(*bp));
+    int i;
+
+    for (i = 0; i < n; i++)
+	bp[i].bp_tracked = 0;
+    return bp;
 }
