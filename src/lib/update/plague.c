@@ -68,6 +68,7 @@ do_plague(struct sctstr *sp, int etu)
 	    plague_report(sp->sct_own, n, pstage, ptime, etu,
 			  "in", ownxy(sp));
     }
+
     sp->sct_pstage = pstage;
     sp->sct_ptime = ptime;
 }

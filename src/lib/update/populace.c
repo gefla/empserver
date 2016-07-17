@@ -42,11 +42,8 @@
 #include "update.h"
 
 void
-populace(struct sctstr *sp, int etu)
+check_pop_loss(struct sctstr *sp)
 {
-    struct natstr *np = getnatp(sp->sct_own);
-    double hap, pct;
-    int n;
     int civ = sp->sct_item[I_CIVIL];
     int mil = sp->sct_item[I_MILIT];
 
@@ -62,6 +59,17 @@ populace(struct sctstr *sp, int etu)
 	sp->sct_oldown = 0;
 	sp->sct_mobil = 0;
     }
+}
+
+void
+populace(struct sctstr *sp, int etu)
+{
+    struct natstr *np = getnatp(sp->sct_own);
+    double hap, pct;
+    int n;
+    int civ = sp->sct_item[I_CIVIL];
+    int mil = sp->sct_item[I_MILIT];
+
     if (!civ && !mil && !sp->sct_item[I_UW])
 	return;
 

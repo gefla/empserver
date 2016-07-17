@@ -78,12 +78,15 @@ prepare_sects(int etu, struct bp *bp)
 
 	if (!player->simulation) {
 	    guerrilla(sp);
-	    do_plague(sp, etu);
 	    populace(sp, etu);
 	}
 	tax(sp, etu);
 	if (sp->sct_type == SCT_BANK)
 	    bank_income(sp, etu);
+	do_feed(sp, getnatp(sp->sct_own), etu, 0);
+	if (!player->simulation)
+	    do_plague(sp, etu);
+	check_pop_loss(sp);
 	bp_set_from_sect(bp, sp);
     }
 }

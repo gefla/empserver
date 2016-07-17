@@ -58,7 +58,7 @@ static int feed_ship(struct shpstr *, int);
 
 void prep_ships(int etus, struct bp *bp)
 {
-    int mil, i;
+    int mil, i, n;
     double mil_pay;
     struct shpstr *sp;
 
@@ -78,6 +78,15 @@ void prep_ships(int etus, struct bp *bp)
 	nat_budget[sp->shp_own].mil.count += mil;
 	nat_budget[sp->shp_own].mil.money += mil_pay;
 	nat_budget[sp->shp_own].money += mil_pay;
+
+	if (!player->simulation) {
+	    if ((n = feed_ship(sp, etus)) > 0) {
+		wu(0, sp->shp_own, "%d starved on %s\n", n, prship(sp));
+		if (n > 10)
+		    nreport(sp->shp_own, N_DIE_FAMINE, 0, 1);
+	    }
+	    plague_ship(sp, etus);
+	}
     }
 }
 
@@ -104,7 +113,7 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
     struct budget *budget = &nat_budget[sp->shp_own];
     struct mchrstr *mp = &mchr[sp->shp_type];
     struct natstr *np = getnatp(sp->shp_own);
-    int n, mult, eff_lost;
+    int mult, eff_lost;
     double cost;
 
     if (build == 1) {
@@ -132,16 +141,6 @@ upd_ship(struct shpstr *sp, int etus, struct bp *bp, int build)
 	} else {
 	    budget->bm[BUDG_SHP_MAINT].money -= cost;
 	    budget->money -= cost;
-	}
-
-	if (!player->simulation) {
-	    /* feed */
-	    if ((n = feed_ship(sp, etus)) > 0) {
-		wu(0, sp->shp_own, "%d starved on %s\n", n, prship(sp));
-		if (n > 10)
-		    nreport(sp->shp_own, N_DIE_FAMINE, 0, 1);
-	    }
-	    plague_ship(sp, etus);
 	}
     }
 }

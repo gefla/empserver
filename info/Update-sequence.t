@@ -8,49 +8,51 @@ This document gives a rough order of events during the update.
 1) Prepare
 	a) prepare all ships
 		a) pay military on board
+		b) feed people on board
+		c) plague people on board
 	b) prepare all planes
 		a) pay crew
 	c) prepare all land units
 		a) pay military on board
+		b) feed people on board
+		c) plague people on board
 	d) prepare all sectors
 		a) fallout is checked, if FALLOUT is defined
 		b) guerrilla warfare is checked
-		c) if the sector doesn't have the plague, see if it
+		c) if there are no civs or mil in the sector, it
+			reverts to the deity
+		d) taxes are collected from civs & uws; mil are paid.
+		e) if the sector is a bank it makes $$ proportional to
+			its efficiency
+		f) people in non-sanctuary sectors eat
+			If not enough is available, the excess people will
+			starve off.  No more than 50% of the people
+			in a sector can die; the uw's die first, then
+			the civs, then the mil.
+		g) if there was starvation, the work percentage is set
+			to 0, otherwise the work rate rises by
+			8+(1-15), max of 100
+		h) population grows and is truncated
+		i) if the sector doesn't have the plague, see if it
 			catches it
 			otherwise plague the people
-		d) if there are no civs or mil in the sector, it
-			reverts to the deity
-		e) taxes are collected from civs & uws; mil are paid.
-		f) if the sector is a bank it makes $$ proportional to
-			its efficiency
 	e) pay for military reserves.
 
 2) Produce
 	a) ship maintenance, in order of ship number
-		pay maintenance, then feed and plague people on board
 	b) plane maintenance, in order of plane number
 	c) land unit maintenance, in order of land unit number
-		pay maintenance, then feed and plague people on board
 	d) sectors, top to bottom, left to right
-                a) people in non-sanctuary sectors eat
-                        If not enough is available, the excess people will
-			starve off.  No more than 50% of the people
-                        in a sector can die; the uw's die first, then
-                        the civs, then the mil.
-                b) if there was starvation, the work percentage is set
-                        to 0, otherwise the work rate rises by
-                        8+(1-15), max of 100
-                c) population grows and is truncated
-                d) pay sector maintenance
-                e) sectors that are stopped are skipped (see info stop)
-                f) first increase eff
-                g) then make things
-	d) ship building, in order of ship number
+		a) pay sector maintenance
+		b) sectors that are stopped are skipped (see info stop)
+		c) first increase eff
+		d) then make things
+	e) ship building, in order of ship number
 	        first increase efficiency, then produce
                 stopped ships are started, but not built (see info stop)
-	e) plane building, in order of plane number
+	f) plane building, in order of plane number
                 stopped planes are started, but not built (see info stop)
-	f) land unit building, in order of land unit number
+	g) land unit building, in order of land unit number
                 stopped land units are started, but not built (see info stop)
 
 3) Then, do deliveries for all sectors in the world, row by row, going from

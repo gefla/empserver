@@ -35,7 +35,6 @@
 
 #include <config.h>
 
-#include <math.h>
 #include "chance.h"
 #include "land.h"
 #include "lost.h"
@@ -51,11 +50,10 @@ static void upd_land(struct lndstr *, int, struct bp *, int);
 static void plague_land(struct lndstr *, int);
 static void landrepair(struct lndstr *, struct natstr *, struct bp *,
 		       int, struct budget *);
-static int feed_land(struct lndstr *, int);
 
 void prep_lands(int etus, struct bp *bp)
 {
-    int mil, i;
+    int mil, i, n;
     double mil_pay;
     struct lndstr *lp;
 
@@ -75,6 +73,15 @@ void prep_lands(int etus, struct bp *bp)
 	nat_budget[lp->lnd_own].mil.count += mil;
 	nat_budget[lp->lnd_own].mil.money += mil_pay;
 	nat_budget[lp->lnd_own].money += mil_pay;
+
+	if (!player->simulation) {
+	    if ((n = feed_people(lp->lnd_item, etus)) > 0) {
+		wu(0, lp->lnd_own, "%d starved in %s\n", n, prland(lp));
+		if (n > 10)
+		    nreport(lp->lnd_own, N_DIE_FAMINE, 0, 1);
+	    }
+	    plague_land(lp, etus);
+	}
     }
 }
 
@@ -102,7 +109,7 @@ upd_land(struct lndstr *lp, int etus, struct bp *bp, int build)
     struct lchrstr *lcp = &lchr[lp->lnd_type];
     struct natstr *np = getnatp(lp->lnd_own);
     int min = morale_base - (int)np->nat_level[NAT_HLEV];
-    int n, mult, eff_lost;
+    int mult, eff_lost;
     double cost;
 
     if (!player->simulation)
@@ -136,16 +143,6 @@ upd_land(struct lndstr *lp, int etus, struct bp *bp, int build)
 	    budget->bm[BUDG_LND_MAINT].money -= cost;
 	    budget->money -= cost;
 	}
-
-	if (!player->simulation) {
-	    /* feed */
-	    if ((n = feed_land(lp, etus)) > 0) {
-		wu(0, lp->lnd_own, "%d starved in %s\n", n, prland(lp));
-		if (n > 10)
-		    nreport(lp->lnd_own, N_DIE_FAMINE, 0, 1);
-	    }
-	    plague_land(lp, etus);
-	}			/* end !player->simulation */
     }
 }
 
@@ -228,13 +225,4 @@ landrepair(struct lndstr *land, struct natstr *np, struct bp *bp, int etus,
     budget->money -= cost;
     if (!player->simulation)
 	land->lnd_effic += (signed char)build;
-}
-
-/*
- * returns the number who starved, if any.
- */
-static int
-feed_land(struct lndstr *lp, int etus)
-{
-    return feed_people(lp->lnd_item, etus);
 }

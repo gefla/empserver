@@ -148,8 +148,6 @@ produce_sect(int etu, struct bp *bp)
 	budget = &nat_budget[sp->sct_own];
 	np = getnatp(sp->sct_own);
 
-	do_feed(sp, np, etu, 0);
-
 	if (dchr[sp->sct_type].d_maint) {
 	    cost = etu * dchr[sp->sct_type].d_maint;
 	    budget->bm[BUDG_SCT_MAINT].count++;

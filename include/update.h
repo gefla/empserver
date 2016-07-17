@@ -130,6 +130,7 @@ extern void plague_report(natid, int, int, int, int, char *, char *);
 extern void prep_planes(int, struct bp *);
 extern void prod_plane(int, struct bp *, int);
 /* populace.c */
+extern void check_pop_loss(struct sctstr *);
 extern void populace(struct sctstr *, int);
 extern int total_work(int, int, int, int, int, int);
 /* prepare.c */
