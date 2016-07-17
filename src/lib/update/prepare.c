@@ -81,8 +81,7 @@ prepare_sects(int etu, struct bp *bp)
 	    populace(sp, etu);
 	}
 	tax(sp, etu);
-	if (sp->sct_type == SCT_BANK)
-	    bank_income(sp, etu);
+	bank_income(sp, etu);
 	do_feed(sp, getnatp(sp->sct_own), etu, 0);
 	if (!player->simulation)
 	    do_plague(sp, etu);
@@ -121,6 +120,9 @@ static void
 bank_income(struct sctstr *sp, int etu)
 {
     double income;
+
+    if (sp->sct_type != SCT_BANK)
+	return;
 
     income = sp->sct_item[I_BAR] * etu * bankint * sp->sct_effic / 100;
     nat_budget[sp->sct_own].bars.count += sp->sct_item[I_BAR];
