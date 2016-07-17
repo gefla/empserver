@@ -101,7 +101,7 @@ prod(void)
 	    continue;
 
 	natp = getnatp(sect.sct_own);
-	sect.sct_avail = do_feed(&sect, natp, etu_per_update, 1);
+	do_feed(&sect, natp, etu_per_update, 1);
 	buildeff(&sect);
 	if (sect.sct_effic < 60)
 	    continue;

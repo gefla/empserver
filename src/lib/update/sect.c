@@ -249,7 +249,7 @@ produce_sect(struct natstr *np, int etu, struct bp *bp, int p_sect[][2])
 	    sp = &scratch_sect;
 	}
 
-	sp->sct_avail = do_feed(sp, np, etu, 0);
+	do_feed(sp, np, etu, 0);
 
 	if (sp->sct_off || np->nat_money < 0) {
 	    sp->sct_avail = 0;

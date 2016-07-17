@@ -55,7 +55,7 @@ newe(void)
 	    continue;
 	if (!sect.sct_off) {
 	    natp = getnatp(sect.sct_own);
-	    sect.sct_avail = do_feed(&sect, natp, etu_per_update, 1);
+	    do_feed(&sect, natp, etu_per_update, 1);
 	    buildeff(&sect);
 	}
 	if (nsect++ == 0) {

@@ -52,7 +52,7 @@ static int babies(int, int, double, int, int, int);
 /*
  * feed the individual sector
  */
-int
+void
 do_feed(struct sctstr *sp, struct natstr *np, int etu,
 	int round_babies_down)
 {
@@ -122,7 +122,7 @@ do_feed(struct sctstr *sp, struct natstr *np, int etu,
     trunc_people(sp, np);
 
     sp->sct_work = sctwork;
-    return work_avail;
+    sp->sct_avail = work_avail;
 }
 
 static int
