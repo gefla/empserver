@@ -27,7 +27,7 @@
  *  deliver.c: Deliver commodities to neighboring sector
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -89,6 +89,9 @@ deliver(struct sctstr *from, struct ichrstr *ip, int dir,
 	    return 0;
 	}
     }
+    /* make sure not to abandon the sector */
+    if (vtype == I_CIVIL || (vtype == I_MILIT && !to->sct_item[I_CIVIL]))
+	amt_moved--;
     /*
      * disallow delivery into prohibited sectors.
      * calculate unit movement cost; decrease amount if

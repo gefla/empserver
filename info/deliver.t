@@ -27,6 +27,9 @@ direction that a sector delivers to, then put a '+' before the number
 Note that delivery thresholds are stored as multiples of 8.  If you
 specify a threshold that is not a multiple of 8, it will be rounded down.
 .s1
+Delivery will not ship out the last civilian or the last military if
+there are no civilians, regardless of thresholds.
+.s1
 The direction must be specified as one of the six direction characters,
 (usually `y' `u' `j' `n' `b' or `g'), the \*Qno-direction\*U character,
 (usually `h').  If no direction is specified, then the direction will
