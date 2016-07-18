@@ -109,7 +109,7 @@ findlost(int type, natid owner, int id, coord x, coord y, int free)
 	if (lost.lost_owner == owner && type == lost.lost_type) {
 	    if (type == EF_SECTOR && lost.lost_x == x && lost.lost_y == y)
 		return n;
-	    else if (lost.lost_id == id)
+	    if (type != EF_SECTOR && lost.lost_id == id)
 		return n;
 	}
     }

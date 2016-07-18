@@ -427,6 +427,9 @@ uid owner type amount price maxbidder markettime xbuy ybuy xsell ysell
 /config
 config lost
 timestamp owner type id x y
+0 4 0 0 -16 -8
+0 4 0 0 -14 -8
+0 4 0 0 -16 -6
 0 4 0 0 -8 -6
 /config
 config realm
