@@ -124,7 +124,6 @@ unitsatxy(coord x, coord y, int wantflags, int nowantflags)
     while (nxtitem(&ni, &land)) {
 	if (land.lnd_effic < LAND_MINEFF || land.lnd_own == 0)
 	    continue;
-	/* Can't bomb units on ships or other units */
 	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
 	    continue;
 	lp = &lchr[(int)land.lnd_type];
@@ -135,11 +134,6 @@ unitsatxy(coord x, coord y, int wantflags, int nowantflags)
 	}
 	if (nowantflags) {
 	    if (lp->l_flags & nowantflags)
-		continue;
-	}
-
-	if (lp->l_flags & L_SPY) {
-	    if (!(chance(LND_SPY_DETECT_CHANCE(land.lnd_effic))))
 		continue;
 	}
 
