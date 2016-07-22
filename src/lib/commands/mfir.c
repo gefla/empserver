@@ -427,6 +427,7 @@ multifire(void)
     else
 	odds = 1.0;
     do_defdam(&fired, odds);
+    free_flist(&fired);
     return RET_OK;
 }
 
@@ -496,8 +497,6 @@ do_defdam(struct emp_qelem *list, double odds)
 		wu(0, vict, "Return fire hit sector %s for %d damage.\n",
 		   xyas(fp->x, fp->y, vict), dam);
 	}
-	emp_remque(&fp->queue);
-	free(fp);
     }
 }
 
