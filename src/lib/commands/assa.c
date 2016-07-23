@@ -193,15 +193,14 @@ only_spies(struct combat off[], struct emp_qelem *olist)
 static void
 sneak_ashore(struct emp_qelem *olist, struct combat *def)
 {
-    struct emp_qelem *qp, *next;
+    struct emp_qelem *qp;
     struct ulist *llp;
     struct lndstr *lp;
     int rel;
 
     pr("Trying to sneak on shore...\n");
 
-    for (qp = olist->q_forw; qp != olist; qp = next) {
-	next = qp->q_forw;
+    for (qp = olist->q_forw; qp != olist; qp = qp->q_forw) {
 	llp = (struct ulist *)qp;
 	lp = &llp->unit.land;
 	rel = relations_with(def->own, player->cnum);
@@ -210,7 +209,6 @@ sneak_ashore(struct emp_qelem *olist, struct combat *def)
 	    lp->lnd_x = def->x;
 	    lp->lnd_y = def->y;
 	    lp->lnd_ship = -1;
-	    putland(lp->lnd_uid, lp);
 	} else {
 	    pr("%s was spotted", prland(lp));
 	    if (rel <= HOSTILE) {
@@ -219,8 +217,6 @@ sneak_ashore(struct emp_qelem *olist, struct combat *def)
 					     def->own));
 		pr(" and was killed in the attempt.\n");
 		lp->lnd_effic = 0;
-		putland(lp->lnd_uid, lp);
-		lnd_put_one(llp);
 	    } else {
 		wu(0, def->own, "%s spy spotted in %s.\n",
 		   cname(player->cnum), xyas(def->x, def->y,
@@ -229,8 +225,9 @@ sneak_ashore(struct emp_qelem *olist, struct combat *def)
 		lp->lnd_x = def->x;
 		lp->lnd_y = def->y;
 		lp->lnd_ship = -1;
-		putland(lp->lnd_uid, lp);
 	    }
 	}
     }
+
+    lnd_put(olist);
 }
