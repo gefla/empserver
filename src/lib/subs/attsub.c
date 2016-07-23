@@ -2309,8 +2309,6 @@ move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
     struct ulist *llp;
     char buf[512];
 
-    if (QEMPTY(olist))
-	return;
     for (qp = olist->q_forw; qp != olist; qp = next) {
 	next = qp->q_forw;
 	llp = (struct ulist *)qp;
@@ -2324,8 +2322,7 @@ move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	else
 	    llp->unit.land.lnd_ship = -1;
     }
-    if (QEMPTY(olist))
-	return;
+
     if (def->type == EF_SECTOR) {
 	if (opt_INTERDICT_ATT) {
 	    lnd_sweep(olist, 0, 0, player->cnum);
@@ -2335,15 +2332,13 @@ move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
     } else {
 	sprintf(buf, "boards %s", prcom(0, def));
     }
-    if (QEMPTY(olist))
-	return;
+
     for (qp = olist->q_forw; qp != olist; qp = next) {
 	next = qp->q_forw;
 	llp = (struct ulist *)qp;
 	lnd_print(player->cnum, llp, buf);
     }
-    if (QEMPTY(olist))
-	return;
+
     lnd_put(olist);
 }
 
