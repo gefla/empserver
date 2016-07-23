@@ -2299,15 +2299,12 @@ ask_move_in(struct combat *off, struct emp_qelem *olist,
     move_in_land(A_ATTACK, off, olist, def);
 }
 
-/* Move offensive land units to the conquered sector or ship */
-
-static void
-move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
-	     struct combat *def)
+void
+att_move_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
+	      struct combat *def)
 {
     struct emp_qelem *qp, *next;
     struct ulist *llp;
-    char buf[512];
 
     for (qp = olist->q_forw; qp != olist; qp = next) {
 	next = qp->q_forw;
@@ -2322,6 +2319,19 @@ move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	else
 	    llp->unit.land.lnd_ship = -1;
     }
+}
+
+/* Move offensive land units to the conquered sector or ship */
+
+static void
+move_in_land(int combat_mode, struct combat *off, struct emp_qelem *olist,
+	     struct combat *def)
+{
+    struct emp_qelem *qp, *next;
+    struct ulist *llp;
+    char buf[512];
+
+    att_move_land(combat_mode, off, olist, def);
 
     if (def->type == EF_SECTOR) {
 	if (opt_INTERDICT_ATT) {

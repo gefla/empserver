@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
+ *     Markus Armbruster, 2005-2016
  */
 
 #ifndef COMBAT_H
@@ -69,6 +70,8 @@ struct combat {
 
 /* src/lib/subs/attsub.c */
 extern double att_combat_eff(struct combat *);
+extern void att_move_land(int, struct combat *, struct emp_qelem *,
+			  struct combat *);
 extern void att_move_in_off(int, struct combat *, struct emp_qelem *,
 			    struct combat *);
 extern int att_combat_init(struct combat *, int);

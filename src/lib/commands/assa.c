@@ -41,7 +41,8 @@
 #include "unit.h"
 
 static int only_spies(struct combat[], struct emp_qelem *);
-static void sneak_ashore(struct emp_qelem *, struct combat *);
+static void sneak_ashore(struct combat[], struct emp_qelem *,
+			 struct combat *);
 
 int
 assa(void)
@@ -139,7 +140,7 @@ assa(void)
     /* If no attacking forces (i.e. we got here with only spies)
      * then try to sneak on-land. */
     if (only_spies(off, &olist)) {
-	sneak_ashore(&olist, def);
+	sneak_ashore(off, &olist, def);
 	return RET_OK;
     }
 
@@ -191,7 +192,8 @@ only_spies(struct combat off[], struct emp_qelem *olist)
 }
 
 static void
-sneak_ashore(struct emp_qelem *olist, struct combat *def)
+sneak_ashore(struct combat off[], struct emp_qelem *olist,
+	     struct combat *def)
 {
     struct emp_qelem *qp;
     struct ulist *llp;
@@ -200,15 +202,14 @@ sneak_ashore(struct emp_qelem *olist, struct combat *def)
 
     pr("Trying to sneak on shore...\n");
 
+    att_move_land(A_ASSAULT, off, olist, def);
+
     for (qp = olist->q_forw; qp != olist; qp = qp->q_forw) {
 	llp = (struct ulist *)qp;
 	lp = &llp->unit.land;
 	rel = relations_with(def->own, player->cnum);
 	if (chance(0.10) || rel == ALLIED || !def->own) {
 	    pr("%s made it on shore safely.\n", prland(lp));
-	    lp->lnd_x = def->x;
-	    lp->lnd_y = def->y;
-	    lp->lnd_ship = -1;
 	} else {
 	    pr("%s was spotted", prland(lp));
 	    if (rel <= HOSTILE) {
@@ -222,9 +223,6 @@ sneak_ashore(struct emp_qelem *olist, struct combat *def)
 		   cname(player->cnum), xyas(def->x, def->y,
 					     def->own));
 		pr(" but made it ok.\n");
-		lp->lnd_x = def->x;
-		lp->lnd_y = def->y;
-		lp->lnd_ship = -1;
 	    }
 	}
     }
