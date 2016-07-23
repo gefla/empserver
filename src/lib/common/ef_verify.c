@@ -359,6 +359,24 @@ verify_plane_chr(void)
 }
 
 static int
+verify_land_chr(void)
+{
+    int retval = 0;
+    int i;
+
+    for (i = 0; lchr[i].l_name; i++) {
+	if (!lchr[i].l_name[0])
+	    continue;
+	if ((lchr[i].l_flags & L_SPY) && lchr[i].l_item[I_MILIT]) {
+	    verify_fail(EF_PLANE_CHR, i, NULL, 0,
+			"flag %s requires zero milit",
+			symbol_by_value(L_SPY, land_chr_flags));
+	    retval = -1;
+	}
+    }
+    return retval;
+}
+static int
 verify_products(void)
 {
     int retval = 0;
@@ -395,6 +413,7 @@ ef_verify_config(void)
     /* Special checks */
     retval |= verify_ship_chr();
     retval |= verify_plane_chr();
+    retval |= verify_land_chr();
     retval |= verify_products();
     return retval;
 }
