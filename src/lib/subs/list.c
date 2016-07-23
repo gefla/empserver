@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2003-2015
+ *     Markus Armbruster, 2003-2016
  */
 
 #include <config.h>
@@ -69,7 +69,7 @@ shipsatxy(coord x, coord y, int wantflags, int nowantflags, int only_count)
     while (nxtitem(&ni, &ship)) {
 	if (player->owner)
 	    continue;
-	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
+	if (!ship.shp_own)
 	    continue;
 	mp = &mchr[(int)ship.shp_type];
 	if (wantflags) {
@@ -99,7 +99,7 @@ carriersatxy(coord x, coord y, natid own)
     ships = 0;
     snxtitem_xy(&ni, EF_SHIP, x, y);
     while (nxtitem(&ni, &ship)) {
-	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
+	if (!ship.shp_own)
 	    continue;
 	if (relations_with(ship.shp_own, own) != ALLIED)
 	    continue;
@@ -122,7 +122,7 @@ unitsatxy(coord x, coord y, int wantflags, int nowantflags)
     units = 0;
     snxtitem_xy(&ni, EF_LAND, x, y);
     while (nxtitem(&ni, &land)) {
-	if (land.lnd_effic < LAND_MINEFF || land.lnd_own == 0)
+	if (!land.lnd_own)
 	    continue;
 	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
 	    continue;
@@ -157,7 +157,7 @@ planesatxy(coord x, coord y, int wantflags, int nowantflags)
     planes = 0;
     snxtitem_xy(&ni, EF_PLANE, x, y);
     while (nxtitem(&ni, &plane)) {
-	if (plane.pln_effic < PLANE_MINEFF || plane.pln_own == 0)
+	if (!plane.pln_own)
 	    continue;
 	if (plane.pln_ship >= 0 || plane.pln_land >= 0)
 	    continue;
@@ -195,7 +195,7 @@ asw_shipsatxy(coord x, coord y, int wantflags, int nowantflags,
     while (nxtitem(&ni, &ship)) {
 	if (player->owner)
 	    continue;
-	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
+	if (!ship.shp_own)
 	    continue;
 	mp = &mchr[(int)ship.shp_type];
 	if (wantflags) {

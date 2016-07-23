@@ -109,7 +109,7 @@ get_assembly_point(char *input, struct sctstr *ap_sect, char *buf)
     /* over own or allied ship is fine */
     snxtitem_xy(&ni, EF_SHIP, x, y);
     while (nxtitem(&ni, &ship)) {
-	if (ship.shp_effic < SHIP_MINEFF || ship.shp_own == 0)
+	if (!ship.shp_own)
 	    continue;
 	if (relations_with(ship.shp_own, player->cnum) == ALLIED)
 	    return ap_sect;
