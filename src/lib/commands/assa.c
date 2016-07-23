@@ -170,26 +170,24 @@ assa(void)
 static int
 only_spies(struct combat off[], struct emp_qelem *olist)
 {
-    int ourtotal;
     int n;
-    struct emp_qelem *qp, *next;
+    struct emp_qelem *qp;
     struct ulist *llp;
 
-    ourtotal = 0;
     for (n = 0; n <= off->last; n++) {
 	if (off[n].type == EF_BAD)
 	    continue;
-	ourtotal += off[n].troops * att_combat_eff(off + n);
-    }
-    for (qp = olist->q_forw; qp != olist; qp = next) {
-	next = qp->q_forw;
-	llp = (struct ulist *)qp;
-	if (lchr[(int)llp->unit.land.lnd_type].l_flags & L_SPY)
-	    continue;
-	ourtotal++;
+	if (off[n].troops)
+	    return 0;
     }
 
-    return ourtotal == 0;
+    for (qp = olist->q_forw; qp != olist; qp = qp->q_forw) {
+	llp = (struct ulist *)qp;
+	if (!(lchr[llp->unit.land.lnd_type].l_flags & L_SPY))
+	    return 0;
+    }
+
+    return 1;
 }
 
 static void
