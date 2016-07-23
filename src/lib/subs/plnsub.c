@@ -826,7 +826,7 @@ pln_put1(struct plist *plp)
 	/* We should do more, like make sure it's really
 	   a carrier, etc. but for now just make sure it's
 	   not sunk. */
-	if (ship.shp_effic < SHIP_MINEFF) {
+	if (!ship.shp_own) {
 	    mpr(pp->pln_own,
 		"Ship #%d has been sunk, plane #%d has nowhere to land, and\n"
 		"splashes into the sea.\n",

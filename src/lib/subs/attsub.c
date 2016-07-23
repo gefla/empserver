@@ -958,7 +958,7 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
     while (nxtitem(&ni, &land)) {
 	if (land.lnd_own != player->cnum)
 	    continue;
-	if (land.lnd_effic < LAND_MINEFF)
+	if (!land.lnd_own)
 	    continue;
 	if (land_answer[(int)land.lnd_army] == 'N')
 	    continue;
