@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2006-2015
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -1341,13 +1341,12 @@ static int
 get_dland(struct combat *def, struct ulist *llp)
 {
     struct lndstr *lp = &llp->unit.land;
-    char buf[512];
 
     getland(llp->unit.land.lnd_uid, lp);
 
-    if (lp->lnd_effic < LAND_MINEFF) {
-	sprintf(buf, "was destroyed and is no longer a part of the defense");
-	lnd_print(llp->unit.land.lnd_own, llp, buf);
+    if (lp->lnd_own != def->own) {
+	lnd_print(llp->unit.land.lnd_own, llp,
+		  "was destroyed and is no longer a part of the defense");
 	lnd_put_one(llp);
 	return 0;
     }
