@@ -1189,6 +1189,8 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	    continue;
 	if (def->type == EF_SECTOR && land.lnd_land >= 0)
 	    continue;
+	if (def->type == EF_SECTOR && (lchr[land.lnd_type].l_flags & L_SPY))
+	    continue;
 	if (def->type == EF_SHIP && land.lnd_ship != def->shp_uid)
 	    continue;
 	if (def->type == EF_LAND && land.lnd_land != def->lnd_uid)
