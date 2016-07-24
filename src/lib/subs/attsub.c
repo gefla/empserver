@@ -1218,6 +1218,7 @@ get_ototal(int combat_mode, struct combat *off, struct emp_qelem *olist,
     struct emp_qelem *qp, *next;
     struct ulist *llp;
     int n, w;
+    double att_val;
 
     /*
      * first, total the attacking mil
@@ -1240,6 +1241,18 @@ get_ototal(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	llp = (struct ulist *)qp;
 	if (check && !get_oland(combat_mode, llp))
 	    continue;
+	att_val = attack_val(combat_mode, &llp->unit.land);
+	if (check && att_val < 1.0) {
+	    /*
+	     * No offensive strength, and fighting hasn't even begun.
+	     * Since ask_olist() doesn't offer such land units, the
+	     * strength must have been destroyed since then.  Leave it
+	     * behind.
+	     */
+	    lnd_print(player->cnum, llp, "has no offensive strength");
+	    lnd_put_one(llp);
+	    continue;
+	}
 	if (combat_mode == A_ATTACK) {
 	    w = -1;
 	    for (n = 0; n <= off->last; ++n) {
@@ -1255,11 +1268,9 @@ get_ototal(int combat_mode, struct combat *off, struct emp_qelem *olist,
 		lnd_put_one(llp);
 		continue;
 	    }
-	    ototal += attack_val(combat_mode, &llp->unit.land) *
-		att_combat_eff(off + w);
-	} else {
-	    ototal += attack_val(combat_mode, &llp->unit.land);
+	    att_val *= att_combat_eff(off + w);
 	}
+	ototal += att_val;
     }
     ototal *= osupport;
 
