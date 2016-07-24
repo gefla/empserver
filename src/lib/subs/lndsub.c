@@ -183,8 +183,10 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
     lnd_submil(&llp->unit.land, cas);
 
     if (llp->unit.land.lnd_effic < LAND_MINEFF) {
-	sprintf(buf, "dies %s %s!",
-		combat_mode ? att_mode[combat_mode] : "defending",
+	if (llp->unit.land.lnd_own == player->cnum)
+	    pr("\n");
+	sprintf(buf, "dies %sing %s!",
+		att_mode[combat_mode],
 		xyas(llp->unit.land.lnd_x, llp->unit.land.lnd_y,
 		     llp->unit.land.lnd_own));
 	lnd_print(llp->unit.land.lnd_own, llp, buf);
