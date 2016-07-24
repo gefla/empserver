@@ -1041,7 +1041,14 @@ ask_olist(int combat_mode, struct combat *off, struct combat *def,
 	    return;
 	}
 	att_val = attack_val(combat_mode, &land);
-	if (att_val < 1.0) {
+	/*
+	 * We need to let spies assault even though they have no
+	 * offensive strength, because assault is how they sneak
+	 * ashore.  If this assault turns out to be a fight, they'll
+	 * be removed by get_ototal().
+	 */
+	if (att_val < 1.0
+	    && !(combat_mode == A_ASSAULT && (lcp->l_flags & L_SPY))) {
 	    pr("%s has no offensive strength\n", prland(&land));
 	    continue;
 	}
@@ -1245,9 +1252,9 @@ get_ototal(int combat_mode, struct combat *off, struct emp_qelem *olist,
 	if (check && att_val < 1.0) {
 	    /*
 	     * No offensive strength, and fighting hasn't even begun.
-	     * Since ask_olist() doesn't offer such land units, the
-	     * strength must have been destroyed since then.  Leave it
-	     * behind.
+	     * Since ask_olist() doesn't offer such land units, except
+	     * for spies sometimes, it's either a spy, or the strength
+	     * must have been destroyed since then.  Leave it behind.
 	     */
 	    lnd_print(player->cnum, llp, "has no offensive strength");
 	    lnd_put_one(llp);

@@ -22,9 +22,6 @@ shelling, bombing, etc. and take ANY damage at all, they die.
 Spies may also be snuck on shore via ships using the "assault"
 command.  If you assault a sector using just spies, a 100% spy has a
 60% chance of getting caught, which increases to 100% for a 20% spy.
-If you mix spies and mil,
-the spies must fight just like normal units.  And, since any damage they take
-kills them, this is very risky usage of spies.
 .s1
 You may locate spies using the "llookout" or the "spy" command.
 .s1

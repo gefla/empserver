@@ -84,12 +84,6 @@ attack_val(int combat_mode, struct lndstr *lp)
 
     lcp = &lchr[(int)lp->lnd_type];
 
-/* Spies always count as 1 during assaults.  If they are the only ones
-   in the assault, they get to sneak on anyway. */
-
-    if (lcp->l_flags & L_SPY && combat_mode == A_ASSAULT)
-	return 1;
-
     men = lp->lnd_item[I_MILIT];
     value = men * lnd_att(lp) * lp->lnd_effic / 100.0;
 
@@ -179,16 +173,14 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
     signed char orig;
     int mob;
 
+    if (CANT_HAPPEN(lchr[llp->unit.land.lnd_type].l_flags & L_SPY))
+	return 0;
+
     taken = llp->unit.land.lnd_item[I_MILIT];
-    /* Spies always die */
-    if (lchr[llp->unit.land.lnd_type].l_flags & L_SPY)
-	llp->unit.land.lnd_effic = 0;
-    else {
-	eff_eq = ldround(cas * 100.0 /
-	    lchr[llp->unit.land.lnd_type].l_item[I_MILIT], 1);
-	llp->unit.land.lnd_effic -= eff_eq;
-	lnd_submil(&llp->unit.land, cas);
-    }
+    eff_eq = ldround(cas * 100.0 /
+		     lchr[llp->unit.land.lnd_type].l_item[I_MILIT], 1);
+    llp->unit.land.lnd_effic -= eff_eq;
+    lnd_submil(&llp->unit.land, cas);
 
     if (llp->unit.land.lnd_effic < LAND_MINEFF) {
 	sprintf(buf, "dies %s %s!",
