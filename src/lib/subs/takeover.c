@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2007-2012
+ *     Markus Armbruster, 2007-2016
  */
 
 #include <config.h>
@@ -94,11 +94,20 @@ takeover(struct sctstr *sp, natid newown)
 	    continue;
 	if (lp->lnd_ship >= 0 || lp->lnd_land >= 0)
 	    continue;
-	/* Spies get a chance to hide */
+
+	/* Spies either hide or get executed */
 	if (lchr[(int)lp->lnd_type].l_flags & L_SPY) {
 	    if (!(chance(LND_SPY_DETECT_CHANCE(lp->lnd_effic))))
 		continue;
+	    mpr(newown, "%s summarily executed!\n", prland(lp));
+	    wu(0, lp->lnd_own, "%s summarily executed when %s took %s!\n",
+	       prland(lp),
+	       cname(newown), xyas(lp->lnd_x, lp->lnd_y, lp->lnd_own));
+	    lp->lnd_own = 0;
+	    putland(lp->lnd_uid, lp);
+	    continue;
 	}
+
 	n = lp->lnd_effic - (29 + roll(100));
 	if (n < 0)
 	    n = 0;
