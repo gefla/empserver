@@ -213,7 +213,8 @@ lnd_take_casualty(int combat_mode, struct ulist *llp, int cas)
 
     ret_chance = llp->unit.land.lnd_retreat - llp->unit.land.lnd_effic;
     if (pct_chance(ret_chance)) {
-	pr("\n");
+	if (llp->unit.land.lnd_own == player->cnum)
+	    pr("\n");
 	lnd_print(llp->unit.land.lnd_own, llp, "fails morale check!");
 	llp->unit.land.lnd_mission = 0;
 	llp->unit.land.lnd_harden = 0;
