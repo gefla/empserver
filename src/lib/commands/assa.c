@@ -119,6 +119,12 @@ assa(void)
 	return RET_OK;
     }
 
+    /* If only spies assault, try to sneak them ashore */
+    if (only_spies(off, &olist)) {
+	sneak_ashore(off, &olist, def);
+	return RET_OK;
+    }
+
     ototal = att_get_offense(A_ASSAULT, off, &olist, def);
     if (att_abort(A_ASSAULT, off, def)) {
 	pr("Assault aborted\n");
@@ -131,18 +137,6 @@ assa(void)
      * forward, we can assume that this battle is the _only_ thing
      * happening in the game.
      */
-
-    /* First, we check to see if the only thing we have are spies
-     * assaulting.  If so, we try to sneak them on land.  If they
-     * make it, the defenders don't see a thing.  If they fail, well,
-     * the spies die, and the defenders see them. */
-
-    /* If no attacking forces (i.e. we got here with only spies)
-     * then try to sneak on-land. */
-    if (only_spies(off, &olist)) {
-	sneak_ashore(off, &olist, def);
-	return RET_OK;
-    }
 
     /* Get the real defense */
 
