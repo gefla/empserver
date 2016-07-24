@@ -202,7 +202,9 @@ sneak_ashore(struct combat off[], struct emp_qelem *olist,
 	llp = (struct ulist *)qp;
 	lp = &llp->unit.land;
 	rel = relations_with(def->own, player->cnum);
-	if (chance(0.10) || rel == ALLIED || !def->own) {
+	if (rel == ALLIED || !def->own
+	    || !chance(LND_SPY_DETECT_CHANCE(lp->lnd_effic / 2))) {
+				/* eff/2 because this is hard */
 	    pr("%s made it on shore safely.\n", prland(lp));
 	} else {
 	    pr("%s was spotted", prland(lp));
