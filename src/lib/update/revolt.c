@@ -445,6 +445,8 @@ take_casualties(struct sctstr *sp, int mc)
 	    continue;
 	if (lp->lnd_ship >= 0)
 	    continue;
+	if (!lp->lnd_item[I_MILIT])
+	    continue;
 	nunits++;
     }
 
@@ -460,6 +462,8 @@ take_casualties(struct sctstr *sp, int mc)
 	if (lp->lnd_own != sp->sct_own)
 	    continue;
 	if (lp->lnd_ship >= 0)
+	    continue;
+	if (!lp->lnd_item[I_MILIT])
 	    continue;
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
@@ -486,6 +490,8 @@ take_casualties(struct sctstr *sp, int mc)
 	    continue;
 	if (lp->lnd_ship >= 0)
 	    continue;
+	if (!lp->lnd_item[I_MILIT])
+	    continue;
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
@@ -512,6 +518,8 @@ take_casualties(struct sctstr *sp, int mc)
 	    continue;
 	if (lp->lnd_ship >= 0)
 	    continue;
+	if (!lp->lnd_item[I_MILIT])
+	    continue;
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
@@ -528,6 +536,8 @@ take_casualties(struct sctstr *sp, int mc)
 	if (lp->lnd_own != sp->sct_own)
 	    continue;
 	if (lp->lnd_ship >= 0)
+	    continue;
+	if (!lp->lnd_item[I_MILIT])
 	    continue;
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
