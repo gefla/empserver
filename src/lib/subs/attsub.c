@@ -188,7 +188,8 @@ att_get_combat(struct combat *com, int isdef)
 	y = com->y;
 	break;
     case EF_LAND:
-	if (!getland(com->lnd_uid, &land) || !land.lnd_own) {
+	if (!getland(com->lnd_uid, &land) || !land.lnd_own
+	    || land.lnd_ship >= 0 || land.lnd_land >= 0) {
 	    if (isdef)
 		pr("Land unit #%d is not in the same sector!\n",
 		   com->lnd_uid);
