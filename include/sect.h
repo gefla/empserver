@@ -216,8 +216,8 @@ extern struct dchrstr dchr[SCT_TYPE_MAX + 2];
 /* Each cost is per point of efficency */
 struct sctintrins {
     char *in_name;
-    unsigned char in_lcms;	/* construction materials */
-    unsigned char in_hcms;
+    short in_mat[I_MAX+1];	/* materials to build 100% */
+				/* non-zero only for I_LCM and I_HCM */
     short in_bmobil;		/* mobility to build 100% */
     int in_cost;		/* cost to build 100% */
     unsigned char in_enable;	/* enabled iff non-zero */

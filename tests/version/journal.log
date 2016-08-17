@@ -1194,12 +1194,24 @@
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP meta infrastructure 0
     Play#0 output Play#0 1 "name" 3 0 0 -1
-    Play#0 output Play#0 1 "lcms" 1 0 0 -1
-    Play#0 output Play#0 1 "hcms" 1 0 0 -1
+    Play#0 output Play#0 1 "c_build" 1 0 0 -1
+    Play#0 output Play#0 1 "m_build" 1 0 0 -1
+    Play#0 output Play#0 1 "s_build" 1 0 0 -1
+    Play#0 output Play#0 1 "g_build" 1 0 0 -1
+    Play#0 output Play#0 1 "p_build" 1 0 0 -1
+    Play#0 output Play#0 1 "i_build" 1 0 0 -1
+    Play#0 output Play#0 1 "d_build" 1 0 0 -1
+    Play#0 output Play#0 1 "b_build" 1 0 0 -1
+    Play#0 output Play#0 1 "f_build" 1 0 0 -1
+    Play#0 output Play#0 1 "o_build" 1 0 0 -1
+    Play#0 output Play#0 1 "l_build" 1 0 0 -1
+    Play#0 output Play#0 1 "h_build" 1 0 0 -1
+    Play#0 output Play#0 1 "u_build" 1 0 0 -1
+    Play#0 output Play#0 1 "r_build" 1 0 0 -1
     Play#0 output Play#0 1 "bmobil" 1 0 0 -1
     Play#0 output Play#0 1 "cost" 1 0 0 -1
     Play#0 output Play#0 1 "enable" 1 0 0 -1
-    Play#0 output Play#0 1 /6
+    Play#0 output Play#0 1 /18
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 25
     Play#0 command xdump
@@ -1801,9 +1813,9 @@
     Play#0 input xdump infrastructure *
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP infrastructure 0
-    Play#0 output Play#0 1 "road\\040network" 2 2 100 200 1
-    Play#0 output Play#0 1 "rail\\040network" 1 1 100 100 0
-    Play#0 output Play#0 1 "defense\\040factor" 1 1 100 100 0
+    Play#0 output Play#0 1 "road\\040network" 0 0 0 0 0 0 0 0 0 0 200 200 0 0 100 200 1
+    Play#0 output Play#0 1 "rail\\040network" 0 0 0 0 0 0 0 0 0 0 100 100 0 0 100 100 0
+    Play#0 output Play#0 1 "defense\\040factor" 0 0 0 0 0 0 0 0 0 0 100 100 0 0 100 100 0
     Play#0 output Play#0 1 /3
     Play#0 output Play#0 6 0 640
     Play#0 input xdump updates *
@@ -2451,9 +2463,9 @@
     Play#1 input xdump infrastructure *
     Play#1 command xdump
     Play#1 output Play#1 1 XDUMP infrastructure 0
-    Play#1 output Play#1 1 "road\\040network" 2 2 100 200 1
-    Play#1 output Play#1 1 "rail\\040network" 1 1 100 100 0
-    Play#1 output Play#1 1 "defense\\040factor" 1 1 100 100 0
+    Play#1 output Play#1 1 "road\\040network" 0 0 0 0 0 0 0 0 0 0 200 200 0 0 100 200 1
+    Play#1 output Play#1 1 "rail\\040network" 0 0 0 0 0 0 0 0 0 0 100 100 0 0 100 100 0
+    Play#1 output Play#1 1 "defense\\040factor" 0 0 0 0 0 0 0 0 0 0 100 100 0 0 100 100 0
     Play#1 output Play#1 1 /3
     Play#1 output Play#1 6 0 0
     Play#1 input xdump updates *

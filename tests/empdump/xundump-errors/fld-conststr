@@ -1,4 +1,4 @@
 config infrastructure
-name lcms hcms bmobil cost enable
+name l_b h_b bmobil cost enable
 "lala" 1 1 1 1 1
 # value for field 1 must be "road network"

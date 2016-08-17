@@ -49,10 +49,8 @@ improve(void)
     int type;
     int value;
     int ovalue;
-    int maxup, lim;
+    int maxup, i, lim;
     struct natstr *natp;
-    int lneeded;
-    int hneeded;
     int wanted;
 
     p = getstarg(player->argp[1],
@@ -104,26 +102,6 @@ improve(void)
 	    maxup = wanted;
 	if (!maxup)
 	    continue;
-	lneeded = incp->in_lcms * maxup;
-	if (sect.sct_item[I_LCM] < lneeded) {
-	    lneeded = sect.sct_item[I_LCM];
-	    maxup = lneeded / incp->in_lcms;
-	    if (maxup <= 0) {
-		pr("Not enough lcms in %s\n",
-		   xyas(sect.sct_x, sect.sct_y, player->cnum));
-		continue;
-	    }
-	}
-	hneeded = incp->in_hcms * maxup;
-	if (sect.sct_item[I_HCM] < hneeded) {
-	    hneeded = sect.sct_item[I_HCM];
-	    maxup = hneeded / incp->in_hcms;
-	    if (maxup <= 0) {
-		pr("Not enough hcms in %s\n",
-		   xyas(sect.sct_x, sect.sct_y, player->cnum));
-		continue;
-	    }
-	}
 
 	lim = (sect. sct_mobil - 1) * 100 / incp->in_bmobil;
 	if (lim <= 0) {
@@ -133,6 +111,21 @@ improve(void)
 	}
 	if (maxup > lim)
 	    maxup = lim;
+
+	for (i = I_NONE + 1; i <= I_MAX; i++) {
+	    if (!incp->in_mat[i])
+		continue;
+	    lim = sect.sct_item[i] * 100 / incp->in_mat[i];
+	    if (lim <= 0) {
+		pr("Not enough %s in %s\n",
+		   ichr[i].i_name,
+		   xyas(sect.sct_x, sect.sct_y, player->cnum));
+	    }
+	    if (maxup > lim)
+		maxup = lim;
+	}
+	if (maxup <= 0)
+	    continue;
 
 	natp = getnatp(player->cnum);
 	lim = (natp->nat_money - player->dolcost) * 100 / incp->in_cost;
@@ -144,10 +137,8 @@ improve(void)
 	if (maxup > lim)
 	    maxup = lim;
 
-	lneeded = incp->in_lcms * maxup;
-	hneeded = incp->in_hcms * maxup;
-	sect.sct_item[I_LCM] -= lneeded;
-	sect.sct_item[I_HCM] -= hneeded;
+	for (i = I_NONE + 1; i <= I_MAX; i++)
+	    sect.sct_item[i] -= roundavg(maxup * incp->in_mat[i] / 100.0);
 	sect.sct_mobil -= roundavg(maxup * incp->in_bmobil / 100.0);
 	player->dolcost += maxup * incp->in_cost / 100.0;
 	ovalue = value;

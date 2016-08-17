@@ -429,7 +429,7 @@ show_sect_build(int foo)
 	       "infrastructure type       lcm  hcm mobil     $\n");
 	pr("%-23.23s  %4d %4d %5d %5d\n",
 	   intrchr[i].in_name,
-	   intrchr[i].in_lcms * 100, intrchr[i].in_hcms * 100,
+	   intrchr[i].in_mat[I_LCM], intrchr[i].in_mat[I_HCM],
 	   intrchr[i].in_bmobil, intrchr[i].in_cost);
 	first = 0;
     }
