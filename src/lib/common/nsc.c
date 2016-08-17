@@ -690,8 +690,8 @@ struct castr intrchr_ca[] = {
      CA_DUMP_CONST},
     {"lcms", fldoff(in_lcms), NSC_UCHAR, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"hcms", fldoff(in_hcms), NSC_UCHAR, 0, NULL, EF_BAD, 0, CA_DUMP},
-    {"dcost", fldoff(in_dcost), NSC_UCHAR, 0, NULL, EF_BAD, 0, CA_DUMP},
-    {"mcost", fldoff(in_mcost), NSC_UCHAR, 0, NULL, EF_BAD, 0, CA_DUMP},
+    {"bmobil", fldoff(in_bmobil), NSC_SHORT, 0, NULL, EF_BAD, 0, CA_DUMP},
+    {"cost", fldoff(in_cost), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"enable", fldoff(in_enable), NSC_UCHAR, 0, NULL, EF_BAD, 0, CA_DUMP},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0, CA_DUMP}
 #undef CURSTR

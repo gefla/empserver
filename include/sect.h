@@ -218,8 +218,8 @@ struct sctintrins {
     char *in_name;
     unsigned char in_lcms;	/* construction materials */
     unsigned char in_hcms;
-    unsigned char in_dcost;	/* dollars */
-    unsigned char in_mcost;	/* mobility */
+    short in_bmobil;		/* mobility to build 100% */
+    int in_cost;		/* cost to build 100% */
     unsigned char in_enable;	/* enabled iff non-zero */
 };
 

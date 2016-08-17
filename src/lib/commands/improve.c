@@ -28,10 +28,12 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1996-2000
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
 
+#include "chance.h"
 #include "commands.h"
 
 int
@@ -47,12 +49,10 @@ improve(void)
     int type;
     int value;
     int ovalue;
-    int maxup;
+    int maxup, lim;
     struct natstr *natp;
     int lneeded;
     int hneeded;
-    int mneeded;
-    int dneeded;
     int wanted;
 
     p = getstarg(player->argp[1],
@@ -124,33 +124,32 @@ improve(void)
 		continue;
 	    }
 	}
-	mneeded = incp->in_mcost * maxup;
-	if ((sect.sct_mobil - 1) < mneeded) {
-	    mneeded = sect.sct_mobil - 1;
-	    if (mneeded < 0)
-		mneeded = 0;
-	    maxup = mneeded / incp->in_mcost;
-	    if (maxup <= 0) {
-		pr("Not enough mobility in %s\n",
-		   xyas(sect.sct_x, sect.sct_y, player->cnum));
-		continue;
-	    }
+
+	lim = (sect. sct_mobil - 1) * 100 / incp->in_bmobil;
+	if (lim <= 0) {
+	    pr("Not enough mobility in %s\n",
+	       xyas(sect.sct_x, sect.sct_y, player->cnum));
+	    continue;
 	}
-	dneeded = incp->in_dcost * maxup;
+	if (maxup > lim)
+	    maxup = lim;
+
 	natp = getnatp(player->cnum);
-	if (player->dolcost + dneeded > natp->nat_money) {
+	lim = (natp->nat_money - player->dolcost) * 100 / incp->in_cost;
+	if (lim <= 0) {
 	    pr("Not enough money left to improve %s by %d%%\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), maxup);
 	    break;
 	}
+	if (maxup > lim)
+	    maxup = lim;
+
 	lneeded = incp->in_lcms * maxup;
 	hneeded = incp->in_hcms * maxup;
-	mneeded = incp->in_mcost * maxup;
-	dneeded = incp->in_dcost * maxup;
-	player->dolcost += dneeded;
 	sect.sct_item[I_LCM] -= lneeded;
 	sect.sct_item[I_HCM] -= hneeded;
-	sect.sct_mobil -= mneeded;
+	sect.sct_mobil -= roundavg(maxup * incp->in_bmobil / 100.0);
+	player->dolcost += maxup * incp->in_cost / 100.0;
 	ovalue = value;
 	value += maxup;
 	if (CANT_HAPPEN(value > 100))

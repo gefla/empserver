@@ -1,7 +1,7 @@
 config infrastructure
-name             lcm hcm dcost mcost enab
-"road network"     2   2     2     1	1
-"rail network"     1   1     1     1	1
-"defense factor"   1   1     1     1	0
+name             lcm hcm bmob cost enab
+"road network"     2   2  100  200    1
+"rail network"     1   1  100  100    1
+"defense factor"   1   1  100  100    0
 /con
 # malformed table footer
