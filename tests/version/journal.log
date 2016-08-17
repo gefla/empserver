@@ -117,9 +117,9 @@
     Play#0 output Play#0 1 ~ plains                    0    0   100     0      0
     Play#0 output Play#0 1 any other                   0    0   100   100      0
     Play#0 output Play#0 1
-    Play#0 output Play#0 1 Infrastructure building - adding 1 point of efficiency costs:
-    Play#0 output Play#0 1        type          lcms    hcms    mobility    $$$$
-    Play#0 output Play#0 1 road network            2       2           1       2
+    Play#0 output Play#0 1                          build 100% efficiency
+    Play#0 output Play#0 1 infrastructure type       lcm  hcm mobil     $
+    Play#0 output Play#0 1 road network              200  200   100   200
     Play#0 output Play#0 6 0 640
     Play#0 input show sect c
     Play#0 command show

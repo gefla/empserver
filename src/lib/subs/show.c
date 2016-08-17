@@ -425,11 +425,12 @@ show_sect_build(int foo)
 	if (!intrchr[i].in_enable)
 	    continue;
 	if (first)
-	    pr("\nInfrastructure building - adding 1 point of efficiency costs:\n"
-	       "       type          lcms    hcms    mobility    $$$$\n");
-	pr("%-20s %4d    %4d    %8d    %4d\n",
-	   intrchr[i].in_name, intrchr[i].in_lcms, intrchr[i].in_hcms,
-	   intrchr[i].in_mcost, intrchr[i].in_dcost);
+	    pr("\n                         build 100%% efficiency\n"
+	       "infrastructure type       lcm  hcm mobil     $\n");
+	pr("%-23.23s  %4d %4d %5d %5d\n",
+	   intrchr[i].in_name,
+	   intrchr[i].in_lcms * 100, intrchr[i].in_hcms * 100,
+	   intrchr[i].in_mcost * 100, intrchr[i].in_dcost * 100);
 	first = 0;
     }
 }
