@@ -37,6 +37,7 @@
 int
 improve(void)
 {
+    struct sctintrins *incp;
     struct sctstr sect;
     int nsect;
     struct nstr_sect nstr;
@@ -68,8 +69,9 @@ improve(void)
     } else
 	return RET_SYN;
 
-    if (!intrchr[type].in_enable) {
-	pr("%s improvement is disabled.\n", intrchr[type].in_name);
+    incp = &intrchr[type];
+    if (!incp->in_enable) {
+	pr("%s improvement is disabled.\n", incp->in_name);
 	return RET_FAIL;
     }
 
@@ -88,7 +90,7 @@ improve(void)
 	    value = sect.sct_defense;
 	sprintf(prompt, "Sector %s has a %s of %d%%.  Improve how much? ",
 		xyas(sect.sct_x, sect.sct_y, player->cnum),
-		intrchr[type].in_name, value);
+		incp->in_name, value);
 	p = getstarg(player->argp[3], prompt, buf);
 	if (!p || !*p)
 	    continue;
@@ -102,49 +104,49 @@ improve(void)
 	    maxup = wanted;
 	if (!maxup)
 	    continue;
-	lneeded = intrchr[type].in_lcms * maxup;
+	lneeded = incp->in_lcms * maxup;
 	if (sect.sct_item[I_LCM] < lneeded) {
 	    lneeded = sect.sct_item[I_LCM];
-	    maxup = lneeded / intrchr[type].in_lcms;
+	    maxup = lneeded / incp->in_lcms;
 	    if (maxup <= 0) {
 		pr("Not enough lcms in %s\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum));
 		continue;
 	    }
 	}
-	hneeded = intrchr[type].in_hcms * maxup;
+	hneeded = incp->in_hcms * maxup;
 	if (sect.sct_item[I_HCM] < hneeded) {
 	    hneeded = sect.sct_item[I_HCM];
-	    maxup = hneeded / intrchr[type].in_hcms;
+	    maxup = hneeded / incp->in_hcms;
 	    if (maxup <= 0) {
 		pr("Not enough hcms in %s\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum));
 		continue;
 	    }
 	}
-	mneeded = intrchr[type].in_mcost * maxup;
+	mneeded = incp->in_mcost * maxup;
 	if ((sect.sct_mobil - 1) < mneeded) {
 	    mneeded = sect.sct_mobil - 1;
 	    if (mneeded < 0)
 		mneeded = 0;
-	    maxup = mneeded / intrchr[type].in_mcost;
+	    maxup = mneeded / incp->in_mcost;
 	    if (maxup <= 0) {
 		pr("Not enough mobility in %s\n",
 		   xyas(sect.sct_x, sect.sct_y, player->cnum));
 		continue;
 	    }
 	}
-	dneeded = intrchr[type].in_dcost * maxup;
+	dneeded = incp->in_dcost * maxup;
 	natp = getnatp(player->cnum);
 	if (player->dolcost + dneeded > natp->nat_money) {
 	    pr("Not enough money left to improve %s by %d%%\n",
 	       xyas(sect.sct_x, sect.sct_y, player->cnum), maxup);
 	    break;
 	}
-	lneeded = intrchr[type].in_lcms * maxup;
-	hneeded = intrchr[type].in_hcms * maxup;
-	mneeded = intrchr[type].in_mcost * maxup;
-	dneeded = intrchr[type].in_dcost * maxup;
+	lneeded = incp->in_lcms * maxup;
+	hneeded = incp->in_hcms * maxup;
+	mneeded = incp->in_mcost * maxup;
+	dneeded = incp->in_dcost * maxup;
 	player->dolcost += dneeded;
 	sect.sct_item[I_LCM] -= lneeded;
 	sect.sct_item[I_HCM] -= hneeded;
@@ -155,7 +157,7 @@ improve(void)
 	    value = 100;
 	pr("Sector %s %s increased from %d%% to %d%%\n",
 	   xyas(sect.sct_x, sect.sct_y, player->cnum),
-	   intrchr[type].in_name, ovalue, value);
+	   incp->in_name, ovalue, value);
 	if (type == INT_ROAD)
 	    sect.sct_road = value;
 	else if (type == INT_RAIL)
