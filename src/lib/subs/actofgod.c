@@ -27,7 +27,7 @@
  *  actofgod.c: Deity meddling subroutines
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2013-2015
+ *     Markus Armbruster, 2013-2016
  */
 
 #include <config.h>
@@ -189,7 +189,7 @@ divine_load(struct empobj *unit, int type, int uid)
     divine_load_unload(unit, type, uid, "loaded onto");
     if (get_empobj(type, uid, &carrier)
 	&& (unit->x != carrier.gen.x || unit->y != carrier.gen.y)) {
-	pr("%s teleported from %s to %s!",
+	pr("%s teleported from %s to %s!\n",
 	   unit_nameof(unit), xyas(unit->x, unit->y, player->cnum),
 	   xyas(carrier.gen.x, carrier.gen.y, player->cnum));
 	unit_teleport(unit, carrier.gen.x, carrier.gen.y);
