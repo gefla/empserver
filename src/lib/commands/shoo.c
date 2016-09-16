@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -43,13 +44,12 @@ shoo(void)
 {
     struct sctstr sect;
     struct nstr_sect nstr;
-    int nshot;
-    double m;
+    int seceff, nshot;
+    double secstr, m;
     i_type item;
     struct ichrstr *ip;
     int targets;
     char *p;
-    int mil, nsec;
     char prompt[128];
     char buf[1024];
 
@@ -66,21 +66,20 @@ shoo(void)
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
-	mil = security_strength(&sect, &nsec);
-	if (sect.sct_item[item] == 0 || sect.sct_item[I_CIVIL] > mil * 10)
+	secstr = security_strength(&sect, &seceff);
+	if (sect.sct_item[item] == 0 || sect.sct_item[I_CIVIL] > secstr * 10)
 	    continue;
 	nshot = sect.sct_item[item] > targets ? targets : sect.sct_item[item];
 	if (nshot > sect.sct_mobil * 5)
 	    nshot = sect.sct_mobil * 5;
 	m = nshot / 5.0;
 	/*
-	 * Each security unit lowers the cost of
-	 * shooting a person by 10%. However, you
-	 * can't go lower than 50% of normal cost
+	 * Security units reduce mobility cost of shooting people by
+	 * 10% per 100% unit efficiency, up to a 50% reduction.
 	 */
-	if (nsec > 5)
-	    nsec = 5;
-	m *= 1.0 - nsec * 0.1;
+	if (seceff > 500)
+	    seceff = 500;
+	m *= 1.0 - seceff / 1000.0;
 	if (nshot <= 0)
 	    continue;
 	if (m < 0)

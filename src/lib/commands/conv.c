@@ -48,7 +48,8 @@ conv(void)
     struct sctstr sect;
     struct nstr_sect nstr;
     int uwtoconvert, newuw, totaluw, uw;
-    int maxpop, civ, mil, nsec, adj_mob, mob;
+    int maxpop, civ, seceff, adj_mob, mob;
+    double secstr;
     double security_extra = 1.0;
 
     if (!snxtsct(&nstr, player->argp[1]))
@@ -66,11 +67,11 @@ conv(void)
 	natp = getnatp(sect.sct_own);
 	maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
 	civ = sect.sct_item[I_CIVIL];
-	mil = security_strength(&sect, &nsec);
+	secstr = security_strength(&sect, &seceff);
 	/*
 	 * Must have military control to convert captured civs.
 	 */
-	if (mil * 10 < civ)
+	if (secstr * 10 < civ)
 	    continue;
 	newuw = civ;
 	if (newuw > uwtoconvert)
@@ -88,7 +89,7 @@ conv(void)
 	mob = sect.sct_mobil * 5;
 
 	/* security troops make conversion more effective */
-	security_extra = 1.0 + nsec / 10.0;
+	security_extra = 1.0 + seceff / 1000.0;
 	adj_mob = ldround(((double)mob * security_extra), 1);
 
 	if (adj_mob < newuw)

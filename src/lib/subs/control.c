@@ -42,28 +42,29 @@
 
 /*
  * Return strength of security detail in @sp.
- * Store number of land units with security capability in @nsecurity.
+ * Store sum of efficiency of land units with security capability in
+ * @seceffp.
  */
-int
-security_strength(struct sctstr *sp, int *nsecurity)
+double
+security_strength(struct sctstr *sp, int *seceffp)
 {
-    int strength;
-    int nsec;
+    double strength;
+    int seceff;
     struct nstr_item ni;
     struct lndstr land;
 
     strength = sp->sct_item[I_MILIT];
-    nsec = 0;
+    seceff = 0;
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
     while (nxtitem(&ni, &land)) {
 	strength += land.lnd_item[I_MILIT];
 	if (lchr[land.lnd_type].l_flags & L_SECURITY) {
-	    strength += land.lnd_item[I_MILIT];
-	    nsec++;
+	    strength += land.lnd_item[I_MILIT] * land.lnd_effic / 100.0;
+	    seceff += land.lnd_effic;
 	}
     }
 
-    *nsecurity = nsec;
+    *seceffp = seceff;
     return strength;
 }
 
