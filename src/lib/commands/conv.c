@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2004-2015
+ *     Markus Armbruster, 2004-2016
  */
 
 /*
@@ -48,10 +48,8 @@ conv(void)
     struct sctstr sect;
     struct nstr_sect nstr;
     int uwtoconvert, newuw, totaluw, uw;
-    int maxpop, civ, mil, adj_mob, mob;
+    int maxpop, civ, mil, nsec, adj_mob, mob;
     double security_extra = 1.0;
-    struct lndstr land;
-    struct nstr_item ni;
 
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
@@ -68,27 +66,7 @@ conv(void)
 	natp = getnatp(sect.sct_own);
 	maxpop = max_pop(natp->nat_level[NAT_RLEV], &sect);
 	civ = sect.sct_item[I_CIVIL];
-	mil = sect.sct_item[I_MILIT];
-
-	/*
-	 * Military units count according to the number of
-	 * mil in them. (i.e. attack/defense modifier don't
-	 * count.
-	 */
-	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
-	while (nxtitem(&ni, &land)) {
-	    mil += land.lnd_item[I_MILIT];
-
-	    /* Anti-terrorist units count double */
-	    if (lchr[(int)land.lnd_type].l_flags & L_SECURITY) {
-		/*
-		 * They also increase the efficiency of
-		 * the conversion process by 10% each.
-		 */
-		security_extra += .1;
-		mil += land.lnd_item[I_MILIT];
-	    }
-	}
+	mil = security_strength(&sect, &nsec);
 	/*
 	 * Must have military control to convert captured civs.
 	 */
@@ -110,6 +88,7 @@ conv(void)
 	mob = sect.sct_mobil * 5;
 
 	/* security troops make conversion more effective */
+	security_extra = 1.0 + nsec / 10.0;
 	adj_mob = ldround(((double)mob * security_extra), 1);
 
 	if (adj_mob < newuw)

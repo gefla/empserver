@@ -41,6 +41,33 @@
 #include "unit.h"
 
 /*
+ * Return strength of security detail in @sp.
+ * Store number of land units with security capability in @nsecurity.
+ */
+int
+security_strength(struct sctstr *sp, int *nsecurity)
+{
+    int strength;
+    int nsec;
+    struct nstr_item ni;
+    struct lndstr land;
+
+    strength = sp->sct_item[I_MILIT];
+    nsec = 0;
+    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
+    while (nxtitem(&ni, &land)) {
+	strength += land.lnd_item[I_MILIT];
+	if (lchr[land.lnd_type].l_flags & L_SECURITY) {
+	    strength += land.lnd_item[I_MILIT];
+	    nsec++;
+	}
+    }
+
+    *nsecurity = nsec;
+    return strength;
+}
+
+/*
  * Does the player->owner have military control of this sector?
  */
 int

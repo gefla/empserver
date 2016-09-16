@@ -43,12 +43,10 @@ shoo(void)
 {
     struct sctstr sect;
     struct nstr_sect nstr;
-    struct nstr_item ni;
     int nshot;
     double m;
     i_type item;
     struct ichrstr *ip;
-    struct lndstr land;
     int targets;
     char *p;
     int mil, nsec;
@@ -68,18 +66,7 @@ shoo(void)
     while (nxtsct(&nstr, &sect)) {
 	if (!player->owner)
 	    continue;
-	mil = sect.sct_item[I_MILIT];
-	nsec = 0;
-	snxtitem_xy(&ni, EF_LAND, sect.sct_x, sect.sct_y);
-	while (nxtitem(&ni, &land)) {
-	    mil += land.lnd_item[I_MILIT];
-
-	    if (lchr[(int)land.lnd_type].l_flags & L_SECURITY) {
-		mil += land.lnd_item[I_MILIT];
-		nsec++;
-	    }
-	}
-
+	mil = security_strength(&sect, &nsec);
 	if (sect.sct_item[item] == 0 || sect.sct_item[I_CIVIL] > mil * 10)
 	    continue;
 	nshot = sect.sct_item[item] > targets ? targets : sect.sct_item[item];

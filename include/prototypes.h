@@ -399,6 +399,7 @@ extern int check_trade_ok(struct trdstr *);
 /* coastal.c */
 extern void set_coastal(struct sctstr *, int, int);
 /* control.c */
+extern int security_strength(struct sctstr *, int *);
 extern int military_control(struct sctstr *);
 extern int abandon_askyn(struct sctstr *, i_type, int, struct ulist *);
 extern int would_abandon(struct sctstr *, i_type, int, struct ulist *);
