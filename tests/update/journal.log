@@ -317,16 +317,16 @@
     Play#4 output Play#4 1 Sector Type			Production			    Cost
     Play#4 output Play#4 1 bank             		4 bars   			      40
     Play#4 output Play#4 1 Ship maintenance    		10 ships        		     300
-    Play#4 output Play#4 1 Unit maintenance    		10 units        		     600
+    Play#4 output Play#4 1 Unit maintenance    		20 units        		    1230
     Play#4 output Play#4 1 Sector maintenance  		1 sector        		      60
-    Play#4 output Play#4 1 Military payroll		1111 mil, 0 res                     5555
-    Play#4 output Play#4 1 Total expenses......................................................6554
+    Play#4 output Play#4 1 Military payroll		1304 mil, 0 res                     6520
+    Play#4 output Play#4 1 Total expenses......................................................8149
     Play#4 output Play#4 1 Income from taxes		23604 civs, 4100 uws                +212
     Play#4 output Play#4 1 Income from bars		100 bars                           +1500
     Play#4 output Play#4 1 Total income.......................................................+1712
     Play#4 output Play#4 1 Balance forward						           25000
-    Play#4 output Play#4 1 Estimated delta						           -4842
-    Play#4 output Play#4 1 Estimated new treasury.............................................20158
+    Play#4 output Play#4 1 Estimated delta						           -6437
+    Play#4 output Play#4 1 Estimated new treasury.............................................18563
     Play#4 output Play#4 6 0 99
     Play#4 input production *
     Play#4 command production
@@ -486,8 +486,8 @@
     Play#0 output Play#0 1    912.48
     Play#0 output Play#0 1         2  32   22% 7.1K 1.9K   0    0    0    0    1    5    3    3    3  100
     Play#0 output Play#0 1    528.93
-    Play#0 output Play#0 1         4  64    8%  25K 1.1K   0    0    0   20K  21  4.0K   0   10   10   25K
-    Play#0 output Play#0 1    293.10
+    Play#0 output Play#0 1         4  64    8%  25K 1.3K   0    0    0   20K  21  4.0K   0   10   19   25K
+    Play#0 output Play#0 1    305.26
     Play#0 output Play#0 1         3  64   14%  17K 170    0    0    0    0    0    0    0    0    0 -100
     Play#0 output Play#0 1    251.70
     Play#0 output Play#0 1         6   8   88% 4.0K 168    0    0    0    0    0    0    3    1    3   25K
@@ -497,7 +497,7 @@
     Play#0 output Play#0 1         5   0    0%   0    0    0    0    0    0    0    0    0    0    0   25K
     Play#0 output Play#0 1     60.00
     Play#0 output Play#0 1           ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-    Play#0 output Play#0 1 worldwide 272   35%  84K 4.7K   0    0    0   22K 362  4.6K  27   49   32  125K
+    Play#0 output Play#0 1 worldwide 272   35%  84K 4.9K   0    0    0   22K 362  4.6K  27   49   41  125K
     Play#0 output Play#0 1
     Play#0 output Play#0 6 0 640
     Play#0 input read 0
@@ -751,7 +751,7 @@
     Play#0 output Play#0 1   1   2,6    k .......... ..........   0   0    0    2    0   0    0    0   45   0
     Play#0 output Play#0 1   1   4,6    k .......... ..........   0   0    0   58    0   0    0    0 9999   0
     Play#0 output Play#0 1   1   6,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
-    Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   16   0
+    Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   15   0
     Play#0 output Play#0 1   1  10,6    ! .......... ..........   0   0    0    0    0   0    0    0   13   0
     Play#0 output Play#0 1   1  12,6    * .......... ..........   0   0    0    0    0   0    0    0    8   0
     Play#0 output Play#0 1   1  14,6    h .......... ..........   0   0    0    0    0   0    0   40    0   0
@@ -908,7 +908,7 @@
     Play#0 command nation
     Play#0 output Play#0 1
     Play#0 output Play#0 1 (#2) 2 Nation Report	Thu Jan  1 00:00:00 1970
-    Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 193
+    Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 192
     Play#0 output Play#0 1 10% eff capital at -2,0 has 130 civilians & 0 military
     Play#0 output Play#0 1  The treasury has $-6221.00     Military reserves: 975
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  2.74
@@ -1355,11 +1355,30 @@
     Play#0 output Play#0 1 Outbreak of PLAGUE on inf  infantry #15!
     Play#0 output Play#0 1 Outbreak of PLAGUE on inf  infantry #19!
     Play#0 output Play#0 1 Revolutionary subversion reported in -16,-8!
+    Play#0 output Play#0 1 inf  infantry #20 captured when 5 took -16,-8!
     Play#0 output Play#0 1 Partisans take over -16,-8!
-    Play#0 output Play#0 1 Revolutionary subversion reported in -14,-8!
+    Play#0 output Play#0 1 inf  infantry #21 dies fighting guerrillas in -14,-8
+    Play#0 output Play#0 1 inf  infantry #22 dies fighting guerrillas in -14,-8
+    Play#0 output Play#0 1 inf  infantry #23 captured when 5 took -14,-8!
+    Play#0 output Play#0 1 Guerrilla warfare in -14,-8
+    Play#0 output Play#0 1   rebels murder 2 military
     Play#0 output Play#0 1 Partisans take over -14,-8!
-    Play#0 output Play#0 1 Revolutionary subversion reported in -12,-8!
-    Play#0 output Play#0 1 Revolutionary subversion reported in -15,-7!
+    Play#0 output Play#0 1 sec  security #25 kills 4 guerrillas in raid at -12,-8!
+    Play#0 output Play#0 1 spy  infiltrator #24 dies fighting guerrillas in -12,-8
+    Play#0 output Play#0 1 inf  infantry #26 dies fighting guerrillas in -12,-8
+    Play#0 output Play#0 1 sec  security #25 dies fighting guerrillas in -12,-8
+    Play#0 output Play#0 1 sec  security #27 dies fighting guerrillas in -12,-8
+    Play#0 output Play#0 1 Sector -12,-8 has been retaken!
+    Play#0 output Play#0 1 Guerrilla warfare in -12,-8
+    Play#0 output Play#0 1   body count: troops: 110, rebels: 71
+    Play#0 output Play#0 1 Guerrilla warfare in -10,-8
+    Play#0 output Play#0 1   body count: troops: 10, rebels: 5
+    Play#0 output Play#0 1 Guerrilla warfare in -8,-8
+    Play#0 output Play#0 1   body count: troops: 7, rebels: 22
+    Play#0 output Play#0 1 inf  infantry #29 dies fighting guerrillas in -6,-8
+    Play#0 output Play#0 1 Guerrilla warfare in -6,-8
+    Play#0 output Play#0 1   body count: troops: 26, rebels: 52
+    Play#0 output Play#0 1 Revolutionary subversion reported in -13,-7!
     Play#0 output Play#0 1 PLAGUE deaths reported in -16,-6
     Play#0 output Play#0 1 PLAGUE deaths reported in -14,-6
     Play#0 output Play#0 1 PLAGUE deaths reported in -12,-6
@@ -1393,10 +1412,10 @@
     Play#0 output Play#0 1 Technology level too low to produce in -5,-1 (need 40)
     Play#0 output Play#0 1 Education level too low to produce in -3,-1 (need 5)
     Play#0 output Play#0 1   0 happiness,   0 education produced
-    Play#0 output Play#0 1 total pop was 24324, yielding 0.00 hap, 0.00 edu
+    Play#0 output Play#0 1 total pop was 24024, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
-    Play#0 output Play#0 1 Army delta $-600, Navy delta $-300, Air force delta $0
-    Play#0 output Play#0 1 money delta was $-6315 for this update
+    Play#0 output Play#0 1 Army delta $-636, Navy delta $-300, Air force delta $0
+    Play#0 output Play#0 1 money delta was $-7231 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 4
     Play#0 command nation
@@ -1404,7 +1423,7 @@
     Play#0 output Play#0 1 (#4) 4 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at -1,-1 has 130 civilians & 0 military
-    Play#0 output Play#0 1  The treasury has $18685.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $17769.00     Military reserves: 0
     Play#0 output Play#0 1 Education..........  3.05       Happiness.......  4.44
     Play#0 output Play#0 1 Technology......... 31.58       Research........  1.74
     Play#0 output Play#0 1 Technology factor : 35.23%     Plague factor :   1.29%
@@ -1418,17 +1437,17 @@
     Play#0 output Play#0 1 Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1     CENSUS                   del dst
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
-    Play#0 output Play#0 1   5  -16,-8   -    0%     120 .. ..      123    5    0   97 100%    0    0   1
-    Play#0 output Play#0 1   5  -14,-8   b  100%     120 .. ..      124    5    0   96 100%    0    0   1
-    Play#0 output Play#0 1   4  -12,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   5  -16,-8   -    0%     120 .. ..      124    5    0   96 100%    0    0   1
+    Play#0 output Play#0 1   5  -14,-8   b  100%     120 .. ..      124    5    0   97 100%    0    0   1
+    Play#0 output Play#0 1   4  -12,-8   -   37%     120 .. ..   0  123    5    0   97 100%   38    0   1
     Play#0 output Play#0 1   4  -10,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
-    Play#0 output Play#0 1   4   -8,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
-    Play#0 output Play#0 1   4   -6,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   4   -8,-8   -   39%     120 .. ..   2  130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   4   -6,-8   -   39%     120 .. ..   2  130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4   -4,-8   -   39%     120 .. ..      130    0    0   96 100%   39    0   1
     Play#0 output Play#0 1   4   -2,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
-    Play#0 output Play#0 1   4  -15,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
+    Play#0 output Play#0 1   4  -15,-7   -   41%     120 .. ..      130   20    0   97 100%   41    0   1
     Play#0 output Play#0 1   4  -13,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
-    Play#0 output Play#0 1   4  -11,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
+    Play#0 output Play#0 1   4  -11,-7   -   41%     120 .. ..      130   20    0   96 100%   42    0
     Play#0 output Play#0 1   4   -9,-7   -   39%     120 .. ..      130    0    0   97 100%   39    0
     Play#0 output Play#0 1   4   -7,-7   -   39%     120 .. ..      130    0    0   96 100%   39    0
     Play#0 output Play#0 1   4   -5,-7   -   39%     120 .. ..      130    0    0   96 100%   39    0
@@ -1562,15 +1581,15 @@
     Play#0 output Play#0 1 own   sect        eff loyal cnum value  stage time mines
     Play#0 output Play#0 1   5  -16,-8   -    0%     0    0    0      0     0    0
     Play#0 output Play#0 1   5  -14,-8   b  100%     0    0    0      0     0    0
-    Play#0 output Play#0 1   4  -12,-8   -   39%    11    4   10      0     0    0
-    Play#0 output Play#0 1   4  -10,-8   -   39%     0    0    0      0     0    0
-    Play#0 output Play#0 1   4   -8,-8   -   39%     0    0    0      0     0    0
-    Play#0 output Play#0 1   4   -6,-8   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4  -12,-8   -   37%    35    0    0      0     0    0
+    Play#0 output Play#0 1   4  -10,-8   -   39%     0    4   15      0     0    0
+    Play#0 output Play#0 1   4   -8,-8   -   39%    46    0    0      0     0    0
+    Play#0 output Play#0 1   4   -6,-8   -   39%    51    0    0      0     0    0
     Play#0 output Play#0 1   4   -4,-8   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -2,-8   -   39%     0    0    0      0     0    0
-    Play#0 output Play#0 1   4  -15,-7   -   39%     0    4   10      0     0    0
-    Play#0 output Play#0 1   4  -13,-7   -   39%     0    0    0      0     0    0
-    Play#0 output Play#0 1   4  -11,-7   -   39%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4  -15,-7   -   41%     0    0    0      0     0    0
+    Play#0 output Play#0 1   4  -13,-7   -   39%     0    4  133      0     0    0
+    Play#0 output Play#0 1   4  -11,-7   -   41%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -9,-7   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -7,-7   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -5,-7   -   39%     0    0    0      0     0    0
@@ -1661,18 +1680,24 @@
     Play#0 output Play#0 1   4   17 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
     Play#0 output Play#0 1   4   18 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
     Play#0 output Play#0 1   4   19 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
-    Play#0 output Play#0 1 10 units
+    Play#0 output Play#0 1   5   20 inf  infantry    -16,-8       20%   0   0  60  10  50  42%  0  0
+    Play#0 output Play#0 1   5   23 inf  infantry    -14,-8       20%   0   0  60  10  50  42%  0  0
+    Play#0 output Play#0 1   4   28 linf light infa   -8,-8       60%  10   0  40   9  50  42%  0  0
+    Play#0 output Play#0 1 13 units
     Play#0 output Play#0 6 0 640
     Play#0 input read 5
     Play#0 command read
     Play#0 output Play#0 1
     Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
+    Play#0 output Play#0 1 We have captured inf  infantry #20!
     Play#0 output Play#0 1 Sector -16,-8 has been retaken!
+    Play#0 output Play#0 1 We have captured inf  infantry #23!
     Play#0 output Play#0 1 Sector -14,-8 has been retaken!
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 190, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
-    Play#0 output Play#0 1 money delta was $1497 for this update
+    Play#0 output Play#0 1 Army delta $-60, Navy delta $0, Air force delta $0
+    Play#0 output Play#0 1 money delta was $1438 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 5
     Play#0 command nation
@@ -1680,7 +1705,7 @@
     Play#0 output Play#0 1 (#5) 5 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 99
     Play#0 output Play#0 1 No capital (was at -16,-8).
-    Play#0 output Play#0 1  The treasury has $26497.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $26438.00     Military reserves: 0
     Play#0 output Play#0 1 Education.......... 15.24       Happiness.......  4.44
     Play#0 output Play#0 1 Technology.........101.15       Research........  1.74
     Play#0 output Play#0 1 Technology factor : 50.19%     Plague factor :   1.98%
@@ -1735,11 +1760,11 @@
     Play#0 output Play#0 1    COMMODITIES deliver--  distribute
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
     Play#0 output Play#0 1   6   0,8    c .......... ..........   0   0    0    0    0   0    0  400  400   0
-    Play#0 output Play#0 1   6   2,8    - .......... ..........   0   0    0    0    0   0    0  384  393   0
+    Play#0 output Play#0 1   6   2,8    - .......... ..........   0   0    0    0    0   0    0  384  394   0
     Play#0 output Play#0 1   6   4,8    f .......... ..........   0   0    0    0    0   0    0  391  396   0
     Play#0 output Play#0 1   6   6,8    * .......... ..........   0   0    0    0    0   0    0  386  396   0
     Play#0 output Play#0 1   6   8,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
-    Play#0 output Play#0 1   6  10,8    ! .......... ..........   0   0    0    0    0   0    0  391  396   0
+    Play#0 output Play#0 1   6  10,8    ! .......... ..........   0   0    0    0    0   0    0  391  395   0
     Play#0 output Play#0 1   6  12,8    * .......... ..........   0   0    0    0    0   0    0  393  398   0
     Play#0 output Play#0 1   6  14,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1 8 sectors

@@ -103,12 +103,35 @@ give h -16:-1,8 400
 give m -16:-1,8 20
 || TODO fallout
 || guerrilla
-| che take over -16:-14,-8 and spread; -14,-8 is a bank
-edit l -16:-14,-8 x 10 X 4 O 5 l 50
+| subvert: 0m, inf#20 empty
+edit l -16,-8 x 1 X 4 O 5 l 50
+| win shootout in bank: 1m, inf#22 1m, inf#21/23 empty
+edit l -14,-8 x 10 X 4 O 5 l 50
 des -14,-8 b
 give b -14,-8 100
 give d -14,-8 20
-| TODO security, retiring che, shoot out, blow up, catch, move
+give m -14,-8 1
+edit u 0 U 20 L -16,-8 O 4 f 10 U 21 L -14,-8 U 23 U 22 m 1
+| win shootout in old-owned sector, sec#25/27/inf#26 die, spy#24 watches
+| sec#25 raids, #27 doesn't
+edit l -12,-8 x 200 X 4 l 50
+give m -12,-8 10
+edit u 20 U 26 L -12,-8 m 20 U 25 T sec U 27 e 10
+edit u 25 U 24 T spy
+| win shootout in loyal sector (no takeover)
+edit l -10,-8 x 20 X 4
+give m -10,-8 10
+| lose shootout, linf#28 survives
+edit l -8,-8 x 22 X 4 O 2 l 50
+give m -8,-8 1
+edit u 20 U 28 L -8,-8 T linf m 20
+| lose shootout, inf#29 dies
+edit l -6,-8 x 52 X 4 O 2 l 50
+edit u 20 U 29 L -6,-8 e 40 m 50
+| military to direct moving che
+give m -15,-7 20
+give m -11,-7 20
+| TODO retiring che, blow up, catch, move
 || plague
 | plague stage 1 (dying) -16:-1,-6 ship#10 land#10
 | -16,-6 everybody dies, sector reverts to deity
