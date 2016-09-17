@@ -179,7 +179,6 @@ land 0:31,-16:-1
 | BUG: empty inf#21 dies fighting guerrillas
 | -12,-8 sec#25 raids, #27 doesn't, che win, kill sec#25/27/inf#26,
 | BUG: spy#24 dies fighting guerrillas
-| BUG: body count off, claims 110m, actually 70m
 | BUG: "Sector -12,-8 has been retaken!" instead of takeover
 | -10,-8 che win, don't take over
 | -8,-8 che lose

@@ -66,7 +66,8 @@ or a sector lost to guerrilla activities!
 .s1
 Land units present in a sector help to fight them, fighting without
 any multiplier, either offensive or defensive and without any
-fortification bonus. Any units with the
-\*Qsecurity\*U ability will also kill some che before anything else is
+fortification bonus, except units units with the
+\*Qsecurity\*U ability fight with a multiplier of four.  They
+will also kill some che before anything else is
 done (commando raids).
 .SA "Populace, Occupation, Updates"

@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1997-2000
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -131,6 +131,7 @@ guerrilla(struct sctstr *sp)
     int ratio;
     int che;
     int mil;
+    int security_bonus;
     int cc, mc;
     double odds;
     int civ;
@@ -160,6 +161,7 @@ guerrilla(struct sctstr *sp)
     actor = sp->sct_oldown;
     che = sp->sct_che;
     mil = sp->sct_item[I_MILIT];
+    security_bonus = 0;
 
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
 
@@ -179,7 +181,7 @@ guerrilla(struct sctstr *sp)
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY) {
 	    int che_kill, r;
 
-	    mil += lp->lnd_item[I_MILIT];
+	    security_bonus += lp->lnd_item[I_MILIT] * 3;
 	    r = (lp->lnd_item[I_MILIT] * lp->lnd_effic) / 500;
 	    che_kill = r < 1 ? 0 : roll(r);
 	    if (che_kill > che)
@@ -218,8 +220,8 @@ guerrilla(struct sctstr *sp)
 	goto domove;
     }
 
-    ratio = mil / che;
-    odds = (double)che / (mil + che);
+    ratio = (mil + security_bonus) / che;
+    odds = (double)che / (mil + security_bonus + che);
     odds /= hap_fact(tnat, getnatp(sp->sct_oldown));
     if (mil == 0) {
 	wu(0, sp->sct_own, "Revolutionary subversion reported in %s!\n",
@@ -281,7 +283,7 @@ guerrilla(struct sctstr *sp)
 	 */
 	if (chance(ratio * 0.10)) {
 	    n = (mil / 5) + 1;
-	    odds = (double)che / (n + che);
+	    odds = (double)che / (n + security_bonus / 5 + che);
 	    odds /= hap_fact(tnat, getnatp(sp->sct_oldown));
 	    while (che > 0 && n > 0) {
 		if (chance(odds)) {
@@ -447,8 +449,6 @@ take_casualties(struct sctstr *sp, int mc)
 	if (lp->lnd_ship >= 0)
 	    continue;
 	nunits++;
-	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
-	    nunits++;
     }
 
     if (nunits == 0)
@@ -470,10 +470,10 @@ take_casualties(struct sctstr *sp, int mc)
 
 	if (cantake >= each) {
 	    deq = ((double)each / lp->lnd_item[I_MILIT]) * 100.0;
-	    mc -= 2 * each;
+	    mc -= each;
 	} else if (cantake > 0) {
 	    deq = ((double)cantake / lp->lnd_item[I_MILIT]) * 100.0;
-	    mc -= 2 * cantake;
+	    mc -= cantake;
 	} else
 	    deq = 0;
 
@@ -542,7 +542,7 @@ take_casualties(struct sctstr *sp, int mc)
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
-	mc -= (lp->lnd_effic / 100.0) * lp->lnd_item[I_MILIT] * 2.0;
+	mc -= (lp->lnd_effic / 100.0) * lp->lnd_item[I_MILIT];
 	lnd_dies_fighting_che(lp);
 	if (mc <= 0)
 	    return;

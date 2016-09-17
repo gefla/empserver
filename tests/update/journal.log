@@ -1370,7 +1370,7 @@
     Play#0 output Play#0 1 sec  security #27 dies fighting guerrillas in -12,-8
     Play#0 output Play#0 1 Sector -12,-8 has been retaken!
     Play#0 output Play#0 1 Guerrilla warfare in -12,-8
-    Play#0 output Play#0 1   body count: troops: 110, rebels: 71
+    Play#0 output Play#0 1   body count: troops: 70, rebels: 88
     Play#0 output Play#0 1 Guerrilla warfare in -10,-8
     Play#0 output Play#0 1   body count: troops: 10, rebels: 5
     Play#0 output Play#0 1 Guerrilla warfare in -8,-8
@@ -1439,7 +1439,7 @@
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
     Play#0 output Play#0 1   5  -16,-8   -    0%     120 .. ..      124    5    0   96 100%    0    0   1
     Play#0 output Play#0 1   5  -14,-8   b  100%     120 .. ..      124    5    0   97 100%    0    0   1
-    Play#0 output Play#0 1   4  -12,-8   -   37%     120 .. ..   0  123    5    0   97 100%   38    0   1
+    Play#0 output Play#0 1   4  -12,-8   -   37%     120 .. ..   0  123    5    0   96 100%   38    0   1
     Play#0 output Play#0 1   4  -10,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4   -8,-8   -   39%     120 .. ..   2  130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4   -6,-8   -   39%     120 .. ..   2  130    0    0   97 100%   39    0   1
@@ -1588,7 +1588,7 @@
     Play#0 output Play#0 1   4   -4,-8   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -2,-8   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4  -15,-7   -   41%     0    0    0      0     0    0
-    Play#0 output Play#0 1   4  -13,-7   -   39%     0    4  133      0     0    0
+    Play#0 output Play#0 1   4  -13,-7   -   39%     0    4  116      0     0    0
     Play#0 output Play#0 1   4  -11,-7   -   41%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -9,-7   -   39%     0    0    0      0     0    0
     Play#0 output Play#0 1   4   -7,-7   -   39%     0    0    0      0     0    0
