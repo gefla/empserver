@@ -47,7 +47,7 @@
 #include "sect.h"
 #include "update.h"
 
-static void take_casualties(struct sctstr *, int);
+static int take_casualties(struct sctstr *, int);
 static void lnd_dies_fighting_che(struct lndstr *);
 
 void
@@ -234,16 +234,13 @@ guerrilla(struct sctstr *sp)
 	 * If loyalty bad enough, then take the sector over,
 	 * and enlist 5% of civ as military force.
 	 */
-	while (che > 0 && mil > 0) {
-	    if (chance(odds)) {
+	while (che > cc && mil > mc) {
+	    if (chance(odds))
 		mc++;
-		mil--;
-	    } else {
+	    else
 		cc++;
-		che--;
-	    }
 	}
-	if (mil > 0) {
+	if (mil > mc) {
 	    /* military won.  */
 	    n = sp->sct_loyal - roll0(15);
 	    if (n < 0)
@@ -253,7 +250,9 @@ guerrilla(struct sctstr *sp)
 	    convert++;
 	    recruit++;
 	}
-	take_casualties(sp, mc);
+	mc = take_casualties(sp, mc);
+	che -= cc;
+	mil -= mc;
     } else if (ratio < 5) {
 	/*
 	 * guerrillas have to resort to blowing things up.
@@ -285,16 +284,14 @@ guerrilla(struct sctstr *sp)
 	    n = (mil / 5) + 1;
 	    odds = (double)che / (n + security_bonus / 5 + che);
 	    odds /= hap_fact(tnat, getnatp(sp->sct_oldown));
-	    while (che > 0 && n > 0) {
-		if (chance(odds)) {
+	    while (che > cc && n > mc) {
+		if (chance(odds))
 		    mc++;
-		    n--;
-		} else {
+		else
 		    cc++;
-		    che--;
-		}
 	    }
-	    take_casualties(sp, mc);
+	    mc = take_casualties(sp, mc);
+	    che -= cc;
 	    mil -= mc;
 	    recruit = 0;
 	}
@@ -417,10 +414,10 @@ domove:
 	   xyas(sp->sct_x, sp->sct_y, victim));
 }
 
-static void
+static int
 take_casualties(struct sctstr *sp, int mc)
 {
-    int orig_mil;
+    int orig_mil, taken;
     int cantake;
     int nunits = 0, each, deq;
     struct lndstr *lp;
@@ -431,12 +428,13 @@ take_casualties(struct sctstr *sp, int mc)
 
     if (mc <= orig_mil) {
 	sp->sct_item[I_MILIT] = orig_mil - mc;
-	return;
+	return mc;
     }
     sp->sct_item[I_MILIT] = 0;
 
     /* remaining casualites */
     mc -= orig_mil;
+    taken = orig_mil;
 
     /*
      * Need to take total_casualties and divide
@@ -454,7 +452,7 @@ take_casualties(struct sctstr *sp, int mc)
     }
 
     if (nunits == 0)
-	return;
+	return taken;
 
     each = (mc / nunits) + 2;
 
@@ -482,9 +480,10 @@ take_casualties(struct sctstr *sp, int mc)
 	lp->lnd_effic -= deq;
 	lp->lnd_mobil -= deq / 2;
 	deq = lchr[(int)lp->lnd_type].l_item[I_MILIT] * (deq / 100.0);
+	taken += MIN(deq, lp->lnd_item[I_MILIT]);
 	lnd_submil(lp, deq);
 	if (mc <= 0)
-	    return;
+	    return taken;
     }
 
     /* kill some normal troops */
@@ -511,9 +510,10 @@ take_casualties(struct sctstr *sp, int mc)
 	lp->lnd_effic -= deq;
 	lp->lnd_mobil -= deq / 2;
 	deq = lchr[(int)lp->lnd_type].l_item[I_MILIT] * (deq / 100.0);
+	taken += MIN(deq, lp->lnd_item[I_MILIT]);
 	lnd_submil(lp, deq);
 	if (mc <= 0)
-	    return;
+	    return taken;
     }
 
     /* Hmm.. still some left.. kill off units now */
@@ -528,9 +528,10 @@ take_casualties(struct sctstr *sp, int mc)
 	    continue;
 
 	mc -= (lp->lnd_effic / 100.0) * lp->lnd_item[I_MILIT];
+	taken += lp->lnd_item[I_MILIT];
 	lnd_dies_fighting_che(lp);
 	if (mc <= 0)
-	    return;
+	    return taken;
     }
 
     /* Hmm.. still some left.. kill off units now */
@@ -545,12 +546,14 @@ take_casualties(struct sctstr *sp, int mc)
 	    continue;
 
 	mc -= (lp->lnd_effic / 100.0) * lp->lnd_item[I_MILIT];
+	taken += lp->lnd_item[I_MILIT];
 	lnd_dies_fighting_che(lp);
 	if (mc <= 0)
-	    return;
+	    return taken;
     }
 
     /* Hmm.. everyone dead.. too bad */
+    return taken;
 }
 
 static void
