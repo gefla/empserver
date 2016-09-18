@@ -419,9 +419,10 @@ take_casualties(struct sctstr *sp, int mc)
 {
     int orig_mil, taken;
     int cantake;
-    int nunits = 0, each, deq, dam;
+    int nunits = 0, each, deq;
     struct lndstr *lp;
     struct nstr_item ni;
+    double eff_per_cas;
 
     /* casualties come out of mil first */
     orig_mil = sp->sct_item[I_MILIT];
@@ -468,16 +469,16 @@ take_casualties(struct sctstr *sp, int mc)
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
-	cantake = ((lp->lnd_effic - 40) / 100.0) * lp->lnd_item[I_MILIT];
-	cantake = MIN(lp->lnd_item[I_MILIT], cantake);
+	eff_per_cas = 100.0 / lchr[lp->lnd_type].l_item[I_MILIT];
+	cantake = MIN(lp->lnd_item[I_MILIT],
+		      (int)((lp->lnd_effic - 40) / eff_per_cas));
 	deq = MIN(cantake, MIN(each, mc - taken));
 	if (deq <= 0)
 	    continue;
 
 	taken += deq;
-	dam = ((double)deq / lp->lnd_item[I_MILIT]) * 100.0;
-	lp->lnd_effic -= dam;
-	lp->lnd_mobil -= dam / 2;
+	lp->lnd_effic -= deq * eff_per_cas;
+	lp->lnd_mobil -= deq * eff_per_cas / 2;
 	lnd_submil(lp, deq);
 	if (taken >= mc)
 	    return taken;
@@ -495,16 +496,16 @@ take_casualties(struct sctstr *sp, int mc)
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
-	cantake = ((lp->lnd_effic - 40) / 100.0) * lp->lnd_item[I_MILIT];
-	cantake = MIN(lp->lnd_item[I_MILIT], cantake);
+	eff_per_cas = 100.0 / lchr[lp->lnd_type].l_item[I_MILIT];
+	cantake = MIN(lp->lnd_item[I_MILIT],
+		      (int)((lp->lnd_effic - 40) / eff_per_cas));
 	deq = MIN(cantake, MIN(each, mc - taken));
 	if (deq <= 0)
 	    continue;
 
 	taken += deq;
-	dam = ((double)deq / lp->lnd_item[I_MILIT]) * 100.0;
-	lp->lnd_effic -= dam;
-	lp->lnd_mobil -= dam / 2;
+	lp->lnd_effic -= deq * eff_per_cas;
+	lp->lnd_mobil -= deq * eff_per_cas / 2;
 	lnd_submil(lp, deq);
 	if (taken >= mc)
 	    return taken;
