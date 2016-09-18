@@ -1374,7 +1374,7 @@
     Play#0 output Play#0 1 Guerrilla warfare in -10,-8
     Play#0 output Play#0 1   body count: troops: 10, rebels: 5
     Play#0 output Play#0 1 Guerrilla warfare in -8,-8
-    Play#0 output Play#0 1   body count: troops: 11, rebels: 22
+    Play#0 output Play#0 1   body count: troops: 9, rebels: 22
     Play#0 output Play#0 1 inf  infantry #29 dies fighting guerrillas in -6,-8
     Play#0 output Play#0 1 Guerrilla warfare in -6,-8
     Play#0 output Play#0 1   body count: troops: 50, rebels: 52
@@ -1682,7 +1682,7 @@
     Play#0 output Play#0 1   4   19 inf  infantry    -10,-6      100% 100   0  60   7  50  42%  0  0
     Play#0 output Play#0 1   5   20 inf  infantry    -16,-8       20%   0   0  60  10  50  42%  0  0
     Play#0 output Play#0 1   5   23 inf  infantry    -14,-8       20%   0   0  60  10  50  42%  0  0
-    Play#0 output Play#0 1   4   28 linf light infa   -8,-8       60%  10   0  40   9  50  42%  0  0
+    Play#0 output Play#0 1   4   28 linf light infa   -8,-8       60%  12   0  40   9  50  42%  0  0
     Play#0 output Play#0 1 13 units
     Play#0 output Play#0 6 0 640
     Play#0 input read 5
