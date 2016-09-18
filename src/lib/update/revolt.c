@@ -295,6 +295,7 @@ guerrilla(struct sctstr *sp)
 		}
 	    }
 	    take_casualties(sp, mc);
+	    mil -= mc;
 	    recruit = 0;
 	}
     }
@@ -362,6 +363,7 @@ domove:
 	else
 	    min_mil = mil;
 	/* search adjacent sectors for a nice one */
+	/* TODO consider land units in addition to mil */
 	for (n = 1; n <= 6; n++) {
 	    nsp = getsectp(sp->sct_x + diroff[n][0],
 			   sp->sct_y + diroff[n][1]);
