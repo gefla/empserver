@@ -48,6 +48,7 @@
 #include "update.h"
 
 static int take_casualties(struct sctstr *, int);
+static int take_casualties_from_lands(struct sctstr *, int, int, int);
 static void lnd_dies_fighting_che(struct lndstr *);
 
 void
@@ -418,11 +419,9 @@ static int
 take_casualties(struct sctstr *sp, int mc)
 {
     int orig_mil, taken;
-    int cantake;
-    int nunits = 0, each, deq;
+    int nunits = 0, each;
     struct lndstr *lp;
     struct nstr_item ni;
-    double eff_per_cas;
 
     /* casualties come out of mil first */
     orig_mil = sp->sct_item[I_MILIT];
@@ -458,116 +457,64 @@ take_casualties(struct sctstr *sp, int mc)
     each = (mc - taken) / nunits + 2;
 
     /* kill some security troops */
-    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (NULL != (lp = nxtitemp(&ni))) {
-	if (lp->lnd_own != sp->sct_own)
-	    continue;
-	if (lp->lnd_ship >= 0)
-	    continue;
-	if (!lp->lnd_item[I_MILIT])
-	    continue;
-	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
-	    continue;
-
-	eff_per_cas = 100.0 / lchr[lp->lnd_type].l_item[I_MILIT];
-	cantake = MIN(lp->lnd_item[I_MILIT],
-		      (int)((lp->lnd_effic - 40) / eff_per_cas));
-	deq = MIN(cantake, MIN(each, mc - taken));
-	if (deq <= 0)
-	    continue;
-
-	taken += deq;
-	lp->lnd_effic -= deq * eff_per_cas;
-	lp->lnd_mobil -= deq * eff_per_cas / 2;
-	lnd_submil(lp, deq);
-	if (taken >= mc)
-	    return taken;
-    }
+    taken += take_casualties_from_lands(sp, MIN(each, mc - taken), 1, 0);
 
     /* kill some normal troops */
-    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (NULL != (lp = nxtitemp(&ni))) {
-	if (lp->lnd_own != sp->sct_own)
-	    continue;
-	if (lp->lnd_ship >= 0)
-	    continue;
-	if (!lp->lnd_item[I_MILIT])
-	    continue;
-	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
-	    continue;
-
-	eff_per_cas = 100.0 / lchr[lp->lnd_type].l_item[I_MILIT];
-	cantake = MIN(lp->lnd_item[I_MILIT],
-		      (int)((lp->lnd_effic - 40) / eff_per_cas));
-	deq = MIN(cantake, MIN(each, mc - taken));
-	if (deq <= 0)
-	    continue;
-
-	taken += deq;
-	lp->lnd_effic -= deq * eff_per_cas;
-	lp->lnd_mobil -= deq * eff_per_cas / 2;
-	lnd_submil(lp, deq);
-	if (taken >= mc)
-	    return taken;
-    }
+    taken += take_casualties_from_lands(sp, MIN(each, mc - taken), 0, 0);
 
     /* Hmm.. still some left.. kill off units now */
     /* kill some normal troops */
-    snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (NULL != (lp = nxtitemp(&ni))) {
-	if (lp->lnd_own != sp->sct_own)
-	    continue;
-	if (lp->lnd_ship >= 0)
-	    continue;
-	if (!lp->lnd_item[I_MILIT])
-	    continue;
-	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
-	    continue;
-
-	eff_per_cas = 100.0 / lchr[lp->lnd_type].l_item[I_MILIT];
-	deq = MIN(lp->lnd_item[I_MILIT], mc - taken);
-
-	taken += deq;
-	lp->lnd_effic -= deq * eff_per_cas;
-	lp->lnd_mobil -= deq * eff_per_cas / 2;
-	lnd_submil(lp, deq);
-	if (lp->lnd_effic < LAND_MINEFF) {
-	    taken += lp->lnd_item[I_MILIT];
-	    lnd_dies_fighting_che(lp);
-	}
-	if (taken >= mc)
-	    return taken;
-    }
+    taken += take_casualties_from_lands(sp, MIN(each, mc - taken), 0, 1);
 
     /* Hmm.. still some left.. kill off units now */
     /* kill some security troops */
+    taken += take_casualties_from_lands(sp, MIN(each, mc - taken), 1, 1);
+
+    CANT_HAPPEN(taken < mc);
+    return taken;
+}
+
+int
+take_casualties_from_lands(struct sctstr *sp, int cas,
+			   int security, int may_kill)
+{
+    struct nstr_item ni;
+    struct lndstr *lp;
+    double eff_per_cas;
+    int cantake, deq, taken;
+
+    taken = 0;
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-    while (NULL != (lp = nxtitemp(&ni))) {
+    while (taken < cas && (lp = nxtitemp(&ni))) {
 	if (lp->lnd_own != sp->sct_own)
 	    continue;
 	if (lp->lnd_ship >= 0)
 	    continue;
 	if (!lp->lnd_item[I_MILIT])
 	    continue;
-	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
+	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY) == !!security)
 	    continue;
 
 	eff_per_cas = 100.0 / lchr[lp->lnd_type].l_item[I_MILIT];
-	deq = MIN(lp->lnd_item[I_MILIT], mc - taken);
+	cantake = lp->lnd_item[I_MILIT];
+	if (!may_kill)
+	    cantake = MIN(cantake,
+			  (int)((lp->lnd_effic - 40) / eff_per_cas));
+	deq = MIN(cantake, cas - taken);
+	if (deq <= 0)
+	    continue;
 
-	taken += lp->lnd_item[I_MILIT];
+	taken += deq;
 	lp->lnd_effic -= deq * eff_per_cas;
 	lp->lnd_mobil -= deq * eff_per_cas / 2;
 	lnd_submil(lp, deq);
 	if (lp->lnd_effic < LAND_MINEFF) {
+	    CANT_HAPPEN(!may_kill);
 	    taken += lp->lnd_item[I_MILIT];
 	    lnd_dies_fighting_che(lp);
 	}
-	if (taken >= mc)
-	    return taken;
     }
 
-    CANT_REACH();
     return taken;
 }
 
