@@ -505,9 +505,9 @@
     Play#0 output Play#0 1
     Play#0 output Play#0 1 > Production Report   dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1   0 happiness,   0 education produced
-    Play#0 output Play#0 1 total pop was 0, yielding 0.00 hap, 0.00 edu
+    Play#0 output Play#0 1 total pop was 95, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 0.0000 tech, 0.0000 research produced
-    Play#0 output Play#0 1 money delta was $0 for this update
+    Play#0 output Play#0 1 money delta was $-25 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input read 1
     Play#0 command read
@@ -752,7 +752,7 @@
     Play#0 output Play#0 1   1   4,6    k .......... ..........   0   0    0   58    0   0    0    0 9999   0
     Play#0 output Play#0 1   1   6,6    - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   8,6    f .......... ..........   0   0    0    0    0   0    0    5   16   0
-    Play#0 output Play#0 1   1  10,6    ! .......... ..........   0   0    0    0    0   0    0    0   13   0
+    Play#0 output Play#0 1   1  10,6    ! .......... ..........   0   0    0    0    0   0    0    0   14   0
     Play#0 output Play#0 1   1  12,6    * .......... ..........   0   0    0    0    0   0    0    0    8   0
     Play#0 output Play#0 1   1  14,6    h .......... ..........   0   0    0    0    0   0    0   40    0   0
     Play#0 output Play#0 1   1 -15,7    t .......... ..........   0   0    0    0    5   0   25    1    0   0
@@ -1365,9 +1365,11 @@
     Play#0 output Play#0 1 Partisans take over -14,-8!
     Play#0 output Play#0 1 sec  security #25 kills 4 guerrillas in raid at -12,-8!
     Play#0 output Play#0 1 sec  security #27 dies fighting guerrillas in -12,-8
-    Play#0 output Play#0 1 Sector -12,-8 has been retaken!
+    Play#0 output Play#0 1 sec  security #25 blown up by the crew when POGO took -12,-8!
+    Play#0 output Play#0 1 inf  infantry #26 captured when POGO took -12,-8!
     Play#0 output Play#0 1 Guerrilla warfare in -12,-8
-    Play#0 output Play#0 1   body count: troops: 70, rebels: 88
+    Play#0 output Play#0 1   rebels murder 70 military
+    Play#0 output Play#0 1 Partisans take over -12,-8!
     Play#0 output Play#0 1 Guerrilla warfare in -10,-8
     Play#0 output Play#0 1   body count: troops: 10, rebels: 5
     Play#0 output Play#0 1 Guerrilla warfare in -8,-8
@@ -1410,8 +1412,8 @@
     Play#0 output Play#0 1   0 happiness,   0 education produced
     Play#0 output Play#0 1 total pop was 24024, yielding 0.00 hap, 0.00 edu
     Play#0 output Play#0 1 1.7834 technology (0.0000 + 1.7834), 1.7551 research (0.0000 + 1.7551) produced
-    Play#0 output Play#0 1 Army delta $-918, Navy delta $-300, Air force delta $0
-    Play#0 output Play#0 1 money delta was $-7513 for this update
+    Play#0 output Play#0 1 Army delta $-786, Navy delta $-300, Air force delta $0
+    Play#0 output Play#0 1 money delta was $-7356 for this update
     Play#0 output Play#0 6 0 640
     Play#0 input nation 4
     Play#0 command nation
@@ -1419,7 +1421,7 @@
     Play#0 output Play#0 1 (#4) 4 Nation Report	Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 Nation status is ACTIVE     Bureaucratic Time Units: 640
     Play#0 output Play#0 1 100% eff capital at -1,-1 has 130 civilians & 0 military
-    Play#0 output Play#0 1  The treasury has $17487.00     Military reserves: 0
+    Play#0 output Play#0 1  The treasury has $17644.00     Military reserves: 0
     Play#0 output Play#0 1 Education..........  3.05       Happiness.......  4.44
     Play#0 output Play#0 1 Technology......... 31.58       Research........  1.74
     Play#0 output Play#0 1 Technology factor : 35.23%     Plague factor :   1.29%
@@ -1435,7 +1437,7 @@
     Play#0 output Play#0 1 own   sect        eff prd mob uf uf old  civ  mil   uw food work avail fall coa
     Play#0 output Play#0 1   5  -16,-8   -    0%     120 .. ..      124    5    0   96 100%    0    0   1
     Play#0 output Play#0 1   5  -14,-8   b  100%     120 .. ..      124    5    0   97 100%    0    0   1
-    Play#0 output Play#0 1   4  -12,-8   -   37%     120 .. ..   0  123    5    0   96 100%   38    0   1
+    Play#0 output Play#0 1   0  -12,-8   -    0%      60 .. ..      124    5    0   97 100%    0    0   1
     Play#0 output Play#0 1   4  -10,-8   -   39%     120 .. ..      130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4   -8,-8   -   39%     120 .. ..   2  130    0    0   97 100%   39    0   1
     Play#0 output Play#0 1   4   -6,-8   -   39%     120 .. ..   2  130    0    0   97 100%   39    0   1
@@ -1506,7 +1508,7 @@
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
     Play#0 output Play#0 1   5 -16,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   5 -14,-8   b .......... ..........   0   0    0    0   20 100    0    0    0   0
-    Play#0 output Play#0 1   4 -12,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
+    Play#0 output Play#0 1   0 -12,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4 -10,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4  -8,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   4  -6,-8   - .......... ..........   0   0    0    0    0   0    0    0    0   0
@@ -1577,7 +1579,7 @@
     Play#0 output Play#0 1 own   sect        eff loyal cnum value  stage time mines
     Play#0 output Play#0 1   5  -16,-8   -    0%     0    0    0      0     0    0
     Play#0 output Play#0 1   5  -14,-8   b  100%     0    0    0      0     0    0
-    Play#0 output Play#0 1   4  -12,-8   -   37%    35    0    0      0     0    0
+    Play#0 output Play#0 1   0  -12,-8   -    0%     0    0    0      0     0    0
     Play#0 output Play#0 1   4  -10,-8   -   39%     0    4   15      0     0    0
     Play#0 output Play#0 1   4   -8,-8   -   39%    46    0    0      0     0    0
     Play#0 output Play#0 1   4   -6,-8   -   39%    51    0    0      0     0    0
@@ -1679,11 +1681,9 @@
     Play#0 output Play#0 1   5   20 inf  infantry    -16,-8       20%   0   0  60  10  50  42%  0  0
     Play#0 output Play#0 1   5   21 inf  infantry    -14,-8       20%   0   0  60  10  50  42%  0  0
     Play#0 output Play#0 1   4   24 spy  infiltrato  -12,-8      100%   0   0  60   0 170  42%  0  0
-    Play#0 output Play#0 1   4   25 sec  security    -12,-8       60%   0   0  40   9 170  42%  0  0
-    Play#0 output Play#0 1   4   26 inf  infantry    -12,-8       80%   0   0  50  10  50  42%  0  0
     Play#0 output Play#0 1   4   28 linf light infa   -8,-8       76%  14   0  48   9  50  42%  0  0
     Play#0 output Play#0 1   4   29 inf  infantry     -6,-8       14%  24   0  47   8  50  42%  0  0
-    Play#0 output Play#0 1 17 units
+    Play#0 output Play#0 1 15 units
     Play#0 output Play#0 6 0 640
     Play#0 input read 5
     Play#0 command read
@@ -1763,10 +1763,10 @@
     Play#0 output Play#0 1      sect      sgpidbolhr sgpidbolhr  sh gun  pet iron dust bar  oil  lcm  hcm rad
     Play#0 output Play#0 1   6   0,8    c .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1   6   2,8    - .......... ..........   0   0    0    0    0   0    0  384  394   0
-    Play#0 output Play#0 1   6   4,8    f .......... ..........   0   0    0    0    0   0    0  391  396   0
+    Play#0 output Play#0 1   6   4,8    f .......... ..........   0   0    0    0    0   0    0  391  395   0
     Play#0 output Play#0 1   6   6,8    * .......... ..........   0   0    0    0    0   0    0  386  396   0
     Play#0 output Play#0 1   6   8,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
-    Play#0 output Play#0 1   6  10,8    ! .......... ..........   0   0    0    0    0   0    0  391  395   0
+    Play#0 output Play#0 1   6  10,8    ! .......... ..........   0   0    0    0    0   0    0  391  396   0
     Play#0 output Play#0 1   6  12,8    * .......... ..........   0   0    0    0    0   0    0  393  398   0
     Play#0 output Play#0 1   6  14,8    h .......... ..........   0   0    0    0    0   0    0  400  400   0
     Play#0 output Play#0 1 8 sectors
