@@ -432,10 +432,6 @@ take_casualties(struct sctstr *sp, int mc)
     }
     sp->sct_item[I_MILIT] = 0;
 
-    /* remaining casualites */
-    mc -= orig_mil;
-    taken = orig_mil;
-
     /*
      * Need to take total_casualties and divide
      * them amongst the land units in the sector
@@ -452,9 +448,10 @@ take_casualties(struct sctstr *sp, int mc)
     }
 
     if (CANT_HAPPEN(!nunits))
-	return taken;
+	return orig_mil;
 
-    each = (mc / nunits) + 2;
+    taken = orig_mil;
+    each = (mc - taken) / nunits + 2;
 
     /* kill some security troops */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
@@ -472,13 +469,12 @@ take_casualties(struct sctstr *sp, int mc)
 	if (deq <= 0)
 	    continue;
 
-	mc -= deq;
 	taken += deq;
 	dam = ((double)deq / lp->lnd_item[I_MILIT]) * 100.0;
 	lp->lnd_effic -= dam;
 	lp->lnd_mobil -= dam / 2;
 	lnd_submil(lp, deq);
-	if (mc <= 0)
+	if (taken >= mc)
 	    return taken;
     }
 
@@ -498,13 +494,12 @@ take_casualties(struct sctstr *sp, int mc)
 	if (deq <= 0)
 	    continue;
 
-	mc -= deq;
 	taken += deq;
 	dam = ((double)deq / lp->lnd_item[I_MILIT]) * 100.0;
 	lp->lnd_effic -= dam;
 	lp->lnd_mobil -= dam / 2;
 	lnd_submil(lp, deq);
-	if (mc <= 0)
+	if (taken >= mc)
 	    return taken;
     }
 
@@ -519,10 +514,9 @@ take_casualties(struct sctstr *sp, int mc)
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
-	mc -= lp->lnd_item[I_MILIT];
 	taken += lp->lnd_item[I_MILIT];
 	lnd_dies_fighting_che(lp);
-	if (mc <= 0)
+	if (taken >= mc)
 	    return taken;
     }
 
@@ -537,10 +531,9 @@ take_casualties(struct sctstr *sp, int mc)
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
-	mc -= lp->lnd_item[I_MILIT];
 	taken += lp->lnd_item[I_MILIT];
 	lnd_dies_fighting_che(lp);
-	if (mc <= 0)
+	if (taken >= mc)
 	    return taken;
     }
 
