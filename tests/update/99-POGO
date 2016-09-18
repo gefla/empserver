@@ -181,7 +181,6 @@ land 0:31,-16:-1
 | -10,-8 che win, don't take over
 | -8,-8 che lose
 | -6,-8 che lose
-| BUG: inf#29 shouldn't die
 | plague stage 4 (dying) -16:-1,-6 ship#10 land#10
 | -16,-6 reverts to deity
 | -14,-6 resets work etc.

@@ -524,8 +524,17 @@ take_casualties(struct sctstr *sp, int mc)
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY)
 	    continue;
 
-	taken += lp->lnd_item[I_MILIT];
-	lnd_dies_fighting_che(lp);
+	eff_per_cas = 100.0 / lchr[lp->lnd_type].l_item[I_MILIT];
+	deq = MIN(lp->lnd_item[I_MILIT], mc - taken);
+
+	taken += deq;
+	lp->lnd_effic -= deq * eff_per_cas;
+	lp->lnd_mobil -= deq * eff_per_cas / 2;
+	lnd_submil(lp, deq);
+	if (lp->lnd_effic < LAND_MINEFF) {
+	    taken += lp->lnd_item[I_MILIT];
+	    lnd_dies_fighting_che(lp);
+	}
 	if (taken >= mc)
 	    return taken;
     }
@@ -543,8 +552,17 @@ take_casualties(struct sctstr *sp, int mc)
 	if (!(lchr[(int)lp->lnd_type].l_flags & L_SECURITY))
 	    continue;
 
+	eff_per_cas = 100.0 / lchr[lp->lnd_type].l_item[I_MILIT];
+	deq = MIN(lp->lnd_item[I_MILIT], mc - taken);
+
 	taken += lp->lnd_item[I_MILIT];
-	lnd_dies_fighting_che(lp);
+	lp->lnd_effic -= deq * eff_per_cas;
+	lp->lnd_mobil -= deq * eff_per_cas / 2;
+	lnd_submil(lp, deq);
+	if (lp->lnd_effic < LAND_MINEFF) {
+	    taken += lp->lnd_item[I_MILIT];
+	    lnd_dies_fighting_che(lp);
+	}
 	if (taken >= mc)
 	    return taken;
     }
