@@ -437,6 +437,7 @@ take_casualties(struct sctstr *sp, int mc)
      * them amongst the land units in the sector
      * Do security troops first, then others.
      * Try not to kill any unit.
+     * TODO Spread proportionally to mil instead of evenly
      */
     snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
     while (NULL != (lp = nxtitemp(&ni))) {
@@ -465,7 +466,7 @@ take_casualties(struct sctstr *sp, int mc)
 
 	cantake = ((lp->lnd_effic - 40) / 100.0) * lp->lnd_item[I_MILIT];
 	cantake = MIN(lp->lnd_item[I_MILIT], cantake);
-	deq = MIN(cantake, each);
+	deq = MIN(cantake, MIN(each, mc - taken));
 	if (deq <= 0)
 	    continue;
 
@@ -490,7 +491,7 @@ take_casualties(struct sctstr *sp, int mc)
 
 	cantake = ((lp->lnd_effic - 40) / 100.0) * lp->lnd_item[I_MILIT];
 	cantake = MIN(lp->lnd_item[I_MILIT], cantake);
-	deq = MIN(cantake, each);
+	deq = MIN(cantake, MIN(each, mc - taken));
 	if (deq <= 0)
 	    continue;
 

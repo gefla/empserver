@@ -182,7 +182,6 @@ land 0:31,-16:-1
 | BUG: "Sector -12,-8 has been retaken!" instead of takeover
 | -10,-8 che win, don't take over
 | -8,-8 che lose
-| BUG: che kill 2m more than they should
 | -6,-8 che lose
 | BUG: inf#29 shouldn't die
 | plague stage 4 (dying) -16:-1,-6 ship#10 land#10
