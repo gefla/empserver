@@ -85,6 +85,8 @@ military_control(struct sctstr *sp)
     if (sp->sct_oldown != sp->sct_own) {
 	snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
 	while (nxtitem(&ni, &land)) {
+	    if (land.lnd_ship >= 0 || land.lnd_land >= 0)
+		continue;
 	    if (land.lnd_own == sp->sct_own)
 		tot_mil += land.lnd_item[I_MILIT];
 	}
