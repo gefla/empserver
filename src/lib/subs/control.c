@@ -43,7 +43,7 @@
 /*
  * Return strength of security detail in @sp.
  * Store sum of efficiency of land units with security capability in
- * @seceffp.
+ * @seceffp unless it is null.
  */
 double
 security_strength(struct sctstr *sp, int *seceffp)
@@ -68,7 +68,8 @@ security_strength(struct sctstr *sp, int *seceffp)
 	}
     }
 
-    *seceffp = seceff;
+    if (seceffp)
+	*seceffp = seceff;
     return strength;
 }
 
@@ -78,19 +79,11 @@ security_strength(struct sctstr *sp, int *seceffp)
 int
 military_control(struct sctstr *sp)
 {
-    int tot_mil = 0;
-    struct nstr_item ni;
-    struct lndstr land;
+    int tot_mil;
 
     if (sp->sct_oldown != sp->sct_own) {
-	snxtitem_xy(&ni, EF_LAND, sp->sct_x, sp->sct_y);
-	while (nxtitem(&ni, &land)) {
-	    if (land.lnd_ship >= 0 || land.lnd_land >= 0)
-		continue;
-	    if (land.lnd_own == sp->sct_own)
-		tot_mil += land.lnd_item[I_MILIT];
-	}
-	if ((sp->sct_item[I_MILIT] + tot_mil) * 10 < sp->sct_item[I_CIVIL])
+	tot_mil = sp->sct_item[I_MILIT] + security_strength(sp, NULL);
+	if (tot_mil * 10 < sp->sct_item[I_CIVIL])
 	    return 0;
     }
 

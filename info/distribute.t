@@ -64,10 +64,12 @@ you must own the distribution sector, and there must be a path of owned
 sectors to it. In order to export something from a sector, you must have
 military control of the sector. In order to import something from a
 distribution sector, you must have military control of the distribution
-sector. (Military control is defined as having mil in the sector equal
-to at least 1/10th the number of unconverted civilians there. Units count
-as if they were straight mil, i.e. a 100% unit that contained 50 mil would
-count as 50 mil for the purposes of control)
+sector.
+.s1
+Military control is defined as having military in the sector equal to
+at least 1/10th the number of unconverted civilians there.  Military
+in land units count towards military control.  Military in efficient
+security units count double.
 .s1
 Mobility is used from the sector when sending \*Qto\*U the distribution sector.
 When getting something \*Qfrom\*U the distribution sector, mobility is paid

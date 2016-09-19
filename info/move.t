@@ -81,13 +81,16 @@ You can also supply additional parameters:
 is equivalent to a \*Qmap\*U command, like
 this:
 .EX map # ls
+.s1
 .L "Military control"
 .s1
-In order to move something (other than mil) out of a sector, you must have
-military control of the sector. Military control is defined as having mil in
-the sector equal to at least 1/10th the number of unconverted civilians there.
-Units count as if they were straight mil, i.e. a 100% unit that contained 50
-mil would count as 50 mil for the purposes of control)
+In order to move something (other than military) out of a sector, you
+must have military control of the sector.  Military control is defined
+as having military in the sector equal to at least 1/10th the number
+of unconverted civilians there.
+.s1
+Military in land units count towards military control.  Military in
+efficient security units count double.
 .s1
 .L Mobility
 See \*Qinfo Mobility\*U for a description of how much mobility it costs to
