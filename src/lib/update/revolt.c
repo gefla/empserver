@@ -129,10 +129,10 @@ guerrilla(struct sctstr *sp)
     struct sctstr *nsp;
     int recruit;
     int move;
-    int ratio;
+    double ratio;
     int che;
     int mil;
-    int security_bonus;
+    double security_bonus;
     int cc, mc;
     double odds;
     int civ;
@@ -182,7 +182,7 @@ guerrilla(struct sctstr *sp)
 	if (lchr[(int)lp->lnd_type].l_flags & L_SECURITY) {
 	    int che_kill, r;
 
-	    security_bonus += lp->lnd_item[I_MILIT] * 3;
+	    security_bonus += 3 * lp->lnd_item[I_MILIT] * lp->lnd_effic / 100.0;
 	    r = (lp->lnd_item[I_MILIT] * lp->lnd_effic) / 500;
 	    che_kill = r < 1 ? 0 : roll(r);
 	    if (che_kill > che)
