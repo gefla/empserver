@@ -134,8 +134,6 @@ prod_nat(int etu)
     double newvalue;
     struct budg_item *bm;
     natid n;
-    int cn;
-    struct natstr *cnp;
 
     for (n = 0; NULL != (np = getnatp(n)); n++) {
 	grant_btus(np, game_reset_tick(&np->nat_access));
@@ -182,12 +180,14 @@ prod_nat(int etu)
 	wu(0, n, "total pop was %d, yielding %4.2f hap, %4.2f edu\n",
 	   pop - 1, hap, edu);
     }
+
     if (ally_factor > 0.0)
 	share_incr(res, tech);
     else {
 	memset(res, 0, sizeof(res));
 	memset(tech, 0, sizeof(tech));
     }
+
     for (n = 0; NULL != (np = getnatp(n)); n++) {
 	if (np->nat_stat < STAT_ACTIVE)
 	    continue;
@@ -221,13 +221,11 @@ prod_nat(int etu)
 	np->nat_money = roundavg(nat_budget[n].money);
 	wu(0, n, "money delta was $%d for this update\n",
 	   np->nat_money - nat_budget[n].start_money);
+    }
 
-	if (opt_LOSE_CONTACT) {
-	    for (cn = 1; cn < MAXNOC; cn++) {
-		if ((cnp = getnatp(cn)) != NULL)
-		    agecontact(cnp);
-	    }
-	}
+    if (opt_LOSE_CONTACT) {
+	for (n = 0; NULL != (np = getnatp(n)); n++)
+	    agecontact(np);
     }
 }
 
