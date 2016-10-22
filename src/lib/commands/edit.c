@@ -226,8 +226,6 @@ print_sect(struct sctstr *sect)
 static void
 print_nat(struct natstr *np)
 {
-    int i;
-
     pr("Country #: %2d\n", np->nat_cnum);
     pr("Name <n>: %-20s\t", np->nat_cnam);
     pr("Representative <r>: %s\n", np->nat_pnam);
@@ -245,14 +243,6 @@ print_nat(struct natstr *np)
     pr("Happiness <H>: %.2f\n", np->nat_level[NAT_HLEV]);
     pr("Money <M>: $%6d\n", np->nat_money);
     pr("Telegrams <t>: %6d\n", np->nat_tgms);
-    if (opt_HIDDEN) {
-	pr("Countries contacted: ");
-	for (i = 0; i < MAXNOC; i++) {
-	    if (getcontact(np, i))
-		pr("%d(%d) ", i, getcontact(np, i));
-	}
-	pr("\n");
-    }
 }
 
 static void
