@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 2000
- *     Markus Armbruster, 2007-2014
+ *     Markus Armbruster, 2007-2016
  */
 
 #include <config.h>
@@ -52,9 +52,6 @@ init_nats(void)
 
     player->map = ef_ptr(EF_MAP, player->cnum);
     player->bmap = ef_ptr(EF_BMAP, player->cnum);
-
-    if (opt_HIDDEN)
-	putcontact(np, player->cnum, FOUND_SPY);
 
     player_set_nstat(player, np);
     grant_btus(np, game_tick_to_now(&np->nat_access));

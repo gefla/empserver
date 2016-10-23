@@ -34,6 +34,7 @@
 
 #include <assert.h>
 #include <stddef.h>
+#include <string.h>
 #include "commodity.h"
 #include "game.h"
 #include "land.h"
@@ -317,6 +318,11 @@ nat_oninit(void *ptr)
     struct natstr *np = ptr;
 
     np->nat_cnum = np->nat_uid;
+
+    if (opt_HIDDEN)
+	np->nat_contact[np->nat_cnum] = 1;
+    else
+	memset(np->nat_contact, 1, sizeof(np->nat_contact));
 }
 
 static void
