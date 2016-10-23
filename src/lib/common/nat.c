@@ -128,18 +128,6 @@ putreject(struct natstr *np, natid them, int how, int what)
 	np->nat_rejects[them] &= ~what;
 }
 
-void
-putcontact(struct natstr *np, natid them, int contact)
-{
-    if (CANT_HAPPEN(contact < 0))
-	contact = 0;
-    if (CANT_HAPPEN(contact > 255))
-	contact = 255;
-
-    if (np->nat_contact[them] < contact)
-	np->nat_contact[them] = contact;
-}
-
 int
 influx(struct natstr *np)
 {
