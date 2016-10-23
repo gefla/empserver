@@ -184,7 +184,7 @@ nstr_eval(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 		break;
 	    natp = getnatp(cnum);
 	    if (natp->nat_stat != STAT_GOD
-		&& !(getcontact(natp, idx) && getcontact(ptr, idx)))
+		&& !(in_contact(natp, idx) && in_contact(ptr, idx)))
 		val->val_as.lng = -1;
 	}
 	break;

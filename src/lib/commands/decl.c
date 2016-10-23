@@ -87,7 +87,7 @@ decl(void)
 	if (who == (natid)ni.cur)
 	    continue;
 	if (opt_HIDDEN) {
-	    if (!player->god && !getcontact(natp, ni.cur)) {
+	    if (!player->god && !in_contact(natp, ni.cur)) {
 		pr("You haven't contacted country #%d yet\n", ni.cur);
 		continue;
 	    }

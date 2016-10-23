@@ -252,7 +252,7 @@ share_incr(double res[], double tech[])
 	    if (other->nat_stat != STAT_ACTIVE)
 		continue;
 	    if (opt_HIDDEN) {
-		if (!getcontact(np, j))
+		if (!in_contact(np, j))
 		    continue;
 	    }
 

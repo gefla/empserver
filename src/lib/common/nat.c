@@ -108,7 +108,7 @@ agecontact(struct natstr *np)
 }
 
 int
-getcontact(struct natstr *np, natid them)
+in_contact(struct natstr *np, natid them)
 {
     return np->nat_contact[them];
 }

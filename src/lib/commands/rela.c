@@ -69,9 +69,9 @@ rela(void)
 	if (np->nat_stat < STAT_SANCT)
 	    continue;
 	if (opt_HIDDEN) {
-	    if (!player->god && !getcontact(natp, cn))
+	    if (!player->god && !in_contact(natp, cn))
 		continue;
-	    if (!player->god && !getcontact(getnatp(player->cnum), cn))
+	    if (!player->god && !in_contact(getnatp(player->cnum), cn))
 		continue;
 	}
 	pr("%3d) %-20.20s  ", cn, cname(cn));
