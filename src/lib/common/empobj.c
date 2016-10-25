@@ -29,7 +29,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2006
- *     Markus Armbruster, 2006-2008
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -73,6 +73,10 @@ empobj_in_use(int type, void *p)
     case EF_NATION:
     case EF_COUNTRY:
 	return ((struct natstr *)p)->nat_stat != STAT_UNUSED;
+    case EF_CONTACT:
+	return empobj_in_use(EF_NATION,
+			     ef_ptr(EF_NATION,
+				    ((struct ef_typedstr *)p)->uid));
     case EF_NEWS:
 	return ((struct nwsstr *)p)->nws_vrb != 0;
     case EF_LOAN:

@@ -650,6 +650,15 @@ struct castr cou_ca[] = {
 struct castr nat_ca[sizeof(cou_ca) / sizeof(*cou_ca)];
 /* initialized by nsc_init() */
 
+struct castr contact_ca[] = {
+#define CURSTR struct contactstr
+    {"uid", fldoff(con_uid), NSC_INT, 0, NULL, EF_CONTACT, 0, CA_DUMP},
+    {"timestamp", fldoff(con_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, 0, CA_DUMP_NONE},
+    {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0, CA_DUMP}
+#undef CURSTR
+};
+
 struct castr realm_ca[] = {
 #define CURSTR struct realmstr
     /* uid is encoded in cnum, realm */

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2016
  */
 
 #include <config.h>
@@ -109,6 +109,7 @@ ef_open_srv(void)
     failed |= !ef_open(EF_COMM, 0);
     failed |= !ef_open(EF_LOST, 0);
     failed |= !ef_open(EF_REALM, EFF_MEM);
+    failed |= !ef_open(EF_CONTACT, EFF_MEM);
     if (!failed)
 	failed |= ef_open_view(EF_COUNTRY);
     if (failed) {
@@ -137,4 +138,5 @@ ef_close_srv(void)
     ef_close(EF_BMAP);
     ef_close(EF_LOST);
     ef_close(EF_REALM);
+    ef_close(EF_CONTACT);
 }

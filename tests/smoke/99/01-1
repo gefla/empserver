@@ -7,6 +7,8 @@ xdump news *
 __cmd added -1 0 0
 xdump trade *
 xdump nat *
+xdump contact *
+__cmd added 1 0 0
 xdump loan *
 xdump commodity *
 xdump lost *

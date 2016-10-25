@@ -31,7 +31,7 @@
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2005-2008
- *     Markus Armbruster, 2005-2014
+ *     Markus Armbruster, 2005-2016
  */
 
 #ifndef NAT_H
@@ -149,12 +149,26 @@ struct natstr {
 /* Coastwatch and skywatch */
 #define FOUND_COAST	3
 
+struct contactstr {
+    /* initial part must match struct empobj */
+    signed ef_type: 8;
+    unsigned con_seqno: 12;
+    unsigned con_generation: 12;
+    int con_uid;
+    time_t con_timestamp;
+    /* end of part matching struct empobj */
+};
+
 extern char *relates[];
 
 /* procedures relating to nation stuff */
 
 #define putnat(p) ef_write(EF_NATION, (p)->nat_cnum, (p))
 #define getnatp(n) ((struct natstr *)ef_ptr(EF_NATION, (n)))
+
+#define getcontact(n, p) ef_read(EF_CONTACT, (n), (p))
+#define putcontact(p) ef_write(EF_CONTACT, (p)->con_uid, (p))
+#define getcontactp(n) ((struct contactstr *)ef_ptr(EF_CONTACT, (n)))
 
 #define getrealm(r, n, p) ef_read(EF_REALM, ((r) + ((n) * MAXNOR)), (p))
 #define putrealm(p) ef_write(EF_REALM, (p)->r_uid, (p))

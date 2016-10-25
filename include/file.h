@@ -155,6 +155,7 @@ enum {
     EF_TRADE,
     EF_POWER,
     EF_NATION,
+    EF_CONTACT,
     EF_LOAN,
     EF_MAP,
     EF_BMAP,
