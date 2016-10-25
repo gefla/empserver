@@ -113,9 +113,9 @@ setrel(natid us, natid them, int rel)
 void
 setcont(natid us, natid them, int contact)
 {
-    struct natstr *np = getnatp(us);
+    struct contactstr *conp = getcontactp(us);
 
-    if (CANT_HAPPEN(!np))
+    if (CANT_HAPPEN(!conp))
 	return;
 
     if (CANT_HAPPEN(contact < 0))
@@ -125,9 +125,9 @@ setcont(natid us, natid them, int contact)
 
     if (!opt_LOSE_CONTACT)
 	contact = !!contact;
-    if (np->nat_contact[them] < contact) {
-	np->nat_contact[them] = contact;
-	putnat(np);
+    if (conp->con_contact[them] < contact) {
+	conp->con_contact[them] = contact;
+	putcontact(conp);
     }
 }
 

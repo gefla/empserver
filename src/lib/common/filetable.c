@@ -59,6 +59,7 @@ static void pln_oninit(void *);
 static void lnd_oninit(void *);
 static void nuk_oninit(void *);
 static void nat_oninit(void *);
+static void contact_oninit(void *);
 static void realm_oninit(void *);
 static void game_oninit(void *);
 static void pchr_oninit(void *);
@@ -166,7 +167,7 @@ struct empfile empfile[] = {
      nat_oninit, NULL, NULL, NULL},
     {EF_CONTACT, "contact", NULL, "contact", contact_ca, EF_BAD,
      UNMAPPED_CACHE(struct contactstr, MAXNOC, EFF_TYPED),
-     NULL, NULL, NULL, NULL},
+     contact_oninit, NULL, NULL, NULL},
     {EF_LOAN, "loan", NULL, "loan", loan_ca, EF_BAD,
      UNMAPPED_CACHE(struct lonstr, -1, EFF_TYPED),
      NULL, NULL, NULL, NULL},
@@ -321,11 +322,17 @@ nat_oninit(void *ptr)
     struct natstr *np = ptr;
 
     np->nat_cnum = np->nat_uid;
+}
+
+static void
+contact_oninit(void *ptr)
+{
+    struct contactstr *cp = ptr;
 
     if (opt_HIDDEN)
-	np->nat_contact[np->nat_cnum] = 1;
+	cp->con_contact[cp->con_uid] = 1;
     else
-	memset(np->nat_contact, 1, sizeof(np->nat_contact));
+	memset(cp->con_contact, 1, sizeof(cp->con_contact));
 }
 
 static void

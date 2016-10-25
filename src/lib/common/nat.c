@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -98,19 +98,21 @@ getrejects(natid them, struct natstr *np)
 void
 agecontact(struct natstr *np)
 {
+    struct contactstr con;
     int them;
 
+    getcontact(np->nat_cnum, &con);
+
     for (them = 1; them < MAXNOC; ++them) {
-	if (them != np->nat_cnum && np->nat_contact[them]) {
-	    --np->nat_contact[them];
-	}
+	if (them != np->nat_cnum && con.con_contact[them])
+	    con.con_contact[them]--;
     }
 }
 
 int
 in_contact(struct natstr *np, natid them)
 {
-    return np->nat_contact[them];
+    return getcontactp(np->nat_cnum)->con_contact[them];
 }
 
 void

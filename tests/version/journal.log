@@ -877,15 +877,15 @@
     Play#0 output Play#0 1 "education" 2 1 0 -1
     Play#0 output Play#0 1 "happiness" 2 1 0 -1
     Play#0 output Play#0 1 "relations" 1 16 99 38
-    Play#0 output Play#0 1 "contacts" 1 1 99 -1
     Play#0 output Play#0 1 "rejects" 1 8 99 37
-    Play#0 output Play#0 1 /30
+    Play#0 output Play#0 1 /29
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 9
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP meta contact 0
     Play#0 output Play#0 1 "uid" 1 0 0 9
-    Play#0 output Play#0 1 /1
+    Play#0 output Play#0 1 "contacts" 1 1 99 -1
+    Play#0 output Play#0 1 /2
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 10
     Play#0 command xdump

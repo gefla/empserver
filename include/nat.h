@@ -112,7 +112,6 @@ struct natstr {
     time_t nat_annotim;		/* date annos last read */
     float nat_level[4];		/* technology, etc */
     unsigned char nat_relate[MAXNOC];
-    unsigned char nat_contact[MAXNOC];
     unsigned char nat_rejects[MAXNOC];
 };
 
@@ -157,6 +156,7 @@ struct contactstr {
     int con_uid;
     time_t con_timestamp;
     /* end of part matching struct empobj */
+    unsigned char con_contact[MAXNOC];
 };
 
 extern char *relates[];
