@@ -27,12 +27,14 @@
  *  acce.c: Report rejection status of telegrams/annos/loans
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
 
 #include "commands.h"
+
+static void pr_accept(struct natstr *, natid);
 
 /*
  * report rejection status
@@ -42,17 +44,6 @@
 int
 acce(void)
 {
-    static char *rejects[] = {
-	/* must follow reject flags defined in nat.h */
-	"  YES  YES  YES",
-	"  NO   YES  YES",
-	"  YES  NO   YES",
-	"  NO   NO   YES",
-	"  YES  YES  NO ",
-	"  NO   YES  NO ",
-	"  YES  NO   NO ",
-	"  NO   NO   NO ",
-    };
     struct natstr *natp;
     struct natstr *np;
     natid cn;
@@ -77,10 +68,28 @@ acce(void)
 	    break;
 	if (np->nat_stat == STAT_UNUSED)
 	    continue;
-	pr("%3d) %-14.14s  ", cn, cname(cn));
-	pr("%s %s\n",
-	   rejects[getrejects(cn, natp)],
-	   rejects[getrejects(as, np)]);
+	pr("%3d) %-14.14s ", cn, cname(cn));
+	pr_accept(natp, cn);
+	pr_accept(np, as);
+	pr("\n");
     }
     return RET_OK;
+}
+
+static void
+pr_accept(struct natstr *to, natid from)
+{
+    static char *rejects[] = {
+	/* must follow reject flags defined in nat.h */
+	"  YES  YES  YES",
+	"  NO   YES  YES",
+	"  YES  NO   YES",
+	"  NO   NO   YES",
+	"  YES  YES  NO ",
+	"  NO   YES  NO ",
+	"  YES  NO   NO ",
+	"  NO   NO   NO ",
+    };
+
+    pr(" %s", rejects[getrejects(from, to)]);
 }
