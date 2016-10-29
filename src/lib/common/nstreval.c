@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1997
- *     Markus Armbruster, 2004-2015
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -178,13 +178,13 @@ nstr_eval(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	if (hidden) {
 	    if (CANT_HAPPEN(hidden && valtype != NSC_LONG))
 		break;		/* not implemented */
-	    if (CANT_HAPPEN(((struct natstr *)ptr)->ef_type != EF_NATION))
+	    natp = ptr;
+	    if (CANT_HAPPEN(natp->ef_type != EF_NATION))
 		break;		/* only defined for nation selectors */
-	    if (!opt_HIDDEN || cnum == NATID_BAD)
+	    if (!opt_HIDDEN || cnum == NATID_BAD
+		|| getnatp(cnum)->nat_stat == STAT_GOD)
 		break;
-	    natp = getnatp(cnum);
-	    if (natp->nat_stat != STAT_GOD
-		&& !(in_contact(natp, idx) && in_contact(ptr, idx)))
+	    if (!in_contact(cnum, idx) || !in_contact(natp->nat_cnum, idx))
 		val->val_as.lng = -1;
 	}
 	break;

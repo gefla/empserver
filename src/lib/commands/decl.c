@@ -38,7 +38,7 @@
 int
 decl(void)
 {
-    struct natstr nat, *natp;
+    struct natstr nat;
     int rel;
     int who;
     struct nstr_item ni;
@@ -80,14 +80,13 @@ decl(void)
 	    return RET_SYN;
     }
 
-    natp = getnatp(who);
     while (nxtitem(&ni, &nat)) {
 	if (nat.nat_stat == STAT_UNUSED)
 	    continue;
 	if (who == (natid)ni.cur)
 	    continue;
 	if (opt_HIDDEN) {
-	    if (!player->god && !in_contact(natp, ni.cur)) {
+	    if (!player->god && !in_contact(who, ni.cur)) {
 		pr("You haven't contacted country #%d yet\n", ni.cur);
 		continue;
 	    }

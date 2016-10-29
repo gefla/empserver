@@ -182,7 +182,7 @@ extern char *natstate(struct natstr *np);
 extern int getrel(struct natstr *np, natid them);
 extern int relations_with(natid, natid);
 extern int getrejects(natid them, struct natstr *np);
-extern int in_contact(struct natstr *np, natid them);
+extern int in_contact(natid, natid);
 extern void putrel(struct natstr *np, natid them, int relate);
 extern void putreject(struct natstr *np, natid them, int how, int what);
 extern void agecontact(struct natstr *np);

@@ -103,8 +103,8 @@ news(void)
 		nws.nws_ntm = 1;
 	    if (opt_HIDDEN) {
 		if (!player->god &&
-		    !(in_contact(getnatp(player->cnum), nws.nws_ano) &&
-		      in_contact(getnatp(player->cnum), nws.nws_vno)))
+		    !(in_contact(player->cnum, nws.nws_ano) &&
+		      in_contact(player->cnum, nws.nws_vno)))
 		    continue;
 	    }
 	    page_has_news[rpt[nws.nws_vrb].r_newspage] = 1;

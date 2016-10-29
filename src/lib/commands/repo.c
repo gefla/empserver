@@ -58,7 +58,7 @@ repo(void)
 	if (nat.nat_stat == STAT_UNUSED)
 	    continue;
 	if (opt_HIDDEN) {
-	    if (!player->god && !in_contact(natp, ni.cur))
+	    if (!player->god && !in_contact(player->cnum, ni.cur))
 		continue;
 	}
 	if (!player->god && nat.nat_stat != STAT_ACTIVE)
