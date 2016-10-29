@@ -138,6 +138,9 @@ setrej(natid us, natid them, int how, int what)
 
     if (CANT_HAPPEN(!np))
 	return;
-    putreject(np, them, how, what);
+    if (how)
+	np->nat_rejects[them] |= what;
+    else
+	np->nat_rejects[them] &= ~what;
     putnat(np);
 }

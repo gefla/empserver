@@ -121,15 +121,6 @@ putrel(struct natstr *np, natid them, int relate)
     np->nat_relate[them] = relate;
 }
 
-void
-putreject(struct natstr *np, natid them, int how, int what)
-{
-    if (how)
-	np->nat_rejects[them] |= what;
-    else
-	np->nat_rejects[them] &= ~what;
-}
-
 int
 influx(struct natstr *np)
 {
