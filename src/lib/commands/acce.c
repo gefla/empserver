@@ -79,17 +79,11 @@ acce(void)
 static void
 pr_accept(struct natstr *to, natid from)
 {
-    static char *rejects[] = {
-	/* must follow reject flags defined in nat.h */
-	"  YES  YES  YES",
-	"  NO   YES  YES",
-	"  YES  NO   YES",
-	"  NO   NO   YES",
-	"  YES  YES  NO ",
-	"  NO   YES  NO ",
-	"  YES  NO   NO ",
-	"  NO   NO   NO ",
-    };
+    static char *yes_no[] = { "YES", "NO " };
+    int rej = getrejects(from, to);
 
-    pr(" %s", rejects[getrejects(from, to)]);
+    pr("   %s  %s  %s",
+       yes_no[(rej & REJ_TELE) != 0],
+       yes_no[(rej & REJ_ANNO) != 0],
+       yes_no[(rej & REJ_LOAN) != 0]);
 }
