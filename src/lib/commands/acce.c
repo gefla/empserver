@@ -79,7 +79,7 @@ acce(void)
 static void
 pr_accept(struct natstr *to, natid from)
 {
-    static char *yes_no[] = { "YES", "NO " };
+    static char *yes_no[] = { "YES", " NO" };
     int rej = getrejects(from, to);
 
     pr("   %s  %s  %s",
