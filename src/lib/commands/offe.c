@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Pat Loney, 1992
  *     Steve McClure, 1996
+ *     Markus Armbruster, 2005-2016
  */
 
 #include <config.h>
@@ -77,7 +78,7 @@ do_loan(void)
 	return RET_FAIL;
     }
     natp = getnatp(recipient);
-    if (player->cnum && (getrejects(player->cnum, natp) & REJ_LOAN)) {
+    if (!player->god && (getrejects(player->cnum, natp) & REJ_LOAN)) {
 	pr("%s is rejecting your loans.\n", cname(recipient));
 	return RET_SYN;
     }
