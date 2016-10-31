@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2005-2015
+ *     Markus Armbruster, 2005-2016
  */
 
 #include <config.h>
@@ -40,7 +40,6 @@
 #include "misc.h"
 #include "nat.h"
 #include "optlist.h"
-#include "player.h"
 #include "prototypes.h"
 #include "tel.h"
 #include "update.h"
@@ -154,7 +153,8 @@ typed_wu(natid from, natid to, char *message, int type)
 	for (to = 0; NULL != (np = getnatp(to)); to++) {
 	    if (np->nat_stat < STAT_SANCT)
 		continue;
-	    if (!player->god && (getrejects(from, np) & REJ_ANNO))
+	    if (getnatp(from)->nat_stat != STAT_GOD
+		&& (getrejects(from, np) & REJ_ANNO))
 		continue;
 	    if (!np->nat_ann || !tel.tel_cont) {
 		np->nat_ann++;
