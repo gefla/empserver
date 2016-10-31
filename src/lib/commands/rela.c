@@ -43,7 +43,6 @@
 int
 rela(void)
 {
-    struct natstr *natp;
     struct natstr *np;
     natid cn;
     natid as;
@@ -56,7 +55,6 @@ rela(void)
 	    return RET_SYN;
 	as = (natid)n;
     }
-    natp = getnatp(as);
     pr("\t%s Diplomatic Relations Report\t", cname(as));
     prdate();
     pr("\n  Formal Relations         %5s      theirs\n",
@@ -76,8 +74,8 @@ rela(void)
 	}
 	pr("%3d) %-20.20s  ", cn, cname(cn));
 	pr("%-10s %s\n",
-	   relations_string(getrel(natp, cn)),
-	   relations_string(getrel(np, as)));
+	   relations_string(relations_with(as, cn)),
+	   relations_string(relations_with(cn, as)));
     }
     return RET_OK;
 }

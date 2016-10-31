@@ -61,13 +61,6 @@ natstate(struct natstr *np)
     return stnam[np->nat_stat];
 }
 
-/* This returns the relations that np has with them */
-enum relations
-getrel(struct natstr *np, natid them)
-{
-    return np->nat_relate[them];
-}
-
 /*
  * Return relations @us has with @them.
  * Countries are considered allied to themselves.
@@ -75,7 +68,7 @@ getrel(struct natstr *np, natid them)
 enum relations
 relations_with(natid us, natid them)
 {
-    return us == them ? ALLIED : getrel(getnatp(us), them);
+    return us == them ? ALLIED : getnatp(us)->nat_relate[them];
 }
 
 char *
