@@ -72,7 +72,8 @@ xdump meta 50
 xdump meta 51
 xdump meta 52
 xdump meta 53
-__cmd added 2 0 0
+xdump meta 54
+__cmd added 3 0 0
 | xdump of game state is in smoke test
 xdump item *
 xdump product *

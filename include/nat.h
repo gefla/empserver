@@ -132,6 +132,16 @@ enum relations {
     ALLIED
 };
 
+struct relatstr {
+    /* initial part must match struct empobj */
+    signed ef_type: 8;
+    unsigned rel_seqno: 12;
+    unsigned rel_generation: 12;
+    int rel_uid;
+    time_t rel_timestamp;
+    /* end of part matching struct empobj */
+};
+
 /*
  * Number of updates contact lasts for various ways of making contact.
  * These are only useful with option LOSE_CONTACT, which implies
@@ -181,6 +191,10 @@ struct rejectstr {
 
 #define putnat(p) ef_write(EF_NATION, (p)->nat_cnum, (p))
 #define getnatp(n) ((struct natstr *)ef_ptr(EF_NATION, (n)))
+
+#define getrelat(n, p) ef_read(EF_RELAT, (n), (p))
+#define putrelat(p) ef_write(EF_RELAT, (p)->rel_uid, (p))
+#define getrelatp(n) ((struct relatstr *)ef_ptr(EF_RELAT, (n)))
 
 #define getcontact(n, p) ef_read(EF_CONTACT, (n), (p))
 #define putcontact(p) ef_write(EF_CONTACT, (p)->con_uid, (p))

@@ -109,6 +109,7 @@ ef_open_srv(void)
     failed |= !ef_open(EF_COMM, 0);
     failed |= !ef_open(EF_LOST, 0);
     failed |= !ef_open(EF_REALM, EFF_MEM);
+    failed |= !ef_open(EF_RELAT, EFF_MEM);
     failed |= !ef_open(EF_CONTACT, EFF_MEM);
     failed |= !ef_open(EF_REJECT, EFF_MEM);
     if (!failed)
@@ -139,6 +140,7 @@ ef_close_srv(void)
     ef_close(EF_BMAP);
     ef_close(EF_LOST);
     ef_close(EF_REALM);
+    ef_close(EF_RELAT);
     ef_close(EF_CONTACT);
     ef_close(EF_REJECT);
 }

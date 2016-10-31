@@ -273,6 +273,7 @@ extern struct castr commodity_ca[];
 extern struct castr trade_ca[];
 extern struct castr nat_ca[];
 extern struct castr cou_ca[];
+extern struct castr relat_ca[];
 extern struct castr contact_ca[];
 extern struct castr reject_ca[];
 extern struct castr realm_ca[];
