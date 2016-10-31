@@ -199,7 +199,6 @@ extern double techfact(int level, double mult);
 
 /* src/lib/common/nat.c */
 extern char *cname(natid n);
-extern char *relatename(struct natstr *np, natid other);
 extern char *natstate(struct natstr *np);
 extern enum relations getrel(struct natstr *np, natid them);
 extern enum relations relations_with(natid, natid);

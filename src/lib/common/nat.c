@@ -52,12 +52,6 @@ cname(natid n)
 }
 
 char *
-relatename(struct natstr *np, natid other)
-{
-    return relations_string(getrel(np, other));
-}
-
-char *
 natstate(struct natstr *np)
 {
     static char *stnam[] = {

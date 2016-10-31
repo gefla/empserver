@@ -75,7 +75,9 @@ rela(void)
 		continue;
 	}
 	pr("%3d) %-20.20s  ", cn, cname(cn));
-	pr("%-10s %s\n", relatename(natp, cn), relatename(np, as));
+	pr("%-10s %s\n",
+	   relations_string(getrel(natp, cn)),
+	   relations_string(getrel(np, as)));
     }
     return RET_OK;
 }
