@@ -31,7 +31,7 @@
  *     Doug Hay, 1998
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2005-2007
- *     Markus Armbruster, 2009-2011
+ *     Markus Armbruster, 2009-2016
  */
 
 #include <config.h>
@@ -107,7 +107,8 @@ rea(void)
 	if (res <= 0)
 	    break;
 	if (*kind == 'a') {
-	    if ((!player->god && (getrejects(tgm.tel_from, np) & REJ_ANNO))
+	    if ((getnatp(tgm.tel_from)->nat_stat != STAT_GOD
+		 && (getrejects(tgm.tel_from, np) & REJ_ANNO))
 		|| tgm.tel_date < then) {
 		res = tel_read_body(telfp, mbox, &tgm, NULL, NULL);
 		if (res < 0)
