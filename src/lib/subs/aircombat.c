@@ -65,7 +65,7 @@ static void ac_doflak(struct emp_qelem *, struct sctstr *);
 static void ac_landflak(struct emp_qelem *, coord, coord);
 static void ac_shipflak(struct emp_qelem *, coord, coord);
 static void ac_fireflak(struct emp_qelem *, natid, int);
-static void getilists(struct emp_qelem *, unsigned char *, natid);
+static void getilists(struct emp_qelem *, enum relations[], natid);
 static int do_evade(struct emp_qelem *, struct emp_qelem *);
 
 void
@@ -76,7 +76,7 @@ ac_encounter(struct emp_qelem *bomb_list, struct emp_qelem *esc_list,
     int dir;
     unsigned char gotships[MAXNOC];
     unsigned char gotlands[MAXNOC];
-    unsigned char rel[MAXNOC];
+    enum relations rel[MAXNOC];
     int overfly[MAXNOC];
     int flags;
     struct emp_qelem ilist[MAXNOC];
@@ -741,7 +741,7 @@ ac_flak_dam(int guns, int def, int pl_flags)
  * Get planes available for interception duties.
  */
 static void
-getilists(struct emp_qelem *list, unsigned char *rel, natid intruder)
+getilists(struct emp_qelem *list, enum relations rel[], natid intruder)
 {
     natid cn;
     struct plchrstr *pcp;

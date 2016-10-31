@@ -39,7 +39,7 @@ int
 decl(void)
 {
     struct natstr nat;
-    int rel;
+    enum relations rel;
     int who;
     struct nstr_item ni;
     char *p;

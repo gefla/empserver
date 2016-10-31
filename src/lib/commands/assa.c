@@ -192,7 +192,7 @@ sneak_ashore(struct combat off[], struct emp_qelem *olist,
     struct emp_qelem *qp;
     struct ulist *llp;
     struct lndstr *lp;
-    int rel;
+    enum relations rel;
 
     pr("Trying to sneak on shore...\n");
 

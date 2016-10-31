@@ -987,7 +987,7 @@ lnd_mar_dir(struct emp_qelem *list, int dir, natid actor)
     coord newx;
     coord newy;
     int move;
-    int rel;
+    enum relations rel;
     int oldown;
 
     if (CANT_HAPPEN(QEMPTY(list)))

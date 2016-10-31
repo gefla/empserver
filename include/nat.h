@@ -111,20 +111,26 @@ struct natstr {
     time_t nat_newstim;		/* date news last read */
     time_t nat_annotim;		/* date annos last read */
     float nat_level[4];		/* technology, etc */
-    unsigned char nat_relate[MAXNOC];
+    unsigned char nat_relate[MAXNOC]; /* enum relations */
 };
-
-	/* nation relation codes */
-#define AT_WAR		0
-#define HOSTILE		1
-#define NEUTRAL		2
-#define FRIENDLY	3
-#define ALLIED		4
 
 #define NAT_TLEV	0
 #define NAT_RLEV	1
 #define NAT_ELEV	2
 #define NAT_HLEV	3
+
+/* Diplomatic relations */
+enum relations {
+    /*
+     * Don't change order without checking inequality comparisons and
+     * array initializers!
+     */
+    AT_WAR,
+    HOSTILE,
+    NEUTRAL,
+    FRIENDLY,
+    ALLIED
+};
 
 /*
  * Number of updates contact lasts for various ways of making contact.
@@ -197,8 +203,8 @@ extern double techfact(int level, double mult);
 extern char *cname(natid n);
 extern char *relatename(struct natstr *np, natid other);
 extern char *natstate(struct natstr *np);
-extern int getrel(struct natstr *np, natid them);
-extern int relations_with(natid, natid);
+extern enum relations getrel(struct natstr *np, natid them);
+extern enum relations relations_with(natid, natid);
 extern int nat_accepts(natid, natid, enum rej_comm);
 extern int in_contact(natid, natid);
 extern void agecontact(struct natstr *np);
@@ -215,7 +221,7 @@ extern char *prnatid(natid);
 extern int grant_btus(struct natstr *, int);
 
 /* src/lib/subs/rej.c */
-extern void setrel(natid, natid, int);
+extern void setrel(natid, natid, enum relations);
 extern void setcont(natid, natid, int);
 extern void setrej(natid, natid, int, enum rej_comm);
 

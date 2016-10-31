@@ -42,7 +42,7 @@
 #include "tel.h"
 
 char *relates[] = {
-    /* must follow nation relation defines in nat.h */
+    /* must match enum relations */
     "At War", "Hostile", "Neutral", "Friendly", "Allied"
 };
 
@@ -73,7 +73,7 @@ natstate(struct natstr *np)
 }
 
 /* This returns the relations that np has with them */
-int
+enum relations
 getrel(struct natstr *np, natid them)
 {
     return np->nat_relate[them];
@@ -83,7 +83,7 @@ getrel(struct natstr *np, natid them)
  * Return relations @us has with @them.
  * Countries are considered allied to themselves.
  */
-int
+enum relations
 relations_with(natid us, natid them)
 {
     return us == them ? ALLIED : getrel(getnatp(us), them);

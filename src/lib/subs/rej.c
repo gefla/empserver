@@ -41,10 +41,10 @@
 #include "update.h"
 
 void
-setrel(natid us, natid them, int rel)
+setrel(natid us, natid them, enum relations rel)
 {
     struct natstr *mynp = getnatp(us);
-    int oldrel;
+    enum relations oldrel;
     char *whichway;
     int n_up = 0;
     int n_down = 0;

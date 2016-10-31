@@ -179,7 +179,8 @@ int
 unit_interdict(coord x, coord y, natid victim, char *s, int hardtarget,
 	       int mission)
 {
-    int cn, rel, newdam, osubs;
+    int cn, newdam, osubs;
+    enum relations rel;
     int dam = -1;
     unsigned char plane_act[MAXNOC], other_act[MAXNOC];
     struct genlist mi[MAXNOC];
