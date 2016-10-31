@@ -43,6 +43,7 @@
 void
 setrel(natid us, natid them, enum relations rel)
 {
+    struct relatstr *relp = getrelatp(us);
     struct natstr *mynp = getnatp(us);
     enum relations oldrel;
     char *whichway;
@@ -54,7 +55,7 @@ setrel(natid us, natid them, enum relations rel)
 	rel = AT_WAR;
     if (CANT_HAPPEN(rel > ALLIED))
 	rel = ALLIED;
-    if (CANT_HAPPEN(!mynp))
+    if (CANT_HAPPEN(!relp || !mynp))
 	return;
     if (us == them)
 	return;
@@ -92,8 +93,8 @@ setrel(natid us, natid them, enum relations rel)
 	    "Country %s has %s their relations with you to \"%s\"!\n",
 	    prnat(mynp), whichway, relations_string(rel));
 
-    mynp->nat_relate[them] = rel;
-    putnat(mynp);
+    relp->rel_relate[them] = rel;
+    putrelat(relp);
 
     if (!player->god) {
 	if (oldrel == ALLIED)

@@ -68,7 +68,7 @@ natstate(struct natstr *np)
 enum relations
 relations_with(natid us, natid them)
 {
-    return us == them ? ALLIED : getnatp(us)->nat_relate[them];
+    return us == them ? ALLIED : getrelatp(us)->rel_relate[them];
 }
 
 char *
@@ -133,11 +133,13 @@ void
 nat_reset(natid cnum, char *name, char *rep, enum nat_status stat)
 {
     struct natstr nat;
+    struct relatstr relat;
     struct realmstr newrealm;
     char buf[1024];
     int i;
 
     ef_blank(EF_NATION, cnum, &nat);
+    ef_blank(EF_RELAT, cnum, &relat);
     nat.nat_stat = stat;
     strncpy(nat.nat_cnam, name, sizeof(nat.nat_cnam) - 1);
     strncpy(nat.nat_pnam, rep, sizeof(nat.nat_pnam) - 1);
@@ -154,8 +156,9 @@ nat_reset(natid cnum, char *name, char *rep, enum nat_status stat)
     nat.nat_level[NAT_TLEV] = start_technology;
     nat.nat_level[NAT_ELEV] = start_education;
     for (i = 0; i < MAXNOC; i++)
-	nat.nat_relate[i] = NEUTRAL;
+	relat.rel_relate[i] = NEUTRAL;
     nat.nat_flags =
 	NF_FLASH | NF_BEEP | NF_COASTWATCH | NF_SONAR | NF_TECHLISTS;
     putnat(&nat);
+    putrelat(&relat);
 }

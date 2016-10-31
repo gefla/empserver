@@ -111,7 +111,6 @@ struct natstr {
     time_t nat_newstim;		/* date news last read */
     time_t nat_annotim;		/* date annos last read */
     float nat_level[4];		/* technology, etc */
-    unsigned char nat_relate[MAXNOC]; /* enum relations */
 };
 
 #define NAT_TLEV	0
@@ -140,6 +139,7 @@ struct relatstr {
     int rel_uid;
     time_t rel_timestamp;
     /* end of part matching struct empobj */
+    unsigned char rel_relate[MAXNOC]; /* enum relations */
 };
 
 /*

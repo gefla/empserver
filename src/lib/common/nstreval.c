@@ -79,6 +79,7 @@ nstr_eval(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
     int idx, hidden;
     coord c;
     struct natstr *natp;
+    struct relatstr *relp;
 
     if (CANT_HAPPEN(want != NSC_NOTYPE && !NSC_IS_PROMOTED(want)))
 	want = nstr_promote(want);
@@ -178,13 +179,13 @@ nstr_eval(struct valstr *val, natid cnum, void *ptr, enum nsc_type want)
 	if (hidden) {
 	    if (CANT_HAPPEN(hidden && valtype != NSC_LONG))
 		break;		/* not implemented */
-	    natp = ptr;
-	    if (CANT_HAPPEN(natp->ef_type != EF_NATION))
+	    relp = ptr;
+	    if (CANT_HAPPEN(relp->ef_type != EF_RELAT))
 		break;		/* only defined for nation selectors */
 	    if (!opt_HIDDEN || cnum == NATID_BAD
 		|| getnatp(cnum)->nat_stat == STAT_GOD)
 		break;
-	    if (!in_contact(cnum, idx) || !in_contact(natp->nat_cnum, idx))
+	    if (!in_contact(cnum, idx) || !in_contact(relp->rel_uid, idx))
 		val->val_as.lng = -1;
 	}
 	break;

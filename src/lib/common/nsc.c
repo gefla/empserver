@@ -636,8 +636,6 @@ struct castr cou_ca[] = {
      EF_BAD, 0, CA_DUMP},
     {"happiness", fldoff(nat_level[NAT_HLEV]), NSC_FLOAT, 0, NULL,
      EF_BAD, 0, CA_DUMP},
-    {"relations", fldoff(nat_relate), NSC_UCHAR, MAXNOC, NULL,
-     EF_NATION_RELATIONS, NSC_HIDDEN, CA_DUMP_NONE},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0, CA_DUMP}
 #undef CURSTR
 };
@@ -650,6 +648,8 @@ struct castr relat_ca[] = {
     {"uid", fldoff(rel_uid), NSC_INT, 0, NULL, EF_RELAT, 0, CA_DUMP},
     {"timestamp", fldoff(rel_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, 0, CA_DUMP_NONE},
+    {"relations", fldoff(rel_relate), NSC_UCHAR, MAXNOC, NULL,
+     EF_NATION_RELATIONS, NSC_HIDDEN, CA_DUMP},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0, CA_DUMP}
 #undef CURSTR
 };

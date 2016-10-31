@@ -232,9 +232,9 @@ enum ca_dump {
  * If NSC_DEITY is set in @ca_flags, only deities can use this
  * selector.
  * If NSC_HIDDEN is set in @ca_flags, the selector must be an array of
- * MAXNOC elements, indexed by country number, and the context object
- * must be EF_NATION.  Array elements are masked for contact when
- * opt_HIDDEN is on.
+ * MAXNOC elements, indexed by country number.  Array elements are
+ * masked for contact when opt_HIDDEN is on.  Only implemented for
+ * integer types and context object EF_RELAT.
  * @ca_dump specifies how xdump and xundump are to use the selector.
  */
 struct castr {
