@@ -153,8 +153,7 @@ typed_wu(natid from, natid to, char *message, int type)
 	for (to = 0; NULL != (np = getnatp(to)); to++) {
 	    if (np->nat_stat < STAT_SANCT)
 		continue;
-	    if (getnatp(from)->nat_stat != STAT_GOD
-		&& (getrejects(from, np) & REJ_ANNO))
+	    if (!nat_accepts(np, from, REJ_ANNO))
 		continue;
 	    if (!np->nat_ann || !tel.tel_cont) {
 		np->nat_ann++;

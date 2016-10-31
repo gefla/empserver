@@ -78,7 +78,7 @@ do_loan(void)
 	return RET_FAIL;
     }
     natp = getnatp(recipient);
-    if (!player->god && (getrejects(player->cnum, natp) & REJ_LOAN)) {
+    if (!nat_accepts(natp, player->cnum, REJ_LOAN)) {
 	pr("%s is rejecting your loans.\n", cname(recipient));
 	return RET_SYN;
     }

@@ -88,7 +88,7 @@ setrel(natid us, natid them, int rel)
 	pr("%s\n", addendum);
     mpr(us, "Diplomatic relations with %s %s to \"%s\".\n",
 	cname(them), whichway, relates[rel]);
-    if (mynp->nat_stat == STAT_GOD || !(getrejects(us, themnp) & REJ_TELE))
+    if (nat_accepts(themnp, us, REJ_TELE))
 	mpr(them,
 	    "Country %s has %s their relations with you to \"%s\"!\n",
 	    prnat(mynp), whichway, relates[rel]);

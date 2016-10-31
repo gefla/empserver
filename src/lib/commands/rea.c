@@ -107,8 +107,7 @@ rea(void)
 	if (res <= 0)
 	    break;
 	if (*kind == 'a') {
-	    if ((getnatp(tgm.tel_from)->nat_stat != STAT_GOD
-		 && (getrejects(tgm.tel_from, np) & REJ_ANNO))
+	    if ((!nat_accepts(np, tgm.tel_from, REJ_ANNO))
 		|| tgm.tel_date < then) {
 		res = tel_read_body(telfp, mbox, &tgm, NULL, NULL);
 		if (res < 0)

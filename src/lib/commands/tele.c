@@ -92,8 +92,7 @@ tele(void)
 		kk++;
 		continue;
 	    }
-	    if (!player->god
-		&& (getrejects(player->cnum, natp) & REJ_TELE)) {
+	    if (!nat_accepts(natp, player->cnum, REJ_TELE)) {
 		pr("%s is rejecting your telegrams.\n", cname(to));
 		return RET_SYN;
 	    }
