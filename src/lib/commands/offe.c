@@ -77,8 +77,7 @@ do_loan(void)
 	pr("You can't loan yourself money!\n");
 	return RET_FAIL;
     }
-    natp = getnatp(recipient);
-    if (!nat_accepts(natp, player->cnum, REJ_LOAN)) {
+    if (!nat_accepts(recipient, player->cnum, REJ_LOAN)) {
 	pr("%s is rejecting your loans.\n", cname(recipient));
 	return RET_SYN;
     }

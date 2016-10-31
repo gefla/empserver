@@ -92,7 +92,7 @@ tele(void)
 		kk++;
 		continue;
 	    }
-	    if (!nat_accepts(natp, player->cnum, REJ_TELE)) {
+	    if (!nat_accepts(to, player->cnum, REJ_TELE)) {
 		pr("%s is rejecting your telegrams.\n", cname(to));
 		return RET_SYN;
 	    }

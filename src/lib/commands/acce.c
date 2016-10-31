@@ -34,7 +34,7 @@
 
 #include "commands.h"
 
-static void pr_accept(struct natstr *, natid);
+static void pr_accept(natid, natid);
 
 /*
  * report rejection status
@@ -69,15 +69,15 @@ acce(void)
 	if (np->nat_stat == STAT_UNUSED)
 	    continue;
 	pr("%3d) %-14.14s ", cn, cname(cn));
-	pr_accept(natp, cn);
-	pr_accept(np, as);
+	pr_accept(as, cn);
+	pr_accept(cn, as);
 	pr("\n");
     }
     return RET_OK;
 }
 
 static void
-pr_accept(struct natstr *to, natid from)
+pr_accept(natid to, natid from)
 {
     static char *yes_no[] = { "YES", " NO" };
 

@@ -44,7 +44,6 @@ void
 setrel(natid us, natid them, int rel)
 {
     struct natstr *mynp = getnatp(us);
-    struct natstr *themnp = getnatp(them);
     int oldrel;
     char *whichway;
     int n_up = 0;
@@ -55,7 +54,7 @@ setrel(natid us, natid them, int rel)
 	rel = AT_WAR;
     if (CANT_HAPPEN(rel > ALLIED))
 	rel = ALLIED;
-    if (CANT_HAPPEN(!mynp || !themnp))
+    if (CANT_HAPPEN(!mynp))
 	return;
     if (us == them)
 	return;
@@ -88,7 +87,7 @@ setrel(natid us, natid them, int rel)
 	pr("%s\n", addendum);
     mpr(us, "Diplomatic relations with %s %s to \"%s\".\n",
 	cname(them), whichway, relates[rel]);
-    if (nat_accepts(themnp, us, REJ_TELE))
+    if (nat_accepts(them, us, REJ_TELE))
 	mpr(them,
 	    "Country %s has %s their relations with you to \"%s\"!\n",
 	    prnat(mynp), whichway, relates[rel]);

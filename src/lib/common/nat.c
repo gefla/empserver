@@ -90,10 +90,10 @@ relations_with(natid us, natid them)
 }
 
 int
-nat_accepts(struct natstr *np, natid them, enum rej_comm what)
+nat_accepts(natid us, natid them, enum rej_comm what)
 {
     return getnatp(them)->nat_stat == STAT_GOD
-	|| !(getrejectp(np->nat_cnum)->rej_rejects[them] & bit(what));
+	|| !(getrejectp(us)->rej_rejects[them] & bit(what));
 }
 
 void
