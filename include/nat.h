@@ -161,6 +161,16 @@ enum rej_comm {
     REJ_LOAN			/* don't allow loans to be offered */
 };
 
+struct rejectstr {
+    /* initial part must match struct empobj */
+    signed ef_type: 8;
+    unsigned rej_seqno: 12;
+    unsigned rej_generation: 12;
+    int rej_uid;
+    time_t rej_timestamp;
+    /* end of part matching struct empobj */
+};
+
 extern char *relates[];
 
 /* procedures relating to nation stuff */
@@ -171,6 +181,10 @@ extern char *relates[];
 #define getcontact(n, p) ef_read(EF_CONTACT, (n), (p))
 #define putcontact(p) ef_write(EF_CONTACT, (p)->con_uid, (p))
 #define getcontactp(n) ((struct contactstr *)ef_ptr(EF_CONTACT, (n)))
+
+#define getreject(n, p) ef_read(EF_REJECT, (n), (p))
+#define putreject(p) ef_write(EF_REJECT, (p)->rej_uid, (p))
+#define getrejectp(n) ((struct rejectstr *)ef_ptr(EF_REJECT, (n)))
 
 #define getrealm(r, n, p) ef_read(EF_REALM, ((r) + ((n) * MAXNOR)), (p))
 #define putrealm(p) ef_write(EF_REALM, (p)->r_uid, (p))

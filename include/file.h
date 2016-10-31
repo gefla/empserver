@@ -156,6 +156,7 @@ enum {
     EF_POWER,
     EF_NATION,
     EF_CONTACT,
+    EF_REJECT,
     EF_LOAN,
     EF_MAP,
     EF_BMAP,

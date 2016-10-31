@@ -74,6 +74,7 @@ empobj_in_use(int type, void *p)
     case EF_COUNTRY:
 	return ((struct natstr *)p)->nat_stat != STAT_UNUSED;
     case EF_CONTACT:
+    case EF_REJECT:
 	return empobj_in_use(EF_NATION,
 			     ef_ptr(EF_NATION,
 				    ((struct ef_typedstr *)p)->uid));

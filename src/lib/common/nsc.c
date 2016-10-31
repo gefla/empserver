@@ -659,6 +659,15 @@ struct castr contact_ca[] = {
 #undef CURSTR
 };
 
+struct castr reject_ca[] = {
+#define CURSTR struct rejectstr
+    {"uid", fldoff(rej_uid), NSC_INT, 0, NULL, EF_REJECT, 0, CA_DUMP},
+    {"timestamp", fldoff(rej_timestamp), NSC_TIME, 0, NULL,
+     EF_BAD, 0, CA_DUMP_NONE},
+    {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0, CA_DUMP}
+#undef CURSTR
+};
+
 struct castr realm_ca[] = {
 #define CURSTR struct realmstr
     /* uid is encoded in cnum, realm */
