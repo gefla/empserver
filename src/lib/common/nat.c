@@ -116,12 +116,6 @@ in_contact(natid us, natid them)
     return getcontactp(us)->con_contact[them];
 }
 
-void
-putrel(struct natstr *np, natid them, int relate)
-{
-    np->nat_relate[them] = relate;
-}
-
 int
 influx(struct natstr *np)
 {

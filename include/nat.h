@@ -201,7 +201,6 @@ extern int getrel(struct natstr *np, natid them);
 extern int relations_with(natid, natid);
 extern int nat_accepts(natid, natid, enum rej_comm);
 extern int in_contact(natid, natid);
-extern void putrel(struct natstr *np, natid them, int relate);
 extern void agecontact(struct natstr *np);
 extern int influx(struct natstr *np);
 extern struct natstr *nat_reset(struct natstr *, natid, char *, char *,

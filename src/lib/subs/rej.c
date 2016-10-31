@@ -92,7 +92,7 @@ setrel(natid us, natid them, int rel)
 	    "Country %s has %s their relations with you to \"%s\"!\n",
 	    prnat(mynp), whichway, relates[rel]);
 
-    putrel(mynp, them, rel);
+    mynp->nat_relate[them] = rel;
     putnat(mynp);
 
     if (!player->god) {
