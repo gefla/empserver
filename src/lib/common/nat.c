@@ -125,37 +125,37 @@ influx(struct natstr *np)
 }
 
 /*
- * Initialize @natp for country #@cnum in status @stat.
+ * Initialize country #@cnum in status @stat.
  * @stat must be STAT_UNUSED, STAT_NEW, STAT_VIS or STAT_GOD.
  * Also wipe realms and telegrams.
  */
-struct natstr *
-nat_reset(struct natstr *natp, natid cnum, char *name, char *rep,
-	  enum nat_status stat)
+void
+nat_reset(natid cnum, char *name, char *rep, enum nat_status stat)
 {
+    struct natstr nat;
     struct realmstr newrealm;
     char buf[1024];
     int i;
 
-    ef_blank(EF_NATION, cnum, natp);
-    natp->nat_stat = stat;
-    strncpy(natp->nat_cnam, name, sizeof(natp->nat_cnam) - 1);
-    strncpy(natp->nat_pnam, rep, sizeof(natp->nat_pnam) - 1);
+    ef_blank(EF_NATION, cnum, &nat);
+    nat.nat_stat = stat;
+    strncpy(nat.nat_cnam, name, sizeof(nat.nat_cnam) - 1);
+    strncpy(nat.nat_pnam, rep, sizeof(nat.nat_pnam) - 1);
     if (stat == STAT_GOD)
-	natp->nat_money = 123456789;
+	nat.nat_money = 123456789;
     for (i = 0; i < MAXNOR; i++) {
 	ef_blank(EF_REALM, i + cnum * MAXNOR, &newrealm);
 	putrealm(&newrealm);
     }
     mailbox_create(mailbox(buf, cnum));
-    /* FIXME natp->nat_ann = #annos */
-    natp->nat_level[NAT_HLEV] = start_happiness;
-    natp->nat_level[NAT_RLEV] = start_research;
-    natp->nat_level[NAT_TLEV] = start_technology;
-    natp->nat_level[NAT_ELEV] = start_education;
+    /* FIXME nat.nat_ann = #annos */
+    nat.nat_level[NAT_HLEV] = start_happiness;
+    nat.nat_level[NAT_RLEV] = start_research;
+    nat.nat_level[NAT_TLEV] = start_technology;
+    nat.nat_level[NAT_ELEV] = start_education;
     for (i = 0; i < MAXNOC; i++)
-	natp->nat_relate[i] = NEUTRAL;
-    natp->nat_flags =
+	nat.nat_relate[i] = NEUTRAL;
+    nat.nat_flags =
 	NF_FLASH | NF_BEEP | NF_COASTWATCH | NF_SONAR | NF_TECHLISTS;
-    return natp;
+    putnat(&nat);
 }

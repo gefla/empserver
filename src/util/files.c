@@ -30,7 +30,7 @@
  *     Thomas Ruschak
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -60,7 +60,6 @@ int
 main(int argc, char *argv[])
 {
     char buf[255];
-    struct natstr nat;
     int i;
     int opt;
     char *config_file = NULL;
@@ -135,9 +134,8 @@ main(int argc, char *argv[])
     if (mailbox_create(annfil) < 0)
 	exit(1);
 
-    nat_reset(&nat, 0, "POGO", "peter", STAT_GOD);
-    putnat(&nat);
-    printf("All praise to %s!\n", nat.nat_cnam);
+    nat_reset(0, "POGO", "peter", STAT_GOD);
+    printf("All praise to POGO!\n");
 
     for (i = 0; i < EF_MAX; i++) {
 	if (!EF_IS_GAME_STATE(i))

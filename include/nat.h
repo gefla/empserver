@@ -206,8 +206,7 @@ extern int nat_accepts(natid, natid, enum rej_comm);
 extern int in_contact(natid, natid);
 extern void agecontact(struct natstr *np);
 extern int influx(struct natstr *np);
-extern struct natstr *nat_reset(struct natstr *, natid, char *, char *,
-				enum nat_status);
+extern void nat_reset(natid, char *, char *, enum nat_status);
 
 /* src/lib/subs/natsub.c */
 extern int check_nat_name(char *, natid);

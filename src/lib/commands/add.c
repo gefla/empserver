@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2016
  */
 
 #include <config.h>
@@ -117,7 +117,7 @@ add(void)
 	pr("%s is logged in!\n", prnat(natp));
 	return RET_FAIL;
     }
-    nat_reset(natp, natp->nat_cnum, cntryname, pname, stat);
-    putnat(natp);
-    return 0;
+
+    nat_reset(natp->nat_cnum, cntryname, pname, stat);
+    return RET_OK;
 }
