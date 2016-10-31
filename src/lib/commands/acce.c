@@ -81,9 +81,10 @@ pr_accept(struct natstr *to, natid from)
 {
     static char *yes_no[] = { "YES", " NO" };
     int rej = getrejects(from, to);
+    int from_deity = getnatp(from)->nat_stat == STAT_GOD;
 
     pr("   %s  %s  %s",
-       yes_no[(rej & REJ_TELE) != 0],
-       yes_no[(rej & REJ_ANNO) != 0],
-       yes_no[(rej & REJ_LOAN) != 0]);
+       yes_no[!from_deity && (rej & REJ_TELE)],
+       yes_no[!from_deity && (rej & REJ_ANNO)],
+       yes_no[!from_deity && (rej & REJ_LOAN)]);
 }
