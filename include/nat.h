@@ -177,8 +177,6 @@ struct rejectstr {
     unsigned char rej_rejects[MAXNOC];
 };
 
-extern char *relates[];
-
 /* procedures relating to nation stuff */
 
 #define putnat(p) ef_write(EF_NATION, (p)->nat_cnum, (p))
@@ -205,6 +203,7 @@ extern char *relatename(struct natstr *np, natid other);
 extern char *natstate(struct natstr *np);
 extern enum relations getrel(struct natstr *np, natid them);
 extern enum relations relations_with(natid, natid);
+extern char *relations_string(enum relations);
 extern int nat_accepts(natid, natid, enum rej_comm);
 extern int in_contact(natid, natid);
 extern void agecontact(struct natstr *np);

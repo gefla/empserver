@@ -86,11 +86,11 @@ setrel(natid us, natid them, enum relations rel)
     if (addendum && us == player->cnum && !update_running)
 	pr("%s\n", addendum);
     mpr(us, "Diplomatic relations with %s %s to \"%s\".\n",
-	cname(them), whichway, relates[rel]);
+	cname(them), whichway, relations_string(rel));
     if (nat_accepts(them, us, REJ_TELE))
 	mpr(them,
 	    "Country %s has %s their relations with you to \"%s\"!\n",
-	    prnat(mynp), whichway, relates[rel]);
+	    prnat(mynp), whichway, relations_string(rel));
 
     mynp->nat_relate[them] = rel;
     putnat(mynp);

@@ -41,11 +41,6 @@
 #include "sect.h"
 #include "tel.h"
 
-char *relates[] = {
-    /* must match enum relations */
-    "At War", "Hostile", "Neutral", "Friendly", "Allied"
-};
-
 char *
 cname(natid n)
 {
@@ -59,7 +54,7 @@ cname(natid n)
 char *
 relatename(struct natstr *np, natid other)
 {
-    return relates[getrel(np, other)];
+    return relations_string(getrel(np, other));
 }
 
 char *
@@ -87,6 +82,17 @@ enum relations
 relations_with(natid us, natid them)
 {
     return us == them ? ALLIED : getrel(getnatp(us), them);
+}
+
+char *
+relations_string(enum relations rel)
+{
+    static char *relates[] = {
+	/* must match enum relations */
+	"At War", "Hostile", "Neutral", "Friendly", "Allied"
+    };
+
+    return relates[rel];
 }
 
 int
