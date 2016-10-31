@@ -638,8 +638,6 @@ struct castr cou_ca[] = {
      EF_BAD, 0, CA_DUMP},
     {"relations", fldoff(nat_relate), NSC_UCHAR, MAXNOC, NULL,
      EF_NATION_RELATIONS, NSC_HIDDEN, CA_DUMP_NONE},
-    {"rejects", fldoff(nat_rejects), NSC_UCHAR, MAXNOC, NULL,
-     EF_NATION_REJECTS, NSC_BITS, CA_DUMP_NONE},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0, CA_DUMP}
 #undef CURSTR
 };
@@ -664,6 +662,8 @@ struct castr reject_ca[] = {
     {"uid", fldoff(rej_uid), NSC_INT, 0, NULL, EF_REJECT, 0, CA_DUMP},
     {"timestamp", fldoff(rej_timestamp), NSC_TIME, 0, NULL,
      EF_BAD, 0, CA_DUMP_NONE},
+    {"rejects", fldoff(rej_rejects), NSC_UCHAR, MAXNOC, NULL,
+     EF_NATION_REJECTS, NSC_BITS, CA_DUMP},
     {NULL, 0, NSC_NOTYPE, 0, NULL, EF_BAD, 0, CA_DUMP}
 #undef CURSTR
 };

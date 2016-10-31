@@ -93,7 +93,7 @@ int
 nat_accepts(struct natstr *np, natid them, enum rej_comm what)
 {
     return getnatp(them)->nat_stat == STAT_GOD
-	|| !(np->nat_rejects[them] & bit(what));
+	|| !(getrejectp(np->nat_cnum)->rej_rejects[them] & bit(what));
 }
 
 void

@@ -877,8 +877,7 @@
     Play#0 output Play#0 1 "education" 2 1 0 -1
     Play#0 output Play#0 1 "happiness" 2 1 0 -1
     Play#0 output Play#0 1 "relations" 1 16 99 39
-    Play#0 output Play#0 1 "rejects" 1 8 99 38
-    Play#0 output Play#0 1 /29
+    Play#0 output Play#0 1 /28
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 9
     Play#0 command xdump
@@ -891,7 +890,8 @@
     Play#0 command xdump
     Play#0 output Play#0 1 XDUMP meta reject 0
     Play#0 output Play#0 1 "uid" 1 0 0 10
-    Play#0 output Play#0 1 /1
+    Play#0 output Play#0 1 "rejects" 1 8 99 38
+    Play#0 output Play#0 1 /2
     Play#0 output Play#0 6 0 640
     Play#0 input xdump meta 11
     Play#0 command xdump
@@ -2231,8 +2231,7 @@
     Play#1 output Play#1 1 "stat" 1 0 0 40
     Play#1 output Play#1 1 "cname" 3 0 0 -1
     Play#1 output Play#1 1 "relations" 1 16 99 39
-    Play#1 output Play#1 1 "rejects" 1 8 99 38
-    Play#1 output Play#1 1 /5
+    Play#1 output Play#1 1 /4
     Play#1 output Play#1 6 0 0
     Play#1 input xdump meta cou
     Play#1 command xdump

@@ -134,13 +134,13 @@ setcont(natid us, natid them, int contact)
 void
 setrej(natid us, natid them, int reject, enum rej_comm what)
 {
-    struct natstr *np = getnatp(us);
+    struct rejectstr *rejp = getrejectp(us);
 
-    if (CANT_HAPPEN(!np))
+    if (CANT_HAPPEN(!rejp))
 	return;
     if (reject)
-	np->nat_rejects[them] |= bit(what);
+	rejp->rej_rejects[them] |= bit(what);
     else
-	np->nat_rejects[them] &= ~bit(what);
-    putnat(np);
+	rejp->rej_rejects[them] &= ~bit(what);
+    putreject(rejp);
 }

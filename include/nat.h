@@ -112,7 +112,6 @@ struct natstr {
     time_t nat_annotim;		/* date annos last read */
     float nat_level[4];		/* technology, etc */
     unsigned char nat_relate[MAXNOC];
-    unsigned char nat_rejects[MAXNOC];
 };
 
 	/* nation relation codes */
@@ -169,6 +168,7 @@ struct rejectstr {
     int rej_uid;
     time_t rej_timestamp;
     /* end of part matching struct empobj */
+    unsigned char rej_rejects[MAXNOC];
 };
 
 extern char *relates[];
