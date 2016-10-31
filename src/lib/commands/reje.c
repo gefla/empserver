@@ -27,7 +27,7 @@
  *  reje.c: Refuse telegrams/annos/loans from countries
  *
  *  Known contributors to this file:
- *
+ *     Markus Armbruster, 2006-2016
  */
 
 #include <config.h>
@@ -37,8 +37,9 @@
 int
 reje(void)
 {
+    static char *what[] = { "teles", "annos", "loans" };
     char *p;
-    enum rej_comm rel;
+    enum rej_comm rej;
     int do_undo;
     struct natstr nat;
     struct nstr_item ni;
@@ -63,13 +64,13 @@ reje(void)
 	return RET_SYN;
     switch (*p) {
     case 'a':
-	rel = REJ_ANNO;
+	rej = REJ_ANNO;
 	break;
     case 'l':
-	rel = REJ_LOAN;
+	rej = REJ_LOAN;
 	break;
     case 'm':
-	rel = REJ_TELE;
+	rej = REJ_TELE;
 	break;
     default:
 	pr("That's not one of the choices!\n");
@@ -86,21 +87,10 @@ reje(void)
 	}
 	if (nat.nat_stat == STAT_UNUSED)
 	    continue;
-	switch (rel) {
-	case REJ_ANNO:
-	    pr("%s annos from %s\n",
-	       (do_undo == 1 ? "Rejecting" : "Accepting"), nat.nat_cnam);
-	    break;
-	case REJ_LOAN:
-	    pr("%s loans from %s\n",
-	       (do_undo == 1 ? "Rejecting" : "Accepting"), nat.nat_cnam);
-	    break;
-	case REJ_TELE:
-	    pr("%s teles from %s\n",
-	       (do_undo == 1 ? "Rejecting" : "Accepting"), nat.nat_cnam);
-	    break;
-	}
-	setrej(player->cnum, (natid)ni.cur, do_undo, rel);
+	pr("%s %s from %s\n",
+	   (do_undo == 1 ? "Rejecting" : "Accepting"),
+	   what[rej], nat.nat_cnam);
+	setrej(player->cnum, (natid)ni.cur, do_undo, rej);
     }
     return RET_OK;
 }
