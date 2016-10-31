@@ -38,7 +38,7 @@ int
 reje(void)
 {
     char *p;
-    int rel;
+    enum rej_comm rel;
     int do_undo;
     struct natstr nat;
     struct nstr_item ni;

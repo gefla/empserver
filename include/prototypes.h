@@ -563,9 +563,7 @@ extern int delty(struct range *, coord);
 extern void radmap(int, int, int, double, int, double);
 extern void rad_map_set(natid, int, int, int, double, int);
 /* rej.c */
-extern void setrel(natid, natid, int);
-extern void setcont(natid, natid, int);
-extern void setrej(natid, natid, int, int);
+/* in nat.h */
 /* retreat.c */
 /* in retreat.h */
 /* sarg.c */

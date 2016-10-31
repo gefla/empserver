@@ -122,11 +122,6 @@ struct natstr {
 #define FRIENDLY	3
 #define ALLIED		4
 
-	/* nation reject codes */
-#define REJ_TELE	bit(0)	/* dont allow telegrams to be sent */
-#define REJ_ANNO	bit(1)	/* don't receive announcements */
-#define REJ_LOAN	bit(2)	/* don't allow loans to be offered */
-
 #define NAT_TLEV	0
 #define NAT_RLEV	1
 #define NAT_ELEV	2
@@ -159,6 +154,13 @@ struct contactstr {
     unsigned char con_contact[MAXNOC];
 };
 
+/* Kinds of communication players can reject */
+enum rej_comm {
+    REJ_TELE,			/* dont allow telegrams to be sent */
+    REJ_ANNO,			/* don't receive announcements */
+    REJ_LOAN			/* don't allow loans to be offered */
+};
+
 extern char *relates[];
 
 /* procedures relating to nation stuff */
@@ -173,15 +175,17 @@ extern char *relates[];
 #define getrealm(r, n, p) ef_read(EF_REALM, ((r) + ((n) * MAXNOR)), (p))
 #define putrealm(p) ef_write(EF_REALM, (p)->r_uid, (p))
 
+/* src/lib/common/tfact.c */
 extern double tfact(natid cn, double mult);
 extern double techfact(int level, double mult);
 
+/* src/lib/common/nat.c */
 extern char *cname(natid n);
 extern char *relatename(struct natstr *np, natid other);
 extern char *natstate(struct natstr *np);
 extern int getrel(struct natstr *np, natid them);
 extern int relations_with(natid, natid);
-extern int nat_accepts(struct natstr *, natid, int);
+extern int nat_accepts(struct natstr *, natid, enum rej_comm);
 extern int in_contact(natid, natid);
 extern void putrel(struct natstr *np, natid them, int relate);
 extern void agecontact(struct natstr *np);
@@ -189,11 +193,18 @@ extern int influx(struct natstr *np);
 extern struct natstr *nat_reset(struct natstr *, natid, char *, char *,
 				enum nat_status);
 
+/* src/lib/subs/natsub.c */
 extern int check_nat_name(char *, natid);
 extern char *prnat(struct natstr *);
 extern char *prnatid(natid);
 
+/* src/lib/common/btu.c */
 extern int grant_btus(struct natstr *, int);
+
+/* src/lib/subs/rej.c */
+extern void setrel(natid, natid, int);
+extern void setcont(natid, natid, int);
+extern void setrej(natid, natid, int, enum rej_comm);
 
 /* nation flags */
 #define NF_INFORM	bit(0)	/* Inform me of telegrams right away */

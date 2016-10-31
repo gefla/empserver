@@ -115,9 +115,9 @@ struct symbol nation_flags[] = {
 };
 
 struct symbol nation_rejects[] = {
-    {REJ_TELE, "telegrams"},
-    {REJ_ANNO, "announcements"},
-    {REJ_LOAN, "loans"},
+    {bit(REJ_TELE), "telegrams"},
+    {bit(REJ_ANNO), "announcements"},
+    {bit(REJ_LOAN), "loans"},
     {0, NULL}
 };
 
