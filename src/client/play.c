@@ -451,6 +451,32 @@ input_handler(char *line)
 	add_history(line);
 #endif /* HAVE_READLINE_HISTORY */
 }
+
+static int
+ring_from_rl(struct ring *inbuf)
+{
+    size_t len;
+    int n;
+
+    assert(has_rl_input && input_from_rl);
+
+    len = strlen(input_from_rl);
+    n = ring_space(inbuf);
+    assert(n);
+
+    if (len >= (size_t)n) {
+	ring_putm(inbuf, input_from_rl, n);
+	memmove(input_from_rl, input_from_rl + n, len - n + 1);
+    } else {
+	ring_putm(inbuf, input_from_rl, len);
+	ring_putc(inbuf, '\n');
+	free(input_from_rl);
+	has_rl_input = 0;
+	n = len + 1;
+    }
+
+    return n;
+}
 #endif /* HAVE_LIBREADLINE */
 
 /*
@@ -462,28 +488,15 @@ recv_input(int fd, struct ring *inbuf)
 {
     int n;
     int res = 1;
-#ifdef HAVE_LIBREADLINE
-    size_t len;
 
+#ifdef HAVE_LIBREADLINE
     if (fd == 0) {
 	if (!has_rl_input)
 	    rl_callback_read_char();
 	if (!has_rl_input)
 	    return 1;
 	if (input_from_rl) {
-	    len = strlen(input_from_rl);
-	    n = ring_space(inbuf);
-	    assert(n);
-	    if (len >= (size_t)n) {
-		ring_putm(inbuf, input_from_rl, n);
-		memmove(input_from_rl, input_from_rl + n, len - n + 1);
-	    } else {
-		ring_putm(inbuf, input_from_rl, len);
-		ring_putc(inbuf, '\n');
-		free(input_from_rl);
-		has_rl_input = 0;
-		n = len + 1;
-	    }
+	    n = ring_from_rl(inbuf);
 	} else
 	    n = 0;
     } else
@@ -523,6 +536,11 @@ send_input(int fd, struct ring *inbuf)
 	if (auxfp)
 	    putc(ch, auxfp);
     }
+
+#ifdef HAVE_LIBREADLINE
+    if (fd == 0 && has_rl_input && input_from_rl)
+	ring_from_rl(inbuf);
+#endif
 
     return res;
 }
