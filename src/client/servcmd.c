@@ -30,7 +30,7 @@
  *     Dave Pare, 1989
  *     Steve McClure, 1998
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2015
+ *     Markus Armbruster, 2005-2017
  */
 
 #include <config.h>
@@ -59,7 +59,7 @@ static void doredir(char *p);
 static void dopipe(char *p);
 static int doexecute(char *p);
 
-void
+int
 servercmd(int code, char *arg, int len)
 {
     static int nmin, nbtu, fd;
@@ -90,15 +90,9 @@ servercmd(int code, char *arg, int len)
 	break;
     case C_EXECUTE:
 	fd = doexecute(arg);
-	if (fd < 0) {
-	    if (input_fd)
-		close(input_fd);
-	} else {
-	    assert(!input_fd);
+	if (fd >= 0)
 	    executing = 1;
-	}
-	input_fd = fd;
-	break;
+	return fd;
     case C_EXIT:
 	printf("Exit: %s", arg);
 	if (auxfp)
@@ -129,6 +123,8 @@ servercmd(int code, char *arg, int len)
 	assert(0);
 	break;
     }
+
+    return 0;
 }
 
 static void

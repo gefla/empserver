@@ -27,7 +27,7 @@
  *  play.c: Playing the game
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2016
+ *     Markus Armbruster, 2007-2017
  *     Ron Koenderink, 2007-2009
  */
 
@@ -50,6 +50,19 @@
 #include "proto.h"
 #include "ringbuf.h"
 #include "secure.h"
+
+#define EOF_COOKIE "ctld\n"
+#define INTR_COOKIE "aborted\n"
+
+/*
+ * Player input file descriptor
+ * 0 while reading interactive input
+ * >0 while reading a batch file
+ * <0 during error handling
+ */
+static int input_fd;
+
+static volatile sig_atomic_t send_intr; /* need to send INTR_COOKIE */
 
 #ifdef _WIN32
 static CRITICAL_SECTION signal_critical_section;
@@ -301,19 +314,6 @@ w32_ring_from_file_or_bounce_buf(struct ring *r, int fd)
 #define sysdep_stdin_init() ((void)0)
 #endif
 
-#define EOF_COOKIE "ctld\n"
-#define INTR_COOKIE "aborted\n"
-
-/*
- * Player input file descriptor
- * 0 while reading interactive input
- * >0 while reading a batch file
- * <0 during error handling
- */
-int input_fd;
-
-static volatile sig_atomic_t send_intr; /* need to send INTR_COOKIE */
-
 /*
  * Receive and process server output from @sock.
  * Return number of characters received on success, -1 on error.
@@ -341,7 +341,7 @@ recv_output(int sock)
     static struct lbuf lbuf;
     char buf[4096];
     ssize_t n;
-    int i, ch, len;
+    int i, ch, len, fd;
     char *line;
 
     n = read(sock, buf, sizeof(buf));
@@ -387,7 +387,18 @@ recv_output(int sock)
 	    len = lbuf_putc(&lbuf, ch);
 	    if (len) {
 		line = lbuf_line(&lbuf);
-		servercmd(id, line, len);
+		fd = servercmd(id, line, len);
+		if (fd < 0) {
+		    /* failed execute */
+		    if (input_fd)
+			close(input_fd);
+		    input_fd = 0;
+		    send_intr = 1;
+		} else if (fd > 0) {
+		    /* successful execute, switch to batch file */
+		    assert(!input_fd);
+		    input_fd = fd;
+		}
 		lbuf_init(&lbuf);
 		state = SCANNING_ID;
 	    }
@@ -567,11 +578,6 @@ play(int sock)
 	    }
 	    if (n == 0)
 		return 0;
-	    if (input_fd < 0) {
-		/* execute failed */
-		send_intr = 1;
-		input_fd = 0;
-	    }
 	}
     }
 }
