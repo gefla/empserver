@@ -27,7 +27,7 @@
  *  secure.c: Check redir etc. to protect against tampering deity
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2015
+ *     Markus Armbruster, 2007-2017
  */
 
 #include <config.h>
@@ -42,18 +42,14 @@
 static struct ring recent_input;
 
 /*
- * Remember line of input @inp for a while.
- * It must end with a newline.
+ * Remember input @inp for a while.
  */
 void
-save_input(char *inp)
+save_input(char inp)
 {
-    size_t len = strlen(inp);
     int eol;
 
-    assert(len && inp[len - 1] == '\n');
-
-    while (ring_putm(&recent_input, inp, len) < 0) {
+    while (ring_putc(&recent_input, inp) < 0) {
 	eol = ring_search(&recent_input, "\n", 0);
 	assert(eol >= 0);
 	ring_discard(&recent_input, eol + 1);

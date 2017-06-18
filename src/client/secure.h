@@ -27,7 +27,7 @@
  *  secure.h: Check redir etc. to protect against tampering deity
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2009
+ *     Markus Armbruster, 2007-2017
  */
 
 #ifndef SECURE_H
@@ -35,7 +35,7 @@
 
 #include <stddef.h>
 
-extern void save_input(char *);
+extern void save_input(char);
 extern int seen_input(char *);
 extern int seen_exec_input(char *);
 

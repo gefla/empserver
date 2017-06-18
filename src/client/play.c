@@ -404,21 +404,13 @@ recv_output(int sock)
 static int
 recv_input(int fd, struct ring *inbuf)
 {
-    static struct lbuf cmdbuf;
     int n, i, ch;
-    char *line;
     int res = 1;
 
     n = ring_from_file(inbuf, fd);
     if (n < 0)
 	return -1;
     if (n == 0) {
-	/* EOF on input */
-	if (lbuf_len(&cmdbuf)) {
-	    /* incomplete line */
-	    ring_putc(inbuf, '\n');
-	    n++;
-	}
 	/*
 	 * Can't put EOF cookie into INBUF here, it may not fit.
 	 * Leave it to caller.
@@ -430,11 +422,8 @@ recv_input(int fd, struct ring *inbuf)
     for (i = -n; i < 0; i++) {
 	ch = ring_peek(inbuf, i);
 	assert(ch != EOF);
-	if (ch != '\r' && lbuf_putc(&cmdbuf, ch) > 0) {
-	    line = lbuf_line(&cmdbuf);
-	    save_input(line);
-	    lbuf_init(&cmdbuf);
-	}
+	if (ch != '\r')
+	    save_input(ch);
 	if (auxfp)
 	    putc(ch, auxfp);
     }
