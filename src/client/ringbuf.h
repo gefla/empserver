@@ -63,6 +63,5 @@ extern void ring_discard(struct ring *, int);
 extern int ring_search(struct ring *, char *, int);
 extern int ring_from_file(struct ring *, int fd);
 extern int ring_to_iovec(struct ring *, struct iovec[]);
-extern int ring_to_file(struct ring *, int fd);
 
 #endif

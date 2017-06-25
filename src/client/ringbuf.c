@@ -240,24 +240,3 @@ ring_to_iovec(struct ring *r, struct iovec iov[])
     iov[1].iov_len = prod;
     return 2;
 }
-
-/*
- * Drain ring buffer to file referred by file descriptor @fd.
- * If ring buffer is already empty, do nothing and return 0.
- * Else attempt to write complete contents with writev(), and return
- * its value.
- */
-int
-ring_to_file(struct ring *r, int fd)
-{
-    struct iovec iov[2];
-    int cnt;
-    ssize_t res;
-
-    cnt = ring_to_iovec(r, iov);
-    res = writev(fd, iov, cnt);
-    if (res < 0)
-	return res;
-    ring_discard(r, res);
-    return res;
-}
