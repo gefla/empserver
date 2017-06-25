@@ -27,7 +27,7 @@
  *  ringbuf.c: Simple ring buffer
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2015
+ *     Markus Armbruster, 2007-2017
  */
 
 #include <config.h>
@@ -215,19 +215,15 @@ ring_from_file(struct ring *r, int fd)
 }
 
 /*
- * Drain ring buffer to file referred by file descriptor @fd.
- * If ring buffer is already empty, do nothing and return 0.
- * Else attempt to write complete contents with writev(), and return
- * its value.
+ * Set up @iov[] to describe complete contents of ring buffer.
+ * @iov[] must have at least two elements.
+ * Return number of elements used (zero for an empty ring buffer).
  */
-int
-ring_to_file(struct ring *r, int fd)
+static int
+ring_to_iovec(struct ring *r, struct iovec iov[])
 {
     unsigned cons = r->cons % RING_SIZE;
     unsigned prod = r->prod % RING_SIZE;
-    struct iovec iov[2];
-    int cnt;
-    ssize_t res;
 
     if (r->cons == r->prod)
 	return 0;
@@ -239,15 +235,31 @@ ring_to_file(struct ring *r, int fd)
 	/* r->buf[..prod-1] */
 	iov[1].iov_base = r->buf;
 	iov[1].iov_len = prod;
-	cnt = 2;
+	return 2;
     } else {
 	/* r->buf[cons..prod-1] */
 	iov[0].iov_len = prod - cons;
-	cnt = 1;
+	return 1;
     }
+}
+
+/*
+ * Drain ring buffer to file referred by file descriptor @fd.
+ * If ring buffer is already empty, do nothing and return 0.
+ * Else attempt to write complete contents with writev(), and return
+ * its value.
+ */
+int
+ring_to_file(struct ring *r, int fd)
+{
+    struct iovec iov[2];
+    int cnt;
+    ssize_t res;
+
+    cnt = ring_to_iovec(r, iov);
     res = writev(fd, iov, cnt);
     if (res < 0)
 	return res;
-    r->cons += res;
+    ring_discard(r, res);
     return res;
 }
