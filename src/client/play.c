@@ -448,6 +448,21 @@ recv_input(int fd, struct ring *inbuf)
     return res;
 }
 
+static int
+send_input(int fd, struct ring *inbuf)
+{
+    struct iovec iov[2];
+    int cnt;
+    ssize_t res;
+
+    cnt = ring_to_iovec(inbuf, iov);
+    res = writev(fd, iov, cnt);
+    if (res < 0)
+	return res;
+    ring_discard(inbuf, res);
+    return res;
+}
+
 static void
 intr(int sig)
 {
@@ -562,7 +577,7 @@ play(int sock)
 
 	/* send it to the server */
 	if (FD_ISSET(sock, &wrfd)) {
-	    n = ring_to_file(&inbuf, sock);
+	    n = send_input(sock, &inbuf);
 	    if (n < 0) {
 		perror("write socket");
 		return -1;

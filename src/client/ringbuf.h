@@ -27,13 +27,14 @@
  *  ringbuf.h: Simple ring buffer
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2015
+ *     Markus Armbruster, 2007-2017
  */
 
 #ifndef RINGBUF_H
 #define RINGBUF_H
 
 #include <stddef.h>
+#include <sys/uio.h>
 
 #define RING_SIZE 4096
 
@@ -61,6 +62,7 @@ extern int ring_putm(struct ring *, void *, size_t);
 extern void ring_discard(struct ring *, int);
 extern int ring_search(struct ring *, char *, int);
 extern int ring_from_file(struct ring *, int fd);
+extern int ring_to_iovec(struct ring *, struct iovec[]);
 extern int ring_to_file(struct ring *, int fd);
 
 #endif

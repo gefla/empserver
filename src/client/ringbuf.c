@@ -35,7 +35,6 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/uio.h>
 #include "ringbuf.h"
 
 /*
@@ -219,7 +218,7 @@ ring_from_file(struct ring *r, int fd)
  * @iov[] must have at least two elements.
  * Return number of elements used (zero for an empty ring buffer).
  */
-static int
+int
 ring_to_iovec(struct ring *r, struct iovec iov[])
 {
     unsigned cons = r->cons % RING_SIZE;
