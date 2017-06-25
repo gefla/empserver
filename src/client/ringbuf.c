@@ -229,18 +229,17 @@ ring_to_iovec(struct ring *r, struct iovec iov[])
 	return 0;
 
     iov[0].iov_base = r->buf + cons;
-    if (prod <= cons) {
-	/* r->buf[cons..] */
-	iov[0].iov_len = RING_SIZE - cons;
-	/* r->buf[..prod-1] */
-	iov[1].iov_base = r->buf;
-	iov[1].iov_len = prod;
-	return 2;
-    } else {
+    if (prod > cons) {
 	/* r->buf[cons..prod-1] */
 	iov[0].iov_len = prod - cons;
 	return 1;
     }
+    /* r->buf[cons..] */
+    iov[0].iov_len = RING_SIZE - cons;
+    /* r->buf[..prod-1] */
+    iov[1].iov_base = r->buf;
+    iov[1].iov_len = prod;
+    return 2;
 }
 
 /*
