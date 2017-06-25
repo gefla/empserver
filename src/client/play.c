@@ -421,7 +421,7 @@ recv_output(int sock)
 static int
 recv_input(int fd, struct ring *inbuf)
 {
-    int n, i, ch;
+    int n;
     int res = 1;
 
     n = ring_from_file(inbuf, fd);
@@ -435,16 +435,6 @@ recv_input(int fd, struct ring *inbuf)
 	res = 0;
     }
 
-    /* copy input to AUXFP etc. */
-    for (i = -n; i < 0; i++) {
-	ch = ring_peek(inbuf, i);
-	assert(ch != EOF);
-	if (ch != '\r')
-	    save_input(ch);
-	if (auxfp)
-	    putc(ch, auxfp);
-    }
-
     return res;
 }
 
@@ -452,14 +442,24 @@ static int
 send_input(int fd, struct ring *inbuf)
 {
     struct iovec iov[2];
-    int cnt;
+    int cnt, i, ch;
     ssize_t res;
 
     cnt = ring_to_iovec(inbuf, iov);
     res = writev(fd, iov, cnt);
     if (res < 0)
 	return res;
-    ring_discard(inbuf, res);
+
+    /* Copy input to @auxfp etc. */
+    for (i = 0; i < res; i++) {
+	ch = ring_getc(inbuf);
+	assert(ch != EOF);
+	if (ch != '\r')
+	    save_input(ch);
+	if (auxfp)
+	    putc(ch, auxfp);
+    }
+
     return res;
 }
 
