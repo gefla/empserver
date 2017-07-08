@@ -60,6 +60,7 @@ if test "$Windows_API" = yes; then
 	AC_LIBOBJ([w32/w32io])
 	AC_LIBOBJ([w32/w32sockets])
 fi
+MY_WITH_READLINE
 
 
 ### Checks for header files.
@@ -97,6 +98,7 @@ AC_OUTPUT
 
 AC_MSG_NOTICE([])
 AC_MSG_NOTICE([-= Configuration summary =-])
+AC_MSG_NOTICE([      readline: $with_readline])
 AC_MSG_NOTICE([      terminfo: $with_terminfo])
 AC_MSG_NOTICE([    EMPIREHOST: $EMPIREHOST])
 AC_MSG_NOTICE([    EMPIREPORT: $EMPIREPORT])

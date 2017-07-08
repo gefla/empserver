@@ -27,7 +27,7 @@
  *  ringbuf.c: Simple ring buffer
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2009
+ *     Markus Armbruster, 2007-2017
  */
 
 #include <config.h>
@@ -35,7 +35,6 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/uio.h>
 #include "ringbuf.h"
 
 /*
@@ -82,9 +81,17 @@ ring_peek(struct ring *r, int n)
 
     assert(-RING_SIZE - 1 <= n && n <= RING_SIZE);
 
-    idx = n >= 0 ? r->cons + n : r->prod - -n;
-    if (idx < r->cons && idx >= r->prod)
-	return EOF;
+    if (n >= 0) {
+	idx = r->cons + n;
+	if (idx >= r->prod)
+	    return EOF;
+    } else {
+	/* Beware, r->prod - -n can wrap around, avoid that */
+	if (r->prod < r->cons + -n)
+	    return EOF;
+	idx = r->prod - -n;
+    }
+
     return r->buf[idx % RING_SIZE];
 }
 
@@ -149,16 +156,17 @@ ring_discard(struct ring *r, int n)
 
 /*
  * Search the ring buffer for zero-terminated string S.
- * If found, return a non-negative value referring to the beginning of
- * S in the buffer when passed to ring_peek().  Else return -1.
+ * Start at the @(n+1)-th byte to be gotten.
+ * If found, return the number of bytes in the buffer before S.
+ * Else return -1.
  */
 int
-ring_search(struct ring *r, char *s)
+ring_search(struct ring *r, char *s, int n)
 {
     size_t len = strlen(s);
     size_t i, j;
 
-    for (i = r->cons; i + len <= r->prod; i++) {
+    for (i = r->cons + n; i + len <= r->prod; i++) {
 	for (j = 0; s[j] && s[j] == (char)r->buf[(i + j) % RING_SIZE]; j++)
 	    ;
 	if (!s[j])
@@ -206,39 +214,29 @@ ring_from_file(struct ring *r, int fd)
 }
 
 /*
- * Drain ring buffer to file referred by file descriptor @fd.
- * If ring buffer is already empty, do nothing and return 0.
- * Else attempt to write complete contents with writev(), and return
- * its value.
+ * Set up @iov[] to describe complete contents of ring buffer.
+ * @iov[] must have at least two elements.
+ * Return number of elements used (zero for an empty ring buffer).
  */
 int
-ring_to_file(struct ring *r, int fd)
+ring_to_iovec(struct ring *r, struct iovec iov[])
 {
     unsigned cons = r->cons % RING_SIZE;
     unsigned prod = r->prod % RING_SIZE;
-    struct iovec iov[2];
-    int cnt;
-    ssize_t res;
 
     if (r->cons == r->prod)
 	return 0;
 
     iov[0].iov_base = r->buf + cons;
-    if (prod <= cons) {
-	/* r->buf[cons..] */
-	iov[0].iov_len = RING_SIZE - cons;
-	/* r->buf[..prod-1] */
-	iov[1].iov_base = r->buf;
-	iov[1].iov_len = prod;
-	cnt = 2;
-    } else {
+    if (prod > cons) {
 	/* r->buf[cons..prod-1] */
 	iov[0].iov_len = prod - cons;
-	cnt = 1;
+	return 1;
     }
-    res = writev(fd, iov, cnt);
-    if (res < 0)
-	return res;
-    r->cons += res;
-    return res;
+    /* r->buf[cons..] */
+    iov[0].iov_len = RING_SIZE - cons;
+    /* r->buf[..prod-1] */
+    iov[1].iov_base = r->buf;
+    iov[1].iov_len = prod;
+    return 2;
 }

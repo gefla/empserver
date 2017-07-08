@@ -27,8 +27,9 @@
  *  play.c: Playing the game
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2010
+ *     Markus Armbruster, 2007-2017
  *     Ron Koenderink, 2007-2009
+ *     Martin Haukeli, 2015
  */
 
 #include <config.h>
@@ -50,6 +51,24 @@
 #include "proto.h"
 #include "ringbuf.h"
 #include "secure.h"
+
+#ifdef HAVE_LIBREADLINE
+#include <readline/readline.h>
+#include <readline/history.h>
+#endif
+
+#define EOF_COOKIE "ctld\n"
+#define INTR_COOKIE "aborted\n"
+
+/*
+ * Player input file descriptor
+ * 0 while reading interactive input
+ * >0 while reading a batch file
+ * <0 during error handling
+ */
+static int input_fd;
+
+static volatile sig_atomic_t send_intr; /* need to send INTR_COOKIE */
 
 #ifdef _WIN32
 static CRITICAL_SECTION signal_critical_section;
@@ -301,13 +320,6 @@ w32_ring_from_file_or_bounce_buf(struct ring *r, int fd)
 #define sysdep_stdin_init() ((void)0)
 #endif
 
-#define EOF_COOKIE "ctld\n"
-#define INTR_COOKIE "aborted\n"
-
-int input_fd;
-int send_eof;				/* need to send EOF_COOKIE */
-static volatile sig_atomic_t send_intr; /* need to send INTR_COOKIE */
-
 /*
  * Receive and process server output from @sock.
  * Return number of characters received on success, -1 on error.
@@ -335,7 +347,7 @@ recv_output(int sock)
     static struct lbuf lbuf;
     char buf[4096];
     ssize_t n;
-    int i, ch, len;
+    int i, ch, len, fd;
     char *line;
 
     n = read(sock, buf, sizeof(buf));
@@ -381,7 +393,18 @@ recv_output(int sock)
 	    len = lbuf_putc(&lbuf, ch);
 	    if (len) {
 		line = lbuf_line(&lbuf);
-		servercmd(id, line, len);
+		fd = servercmd(id, line, len);
+		if (fd < 0) {
+		    /* failed execute */
+		    if (input_fd)
+			close(input_fd);
+		    input_fd = 0;
+		    send_intr = 1;
+		} else if (fd > 0) {
+		    /* successful execute, switch to batch file */
+		    assert(!input_fd);
+		    input_fd = fd;
+		}
 		lbuf_init(&lbuf);
 		state = SCANNING_ID;
 	    }
@@ -397,28 +420,73 @@ recv_output(int sock)
     return n;
 }
 
+#ifdef HAVE_LIBREADLINE
+static int use_readline;
+static char *input_from_rl;
+static int has_rl_input;
+
+static void
+input_handler(char *line)
+{
+    input_from_rl = line;
+    has_rl_input = 1;
+    if (line && *line)
+	add_history(line);
+}
+
+static int
+ring_from_rl(struct ring *inbuf)
+{
+    size_t len;
+    int n;
+
+    assert(has_rl_input && input_from_rl);
+
+    len = strlen(input_from_rl);
+    n = ring_space(inbuf);
+    assert(n);
+
+    if (len >= (size_t)n) {
+	ring_putm(inbuf, input_from_rl, n);
+	memmove(input_from_rl, input_from_rl + n, len - n + 1);
+    } else {
+	ring_putm(inbuf, input_from_rl, len);
+	ring_putc(inbuf, '\n');
+	free(input_from_rl);
+	has_rl_input = 0;
+	n = len + 1;
+    }
+
+    return n;
+}
+#endif /* HAVE_LIBREADLINE */
+
 /*
- * Receive command input from @fd into @inbuf.
+ * Receive player input from @fd into @inbuf.
  * Return 1 on receipt of input, zero on EOF, -1 on error.
  */
 static int
 recv_input(int fd, struct ring *inbuf)
 {
-    static struct lbuf cmdbuf;
-    int n, i, ch;
-    char *line;
+    int n;
     int res = 1;
 
-    n = ring_from_file(inbuf, fd);
+#ifdef HAVE_LIBREADLINE
+    if (fd == 0 && use_readline) {
+	if (!has_rl_input)
+	    rl_callback_read_char();
+	if (!has_rl_input)
+	    return 1;
+	if (input_from_rl) {
+	    n = ring_from_rl(inbuf);
+	} else
+	    n = 0;
+    } else
+#endif
+	n = ring_from_file(inbuf, fd);
     if (n < 0)
 	return -1;
     if (n == 0) {
-	/* EOF on input */
-	if (lbuf_len(&cmdbuf)) {
-	    /* incomplete line */
-	    ring_putc(inbuf, '\n');
-	    n++;
-	}
 	/*
 	 * Can't put EOF cookie into INBUF here, it may not fit.
 	 * Leave it to caller.
@@ -426,18 +494,35 @@ recv_input(int fd, struct ring *inbuf)
 	res = 0;
     }
 
-    /* copy input to AUXFP etc. */
-    for (i = -n; i < 0; i++) {
-	ch = ring_peek(inbuf, i);
+    return res;
+}
+
+static int
+send_input(int fd, struct ring *inbuf)
+{
+    struct iovec iov[2];
+    int cnt, i, ch;
+    ssize_t res;
+
+    cnt = ring_to_iovec(inbuf, iov);
+    res = writev(fd, iov, cnt);
+    if (res < 0)
+	return res;
+
+    /* Copy input to @auxfp etc. */
+    for (i = 0; i < res; i++) {
+	ch = ring_getc(inbuf);
 	assert(ch != EOF);
-	if (ch != '\r' && lbuf_putc(&cmdbuf, ch) > 0) {
-	    line = lbuf_line(&cmdbuf);
-	    save_input(line);
-	    lbuf_init(&cmdbuf);
-	}
+	if (ch != '\r')
+	    save_input(ch);
 	if (auxfp)
 	    putc(ch, auxfp);
     }
+
+#ifdef HAVE_LIBREADLINE
+    if (fd == 0 && use_readline && has_rl_input && input_from_rl)
+	ring_from_rl(inbuf);
+#endif
 
     return res;
 }
@@ -450,11 +535,12 @@ intr(int sig)
 
 /*
  * Play on @sock.
+ * @history_file is the name of the history file, or null.
  * The session must be in the playing phase.
  * Return 0 when the session ended, -1 on error.
  */
 int
-play(int sock)
+play(int sock, char *history_file)
 {
     /*
      * Player input flows from INPUT_FD through recv_input() into ring
@@ -466,8 +552,10 @@ play(int sock)
     struct ring inbuf;		/* input buffer, draining to SOCK */
     int eof_fd0;		/* read fd 0 hit EOF? */
     int partial_line_sent;	/* partial input line sent? */
+    int send_eof;		/* need to send EOF_COOKIE */
     fd_set rdfd, wrfd;
     int n;
+    int ret = -1;
 
     sa.sa_flags = 0;
     sigemptyset(&sa.sa_mask);
@@ -475,6 +563,17 @@ play(int sock)
     sigaction(SIGINT, &sa, NULL);
     sa.sa_handler = SIG_IGN;
     sigaction(SIGPIPE, &sa, NULL);
+#ifdef HAVE_LIBREADLINE
+    if (isatty(0)) {
+	use_readline = 1;
+	rl_already_prompted = 1;
+	rl_readline_name = "Empire";
+	if (history_file)
+	    read_history(history_file);
+	rl_bind_key('\t', rl_insert);  /* Disable tab completion */
+	rl_callback_handler_install("", input_handler);
+    }
+#endif /* HAVE_LIBREADLINE */
 
     ring_init(&inbuf);
     eof_fd0 = partial_line_sent = send_eof = send_intr = 0;
@@ -487,10 +586,11 @@ play(int sock)
 
 	/*
 	 * Want to read player input only when we don't need to send
-	 * cookies, and INPUT_FD is still open, and INBUF can accept
+	 * cookies, haven't reached EOF on fd 0, and @inbuf can accept
 	 * some.
 	 */
-	if (!send_intr && !send_eof && input_fd >= 0 && ring_space(&inbuf))
+	if (!send_intr && !send_eof && (input_fd || !eof_fd0)
+	    && ring_space(&inbuf))
 	    FD_SET(input_fd, &rdfd);
 	/* Want to send player input only when we have something */
 	if (send_intr || send_eof || ring_len(&inbuf))
@@ -502,7 +602,7 @@ play(int sock)
 	if (n < 0) {
 	    if (errno != EINTR) {
 		perror("select");
-		return -1;
+		break;
 	    }
 	}
 
@@ -511,51 +611,52 @@ play(int sock)
 	    partial_line_sent = 0;
 	if (send_eof && !partial_line_sent
 	    && ring_putm(&inbuf, EOF_COOKIE, sizeof(EOF_COOKIE) - 1) >= 0)
-	    send_eof--;
+	    send_eof = 0;
 	if (send_intr && !partial_line_sent
 	    && ring_putm(&inbuf, INTR_COOKIE, sizeof(INTR_COOKIE) - 1) >= 0) {
 	    send_intr = 0;
 	    if (input_fd) {
 		/* execute aborted, switch back to fd 0 */
 		close(input_fd);
-		input_fd = eof_fd0 ? -1 : 0;
+		input_fd = 0;
 	    }
 	}
-
 	if (n < 0)
 	    continue;
 
 	/* read player input */
-	if (input_fd >= 0 && FD_ISSET(input_fd, &rdfd)) {
+	if (FD_ISSET(input_fd, &rdfd) && ring_space(&inbuf)) {
 	    n = recv_input(input_fd, &inbuf);
-	    if (n < 0) {
-		perror("read stdin"); /* FIXME stdin misleading, could be execing */
-		n = 0;
-	    }
-	    if (n == 0) {
-		/* EOF on input */
-		send_eof++;
+	    if (n <= 0) {
 		if (input_fd) {
 		    /* execute done, switch back to fd 0 */
+		    if (n < 0) {
+			perror("read batch file");
+			send_intr = 1;
+		    } else
+			send_eof = 1;
 		    close(input_fd);
-		    input_fd = eof_fd0 ? -1 : 0;
+		    input_fd = 0;
 		} else {
 		    /* stop reading input, drain socket ring buffers */
+		    if (n < 0)
+			perror("read stdin");
+		    send_eof = 1;
 		    eof_fd0 = 1;
-		    input_fd = -1;
 		    sa.sa_handler = SIG_DFL;
 		    sigaction(SIGINT, &sa, NULL);
+		    send_intr = 0;
 		}
-	    } else
+	    } else if (ring_len(&inbuf) > 0)
 		partial_line_sent = ring_peek(&inbuf, -1) != '\n';
 	}
 
 	/* send it to the server */
 	if (FD_ISSET(sock, &wrfd)) {
-	    n = ring_to_file(&inbuf, sock);
+	    n = send_input(sock, &inbuf);
 	    if (n < 0) {
 		perror("write socket");
-		return -1;
+		break;
 	    }
 	}
 
@@ -564,10 +665,43 @@ play(int sock)
 	    n = recv_output(sock);
 	    if (n < 0) {
 		perror("read socket");
-		return -1;
+		break;
 	    }
-	    if (n == 0)
-		return 0;
+	    if (n == 0) {
+		ret = 0;
+		break;
+	    }
 	}
+    }
+
+#ifdef HAVE_LIBREADLINE
+    if (use_readline) {
+	rl_callback_handler_remove();
+	if (history_file)
+	    write_history(history_file);
+    }
+#endif
+    return ret;
+}
+
+void
+prompt(int code, char *prompt, char *teles)
+{
+    char pr[1024];
+
+    snprintf(pr, sizeof(pr), "%s%s", teles, prompt);
+#ifdef HAVE_LIBREADLINE
+    if (use_readline) {
+	rl_set_prompt(pr);
+	rl_forced_update_display();
+    } else
+#endif /* HAVE_LIBREADLINE */
+    {
+	printf("%s", pr);
+	fflush(stdout);
+    }
+    if (auxfp) {
+	fprintf(auxfp, "%s%s", teles, prompt);
+	fflush(auxfp);
     }
 }

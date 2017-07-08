@@ -28,6 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2004-2017
  */
 
 #ifndef MISC_H
@@ -41,8 +42,6 @@
 extern char empirehost[];
 extern char empireport[];
 extern int eight_bit_clean;
-extern int input_fd;
-extern int send_eof;
 extern FILE *auxfp;
 extern int restricted;
 
@@ -61,9 +60,10 @@ int parseid(char *);
 int expect(int s, int match, char *buf);
 int tcp_connect(char *, char *);
 int login(int s, char *uname, char *cname, char *cpass, int kill_proc, int);
-int play(int);
+int play(int, char *);
+void prompt(int, char *, char *);
 void sendcmd(int s, char *cmd, char *arg);
-void servercmd(int, char *, int);
+int servercmd(int, char *, int);
 void outch(char);
 
 #ifdef _MSC_VER

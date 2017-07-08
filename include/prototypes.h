@@ -285,8 +285,7 @@ extern int demandupdatecheck(void);
 /* disassoc.c */
 extern int disassoc(void);
 /* fnameat.c */
-extern char *fnameat(const char *, const char *);
-extern FILE *fopenat(const char *, const char *, const char *);
+/* in fnameat.h */
 /* fsize.c */
 extern int fsize(int);
 extern int blksize(int);

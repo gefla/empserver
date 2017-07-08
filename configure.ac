@@ -79,6 +79,7 @@ LIBS_util="$LIBS"
 LIBS="$LIBS_SOCKETS $LIBS"
 AX_LIB_SOCKET_NSL
 LIBS_server="$LIBS"
+MY_WITH_READLINE
 
 
 ### Checks for header files
@@ -240,6 +241,7 @@ AC_OUTPUT
 AC_MSG_NOTICE([])
 AC_MSG_NOTICE([-= Configuration summary =-])
 AC_MSG_NOTICE([Thread package: $empthread])
+AC_MSG_NOTICE([      readline: $with_readline])
 AC_MSG_NOTICE([      terminfo: $with_terminfo])
 AC_MSG_NOTICE([    EMPIREHOST: $EMPIREHOST])
 AC_MSG_NOTICE([    EMPIREPORT: $EMPIREPORT])

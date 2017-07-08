@@ -1,6 +1,6 @@
 /*
  *  Empire - A multi-player, client/server Internet based war game.
- *  Copyright (C) 1986-2016, Dave Pare, Jeff Bailey, Thomas Ruschak,
+ *  Copyright (C) 1986-2015, Dave Pare, Jeff Bailey, Thomas Ruschak,
  *                Ken Stevens, Steve McClure, Markus Armbruster
  *
  *  Empire is free software: you can redistribute it and/or modify
@@ -24,19 +24,18 @@
  *
  *  ---
  *
- *  secure.h: Check redir etc. to protect against tampering deity
+ *  fnameat.h: Interpret file names relative to a directory
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2007-2017
+ *     Markus Armbruster, 2015
  */
 
-#ifndef SECURE_H
-#define SECURE_H
+#ifndef FNAMEAT_H
+#define FNAMEAT_H
 
-#include <stddef.h>
+#include <stdio.h>
 
-extern void save_input(char);
-extern int seen_input(char *);
-extern int seen_exec_input(char *);
+extern char *fnameat(const char *, const char *);
+extern FILE *fopenat(const char *, const char *, const char *);
 
 #endif

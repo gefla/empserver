@@ -35,6 +35,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include "file.h"
+#include "fnameat.h"
 #include "optlist.h"
 #include "prototypes.h"
 #include "xdump.h"

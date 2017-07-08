@@ -30,8 +30,9 @@
  *     Dave Pare, 1986
  *     Steve McClure, 1998
  *     Ron Koenderink, 2004-2007
- *     Markus Armbruster, 2005-2010
+ *     Markus Armbruster, 2005-2015
  *     Tom Dickson-Hunt, 2010
+ *     Martin Haukeli, 2015
  */
 
 #include <config.h>
@@ -40,11 +41,13 @@
 #include <string.h>
 #ifdef _WIN32
 #include <windows.h>
+#include <shlobj.h>
 #include "sys/socket.h"
 #else
 #include <pwd.h>
 #endif
 #include <unistd.h>
+#include "fnameat.h"
 #include "misc.h"
 #include "version.h"
 
@@ -55,6 +58,7 @@
 
 struct passwd {
     char *pw_name;
+    char *pw_dir;
 };
 
 static struct passwd *w32_getpw(void);
@@ -72,6 +76,10 @@ print_usage(char *program_name)
 	   "  -r              Restricted mode, no redirections\n"
 	   "  -s [HOST:]PORT  Specify server HOST and PORT\n"
 	   "  -u              Use UTF-8\n"
+#ifdef HAVE_LIBREADLINE
+	   "  -H FILE         Load and save command history from FILE\n"
+	   "                  (default ~/.empire_history with -r, none without -r)\n"
+#endif /* HAVE_LIBREADLINE */
 	   "  -h              display this help and exit\n"
 	   "  -v              display version information and exit\n",
 	   program_name);
@@ -82,6 +90,7 @@ main(int argc, char **argv)
 {
     int opt;
     char *auxfname = NULL;
+    char *history_file = NULL;
     int send_kill = 0;
     char *host = NULL;
     char *port = NULL;
@@ -90,14 +99,20 @@ main(int argc, char **argv)
     char *country;
     char *passwd;
     char *uname;
+    char *udir;
     char *colon;
     int sock;
 
-    while ((opt = getopt(argc, argv, "2:krs:uhv")) != EOF) {
+    while ((opt = getopt(argc, argv, "2:H:krs:uhv")) != EOF) {
 	switch (opt) {
 	case '2':
 	    auxfname = optarg;
 	    break;
+#ifdef HAVE_LIBREADLINE
+	case 'H':
+	    history_file = optarg;
+	    break;
+#endif /* HAVE_LIBREADLINE */
 	case 'k':
 	    send_kill = 1;
 	    break;
@@ -146,7 +161,8 @@ main(int argc, char **argv)
     if (!host)
 	host = empirehost;
     uname = getenv("LOGNAME");
-    if (uname == NULL) {
+    udir = getenv("HOME");
+    if (!uname || !udir) {
 	struct passwd *pwd;
 
 	pwd = getpwuid(getuid());
@@ -154,7 +170,10 @@ main(int argc, char **argv)
 	    fprintf(stderr, "You don't exist.  Go away\n");
 	    exit(1);
 	}
-	uname = pwd->pw_name;
+	if (!uname)
+	    uname = pwd->pw_name;
+	if (!udir)
+	    udir = pwd->pw_dir;
     }
     if (*ap) {
 	fprintf(stderr, "%s: extra operand %s\n", argv[0], *ap);
@@ -172,10 +191,15 @@ main(int argc, char **argv)
 
     sock = tcp_connect(host, port);
 
+    if (!restricted && !history_file)
+	history_file = ".empire_history";
+    if (history_file)
+	history_file = fnameat(history_file, udir);
+
     if (!login(sock, uname, country, passwd, send_kill, utf8))
 	exit(1);
 
-    if (play(sock) < 0)
+    if (play(sock, history_file) < 0)
 	exit(1);
 
     return 0;
@@ -183,12 +207,13 @@ main(int argc, char **argv)
 
 #ifdef _WIN32
 /*
- * Get Windows user name
+ * Get Windows user name and directory
  */
 static struct passwd *
 w32_getpw(void)
 {
     static char unamebuf[128];
+    static char udirbuf[MAX_PATH];
     static struct passwd pwd;
     DWORD unamesize;
 
@@ -199,6 +224,9 @@ w32_getpw(void)
 	    pwd.pw_name = "nobody";
     } else
 	pwd.pw_name = "nobody";
+    if (SUCCEEDED(SHGetFolderPathA(NULL, CSIDL_PROFILE, NULL, 0, udirbuf))
+	&& strlen(udirbuf) == 0)
+	pwd.pw_dir = udirbuf;
     return &pwd;
 }
 

@@ -5,6 +5,7 @@ empire \- Empire client
 .B empire
 [\fB\-hkruv\fP]
 [\fB\-2\fP \fIoutfile\fP]
+[\fB\-H\fP \fIhistfile\fP]
 [\fB\-s\fP \fI[host:]port\fP]
 [\fIcountry\fP
 [\fIpassword\fP]]
@@ -24,11 +25,21 @@ the thin veneer of civilization that hides the maniac within.
 .B \-h
 Help.  Print brief usage information and exit.
 .TP
+.BI \-H " histfile"
+Load command history from \fIhistfile\fP, and save it back.  Default
+is '~/.empire_history' without \fB\-r\fP, and none with \fB-r\fP.  You
+might want to protect your history file from prying eyes.
+.IP
+Only available when compiled the GNU \fBreadline\fP library.
+.TP
 .B \-k
 If someone else is connected to your country, kill their connection.
 .TP
 .B \-r
-Restricted mode: disable redirections and execute command.
+Restricted mode: disable redirections and execute command.  This is
+useful when you want to grant somebody access to just Empire, but not
+to the host system's user account that runs the client.  Be careful
+with \fB\-H\fP and \fB\-2\fP then.
 .TP
 .BI \-s " [host:]port"
 Specify server \fIhost\fR and \fIport\fR.
@@ -74,8 +85,21 @@ representative.
 .TP
 .I LOGNAME
 Your user name.
+.TP
+.I INPUTRC
+The filename for the \fBreadline\fP startup file, overriding the
+default of \fI~/.inputrc\fP (see \fBREADLINE\fP below).
+.SH READLINE
+When compiled with the GNU \fBreadline\fP library, the client supports
+fancy line editing and persistent history.  Its application name for
+application-specific settings is \fBEmpire\fP.  See the readline
+documentation for details.
 .SH "SEE ALSO"
-\fIemp_server\fR(6).
+\fIemp_server\fR(6), \fIreadline\fR(3).
+.SH FILES
+.TP
+.I ~/.inputrc
+Individual \fBreadline\fP initialization file
 .SH AUTHORS
 .nf
 Primary Author is Dave Pare <mr-frog@scam.berkeley.edu>
@@ -85,6 +109,7 @@ Jeff Anton <anton@postgres.berkeley.edu>
 Markus Armbruster <armbru@pond.sub.org>
 Phill Everson <everson@compsci.bristol.ac.uk>
 Steven Grimm <koreth@ucscb.UCSC.EDU>
+Martin Haukeli <martin.haukeli@gmail.com>
 Lewis R. Jansen <lrj@helios.tn.cornell.edu>
 Mike St. Johns <stjohns@edn-vax.arpa>
 Ron Koenderink <rkoenderink@yahoo.ca>

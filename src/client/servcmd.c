@@ -30,7 +30,7 @@
  *     Dave Pare, 1989
  *     Steve McClure, 1998
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2005-2010
+ *     Markus Armbruster, 2005-2017
  */
 
 #include <config.h>
@@ -41,6 +41,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include "misc.h"
 #include "proto.h"
 #include "secure.h"
@@ -52,14 +53,12 @@ int restricted;
 static FILE *redir_fp;
 static int redir_is_pipe;
 static int executing;
-static size_t input_to_forget;
 
-static void prompt(int, char *, char *);
 static void doredir(char *p);
 static void dopipe(char *p);
 static int doexecute(char *p);
 
-void
+int
 servercmd(int code, char *arg, int len)
 {
     static int nmin, nbtu, fd;
@@ -69,7 +68,8 @@ servercmd(int code, char *arg, int len)
     switch (code) {
     case C_PROMPT:
 	if (sscanf(arg, "%d %d", &nmin, &nbtu) != 2) {
-	    fprintf(stderr, "prompt: bad server prompt %s\n", arg);
+	    fprintf(stderr, "Warning: server sent malformed prompt %s",
+		    arg);
 	}
 	snprintf(the_prompt, sizeof(the_prompt), "[%d:%d] Command : ",
 		 nmin, nbtu);
@@ -80,10 +80,7 @@ servercmd(int code, char *arg, int len)
 		(void)fclose(redir_fp);
 	    redir_fp = NULL;
 	}
-	if (input_to_forget) {
-	    forget_input(input_to_forget);
-	    input_to_forget = 0;
-	}
+	outch('\n');
 	prompt(code, the_prompt, teles);
 	executing = 0;
 	break;
@@ -93,13 +90,9 @@ servercmd(int code, char *arg, int len)
 	break;
     case C_EXECUTE:
 	fd = doexecute(arg);
-	if (fd < 0)
-	    send_eof++;
-	else {
-	    input_fd = fd;
+	if (fd >= 0)
 	    executing = 1;
-	}
-	break;
+	return fd;
     case C_EXIT:
 	printf("Exit: %s", arg);
 	if (auxfp)
@@ -114,6 +107,7 @@ servercmd(int code, char *arg, int len)
 	if (arg[0] != '\n') {
 	    snprintf(teles, sizeof(teles), "(%.*s) ", len - 1, arg);
 	    if (!redir_fp) {
+		outch('\n');
 		putchar('\07');
 		prompt(code, the_prompt, teles);
 	    }
@@ -130,20 +124,8 @@ servercmd(int code, char *arg, int len)
 	assert(0);
 	break;
     }
-}
 
-static void
-prompt(int code, char *prompt, char *teles)
-{
-    char *nl;
-
-    nl = code == C_PROMPT || code == C_INFORM ? "\n" : "";
-    printf("%s%s%s", nl, teles, prompt);
-    fflush(stdout);
-    if (auxfp) {
-	fprintf(auxfp, "%s%s%s", nl, teles, prompt);
-	fflush(auxfp);
-    }
+    return 0;
 }
 
 static char *
@@ -158,10 +140,8 @@ fname(char *s)
 }
 
 static int
-redir_authorized(char *arg, char *attempt, int expected)
+common_authorized(char *arg, char *attempt)
 {
-    size_t seen = seen_input(arg);
-
     if (restricted) {
 	fprintf(stderr, "Can't %s in restricted mode\n", attempt);
 	return 0;
@@ -171,20 +151,37 @@ redir_authorized(char *arg, char *attempt, int expected)
 	fprintf(stderr, "Can't %s in a batch file\n", attempt);
 	return 0;
     }
+    return 1;
+}
 
-    if (!expected) {
-	fprintf(stderr, "WARNING!  Server attempted to %s unexpectedly\n",
-		attempt);
-	return 0;
-    }
-
-    if (!seen || (input_to_forget && input_to_forget != seen)) {
-	fprintf(stderr, "WARNING!  Server attempted to %s %s\n",
+static int
+redir_authorized(char *arg, char *attempt)
+{
+    if (redir_fp) {
+	fprintf(stderr, "Warning: dropped conflicting %s %s",
 		attempt, arg);
 	return 0;
     }
-    input_to_forget = seen;
-    return 1;
+
+    if (!seen_input(arg)) {
+	fprintf(stderr, "Warning: server attempted to %s %s",
+		attempt, arg);
+	return 0;
+    }
+
+    return common_authorized(arg, attempt);
+}
+
+static int
+exec_authorized(char *arg)
+{
+    if (!seen_exec_input(arg)) {
+	fprintf(stderr,
+		"Warning: server attempted to execute batch file %s", arg);
+	return 0;
+    }
+
+    return common_authorized(arg, "execute batch file");
 }
 
 static void
@@ -193,10 +190,10 @@ doredir(char *p)
     int mode;
     int fd;
 
-    if (!redir_authorized(p, "redirect to file", !redir_fp))
+    if (!redir_authorized(p, "redirect to file"))
 	return;
     if (*p++ != '>') {
-	fprintf(stderr, "WARNING!  Weird redirection %s", p);
+	fprintf(stderr, "Warning: dropped weird redirection %s", p);
 	return;
     }
 
@@ -228,10 +225,10 @@ doredir(char *p)
 static void
 dopipe(char *p)
 {
-    if (!redir_authorized(p, "pipe to shell command", !redir_fp))
+    if (!redir_authorized(p, "pipe to shell command"))
 	return;
     if (*p++ != '|') {
-	fprintf(stderr, "WARNING!  Weird pipe %s", p);
+	fprintf(stderr, "Warning: dropped weird pipe %s", p);
 	return;
     }
 
@@ -241,10 +238,14 @@ dopipe(char *p)
 	return;
     }
 
+    /* strip newline */
+    p[strlen(p) - 1] = 0;
+
     redir_is_pipe = 1;
+    errno = 0;
     if ((redir_fp = popen(p, "w")) == NULL) {
-	fprintf(stderr, "Can't redirect to pipe %s: %s\n",
-		p, strerror(errno));
+	fprintf(stderr, "Can't redirect to pipe %s%s%s\n",
+		p, errno ? ": " : "", errno ? strerror(errno) : "");
     }
 }
 
@@ -253,7 +254,7 @@ doexecute(char *p)
 {
     int fd;
 
-    if (!redir_authorized(p, "execute batch file", 1))
+    if (!exec_authorized(p))
 	return -1;
 
     p = fname(p);
@@ -263,7 +264,7 @@ doexecute(char *p)
     }
 
     if ((fd = open(p, O_RDONLY)) < 0) {
-	fprintf(stderr, "Can't open execute file %s: %s\n",
+	fprintf(stderr, "Can't open batch file %s: %s\n",
 		p, strerror(errno));
 	return -1;
     }
