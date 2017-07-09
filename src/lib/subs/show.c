@@ -31,7 +31,7 @@
  *     Jeff Bailey, 1990
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005-2009
- *     Markus Armbruster, 2006-2016
+ *     Markus Armbruster, 2006-2017
  */
 
 #include <config.h>
@@ -632,8 +632,8 @@ fmttime2822(time_t t)
     time_offset = -(tzi.Bias +
 	(time->tm_isdst ? tzi.DaylightBias : tzi.StandardBias));
 
-    nn = _snprintf(buf + n, sizeof(buf) - n, " %+03d%02d",
-		   time_offset / 60, abs(time_offset) % 60);
+    nn = _snprintf(buf + n, sizeof(buf) - n, " %+03ld%02ld",
+		   time_offset / 60, labs(time_offset) % 60);
     if (CANT_HAPPEN(nn <= 0 || nn + n >= sizeof(buf)))
 	buf[0] = 0;
 #else
