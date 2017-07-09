@@ -421,6 +421,7 @@ recv_output(int sock)
 }
 
 #ifdef HAVE_LIBREADLINE
+static int use_readline;
 static char *input_from_rl;
 static int has_rl_input;
 
@@ -471,7 +472,7 @@ recv_input(int fd, struct ring *inbuf)
     int res = 1;
 
 #ifdef HAVE_LIBREADLINE
-    if (fd == 0) {
+    if (fd == 0 && use_readline) {
 	if (!has_rl_input)
 	    rl_callback_read_char();
 	if (!has_rl_input)
@@ -519,7 +520,7 @@ send_input(int fd, struct ring *inbuf)
     }
 
 #ifdef HAVE_LIBREADLINE
-    if (fd == 0 && has_rl_input && input_from_rl)
+    if (fd == 0 && use_readline && has_rl_input && input_from_rl)
 	ring_from_rl(inbuf);
 #endif
 
@@ -563,11 +564,14 @@ play(int sock, char *history_file)
     sa.sa_handler = SIG_IGN;
     sigaction(SIGPIPE, &sa, NULL);
 #ifdef HAVE_LIBREADLINE
-    rl_already_prompted = 1;
-    if (history_file)
-	read_history(history_file);
-    rl_bind_key('\t', rl_insert);  /* Disable tab completion */
-    rl_callback_handler_install("", input_handler);
+    if (isatty(0)) {
+	use_readline = 1;
+	rl_already_prompted = 1;
+	if (history_file)
+	    read_history(history_file);
+	rl_bind_key('\t', rl_insert);  /* Disable tab completion */
+	rl_callback_handler_install("", input_handler);
+    }
 #endif /* HAVE_LIBREADLINE */
 
     ring_init(&inbuf);
@@ -670,9 +674,11 @@ play(int sock, char *history_file)
     }
 
 #ifdef HAVE_LIBREADLINE
-    rl_callback_handler_remove();
-    if (history_file)
-	write_history(history_file);
+    if (use_readline) {
+	rl_callback_handler_remove();
+	if (history_file)
+	    write_history(history_file);
+    }
 #endif
     return ret;
 }
@@ -684,12 +690,15 @@ prompt(int code, char *prompt, char *teles)
 
     snprintf(pr, sizeof(pr), "%s%s", teles, prompt);
 #ifdef HAVE_LIBREADLINE
-    rl_set_prompt(pr);
-    rl_forced_update_display();
-#else  /* !HAVE_LIBREADLINE */
-    printf("%s", pr);
-    fflush(stdout);
-#endif /* !HAVE_LIBREADLINE */
+    if (use_readline) {
+	rl_set_prompt(pr);
+	rl_forced_update_display();
+    } else
+#endif /* HAVE_LIBREADLINE */
+    {
+	printf("%s", pr);
+	fflush(stdout);
+    }
     if (auxfp) {
 	fprintf(auxfp, "%s%s", teles, prompt);
 	fflush(auxfp);
