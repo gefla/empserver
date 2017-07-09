@@ -27,7 +27,7 @@
 #   Make.mk: The real Makefile, included by GNUmakefile
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2016
+#      Markus Armbruster, 2005-2017
 #
 
 # This makefile was inspired by `Recursive Make Considered Harmful',
@@ -168,6 +168,7 @@ endif
 src_distgen := $(acdist) $(mk)
 # Distributed by dist-client from $(srcdir)/src/client; removed by distclean:
 cli_distgen := $(acdistcli)
+distclean += $(addprefix $(srcdir)/, $(cli_distgen))
 
 # Compiler flags
 CPPFLAGS += -I$(srcdir)/include -I.
@@ -193,7 +194,7 @@ clean:
 
 .PHONY: distclean
 distclean: clean
-	$(call quiet-command,rm -rf $(distclean) $(cli_distgen),DISTCLEAN)
+	$(call quiet-command,rm -rf $(distclean),DISTCLEAN)
 
 .PHONY: install
 install: all installdirs
