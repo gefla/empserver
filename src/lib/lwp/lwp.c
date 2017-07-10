@@ -28,7 +28,7 @@
  *  lwp.c: lightweight process creation, destruction and manipulation
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2017
  */
 
 #include <config.h>
@@ -69,7 +69,7 @@ lwpReschedule(void)
     static struct lwpProc *nextp;
     static int i;
 
-    if (LwpCurrent && (LwpCurrent->flags & LWP_STACKCHECK)) {
+    if (LwpCurrent->flags & LWP_STACKCHECK) {
 	lwpStackCheck(LwpCurrent);
     }
 
