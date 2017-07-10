@@ -298,7 +298,6 @@ gen_power(struct powstr *powbuf, int save)
 	if (nuke.nuk_own == 0)
 	    continue;
 	ncp = &nchr[nuke.nuk_type];
-	pow = &powbuf[nuke.nuk_own];
 	upower[nuke.nuk_own] += empunit_power(nuke.nuk_effic,
 					      nuke.nuk_tech,
 					      ncp->n_mat, ncp->n_cost);
