@@ -40,27 +40,23 @@ Fortifying a land unit ("dig in") costs one point of mobility per
 point of fortification.  An engineer cuts the mobility cost by one
 third.  See "info fortify".
 
-4. Converting civilians
-Security units are charged 10 mobility every time civilians are converted
-in a sector they are in.
-
-5. Laying mines
+4. Laying mines
 A land unit is charged one point of mobility for every land mine laid.
 
-6. Work
+5. Work
 The increase in efficiency depends on mobility used. It costs a 100%
 efficient land unit 6 mobility to raise a sector 1% efficiency.  Less
 efficient land units are charged proportionally higher amounts of
 mobility.  For example, a 50% land unit would be charged 12 mobility
 to raise the efficiency of a sector by 1%.
 
-7. Supply
+6. Supply
 When supply is drawn from a supply unit, that unit pays the mobility
 cost to move the goods to the destination sector.  That cost is the
 same as it would cost the sector to move the goods using the "move"
 command.
 
-8. Marching, reacting or retreating
+7. Marching, reacting or retreating
 The mobility cost for a land unit to march, react or retreat is:
   (path cost) * 5 * 480 / (unit speed)
 where
@@ -79,7 +75,7 @@ Note that the efficiency of a land unit does not affect the mobility
 costs it pays to march, unless the unit is a supply unit.  Then the
 mobility costs are proportional to the efficiency of the unit.
 
-9. Shell damage
+8. Shell damage
 When a land unit is shelled, its mobility goes down in exactly the
 same way that its efficiency goes down (see "info Damage").
 
