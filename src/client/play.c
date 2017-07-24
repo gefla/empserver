@@ -488,7 +488,7 @@ recv_input(int fd, struct ring *inbuf)
 	return -1;
     if (n == 0) {
 	/*
-	 * Can't put EOF cookie into INBUF here, it may not fit.
+	 * Can't put EOF cookie into @inbuf here, it may not fit.
 	 * Leave it to caller.
 	 */
 	res = 0;
@@ -543,10 +543,10 @@ int
 play(int sock, char *history_file)
 {
     /*
-     * Player input flows from INPUT_FD through recv_input() into ring
-     * buffer INBUF, which drains into SOCK.  This must not block.
-     * Server output flows from SOCK into recv_output().  Reading SOCK
-     * must not block.
+     * Player input flows from @input_fd through recv_input() into
+     * ring buffer @inbuf, which drains into @sock.  This must not
+     * block.  Server output flows from @sock into recv_output().
+     * Reading @sock must not block.
      */
     struct sigaction sa;
     struct ring inbuf;		/* input buffer, draining to SOCK */

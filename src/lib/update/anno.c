@@ -24,7 +24,7 @@
  *
  *  ---
  *
- *  anno.c: Delete announcements older than ANNO_KEEP_DAYS
+ *  anno.c: Delete announcements older than anno_keep_days
  *
  *  Known contributors to this file:
  *     Ken Stevens, 1995

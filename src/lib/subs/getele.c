@@ -97,7 +97,7 @@ getele(char *recipient, char *buf)
 }
 
 /*
- * If S is a `tilde escape', return its code, else 0.
+ * If @s is a `tilde escape', return its code, else 0.
  * A tilde escape is '~' followed by the code character.
  */
 static int

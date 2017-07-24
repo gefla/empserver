@@ -100,7 +100,7 @@ read_schedule(char *fname, time_t sched[], int n, time_t t0, time_t anchor)
 /*
  * Parse an update schedule directive from @line.
  * Update @sched[] and @anchor accordingly.
- * @sched[] holds the first N-1 updates after @t0 in ascending order.
+ * @sched[] holds the first @n-1 updates after @t0 in ascending order.
  * @fname and @lno file name and line number for reporting errors.
  */
 static int
@@ -316,7 +316,7 @@ find_update(time_t t, time_t sched[])
  * Insert update at @t into @sched[].
  * @sched[] holds the first @n-1 updates after @t0 in ascending order.
  * If @t is before @t0 or outside game_days/game_hours, return -1.
- * If there's no space for @t in @sched[], return N-1.
+ * If there's no space for @t in @sched[], return @n-1.
  * Else insert @t into @sched[] and return its index in @sched[].
  */
 static int

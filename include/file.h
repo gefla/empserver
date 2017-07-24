@@ -63,21 +63,22 @@ struct empfile {
 
     /* User callbacks, may all be null */
     /*
-     * Called after element initialization.  ELT is the element.
+     * Called after element initialization.  @elt is the element.
      * May modify the element.
      */
     void (*oninit)(void *elt);
     /*
-     * Called after read.  ID is the element id, and ELT is the
+     * Called after read.  @id is the element id, and @elt is the
      * element read.  May modify the element.  Modifications are
      * visible to caller of ef_read(), but have no effect on the file.
      */
     void (*postread)(int id, void *elt);
     /*
-     * Called before write.  ID is the element id, OLD is the element
-     * being updated (null unless it is cached) and ELT is the element
-     * being written.  May modify the element.  Modifications will be
-     * visible to caller of ef_write() and are written to the file.
+     * Called before write.  @id is the element id, @old is the
+     * element being updated (null unless it is cached) and @elt is
+     * the element being written.  May modify the element.
+     * Modifications will be visible to caller of ef_write() and are
+     * written to the file.
      */
     void (*prewrite)(int id, void *old, void *elt);
     /*

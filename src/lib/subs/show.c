@@ -559,7 +559,7 @@ show_news(int tlev)
 }
 
 /*
- * Show update policy and up to N scheduled updates.
+ * Show update policy and up to @n scheduled updates.
  */
 void
 show_updates(int n)

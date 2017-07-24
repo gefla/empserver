@@ -103,7 +103,7 @@ infect_people(struct natstr *np, struct sctstr *sp)
 
 /*
  * Given the fact that plague exists, kill off
- * people if in plague state DYING.  Increment
+ * people if in plague state PLG_DYING.  Increment
  * the plague time.  Return "current" plague
  * stage.  No reports generated here anymore.
  */

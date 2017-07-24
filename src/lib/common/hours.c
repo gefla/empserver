@@ -86,7 +86,7 @@ is_daytime_allowed(int dtime, char *times)
 }
 
 /*
- * Can the game played at time T?
+ * Can the game played at time @t?
  */
 int
 gamehours(time_t t)

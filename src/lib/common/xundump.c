@@ -195,7 +195,7 @@ tbl_end(void)
 /*
  * Seek to current table's @id-th object.
  * Extend the table if necessary.
- * Save @id in cur_id.
+ * Save @id in @cur_id.
  * Return the object on success, NULL on failure.
  */
 static void *
@@ -450,7 +450,7 @@ rowid_realm(void)
 /*
  * Get the current row's object.
  * Extend the table if necessary.
- * Save ID in cur_id.
+ * Save ID in @cur_id.
  * Return the object on success, NULL on failure.
  */
 static void *

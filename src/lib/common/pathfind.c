@@ -99,7 +99,7 @@ static struct pf_map *pf_map;
 
 struct pf_heap {
     int uid;			/* sector uid and */
-    coord x, y;			/* coordinates, uid == XYOFFSET(x, y) */
+    coord x, y;			/* coordinates, @uid == XYOFFSET(@x, @y) */
     double cost;		/* cost from source */
 };
 
@@ -387,11 +387,11 @@ path_find_to(coord dx, coord dy)
 	    ny = y_in_dir(y, DIR_FIRST + i);
 	    nuid = XYOFFSET(nx, ny);
 	    /*
-	     * Cost to enter NX,NY doesn't depend on direction of
-	     * entry.  This X,Y is at least as expensive as any
-	     * previous one.  Therefore, cost to go to NX,NY via X,Y
-	     * is at least as high as any previously found route.
-	     * Skip neighbors that have a route already.
+	     * Cost to enter @nx,@ny doesn't depend on direction of
+	     * entry.  This @x,@y is at least as expensive as any
+	     * previous one.  Therefore, cost to go to @nx,@ny via
+	     * @x,@y is at least as high as any previously found
+	     * route.  Skip neighbors that have a route already.
 	     */
 	    if (!pf_is_unvisited(nuid))
 		continue;
@@ -565,7 +565,7 @@ static double
 cost_land(natid actor, int uid, int mobtype)
 {
     /*
-     * Non-negative cost must not depend on ACTOR, see unit_path().
+     * Non-negative cost must not depend on @actor, see unit_path().
      */
     struct sctstr *sp = (void *)empfile[EF_SECTOR].cache;
 

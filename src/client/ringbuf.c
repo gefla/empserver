@@ -39,7 +39,7 @@
 
 /*
  * Initialize empty ring buffer.
- * Not necessary if *R is already zeroed.
+ * Not necessary if *@r is already zeroed.
  */
 void
 ring_init(struct ring *r)
@@ -144,7 +144,7 @@ ring_putm(struct ring *r, void *buf, size_t sz)
 }
 
 /*
- * Discard the N oldest bytes from the ring buffer.
+ * Discard the @n oldest bytes from the ring buffer.
  * It must hold at least that many.
  */
 void
@@ -155,9 +155,9 @@ ring_discard(struct ring *r, int n)
 }
 
 /*
- * Search the ring buffer for zero-terminated string S.
- * Start at the @(n+1)-th byte to be gotten.
- * If found, return the number of bytes in the buffer before S.
+ * Search the ring buffer for zero-terminated string @s.
+ * Start at the (@n+1)-th byte to be gotten.
+ * If found, return the number of bytes in the buffer before @s.
  * Else return -1.
  */
 int

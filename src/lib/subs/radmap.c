@@ -222,7 +222,7 @@ rad_range(int eff, double tlev, int spy)
 }
 
 /*
- * Return character to use in radar maps for sector @SP.
+ * Return character to use in radar maps for sector @sp.
  * @dist is the distance from the radar, @range its range.
  * Country @cn is using the radar.
  */

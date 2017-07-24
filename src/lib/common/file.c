@@ -601,7 +601,7 @@ ef_set_uid(int type, void *buf, int uid)
 }
 
 /*
- * Are *A and *B equal, except for timestamps and such?
+ * Are *@a and *@b equal, except for timestamps and such?
  */
 int
 ef_typedstr_eq(struct ef_typedstr *a, struct ef_typedstr *b)
@@ -675,7 +675,7 @@ ef_make_stale(void)
     ef_generation++;
 }
 
-/* Mark copy of an element of table TYPE in BUF fresh. */
+/* Mark copy of an element of table @type in @buf fresh. */
 void
 ef_mark_fresh(int type, void *buf)
 {

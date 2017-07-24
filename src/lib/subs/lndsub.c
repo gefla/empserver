@@ -925,7 +925,7 @@ lnd_pathcost(struct lndstr *lp, double pathcost)
 	effspd *= lp->lnd_effic * 0.01;
 
     /*
-     * The return value must be PATHCOST times a factor that depends
+     * The return value must be @pathcost times a factor that depends
      * only on the land unit.  Anything else breaks path finding.  In
      * particular, you can't add or enforce a minimum cost here.  Do
      * it in sector_mcost().

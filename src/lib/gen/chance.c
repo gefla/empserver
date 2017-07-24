@@ -41,7 +41,7 @@
 #include "mt19937ar.h"
 
 /*
- * Return non-zero with probability D.
+ * Return non-zero with probability @d.
  */
 int
 chance(double d)
@@ -72,8 +72,8 @@ round_up_to_pow2(unsigned val)
 }
 
 /*
- * Return a random number in [0..N-1].
- * N must be in [1..2^31-1].
+ * Return a random number in [0..@n-1].
+ * @n must be in [1..2^31-1].
  */
 int
 roll0(int n)
@@ -88,8 +88,8 @@ roll0(int n)
 }
 
 /*
- * Return a random number in [1..N].
- * N must be in [0..2^31-1].
+ * Return a random number in [1..@n].
+ * @n must be in [0..2^31-1].
  */
 int
 roll(int n)
