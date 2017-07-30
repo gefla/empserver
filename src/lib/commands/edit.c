@@ -455,7 +455,7 @@ edit_sect_i(struct sctstr *sect, char *key, int arg)
 	break;
     case 'x':
 	new = LIMIT_TO(arg, 0, CHE_MAX);
-	divine_sct_change_quiet(sect, "Guerillas", new != sect->sct_che,
+	divine_sct_change_quiet(sect, "Guerrillas", new != sect->sct_che,
 				"from %d to %d", sect->sct_che, new);
 	sect->sct_che = new;
 	break;

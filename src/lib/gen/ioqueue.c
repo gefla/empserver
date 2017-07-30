@@ -31,8 +31,8 @@
  */
 
 /*
- * Read and write onto io queues.  Note that
- * the io queues don't actually do any writing;
+ * Read and write onto I/O queues.  Note that
+ * the I/O queues don't actually do any writing;
  * that is left for a higher level.
  */
 
@@ -321,7 +321,7 @@ appendcc(struct ioqueue *ioq, char *buf, int cc)
 
 /*
  * remove cc bytes from ioqueue ioq
- * free memory, dequeue io elements
+ * free memory, dequeue I/O elements
  * which are no longer used.
  */
 static int

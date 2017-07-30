@@ -152,7 +152,7 @@ enum ns_seltype {
 /* Sector iterator */
 struct nstr_sect {
     coord x, y;			/* current x-y */
-    coord dx, dy;		/* accumlated x,y travel */
+    coord dx, dy;		/* accumulated x,y travel */
     int id;			/* return value of sctoff */
     enum ns_seltype type;	/* selection type: NS_AREA or NS_DIST */
     int curdist;		/* NS_DIST: current range */

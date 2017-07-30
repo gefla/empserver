@@ -254,7 +254,7 @@ loan_accept(struct ltcomstr *ltcp)
 }
 
 /*
- * Declne a loan.  Return RET_OK on success, anything else on error.
+ * Decline a loan.  Return RET_OK on success, anything else on error.
  */
 static int
 loan_decline(struct ltcomstr *ltcp)

@@ -237,7 +237,7 @@ main(int argc, char *argv[])
 	    qprint("\ntry #%d (out of %d)...\n", i + 1, NUMTRIES);
 	qprint("placing capitals...\n");
 	if (!drift())
-	    qprint("fairland: unstable drift -- try increasisg DRIFT_MAX\n");
+	    qprint("fairland: unstable drift -- try increasing DRIFT_MAX\n");
 	qprint("growing continents...\n");
 	grow_continents();
     } while (fl_status && ++i < NUMTRIES);

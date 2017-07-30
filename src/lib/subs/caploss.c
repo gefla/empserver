@@ -89,7 +89,7 @@ caploss(struct sctstr *sp, natid coun, char *msg)
 	    if (loan.l_status == LS_SIGNED && loan.l_loner == coun) {
 		loan.l_loner = player->cnum;
 		putloan(loan_num, &loan);
-		pr("Loan %d has been transfered over to you\n", loan_num);
+		pr("Loan %d has been transferred over to you\n", loan_num);
 	    }
 	}
     }

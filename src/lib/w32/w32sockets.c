@@ -221,8 +221,8 @@ w32_socket(int domain, int type, int protocol)
     SOCKET sock;
 
     /*
-     * We have to use WSASocket() to create non-overlapped IO sockets.
-     * Overlapped IO sockets cannot be used with read/write.
+     * We have to use WSASocket() to create non-overlapped I/O sockets.
+     * Overlapped I/O sockets cannot be used with read/write.
      */
     sock = WSASocket(domain, type, protocol, NULL, 0, 0);
     if (sock == INVALID_SOCKET) {

@@ -273,7 +273,7 @@ show_ship_capab(int tlev)
     int i;
     struct mchrstr *mp;
 
-    pr("%25s cargos & capabilities\n", "");
+    pr("%25s cargoes & capabilities\n", "");
     for (i = 0; i < n; i++) {
 	mp = &mchr[chridx[i].type];
 	pr("%-25.25s ", mp->m_name);
@@ -546,7 +546,7 @@ show_news(int tlev)
     int i, j;
 
     pr("id category           good will\n");
-    pr("    messsages\n");
+    pr("    messages\n");
 
     for (i = 1; i < N_MAX_VERB + 1; i++) {
 	if (rpt[i].r_newspage == N_NOTUSED)

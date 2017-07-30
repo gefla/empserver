@@ -156,7 +156,7 @@ head_describe(struct histstr *hp, int what, char *aname, char *vname)
 	break;
     case 1:
 	if (hp->h_recent < -16)
-	    pr("%s agression against %s has lessened slightly",
+	    pr("%s aggression against %s has lessened slightly",
 	       aname, vname);
 	else
 	    pr("Peace talks may occur between %s & %s", aname, vname);

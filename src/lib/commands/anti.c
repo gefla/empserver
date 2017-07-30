@@ -109,7 +109,7 @@ anti(void)
 		    sect.sct_che_target = 0;
 		sect.sct_che = ache;
 		putsect(&sect);
-		pr("          Body count:  Military %d - Guerillas %d.\n",
+		pr("          Body count:  Military %d - Guerrillas %d.\n",
 		   milkilled, chekilled);
 		if (ache == 0) {
 		    pr("          Partisans cleared out of this sector for now.\n");
@@ -147,7 +147,7 @@ anti(void)
 		   xyas(nstr.x, nstr.y, sect.sct_oldown));
 	    }
 	} else {
-	    pr("          Body count:  Military 0 - Guerillas 0.\n");
+	    pr("          Body count:  Military 0 - Guerrillas 0.\n");
 	    pr("          Partisans cleared out of this sector for now.\n");
 	}
     }

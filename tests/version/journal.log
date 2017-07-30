@@ -232,7 +232,7 @@
     Play#0 input show ship c
     Play#0 command show
     Play#0 output Play#0 1 Printing for tech level '1000'
-    Play#0 output Play#0 1                           cargos & capabilities
+    Play#0 output Play#0 1                           cargoes & capabilities
     Play#0 output Play#0 1 fb   fishing boat          300c 10m 900f 15u fish canal
     Play#0 output Play#0 1 ss   slave ship            20c 80m 200f 1200u
     Play#0 output Play#0 1 frg  frigate               60m 10s 2g 60f semi-land
@@ -1822,7 +1822,7 @@
     Play#0 output Play#0 1 71 "missile\\040fired\\040at\\040%s\\040ground\\040troops" "missile\\040hits\\040%s\\040troops" 2 5
     Play#0 output Play#0 1 72 "regiment\\040struck\\040by\\040sub-launched\\040missile" "ground\\040troops\\040hit\\040by\\040missile" 0 5
     Play#0 output Play#0 1 73 "navy\\040secures\\040a\\040beachhead\\040on\\040%s\\040territory" "sailors\\040take\\040a\\040coastal\\040sector\\040from\\040%s" -4 2
-    Play#0 output Play#0 1 74 "paratroopers\\040comandeer\\040a\\040sector\\040from\\040%s" "air\\040force\\040parachutists\\040overwhelm\\040a\\040%s\\040sector" -4 2
+    Play#0 output Play#0 1 74 "paratroopers\\040commandeer\\040a\\040sector\\040from\\040%s" "air\\040force\\040parachutists\\040overwhelm\\040a\\040%s\\040sector" -4 2
     Play#0 output Play#0 1 75 "parachutists\\040grab\\040unoccupied\\040land" "paratroopers\\040break\\040new\\040ground" 0 8
     Play#0 output Play#0 1 76 "sailors\\040repelled\\040by\\040%s\\040coast-guard" "naval\\040forces\\040massacred\\040in\\040failed\\040assault\\040of\\040%s" 4 2
     Play#0 output Play#0 1 77 "paratroopers\\040destroyed\\040in\\040failed\\040air-assault\\040on\\040%s" "loses\\040parachutists\\040in\\040failed\\040air-assault\\040of\\040%s" 4 2
@@ -2473,7 +2473,7 @@
     Play#1 output Play#1 1 71 "missile\\040fired\\040at\\040%s\\040ground\\040troops" "missile\\040hits\\040%s\\040troops" 2 5
     Play#1 output Play#1 1 72 "regiment\\040struck\\040by\\040sub-launched\\040missile" "ground\\040troops\\040hit\\040by\\040missile" 0 5
     Play#1 output Play#1 1 73 "navy\\040secures\\040a\\040beachhead\\040on\\040%s\\040territory" "sailors\\040take\\040a\\040coastal\\040sector\\040from\\040%s" -4 2
-    Play#1 output Play#1 1 74 "paratroopers\\040comandeer\\040a\\040sector\\040from\\040%s" "air\\040force\\040parachutists\\040overwhelm\\040a\\040%s\\040sector" -4 2
+    Play#1 output Play#1 1 74 "paratroopers\\040commandeer\\040a\\040sector\\040from\\040%s" "air\\040force\\040parachutists\\040overwhelm\\040a\\040%s\\040sector" -4 2
     Play#1 output Play#1 1 75 "parachutists\\040grab\\040unoccupied\\040land" "paratroopers\\040break\\040new\\040ground" 0 8
     Play#1 output Play#1 1 76 "sailors\\040repelled\\040by\\040%s\\040coast-guard" "naval\\040forces\\040massacred\\040in\\040failed\\040assault\\040of\\040%s" 4 2
     Play#1 output Play#1 1 77 "paratroopers\\040destroyed\\040in\\040failed\\040air-assault\\040on\\040%s" "loses\\040parachutists\\040in\\040failed\\040air-assault\\040of\\040%s" 4 2

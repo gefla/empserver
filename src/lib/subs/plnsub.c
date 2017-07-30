@@ -581,7 +581,7 @@ pln_sel(struct nstr_item *ni, struct emp_qelem *list, struct sctstr *ap,
 	    continue;
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_PLANE, &plane)) {
-		pr("plane #%d inelligible - it's for sale.\n",
+		pr("plane #%d ineligible - it's for sale.\n",
 		   plane.pln_uid);
 		continue;
 	    }

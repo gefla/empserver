@@ -24,7 +24,7 @@
  *
  *  ---
  *
- *  empio.h: Describes io pointers used in Empire
+ *  empio.h: Describes I/O pointers used in Empire
  *
  *  Known contributors to this file:
  *     Markus Armbruster, 2004-2012

@@ -185,7 +185,7 @@ struct rptstr rpt[] = {
 				  "ground troops hit by missile" } },
     { N_AWON_SECT, -4, N_FRONT, { "navy secures a beachhead on %s territory",
 				  "sailors take a coastal sector from %s" } },
-    { N_PWON_SECT, -4, N_FRONT, { "paratroopers comandeer a sector from %s",
+    { N_PWON_SECT, -4, N_FRONT, { "paratroopers commandeer a sector from %s",
 				  "air force parachutists overwhelm a %s sector" } },
     { N_PARA_UNOCC, 0,  N_COLONY,{ "parachutists grab unoccupied land",
 				   "paratroopers break new ground" } },
