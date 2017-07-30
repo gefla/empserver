@@ -58,7 +58,7 @@ int MARK_DELAY = 7200;		/* Seconds to bid on commodities */
 int TRADE_DELAY = 7200;		/* Seconds to bid on units */
 
 int m_m_p_d = 1440;		/* max mins of play per day (per country) */
-int etu_per_update = 60;	/* # of etu's per update */
+int etu_per_update = 60;	/* # of ETUs per update */
 int update_window = 0;		/* update window adjustment, in seconds */
 int update_demand = UPD_DEMAND_NONE;
 int update_wantmin = 1;		/* votes required for demand update */
@@ -118,7 +118,7 @@ double uwbrate = 0.0025;	/* uncompensated worker birth rate */
 int rollover_avail_max = 50;	/* max. avail that can roll over an update */
 
 /* opt_FALLOUT */
-double decay_per_etu = 0.006;	/* This gives a half life of ? etus,
+double decay_per_etu = 0.006;	/* This gives a half life of ? ETUs,
 				   about ? days.
 				   half life in Jt
 				   log(.5) / log(1-decay_per_etu)
@@ -174,7 +174,7 @@ float easy_tech = 1.00;		/* amount of tech built with no penality */
 float tech_log_base = 2.0;	/* base of log to take of in-efficient tech */
 
 float ally_factor = 2.0;	/* shared tech with allies = 1/factor */
-float level_age_rate = 96.0;	/* 1% per 96 etu's; 0 -> no decline */
+float level_age_rate = 96.0;	/* 1% per 96 ETUs; 0 -> no decline */
 
 
 int players_at_00 = 0;		/* players coord system on deity 0,0? */
@@ -184,7 +184,7 @@ int at_least_one_100 = 1;	/* init player with 100/100/100/100 sector? */
 
 float btu_build_rate = 0.0012;	/* etu * civ * eff * btu_build_rate */
 				/* 8 * 999 * 100 * 0.0004 = 319 */
-int max_btus = 640;		/* maximum # of btu's */
+int max_btus = 640;		/* maximum # of BTUs */
 
 double buil_bt = 10.0;		/* tech level required to build a bridge */
 int buil_bh = 100;		/* hcm required to build a bridge */

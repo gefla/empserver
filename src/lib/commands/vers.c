@@ -75,11 +75,11 @@ vers(void)
        (1.0 / (btu_build_rate * 100.0)));
     pr("\n");
 
-    pr("A non-aggi, 100 fertility sector can grow %.2f food per etu.\n",
+    pr("A non-aggi, 100 fertility sector can grow %.2f food per ETU.\n",
        100.0 * fgrate);
-    pr("1000 civilians will harvest %.1f food per etu.\n",
+    pr("1000 civilians will harvest %.1f food per ETU.\n",
        1000.0 * fcrate);
-    pr("1000 civilians will give birth to %.1f babies per etu.\n",
+    pr("1000 civilians will give birth to %.1f babies per ETU.\n",
        1000.0 * obrate);
     pr("1000 uncompensated workers will give birth to %.1f babies.\n",
        1000.0 * uwbrate);
@@ -92,7 +92,7 @@ vers(void)
 
     pr("\n");
 
-    pr("Banks pay $%.2f in interest per 1000 gold bars per etu.\n",
+    pr("Banks pay $%.2f in interest per 1000 gold bars per ETU.\n",
        bankint * 1000.0);
     pr("1000 civilians generate $%.2f, uncompensated workers $%.2f each time unit.\n",
        1000.0 * money_civ, 1000.0 * money_uw);

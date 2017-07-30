@@ -35,15 +35,15 @@
     Play#0 output Play#0 1 Each country is allowed to be logged in 1440 minutes a day.
     Play#0 output Play#0 1 It takes 8.33 civilians to produce a BTU in one time unit.
     Play#0 output Play#0 1
-    Play#0 output Play#0 1 A non-aggi, 100 fertility sector can grow 0.12 food per etu.
-    Play#0 output Play#0 1 1000 civilians will harvest 1.3 food per etu.
-    Play#0 output Play#0 1 1000 civilians will give birth to 5.0 babies per etu.
+    Play#0 output Play#0 1 A non-aggi, 100 fertility sector can grow 0.12 food per ETU.
+    Play#0 output Play#0 1 1000 civilians will harvest 1.3 food per ETU.
+    Play#0 output Play#0 1 1000 civilians will give birth to 5.0 babies per ETU.
     Play#0 output Play#0 1 1000 uncompensated workers will give birth to 2.5 babies.
     Play#0 output Play#0 1 In one time unit, 1000 people eat 0.5 units of food.
     Play#0 output Play#0 1 1000 babies eat 6.0 units of food becoming adults.
     Play#0 output Play#0 1 No food is needed!
     Play#0 output Play#0 1
-    Play#0 output Play#0 1 Banks pay $250.00 in interest per 1000 gold bars per etu.
+    Play#0 output Play#0 1 Banks pay $250.00 in interest per 1000 gold bars per ETU.
     Play#0 output Play#0 1 1000 civilians generate $8.33, uncompensated workers $1.78 each time unit.
     Play#0 output Play#0 1 1000 active military cost $83.33, reserves cost $8.33.
     Play#0 output Play#0 1 Up to 50 avail can roll over an update.
@@ -2831,15 +2831,15 @@
     Play#2 output Play#2 1 Each country is allowed to be logged in 1440 minutes a day.
     Play#2 output Play#2 1 It takes 8.33 civilians to produce a BTU in one time unit.
     Play#2 output Play#2 1
-    Play#2 output Play#2 1 A non-aggi, 100 fertility sector can grow 0.12 food per etu.
-    Play#2 output Play#2 1 1000 civilians will harvest 1.3 food per etu.
-    Play#2 output Play#2 1 1000 civilians will give birth to 5.0 babies per etu.
+    Play#2 output Play#2 1 A non-aggi, 100 fertility sector can grow 0.12 food per ETU.
+    Play#2 output Play#2 1 1000 civilians will harvest 1.3 food per ETU.
+    Play#2 output Play#2 1 1000 civilians will give birth to 5.0 babies per ETU.
     Play#2 output Play#2 1 1000 uncompensated workers will give birth to 2.5 babies.
     Play#2 output Play#2 1 In one time unit, 1000 people eat 0.5 units of food.
     Play#2 output Play#2 1 1000 babies eat 6.0 units of food becoming adults.
     Play#2 output Play#2 1 No food is needed!
     Play#2 output Play#2 1
-    Play#2 output Play#2 1 Banks pay $250.00 in interest per 1000 gold bars per etu.
+    Play#2 output Play#2 1 Banks pay $250.00 in interest per 1000 gold bars per ETU.
     Play#2 output Play#2 1 1000 civilians generate $8.33, uncompensated workers $1.78 each time unit.
     Play#2 output Play#2 1 1000 active military cost $83.33, reserves cost $8.33.
     Play#2 output Play#2 1 Up to 50 avail can roll over an update.
@@ -2946,15 +2946,15 @@
     Play#1 output Play#1 1 Game hours are 00:00-24:00.
     Play#1 output Play#1 1 It takes 8.33 civilians to produce a BTU in one time unit.
     Play#1 output Play#1 1
-    Play#1 output Play#1 1 A non-aggi, 100 fertility sector can grow 0.12 food per etu.
-    Play#1 output Play#1 1 1000 civilians will harvest 1.3 food per etu.
-    Play#1 output Play#1 1 1000 civilians will give birth to 5.0 babies per etu.
+    Play#1 output Play#1 1 A non-aggi, 100 fertility sector can grow 0.12 food per ETU.
+    Play#1 output Play#1 1 1000 civilians will harvest 1.3 food per ETU.
+    Play#1 output Play#1 1 1000 civilians will give birth to 5.0 babies per ETU.
     Play#1 output Play#1 1 1000 uncompensated workers will give birth to 2.5 babies.
     Play#1 output Play#1 1 In one time unit, 1000 people eat 0.5 units of food.
     Play#1 output Play#1 1 1000 babies eat 6.0 units of food becoming adults.
     Play#1 output Play#1 1 No food is needed!
     Play#1 output Play#1 1
-    Play#1 output Play#1 1 Banks pay $250.00 in interest per 1000 gold bars per etu.
+    Play#1 output Play#1 1 Banks pay $250.00 in interest per 1000 gold bars per ETU.
     Play#1 output Play#1 1 1000 civilians generate $8.33, uncompensated workers $1.78 each time unit.
     Play#1 output Play#1 1 1000 active military cost $83.33, reserves cost $8.33.
     Play#1 output Play#1 1 Up to 50 avail can roll over an update.

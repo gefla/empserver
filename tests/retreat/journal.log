@@ -655,7 +655,7 @@
     Play#1 output Play#1 1 - Casualties -
     Play#1 output Play#1 1      Yours: 1
     Play#1 output Play#1 1     Theirs: 0
-    Play#1 output Play#1 1 Papershuffling ... 0.1 B.T.U
+    Play#1 output Play#1 1 Paper-shuffling ... 0.1 BTU
     Play#1 output Play#1 1 You have been repelled
     Play#1 output Play#1 6 0 569
     Play#1 input board 132 5
@@ -673,7 +673,7 @@
     Play#1 output Play#1 1 - Casualties -
     Play#1 output Play#1 1      Yours: 50
     Play#1 output Play#1 1     Theirs: 15
-    Play#1 output Play#1 1 Papershuffling ... 9.8 B.T.U
+    Play#1 output Play#1 1 Paper-shuffling ... 9.8 BTU
     Play#1 output Play#1 1 You have been repelled
     Play#1 output Play#1 1 Ship #132 is not in the same sector!
     Play#1 output Play#1 6 0 565

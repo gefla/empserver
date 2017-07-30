@@ -113,7 +113,7 @@ explain(void)
 
     pr("\t\tCurrent EMPIRE Command List\n"
        "\t\t------- ------ ------- ----\n"
-       "Initial number is cost in B.T.U. units.\n"
+       "Initial number is cost in BTUs.\n"
        "Next 2 chars (if present) are:\n"
        "$ - must be non-broke\tc -- must have capital\n"
        "Args in [brackets] are optional.\n"

@@ -83,7 +83,7 @@ spy(void)
     btucost = (nsects / 40) + 1;
     natp = getnatp(player->cnum);
     if (natp->nat_btu < btucost) {
-	pr("You don't have the BTU's for spying on that scale!\n");
+	pr("You don't have the BTUs for spying on that scale!\n");
 	return RET_FAIL;
     }
     bitmap = calloc((WORLD_SZ() + 7) / 8, 1);

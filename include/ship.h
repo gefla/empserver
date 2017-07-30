@@ -69,7 +69,7 @@ struct shpstr {
     /* end of part matching struct empobj */
     short shp_item[I_MAX+1];	/* amount of items on board */
     short shp_pstage;		/* plague stage */
-    short shp_ptime;		/* how many etus remain in this stage */
+    short shp_ptime;		/* how many ETUs remain in this stage */
     short shp_access;		/* Last tick mob was updated (MOB_ACCESS) */
     char shp_name[MAXSHPNAMLEN]; /* name set with the "name" command */
     coord shp_orig_x;

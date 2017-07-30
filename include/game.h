@@ -50,7 +50,7 @@ struct gamestr {
      * Access it through game_tick_tick(), or else it'll be late.
      */
     short game_turn;		/* turn number */
-    short game_tick;		/* elapsed etus in this turn */
+    short game_tick;		/* elapsed ETUs in this turn */
     time_t game_rt;		/* when game_tick last ticked */
 };
 

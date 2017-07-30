@@ -1902,7 +1902,7 @@ att_fight(int combat_mode, struct combat *off, struct emp_qelem *olist,
 
     pr("- Casualties -\n     Yours: %d\n", a_cas);
     pr("    Theirs: %d\n", d_cas);
-    pr("Papershuffling ... %.1f B.T.U\n", (d_cas + a_cas) * 0.15);
+    pr("Paper-shuffling ... %.1f BTU\n", (d_cas + a_cas) * 0.15);
     player->btused += (int)((d_cas + a_cas) * 0.015 + 0.5);
 
     if (success) {

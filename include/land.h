@@ -73,7 +73,7 @@ struct lndstr {
     unsigned char lnd_scar;	/* how experienced the unit is (not used) */
     short lnd_item[I_MAX+1];	/* amount of items on board */
     short lnd_pstage;		/* plague stage */
-    short lnd_ptime;		/* how many etus remain in this stage */
+    short lnd_ptime;		/* how many ETUs remain in this stage */
     int lnd_land;		/* uid of transporting land unit, or -1 */
     short lnd_access;		/* Last tick mob was updated (MOB_ACCESS) */
 };

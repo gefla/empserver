@@ -40,7 +40,7 @@
 int
 age_people(int n, int etu)
 {
-    /* age by 1% per 24 etus */
+    /* age by 1% per 24 ETUs */
     return roundavg(n * (1.0 - etu / 2400.0));
 }
 

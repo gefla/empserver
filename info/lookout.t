@@ -19,7 +19,7 @@ out from a ship!  In order to detect subs at sea, you need to use sonar.
 Submarines have a very limited range for what ships they
 can see using their periscope--they can usually only see ships in the
 same sector.  However, all ships (including subs) which are docked in
-a harbour are visible to all ships (including subs) in adjacent sectors.
+a harbor are visible to all ships (including subs) in adjacent sectors.
 (see also \*Qinfo sonar\*U)
 .in
 .s1

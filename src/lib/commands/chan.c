@@ -57,10 +57,10 @@ chan(void)
 	if (us->nat_stat == STAT_ACTIVE) {
 	    if (opt_BLITZ == 0) {
 		if (us->nat_btu < 254) {
-		    pr("You need 254 btus to change your country name!\n");
+		    pr("You need 254 BTUs to change your country name!\n");
 		    return RET_FAIL;
 		}
-		pr("This command costs 254 BTU's and 10%% of your money.\n");
+		pr("This command costs 254 BTUs and 10%% of your money.\n");
 		if (!confirm("Are you sure you want to do this? "))
 		    return RET_FAIL;
 		btucost = 254;

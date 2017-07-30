@@ -83,7 +83,7 @@ dispatch(char *buf, char *redir)
 	if (player->god || opt_BLITZ)
 	    np->nat_btu = max_btus;
 	else {
-	    pr("You don't have the BTU's, bozo\n");
+	    pr("You don't have the BTUs, bozo\n");
 	    return 0;
 	}
     }

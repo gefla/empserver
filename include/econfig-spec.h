@@ -333,7 +333,7 @@ EMPCFBOTH("money_uw", money_uw, double, NSC_DOUBLE, 0,
 EMPCFBOTH("babyeat", babyeat, double, NSC_DOUBLE, 0,
     "Amount of food to mature 1 baby into a civilian")
 EMPCFBOTH("bankint", bankint, double, NSC_DOUBLE, 0,
-    "Bank dollar gain (per bar per etu)")
+    "Bank dollar gain (per bar per ETU)")
 EMPCFBOTH("eatrate", eatrate, double, NSC_DOUBLE, 0,
     "Food eating rate for mature people")
 EMPCFBOTH("fcrate", fcrate, double, NSC_DOUBLE, 0,

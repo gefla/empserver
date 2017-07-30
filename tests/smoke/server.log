@@ -57,7 +57,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -85,7 +85,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -112,38 +112,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
-preparing sectors...
-done preparing sectors.
-producing for countries...
-done producing for countries.
-delivering...
-done delivering
-assembling paths...
-done assembling paths 0.0 user 0.0 system
-exporting...
-done exporting
-importing...
-done importing
-Deleting annos older than Thu Jan  1 00:00:00 1970
-0 announcements deleted; 0 announcements saved
-End update 0.0 user 0.0 system
-Update schedule read
-No update scheduled
-tester@127.0.0.1 logged out, country #0
-Connect from 127.0.0.1
-tester@127.0.0.1 using country #1
-tester@127.0.0.1 logged in as country #1
-tester@127.0.0.1 logged out, country #1
-Connect from 127.0.0.1
-tester@127.0.0.1 using country #8
-tester@127.0.0.1 logged in as country #8
-tester@127.0.0.1 logged out, country #8
-Connect from 127.0.0.1
-tester@127.0.0.1 using country #0
-tester@127.0.0.1 logged in as country #0
-Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -174,34 +143,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
-preparing sectors...
-done preparing sectors.
-producing for countries...
-done producing for countries.
-delivering...
-done delivering
-assembling paths...
-done assembling paths 0.0 user 0.0 system
-exporting...
-done exporting
-importing...
-done importing
-Deleting annos older than Thu Jan  1 00:00:00 1970
-0 announcements deleted; 0 announcements saved
-End update 0.0 user 0.0 system
-Update schedule read
-No update scheduled
-tester@127.0.0.1 logged out, country #0
-Connect from 127.0.0.1
-tester@127.0.0.1 using country #1
-tester@127.0.0.1 logged in as country #1
-tester@127.0.0.1 logged out, country #1
-Connect from 127.0.0.1
-tester@127.0.0.1 using country #0
-tester@127.0.0.1 logged in as country #0
-Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -232,7 +174,34 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
+preparing sectors...
+done preparing sectors.
+producing for countries...
+done producing for countries.
+delivering...
+done delivering
+assembling paths...
+done assembling paths 0.0 user 0.0 system
+exporting...
+done exporting
+importing...
+done importing
+Deleting annos older than Thu Jan  1 00:00:00 1970
+0 announcements deleted; 0 announcements saved
+End update 0.0 user 0.0 system
+Update schedule read
+No update scheduled
+tester@127.0.0.1 logged out, country #0
+Connect from 127.0.0.1
+tester@127.0.0.1 using country #1
+tester@127.0.0.1 logged in as country #1
+tester@127.0.0.1 logged out, country #1
+Connect from 127.0.0.1
+tester@127.0.0.1 using country #0
+tester@127.0.0.1 logged in as country #0
+Triggering unscheduled update
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -263,7 +232,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -294,7 +263,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -325,7 +294,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -356,7 +325,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -387,7 +356,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -418,7 +387,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -442,10 +411,6 @@ tester@127.0.0.1 using country #1
 tester@127.0.0.1 logged in as country #1
 tester@127.0.0.1 logged out, country #1
 Connect from 127.0.0.1
-tester@127.0.0.1 using country #2
-tester@127.0.0.1 logged in as country #2
-tester@127.0.0.1 logged out, country #2
-Connect from 127.0.0.1
 tester@127.0.0.1 using country #8
 tester@127.0.0.1 logged in as country #8
 tester@127.0.0.1 logged out, country #8
@@ -453,7 +418,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -488,7 +453,42 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
+preparing sectors...
+done preparing sectors.
+producing for countries...
+done producing for countries.
+delivering...
+done delivering
+assembling paths...
+done assembling paths 0.0 user 0.0 system
+exporting...
+done exporting
+importing...
+done importing
+Deleting annos older than Thu Jan  1 00:00:00 1970
+0 announcements deleted; 0 announcements saved
+End update 0.0 user 0.0 system
+Update schedule read
+No update scheduled
+tester@127.0.0.1 logged out, country #0
+Connect from 127.0.0.1
+tester@127.0.0.1 using country #1
+tester@127.0.0.1 logged in as country #1
+tester@127.0.0.1 logged out, country #1
+Connect from 127.0.0.1
+tester@127.0.0.1 using country #2
+tester@127.0.0.1 logged in as country #2
+tester@127.0.0.1 logged out, country #2
+Connect from 127.0.0.1
+tester@127.0.0.1 using country #8
+tester@127.0.0.1 logged in as country #8
+tester@127.0.0.1 logged out, country #8
+Connect from 127.0.0.1
+tester@127.0.0.1 using country #0
+tester@127.0.0.1 logged in as country #0
+Triggering unscheduled update
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -522,7 +522,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...
@@ -556,7 +556,7 @@ Connect from 127.0.0.1
 tester@127.0.0.1 using country #0
 tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
-production update (60 etus)
+production update (60 ETUs)
 preparing sectors...
 done preparing sectors.
 producing for countries...

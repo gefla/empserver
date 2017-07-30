@@ -63,7 +63,7 @@ update_main(void)
     struct natstr *np;
 
     update_running = 1;
-    logerror("production update (%d etus)", etu);
+    logerror("production update (%d ETUs)", etu);
     getrusage(RUSAGE_SELF, &rus1);
     game_record_update(time(NULL));
     journal_update(etu);
