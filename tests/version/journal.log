@@ -47,8 +47,8 @@
     Play#0 output Play#0 1 1000 civilians generate $8.33, uncompensated workers $1.78 each time unit.
     Play#0 output Play#0 1 1000 active military cost $83.33, reserves cost $8.33.
     Play#0 output Play#0 1 Up to 50 avail can roll over an update.
-    Play#0 output Play#0 1 Happiness p.e. requires 1 happy stroller per 10000 civ.
-    Play#0 output Play#0 1 Education p.e. requires 1 class of graduates per 10000 civ.
+    Play#0 output Play#0 1 Happiness p.e. requires 1 happy stroller per 10000 civilians.
+    Play#0 output Play#0 1 Education p.e. requires 1 class of graduates per 10000 civilians.
     Play#0 output Play#0 1 Happiness is averaged over 48 time units.
     Play#0 output Play#0 1 Education is averaged over 192 time units.
     Play#0 output Play#0 1 The technology/research boost you get from the world is 50.00%.
@@ -2843,8 +2843,8 @@
     Play#2 output Play#2 1 1000 civilians generate $8.33, uncompensated workers $1.78 each time unit.
     Play#2 output Play#2 1 1000 active military cost $83.33, reserves cost $8.33.
     Play#2 output Play#2 1 Up to 50 avail can roll over an update.
-    Play#2 output Play#2 1 Happiness p.e. requires 1 happy stroller per 10000 civ.
-    Play#2 output Play#2 1 Education p.e. requires 1 class of graduates per 10000 civ.
+    Play#2 output Play#2 1 Happiness p.e. requires 1 happy stroller per 10000 civilians.
+    Play#2 output Play#2 1 Education p.e. requires 1 class of graduates per 10000 civilians.
     Play#2 output Play#2 1 Happiness is averaged over 48 time units.
     Play#2 output Play#2 1 Education is averaged over 192 time units.
     Play#2 output Play#2 1 The technology/research boost you get from the world is 50.00%.
@@ -2958,8 +2958,8 @@
     Play#1 output Play#1 1 1000 civilians generate $8.33, uncompensated workers $1.78 each time unit.
     Play#1 output Play#1 1 1000 active military cost $83.33, reserves cost $8.33.
     Play#1 output Play#1 1 Up to 50 avail can roll over an update.
-    Play#1 output Play#1 1 Happiness p.e. requires 1 happy stroller per 10000 civ.
-    Play#1 output Play#1 1 Education p.e. requires 1 class of graduates per 10000 civ.
+    Play#1 output Play#1 1 Happiness p.e. requires 1 happy stroller per 10000 civilians.
+    Play#1 output Play#1 1 Education p.e. requires 1 class of graduates per 10000 civilians.
     Play#1 output Play#1 1 Happiness is averaged over 48 time units.
     Play#1 output Play#1 1 Education is averaged over 192 time units.
     Play#1 output Play#1 1 The technology/research boost you get from your allies is 50.00%.

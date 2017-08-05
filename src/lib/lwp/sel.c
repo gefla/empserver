@@ -99,7 +99,7 @@ lwpSleepFd(int fd, int mask, struct timeval *timeout)
 
     if (LwpMaxfd == 0 && !LwpDelayq.head) {
 	/* select process is sleeping until first waiter arrives */
-	lwpStatus(LwpCurrent, "going to resched fd %d", fd);
+	lwpStatus(LwpCurrent, "going to reschedule fd %d", fd);
 	lwpReady(LwpSelProc);
     }
     lwpStatus(LwpCurrent, "going to wait on fd %d", fd);

@@ -101,9 +101,9 @@ vers(void)
     if (rollover_avail_max)
 	pr("Up to %d avail can roll over an update.\n",
 	   rollover_avail_max);
-    pr("Happiness p.e. requires 1 happy stroller per %d civ.\n",
+    pr("Happiness p.e. requires 1 happy stroller per %d civilians.\n",
        (int)hap_cons / etu_per_update);
-    pr("Education p.e. requires 1 class of graduates per %d civ.\n",
+    pr("Education p.e. requires 1 class of graduates per %d civilians.\n",
        (int)edu_cons / etu_per_update);
     pr("Happiness is averaged over %d time units.\n", (int)hap_avg);
     pr("Education is averaged over %d time units.\n", (int)edu_avg);

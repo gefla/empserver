@@ -116,8 +116,8 @@ explain(void)
        "Initial number is cost in BTUs.\n"
        "Next 2 chars (if present) are:\n"
        "$ - must be non-broke\tc -- must have capital\n"
-       "Args in [brackets] are optional.\n"
-       "All-caps args in <angle brackets>"
+       "Arguments in [brackets] are optional.\n"
+       "All-caps arguments in <angle brackets>"
        " have the following meanings:\n"
        /* FIXME incomplete */
        "  <NUM> :: a number in unspecified units\n"

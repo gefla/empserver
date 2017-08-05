@@ -15,8 +15,8 @@ which generates a brief summary of each command.
 Initial number is cost in B.T.U. units.
 Next 2 chars (if present) are:
 $ - must be non-broke	c -- must have capital
-Args in [brackets] are optional.
-All-caps args in <angle brackets> have the following meanings:
+Arguments in [brackets] are optional.
+All-caps arguments in <angle brackets> have the following meanings:
   <NUM> :: a number in unspecified units
   <COMM> :: a commodity such as `food', `guns', etc
   <TYPE> :: an item type such as `ship', `plane', etc
