@@ -448,7 +448,7 @@ unit_move(struct emp_qelem *list)
 		   type == EF_SHIP ? "flagship" : "leader");
 		pr("`r' to radar, %s`l' to look, `M' to map, `B' to bmap,\n",
 		   type == EF_SHIP ? "`s' to sonar, " : "");
-		pr("`d' to drop mines, and `m' to minesweep\n");
+		pr("`d' to drop mines, and `m' to sweep mines\n");
 		cp = "";
 	    }
 	}

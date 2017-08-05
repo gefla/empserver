@@ -48,7 +48,7 @@
     Play#1 output Play#1 1  b n
     Play#1 output Play#1 1 `h' to stop, `v' to view, `i' to list ships, `f' to change flagship,
     Play#1 output Play#1 1 `r' to radar, `s' to sonar, `l' to look, `M' to map, `B' to bmap,
-    Play#1 output Play#1 1 `d' to drop mines, and `m' to minesweep
+    Play#1 output Play#1 1 `d' to drop mines, and `m' to sweep mines
     Play#1 output Play#1 1  . =
     Play#1 output Play#1 1 h h h
     Play#1 output Play#1 1  c c
@@ -776,7 +776,7 @@
     Play#1 output Play#1 1  b n
     Play#1 output Play#1 1 `h' to stop, `v' to view, `i' to list units, `f' to change leader,
     Play#1 output Play#1 1 `r' to radar, `l' to look, `M' to map, `B' to bmap,
-    Play#1 output Play#1 1 `d' to drop mines, and `m' to minesweep
+    Play#1 output Play#1 1 `d' to drop mines, and `m' to sweep mines
     Play#1 output Play#1 1  . =
     Play#1 output Play#1 1 h h h
     Play#1 output Play#1 1  c c
