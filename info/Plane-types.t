@@ -241,14 +241,14 @@ a satellite - stays in orbit until shot down
 Intercepts tactical missiles.
 .L x-light
 xtra-light, can be carried and used on any ship or land unit with a non-zero
-xl capacity. (see info Ship-types)
+xpl capacity. (see info Ship-types)
 .L helo
-ship-helicopter, can be carried and used on any ship with a non-zero
-hl capacity. (see info Ship-types)
+helicopter, can take off and land in mountains, can be carried and
+used on any ship with a non-zero hel capacity. (see info Ship-types)
 .L ASW
 Has ASW (anti-submarine warfare) ability. May use sonar & bomb subs.
 .L para
-may be used to paratroop
+may be used to paradrop
 .L escort
 Escort ability only.  May be put on escort missions.
 .L mine
