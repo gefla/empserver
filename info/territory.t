@@ -2,7 +2,7 @@
 .NA territory "Assign various sectors to a specific territory"
 .LV Expert
 .SY "territory <SECTS> <NUMBER> [<FIELD>]"
-In Empire, sectors may be given a territory id number.
+In Empire, sectors may be given a territory number.
 This number may be used in conditional statements as in:
 .EX census # ?terr=27
 The program will then give you a census report for all the
