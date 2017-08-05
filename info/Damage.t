@@ -27,7 +27,7 @@ Each bomb does the following damage:
      blam: 1 + 1d6
      Blam: 5 + 1d6
      BLAM: 8 + 1d6
-When pinbombing a ship, plane, or land unit, damage is doubled.
+When pin-bombing a ship, plane, or land unit, damage is doubled.
 Whether you get a blam, Blam, or a BLAM depends on the accuracy of the
 plane and the difficulty of the target (see info bomb).
 

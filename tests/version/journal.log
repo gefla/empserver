@@ -1771,8 +1771,8 @@
     Play#0 output Play#0 1 13 "ships\\040torpedoed\\040by\\040enemy\\040wolf-packs" "ships\\040torpedoed\\040by\\040marauding\\040U-boats" 0 3
     Play#0 output Play#0 1 14 "gunners\\040fire\\040on\\040%s\\040in\\040self-defense" "gunners\\040decimate\\040%s\\040aggressors" 0 6
     Play#0 output Play#0 1 15 "breaks\\040sanctuary" "no\\040longer\\040has\\040a\\040sanctuary" 0 1
-    Play#0 output Play#0 1 16 "planes\\040divebomb\\040one\\040of\\040%s's\\040sectors" "bombers\\040wreak\\040havoc\\040on\\040%s" -2 4
-    Play#0 output Play#0 1 17 "divebombs\\040a\\040ship\\040flying\\040the\\040flag\\040of\\040%s" "airforce\\040bombs\\040%s\\040ships" -2 3
+    Play#0 output Play#0 1 16 "planes\\040dive-bomb\\040one\\040of\\040%s's\\040sectors" "bombers\\040wreak\\040havoc\\040on\\040%s" -2 4
+    Play#0 output Play#0 1 17 "dive-bombs\\040a\\040ship\\040flying\\040the\\040flag\\040of\\040%s" "air\\040force\\040bombs\\040%s\\040ships" -2 3
     Play#0 output Play#0 1 18 "seadogs\\040board\\040one\\040of\\040%s's\\040ships" "pirates\\040board\\040%s\\040ship" -2 3
     Play#0 output Play#0 1 19 "is\\040repelled\\040by\\040%s\\040while\\040attempting\\040to\\040board\\040a\\040ship" "pirates\\040prove\\040inept\\040at\\040boarding\\040%s's\\040ships" -3 3
     Play#0 output Play#0 1 21 "seizes\\040a\\040sector\\040from\\040%s\\040to\\040collect\\040on\\040a\\040loan" "collects\\040one\\040of\\040%s's\\040sectors\\040in\\040repayment\\040of\\040a\\040loan" -2 7
@@ -1803,7 +1803,7 @@
     Play#0 output Play#0 1 51 "pirates\\040keep\\040their\\040%s\\040booty" "buccaneers\\040laugh\\040and\\040bury\\040their\\040%s\\040goods" 0 7
     Play#0 output Play#0 1 52 "ships\\040torpedoed\\040by\\040%s\\040torpedo-boats" "ships\\040sunk\\040by\\040marauding\\040%s\\040torpedo-boats" 0 3
     Play#0 output Play#0 1 53 "planes\\040bomb\\040a\\040skulking\\040%s\\040submarine" "planes\\040drop\\040depth-charges\\040on\\040a\\040%s\\040sub" 0 3
-    Play#0 output Play#0 1 55 "divebombs\\040a\\040brave\\040%s\\040unit" "airforce\\040bombs\\040%s\\040units" -2 4
+    Play#0 output Play#0 1 55 "dive-bombs\\040a\\040brave\\040%s\\040unit" "air\\040force\\040bombs\\040%s\\040units" -2 4
     Play#0 output Play#0 1 56 "troops\\040run\\040afoul\\040of\\040a\\040landmine" "troops\\040severely\\040damaged\\040in\\040mine\\040field" 0 2
     Play#0 output Play#0 1 57 "fortress\\040gunners\\040support\\040troops\\040attacking\\040%s" "fortress\\040artillery\\040massacres\\040%s\\040defenders" -2 6
     Play#0 output Play#0 1 58 "gunners\\040support\\040troops\\040attacking\\040%s" "artillery\\040battery\\040massacres\\040%s\\040defenders" -2 6
@@ -2422,8 +2422,8 @@
     Play#1 output Play#1 1 13 "ships\\040torpedoed\\040by\\040enemy\\040wolf-packs" "ships\\040torpedoed\\040by\\040marauding\\040U-boats" 0 3
     Play#1 output Play#1 1 14 "gunners\\040fire\\040on\\040%s\\040in\\040self-defense" "gunners\\040decimate\\040%s\\040aggressors" 0 6
     Play#1 output Play#1 1 15 "breaks\\040sanctuary" "no\\040longer\\040has\\040a\\040sanctuary" 0 1
-    Play#1 output Play#1 1 16 "planes\\040divebomb\\040one\\040of\\040%s's\\040sectors" "bombers\\040wreak\\040havoc\\040on\\040%s" -2 4
-    Play#1 output Play#1 1 17 "divebombs\\040a\\040ship\\040flying\\040the\\040flag\\040of\\040%s" "airforce\\040bombs\\040%s\\040ships" -2 3
+    Play#1 output Play#1 1 16 "planes\\040dive-bomb\\040one\\040of\\040%s's\\040sectors" "bombers\\040wreak\\040havoc\\040on\\040%s" -2 4
+    Play#1 output Play#1 1 17 "dive-bombs\\040a\\040ship\\040flying\\040the\\040flag\\040of\\040%s" "air\\040force\\040bombs\\040%s\\040ships" -2 3
     Play#1 output Play#1 1 18 "seadogs\\040board\\040one\\040of\\040%s's\\040ships" "pirates\\040board\\040%s\\040ship" -2 3
     Play#1 output Play#1 1 19 "is\\040repelled\\040by\\040%s\\040while\\040attempting\\040to\\040board\\040a\\040ship" "pirates\\040prove\\040inept\\040at\\040boarding\\040%s's\\040ships" -3 3
     Play#1 output Play#1 1 21 "seizes\\040a\\040sector\\040from\\040%s\\040to\\040collect\\040on\\040a\\040loan" "collects\\040one\\040of\\040%s's\\040sectors\\040in\\040repayment\\040of\\040a\\040loan" -2 7
@@ -2454,7 +2454,7 @@
     Play#1 output Play#1 1 51 "pirates\\040keep\\040their\\040%s\\040booty" "buccaneers\\040laugh\\040and\\040bury\\040their\\040%s\\040goods" 0 7
     Play#1 output Play#1 1 52 "ships\\040torpedoed\\040by\\040%s\\040torpedo-boats" "ships\\040sunk\\040by\\040marauding\\040%s\\040torpedo-boats" 0 3
     Play#1 output Play#1 1 53 "planes\\040bomb\\040a\\040skulking\\040%s\\040submarine" "planes\\040drop\\040depth-charges\\040on\\040a\\040%s\\040sub" 0 3
-    Play#1 output Play#1 1 55 "divebombs\\040a\\040brave\\040%s\\040unit" "airforce\\040bombs\\040%s\\040units" -2 4
+    Play#1 output Play#1 1 55 "dive-bombs\\040a\\040brave\\040%s\\040unit" "air\\040force\\040bombs\\040%s\\040units" -2 4
     Play#1 output Play#1 1 56 "troops\\040run\\040afoul\\040of\\040a\\040landmine" "troops\\040severely\\040damaged\\040in\\040mine\\040field" 0 2
     Play#1 output Play#1 1 57 "fortress\\040gunners\\040support\\040troops\\040attacking\\040%s" "fortress\\040artillery\\040massacres\\040%s\\040defenders" -2 6
     Play#1 output Play#1 1 58 "gunners\\040support\\040troops\\040attacking\\040%s" "artillery\\040battery\\040massacres\\040%s\\040defenders" -2 6

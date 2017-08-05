@@ -364,7 +364,7 @@
     Play#1 output Play#1 1 (# 84)          2    completely  dd   destroyer (#84)
     Play#1 output Play#1 4 lb   TBD-1 Devastator #4, 2 bombs.  Target ('~' to skip)?
     Play#1 input 60
-    Play#1 output Play#1 1 50% hitchance...splash
+    Play#1 output Play#1 1 50% hit chance...splash
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 61)          2    completely  dd   destroyer (#61)
@@ -383,7 +383,7 @@
     Play#1 output Play#1 1 (# 84)          2    completely  dd   destroyer (#84)
     Play#1 output Play#1 4 lb   TBD-1 Devastator #3, 2 bombs.  Target ('~' to skip)?
     Play#1 input 61
-    Play#1 output Play#1 1 50% hitchance...blam-blam
+    Play#1 output Play#1 1 50% hit chance...blam-blam
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 62)          2    completely  dd   destroyer (#62)
@@ -401,7 +401,7 @@
     Play#1 output Play#1 1 (# 84)          2    completely  dd   destroyer (#84)
     Play#1 output Play#1 4 lb   TBD-1 Devastator #2, 2 bombs.  Target ('~' to skip)?
     Play#1 input 62
-    Play#1 output Play#1 1 50% hitchance...Blam-blam
+    Play#1 output Play#1 1 50% hit chance...Blam-blam
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 63)          2    completely  dd   destroyer (#63)
@@ -418,7 +418,7 @@
     Play#1 output Play#1 1 (# 84)          2    completely  dd   destroyer (#84)
     Play#1 output Play#1 4 lb   TBD-1 Devastator #1, 2 bombs.  Target ('~' to skip)?
     Play#1 input 63
-    Play#1 output Play#1 1 50% hitchance...BLAM-Blam
+    Play#1 output Play#1 1 50% hit chance...BLAM-Blam
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 64)          2    completely  dd   destroyer (#64)
@@ -434,7 +434,7 @@
     Play#1 output Play#1 1 (# 84)          2    completely  dd   destroyer (#84)
     Play#1 output Play#1 4 lb   TBD-1 Devastator #0, 2 bombs.  Target ('~' to skip)?
     Play#1 input 64
-    Play#1 output Play#1 1 50% hitchance...BLAM-blam
+    Play#1 output Play#1 1 50% hit chance...BLAM-blam
     Play#1 output Play#1 6 0 607
     Play#1 input bomb 0/1/2/3/4 . p -2,2 ggh
     Play#1 command bomb
@@ -483,7 +483,7 @@
     Play#1 output Play#1 1 (# 84)          2    completely  dd   destroyer (#84)
     Play#1 output Play#1 4 lb   TBD-1 Devastator #4, 2 bombs.  Target ('~' to skip)?
     Play#1 input 65
-    Play#1 output Play#1 1 50% hitchance...blam-BLAM
+    Play#1 output Play#1 1 50% hit chance...blam-BLAM
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 66)          2    completely  dd   destroyer (#66)
@@ -497,7 +497,7 @@
     Play#1 output Play#1 1 (# 84)          2    completely  dd   destroyer (#84)
     Play#1 output Play#1 4 lb   TBD-1 Devastator #3, 2 bombs.  Target ('~' to skip)?
     Play#1 input 66
-    Play#1 output Play#1 1 50% hitchance...blam-blam
+    Play#1 output Play#1 1 50% hit chance...blam-blam
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 67)          2    completely  dd   destroyer (#67)
@@ -510,7 +510,7 @@
     Play#1 output Play#1 1 (# 84)          2    completely  dd   destroyer (#84)
     Play#1 output Play#1 4 lb   TBD-1 Devastator #2, 2 bombs.  Target ('~' to skip)?
     Play#1 input 67
-    Play#1 output Play#1 1 50% hitchance...splash
+    Play#1 output Play#1 1 50% hit chance...splash
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 67)          2    completely  dd   destroyer (#67)
@@ -523,7 +523,7 @@
     Play#1 output Play#1 1 (# 84)          2    completely  dd   destroyer (#84)
     Play#1 output Play#1 4 lb   TBD-1 Devastator #1, 2 bombs.  Target ('~' to skip)?
     Play#1 input 68
-    Play#1 output Play#1 1 50% hitchance...blam-Blam
+    Play#1 output Play#1 1 50% hit chance...blam-Blam
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 60)          2    completely  dd   destroyer (#60)
     Play#1 output Play#1 1 (# 67)          2    completely  dd   destroyer (#67)
@@ -535,7 +535,7 @@
     Play#1 output Play#1 1 (# 84)          2    completely  dd   destroyer (#84)
     Play#1 output Play#1 4 lb   TBD-1 Devastator #0, 2 bombs.  Target ('~' to skip)?
     Play#1 input 69
-    Play#1 output Play#1 1 50% hitchance...blam-Blam
+    Play#1 output Play#1 1 50% hit chance...blam-Blam
     Play#1 output Play#1 6 0 605
     Play#1 input launch 10 80
     Play#1 command launch
@@ -543,7 +543,7 @@
     Play#1 output Play#1 1 Preparing to launch mi   Harpoon #10 at 2 dd   destroyer (#80) in -6,2
     Play#1 output Play#1 1 	Launching from -2,2
     Play#1 output Play#1 1 	SHWOOOOOSH!  Missile launched!
-    Play#1 output Play#1 1 	50% hitchance...miss
+    Play#1 output Play#1 1 	50% hit chance...miss
     Play#1 output Play#1 1 splash
     Play#1 output Play#1 6 0 602
     Play#1 input launch 11 81
@@ -552,7 +552,7 @@
     Play#1 output Play#1 1 Preparing to launch mi   Harpoon #11 at 2 dd   destroyer (#81) in -6,2
     Play#1 output Play#1 1 	Launching from -2,2
     Play#1 output Play#1 1 	SHWOOOOOSH!  Missile launched!
-    Play#1 output Play#1 1 	50% hitchance...miss
+    Play#1 output Play#1 1 	50% hit chance...miss
     Play#1 output Play#1 1 splash
     Play#1 output Play#1 6 0 599
     Play#1 input launch 12 82
@@ -561,7 +561,7 @@
     Play#1 output Play#1 1 Preparing to launch mi   Harpoon #12 at 2 dd   destroyer (#82) in -6,2
     Play#1 output Play#1 1 	Launching from -2,2
     Play#1 output Play#1 1 	SHWOOOOOSH!  Missile launched!
-    Play#1 output Play#1 1 	50% hitchance...miss
+    Play#1 output Play#1 1 	50% hit chance...miss
     Play#1 output Play#1 1 splash
     Play#1 output Play#1 6 0 596
     Play#1 input launch 13 83
@@ -570,7 +570,7 @@
     Play#1 output Play#1 1 Preparing to launch mi   Harpoon #13 at 2 dd   destroyer (#83) in -6,2
     Play#1 output Play#1 1 	Launching from -2,2
     Play#1 output Play#1 1 	SHWOOOOOSH!  Missile launched!
-    Play#1 output Play#1 1 	50% hitchance...HIT!
+    Play#1 output Play#1 1 	50% hit chance...HIT!
     Play#1 output Play#1 1 Blam-blam-Blam-Blam-Blam-blam
     Play#1 output Play#1 6 0 593
     Play#1 input launch 14 84
@@ -579,14 +579,14 @@
     Play#1 output Play#1 1 Preparing to launch mi   Harpoon #14 at 2 dd   destroyer (#84) in -6,2
     Play#1 output Play#1 1 	Launching from -2,2
     Play#1 output Play#1 1 	SHWOOOOOSH!  Missile launched!
-    Play#1 output Play#1 1 	50% hitchance...miss
+    Play#1 output Play#1 1 	50% hit chance...miss
     Play#1 output Play#1 1 splash
     Play#1 output Play#1 6 0 590
     Play#1 input torp 6 100
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 51%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 51%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit lc   light cruiser (#100) for 75 damage.
     Play#1 output Play#1 6 0 587
@@ -594,14 +594,14 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 51%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 51%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 584
     Play#1 input torp 6 102
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 51%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 51%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit lc   light cruiser (#102) for 44 damage.
     Play#1 output Play#1 6 0 581
@@ -609,7 +609,7 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 51%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 51%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit lc   light cruiser (#103) for 95 damage.
     Play#1 output Play#1 6 0 578
@@ -617,7 +617,7 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 51%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 51%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 575
     Play#1 input navi 5 bsh
@@ -710,7 +710,7 @@
     Play#1 output Play#1 1 (# 36)          2    completely  cav  cavalry #36
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 30
-    Play#1 output Play#1 1 83% hitchance...Blam
+    Play#1 output Play#1 1 83% hit chance...Blam
     Play#1 output Play#1 6 0 567
     Play#1 input __cmd added -1 -2 0
     Play#1 command __cmd
@@ -733,7 +733,7 @@
     Play#1 output Play#1 1 (# 33)          2    completely  cav  cavalry #33
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 33
-    Play#1 output Play#1 1 72% hitchance...Blam
+    Play#1 output Play#1 1 72% hit chance...Blam
     Play#1 output Play#1 1 -1,1 takes 4% collateral damage
     Play#1 output Play#1 6 0 563
     Play#1 input bomb 30 . p -2,2 ujh
@@ -767,7 +767,7 @@
     Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 37
-    Play#1 output Play#1 1 91% hitchance...Blam
+    Play#1 output Play#1 1 91% hit chance...Blam
     Play#1 output Play#1 6 0 561
     Play#1 input bomb 30 . p -2,2 ujh
     Play#1 command bomb
@@ -800,7 +800,7 @@
     Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 40
-    Play#1 output Play#1 1 72% hitchance...Blam
+    Play#1 output Play#1 1 72% hit chance...Blam
     Play#1 output Play#1 6 0 559
     Play#1 input __cmd added -1 0 0
     Play#1 command __cmd
@@ -834,7 +834,7 @@
     Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 41
-    Play#1 output Play#1 1 72% hitchance...Blam
+    Play#1 output Play#1 1 72% hit chance...Blam
     Play#1 output Play#1 6 0 557
     Play#1 input bomb 30 . p -2,2 ujh
     Play#1 command bomb
@@ -863,7 +863,7 @@
     Play#1 output Play#1 1 (# 44)          2    completely  eng  engineer #44
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 42
-    Play#1 output Play#1 1 72% hitchance...Blam
+    Play#1 output Play#1 1 72% hit chance...Blam
     Play#1 output Play#1 6 0 555
     Play#1 input __cmd added -1 0 0
     Play#1 command __cmd
@@ -896,7 +896,7 @@
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 44
     Play#1 output Play#1 1     Flak! ac   AH-64 Apache #30 takes 1.
-    Play#1 output Play#1 1 72% hitchance...Blam
+    Play#1 output Play#1 1 72% hit chance...Blam
     Play#1 output Play#1 6 0 553
     Play#1 input bomb 31 . p -2,2 uyuuh
     Play#1 command bomb
@@ -921,7 +921,7 @@
     Play#1 output Play#1 1 (# 46)          2    completely  cav  cavalry #46
     Play#1 output Play#1 4 ac   AH-64 Apache #31, 1 bombs.  Target ('~' to skip)?
     Play#1 input 45
-    Play#1 output Play#1 1 92% hitchance...Blam
+    Play#1 output Play#1 1 92% hit chance...Blam
     Play#1 output Play#1 6 0 551
     Play#1 input __cmd added -1 0 0
     Play#1 command __cmd
@@ -952,7 +952,7 @@
     Play#1 output Play#1 1 (# 47)          2    completely  cav  cavalry #47
     Play#1 output Play#1 4 ac   AH-64 Apache #31, 1 bombs.  Target ('~' to skip)?
     Play#1 input 47
-    Play#1 output Play#1 1 72% hitchance...Blam
+    Play#1 output Play#1 1 72% hit chance...Blam
     Play#1 output Play#1 6 0 549
     Play#1 input __cmd added 2 4 0
     Play#1 command __cmd
@@ -983,7 +983,7 @@
     Play#1 output Play#1 1 (# 42)          2    completely  cav  cavalry #42
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 10
-    Play#1 output Play#1 1 71% hitchance...Blam
+    Play#1 output Play#1 1 71% hit chance...Blam
     Play#1 output Play#1 6 0 551
     Play#1 input __cmd added -1 0 0
     Play#1 command __cmd
@@ -1020,7 +1020,7 @@
     Play#1 output Play#1 1 (# 28)          2    completely  cav  cavalry #28
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 10
-    Play#1 output Play#1 1 73% hitchance...Blam
+    Play#1 output Play#1 1 73% hit chance...Blam
     Play#1 output Play#1 1 	cav  cavalry #24 takes 1
     Play#1 output Play#1 6 0 549
     Play#1 input __cmd added -1 0 0
@@ -1058,7 +1058,7 @@
     Play#1 output Play#1 1 (# 28)          2    completely  cav  cavalry #28
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 10
-    Play#1 output Play#1 1 76% hitchance...BLAM
+    Play#1 output Play#1 1 76% hit chance...BLAM
     Play#1 output Play#1 1 	cav  cavalry #24 takes 1
     Play#1 output Play#1 6 0 547
     Play#1 input bomb 30 . p -3,1 h
@@ -1086,7 +1086,7 @@
     Play#1 output Play#1 1 (#  3)          1    completely  inf  infantry #3
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 2
-    Play#1 output Play#1 1 73% hitchance...Blam
+    Play#1 output Play#1 1 73% hit chance...Blam
     Play#1 output Play#1 1 	inf  infantry #2 takes 22
     Play#1 output Play#1 1 -3,1 takes 4% collateral damage
     Play#1 output Play#1 1 	inf  infantry #0 takes 1
@@ -1124,7 +1124,7 @@
     Play#1 output Play#1 1 (# 28)          2    completely  cav  cavalry #28
     Play#1 output Play#1 4 ac   AH-64 Apache #30, 1 bombs.  Target ('~' to skip)?
     Play#1 input 25
-    Play#1 output Play#1 1 71% hitchance...Blam
+    Play#1 output Play#1 1 71% hit chance...Blam
     Play#1 output Play#1 6 0 543
     Play#1 input __cmd added 1 2 0
     Play#1 command __cmd
@@ -1164,7 +1164,7 @@
     Play#1 output Play#1 1 (# 64)          2    completely  cav  cavalry #64
     Play#1 output Play#1 4 lb   TBD-1 Devastator #24, 2 bombs.  Target ('~' to skip)?
     Play#1 input 60
-    Play#1 output Play#1 1 50% hitchance...Blam-BLAM
+    Play#1 output Play#1 1 50% hit chance...Blam-BLAM
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
@@ -1172,7 +1172,7 @@
     Play#1 output Play#1 1 (# 64)          2    completely  cav  cavalry #64
     Play#1 output Play#1 4 lb   TBD-1 Devastator #23, 2 bombs.  Target ('~' to skip)?
     Play#1 input 61
-    Play#1 output Play#1 1 50% hitchance...thud
+    Play#1 output Play#1 1 50% hit chance...thud
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
@@ -1180,7 +1180,7 @@
     Play#1 output Play#1 1 (# 64)          2    completely  cav  cavalry #64
     Play#1 output Play#1 4 lb   TBD-1 Devastator #22, 2 bombs.  Target ('~' to skip)?
     Play#1 input 62
-    Play#1 output Play#1 1 50% hitchance...thud
+    Play#1 output Play#1 1 50% hit chance...thud
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
@@ -1188,7 +1188,7 @@
     Play#1 output Play#1 1 (# 64)          2    completely  cav  cavalry #64
     Play#1 output Play#1 4 lb   TBD-1 Devastator #21, 2 bombs.  Target ('~' to skip)?
     Play#1 input 63
-    Play#1 output Play#1 1 50% hitchance...thud
+    Play#1 output Play#1 1 50% hit chance...thud
     Play#1 output Play#1 1  #          owner           eff       type
     Play#1 output Play#1 1 (# 61)          2    completely  cav  cavalry #61
     Play#1 output Play#1 1 (# 62)          2    completely  cav  cavalry #62
@@ -1196,7 +1196,7 @@
     Play#1 output Play#1 1 (# 64)          2    completely  cav  cavalry #64
     Play#1 output Play#1 4 lb   TBD-1 Devastator #20, 2 bombs.  Target ('~' to skip)?
     Play#1 input 64
-    Play#1 output Play#1 1 50% hitchance...Blam-Blam
+    Play#1 output Play#1 1 50% hit chance...Blam-Blam
     Play#1 output Play#1 6 0 543
     Play#1 input ctld
     Play#1 output Play#1 1 Bye-bye

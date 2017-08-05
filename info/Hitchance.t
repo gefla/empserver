@@ -5,14 +5,14 @@ This page describes the chance of a mine, torpedo, ship anti-missile
 defense, missile, or plane hitting its target.
 .nf
 
-Sea Mine hitchance
+Sea mine hit chance
 The chance of a ship hitting a mine at sea is (mines/(mines+20)). (For
 example, with 20 mines, the chance of hitting one is 20/40 = 50%) The
 damage is dependent upon the size of the ship and the spot that the
 mine hits.  (see \*Qinfo Damage\*U).
 
 
-Land Mine Hitchance
+Land mine hit chance
 The chance of a land unit hitting a land mine is mines/(mines+35).
 (For example, with 20 mines, the chance of hitting one is 20/55 =
 36%).  See \*Qinfo Damage\*U to find out how much damage things take
@@ -25,12 +25,12 @@ First the above chance is checked, and then a chance equal to (weight
 / 100) is checked.
 
 
-Torpedo hitchance
+Torpedo hit chance
 The chance of a torpedo hitting its target is equal to:
   hitchance = 0.9/(range + 1)
 where "range" is the range to the target.  If the visibility of the
 ship firing is less than 6, then (5 - visibility) * 0.03 is added to
-the hitchance.
+the hit chance.
 
 Thus, the base chance of a sub hitting its target (before visibility
 modification) is:
@@ -61,10 +61,10 @@ where
   tech is the tech level that the ship was built at
 
 
-Plane and missile hitchance
+Plane and missile hit chance
 If the target is
-a sector, then the hitchance is 100%.  Otherwise, the following
-procedure is used to calculate hitchance.
+a sector, then the hit chance is 100%.  Otherwise, the following
+procedure is used to calculate hit chance.
 
 The formula for a plane or missile hitting its target depends on the
 type of the target (ship, plane, land unit) and the "hardtarget" value
@@ -110,12 +110,12 @@ and if the target is a ship and the plane is an ASW plane, then
 and if the target is a ship and the plane does not have tactical capability
   placc = placc + 35
 
-Lastly we smooth out the bottom end of the hitchance curve.  If
+Lastly we smooth out the bottom end of the hit chance curve.  If
 hitchance is less than 20, then it is "belled up" using the following
 curve:
   hitchance = 5 + 300 / (40 - hitchance).
 
-On the other hand, you can just find out the hitchance by pinbombing
-or launching a missile--the hitchance is always printed!  :-)
+On the other hand, you can just find out the hit chance by pin-bombing
+or launching a missile--the hit chance is always printed!  :-)
 .fi
 .SA "fire, launch, bomb, torpedo, Attacking, Damage, Interception, Combat"

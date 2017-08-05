@@ -418,10 +418,10 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	else {
 	    hitchance = pln_hitchance(&plp->plane,
 				      shp_hardtarget(&ship), EF_SHIP);
-	    pr("%d%% hitchance...", hitchance);
+	    pr("%d%% hit chance...", hitchance);
 	}
 	if (pct_chance(hitchance)) {
-	    /* pinbombing is more accurate than normal bombing */
+	    /* pin-bombing is more accurate than normal bombing */
 	    dam = 2 * pln_damage(&plp->plane, 'p', "");
 	} else {
 	    pr("splash\n");
@@ -516,10 +516,10 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	    hitchance = 100;
 	else {
 	    hitchance = pln_hitchance(&plp->plane, 0, EF_PLANE);
-	    pr("%d%% hitchance...", hitchance);
+	    pr("%d%% hit chance...", hitchance);
 	}
 	if (pct_chance(hitchance)) {
-	    /* pinbombing is more accurate than normal bombing */
+	    /* pin-bombing is more accurate than normal bombing */
 	    dam = 2 * pln_damage(&plp->plane, 'p', "");
 	} else {
 	    pr("thud\n");
@@ -617,7 +617,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	else {
 	    hitchance = pln_hitchance(&plp->plane,
 				      lnd_hardtarget(&land), EF_LAND);
-	    pr("%d%% hitchance...", hitchance);
+	    pr("%d%% hit chance...", hitchance);
 	}
 	if (pct_chance(hitchance)) {
 	    dam = 2 * pln_damage(&plp->plane, 'p', "");

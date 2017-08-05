@@ -88,7 +88,7 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 3.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 36%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 36%
     Play#1 output Play#1 1 BOOM!... Torpedo slams into land before reaching target.
     Play#1 output Play#1 6 0 598
     Play#1 input torp 11 42
@@ -102,7 +102,7 @@
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Starting our attack run...
     Play#1 output Play#1 1 Effective torpedo range is 1.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 90%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit sub #45 for 46 damage.
     Play#1 output Play#1 6 0 592
@@ -110,14 +110,14 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 589
     Play#1 input torp 10 51
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 1.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit pt   patrol boat (#51) for 64 damage.
     Play#1 output Play#1 6 0 586
@@ -125,14 +125,14 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 583
     Play#1 input torp 10 53
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 1.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 580
     Play#1 input torp 15 55
@@ -140,7 +140,7 @@
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Starting our attack run...
     Play#1 output Play#1 1 Effective torpedo range is 2.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit pt   patrol boat (#55) for 64 damage.
     Play#1 output Play#1 6 0 577
@@ -149,7 +149,7 @@
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Starting our attack run...
     Play#1 output Play#1 1 Effective torpedo range is 1.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 574
     Play#1 input torp 15 57
@@ -157,7 +157,7 @@
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Starting our attack run...
     Play#1 output Play#1 1 Effective torpedo range is 1.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 571
     Play#1 input torp 15 58
@@ -165,7 +165,7 @@
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Starting our attack run...
     Play#1 output Play#1 1 Effective torpedo range is 2.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit pt   patrol boat (#58) for 77 damage.
     Play#1 output Play#1 6 0 568
@@ -174,7 +174,7 @@
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Starting our attack run...
     Play#1 output Play#1 1 Effective torpedo range is 1.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit sub #60 for 70 damage.
     Play#1 output Play#1 6 0 565
@@ -183,7 +183,7 @@
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Starting our attack run...
     Play#1 output Play#1 1 Effective torpedo range is 1.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 562
     Play#1 input torp 15 62
@@ -191,7 +191,7 @@
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Starting our attack run...
     Play#1 output Play#1 1 Effective torpedo range is 1.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit sub #62 for 67 damage.
     Play#1 output Play#1 6 0 559
@@ -200,21 +200,21 @@
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Starting our attack run...
     Play#1 output Play#1 1 Effective torpedo range is 1.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 45%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 45%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 556
     Play#1 input torp 11 65
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 3.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 36%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 36%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 553
     Play#1 input torp 11 66
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 3.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 36%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 36%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit sub #66 for 114 damage.
     Play#1 output Play#1 1 sub #66 sunk!
@@ -223,7 +223,7 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 3.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 36%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 36%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit sub #67 for 81 damage.
     Play#1 output Play#1 6 0 547
@@ -231,7 +231,7 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 3.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 36%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 36%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 544
     Play#1 input torp 20 70
@@ -266,7 +266,7 @@
     Play#1 output Play#1 1 \007BLAM! 20 damage!
     Play#1 output Play#1 1 	pt   patrol boat (#21) takes 17
     Play#1 output Play#1 1 Effective torpedo range is 0.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 90%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit dd   destroyer (#70) for 94 damage.
     Play#1 output Play#1 1 Starting our attack run...
@@ -283,7 +283,7 @@
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 	pt   patrol boat (#22) takes 36
     Play#1 output Play#1 1 Effective torpedo range is 0.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 90%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit dd   destroyer (#70) for 61 damage.
     Play#1 output Play#1 1 Starting our attack run...
@@ -293,7 +293,7 @@
     Play#1 output Play#1 1 \007BLAM! 43 damage!
     Play#1 output Play#1 1 	pt   patrol boat (#23) takes 37
     Play#1 output Play#1 1 Effective torpedo range is 0.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 90%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit dd   destroyer (#70) for 81 damage.
     Play#1 output Play#1 1 dd   destroyer (#70) sunk!
@@ -303,7 +303,7 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 3.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 96%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 96%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit bb   battleship (#75) for 64 damage.
     Play#1 output Play#1 1 Captain! Torpedoes sighted!
@@ -318,7 +318,7 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 4 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 2.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 96%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 96%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit bb   battleship (#75) for 79 damage.
     Play#1 output Play#1 1 Captain! Torpedoes sighted!
@@ -329,14 +329,14 @@
     Play#1 output Play#1 1 click...WHAM!  19 damage!
     Play#1 output Play#1 1 	sb   submarine (#26) takes 14
     Play#1 output Play#1 1 Effective torpedo range is 3.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 96%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 96%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit bb   battleship (#75) for 60 damage.
     Play#1 output Play#1 1 Captain! Torpedoes sighted!
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 	sb   submarine (#27) takes 40
     Play#1 output Play#1 1 Effective torpedo range is 2.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 96%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 96%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit bb   battleship (#75) for 73 damage.
     Play#1 output Play#1 1 bb   battleship (#75) sunk!
@@ -352,7 +352,7 @@
     Play#1 command torpedo
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Effective torpedo range is 1.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 90%
     Play#1 output Play#1 1 BOOM!...
     Play#1 output Play#1 1 Torpedo hit af   asw frigate (#16) for 67 damage.
     Play#1 output Play#1 1 	af   asw frigate (#16) takes 44
@@ -362,7 +362,7 @@
     Play#1 output Play#1 1 1 ships are eligible to torpedo
     Play#1 output Play#1 1 Starting our attack run...
     Play#1 output Play#1 1 Effective torpedo range is 1.0
-    Play#1 output Play#1 1 Whooosh... Hitchance = 90%
+    Play#1 output Play#1 1 Whooosh... Hit chance = 90%
     Play#1 output Play#1 1 Missed
     Play#1 output Play#1 6 0 526
     Play#1 input ctld

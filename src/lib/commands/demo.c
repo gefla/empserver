@@ -24,7 +24,7 @@
  *
  *  ---
  *
- *  demo.c: De-mobilize "n" military in a given sector
+ *  demo.c: Demobilize "n" military in a given sector
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
@@ -57,7 +57,7 @@ demo(void)
     natp = getnatp(player->cnum);
     if (!snxtsct(&nstr, player->argp[1]))
 	return RET_SYN;
-    if (!(p = getstarg(player->argp[2], "Number to de-mobilize : ", buf)))
+    if (!(p = getstarg(player->argp[2], "Number to demobilize : ", buf)))
 	return RET_SYN;
     number = atoi(p);
     p = getstarg(player->argp[3],

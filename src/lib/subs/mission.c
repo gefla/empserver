@@ -487,7 +487,7 @@ perform_mission_ship(int dam, struct shpstr *sp, coord x, coord y,
 	wu(0, sp->shp_own,
 	   "\tEffective torpedo range is %d.0\n", range);
 	wu(0, sp->shp_own,
-	   "\tWhooosh... Hitchance = %.0f%%\n", hitchance * 100);
+	   "\tWhooosh... Hit chance = %.0f%%\n", hitchance * 100);
 
 	if (!chance(hitchance)) {
 	    wu(0, sp->shp_own, "\tMissed\n");
@@ -1057,7 +1057,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	       prplane(pp), cname(victim), s, xyas(x, y, pp->pln_own));
 	} else {
 	    wu(0, pp->pln_own,
-	       "\t%s pinbombing %s %s in %s\n",
+	       "\t%s pin-bombing %s %s in %s\n",
 	       prplane(pp), cname(victim), s, xyas(x, y, pp->pln_own));
 	}
 
@@ -1067,7 +1067,7 @@ air_damage(struct emp_qelem *bombers, coord x, coord y, int mission,
 	else {
 	    hitchance = pln_hitchance(pp, hardtarget, EF_SHIP);
 	    if (hardtarget != SECT_HARDTARGET)
-		snprintf(buf, sizeof(buf), "\t\t%d%% hitchance...",
+		snprintf(buf, sizeof(buf), "\t\t%d%% hit chance...",
 			 hitchance);
 	}
 	if (pct_chance(hitchance)) {

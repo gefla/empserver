@@ -873,7 +873,7 @@ Changes to Empire 4.3.26 - Mon May 24 16:37:40 UTC 2010
  * Info page fixes, manual page improvements.
 
 Changes to Empire 4.3.25 - Sun Mar 21 08:27:37 UTC 2010
- * Hitting seamines could crash the server.  When not, the damage
+ * Hitting sea mines could crash the server.  When not, the damage
    reduction for capability sweep was applied unpredictably.  Broken
    in 4.3.24.
  * When an interdiction did damage other than collateral damage, the
@@ -1047,14 +1047,14 @@ Changes to Empire 4.3.22 - Sat Apr 25 11:56:29 UTC 2009
    is a tty.
  * Fix a client bug that could make it hang when EOF on standard input
    follows an execute command closely.
- * Seamines under bridge spans were disabled a long time ago, in
+ * Sea mines under bridge spans were disabled a long time ago, in
    Empire 2.  The drop command refuses to mine there.  Change mine
    command to do so as well.
- * Seamines under bridge spans were mistaken for landmines by ground
+ * Sea mines under bridge spans were mistaken for landmines by ground
    combat, land units retreating from bombs, and non-land unit ground
    movement.
  * When a bridge tower collapsed, its landmines magically became
-   seamines.
+   sea mines.
  * Don't log out player when he interrupts a command.  Broken in
    4.3.19.
  * Code cleanup and portability improvements.

@@ -163,7 +163,7 @@ msl_hit(struct plnstr *pp, int hardtarget, int type,
     } else {
 	hitchance = pln_hitchance(pp, hardtarget, type);
 	hit = pct_chance(hitchance);
-	mpr(pp->pln_own, "\t%d%% hitchance...%s\n", hitchance,
+	mpr(pp->pln_own, "\t%d%% hit chance...%s\n", hitchance,
 	    hit ? "HIT!" : "miss");
     }
 

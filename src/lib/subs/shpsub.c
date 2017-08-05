@@ -223,7 +223,7 @@ shp_nav_put_one(struct ulist *mlp)
 }
 
 /*
- * Sweep seamines with engineers in @ship_list for @actor.
+ * Sweep sea mines with engineers in @ship_list for @actor.
  * All ships in @ship_list must be in the same sector.
  * If @explicit is non-zero, this is for an explicit sweep command from
  * a player.  Else it's an automatic "on the move" sweep.
@@ -252,7 +252,7 @@ shp_sweep(struct emp_qelem *ship_list, int explicit, int takemob,
     getsect(mlp->unit.ship.shp_x, mlp->unit.ship.shp_y, &sect);
     if (sect.sct_type != SCT_WATER) {
 	if (explicit)
-	    mpr(actor, "%s is a %s.  No seamines there!\n",
+	    mpr(actor, "%s is a %s.  No sea mines there!\n",
 	       xyas(sect.sct_x, sect.sct_y, actor),
 	       dchr[sect.sct_type].d_name);
 	return 0;
@@ -957,7 +957,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	    : "SWOOSH!!  anti-missile system failed!!");
 	mpr(ship.shp_own, "Ship #%i anti-missile system activated!\n",
 	    ship.shp_uid);
-	mpr(ship.shp_own, "%d%% hitchance...%s\n", hitchance,
+	mpr(ship.shp_own, "%d%% hit chance...%s\n", hitchance,
 	    hit ? "KABOOOM!!  Incoming missile destroyed!\n"
 	    : "SWOOSH!!  Missile evades anti-missile systems\n");
 

@@ -357,7 +357,7 @@ pln_mine(struct emp_qelem *list, coord tx, coord ty)
     if (amt > 0) {
 	getsect(tx, ty, &sect);
 	if (sect.sct_type != SCT_WATER) {
-	    pr("Your seamines have no effect here.\n");
+	    pr("Your sea mines have no effect here.\n");
 	    return;
 	}
 	sect.sct_mines = MIN(sect.sct_mines + amt, MINES_MAX);

@@ -591,7 +591,7 @@
     Play#1 input navi 5 mh
     Play#1 command navigate
     Play#1 output Play#1 1 Flagship is ms   minesweeper (#5)
-    Play#1 output Play#1 1 1,1 is a harbor.  No seamines there!
+    Play#1 output Play#1 1 1,1 is a harbor.  No sea mines there!
     Play#1 output Play#1 1 ms   minesweeper (#5) stopped at 1,1
     Play#1 output Play#1 6 0 593
     Play#1 input navi 121/122/128 j
