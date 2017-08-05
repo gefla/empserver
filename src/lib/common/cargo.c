@@ -46,7 +46,7 @@ struct clink {
  * Cargo lists
  *
  * Persistent game state encodes "who carries what" by storing the
- * carrier uid in the cargo.  Cargo lists augment that: they store
+ * carrier UID in the cargo.  Cargo lists augment that: they store
  * lists of cargo for each carrier.
  *
  * clink[TYPE] points to an array of cargo list links.  The array has
@@ -56,10 +56,10 @@ struct clink {
  * EF_NUKE.  Other slots of clink[] and nclink[] are unused and remain
  * zero.
  *
- * clink[TYPE][UID].next is the uid of the next unit of the same type
+ * clink[TYPE][UID].next is the UID of the next unit of the same type
  * in the same carrier, -1 if none.
  *
- * clink[TYPE][UID].head[CARGO-EF_PLANE] is the uid of the first unit
+ * clink[TYPE][UID].head[CARGO-EF_PLANE] is the UID of the first unit
  * of type CARGO carried by this unit, -1 if none.  The next unit, if
  * any, is clink[CARGO][clink[TYPE][UID].head[CARGO-EF_PLANE]].next,
  * and so forth.
@@ -99,7 +99,7 @@ clink_init(struct clink *cl)
 }
 
 /*
- * Check whether *@uidp is a valid uid for file type @type.
+ * Check whether *@uidp is a valid UID for file type @type.
  */
 static void
 clink_check1(int *uidp, int type)
@@ -130,7 +130,7 @@ clink_check(int type)
 }
 
 /*
- * Add to @cl's cargo list for type @type the uid @uid.
+ * Add to @cl's cargo list for type @type the UID @uid.
  * @uid must not be on any cargo list already.
  */
 static void
@@ -149,7 +149,7 @@ clink_add(struct clink *cl, int type, int uid)
 }
 
 /*
- * Remove from @cl's cargo list for type @type the uid @uid.
+ * Remove from @cl's cargo list for type @type the UID @uid.
  * @uid must be on that cargo list.
  */
 static void
@@ -176,8 +176,8 @@ clink_rem(struct clink *cl, int type, int uid)
 
 /*
  * Update cargo lists for a change of @cargo's carrier.
- * Carrier is of type @type, and changes from uid @old to @new.
- * Negative uids mean no carrier.
+ * Carrier is of type @type, and changes from UID @old to @new.
+ * Negative UIDs mean no carrier.
  */
 void
 unit_carrier_change(struct empobj *cargo, int type, int old, int new)
@@ -192,8 +192,8 @@ unit_carrier_change(struct empobj *cargo, int type, int old, int new)
 
 /*
  * Update cargo lists for a change of @pp's carrier.
- * Carrier is of type @type, and changes from uid @old to @new.
- * Negative uids mean no carrier.
+ * Carrier is of type @type, and changes from UID @old to @new.
+ * Negative UIDs mean no carrier.
  */
 void
 pln_carrier_change(struct plnstr *pp, int type, int old, int new)
@@ -203,8 +203,8 @@ pln_carrier_change(struct plnstr *pp, int type, int old, int new)
 
 /*
  * Update cargo lists for a change of @lp's carrier.
- * Carrier is of type @type, and changes from uid @old to @new.
- * Negative uids mean no carrier.
+ * Carrier is of type @type, and changes from UID @old to @new.
+ * Negative UIDs mean no carrier.
  */
 void
 lnd_carrier_change(struct lndstr *lp, int type, int old, int new)
@@ -214,8 +214,8 @@ lnd_carrier_change(struct lndstr *lp, int type, int old, int new)
 
 /*
  * Update cargo lists for a change of @np's carrier.
- * Carrier is of type @type, and changes from uid @old to @new.
- * Negative uids mean no carrier.
+ * Carrier is of type @type, and changes from UID @old to @new.
+ * Negative UIDs mean no carrier.
  */
 void
 nuk_carrier_change(struct nukstr *np, int type, int old, int new)
@@ -299,7 +299,7 @@ unit_onresize(int type)
 /*
  * Find first unit on a carrier's cargo list for file type @cargo_type.
  * Search carrier @uid of type @type.
- * Return first unit's uid, or -1 if the carrier isn't carrying such
+ * Return first unit's UID, or -1 if the carrier isn't carrying such
  * units.
  */
 int
@@ -320,7 +320,7 @@ unit_cargo_first(int type, int uid, int cargo_type)
 /*
  * Find the next unit on a cargo list for file type @cargo_type.
  * Get the unit after @cargo_uid.
- * Return its uid, or -1 if there are no more on this list.
+ * Return its UID, or -1 if there are no more on this list.
  */
 int
 unit_cargo_next(int cargo_type, int cargo_uid)
@@ -333,7 +333,7 @@ unit_cargo_next(int cargo_type, int cargo_uid)
 }
 
 /*
- * If @sp carries planes, return the uid of the first one, else -1.
+ * If @sp carries planes, return the UID of the first one, else -1.
  */
 int
 pln_first_on_ship(struct shpstr *sp)
@@ -342,7 +342,7 @@ pln_first_on_ship(struct shpstr *sp)
 }
 
 /*
- * If @lp carries planes, return the uid of the first one, else -1.
+ * If @lp carries planes, return the UID of the first one, else -1.
  */
 int
 pln_first_on_land(struct lndstr *lp)
@@ -352,7 +352,7 @@ pln_first_on_land(struct lndstr *lp)
 
 /*
  * Find the next plane on the same carrier as plane#@uid.
- * Return its uid, or -1 if there are no more.
+ * Return its UID, or -1 if there are no more.
  */
 int
 pln_next_on_unit(int uid)
@@ -361,7 +361,7 @@ pln_next_on_unit(int uid)
 }
 
 /*
- * If @sp carries land units, return the uid of the first one, else -1.
+ * If @sp carries land units, return the UID of the first one, else -1.
  */
 int
 lnd_first_on_ship(struct shpstr *sp)
@@ -370,7 +370,7 @@ lnd_first_on_ship(struct shpstr *sp)
 }
 
 /*
- * If @lp carries land units, return the uid of the first one, else -1.
+ * If @lp carries land units, return the UID of the first one, else -1.
  */
 int
 lnd_first_on_land(struct lndstr *lp)
@@ -380,7 +380,7 @@ lnd_first_on_land(struct lndstr *lp)
 
 /*
  * Find the next land unit on the same carrier as land#@uid.
- * Return its uid, or -1 if there are no more.
+ * Return its UID, or -1 if there are no more.
  */
 int
 lnd_next_on_unit(int uid)
@@ -389,7 +389,7 @@ lnd_next_on_unit(int uid)
 }
 
 /*
- * If @pp carries a nuke, return its uid, else -1.
+ * If @pp carries a nuke, return its UID, else -1.
  */
 int
 nuk_on_plane(struct plnstr *pp)

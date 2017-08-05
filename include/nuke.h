@@ -46,7 +46,7 @@ struct nukstr {
     signed ef_type: 8;
     unsigned nuk_seqno: 12;
     unsigned nuk_generation: 12;
-    int nuk_uid;		/* unit id (nuke #) */
+    int nuk_uid;		/* unit ID (nuke #) */
     time_t nuk_timestamp;	/* Last time this nuke was touched */
     natid nuk_own;
     coord nuk_x, nuk_y;		/* current loc of device */
@@ -60,7 +60,7 @@ struct nukstr {
     short nuk_mission;		/* mission code, unused */
     short nuk_radius;		/* mission radius, unused */
     /* end of part matching struct empobj */
-    int nuk_plane;		/* uid of transporting plane, or -1 */
+    int nuk_plane;		/* UID of transporting plane, or -1 */
 };
 
 struct nchrstr {

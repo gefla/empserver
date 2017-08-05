@@ -7,9 +7,9 @@ database for your country.
 .s1
 All lost items are timestamped at the time they were lost.  If
 you had a previously lost item in the database, and then build a
-new item of the same type with the same id, or regain an item of the
+new item of the same type with the same ID, or regain an item of the
 same type with the same
-id, it is removed from the database.  This is done because the new item
+ID, it is removed from the database.  This is done because the new item
 will now show up in the other dump commands, and is no longer lost.
 .s1
 Lost items are kept in the database for 48 hours (default) but may
@@ -48,7 +48,7 @@ The type of lost item.  They are as follows:
     4 - Nuclear stockpile
 .L id
 The # of the ship, plane, land unit or nuke.  All of these items
-are identified by id.  Sectors are identified by x and y.
+are identified by ID.  Sectors are identified by x and y.
 .L x
 The x coordinate of the lost item when it was lost.
 .L y

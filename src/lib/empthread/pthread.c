@@ -58,7 +58,7 @@ struct empth_t {
     void *ud;			/* user data */
     int wakeup;
     void (*ep)(void *);		/* entry point */
-    pthread_t id;		/* thread id */
+    pthread_t id;		/* thread ID */
 };
 
 struct empth_rwlock_t {
@@ -214,7 +214,7 @@ empth_create(void (*entry)(void *), int size, int flags,
 	logerror("can not create thread: %s: %s", name, strerror(eno));
 	goto bad;
     }
-    empth_status("new thread id is %ld", (long)t);
+    empth_status("new thread ID is %ld", (long)t);
     empth_yield();
     return ctx;
 

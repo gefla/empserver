@@ -49,7 +49,7 @@ struct plnstr {
     signed ef_type: 8;
     unsigned pln_seqno: 12;
     unsigned pln_generation: 12;
-    int pln_uid;		/* unit id (plane #) */
+    int pln_uid;		/* unit ID (plane #) */
     time_t pln_timestamp;	/* Last time this plane was touched */
     natid pln_own;		/* owning country */
     coord pln_x;		/* plane x-y */
@@ -67,8 +67,8 @@ struct plnstr {
     /* end of part matching struct empobj */
     unsigned char pln_range;	/* total distance, not radius */
     signed char pln_harden;	/* for missiles */
-    int pln_ship;		/* uid of carrier, or -1 */
-    int pln_land;		/* uid of transporting land unit, or -1 */
+    int pln_ship;		/* UID of carrier, or -1 */
+    int pln_land;		/* UID of transporting land unit, or -1 */
     int pln_flags;		/* State of the plane */
     short pln_access;		/* Last tick mob was updated (MOB_ACCESS) */
     float pln_theta;		/* position in orbital sine wave */

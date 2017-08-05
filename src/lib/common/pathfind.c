@@ -57,7 +57,7 @@ static char *bufrotate(char *buf, size_t bufsz, size_t i);
  */
 
 /*
- * Array of sector data, indexed by sector uid
+ * Array of sector data, indexed by sector UID
  *
  * We need to store a few values per sector visited by the path
  * search.  An array is the stupidest data structure that could
@@ -98,7 +98,7 @@ static struct pf_map *pf_map;
  */
 
 struct pf_heap {
-    int uid;			/* sector uid and */
+    int uid;			/* sector UID and ... */
     coord x, y;			/* coordinates, @uid == XYOFFSET(@x, @y) */
     double cost;		/* cost from source */
 };
@@ -131,7 +131,7 @@ static double pf_sumcost;
 #endif	/* !PATH_FIND_STATS */
 
 #ifndef NDEBUG			/* silence "not used" warning */
-/* Is sector with uid @uid open? */
+/* Is sector with UID @uid open? */
 static int
 pf_is_open(int uid)
 {
@@ -139,7 +139,7 @@ pf_is_open(int uid)
 }
 #endif
 
-/* Is sector with uid @uid closed? */
+/* Is sector with UID @uid closed? */
 static int
 pf_is_closed(int uid)
 {
@@ -150,7 +150,7 @@ pf_is_closed(int uid)
     return pf_map[uid].visit > pf_visit;
 }
 
-/* Is sector with uid @uid unvisited? */
+/* Is sector with UID @uid unvisited? */
 static int
 pf_is_unvisited(int uid)
 {
@@ -234,7 +234,7 @@ pf_sift_up(int n)
 
 /*
  * Open the unvisited sector @x,@y.
- * @uid is sector uid, it equals XYOFFSET(@x,@y).
+ * @uid is sector UID, it equals XYOFFSET(@x,@y).
  * Cheapest path from source comes from direction @dir and has cost @cost.
  */
 static void
@@ -283,7 +283,7 @@ pf_close(void)
 /* silence "not used" warning */
 #ifdef PATH_FIND_DEBUG
 /*
- * Return cost from source to sector with uid @uid.
+ * Return cost from source to sector with UID @uid.
  * It must be visited, i.e. open or closed.
  */
 static double
@@ -327,7 +327,7 @@ y_in_dir(coord y, int dir)
 /*
  * Set the current source and cost function.
  * @sx,@sy is the source.
- * The cost to enter the sector with uid ID is @cost(@actor, ID).
+ * The cost to enter the sector with UID ID is @cost(@actor, ID).
  * Negative value means the sector can't be entered.
  */
 static void

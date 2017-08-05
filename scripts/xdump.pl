@@ -32,11 +32,11 @@ use Dumpvalue;
 
 # Map table name to meta table reference
 my %meta_by_name = ();
-# Map table uid to meta table reference
+# Map table UID to meta table reference
 my @meta_by_uid = ();
 # Map table name to table reference
 my %table_by_name = ();
-# Map table uid to table reference
+# Map table UID to table reference
 my @table_by_uid = ();
 
 # The meta meta table
@@ -67,7 +67,7 @@ my $dumper = new Dumpvalue;
     # xdump meta table
     $meta_by_name{table} = [];
     parse_xdump(send_cmd('xdump meta table'), undef);
-    # table's first field is record uid, and its table field is the table uid:
+    # table's first field is record UID, and its table field is the table uid:
     my $tuid = $meta_by_name{table}->[0]->{table};
     $meta_by_uid[$tuid] = $meta_by_name{table};
 
@@ -78,7 +78,7 @@ my $dumper = new Dumpvalue;
 
 # complete work for xdump meta meta
 {
-    # find the meta table uid
+    # find the meta table UID
     my ($meta) = grep { defined $_ && $_->{name} eq 'meta' }
 		      @{$table_by_name{table}};
     my $tuid = $meta->{uid};
@@ -91,7 +91,7 @@ my $dumper = new Dumpvalue;
 {
     # lookup record with name => 'type' in meta meta:
     my ($mmt) = grep {$_->{name} eq 'type'} @meta_meta;
-    # its table field is uid of table meta-type:
+    # its table field is UID of table meta-type:
     my $tuid = $mmt->{table};
     # lookup table meta-type's name:
     my $name = $table_by_name{table}->[$tuid]->{name};
@@ -215,7 +215,7 @@ sub eval_fld {
 }
 
 sub has_record_uid {
-    # a table has record uids if the first field's table is the table's uid
+    # a table has record UIDs if the first field's table is the table's UID
     my ($tuid) = @_;
     die unless defined $tuid;
     die unless defined $meta_by_uid[$tuid];

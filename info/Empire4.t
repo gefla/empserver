@@ -28,11 +28,11 @@ Changes to Empire 4.3.33 - Wed May 20 18:17:43 UTC 2015
    - Don't disclose that the torpedo's path to the target is blocked
      by land when the target is out of range.  Screwed up in 4.2.2.
    - When a submarine gets hit by return fire after firing its deck
-     gun, the defender again learns the submarine's uid and type, just
+     gun, the defender again learns the submarine's UID and type, just
      like for surface ships.  This is how it worked before Empire 2.3.
    - When a submarine gets hit by return fire after launching a
-     torpedo, the defender again learns the submarine's uid.  Before
-     Empire 2.3, he learned uid and type.
+     torpedo, the defender again learns the submarine's UID.  Before
+     Empire 2.3, he learned UID and type.
    - Print "Kaboom" even when the target is out of range.
    - Always clear missions when firing guns or dropping depth charges.
      Screwed up when missions were added in Chainsaw.
@@ -51,7 +51,7 @@ Changes to Empire 4.3.33 - Wed May 20 18:17:43 UTC 2015
  * Fix news to report the actual owner of ships sunk by return
    torpedoes instead of POGO.  Screwed up when return torpedoes were
    added in Chainsaw.
- * Don't disclose uid, type and owner of torpedoed submarines.  The
+ * Don't disclose UID, type and owner of torpedoed submarines.  The
    latter leaked through the news.
  * Changes to bomb:
    - Fix damage to mobility when bombing planes.  Has always been
@@ -658,7 +658,7 @@ Changes to Empire 4.3.28 - Sat Jul 16 11:30:53 UTC 2011
  * Remove option TRADESHIPS.  Deities can customize the ship table to
    enable trade ships.
  * Configuration table changes (builtin and custom):
-   - Rows must be in ascending uid order.
+   - Rows must be in ascending UID order.
    - Omitting rows in tables item, sect-chr and infrastructure is no
      longer permitted.
    - Custom tables now replace the builtin table completely.  Before,
@@ -864,7 +864,7 @@ Changes to Empire 4.3.26 - Mon May 24 16:37:40 UTC 2010
  * Fix retreat and lretreat condition 'c'.  Broken in 4.3.16.
  * coastwatch and skywatch could see too far.  Up to one sector for
    practical radar ranges.
- * skywatch now reports satellite uids.  The uid is required for
+ * skywatch now reports satellite UIDs.  The UID is required for
    launching a-sats since 4.3.23.
  * Fix client not to send an empty line of input before aborting the
    command on player interrupt (normally ^C).
@@ -1183,7 +1183,7 @@ Changes to Empire 4.3.20 - Fri Feb 20 18:14:20 UTC 2009
      land units anymore.  Loading stuff in foreign sectors was
      prohibited already for ships.
    - lload and lunload now work on foreign land units only when
-     they're explicitly named by uid.  This matches behavior of load
+     they're explicitly named by UID.  This matches behavior of load
      and unload.
    - Fix to test relations of foreign object's owner to player instead
      of the other way round.
@@ -1239,7 +1239,7 @@ Changes to Empire 4.3.19 - Sun Dec  7 23:15:34 UTC 2008
  * Improved nightly build, with additional tests.
 
 Changes to Empire 4.3.18 - Sat Oct 18 18:39:17 UTC 2008
- * Fix building of planes, land units and nukes with uids that have
+ * Fix building of planes, land units and nukes with UIDs that have
    never been used before.  This could crash the server on some
    systems in certain states.  Broken in 4.3.17.
  * Improved nightly build, with restructured and extended tests.
@@ -1676,8 +1676,8 @@ Changes to Empire 4.3.11 - Tue Jan  1 18:57:38 UTC 2008
  * New sector selector elev.  It's set by fairland, but has no effect
    on the game.  It can be useful for deities to customize a world
    created by fairland.
- * The client now copes with ids greater than 15.  The Empire
-   protocol currently uses 14 ids.
+ * The client now copes with IDs greater than 15.  The Empire
+   protocol currently uses 14 IDs.
  * Rewrite the client's code for reading server output during login.
    The old code could write one byte beyond the end of the buffer
    (theoretically a remote hole), got confused by long lines, and
@@ -2607,7 +2607,7 @@ Changes to Empire 4.2.20 - Tue Mar 22 21:07:18 UTC 2005
    population limit.
  * neweff miscalculated work when the population limit exceeded 999.
  * Fix capping of avail when a big city is torn down.
- * Fix a bug in fire that allowed players to find all submarine uids.
+ * Fix a bug in fire that allowed players to find all submarine UIDs.
  * Maximum sector population is no longer hardcoded, and now covered
    by xdump.  Option RES_POP now affects mountains and plains as
    well.  From Ray Hyatt.

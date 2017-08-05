@@ -492,7 +492,7 @@ equivalent to a newline.
 
 Rationale: Follow econfig syntax.
 
-Tables with a record uid in the leftmost field can be `split
+Tables with a record UID in the leftmost field can be `split
 vertically' into multiple parts.  Each part must contain the same set
 of records.  The leftmost field must be repeated in each part.  Other
 fields may be repeated.  Repeated fields must be the same in all
@@ -501,7 +501,7 @@ a table that is not split.
 
 Rationale: This is to let you avoid long lines.  Line continuation
 syntax would be simpler, but turns out to be illegible.  Requiring
-record uid is not technically necessary, as counting records works the
+record UID is not technically necessary, as counting records works the
 same whether a table is split or not.  Except humans can't count.
 Perhaps this should be a recommendation for use rather than part of
 the language.

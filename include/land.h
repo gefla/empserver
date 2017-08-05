@@ -50,7 +50,7 @@ struct lndstr {
     signed ef_type: 8;
     unsigned lnd_seqno: 12;
     unsigned lnd_generation: 12;
-    int lnd_uid;		/* unit id (land #) */
+    int lnd_uid;		/* unit ID (land #) */
     time_t lnd_timestamp;	/* Last time this unit was touched */
     natid lnd_own;		/* owner's country num */
     coord lnd_x;		/* x location in abs coords */
@@ -65,7 +65,7 @@ struct lndstr {
     short lnd_mission;		/* mission code */
     short lnd_radius;		/* mission radius */
     /* end of part matching struct empobj */
-    int lnd_ship;		/* uid of transporting ship, or -1 */
+    int lnd_ship;		/* UID of transporting ship, or -1 */
     signed char lnd_harden;	/* fortification */
     short lnd_retreat;		/* retreat percentage */
     int lnd_rflags;		/* When do I retreat? */
@@ -74,7 +74,7 @@ struct lndstr {
     short lnd_item[I_MAX+1];	/* amount of items on board */
     short lnd_pstage;		/* plague stage */
     short lnd_ptime;		/* how many ETUs remain in this stage */
-    int lnd_land;		/* uid of transporting land unit, or -1 */
+    int lnd_land;		/* UID of transporting land unit, or -1 */
     short lnd_access;		/* Last tick mob was updated (MOB_ACCESS) */
 };
 

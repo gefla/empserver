@@ -332,10 +332,10 @@ recv_output(int sock)
      * simple state machine.
      * Initial state is SCANNING_ID.
      * In state SCANNING_ID, buffer the character.  If it's a space,
-     * decode the id that has been buffered, and enter state BUFFERING
+     * decode the ID that has been buffered, and enter state BUFFERING
      * or COPYING depending on its value.
      * In state BUFFERING, buffer the character.  If it's newline,
-     * pass id and buffered text to servercmd(), then enter state
+     * pass ID and buffered text to servercmd(), then enter state
      * SCANNING_ID.
      * In state COPYING, pass the character to outch().  If it's
      * newline, enter state SCANNING_ID.
@@ -382,7 +382,7 @@ recv_output(int sock)
 		state = BUFFERING;
 		break;
 	    default:
-		/* unknown or unexpected id, treat like C_DATA */
+		/* unknown or unexpected ID, treat like C_DATA */
 	    case C_DATA:
 		state = COPYING;
 		break;

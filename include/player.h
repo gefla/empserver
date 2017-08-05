@@ -84,7 +84,7 @@ struct player {
     int aborted;		/* command aborted? */
     int got_ctld;		/* EOF cookie received? */
     int recvfail;		/* #recvclient() failures */
-    int curid;			/* for pr, cur. line's id, -1 none */
+    int curid;			/* for pr, cur. line's ID, -1 none */
     char *map;			/* pointer to in-mem map */
     char *bmap;			/* pointer to in-mem bmap */
 };

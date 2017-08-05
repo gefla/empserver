@@ -43,9 +43,9 @@
  * without yielding the processor.
  *
  * Each line of output starts with an identification character
- * encoding the output id, followed by space.  Ids less than 10 are
- * encoded as decimal digits, and larger ids as lower case letters,
- * starting with 'a'.  Symbolic names for ids are defined in proto.h.
+ * encoding the output ID, followed by space.  Ids less than 10 are
+ * encoded as decimal digits, and larger IDs as lower case letters,
+ * starting with 'a'.  Symbolic names for IDs are defined in proto.h.
  */
 
 #include <config.h>
@@ -108,7 +108,7 @@ uprnf(char *buf)
 }
 
 /*
- * Send some text to @p with id @id, line-buffered.
+ * Send some text to @p with ID @id, line-buffered.
  * Format text to send using printf-style @format and optional
  * arguments.  It is assumed to be already user text.  Plain ASCII and
  * text received from the same player are fine, for anything else the
@@ -212,7 +212,7 @@ pr_wall(char *format, ...)
 /*
  * Send @id text @buf to @pl, line-buffered.
  * @buf is user text.
- * If a partial line with different id is buffered, terminate it with
+ * If a partial line with different ID is buffered, terminate it with
  * a newline first.
  */
 static void
@@ -251,7 +251,7 @@ pr_player(struct player *pl, int id, char *buf)
 /*
  * Send @id text @buf to @pl, line-buffered.
  * This function translates from normal text to user text.
- * If a partial line with different id is buffered, terminate it with
+ * If a partial line with different ID is buffered, terminate it with
  * a newline first.
  */
 static void
@@ -304,7 +304,7 @@ upr_player(struct player *pl, int id, char *buf)
 }
 
 /*
- * Send id @n to @pl.
+ * Send ID @n to @pl.
  * This runs always at the beginning of a line.
  */
 static void

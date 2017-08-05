@@ -28,7 +28,7 @@ Note that in the case of load, lload, unload, tend, and lunload, the
 way you specify whether you are moving a commodity, land unit or plane
 is by using the word "land" or "plane" instead of the commodity name
 in the <WHAT> field.  If <WHAT> is "land" or "plane", then <NUM> is
-the unit or plane id.  So for example, to load ship #1 with land unit
+the unit or plane ID.  So for example, to load ship #1 with land unit
 #2, you would type:
 .EX "load land 1 2"
 .s1

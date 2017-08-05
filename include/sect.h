@@ -57,10 +57,10 @@ struct sctstr {
     unsigned char sct_off;	/* Should this sector produce? */
     /* end of part matching struct empobj */
     unsigned char sct_loyal;	/* updates until civilans "converted" */
-    unsigned char sct_terr;	/* territory 0 id # of sector */
-    unsigned char sct_terr1;	/* territory 1 id # of sector */
-    unsigned char sct_terr2;	/* territory 2 id # of sector */
-    unsigned char sct_terr3;	/* territory 3 id # of sector */
+    unsigned char sct_terr;	/* territory 0 number */
+    unsigned char sct_terr1;	/* territory 1 number */
+    unsigned char sct_terr2;	/* territory 2 number */
+    unsigned char sct_terr3;	/* territory 3 number */
     unsigned char sct_dterr;	/* deity's territory # */
     coord sct_dist_x;		/* Dist sector */
     coord sct_dist_y;

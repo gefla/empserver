@@ -60,7 +60,7 @@ enum nsc_type {
     NSC_FLOAT,			/* float */
     NSC_STRINGY,		/* char[] */
     /* aliases, must match typedefs */
-    NSC_NATID = NSC_UCHAR	/* nation id */
+    NSC_NATID = NSC_UCHAR	/* nation ID */
 };
 
 /* Is TYPE a promoted value type? */

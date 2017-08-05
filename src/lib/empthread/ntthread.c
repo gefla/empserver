@@ -448,7 +448,7 @@ empth_create(void (*entry)(void *), int size, int flags,
 	goto bad;
     }
 
-    loc_debug("new thread id is %ld", pThread->ulThreadID);
+    loc_debug("new thread ID is %ld", pThread->ulThreadID);
     empth_yield();
     return pThread;
 

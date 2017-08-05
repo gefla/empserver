@@ -218,7 +218,7 @@ snxtitem_list(struct nstr_item *np, int type, int *list, int len)
 
 /*
  * Initialize @np to iterate over the items of type @type in a carrier.
- * The carrier has file type @carrier_type and uid @carrier_uid.
+ * The carrier has file type @carrier_type and UID @carrier_uid.
  * Note: you can take an item gotten with nxtitem() off its carrier
  * without disturbing the iterator.  Whether the iterator will pick up
  * stuff you load onto the carrier during iteration is unspecified.

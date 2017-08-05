@@ -84,7 +84,7 @@ parseid(char *line)
 
     id = strtol(line, &end, 36);
     if (end == line || *end != ' ') {
-	fprintf(stderr, "Malformed id in line %s", line);
+	fprintf(stderr, "Malformed ID in line %s", line);
 	id = -1;
     }
     if (id > C_LAST)

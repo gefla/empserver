@@ -55,7 +55,7 @@ struct empfile {
     /* flags bits EFF_MEM, EFF_PRIVATE, EFF_NOTIME also fixed then */
 
     /* Members whose values may vary throughout operation */
-    int baseid;			/* id of first entry in cache */
+    int baseid;			/* ID of first entry in cache */
     int cids;			/* # entries in cache */
     int fids;			/* # entries in table */
     int fd;			/* file descriptor, -1 if not open */
@@ -68,13 +68,13 @@ struct empfile {
      */
     void (*oninit)(void *elt);
     /*
-     * Called after read.  @id is the element id, and @elt is the
+     * Called after read.  @id is the element ID, and @elt is the
      * element read.  May modify the element.  Modifications are
      * visible to caller of ef_read(), but have no effect on the file.
      */
     void (*postread)(int id, void *elt);
     /*
-     * Called before write.  @id is the element id, @old is the
+     * Called before write.  @id is the element ID, @old is the
      * element being updated (null unless it is cached) and @elt is
      * the element being written.  May modify the element.
      * Modifications will be visible to caller of ef_write() and are

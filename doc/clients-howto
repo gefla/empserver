@@ -17,13 +17,13 @@ The server sends lines of output.  Each output line starts with an
 identification string, followed by a space, then arbitrary text, then
 a line feed.
 
-Identification strings encode small integers called output ids as base
+Identification strings encode small integers called output IDs as base
 36 numbers.  Characters '0' to '9' represent digits 0 to 9, and 'a' to
-'z' represent 10..35, as do 'A' to 'Z'.  Symbolic names for ids are
+'z' represent 10..35, as do 'A' to 'Z'.  Symbolic names for IDs are
 defined in proto.h.
 
-empire-client versions before version 4.3.11 parse large output ids
-incorrectly.  Such ids do not currently occur.
+empire-client versions before version 4.3.11 parse large output IDs
+incorrectly.  Such IDs do not currently occur.
 
 Clients shall be able to safely handle output lines of arbitrary
 length.  Naturally, a client may not be able to handle a sufficiently
@@ -185,7 +185,7 @@ empire-client signals `EOF' when it encounters an end-of-file
 condition while reading player input.  It signals `interrupt' when it
 catches SIGINT, which is normally triggered by Ctrl-C.
 
-The following ids occur:
+The following IDs occur:
 
 * Command prompt C_PROMPT
 
@@ -351,12 +351,12 @@ The following ids occur:
 
   The security considerations on C_PIPE apply to C_REDIR as well.
 
-* Other ids
+* Other IDs
 
-  Other ids do not occur currently.  Clients shall deal gracefully
-  with ids they don't know.
+  Other IDs do not occur currently.  Clients shall deal gracefully
+  with IDs they don't know.
 
-  empire-client treats unknown ids like C_DATA.  Versions before
+  empire-client treats unknown IDs like C_DATA.  Versions before
   4.3.11 prepend "Aborted\n" to C_ABORT lines, and "Error; " to
   C_CMDERR and C_BADCMD lines for historical reasons.
 

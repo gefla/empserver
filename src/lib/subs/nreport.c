@@ -105,7 +105,7 @@ delete_old_news(void)
 	if (news.nws_vrb == 0 || news.nws_when >= expiry_time)
 	    break;
     }
-    /* news id 0..I-1 have expired */
+    /* news ID 0..I-1 have expired */
     CANT_HAPPEN(i > news_tail);
     /* no items to delete if I is equal zero */
     if (i == 0)

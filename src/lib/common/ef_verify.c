@@ -175,7 +175,7 @@ verify_row(int type, int row)
 		continue;
 	    }
 	    if (ca[i].ca_table == type && i == 0) {
-		/* uid */
+		/* UID */
 		if (val.val_as.lng != row) {
 		    verify_fail(type, row, &ca[i], j,
 				"value is %ld instead of %d",

@@ -576,10 +576,10 @@ ef_write(int type, int id, void *from)
 }
 
 /*
- * Change element id.
+ * Change element ID.
  * @buf is an element of table @type.
  * @id is its new element ID.
- * If table is EFF_TYPED, change id and sequence number stored in @buf.
+ * If table is EFF_TYPED, change ID and sequence number stored in @buf.
  * Else do nothing.
  */
 void

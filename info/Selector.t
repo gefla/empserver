@@ -96,7 +96,7 @@ type of unit (e.g. cavalry or frigate)
 .L tech
 tech level the unit was built at
 .L uid
-unit id number
+unit ID number
 .L group
 fleet/wing/army
 .L opx
