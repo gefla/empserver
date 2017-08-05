@@ -86,7 +86,7 @@ The hardtarget of an army is the hardtarget of the "easiest" target in
 the army.
 
 Plane:
-If the plane is in the air (satellite, icbm), then
+If the plane is in the air (satellite, ICBM), then
   hardtarget = the "def" value of the plane.
 otherwise if the plane is on the ground:
   hardtarget = 0

@@ -28,7 +28,7 @@ the new server:
 (7) Build fighter planes.
 (8) Always guard your ships with destroyers (or other kinds of ASW ships).
 (9) Build some ASW planes and put them on interdiction mission.
-(10) Build lots of sam's and abm's.
+(10) Build lots of SAMs and ABMs.
 .FI
 .s1
 \*(iFA Treatise of Advice on War and Peace

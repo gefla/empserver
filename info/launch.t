@@ -40,7 +40,7 @@ The formula for the chance that a missile hits its target is in
 \*Qinfo Hitchance\*U.
 .s1
 In the case of non-marine tactical missiles, if there are any HOSTILE
-abm's within range of the target sector, then two of them will fire in
+ABMs within range of the target sector, then two of them will fire in
 an attempt to intercept the incoming missile.
 .s1
 Similarly, two AT_WAR a-sat's will attempt to intercept any satellites

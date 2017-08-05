@@ -106,7 +106,7 @@ abandon_askyn(struct sctstr *sp, i_type vtype, int amnt,
 
     /*
      * First, would we be abandoning it?  If not, just return that
-     * it's ok to move out.
+     * it's OK to move out.
      */
     if (!would_abandon(sp, vtype, amnt, land_list))
 	return 1;

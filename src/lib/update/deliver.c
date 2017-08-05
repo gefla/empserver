@@ -61,7 +61,7 @@ deliver(struct sctstr *from, struct ichrstr *ip, int dir,
     if ((amt_moved = amt_src - thresh) <= 0)
 	return 0;
     /*
-     * make sure delivery looks ok.  Check where its going,
+     * make sure delivery looks OK.  Check where its going,
      * where its coming from, and see if there is more than
      * the threshold amount
      */

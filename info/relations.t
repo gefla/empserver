@@ -66,7 +66,7 @@ but you are not committed to an all out war against them, then you
 should declare hostile relations towards them.  This will ensure that
 your planes will intercept theirs if they
 try to over-fly you, and your forts will fire on their ships when they
-sail within range.    Also, your a-sat's and abm's will attempt
+sail within range.    Also, your a-sat's and ABMs will attempt
 to intercept their satellites and missiles independent of the target
 sector they have launched them at, and your ships with anti-missile
 capability will attempt to intercept any incoming marine missiles

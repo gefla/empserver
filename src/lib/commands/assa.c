@@ -218,7 +218,7 @@ sneak_ashore(struct combat off[], struct emp_qelem *olist,
 		wu(0, def->own, "%s spy spotted in %s.\n",
 		   cname(player->cnum), xyas(def->x, def->y,
 					     def->own));
-		pr(" but made it ok.\n");
+		pr(" but made it OK.\n");
 	    }
 	}
     }

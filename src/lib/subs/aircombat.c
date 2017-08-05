@@ -663,7 +663,7 @@ ac_landflak(struct emp_qelem *list, coord x, coord y)
 	ngun += flak;
 	total += techfact(land.lnd_tech, flak * 2.0);
 
-	mpr(land.lnd_own, "firing flak guns from unit %s (aa rating %d)\n",
+	mpr(land.lnd_own, "firing flak guns from unit %s (AA rating %d)\n",
 	    prland(&land), aaf);
 	from = land.lnd_own;
     }

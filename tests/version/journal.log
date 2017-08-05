@@ -1795,7 +1795,7 @@
     Play#0 output Play#0 1 43 "aids\\040%s\\040with\\040divine\\040intervention" "smiles\\040upon\\040%s" 0 9
     Play#0 output Play#0 1 44 "hurts\\040%s\\040with\\040divine\\040intervention" "frowns\\040upon\\040%s" 0 9
     Play#0 output Play#0 1 45 "sacrifices\\040to\\040%s" "makes\\040divine\\040payment\\040to\\040%s" 0 7
-    Play#0 output Play#0 1 46 "abms\\040intercept\\040a\\040%s\\040missile" "strategic\\040defense\\040systems\\040destroy\\040a\\040%s\\040missile" -10 5
+    Play#0 output Play#0 1 46 "ABMs\\040intercept\\040a\\040%s\\040missile" "strategic\\040defense\\040systems\\040destroy\\040a\\040%s\\040missile" -10 5
     Play#0 output Play#0 1 47 "missile\\040fired\\040at\\040one\\040of\\040%s's\\040sectors" "missile\\040wreaks\\040havoc\\040on\\040%s" -2 5
     Play#0 output Play#0 1 48 "missile\\040fired\\040at\\040a\\040ship\\040flying\\040the\\040flag\\040of\\040%s" "missiles\\040hit\\040%s\\040ships" -2 5
     Play#0 output Play#0 1 49 "engages\\040in\\040friendly\\040trade\\040with\\040%s" "profits\\040from\\040a\\040merchant\\040venture\\040with\\040%s" 2 7
@@ -1818,7 +1818,7 @@
     Play#0 output Play#0 1 67 "sector\\040is\\040struck\\040by\\040a\\040sub-launched\\040missile" "sector\\040devastated\\040by\\040missile" 0 5
     Play#0 output Play#0 1 68 "ship\\040is\\040hit\\040by\\040a\\040sub-launched\\040missile" "ship\\040damaged\\040by\\040marine\\040missile" 0 5
     Play#0 output Play#0 1 69 "pilgrims\\040settle\\040on\\040a\\040new\\040island" "discovers\\040new\\040land\\040and\\040starts\\040a\\040colony" 0 8
-    Play#0 output Play#0 1 70 "abms\\040intercept\\040an\\040incoming\\040sub-launched\\040missile" "strategic\\040defense\\040systems\\040destroy\\040an\\040incoming\\040sub-launched\\040warhead" 0 5
+    Play#0 output Play#0 1 70 "ABMs\\040intercept\\040an\\040incoming\\040sub-launched\\040missile" "strategic\\040defense\\040systems\\040destroy\\040an\\040incoming\\040sub-launched\\040warhead" 0 5
     Play#0 output Play#0 1 71 "missile\\040fired\\040at\\040%s\\040ground\\040troops" "missile\\040hits\\040%s\\040troops" 2 5
     Play#0 output Play#0 1 72 "regiment\\040struck\\040by\\040sub-launched\\040missile" "ground\\040troops\\040hit\\040by\\040missile" 0 5
     Play#0 output Play#0 1 73 "navy\\040secures\\040a\\040beachhead\\040on\\040%s\\040territory" "sailors\\040take\\040a\\040coastal\\040sector\\040from\\040%s" -4 2
@@ -2446,7 +2446,7 @@
     Play#1 output Play#1 1 43 "aids\\040%s\\040with\\040divine\\040intervention" "smiles\\040upon\\040%s" 0 9
     Play#1 output Play#1 1 44 "hurts\\040%s\\040with\\040divine\\040intervention" "frowns\\040upon\\040%s" 0 9
     Play#1 output Play#1 1 45 "sacrifices\\040to\\040%s" "makes\\040divine\\040payment\\040to\\040%s" 0 7
-    Play#1 output Play#1 1 46 "abms\\040intercept\\040a\\040%s\\040missile" "strategic\\040defense\\040systems\\040destroy\\040a\\040%s\\040missile" -10 5
+    Play#1 output Play#1 1 46 "ABMs\\040intercept\\040a\\040%s\\040missile" "strategic\\040defense\\040systems\\040destroy\\040a\\040%s\\040missile" -10 5
     Play#1 output Play#1 1 47 "missile\\040fired\\040at\\040one\\040of\\040%s's\\040sectors" "missile\\040wreaks\\040havoc\\040on\\040%s" -2 5
     Play#1 output Play#1 1 48 "missile\\040fired\\040at\\040a\\040ship\\040flying\\040the\\040flag\\040of\\040%s" "missiles\\040hit\\040%s\\040ships" -2 5
     Play#1 output Play#1 1 49 "engages\\040in\\040friendly\\040trade\\040with\\040%s" "profits\\040from\\040a\\040merchant\\040venture\\040with\\040%s" 2 7
@@ -2469,7 +2469,7 @@
     Play#1 output Play#1 1 67 "sector\\040is\\040struck\\040by\\040a\\040sub-launched\\040missile" "sector\\040devastated\\040by\\040missile" 0 5
     Play#1 output Play#1 1 68 "ship\\040is\\040hit\\040by\\040a\\040sub-launched\\040missile" "ship\\040damaged\\040by\\040marine\\040missile" 0 5
     Play#1 output Play#1 1 69 "pilgrims\\040settle\\040on\\040a\\040new\\040island" "discovers\\040new\\040land\\040and\\040starts\\040a\\040colony" 0 8
-    Play#1 output Play#1 1 70 "abms\\040intercept\\040an\\040incoming\\040sub-launched\\040missile" "strategic\\040defense\\040systems\\040destroy\\040an\\040incoming\\040sub-launched\\040warhead" 0 5
+    Play#1 output Play#1 1 70 "ABMs\\040intercept\\040an\\040incoming\\040sub-launched\\040missile" "strategic\\040defense\\040systems\\040destroy\\040an\\040incoming\\040sub-launched\\040warhead" 0 5
     Play#1 output Play#1 1 71 "missile\\040fired\\040at\\040%s\\040ground\\040troops" "missile\\040hits\\040%s\\040troops" 2 5
     Play#1 output Play#1 1 72 "regiment\\040struck\\040by\\040sub-launched\\040missile" "ground\\040troops\\040hit\\040by\\040missile" 0 5
     Play#1 output Play#1 1 73 "navy\\040secures\\040a\\040beachhead\\040on\\040%s\\040territory" "sailors\\040take\\040a\\040coastal\\040sector\\040from\\040%s" -4 2

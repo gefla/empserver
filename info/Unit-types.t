@@ -152,7 +152,7 @@ the number of guns that fire when the unit fires
 .L amm
 ammo: the number of shells the unit uses when fighting or firing
 .L aaf
-the aa fire rating of the unit
+the AA fire rating of the unit
 .L xpl
 The number of extra-light planes the land unit can carry.
 (If the XLIGHT option is enabled)

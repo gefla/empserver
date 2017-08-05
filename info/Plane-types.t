@@ -122,21 +122,21 @@ satellites
          able to fly higher, as with the U-2 & SR-71. These planes are
          largely superseded by satellites now (for good or ill).
 
-ssm's
-& icbm's
+SSMs
+& ICBMs
 
-         The first ssm's were used as strategic harassing weapons, and
+         The first SSMs were used as strategic harassing weapons, and
          were almost useless. (German V-1 & V-2) There were also combat
          rockets, such as the Russian Katayusha's and the German
          Nebelwerfers, but these were essentially similar to artillery.
-         The first true SSM's were the Russian missiles in the 1950's,
+         The first true SSMs were the Russian missiles in the 1950's,
          such as the Frog. They were intended to deliver nuclear or
          chemical warheads at medium ranges, and to be un-interceptable.
          Later missiles increase payload & range.
 
          However, since we've artificially restricted the blast effects
          of nuclear weapons, I am merging these in with tactical
-         missiles. (no need for an icbm unless you've got big nukes)
+         missiles. (no need for an ICBM unless you've got big nukes)
 
 marine
 missiles
@@ -144,15 +144,15 @@ missiles
          as the Harpoon, Penguin, Exocet. They are accurate missiles which
          may be launched at ships.
 
-sam's
+SAMs
          The first sams were nuclear-tipped, and intended to break up
          large attacking bomber forces. Later, they were made smaller
          and more accurate, and were intended to hit single targets
          at any speed or altitude.
 
-abm's    These are to shoot down missiles, and are mostly fantasy.
+ABMs     These are to shoot down missiles, and are mostly fantasy.
 
-asw
+ASW
 planes   These are either long-range bomber type aircraft, with some
          sort of equipment for locating & killing submarines, or also
          helicopters, able to fly from most naval vessels.

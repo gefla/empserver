@@ -97,7 +97,7 @@ struct lchrstr {
     int l_acc;			/* firing accuracy */
     int l_dam;			/* # of guns firing */
     int l_ammo;			/* firing ammu used per shot */
-    int l_aaf;			/* aa fire */
+    int l_aaf;			/* AA fire */
     int l_flags;		/* what special things can this unit do */
     unsigned char l_nxlight;	/* maximum number of xlight planes */
     unsigned char l_nland;	/* maximum number of units */

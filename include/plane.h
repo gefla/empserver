@@ -107,7 +107,7 @@ struct plchrstr {
 #define P_I	bit(8)		/* Imaging ability (advanced spying) */
 #define P_O	bit(9)		/* Orbital ability (a satellite) */
 /* unused	bit(10) */
-#define P_N	bit(11)		/* Nuclear RV interceptor (abm) */
+#define P_N	bit(11)		/* Nuclear RV interceptor (ABM) */
 /* unused	bit(12) */
 #define P_E	bit(13)		/* extra light */
 #define P_K	bit(14)		/* chopper */

@@ -129,7 +129,7 @@ infantry                  1.0 1.5  60 23 15  2  1  0  0  0  0  0  0
 The infantry unit has an attack multiplier of 1.0, and defensive multiplier
 of 1.5. It has a vulnerability rating of 60, a speed of 23, a visibility of
 15, spy value of 2, reaction radius maximum of 1, no firing range, no accuracy,
-no firing damage, uses no ammo, has no aa fire,
+no firing damage, uses no ammo, has no AA fire,
 and can't carry extra-light planes.
 .s1
 When attacking, a unit's value is expressed in 'mil-equivalents', i.e. 1

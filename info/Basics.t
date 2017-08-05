@@ -8,15 +8,15 @@ deities may be more forgiving than others.
 .s1
 One player, one country.
 You may NEVER use any country other than your own.
-It is ok for two people to play one country
-but it is NEVER ok for one person to play two countries.
+It is OK for two people to play one country
+but it is NEVER OK for one person to play two countries.
 If you are caught doing this, your countries will be removed
 from the game.
 In addition, your registrations for future games may be
 declined.
 DON'T DO IT.
 .s1
-Ok, but what do I do when I'm away?
+OK, but what do I do when I'm away?
 .s1
 .in +.5i
 1) you may turn over your country to someone who has never
