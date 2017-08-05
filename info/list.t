@@ -4,7 +4,7 @@
 .SY list
 The list command gets you a list of currently legal commands
 with their associated BTU costs,
-(see \*Qinfo time\*U for description of BTU's).
+(see \*Qinfo time\*U for description of BTUs).
 This should not be confused with \*Qinfo {commands}\*U
 which generates a brief summary of each command.
 .s1

@@ -44,7 +44,7 @@ If the thought of not being able
 to move conquered populace bothers you,
 then you have the option of converting these conquered people
 into uncompensated workers,
-involving the expenditure of BTU's and money
+involving the expenditure of BTUs and money
 (for the paperwork).
 If all the conquered people in one sector are converted to uw's,
 then the sector is then marked as yours.
@@ -58,7 +58,7 @@ You can get them back to work by heavy-handed military control
 Finally, your populace requires happiness to keep their enthusiasm
 for work going.  As technology and education increase,
 your work force expects to share in the increased levels
-by getting more consumer items (VCR's, BMW's, etc)
+by getting more consumer items (VCRs, BMWs, etc)
 represented by happy strollers.
 If you don't have at least one happiness point
 per two units of education,

@@ -67,7 +67,7 @@ works pretty much like the load command for ships. (See info \*Qlload\*U)
 Units on ships can transfer supplies to/from the ships with the \*Qltend\*U
 command.
 .s1
-.L "HQ's & Building land units"
+.L "HQs & Building land units"
 .s1
 Like planes and ships, land units are built in special sectors. For land units,
 the sector is the headquarters sectors, designation !. Like other units,
@@ -106,7 +106,7 @@ gain efficiency.
 .s1
 Ships can repair themselves in any sector, and can use work from their crew,
 or from a harbor they are in. Planes can only be repaired in airports, and
-only use work from the airport. Land units can be repaired in HQ's or
+only use work from the airport. Land units can be repaired in HQs or
 in fortresses, and use the work of the HQ or fort. This means that front-line
 units in forts will repair themselves each update, assuming that the
 necessary materials and work are available. They can also gain efficiency

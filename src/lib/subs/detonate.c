@@ -70,7 +70,7 @@ detonate(struct nukstr *np, coord x, coord y, int airburst)
     struct nstr_item ni;
     int changed = 0;
 
-    pr("Releasing RV's for %s detonation...\n",
+    pr("Releasing RVs for %s detonation...\n",
        airburst ? "airburst" : "groundburst");
 
     getsect(x, y, &sect);

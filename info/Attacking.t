@@ -26,7 +26,7 @@ A combat has 15 steps:
 (12) Remove mobility from the aggressor's sectors/ship.
 (13) Possibly ask the aggressor for mil and units to move into the target.
 (14) Possibly interdict the aggressor's mil and units as they move.
-(15) Charge the aggressor BTU's.
+(15) Charge the aggressor BTUs.
 .FI
 .s1
 .L "(1)  Ask the aggressor for the target sector/ship."
@@ -339,7 +339,7 @@ stepping on land mines.  Note that there is no
 post-attack interdiction and no danger of stepping on land mines if the
 INTERDICT_ATT option is disabled (see version).
 .s1
-.L "(15) Charge the aggressor BTU's."
+.L "(15) Charge the aggressor BTUs."
 .s1
 The BTU cost is equal to 0.5 + (the total number of casualties) * 0.015.
 .s1

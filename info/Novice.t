@@ -447,7 +447,7 @@ It is always a good idea to keep surplus goods in your warehouse.
 The end result is that you can set up your country to move your products
 around without you logging in.
 It also doesn't cost as many mobility points
-to move things as distribute, and it costs no BTU's!
+to move things as distribute, and it costs no BTUs!
 .s1
 .ce 3
 \*(iFSome Further Clarifications
@@ -536,11 +536,11 @@ It takes conventional forces combined with nukes to really do damage.
 (Of course I won't fool you either;
 it doesn't hurt to have a few nukes either.)
 .s1
-Beware of running low on BTU's.
+Beware of running low on BTUs.
 I will recount one story of a player on this site
-that was running low on BTU's.
+that was running low on BTUs.
 His enemies launched a nuclear attack and hit his capital!
-Unfortunately, he didn't have enough BTU's
+Unfortunately, he didn't have enough BTUs
 to redesignate a new capital.
 The moral of the story is that you should
 plan an alternate capital at some point in the game.

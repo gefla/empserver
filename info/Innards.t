@@ -233,12 +233,12 @@ check for plague progress,
 Bureaucratic Time Units
 .s1
 There is one further update that is not handled in the sector
-update routine; that is the update of bureaucracy time units (BTU's).
+update routine; that is the update of bureaucracy time units (BTUs).
 These are the numbers printed in brackets before the command
 prompt.
-Most commands given use BTU's, some use 1, some use 2 and some use
-more, making BTU's a vital commodity.
-The generation of BTU's is
+Most commands given use BTUs, some use 1, some use 2 and some use
+more, making BTUs a vital commodity.
+The generation of BTUs is
 dependent on the efficiency and the work force in the capital sector.
 (see info BTU).
 .s1

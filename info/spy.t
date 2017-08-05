@@ -15,7 +15,7 @@ are those from which you are spying,
 (see \*Qinfo syntax\*U for format).
 Note: you can only spy from sectors that have military or land units in them.
 .s1
-Note that the number of BTU's consumed
+Note that the number of BTUs consumed
 is dependent upon the number of sectors into which you spy,
 e.g., a 5x8 area costs one full BTU.
 .s1

@@ -33,6 +33,6 @@ as follows:
 .EX
 The first \*Q##\*U is the Elapsed Time today, in minutes.
 This number starts at 0 every midnight.
-The second \*Q##\*U is the number of BTU's remaining.
+The second \*Q##\*U is the number of BTUs remaining.
 .s1
 .SA "Innards, version, BTU, Playing"

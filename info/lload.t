@@ -9,7 +9,7 @@ Commodities (like guns, civs, food) can be loaded onto any unit capable
 of carrying them (to see what cargos a unit can carry, use the show command).
 .s1
 Some land units can carry extra-light
-planes (typically these are SAM's)
+planes (typically these are SAMs)
 .s1
 Some land units can carry other units
 .s1

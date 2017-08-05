@@ -7,7 +7,7 @@ from the specified sectors.
 Note that this will have drastic effects on sectors
 that rely on distribution in any way, so use with caution.
 Also note that if you make a mistake,
-it can cost lots of BTU's to reverse the effects of a wipe.
+it can cost lots of BTUs to reverse the effects of a wipe.
 .s1
 .EX level #5
 .NF

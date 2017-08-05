@@ -37,7 +37,7 @@ Enemy planes will be intercepted by up to 1 more interceptor,
 i.e. 1 plane will be intercepted by 2 (if available), 2 by 3,
 3 by 4, etc. The highest
 numbered planes intercept first. Incoming missiles will only be intercepted
-by ABM's
+by ABMs
 .s1
 Once the roster of attackers & interceptors is determined, attackers
 and interceptors dogfight. First escorts & interceptors fight,
@@ -114,8 +114,8 @@ chance to abort, and the defender won't.  If the attacker aborts, the
 mission is over.  Else, the attacker flies on to the next sector in
 his flight path, perhaps to have combat again.
 .s1
-.L ABM's
-ABM's do not use the normal combat procedure. They simply have a %
+.L ABMs
+ABMs do not use the normal combat procedure. They simply have a %
 chance of destroying an incoming warhead equal to their defensive value.
 .s1
 .SA "Plane-types, plane, fly, recon, bomb, range, mission, Flak, Planes"

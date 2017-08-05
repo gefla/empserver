@@ -7,7 +7,7 @@ You get tech bleed from all countries, not just allies.
 .L AUTO_POWER
 Power report is only updated automatically, at the update.
 .L BLITZ
-Players get infinite BTU's.
+Players get infinite BTUs.
 .L BRIDGETOWERS
 You can build bridge towers, which allow you to build bridges from
 them.

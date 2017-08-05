@@ -35,6 +35,6 @@ Number to convert : 22
  22 conquered populace converted in 2,2 (45)
 Total new uw : 180
 .FI
-Note that there is a cost of 0.01 BTU's per civilian converted
+Note that there is a cost of 0.01 BTUs per civilian converted
 in addition to the registration fee of $1.5 per conversion.
 .SA "Populace, Mobility, Occupation"
