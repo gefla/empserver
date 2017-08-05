@@ -5,7 +5,7 @@
 This command allows you to scrap planes/units/ships when you no longer
 need them.
 .s1
-Ships may only be scrapped in own or friendly 60% harbours.
+Ships may only be scrapped in own or friendly 60% harbors.
 Planes may only be scrapped in own or allied 60% airfields.
 Land units may only be scrapped in own or allied sectors.
 .s1

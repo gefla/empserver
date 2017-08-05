@@ -43,7 +43,7 @@ paid for it, or $2188. If you sailed it 15 sectors to a harbor and scuttled it,
 you would get 153%, or $2678.
 .s1
 Use the \*Qpayoff\*U command to see how much the trade ship would pay
-were it scuttled in a harbour at its present location.
+were it scuttled in a harbor at its present location.
 .s1
 If you scuttle a trade ship in the harbor you do not own, you get a 20% bonus
 (applied after the value is multiplied by the return rate above), AND the

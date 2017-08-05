@@ -216,7 +216,7 @@ build_ship(struct sctstr *sp, int type, int tlev)
     memcpy(mat, mp->m_mat, sizeof(mat));
 
     if (sp->sct_type != SCT_HARBR && !player->god) {
-	pr("Ships must be built in harbours.\n");
+	pr("Ships must be built in harbors.\n");
 	return 0;
     }
     if (!sector_can_build(sp, mat, mp->m_bwork, SHIP_MINEFF, mp->m_name))

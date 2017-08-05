@@ -57,7 +57,7 @@
     Play#1 output Play#1 6 0 636
     Play#1 input build s 0,0 pt
     Play#1 command build
-    Play#1 output Play#1 1 Ships must be built in harbours.
+    Play#1 output Play#1 1 Ships must be built in harbors.
     Play#1 output Play#1 6 0 635
     Play#1 input build s 4:6,0 pt
     Play#1 command build

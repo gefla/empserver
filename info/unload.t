@@ -12,6 +12,6 @@ The only thing to know is that unload won't unload more of a thing if the
 sector already has 999. For example, if a ship has 10 food, and the harbor
 has 994, you can only unload 5 of the 10 food.
 .s1
-Also, you must have Friendly relations with the owner of the harbour
+Also, you must have Friendly relations with the owner of the harbor
 in order to unload into it.
 .SA "load, Ships, Moving"
