@@ -59,7 +59,7 @@ nati(void)
 	return RET_FAIL;
     }
 
-    pr("\n(#%i) %s Nation Report\t", cnum, cname(cnum));
+    pr("\n(#%d) %s Nation Report\t", cnum, cname(cnum));
     prdate();
     pr("Nation status is %s", natstate(natp));
     pr("     Bureaucratic Time Units: %d\n", natp->nat_btu);

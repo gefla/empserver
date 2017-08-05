@@ -955,7 +955,7 @@ shp_missile_defense(coord dx, coord dy, natid bombown, int hardtarget)
 	    cname(ship.shp_own),
 	    hit ? "KABOOOM!! Missile destroyed\n"
 	    : "SWOOSH!!  anti-missile system failed!!");
-	mpr(ship.shp_own, "Ship #%i anti-missile system activated!\n",
+	mpr(ship.shp_own, "Ship #%d anti-missile system activated!\n",
 	    ship.shp_uid);
 	mpr(ship.shp_own, "%d%% hit chance...%s\n", hitchance,
 	    hit ? "KABOOOM!!  Incoming missile destroyed!\n"
