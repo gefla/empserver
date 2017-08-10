@@ -16,9 +16,6 @@ If a ship, plane, land unit or nuke is out to trade, and gets
 destroyed, and its owner builds a new one that gets the same number,
 it will go on the trading market automatically.
 .s1
-If a plane has negative mobility, then gets traded, mobility
-goes to 0.
-.s1
 If two countries are cooperating,
 its possible to raid an enemy airport and steal the planes
 by putting them out to trade.

@@ -358,7 +358,7 @@ check_trade(void)
 	    if (opt_MOB_ACCESS) {
 		tg.plane.pln_mobil = -(etu_per_update / sect_mob_neg_factor);
 		game_tick_to_now(&tg.plane.pln_access);
-	    } else {
+	    } else if (tg.plane.pln_mobil > 0) {
 		tg.plane.pln_mobil = 0;
 	    }
 	    tg.plane.pln_harden = 0;
@@ -373,7 +373,7 @@ check_trade(void)
 	    if (opt_MOB_ACCESS) {
 		tg.land.lnd_mobil = -(etu_per_update / sect_mob_neg_factor);
 		game_tick_to_now(&tg.land.lnd_access);
-	    } else {
+	    } else if (tg.plane.pln_mobil > 0) {
 		tg.land.lnd_mobil = 0;
 	    }
 	    tg.land.lnd_harden = 0;
