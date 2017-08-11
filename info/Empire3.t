@@ -1,9 +1,9 @@
 .TH Server "Empire3 Changes"
-.NA Empire3 "Changes from the Empire2 server to the Empire3 Server"
+.NA Empire3 "Changes in Empire 3 (1995-96)"
 .LV Expert
 .s1
-There have been several changes/fixes made to the Empire2 code in the
-new Empire3 Server.  This outlines the various changes and how
+There have been several changes/fixes made to the Empire 2 code in the
+Empire 3 Server.  This outlines the various changes and how
 they will affect you, the player.  Most of these changes were coded by
 Ken Stevens <children@empire.net>.
 .s1

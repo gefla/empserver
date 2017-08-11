@@ -1,5 +1,5 @@
 .TH Server "Chainsaw Changes"
-.NA Chainsaw "Changes from KSU Empire to Chainsaw code"
+.NA Chainsaw "Changes from KSU Empire to Chainsaw (1992-93)"
 .LV Expert
 .s1
 CHANGES.CHAINSAW.1.0

@@ -1,9 +1,9 @@
 .TH Server "Empire2 Changes"
-.NA Empire2 "Changes from the Chainsaw server to the Empire2 Server"
+.NA Empire2 "Changes from Chainsaw to Empire 2 (1995)"
 .LV Expert
 .s1
 There have been several changes/fixes made to the Chainsaw code in the
-new Empire2 Server.  This outlines the various changes and how
+Empire 2 Server.  This outlines the various changes and how
 they will affect you, the player.  Most of these changes were coded by
 Ken Stevens <children@empire.net>.
 .s1

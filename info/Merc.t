@@ -1,5 +1,5 @@
 .TH Server "Merc Empire Changes"
-.NA Merc "Changes from KSU code to Merc code"
+.NA Merc "Changes from KSU code to Merc code (1992)"
 .LV Expert
 .s1
 There have been several changes/fixes made to the KSU code for

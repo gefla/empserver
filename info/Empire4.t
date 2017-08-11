@@ -1,11 +1,9 @@
 .TH Server "Empire4 Changes"
-.NA Empire4 "Changes from the Empire3 server to the Empire4 Server"
+.NA Empire4 "Changes in Empire 4 (1996-present)"
 .LV Expert
 .s1
-There have been several changes/fixes made to the Empire3 code in the
-new Empire4 Server.  This outlines the various changes and how they
-will affect you, the player.  These were coded as the Wolfpack project,
-and bug-reports should be sent to <wolfpack@wolfpackempire.com>.
+This document outlines the various changes to the game and how they
+will affect you, the player.  These were coded as the Wolfpack project.
 .NF
 Changes to Empire 4.3.33 - Wed May 20 18:17:43 UTC 2015
  * New client option -r for restricted mode.  Contributed by Marisa
