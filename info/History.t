@@ -173,7 +173,7 @@ Completely rewrote attack, assault, board, and paradrop.  Added
 
 After running a series of play-test games, Ken fixed all known bugs in
 the server, organized and rewrote a lot of documentation (including
-this info page) and released the Empire2 server out of beta.
+this info page) and released the Empire 2 server out of beta.
 
 1995 Empire 3.0, Ken Stevens
 

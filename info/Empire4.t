@@ -2077,8 +2077,8 @@ Changes to Empire 4.3.6 - Tue Jun 20 18:46:18 UTC 2006
    spotted by the plane.  Previously, spotting stopped as soon as flak
    maxed out.
  * Inefficient land units were overcharged mobility when reacting.
-   Broken when Empire3 changed land unit mobility use not to depend on
-   efficiency, except for supply units.
+   Broken when Empire 3 changed land unit mobility use not to depend
+   on efficiency, except for supply units.
  * New journal file to log complete player input plus selected
    important events.  Controlled by new econfig key keep_journal, off
    by default.

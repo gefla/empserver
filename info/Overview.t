@@ -227,9 +227,9 @@ code, most notably, Dave Pare added plane units in 1986, Jeff Bailey
 added many configurable options in the KSU distribution, Thomas
 Ruschak added land units and missions in 1992-1993 and released the
 "Chainsaw" server, and Ken Stevens rewrote much of the server code in
-1995 and released the "Empire2" server.
+1995 and released the "Empire 2" server.
 Steve McClure and the Wolfpack made lots
-of other changes and released the "Empire4" server in August of 1996.
+of other changes and released "Empire 4" in August of 1996.
 The game is still maintained by the Wolfpack team.  Markus Armbruster
 serves as technical lead since 2004.
 .in
