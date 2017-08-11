@@ -44,7 +44,7 @@ contributing
 unicode
 	Design and implementation of Empire's Unicode support.
 
-CHANGES
+CHANGES2.0
 	Revision history for all the changes that were coded in the Empire2
 	project.  A much more readable version of this may be found in
 	"info History" (brief) or "info Empire2" (detailed).
