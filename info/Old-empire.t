@@ -328,4 +328,4 @@ Only aircraft carriers can launch and retrieve air strikes.
 .s1
 Only cargo ships can carry lcms (1400) and hcms (900).
 .s1
-.SA "coastwatch, fire, load, lookout, mine, navigate, tend, torpedo, fly, Server"
+.SA "Server"

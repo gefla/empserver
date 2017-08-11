@@ -648,4 +648,4 @@ DAVYJONES:	nukes hitting sea affect 1 sect, hitting waste/sanct don't det
 BABY_NUKES:	Nukes affect only 1 sector
 .FI
 .s1
-.SA "strength, tend, toggle, flash, relations, arm, starvation, Damage, report, power, Clients, Attacking, Server"
+.SA "Server"

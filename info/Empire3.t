@@ -170,4 +170,4 @@ The following options have been made standard:
 NEWPAF:         Plane combat is in nice easy-to-read columns
 .fi
 .s1
-.SA "toggle, sharebmap, Clients, Server"
+.SA "Server"

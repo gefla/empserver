@@ -4296,4 +4296,4 @@ Changes to Empire 4.0.0 - Wed Aug 21 1996
 
 .FI
 .s1
-.SA "Clients, Server, Infrastructure, Sectors, LandUnits, Planes, Ships"
+.SA "Server"
