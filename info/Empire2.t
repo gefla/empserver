@@ -5,8 +5,7 @@
 There have been several changes/fixes made to the Chainsaw code in the
 new Empire2 Server.  This outlines the various changes and how
 they will affect you, the player.  Most of these changes were coded by
-Ken Stevens <children@empire.net> and any bug-reports in the new
-server should be directed to him.
+Ken Stevens <children@empire.net>.
 .s1
 .in 0
 .\" -----------------------------------------------------------

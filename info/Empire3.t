@@ -5,8 +5,7 @@
 There have been several changes/fixes made to the Empire2 code in the
 new Empire3 Server.  This outlines the various changes and how
 they will affect you, the player.  Most of these changes were coded by
-Ken Stevens <children@empire.net> and any bug-reports in the new
-server should be directed to him.
+Ken Stevens <children@empire.net>.
 .s1
 Sectors
 .in 0.6in
