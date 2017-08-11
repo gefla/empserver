@@ -45,18 +45,24 @@ unicode
 	Design and implementation of Empire's Unicode support.
 
 CHANGES2.0
-	Revision history for all the changes that were coded in the Empire2
-	project.  A much more readable version of this may be found in
-	"info History" (brief) or "info Empire2" (detailed).
+	Detailed revision history for the Empire2 project until
+	version 2.3.  A more condensed (and much more readable)
+	version meant for deities and players may be found in "info
+	Empire2".  For an overview of Empire versions, see "info
+	History".
 
 CHANGES2.3
-	All changes since revision 2.3
+	Detailed revision history for Empire2 changes since version
+	2.3, also covered by "info Empire2"
 
 CHANGES3.0
-	All changes since revision 3.0
+	Detailed revision history for Empire3 changes.  The version
+	meant for deities and players is in "info Empire3".
 
-CHANGES4.X
-	All changes since revision 4.0
+	There is no detailed revision history for versions 4.0.0 to
+	4.2.12.  Since 4.2.12, detailed history is in the revision
+	control system, currently Git.  The version meant for deities
+	and players is in "info Empire4".
 
 WISH_LIST
 	things which maybe should be coded sometime.
