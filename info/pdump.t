@@ -64,4 +64,4 @@ A pdump lists each of your planes in the specified area.
 The header line is a list of fields that correspond
 to the order that pdump prints the plane info.
 .s1
-.SA "plane, pstat, Clients, Planes"
+.SA "plane, pstat, Planes"

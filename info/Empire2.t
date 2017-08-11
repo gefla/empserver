@@ -454,8 +454,7 @@ wall" for more details.
 .L -
 The new command "toggle" can be used to instantly inform you when
 you receive a new telegram.  You can also use "toggle" to temporarily
-block flash messages.  To find out which clients support this, type
-"info Clients".
+block flash messages.
 .L -
 The server will now correctly report how many telegrams you have
 waiting.

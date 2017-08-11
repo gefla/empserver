@@ -100,4 +100,4 @@ utility.
 xdump is still fairly new, and experience with it may lead to changes.
 Client writers should be prepared for that.
 .s1
-.SA "dump, ldump, ndump, pdump, sdump, lost, show, version, Clients, Communication, LandUnits, Planes, Sectors, Ships"
+.SA "dump, ldump, ndump, pdump, sdump, lost, show, version, Communication, LandUnits, Planes, Sectors, Ships"

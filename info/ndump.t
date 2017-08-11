@@ -37,4 +37,4 @@ A ndump lists each of your nukes in the specified area.
 The header line is a list of fields that correspond
 to the order that ndump prints the nuke info.
 .s1
-.SA "nuke, xdump, Clients, Planes, Nukes"
+.SA "nuke, xdump, Planes, Nukes"
