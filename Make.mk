@@ -385,7 +385,7 @@ info.ps: info/TROFF.MAC info/INFO.MAC info/TOP.t $(tsubj) $(tsrc)
 # Distributing
 
 .PHONY: dist-source
-dist-source: $(src_distgen)
+dist-source: $(addprefix $(srcdir)/, $(src_distgen))
 	$(tarball) $(TARNAME) $(version) -C $(srcdir) $(src_distgen) $(src)
 
 ifeq ($(revctrl),git)
@@ -395,7 +395,7 @@ $(srcdir)/sources.mk:
 endif
 
 .PHONY: dist-client
-dist-client: $(cli_distgen)
+dist-client: $(addprefix $(srcdir)/, $(cli_distgen))
 	$(tarball) $(TARNAME)-client $(version)				\
 	-C $(srcdir)/src/client						\
 		$(notdir $(filter src/client/%, $(src))	$(cli_distgen))	\
