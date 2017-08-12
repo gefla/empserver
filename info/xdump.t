@@ -77,11 +77,11 @@ Use this with a value one less than the timestamp in the xdump header
 to get everything that changed since that xdump (incremental dump).
 .s1
 .L "FUTURE DIRECTIONS:"
-We plan to extend the syntax to select fields to be shown.
+We may still extend the syntax to select fields to be shown.
 .s1
 The table \*Qtable\*U is the table of (non-meta-)tables.  It contains
 table names and numbers.  xdump accepts table numbers as well as
-names.
+names.  Table numbers may differ between server versions.
 .s1
 .L BUGS:
 Still missing are game state files power, map, bmap; the list of
@@ -97,7 +97,8 @@ Incremental dump doesn't work after importing news with the empdump
 utility.
 .s1
 .L "FUTURE DIRECTIONS:"
-xdump is still fairly new, and experience with it may lead to changes.
-Client writers should be prepared for that.
+xdump evolves along with the server.  Clients should cope gracefully
+with new tables and fields.  We try to avoid incompatible changes, but
+they are occasionally necessary to make progress.
 .s1
 .SA "dump, ldump, ndump, pdump, sdump, lost, show, version, Communication, LandUnits, Planes, Sectors, Ships"
