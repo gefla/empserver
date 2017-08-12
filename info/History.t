@@ -255,5 +255,14 @@ Changes affecting players include extended start/stop commands
 (replacing budget priorities), radically reduced bridge population,
 somewhat reduced land unit penetration depth, fusing of interception
 with air defense, and limiting nukes to strategic roles again.
+
+2017 Empire 4.4, Wolfpack
+
+Hightlights so far are fancy line editing for the client, an overhaul
+of the update and associated forecasts like budget, and game
+customization improvements.
+
+The xdump command got a few incompatible changes.
+
 .FI
 .SA "Server"

@@ -1,5 +1,5 @@
 .TH Server "Empire4 Changes"
-.NA Empire4.3 "Changes in Empire 4.3 (2006-present)"
+.NA Empire4.3 "Changes in Empire 4.3 (2006-2015)"
 .LV Expert
 .s1
 This document outlines the various changes to the game and how they
@@ -203,7 +203,8 @@ Changes to Empire 4.3.33 - Wed May 20 18:17:43 UTC 2015
  * Reject nat selectors relations, contacts and rejects, because they
    don't actually make sense.  They exist just for xdump.
  * Drop the code to resolve player IP address.  It's been disabled
-   since 4.2.13.  Deprecate nat selector hostname.
+   since 4.2.13.  Deprecate nat selector hostname.  Its value has
+   always been "" unless the deity messed with it.
  * Fix bridge spans next to a bridge tower or head taking damage to
    fall when they should with EASY_BRIDGES off.  Has always been
    broken.
@@ -1170,7 +1171,7 @@ Changes to Empire 4.3.20 - Fri Feb 20 18:14:20 UTC 2009
  * Fix enforcing game hours for players already logged in.  Broken in
    4.3.19.
  * Fix distribution not to abandon a distribution center by exporting
-   the last military.
+   the last civilian, or the last military if there are no civilians.
  * Many fixes to load, unload, lload and lunload:
    - Now usable for deities.
    - Plug loopholes that let you steal foreign commodities by making
