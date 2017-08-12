@@ -509,7 +509,7 @@ Changes to Empire 4.3.30 - Tue May 22 18:34:52 UTC 2012
    - Fix a race condition that could cause commodity trades to be
      executed multiple times.  Abusing this to duplicate commodities
      seems tricky, but possible.  Broken in Empire 3.
-   - Don't expropriate sellers of units.  POGO got the the money, the
+   - Don't expropriate sellers of units.  POGO got the money, the
      telegrams and made the news, the seller got nothing.  Broken in
      4.3.17.
  * Login command quit and server shutdown could lose player output.

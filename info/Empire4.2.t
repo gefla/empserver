@@ -81,7 +81,7 @@ Changes to Empire 4.2.22 - Tue Oct 11 20:23:51 UTC 2005
    player could starve out the others.
  * launch assumed plane maximum mobility 127 for calculating when
    satellites will be ready to use.
- * Drop support for for DCE threads.
+ * Drop support for DCE threads.
  * Drop support for pthread implementations lacking pthread_kill().
    This includes ancient versions of OS X.
  * Code cleanups.
@@ -257,7 +257,7 @@ Changes to Empire 4.2.19 - Thu Dec 23 20:24:24 UTC 2004
  * Fix a rounding error in production command column `max'.
  * Fix production command for overpopulated mountains and plains.
  * Fix tradeship ally cut to match documentation.
- * Fix plague, which was was broken in 4.2.14: it got stuck in stage I.
+ * Fix plague, which was broken in 4.2.14: it got stuck in stage I.
  * Fix a bug in aerial sonar where ships could mask submarines with
    the same number modulo 256.
  * Don't allow bombing of subs that were not detected.
@@ -275,8 +275,8 @@ Changes to Empire 4.2.19 - Thu Dec 23 20:24:24 UTC 2004
  * New ship selectors for sail: mobquota, path, follow.
  * New news selector uid.
  * Implement command line parsing under Windows where it was missing.
- * emp_server and and files print a usage message on command line
-   syntax errors.
+ * emp_server and files print a usage message on command line syntax
+   errors.
  * Fix how emp_server exits after being panicked by a signal.  It can
    now dump core when this happens.
  * Fix bug in client that could crash it when a line of input starts

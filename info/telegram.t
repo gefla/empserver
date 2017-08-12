@@ -13,7 +13,7 @@ Telegrams sent to country #0 appear as prayers,
 (favors are best obtained in this manner.)
 .s1
 While entering your telegram the system tells you how many characters
-you have left.  You end the telegram by by entering a line with a '.'
+you have left.  You end the telegram by entering a line with a '.'
 on a line by itself. A line containing
 only '~q' will abort the telegram.
 .s1

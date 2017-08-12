@@ -752,7 +752,7 @@ struct castr empfile_ca[] = {
 struct castr symbol_ca[] = {
 #define CURSTR struct symbol
     /*
-     * value is is const because it has to match what is compiled into
+     * value is const because it has to match what is compiled into
      * the server.  name is const because clients key on it.
      */
     {"value", fldoff(value), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP_CONST},

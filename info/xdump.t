@@ -8,7 +8,7 @@ in machine readable format.  It is intended for use by clients and
 tools.  This info page gives an overview; see doc/xdump in the source
 distribution for complete documentation.
 .s1
-Game configuration and state consists of a a number of tables or
+Game configuration and state consists of a number of tables or
 files.  xdump shows only things that are \*(fIcertainly\*(fP visible to
 you: sectors you own, ship types known, etc.
 .s1

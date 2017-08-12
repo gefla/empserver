@@ -258,7 +258,7 @@ User's Guide to Empire							 8
 	
 Chapter 2 :-: How to get into a game of Empire.
 
-	The most common way of finding about about games that are about to 
+	The most common way of finding about games that are about to
 	happen is by monitoring the newsgroup rec.games.empire on your local
 	news reading program. Other ways are via e-mail by getting to know 
 	several players with whom you correspond over the network.  Some 
@@ -2436,7 +2436,7 @@ User's Guide to Empire							 51
 	other aspect of thresholds is that if there is less than the threshold 
 	of a commodity, then the warehouse will send out enough of that 
 	commodity to equal the threshold, assuming it has such commodities in 
-	the warehouse.  The command to set the threshold for for in the sector
+	the warehouse.  The command to set the threshold for in the sector
 	so that food will go to the sector from the warehouse could be this:
 
 [534:30] Command: threshold food -15,1 50
@@ -2464,7 +2464,7 @@ User's Guide to Empire							 51
 3) Sometimes it may seem that the warehouse is not getting the commodities
    to the sectors requesting it.  Empire updates sectors one at a time, and 
    as such the warehouse may actually run out of a commodity, receive the
-   request for that commodity, be unable to fill it and move on the the
+   request for that commodity, be unable to fill it and move on the
    sectors it updates after that sector.  Those sectors in turn may send
    commodities to the warehouse, thus giving it enough to fill the previous
    request.  However, since it has already updated that sector, it will not

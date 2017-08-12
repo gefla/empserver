@@ -136,7 +136,7 @@ scuttle_tradeship(struct shpstr *sp)
 	&& relations_with(sect.sct_own, sp->shp_own) >= FRIENDLY) {
 	dist = mapdist(sp->shp_x, sp->shp_y,
 		       sp->shp_orig_x, sp->shp_orig_y);
-	/* Don't disclose distance to to pirates */
+	/* Don't disclose distance to pirates */
 	if (player->cnum == sp->shp_orig_own)
 	    pr("%s has gone %d sects\n", prship(sp), dist);
 	if (dist < trade_1_dist)

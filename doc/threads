@@ -50,7 +50,7 @@ The server has seven basic threads:
 		while the update is in progress.
 	select:
 		This thread and its interface provides a mechanism for
-		other threads to deschedule until either a a file descriptor
+		other threads to deschedule until either a file descriptor
 		is read/write ready, or a particular amount of time has passed.
 		When the select thread actually runs, the whole process
 		blocks until the select system call returns.  However,

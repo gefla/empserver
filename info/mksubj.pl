@@ -43,7 +43,7 @@ my @Chapters = qw/Introduction Concept Command Server/;
 
 my @Levels = qw/Basic Expert Obsolete/;
 
-# $Subjects{SUBJECT} is a reference to an an anonymous array
+# $Subjects{SUBJECT} is a reference to an anonymous array
 # containing SUBJECT's topics
 my %Subjects;
 

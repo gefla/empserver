@@ -60,7 +60,7 @@ static void share_incr(double[], double[]);
  * for values below the "easy level" values, production is
  * as normal.  For values above "easy", production gets harder
  * based on an equation in "limit_level()" in update/nat.c.
- * Basically, the smaller the the values for "level_log", the
+ * Basically, the smaller the values for "level_log", the
  * smaller return on investment above level_easy[] values.
  */
 /*

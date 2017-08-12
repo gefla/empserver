@@ -264,7 +264,7 @@ The following IDs occur:
   rejects redirections in batch files.
 
   Certain bad failures make the server ignore the rest of the batch
-  file file.  This feature is too hard to predict to be really useful.
+  file.  This feature is too hard to predict to be really useful.
 
   Protocol flaw: strictly asynchronous clients cannot support
   C_EXECUTE correctly.  By the time C_EXECUTE arrives, the client may
@@ -286,7 +286,7 @@ The following IDs occur:
 
   empire-client prints the text verbatim, prepended by a line feed.
   This is clearly sub-optimal, because it can be inserted in the
-  middle of user input.  Clients wishing to to display asynchronous
+  middle of user input.  Clients wishing to display asynchronous
   messages together with normal I/O should insert them before the
   current prompt.
 
