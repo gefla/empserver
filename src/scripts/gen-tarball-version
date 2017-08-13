@@ -9,3 +9,10 @@ nv=$1-$2
 
 printf "%s" "$2" >$nv/.tarball-version
 >$nv/.dirty-stamp
+
+if [ "$2" != "`$nv/configure --version | sed -n '/^Wolfpack Empire/s/.* //p'`" ]
+then
+    echo "Output of configure --version does not match $2" >&2
+    echo "Need to regenerate stale configure?" >&2
+    exit 1
+fi
