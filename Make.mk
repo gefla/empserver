@@ -114,8 +114,6 @@ ac += $(basename $(filter %.in, $(src)))
 ac += $(srcdir)/autom4te.cache $(srcdir)/src/client/autom4te.cache
 # distributed by dist-source from $(srcdir):
 acdist := aclocal.m4 config.h.in configure stamp-h.in
-# distributed by dist-client from $(srcdir):
-acdistcli := $(addprefix src/client/, aclocal.m4 config.h.in configure)
 # Object files:
 obj := $(csrc:.c=.o) $(filter %.o, $(ac:.c=.o))
 # Dependencies:
@@ -166,9 +164,6 @@ distclean += $(addprefix $(srcdir)/, $(mk))
 endif
 # Distributed by dist-source from $(srcdir):
 src_distgen := $(acdist) $(mk)
-# Distributed by dist-client from $(srcdir)/src/client; removed by distclean:
-cli_distgen := $(acdistcli)
-distclean += $(addprefix $(srcdir)/, $(cli_distgen))
 
 # Compiler flags
 CPPFLAGS += -I$(srcdir)/include -I.
@@ -395,18 +390,20 @@ $(srcdir)/sources.mk:
 endif
 
 .PHONY: dist-client
-dist-client: $(addprefix $(srcdir)/, $(cli_distgen))
-	$(tarball)  -x $(srcdir)/src/scripts/gen-tarball-version	\
+dist-client:
+	$(tarball) -x $(srcdir)/src/scripts/gen-client-configure	\
 	$(TARNAME)-client $(version)					\
 	-C $(srcdir)/src/client						\
-		$(notdir $(filter src/client/%, $(src))	$(cli_distgen))	\
+		$(notdir $(filter src/client/%, $(src)))		\
 	-C $(srcdir)/include fnameat.h proto.h version.h		\
 	-C $(srcdir)/src/lib/global version.c				\
 	-C $(srcdir)/src/lib/gen fnameat.c				\
 	-C $(srcdir)/src/lib $(addprefix w32/, $(client/w32))		\
 	-C $(srcdir)/man empire.6					\
 	-C $(srcdir)/build-aux install-sh				\
-	-C $(srcdir) COPYING INSTALL
+	-C $(srcdir) COPYING INSTALL					\
+		m4/ax_lib_socket_nsl.m4 m4/my_lib_readline.m4		\
+		m4/my_terminfo.m4 m4/my_windows_api.m4
 
 .PHONY: dist-info
 dist-info: info html
@@ -449,16 +446,3 @@ config.status: configure
 
 src/lib/global/path.c src/client/ipglob.c: %: %.in GNUmakefile Make.mk
 	$(call quiet-command,$(subst.in) <$< >$@,GEN $@)
-
-
-# Make files for standalone client distribution
-
-$(srcdir)/src/client/configure: src/client/configure.ac src/client/aclocal.m4
-	cd $(dir $@) && autoconf
-
-$(srcdir)/src/client/config.h.in: src/client/configure.ac src/client/aclocal.m4
-	cd $(dir $@) && autoheader
-	touch $@
-
-$(srcdir)/src/client/aclocal.m4: m4/ax_lib_socket_nsl.m4 m4/my_lib_readline.m4 m4/my_terminfo.m4 m4/my_windows_api.m4
-	cat $^ >$@

@@ -55,10 +55,6 @@
 /configure
 /stamp-h.in
 /sources.mk
-# $(cli_distgen)
-/src/client/aclocal.m4
-/src/client/config.h.in
-/src/client/configure
 
 # Generic junk
 *.orig

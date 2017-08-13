@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+if [ $# = 0 ]; then
+    echo "Usage: $0 NAME VERSION (FILE | -C DIR)..."
+    exit 1
+fi
+
+cd $1-$2
+printf "%s" $2 >.tarball-version
+cat m4/*.m4 >aclocal.m4
+autoconf
+autoheader
+rm -rf m4 autom4te.cache
