@@ -54,7 +54,6 @@
 /config.h.in
 /configure
 /stamp-h.in
-# $(bld_distgen)
 /sources.mk
 # $(cli_distgen)
 /src/client/aclocal.m4
