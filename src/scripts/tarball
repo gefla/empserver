@@ -1,8 +1,15 @@
 #!/bin/sh -e
 
 if [ $# = 0 ]; then
-    echo "Usage: $0 NAME (FILE | -C DIR)..."
+    echo "Usage: $0 [-x TWEAK-SCRIPT ] NAME VERSION (FILE | -C DIR)..."
     exit 1
+fi
+
+script=:
+if [ "$1" == -x ]
+then
+    script=$2
+    shift; shift
 fi
 
 name="$1"
@@ -11,8 +18,6 @@ shift; shift
 
 nv=$name-$version
 mkdir $nv
-printf "%s" $version >$nv/.tarball-version
->$nv/.dirty-stamp
 
 # arrange cleanup
 trap 'rm -rf "$nv"' 0
@@ -29,5 +34,7 @@ until [ $# = 0 ]; do
     ln "$dir/$1" "$nv/$1"
     shift
 done
+
+$script $name $version
 
 tar -czf $nv.tar.gz --owner=0 --group=0 --mode=ug+w,a+rX $nv

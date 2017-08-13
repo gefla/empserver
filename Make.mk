@@ -386,7 +386,7 @@ info.ps: info/TROFF.MAC info/INFO.MAC info/TOP.t $(tsubj) $(tsrc)
 
 .PHONY: dist-source
 dist-source: $(addprefix $(srcdir)/, $(src_distgen))
-	$(tarball) $(TARNAME) $(version) -C $(srcdir) $(src_distgen) $(src)
+	$(tarball) -x $(srcdir)/src/scripts/gen-tarball-version $(TARNAME) $(version) -C $(srcdir) $(src_distgen) $(src)
 
 ifeq ($(revctrl),git)
 .PHONY: $(srcdir)/sources.mk
@@ -396,7 +396,8 @@ endif
 
 .PHONY: dist-client
 dist-client: $(addprefix $(srcdir)/, $(cli_distgen))
-	$(tarball) $(TARNAME)-client $(version)				\
+	$(tarball)  -x $(srcdir)/src/scripts/gen-tarball-version	\
+	$(TARNAME)-client $(version)					\
 	-C $(srcdir)/src/client						\
 		$(notdir $(filter src/client/%, $(src))	$(cli_distgen))	\
 	-C $(srcdir)/include fnameat.h proto.h version.h		\

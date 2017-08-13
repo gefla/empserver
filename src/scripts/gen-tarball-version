@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+if [ $# = 0 ]; then
+    echo "Usage: $0 NAME VERSION (FILE | -C DIR)..."
+    exit 1
+fi
+
+nv=$1-$2
+
+printf "%s" "$2" >$nv/.tarball-version
+>$nv/.dirty-stamp
