@@ -5,16 +5,17 @@ if [ $# = 0 ]; then
     exit 1
 fi
 
-name="$1-$2"
+name="$1"
 version="$2"
 shift; shift
 
-mkdir $name
-printf "%s" $version >$name/.tarball-version
->$name/.dirty-stamp
+nv=$name-$version
+mkdir $nv
+printf "%s" $version >$nv/.tarball-version
+>$nv/.dirty-stamp
 
 # arrange cleanup
-trap 'rm -rf "$name"' 0
+trap 'rm -rf "$nv"' 0
 
 dir=.
 until [ $# = 0 ]; do
@@ -24,9 +25,9 @@ until [ $# = 0 ]; do
 	echo "-C requires an argument" >&2
 	exit 1
     fi
-    mkdir -p `dirname "$name/$1"`
-    ln "$dir/$1" "$name/$1"
+    mkdir -p `dirname "$nv/$1"`
+    ln "$dir/$1" "$nv/$1"
     shift
 done
 
-tar -czf $name.tar.gz --owner=0 --group=0 --mode=ug+w,a+rX $name
+tar -czf $nv.tar.gz --owner=0 --group=0 --mode=ug+w,a+rX $nv
