@@ -33,10 +33,8 @@
 #include <config.h>
 
 #include "misc.h"
-#include "nat.h"
 #include "plane.h"
 #include "prototypes.h"
-#include "ship.h"
 
 int
 on_shiplist(int uid, struct shiplist *head)

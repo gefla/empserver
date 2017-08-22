@@ -35,7 +35,6 @@
 
 #include "chance.h"
 #include "item.h"
-#include "lost.h"
 #include "optlist.h"
 #include "nat.h"
 #include "news.h"

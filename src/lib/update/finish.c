@@ -37,7 +37,6 @@
 
 #include <stdlib.h>
 #include <sys/resource.h>
-#include "nat.h"
 #include "optlist.h"
 #include "path.h"
 #include "sect.h"

@@ -36,7 +36,6 @@
 #include "chance.h"
 #include "commands.h"
 #include "item.h"
-#include "land.h"
 #include "news.h"
 
 int

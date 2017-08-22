@@ -34,11 +34,9 @@
 #include <config.h>
 
 #include "optlist.h"
-#include "plane.h"
 #include "product.h"
 #include "prototypes.h"
 #include "sect.h"
-#include "ship.h"
 
 static void init_pchr(void);
 

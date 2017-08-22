@@ -34,7 +34,6 @@
 #include <config.h>
 
 #include <ctype.h>
-#include "chance.h"
 #include "commands.h"
 #include "optlist.h"
 #include "plague.h"

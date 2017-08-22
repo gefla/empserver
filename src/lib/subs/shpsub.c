@@ -48,7 +48,6 @@
 #include "player.h"
 #include "prototypes.h"
 #include "queue.h"
-#include "server.h"
 #include "unit.h"
 #include "xy.h"
 
