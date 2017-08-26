@@ -1,4 +1,6 @@
 ## Travis CI configuration
+dist: trusty
+sudo: false
 language: c
 branches:
   only:
@@ -6,7 +8,7 @@ branches:
   - fever
   - master
   - travis
-# Test with both gcc and clang:
+# Test matrix:
 compiler:
   - gcc
   - clang
