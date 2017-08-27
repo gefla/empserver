@@ -1487,9 +1487,9 @@
     Play#0 output Play#0 1 Mobility <M>: 0		Fleet <F>:
     Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
     Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
-    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
-    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
-    Play#0 output Play#0 1   0   0   0    0   0   0    0    0    0    0    0    0   0
+    Play#0 output Play#0 1   civ  mil   uw food   sh  gun  pet iron dust  oil  lcm  hcm  rad
+    Play#0 output Play#0 1     c    m    u    f    s    g    p    i    d    o    l    h    r
+    Play#0 output Play#0 1     0    0    0    0    0    0    0    0    0    0    0    0    0
     Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input M 2
     Play#0 output Play#0 1 Mobility of cs   cargo ship (#0) changed from 0 to 2
@@ -1511,9 +1511,9 @@
     Play#0 output Play#0 1 Mobility <M>: 2		Fleet <F>:
     Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
     Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
-    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
-    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
-    Play#0 output Play#0 1   0   1   0    1   0   0    0    0    0    0    0    0   0
+    Play#0 output Play#0 1   civ  mil   uw food   sh  gun  pet iron dust  oil  lcm  hcm  rad
+    Play#0 output Play#0 1     c    m    u    f    s    g    p    i    d    o    l    h    r
+    Play#0 output Play#0 1     0    1    0    1    0    0    0    0    0    0    0    0    0
     Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input R n
     Play#0 output Play#0 1 Retreat path of cs   cargo ship (#0) changed from  to n
@@ -1552,9 +1552,9 @@
     Play#0 output Play#0 1 Fortification <F>: 0	Land unit <Y>: -1
     Play#0 output Play#0 1 Ship <S>: -1		Retreat percentage <Z>: 42
     Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
-    Play#0 output Play#0 1 civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad
-    Play#0 output Play#0 1   c   m   u    f   s   g    p    i    d    o    l    h   r
-    Play#0 output Play#0 1   0   0   0    0   0   0    0    0    0    0    0    0   0
+    Play#0 output Play#0 1   civ  mil   uw food   sh  gun  pet iron dust  oil  lcm  hcm  rad
+    Play#0 output Play#0 1     c    m    u    f    s    g    p    i    d    o    l    h    r
+    Play#0 output Play#0 1     0    0    0    0    0    0    0    0    0    0    0    0    0
     Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input M 2
     Play#0 output Play#0 1 Mobility of sup  supply #0 changed from 0 to 2

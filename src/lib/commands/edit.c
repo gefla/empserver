@@ -267,22 +267,22 @@ print_plane(struct plnstr *plane)
 static void
 print_items(short item[])
 {
-    pr("civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad\n");
-    pr("  c   m   u    f   s   g    p    i    d    o    l    h   r\n");
-    pr("%3d", item[I_CIVIL]);
-    pr("%4d", item[I_MILIT]);
-    pr("%4d", item[I_UW]);
-    pr("%5d", item[I_FOOD]);
-    pr("%4d", item[I_SHELL]);
-    pr("%4d", item[I_GUN]);
-    pr("%5d", item[I_PETROL]);
-    pr("%5d", item[I_IRON]);
-    pr("%5d", item[I_DUST]);
-    pr("%5d", item[I_OIL]);
-    pr("%5d", item[I_LCM]);
-    pr("%5d", item[I_HCM]);
-    pr("%4d", item[I_RAD]);
-    pr("\n");
+    pr("  civ  mil   uw food   sh  gun  pet iron dust  oil  lcm  hcm  rad\n"
+       "    c    m    u    f    s    g    p    i    d    o    l    h    r\n"
+       "%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d\n",
+       item[I_CIVIL],
+       item[I_MILIT],
+       item[I_UW],
+       item[I_FOOD],
+       item[I_SHELL],
+       item[I_GUN],
+       item[I_PETROL],
+       item[I_IRON],
+       item[I_DUST],
+       item[I_OIL],
+       item[I_LCM],
+       item[I_HCM],
+       item[I_RAD]);
 }
 
 static void
