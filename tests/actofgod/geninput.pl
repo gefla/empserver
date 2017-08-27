@@ -309,7 +309,7 @@ for my $ef ('ship', 'land') {
 
 # items
 for my $ef ('ship', 'land') {
-    for my $key (split(//, 'cmsgpidfolhur')) {
+    for my $key (split(//, 'cmsgpidBfolhur')) {
 	edit($ef, 2, $key, 1);
     }
 }

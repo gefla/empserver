@@ -267,9 +267,9 @@ print_plane(struct plnstr *plane)
 static void
 print_items(short item[])
 {
-    pr("  civ  mil   uw food   sh  gun  pet iron dust  oil  lcm  hcm  rad\n"
-       "    c    m    u    f    s    g    p    i    d    o    l    h    r\n"
-       "%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d\n",
+    pr("  civ  mil   uw food   sh  gun  pet iron dust  bar  oil  lcm  hcm  rad\n"
+       "    c    m    u    f    s    g    p    i    d    B    o    l    h    r\n"
+       "%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d%5d\n",
        item[I_CIVIL],
        item[I_MILIT],
        item[I_UW],
@@ -279,6 +279,7 @@ print_items(short item[])
        item[I_PETROL],
        item[I_IRON],
        item[I_DUST],
+       item[I_BAR],
        item[I_OIL],
        item[I_LCM],
        item[I_HCM],
@@ -850,6 +851,17 @@ edit_item(struct empobj *unit, short item[], struct ichrstr *ip, int arg,
 }
 
 static void
+edit_unit_item(struct empobj *unit, short item[], char *key, int arg,
+	       short lim[])
+{
+    char lowkey[2];
+
+    lowkey[0] = tolower(*key);
+    lowkey[1] = 0;
+    edit_item(unit, item, item_by_name(lowkey), arg, lim);
+}
+
+static void
 limit_item(struct empobj *unit, short item[], short lim[])
 {
     i_type it;
@@ -934,12 +946,13 @@ edit_ship(struct shpstr *ship, char *key, char *p)
     case 'p':
     case 'i':
     case 'd':
+    case 'B':
     case 'o':
     case 'l':
     case 'h':
     case 'r':
-	edit_item((struct empobj *)ship, ship->shp_item, item_by_name(key),
-		  arg, mcp->m_item);
+	edit_unit_item((struct empobj *)ship, ship->shp_item, key, arg,
+		       mcp->m_item);
 	break;
     default:
 	pr("huh? (%s)\n", key);
@@ -1065,12 +1078,13 @@ edit_land(struct lndstr *land, char *key, char *p)
     case 'p':
     case 'i':
     case 'd':
+    case 'B':
     case 'o':
     case 'l':
     case 'h':
     case 'r':
-	edit_item((struct empobj *)land, land->lnd_item, item_by_name(key),
-		  arg, lcp->l_item);
+	edit_unit_item((struct empobj *)land, land->lnd_item, key, arg,
+		       lcp->l_item);
 	break;
     default:
 	pr("huh? (%s)\n", key);

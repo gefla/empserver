@@ -1508,6 +1508,10 @@
     Play#0 command edit
     Play#0 output Play#0 1 dust (gold) of cs   cargo ship (#2) unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 B 1
+    Play#0 command edit
+    Play#0 output Play#0 1 bars of gold of cs   cargo ship (#2) unchanged
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 f 1
     Play#0 command edit
     Play#0 output Play#0 1 food of cs   cargo ship (#2) changed from 0 to 1
@@ -1559,6 +1563,10 @@
     Play#0 input edit u 2 d 1
     Play#0 command edit
     Play#0 output Play#0 1 dust (gold) of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 B 1
+    Play#0 command edit
+    Play#0 output Play#0 1 bars of gold of sup  supply #2 changed from 0 to 1
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 f 1
     Play#0 command edit
@@ -1647,9 +1655,9 @@
     Play#0 output Play#0 1 Mobility <M>: 0		Fleet <F>:
     Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
     Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
-    Play#0 output Play#0 1   civ  mil   uw food   sh  gun  pet iron dust  oil  lcm  hcm  rad
-    Play#0 output Play#0 1     c    m    u    f    s    g    p    i    d    o    l    h    r
-    Play#0 output Play#0 1     0    0    0    0    0    0    0    0    0    0    0    0    0
+    Play#0 output Play#0 1   civ  mil   uw food   sh  gun  pet iron dust  bar  oil  lcm  hcm  rad
+    Play#0 output Play#0 1     c    m    u    f    s    g    p    i    d    B    o    l    h    r
+    Play#0 output Play#0 1     0    0    0    0    0    0    0    0    0    0    0    0    0    0
     Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input M 2
     Play#0 output Play#0 1 Mobility of cs   cargo ship (#0) changed from 0 to 2
@@ -1671,9 +1679,9 @@
     Play#0 output Play#0 1 Mobility <M>: 2		Fleet <F>:
     Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
     Play#0 output Play#0 1 Plague Stage <a>: 0		Plague Time <b>: 0
-    Play#0 output Play#0 1   civ  mil   uw food   sh  gun  pet iron dust  oil  lcm  hcm  rad
-    Play#0 output Play#0 1     c    m    u    f    s    g    p    i    d    o    l    h    r
-    Play#0 output Play#0 1     0    1    0    1    0    0    0    0    0    0    0    0    0
+    Play#0 output Play#0 1   civ  mil   uw food   sh  gun  pet iron dust  bar  oil  lcm  hcm  rad
+    Play#0 output Play#0 1     c    m    u    f    s    g    p    i    d    B    o    l    h    r
+    Play#0 output Play#0 1     0    1    0    1    0    0    0    0    0    0    0    0    0    0
     Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input R n
     Play#0 output Play#0 1 Retreat path of cs   cargo ship (#0) changed from  to n
@@ -1712,9 +1720,9 @@
     Play#0 output Play#0 1 Fortification <F>: 0	Land unit <Y>: -1
     Play#0 output Play#0 1 Ship <S>: -1		Retreat percentage <Z>: 42
     Play#0 output Play#0 1 Retreat path <R>: ''		Retreat Flags <W>: 0
-    Play#0 output Play#0 1   civ  mil   uw food   sh  gun  pet iron dust  oil  lcm  hcm  rad
-    Play#0 output Play#0 1     c    m    u    f    s    g    p    i    d    o    l    h    r
-    Play#0 output Play#0 1     0    0    0    0    0    0    0    0    0    0    0    0    0
+    Play#0 output Play#0 1   civ  mil   uw food   sh  gun  pet iron dust  bar  oil  lcm  hcm  rad
+    Play#0 output Play#0 1     c    m    u    f    s    g    p    i    d    B    o    l    h    r
+    Play#0 output Play#0 1     0    0    0    0    0    0    0    0    0    0    0    0    0    0
     Play#0 output Play#0 4 %c xxxxx -- thing value :
     Play#0 input M 2
     Play#0 output Play#0 1 Mobility of sup  supply #0 changed from 0 to 2
@@ -2120,6 +2128,7 @@
     Play#0 output Play#0 1 POGO gave you 1 petrol in sup  supply #2
     Play#0 output Play#0 1 POGO gave you 1 iron ore in sup  supply #2
     Play#0 output Play#0 1 POGO gave you 1 dust (gold) in sup  supply #2
+    Play#0 output Play#0 1 POGO gave you 1 bars of gold in sup  supply #2
     Play#0 output Play#0 1 POGO gave you 1 food in sup  supply #2
     Play#0 output Play#0 1 POGO gave you 1 light products in sup  supply #2
     Play#0 output Play#0 1 POGO gave you 1 heavy products in sup  supply #2
