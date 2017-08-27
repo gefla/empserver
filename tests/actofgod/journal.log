@@ -828,6 +828,62 @@
     Play#0 command give
     Play#0 output Play#0 1 1 civilians in 8,6
     Play#0 output Play#0 6 0 640
+    Play#0 input give c 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 2 civilians in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give m 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 2 military in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give s 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 shells in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give g 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 guns in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give p 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 petrol in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give i 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 iron ore in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give d 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 dust (gold) in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give b 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 bars of gold in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give f 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 food in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give o 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 oil in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give l 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 light products in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give h 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 heavy products in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give u 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 uncompensated workers in 10,6
+    Play#0 output Play#0 6 0 640
+    Play#0 input give r 10,6 1
+    Play#0 command give
+    Play#0 output Play#0 1 1 radioactive materials in 10,6
+    Play#0 output Play#0 6 0 640
     Play#0 input swaps -2,2 2,-2
     Play#0 command swapsector
     Play#0 output Play#0 1 own   sect        eff  min gold fert oil uran
@@ -1424,6 +1480,110 @@
     Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed: injured, torpedoed, #10 set, and group, #9 cleared
     Play#0 output Play#0 1 Retreat condition of sup  supply #3 changed: torpedoed, #10 cleared
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 c 1
+    Play#0 command edit
+    Play#0 output Play#0 1 civilians of cs   cargo ship (#2) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 m 1
+    Play#0 command edit
+    Play#0 output Play#0 1 military of cs   cargo ship (#2) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 s 1
+    Play#0 command edit
+    Play#0 output Play#0 1 shells of cs   cargo ship (#2) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 g 1
+    Play#0 command edit
+    Play#0 output Play#0 1 guns of cs   cargo ship (#2) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 p 1
+    Play#0 command edit
+    Play#0 output Play#0 1 petrol of cs   cargo ship (#2) unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 i 1
+    Play#0 command edit
+    Play#0 output Play#0 1 iron ore of cs   cargo ship (#2) unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 d 1
+    Play#0 command edit
+    Play#0 output Play#0 1 dust (gold) of cs   cargo ship (#2) unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 f 1
+    Play#0 command edit
+    Play#0 output Play#0 1 food of cs   cargo ship (#2) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 o 1
+    Play#0 command edit
+    Play#0 output Play#0 1 oil of cs   cargo ship (#2) unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 l 1
+    Play#0 command edit
+    Play#0 output Play#0 1 light products of cs   cargo ship (#2) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 h 1
+    Play#0 command edit
+    Play#0 output Play#0 1 heavy products of cs   cargo ship (#2) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 u 1
+    Play#0 command edit
+    Play#0 output Play#0 1 uncompensated workers of cs   cargo ship (#2) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 r 1
+    Play#0 command edit
+    Play#0 output Play#0 1 radioactive materials of cs   cargo ship (#2) unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 c 1
+    Play#0 command edit
+    Play#0 output Play#0 1 civilians of sup  supply #2 unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 m 1
+    Play#0 command edit
+    Play#0 output Play#0 1 military of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 s 1
+    Play#0 command edit
+    Play#0 output Play#0 1 shells of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 g 1
+    Play#0 command edit
+    Play#0 output Play#0 1 guns of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 p 1
+    Play#0 command edit
+    Play#0 output Play#0 1 petrol of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 i 1
+    Play#0 command edit
+    Play#0 output Play#0 1 iron ore of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 d 1
+    Play#0 command edit
+    Play#0 output Play#0 1 dust (gold) of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 f 1
+    Play#0 command edit
+    Play#0 output Play#0 1 food of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 o 1
+    Play#0 command edit
+    Play#0 output Play#0 1 oil of sup  supply #2 unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 l 1
+    Play#0 command edit
+    Play#0 output Play#0 1 light products of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 h 1
+    Play#0 command edit
+    Play#0 output Play#0 1 heavy products of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 u 1
+    Play#0 command edit
+    Play#0 output Play#0 1 uncompensated workers of sup  supply #2 unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 r 1
+    Play#0 command edit
+    Play#0 output Play#0 1 radioactive materials of sup  supply #2 unchanged
+    Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 f 4
     Play#0 command edit
     Play#0 output Play#0 1 Flags of f1   Sopwith Camel #2 changed: airburst set
@@ -1884,6 +2044,20 @@
     Play#0 output Play#0 1 POGO gave you 1 civilians in 8,6
     Play#0 output Play#0 1 POGO gave you 9997 civilians in 6,6
     Play#0 output Play#0 1 POGO stole 1 civilians from 8,6
+    Play#0 output Play#0 1 POGO gave you 1 civilians in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 military in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 shells in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 guns in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 petrol in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 iron ore in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 dust (gold) in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 bars of gold in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 food in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 oil in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 light products in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 heavy products in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 uncompensated workers in 10,6
+    Play#0 output Play#0 1 POGO gave you 1 radioactive materials in 10,6
     Play#0 output Play#0 1 lc   light cruiser (#6) given to you by an act of POGO!
     Play#0 output Play#0 1 Type of lc   light cruiser (#6) changed to hc   heavy cruiser by an act of POGO
     Play#0 output Play#0 1 POGO gave you 8 guns in hc   heavy cruiser (#6)
@@ -1932,6 +2106,23 @@
     Play#0 output Play#0 1 Tech level of 10kt  fission warhead #2 changed from 400 to 280 by an act of POGO
     Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#2) changed by an act of POGO: group set
     Play#0 output Play#0 1 Retreat condition of sup  supply #2 changed by an act of POGO: group set
+    Play#0 output Play#0 1 POGO gave you 1 civilians in cs   cargo ship (#2)
+    Play#0 output Play#0 1 POGO gave you 1 military in cs   cargo ship (#2)
+    Play#0 output Play#0 1 POGO gave you 1 shells in cs   cargo ship (#2)
+    Play#0 output Play#0 1 POGO gave you 1 guns in cs   cargo ship (#2)
+    Play#0 output Play#0 1 POGO gave you 1 food in cs   cargo ship (#2)
+    Play#0 output Play#0 1 POGO gave you 1 light products in cs   cargo ship (#2)
+    Play#0 output Play#0 1 POGO gave you 1 heavy products in cs   cargo ship (#2)
+    Play#0 output Play#0 1 POGO gave you 1 uncompensated workers in cs   cargo ship (#2)
+    Play#0 output Play#0 1 POGO gave you 1 military in sup  supply #2
+    Play#0 output Play#0 1 POGO gave you 1 shells in sup  supply #2
+    Play#0 output Play#0 1 POGO gave you 1 guns in sup  supply #2
+    Play#0 output Play#0 1 POGO gave you 1 petrol in sup  supply #2
+    Play#0 output Play#0 1 POGO gave you 1 iron ore in sup  supply #2
+    Play#0 output Play#0 1 POGO gave you 1 dust (gold) in sup  supply #2
+    Play#0 output Play#0 1 POGO gave you 1 food in sup  supply #2
+    Play#0 output Play#0 1 POGO gave you 1 light products in sup  supply #2
+    Play#0 output Play#0 1 POGO gave you 1 heavy products in sup  supply #2
     Play#0 output Play#0 1 Flags of f1   Sopwith Camel #2 changed by an act of POGO: airburst set
     Play#0 output Play#0 1 Technology changed from 0.00 to 100.00 by an act of POGO!
     Play#0 output Play#0 1 Research changed from 0.00 to 100.00 by an act of POGO!

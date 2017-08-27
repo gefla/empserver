@@ -212,6 +212,9 @@ give('2,6', 'l', $INT_MIN);
 give('4:8,6', 'c', 1);
 give('6,6', 'c', $INT_MAX);
 give('8,6', 'c', -1);
+for my $key (split(//, 'cmsgpidbfolhur')) {
+    give('10,6', $key, 1);
+}
 
 # swapsector
 swaps('-2,2', '2,-2');
@@ -302,6 +305,13 @@ for my $ef ('ship', 'land') {
     # Take care to have only valid bits set in final state
     edit($ef, 2, 'W', 0, 'W', 1);
     edit($ef, 3, 'W', 513, 'W', 1030, 'W', 2);
+}
+
+# items
+for my $ef ('ship', 'land') {
+    for my $key (split(//, 'cmsgpidfolhur')) {
+	edit($ef, 2, $key, 1);
+    }
 }
 
 # plane: flags
