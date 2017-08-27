@@ -1210,14 +1210,18 @@
     Play#0 output Play#0 1 Type of mb   medium bomber #6 changed to hb   B-26B Marauder
     Play#0 output Play#0 1 Type of hb   B-26B Marauder #6 changed to mb   medium bomber
     Play#0 output Play#0 6 0 640
-    Play#0 input edit p 7 r 255 T hb T mb
+    Play#0 input edit p 7 O 1 r 255 T hb T mb
     Play#0 command edit
+    Play#0 output Play#0 1 Owner of f1   Sopwith Camel #7 changed from POGO (#0) to 1 (#1)
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #7 changed from 0 to 10
     Play#0 output Play#0 1 Range of f1   Sopwith Camel #7 changed from 0 to 4
     Play#0 output Play#0 1 Type of f1   Sopwith Camel #7 changed to hb   B-26B Marauder
     Play#0 output Play#0 1 Type of hb   B-26B Marauder #7 changed to mb   medium bomber
     Play#0 output Play#0 6 0 640
-    Play#0 input edit p 8 T hb r 255 T f1
+    Play#0 input edit p 8 O 1 T hb r 255 T f1
     Play#0 command edit
+    Play#0 output Play#0 1 Owner of f1   Sopwith Camel #8 changed from POGO (#0) to 1 (#1)
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #8 changed from 0 to 10
     Play#0 output Play#0 1 Type of f1   Sopwith Camel #8 changed to hb   B-26B Marauder
     Play#0 output Play#0 1 Range of hb   B-26B Marauder #8 changed from 0 to 15
     Play#0 output Play#0 1 Type of hb   B-26B Marauder #8 changed to f1   Sopwith Camel
@@ -2074,6 +2078,14 @@
     Play#0 output Play#0 1 mb   medium bomber #6 given to you by an act of POGO!
     Play#0 output Play#0 1 Type of mb   medium bomber #6 changed to hb   B-26B Marauder by an act of POGO
     Play#0 output Play#0 1 Type of hb   B-26B Marauder #6 changed to mb   medium bomber by an act of POGO
+    Play#0 output Play#0 1 f1   Sopwith Camel #7 given to you by an act of POGO!
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #7 changed from 0 to 4 by an act of POGO
+    Play#0 output Play#0 1 Type of f1   Sopwith Camel #7 changed to hb   B-26B Marauder by an act of POGO
+    Play#0 output Play#0 1 Type of hb   B-26B Marauder #7 changed to mb   medium bomber by an act of POGO
+    Play#0 output Play#0 1 f1   Sopwith Camel #8 given to you by an act of POGO!
+    Play#0 output Play#0 1 Type of f1   Sopwith Camel #8 changed to hb   B-26B Marauder by an act of POGO
+    Play#0 output Play#0 1 Range of hb   B-26B Marauder #8 changed from 0 to 15 by an act of POGO
+    Play#0 output Play#0 1 Type of hb   B-26B Marauder #8 changed to f1   Sopwith Camel by an act of POGO
     Play#0 output Play#0 1 art  artillery #6 given to you by an act of POGO!
     Play#0 output Play#0 1 Type of art  artillery #6 changed to hat  hvy artillery by an act of POGO
     Play#0 output Play#0 1 POGO gave you 12 guns in hat  hvy artillery #6

@@ -255,8 +255,8 @@ edit_int('ship', 2, (
 
 # plane: type
 edit('plane', 6, 'T', 'mb', 'O', 1, 'T', 'mb', 'T', 'hb', 'T', 'mb');
-edit('plane', 7, 'r', 255, 'T', 'hb', 'T', 'mb');
-edit('plane', 8, 'T', 'hb', 'r', 255, 'T', 'f1');
+edit('plane', 7, 'O', 1, 'r', 255, 'T', 'hb', 'T', 'mb');
+edit('plane', 8, 'O', 1, 'T', 'hb', 'r', 255, 'T', 'f1');
 
 # plane: effic mobil range tech
 edit_int('plane', 2, (
