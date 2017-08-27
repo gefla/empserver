@@ -31,7 +31,7 @@
  *     Chad Zabel, 1994
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2003-2009
- *     Markus Armbruster, 2003-2016
+ *     Markus Armbruster, 2003-2017
  */
 
 #include <config.h>
@@ -265,6 +265,27 @@ print_plane(struct plnstr *plane)
 }
 
 static void
+print_items(short item[])
+{
+    pr("civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad\n");
+    pr("  c   m   u    f   s   g    p    i    d    o    l    h   r\n");
+    pr("%3d", item[I_CIVIL]);
+    pr("%4d", item[I_MILIT]);
+    pr("%4d", item[I_UW]);
+    pr("%5d", item[I_FOOD]);
+    pr("%4d", item[I_SHELL]);
+    pr("%4d", item[I_GUN]);
+    pr("%5d", item[I_PETROL]);
+    pr("%5d", item[I_IRON]);
+    pr("%5d", item[I_DUST]);
+    pr("%5d", item[I_OIL]);
+    pr("%5d", item[I_LCM]);
+    pr("%5d", item[I_HCM]);
+    pr("%4d", item[I_RAD]);
+    pr("\n");
+}
+
+static void
 print_land(struct lndstr *land)
 {
     pr("%s %s\n", prnatid(land->lnd_own), prland(land));
@@ -282,22 +303,7 @@ print_land(struct lndstr *land)
     pr("Retreat percentage <Z>: %d\n", land->lnd_retreat);
     pr("Retreat path <R>: '%s'\t\tRetreat Flags <W>: %d\n",
        land->lnd_rpath, land->lnd_rflags);
-    pr("civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad\n");
-    pr("  c   m   u    f   s   g    p    i    d    o    l    h   r\n");
-    pr("%3d", land->lnd_item[I_CIVIL]);
-    pr("%4d", land->lnd_item[I_MILIT]);
-    pr("%4d", land->lnd_item[I_UW]);
-    pr("%5d", land->lnd_item[I_FOOD]);
-    pr("%4d", land->lnd_item[I_SHELL]);
-    pr("%4d", land->lnd_item[I_GUN]);
-    pr("%5d", land->lnd_item[I_PETROL]);
-    pr("%5d", land->lnd_item[I_IRON]);
-    pr("%5d", land->lnd_item[I_DUST]);
-    pr("%5d", land->lnd_item[I_OIL]);
-    pr("%5d", land->lnd_item[I_LCM]);
-    pr("%5d", land->lnd_item[I_HCM]);
-    pr("%4d", land->lnd_item[I_RAD]);
-    pr("\n");
+    print_items(land->lnd_item);
 }
 
 static void
@@ -316,22 +322,7 @@ print_ship(struct shpstr *ship)
        ship->shp_rpath, ship->shp_rflags);
     pr("Plague Stage <a>: %d\t\t", ship->shp_pstage);
     pr("Plague Time <b>: %d\n", ship->shp_ptime);
-    pr("civ mil  uw food shl gun  pet  irn  dst  oil  lcm  hcm rad\n");
-    pr("  c   m   u    f   s   g    p    i    d    o    l    h   r\n");
-    pr("%3d", ship->shp_item[I_CIVIL]);
-    pr("%4d", ship->shp_item[I_MILIT]);
-    pr("%4d", ship->shp_item[I_UW]);
-    pr("%5d", ship->shp_item[I_FOOD]);
-    pr("%4d", ship->shp_item[I_SHELL]);
-    pr("%4d", ship->shp_item[I_GUN]);
-    pr("%5d", ship->shp_item[I_PETROL]);
-    pr("%5d", ship->shp_item[I_IRON]);
-    pr("%5d", ship->shp_item[I_DUST]);
-    pr("%5d", ship->shp_item[I_OIL]);
-    pr("%5d", ship->shp_item[I_LCM]);
-    pr("%5d", ship->shp_item[I_HCM]);
-    pr("%4d", ship->shp_item[I_RAD]);
-    pr("\n");
+    print_items(ship->shp_item);
 }
 
 static void
