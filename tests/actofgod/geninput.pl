@@ -69,15 +69,19 @@ sub next_id {
 
 sub edit_int1 {
     my ($ef, $id, $key, $lob, $upb) = @_;
+    edit($ef, $id, $key, $lob + 1)
+	if $lob + 1 < $upb;
     edit($ef, $id, $key, $lob);
     $id = next_id($ef, $id);
     edit($ef, $id, $key, $lob - 1)
-	if ($lob > $INT_MIN);
+	if $lob > $INT_MIN;
     $id = next_id($ef, $id);
+    edit($ef, $id, $key, $upb - 1)
+	if $upb - 1 > $lob + 1;
     edit($ef, $id, $key, $upb);
     $id = next_id($ef, $id);
     edit($ef, $id, $key, $upb + 1)
-	if ($upb < $INT_MAX);
+	if $upb < $INT_MAX;
 }
 
 sub edit_int {

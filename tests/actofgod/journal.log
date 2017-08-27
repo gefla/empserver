@@ -137,17 +137,25 @@
     Play#0 output Play#0 1 Sector 3,-7 unchanged
     Play#0 output Play#0 1 Usage: edit <l|s|p|u|n|c> <SECTS|SHIPS|PLANES|LANDS|NUKES|NATS> [<KEY> <VALUE>]...
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 e 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 e 0
     Play#0 command edit
-    Play#0 output Play#0 1 Efficiency of 1,1 unchanged
+    Play#0 output Play#0 1 Efficiency of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 e -1
     Play#0 command edit
     Play#0 output Play#0 1 Efficiency of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 e 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of 5,1 changed from 0 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 e 100
     Play#0 command edit
-    Play#0 output Play#0 1 Efficiency of 5,1 changed from 0 to 100
+    Play#0 output Play#0 1 Efficiency of 5,1 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 e 101
     Play#0 command edit
@@ -171,17 +179,25 @@
     Play#0 command setsector
     Play#0 output Play#0 1 Efficiency of 7,3 changed from 1 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 m -126
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of 1,1 changed from 0 to -126
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 m -127
     Play#0 command edit
-    Play#0 output Play#0 1 Mobility of 1,1 changed from 0 to -127
+    Play#0 output Play#0 1 Mobility of 1,1 changed from -126 to -127
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 m -128
     Play#0 command edit
     Play#0 output Play#0 1 Mobility of 3,1 changed from 0 to -127
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 m 126
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of 5,1 changed from 0 to 126
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 m 127
     Play#0 command edit
-    Play#0 output Play#0 1 Mobility of 5,1 changed from 0 to 127
+    Play#0 output Play#0 1 Mobility of 5,1 changed from 126 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 m 128
     Play#0 command edit
@@ -205,17 +221,25 @@
     Play#0 command setsector
     Play#0 output Play#0 1 Mobility of 7,3 changed from 1 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 i 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Iron ore content of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 i 0
     Play#0 command edit
-    Play#0 output Play#0 1 Iron ore content of 1,1 unchanged
+    Play#0 output Play#0 1 Iron ore content of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 i -1
     Play#0 command edit
     Play#0 output Play#0 1 Iron ore content of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 i 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Iron ore content of 5,1 changed from 0 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 i 100
     Play#0 command edit
-    Play#0 output Play#0 1 Iron ore content of 5,1 changed from 0 to 100
+    Play#0 output Play#0 1 Iron ore content of 5,1 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 i 101
     Play#0 command edit
@@ -255,17 +279,25 @@
     Play#0 command setsector
     Play#0 output Play#0 1 Iron ore content of 7,3 changed from 1 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 g 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Gold content of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 g 0
     Play#0 command edit
-    Play#0 output Play#0 1 Gold content of 1,1 unchanged
+    Play#0 output Play#0 1 Gold content of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 g -1
     Play#0 command edit
     Play#0 output Play#0 1 Gold content of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 g 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Gold content of 5,1 changed from 0 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 g 100
     Play#0 command edit
-    Play#0 output Play#0 1 Gold content of 5,1 changed from 0 to 100
+    Play#0 output Play#0 1 Gold content of 5,1 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 g 101
     Play#0 command edit
@@ -305,17 +337,25 @@
     Play#0 command setsector
     Play#0 output Play#0 1 Gold content of 7,3 changed from 1 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 f 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Fertility of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 f 0
     Play#0 command edit
-    Play#0 output Play#0 1 Fertility of 1,1 unchanged
+    Play#0 output Play#0 1 Fertility of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 f -1
     Play#0 command edit
     Play#0 output Play#0 1 Fertility of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 f 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Fertility of 5,1 changed from 0 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 f 100
     Play#0 command edit
-    Play#0 output Play#0 1 Fertility of 5,1 changed from 0 to 100
+    Play#0 output Play#0 1 Fertility of 5,1 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 f 101
     Play#0 command edit
@@ -355,17 +395,25 @@
     Play#0 command setsector
     Play#0 output Play#0 1 Fertility of 7,3 changed from 1 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 c 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Oil content of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 c 0
     Play#0 command edit
-    Play#0 output Play#0 1 Oil content of 1,1 unchanged
+    Play#0 output Play#0 1 Oil content of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 c -1
     Play#0 command edit
     Play#0 output Play#0 1 Oil content of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 c 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Oil content of 5,1 changed from 0 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 c 100
     Play#0 command edit
-    Play#0 output Play#0 1 Oil content of 5,1 changed from 0 to 100
+    Play#0 output Play#0 1 Oil content of 5,1 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 c 101
     Play#0 command edit
@@ -405,17 +453,25 @@
     Play#0 command setsector
     Play#0 output Play#0 1 Oil content of 7,3 changed from 1 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 u 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Uranium content of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 u 0
     Play#0 command edit
-    Play#0 output Play#0 1 Uranium content of 1,1 unchanged
+    Play#0 output Play#0 1 Uranium content of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 u -1
     Play#0 command edit
     Play#0 output Play#0 1 Uranium content of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 u 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Uranium content of 5,1 changed from 0 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 u 100
     Play#0 command edit
-    Play#0 output Play#0 1 Uranium content of 5,1 changed from 0 to 100
+    Play#0 output Play#0 1 Uranium content of 5,1 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 u 101
     Play#0 command edit
@@ -455,17 +511,25 @@
     Play#0 command setsector
     Play#0 output Play#0 1 Uranium content of 7,3 changed from 1 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 w 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Workforce percentage of 1,1 changed from 100 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 w 0
     Play#0 command edit
-    Play#0 output Play#0 1 Workforce percentage of 1,1 changed from 100 to 0
+    Play#0 output Play#0 1 Workforce percentage of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 w -1
     Play#0 command edit
     Play#0 output Play#0 1 Workforce percentage of 3,1 changed from 100 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 w 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Workforce percentage of 5,1 changed from 100 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 w 100
     Play#0 command edit
-    Play#0 output Play#0 1 Workforce percentage of 5,1 unchanged
+    Play#0 output Play#0 1 Workforce percentage of 5,1 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 w 101
     Play#0 command edit
@@ -489,97 +553,145 @@
     Play#0 command setsector
     Play#0 output Play#0 1 Workforce percentage of 7,3 changed from 100 to 99
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 l 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Loyalty of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 l 0
     Play#0 command edit
-    Play#0 output Play#0 1 Loyalty of 1,1 unchanged
+    Play#0 output Play#0 1 Loyalty of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 l -1
     Play#0 command edit
     Play#0 output Play#0 1 Loyalty of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 l 126
+    Play#0 command edit
+    Play#0 output Play#0 1 Loyalty of 5,1 changed from 0 to 126
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 l 127
     Play#0 command edit
-    Play#0 output Play#0 1 Loyalty of 5,1 changed from 0 to 127
+    Play#0 output Play#0 1 Loyalty of 5,1 changed from 126 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 l 128
     Play#0 command edit
     Play#0 output Play#0 1 Loyalty of 7,1 changed from 0 to 127
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 x 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Guerrillas of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 x 0
     Play#0 command edit
-    Play#0 output Play#0 1 Guerrillas of 1,1 unchanged
+    Play#0 output Play#0 1 Guerrillas of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 x -1
     Play#0 command edit
     Play#0 output Play#0 1 Guerrillas of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 x 254
+    Play#0 command edit
+    Play#0 output Play#0 1 Guerrillas of 5,1 changed from 0 to 254
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 x 255
     Play#0 command edit
-    Play#0 output Play#0 1 Guerrillas of 5,1 changed from 0 to 255
+    Play#0 output Play#0 1 Guerrillas of 5,1 changed from 254 to 255
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 x 256
     Play#0 command edit
     Play#0 output Play#0 1 Guerrillas of 7,1 changed from 0 to 255
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 p 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 p 0
     Play#0 command edit
-    Play#0 output Play#0 1 Plague stage of 1,1 unchanged
+    Play#0 output Play#0 1 Plague stage of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 p -1
     Play#0 command edit
     Play#0 output Play#0 1 Plague stage of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 p 3
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of 5,1 changed from 0 to 3
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 p 4
     Play#0 command edit
-    Play#0 output Play#0 1 Plague stage of 5,1 changed from 0 to 4
+    Play#0 output Play#0 1 Plague stage of 5,1 changed from 3 to 4
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 p 5
     Play#0 command edit
     Play#0 output Play#0 1 Plague stage of 7,1 changed from 0 to 4
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 t 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague time of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 t 0
     Play#0 command edit
-    Play#0 output Play#0 1 Plague time of 1,1 unchanged
+    Play#0 output Play#0 1 Plague time of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 t -1
     Play#0 command edit
     Play#0 output Play#0 1 Plague time of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 t 32766
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague time of 5,1 changed from 0 to 32766
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 t 32767
     Play#0 command edit
-    Play#0 output Play#0 1 Plague time of 5,1 changed from 0 to 32767
+    Play#0 output Play#0 1 Plague time of 5,1 changed from 32766 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 t 32768
     Play#0 command edit
     Play#0 output Play#0 1 Plague time of 7,1 changed from 0 to 32767
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 F 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Fallout of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 F 0
     Play#0 command edit
-    Play#0 output Play#0 1 Fallout of 1,1 unchanged
+    Play#0 output Play#0 1 Fallout of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 F -1
     Play#0 command edit
     Play#0 output Play#0 1 Fallout of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 F 9998
+    Play#0 command edit
+    Play#0 output Play#0 1 Fallout of 5,1 changed from 0 to 9998
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 F 9999
     Play#0 command edit
-    Play#0 output Play#0 1 Fallout of 5,1 changed from 0 to 9999
+    Play#0 output Play#0 1 Fallout of 5,1 changed from 9998 to 9999
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 F 10000
     Play#0 command edit
     Play#0 output Play#0 1 Fallout of 7,1 changed from 0 to 9999
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 a 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Available workforce of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 a 0
     Play#0 command edit
-    Play#0 output Play#0 1 Available workforce of 1,1 unchanged
+    Play#0 output Play#0 1 Available workforce of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 a -1
     Play#0 command edit
     Play#0 output Play#0 1 Available workforce of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 a 9998
+    Play#0 command edit
+    Play#0 output Play#0 1 Available workforce of 5,1 changed from 0 to 9998
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 a 9999
     Play#0 command edit
-    Play#0 output Play#0 1 Available workforce of 5,1 changed from 0 to 9999
+    Play#0 output Play#0 1 Available workforce of 5,1 changed from 9998 to 9999
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 a 10000
     Play#0 command edit
@@ -603,17 +715,25 @@
     Play#0 command setsector
     Play#0 output Play#0 1 Available workforce of 7,3 changed from 1 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 M 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Mines of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 M 0
     Play#0 command edit
-    Play#0 output Play#0 1 Mines of 1,1 unchanged
+    Play#0 output Play#0 1 Mines of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 M -1
     Play#0 command edit
     Play#0 output Play#0 1 Mines of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 M 32766
+    Play#0 command edit
+    Play#0 output Play#0 1 Mines of 5,1 changed from 0 to 32766
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 M 32767
     Play#0 command edit
-    Play#0 output Play#0 1 Mines of 5,1 changed from 0 to 32767
+    Play#0 output Play#0 1 Mines of 5,1 changed from 32766 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 M 32768
     Play#0 command edit
@@ -637,49 +757,73 @@
     Play#0 command setsector
     Play#0 output Play#0 1 Mines of 7,3 changed from 1 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 R 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Road percentage of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 R 0
     Play#0 command edit
-    Play#0 output Play#0 1 Road percentage of 1,1 unchanged
+    Play#0 output Play#0 1 Road percentage of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 R -1
     Play#0 command edit
     Play#0 output Play#0 1 Road percentage of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 R 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Road percentage of 5,1 changed from 0 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 R 100
     Play#0 command edit
-    Play#0 output Play#0 1 Road percentage of 5,1 changed from 0 to 100
+    Play#0 output Play#0 1 Road percentage of 5,1 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 R 101
     Play#0 command edit
     Play#0 output Play#0 1 Road percentage of 7,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 r 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Rail percentage of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 r 0
     Play#0 command edit
-    Play#0 output Play#0 1 Rail percentage of 1,1 unchanged
+    Play#0 output Play#0 1 Rail percentage of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 r -1
     Play#0 command edit
     Play#0 output Play#0 1 Rail percentage of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 r 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Rail percentage of 5,1 changed from 0 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 r 100
     Play#0 command edit
-    Play#0 output Play#0 1 Rail percentage of 5,1 changed from 0 to 100
+    Play#0 output Play#0 1 Rail percentage of 5,1 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 r 101
     Play#0 command edit
     Play#0 output Play#0 1 Rail percentage of 7,1 changed from 0 to 100
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 1,1 d 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Defense percentage of 1,1 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 1,1 d 0
     Play#0 command edit
-    Play#0 output Play#0 1 Defense percentage of 1,1 unchanged
+    Play#0 output Play#0 1 Defense percentage of 1,1 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 3,1 d -1
     Play#0 command edit
     Play#0 output Play#0 1 Defense percentage of 3,1 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit l 5,1 d 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Defense percentage of 5,1 changed from 0 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit l 5,1 d 100
     Play#0 command edit
-    Play#0 output Play#0 1 Defense percentage of 5,1 changed from 0 to 100
+    Play#0 output Play#0 1 Defense percentage of 5,1 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit l 7,1 d 101
     Play#0 command edit
@@ -1105,6 +1249,10 @@
     Play#0 output Play#0 1 Type of hc   heavy cruiser (#6) changed to lc   light cruiser
     Play#0 output Play#0 1 guns of lc   light cruiser (#6) changed from 8 to 5
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 E 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#2) unchanged
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 E 0
     Play#0 command edit
     Play#0 output Play#0 1 Efficiency of cs   cargo ship (#2) unchanged
@@ -1113,89 +1261,133 @@
     Play#0 command edit
     Play#0 output Play#0 1 Efficiency of cs   cargo ship (#3) unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 E 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#4) changed from 20 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 E 100
     Play#0 command edit
-    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#4) changed from 20 to 100
+    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#4) changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 E 101
     Play#0 command edit
     Play#0 output Play#0 1 Efficiency of cs   cargo ship (#5) changed from 20 to 100
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 M -126
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#2) changed from 0 to -126
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 M -127
     Play#0 command edit
-    Play#0 output Play#0 1 Mobility of cs   cargo ship (#2) changed from 0 to -127
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#2) changed from -126 to -127
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 M -128
     Play#0 command edit
     Play#0 output Play#0 1 Mobility of cs   cargo ship (#3) changed from 0 to -127
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 M 126
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#4) changed from 0 to 126
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 M 127
     Play#0 command edit
-    Play#0 output Play#0 1 Mobility of cs   cargo ship (#4) changed from 0 to 127
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#4) changed from 126 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 M 128
     Play#0 command edit
     Play#0 output Play#0 1 Mobility of cs   cargo ship (#5) changed from 0 to 127
     Play#0 output Play#0 6 0 640
-    Play#0 input edit s 2 T 0
+    Play#0 input edit s 2 T 1
     Play#0 command edit
     Play#0 output Play#0 1 Tech level of cs   cargo ship (#2) changed from 100 to 20
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 T 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#2) unchanged
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 T -1
     Play#0 command edit
     Play#0 output Play#0 1 Tech level of cs   cargo ship (#3) changed from 100 to 20
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 T 32766
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#4) changed from 100 to 32766
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 T 32767
     Play#0 command edit
-    Play#0 output Play#0 1 Tech level of cs   cargo ship (#4) changed from 100 to 32767
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#4) changed from 32766 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 T 32768
     Play#0 command edit
     Play#0 output Play#0 1 Tech level of cs   cargo ship (#5) changed from 100 to 32767
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 a 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of cs   cargo ship (#2) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 a 0
     Play#0 command edit
-    Play#0 output Play#0 1 Plague stage of cs   cargo ship (#2) unchanged
+    Play#0 output Play#0 1 Plague stage of cs   cargo ship (#2) changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 a -1
     Play#0 command edit
     Play#0 output Play#0 1 Plague stage of cs   cargo ship (#3) unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 a 3
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague stage of cs   cargo ship (#4) changed from 0 to 3
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 a 4
     Play#0 command edit
-    Play#0 output Play#0 1 Plague stage of cs   cargo ship (#4) changed from 0 to 4
+    Play#0 output Play#0 1 Plague stage of cs   cargo ship (#4) changed from 3 to 4
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 a 5
     Play#0 command edit
     Play#0 output Play#0 1 Plague stage of cs   cargo ship (#5) changed from 0 to 4
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 b 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague time of cs   cargo ship (#2) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 b 0
     Play#0 command edit
-    Play#0 output Play#0 1 Plague time of cs   cargo ship (#2) unchanged
+    Play#0 output Play#0 1 Plague time of cs   cargo ship (#2) changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 b -1
     Play#0 command edit
     Play#0 output Play#0 1 Plague time of cs   cargo ship (#3) unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 b 32766
+    Play#0 command edit
+    Play#0 output Play#0 1 Plague time of cs   cargo ship (#4) changed from 0 to 32766
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 b 32767
     Play#0 command edit
-    Play#0 output Play#0 1 Plague time of cs   cargo ship (#4) changed from 0 to 32767
+    Play#0 output Play#0 1 Plague time of cs   cargo ship (#4) changed from 32766 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 b 32768
     Play#0 command edit
     Play#0 output Play#0 1 Plague time of cs   cargo ship (#5) changed from 0 to 32767
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 2 m 1
+    Play#0 command edit
+    Play#0 output Play#0 1 military of cs   cargo ship (#2) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 2 m 0
     Play#0 command edit
-    Play#0 output Play#0 1 military of cs   cargo ship (#2) unchanged
+    Play#0 output Play#0 1 military of cs   cargo ship (#2) changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 3 m -1
     Play#0 command edit
     Play#0 output Play#0 1 military of cs   cargo ship (#3) unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit s 4 m 49
+    Play#0 command edit
+    Play#0 output Play#0 1 military of cs   cargo ship (#4) changed from 0 to 49
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 4 m 50
     Play#0 command edit
-    Play#0 output Play#0 1 military of cs   cargo ship (#4) changed from 0 to 50
+    Play#0 output Play#0 1 military of cs   cargo ship (#4) changed from 49 to 50
     Play#0 output Play#0 6 0 640
     Play#0 input edit s 5 m 51
     Play#0 command edit
@@ -1226,6 +1418,10 @@
     Play#0 output Play#0 1 Range of hb   B-26B Marauder #8 changed from 0 to 15
     Play#0 output Play#0 1 Type of hb   B-26B Marauder #8 changed to f1   Sopwith Camel
     Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 e 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #2 unchanged
+    Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 e 0
     Play#0 command edit
     Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #2 unchanged
@@ -1234,57 +1430,85 @@
     Play#0 command edit
     Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #3 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit p 4 e 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #4 changed from 10 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit p 4 e 100
     Play#0 command edit
-    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #4 changed from 10 to 100
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #4 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 5 e 101
     Play#0 command edit
     Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #5 changed from 10 to 100
     Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 m -126
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #2 changed from 0 to -126
+    Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 m -127
     Play#0 command edit
-    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #2 changed from 0 to -127
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #2 changed from -126 to -127
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 m -128
     Play#0 command edit
     Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #3 changed from 0 to -127
     Play#0 output Play#0 6 0 640
+    Play#0 input edit p 4 m 126
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #4 changed from 0 to 126
+    Play#0 output Play#0 6 0 640
     Play#0 input edit p 4 m 127
     Play#0 command edit
-    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #4 changed from 0 to 127
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #4 changed from 126 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 5 m 128
     Play#0 command edit
     Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #5 changed from 0 to 127
     Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 r 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #2 changed from 9 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 r 0
     Play#0 command edit
-    Play#0 output Play#0 1 Range of f1   Sopwith Camel #2 changed from 9 to 0
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #2 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 r -1
     Play#0 command edit
     Play#0 output Play#0 1 Range of f1   Sopwith Camel #3 changed from 9 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit p 4 r 8
+    Play#0 command edit
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #4 changed from 9 to 8
+    Play#0 output Play#0 6 0 640
     Play#0 input edit p 4 r 9
     Play#0 command edit
-    Play#0 output Play#0 1 Range of f1   Sopwith Camel #4 unchanged
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #4 changed from 8 to 9
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 5 r 10
     Play#0 command edit
     Play#0 output Play#0 1 Range of f1   Sopwith Camel #5 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 t 51
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #2 changed from 100 to 51
+    Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 t 50
     Play#0 command edit
-    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #2 changed from 100 to 50
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #2 changed from 51 to 50
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 3 t 49
     Play#0 command edit
     Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #3 changed from 100 to 50
     Play#0 output Play#0 6 0 640
+    Play#0 input edit p 4 t 32766
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #4 changed from 100 to 32766
+    Play#0 output Play#0 6 0 640
     Play#0 input edit p 4 t 32767
     Play#0 command edit
-    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #4 changed from 100 to 32767
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #4 changed from 32766 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit p 5 t 32768
     Play#0 command edit
@@ -1301,6 +1525,10 @@
     Play#0 output Play#0 1 Type of hat  hvy artillery #6 changed to art  artillery
     Play#0 output Play#0 1 guns of art  artillery #6 changed from 12 to 10
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 e 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of sup  supply #2 unchanged
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 e 0
     Play#0 command edit
     Play#0 output Play#0 1 Efficiency of sup  supply #2 unchanged
@@ -1309,89 +1537,133 @@
     Play#0 command edit
     Play#0 output Play#0 1 Efficiency of sup  supply #3 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 e 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Efficiency of sup  supply #4 changed from 10 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 e 100
     Play#0 command edit
-    Play#0 output Play#0 1 Efficiency of sup  supply #4 changed from 10 to 100
+    Play#0 output Play#0 1 Efficiency of sup  supply #4 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 e 101
     Play#0 command edit
     Play#0 output Play#0 1 Efficiency of sup  supply #5 changed from 10 to 100
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 M -126
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of sup  supply #2 changed from 0 to -126
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 M -127
     Play#0 command edit
-    Play#0 output Play#0 1 Mobility of sup  supply #2 changed from 0 to -127
+    Play#0 output Play#0 1 Mobility of sup  supply #2 changed from -126 to -127
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 M -128
     Play#0 command edit
     Play#0 output Play#0 1 Mobility of sup  supply #3 changed from 0 to -127
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 M 126
+    Play#0 command edit
+    Play#0 output Play#0 1 Mobility of sup  supply #4 changed from 0 to 126
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 M 127
     Play#0 command edit
-    Play#0 output Play#0 1 Mobility of sup  supply #4 changed from 0 to 127
+    Play#0 output Play#0 1 Mobility of sup  supply #4 changed from 126 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 M 128
     Play#0 command edit
     Play#0 output Play#0 1 Mobility of sup  supply #5 changed from 0 to 127
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 t 51
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of sup  supply #2 changed from 100 to 51
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 t 50
     Play#0 command edit
-    Play#0 output Play#0 1 Tech level of sup  supply #2 changed from 100 to 50
+    Play#0 output Play#0 1 Tech level of sup  supply #2 changed from 51 to 50
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 t 49
     Play#0 command edit
     Play#0 output Play#0 1 Tech level of sup  supply #3 changed from 100 to 50
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 t 32766
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of sup  supply #4 changed from 100 to 32766
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 t 32767
     Play#0 command edit
-    Play#0 output Play#0 1 Tech level of sup  supply #4 changed from 100 to 32767
+    Play#0 output Play#0 1 Tech level of sup  supply #4 changed from 32766 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 t 32768
     Play#0 command edit
     Play#0 output Play#0 1 Tech level of sup  supply #5 changed from 100 to 32767
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 F 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 F 0
     Play#0 command edit
-    Play#0 output Play#0 1 Fortification of sup  supply #2 unchanged
+    Play#0 output Play#0 1 Fortification of sup  supply #2 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 F -1
     Play#0 command edit
     Play#0 output Play#0 1 Fortification of sup  supply #3 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 F 126
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of sup  supply #4 changed from 0 to 126
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 F 127
     Play#0 command edit
-    Play#0 output Play#0 1 Fortification of sup  supply #4 changed from 0 to 127
+    Play#0 output Play#0 1 Fortification of sup  supply #4 changed from 126 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 F 128
     Play#0 command edit
     Play#0 output Play#0 1 Fortification of sup  supply #5 changed from 0 to 127
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 Z 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #2 changed from 42 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 Z 0
     Play#0 command edit
-    Play#0 output Play#0 1 Retreat percentage of sup  supply #2 changed from 42 to 0
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #2 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 Z -1
     Play#0 command edit
     Play#0 output Play#0 1 Retreat percentage of sup  supply #3 changed from 42 to 0
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 Z 99
+    Play#0 command edit
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #4 changed from 42 to 99
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 Z 100
     Play#0 command edit
-    Play#0 output Play#0 1 Retreat percentage of sup  supply #4 changed from 42 to 100
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #4 changed from 99 to 100
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 Z 101
     Play#0 command edit
     Play#0 output Play#0 1 Retreat percentage of sup  supply #5 changed from 42 to 100
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 2 m 1
+    Play#0 command edit
+    Play#0 output Play#0 1 military of sup  supply #2 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 2 m 0
     Play#0 command edit
-    Play#0 output Play#0 1 military of sup  supply #2 unchanged
+    Play#0 output Play#0 1 military of sup  supply #2 changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 3 m -1
     Play#0 command edit
     Play#0 output Play#0 1 military of sup  supply #3 unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit u 4 m 24
+    Play#0 command edit
+    Play#0 output Play#0 1 military of sup  supply #4 changed from 0 to 24
+    Play#0 output Play#0 6 0 640
     Play#0 input edit u 4 m 25
     Play#0 command edit
-    Play#0 output Play#0 1 military of sup  supply #4 changed from 0 to 25
+    Play#0 output Play#0 1 military of sup  supply #4 changed from 24 to 25
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 5 m 26
     Play#0 command edit
@@ -1406,17 +1678,25 @@
     Play#0 output Play#0 1 Type of 15kt  fission warhead #6 changed to 50kt  fission
     Play#0 output Play#0 1 Type of 50kt  fission warhead #6 changed to 15kt  fission
     Play#0 output Play#0 6 0 640
+    Play#0 input edit n 2 T 281
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #2 changed from 400 to 281
+    Play#0 output Play#0 6 0 640
     Play#0 input edit n 2 T 280
     Play#0 command edit
-    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #2 changed from 400 to 280
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #2 changed from 281 to 280
     Play#0 output Play#0 6 0 640
     Play#0 input edit n 3 T 279
     Play#0 command edit
     Play#0 output Play#0 1 Tech level of 10kt  fission warhead #3 changed from 400 to 280
     Play#0 output Play#0 6 0 640
+    Play#0 input edit n 4 T 32766
+    Play#0 command edit
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #4 changed from 400 to 32766
+    Play#0 output Play#0 6 0 640
     Play#0 input edit n 4 T 32767
     Play#0 command edit
-    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #4 changed from 400 to 32767
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #4 changed from 32766 to 32767
     Play#0 output Play#0 6 0 640
     Play#0 input edit n 5 T 32768
     Play#0 command edit
@@ -1756,57 +2036,89 @@
     Play#0 command edit
     Play#0 output Play#0 1 huh? (@)
     Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 b 1
+    Play#0 command edit
+    Play#0 output Play#0 1 BTUs of 1 (#1) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 b 0
     Play#0 command edit
-    Play#0 output Play#0 1 BTUs of 1 (#1) unchanged
+    Play#0 output Play#0 1 BTUs of 1 (#1) changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 b -1
     Play#0 command edit
     Play#0 output Play#0 1 BTUs of 2 (#2) unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 b 639
+    Play#0 command edit
+    Play#0 output Play#0 1 BTUs of 3 (#3) changed from 0 to 639
+    Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 b 640
     Play#0 command edit
-    Play#0 output Play#0 1 BTUs of 3 (#3) changed from 0 to 640
+    Play#0 output Play#0 1 BTUs of 3 (#3) changed from 639 to 640
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 4 b 641
     Play#0 command edit
     Play#0 output Play#0 1 BTUs of 4 (#4) changed from 0 to 640
     Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 m 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Military reserves of 1 (#1) changed from 0 to 1
+    Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 m 0
     Play#0 command edit
-    Play#0 output Play#0 1 Military reserves of 1 (#1) unchanged
+    Play#0 output Play#0 1 Military reserves of 1 (#1) changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 m -1
     Play#0 command edit
     Play#0 output Play#0 1 Military reserves of 2 (#2) unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 m 2147483646
+    Play#0 command edit
+    Play#0 output Play#0 1 Military reserves of 3 (#3) changed from 0 to 2147483646
+    Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 m 2147483647
     Play#0 command edit
-    Play#0 output Play#0 1 Military reserves of 3 (#3) changed from 0 to 2147483647
+    Play#0 output Play#0 1 Military reserves of 3 (#3) changed from 2147483646 to 2147483647
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 u 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Number of seconds used of 1 (#1) changed from 0 to 1
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 u 0
     Play#0 command edit
-    Play#0 output Play#0 1 Number of seconds used of 1 (#1) unchanged
+    Play#0 output Play#0 1 Number of seconds used of 1 (#1) changed from 1 to 0
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 2 u -1
     Play#0 command edit
     Play#0 output Play#0 1 Number of seconds used of 2 (#2) unchanged
     Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 u 86399
+    Play#0 command edit
+    Play#0 output Play#0 1 Number of seconds used of 3 (#3) changed from 0 to 86399
+    Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 u 86400
     Play#0 command edit
-    Play#0 output Play#0 1 Number of seconds used of 3 (#3) changed from 0 to 86400
+    Play#0 output Play#0 1 Number of seconds used of 3 (#3) changed from 86399 to 86400
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 4 u 86401
     Play#0 command edit
     Play#0 output Play#0 1 Number of seconds used of 4 (#4) changed from 0 to 86400
     Play#0 output Play#0 6 0 640
+    Play#0 input edit c 1 M -2147483647
+    Play#0 command edit
+    Play#0 output Play#0 1 Money of 1 (#1) changed from 0 to -2147483647
+    Play#0 output Play#0 6 0 640
     Play#0 input edit c 1 M -2147483648
     Play#0 command edit
-    Play#0 output Play#0 1 Money of 1 (#1) changed from 0 to -2147483648
+    Play#0 output Play#0 1 Money of 1 (#1) changed from -2147483647 to -2147483648
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit c 3 M 2147483646
+    Play#0 command edit
+    Play#0 output Play#0 1 Money of 3 (#3) changed from 0 to 2147483646
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 3 M 2147483647
     Play#0 command edit
-    Play#0 output Play#0 1 Money of 3 (#3) changed from 0 to 2147483647
+    Play#0 output Play#0 1 Money of 3 (#3) changed from 2147483646 to 2147483647
     Play#0 output Play#0 6 0 640
     Play#0 input edit c 6 t -1
     Play#0 command edit
@@ -1951,16 +2263,21 @@
     Play#0 output Play#0 1 Sector 7,7 taken from you by an act of POGO!
     Play#0 output Play#0 1 Sector 9,7 taken from you by an act of POGO!
     Play#0 output Play#0 1 Sector 11,7 taken from you by an act of POGO!
-    Play#0 output Play#0 1 Efficiency of 5,1 changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of 5,1 changed from 0 to 99 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of 5,1 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Efficiency of 7,1 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Efficiency of 3,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Efficiency of 5,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Efficiency of 7,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Efficiency of 5,3 changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Efficiency of 7,3 changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Mobility of 1,1 changed from 0 to -127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of 1,1 changed from 0 to -126 by an act of POGO
+    Play#0 output Play#0 1 Mobility of 1,1 changed from -126 to -127 by an act of POGO
     Play#0 output Play#0 1 Mobility of 3,1 changed from 0 to -127 by an act of POGO
-    Play#0 output Play#0 1 Mobility of 5,1 changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of 5,1 changed from 0 to 126 by an act of POGO
+    Play#0 output Play#0 1 Mobility of 5,1 changed from 126 to 127 by an act of POGO
     Play#0 output Play#0 1 Mobility of 7,1 changed from 0 to 127 by an act of POGO
     Play#0 output Play#0 1 Mobility of 1,3 changed from 0 to -127 by an act of POGO
     Play#0 output Play#0 1 Mobility of 3,3 changed from 0 to 1 by an act of POGO
@@ -1968,7 +2285,10 @@
     Play#0 output Play#0 1 Mobility of 7,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Mobility of 5,3 changed from 1 to -127 by an act of POGO
     Play#0 output Play#0 1 Mobility of 7,3 changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Iron ore content of 5,1 changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content of 5,1 changed from 0 to 99 by an act of POGO
+    Play#0 output Play#0 1 Iron ore content of 5,1 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Iron ore content of 7,1 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Iron ore content of 6,2 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Iron ore content of 8,2 changed from 0 to 100 by an act of POGO
@@ -1977,7 +2297,10 @@
     Play#0 output Play#0 1 Iron ore content of 7,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Iron ore content of 5,3 changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Iron ore content of 7,3 changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Gold content of 5,1 changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Gold content of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Gold content of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Gold content of 5,1 changed from 0 to 99 by an act of POGO
+    Play#0 output Play#0 1 Gold content of 5,1 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Gold content of 7,1 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Gold content of 6,2 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Gold content of 8,2 changed from 0 to 100 by an act of POGO
@@ -1986,7 +2309,10 @@
     Play#0 output Play#0 1 Gold content of 7,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Gold content of 5,3 changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Gold content of 7,3 changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Fertility of 5,1 changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Fertility of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Fertility of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Fertility of 5,1 changed from 0 to 99 by an act of POGO
+    Play#0 output Play#0 1 Fertility of 5,1 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Fertility of 7,1 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Fertility of 6,2 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Fertility of 8,2 changed from 0 to 100 by an act of POGO
@@ -1995,7 +2321,10 @@
     Play#0 output Play#0 1 Fertility of 7,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Fertility of 5,3 changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Fertility of 7,3 changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Oil content of 5,1 changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Oil content of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Oil content of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Oil content of 5,1 changed from 0 to 99 by an act of POGO
+    Play#0 output Play#0 1 Oil content of 5,1 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Oil content of 7,1 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Oil content of 6,2 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Oil content of 8,2 changed from 0 to 100 by an act of POGO
@@ -2004,7 +2333,10 @@
     Play#0 output Play#0 1 Oil content of 7,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Oil content of 5,3 changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Oil content of 7,3 changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Uranium content of 5,1 changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Uranium content of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Uranium content of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Uranium content of 5,1 changed from 0 to 99 by an act of POGO
+    Play#0 output Play#0 1 Uranium content of 5,1 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Uranium content of 7,1 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Uranium content of 6,2 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Uranium content of 8,2 changed from 0 to 100 by an act of POGO
@@ -2013,32 +2345,53 @@
     Play#0 output Play#0 1 Uranium content of 7,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Uranium content of 5,3 changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Uranium content of 7,3 changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Workforce percentage of 1,1 changed from 100 to 0 by an act of POGO
+    Play#0 output Play#0 1 Workforce percentage of 1,1 changed from 100 to 1 by an act of POGO
+    Play#0 output Play#0 1 Workforce percentage of 1,1 changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Workforce percentage of 3,1 changed from 100 to 0 by an act of POGO
+    Play#0 output Play#0 1 Workforce percentage of 5,1 changed from 100 to 99 by an act of POGO
+    Play#0 output Play#0 1 Workforce percentage of 5,1 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Workforce percentage of 1,3 changed from 100 to 0 by an act of POGO
     Play#0 output Play#0 1 Workforce percentage of 5,3 changed from 100 to 0 by an act of POGO
     Play#0 output Play#0 1 Workforce percentage of 7,3 changed from 100 to 99 by an act of POGO
-    Play#0 output Play#0 1 Fallout of 5,1 changed from 0 to 9999 by an act of POGO
+    Play#0 output Play#0 1 Fallout of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Fallout of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Fallout of 5,1 changed from 0 to 9998 by an act of POGO
+    Play#0 output Play#0 1 Fallout of 5,1 changed from 9998 to 9999 by an act of POGO
     Play#0 output Play#0 1 Fallout of 7,1 changed from 0 to 9999 by an act of POGO
-    Play#0 output Play#0 1 Available workforce of 5,1 changed from 0 to 9999 by an act of POGO
+    Play#0 output Play#0 1 Available workforce of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Available workforce of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Available workforce of 5,1 changed from 0 to 9998 by an act of POGO
+    Play#0 output Play#0 1 Available workforce of 5,1 changed from 9998 to 9999 by an act of POGO
     Play#0 output Play#0 1 Available workforce of 7,1 changed from 0 to 9999 by an act of POGO
     Play#0 output Play#0 1 Available workforce of 3,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Available workforce of 5,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Available workforce of 7,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Available workforce of 5,3 changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Available workforce of 7,3 changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Mines of 5,1 changed from 0 to 32767 by an act of POGO
+    Play#0 output Play#0 1 Mines of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Mines of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Mines of 5,1 changed from 0 to 32766 by an act of POGO
+    Play#0 output Play#0 1 Mines of 5,1 changed from 32766 to 32767 by an act of POGO
     Play#0 output Play#0 1 Mines of 7,1 changed from 0 to 32767 by an act of POGO
     Play#0 output Play#0 1 Mines of 3,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Mines of 5,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Mines of 7,3 changed from 0 to 1 by an act of POGO
     Play#0 output Play#0 1 Mines of 5,3 changed from 1 to 0 by an act of POGO
     Play#0 output Play#0 1 Mines of 7,3 changed from 1 to 0 by an act of POGO
-    Play#0 output Play#0 1 Road percentage of 5,1 changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Road percentage of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Road percentage of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Road percentage of 5,1 changed from 0 to 99 by an act of POGO
+    Play#0 output Play#0 1 Road percentage of 5,1 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Road percentage of 7,1 changed from 0 to 100 by an act of POGO
-    Play#0 output Play#0 1 Rail percentage of 5,1 changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Rail percentage of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Rail percentage of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Rail percentage of 5,1 changed from 0 to 99 by an act of POGO
+    Play#0 output Play#0 1 Rail percentage of 5,1 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Rail percentage of 7,1 changed from 0 to 100 by an act of POGO
-    Play#0 output Play#0 1 Defense percentage of 5,1 changed from 0 to 100 by an act of POGO
+    Play#0 output Play#0 1 Defense percentage of 1,1 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Defense percentage of 1,1 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Defense percentage of 5,1 changed from 0 to 99 by an act of POGO
+    Play#0 output Play#0 1 Defense percentage of 5,1 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Defense percentage of 7,1 changed from 0 to 100 by an act of POGO
     Play#0 output Play#0 1 Distribution sector of 2,4 changed from 2,4 to 4,4 by an act of POGO
     Play#0 output Play#0 1 Designation of 6,4 changed from - to + by an act of POGO
@@ -2094,7 +2447,14 @@
     Play#0 output Play#0 1 15kt  fission warhead #6 given to you by an act of POGO!
     Play#0 output Play#0 1 Type of 15kt  fission warhead #6 changed to 50kt  fission by an act of POGO
     Play#0 output Play#0 1 Type of 50kt  fission warhead #6 changed to 15kt  fission by an act of POGO
-    Play#0 output Play#0 1 Money changed from 0 to -2147483648 by an act of POGO!
+    Play#0 output Play#0 1 BTUs changed from 0 to 1 by an act of POGO!
+    Play#0 output Play#0 1 BTUs changed from 1 to 0 by an act of POGO!
+    Play#0 output Play#0 1 Military reserves changed from 0 to 1 by an act of POGO!
+    Play#0 output Play#0 1 Military reserves changed from 1 to 0 by an act of POGO!
+    Play#0 output Play#0 1 Number of seconds used changed from 0 to 1 by an act of POGO!
+    Play#0 output Play#0 1 Number of seconds used changed from 1 to 0 by an act of POGO!
+    Play#0 output Play#0 1 Money changed from 0 to -2147483647 by an act of POGO!
+    Play#0 output Play#0 1 Money changed from -2147483647 to -2147483648 by an act of POGO!
     Play#0 output Play#0 1 Technology changed from 0.00 to 3.14 by an act of POGO!
     Play#0 output Play#0 1 Research changed from 0.00 to 3.14 by an act of POGO!
     Play#0 output Play#0 1 Education changed from 0.00 to 3.14 by an act of POGO!
@@ -2115,15 +2475,29 @@
     Play#0 output Play#0 1 Location of sup  supply #2 changed from 1,-1 to 3,-1 by an act of POGO!
     Play#0 output Play#0 1 10kt  fission warhead #2 given to you by an act of POGO!
     Play#0 output Play#0 1 Location of 10kt  fission warhead #2 changed from 1,-1 to 3,-1 by an act of POGO!
-    Play#0 output Play#0 1 Mobility of cs   cargo ship (#2) changed from 0 to -127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#2) changed from 0 to -126 by an act of POGO
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#2) changed from -126 to -127 by an act of POGO
     Play#0 output Play#0 1 Tech level of cs   cargo ship (#2) changed from 100 to 20 by an act of POGO
-    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #2 changed from 0 to -127 by an act of POGO
-    Play#0 output Play#0 1 Range of f1   Sopwith Camel #2 changed from 9 to 0 by an act of POGO
-    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #2 changed from 100 to 50 by an act of POGO
-    Play#0 output Play#0 1 Mobility of sup  supply #2 changed from 0 to -127 by an act of POGO
-    Play#0 output Play#0 1 Tech level of sup  supply #2 changed from 100 to 50 by an act of POGO
-    Play#0 output Play#0 1 Retreat percentage of sup  supply #2 changed from 42 to 0 by an act of POGO
-    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #2 changed from 400 to 280 by an act of POGO
+    Play#0 output Play#0 1 POGO gave you 1 military in cs   cargo ship (#2)
+    Play#0 output Play#0 1 POGO stole 1 military from cs   cargo ship (#2)
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #2 changed from 0 to -126 by an act of POGO
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #2 changed from -126 to -127 by an act of POGO
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #2 changed from 9 to 1 by an act of POGO
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #2 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #2 changed from 100 to 51 by an act of POGO
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #2 changed from 51 to 50 by an act of POGO
+    Play#0 output Play#0 1 Mobility of sup  supply #2 changed from 0 to -126 by an act of POGO
+    Play#0 output Play#0 1 Mobility of sup  supply #2 changed from -126 to -127 by an act of POGO
+    Play#0 output Play#0 1 Tech level of sup  supply #2 changed from 100 to 51 by an act of POGO
+    Play#0 output Play#0 1 Tech level of sup  supply #2 changed from 51 to 50 by an act of POGO
+    Play#0 output Play#0 1 Fortification of sup  supply #2 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Fortification of sup  supply #2 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #2 changed from 42 to 1 by an act of POGO
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #2 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 POGO gave you 1 military in sup  supply #2
+    Play#0 output Play#0 1 POGO stole 1 military from sup  supply #2
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #2 changed from 400 to 281 by an act of POGO
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #2 changed from 281 to 280 by an act of POGO
     Play#0 output Play#0 1 Retreat conditions of cs   cargo ship (#2) changed by an act of POGO: group set
     Play#0 output Play#0 1 Retreat condition of sup  supply #2 changed by an act of POGO: group set
     Play#0 output Play#0 1 POGO gave you 1 civilians in cs   cargo ship (#2)
@@ -2192,42 +2566,58 @@
     Play#0 output Play#0 1 10kt  fission warhead #5 given to you by an act of POGO!
     Play#0 output Play#0 1 10kt  fission warhead #3 taken from you by an act of POGO!
     Play#0 output Play#0 1 10kt  fission warhead #3 given to you by an act of POGO!
-    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#4) changed from 20 to 100 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#4) changed from 20 to 99 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of cs   cargo ship (#4) changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Efficiency of cs   cargo ship (#5) changed from 20 to 100 by an act of POGO
     Play#0 output Play#0 1 Mobility of cs   cargo ship (#3) changed from 0 to -127 by an act of POGO
-    Play#0 output Play#0 1 Mobility of cs   cargo ship (#4) changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#4) changed from 0 to 126 by an act of POGO
+    Play#0 output Play#0 1 Mobility of cs   cargo ship (#4) changed from 126 to 127 by an act of POGO
     Play#0 output Play#0 1 Mobility of cs   cargo ship (#5) changed from 0 to 127 by an act of POGO
     Play#0 output Play#0 1 Tech level of cs   cargo ship (#3) changed from 100 to 20 by an act of POGO
-    Play#0 output Play#0 1 Tech level of cs   cargo ship (#4) changed from 100 to 32767 by an act of POGO
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#4) changed from 100 to 32766 by an act of POGO
+    Play#0 output Play#0 1 Tech level of cs   cargo ship (#4) changed from 32766 to 32767 by an act of POGO
     Play#0 output Play#0 1 Tech level of cs   cargo ship (#5) changed from 100 to 32767 by an act of POGO
-    Play#0 output Play#0 1 POGO gave you 50 military in cs   cargo ship (#4)
+    Play#0 output Play#0 1 POGO gave you 49 military in cs   cargo ship (#4)
+    Play#0 output Play#0 1 POGO gave you 1 military in cs   cargo ship (#4)
     Play#0 output Play#0 1 POGO gave you 50 military in cs   cargo ship (#5)
-    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #4 changed from 10 to 100 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #4 changed from 10 to 99 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #4 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #5 changed from 10 to 100 by an act of POGO
     Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #3 changed from 0 to -127 by an act of POGO
-    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #4 changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #4 changed from 0 to 126 by an act of POGO
+    Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #4 changed from 126 to 127 by an act of POGO
     Play#0 output Play#0 1 Mobility of f1   Sopwith Camel #5 changed from 0 to 127 by an act of POGO
     Play#0 output Play#0 1 Range of f1   Sopwith Camel #3 changed from 9 to 0 by an act of POGO
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #4 changed from 9 to 8 by an act of POGO
+    Play#0 output Play#0 1 Range of f1   Sopwith Camel #4 changed from 8 to 9 by an act of POGO
     Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #3 changed from 100 to 50 by an act of POGO
-    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #4 changed from 100 to 32767 by an act of POGO
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #4 changed from 100 to 32766 by an act of POGO
+    Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #4 changed from 32766 to 32767 by an act of POGO
     Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #5 changed from 100 to 32767 by an act of POGO
-    Play#0 output Play#0 1 Efficiency of sup  supply #4 changed from 10 to 100 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of sup  supply #4 changed from 10 to 99 by an act of POGO
+    Play#0 output Play#0 1 Efficiency of sup  supply #4 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Efficiency of sup  supply #5 changed from 10 to 100 by an act of POGO
     Play#0 output Play#0 1 Mobility of sup  supply #3 changed from 0 to -127 by an act of POGO
-    Play#0 output Play#0 1 Mobility of sup  supply #4 changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Mobility of sup  supply #4 changed from 0 to 126 by an act of POGO
+    Play#0 output Play#0 1 Mobility of sup  supply #4 changed from 126 to 127 by an act of POGO
     Play#0 output Play#0 1 Mobility of sup  supply #5 changed from 0 to 127 by an act of POGO
     Play#0 output Play#0 1 Tech level of sup  supply #3 changed from 100 to 50 by an act of POGO
-    Play#0 output Play#0 1 Tech level of sup  supply #4 changed from 100 to 32767 by an act of POGO
+    Play#0 output Play#0 1 Tech level of sup  supply #4 changed from 100 to 32766 by an act of POGO
+    Play#0 output Play#0 1 Tech level of sup  supply #4 changed from 32766 to 32767 by an act of POGO
     Play#0 output Play#0 1 Tech level of sup  supply #5 changed from 100 to 32767 by an act of POGO
-    Play#0 output Play#0 1 Fortification of sup  supply #4 changed from 0 to 127 by an act of POGO
+    Play#0 output Play#0 1 Fortification of sup  supply #4 changed from 0 to 126 by an act of POGO
+    Play#0 output Play#0 1 Fortification of sup  supply #4 changed from 126 to 127 by an act of POGO
     Play#0 output Play#0 1 Fortification of sup  supply #5 changed from 0 to 127 by an act of POGO
     Play#0 output Play#0 1 Retreat percentage of sup  supply #3 changed from 42 to 0 by an act of POGO
-    Play#0 output Play#0 1 Retreat percentage of sup  supply #4 changed from 42 to 100 by an act of POGO
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #4 changed from 42 to 99 by an act of POGO
+    Play#0 output Play#0 1 Retreat percentage of sup  supply #4 changed from 99 to 100 by an act of POGO
     Play#0 output Play#0 1 Retreat percentage of sup  supply #5 changed from 42 to 100 by an act of POGO
-    Play#0 output Play#0 1 POGO gave you 25 military in sup  supply #4
+    Play#0 output Play#0 1 POGO gave you 24 military in sup  supply #4
+    Play#0 output Play#0 1 POGO gave you 1 military in sup  supply #4
     Play#0 output Play#0 1 POGO gave you 25 military in sup  supply #5
     Play#0 output Play#0 1 Tech level of 10kt  fission warhead #3 changed from 400 to 280 by an act of POGO
-    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #4 changed from 400 to 32767 by an act of POGO
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #4 changed from 400 to 32766 by an act of POGO
+    Play#0 output Play#0 1 Tech level of 10kt  fission warhead #4 changed from 32766 to 32767 by an act of POGO
     Play#0 output Play#0 1 Tech level of 10kt  fission warhead #5 changed from 400 to 32767 by an act of POGO
     Play#0 output Play#0 1 Assignment of cs   cargo ship (#3) changed from fleet ~ to a by an act of POGO
     Play#0 output Play#0 1 Assignment of f1   Sopwith Camel #3 changed from wing ~ to a by an act of POGO
@@ -2251,10 +2641,14 @@
     Play#0 output Play#0 1 10kt  fission warhead #3 loaded onto plane #3 by an act of POGO!
     Play#0 output Play#0 1 sup  supply #4 unloaded from land #4 by an act of POGO!
     Play#0 output Play#0 1 sup  supply #4 loaded onto ship #2 by an act of POGO!
-    Play#0 output Play#0 1 BTUs changed from 0 to 640 by an act of POGO!
-    Play#0 output Play#0 1 Military reserves changed from 0 to 2147483647 by an act of POGO!
-    Play#0 output Play#0 1 Number of seconds used changed from 0 to 86400 by an act of POGO!
-    Play#0 output Play#0 1 Money changed from 0 to 2147483647 by an act of POGO!
+    Play#0 output Play#0 1 BTUs changed from 0 to 639 by an act of POGO!
+    Play#0 output Play#0 1 BTUs changed from 639 to 640 by an act of POGO!
+    Play#0 output Play#0 1 Military reserves changed from 0 to 2147483646 by an act of POGO!
+    Play#0 output Play#0 1 Military reserves changed from 2147483646 to 2147483647 by an act of POGO!
+    Play#0 output Play#0 1 Number of seconds used changed from 0 to 86399 by an act of POGO!
+    Play#0 output Play#0 1 Number of seconds used changed from 86399 to 86400 by an act of POGO!
+    Play#0 output Play#0 1 Money changed from 0 to 2147483646 by an act of POGO!
+    Play#0 output Play#0 1 Money changed from 2147483646 to 2147483647 by an act of POGO!
     Play#0 output Play#0 6 0 640
     Play#0 input read 4
     Play#0 command read
