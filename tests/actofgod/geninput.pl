@@ -261,13 +261,18 @@ edit_int('ship', 2, (
 edit('plane', 6, 'T', 'mb', 'O', 1, 'T', 'mb', 'T', 'hb', 'T', 'mb');
 edit('plane', 7, 'O', 1, 'r', 255, 'T', 'hb', 'T', 'mb');
 edit('plane', 8, 'O', 1, 'T', 'hb', 'r', 255, 'T', 'f1');
+edit('plane', 12, 'T', 'ssm', 'O', 1, 'U', 13, 'U', 14, 'U', 15);
 
-# plane: effic mobil range tech
+# plane: effic mobil range tech harden
 edit_int('plane', 2, (
     ['e', 0, 100],
     ['m', -127, 127],
     ['r', 0, 9],
     ['t', 50, 32767],
+    ['F', 0, 0],
+));
+edit_int('plane', 12, (
+    ['F', 0, 127],
 ));
 
 # land: type

@@ -1133,6 +1133,13 @@ edit_plane(struct plnstr *plane, char *key, char *p)
 			   "from %d to %d", plane->pln_tech, arg);
 	pln_set_tech(plane, arg);
 	break;
+    case 'F':
+	arg = LIMIT_TO(arg, 0, pcp->pl_flags & P_M ? 127 : 0);
+	divine_unit_change((struct empobj *)plane, "Fortification",
+			   arg != plane->pln_harden, arg - plane->pln_harden,
+			   "from %d to %d", plane->pln_harden, arg);
+	plane->pln_harden = arg;
+	break;
     case 'r':
 	arg = LIMIT_TO(arg, 0, pl_range(pcp, plane->pln_tech));
 	divine_unit_change((struct empobj *)plane, "Range",

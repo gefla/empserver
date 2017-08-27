@@ -1418,6 +1418,15 @@
     Play#0 output Play#0 1 Range of hb   B-26B Marauder #8 changed from 0 to 15
     Play#0 output Play#0 1 Type of hb   B-26B Marauder #8 changed to f1   Sopwith Camel
     Play#0 output Play#0 6 0 640
+    Play#0 input edit p 12 T ssm O 1 U 13 U 14 U 15
+    Play#0 command edit
+    Play#0 output Play#0 1 Type of f1   Sopwith Camel #12 changed to ssm  V2
+    Play#0 output Play#0 1 Owner of ssm  V2 #12 changed from POGO (#0) to 1 (#1)
+    Play#0 output Play#0 1 Efficiency of ssm  V2 #12 changed from 0 to 10
+    Play#0 output Play#0 1 ssm  V2 #12 duplicated to (#13)
+    Play#0 output Play#0 1 ssm  V2 #13 duplicated to (#14)
+    Play#0 output Play#0 1 ssm  V2 #14 duplicated to (#15)
+    Play#0 output Play#0 6 0 640
     Play#0 input edit p 2 e 1
     Play#0 command edit
     Play#0 output Play#0 1 Efficiency of f1   Sopwith Camel #2 unchanged
@@ -1513,6 +1522,46 @@
     Play#0 input edit p 5 t 32768
     Play#0 command edit
     Play#0 output Play#0 1 Tech level of f1   Sopwith Camel #5 changed from 100 to 32767
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 2 F 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of f1   Sopwith Camel #2 unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 3 F -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of f1   Sopwith Camel #3 unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 4 F 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of f1   Sopwith Camel #4 unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 5 F 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of f1   Sopwith Camel #5 unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 12 F 1
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of ssm  V2 #12 changed from 0 to 1
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 12 F 0
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of ssm  V2 #12 changed from 1 to 0
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 13 F -1
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of ssm  V2 #13 unchanged
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 14 F 126
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of ssm  V2 #14 changed from 0 to 126
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 14 F 127
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of ssm  V2 #14 changed from 126 to 127
+    Play#0 output Play#0 6 0 640
+    Play#0 input edit p 15 F 128
+    Play#0 command edit
+    Play#0 output Play#0 1 Fortification of ssm  V2 #15 changed from 0 to 127
     Play#0 output Play#0 6 0 640
     Play#0 input edit u 6 T art O 1 T art T hat g 12 T art
     Play#0 command edit
@@ -2439,6 +2488,15 @@
     Play#0 output Play#0 1 Type of f1   Sopwith Camel #8 changed to hb   B-26B Marauder by an act of POGO
     Play#0 output Play#0 1 Range of hb   B-26B Marauder #8 changed from 0 to 15 by an act of POGO
     Play#0 output Play#0 1 Type of hb   B-26B Marauder #8 changed to f1   Sopwith Camel by an act of POGO
+    Play#0 output Play#0 1 ssm  V2 #12 given to you by an act of POGO!
+    Play#0 output Play#0 1 ssm  V2 #13 given to you by an act of POGO!
+    Play#0 output Play#0 1 ssm  V2 #14 given to you by an act of POGO!
+    Play#0 output Play#0 1 ssm  V2 #15 given to you by an act of POGO!
+    Play#0 output Play#0 1 Fortification of ssm  V2 #12 changed from 0 to 1 by an act of POGO
+    Play#0 output Play#0 1 Fortification of ssm  V2 #12 changed from 1 to 0 by an act of POGO
+    Play#0 output Play#0 1 Fortification of ssm  V2 #14 changed from 0 to 126 by an act of POGO
+    Play#0 output Play#0 1 Fortification of ssm  V2 #14 changed from 126 to 127 by an act of POGO
+    Play#0 output Play#0 1 Fortification of ssm  V2 #15 changed from 0 to 127 by an act of POGO
     Play#0 output Play#0 1 art  artillery #6 given to you by an act of POGO!
     Play#0 output Play#0 1 Type of art  artillery #6 changed to hat  hvy artillery by an act of POGO
     Play#0 output Play#0 1 POGO gave you 12 guns in hat  hvy artillery #6
