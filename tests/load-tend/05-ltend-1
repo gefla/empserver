@@ -1,0 +1,76 @@
+||| General ltend rules
+|
+| tender must have target loaded
+| only own ships can ltend
+|
+| ships:
+| cs#200/201 (fleet T)
+|
+| lands:
+| sup#350/351 riding fleet T
+|
+||| ltend commodities
+|
+|| general sanity
+| invalid commodity
+ltend x
+| invalid ship
+ltend f -1
+| no ships match
+ltend f n
+| foreign tender
+ltend f 212
+| usability: does nothing silently
+| invalid amount
+| impossible, as crap is mapped to zero
+| invalid target
+tend f 200 1 -1
+| no targets match
+ltend f 200 1 n
+|
+|| lands that can't be tended
+ltend f 200 1 26
+| not on ship
+ltend f 200 1 0
+| usability: does nothing silently
+|
+|| from ship to land
+| something the ship can't hold
+ltend i 200/201 1 350/352
+| something the land can't hold
+ltend c 200/201 1 350/352
+| something the ship doesn't have
+ltend h 200/201 1 350/352
+| zero amount:
+ltend f 200/201 0 350/351//352
+| usability: does nothing silently
+| more than the ship has
+ltend s 200/201 5 350/351/352
+| more than the land can hold
+ltend g 200/201 21 350/352
+|
+|| from land to ship
+| something the ship can't hold
+ltend i 200/201 -1 350/352
+| something the land can't hold
+ltend c 200/201 -1 350/352
+| something the land doesn't have
+ltend l 200/201 -1 350/352
+| more than the land has
+ltend s 200/201 -20 351/352
+| more than the ship can hold
+ltend m 200/201 -25 350/351/352
+|
+|| interactive
+ltend
+x
+ltend
+f
+-1
+ltend
+f
+200/201
+1
+350/351
+-1
+350

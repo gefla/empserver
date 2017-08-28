@@ -1,0 +1,202 @@
+||| General tend rules
+|
+| tender and target must be in the same sector
+| only own ships can tend
+| only own and friendly ships can be tended to
+| a ship doesn't tend to itself
+|
+| ships (in 1,-1 unless stated otherwise)
+| cs#150/.../153 (fleet t)
+| cs#160/162/163/164 (fleet u) in 0,-2, owned by #0/2/3/4
+| ls#165
+| cs#166 in 0,-2
+| frg#170/sb#171/cs#172/sbc#173 land tendees, sub x supply
+| cs#175 land tendee
+|
+| lands:
+| sup#300/linf#301/302/303/hat#304 (army t) riding fleet t
+| linf#312/231/314 (army u) riding fleet u
+| linf#315/316/317 riding ls#165
+| spy#320/321/323 (army s) riding ls#165
+| linf#330/331 riding cs#166
+|
+||| tend commodities
+|
+|| general sanity
+| invalid commodity
+tend x
+| invalid tender
+tend f -1
+| no tenders match
+tend f n
+| foreign tender
+tend f 160/162/163/164
+| usability: does nothing silently
+| invalid amount
+| impossible, as crap is mapped to zero
+| invalid target
+tend f 150 1 -1
+| no targets match
+tend f 150 1 n
+|
+|| tender/target pairs that can't
+| targeting self:
+tend f 150 1 150
+| target not in same sector:
+tend f 150 1 0
+| usability: does nothing silently
+|
+|| from own ships to own ships:
+| #150/151 give 4m each
+| #150/151 receive 1m each, #152/153/154 2m
+tend m 150/151 1 t
+| likewise, civilians: same result
+tend c 150/151 1 t
+| likewise, zero amount: fails
+tend m 150/151 0 t
+| likewise, negative amount:
+| #150/151 receive 4m each
+| #150/151 give 1m each, #152/153/154 2m
+tend u 150/151 -1 t
+|| from own ships to foreign ships:
+| list: #166 give 2f, #162/163 receive 1f each
+tend f 166 1 160/162/163/164
+| group: same
+| odd: can use foreign fleet assignment
+tend f 166 1 u
+| area: same
+realm 2 0,-2
+tend f 166 1 #2
+tend f 166 1 0,-2
+tend f 166 1 -1:1,-2
+| civilians don't work:
+tend c 166 1 160/162/163/164
+| negative amount doesn't work:
+tend f 160/162/163/164 -1 166
+|| from foreign ships to own ships doesn't work:
+tend f 166 -1 160/162/163/164
+|
+|| tend something the tender can't hold
+tend h 170/171 1 150
+tend h 150 -1 170/171
+|
+|| tend something the tender doesn't have
+tend h 150/152 1 151
+tend h 151 -1 150/152
+| odd: first command fails, second doesn't
+|
+|| tend something the target can't hold
+tend u 150 1 170/171
+tend u 170/171 -1 150
+| odd: only the second command reports "cannot hold"
+|
+|| tend more than the tender has
+| #150 gives 7s, #152 gives 9s
+| #150 receives 5s, #151 9s, #152 receives 2s
+tend s 150/152 5 t
+| #152/154 give 7s each, #150 receives 10s, #151 receive 4s
+tend s t -5 153/154
+|
+|| tend more then the target can hold
+| #151 gives 5g, #152 gives 3g
+| #150 receives 8g
+tend g t 5 150
+| #150 gives 8g to #153
+tend g 153 -40 t
+|
+|| interactive
+tend
+x
+tend
+f
+-1
+tend
+f
+150
+x
+tend
+f
+150/151
+1
+153
+-1
+154
+|
+||| tend lands
+|
+|| general sanity
+| invalid tender
+tend land -1
+| foreign tender
+tend land 160/162/163/164
+| usability: does nothing silently
+| invalid land
+tend land 150 -1
+| invalid target
+tend land 151 301 -1
+|
+|| tender/target pairs that can't
+| no ships match
+tend land n
+tend land 151 301 n
+| targeting self:
+tend land 151 301 151
+| target not friendly
+tend land 166 330 164
+| target not in same sector
+tend land 151 301 0
+| usability: does nothing silently
+|
+|| lands that can't be tended
+| no lands match
+tend land 150 n 151
+| not capable: lacks assault (#300)
+tend land 150 * 151
+| usability: lots of useless "not on this ship" complaints
+| not on tender
+tend land 150 301 150
+| carrying civilians, to foreign ship
+| TODO need a land unit that can carry c to test this
+|
+|| target's load limits
+| usability: lots of useless "not on this ship" complaints
+| can't carry non-light
+| TODO need a non-light assault land unit to test this
+| can't carry light (only spies)
+tend land 151 301 171/173
+| no room for non-light
+| TODO need a non-light assault land unit to test this
+| no room for light (transfers first 2)
+tend land t 301/302/303 170
+| no room for spy (transfers first 2)
+tend land 165 320/321/322 171
+tend land 165/171 s 173
+| spy can use light and non-light slot
+tend land 173 s 150/165
+| BUG: #173 transfers spy first to #150, then same spy to #165
+|
+|| to foreign ships
+tend land 166 330 162
+tend land 166 331 163
+|
+|| interactive
+tend
+land
+!
+tend
+land
+-1
+tend
+land
+165
+-1
+tend
+land
+165
+322
+-1
+tend
+land
+165
+322
+172

@@ -1,0 +1,234 @@
+||| create land
+| harbor 2% and 0%
+desi -6:8,0 h
+desi 1:9,1 h
+desi -3,-1:1 h
+edit l -6:8,-1:0 e 2 ?des=h
+| city 2% and 0%
+desi 0:9,4:5 c
+edit l 0:8,4 e 2
+| highway 100%
+desi 1:9,3 +
+edit l 0:8,-2 e 100 m 60
+| populate
+give c * ?des#. 100
+give m * ?des#. 100
+give f * ?des#. 100
+give s * ?des#. 1
+give g * ?des#. 1
+give i * ?des#. 9950
+give l * ?des#. 9950
+give b * ?des#. 20
+give r * ?des#. 200
+|
+||| countries, each one gets one of each sector
+|| #1
+add 1 1 1 p
+edit c 1 c 0,4 s 4 b 640 M 25000 T 100
+edit l -6:1,0:5 o 1 O 1 ?des#.
+| occupied sector (old owner is allied)
+edit l -2,0 O 2
+edit l -3,-1 o 2 O 1
+|| #2
+add 2 2 2 p
+edit c 2 c 2,4 s 4 b 640 M 25000 T 100
+edit l 2:3,0:5 o 2 O 2
+|| #3
+add 3 3 3 p
+edit c 3 c 4,4 s 4 b 640 M 25000 T 100
+edit l 4:5,0:5 o 3 O 3
+|| #4
+add 4 4 4 p
+edit c 4 c 6,4 s 4 b 640 M 25000 T 100
+edit l 6:7,0:5 o 4 O 4
+|| #5
+add 5 5 5 g
+| the following is to simplify building; owner will be reset to 0 later
+edit l 8:9,0:5 o 5 O 5
+|| relations
+decl a 1 2
+decl a 2 1
+decl f 1 3
+decl f 3 1
+|
+||| ships
+| all belong to #1 unless stated otherwise
+| ls#0/.../24: in each of the 25 different land sectors, fleet a
+| fb#25/.../34: in each of the 10 different cities, fleet a
+| fleet will be assigned later
+build s 0:9,0:5 ?des#. ls
+build s 0:9,4:5 fb
+| cs#80/81/82: in -6:-2,0, have 10c 101l 10h
+edit s 0 U 80 t cs L -2,0 c 10 l 101 h 10 U 81 L -4,0 U 82 L -6,0
+| cs#85/86/87: allied and ally is h's old-owner, allied in old-owned h, in
+| allied occupied h and old-owner matches ship owner
+edit s 0 U 85 t cs L -2,0 c 10 O 2 U 86 L -4,0 U 87 L -3,-1 O 1
+| ls#90/92/93/94: in #1's harbor, owned by #0/2/3/4, have 6m, fleet b
+edit s 0 U 90 F b m 6 O 0 U 92 O 2 U 93 O 3 U 94 O 4
+| ls#95: at sea, has 6m, fleet b
+edit s 90 U 95 L 1,-1 O 1
+| cal#100/mb#101/cs#105: ships loading planes
+| #100 capability plane, #101 capability miss, #105 full (done below)
+edit s 0 U 100 L -2,0 t cal U 101 t mb U 105 t cs
+| frg#110/sb#111/cs#112/sbc#113/cs#115: ships loading lands
+| #110 surface, #111 sub, #112 surface supply, #113 sub supply, #115 full
+edit s 100 U 110 t frg U 111 t sb U 112 t cs U 113 t sbc U 115 t cs
+| cs#150/.../154: tenders in 1,-1, have 20c 20m 20u 20f 7s 42g, fleet t
+| fleet will be assigned later
+edit s 0 U 150 L 1,-1 t cs c 20 m 20 u 20 f 20 s 7 g 42 U 151 U 152 U 153 U 154
+| cs#160/162/163/164: tenders owned by #0/2/3/4 in 0,-2,
+| have 20c 20m 20u 20f 7s 42g, fleet u
+edit s 150 U 160 L 0,-2 F u O 0 U 162 O 2 U 163 O 3 U 164 O 4
+| ls#165: another tender in 1,-1
+edit s 150 U 165 t ls
+| cs#166: another tender in 0,-2, have 20c 20m 20u 20f 7s 42g
+edit s 150 U 166 L 0,-2
+| frg#170/sb#171/cs#172/sbc#173/cs#175: ships receiving lands from tenders
+edit s 150 U 170 L 1,-1 t frg U 171 t sb U 172 t cs U 173 t sbc U 175 t cs
+| cs#200/201: ltender, have 20c 20m 20u 20f 7s 42g, fleet T
+edit s 150 U 200 F T U 201
+| cs#212: ltender, owned by #2, have 20c 20m 20u 20f 7s 42g
+edit s 200 U 212 O 2
+| assign #0/.../34 to fleet a, give 6m, fix up owner
+edit s * F a m 6 O 1 ?uid<35
+| assign #150/.../154 to fleet t
+edit s 150/151/152/153/154 F t
+|
+||| land units
+| all belong to #1 unless stated otherwise
+| linf#0/.../24: next to fleet a, army A
+| army will be assigned later
+build l 0:9,0:5 ?des#. linf
+| linf#25/.../29: next to fleet a in 2% h, owned by sector owner, army A
+build l 0:8,0 linf
+edit u 25/26/27/28/29 a A
+| linf#30/.../34: next to army a, army C
+build l 0:8,0 ?des#. linf
+edit u 30/31/32/33/34 a C O 1
+| linf#35/.../39: next to army a, owned by sector owner, army C
+build l 0:8,0 linf
+edit u 35/36/37/38/39 a C
+| filler to make build give me #50 next, will be undone later
+edit u 40 O 5 U 41 U 42 U 43 U 44 U 45 U 46 U 47 U 48 U 49
+| tra#50/.../54: in each of the 5 different harbors, army a
+build l 0:8,0 tra
+edit u 50/51/52/53/54 a a m 6 O 1
+| sup#80/81/82 have 101i 10h in -6:-2,0
+edit u 0 U 80 T sup L -2,0 i 101 h 10 U 81 L -4,0 U 82 L -6,0
+| tra#90/92/93/94: in #1's harbor, owned by #0/2/3/4, have 6m, army b
+edit u 50 U 90 a b m 6 O 0 U 92 O 2 U 93 O 3 U 94 O 4
+| rad#100/105: lands loading planes, #100 empty, #101 full (done below)
+edit u 0 U 100 L -2,0 T rad U 105
+| tra#110/115: lands loading lands, #110 empty, #115 full (done below)
+edit u 0 U 110 L -2,0 T tra U 115
+| rad#120/.../133: riding cs#115 and tra#115
+edit u 0 U 120 T rad S 115 U 121 U 122 Y 115 U 123 U 124 U 125 U 126 U 127 U 128 U 129 U 130 U 131 U 132 U 133
+| linf#140/.../143: light
+edit u 0 U 140 L -2,0 U 141 U 142 U 143
+| hat#150/151/152: neither light nor heavy
+edit u 140 U 150 T hat U 151 U 152
+| tra#160: heavy
+edit u 140 U 160 T tra
+| #170/.../174: spies
+edit u 140 U 170 T spy U 171 U 172 U 172 U 173 U 174
+| linf#180/.../204: riding fleet a, have 6m, army B
+edit u 0 U 180 a B m 6 S 0 U 181 S 1 U 182 S 2 U 183 S 3 U 184 S 4 U 185 S 5 U 186 S 6 U 187 S 7 U 188 S 8 U 189 S 9 U 190 S 10 U 191 S 11 U 192 S 12 U 193 S 13 U 194 S 14 U 195 S 15 U 196 S 16 U 197 S 17 U 198 S 18 U 199 S 19 U 200 S 20 U 201 S 21 U 202 S 22 U 203 S 23 U 204 S 24
+| linf#210/212/213/214: next to fleet b
+edit u 0 U 210 U 212 U 213 U 214
+| linf#222/223/224/225: riding fleet b, owned by ride's owner, have 6m, army B
+| (lnd_prewrite() doesn't let us put a rider on unowned #90)
+edit u 0 U 225 a B m 6 S 95 U 222 O 2 S 92 U 223 O 3 S 93 U 224 O 4 S 94
+| linf#230/.../234: riding army a, have 6m army D
+edit u 0 U 230 a D m 6 Y 50 U 231 Y 51 U 232 Y 52 U 233 Y 53 U 234 Y 54
+| linf#240/242/243/244: next to army b
+edit u 0 U 240 U 242 U 243 U 244
+| linf#252/253/254: riding army b, owned by ride's owner, have 6m, army D
+| (lnd_prewrite() doesn't let us put a rider on unowned #90)
+edit u 0 U 252 a D m 6 O 2 Y 92 U 253 O 3 Y 93 U 254 O 4 Y 94
+| sup#300/linf#/301/302/303/hat#304: tended lands riding fleet t, army t
+edit u 80 U 300 a t S 150 U 301 T linf S 151 U 302 S 152 U 303 S 153 U 304 T hat S 154
+| linf#312/313/314: tended lands riding fleet u, owned by ride's
+| (lnd_prewrite() doesn't let us put a rider on unowned #160)
+| owner, army u
+edit u 301 U 312 a u O 2 S 162 U 313 O 3 S 163 U 314 O 4 S 164
+| linf#315/.../317, tended lands riding ls#165
+edit u 0 U 315 S 165 U 316 U 317
+| spy#320/321/323, tended spies riding ls#165, army s
+edit u 315 U 320 T spy a s U 321 U 322
+| linf#330/331, tended lands riding cs#166
+edit u 315 U 330 S 166 U 331
+| sup#350/351/352: ltended lands, have 25m 101i 10h, riding fleet T
+edit u 0 U 350 T sup m 25 S 200 U 351 U 352 S 201
+| assign #0/.../24 to army A, give 6m, fix up owner
+edit u * a A m 6 O 1 ?uid<25
+|
+|||| planes
+| all belong to #1 unless stated otherwise
+| sam#0/.../24: next to fleet a, wing A
+| wing will be assigned later
+build p 0:9,0:5 ?des#. sam
+| sam#25/.../29: next to fleet a in 2% h, owned by sector owner, wing A
+build p 0:8,0:0 ?des#. sam
+edit p 25/26/27/28/29 w A
+| sam#30/.../34: next to army a, wing C
+build p 0:8,0 sam
+edit p 30/31/32/33/34 w C O 1
+| sam#35/.../39: next to army a, owned by sector owner, wing C
+build p 0:8,0 sam
+edit p 35/36/37/38/39 w C
+| sam#40/.../59, #57 on ship#105, #58 on land#105, #59 hardened, rest wing E
+build p -2,0 sam 20 200 y
+edit p * w E ?uid>39&uid<57
+edit p 57 s 105
+edit p 58 y 105
+edit p 59 F 1
+| nc#60/.../89: helo, wing K
+build p -2,0 nc 30 200 y
+edit p * ?uid>59&eff>0 w K
+| mi#90/.../109: light missile, wing M
+build p -2,0 mi 20 200 y
+edit p * ?uid>89&eff>0 w M
+| f2#110/.../139: light fixed-wing, wing F
+build p -2,0 f2 30 200 y
+edit p * ?uid>109&eff>0 w F
+| zep#140: non-light
+edit p 0 U 140 l -2,0 T zep w
+| sam#150/.../174: riding fleet a, wing B
+edit p 0 U 150 w B s 0 U 151 s 1 U 152 s 2 U 153 s 3 U 154 s 4 U 155 s 5 U 156 s 6 U 157 s 7 U 158 s 8 U 159 s 9 U 160 s 10 U 161 s 11 U 162 s 12 U 163 s 13 U 164 s 14 U 165 s 15 U 166 s 16 U 167 s 17 U 168 s 18 U 169 s 19 U 170 s 20 U 171 s 21 U 172 s 22 U 173 s 23 U 174 s 24
+| sam#180/182/183/184: next to fleet b
+edit p 0 U 180 U 182 U 183 U 184
+| sam#192/193/194/195: riding fleet b, owned by ride's owner, wing B
+| (pln_prewrite() doesn't let us put a rider on unowned #90)
+edit p 0 U 192 w B O 2 s 92 U 193 O 3 s 93 U 194 O 4 s 94 U 195 s 95
+| sam#200/.../204: riding army a, wing D
+edit p 0 U 200 w D y 50 U 201 y 51 U 202 y 52 U 203 y 53 U 204 y 54
+| sam#210/212/213/214: next to army b
+edit p 0 U 210 U 212 U 213 U 214
+| sam#222/223/224: riding army b, owned by ride's owner, wing D
+| (pln_prewrite() doesn't let us put a rider on unowned #90)
+edit p 0 U 222 w D O 2 y 92 U 223 O 3 y 93 U 224 O 4 y 94
+| sam#230/231: riding rad#120 and next to rad#121, both riding cs#115
+edit p 0 U 231 l -2,0 U 230 y 120
+| sam#232/233: riding rad#122 and next to rad#120, both riding tra#115
+edit p 231 U 233 U 232 y 122
+| assign #0/.../24 to wing A, fix up owner
+edit p * w A O 1 ?uid<25
+|
+||| finishing touches
+edit s * E 100 M 90 ?eff>0
+edit u * e 100 M 60 ?eff>0
+edit p * e 100 m 60 ?eff>0
+edit l * ?own=5 o 0 O 0
+edit s * ?own=5 O 0
+edit u * ?own=5 O 0
+edit p * ?own=5 O 0
+|
+||| show initial state here to help maintainers
+map *
+cens * ?des#.
+comm * ?des#.
+ship *
+carg *
+land *
+lcarg *
+plan *

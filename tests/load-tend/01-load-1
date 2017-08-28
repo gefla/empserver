@@ -1,0 +1,626 @@
+||| General load / unload rules
+|
+| only harbor and city with at least 2% efficiency can work
+| odd: even non-canal ships work in c
+| only own and friendly ships / lands in own sectors can load
+|   planes / lands loaded onto friendly ships / lands are given away,
+|   just like commodities
+| only own ships / lands in own and friendly sectors can unload
+|   planes / lands unloaded in friendly sectors are given away,
+|   just like commodities
+| only own and allied lands in own sectors can load
+| only own land in own and allied sectors can unload
+|
+| sector matrix: (2% h, 0% h, 2% c, 0% c, 100% +)
+| 	       * (own, allied, friendly, neutral, unowned
+| only 2% h and 2% c can work
+|
+| ships (own unless stated otherwise)
+| ls#0/.../24 (fleet a) spread over the sector matrix
+| fb#25/.../34 (fleet a) spread over the sector matrix's cities
+| cs#80 is in occupied harbor
+| cs#81/82 are in old-owned harbor
+| cs#85 is allied, and the ally is the harbor's old owner
+| cs#86 is allied and in old-owned harbor
+| cs#87 is in allied occupied harbor, old owner matches ship owner
+| ls#90/92/93/94 (fleet b) are owned by #0/2/3/4 and in own harbor
+| ls#95 (fleet b) is at sea
+| cal#100/mb#101/cs#105 plane carriers, cap. plane, miss, full
+| cs#105 full of planes
+| frg#110/sb#111/cs#112/sbc#113 land carriers, sub x supply
+| cs#115 full of lands
+|
+| lands:
+| linf#0/.../24 (army A) next to fleet a
+| linf#25/.../29 (army A) next to fleet a in 2% h, owned by sector owner
+| linf#30/.../34 (army C) next to army a
+| linf#35/.../39 (army C) next to army a, owned by sector owner
+| tra#50/.../54 (army a) spread over sector matrix 2% h
+| sup#80 is in occupied harbor
+| sup#81/82 are in old-owned harbor
+| tra#90/92/93/94 (army b) are owned by #0/2/3/4 in own harbor
+| rad#100/105 plane carriers, empty and full
+| tra#110/115 land carriers, empty and full
+| rad#120/.../133 riding cs#115 and tra#115
+| linf#140/.../143 next to land carriers, light
+| hat#150/.../152 next to land carriers, neither light nor heavy
+| tra#160 next to land carriers, heavy
+| spy#170/.../174 next to land carriers, spy
+| linf#180/.../204 (army B) riding fleet a
+| linf#210/212/213/214 next to fleet b
+| linf#222/223/224/225 (army B) riding fleet b
+| linf#230/.../234 (army D) riding army a
+| linf#240/242/243/244 next to army b
+| linf#252/253/254 riding army b
+|
+| planes:
+| sam#0/.../24 (wing A) next to fleet a
+| sam#25/.../29 (wing A) next to fleet a in 2% h, owned by sector owner
+| sam#30/.../34 (wing C) next to army a
+| sam#35/.../39 (wing C) next to army a, owned by sector owner
+| sam#40/.../56 (wing E) next to plane carriers, x-light
+| sam#57/58 riding ship#105, land#105
+| sam#59 next to plane carriers, hardened
+| nc#60/.../89 (wing K) next to plane carriers, helo
+| mi#90/.../109 (wing M) next to plane carriers, light missile
+| f2#110/.../139 (wing F) next to plane carriers, light fixed-wing
+| zep#140 next to plane carriers, non-light fixed-wing
+| sam#150/.../174 (wing B) riding fleet a
+| sam#180/182/183/184 next to fleet b
+| sam#192/193/194/195 (wing B) riding fleet b
+| sam#200/.../204 (wing D) riding army a
+| sam#210/.../210 next to army b
+| sam#222/223/224 (wing D) riding army b
+| sam#230/231 riding and next to rad#121
+| sam#232/233 riding and next to rad#122
+|
+||| load / unload commodities
+|
+|| general sanity
+| invalid commodity
+load x
+lload x
+unload x
+lunload x
+| odd: "Can't load" even for unload
+| invalid ship
+load f -1
+unload f -1
+| invalid land
+lload f -1
+lunload f -1
+| invalid amount
+| impossible, as crap is mapped to zero
+|
+|| no ships / lands match
+load f n
+unload f n
+lload f n
+lunload f n
+|
+|| ships loading commodities with load
+| list of own and foreign ships: #0/15/25/92/93 work
+load f 0/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20/21/22/23/24/25/26/27/28/29/30/31/32/33/34/90/92/93/94/95 0
+load f 0/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20/21/22/23/24/25/26/27/28/29/30/31/32/33/34/90/92/93/94/95 1
+| group: #0/15/25 work
+load f a 1
+load f b 1
+| area: #0/15/25 work
+realm 1 0:9,0:5
+load f #1 1
+load f 0:9,0:5 1
+| BUG: 0:9,0:5 loads friendly #92/93, unlike the other areas
+load f -1:9,0:5 1
+| load to desired level rather than an amount
+| list of own and foreign ships: #0/15/25/92/93 work
+load f 0/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20/21/22/23/24/25/26/27/28/29/30/31/32/33/34/90/92/93/94/95 -6
+| group: #0/15/25 work
+load f a -7
+load f b -7
+| own and occupied civilians, own and oldown's ship: #81/85 work
+load c 80/81/85/86/87 1
+|
+|| ships loading commodities with unload
+| only own ships in own sectors can work (even though we actually load)
+| list of own and foreign ships: #0/15/25 work
+unload f 0/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20/21/22/23/24/25/26/27/28/29/30/31/32/33/34/90/92/93/94/95 -8
+| group: #0/15/25 work
+unload f a -9
+unload f b -9
+| own and occupied civilians, own and oldown's ship: #81 works
+unload c 80/81/85/86/87 -12
+|
+|| lands loading commodities with lload
+| list of own and foreign lands: #50/92 work
+lload f 50/51/52/53/54/90/92/93/94 0
+lload f 50/51/52/53/54/90/92/93/94 1
+| group: #50 works
+lload f a 1
+lload f b 1
+| while on a ship or land
+| BUG: land #185/190/200 can load even though their carrier can't
+| list: #180/195/230/222/252 work
+lload f 180/181/182/183/184/185/186/187/188/189/190/191/192/193/194/195/196/197/198/199/200/201/202/203/204/230/231/232/233/234/222/223/224/225/252/253/254 0
+lload f 180/181/182/183/184/185/186/187/188/189/190/191/192/193/194/195/196/197/198/199/200/201/202/203/204/230/231/232/233/234/222/223/224/225/252/253/254 1
+| group: #180/195/230 work
+lload f B 1
+lload f D 1
+| area: none of army b works
+lload f #1 1 ?army=b
+lload f 0:9,0:5 1 ?army=b
+| BUG: 0:9,0:5 loads allied #92, unlike the other areas
+lload f -0:9,0:5 1 ?army=b
+|
+| load to desired level rather than an amount
+| list of own and foreign lands: #50/92 work
+lload f 50/51/52/53/54/90/92/93/94 -6
+| group: #50 works
+lload f a -7
+lload f b -7
+| while on a ship or land
+| BUG: land #185/190/200 can load even though their carrier can't
+| list: #180/195/230/222/252 work
+lload f 180/181/182/183/184/185/186/187/188/189/190/191/192/193/194/195/196/197/198/199/200/201/202/203/204/230/231/232/233/234/222/223/224/225/252/253/254 -6
+| group: #180/195/230 work
+lload f B -7
+lload f D -7
+| own and occupied civilians, own and oldown's land
+| TODO need a land unit that can carry c to test this
+|
+|| lands loading commodities with lunload
+| only own lands in own sectors can work (even though we actually load)
+| list of own and foreign lands: #50 works
+lunload f 50/51/52/53/54/90/92/93/94 -8
+| group: #50 works
+lunload f a -9
+lunload f b -9
+| while on a ship or land
+| BUG: land #185/190/200 can load even though their carrier can't
+| list: #180/195/230 work
+lunload f 180/181/182/183/184/185/186/187/188/189/190/191/192/193/194/195/196/197/198/199/200/201/202/203/204/230/231/232/233/234/222/223/224/225/252/253/254 -8
+| group: #180/195/230 work
+lunload f B -9
+lunload f D -9
+| own and occupied civilians, own and oldown's land
+| TODO need a land unit that can carry c to test this
+|
+|| ships unloading commodities with load
+| only own ships in own sectors can work (even though we actually unload)
+| list of own and foreign ships: #0/15/25 work
+load m 0/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20/21/22/23/24/25/26/27/28/29/30/31/32/33/34/90/92/93/94/95 -5
+| group: #0/15/25 work
+load m a -4
+load m b -4
+| own and occupied civilians, own and oldown's ship: #81 works
+load c 80/81/85/86/87 -1
+|
+|| ships unloading commodities with unload
+| list of own and foreign ships: #0/1/2/15/16/17/25/26/27 work
+unload m 0/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20/21/22/23/24/25/26/27/28/29/30/31/32/33/34/90/92/93/94/95 -3
+| group: #0/1/2/15/16/17/25/26/27 work
+unload m a -2
+unload m b -2
+| unload to desired level rather than an amount
+| list of own and foreign ships: #0/1/2/15/16/17/25/26/27 work
+unload m 0/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20/21/22/23/24/25/26/27/28/29/30/31/32/33/34/90/92/93/94/95 0
+unload m 0/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20/21/22/23/24/25/26/27/28/29/30/31/32/33/34/90/92/93/94/95 1
+| group: #0/1/2/15/16/17/25/26/27 work
+unload m a 1
+unload m b 1
+| own and occupied civilians, own and oldown's ship: #81 works
+unload c 80/81/85/86/87 1
+|
+|| lands unloading commodities with lload
+| list of own and foreign lands: #50 works
+lload m 50/51/52/53/54/90/92/93/94 -5
+| group: #50 works
+lload m a -4
+lload m b -4
+| while on a ship or land
+| BUG: land #185/190/200 can load even though their carrier can't
+| list: #180/195/230 work
+lload m 180/181/182/183/184/185/186/187/188/189/190/191/192/193/194/195/196/197/198/199/200/201/202/203/204/230/231/232/233/234/222/223/224/225/252/253/254 -5
+| group: #180/195/230 work
+lload m B -4
+lload m D -4
+| own and occupied civilians, own and oldown's land
+| TODO need a land unit that can carry c to test this
+|
+|| lands unloading commodities with lunload
+| list of own and foreign lands: #50/51 work
+lunload m 50/51/52/53/54/90/92/93/94 -3
+| group: #50/51 work
+lunload m a -2
+lunload m b -2
+| while on a ship or land
+| BUG: land #185/186/190/191/200/201 can load even though their carrier can't
+| list: #180/181/195/196/230/231 work
+lunload m 180/181/182/183/184/185/186/187/188/189/190/191/192/193/194/195/196/197/198/199/200/201/202/203/204/230/231/232/233/234/222/223/224/225/252/253/254 -3
+| group: #180/181/195/196/230/231 work
+lunload m B -2
+lunload m D -2
+|
+| unload amount rather than to desired level
+| list of own and foreign lands: #50/51 work
+lunload m 50/51/52/53/54/90/92/93/94 0
+lunload m 50/51/52/53/54/90/92/93/94 1
+| group: #50/51 work
+lunload m a 1
+lunload m b 1
+| while on a ship or land
+| BUG: land #185/186/190/191/200/201 can load even though their carrier can't
+| list: #180/181/195/196/230/231 work
+lunload m 180/181/182/183/184/185/186/187/188/189/190/191/192/193/194/195/196/197/198/199/200/201/202/203/204/230/231/232/233/234/222/223/224/225/252/253/254 0
+lunload m 180/181/182/183/184/185/186/187/188/189/190/191/192/193/194/195/196/197/198/199/200/201/202/203/204/230/231/232/233/234/222/223/224/225/252/253/254 1
+| group: #180/181/195/196/230/231 work
+lunload m B 1
+lunload m D 1
+| own and occupied civilians, own and oldown's land
+| TODO need a land unit that can carry c to test this
+|
+|| load / unload something the ship/land can't hold
+load i 80 1
+unload i 80 1
+lload c 81 1
+lunload c 81 1
+|
+|| load more than sector has
+| with load
+load s 80 10
+load s 80 10
+load s 81 -10
+load s 81 -10
+| with unload
+unload s 82 -10
+unload s 82 -10
+| with lload
+lload g 80 10
+lload g 80 10
+lload g 81 -10
+lload g 81 -10
+| with lunload
+lunload g 82 -10
+lunload g 82 -10
+|
+|| unload more than ship/land has
+| with unload
+unload s 80 10
+unload s 80 10
+| with lunload
+lunload g 80 10
+lunload g 80 10
+|
+|| load more than ship/land can hold
+| with load
+load m 80 100
+load m 80 100
+load m 81 -100
+load m 81 -100
+| with unload
+unload m 82 -100
+unload m 82 -100
+| with lload
+lload b 80 20
+lload b 80 20
+lload b 81 -20
+lload b 81 -20
+| with lunload
+lunload b 82 -20
+lunload b 82 -20
+|
+|| unload more than sector can hold
+| with load
+load l 80 -1
+load l 80 -1
+| with unload
+unload l 81 -1
+unload l 81 -1
+unload l 82 100
+unload l 82 100
+| with lload
+lload i 80 -1
+lload i 80 -1
+| with lunload
+lunload i 81 -1
+lunload i 81 -1
+lunload i 82 100
+lunload i 82 100
+|
+|| interactive
+load
+x
+load
+f
+-1
+load
+f
+80/81
+x
+1
+lunload
+h
+80/81/82
+x
+0
+1
+|
+||| load / unload planes
+|
+|| general sanity
+| invalid ship
+load plane -1
+unload plane -1
+| invalid plane
+lload plane -1
+lunload plane -1
+| invalid plane to load / unload
+load plane 100 -1
+unload plane 100 -1
+lload plane 100 -1
+lunload plane 100 -1
+|
+|| no ships / lands match
+load plane n
+unload plane n
+lload plane n
+lunload plane n
+|
+|| ships loading planes
+| ships #0/15/92/93 work
+load plane a A
+load plane 90 180
+load plane 92 182
+load plane 93 183
+load plane 94 184
+|
+|| ships unloading planes
+| ships #0/1/2/15/16/17 work
+unload plane a B
+unload plane b B
+|
+|| ships that can't load
+| not capable
+load plane 25
+unload plane 25
+| no room
+load plane 105
+|
+|| planes that can't be loaded
+| no planes match
+load plane 100 n
+| not capable: non-light fixed-wing
+load plane 100 140
+| already loaded
+load plane 100 57/58
+| hardened missile
+load plane 101 59
+|
+|| ships' plane load limits
+| can't carry helo
+load plane 101 60
+| can't carry x-light
+| TODO need a ship that can't carry xlight, but can carry helo
+| (must be helo because x-light can use missile and fixed-wing slots)
+| can't carry light missiles
+load plane 80 90
+| can't carry light planes
+load plane 101 110
+| no room for light plane (loads first 20)
+load plane 100 F
+| no room for helo (loads first 20)
+load plane 100 K
+| no room for x-light (loads first 4)
+load plane 100 E
+| no room for light missile (loads first 10)
+load plane 101 M
+| helo can use fixed-wing slot
+unload plane 100 110
+load plane 100 80/81
+| x-light can use missile slot
+unload plane 101 90
+load plane 101 44/45
+| plane carrier can load missile instead of fixed-wing plane
+unload plane 100 111
+load plane 100 100/101
+|
+|| lands loading planes
+| land #50/92 work
+lload plane a C
+lload plane 90 210
+lload plane 92 212
+lload plane 93 213
+lload plane 94 214
+| while on a ship or land
+lload plane 121/123 231/233
+|
+|| land unloading planes
+| lands #50/51 work
+lunload plane a D
+lunload plane b D
+| while on a ship or land
+lunload plane 120/122 230/232
+|
+|| lands that can't load
+| not capable
+lload plane 0
+lunload plane 0
+| no room
+lload plane 105
+|
+|| planes that can't be loaded
+| no planes match
+lload plane 100 n
+| not capable: non-xlight
+lload plane 100 99
+| already loaded
+lload plane 100 57/58
+| hardened missile
+lload plane 100 59
+|
+|| lands' plane load limits
+| can't carry x-light implies can't carry any, covered above
+| no room for x-light plane (loads first one)
+lload plane 100 E
+|
+|| interactive
+load
+plane
+!
+load
+plane
+80/81
+*
+*
+unload
+plane
+80
+*
+lunload
+plane
+100/105
+x
+*
+lload
+plane
+105
+*
+|
+||| load / unload lands
+|
+|| general sanity
+| invalid ship
+load land -1
+unload land -1
+| invalid land
+lload land -1
+lunload land -1
+| invalid land to load / unload
+load land 110 -1
+unload land 110 -1
+lload land 110 -1
+lunload land 110 -1
+|
+|| no ships / lands match
+load land n
+unload land n
+lload land n
+lunload land n
+|
+|| ships loading lands
+| ships #0/15/92/93 work
+load land a A
+load land 90 210
+load land 92 212
+load land 93 213
+load land 94 214
+|
+|| ships unloading lands
+| ships #0/1/2/15/16/17 work
+unload land a B
+unload land b B
+|
+|| ships that can't load
+| not capable
+load land 25
+unload land 25
+*
+| odd: prompts for lands, unlike unload plane
+| no room
+load land 115
+|
+|| lands that can't be loaded
+| no lands match
+load land 110 n
+| not capable: heavy
+load land 110 160
+| already loaded
+load land 110 120/122
+| carrying units
+| TODO need a non-heavy land that can carry lands to test this
+| carrying civilians, onto foreign ship
+| TODO need a land unit that can carry c to test this
+|
+|| lands that can't be unloaded
+| carrying foreign civilians
+| TODO need a land unit that can carry c to test this
+|
+|| ships' land load limits
+| can't carry non-light
+load land 110/113 150
+| can't carry light (only spies)
+load land 111/113 140
+| no room for non-light (loads first 2)
+load land 112 150/151/152
+| no room for light (loads first 2)
+load land 110 140/141/142
+| no room for spy (loads first 2 on 1st ship, 3rd on 2nd ship)
+load land 111/113 170/171/172
+| The "already on ship" messages for units loaded on first ship aren't nice
+| light can use non-light slot
+unload land 112 150
+load land 112 142/143
+| spy can use light and non-light slot
+unload land 110/112 140/142
+load land 110/112 173/174
+|
+|| lands loading lands
+| land #50/92 works
+lload land a C
+lload land 90 240
+lload land 92 242
+lload land 93 243
+lload land 94 244
+|
+|| lands unloading lands
+| lands #50/51 work
+lunload land a D
+lunload land b D
+|
+|| lands that can't load
+| not capable
+lload land 0
+lunload land 0
+*
+| odd: prompts for lands, unlike unload plane
+| while on a ship or land
+| TODO need a non-heavy land that can carry lands to test this
+| no room
+lload land 115
+|
+|| lands that can't be loaded
+| no lands match
+lload land 110 n
+| not capable: carrying units, heavy
+lload land 110 115/160
+| already loaded
+lload land 110 120/122
+| carrying units
+| TODO need a non-heavy land that can carry lands to test this
+| can't load self
+lload land 110 110
+| carrying civilians, onto foreign land
+| TODO need a land unit that can carry c to test this
+|
+|| lands that can't be unloaded
+| carrying foreign civilians
+| TODO need a land unit that can carry c to test this
+|
+|| lands' land load limits
+| no room (loads first one)
+lunload land 115 130
+lload land 115 143/130
+|
+|| interactive
+lload
+land
+!
+lunload
+land
+115
+131/132
+lload
+land
+50/110/115
+132/131
+132/131
+x

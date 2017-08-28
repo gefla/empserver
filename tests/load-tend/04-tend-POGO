@@ -1,0 +1,20 @@
+||| General deity tend rules
+|
+| Can tend regardless of ownership
+| except civilians still refuse to change allegiance
+|
+||| tend commodities
+| #160 unowned, #164 neutral to #166: #164 works
+tend m 160/164 1 166
+tend f 166 1 160/164
+| BUG: #160 works
+| same for civilians doesn't work
+tend c 160/164 1 166
+tend c 166 1 160/164
+|
+||| tend lands
+| #163 friendly, #164 neutral to #166: #163/164 work
+tend land 163/164 313/314 166
+| #160 unowned
+tend land 162 312 160
+| BUG: tend to unowned works, and destroys

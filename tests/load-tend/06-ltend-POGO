@@ -1,0 +1,10 @@
+||| General deity ltend rules
+|
+| Can tend regardless of ownership
+|
+||| ltend commodities
+| #160 unowned, 200 owned by #1: #200 works
+ltend m 160 1 310
+| BUG: #160 not skipped entirely
+ltend m 200 1 350
+ltend g 200 -1 350
