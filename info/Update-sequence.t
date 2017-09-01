@@ -6,17 +6,17 @@ This document gives a rough order of events during the update.
 .s1
 .nf
 1) Prepare
-	a) prepare all ships
+	a) prepare all ships, in order of ship number
 		a) pay military on board
 		b) feed people on board
 		c) plague people on board
-	b) prepare all planes
+	b) prepare all planes, in order of plane number
 		a) pay crew
-	c) prepare all land units
+	c) prepare all land units, in order of land unit number
 		a) pay military on board
 		b) feed people on board
 		c) plague people on board
-	d) prepare all sectors
+	d) prepare all sectors, top to bottom, left to right
 		a) fallout is checked, if FALLOUT is defined
 		b) guerrilla warfare is checked
 		c) if there are no civs or mil in the sector, it
