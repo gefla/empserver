@@ -5,7 +5,7 @@
 This document outlines the various changes to the game and how they
 will affect you, the player.  These were coded as the Wolfpack project.
 .NF
-Changes to Empire 4.4.0 - Sat Aug 12 2017
+Changes to Empire 4.4.0 - Fri Sep  1 2017
  * Don't increase negative ship and land unit to zero on trade.
  * Client improvements
    - Support fancy line editing and persistent history when compiled
