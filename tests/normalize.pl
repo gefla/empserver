@@ -91,7 +91,7 @@ while (<>) {
 		 or /^[0-9]+ (sector|ship|plane|unit|nuke|lost item)/));
 
     ### Version
-    s/(Wolfpack( |\\\\040)Empire( |\\\\040))[0-9][^ "]*/${1}4.4.0/;
+    s/(Wolfpack( |\\\\040)Empire( |\\\\040))(UNKNOWN-|[0-9])[^ "]*/${1}4.4.0/;
     ### Formatted time
     # nat_timeused in prompt
     s/^\[[0-9]+(:[0-9]+\] Command \:)/[0$1/;

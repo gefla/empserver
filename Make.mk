@@ -48,12 +48,16 @@ all:
 ifeq ($(revctrl),git)
 src := $(shell cd $(srcdir) && git ls-files | uniq)
 version := $(shell cd $(srcdir) && build-aux/git-version-gen /dev/null)
+ifeq ($(version),UNKNOWN)
+$(warning cannot figure out version number, falling back to git hash)
+version := UNKNOWN-$(shell cd $(srcdir) && git-rev-parse --verify --short HEAD || echo "UNKNOWN")
+endif
 else
 include $(srcdir)/sources.mk
 version := $(shell cat $(srcdir)/.tarball-version || echo "UNKNOWN")
 endif
 ifeq ($(version),UNKNOWN)
-$(error cannot figure out version)
+$(error cannot figure out version number)
 endif
 dirs := $(sort $(dir $(src)))
 csrc := $(filter %.c, $(src))

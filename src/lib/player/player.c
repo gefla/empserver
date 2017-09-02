@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2017
  *     Ron Koenderink, 2004-2009
  */
 
@@ -42,7 +42,7 @@
 #include "optlist.h"
 #include "player.h"
 #include "prototypes.h"
-
+#include "version.h"
 
 static int command(void);
 static int status(void);
@@ -63,6 +63,11 @@ player_main(struct player *p)
 	pr("\n"
 	   "***          Server configured for testing          ***\n"
 	   "*** If you see this in a game, it is misconfigured! ***\n");
+    else if (strstr(version, "UNKNOWN-"))
+	pr("\n"
+	   "***              Server version is unknown               ***\n"
+	   "*** If you see this in a game, it was built incorrectly! ***\n");
+
     if (init_nats() < 0) {
 	pr("Server confused, try again later\n");
 	return;

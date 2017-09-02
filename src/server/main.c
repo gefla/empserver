@@ -31,7 +31,7 @@
  *     Steve McClure, 1996, 1998
  *     Doug Hay, 1998
  *     Ron Koenderink, 2004-2009
- *     Markus Armbruster, 2005-2014
+ *     Markus Armbruster, 2005-2017
  */
 
 #include <config.h>
@@ -380,6 +380,8 @@ start_server(int flags)
     logerror("Empire server (pid %d) started", (int)pid);
     if (running_test_suite)
 	logerror("Configured for testing");
+    else if (strstr(version, "UNKNOWN-"))
+	logerror("Warning: version number unknown");
 
     empth_init((void **)&player, flags);
 
