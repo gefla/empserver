@@ -34,6 +34,11 @@ To build the server and set up a game, follow the steps below.
     make install.  The last step is optional; everything runs fine
     right from the build tree.
 
+    If configure reports "readline: no" in its configuration summary,
+    fancy line editing doesn't work in the client.  Commonly caused by
+    not having development libraries installed.  On Linux, try
+    installing readline-devel.
+
     If configure reports "terminfo: no" in its configuration summary,
     highlighting doesn't work in the client.  Commonly caused by not
     having development libraries installed.  On Linux, try installing

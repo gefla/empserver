@@ -19,6 +19,11 @@ instructions.  Quick guide for the impatient: run configure; make;
 make install.  The last step is optional; everything runs fine right
 from the build tree.
 
+If configure reports "readline: no" in its configuration summary,
+fancy line editing doesn't work in the client.  Commonly caused by not
+having development libraries installed.  On Linux, try installing
+readline-devel.
+
 If configure reports "terminfo: no" in its configuration summary,
 highlighting doesn't work.  Commonly caused by not having development
 libraries installed.  On Linux, try installing ncurses-devel.
