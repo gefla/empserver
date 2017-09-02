@@ -38,7 +38,7 @@
 
 AC_PREREQ(2.69)
 AC_INIT([Wolfpack Empire],
-	m4_esyscmd([build-aux/git-version-gen .tarball-version]),
+	m4_esyscmd([build-aux/git-version-gen $srcdir/.tarball-version]),
 	[wolfpack@wolfpackempire.com], [empire],
 	[http://www.wolfpackempire.com/])
 AC_CONFIG_SRCDIR([include/combat.h])
@@ -64,8 +64,8 @@ if test -d $srcdir/.git
 then revctrl=git
 else revctrl=
 fi
-if test "$revctrl" && test -r .tarball-version
-then AC_MSG_ERROR([.tarball-version must not exist])
+if test "$revctrl" && test -r $srcdir/.tarball-version
+then AC_MSG_ERROR([$srcdir/.tarball-version must not exist])
 fi
 AC_SUBST(revctrl,$revctrl)
 

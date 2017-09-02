@@ -342,7 +342,7 @@ $(srcdir)/.tarball-version: $(src)
 	v=`sed -e 's/-dirty$$//' <$@`; echo "$$v-dirty" >$@
 # Force Make to start over after updating .tarball-version, so that
 # $(version) gets the new value
-$(srcdir)/.dirty-stamp: .tarball-version
+$(srcdir)/.dirty-stamp: $(srcdir)/.tarball-version
 	>$@
 include $(srcdir)/.dirty-stamp
 endif

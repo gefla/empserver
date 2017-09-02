@@ -38,7 +38,7 @@
 
 AC_PREREQ(2.69)
 AC_INIT([Wolfpack Empire Client],
-	m4_esyscmd([cat .tarball-version]),
+	m4_esyscmd([cat $srcdir/.tarball-version]),
 	[wolfpack@wolfpackempire.com],,
 	[http://www.wolfpackempire.com/])
 AC_CONFIG_SRCDIR([empire.6])
@@ -91,7 +91,7 @@ MY_WITH_TERMINFO
 
 ### Output
 
-AC_DEFINE_UNQUOTED(VERSION, "`cat .tarball-version`", [Tarball version])
+AC_DEFINE_UNQUOTED(VERSION, "`cat $srcdir/.tarball-version`", [Tarball version])
 
 AC_CONFIG_FILES([Makefile ipglob.c])
 AC_OUTPUT
