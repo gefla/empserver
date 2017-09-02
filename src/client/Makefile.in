@@ -81,6 +81,7 @@ uninstall:
 
 # FIXME generate from .d
 expect.$O: misc.h proto.h
+fnameat.$O: fnameat.h
 host.$O: misc.h
 linebuf.$O: linebuf.h
 login.$O: misc.h proto.h
