@@ -17,8 +17,16 @@ os:
   - osx
 # How to build:
 script: ./bootstrap && ./configure && make check
-# Notifications
+
+# The channel name "irc.oftc.net#wolfpack" is encrypted against
+# gefla/empserver to prevent notifications from forks. This was
+# created using:
+# $ travis encrypt -r "gefla/empserver" "empserver-devel@wolfpackempire.com"
+# $ travis encrypt -r "gefla/empserver" "irc.oftc.net#wolfpack"
 notifications:
   email:
-    - empserver-devel@wolfpackempire.com
-  irc: "irc.oftc.net#wolfpack"
+    recipients:
+      - secure: "Yzw4HVcDAoC3MdX5CqcsmCIeaM9JI8zjV3dAblcckOp+YN4KJRsYinmYy2H2EN4PmCj5XsYKeJbDHeOGOEu2ghkx8nIFIFQj5LB54l/h/83ePZ0LKqiIHb42otAj4favPM9/TX0cBoG+DG37m0wsvtRZDZ9EVRTVILSJzJYzEKY="
+  irc:
+    channels:
+      - secure: "JgXi0fUlca7+9/t++ogDZ95IqGu600JVCgEFKBCHZguavxrqPhwgH5rMd1l1MYbVFloxqfykwV3rpiDKLHY0qsJwG8ZmStSHLvxf+CLxxTQ2X3Z2YU4ciZA2/T/dOxq3j8hTpcqUrpGHt2AKSQGjo7JwcO35aAqeEIAPWRsNpl4="
