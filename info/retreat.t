@@ -21,7 +21,7 @@ The report format contains the following fields:
 .in \w'ship type\0\0'u
 .L shp#
 the ship number
-.L ship type
+.L "ship type"
 the type of ship; \*Qpatrol boat\*U, \*Qsubmarine\*U, etc,
 .L x,y
 the ship's current location,
@@ -29,7 +29,7 @@ the ship's current location,
 the fleet designation letter (set by \*Qfleetadd\*U command),
 .L path
 the current retreat path,
-.L as flt?
+.L "as flt?"
 whether these are fleet retreat orders,
 .L flags
 what conditions will trigger retreat.

@@ -29,7 +29,7 @@ the land unit's current location,
 the army designation letter (set by \*Qarmy\*U command),
 .L path
 the current retreat path,
-.L as army?
+.L "as army?"
 whether these are army retreat orders,
 .L flags
 what conditions will trigger retreat.
