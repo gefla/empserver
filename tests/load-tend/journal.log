@@ -1513,7 +1513,7 @@
     Play#1 command lload
     Play#1 output Play#1 1 sam  Sea Sparrow #231 loaded onto rad  radar unit #121 at -2,0.
     Play#1 output Play#1 1 Can't put plane 233 on this unit!
-    Play#1 output Play#1 1 sam  Sea Sparrow #231 is already on unit #121!
+    Play#1 output Play#1 1 sam  Sea Sparrow #231 is already on land unit #121!
     Play#1 output Play#1 1 sam  Sea Sparrow #233 loaded onto rad  radar unit #123 at -2,0.
     Play#1 output Play#1 1 2 units loaded
     Play#1 output Play#1 6 0 483
@@ -1560,7 +1560,7 @@
     Play#1 input lload plane 100 57/58
     Play#1 command lload
     Play#1 output Play#1 1 sam  Sea Sparrow #57 is already on ship #105!
-    Play#1 output Play#1 1 sam  Sea Sparrow #58 is already on unit #105!
+    Play#1 output Play#1 1 sam  Sea Sparrow #58 is already on land unit #105!
     Play#1 output Play#1 1 No units affected
     Play#1 output Play#1 6 0 474
     Play#1 input lload plane 100 59

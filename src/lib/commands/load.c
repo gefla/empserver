@@ -366,6 +366,54 @@ still_ok_land(struct sctstr *sectp, struct lndstr *landp)
 }
 
 static int
+plane_loadable(struct plnstr *pp, int noisy)
+{
+    if (pp->pln_ship >= 0) {
+	if (noisy)
+	    pr("%s is already on ship #%d!\n",
+	       prplane(pp), pp->pln_ship);
+	return 0;
+    }
+    if (pp->pln_land >= 0) {
+	if (noisy)
+	    pr("%s is already on land unit #%d!\n",
+	       prplane(pp), pp->pln_land);
+	return 0;
+    }
+    return 1;
+}
+
+static int
+land_loadable(struct lndstr *lp, int noisy)
+{
+    if (lp->lnd_ship >= 0) {
+	if (noisy)
+	    pr("%s is already on ship #%d!\n",
+	       prland(lp), lp->lnd_ship);
+	return 0;
+    }
+    if (lp->lnd_land >= 0) {
+	if (noisy)
+	    pr("%s is already on land #%d!\n",
+	       prland(lp), lp->lnd_land);
+	return 0;
+    }
+    if (lnd_first_on_land(lp) >= 0) {
+	/* Outlawed to prevent arbitrarily deep recursion */
+	if (noisy)
+	    pr("%s cannot be loaded since it is carrying units\n",
+	       prland(lp));
+	return 0;
+    }
+    if (lchr[lp->lnd_type].l_flags & L_HEAVY) {
+	if (noisy)
+	    pr("%s is too heavy to load.\n", prland(lp));
+	return 0;
+    }
+    return 1;
+}
+
+static int
 load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		int loading, int *nshipsp)
 {
@@ -413,18 +461,8 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		pr("You can only load light planes, helos, xtra-light, or missiles onto ships.\n");
 	    continue;
 	}
-	if (loading && pln.pln_ship > -1) {
-	    if (noisy)
-		pr("%s is already on ship #%d!\n",
-		   prplane(&pln), pln.pln_ship);
+	if (loading && !plane_loadable(&pln, noisy))
 	    continue;
-	}
-	if (loading && pln.pln_land > -1) {
-	    if (noisy)
-		pr("%s is already on land unit #%d!\n",
-		   prplane(&pln), pln.pln_land);
-	    continue;
-	}
 	if (pln.pln_harden != 0) {
 	    if (noisy)
 		pr("%s has been hardened and can't be loaded\n",
@@ -532,29 +570,8 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    continue;
 
 	if (loading) {
-	    if (land.lnd_ship > -1) {
-		if (noisy)
-		    pr("%s is already on ship #%d!\n",
-		       prland(&land), land.lnd_ship);
+	    if (!land_loadable(&land, noisy))
 		continue;
-	    }
-	    if (land.lnd_land > -1) {
-		if (noisy)
-		    pr("%s is already on land #%d!\n",
-		       prland(&land), land.lnd_land);
-		continue;
-	    }
-	    if (lnd_first_on_land(&land) >= 0) {
-		if (noisy)
-		    pr("%s cannot be loaded since it is carrying units\n",
-		       prland(&land));
-		continue;
-	    }
-	    if (lchr[(int)land.lnd_type].l_flags & L_HEAVY) {
-		if (noisy)
-		    pr("%s is too heavy to load.\n", prland(&land));
-		continue;
-	    }
 	    if (load_spy && !(lchr[(int)land.lnd_type].l_flags & L_SPY)) {
 		if (noisy)
 		    pr("Subs can only carry spy units.\n");
@@ -737,19 +754,8 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 		pr("You can only load xlight planes onto units.\n");
 	    continue;
 	}
-
-	if (loading && pln.pln_ship > -1) {
-	    if (noisy)
-		pr("%s is already on ship #%d!\n",
-		   prplane(&pln), pln.pln_ship);
+	if (loading && !plane_loadable(&pln, noisy))
 	    continue;
-	}
-	if (loading && pln.pln_land > -1) {
-	    if (noisy)
-		pr("%s is already on unit #%d!\n",
-		   prplane(&pln), pln.pln_land);
-	    continue;
-	}
 	if (pln.pln_harden != 0) {
 	    if (noisy)
 		pr("%s has been hardened and can't be loaded\n",
@@ -889,34 +895,13 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    continue;
 
 	if (loading) {
-	    if (land.lnd_ship > -1) {
-		if (noisy)
-		    pr("%s is already on ship #%d!\n",
-		       prland(&land), land.lnd_ship);
-		continue;
-	    }
-	    if (land.lnd_land > -1) {
-		if (noisy)
-		    pr("%s is already on land #%d!\n",
-		       prland(&land), land.lnd_land);
-		continue;
-	    }
-	    if (lnd_first_on_land(&land) >= 0) {
-		if (noisy)
-		    pr("%s cannot be loaded since it is carrying units\n",
-		       prland(&land));
-		continue;
-	    }
 	    if (land.lnd_uid == lp->lnd_uid) {
 		if (noisy)
 		    pr("%s can't be loaded onto itself!\n", prland(&land));
 		continue;
 	    }
-	    if (lchr[(int)land.lnd_type].l_flags & L_HEAVY) {
-		if (noisy)
-		    pr("%s is too heavy to load.\n", prland(&land));
+	    if (!land_loadable(&land, noisy))
 		continue;
-	    }
 	}
 
 	/* Unit sanity done */
