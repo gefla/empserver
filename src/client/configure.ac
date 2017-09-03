@@ -38,7 +38,7 @@
 
 AC_PREREQ(2.69)
 AC_INIT([Wolfpack Empire Client],
-	m4_esyscmd([cat $srcdir/.tarball-version]),
+	m4_esyscmd([cat .tarball-version]),
 	[wolfpack@wolfpackempire.com],,
 	[http://www.wolfpackempire.com/])
 AC_CONFIG_SRCDIR([empire.6])

@@ -38,7 +38,7 @@
 
 AC_PREREQ(2.69)
 AC_INIT([Wolfpack Empire],
-	m4_esyscmd([build-aux/git-version-gen $srcdir/.tarball-version]),
+	m4_esyscmd([build-aux/git-version-gen .tarball-version]),
 	[wolfpack@wolfpackempire.com], [empire],
 	[http://www.wolfpackempire.com/])
 AC_CONFIG_SRCDIR([include/combat.h])
