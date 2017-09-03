@@ -1,20 +1,30 @@
 #!/bin/sh -e
 
-if [ $# = 0 ]; then
+usage()
+{
     echo "Usage: $0 [-x TWEAK-SCRIPT ] NAME VERSION (FILE | -C DIR)..."
-    exit 1
-fi
+}
 
 script=:
-if [ "$1" == -x ]
-then
-    script=$2
-    shift; shift
-fi
+while getopts x: opt
+do
+    case $opt in
+    x)
+	script="$OPTARG"
+	;;
+    *)
+	usage; exit 1
+	;;
+    esac
+done
+shift $((OPTIND - 1))
 
 name="$1"
 version="$2"
-shift; shift
+if shift 2
+then :
+else usage; exit 1
+fi
 
 nv=$name-$version
 mkdir $nv
@@ -27,7 +37,7 @@ until [ $# = 0 ]; do
     if [ "$1" = -C ]; then
 	dir="$2"
 	if shift 2; then continue; fi
-	echo "-C requires an argument" >&2
+	echo "$0: -C requires an argument" >&2
 	exit 1
     fi
     mkdir -p `dirname "$nv/$1"`
