@@ -39,7 +39,7 @@ local_dir=../backup
 # Don't copy (are you *sure* you want to be stupid?):
 remote_host=
 remote_dir=
-remote_email=
+email=
 #
 # Do copy:
 #remote_host=user@host
