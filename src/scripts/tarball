@@ -27,7 +27,7 @@ else usage; exit 1
 fi
 
 nv=$name-$version
-mkdir $nv
+mkdir "$nv"
 
 # arrange cleanup
 trap 'rm -rf "$nv"' 0
@@ -47,4 +47,4 @@ done
 
 $script $name $version
 
-tar -czf $nv.tar.gz --owner=0 --group=0 --mode=ug+w,a+rX $nv
+tar -czf "$nv".tar.gz --owner=0 --group=0 --mode=ug+w,a+rX "$nv"
