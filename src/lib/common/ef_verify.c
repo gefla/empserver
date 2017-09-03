@@ -368,7 +368,7 @@ verify_land_chr(void)
 	if (!lchr[i].l_name[0])
 	    continue;
 	if ((lchr[i].l_flags & L_SPY) && lchr[i].l_item[I_MILIT]) {
-	    verify_fail(EF_PLANE_CHR, i, NULL, 0,
+	    verify_fail(EF_LAND_CHR, i, NULL, 0,
 			"flag %s requires zero milit",
 			symbol_by_value(L_SPY, land_chr_flags));
 	    retval = -1;
@@ -376,6 +376,7 @@ verify_land_chr(void)
     }
     return retval;
 }
+
 static int
 verify_products(void)
 {
