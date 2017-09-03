@@ -18,7 +18,9 @@
 # How your system names core files
 #
 # This is a pattern rather than a name, because modern kernels can put
-# fancy stuff in the name we can't always predict.
+# fancy stuff in the name we can't always predict.  Modern user space
+# can squirrel away core dumps in fancy places; you may need to switch
+# that off for this insufficiently fancy script to work.
 core_pattern=core.*
 #core_pattern=emp_server.core
 #core_pattern=core
@@ -45,7 +47,7 @@ core_name=
 
 alert_deity ()
 {
-    local msg;
+    local msg
     if [ "$saved" ]
     then msg="Core dump $saved_core saved."
     elif [ "$core_name" ]
