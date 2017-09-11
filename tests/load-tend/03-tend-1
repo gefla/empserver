@@ -173,7 +173,6 @@ tend land 165 320/321/322 171
 tend land 165/171 s 173
 | spy can use light and non-light slot
 tend land 173 s 150/165
-| BUG: #173 transfers spy first to #150, then same spy to #165
 |
 || to foreign ships
 tend land 166 330 162

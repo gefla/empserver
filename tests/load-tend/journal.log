@@ -2475,9 +2475,8 @@
     Play#1 input tend land 173 s 150/165
     Play#1 command tend
     Play#1 output Play#1 1 spy  infiltrator #320 transferred from sbc  cargo submarine (#173) to cs   cargo ship (#150)
-    Play#1 output Play#1 1 spy  infiltrator #320 transferred from sbc  cargo submarine (#173) to ls   landing ship (#165)
     Play#1 output Play#1 1 spy  infiltrator #321 is not on sbc  cargo submarine (#173)!
-    Play#1 output Play#1 1 spy  infiltrator #322 transferred from sbc  cargo submarine (#173) to cs   cargo ship (#150)
+    Play#1 output Play#1 1 cs   cargo ship (#150) doesn't have room for any more land units!
     Play#1 output Play#1 1 spy  infiltrator #322 transferred from sbc  cargo submarine (#173) to ls   landing ship (#165)
     Play#1 output Play#1 6 0 381
     Play#1 input tend land 166 330 162
@@ -2903,7 +2902,7 @@
     Play#0 output Play#0 1   1  112 cs   cargo ship    -2,0       100%   0   0   0   0  0  0  0  2  90  145
     Play#0 output Play#0 1   1  113 sbc  cargo subma   -2,0       100%   0   0   0   0  0  0  0  1  90  150
     Play#0 output Play#0 1   1  115 cs   cargo ship    -2,0       100%   0   0   0   0  0  0  0  2  90  150
-    Play#0 output Play#0 1   1  150 cs   cargo ship     1,-1   t  100%  17  17  23  19  0  0  0  1  90  145
+    Play#0 output Play#0 1   1  150 cs   cargo ship     1,-1   t  100%  17  17  23  19  0  0  0  2  90  145
     Play#0 output Play#0 1   1  151 cs   cargo ship     1,-1   t  100%  17  17  23  21  0  0  0  0  90  145
     Play#0 output Play#0 1   1  152 cs   cargo ship     1,-1   t  100%  22  22  18  20  0  0  0  0  90  145
     Play#0 output Play#0 1   1  153 cs   cargo ship     1,-1   t  100%  22  22  18  21  0  0  0  1  90  145
@@ -2911,7 +2910,7 @@
     Play#0 output Play#0 1   2  162 cs   cargo ship     0,-2   u  100%  20  20  20  25  0  0  0  1  90  145
     Play#0 output Play#0 1   3  163 cs   cargo ship     0,-2   u  100%  20  20  20  25  0  0  0  1  90  145
     Play#0 output Play#0 1   4  164 cs   cargo ship     0,-2   u  100%  20  19  20  21  0  0  0  0  90  145
-    Play#0 output Play#0 1   1  165 ls   landing shi    1,-1      100%   0  20   0  20  0  0  0  4  90  145
+    Play#0 output Play#0 1   1  165 ls   landing shi    1,-1      100%   0  20   0  20  0  0  0  3  90  145
     Play#0 output Play#0 1   1  166 cs   cargo ship     0,-2      100%  20  22  20   8  0  0  0  2  90  145
     Play#0 output Play#0 1   1  170 frg  frigate        1,-1      100%   0  20   0  20  0  0  0  2  90  145
     Play#0 output Play#0 1   1  171 sb   submarine      1,-1      100%   0  20   0  20  0  0  0  1  90  145
@@ -3328,7 +3327,7 @@
     Play#0 output Play#0 1   1  315 linf light infa    1,-1      100%   0   0  60   0  40  42%  0  0  165S
     Play#0 output Play#0 1   1  316 linf light infa    1,-1      100%   0   0  60   0  40  42%  0  0  165S
     Play#0 output Play#0 1   1  317 linf light infa    1,-1      100%   0   0  60   0  40  42%  0  0  165S
-    Play#0 output Play#0 1   1  320 spy  infiltrato    1,-1   s  100%   0   0  60   0  40  42%  0  0  165S
+    Play#0 output Play#0 1   1  320 spy  infiltrato    1,-1   s  100%   0   0  60   0  40  42%  0  0  150S
     Play#0 output Play#0 1   1  321 spy  infiltrato    1,-1   s  100%   0   0  60   0  40  42%  0  0  171S
     Play#0 output Play#0 1   1  322 spy  infiltrato    1,-1   s  100%   0   0  60   0  40  42%  0  0  172S
     Play#0 output Play#0 1   2  330 linf light infa    0,-2      100%   0   0  60   0  40  42%  0  0  162S

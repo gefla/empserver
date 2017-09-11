@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2017
  */
 
 #include <config.h>
@@ -280,6 +280,7 @@ tend_land(struct shpstr *tenderp, char *units)
 	    expose_ship(tenderp, &target);
 	    putship(target.shp_uid, &target);
 	    putship(tenderp->shp_uid, tenderp);
+	    break;
 	}
     }
     return 0;
