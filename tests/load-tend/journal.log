@@ -2512,6 +2512,7 @@
     Play#1 output Play#1 6 0 372
     Play#1 input ltend f 200 1 0
     Play#1 command ltend
+    Play#1 output Play#1 1 linf light infantry #0 is not on cs   cargo ship (#200)!
     Play#1 output Play#1 1 0 total food transferred off of cs   cargo ship (#200)
     Play#1 output Play#1 6 0 371
     Play#1 input ltend i 200/201 1 350/352
@@ -2521,7 +2522,9 @@
     Play#1 output Play#1 6 0 370
     Play#1 input ltend c 200/201 1 350/352
     Play#1 command ltend
+    Play#1 output Play#1 1 sup  supply #352 is not on cs   cargo ship (#200)!
     Play#1 output Play#1 1 0 total civilians transferred off of cs   cargo ship (#200)
+    Play#1 output Play#1 1 sup  supply #350 is not on cs   cargo ship (#201)!
     Play#1 output Play#1 1 0 total civilians transferred off of cs   cargo ship (#201)
     Play#1 output Play#1 6 0 369
     Play#1 input ltend h 200/201 1 350/352
@@ -2536,11 +2539,15 @@
     Play#1 command ltend
     Play#1 output Play#1 1 cs   cargo ship (#200) out of shells
     Play#1 output Play#1 1 7 total shells transferred off of cs   cargo ship (#200)
+    Play#1 output Play#1 1 sup  supply #350 is not on cs   cargo ship (#201)!
+    Play#1 output Play#1 1 sup  supply #351 is not on cs   cargo ship (#201)!
     Play#1 output Play#1 1 5 total shells transferred off of cs   cargo ship (#201)
     Play#1 output Play#1 6 0 366
     Play#1 input ltend g 200/201 21 350/352
     Play#1 command ltend
+    Play#1 output Play#1 1 sup  supply #352 is not on cs   cargo ship (#200)!
     Play#1 output Play#1 1 10 total guns transferred off of cs   cargo ship (#200)
+    Play#1 output Play#1 1 sup  supply #350 is not on cs   cargo ship (#201)!
     Play#1 output Play#1 1 10 total guns transferred off of cs   cargo ship (#201)
     Play#1 output Play#1 6 0 365
     Play#1 input ltend i 200/201 -1 350/352
@@ -2551,25 +2558,34 @@
     Play#1 input ltend c 200/201 -1 350/352
     Play#1 command ltend
     Play#1 output Play#1 1 No civilians on sup  supply #350
+    Play#1 output Play#1 1 sup  supply #352 is not on cs   cargo ship (#200)!
     Play#1 output Play#1 1 0 total civilians transferred to cs   cargo ship (#200)
+    Play#1 output Play#1 1 sup  supply #350 is not on cs   cargo ship (#201)!
     Play#1 output Play#1 1 No civilians on sup  supply #352
     Play#1 output Play#1 1 0 total civilians transferred to cs   cargo ship (#201)
     Play#1 output Play#1 6 0 363
     Play#1 input ltend l 200/201 -1 350/352
     Play#1 command ltend
     Play#1 output Play#1 1 No light products on sup  supply #350
+    Play#1 output Play#1 1 sup  supply #352 is not on cs   cargo ship (#200)!
     Play#1 output Play#1 1 0 total light products transferred to cs   cargo ship (#200)
+    Play#1 output Play#1 1 sup  supply #350 is not on cs   cargo ship (#201)!
     Play#1 output Play#1 1 No light products on sup  supply #352
     Play#1 output Play#1 1 0 total light products transferred to cs   cargo ship (#201)
     Play#1 output Play#1 6 0 362
     Play#1 input ltend s 200/201 -20 351/352
     Play#1 command ltend
+    Play#1 output Play#1 1 sup  supply #352 is not on cs   cargo ship (#200)!
     Play#1 output Play#1 1 2 total shells transferred to cs   cargo ship (#200)
+    Play#1 output Play#1 1 sup  supply #351 is not on cs   cargo ship (#201)!
     Play#1 output Play#1 1 5 total shells transferred to cs   cargo ship (#201)
     Play#1 output Play#1 6 0 361
     Play#1 input ltend m 200/201 -25 350/351/352
     Play#1 command ltend
+    Play#1 output Play#1 1 sup  supply #352 is not on cs   cargo ship (#200)!
     Play#1 output Play#1 1 30 total military transferred to cs   cargo ship (#200)
+    Play#1 output Play#1 1 sup  supply #350 is not on cs   cargo ship (#201)!
+    Play#1 output Play#1 1 sup  supply #351 is not on cs   cargo ship (#201)!
     Play#1 output Play#1 1 25 total military transferred to cs   cargo ship (#201)
     Play#1 output Play#1 6 0 360
     Play#1 input ltend
@@ -2602,6 +2618,7 @@
     Play#1 input -1
     Play#1 output Play#1 4 Units to be tended?
     Play#1 input 350
+    Play#1 output Play#1 1 sup  supply #350 is not on cs   cargo ship (#201)!
     Play#1 output Play#1 1 0 total food transferred to cs   cargo ship (#201)
     Play#1 output Play#1 6 0 359
     Play#1 input ctld
@@ -2624,6 +2641,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input ltend m 160 1 310
     Play#0 command ltend
+    Play#0 output Play#0 1 cav  cavalry #310 is not on cs   cargo ship (#160)!
     Play#0 output Play#0 1 0 total military transferred off of cs   cargo ship (#160)
     Play#0 output Play#0 6 0 639
     Play#0 input ltend m 200 1 350

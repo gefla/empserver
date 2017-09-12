@@ -32,6 +32,7 @@
  *     Thomas Ruschak
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
+ *     Markus Armbruster, 2004-2017
  */
 
 #include <config.h>
@@ -99,9 +100,12 @@ ltend(void)
 	while (nxtitem(&targets, &target)) {
 	    if (!player->owner)
 		continue;
-
-	    if (target.lnd_ship != tender.shp_uid)
+	    if (target.lnd_ship != tender.shp_uid) {
+		if (targets.sel == NS_LIST)
+		    pr("%s is not on %s!\n",
+		       prland(&target), prship(&tender));
 		continue;
+	    }
 	    ontarget = target.lnd_item[ip->i_uid];
 	    if (ontarget == 0 && amt < 0) {
 		pr("No %s on %s\n", ip->i_name, prland(&target));

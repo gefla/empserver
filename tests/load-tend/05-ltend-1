@@ -32,7 +32,6 @@ ltend f 200 1 n
 ltend f 200 1 26
 | not on ship
 ltend f 200 1 0
-| usability: does nothing silently
 |
 || from ship to land
 | something the ship can't hold
