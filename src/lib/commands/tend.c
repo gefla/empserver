@@ -217,7 +217,8 @@ tend_land(struct shpstr *tenderp, char *units)
 	if (!player->owner)
 	    continue;
 	if (land.lnd_ship != tenderp->shp_uid) {
-	    pr("%s is not on %s!\n", prland(&land), prship(tenderp));
+	    if (lni.sel == NS_LIST)
+		pr("%s is not on %s!\n", prland(&land), prship(tenderp));
 	    continue;
 	}
 	if (!(lchr[(int)land.lnd_type].l_flags & L_ASSAULT)) {

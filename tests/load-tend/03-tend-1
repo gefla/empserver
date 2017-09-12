@@ -152,14 +152,12 @@ tend land 151 301 0
 tend land 150 n 151
 | not capable: lacks assault (#300)
 tend land 150 * 151
-| usability: lots of useless "not on this ship" complaints
 | not on tender
 tend land 150 301 150
 | carrying civilians, to foreign ship
 | TODO need a land unit that can carry c to test this
 |
 || target's load limits
-| usability: lots of useless "not on this ship" complaints
 | can't carry non-light
 | TODO need a non-light assault land unit to test this
 | can't carry light (only spies)
@@ -168,6 +166,7 @@ tend land 151 301 171/173
 | TODO need a non-light assault land unit to test this
 | no room for light (transfers first 2)
 tend land t 301/302/303 170
+| usability: useless "not on this ship" complaints
 | no room for spy (transfers first 2)
 tend land 165 320/321/322 171
 tend land 165/171 s 173

@@ -2312,123 +2312,7 @@
     Play#1 output Play#1 6 0 388
     Play#1 input tend land 150 * 151
     Play#1 command tend
-    Play#1 output Play#1 1 linf light infantry #0 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #1 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #2 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #3 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #4 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #5 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #6 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #7 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #8 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #9 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #10 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #11 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #12 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #13 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #14 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #15 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #16 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #17 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #18 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #19 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #20 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #21 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #22 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #23 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #24 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #25 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #30 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #31 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #32 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #33 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #34 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #35 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 tra  train #50 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 tra  train #51 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 tra  train #52 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 tra  train #53 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 tra  train #54 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 sup  supply #80 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 sup  supply #81 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 sup  supply #82 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #100 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #105 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 tra  train #110 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 tra  train #115 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #120 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #121 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #122 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #123 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #124 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #125 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #126 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #127 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #128 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #129 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #130 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #131 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #132 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 rad  radar unit #133 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #140 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #141 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #142 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #143 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 hat  hvy artillery #150 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 hat  hvy artillery #151 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 hat  hvy artillery #152 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 tra  train #160 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 spy  infiltrator #170 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 spy  infiltrator #171 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 spy  infiltrator #172 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 spy  infiltrator #173 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 spy  infiltrator #174 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #180 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #183 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #184 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #185 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #186 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #187 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #188 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #189 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #190 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #191 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #192 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #193 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #194 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #195 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #198 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #199 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #200 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #201 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #202 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #203 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #204 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #210 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #224 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #225 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #230 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #232 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #233 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #240 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #243 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #254 is not on cs   cargo ship (#150)!
     Play#1 output Play#1 1 sup  supply #300 does not have "assault" capability and can't be tended
-    Play#1 output Play#1 1 linf light infantry #301 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #302 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #303 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 hat  hvy artillery #304 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #315 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #316 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #317 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 spy  infiltrator #320 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 spy  infiltrator #321 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 spy  infiltrator #322 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #330 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 linf light infantry #331 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 sup  supply #350 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 sup  supply #351 is not on cs   cargo ship (#150)!
-    Play#1 output Play#1 1 sup  supply #352 is not on cs   cargo ship (#150)!
     Play#1 output Play#1 6 0 387
     Play#1 input tend land 150 301 150
     Play#1 command tend
@@ -2465,17 +2349,13 @@
     Play#1 output Play#1 6 0 383
     Play#1 input tend land 165/171 s 173
     Play#1 command tend
-    Play#1 output Play#1 1 spy  infiltrator #320 is not on ls   landing ship (#165)!
-    Play#1 output Play#1 1 spy  infiltrator #321 is not on ls   landing ship (#165)!
     Play#1 output Play#1 1 spy  infiltrator #322 transferred from ls   landing ship (#165) to sbc  cargo submarine (#173)
     Play#1 output Play#1 1 spy  infiltrator #320 transferred from sb   submarine (#171) to sbc  cargo submarine (#173)
     Play#1 output Play#1 1 sbc  cargo submarine (#173) doesn't have room for more than two spy units!
-    Play#1 output Play#1 1 spy  infiltrator #322 is not on sb   submarine (#171)!
     Play#1 output Play#1 6 0 382
     Play#1 input tend land 173 s 150/165
     Play#1 command tend
     Play#1 output Play#1 1 spy  infiltrator #320 transferred from sbc  cargo submarine (#173) to cs   cargo ship (#150)
-    Play#1 output Play#1 1 spy  infiltrator #321 is not on sbc  cargo submarine (#173)!
     Play#1 output Play#1 1 cs   cargo ship (#150) doesn't have room for any more land units!
     Play#1 output Play#1 1 spy  infiltrator #322 transferred from sbc  cargo submarine (#173) to ls   landing ship (#165)
     Play#1 output Play#1 6 0 381
