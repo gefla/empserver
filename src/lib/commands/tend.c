@@ -84,8 +84,11 @@ tend(void)
 	return RET_SYN;
 
     while (nxtitem(&tenders, &tender)) {
-	if (!player->owner)
+	if (!player->owner) {
+	    if (tenders.sel == NS_LIST)
+		pr("You don't own ship #%d!\n", tender.shp_uid);
 	    continue;
+	}
 	if (type == EF_LAND) {
 	    sprintf(prompt, "Land unit(s) to tend from %s? ",
 		    prship(&tender));
@@ -214,8 +217,11 @@ tend_land(struct shpstr *tenderp, char *units)
 	return RET_SYN;
 
     while (nxtitem(&lni, &land)) {
-	if (!player->owner)
+	if (!player->owner) {
+	    if (lni.sel == NS_LIST)
+		pr("You don't own land unit #%d!\n", land.lnd_uid);
 	    continue;
+	}
 	if (land.lnd_ship != tenderp->shp_uid) {
 	    if (lni.sel == NS_LIST)
 		pr("%s is not on %s!\n", prland(&land), prship(tenderp));

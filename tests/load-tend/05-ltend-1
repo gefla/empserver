@@ -20,7 +20,6 @@ ltend f -1
 ltend f n
 | foreign tender
 ltend f 212
-| usability: does nothing silently
 | invalid amount
 | impossible, as crap is mapped to zero
 | invalid target

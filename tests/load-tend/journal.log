@@ -2101,6 +2101,10 @@
     Play#1 output Play#1 6 0 423
     Play#1 input tend f 160/162/163/164
     Play#1 command tend
+    Play#1 output Play#1 1 You don't own ship #160!
+    Play#1 output Play#1 1 You don't own ship #162!
+    Play#1 output Play#1 1 You don't own ship #163!
+    Play#1 output Play#1 1 You don't own ship #164!
     Play#1 output Play#1 6 0 422
     Play#1 input tend f 150 1 -1
     Play#1 command tend
@@ -2168,6 +2172,10 @@
     Play#1 output Play#1 6 0 409
     Play#1 input tend f 160/162/163/164 -1 166
     Play#1 command tend
+    Play#1 output Play#1 1 You don't own ship #160!
+    Play#1 output Play#1 1 You don't own ship #162!
+    Play#1 output Play#1 1 You don't own ship #163!
+    Play#1 output Play#1 1 You don't own ship #164!
     Play#1 output Play#1 6 0 408
     Play#1 input tend f 166 -1 160/162/163/164
     Play#1 command tend
@@ -2283,6 +2291,10 @@
     Play#1 output Play#1 6 0 396
     Play#1 input tend land 160/162/163/164
     Play#1 command tend
+    Play#1 output Play#1 1 You don't own ship #160!
+    Play#1 output Play#1 1 You don't own ship #162!
+    Play#1 output Play#1 1 You don't own ship #163!
+    Play#1 output Play#1 1 You don't own ship #164!
     Play#1 output Play#1 6 0 395
     Play#1 input tend land 150 -1
     Play#1 command tend
@@ -2497,6 +2509,7 @@
     Play#1 output Play#1 6 0 376
     Play#1 input ltend f 212
     Play#1 command ltend
+    Play#1 output Play#1 1 You don't own ship #212!
     Play#1 output Play#1 6 0 375
     Play#1 input tend f 200 1 -1
     Play#1 command tend
@@ -2508,6 +2521,7 @@
     Play#1 output Play#1 6 0 373
     Play#1 input ltend f 200 1 26
     Play#1 command ltend
+    Play#1 output Play#1 1 You don't own land unit #26!
     Play#1 output Play#1 1 0 total food transferred off of cs   cargo ship (#200)
     Play#1 output Play#1 6 0 372
     Play#1 input ltend f 200 1 0

@@ -71,8 +71,11 @@ ltend(void)
     if (!snxtitem(&tenders, EF_SHIP, player->argp[2], "Tender(s)? "))
 	return RET_SYN;
     while (nxtitem(&tenders, &tender)) {
-	if (!player->owner)
+	if (!player->owner) {
+	    if (tenders.sel == NS_LIST)
+		pr("You don't own ship #%d!\n", tender.shp_uid);
 	    continue;
+	}
 	if (!(p = getstarg(player->argp[3], "Amount to transfer? ", buf)))
 	    return RET_FAIL;
 	if (!check_ship_ok(&tender))
@@ -98,8 +101,11 @@ ltend(void)
 	    return RET_FAIL;
 	total = 0;
 	while (nxtitem(&targets, &target)) {
-	    if (!player->owner)
+	    if (!player->owner) {
+		if (targets.sel == NS_LIST)
+		    pr("You don't own land unit #%d!\n", target.lnd_uid);
 		continue;
+	    }
 	    if (target.lnd_ship != tender.shp_uid) {
 		if (targets.sel == NS_LIST)
 		    pr("%s is not on %s!\n",

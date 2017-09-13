@@ -31,7 +31,6 @@ tend f -1
 tend f n
 | foreign tender
 tend f 160/162/163/164
-| usability: does nothing silently
 | invalid amount
 | impossible, as crap is mapped to zero
 | invalid target
@@ -129,7 +128,6 @@ f
 tend land -1
 | foreign tender
 tend land 160/162/163/164
-| usability: does nothing silently
 | invalid land
 tend land 150 -1
 | invalid target
