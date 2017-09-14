@@ -173,7 +173,7 @@ tend(void)
 		total += transfer;
 		if (transfer && target.shp_own != player->cnum) {
 		    wu(0, target.shp_own, "%s tended %d %s to %s\n",
-		       cname(player->cnum), total, ip->i_name,
+		       cname(player->cnum), transfer, ip->i_name,
 		       prship(&target));
 		}
 	    }

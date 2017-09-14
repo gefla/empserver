@@ -3517,11 +3517,11 @@
     Play#0 output Play#0 1 1 linf light infantry #213 loaded on your ls   landing ship (#93) at 0,0
     Play#0 output Play#0 1 1 linf light infantry #182 unloaded in your harbor at 4,0
     Play#0 output Play#0 1 1 linf light infantry #197 unloaded in your city at 4,4
-    Play#0 output Play#0 1 1 tended 2 food to cs   cargo ship (#163)
-    Play#0 output Play#0 1 1 tended 2 food to cs   cargo ship (#163)
-    Play#0 output Play#0 1 1 tended 2 food to cs   cargo ship (#163)
-    Play#0 output Play#0 1 1 tended 2 food to cs   cargo ship (#163)
-    Play#0 output Play#0 1 1 tended 2 food to cs   cargo ship (#163)
+    Play#0 output Play#0 1 1 tended 1 food to cs   cargo ship (#163)
+    Play#0 output Play#0 1 1 tended 1 food to cs   cargo ship (#163)
+    Play#0 output Play#0 1 1 tended 1 food to cs   cargo ship (#163)
+    Play#0 output Play#0 1 1 tended 1 food to cs   cargo ship (#163)
+    Play#0 output Play#0 1 1 tended 1 food to cs   cargo ship (#163)
     Play#0 output Play#0 1 1 linf light infantry #331 loaded on your cs   cargo ship (#163) at 0,-2
     Play#0 output Play#0 6 0 640
     Play#0 input read 4
@@ -3534,7 +3534,7 @@
     Play#0 output Play#0 1 POGO sam  Sea Sparrow #214 loaded on tra  train #94 at 0,0
     Play#0 output Play#0 1 POGO linf light infantry #214 loaded on your ls   landing ship (#94) at 0,0
     Play#0 output Play#0 1 POGO linf light infantry #244 loaded on your tra  train #94 at 0,0
-    Play#0 output Play#0 1 POGO tended 2 food to cs   cargo ship (#164)
+    Play#0 output Play#0 1 POGO tended 1 food to cs   cargo ship (#164)
     Play#0 output Play#0 6 0 640
     Play#0 input ctld
     Play#0 output Play#0 1 Bye-bye

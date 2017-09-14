@@ -13,8 +13,6 @@ read 1
 | BUG: POGO destroys linf#234 silently
 read 2
 read 3
-| BUG: reports 2f instead of 1f tended to cs#163 4 times
 read 4
 | BUG: POGO gives away sam#194/224 silently
 | BUG: POGO gives away linf#224/254 silently
-| BUG: reports 2f instead of 1f tended to cs#164
