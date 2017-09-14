@@ -82,7 +82,6 @@ tend h 150 -1 170/171
 || tend something the tender doesn't have
 tend h 150/152 1 151
 tend h 151 -1 150/152
-| odd: first command fails, second doesn't
 |
 || tend something the target can't hold
 tend u 150 1 170/171

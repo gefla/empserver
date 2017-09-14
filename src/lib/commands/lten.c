@@ -85,7 +85,7 @@ ltend(void)
 	ontender = tender.shp_item[ip->i_uid];
 	if (ontender == 0 && amt > 0) {
 	    pr("No %s on %s\n", ip->i_name, prship(&tender));
-	    return RET_FAIL;
+	    continue;
 	}
 	vbase = &mchr[(int)tender.shp_type];
 	maxtender = vbase->m_item[ip->i_uid];

@@ -2184,7 +2184,7 @@
     Play#1 input tend h 170/171 1 150
     Play#1 command tend
     Play#1 output Play#1 1 No heavy products on frg  frigate (#170)
-    Play#1 output Play#1 1 command failed
+    Play#1 output Play#1 1 No heavy products on sb   submarine (#171)
     Play#1 output Play#1 6 0 406
     Play#1 input tend h 150 -1 170/171
     Play#1 command tend
@@ -2195,7 +2195,7 @@
     Play#1 input tend h 150/152 1 151
     Play#1 command tend
     Play#1 output Play#1 1 No heavy products on cs   cargo ship (#150)
-    Play#1 output Play#1 1 command failed
+    Play#1 output Play#1 1 No heavy products on cs   cargo ship (#152)
     Play#1 output Play#1 6 0 404
     Play#1 input tend h 151 -1 150/152
     Play#1 command tend
@@ -2532,7 +2532,7 @@
     Play#1 input ltend i 200/201 1 350/352
     Play#1 command ltend
     Play#1 output Play#1 1 No iron ore on cs   cargo ship (#200)
-    Play#1 output Play#1 1 command failed
+    Play#1 output Play#1 1 No iron ore on cs   cargo ship (#201)
     Play#1 output Play#1 6 0 370
     Play#1 input ltend c 200/201 1 350/352
     Play#1 command ltend
@@ -2544,7 +2544,7 @@
     Play#1 input ltend h 200/201 1 350/352
     Play#1 command ltend
     Play#1 output Play#1 1 No heavy products on cs   cargo ship (#200)
-    Play#1 output Play#1 1 command failed
+    Play#1 output Play#1 1 No heavy products on cs   cargo ship (#201)
     Play#1 output Play#1 6 0 368
     Play#1 input ltend f 200/201 0 350/351//352
     Play#1 command ltend
