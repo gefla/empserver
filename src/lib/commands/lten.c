@@ -92,7 +92,7 @@ ltend(void)
 	if (maxtender == 0) {
 	    pr("A %s cannot hold any %s\n",
 	       mchr[(int)tender.shp_type].m_name, ip->i_name);
-	    return RET_FAIL;
+	    continue;
 	}
 	if (!snxtitem(&targets, EF_LAND,
 		      player->argp[4], "Units to be tended? "))

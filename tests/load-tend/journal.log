@@ -2210,6 +2210,7 @@
     Play#1 input tend u 170/171 -1 150
     Play#1 command tend
     Play#1 output Play#1 1 A frg  frigate cannot hold any uncompensated workers
+    Play#1 output Play#1 1 A sb   submarine cannot hold any uncompensated workers
     Play#1 output Play#1 6 0 401
     Play#1 input tend s 150/152 5 t
     Play#1 command tend
@@ -2567,7 +2568,7 @@
     Play#1 input ltend i 200/201 -1 350/352
     Play#1 command ltend
     Play#1 output Play#1 1 A cs   cargo ship cannot hold any iron ore
-    Play#1 output Play#1 1 command failed
+    Play#1 output Play#1 1 A cs   cargo ship cannot hold any iron ore
     Play#1 output Play#1 6 0 364
     Play#1 input ltend c 200/201 -1 350/352
     Play#1 command ltend

@@ -126,7 +126,7 @@ tend(void)
 	if (maxtender == 0) {
 	    pr("A %s cannot hold any %s\n",
 	       mchr[(int)tender.shp_type].m_name, ip->i_name);
-	    break;
+	    continue;
 	}
 	if (!snxtitem(&targets, EF_SHIP,
 		      player->argp[4], "Ships to be tended? "))
