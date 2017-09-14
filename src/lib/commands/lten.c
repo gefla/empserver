@@ -90,8 +90,7 @@ ltend(void)
 	vbase = &mchr[(int)tender.shp_type];
 	maxtender = vbase->m_item[ip->i_uid];
 	if (maxtender == 0) {
-	    pr("A %s cannot hold any %s\n",
-	       mchr[(int)tender.shp_type].m_name, ip->i_name);
+	    pr("%s cannot hold any %s\n", prship(&tender), ip->i_name);
 	    continue;
 	}
 	if (!snxtitem(&targets, EF_LAND,
