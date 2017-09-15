@@ -42,6 +42,8 @@
 #include "ship.h"
 
 static int can_tend_to(struct shpstr *, int, struct shpstr *, int);
+static int tend_comm_to(struct shpstr *, struct ichrstr *, int,
+			struct shpstr *);
 static void expose_ship(struct shpstr *s1, struct shpstr *s2);
 static int tend_land(struct shpstr *tenderp, int, char *units);
 
@@ -56,10 +58,7 @@ tend(void)
     struct mchrstr *vbase;
     int amt;
     int retval;
-    int ontender;
-    int ontarget;
     int maxtender;
-    int maxtarget;
     int transfer;
     int total;
     int type;
@@ -118,8 +117,7 @@ tend(void)
 	    pr("Amount must be non-zero!\n");
 	    return RET_SYN;
 	}
-	ontender = tender.shp_item[ip->i_uid];
-	if (ontender == 0 && amt > 0) {
+	if (!tender.shp_item[ip->i_uid] && amt > 0) {
 	    pr("No %s on %s\n", ip->i_name, prship(&tender));
 	    continue;
 	}
@@ -136,8 +134,12 @@ tend(void)
 	    return RET_SYN;
 	total = 0;
 	while (nxtitem(&targets, &target)) {
-	    if (amt < 0) {
-		/* take from target and give to tender */
+	    if (amt > 0) {
+		if (!can_tend_to(&tender, tenders.sel == NS_LIST,
+				 &target, targets.sel == NS_LIST))
+		    continue;
+	        transfer = tend_comm_to(&tender, ip, amt, &target);
+	    } else {
 		if (!player->owner) {
 		    if (targets.sel == NS_LIST)
 			pr("You don't own ship #%d!\n", target.shp_uid);
@@ -146,44 +148,14 @@ tend(void)
 		if (!can_tend_to(&target, targets.sel == NS_LIST,
 				 &tender, tenders.sel == NS_LIST))
 		    continue;
-		ontarget = target.shp_item[ip->i_uid];
-		if (ontarget == 0) {
-		    pr("No %s on %s\n", ip->i_name, prship(&target));
-		    continue;
-		}
-		transfer = MIN(ontarget, -amt);
-		transfer = MIN(maxtender - ontender, transfer);
-		if (transfer == 0)
-		    continue;
-		target.shp_item[ip->i_uid] = ontarget - transfer;
-		ontender += transfer;
-		total += transfer;
-	    } else {
-		/* give to target from tender */
-		if (!can_tend_to(&tender, tenders.sel == NS_LIST,
-				 &target, targets.sel == NS_LIST))
-		    continue;
-		if (ip->i_uid == I_CIVIL && tender.shp_own != target.shp_own)
-		    continue;
-		ontarget = target.shp_item[ip->i_uid];
-		vbase = &mchr[(int)target.shp_type];
-		maxtarget = vbase->m_item[ip->i_uid];
-		transfer = MIN(ontender, amt);
-		transfer = MIN(transfer, maxtarget - ontarget);
-		if (transfer == 0)
-		    continue;
-		target.shp_item[ip->i_uid] = ontarget + transfer;
-		ontender -= transfer;
-		total += transfer;
-		if (transfer && target.shp_own != player->cnum) {
-		    wu(0, target.shp_own, "%s tended %d %s to %s\n",
-		       cname(player->cnum), transfer, ip->i_name,
-		       prship(&target));
-		}
+		transfer = tend_comm_to(&target, ip, -amt, &tender);
 	    }
+	    if (!transfer)
+		continue;
+	    total += transfer;
 	    expose_ship(&tender, &target);
 	    putship(target.shp_uid, &target);
-	    if (amt > 0 && ontender == 0) {
+	    if (amt > 0 && !tender.shp_item[ip->i_uid]) {
 		pr("%s out of %s\n", prship(&tender), ip->i_name);
 		break;
 	    }
@@ -191,7 +163,6 @@ tend(void)
 	pr("%d total %s transferred %s %s\n",
 	   total, ip->i_name, (amt > 0) ? "off of" : "to",
 	   prship(&tender));
-	tender.shp_item[ip->i_uid] = ontender;
 	tender.shp_mission = 0;
 	putship(tender.shp_uid, &tender);
     }
@@ -245,6 +216,36 @@ can_tend_to(struct shpstr *from, int noisy_from,
 	return 0;
     }
     return 1;
+}
+
+static int
+tend_comm_to(struct shpstr *from, struct ichrstr *ip, int amt,
+	     struct shpstr *to)
+{
+    int can_give = from->shp_item[ip->i_uid];
+    int to_max = mchr[to->shp_type].m_item[ip->i_uid];
+    int can_take = to_max - to->shp_item[ip->i_uid];
+    int transfer;
+
+    if (ip->i_uid == I_CIVIL && from->shp_own != to->shp_own)
+	return 0;
+    if (!can_give) {
+	pr("No %s on %s\n", ip->i_name, prship(from));
+	return 0;
+    }
+
+    transfer = MIN(can_give, amt);
+    transfer = MIN(can_take, transfer);
+    if (transfer == 0)
+	return 0;
+    from->shp_item[ip->i_uid] -= transfer;
+    to->shp_item[ip->i_uid] += transfer;
+    if (to->shp_own != player->cnum) {
+	wu(0, to->shp_own, "%s tended %d %s to %s\n",
+	   cname(player->cnum), transfer, ip->i_name, prship(to));
+    }
+
+    return transfer;
 }
 
 static void
