@@ -2217,6 +2217,8 @@
     Play#1 output Play#1 6 0 403
     Play#1 input tend u 150 1 170/171
     Play#1 command tend
+    Play#1 output Play#1 1 frg  frigate (#170) cannot hold any uncompensated workers
+    Play#1 output Play#1 1 sb   submarine (#171) cannot hold any uncompensated workers
     Play#1 output Play#1 1 0 total uncompensated workers transferred off of cs   cargo ship (#150)
     Play#1 output Play#1 6 0 402
     Play#1 input tend u 170/171 -1 150

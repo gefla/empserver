@@ -85,7 +85,6 @@ tend h 151 -1 150/152
 || tend something the target can't hold
 tend u 150 1 170/171
 tend u 170/171 -1 150
-| odd: only the second command reports "cannot hold"
 |
 || tend more than the tender has
 | #150 gives 7s, #152 gives 9s
