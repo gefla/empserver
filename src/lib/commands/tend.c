@@ -41,9 +41,9 @@
 #include "plague.h"
 #include "ship.h"
 
-static int can_tend_to(struct shpstr *, struct shpstr *);
+static int can_tend_to(struct shpstr *, int, struct shpstr *, int);
 static void expose_ship(struct shpstr *s1, struct shpstr *s2);
-static int tend_land(struct shpstr *tenderp, char *units);
+static int tend_land(struct shpstr *tenderp, int, char *units);
 
 int
 tend(void)
@@ -100,7 +100,8 @@ tend(void)
 		continue;
 	    if (!check_ship_ok(&tender))
 		return RET_SYN;
-	    if (0 != (retval = tend_land(&tender, p)))
+	    retval = tend_land(&tender, tenders.sel == NS_LIST, p);
+	    if (retval)
 		return retval;
 	    continue;
 	}
@@ -135,13 +136,15 @@ tend(void)
 	    return RET_SYN;
 	total = 0;
 	while (nxtitem(&targets, &target)) {
-	    if (ip->i_uid == I_CIVIL && tender.shp_own != target.shp_own)
-		continue;
 	    if (amt < 0) {
 		/* take from target and give to tender */
-		if (!player->owner)
+		if (!player->owner) {
+		    if (targets.sel == NS_LIST)
+			pr("You don't own ship #%d!\n", target.shp_uid);
 		    continue;
-		if (!can_tend_to(&target, &tender))
+		}
+		if (!can_tend_to(&target, targets.sel == NS_LIST,
+				 &tender, tenders.sel == NS_LIST))
 		    continue;
 		ontarget = target.shp_item[ip->i_uid];
 		if (ontarget == 0) {
@@ -157,7 +160,10 @@ tend(void)
 		total += transfer;
 	    } else {
 		/* give to target from tender */
-		if (!can_tend_to(&tender, &target))
+		if (!can_tend_to(&tender, tenders.sel == NS_LIST,
+				 &target, targets.sel == NS_LIST))
+		    continue;
+		if (ip->i_uid == I_CIVIL && tender.shp_own != target.shp_own)
 		    continue;
 		ontarget = target.shp_item[ip->i_uid];
 		vbase = &mchr[(int)target.shp_type];
@@ -193,17 +199,51 @@ tend(void)
 }
 
 static int
-can_tend_to(struct shpstr *from, struct shpstr *to)
+can_tend_to(struct shpstr *from, int noisy_from,
+	    struct shpstr *to, int noisy_to)
 {
-    if (!to->shp_own)
+    /*
+     * Careful: error messages must not disclose anything on foreign
+     * @to the player doesn't already know, or could trivially learn.
+     */
+    if (!to->shp_own) {
+	if (noisy_to)
+	    pr("You don't own ship #%d!\n", to->shp_uid);
 	return 0;
-    if (to->shp_own != player->cnum && !player->god
-	&& relations_with(to->shp_own, player->cnum) < FRIENDLY)
+    }
+    if (from->shp_uid == to->shp_uid) {
+	if (noisy_from && noisy_to)
+	    pr("%s won't tend to itself\n", prship(from));
 	return 0;
-    if (from->shp_uid == to->shp_uid)
+    }
+    if (from->shp_x != to->shp_x || from->shp_y != to->shp_y) {
+	if (noisy_from && noisy_to) {
+	    /* Don't disclose foreign @to exists elsewhere */
+	    if (player->god || to->shp_own == player->cnum)
+		pr("%s is not in the same sector as %s\n",
+		   prship(to), prship(from));
+	    else
+		pr("You don't own ship #%d!\n", to->shp_uid);
+	}
 	return 0;
-    if (from->shp_x != to->shp_x || from->shp_y != to->shp_y)
+    }
+    if (!player->god && to->shp_own != player->cnum
+	&& relations_with(to->shp_own, player->cnum) < FRIENDLY) {
+	if (noisy_to) {
+	    /*
+	     * Don't disclose unfriendly @to exists here unless
+	     * lookout from @from would see it.
+	     */
+	    if ((mchr[from->shp_type].m_flags & M_SUB)
+		|| (mchr[to->shp_type].m_flags & M_SUB))
+		pr("You don't own ship #%d!\n", from->shp_uid);
+	    else
+		pr("You are not on friendly terms with"
+		   " the owner of ship #%d!\n",
+		   to->shp_uid);
+	}
 	return 0;
+    }
     return 1;
 }
 
@@ -217,7 +257,7 @@ expose_ship(struct shpstr *s1, struct shpstr *s2)
 }
 
 static int
-tend_land(struct shpstr *tenderp, char *units)
+tend_land(struct shpstr *tenderp, int noisy, char *units)
 {
     struct nstr_item lni;
     struct nstr_item targets;
@@ -250,7 +290,8 @@ tend_land(struct shpstr *tenderp, char *units)
 	if (!check_ship_ok(tenderp) || !check_land_ok(&land))
 	    return RET_SYN;
 	while (nxtitem(&targets, &target)) {
-	    if (!can_tend_to(tenderp, &target))
+	    if (!can_tend_to(tenderp, noisy,
+			     &target, targets.sel == NS_LIST))
 		continue;
 
 	    /* Fit unit on ship */

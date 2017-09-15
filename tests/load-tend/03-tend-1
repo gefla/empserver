@@ -43,7 +43,6 @@ tend f 150 1 n
 tend f 150 1 150
 | target not in same sector:
 tend f 150 1 0
-| usability: does nothing silently
 |
 || from own ships to own ships:
 | #150/151 give 4m each
@@ -142,7 +141,6 @@ tend land 151 301 151
 tend land 166 330 164
 | target not in same sector
 tend land 151 301 0
-| usability: does nothing silently
 |
 || lands that can't be tended
 | no lands match

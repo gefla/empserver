@@ -2116,10 +2116,12 @@
     Play#1 output Play#1 6 0 420
     Play#1 input tend f 150 1 150
     Play#1 command tend
+    Play#1 output Play#1 1 cs   cargo ship (#150) won't tend to itself
     Play#1 output Play#1 1 0 total food transferred off of cs   cargo ship (#150)
     Play#1 output Play#1 6 0 419
     Play#1 input tend f 150 1 0
     Play#1 command tend
+    Play#1 output Play#1 1 ls   landing ship (#0) is not in the same sector as cs   cargo ship (#150)
     Play#1 output Play#1 1 0 total food transferred off of cs   cargo ship (#150)
     Play#1 output Play#1 6 0 418
     Play#1 input tend m 150/151 1 t
@@ -2144,6 +2146,8 @@
     Play#1 output Play#1 6 0 415
     Play#1 input tend f 166 1 160/162/163/164
     Play#1 command tend
+    Play#1 output Play#1 1 You don't own ship #160!
+    Play#1 output Play#1 1 You are not on friendly terms with the owner of ship #164!
     Play#1 output Play#1 1 2 total food transferred off of cs   cargo ship (#166)
     Play#1 output Play#1 6 0 414
     Play#1 input tend f 166 1 u
@@ -2168,6 +2172,8 @@
     Play#1 output Play#1 6 0 410
     Play#1 input tend c 166 1 160/162/163/164
     Play#1 command tend
+    Play#1 output Play#1 1 You don't own ship #160!
+    Play#1 output Play#1 1 You are not on friendly terms with the owner of ship #164!
     Play#1 output Play#1 1 0 total civilians transferred off of cs   cargo ship (#166)
     Play#1 output Play#1 6 0 409
     Play#1 input tend f 160/162/163/164 -1 166
@@ -2179,6 +2185,10 @@
     Play#1 output Play#1 6 0 408
     Play#1 input tend f 166 -1 160/162/163/164
     Play#1 command tend
+    Play#1 output Play#1 1 You don't own ship #160!
+    Play#1 output Play#1 1 You don't own ship #162!
+    Play#1 output Play#1 1 You don't own ship #163!
+    Play#1 output Play#1 1 You don't own ship #164!
     Play#1 output Play#1 1 0 total food transferred to cs   cargo ship (#166)
     Play#1 output Play#1 6 0 407
     Play#1 input tend h 170/171 1 150
@@ -2313,12 +2323,15 @@
     Play#1 output Play#1 6 0 392
     Play#1 input tend land 151 301 151
     Play#1 command tend
+    Play#1 output Play#1 1 cs   cargo ship (#151) won't tend to itself
     Play#1 output Play#1 6 0 391
     Play#1 input tend land 166 330 164
     Play#1 command tend
+    Play#1 output Play#1 1 You are not on friendly terms with the owner of ship #164!
     Play#1 output Play#1 6 0 390
     Play#1 input tend land 151 301 0
     Play#1 command tend
+    Play#1 output Play#1 1 ls   landing ship (#0) is not in the same sector as cs   cargo ship (#151)
     Play#1 output Play#1 6 0 389
     Play#1 input tend land 150 n 151
     Play#1 command tend
@@ -2455,6 +2468,7 @@
     Play#0 output Play#0 6 0 639
     Play#0 input tend f 166 1 160/164
     Play#0 command tend
+    Play#0 output Play#0 1 You don't own ship #160!
     Play#0 output Play#0 1 1 total food transferred off of cs   cargo ship (#166)
     Play#0 output Play#0 6 0 638
     Play#0 input tend c 160/164 1 166
@@ -2464,6 +2478,7 @@
     Play#0 output Play#0 6 0 637
     Play#0 input tend c 166 1 160/164
     Play#0 command tend
+    Play#0 output Play#0 1 You don't own ship #160!
     Play#0 output Play#0 1 0 total civilians transferred off of cs   cargo ship (#166)
     Play#0 output Play#0 6 0 636
     Play#0 input tend land 163/164 313/314 166
@@ -2475,6 +2490,7 @@
     Play#0 output Play#0 6 0 635
     Play#0 input tend land 162 312 160
     Play#0 command tend
+    Play#0 output Play#0 1 You don't own ship #160!
     Play#0 output Play#0 6 0 634
     Play#0 input ctld
     Play#0 output Play#0 1 Bye-bye
