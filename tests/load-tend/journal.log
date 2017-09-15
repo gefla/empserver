@@ -2450,16 +2450,16 @@
     Play#0 output Play#0 6 0 640
     Play#0 input tend m 160/164 1 166
     Play#0 command tend
-    Play#0 output Play#0 1 1 total military transferred off of cs   cargo ship (#160)
+    Play#0 output Play#0 1 You don't own ship #160!
     Play#0 output Play#0 1 1 total military transferred off of cs   cargo ship (#164)
     Play#0 output Play#0 6 0 639
     Play#0 input tend f 166 1 160/164
     Play#0 command tend
-    Play#0 output Play#0 1 2 total food transferred off of cs   cargo ship (#166)
+    Play#0 output Play#0 1 1 total food transferred off of cs   cargo ship (#166)
     Play#0 output Play#0 6 0 638
     Play#0 input tend c 160/164 1 166
     Play#0 command tend
-    Play#0 output Play#0 1 0 total civilians transferred off of cs   cargo ship (#160)
+    Play#0 output Play#0 1 You don't own ship #160!
     Play#0 output Play#0 1 0 total civilians transferred off of cs   cargo ship (#164)
     Play#0 output Play#0 6 0 637
     Play#0 input tend c 166 1 160/164
@@ -2475,7 +2475,6 @@
     Play#0 output Play#0 6 0 635
     Play#0 input tend land 162 312 160
     Play#0 command tend
-    Play#0 output Play#0 1 linf light infantry #312 transferred from cs   cargo ship (#162) to cs   cargo ship (#160)
     Play#0 output Play#0 6 0 634
     Play#0 input ctld
     Play#0 output Play#0 1 Bye-bye
@@ -2656,8 +2655,7 @@
     Play#0 output Play#0 6 0 640
     Play#0 input ltend m 160 1 310
     Play#0 command ltend
-    Play#0 output Play#0 1 cav  cavalry #310 is not on cs   cargo ship (#160)!
-    Play#0 output Play#0 1 0 total military transferred off of cs   cargo ship (#160)
+    Play#0 output Play#0 1 You don't own ship #160!
     Play#0 output Play#0 6 0 639
     Play#0 input ltend m 200 1 350
     Play#0 command ltend
@@ -2820,11 +2818,11 @@
     Play#0 output Play#0 1   1  152 cs   cargo ship     1,-1   t  100%  22  22  18  20  0  0  0  0  90  145
     Play#0 output Play#0 1   1  153 cs   cargo ship     1,-1   t  100%  22  22  18  21  0  0  0  1  90  145
     Play#0 output Play#0 1   1  154 cs   cargo ship     1,-1   t  100%  22  22  18  19  0  0  0  1  90  145
-    Play#0 output Play#0 1   2  162 cs   cargo ship     0,-2   u  100%  20  20  20  25  0  0  0  1  90  145
+    Play#0 output Play#0 1   2  162 cs   cargo ship     0,-2   u  100%  20  20  20  25  0  0  0  2  90  145
     Play#0 output Play#0 1   3  163 cs   cargo ship     0,-2   u  100%  20  20  20  25  0  0  0  1  90  145
     Play#0 output Play#0 1   4  164 cs   cargo ship     0,-2   u  100%  20  19  20  21  0  0  0  0  90  145
     Play#0 output Play#0 1   1  165 ls   landing shi    1,-1      100%   0  20   0  20  0  0  0  3  90  145
-    Play#0 output Play#0 1   1  166 cs   cargo ship     0,-2      100%  20  22  20   8  0  0  0  2  90  145
+    Play#0 output Play#0 1   1  166 cs   cargo ship     0,-2      100%  20  21  20   9  0  0  0  2  90  145
     Play#0 output Play#0 1   1  170 frg  frigate        1,-1      100%   0  20   0  20  0  0  0  2  90  145
     Play#0 output Play#0 1   1  171 sb   submarine      1,-1      100%   0  20   0  20  0  0  0  1  90  145
     Play#0 output Play#0 1   1  172 cs   cargo ship     1,-1      100%   0  20   0  20  0  0  0  1  90  145
@@ -2900,7 +2898,7 @@
     Play#0 output Play#0 1  163 cs      0,-2   u 100%  20  20  20   7  42   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  164 cs      0,-2   u 100%  20  19  20   7  42   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  165 ls      1,-1     100%   0  20   0   7   1   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1  166 cs      0,-2     100%  20  22  20   7  42   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  166 cs      0,-2     100%  20  21  20   7  42   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  170 frg     1,-1     100%   0  20   0   7   2   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  171 sb      1,-1     100%   0  20   0   7   2   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  172 cs      1,-1     100%   0  20   0   7   2   0   0   0   0   0   0   0   0
@@ -3235,6 +3233,7 @@
     Play#0 output Play#0 1   1  302 linf light infa    1,-1   t  100%   0   0  60   0  50  42%  0  0  170S
     Play#0 output Play#0 1   1  303 linf light infa    1,-1   t  100%   0   0  60   0  50  42%  0  0  153S
     Play#0 output Play#0 1   1  304 hat  hvy artill    1,-1   t  100%   0   0  60   0 100  42%  0  0  154S
+    Play#0 output Play#0 1   2  312 linf light infa    0,-2   u  100%   0   0  60   0  50  42%  0  0  162S
     Play#0 output Play#0 1   1  313 linf light infa    0,-2      100%   0   0  60   0  50  42%  0  0  166S
     Play#0 output Play#0 1   1  314 linf light infa    0,-2      100%   0   0  60   0  50  42%  0  0  166S
     Play#0 output Play#0 1   1  315 linf light infa    1,-1      100%   0   0  60   0  40  42%  0  0  165S
@@ -3248,7 +3247,7 @@
     Play#0 output Play#0 1   1  350 sup  supply        1,-1      100%   1   0  60   1  50  42%  0  0  200S
     Play#0 output Play#0 1   1  351 sup  supply        1,-1      100%  20   0  60   1  50  42%  0  0  200S
     Play#0 output Play#0 1   1  352 sup  supply        1,-1      100%   0   0  60   0  50  42%  0  0  201S
-    Play#0 output Play#0 1 142 units
+    Play#0 output Play#0 1 143 units
     Play#0 output Play#0 6 0 640
     Play#0 input lcarg *
     Play#0 command lcargo
@@ -3382,6 +3381,7 @@
     Play#0 output Play#0 1  302 linf    1,-1   t  100%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  303 linf    1,-1   t  100%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  304 hat     1,-1   t  100%   0   0   0   0   0   0   0   0   0   0   0   0   0
+    Play#0 output Play#0 1  312 linf    0,-2   u  100%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  313 linf    0,-2      100%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  314 linf    0,-2      100%   0   0   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  315 linf    1,-1      100%   0   0   0   0   0   0   0   0   0   0   0   0   0
@@ -3395,7 +3395,7 @@
     Play#0 output Play#0 1  350 sup     1,-1      100%   0   1   0   5   9   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  351 sup     1,-1      100%   0  20   0   0   0   0   0   0   0   0   0   0   0
     Play#0 output Play#0 1  352 sup     1,-1      100%   0   0   0   0  10   0   0   0   0   0   0   0   0
-    Play#0 output Play#0 1 142 units
+    Play#0 output Play#0 1 143 units
     Play#0 output Play#0 6 0 640
     Play#0 input read 0
     Play#0 command read
@@ -3414,7 +3414,6 @@
     Play#0 output Play#0 1 POGO linf light infantry #224 unloaded in your harbor at 0,0
     Play#0 output Play#0 1 POGO linf light infantry #34 loaded on your tra  train #54 at 8,0
     Play#0 output Play#0 1 POGO linf light infantry #254 unloaded in your harbor at 0,0
-    Play#0 output Play#0 1 POGO tended 1 military to cs   cargo ship (#166)
     Play#0 output Play#0 1 POGO tended 1 military to cs   cargo ship (#166)
     Play#0 output Play#0 1 POGO linf light infantry #313 loaded on your cs   cargo ship (#166) at 0,-2
     Play#0 output Play#0 1 POGO linf light infantry #314 loaded on your cs   cargo ship (#166) at 0,-2

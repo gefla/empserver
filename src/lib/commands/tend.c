@@ -85,7 +85,7 @@ tend(void)
 	return RET_SYN;
 
     while (nxtitem(&tenders, &tender)) {
-	if (!player->owner) {
+	if (!player->owner || !tender.shp_own) {
 	    if (tenders.sel == NS_LIST)
 		pr("You don't own ship #%d!\n", tender.shp_uid);
 	    continue;
@@ -195,6 +195,8 @@ tend(void)
 static int
 can_tend_to(struct shpstr *from, struct shpstr *to)
 {
+    if (!to->shp_own)
+	return 0;
     if (to->shp_own != player->cnum && !player->god
 	&& relations_with(to->shp_own, player->cnum) < FRIENDLY)
 	return 0;
@@ -227,7 +229,7 @@ tend_land(struct shpstr *tenderp, char *units)
 	return RET_SYN;
 
     while (nxtitem(&lni, &land)) {
-	if (!player->owner) {
+	if (!player->owner || !land.lnd_own) {
 	    if (lni.sel == NS_LIST)
 		pr("You don't own land unit #%d!\n", land.lnd_uid);
 	    continue;

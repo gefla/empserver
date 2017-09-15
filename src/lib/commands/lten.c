@@ -71,7 +71,7 @@ ltend(void)
     if (!snxtitem(&tenders, EF_SHIP, player->argp[2], "Tender(s)? "))
 	return RET_SYN;
     while (nxtitem(&tenders, &tender)) {
-	if (!player->owner) {
+	if (!player->owner || !tender.shp_own) {
 	    if (tenders.sel == NS_LIST)
 		pr("You don't own ship #%d!\n", tender.shp_uid);
 	    continue;
@@ -100,7 +100,7 @@ ltend(void)
 	    return RET_FAIL;
 	total = 0;
 	while (nxtitem(&targets, &target)) {
-	    if (!player->owner) {
+	    if (!player->owner || !target.lnd_own) {
 		if (targets.sel == NS_LIST)
 		    pr("You don't own land unit #%d!\n", target.lnd_uid);
 		continue;
