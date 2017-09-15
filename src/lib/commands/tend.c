@@ -41,6 +41,7 @@
 #include "plague.h"
 #include "ship.h"
 
+static int can_tend_to(struct shpstr *, struct shpstr *);
 static void expose_ship(struct shpstr *s1, struct shpstr *s2);
 static int tend_land(struct shpstr *tenderp, char *units);
 
@@ -134,23 +135,15 @@ tend(void)
 	    return RET_SYN;
 	total = 0;
 	while (nxtitem(&targets, &target)) {
-	    if (!player->owner
-		&& relations_with(target.shp_own, player->cnum) < FRIENDLY)
-		continue;
-	    if (target.shp_uid == tender.shp_uid)
-		continue;
-	    if (tender.shp_x != target.shp_x ||
-		tender.shp_y != target.shp_y)
-		continue;
 	    if (ip->i_uid == I_CIVIL && tender.shp_own != target.shp_own)
 		continue;
-	    ontarget = target.shp_item[ip->i_uid];
-	    vbase = &mchr[(int)target.shp_type];
-	    maxtarget = vbase->m_item[ip->i_uid];
 	    if (amt < 0) {
 		/* take from target and give to tender */
 		if (!player->owner)
 		    continue;
+		if (!can_tend_to(&target, &tender))
+		    continue;
+		ontarget = target.shp_item[ip->i_uid];
 		if (ontarget == 0) {
 		    pr("No %s on %s\n", ip->i_name, prship(&target));
 		    continue;
@@ -164,6 +157,11 @@ tend(void)
 		total += transfer;
 	    } else {
 		/* give to target from tender */
+		if (!can_tend_to(&tender, &target))
+		    continue;
+		ontarget = target.shp_item[ip->i_uid];
+		vbase = &mchr[(int)target.shp_type];
+		maxtarget = vbase->m_item[ip->i_uid];
 		transfer = MIN(ontender, amt);
 		transfer = MIN(transfer, maxtarget - ontarget);
 		if (transfer == 0)
@@ -192,6 +190,19 @@ tend(void)
 	putship(tender.shp_uid, &tender);
     }
     return RET_OK;
+}
+
+static int
+can_tend_to(struct shpstr *from, struct shpstr *to)
+{
+    if (to->shp_own != player->cnum && !player->god
+	&& relations_with(to->shp_own, player->cnum) < FRIENDLY)
+	return 0;
+    if (from->shp_uid == to->shp_uid)
+	return 0;
+    if (from->shp_x != to->shp_x || from->shp_y != to->shp_y)
+	return 0;
+    return 1;
 }
 
 static void
@@ -237,13 +248,7 @@ tend_land(struct shpstr *tenderp, char *units)
 	if (!check_ship_ok(tenderp) || !check_land_ok(&land))
 	    return RET_SYN;
 	while (nxtitem(&targets, &target)) {
-	    if (!player->owner
-		&& relations_with(target.shp_own, player->cnum) < FRIENDLY)
-		continue;
-	    if (target.shp_uid == tenderp->shp_uid)
-		continue;
-	    if (tenderp->shp_x != target.shp_x ||
-		tenderp->shp_y != target.shp_y)
+	    if (!can_tend_to(tenderp, &target))
 		continue;
 
 	    /* Fit unit on ship */
