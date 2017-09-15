@@ -227,8 +227,12 @@ tend_comm_to(struct shpstr *from, struct ichrstr *ip, int amt,
     int can_take = to_max - to->shp_item[ip->i_uid];
     int transfer;
 
-    if (ip->i_uid == I_CIVIL && from->shp_own != to->shp_own)
+    if (ip->i_uid == I_CIVIL && from->shp_own != to->shp_own) {
+	pr("%s civilians refuse to board %s!\n",
+	   from->shp_own == player->cnum ? "Your" : "Foreign",
+	   prship(to));
 	return 0;
+    }
     if (!can_give) {
 	pr("No %s on %s\n", ip->i_name, prship(from));
 	return 0;
