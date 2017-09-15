@@ -159,6 +159,8 @@ tend(void)
 		pr("%s out of %s\n", prship(&tender), ip->i_name);
 		break;
 	    }
+	    if (amt < 0 && tender.shp_item[ip->i_uid] == maxtender)
+		break;
 	}
 	pr("%d total %s transferred %s %s\n",
 	   total, ip->i_name, (amt > 0) ? "off of" : "to",
@@ -241,11 +243,13 @@ tend_comm_to(struct shpstr *from, struct ichrstr *ip, int amt,
 	pr("No %s on %s\n", ip->i_name, prship(from));
 	return 0;
     }
+    if (!can_take) {
+	pr("%s can't hold more %s\n", prship(to), ip->i_name);
+	return 0;
+    }
 
     transfer = MIN(can_give, amt);
     transfer = MIN(can_take, transfer);
-    if (transfer == 0)
-	return 0;
     from->shp_item[ip->i_uid] -= transfer;
     to->shp_item[ip->i_uid] += transfer;
     if (to->shp_own != player->cnum) {
