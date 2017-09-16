@@ -87,7 +87,7 @@ load(void)
     else if (NULL != (ich = item_by_name(p)))
 	type = EF_SECTOR;
     else {
-	pr("Can't load '%s'\n", p);
+	pr("Can't %sload '%s'\n", loading ? "" : "un", p);
 	return RET_SYN;
     }
 
@@ -216,7 +216,7 @@ lload(void)
     else if (NULL != (ich = item_by_name(p)))
 	type = EF_SECTOR;
     else {
-	pr("Can't load '%s'\n", p);
+	pr("Can't %sload '%s'\n", loading ? "" : "un", p);
 	return RET_SYN;
     }
 

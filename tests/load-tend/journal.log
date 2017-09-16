@@ -32,12 +32,12 @@
     Play#1 output Play#1 6 0 640
     Play#1 input unload x
     Play#1 command unload
-    Play#1 output Play#1 1 Can't load 'x'
+    Play#1 output Play#1 1 Can't unload 'x'
     Play#1 output Play#1 1 Usage: unload <COMM|"land"|"plane"> <SHIPS> <NUM|UNIT|PLANE>
     Play#1 output Play#1 6 0 640
     Play#1 input lunload x
     Play#1 command lunload
-    Play#1 output Play#1 1 Can't load 'x'
+    Play#1 output Play#1 1 Can't unload 'x'
     Play#1 output Play#1 1 Usage: lunload <COMM|"land"|"plane"> <UNITS> <NUM|UNITS|PLANES>
     Play#1 output Play#1 6 0 640
     Play#1 input load f -1

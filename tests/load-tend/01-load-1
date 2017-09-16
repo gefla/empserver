@@ -82,7 +82,6 @@ load x
 lload x
 unload x
 lunload x
-| odd: "Can't load" even for unload
 | invalid ship
 load f -1
 unload f -1
