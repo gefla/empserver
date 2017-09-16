@@ -2572,6 +2572,11 @@
     Play#1 output Play#1 6 0 368
     Play#1 input ltend f 200/201 0 350/351//352
     Play#1 command ltend
+    Play#1 output Play#1 1 Amount must be non-zero!
+    Play#1 output Play#1 1 Usage: ltend <COMM> <tender-SHIPS> <NUM> <UNITS>
+    Play#1 output Play#1 6 0 368
+    Play#1 input __cmd added 0 -1 0
+    Play#1 command __cmd
     Play#1 output Play#1 6 0 367
     Play#1 input ltend s 200/201 5 350/351/352
     Play#1 command ltend
@@ -2647,12 +2652,12 @@
     Play#1 input f
     Play#1 output Play#1 4 Tender(s)?
     Play#1 input 200/201
-    Play#1 output Play#1 4 Amount to transfer?
+    Play#1 output Play#1 4 Number of food to tend from cs   cargo ship (#200)?
     Play#1 input 1
     Play#1 output Play#1 4 Units to be tended?
     Play#1 input 350/351
     Play#1 output Play#1 1 2 total food transferred off of cs   cargo ship (#200)
-    Play#1 output Play#1 4 Amount to transfer?
+    Play#1 output Play#1 4 Number of food to tend from cs   cargo ship (#201)?
     Play#1 input -1
     Play#1 output Play#1 4 Units to be tended?
     Play#1 input 350

@@ -63,6 +63,7 @@ ltend(void)
     int transfer;
     int total;
     char *p;
+    char prompt[512];
     char buf[1024];
 
     if (!(ip = whatitem(player->argp[1], "Transfer what commodity? ")))
@@ -76,12 +77,19 @@ ltend(void)
 		pr("You don't own ship #%d!\n", tender.shp_uid);
 	    continue;
 	}
-	if (!(p = getstarg(player->argp[3], "Amount to transfer? ", buf)))
+	sprintf(prompt, "Number of %s to tend from %s? ",
+		ip->i_name, prship(&tender));
+	if (!(p = getstarg(player->argp[3], prompt, buf)))
 	    return RET_FAIL;
+	if (!*p)
+	    continue;
 	if (!check_ship_ok(&tender))
 	    return RET_FAIL;
-	if ((amt = atoi(p)) == 0)
-	    break;
+	amt = atoi(p);
+	if (!amt) {
+	    pr("Amount must be non-zero!\n");
+	    return RET_SYN;
+	}
 	ontender = tender.shp_item[ip->i_uid];
 	if (ontender == 0 && amt > 0) {
 	    pr("No %s on %s\n", ip->i_name, prship(&tender));

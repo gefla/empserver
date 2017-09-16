@@ -41,7 +41,7 @@ ltend c 200/201 1 350/352
 ltend h 200/201 1 350/352
 | zero amount:
 ltend f 200/201 0 350/351//352
-| usability: does nothing silently
+__cmd added 0 -1 0
 | more than the ship has
 ltend s 200/201 5 350/351/352
 | more than the land can hold
