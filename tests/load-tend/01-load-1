@@ -108,7 +108,6 @@ load f b 1
 realm 1 0:9,0:5
 load f #1 1
 load f 0:9,0:5 1
-| BUG: 0:9,0:5 loads friendly #92/93, unlike the other areas
 load f -1:9,0:5 1
 | load to desired level rather than an amount
 | list of own and foreign ships: #0/15/25/92/93 work
@@ -147,7 +146,6 @@ lload f D 1
 | area: none of army b works
 lload f #1 1 ?army=b
 lload f 0:9,0:5 1 ?army=b
-| BUG: 0:9,0:5 loads allied #92, unlike the other areas
 lload f -0:9,0:5 1 ?army=b
 |
 | load to desired level rather than an amount

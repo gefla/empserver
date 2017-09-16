@@ -95,10 +95,10 @@ load(void)
     if (!p || !*p)
 	return RET_SYN;
 
-    noisy = isdigit(*p);
-
     if (!snxtitem(&nbst, EF_SHIP, p, NULL))
 	return RET_SYN;
+
+    noisy = nbst.sel == NS_LIST;
 
     nships = 0;
     while (nxtitem(&nbst, &ship)) {
@@ -224,10 +224,10 @@ lload(void)
     if (!p || !*p)
 	return RET_SYN;
 
-    noisy = isdigit(*p);
-
     if (!snxtitem(&nbst, EF_LAND, p, NULL))
 	return RET_SYN;
+
+    noisy = nbst.sel == NS_LIST;
 
     nunits = 0;
     while (nxtitem(&nbst, &land)) {
@@ -399,8 +399,8 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     if (!still_ok_ship(sectp, sp))
 	return RET_SYN;
 
-    if (noisy && p && *p)
-	noisy = isdigit(*p);
+    if (noisy)
+	noisy = ni.sel == NS_LIST;
 
     while (nxtitem(&ni, &pln)) {
 	if (!player->owner)
@@ -526,8 +526,8 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     if (!still_ok_ship(sectp, sp))
 	return RET_SYN;
 
-    if (noisy && p && *p)
-	noisy = isdigit(*p);
+    if (noisy)
+	noisy = ni.sel == NS_LIST;
 
     while (nxtitem(&ni, &land)) {
 	if (!player->owner)
@@ -737,8 +737,8 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     if (!still_ok_land(sectp, lp))
 	return RET_SYN;
 
-    if (noisy && p && *p)
-	noisy = isdigit(*p);
+    if (noisy)
+	noisy = ni.sel == NS_LIST;
 
     while (nxtitem(&ni, &pln)) {
 	if (!player->owner)
@@ -895,8 +895,8 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     if (!still_ok_land(sectp, lp))
 	return RET_SYN;
 
-    if (noisy && p && *p)
-	noisy = isdigit(*p);
+    if (noisy)
+	noisy = ni.sel == NS_LIST;
 
     while (nxtitem(&ni, &land)) {
 	if (!player->owner)

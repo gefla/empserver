@@ -154,33 +154,9 @@
     Play#1 input load f 0:9,0:5 1
     Play#1 command load
     Play#1 output Play#1 1 1 food loaded onto ls   landing ship (#0) at 0,0
-    Play#1 output Play#1 1 You don't own 2,0
-    Play#1 output Play#1 1 You don't own 4,0
-    Play#1 output Play#1 1 You don't own 6,0
-    Play#1 output Play#1 1 The harbor at 1,1 is not 2% efficient yet.
-    Play#1 output Play#1 1 You don't own 3,1
-    Play#1 output Play#1 1 You don't own 5,1
-    Play#1 output Play#1 1 You don't own 7,1
-    Play#1 output Play#1 1 Sector 1,3 is not a harbor or canal.
     Play#1 output Play#1 1 1 food loaded onto ls   landing ship (#15) at 0,4
-    Play#1 output Play#1 1 You don't own 2,4
-    Play#1 output Play#1 1 You don't own 4,4
-    Play#1 output Play#1 1 You don't own 6,4
-    Play#1 output Play#1 1 The city at 1,5 is not 2% efficient yet.
-    Play#1 output Play#1 1 You don't own 3,5
-    Play#1 output Play#1 1 You don't own 5,5
-    Play#1 output Play#1 1 You don't own 7,5
     Play#1 output Play#1 1 1 food loaded onto fb   fishing boat (#25) at 0,4
-    Play#1 output Play#1 1 You don't own 2,4
-    Play#1 output Play#1 1 You don't own 4,4
-    Play#1 output Play#1 1 You don't own 6,4
-    Play#1 output Play#1 1 The city at 1,5 is not 2% efficient yet.
-    Play#1 output Play#1 1 You don't own 3,5
-    Play#1 output Play#1 1 You don't own 5,5
-    Play#1 output Play#1 1 You don't own 7,5
-    Play#1 output Play#1 1 1 food loaded onto ls   landing ship (#92) at 0,0
-    Play#1 output Play#1 1 1 food loaded onto ls   landing ship (#93) at 0,0
-    Play#1 output Play#1 1 5 ships loaded
+    Play#1 output Play#1 1 3 ships loaded
     Play#1 output Play#1 6 0 630
     Play#1 input load f -1:9,0:5 1
     Play#1 command load
@@ -216,8 +192,8 @@
     Play#1 output Play#1 1 You don't own 3,5
     Play#1 output Play#1 1 You don't own 5,5
     Play#1 output Play#1 1 You don't own 7,5
-    Play#1 output Play#1 1 4 food loaded onto ls   landing ship (#92) at 0,0
-    Play#1 output Play#1 1 4 food loaded onto ls   landing ship (#93) at 0,0
+    Play#1 output Play#1 1 5 food loaded onto ls   landing ship (#92) at 0,0
+    Play#1 output Play#1 1 5 food loaded onto ls   landing ship (#93) at 0,0
     Play#1 output Play#1 1 5 ships loaded
     Play#1 output Play#1 6 0 628
     Play#1 input load f a -7
@@ -393,8 +369,7 @@
     Play#1 output Play#1 6 0 612
     Play#1 input lload f 0:9,0:5 1 ?army=b
     Play#1 command lload
-    Play#1 output Play#1 1 1 food loaded onto tra  train #92 at 0,0
-    Play#1 output Play#1 1 1 unit loaded
+    Play#1 output Play#1 1 No units affected
     Play#1 output Play#1 6 0 611
     Play#1 input lload f -0:9,0:5 1 ?army=b
     Play#1 command lload
@@ -407,7 +382,7 @@
     Play#1 output Play#1 1 Sector 4,0 is not yours.
     Play#1 output Play#1 1 Sector 6,0 is not yours.
     Play#1 output Play#1 1 Sector 8,0 is not yours.
-    Play#1 output Play#1 1 4 food loaded onto tra  train #92 at 0,0
+    Play#1 output Play#1 1 5 food loaded onto tra  train #92 at 0,0
     Play#1 output Play#1 1 2 units loaded
     Play#1 output Play#1 6 0 609
     Play#1 input lload f a -7
@@ -3452,14 +3427,12 @@
     Play#0 output Play#0 1
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 1 loaded 1 food onto ls   landing ship (#92) at 0,0
-    Play#0 output Play#0 1 1 loaded 1 food onto ls   landing ship (#92) at 0,0
-    Play#0 output Play#0 1 1 loaded 4 food onto ls   landing ship (#92) at 0,0
+    Play#0 output Play#0 1 1 loaded 5 food onto ls   landing ship (#92) at 0,0
     Play#0 output Play#0 1 1 loaded 1 civilians onto cs   cargo ship (#85) at -2,0
     Play#0 output Play#0 1 1 loaded 1 food onto tra  train #92 at 0,0
     Play#0 output Play#0 1 1 loaded 1 food onto linf light infantry #222 at 0,0
     Play#0 output Play#0 1 1 loaded 1 food onto linf light infantry #252 at 0,0
-    Play#0 output Play#0 1 1 loaded 1 food onto tra  train #92 at 0,0
-    Play#0 output Play#0 1 1 loaded 4 food onto tra  train #92 at 0,0
+    Play#0 output Play#0 1 1 loaded 5 food onto tra  train #92 at 0,0
     Play#0 output Play#0 1 1 loaded 5 food onto linf light infantry #222 at 0,0
     Play#0 output Play#0 1 1 loaded 5 food onto linf light infantry #252 at 0,0
     Play#0 output Play#0 1 1 unloaded 3 military from ls   landing ship (#1) at 2,0
@@ -3525,8 +3498,7 @@
     Play#0 output Play#0 1
     Play#0 output Play#0 1 > BULLETIN from POGO, (#0)  dated Thu Jan  1 00:00:00 1970
     Play#0 output Play#0 1 1 loaded 1 food onto ls   landing ship (#93) at 0,0
-    Play#0 output Play#0 1 1 loaded 1 food onto ls   landing ship (#93) at 0,0
-    Play#0 output Play#0 1 1 loaded 4 food onto ls   landing ship (#93) at 0,0
+    Play#0 output Play#0 1 1 loaded 5 food onto ls   landing ship (#93) at 0,0
     Play#0 output Play#0 1 1 unloaded 3 military from ls   landing ship (#2) at 4,0
     Play#0 output Play#0 1 1 unloaded 3 military from ls   landing ship (#17) at 4,4
     Play#0 output Play#0 1 1 unloaded 3 military from fb   fishing boat (#27) at 4,4
