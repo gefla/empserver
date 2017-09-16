@@ -30,7 +30,7 @@
  *     David Sharnoff, 1987
  *     Ken Stevens, 1995 (rewritten)
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2017
  */
 
 #include <config.h>
@@ -45,32 +45,26 @@
 #include "ship.h"
 #include "unit.h"
 
-/*
- * The values 1 and -1 are important below, don't change them.
- */
-#define LOAD	1
-#define UNLOAD	-1
-
 static int load_plane_ship(struct sctstr *sectp, struct shpstr *sp,
-			   int noisy, int load_unload, int *nshipsp);
+			   int noisy, int loading, int *nshipsp);
 static int load_land_ship(struct sctstr *sectp, struct shpstr *sp,
-			  int noisy, int load_unload, int *nshipsp);
+			  int noisy, int loading, int *nshipsp);
 static int load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
-			  struct ichrstr *ich, int load_unload,
+			  struct ichrstr *ich, int loading,
 			  int *nshipsp);
 static int load_plane_land(struct sctstr *sectp, struct lndstr *lp,
-			   int noisy, int load_unload, int *nunitsp);
+			   int noisy, int loading, int *nunitsp);
 static int load_land_land(struct sctstr *sectp, struct lndstr *lp,
-			  int noisy, int load_unload, int *nunitsp);
+			  int noisy, int loading, int *nunitsp);
 static int load_comm_land(struct sctstr *sectp, struct lndstr *lp,
-			  struct ichrstr *ich, int load_unload,
+			  struct ichrstr *ich, int loading,
 			  int *nunitsp);
 
 int
 load(void)
 {
+    int loading = **player->argp == 'l';
     int noisy;
-    int load_unload;
     int type;
     struct nstr_item nbst;
     struct ichrstr *ich;
@@ -106,14 +100,12 @@ load(void)
     if (!snxtitem(&nbst, EF_SHIP, p, NULL))
 	return RET_SYN;
 
-    load_unload = **player->argp == 'l' ? LOAD : UNLOAD;
-
     nships = 0;
     while (nxtitem(&nbst, &ship)) {
 	if (!ship.shp_own)
 	    continue;
 	if (!player->owner) {
-	    if (load_unload == UNLOAD || !noisy)
+	    if (!loading || !noisy)
 		continue;
 	    if (relations_with(ship.shp_own, player->cnum) < FRIENDLY)
 		continue;
@@ -128,7 +120,7 @@ load(void)
 		continue;
 	    if (!sect_has_dock(&sect))
 		continue;
-	    if (load_unload == LOAD) {
+	    if (loading) {
 		if (noisy)
 		    pr("You don't own %s\n",
 		       xyas(sect.sct_x, sect.sct_y, player->cnum));
@@ -141,7 +133,7 @@ load(void)
 		   xyas(sect.sct_x, sect.sct_y, player->cnum));
 	    continue;
 	}
-	if (load_unload == UNLOAD
+	if (!loading
 	    && !player->owner
 	    && relations_with(sect.sct_own, player->cnum) < FRIENDLY) {
 	    if (noisy)
@@ -166,20 +158,17 @@ load(void)
 
 	switch (type) {
 	case EF_PLANE:
-	    retval = load_plane_ship(&sect, &ship, noisy, load_unload,
-				     &nships);
+	    retval = load_plane_ship(&sect, &ship, noisy, loading, &nships);
 	    if (retval != 0)
 		return retval;
 	    break;
 	case EF_LAND:
-	    retval = load_land_ship(&sect, &ship, noisy, load_unload,
-				    &nships);
+	    retval = load_land_ship(&sect, &ship, noisy, loading, &nships);
 	    if (retval != 0)
 		return retval;
 	    break;
 	case EF_SECTOR:
-	    retval = load_comm_ship(&sect, &ship, ich, load_unload,
-				    &nships);
+	    retval = load_comm_ship(&sect, &ship, ich, loading, &nships);
 	    if (retval != 0)
 		return retval;
 	}
@@ -197,15 +186,15 @@ load(void)
 	pr("No ships affected\n");
     else
 	pr("%d ship%s %sloaded\n", nships, splur(nships),
-	   load_unload == UNLOAD ? "un" : "");
+	   loading ? "" : "un");
     return RET_OK;
 }
 
 int
 lload(void)
 {
+    int loading = player->argp[0][1] == 'l';
     int noisy;
-    int load_unload;
     int type;
     struct nstr_item nbst;
     struct ichrstr *ich;
@@ -240,14 +229,12 @@ lload(void)
     if (!snxtitem(&nbst, EF_LAND, p, NULL))
 	return RET_SYN;
 
-    load_unload = player->argp[0][1] == 'l' ? LOAD : UNLOAD;
-
     nunits = 0;
     while (nxtitem(&nbst, &land)) {
 	if (land.lnd_own == 0)
 	    continue;
 	if (!player->owner) {
-	    if (load_unload == UNLOAD || !noisy)
+	    if (!loading || !noisy)
 		continue;
 	    if (relations_with(land.lnd_own, player->cnum) != ALLIED)
 		continue;
@@ -258,7 +245,7 @@ lload(void)
 	if (!player->owner) {
 	    if (land.lnd_own != player->cnum)
 		continue;
-	    if (load_unload == LOAD) {
+	    if (loading) {
 		if (noisy)
 		    pr("Sector %s is not yours.\n",
 		       xyas(sect.sct_x, sect.sct_y, player->cnum));
@@ -280,20 +267,17 @@ lload(void)
 
 	switch (type) {
 	case EF_LAND:
-	    retval = load_land_land(&sect, &land, noisy, load_unload,
-				    &nunits);
+	    retval = load_land_land(&sect, &land, noisy, loading, &nunits);
 	    if (retval != 0)
 		return retval;
 	    break;
 	case EF_PLANE:
-	    retval = load_plane_land(&sect, &land, noisy, load_unload,
-				     &nunits);
+	    retval = load_plane_land(&sect, &land, noisy, loading, &nunits);
 	    if (retval != 0)
 		return retval;
 	    break;
 	case EF_SECTOR:
-	    retval = load_comm_land(&sect, &land, ich, load_unload,
-				    &nunits);
+	    retval = load_comm_land(&sect, &land, ich, loading, &nunits);
 	    if (retval != 0)
 		return retval;
 	}
@@ -312,20 +296,20 @@ lload(void)
 	pr("No units affected\n");
     else
 	pr("%d unit%s %sloaded\n", nunits, splur(nunits),
-	   load_unload == UNLOAD ? "un" : "");
+	   loading ? "" : "un");
     return RET_OK;
 }
 
 static int
 move_amount(int sect_amt, int unit_amt, int unit_max,
-	   int load_unload, int amount)
+	   int loading, int amount)
 {
     int move_amt;
 
     if (amount < 0)
 	move_amt = -amount - unit_amt;
     else
-	move_amt = load_unload == LOAD ? amount : -amount;
+	move_amt = loading ? amount : -amount;
     move_amt = LIMIT_TO(move_amt, -unit_amt, unit_max - unit_amt);
     move_amt = LIMIT_TO(move_amt, sect_amt - ITEM_MAX, sect_amt);
     return move_amt;
@@ -382,7 +366,7 @@ still_ok_land(struct sctstr *sectp, struct lndstr *landp)
 
 static int
 load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
-		int load_unload, int *nshipsp)
+		int loading, int *nshipsp)
 {
     struct nstr_item ni;
     struct plnstr pln;
@@ -397,7 +381,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    pr("%s cannot carry planes\n", prship(sp));
 	return 0;
     }
-    if (load_unload == LOAD &&
+    if (loading &&
 	shp_nplane(sp, NULL, NULL, NULL)
 		>= mcp->m_nchoppers + mcp->m_nxlight + mcp->m_nplanes) {
 	if (noisy)
@@ -405,7 +389,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	return 0;
     }
     sprintf(prompt, "Plane(s) to %s %s? ",
-	    load_unload == LOAD ? "load onto" : "unload from", prship(sp));
+	    loading ? "load onto" : "unload from", prship(sp));
     p = getstarg(player->argp[3], prompt, buf);
     if (!p)
 	return RET_SYN;
@@ -430,13 +414,13 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		pr("You can only load light planes, helos, xtra-light, or missiles onto ships.\n");
 	    continue;
 	}
-	if (load_unload == LOAD && pln.pln_ship > -1) {
+	if (loading && pln.pln_ship > -1) {
 	    if (noisy)
 		pr("%s is already on ship #%d!\n",
 		   prplane(&pln), pln.pln_ship);
 	    continue;
 	}
-	if (load_unload == LOAD && pln.pln_land > -1) {
+	if (loading && pln.pln_land > -1) {
 	    if (noisy)
 		pr("%s is already on land unit #%d!\n",
 		   prplane(&pln), pln.pln_land);
@@ -449,7 +433,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    continue;
 	}
 
-	if (load_unload == UNLOAD) {
+	if (!loading) {
 	    if (pln.pln_ship != sp->shp_uid)
 		continue;
 	} else if (sp->shp_x != pln.pln_x || sp->shp_y != pln.pln_y)
@@ -470,7 +454,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    continue;
 	}
 	/* Fit plane on ship */
-	if (load_unload == LOAD) {
+	if (loading) {
 	    if (!put_plane_on_ship(&pln, sp)) {
 		if (noisy)
 		    pr("Can't put plane %d on this ship!\n", pln.pln_uid);
@@ -490,8 +474,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	}
 	pr("%s %s %s at %s.\n",
 	   prplane(&pln),
-	   (load_unload == UNLOAD) ?
-	   "unloaded from" : "loaded onto",
+	   loading ? "loaded onto" : "unloaded from",
 	   prship(sp), xyas(sp->shp_x, sp->shp_y, player->cnum));
 	loaded = 1;
     }
@@ -501,7 +484,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 
 static int
 load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
-	       int load_unload, int *nshipsp)
+	       int loading, int *nshipsp)
 {
     struct nstr_item ni;
     struct lndstr land;
@@ -511,7 +494,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     char buf[1024];
     int load_spy = 0;
 
-    if (load_unload == LOAD) {
+    if (loading) {
 	if ((mchr[(int)sp->shp_type].m_flags & M_SUB) &&
 	    (mchr[(int)sp->shp_type].m_nland == 0)) {
 	    if (shp_nland(sp) >= 2) {
@@ -533,7 +516,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	}
     }
     sprintf(prompt, "Land unit(s) to %s %s? ",
-	    load_unload == LOAD ? "load onto" : "unload from", prship(sp));
+	    loading ? "load onto" : "unload from", prship(sp));
     p = getstarg(player->argp[3], prompt, buf);
     if (!p)
 	return RET_SYN;
@@ -550,7 +533,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	if (!player->owner)
 	    continue;
 
-	if (load_unload == LOAD) {
+	if (loading) {
 	    if (land.lnd_ship > -1) {
 		if (noisy)
 		    pr("%s is already on ship #%d!\n",
@@ -583,7 +566,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 
 	/* Unit sanity done */
 	/* Find the right ship */
-	if (load_unload == UNLOAD) {
+	if (!loading) {
 	    if (land.lnd_ship != sp->shp_uid)
 		continue;
 	    if (land.lnd_land > -1)
@@ -602,7 +585,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    continue;
 	}
 	/* Fit unit on ship */
-	if (load_unload == LOAD) {
+	if (loading) {
 	    /* We have to check again, since it may have changed */
 	    if ((mchr[(int)sp->shp_type].m_flags & M_SUB) &&
 		(mchr[(int)sp->shp_type].m_nland == 0)) {
@@ -654,8 +637,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	}
 	pr("%s %s %s at %s.\n",
 	   prland(&land),
-	   (load_unload == UNLOAD) ?
-	   "unloaded from" : "loaded onto",
+	   loading ? "loaded onto" : "unloaded from",
 	   prship(sp), xyas(sp->shp_x, sp->shp_y, player->cnum));
 	loaded = 1;
     }
@@ -665,7 +647,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 
 static int
 load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
-	       struct ichrstr *ich, int load_unload, int *nshipsp)
+	       struct ichrstr *ich, int loading, int *nshipsp)
 {
     i_type item = ich->i_uid;
     struct mchrstr *mcp = &mchr[(int)sp->shp_type];
@@ -676,8 +658,7 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 
     sprintf(prompt, "Number of %s to %s %s at %s? ",
 	    ich->i_name,
-	    (load_unload == UNLOAD) ?
-	    "unload from" : "load onto",
+	    loading ? "load onto" : "unload from",
 	    prship(sp), xyas(sp->shp_x, sp->shp_y, player->cnum));
     p = getstarg(player->argp[3], prompt, buf);
     if (!p || !*p)
@@ -689,7 +670,7 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
     ship_amt = sp->shp_item[item];
     sect_amt = sectp->sct_item[item];
     move_amt = move_amount(sect_amt, ship_amt, mcp->m_item[item],
-			   load_unload, atoi(p));
+			   loading, atoi(p));
     if (!load_comm_ok(sectp, sp->shp_own, item, move_amt))
 	return RET_OK;
     if (!abandon_askyn(sectp, item, move_amt, NULL))
@@ -724,7 +705,7 @@ load_comm_ship(struct sctstr *sectp, struct shpstr *sp,
 
 static int
 load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
-		int load_unload, int *nunitsp)
+		int loading, int *nunitsp)
 {
     struct nstr_item ni;
     struct plnstr pln;
@@ -739,14 +720,14 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    pr("%s cannot carry extra-light planes.\n", prland(lp));
 	return 0;
     }
-    if (load_unload == LOAD && lnd_nxlight(lp) >= lcp->l_nxlight) {
+    if (loading && lnd_nxlight(lp) >= lcp->l_nxlight) {
 	if (noisy)
 	    pr("%s doesn't have room for any more extra-light planes\n",
 	       prland(lp));
 	return 0;
     }
     sprintf(prompt, "Plane(s) to %s %s? ",
-	    load_unload == LOAD ? "load onto" : "unload from", prland(lp));
+	    loading ? "load onto" : "unload from", prland(lp));
     p = getstarg(player->argp[3], prompt, buf);
     if (!p)
 	return RET_SYN;
@@ -769,13 +750,13 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    continue;
 	}
 
-	if (load_unload == LOAD && pln.pln_ship > -1) {
+	if (loading && pln.pln_ship > -1) {
 	    if (noisy)
 		pr("%s is already on ship #%d!\n",
 		   prplane(&pln), pln.pln_ship);
 	    continue;
 	}
-	if (load_unload == LOAD && pln.pln_land > -1) {
+	if (loading && pln.pln_land > -1) {
 	    if (noisy)
 		pr("%s is already on unit #%d!\n",
 		   prplane(&pln), pln.pln_land);
@@ -790,14 +771,14 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 
 	/* Plane sanity done */
 	/* Find the right unit */
-	if (load_unload == UNLOAD) {
+	if (!loading) {
 	    if (pln.pln_land != lp->lnd_uid)
 		continue;
 	} else if (lp->lnd_x != pln.pln_x || lp->lnd_y != pln.pln_y)
 	    continue;
 
 	/* Fit plane on unit */
-	if (load_unload == LOAD) {
+	if (loading) {
 	    if (!put_plane_on_land(&pln, lp)) {
 		if (noisy)
 		    pr("Can't put plane %d on this unit!\n", pln.pln_uid);
@@ -816,8 +797,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	}
 	pr("%s %s %s at %s.\n",
 	   prplane(&pln),
-	   (load_unload == UNLOAD) ?
-	   "unloaded from" : "loaded onto",
+	   loading ? "loaded onto" : "unloaded from",
 	   prland(lp), xyas(lp->lnd_x, lp->lnd_y, player->cnum));
 	loaded = 1;
     }
@@ -827,7 +807,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 
 static int
 load_comm_land(struct sctstr *sectp, struct lndstr *lp,
-	       struct ichrstr *ich, int load_unload, int *nunitsp)
+	       struct ichrstr *ich, int loading, int *nunitsp)
 {
     i_type item = ich->i_uid;
     struct lchrstr *lcp = &lchr[(int)lp->lnd_type];
@@ -838,8 +818,7 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 
     sprintf(prompt, "Number of %s to %s %s at %s? ",
 	    ich->i_name,
-	    (load_unload == UNLOAD) ?
-	    "unload from" : "load onto",
+	    loading ? "load onto" : "unload from",
 	    prland(lp), xyas(lp->lnd_x, lp->lnd_y, player->cnum));
     p = getstarg(player->argp[3], prompt, buf);
     if (!p || !*p)
@@ -851,7 +830,7 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
     land_amt = lp->lnd_item[item];
     sect_amt = sectp->sct_item[item];
     move_amt = move_amount(sect_amt, land_amt, lcp->l_item[item],
-			   load_unload, atoi(p));
+			   loading, atoi(p));
     if (!load_comm_ok(sectp, lp->lnd_own, item, move_amt))
 	return RET_OK;
     sectp->sct_item[item] = sect_amt - move_amt;
@@ -886,7 +865,7 @@ load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 
 static int
 load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
-	       int load_unload, int *nunitsp)
+	       int loading, int *nunitsp)
 {
     struct nstr_item ni;
     struct lndstr land;
@@ -895,8 +874,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     char prompt[512];
     char buf[1024];
 
-    if (load_unload == LOAD
-	&& lnd_nland(lp) >= lchr[lp->lnd_type].l_nland) {
+    if (loading && lnd_nland(lp) >= lchr[lp->lnd_type].l_nland) {
 	if (noisy) {
 	    if (lchr[lp->lnd_type].l_nland)
 		pr("%s doesn't have room for any more land units!\n",
@@ -907,7 +885,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	return 0;
     }
     sprintf(prompt, "Land unit(s) to %s %s? ",
-	    load_unload == LOAD ? "load onto" : "unload from", prland(lp));
+	    loading ? "load onto" : "unload from", prland(lp));
     p = getstarg(player->argp[3], prompt, buf);
     if (!p)
 	return RET_SYN;
@@ -924,7 +902,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	if (!player->owner)
 	    continue;
 
-	if (load_unload == LOAD) {
+	if (loading) {
 	    if (land.lnd_ship > -1) {
 		if (noisy)
 		    pr("%s is already on ship #%d!\n",
@@ -957,7 +935,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 
 	/* Unit sanity done */
 	/* Find the right ship */
-	if (load_unload == UNLOAD) {
+	if (!loading) {
 	    if (land.lnd_land != lp->lnd_uid)
 		continue;
 	    if (land.lnd_ship > -1)
@@ -966,7 +944,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	    continue;
 
 	/* Fit unit on ship */
-	if (load_unload == LOAD) {
+	if (loading) {
 	    if (lnd_nland(lp) >= lchr[lp->lnd_type].l_nland) {
 		if (noisy) {
 		    if (lchr[lp->lnd_type].l_nland)
@@ -1001,8 +979,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	}
 	pr("%s %s %s at %s.\n",
 	   prland(&land),
-	   (load_unload == UNLOAD) ?
-	   "unloaded from" : "loaded onto",
+	   loading ? "loaded onto" : "unloaded from",
 	   prland(lp), xyas(lp->lnd_x, lp->lnd_y, player->cnum));
 	loaded = 1;
     }
