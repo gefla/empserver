@@ -105,8 +105,6 @@ struct mchrstr {
 #define M_TORP		bit(1)	/* fire torpedoes */
 #define M_DCH		bit(2)	/* drop depth charges on subs */
 #define M_FLY		bit(3)	/* launch and recover planes */
-/* M_MSL will be automatically set in init_mchr() if m_nplanes > 0
-   and M_FLY is not set */
 #define M_MSL		bit(4)	/* launch missiles */
 #define M_OIL		bit(5)	/* drill for oil */
 #define M_SONAR		bit(6)	/* locate submarines */
