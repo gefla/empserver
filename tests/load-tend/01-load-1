@@ -520,8 +520,6 @@ unload land b B
 | not capable
 load land 25
 unload land 25
-*
-| odd: prompts for lands, unlike unload plane
 | no room
 load land 115
 |
@@ -577,8 +575,6 @@ lunload land b D
 | not capable
 lload land 0
 lunload land 0
-*
-| odd: prompts for lands, unlike unload plane
 | while on a ship or land
 | TODO need a non-heavy land that can carry lands to test this
 | no room

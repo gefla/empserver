@@ -1705,8 +1705,7 @@
     Play#1 output Play#1 6 0 456
     Play#1 input unload land 25
     Play#1 command unload
-    Play#1 output Play#1 4 Land unit(s) to unload from fb   fishing boat (#25)?
-    Play#1 input *
+    Play#1 output Play#1 1 fb   fishing boat (#25) cannot carry land units!
     Play#1 output Play#1 1 No ships affected
     Play#1 output Play#1 6 0 455
     Play#1 input load land 115
@@ -1843,8 +1842,7 @@
     Play#1 output Play#1 6 0 434
     Play#1 input lunload land 0
     Play#1 command lunload
-    Play#1 output Play#1 4 Land unit(s) to unload from linf light infantry #0?
-    Play#1 input *
+    Play#1 output Play#1 1 linf light infantry #0 cannot carry land units!
     Play#1 output Play#1 1 No units affected
     Play#1 output Play#1 6 0 433
     Play#1 input lload land 115

@@ -494,6 +494,12 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     char buf[1024];
     int load_spy = 0;
 
+    if (!mchr[(int)sp->shp_type].m_nland
+	&& !(mchr[sp->shp_type].m_flags & M_SUB)) {
+	if (noisy)
+	    pr("%s cannot carry land units!\n", prship(sp));
+	return 0;
+    }
     if (loading) {
 	if ((mchr[(int)sp->shp_type].m_flags & M_SUB) &&
 	    (mchr[(int)sp->shp_type].m_nland == 0)) {
@@ -506,11 +512,8 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	}
 	if (!load_spy && shp_nland(sp) >= mchr[sp->shp_type].m_nland) {
 	    if (noisy) {
-		if (mchr[(int)sp->shp_type].m_nland)
-		    pr("%s doesn't have room for any more land units!\n",
-		       prship(sp));
-		else
-		    pr("%s cannot carry land units!\n", prship(sp));
+		pr("%s doesn't have room for any more land units!\n",
+		   prship(sp));
 	    }
 	    return 0;
 	}
@@ -874,14 +877,15 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     char prompt[512];
     char buf[1024];
 
+    if (!lchr[lp->lnd_type].l_nland) {
+	if (noisy)
+	    pr("%s cannot carry land units!\n", prland(lp));
+	return 0;
+    }
     if (loading && lnd_nland(lp) >= lchr[lp->lnd_type].l_nland) {
-	if (noisy) {
-	    if (lchr[lp->lnd_type].l_nland)
-		pr("%s doesn't have room for any more land units!\n",
-		   prland(lp));
-	    else
-		pr("%s cannot carry land units!\n", prland(lp));
-	}
+	if (noisy)
+	    pr("%s doesn't have room for any more land units!\n",
+	       prland(lp));
 	return 0;
     }
     sprintf(prompt, "Land unit(s) to %s %s? ",
