@@ -230,7 +230,7 @@ branch, then reset your master to match the origin's:
     $ git branch work
     $ git reset --hard origin/master
 
-Pull update's from origin into your master:
+Pull updates from origin into your master:
 
     $ git pull
 
