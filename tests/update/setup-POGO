@@ -121,11 +121,11 @@ edit u 25 U 24 T spy
 | win shootout in loyal sector (no takeover)
 edit l -10,-8 x 20 X 4
 give m -10,-8 10
-| lose shootout, linf#28 survives
+| lose shootout, linf#28 dies
 edit l -8,-8 x 22 X 4 O 2 l 50
 give m -8,-8 1
-edit u 20 U 28 L -8,-8 T linf m 20
-| lose shootout, inf#29 dies
+edit u 20 U 28 L -8,-8 T linf e 15 m 20
+| lose shootout, inf#29 survives
 edit l -6,-8 x 52 X 4 O 2 l 50
 edit u 20 U 29 L -6,-8 e 40 m 50
 | military to direct moving che
