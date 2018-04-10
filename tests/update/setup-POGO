@@ -116,7 +116,7 @@ edit u 0 U 20 L -16,-8 O 4 f 10 U 21 L -14,-8 U 23 U 22 m 1
 | sec#25 raids, #27 doesn't
 edit l -12,-8 x 200 X 4 l 50
 give m -12,-8 10
-edit u 20 U 26 L -12,-8 m 20 U 25 T sec U 27 e 10
+edit u 20 U 26 L -12,-8 m 5 U 25 T sec m 45 U 27 e 10 m 10
 edit u 25 U 24 T spy
 | win shootout in loyal sector (no takeover)
 edit l -10,-8 x 20 X 4

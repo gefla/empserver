@@ -39,6 +39,8 @@ tester@127.0.0.1 logged in as country #0
 Triggering unscheduled update
 production update (60 ETUs)
 preparing sectors...
+Oops: taken < mc in ../src/lib/update/revolt.c:471
+Crash dump complete
 done preparing sectors.
 producing for countries...
 done producing for countries.
