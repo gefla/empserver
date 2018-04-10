@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1986
  *     Steve McClure, 1997-2000
- *     Markus Armbruster, 2004-2016
+ *     Markus Armbruster, 2004-2018
  */
 
 #include <config.h>
@@ -455,26 +455,26 @@ take_casualties(struct sctstr *sp, int mc)
     each = (mc - taken) / nunits + 2;
 
     /* kill some security troops */
-    taken += take_casualties_from_lands(sp, MIN(each, mc - taken), 1, 0);
+    taken += take_casualties_from_lands(sp, mc - taken, each, 1);
 
     /* kill some normal troops */
-    taken += take_casualties_from_lands(sp, MIN(each, mc - taken), 0, 0);
+    taken += take_casualties_from_lands(sp, mc - taken, each, 0);
 
     /* Hmm.. still some left.. kill off units now */
     /* kill some normal troops */
-    taken += take_casualties_from_lands(sp, MIN(each, mc - taken), 0, 1);
+    taken += take_casualties_from_lands(sp, mc - taken, -1, 0);
 
     /* Hmm.. still some left.. kill off units now */
     /* kill some security troops */
-    taken += take_casualties_from_lands(sp, MIN(each, mc - taken), 1, 1);
+    taken += take_casualties_from_lands(sp, mc - taken, -1, 1);
 
     CANT_HAPPEN(taken < mc);
     return taken;
 }
 
 int
-take_casualties_from_lands(struct sctstr *sp, int cas,
-			   int security, int may_kill)
+take_casualties_from_lands(struct sctstr *sp, int cas, int each,
+			   int security)
 {
     struct nstr_item ni;
     struct lndstr *lp;
@@ -495,9 +495,11 @@ take_casualties_from_lands(struct sctstr *sp, int cas,
 
 	eff_per_cas = 100.0 / lchr[lp->lnd_type].l_item[I_MILIT];
 	cantake = lp->lnd_item[I_MILIT];
-	if (!may_kill)
+	if (each >= 0) {
+	    cantake = MIN(cantake, each);
 	    cantake = MIN(cantake,
 			  (int)((lp->lnd_effic - 40) / eff_per_cas));
+	}
 	deq = MIN(cantake, cas - taken);
 	if (deq <= 0)
 	    continue;
@@ -507,7 +509,7 @@ take_casualties_from_lands(struct sctstr *sp, int cas,
 	lp->lnd_mobil -= deq * eff_per_cas / 2;
 	lnd_submil(lp, deq);
 	if (lp->lnd_effic < LAND_MINEFF) {
-	    CANT_HAPPEN(!may_kill);
+	    CANT_HAPPEN(each >= 0);
 	    taken += lp->lnd_item[I_MILIT];
 	    lnd_dies_fighting_che(lp);
 	}
