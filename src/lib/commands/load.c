@@ -589,21 +589,18 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	}
 	/* Fit unit on ship */
 	if (loading) {
-	    /* We have to check again, since it may have changed */
-	    if ((mchr[(int)sp->shp_type].m_flags & M_SUB) &&
-		(mchr[(int)sp->shp_type].m_nland == 0)) {
+	    if (load_spy) {
 		if (shp_nland(sp) >= 2) {
 		    pr("Non-land unit carrying subs can only carry up to two spy units.\n");
 		    return 0;
 		}
-		/* Eh, let 'em load a spy only */
-		load_spy = 1;
-	    }
-	    if (!load_spy && shp_nland(sp) >= mchr[sp->shp_type].m_nland) {
-		if (noisy)
-		    pr("%s doesn't have room for any more land units!\n",
-		       prship(sp));
-		return 0;
+	    } else {
+		if (shp_nland(sp) >= mchr[sp->shp_type].m_nland) {
+		    if (noisy)
+			pr("%s doesn't have room for any more land units!\n",
+			   prship(sp));
+		    return 0;
+		}
 	    }
 	    sprintf(buf, "loaded on your %s at %s",
 		    prship(sp), xyas(sp->shp_x, sp->shp_y, sp->shp_own));
