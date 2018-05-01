@@ -30,7 +30,7 @@
  *     David Sharnoff, 1987
  *     Ken Stevens, 1995 (rewritten)
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2017
+ *     Markus Armbruster, 2004-2018
  */
 
 #include <config.h>
@@ -600,13 +600,9 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		load_spy = 1;
 	    }
 	    if (!load_spy && shp_nland(sp) >= mchr[sp->shp_type].m_nland) {
-		if (noisy) {
-		    if (mchr[(int)sp->shp_type].m_nland)
-			pr("%s doesn't have room for any more land units!\n",
-			   prship(sp));
-		    else
-			pr("%s cannot carry land units!\n", prship(sp));
-		}
+		if (noisy)
+		    pr("%s doesn't have room for any more land units!\n",
+		       prship(sp));
 		return 0;
 	    }
 	    sprintf(buf, "loaded on your %s at %s",
@@ -950,13 +946,9 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	/* Fit unit on ship */
 	if (loading) {
 	    if (lnd_nland(lp) >= lchr[lp->lnd_type].l_nland) {
-		if (noisy) {
-		    if (lchr[lp->lnd_type].l_nland)
-			pr("%s doesn't have room for any more land units!\n",
-			   prland(lp));
-		    else
-			pr("%s cannot carry land units!\n", prland(lp));
-		}
+		if (noisy)
+		    pr("%s doesn't have room for any more land units!\n",
+		       prland(lp));
 		break;
 	    }
 	    sprintf(buf, "loaded on your %s at %s",
