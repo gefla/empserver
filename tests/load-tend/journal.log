@@ -456,9 +456,6 @@
     Play#1 input lunload f a -9
     Play#1 command lunload
     Play#1 output Play#1 1 1 food loaded onto tra  train #50 at 0,0
-    Play#1 output Play#1 1 Sector 4,0 is not yours.
-    Play#1 output Play#1 1 Sector 6,0 is not yours.
-    Play#1 output Play#1 1 Sector 8,0 is not yours.
     Play#1 output Play#1 1 1 unit unloaded
     Play#1 output Play#1 6 0 602
     Play#1 input lunload f b -9
@@ -497,34 +494,15 @@
     Play#1 input lunload f B -9
     Play#1 command lunload
     Play#1 output Play#1 1 1 food loaded onto linf light infantry #180 at 0,0
-    Play#1 output Play#1 1 Sector 4,0 is not yours.
-    Play#1 output Play#1 1 Sector 6,0 is not yours.
-    Play#1 output Play#1 1 Sector 8,0 is not yours.
     Play#1 output Play#1 1 1 food loaded onto linf light infantry #185 at 1,1
-    Play#1 output Play#1 1 Sector 5,1 is not yours.
-    Play#1 output Play#1 1 Sector 7,1 is not yours.
-    Play#1 output Play#1 1 Sector 9,1 is not yours.
     Play#1 output Play#1 1 1 food loaded onto linf light infantry #190 at 1,3
-    Play#1 output Play#1 1 Sector 5,3 is not yours.
-    Play#1 output Play#1 1 Sector 7,3 is not yours.
-    Play#1 output Play#1 1 Sector 9,3 is not yours.
     Play#1 output Play#1 1 1 food loaded onto linf light infantry #195 at 0,4
-    Play#1 output Play#1 1 Sector 4,4 is not yours.
-    Play#1 output Play#1 1 Sector 6,4 is not yours.
-    Play#1 output Play#1 1 Sector 8,4 is not yours.
     Play#1 output Play#1 1 1 food loaded onto linf light infantry #200 at 1,5
-    Play#1 output Play#1 1 Sector 5,5 is not yours.
-    Play#1 output Play#1 1 Sector 7,5 is not yours.
-    Play#1 output Play#1 1 Sector 9,5 is not yours.
-    Play#1 output Play#1 1 Sector 1,-1 is not yours.
     Play#1 output Play#1 1 5 units unloaded
     Play#1 output Play#1 6 0 599
     Play#1 input lunload f D -9
     Play#1 command lunload
     Play#1 output Play#1 1 1 food loaded onto linf light infantry #230 at 0,0
-    Play#1 output Play#1 1 Sector 4,0 is not yours.
-    Play#1 output Play#1 1 Sector 6,0 is not yours.
-    Play#1 output Play#1 1 Sector 8,0 is not yours.
     Play#1 output Play#1 1 1 unit unloaded
     Play#1 output Play#1 6 0 598
     Play#1 input load m 0/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20/21/22/23/24/25/26/27/28/29/30/31/32/33/34/90/92/93/94/95 -5
@@ -773,9 +751,6 @@
     Play#1 command lunload
     Play#1 output Play#1 1 1 military unloaded from tra  train #50 at 0,0
     Play#1 output Play#1 1 1 military unloaded from tra  train #51 at 2,0
-    Play#1 output Play#1 1 Sector 4,0 is not yours.
-    Play#1 output Play#1 1 Sector 6,0 is not yours.
-    Play#1 output Play#1 1 Sector 8,0 is not yours.
     Play#1 output Play#1 1 2 units unloaded
     Play#1 output Play#1 6 0 578
     Play#1 input lunload m b -2
@@ -821,39 +796,20 @@
     Play#1 command lunload
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #180 at 0,0
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #181 at 2,0
-    Play#1 output Play#1 1 Sector 4,0 is not yours.
-    Play#1 output Play#1 1 Sector 6,0 is not yours.
-    Play#1 output Play#1 1 Sector 8,0 is not yours.
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #185 at 1,1
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #186 at 3,1
-    Play#1 output Play#1 1 Sector 5,1 is not yours.
-    Play#1 output Play#1 1 Sector 7,1 is not yours.
-    Play#1 output Play#1 1 Sector 9,1 is not yours.
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #190 at 1,3
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #191 at 3,3
-    Play#1 output Play#1 1 Sector 5,3 is not yours.
-    Play#1 output Play#1 1 Sector 7,3 is not yours.
-    Play#1 output Play#1 1 Sector 9,3 is not yours.
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #195 at 0,4
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #196 at 2,4
-    Play#1 output Play#1 1 Sector 4,4 is not yours.
-    Play#1 output Play#1 1 Sector 6,4 is not yours.
-    Play#1 output Play#1 1 Sector 8,4 is not yours.
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #200 at 1,5
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #201 at 3,5
-    Play#1 output Play#1 1 Sector 5,5 is not yours.
-    Play#1 output Play#1 1 Sector 7,5 is not yours.
-    Play#1 output Play#1 1 Sector 9,5 is not yours.
-    Play#1 output Play#1 1 Sector 1,-1 is not yours.
     Play#1 output Play#1 1 10 units unloaded
     Play#1 output Play#1 6 0 575
     Play#1 input lunload m D -2
     Play#1 command lunload
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #230 at 0,0
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #231 at 2,0
-    Play#1 output Play#1 1 Sector 4,0 is not yours.
-    Play#1 output Play#1 1 Sector 6,0 is not yours.
-    Play#1 output Play#1 1 Sector 8,0 is not yours.
     Play#1 output Play#1 1 2 units unloaded
     Play#1 output Play#1 6 0 574
     Play#1 input lunload m 50/51/52/53/54/90/92/93/94 0
@@ -876,9 +832,6 @@
     Play#1 command lunload
     Play#1 output Play#1 1 1 military unloaded from tra  train #50 at 0,0
     Play#1 output Play#1 1 1 military unloaded from tra  train #51 at 2,0
-    Play#1 output Play#1 1 Sector 4,0 is not yours.
-    Play#1 output Play#1 1 Sector 6,0 is not yours.
-    Play#1 output Play#1 1 Sector 8,0 is not yours.
     Play#1 output Play#1 1 2 units unloaded
     Play#1 output Play#1 6 0 571
     Play#1 input lunload m b 1
@@ -947,39 +900,20 @@
     Play#1 command lunload
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #180 at 0,0
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #181 at 2,0
-    Play#1 output Play#1 1 Sector 4,0 is not yours.
-    Play#1 output Play#1 1 Sector 6,0 is not yours.
-    Play#1 output Play#1 1 Sector 8,0 is not yours.
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #185 at 1,1
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #186 at 3,1
-    Play#1 output Play#1 1 Sector 5,1 is not yours.
-    Play#1 output Play#1 1 Sector 7,1 is not yours.
-    Play#1 output Play#1 1 Sector 9,1 is not yours.
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #190 at 1,3
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #191 at 3,3
-    Play#1 output Play#1 1 Sector 5,3 is not yours.
-    Play#1 output Play#1 1 Sector 7,3 is not yours.
-    Play#1 output Play#1 1 Sector 9,3 is not yours.
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #195 at 0,4
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #196 at 2,4
-    Play#1 output Play#1 1 Sector 4,4 is not yours.
-    Play#1 output Play#1 1 Sector 6,4 is not yours.
-    Play#1 output Play#1 1 Sector 8,4 is not yours.
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #200 at 1,5
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #201 at 3,5
-    Play#1 output Play#1 1 Sector 5,5 is not yours.
-    Play#1 output Play#1 1 Sector 7,5 is not yours.
-    Play#1 output Play#1 1 Sector 9,5 is not yours.
-    Play#1 output Play#1 1 Sector 1,-1 is not yours.
     Play#1 output Play#1 1 10 units unloaded
     Play#1 output Play#1 6 0 567
     Play#1 input lunload m D 1
     Play#1 command lunload
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #230 at 0,0
     Play#1 output Play#1 1 1 military unloaded from linf light infantry #231 at 2,0
-    Play#1 output Play#1 1 Sector 4,0 is not yours.
-    Play#1 output Play#1 1 Sector 6,0 is not yours.
-    Play#1 output Play#1 1 Sector 8,0 is not yours.
     Play#1 output Play#1 1 2 units unloaded
     Play#1 output Play#1 6 0 566
     Play#1 input load i 80 1
@@ -1272,6 +1206,7 @@
     Play#1 input load plane a A
     Play#1 command load
     Play#1 output Play#1 1 sam  Sea Sparrow #0 loaded onto ls   landing ship (#0) at 0,0.
+    Play#1 output Play#1 1 Can't put plane 25 on this ship!
     Play#1 output Play#1 1 sam  Sea Sparrow #15 loaded onto ls   landing ship (#15) at 0,4.
     Play#1 output Play#1 1 2 ships loaded
     Play#1 output Play#1 6 0 515
@@ -1379,6 +1314,16 @@
     Play#1 output Play#1 1 f2   P-51 Mustang #127 loaded onto cal  light carrier (#100) at -2,0.
     Play#1 output Play#1 1 f2   P-51 Mustang #128 loaded onto cal  light carrier (#100) at -2,0.
     Play#1 output Play#1 1 f2   P-51 Mustang #129 loaded onto cal  light carrier (#100) at -2,0.
+    Play#1 output Play#1 1 Can't put plane 130 on this ship!
+    Play#1 output Play#1 1 Can't put plane 131 on this ship!
+    Play#1 output Play#1 1 Can't put plane 132 on this ship!
+    Play#1 output Play#1 1 Can't put plane 133 on this ship!
+    Play#1 output Play#1 1 Can't put plane 134 on this ship!
+    Play#1 output Play#1 1 Can't put plane 135 on this ship!
+    Play#1 output Play#1 1 Can't put plane 136 on this ship!
+    Play#1 output Play#1 1 Can't put plane 137 on this ship!
+    Play#1 output Play#1 1 Can't put plane 138 on this ship!
+    Play#1 output Play#1 1 Can't put plane 139 on this ship!
     Play#1 output Play#1 1 1 ship loaded
     Play#1 output Play#1 6 0 498
     Play#1 input load plane 100 K
@@ -1403,6 +1348,16 @@
     Play#1 output Play#1 1 nc   AH-1 Cobra #77 loaded onto cal  light carrier (#100) at -2,0.
     Play#1 output Play#1 1 nc   AH-1 Cobra #78 loaded onto cal  light carrier (#100) at -2,0.
     Play#1 output Play#1 1 nc   AH-1 Cobra #79 loaded onto cal  light carrier (#100) at -2,0.
+    Play#1 output Play#1 1 Can't put plane 80 on this ship!
+    Play#1 output Play#1 1 Can't put plane 81 on this ship!
+    Play#1 output Play#1 1 Can't put plane 82 on this ship!
+    Play#1 output Play#1 1 Can't put plane 83 on this ship!
+    Play#1 output Play#1 1 Can't put plane 84 on this ship!
+    Play#1 output Play#1 1 Can't put plane 85 on this ship!
+    Play#1 output Play#1 1 Can't put plane 86 on this ship!
+    Play#1 output Play#1 1 Can't put plane 87 on this ship!
+    Play#1 output Play#1 1 Can't put plane 88 on this ship!
+    Play#1 output Play#1 1 Can't put plane 89 on this ship!
     Play#1 output Play#1 1 1 ship loaded
     Play#1 output Play#1 6 0 497
     Play#1 input load plane 100 E
@@ -1411,6 +1366,19 @@
     Play#1 output Play#1 1 sam  Sea Sparrow #41 loaded onto cal  light carrier (#100) at -2,0.
     Play#1 output Play#1 1 sam  Sea Sparrow #42 loaded onto cal  light carrier (#100) at -2,0.
     Play#1 output Play#1 1 sam  Sea Sparrow #43 loaded onto cal  light carrier (#100) at -2,0.
+    Play#1 output Play#1 1 Can't put plane 44 on this ship!
+    Play#1 output Play#1 1 Can't put plane 45 on this ship!
+    Play#1 output Play#1 1 Can't put plane 46 on this ship!
+    Play#1 output Play#1 1 Can't put plane 47 on this ship!
+    Play#1 output Play#1 1 Can't put plane 48 on this ship!
+    Play#1 output Play#1 1 Can't put plane 49 on this ship!
+    Play#1 output Play#1 1 Can't put plane 50 on this ship!
+    Play#1 output Play#1 1 Can't put plane 51 on this ship!
+    Play#1 output Play#1 1 Can't put plane 52 on this ship!
+    Play#1 output Play#1 1 Can't put plane 53 on this ship!
+    Play#1 output Play#1 1 Can't put plane 54 on this ship!
+    Play#1 output Play#1 1 Can't put plane 55 on this ship!
+    Play#1 output Play#1 1 Can't put plane 56 on this ship!
     Play#1 output Play#1 1 1 ship loaded
     Play#1 output Play#1 6 0 496
     Play#1 input load plane 101 M
@@ -1425,6 +1393,16 @@
     Play#1 output Play#1 1 mi   Harpoon #97 loaded onto mb   missile boat (#101) at -2,0.
     Play#1 output Play#1 1 mi   Harpoon #98 loaded onto mb   missile boat (#101) at -2,0.
     Play#1 output Play#1 1 mi   Harpoon #99 loaded onto mb   missile boat (#101) at -2,0.
+    Play#1 output Play#1 1 Can't put plane 100 on this ship!
+    Play#1 output Play#1 1 Can't put plane 101 on this ship!
+    Play#1 output Play#1 1 Can't put plane 102 on this ship!
+    Play#1 output Play#1 1 Can't put plane 103 on this ship!
+    Play#1 output Play#1 1 Can't put plane 104 on this ship!
+    Play#1 output Play#1 1 Can't put plane 105 on this ship!
+    Play#1 output Play#1 1 Can't put plane 106 on this ship!
+    Play#1 output Play#1 1 Can't put plane 107 on this ship!
+    Play#1 output Play#1 1 Can't put plane 108 on this ship!
+    Play#1 output Play#1 1 Can't put plane 109 on this ship!
     Play#1 output Play#1 1 1 ship loaded
     Play#1 output Play#1 6 0 495
     Play#1 input unload plane 100 110
@@ -1495,9 +1473,6 @@
     Play#1 command lunload
     Play#1 output Play#1 1 sam  Sea Sparrow #200 unloaded from tra  train #50 at 0,0.
     Play#1 output Play#1 1 sam  Sea Sparrow #201 unloaded from tra  train #51 at 2,0.
-    Play#1 output Play#1 1 Sector 4,0 is not yours.
-    Play#1 output Play#1 1 Sector 6,0 is not yours.
-    Play#1 output Play#1 1 Sector 8,0 is not yours.
     Play#1 output Play#1 1 2 units unloaded
     Play#1 output Play#1 6 0 482
     Play#1 input lunload plane b D
@@ -1548,6 +1523,17 @@
     Play#1 input lload plane 100 E
     Play#1 command lload
     Play#1 output Play#1 1 sam  Sea Sparrow #45 loaded onto rad  radar unit #100 at -2,0.
+    Play#1 output Play#1 1 Can't put plane 46 on this unit!
+    Play#1 output Play#1 1 Can't put plane 47 on this unit!
+    Play#1 output Play#1 1 Can't put plane 48 on this unit!
+    Play#1 output Play#1 1 Can't put plane 49 on this unit!
+    Play#1 output Play#1 1 Can't put plane 50 on this unit!
+    Play#1 output Play#1 1 Can't put plane 51 on this unit!
+    Play#1 output Play#1 1 Can't put plane 52 on this unit!
+    Play#1 output Play#1 1 Can't put plane 53 on this unit!
+    Play#1 output Play#1 1 Can't put plane 54 on this unit!
+    Play#1 output Play#1 1 Can't put plane 55 on this unit!
+    Play#1 output Play#1 1 Can't put plane 56 on this unit!
     Play#1 output Play#1 1 1 unit loaded
     Play#1 output Play#1 6 0 472
     Play#1 input load
@@ -1567,6 +1553,18 @@
     Play#1 output Play#1 4 Plane(s) to load onto cs   cargo ship (#80)?
     Play#1 input *
     Play#1 output Play#1 1 sam  Sea Sparrow #46 loaded onto cs   cargo ship (#80) at -2,0.
+    Play#1 output Play#1 1 Can't put plane 47 on this ship!
+    Play#1 output Play#1 1 Can't put plane 48 on this ship!
+    Play#1 output Play#1 1 Can't put plane 49 on this ship!
+    Play#1 output Play#1 1 Can't put plane 50 on this ship!
+    Play#1 output Play#1 1 Can't put plane 51 on this ship!
+    Play#1 output Play#1 1 Can't put plane 52 on this ship!
+    Play#1 output Play#1 1 Can't put plane 53 on this ship!
+    Play#1 output Play#1 1 Can't put plane 54 on this ship!
+    Play#1 output Play#1 1 Can't put plane 55 on this ship!
+    Play#1 output Play#1 1 Can't put plane 56 on this ship!
+    Play#1 output Play#1 1 Can't put plane 230 on this ship!
+    Play#1 output Play#1 1 Can't put plane 232 on this ship!
     Play#1 output Play#1 4 Plane(s) to load onto cs   cargo ship (#81)?
     Play#1 input *
     Play#1 output Play#1 1 1 ship loaded
@@ -1604,6 +1602,19 @@
     Play#1 output Play#1 4 Plane(s) to load onto rad  radar unit #105?
     Play#1 input *
     Play#1 output Play#1 1 sam  Sea Sparrow #46 loaded onto rad  radar unit #105 at -2,0.
+    Play#1 output Play#1 1 Can't put plane 47 on this unit!
+    Play#1 output Play#1 1 Can't put plane 48 on this unit!
+    Play#1 output Play#1 1 Can't put plane 49 on this unit!
+    Play#1 output Play#1 1 Can't put plane 50 on this unit!
+    Play#1 output Play#1 1 Can't put plane 51 on this unit!
+    Play#1 output Play#1 1 Can't put plane 52 on this unit!
+    Play#1 output Play#1 1 Can't put plane 53 on this unit!
+    Play#1 output Play#1 1 Can't put plane 54 on this unit!
+    Play#1 output Play#1 1 Can't put plane 55 on this unit!
+    Play#1 output Play#1 1 Can't put plane 56 on this unit!
+    Play#1 output Play#1 1 Can't put plane 58 on this unit!
+    Play#1 output Play#1 1 Can't put plane 230 on this unit!
+    Play#1 output Play#1 1 Can't put plane 232 on this unit!
     Play#1 output Play#1 1 1 unit loaded
     Play#1 output Play#1 6 0 468
     Play#1 input load land -1
@@ -1826,9 +1837,6 @@
     Play#1 command lunload
     Play#1 output Play#1 1 linf light infantry #230 unloaded from tra  train #50 at 0,0.
     Play#1 output Play#1 1 linf light infantry #231 unloaded from tra  train #51 at 2,0.
-    Play#1 output Play#1 1 Sector 4,0 is not yours.
-    Play#1 output Play#1 1 Sector 6,0 is not yours.
-    Play#1 output Play#1 1 Sector 8,0 is not yours.
     Play#1 output Play#1 1 2 units unloaded
     Play#1 output Play#1 6 0 436
     Play#1 input lunload land b D

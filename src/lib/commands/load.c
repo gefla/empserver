@@ -151,7 +151,8 @@ load(void)
 
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_SHIP, &ship)) {
-		pr("You cannot load/unload an item on the trading block!\n");
+		if (noisy)
+		    pr("%s is on the trading block\n", prship(&ship));
 		continue;
 	    }
 	}
@@ -252,15 +253,17 @@ lload(void)
 		continue;
 	    }
 	    if (relations_with(sect.sct_own, player->cnum) != ALLIED) {
-		pr("Sector %s is not yours.\n",
-		   xyas(sect.sct_x, sect.sct_y, player->cnum));
+		if (noisy)
+		    pr("Sector %s is not yours.\n",
+		       xyas(sect.sct_x, sect.sct_y, player->cnum));
 		continue;
 	    }
 	}
 
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_LAND, &land)) {
-		pr("You cannot load/unload an item on the trading block!\n");
+		if (noisy)
+		    pr("%s is on the trading block\n", prland(&land));
 		continue;
 	    }
 	}
@@ -384,8 +387,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     if (loading &&
 	shp_nplane(sp, NULL, NULL, NULL)
 		>= mcp->m_nchoppers + mcp->m_nxlight + mcp->m_nplanes) {
-	if (noisy)
-	    pr("%s doesn't have room for any more planes\n", prship(sp));
+	pr("%s doesn't have room for any more planes\n", prship(sp));
 	return 0;
     }
     sprintf(prompt, "Plane(s) to %s %s? ",
@@ -399,8 +401,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     if (!still_ok_ship(sectp, sp))
 	return RET_SYN;
 
-    if (noisy)
-	noisy = ni.sel == NS_LIST;
+    noisy = ni.sel == NS_LIST;
 
     while (nxtitem(&ni, &pln)) {
 	if (!player->owner)
@@ -456,8 +457,7 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	/* Fit plane on ship */
 	if (loading) {
 	    if (!put_plane_on_ship(&pln, sp)) {
-		if (noisy)
-		    pr("Can't put plane %d on this ship!\n", pln.pln_uid);
+		pr("Can't put plane %d on this ship!\n", pln.pln_uid);
 		continue;
 	    }
 	    sprintf(buf, "loaded on your %s at %s",
@@ -511,10 +511,8 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	    load_spy = 1;
 	}
 	if (!load_spy && shp_nland(sp) >= mchr[sp->shp_type].m_nland) {
-	    if (noisy) {
-		pr("%s doesn't have room for any more land units!\n",
-		   prship(sp));
-	    }
+	    pr("%s doesn't have room for any more land units!\n",
+	       prship(sp));
 	    return 0;
 	}
     }
@@ -529,8 +527,7 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
     if (!still_ok_ship(sectp, sp))
 	return RET_SYN;
 
-    if (noisy)
-	noisy = ni.sel == NS_LIST;
+    noisy = ni.sel == NS_LIST;
 
     while (nxtitem(&ni, &land)) {
 	if (!player->owner)
@@ -596,9 +593,8 @@ load_land_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 		}
 	    } else {
 		if (shp_nland(sp) >= mchr[sp->shp_type].m_nland) {
-		    if (noisy)
-			pr("%s doesn't have room for any more land units!\n",
-			   prship(sp));
+		    pr("%s doesn't have room for any more land units!\n",
+		       prship(sp));
 		    return 0;
 		}
 	    }
@@ -717,9 +713,8 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	return 0;
     }
     if (loading && lnd_nxlight(lp) >= lcp->l_nxlight) {
-	if (noisy)
-	    pr("%s doesn't have room for any more extra-light planes\n",
-	       prland(lp));
+	pr("%s doesn't have room for any more extra-light planes\n",
+	   prland(lp));
 	return 0;
     }
     sprintf(prompt, "Plane(s) to %s %s? ",
@@ -733,8 +728,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     if (!still_ok_land(sectp, lp))
 	return RET_SYN;
 
-    if (noisy)
-	noisy = ni.sel == NS_LIST;
+    noisy = ni.sel == NS_LIST;
 
     while (nxtitem(&ni, &pln)) {
 	if (!player->owner)
@@ -776,8 +770,7 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	/* Fit plane on unit */
 	if (loading) {
 	    if (!put_plane_on_land(&pln, lp)) {
-		if (noisy)
-		    pr("Can't put plane %d on this unit!\n", pln.pln_uid);
+		pr("Can't put plane %d on this unit!\n", pln.pln_uid);
 		continue;
 	    }
 	    sprintf(buf, "loaded on %s at %s",
@@ -876,9 +869,8 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	return 0;
     }
     if (loading && lnd_nland(lp) >= lchr[lp->lnd_type].l_nland) {
-	if (noisy)
-	    pr("%s doesn't have room for any more land units!\n",
-	       prland(lp));
+	pr("%s doesn't have room for any more land units!\n",
+	   prland(lp));
 	return 0;
     }
     sprintf(prompt, "Land unit(s) to %s %s? ",
@@ -892,8 +884,7 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
     if (!still_ok_land(sectp, lp))
 	return RET_SYN;
 
-    if (noisy)
-	noisy = ni.sel == NS_LIST;
+    noisy = ni.sel == NS_LIST;
 
     while (nxtitem(&ni, &land)) {
 	if (!player->owner)
@@ -943,9 +934,8 @@ load_land_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	/* Fit unit on ship */
 	if (loading) {
 	    if (lnd_nland(lp) >= lchr[lp->lnd_type].l_nland) {
-		if (noisy)
-		    pr("%s doesn't have room for any more land units!\n",
-		       prland(lp));
+		pr("%s doesn't have room for any more land units!\n",
+		   prland(lp));
 		break;
 	    }
 	    sprintf(buf, "loaded on your %s at %s",
