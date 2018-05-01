@@ -8,9 +8,9 @@ lcarg *
 read 0
 read 1
 | BUG: POGO gives away sam#184/214 silently
-| BUG: POGO destroys sam#204 silently
+| BUG: POGO destroys sam#154/204 silently
 | BUG: POGO gives away linf#214/244 silently
-| BUG: POGO destroys linf#234 silently
+| BUG: POGO destroys linf#184/234 silently
 read 2
 read 3
 read 4

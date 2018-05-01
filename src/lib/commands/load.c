@@ -113,8 +113,6 @@ load(void)
 
 	if (!getsect(ship.shp_x, ship.shp_y, &sect))	/* XXX */
 	    continue;
-	if (!sect.sct_own)
-	    continue;
 	if (!player->owner) {
 	    if (ship.shp_own != player->cnum)
 		continue;

@@ -2,11 +2,9 @@
 |
 | Can load / unload regardless of ownership
 | except civilians still refuse to change allegiance
-| odd: except ships can't in unowned sectors
 |
 ||| load / unload commodities
 || #94 in neutral 2% h, #4 in unowned 2% h, #5 in 0% h, #90 dead: #94 works
-| odd: #4 doesn't work
 load f 94/4/5/90 1
 unload m 94/4/5/90 1
 || #80 in occupied 2% h: does not work
@@ -18,10 +16,10 @@ lunload m 94/54/90 1
 |
 ||| load / unload planes
 || #94 in neutral 2% h, #4 in unowned 2% h, #5 in 0% h, #90 dead: #94 works
-| odd: #4 doesn't work
 load plane 94 184
 load plane 4/5/90 4/5/180
 unload plane 94/4/5/90 194/154/155/190
+| odd: sam#154 dies
 || #94 in neutral sector, #54 in unowned sector, #90 dead: #94/54 work
 lload plane 94 214
 lload plane 90/54 210/34
@@ -30,10 +28,10 @@ lunload plane 94/54/90 224/204/220
 |
 ||| load / unload lands
 || #94 in neutral 2% h, #4 in unowned 2% h, #5 in 0% h, #90 dead: #94 works
-| odd: #4 doesn't work
 load land 94 214
 load land 4/5/90 4/5/210
 unload land 94/4/5/90 224/184/185/220
+| odd: linf#184 dies
 || #94 in neutral sector, #54 in unowned sector, #90 dead: #94/54 work
 lload land 94 244
 lload land 90/54 240/34
