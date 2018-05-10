@@ -283,13 +283,13 @@ check_trade(void)
 	    continue;
 	if (!trade_getitem(&trade, &tg))
 	    continue;
-	if (tg.gen.own == 0) {
-	    trade.trd_owner = 0;
-	    puttrade(n, &trade);
-	    continue;
-	}
+	/*
+	 * FIXME We fail to delete trades right away when the thing on
+	 * sale dies.  Instead, we delete it here.  Doesn't work if it
+	 * has been rebuilt by the same owner; in that case, the new
+	 * one takes the dead one's place on the market.
+	 */
 	if (tg.gen.own != trade.trd_owner) {
-	    logerror("Something weird, tg.gen.own != trade.trd_owner!\n");
 	    trade.trd_owner = 0;
 	    puttrade(n, &trade);
 	    continue;
