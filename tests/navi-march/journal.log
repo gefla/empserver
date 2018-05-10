@@ -1575,8 +1575,8 @@
     Play#0 output Play#0 1   2   11 cav  cavalry       1,1       100%   5 127 127   0  30  42%  0  0
     Play#0 output Play#0 1   1   12 cav  cavalry       1,1       100%   5 127 127   0  30  42%  0  0
     Play#0 output Play#0 1   1   13 cav  cavalry       1,1       100%   0 127 127   0  30  42%  0  0
-    Play#0 output Play#0 1   1   14 cav  cavalry       1,1       100%   2 127 127   0  30  42%  0  0    1S
-    Play#0 output Play#0 1   1   15 cav  cavalry       1,1       100%   2 127 127   0  30  42%  0  0    1L
+    Play#0 output Play#0 1   1   14 cav  cavalry       1,1       100%   2   0 127   0  30  42%  0  0    1S
+    Play#0 output Play#0 1   1   15 cav  cavalry       1,1       100%   2   0 127   0  30  42%  0  0    1L
     Play#0 output Play#0 1   1   20 cav  cavalry       3,3       100%   5   0 105   0  30  42%  0  0
     Play#0 output Play#0 1   1   21 cav  cavalry       2,4       100%   5   0 105   0  30  42%  0  0
     Play#0 output Play#0 1   1   22 tra  train         3,3       100%   5   0  60   0  40  42%  0  0

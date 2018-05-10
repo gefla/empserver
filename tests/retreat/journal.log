@@ -1427,6 +1427,8 @@
     Play#0 output Play#0 1 cav  cavalry #36 is on the trading block, and can't retreat!
     Play#0 output Play#0 1 0,2 takes 4% collateral damage
     Play#0 output Play#0 1 	tra  train #9 takes 1
+    Play#0 output Play#0 1 	cav  cavalry #31 takes 1
+    Play#0 output Play#0 1 	cav  cavalry #34 takes 1
     Play#0 output Play#0 1 1 planes spotted over -1,1
     Play#0 output Play#0 1 1 bombs did 40% damage to cav  cavalry #33 at -1,1
     Play#0 output Play#0 1 	cav  cavalry #33 takes 15
@@ -1681,10 +1683,10 @@
     Play#0 output Play#0 1   2   27 cav  cavalry       3,1    g  100%  10 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   2   28 cav  cavalry       2,2    g  100%  10   0 107   0  50  42%  0  0
     Play#0 output Play#0 1   2   29 cav  cavalry       4,0    g  100%  10 127 127   0  50  42%  0  0
-    Play#0 output Play#0 1   2   31 cav  cavalry       0,2    c  100%  10 127 127   0  50  42%  0  0   35S
+    Play#0 output Play#0 1   2   31 cav  cavalry       0,2    c   99%  10   0 126   0  50  42%  0  0   35S
     Play#0 output Play#0 1   2   32 cav  cavalry       0,2    c  100%   0 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   2   33 cav  cavalry      -1,1        85%   9 127 108   0  50  42%  0  0
-    Play#0 output Play#0 1   2   34 cav  cavalry       0,2    c  100%  10 127 127   0  50  42%  0  0    9L
+    Play#0 output Play#0 1   2   34 cav  cavalry       0,2    c   99%  10   0 126   0  50  42%  0  0    9L
     Play#0 output Play#0 1   2   35 cav  cavalry       0,2    c  100%  10 127   0   0  50  42%  0  0
     Play#0 output Play#0 1   2   36 cav  cavalry       0,2    c  100%  10 127 127   0  50  42%  0  0
     Play#0 output Play#0 1   2   37 tra  train         1,1        82%   9 127 105   0  50  42%  0  0

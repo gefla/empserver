@@ -31,7 +31,7 @@
  *     Chad Zabel, 1994
  *     Steve McClure, 1998-2000
  *     Ron Koenderink, 2003-2009
- *     Markus Armbruster, 2003-2017
+ *     Markus Armbruster, 2003-2018
  */
 
 #include <config.h>
@@ -1001,6 +1001,8 @@ edit_land(struct lndstr *land, char *key, char *p)
 	break;
     case 'F':
 	arg = LIMIT_TO(arg, 0, 127);
+	if (land->lnd_ship >= 0 || land->lnd_land >= 0)
+	    arg = 0;
 	divine_unit_change((struct empobj *)land, "Fortification",
 			   arg != land->lnd_harden, arg - land->lnd_harden,
 			   "from %d to %d", land->lnd_harden, arg);
@@ -1134,7 +1136,10 @@ edit_plane(struct plnstr *plane, char *key, char *p)
 	pln_set_tech(plane, arg);
 	break;
     case 'F':
-	arg = LIMIT_TO(arg, 0, pcp->pl_flags & P_M ? 127 : 0);
+	arg = LIMIT_TO(arg, 0, 127);
+	if (!(pcp->pl_flags & P_M)
+	    || plane->pln_ship >= 0 || plane->pln_land >= 0)
+	    arg = 0;
 	divine_unit_change((struct empobj *)plane, "Fortification",
 			   arg != plane->pln_harden, arg - plane->pln_harden,
 			   "from %d to %d", plane->pln_harden, arg);
