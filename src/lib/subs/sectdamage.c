@@ -29,6 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996
+ *     Markus Armbruster, 2006-2018
  */
 
 #include <config.h>
@@ -96,6 +97,8 @@ sectdamage(struct sctstr *sp, int dam)
     while (nxtitem(&ni, &land)) {
 	if (!land.lnd_own)
 	    continue;
+	if (land.lnd_ship >= 0 || land.lnd_land >= 0)
+	    continue;
 	landdamage(&land, dam);
 	putland(land.lnd_uid, &land);
     }
@@ -109,7 +112,7 @@ sectdamage(struct sctstr *sp, int dam)
 	    continue;
 	if (plane.pln_flags & PLN_LAUNCHED)
 	    continue;
-	if (plane.pln_ship >= 0)
+	if (plane.pln_ship >= 0 || plane.pln_land >= 0)
 	    continue;
 	planedamage(&plane, dam);
 	putplane(plane.pln_uid, &plane);
