@@ -30,6 +30,7 @@
  *     Dave Pare, 1986
  *     Pat Loney, 1992
  *     Steve McClure, 1996
+ *     Markus Armbruster, 2004-2018
  */
 
 #include <config.h>
@@ -101,8 +102,10 @@ set(void)
 	freeslot = -1;
 	snxtitem_all(&ni_trade, EF_TRADE);
 	while (nxtitem(&ni_trade, &trade)) {
-	    if (trade.trd_owner == 0)
-		freeslot = ni_trade.cur;
+	    if (!trade.trd_owner) {
+		if (freeslot < 0)
+		    freeslot = ni_trade.cur;
+	    }
 	    if (trade.trd_unitid == ni.cur && trade.trd_type == type) {
 		foundslot = ni_trade.cur;
 		break;
