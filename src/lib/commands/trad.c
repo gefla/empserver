@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Pat Loney, 1992
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2018
  */
 
 #include <config.h>
@@ -123,18 +123,13 @@ trad(void)
 	pr("Bad lot number\n");
 	return RET_OK;
     }
-    if (!gettrade(lotno, &trade)) {
+    if (!gettrade(lotno, &trade) || !trade.trd_owner) {
 	pr("No such lot number\n");
-	return RET_OK;
-    }
-    if (trade.trd_unitid < 0) {
-	pr("Invalid lot number.\n");
 	return RET_OK;
     }
     if (!trade_getitem(&trade, &tg)) {
 	pr("Can't find trade #%d!\n", trade.trd_unitid);
 	trade.trd_owner = 0;
-	trade.trd_unitid = -1;
 	if (!puttrade(lotno, &trade)) {
 	    logerror("trad: can't write trade");
 	    pr("Couldn't save after getitem failed; get help!\n");
@@ -164,8 +159,10 @@ trad(void)
     }
     tally = 0.0;
     for (i = 0; gettrade(i, &tmpt); i++) {
+	if (!tmpt.trd_owner)
+	    continue;
 	if (tmpt.trd_maxbidder == player->cnum &&
-	    tmpt.trd_unitid >= 0 && tmpt.trd_owner != player->cnum) {
+	    tmpt.trd_owner != player->cnum) {
 	    tally += tmpt.trd_price * tradetax;
 	}
     }
@@ -282,20 +279,18 @@ check_trade(void)
     natid seller;
 
     for (n = 0; gettrade(n, &trade); n++) {
-	if (trade.trd_unitid < 0)
+	if (!trade.trd_owner)
 	    continue;
 	if (!trade_getitem(&trade, &tg))
 	    continue;
 	if (tg.gen.own == 0) {
 	    trade.trd_owner = 0;
-	    trade.trd_unitid = -1;
 	    puttrade(n, &trade);
 	    continue;
 	}
 	if (tg.gen.own != trade.trd_owner) {
 	    logerror("Something weird, tg.gen.own != trade.trd_owner!\n");
 	    trade.trd_owner = 0;
-	    trade.trd_unitid = -1;
 	    puttrade(n, &trade);
 	    continue;
 	}
@@ -310,7 +305,6 @@ check_trade(void)
 	saveid = trade.trd_unitid;
 	seller = trade.trd_owner;
 	trade.trd_owner = 0;
-	trade.trd_unitid = -1;
 	if (!puttrade(n, &trade)) {
 	    logerror("Couldn't save trade after purchase; get help!\n");
 	    continue;
@@ -408,7 +402,7 @@ ontradingblock(int type, void *ptr)
     int n;
 
     for (n = 0; gettrade(n, &trade); n++) {
-	if (trade.trd_unitid < 0)
+	if (!trade.trd_owner)
 	    continue;
 	if (!trade_getitem(&trade, &tg))
 	    continue;
@@ -428,7 +422,7 @@ trdswitchown(int type, struct empobj *obj, int newown)
     int n;
 
     for (n = 0; gettrade(n, &trade); n++) {
-	if (trade.trd_unitid < 0)
+	if (!trade.trd_owner)
 	    continue;
 	if (!trade_getitem(&trade, &tg))
 	    continue;
@@ -439,8 +433,6 @@ trdswitchown(int type, struct empobj *obj, int newown)
 	if (trade.trd_owner == trade.trd_maxbidder)
 	    trade.trd_maxbidder = newown;
 	trade.trd_owner = newown;
-	if (newown == 0)
-	    trade.trd_unitid = -1;
 	puttrade(n, &trade);
 	return;
     }

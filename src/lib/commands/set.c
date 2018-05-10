@@ -105,6 +105,7 @@ set(void)
 	    if (!trade.trd_owner) {
 		if (freeslot < 0)
 		    freeslot = ni_trade.cur;
+		continue;
 	    }
 	    if (trade.trd_unitid == ni.cur && trade.trd_type == type) {
 		foundslot = ni_trade.cur;

@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Pat Loney, 1992
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2018
  */
 
 #include <config.h>
@@ -112,8 +112,10 @@ buy(void)
     this part up.*/
     tally = 0.0;
     for (n = 0; gettrade(n, &tmpt); n++) {
+	if (!tmpt.trd_owner)
+	    continue;
 	if (tmpt.trd_maxbidder == player->cnum &&
-	    tmpt.trd_unitid >= 0 && tmpt.trd_owner != player->cnum) {
+	    tmpt.trd_owner != player->cnum) {
 	    tally += tmpt.trd_price * tradetax;
 	}
     }
