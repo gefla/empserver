@@ -1979,6 +1979,11 @@
     Play#0 output Play#0 1 sup  supply #4 loaded onto ship #2
     Play#0 output Play#0 1 sup  supply #4 teleported from 1,-1 to 3,-1!
     Play#0 output Play#0 6 0 640
+    Play#0 input edit p 14 s 4
+    Play#0 command edit
+    Play#0 output Play#0 1 ssm  V2 #14 loaded onto ship #4
+    Play#0 output Play#0 1 ssm  V2 #14 teleported from 0,0 to 1,-1!
+    Play#0 output Play#0 6 0 640
     Play#0 input edit s 0
     Play#0 command edit
     Play#0 output Play#0 1 POGO (#0) cs   cargo ship (#0)
@@ -2505,6 +2510,7 @@
     Play#0 output Play#0 1 15kt  fission warhead #6 given to you by an act of POGO!
     Play#0 output Play#0 1 Type of 15kt  fission warhead #6 changed to 50kt  fission by an act of POGO
     Play#0 output Play#0 1 Type of 50kt  fission warhead #6 changed to 15kt  fission by an act of POGO
+    Play#0 output Play#0 1 ssm  V2 #14 loaded onto ship #4 by an act of POGO!
     Play#0 output Play#0 1 BTUs changed from 0 to 1 by an act of POGO!
     Play#0 output Play#0 1 BTUs changed from 1 to 0 by an act of POGO!
     Play#0 output Play#0 1 Military reserves changed from 0 to 1 by an act of POGO!
