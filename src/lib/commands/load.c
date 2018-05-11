@@ -380,6 +380,12 @@ plane_loadable(struct plnstr *pp, int noisy)
 	       prplane(pp), pp->pln_land);
 	return 0;
     }
+    if (pp->pln_harden) {
+	if (noisy)
+	    pr("%s has been hardened and can't be loaded\n",
+	       prplane(pp));
+	return 0;
+    }
     return 1;
 }
 
@@ -463,12 +469,6 @@ load_plane_ship(struct sctstr *sectp, struct shpstr *sp, int noisy,
 	}
 	if (loading && !plane_loadable(&pln, noisy))
 	    continue;
-	if (pln.pln_harden != 0) {
-	    if (noisy)
-		pr("%s has been hardened and can't be loaded\n",
-		   prplane(&pln));
-	    continue;
-	}
 
 	if (!loading) {
 	    if (pln.pln_ship != sp->shp_uid)
@@ -756,12 +756,6 @@ load_plane_land(struct sctstr *sectp, struct lndstr *lp, int noisy,
 	}
 	if (loading && !plane_loadable(&pln, noisy))
 	    continue;
-	if (pln.pln_harden != 0) {
-	    if (noisy)
-		pr("%s has been hardened and can't be loaded\n",
-		   prplane(&pln));
-	    continue;
-	}
 
 	/* Plane sanity done */
 	/* Find the right unit */
