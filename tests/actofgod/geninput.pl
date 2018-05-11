@@ -343,11 +343,9 @@ edit('plane', 4, 'l', '5,1');
 
 # special case: load teleports to carrier
 # (previous loads already zapped fortification)
-# BUG: fortification not zapped
 edit('land', 4, 'S', 2);
 
 # special case: load teleports to carrier and zaps fortification
-# BUG: fortification not zapped
 edit('plane', 14, 's', 4);
 
 # interactive edit

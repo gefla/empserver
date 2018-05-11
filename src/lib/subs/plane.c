@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1996
- *     Markus Armbruster, 2006-2016
+ *     Markus Armbruster, 2006-2018
  */
 
 #include <config.h>
@@ -95,6 +95,8 @@ pln_prewrite(int n, void *old, void *new)
     pp->pln_land = land;
     if (!own || pp->pln_x != oldpp->pln_x || pp->pln_y != oldpp->pln_y)
 	unit_update_cargo((struct empobj *)pp);
+    if (ship >= 0 || land >= 0)
+	pp->pln_harden = 0;
 }
 
 char *
