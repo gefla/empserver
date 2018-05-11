@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 2000
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2021
  */
 
 #include <config.h>
@@ -61,11 +61,13 @@ arm(void)
 	    && relations_with(pl.pln_own, player->cnum) != ALLIED)
 	    continue;
 	plc = &plchr[(int)pl.pln_type];
-	if ((plc->pl_flags & (P_O | P_N | P_MAR))
-	    || (plc->pl_flags & (P_M | P_F)) == (P_M | P_F)) {
+	if (!(plc->pl_flags & (P_B | P_T | P_C))
+	    || (plc->pl_flags & P_MAR)) {
 	    pr("A %s cannot carry nuclear devices!\n", plc->pl_name);
 	    return RET_FAIL;
 	}
+	if (CANT_HAPPEN(pl.pln_flags & PLN_LAUNCHED))
+	    continue;
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_PLANE, &pl)) {
 		pr("You cannot arm %s while it is on the trading block!\n",
@@ -144,6 +146,8 @@ disarm(void)
 	if (!player->owner)
 	    continue;
 	if (!getnuke(nuk_on_plane(&pl), &nuke))
+	    continue;
+	if (CANT_HAPPEN(pl.pln_flags & PLN_LAUNCHED))
 	    continue;
 	if (opt_MARKET) {
 	    if (ontradingblock(EF_PLANE, &pl)) {
