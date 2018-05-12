@@ -386,6 +386,11 @@ plane_loadable(struct plnstr *pp, int noisy)
 	       prplane(pp));
 	return 0;
     }
+    if (pln_is_in_orbit(pp)) {
+	if (noisy)
+	    pr("%s is in space\n", prplane(pp));
+	return 0;
+    }
     return 1;
 }
 
