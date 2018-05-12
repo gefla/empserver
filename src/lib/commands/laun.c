@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2005-2015
+ *     Markus Armbruster, 2005-2018
  */
 
 #include <config.h>
@@ -345,6 +345,7 @@ launch_sat(struct plnstr *pp)
     CANT_HAPPEN(pp->pln_flags & PLN_LAUNCHED);
     pp->pln_flags |= PLN_LAUNCHED;
     pp->pln_mobil = pp->pln_mobil > dist ? pp->pln_mobil - dist : 0;
+    pp->pln_ship = pp->pln_land = -1;
     putplane(pp->pln_uid, pp);
     pr("%s positioned over %s, will be ready for use in %d time units\n",
        prplane(pp), xyas(sx, sy, player->cnum),

@@ -1186,6 +1186,8 @@ edit_plane(struct plnstr *plane, char *key, char *p)
 	divine_flag_change((struct empobj *)plane, "Flags",
 			   plane->pln_flags, arg, plane_flags);
 	plane->pln_flags = arg;
+	if (pln_is_in_orbit(plane))
+	    plane->pln_ship = plane->pln_land = -1;
 	break;
     default:
 	pr("huh? (%s)\n", key);
