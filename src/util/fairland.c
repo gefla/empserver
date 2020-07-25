@@ -177,7 +177,6 @@ static const char *outfile = DEFAULT_OUTFILE_NAME;
 #define new_x(newx) (((newx) + WORLD_X) % WORLD_X)
 #define new_y(newy) (((newy) + WORLD_Y) % WORLD_Y)
 
-static int secs;		/* number of sectors grown */
 static int ctot;		/* total number of continents and islands grown */
 static int *isecs;		/* array of how large each island is */
 
@@ -631,7 +630,7 @@ find_coast(int c)
 {
     int i, j;
 
-    for (i = 0; i < secs; ++i) {
+    for (i = 0; i < isecs[c]; ++i) {
 	sectc[c][i] = 0;
 	for (j = 0; j < 6; ++j)
 	    if (own[new_x(sectx[c][i] + dirx[j])][new_y(secty[c][i] + diry[j])] == -1)
@@ -680,8 +679,8 @@ try_to_grow(int c, int newx, int newy, int d)
 		return 0;
 	} while (next_vector(i));
     }
-    sectx[c][secs] = newx;
-    secty[c][secs] = newy;
+    sectx[c][isecs[c]] = newx;
+    secty[c][isecs[c]] = newy;
     isecs[c]++;
     own[newx][newy] = c;
     return 1;
@@ -695,7 +694,7 @@ next_coast(int c, int x, int y, int *xp, int *yp)
 {
     int i, nx, ny, wat = 0;
 
-    if (secs == 1) {
+    if (isecs[c] == 1) {
 	*xp = x;
 	*yp = y;
 	return;
@@ -720,6 +719,7 @@ next_coast(int c, int x, int y, int *xp, int *yp)
 static int
 new_try(int c, int spike)
 {
+    int secs = isecs[c];
     int i, starti;
 
     if (secs == 1) {
@@ -776,7 +776,7 @@ grow_one_sector(int c)
 	next_coast(c, x, y, &x, &y);
 	++coast_search;
     } while (!done && coast_search < COAST_SEARCH_MAX &&
-	     (secs == 1 || x != sx || y != sy));
+	     (isecs[c] == 1 || x != sx || y != sy));
     if (!done && c < nc)
 	fl_status |= STATUS_NO_ROOM;
     return done;
@@ -787,7 +787,7 @@ grow_one_sector(int c)
 static void
 grow_continents(void)
 {
-    int c;
+    int c, secs;
 
     for (c = 0; c < nc; ++c) {
 	sectx[c][0] = capx[c];
@@ -852,7 +852,7 @@ place_island(int c, int *xp, int *yp)
 static void
 grow_islands(void)
 {
-    int c, x, y, isiz;
+    int c, secs, x, y, isiz;
 
     for (c = nc; c < nc + ni; ++c) {
 	secs = 0;
