@@ -320,7 +320,8 @@ main(int argc, char *argv[])
     qprint("designating sectors...\n");
     if (ORE)
 	qprint("adding resources...\n");
-    write_newcap_script();
+    if (!write_newcap_script())
+	exit(1);
 
     if (chdir(gamedir)) {
 	fprintf(stderr, "Can't chdir to %s (%s)\n", gamedir, strerror(errno));
@@ -1279,7 +1280,7 @@ write_newcap_script(void)
 
     if (!script) {
 	printf("fairland: error, unable to write to %s.\n", outfile);
-	return -1;
+	return 0;
     }
 
     for (c = 0; c < nc; ++c) {
@@ -1290,7 +1291,7 @@ write_newcap_script(void)
     }
     fprintf(script, "add %d visitor visitor v\n", c + 1);
     fclose(script);
-    return 0;
+    return 1;
 }
 
 static void
