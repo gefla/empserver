@@ -32,6 +32,69 @@
  *     Markus Armbruster, 2004-2020
  */
 
+/*
+ * How fairland works
+ *
+ * 1. Place capitals
+ *
+ * Place the capitals on the torus in such a way so as to maximize
+ * their distances from one another.  This uses the perturbation
+ * technique of calculus of variations.
+ *
+ * 2. Grow start islands ("continents")
+ *
+ * For all continents, add the first sector at the capital's location,
+ * and the second right to it.  These are the capital sectors.  Then
+ * add one sector to each continent in turn, obeying the minimum
+ * distance between continents, until they have the specified size.
+ *
+ * The kind of shape they grow into is determined by the "spike
+ * percentage" --- the higher the spike, the more spindly they will
+ * be.  If you lower the spike, the continents will be more round.
+ *
+ * If growing fails due to lack of room, start over.  If it fails too
+ * many times, give up and terminate unsuccessfully.
+ *
+ * 3. Place and grow additional islands
+ *
+ * Place and grow islands one after the other.  Place the first sector
+ * randomly, pick an island size, then grow the island to that size.
+ *
+ * Growing works as for continents, except the minimum distance for
+ * additional islands applies, and growing simply stops when there is
+ * no room.
+ *
+ * 4. Compute elevation
+ *
+ * Elevate islands one after the other.
+ *
+ * First, place the specified number of mountains randomly.
+ * Probability increases with distance to sea.
+ *
+ * Last, elevate mountains and the capitals.  Pick coastal mountain
+ * elevation randomly from an interval of medium elevations reserved
+ * for them.  Pick non-coastal mountain elevation randomly from an
+ * interval of high elevation reserved for them.  Set capital
+ * elevation to a fixed, medium value.
+ *
+ * In between, elevate the remaining land one by one, working from
+ * mountains towards the sea, and from the elevation just below the
+ * non-coastal mountains' interval linearly down to 1, avoiding the
+ * coastal mountains' interval.
+ *
+ * This gives islands of the same size the same set of elevations,
+ * except for mountains.
+ *
+ * Elevate sea: pick a random depth from an interval that deepens with
+ * the distance to land.
+ *
+ * 5. Set resources
+ *
+ * Sector resources are simple functions of elevation.  You can alter
+ * macros OIL_MAX, IRON_MIN, GOLD_MIN, FERT_MAX, and URAN_MIN to
+ * customize them.
+ */
+
 #include <config.h>
 
 /* define ORE 1 to add resources, define ORE 0 if you want to use another
