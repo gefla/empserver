@@ -861,21 +861,32 @@ place_island(int c, int *xp, int *yp)
 static void
 grow_islands(void)
 {
+    int stunted_islands = 0;
     int c, secs, x, y, isiz;
 
     for (c = nc; c < nc + ni; ++c) {
-	secs = 0;
-	if (!place_island(c, &x, &y))
-	    return;
+	if (!place_island(c, &x, &y)) {
+	    qprint("\nNo room for island #%d", c - nc + 1);
+	    break;
+	}
+
 	isiz = roll(is) + roll0(is);
-	do {
-	    ++secs;
+	for (secs = 1; secs < isiz; secs++) {
 	    find_coast(c);
-	} while (secs < isiz && grow_one_sector(c));
+	    if (!grow_one_sector(c)) {
+		stunted_islands++;
+		break;
+	    }
+	}
+
 	find_coast(c);
 	qprint(" %d(%d)", c - nc + 1, secs);
 	ctot++;
     }
+
+    if (stunted_islands)
+	qprint("\n%d stunted island%s",
+	       stunted_islands, splur(stunted_islands));
 }
 
 /****************************************************************************
