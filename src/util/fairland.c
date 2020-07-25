@@ -811,7 +811,8 @@ grow_continents(void)
 	find_coast(c);
 
     if (!done)
-	qprint("Only managed to grow %d out of %d sectors.\n", secs, sc);
+	qprint("Only managed to grow %d out of %d sectors.\n",
+	       secs - 1, sc);
     ctot = nc;
     return done;
 }
