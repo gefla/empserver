@@ -104,6 +104,7 @@
 #include <unistd.h>
 #include "chance.h"
 #include "optlist.h"
+#include "path.h"
 #include "prototypes.h"
 #include "sect.h"
 #include "version.h"
@@ -188,7 +189,6 @@ static int **own;		/* owner of the sector.  -1 means water */
 static int **elev;		/* elevation of the sectors */
 static int **sectx, **secty;	/* the sectors for each continent */
 static int **sectc;		/* which sectors are on the coast? */
-static int *vector;		/* used for measuring distances */
 static int *weight;		/* used for placing mountains */
 static int *dsea, *dmoun;	/* the dist to the ocean and mountain */
 
@@ -476,7 +476,6 @@ allocate_memory(void)
 
     capx = calloc(nc, sizeof(int));
     capy = calloc(nc, sizeof(int));
-    vector = calloc(WORLD_X + WORLD_Y, sizeof(int));
     own = calloc(WORLD_X, sizeof(int *));
     elev = calloc(WORLD_X, sizeof(int *));
     for (i = 0; i < WORLD_X; ++i) {
@@ -637,22 +636,42 @@ find_coast(int c)
     }
 }
 
-/* Used for measuring distances
-*/
-static int
-next_vector(int n)
-{
-    int i;
+struct hexagon_iter {
+    int dir, i, n;
+};
 
-    if (n == 1) {
-	vector[0] += 1;
-	vector[0] %= 6;
-	return vector[0];
+/*
+ * Start iterating around @x0,@y0 at distance @d.
+ * Set *x,*y to coordinates of the first sector.
+ */
+static inline void
+hexagon_first(struct hexagon_iter *iter, int x0, int y0, int n,
+	      int *x, int *y)
+{
+    *x = new_x(x0 - 2 * n);
+    *y = y0;
+    iter->dir = DIR_FIRST;
+    iter->i = 0;
+    iter->n = n;
+}
+
+/*
+ * Continue iteration started with hexagon_first().
+ * Set *x,*y to coordinates of the next sector.
+ * Return whether we're back at the first sector, i.e. iteration is
+ * complete.
+ */
+static inline int
+hexagon_next(struct hexagon_iter *iter, int *x, int *y)
+{
+    *x = new_x(*x + diroff[iter->dir][0]);
+    *y = new_y(*y + diroff[iter->dir][1]);
+    iter->i++;
+    if (iter->i == iter->n) {
+	iter->i = 0;
+	iter->dir++;
     }
-    for (i = 1; i < n && vector[i] == vector[i - 1]; ++i) ;
-    vector[i - 1] += 1;
-    vector[i - 1] %= 6;
-    return i > 1 || vector[0] > 0;
+    return iter->dir <= DIR_LAST;
 }
 
 /* Test to see if we're allowed to grow there: the arguments di and id
@@ -660,26 +679,20 @@ next_vector(int n)
 static int
 try_to_grow(int c, int newx, int newy, int d)
 {
-    int i, j, px, py;
+    int i, px, py;
+    struct hexagon_iter hexit;
 
     if (own[newx][newy] != -1)
 	return 0;
 
     for (i = 1; i <= d; ++i) {
-	for (j = 0; j < i; ++j)
-	    vector[j] = 0;
+	hexagon_first(&hexit, newx, newy, i, &px, &py);
 	do {
-	    px = newx;
-	    py = newy;
-	    for (j = 0; j < i; ++j) {
-		px = new_x(px + dirx[vector[j]]);
-		py = new_y(py + diry[vector[j]]);
-	    }
 	    if (own[px][py] != -1 &&
 		own[px][py] != c &&
 		(DISTINCT_ISLANDS || own[px][py] < nc))
 		return 0;
-	} while (next_vector(i));
+	} while (hexagon_next(&hexit, &px, &py));
     }
     sectx[c][isecs[c]] = newx;
     secty[c][isecs[c]] = newy;
@@ -911,18 +924,12 @@ create_elevations(void)
 static int
 distance_to_what(int x, int y, int flag)
 {
-    int j, d, px, py;
+    int d, px, py;
+    struct hexagon_iter hexit;
 
     for (d = 1; d < 5; ++d) {
-	for (j = 0; j < d; ++j)
-	    vector[j] = 0;
+	hexagon_first(&hexit, x, y, d, &px, &py);
 	do {
-	    px = x;
-	    py = y;
-	    for (j = 0; j < d; ++j) {
-		px = new_x(px + dirx[vector[j]]);
-		py = new_y(py + diry[vector[j]]);
-	    }
 	    switch (flag) {
 	    case 0:		/* distance to sea */
 		if (own[px][py] == -1)
@@ -937,7 +944,7 @@ distance_to_what(int x, int y, int flag)
 		    return d;
 		break;
 	    }
-	} while (next_vector(d));
+	} while (hexagon_next(&hexit, &px, &py));
     }
     return d;
 }
