@@ -193,8 +193,7 @@ static int **sectc;		/* which sectors are on the coast? */
 static int *vector;		/* used for measuring distances */
 static int *weight;		/* used for placing mountains */
 static int *dsea, *dmoun;	/* the dist to the ocean and mountain */
-static int fl_status;		/* is anything wrong? */
-#define STATUS_NO_ROOM 1	/* there was no room to grow */
+
 #define NUMTRIES 10		/* keep trying to grow this many times */
 
 static const char *numletter =
@@ -206,7 +205,7 @@ static void parse_args(int argc, char *argv[]);
 static void allocate_memory(void);
 static void init(void);
 static int drift(void);
-static void grow_continents(void);
+static int grow_continents(void);
 static void create_elevations(void);
 static void write_sects(void);
 static void output(void);
@@ -233,7 +232,7 @@ main(int argc, char *argv[])
 {
     int opt;
     char *config_file = NULL;
-    int i = 0;
+    int try, done;
     unsigned rnd_seed = 0;
     int seed_set = 0;
 
@@ -284,17 +283,18 @@ main(int argc, char *argv[])
 
     qprint("\n        #*# ...fairland rips open a rift in the datumplane... #*#\n\n");
     qprint("seed is %u\n", rnd_seed);
+    try = 0;
     do {
 	init();
-	if (i)
-	    qprint("\ntry #%d (out of %d)...\n", i + 1, NUMTRIES);
+	if (try)
+	    qprint("\ntry #%d (out of %d)...\n", try + 1, NUMTRIES);
 	qprint("placing capitals...\n");
 	if (!drift())
 	    qprint("unstable drift\n");
 	qprint("growing continents...\n");
-	grow_continents();
-    } while (fl_status && ++i < NUMTRIES);
-    if (fl_status) {
+	done = grow_continents();
+    } while (!done && ++try < NUMTRIES);
+    if (!done) {
 	fprintf(stderr, "%s: world not large enough to hold continents\n",
 		program_name);
 	exit(1);
@@ -512,7 +512,6 @@ init(void)
     int i, j, xx = 0, yy = 0;
 
     mcc = 0;
-    fl_status = 0;
 
     for (i = 0; i < WORLD_X; ++i) {
 	for (j = 0; j < WORLD_Y; ++j) {
@@ -777,16 +776,17 @@ grow_one_sector(int c)
 	++coast_search;
     } while (!done && coast_search < COAST_SEARCH_MAX &&
 	     (isecs[c] == 1 || x != sx || y != sy));
-    if (!done && c < nc)
-	fl_status |= STATUS_NO_ROOM;
     return done;
 }
 
-/* Grow all the continents
-*/
-static void
+/*
+ * Grow the continents.
+ * Return 1 on success, 0 on error.
+ */
+static int
 grow_continents(void)
 {
+    int done = 1;
     int c, secs;
 
     for (c = 0; c < nc; ++c) {
@@ -799,18 +799,21 @@ grow_continents(void)
 	isecs[c] = 2;
     }
 
-    for (secs = 2; secs < sc && !fl_status; ++secs) {
+    for (secs = 2; secs < sc && done; secs++) {
 	for (c = 0; c < nc; ++c) {
 	    find_coast(c);
-	    grow_one_sector(c);
+	    if (!grow_one_sector(c))
+		done = 0;
 	}
     }
+
     for (c = 0; c < nc; ++c)
 	find_coast(c);
 
-    if (fl_status)
+    if (!done)
 	qprint("Only managed to grow %d out of %d sectors.\n", secs, sc);
     ctot = nc;
+    return done;
 }
 
 /****************************************************************************
