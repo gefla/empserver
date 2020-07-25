@@ -184,7 +184,6 @@ static int *isecs;		/* array of how large each island is */
 static int *capx, *capy;	/* location of the nc capitals */
 static int *mc, mcc;		/* array and counter used for stability
 				   check when perturbing */
-static int spike;		/* are we spiking? */
 static int dirx[] = { -2, -1, 1, 2, 1, -1 }; /* gyujnb */
 static int diry[] = { 0, -1, -1, 0, 1, 1 };
 
@@ -719,7 +718,7 @@ next_coast(int c, int x, int y, int *xp, int *yp)
 */
 
 static int
-new_try(int c)
+new_try(int c, int spike)
 {
     int i, starti;
 
@@ -745,10 +744,10 @@ new_try(int c)
 static int
 grow_one_sector(int c)
 {
+    int spike = roll0(100) < sp;
     int done, coast_search, try1, x, y, newx, newy, i, n, sx, sy;
 
-    spike = roll0(100) < sp;
-    if ((try1 = new_try(c)) == -1)
+    if ((try1 = new_try(c, spike)) == -1)
 	return 0;
     x = sx = sectx[c][try1];
     y = sy = secty[c][try1];
