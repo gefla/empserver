@@ -685,6 +685,7 @@ try_to_grow(int c, int newx, int newy, int d)
     }
     sectx[c][secs] = newx;
     secty[c][secs] = newy;
+    isecs[c]++;
     own[newx][newy] = c;
     return 1;
 }
@@ -798,6 +799,7 @@ grow_continents(void)
 	sectx[c][1] = new_x(capx[c] + 2);
 	secty[c][1] = capy[c];
 	own[sectx[c][1]][secty[c][1]] = c;
+	isecs[c] = 2;
     }
 
     for (secs = 2; secs < sc && !fl_status; ++secs) {
@@ -866,7 +868,6 @@ grow_islands(void)
 	} while (secs < isiz && grow_one_sector(c));
 	find_coast(c);
 	qprint(" %d(%d)", c - nc + 1, secs);
-	isecs[c] = secs;
 	ctot++;
     }
 }
@@ -932,7 +933,7 @@ elevate_land(void)
 
     for (c = 0; c < ctot; ++c) {
 	total = 0;
-	ns = (c < nc) ? sc : isecs[c];
+	ns = isecs[c];
 	nm = (pm * ns) / 100;
 
 /* Place the mountains */
@@ -1282,13 +1283,7 @@ set_coastal_flags(void)
     int i, j;
     struct sctstr *sp;
 
-    for (i = 0; i < nc; ++i) {
-	for (j = 0; j < sc; j++) {
-	    sp = getsectp(sectx[i][j], secty[i][j]);
-	    sp->sct_coastal = sectc[i][j];
-	}
-    }
-    for (i = nc; i < nc + ni; ++i) {
+    for (i = 0; i < nc + ni; ++i) {
 	for (j = 0; j < isecs[i]; j++) {
 	    sp = getsectp(sectx[i][j], secty[i][j]);
 	    sp->sct_coastal = sectc[i][j];
