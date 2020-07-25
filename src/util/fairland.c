@@ -185,8 +185,6 @@ static int *capx, *capy;	/* location of the nc capitals */
 static int *mc, mcc;		/* array and counter used for stability
 				   check when perturbing */
 static int spike;		/* are we spiking? */
-static int mind;		/* the final distance between capitals that
-				   we achieved */
 static int dirx[] = { -2, -1, 1, 2, 1, -1 }; /* gyujnb */
 static int diry[] = { 0, -1, -1, 0, 1, 1 };
 
@@ -574,7 +572,7 @@ drift(void)
     int i, turns;
 
     for (turns = 0; turns < DRIFT_MAX; ++turns) {
-	if (turns > DRIFT_BEFORE_CHECK && (mind = stable()))
+	if (turns > DRIFT_BEFORE_CHECK && stable())
 	    return 1;
 	for (i = 0; i < nc; ++i)
 	    fl_move(i);
