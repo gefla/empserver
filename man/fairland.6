@@ -3,10 +3,7 @@
 fairland \- Empire land generator
 .SH SYNOPSIS
 .B fairland
-[\fB\-ahioqv\fP]
-[\fB\-e\fP \fIconfigfile\fP]
-[\fB\-R\fP \fIseed\fP]
-[\fB\-s\fP \fIscriptout\fP]
+[\fIoption\fP]...
 \fInc\fP
 \fIsc\fP
 [\fIni\fP
@@ -18,17 +15,16 @@ fairland \- Empire land generator
 .br
 .SH DESCRIPTION
 .B fairland
-is a program which creates land and ore for Empire.  It
-should be run after
+is a program which creates land for Empire.  It should be run after
 .I files
 has been run and before
 .I emp_server
-has been started.  This is a land generator for empire that creates a
-specified number of continents, and spaces them evenly accross the
-map.  It tries to make all of them the same size, and makes sure that
-they don't meet.  It gives each start island exactly the same
-distribution of resources and the same number of mountains.  You can
-get nearly any kind of map you want by choosing the right arguments.
+has been started.  It creates a specified number of start islands
+("continents"), and spaces them evenly accross the map.  It makes all
+of them the same size, and makes sure that they don't meet.  It gives
+each start island exactly the same distribution of resources and the
+same number of mountains.  Different arguments produce quite different
+kinds of maps.
 .SH OPTIONS
 .TP
 .BI \-e " configfile"
@@ -38,23 +34,21 @@ Use game configuration in \fIconfigfile\fR.
 Help.  Print brief usage information and exit.
 .TP
 .B \-i
-islands will crash into each other and merge
+Islands will crash into each other and merge.
 .TP
 .B \-q
-run quietly without printing anything to the terminal
+Run quietly without printing anything to the terminal.
 .TP
 .BI \-R " seed"
 Use
 .I seed
-as seed for the pseudo-random number generator. T his can be used to
+as seed for the pseudo-random number generator.  This can be used to
 reproduce a previously created world.  The seed used to generate a
 world is printed along with the map.
 .TP
-.BI \-s " scriptout"
-writes a script for placing capitol to the file
-.I scriptout
-(If you don't specify this argument, then the script will be written
-to "newcap_script".)
+.BI \-s " script"
+Write script to add countries and sanctuaries to file \fIscript\fP
+(default "newcap_script").
 .TP
 .B \-v
 Print version information and exit.
@@ -67,21 +61,22 @@ number of continents
 continent size
 .TP
 .I ni
-number of islands (optional, default = nc)
+number of additional islands (default \fInc\fP)
 .TP
 .I is
-average size of islands (optional, default = sc/2)
+average size of additional islands (default \fIsc\fP/2)
 .TP
 .I sp
-spike percentage: 0 = round, 100 = snake (default = 10)
+land spikiness (in percent, default 10), low values result in rounded
+islands, high values result in snakes
 .TP
 .I pm
-the percentage of land that is mountain (default = 0)
+how much of each island is mountain (in percent, default 0)
 .TP
 .I di
-the minimum distance between continents (default = 2)
+minimum distance between continents (default 2)
 .TP
 .I id
-minimum distance from islands to continents (default = 1)
+minimum distance between additional islands and continents (default 1)
 .SH AUTHOR
-Ken Stevens <chidren@empire.net>
+Ken Stevens <children@empire.net>
