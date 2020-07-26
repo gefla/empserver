@@ -97,6 +97,18 @@
 
 #include <config.h>
 
+#include <assert.h>
+#include <errno.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <unistd.h>
+#include "chance.h"
+#include "optlist.h"
+#include "prototypes.h"
+#include "sect.h"
+#include "version.h"
+#include "xy.h"
+
 /* define ORE 1 to add resources, define ORE 0 if you want to use another
    program to add the resources */
 static int ORE = 1;
@@ -128,18 +140,6 @@ static int quiet = 0;
 
 /* lower URAN_MIN for more uranium */
 #define URAN_MIN   56
-
-#include <assert.h>
-#include <errno.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
-#include "chance.h"
-#include "optlist.h"
-#include "prototypes.h"
-#include "sect.h"
-#include "version.h"
-#include "xy.h"
 
 /* do not change these 4 defines */
 #define LANDMIN		1	/* plate altitude for normal land */
