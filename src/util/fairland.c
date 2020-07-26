@@ -299,8 +299,8 @@ main(int argc, char *argv[])
 	grow_continents();
     } while (fl_status && ++i < NUMTRIES);
     if (fl_status) {
-	fputs("ERROR: World not large enough to hold continents\n",
-	      stderr);
+	fprintf(stderr, "%s: world not large enough to hold continents\n",
+		program_name);
 	exit(1);
     }
     qprint("growing islands:");
@@ -312,8 +312,9 @@ main(int argc, char *argv[])
     if (!write_newcap_script())
 	exit(1);
     if (chdir(gamedir)) {
-	fprintf(stderr, "Can't chdir to %s (%s)\n", gamedir, strerror(errno));
-	exit(EXIT_FAILURE);
+	fprintf(stderr, "%s: can't chdir to %s (%s)\n",
+		program_name, gamedir, strerror(errno));
+	exit(1);
     }
     if (!ef_open(EF_SECTOR, EFF_MEM | EFF_NOTIME))
 	exit(1);
@@ -390,15 +391,15 @@ parse_args(int argc, char *argv[])
     }
     nc = atoi(argv[0]);
     if (nc < 1) {
-	fprintf(stderr,
-		"fairland: error -- number of continents must be > 0");
+	fprintf(stderr, "%s: number of continents must be > 0\n",
+		program_name);
 	exit(1);
     }
 
     sc = atoi(argv[1]);
     if (sc < 1) {
-	fprintf(stderr,
-		"fairland: error -- size of continents must be > 0");
+	fprintf(stderr, "%s: size of continents must be > 0\n",
+		program_name);
 	exit(1);
     }
 
@@ -433,13 +434,13 @@ parse_args(int argc, char *argv[])
 	di = DEFAULT_CONTDIST;
 
     if (di < 0) {
-	fprintf(stderr,
-		"fairland: error -- distance between continents must be >= 0");
+	fprintf(stderr, "%s: distance between continents must be >= 0\n",
+		program_name);
 	exit(1);
     }
     if (di > WORLD_X / 2 || di > WORLD_Y / 2) {
-	fprintf(stderr,
-		"fairland: error -- distance between continents too large");
+	fprintf(stderr, "%s: distance between continents too large\n",
+		program_name);
 	exit(1);
     }
 
@@ -449,12 +450,14 @@ parse_args(int argc, char *argv[])
 	id = DEFAULT_ISLDIST;
     if (id < 0) {
 	fprintf(stderr,
-		"fairland: error -- distance from islands to continents must be >= 0");
+		"%s: distance from islands to continents must be >= 0\n",
+		program_name);
 	exit(1);
     }
     if (id > WORLD_X || id > WORLD_Y) {
 	fprintf(stderr,
-		"fairland: error -- distance from islands to continents too large");
+		"%s: distance from islands to continents too large\n",
+		program_name);
 	exit(1);
     }
 }
@@ -519,7 +522,8 @@ init(void)
 	    xx = yy % 2;
 	    if (yy == WORLD_Y) {
 		fprintf(stderr,
-			"fairland error: world not big enough for all the continents.\n");
+			"%s: world not big enough for all the continents\n",
+			program_name);
 		exit(1);
 	    }
 	}
@@ -1237,8 +1241,8 @@ write_newcap_script(void)
     FILE *script = fopen(outfile, "w");
 
     if (!script) {
-	fprintf(stderr, "fairland: error, unable to write to %s.\n",
-		outfile);
+	fprintf(stderr, "%s: unable to write to %s (%s)\n",
+		program_name, outfile, strerror(errno));
 	return 0;
     }
 
