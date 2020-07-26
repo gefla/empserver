@@ -390,13 +390,15 @@ parse_args(int argc, char *argv[])
     }
     nc = atoi(argv[0]);
     if (nc < 1) {
-	puts("fairland: error -- number of continents must be > 0");
+	fprintf(stderr,
+		"fairland: error -- number of continents must be > 0");
 	exit(1);
     }
 
     sc = atoi(argv[1]);
     if (sc < 1) {
-	puts("fairland: error -- size of continents must be > 0");
+	fprintf(stderr,
+		"fairland: error -- size of continents must be > 0");
 	exit(1);
     }
 
@@ -431,11 +433,13 @@ parse_args(int argc, char *argv[])
 	di = DEFAULT_CONTDIST;
 
     if (di < 0) {
-	puts("fairland: error -- distance between continents must be >= 0");
+	fprintf(stderr,
+		"fairland: error -- distance between continents must be >= 0");
 	exit(1);
     }
     if (di > WORLD_X / 2 || di > WORLD_Y / 2) {
-	puts("fairland: error -- distance between continents too large");
+	fprintf(stderr,
+		"fairland: error -- distance between continents too large");
 	exit(1);
     }
 
@@ -444,11 +448,13 @@ parse_args(int argc, char *argv[])
     else
 	id = DEFAULT_ISLDIST;
     if (id < 0) {
-	puts("fairland: error -- distance from islands to continents must be >= 0");
+	fprintf(stderr,
+		"fairland: error -- distance from islands to continents must be >= 0");
 	exit(1);
     }
     if (id > WORLD_X || id > WORLD_Y) {
-	puts("fairland: error -- distance from islands to continents too large");
+	fprintf(stderr,
+		"fairland: error -- distance from islands to continents too large");
 	exit(1);
     }
 }
@@ -512,7 +518,8 @@ init(void)
 	    ++yy;
 	    xx = yy % 2;
 	    if (yy == WORLD_Y) {
-		puts("fairland error: world not big enough for all the continents.\n");
+		fprintf(stderr,
+			"fairland error: world not big enough for all the continents.\n");
 		exit(1);
 	    }
 	}
@@ -1230,7 +1237,8 @@ write_newcap_script(void)
     FILE *script = fopen(outfile, "w");
 
     if (!script) {
-	printf("fairland: error, unable to write to %s.\n", outfile);
+	fprintf(stderr, "fairland: error, unable to write to %s.\n",
+		outfile);
 	return 0;
     }
 
