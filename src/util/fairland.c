@@ -99,6 +99,7 @@
 
 #include <assert.h>
 #include <errno.h>
+#include <limits.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -518,12 +519,15 @@ init(void)
   DRIFT THE CAPITALS UNTIL THEY ARE AS FAR AWAY FROM EACH OTHER AS POSSIBLE
 ****************************************************************************/
 
-/* How isolated is capital j?
-*/
+/*
+ * How isolated is capital @j at @newx,@newy?
+ * Return the distance to the closest other capital.
+ */
 static int
 iso(int j, int newx, int newy)
 {
-    int i, md, d = WORLD_X + WORLD_Y;
+    int d = INT_MAX;
+    int i, md;
 
     for (i = 0; i < nc; ++i) {
 	if (i == j)
