@@ -397,8 +397,8 @@ parse_args(int argc, char *argv[])
     }
 
     sc = atoi(argv[1]);
-    if (sc < 1) {
-	fprintf(stderr, "%s: size of continents must be > 0\n",
+    if (sc < 2) {
+	fprintf(stderr, "%s: size of continents must be > 1\n",
 		program_name);
 	exit(1);
     }
