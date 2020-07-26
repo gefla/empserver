@@ -217,12 +217,9 @@ static int quiet;
 #define DEFAULT_OUTFILE_NAME "newcap_script"
 static const char *outfile = DEFAULT_OUTFILE_NAME;
 
-#define STABLE_CYCLE 4		/* stability required for perterbed capitals */
+#define STABLE_CYCLE 4		/* stability required for perturbed capitals */
 #define DRIFT_BEFORE_CHECK ((WORLD_X + WORLD_Y)/2)
 #define DRIFT_MAX ((WORLD_X + WORLD_Y)*2)
-
-/* handy macros:
-*/
 
 #define new_x(newx) (((newx) + WORLD_X) % WORLD_X)
 #define new_y(newy) (((newy) + WORLD_Y) % WORLD_Y)
@@ -335,9 +332,6 @@ void print_closest_map(void);
 void print_distance_map(void);
 void print_elev_map(void);
 
-/****************************************************************************
-  MAIN
-****************************************************************************/
 
 int
 main(int argc, char *argv[])
@@ -599,9 +593,10 @@ parse_args(int argc, char *argv[])
     }
 }
 
-/****************************************************************************
-  VARIABLE INITIALIZATION
-****************************************************************************/
+
+/*
+ * Variable initialization
+ */
 
 static void
 allocate_memory(void)
@@ -635,9 +630,10 @@ init(void)
     memset(adj_land, 0, WORLD_SZ() * sizeof(*adj_land));
 }
 
-/****************************************************************************
-  DRIFT THE CAPITALS UNTIL THEY ARE AS FAR AWAY FROM EACH OTHER AS POSSIBLE
-****************************************************************************/
+
+/*
+ * Drift the capitals until they are as far away from each other as possible
+ */
 
 /*
  * How isolated is capital @j at @newx,@newy?
@@ -725,7 +721,6 @@ stable(int turns)
  * Drift capital @j.
  * Move it to an adjacent sector where it is at least as isolated.
 */
-
 static void
 drift_capital(int j)
 {
@@ -746,9 +741,10 @@ drift_capital(int j)
     }
 }
 
-/****************************************************************************
-  GROW THE CONTINENTS
-****************************************************************************/
+
+/*
+ * Grow land
+ */
 
 static int
 is_coastal(int x, int y)
@@ -1164,10 +1160,6 @@ grow_continents(void)
     return done;
 }
 
-/****************************************************************************
-  GROW THE ISLANDS
-****************************************************************************/
-
 /*
  * Place additional island @c's first sector.
  * Return 1 on success, 0 on error.
@@ -1296,9 +1288,11 @@ grow_islands(void)
     return 1;
 }
 
-/****************************************************************************
-  CREATE ELEVATIONS
-****************************************************************************/
+
+/*
+ * Create elevations
+ */
+
 static void
 create_elevations(void)
 {
@@ -1413,9 +1407,10 @@ elev_to_sct_type(int elevation)
     return SCT_MOUNT;
 }
 
-/****************************************************************************
-  ADD THE RESOURCES
-****************************************************************************/
+
+/*
+ * Add resources
+ */
 
 /*
  * Map elevation @elev to a resource value according to @conf.
@@ -1448,9 +1443,10 @@ add_resources(struct sctstr *sct)
     sct->sct_uran = elev_to_resource(sct->sct_elev, uran_conf);
 }
 
-/****************************************************************************
-  DESIGNATE THE SECTORS
-****************************************************************************/
+
+/*
+ * Designate the sectors
+ */
 
 static void
 write_sects(void)
@@ -1469,9 +1465,11 @@ write_sects(void)
     }
 }
 
-/****************************************************************************
-  PRINT A PICTURE OF THE MAP TO YOUR SCREEN
-****************************************************************************/
+
+/*
+ * Print a picture of the map
+ */
+
 static void
 output(void)
 {
@@ -1658,9 +1656,10 @@ print_distance_map(void)
 }
 
 
-/***************************************************************************
-  WRITE A SCRIPT FOR PLACING CAPITALS
-****************************************************************************/
+/*
+ * Write a script for placing capitals
+ */
+
 static int
 write_newcap_script(void)
 {
