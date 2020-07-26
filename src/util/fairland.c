@@ -152,9 +152,6 @@ static void qprint(const char * const fmt, ...)
 
 #define DEFAULT_OUTFILE_NAME "newcap_script"
 static const char *outfile = DEFAULT_OUTFILE_NAME;
-/* mark the continents with a * so you can tell them
-   from the islands 1 = mark, 0 = don't mark. */
-static int AIRPORT_MARKER = 0;
 
 /* don't let the islands crash into each other.
    1 = don't merge, 0 = merge. */
@@ -248,11 +245,8 @@ main(int argc, char *argv[])
 
     program_name = argv[0];
 
-    while ((opt = getopt(argc, argv, "ae:hioqR:s:v")) != EOF) {
+    while ((opt = getopt(argc, argv, "e:hioqR:s:v")) != EOF) {
 	switch (opt) {
-	case 'a':
-	    AIRPORT_MARKER = 1;
-	    break;
 	case 'e':
 	    config_file = optarg;
 	    break;
@@ -385,7 +379,6 @@ static void
 usage(void)
 {
     printf("Usage: %s [OPTION]... NC SC [NI] [IS] [SP] [PM] [DI] [ID]\n"
-	   "  -a              airport marker for continents\n"
 	   "  -e CONFIG-FILE  configuration file\n"
 	   "                  (default %s)\n"
 	   "  -i              islands may merge\n"
@@ -1130,7 +1123,7 @@ static void
 write_sects(void)
 {
     struct sctstr *sct;
-    int c, x, y, total;
+    int x, y, total;
 
     for (y = 0; y < WORLD_Y; y++) {
 	for (x = y % 2; x < WORLD_X; x += 2) {
@@ -1153,12 +1146,6 @@ write_sects(void)
 		add_resources(sct);
 	}
     }
-    if (AIRPORT_MARKER)
-	for (c = 0; c < nc; ++c) {
-	    sct = getsectp(capx[c], capy[c]);
-	    sct->sct_type = SCT_AIRPT;
-	    sct->sct_newtype = SCT_AIRPT;
-	}
     set_coastal_flags();
 }
 
@@ -1186,10 +1173,6 @@ output(void)
 	    }
 	}
     }
-    if (AIRPORT_MARKER)
-	printf("\n\nEach continent is marked by a \"*\" on the map (to distinguish them from\n"
-	       "the islands).  You can redesignate these airfields to wilderness sectors\n"
-	       "one at a time, each time you add a new country to the game.\n");
 }
 
 static int
@@ -1285,8 +1268,6 @@ write_newcap_script(void)
 
     for (c = 0; c < nc; ++c) {
 	fprintf(script, "add %d %d %d p\n", c + 1, c + 1, c + 1);
-	if (AIRPORT_MARKER)
-	    fprintf(script, "des %d,%d -\n", capx[c], capy[c]);
 	fprintf(script, "newcap %d %d,%d\n", c + 1, capx[c], capy[c]);
     }
     fprintf(script, "add %d visitor visitor v\n", c + 1);
