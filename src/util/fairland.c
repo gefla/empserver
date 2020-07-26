@@ -181,8 +181,6 @@ static int ctot;		/* total number of continents and islands grown */
 static int *isecs;		/* array of how large each island is */
 
 static int *capx, *capy;	/* location of the nc capitals */
-static int *mc, mcc;		/* array and counter used for stability
-				   check when perturbing */
 static int dirx[] = { -2, -1, 1, 2, 1, -1 }; /* gyujnb */
 static int diry[] = { 0, -1, -1, 0, 1, 1 };
 
@@ -210,7 +208,7 @@ static void create_elevations(void);
 static void write_sects(void);
 static void output(void);
 static int write_newcap_script(void);
-static int stable(void);
+static int stable(int);
 static void elevate_land(void);
 static void elevate_sea(void);
 static void set_coastal_flags(void);
@@ -479,7 +477,6 @@ allocate_memory(void)
     capx = calloc(nc, sizeof(int));
     capy = calloc(nc, sizeof(int));
     vector = calloc(WORLD_X + WORLD_Y, sizeof(int));
-    mc = calloc(STABLE_CYCLE, sizeof(int));
     own = calloc(WORLD_X, sizeof(int *));
     elev = calloc(WORLD_X, sizeof(int *));
     for (i = 0; i < WORLD_X; ++i) {
@@ -511,8 +508,6 @@ init(void)
 {
     int i, j, xx = 0, yy = 0;
 
-    mcc = 0;
-
     for (i = 0; i < WORLD_X; ++i) {
 	for (j = 0; j < WORLD_Y; ++j) {
 	    own[i][j] = -1;
@@ -535,8 +530,6 @@ init(void)
 	capy[i] = yy;
 	xx += 2;
     }
-    for (i = 0; i < STABLE_CYCLE; ++i)
-	mc[i] = i;
 }
 
 /****************************************************************************
@@ -561,15 +554,17 @@ iso(int j, int newx, int newy)
     return d;
 }
 
-/* Drift all the capitals
-*/
+/*
+ * Drift the capitals
+ * Return 1 for a stable drift, 0 for an unstable one.
+ */
 static int
 drift(void)
 {
-    int i, turns;
+    int turns, i;
 
     for (turns = 0; turns < DRIFT_MAX; ++turns) {
-	if (turns > DRIFT_BEFORE_CHECK && stable())
+	if (stable(turns))
 	    return 1;
 	for (i = 0; i < nc; ++i)
 	    fl_move(i);
@@ -577,25 +572,36 @@ drift(void)
     return 0;
 }
 
-/* Check to see if we have stabilized--can we stop drifting the capitals?
-*/
-
+/*
+ * Has the drift stabilized?
+ * @turns is the number of turns so far.
+ */
 static int
-stable(void)
+stable(int turns)
 {
+    static int mc[STABLE_CYCLE];
     int i, isod, d = 0, stab = 1;
+
+    if (!turns) {
+	for (i = 0; i < STABLE_CYCLE; i++)
+	    mc[i] = i;
+    }
+
+    if (turns <= DRIFT_BEFORE_CHECK)
+	return 0;
 
     for (i = 0; i < nc; ++i) {
 	isod = iso(i, capx[i], capy[i]);
 	if (isod > d)
 	    d = isod;
     }
+
     for (i = 0; i < STABLE_CYCLE; ++i)
 	if (d != mc[i])
 	    stab = 0;
-    mc[mcc] = d;
-    mcc = (mcc + 1) % STABLE_CYCLE;
-    return stab ? d : 0;
+
+    mc[turns % STABLE_CYCLE] = d;
+    return stab;
 }
 
 /* This routine does the actual drifting
