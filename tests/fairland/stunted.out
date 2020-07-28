@@ -1,0 +1,70 @@
+Creating a planet with:
+
+8 continents
+continent size: 37
+number of islands: 24
+average size of islands: 15
+spike: 0%
+0% of land is mountain (each continent will have 0 mountains)
+minimum distance between continents: 5
+minimum distance from islands to continents: 2
+World dimensions: 64x32
+
+        #*# ...fairland rips open a rift in the datumplane... #*#
+
+seed is 1
+placing capitals...
+growing continents...
+fairland: error -- continent h had no room to grow!
+Only managed to grow 33 out of 37 sectors.
+
+try #2 (out of 10)...
+placing capitals...
+growing continents...
+fairland: error -- continent h had no room to grow!
+Only managed to grow 31 out of 37 sectors.
+
+try #3 (out of 10)...
+placing capitals...
+growing continents...
+growing islands: 1(14) 2(20) 3(11) 4(16) 5(14) 6(8) 7(2) 8(3) 9(4) 10(5) 11(14) 12(3)
+elevating land...
+designating sectors...
+adding resources...
+setting coastal flags...
+writing to sectors file...
+
+. . # # # # . . % . . . . % % % % . . . . . . # # # # # # . . %
+ . . # # # # . . % . . . % % % . . . % % . . # # e e # # . . % %
+. . . f f # # . . . . . % % . . . . % % . . # # # # # # . . % %
+ . # # # # # # . . . . . % . . . . . % . . # # # # # # . . % % .
+. . . # # # # # . . . . . . . . # . . % . . . # # # # . . % % .
+ . . . # # # # # # . . . . . . # # . . % . . . . . . . . % % . .
+% % . . # # # # . . . % . . # # # # . . % . . . . . . . % % . .
+ . % . . # # . . . . % . . # # # # # . . . . % . . % % % . . . .
+. . % . . . . . . . % . . # # g g # # . . . % % . . . . . . . .
+ . . . . . . . . . . . . . # # # # # # # . . % . . . . . . # # #
+# . . . . . . . . . . . . . # # # # . # . . % . . # # . . # # #
+ # . . . . . . . . . . . . . # # # # . . . . . . # # . # # # # #
+# . . . . . . . . # . . . . . # # # . . . . . . . # # # h h # #
+ . . . . . # # # # # . . . . . . . . . . . . . . . # # # # # # #
+. . . . . # # # # # # . . . . . . . . . . . . . . . # # # # . .
+ . . . . # # b b # # # . . . . . . . . . . . . % . . # . . . . .
+. . . . . # # # # # # # . . % % . . . . . . . . % . . . . . . %
+ . . . . . . # # # # # # . . % . . . . . # # . . % . . . % % % .
+. . . . . . . # # # # # . . % . . # # # # # # . . % % % % . . .
+ # . . % % . . . . . . . . % % . . # # # # # # . . % % % . . . .
+# # . . . % . . . . . . . % % % . . # # c c # # . . % % . . # #
+ # # . . . % % % . . . % % % % % . . # # # # # # . . % . . # # #
+# # # # . . % % . . . . . . . . . . . # # # # # . . % . . # # #
+ # # # # . . % . . . . . . . . . . . . # # # # # . . % . . # d d
+# # # # . . % . . # # . . # # . . . . . . . # . . . . % . . # #
+ # # # . . % . . # # # # # # # . . . . . . . . . . . . . . # # #
+. . . . . % . . # # # # # # # # . . % % % . . . % % . . . . . #
+ . . . . % % . . # # a a # # . . . . % % % . . % . . . . . . . .
+. . . . . . . . . # # # # # # . . % % % % . . . . . . . . . . .
+ . . . . . . . . . # # # . # . . . . % % % . . . . # . . . . . .
+. . . . . . . . . . . # . . . . . . . % . . . . # # # . . . . .
+ . . . # # . . . . . # . . . . % . . . . . . . # # # # # . . . .
+
+A script for adding all the countries can be found in "sandbox/stunted-newcap_script".
