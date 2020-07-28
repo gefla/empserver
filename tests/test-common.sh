@@ -298,8 +298,6 @@ cmp_out1()
 	    [ ! -e "$act" ] && return
 	    exp=/dev/null
 	    ;;
-	    *.status)   exp=sandbox/ok.status; echo 0 >sandbox/ok.status ;;
-	    *)		exp=/dev/null ;;
 	esac
     fi
 
