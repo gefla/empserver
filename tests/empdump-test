@@ -30,4 +30,4 @@ run export2 $empdump -x
 mv sandbox/export2.out sandbox/final.xdump
 
 cmp_run errors import1 export1 import2 export2
-EMPIRE_CHECK_ACCEPT= cmp_out1 final.xdump "$srcdir"/tests/smoke/final.xdump
+cmp_out1 final.xdump "$srcdir"/tests/smoke/final.xdump
