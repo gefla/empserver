@@ -12,7 +12,7 @@ srcdir="$1"
 create_sandbox
 
 $files -f >/dev/null
-run_and_cmp plain $fairland -s sandbox/plain-newcap_script -R 1 10 30
+run_and_cmp plain $fairland -s sandbox/plain-newcap_script -R 1 5 30
 $empdump -x >sandbox/plain.xdump
 cmp_out plain.xdump plain-newcap_script
 
