@@ -109,15 +109,6 @@
 #include "version.h"
 #include "xy.h"
 
-static int quiet = 0;
-
-/* If you don't specify these command line arguments, then these are the
-   defaults */
-#define DEFAULT_SPIKE 10
-#define DEFAULT_MOUNTAIN 0
-#define DEFAULT_CONTDIST 2
-#define DEFAULT_ISLDIST 1
-
 /* The following five numbers refer to elevation under which (in the case of
    fertility or oil) or over which (in the case of iron, gold, and uranium)
    sectors with that elevation will contain that resource.  Elevation ranges
@@ -147,14 +138,26 @@ static int quiet = 0;
 static void qprint(const char * const fmt, ...)
     ATTRIBUTE((format (printf, 1, 2)));
 
-#define DEFAULT_OUTFILE_NAME "newcap_script"
-static const char *outfile = DEFAULT_OUTFILE_NAME;
-
+/*
+ * Program arguments and options
+ */
+static char *program_name;
+static int nc, sc;		/* number and size of continents */
+static int ni, is;		/* number and size of islands */
+#define DEFAULT_SPIKE 10
+static int sp;			/* spike percentage */
+#define DEFAULT_MOUNTAIN 0
+static int pm;			/* mountain percentage */
+#define DEFAULT_CONTDIST 2
+static int di;			/* min. distance between continents */
+#define DEFAULT_ISLDIST 1
+static int id;			/* ... continents and islands */
 /* don't let the islands crash into each other.
    1 = don't merge, 0 = merge. */
 static int DISTINCT_ISLANDS = 1;
-
-static char *program_name;
+static int quiet;
+#define DEFAULT_OUTFILE_NAME "newcap_script"
+static const char *outfile = DEFAULT_OUTFILE_NAME;
 
 #define STABLE_CYCLE 4		/* stability required for perterbed capitals */
 #define INFINITY	999	/* a number which means "BIG" */
@@ -178,7 +181,6 @@ static int secs;		/* number of sectors grown */
 static int ctot;		/* total number of continents and islands grown */
 static int *isecs;		/* array of how large each island is */
 
-static int nc, sc, di, sp, pm, ni, is, id; /* the 8 args to this program */
 static int *capx, *capy;	/* location of the nc capitals */
 static int *mc, mcc;		/* array and counter used for stability
 				   check when perturbing */
