@@ -187,6 +187,21 @@ static int dirx[] = { -2, -1, 1, 2, 1, -1 }; /* gyujnb */
 static int diry[] = { 0, -1, -1, 0, 1, 1 };
 
 static int **own;		/* owner of the sector.  -1 means water */
+
+/*
+ * Exclusive zones
+ * Each island is surrounded by an exclusive zone where only it may
+ * grow.  The width of the zone depends on minimum distances.
+ * While growing continents, it is @di sectors wide.
+ * While growing additional islands, it is @id sectors wide.
+ * DISTINCT_ISLANDS nullifies the exclusive zone then.
+ * xzone[XYOFFSET(x, y)] is -1 when the sector is in no exclusive
+ * zone, a (non-negative) island number when it is in that island's
+ * exclusive zone and no other, and -2 when it is in multiple
+ * exclusive zones.
+ */
+static short *xzone;
+
 static int **elev;		/* elevation of the sectors */
 static int **sectx, **secty;	/* the sectors for each continent */
 static int **sectc;		/* which sectors are on the coast? */
@@ -220,6 +235,7 @@ static void grow_islands(void);
 
 /* Debugging aids: */
 void print_own_map(void);
+void print_xzone_map(void);
 void print_elev_map(void);
 
 /****************************************************************************
@@ -478,6 +494,7 @@ allocate_memory(void)
     capx = calloc(nc, sizeof(int));
     capy = calloc(nc, sizeof(int));
     own = calloc(WORLD_X, sizeof(int *));
+    xzone = malloc(WORLD_SZ() * sizeof(*xzone));
     elev = calloc(WORLD_X, sizeof(int *));
     for (i = 0; i < WORLD_X; ++i) {
 	own[i] = calloc(WORLD_Y, sizeof(int));
@@ -678,18 +695,89 @@ hexagon_next(struct hexagon_iter *iter, int *x, int *y)
     return iter->dir <= DIR_LAST;
 }
 
+/*
+ * Is @x,@y in no exclusive zone other than perhaps @c's?
+ */
+static int
+xzone_ok(int c, int x, int y)
+{
+    int off = XYOFFSET(x, y);
+
+    return xzone[off] == c || xzone[off] == -1;
+}
+
+/*
+ * Add sectors within distance @dist of @x,@y to @c's exclusive zone.
+ */
+static void
+xzone_around_sector(int c, int x, int y, int dist)
+{
+    int d, x1, y1, off;
+    struct hexagon_iter hexit;
+
+    assert(xzone_ok(c, x, y));
+
+    xzone[XYOFFSET(x, y)] = c;
+    for (d = 1; d <= dist; d++) {
+	hexagon_first(&hexit, x, y, d, &x1, &y1);
+	do {
+	    off = XYOFFSET(x1, y1);
+	    if (xzone[off] == -1)
+		xzone[off] = c;
+	    else if (xzone[off] != c)
+		xzone[off] = -2;
+	} while (hexagon_next(&hexit, &x1, &y1));
+    }
+}
+
+/*
+ * Add sectors within distance @dist to island @c's exclusive zone.
+ */
+static void
+xzone_around_island(int c, int dist)
+{
+    int i;
+
+    for (i = 0; i < isecs[c]; i++)
+	xzone_around_sector(c, sectx[c][i], secty[c][i], dist);
+}
+
+/*
+ * Initialize exclusive zones around @n islands.
+ */
+static void
+xzone_init(int n)
+{
+    int i, c;
+
+    for (i = 0; i < WORLD_SZ(); i++)
+	xzone[i] = -1;
+
+    for (c = 0; c < n; c++)
+	xzone_around_island(c, id);
+}
+
+/*
+ * Can island @c grow at @x,@y?
+ */
+static int
+can_grow_at(int c, int x, int y)
+{
+    return own[x][y] == -1 && xzone_ok(c, x, y);
+}
+
 static int
 try_to_grow(int c, int newx, int newy, int extra_dist)
 {
-    int d = (c < nc ? di : id) + extra_dist;
+    int d = c < nc ? di : id;
     int i, px, py;
     struct hexagon_iter hexit;
 
-    if (own[newx][newy] != -1)
+    if (!can_grow_at(c, newx, newy))
 	return 0;
 
-    for (i = 1; i <= d; ++i) {
-	hexagon_first(&hexit, newx, newy, i, &px, &py);
+    for (i = 1; i <= extra_dist; i++) {
+	hexagon_first(&hexit, newx, newy, d + i, &px, &py);
 	do {
 	    if (own[px][py] != -1 &&
 		own[px][py] != c &&
@@ -697,6 +785,9 @@ try_to_grow(int c, int newx, int newy, int extra_dist)
 		return 0;
 	} while (hexagon_next(&hexit, &px, &py));
     }
+
+    xzone_around_sector(c, newx, newy,
+			c < nc ? di : DISTINCT_ISLANDS ? id : 0);
     sectx[c][isecs[c]] = newx;
     secty[c][isecs[c]] = newy;
     isecs[c]++;
@@ -806,6 +897,9 @@ grow_continents(void)
     int done = 1;
     int c, secs;
 
+    ctot = 0;
+    xzone_init(0);
+
     for (c = 0; c < nc; ++c) {
 	isecs[c] = 0;
 	if (!try_to_grow(c, capx[c], capy[c], 0)
@@ -879,6 +973,8 @@ grow_islands(void)
 {
     int stunted_islands = 0;
     int c, secs, x, y, isiz;
+
+    xzone_init(nc);
 
     for (c = nc; c < nc + ni; ++c) {
 	if (!place_island(c, &x, &y)) {
@@ -1272,6 +1368,37 @@ print_elev_map(void)
 	putchar('\n');
     }
 }
+
+/*
+ * Print a map to help visualize xzone[].
+ * This is for debugging.
+ */
+void
+print_xzone_map(void)
+{
+    int sx, sy, x, y, off;
+
+    for (sy = -WORLD_Y / 2; sy < WORLD_Y / 2; sy++) {
+	y = YNORM(sy);
+	printf("%4d ", sy);
+	for (sx = -WORLD_X / 2; sx < WORLD_X / 2; sx++) {
+	    x = XNORM(sx);
+	    off = XYOFFSET(x, y);
+	    if ((x + y) & 1)
+		putchar(' ');
+	    else if (own[x][y] >= 0)
+		putchar('-');
+	    else if (xzone[off] >= 0)
+		putchar(numletter[xzone[off] % 62]);
+	    else {
+		assert(own[x][y] == -1);
+		putchar(xzone[off] == -1 ? '.' : '!');
+	    }
+	}
+	putchar('\n');
+    }
+}
+
 
 /***************************************************************************
   WRITE A SCRIPT FOR PLACING CAPITALS
