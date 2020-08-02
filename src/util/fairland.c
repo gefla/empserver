@@ -678,11 +678,10 @@ hexagon_next(struct hexagon_iter *iter, int *x, int *y)
     return iter->dir <= DIR_LAST;
 }
 
-/* Test to see if we're allowed to grow there: the arguments di and id
-*/
 static int
-try_to_grow(int c, int newx, int newy, int d)
+try_to_grow(int c, int newx, int newy, int extra_dist)
 {
+    int d = (c < nc ? di : id) + extra_dist;
     int i, px, py;
     struct hexagon_iter hexit;
 
@@ -780,14 +779,14 @@ grow_one_sector(int c)
 		if (n > 5 ||
 		    (own[new_x(x+dirx[(i+5)%6])][new_y(y+diry[(i+5)%6])] == -1 &&
 		     own[new_x(x+dirx[(i+1)%6])][new_y(y+diry[(i+1)%6])] == -1))
-		    if (try_to_grow(c, newx, newy, c < nc ? di : id))
+		    if (try_to_grow(c, newx, newy, 0))
 			done = 1;
 	    }
 	} else
 	    for (i = roll0(6), n = 0; n < 6 && !done; i = (i + 1) % 6, ++n) {
 		newx = new_x(x + dirx[i]);
 		newy = new_y(y + diry[i]);
-		if (try_to_grow(c, newx, newy, c < nc ? di : id))
+		if (try_to_grow(c, newx, newy, 0))
 		    done = 1;
 	    }
 	next_coast(c, x, y, &x, &y);
@@ -809,8 +808,8 @@ grow_continents(void)
 
     for (c = 0; c < nc; ++c) {
 	isecs[c] = 0;
-	if (!try_to_grow(c, capx[c], capy[c], di)
-	    || !try_to_grow(c, new_x(capx[c] + 2), capy[c], di)) {
+	if (!try_to_grow(c, capx[c], capy[c], 0)
+	    || !try_to_grow(c, new_x(capx[c] + 2), capy[c], 0)) {
 	    done = 0;
 	    continue;
 	}
@@ -854,7 +853,7 @@ place_island(int c, int *xp, int *yp)
 
     if (ssx > WORLD_X - 2)
 	ssx = new_x(ssx + 2);
-    for (d = di + id; d >= id; --d) {
+    for (d = di; d >= 0; --d) {
 	sx = ssx;
 	sy = ssy;
 	*xp = new_x(sx + 2);
