@@ -347,19 +347,6 @@ print_vars(void)
     printf("World dimensions: %dx%d\n", WORLD_X, WORLD_Y);
 }
 
-static int
-my_sqrt(int n)
-{
-    int i;
-
-    for (i = 1; i * i < n * 10000; ++i) ;
-    return (i + 50) / 100;
-}
-
-/****************************************************************************
-  PARSE COMMAND LINE ARGUMENTS
-****************************************************************************/
-
 static void
 help(char *complaint)
 {
@@ -465,11 +452,6 @@ parse_args(int argc, char *argv[])
     if (id > WORLD_X || id > WORLD_Y) {
 	puts("fairland: error -- distance from islands to continents too large");
 	exit(1);
-    }
-    if (nc * sc + nc * my_sqrt(sc) * 2 * (di + 1) > WORLD_X * WORLD_Y) {
-	puts("fairland: warning -- world might be too small to fit continents.");
-	puts("arguments should satisfy:");
-	puts("nc*sc*sc + nc*sqrt(sc)*2*(di+1) < WORLD_X * WORLD_Y");
     }
 }
 
