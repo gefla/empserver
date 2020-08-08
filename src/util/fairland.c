@@ -218,7 +218,6 @@ static int write_newcap_script(void);
 static int stable(void);
 static void elevate_land(void);
 static void elevate_sea(void);
-static int map_symbol(int x, int y);
 static void set_coastal_flags(void);
 
 static void print_vars(void);
@@ -1028,6 +1027,20 @@ elevate_sea(void)
     }
 }
 
+static int
+elev_to_sct_type(int elevation)
+{
+    if (elevation < LANDMIN)
+	return SCT_WATER;
+    if (elevation < HILLMIN)
+	return SCT_RURAL;
+    if (elevation < PLATMIN)
+	return SCT_MOUNT;
+    if (elevation < HIGHMIN)
+	return SCT_RURAL;
+    return SCT_MOUNT;
+}
+
 /****************************************************************************
   ADD THE RESOURCES
 ****************************************************************************/
@@ -1113,23 +1126,13 @@ static void
 write_sects(void)
 {
     struct sctstr *sct;
-    int x, y, total;
+    int x, y;
 
     for (y = 0; y < WORLD_Y; y++) {
 	for (x = y % 2; x < WORLD_X; x += 2) {
 	    sct = getsectp(x, y);
-	    total = elev[x][y];
-	    if (total < LANDMIN) {
-		sct->sct_type = SCT_WATER;
-	    } else if (total < HILLMIN)
-		sct->sct_type = SCT_RURAL;
-	    else if (total < PLATMIN)
-		sct->sct_type = SCT_MOUNT;
-	    else if (total < HIGHMIN)
-		sct->sct_type = SCT_RURAL;
-	    else
-		sct->sct_type = SCT_MOUNT;
-	    sct->sct_elev = total;
+	    sct->sct_elev = elev[x][y];
+	    sct->sct_type = elev_to_sct_type(elev[x][y]);
 	    sct->sct_newtype = sct->sct_type;
 	    sct->sct_dterr = own[sct->sct_x][y] + 1;
 	    add_resources(sct);
@@ -1144,7 +1147,7 @@ write_sects(void)
 static void
 output(void)
 {
-    int sx, sy, x, y;
+    int sx, sy, x, y, c, type;
 
     if (quiet == 0) {
 	for (sy = -WORLD_Y / 2; sy < WORLD_Y / 2; sy++) {
@@ -1154,29 +1157,25 @@ output(void)
 		printf(" ");
 	    for (sx = -WORLD_X / 2 + y % 2; sx < WORLD_X / 2; sx += 2) {
 		x = XNORM(sx);
-		if (own[x][y] == -1)
+		c = own[x][y];
+		type = elev_to_sct_type(elev[x][y]);
+		if (type == SCT_WATER)
 		    printf(". ");
+		else if (type == SCT_MOUNT)
+		    printf("^ ");
+		else if (c >= nc)
+		    printf("%% ");
 		else {
-		    printf("%c ", map_symbol(x, y));
+		    assert(0 <= c && c < nc);
+		    if ((x == capx[c] || x == new_x(capx[c] + 2))
+			&& y == capy[c])
+			printf("%c ", numletter[c % 62]);
+		    else
+			printf("# ");
 		}
 	    }
 	}
     }
-}
-
-static int
-map_symbol(int x, int y)
-{
-    int c;
-
-    for (c = 0; c < nc; ++c)
-	if ((x == capx[c] && y == capy[c])
-	    || (x == new_x(capx[c] + 2) && y == capy[c]))
-	    return numletter[own[x][y] % 62];
-    if ((elev[x][y] >= HILLMIN && elev[x][y] < PLATMIN)
-	|| elev[x][y] >= HIGHMIN)
-	return '^';
-    return own[x][y] >= nc ? '%' : '#';
 }
 
 /*
