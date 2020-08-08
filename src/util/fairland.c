@@ -162,7 +162,7 @@ static int quiet;
 static const char *outfile = DEFAULT_OUTFILE_NAME;
 
 #define STABLE_CYCLE 4		/* stability required for perterbed capitals */
-#define INFINITY	999	/* a number which means "BIG" */
+#define INFINITE_ELEVATION 999
 
 /* these defines prevent infinite loops:
 */
@@ -916,7 +916,7 @@ create_elevations(void)
 
     for (i = 0; i < WORLD_X; i++) {
 	for (j = 0; j < WORLD_Y; j++)
-	    elev[i][j] = -INFINITY;
+	    elev[i][j] = -INFINITE_ELEVATION;
     }
     elevate_land();
     elevate_sea();
@@ -944,7 +944,7 @@ distance_to_what(int x, int y, int flag)
 		    return d;
 		break;
 	    case 2:		/* distance to mountain */
-		if (elev[px][py] == INFINITY)
+		if (elev[px][py] == INFINITE_ELEVATION)
 		    return d;
 		break;
 	    }
@@ -982,13 +982,13 @@ elevate_land(void)
 	     ++mountain_search) {
 	    r = roll0(total);
 	    for (i = 0; i < ns; ++i)
-		if (r < weight[i] && ELEV == -INFINITY &&
+		if (r < weight[i] && ELEV == -INFINITE_ELEVATION &&
 		    (c >= nc ||
 		     ((!(capx[c] == sectx[c][i] &&
 			 capy[c] == secty[c][i])) &&
 		      (!(new_x(capx[c] + 2) == sectx[c][i] &&
 			 capy[c] == secty[c][i]))))) {
-		    ELEV = INFINITY;
+		    ELEV = INFINITE_ELEVATION;
 		    break;
 		}
 	    --k;
@@ -1000,12 +1000,12 @@ elevate_land(void)
 	    dmoun[i] = distance_to_mountain();
 	dk = (ns - nm - ((c < nc) ? 3 : 1) > 0) ?
 	  (100 * (HIGHMIN - LANDMIN)) / (ns - nm - ((c < nc) ? 3 : 1)) :
-	  100 * INFINITY;
+	  100 * INFINITE_ELEVATION;
 	for (k = 100 * (HIGHMIN - 1);; k -= dk) {
 	    highest = 0;
 	    where = -1;
 	    for (i = 0; i < ns; ++i) {
-		if (ELEV == -INFINITY &&
+		if (ELEV == -INFINITE_ELEVATION &&
 		    (c >= nc || ((!(capx[c] == sectx[c][i] &&
 				    capy[c] == secty[c][i])) &&
 				 (!(new_x(capx[c] + 2) == sectx[c][i] &&
@@ -1031,7 +1031,7 @@ elevate_land(void)
 /* Elevate the mountains and capitals */
 
 	for (i = 0; i < ns; ++i) {
-	    if (ELEV == INFINITY) {
+	    if (ELEV == INFINITE_ELEVATION) {
 		if (dsea[i] == 1)
 		    ELEV = HILLMIN + roll0(PLATMIN - HILLMIN);
 		else
@@ -1055,7 +1055,7 @@ elevate_sea(void)
 
     for (y = 0; y < WORLD_Y; ++y) {
 	for (x = y % 2; x < WORLD_X; x += 2) {
-	    if (elev[x][y] == -INFINITY)
+	    if (elev[x][y] == -INFINITE_ELEVATION)
 		elev[x][y] = -roll(distance_to_land() * 20 + 27);
 	}
     }
