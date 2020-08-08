@@ -294,7 +294,7 @@ main(int argc, char *argv[])
 	    qprint("\ntry #%d (out of %d)...\n", i + 1, NUMTRIES);
 	qprint("placing capitals...\n");
 	if (!drift())
-	    qprint("fairland: unstable drift -- try increasing DRIFT_MAX\n");
+	    qprint("unstable drift\n");
 	qprint("growing continents...\n");
 	grow_continents();
     } while (fl_status && ++i < NUMTRIES);
@@ -307,11 +307,10 @@ main(int argc, char *argv[])
     grow_islands();
     qprint("\nelevating land...\n");
     create_elevations();
-    qprint("designating sectors...\n");
-    qprint("adding resources...\n");
+
+    qprint("writing to sectors file...\n");
     if (!write_newcap_script())
 	exit(1);
-
     if (chdir(gamedir)) {
 	fprintf(stderr, "Can't chdir to %s (%s)\n", gamedir, strerror(errno));
 	exit(EXIT_FAILURE);
@@ -319,7 +318,6 @@ main(int argc, char *argv[])
     if (!ef_open(EF_SECTOR, EFF_MEM | EFF_NOTIME))
 	exit(1);
     write_sects();
-    qprint("writing to sectors file...\n");
     if (!ef_close(EF_SECTOR))
 	exit(1);
 
@@ -761,11 +759,8 @@ grow_one_sector(int c)
 	++coast_search;
     } while (!done && coast_search < COAST_SEARCH_MAX &&
 	     (secs == 1 || x != sx || y != sy));
-    if (!done && c < nc) {
-	qprint("fairland: error -- continent %c had no room to grow!\n",
-	       numletter[c % 62]);
+    if (!done && c < nc)
 	fl_status |= STATUS_NO_ROOM;
-    }
     return done;
 }
 
@@ -1266,7 +1261,6 @@ set_coastal_flags(void)
     int i, j;
     struct sctstr *sp;
 
-    qprint("setting coastal flags...\n");
     for (i = 0; i < nc; ++i) {
 	for (j = 0; j < sc; j++) {
 	    sp = getsectp(sectx[i][j], secty[i][j]);
