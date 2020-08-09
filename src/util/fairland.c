@@ -766,6 +766,17 @@ can_grow_at(int c, int x, int y)
     return own[x][y] == -1 && xzone_ok(c, x, y);
 }
 
+static void
+add_sector(int c, int x, int y)
+{
+    assert(own[x][y] == -1);
+    xzone_around_sector(c, x, y, c < nc ? di : DISTINCT_ISLANDS ? id : 0);
+    sectx[c][isecs[c]] = x;
+    secty[c][isecs[c]] = y;
+    isecs[c]++;
+    own[x][y] = c;
+}
+
 static int
 try_to_grow(int c, int newx, int newy, int extra_dist)
 {
@@ -786,12 +797,7 @@ try_to_grow(int c, int newx, int newy, int extra_dist)
 	} while (hexagon_next(&hexit, &px, &py));
     }
 
-    xzone_around_sector(c, newx, newy,
-			c < nc ? di : DISTINCT_ISLANDS ? id : 0);
-    sectx[c][isecs[c]] = newx;
-    secty[c][isecs[c]] = newy;
-    isecs[c]++;
-    own[newx][newy] = c;
+    add_sector(c, newx, newy);
     return 1;
 }
 
@@ -943,28 +949,25 @@ grow_continents(void)
 static int
 place_island(int c)
 {
-    int d, sx, sy, x, y;
-    int ssy = roll0(WORLD_Y);
-    int ssx = new_x(roll0(WORLD_X / 2) * 2 + ssy % 2);
+    int n, x, y, newx, newy;
 
-    if (ssx > WORLD_X - 2)
-	ssx = new_x(ssx + 2);
-    for (d = di; d >= 0; --d) {
-	sx = ssx;
-	sy = ssy;
-	x = new_x(sx + 2);
-	for (y = sy; x != sx || y != sy; x += 2) {
-	    if (x >= WORLD_X) {
-		y = new_y(y + 1);
-		x = y % 2;
-		if (x == sx && y == sy)
-		    break;
+    n = 0;
+
+    for (y = 0; y < WORLD_Y; y++) {
+	for (x = y % 2; x < WORLD_X; x += 2) {
+	    if (can_grow_at(c, x, y)) {
+		n++;
+		if (!roll0(n)) {
+		    newx = x;
+		    newy = y;
+		}
 	    }
-	    if (try_to_grow(c, x, y, d))
-		return 1;
 	}
     }
-    return 0;
+
+    if (n)
+	add_sector(c, newx, newy);
+    return n;
 }
 
 /* Grow all the islands
