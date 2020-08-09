@@ -217,6 +217,20 @@ static short *xzone;
 static unsigned *seen;
 static unsigned cur_seen;
 
+/*
+ * Closest continent and "distance"
+ * closest[XYOFFSET(x, y)] is the closest continent's number.
+ * distance[] is complicated; see init_spheres_of_influence().
+ */
+static natid *closest;
+static unsigned short *distance;
+
+/*
+ * Queue for breadth-first search
+ */
+static int *bfs_queue;
+static int bfs_queue_head, bfs_queue_tail;
+
 static int **elev;		/* elevation of the sectors */
 static int **sectx, **secty;	/* the sectors for each continent */
 static int **sectc;		/* which sectors are on the coast? */
@@ -251,6 +265,8 @@ static void grow_islands(void);
 /* Debugging aids: */
 void print_own_map(void);
 void print_xzone_map(void);
+void print_closest_map(void);
+void print_distance_map(void);
 void print_elev_map(void);
 
 /****************************************************************************
@@ -512,6 +528,9 @@ allocate_memory(void)
     adj_land = malloc(WORLD_SZ() * sizeof(*adj_land));
     xzone = malloc(WORLD_SZ() * sizeof(*xzone));
     seen = calloc(WORLD_SZ(), sizeof(*seen));
+    closest = malloc(WORLD_SZ() * sizeof(*closest));
+    distance = malloc(WORLD_SZ() * sizeof(*distance));
+    bfs_queue = malloc(WORLD_SZ() * sizeof(*bfs_queue));
     elev = calloc(WORLD_X, sizeof(int *));
     for (i = 0; i < WORLD_X; ++i) {
 	own[i] = calloc(WORLD_Y, sizeof(int));
@@ -783,6 +802,106 @@ xzone_init(int n)
 }
 
 /*
+ * Initialize breadth-first search.
+ */
+static void
+bfs_init(void)
+{
+    int i;
+
+    for (i = 0; i < WORLD_SZ(); i++) {
+	closest[i] = -1;
+	distance[i] = USHRT_MAX;
+    }
+
+    bfs_queue_head = bfs_queue_tail = 0;
+}
+
+/*
+ * Add sector @x,@y to the BFS queue.
+ * It's closest to @c, with distance @dist.
+ */
+static void
+bfs_enqueue(int c, int x, int y, int dist)
+{
+    int off = XYOFFSET(x, y);
+
+    assert(dist < distance[off]);
+    closest[off] = c;
+    distance[off] = dist;
+    bfs_queue[bfs_queue_tail] = off;
+    bfs_queue_tail++;
+    if (bfs_queue_tail >= WORLD_SZ())
+	bfs_queue_tail = 0;
+    assert(bfs_queue_tail != bfs_queue_head);
+}
+
+/*
+ * Search breadth-first until the queue is empty.
+ */
+static void
+bfs_run_queue(void)
+{
+    int off, dist, i, noff, nx, ny;
+    coord x, y;
+
+    while (bfs_queue_head != bfs_queue_tail) {
+	off = bfs_queue[bfs_queue_head];
+	bfs_queue_head++;
+	if (bfs_queue_head >= WORLD_SZ())
+	    bfs_queue_head = 0;
+	dist = distance[off] + 1;
+	sctoff2xy(&x, &y, off);
+	for (i = DIR_FIRST; i <= DIR_LAST; i++) {
+	    nx = new_x(x + diroff[i][0]);
+	    ny = new_y(y + diroff[i][1]);
+	    noff = XYOFFSET(nx, ny);
+	    if (dist < distance[noff]) {
+		bfs_enqueue(closest[off], nx, ny, dist);
+	    } else if (distance[noff] == dist) {
+		if (closest[off] != closest[noff])
+		    closest[noff] = (natid)-1;
+	    } else
+		assert(distance[noff] < dist);
+	}
+    }
+}
+
+/*
+ * Add island @c's coastal sectors to the BFS queue, with distance 0.
+ */
+static void
+bfs_enqueue_island(int c)
+{
+    int i;
+
+    for (i = 0; i < isecs[c]; i++) {
+	if (sectc[c][i])
+	    bfs_enqueue(c, sectx[c][i], secty[c][i], 0);
+    }
+}
+
+/*
+ * Compute spheres of influence
+ * A continent's sphere of influence is the set of sectors closer to
+ * it than to any other continent.
+ * Set closest[XYOFFSET(x, y)] to the closest continent's number,
+ * -1 if no single continent is closest.
+ * Set distance[XYOFFSET(x, y)] to the distance to the closest coastal
+ * land sector.
+ */
+static void
+init_spheres_of_influence(void)
+{
+    int c;
+
+    bfs_init();
+    for (c = 0; c < nc; c++)
+	bfs_enqueue_island(c);
+    bfs_run_queue();
+}
+
+/*
  * Can island @c grow at @x,@y?
  */
 static int
@@ -970,6 +1089,7 @@ grow_islands(void)
     int c, secs, isiz;
 
     xzone_init(nc);
+    init_spheres_of_influence();
 
     for (c = nc; c < nc + ni; ++c) {
 	if (!place_island(c)) {
@@ -1390,6 +1510,62 @@ print_xzone_map(void)
 	    }
 	}
 	putchar('\n');
+    }
+}
+
+/*
+ * Print a map to help visualize closest[].
+ * This is for debugging.
+ */
+void
+print_closest_map(void)
+{
+    int sx, sy, x, y, off;
+
+    for (sy = -WORLD_Y / 2; sy < WORLD_Y / 2; sy++) {
+	y = YNORM(sy);
+	printf("%4d ", sy);
+	for (sx = -WORLD_X / 2; sx < WORLD_X / 2; sx++) {
+	    x = XNORM(sx);
+	    off = XYOFFSET(x, y);
+	    if ((x + y) & 1)
+		putchar(' ');
+	    else if (closest[off] == (natid)-1)
+		putchar('.');
+	    else if (!distance[off]) {
+		assert(closest[off] == own[x][y]);
+		putchar('-');
+	    } else {
+		putchar(numletter[closest[off] % 62]);
+	    }
+	}
+	printf("\n");
+    }
+}
+
+void
+print_distance_map(void)
+{
+    int sx, sy, x, y, off;
+
+    for (sy = -WORLD_Y / 2; sy < WORLD_Y / 2; sy++) {
+	y = YNORM(sy);
+	printf("%4d ", sy);
+	for (sx = -WORLD_X / 2; sx < WORLD_X / 2; sx++) {
+	    x = XNORM(sx);
+	    off = XYOFFSET(x, y);
+	    if ((x + y) & 1)
+		putchar(' ');
+	    else if (closest[off] == (natid)-1)
+		putchar('.');
+	    else if (!distance[off]) {
+		assert(closest[off] == own[x][y]);
+		putchar('-');
+	    } else {
+		putchar(numletter[distance[off] % 62]);
+	    }
+	}
+	printf("\n");
     }
 }
 
