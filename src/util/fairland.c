@@ -936,12 +936,14 @@ grow_continents(void)
   GROW THE ISLANDS
 ****************************************************************************/
 
-/* Choose a place to start growing an island from
-*/
+/*
+ * Place additional island @c's first sector.
+ * Return 1 on success, 0 on error.
+ */
 static int
-place_island(int c, int *xp, int *yp)
+place_island(int c)
 {
-    int d, sx, sy;
+    int d, sx, sy, x, y;
     int ssy = roll0(WORLD_Y);
     int ssx = new_x(roll0(WORLD_X / 2) * 2 + ssy % 2);
 
@@ -950,15 +952,15 @@ place_island(int c, int *xp, int *yp)
     for (d = di; d >= 0; --d) {
 	sx = ssx;
 	sy = ssy;
-	*xp = new_x(sx + 2);
-	for (*yp = sy; *xp != sx || *yp != sy; *xp += 2) {
-	    if (*xp >= WORLD_X) {
-		*yp = new_y(*yp + 1);
-		*xp = *yp % 2;
-		if (*xp == sx && *yp == sy)
+	x = new_x(sx + 2);
+	for (y = sy; x != sx || y != sy; x += 2) {
+	    if (x >= WORLD_X) {
+		y = new_y(y + 1);
+		x = y % 2;
+		if (x == sx && y == sy)
 		    break;
 	    }
-	    if (try_to_grow(c, *xp, *yp, d))
+	    if (try_to_grow(c, x, y, d))
 		return 1;
 	}
     }
@@ -972,12 +974,12 @@ static void
 grow_islands(void)
 {
     int stunted_islands = 0;
-    int c, secs, x, y, isiz;
+    int c, secs, isiz;
 
     xzone_init(nc);
 
     for (c = nc; c < nc + ni; ++c) {
-	if (!place_island(c, &x, &y)) {
+	if (!place_island(c)) {
 	    qprint("\nNo room for island #%d", c - nc + 1);
 	    break;
 	}
