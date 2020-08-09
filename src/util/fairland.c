@@ -778,24 +778,10 @@ add_sector(int c, int x, int y)
 }
 
 static int
-try_to_grow(int c, int newx, int newy, int extra_dist)
+try_to_grow(int c, int newx, int newy)
 {
-    int d = c < nc ? di : id;
-    int i, px, py;
-    struct hexagon_iter hexit;
-
     if (!can_grow_at(c, newx, newy))
 	return 0;
-
-    for (i = 1; i <= extra_dist; i++) {
-	hexagon_first(&hexit, newx, newy, d + i, &px, &py);
-	do {
-	    if (own[px][py] != -1 &&
-		own[px][py] != c &&
-		(DISTINCT_ISLANDS || own[px][py] < nc))
-		return 0;
-	} while (hexagon_next(&hexit, &px, &py));
-    }
 
     add_sector(c, newx, newy);
     return 1;
@@ -876,14 +862,14 @@ grow_one_sector(int c)
 		if (n > 5 ||
 		    (own[new_x(x+dirx[(i+5)%6])][new_y(y+diry[(i+5)%6])] == -1 &&
 		     own[new_x(x+dirx[(i+1)%6])][new_y(y+diry[(i+1)%6])] == -1))
-		    if (try_to_grow(c, newx, newy, 0))
+		    if (try_to_grow(c, newx, newy))
 			done = 1;
 	    }
 	} else
 	    for (i = roll0(6), n = 0; n < 6 && !done; i = (i + 1) % 6, ++n) {
 		newx = new_x(x + dirx[i]);
 		newy = new_y(y + diry[i]);
-		if (try_to_grow(c, newx, newy, 0))
+		if (try_to_grow(c, newx, newy))
 		    done = 1;
 	    }
 	next_coast(c, x, y, &x, &y);
@@ -908,8 +894,8 @@ grow_continents(void)
 
     for (c = 0; c < nc; ++c) {
 	isecs[c] = 0;
-	if (!try_to_grow(c, capx[c], capy[c], 0)
-	    || !try_to_grow(c, new_x(capx[c] + 2), capy[c], 0)) {
+	if (!try_to_grow(c, capx[c], capy[c])
+	    || !try_to_grow(c, new_x(capx[c] + 2), capy[c])) {
 	    done = 0;
 	    continue;
 	}
