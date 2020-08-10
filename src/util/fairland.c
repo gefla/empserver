@@ -129,6 +129,11 @@
 #include "version.h"
 #include "xy.h"
 
+/*
+ * Number of retries when growing land fails
+ */
+#define NUMTRIES 10
+
 /* do not change these defines */
 #define LANDMIN		1	/* plate altitude for normal land */
 #define PLATMIN		36	/* plate altitude for plateau */
@@ -300,8 +305,6 @@ static unsigned short *distance;
 static int *bfs_queue;
 static int bfs_queue_head, bfs_queue_tail;
 
-#define NUMTRIES 10		/* keep trying to grow this many times */
-
 static const char *numletter =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -451,6 +454,18 @@ print_vars(void)
     printf("minimum distance between continents: %d\n", di);
     printf("minimum distance from islands to continents: %d\n", id);
     printf("World dimensions: %dx%d\n", WORLD_X, WORLD_Y);
+}
+
+static void
+qprint(const char *const fmt, ...)
+{
+    va_list ap;
+
+    if (!quiet) {
+	va_start(ap, fmt);
+	vfprintf(stdout, fmt, ap);
+	va_end(ap);
+    }
 }
 
 static void
@@ -1663,16 +1678,4 @@ write_newcap_script(void)
     fprintf(script, "add %d visitor visitor v\n", c + 1);
     fclose(script);
     return 1;
-}
-
-static void
-qprint(const char *const fmt, ...)
-{
-    va_list ap;
-
-    if (!quiet) {
-	va_start(ap, fmt);
-	vfprintf(stdout, fmt, ap);
-	va_end(ap);
-    }
 }
