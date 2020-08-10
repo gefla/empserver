@@ -511,7 +511,6 @@ init(void)
     for (i = 0; i < WORLD_X; ++i) {
 	for (j = 0; j < WORLD_Y; ++j) {
 	    own[i][j] = -1;
-	    elev[i][j] = -INFINITY;
 	}
     }
 
@@ -885,6 +884,12 @@ grow_islands(void)
 static void
 create_elevations(void)
 {
+    int i, j;
+
+    for (i = 0; i < WORLD_X; i++) {
+	for (j = 0; j < WORLD_Y; j++)
+	    elev[i][j] = -INFINITY;
+    }
     elevate_land();
     elevate_sea();
 }
