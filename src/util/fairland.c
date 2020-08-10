@@ -382,6 +382,8 @@ usage(void)
 static void
 parse_args(int argc, char *argv[])
 {
+    int dist_max = mapdist(0, 0, WORLD_X / 2, WORLD_Y / 2);
+
     if (argc < 2) {
 	help("missing arguments");
 	exit(1);
@@ -448,7 +450,7 @@ parse_args(int argc, char *argv[])
 		program_name);
 	exit(1);
     }
-    if (di > WORLD_X / 2 || di > WORLD_Y / 2) {
+    if (di > dist_max) {
 	fprintf(stderr, "%s: distance between continents too large\n",
 		program_name);
 	exit(1);
@@ -462,7 +464,7 @@ parse_args(int argc, char *argv[])
 		program_name);
 	exit(1);
     }
-    if (id > WORLD_X || id > WORLD_Y) {
+    if (id > dist_max) {
 	fprintf(stderr,
 		"%s: distance from islands to continents too large\n",
 		program_name);
