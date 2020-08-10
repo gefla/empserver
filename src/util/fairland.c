@@ -506,28 +506,12 @@ allocate_memory(void)
 static void
 init(void)
 {
-    int i, j, xx = 0, yy = 0;
+    int i, j;
 
     for (i = 0; i < WORLD_X; ++i) {
 	for (j = 0; j < WORLD_Y; ++j) {
 	    own[i][j] = -1;
 	}
-    }
-
-    for (i = 0; i < nc; ++i) {
-	if (xx >= WORLD_X) {
-	    ++yy;
-	    xx = yy % 2;
-	    if (yy == WORLD_Y) {
-		fprintf(stderr,
-			"%s: world not big enough for all the continents\n",
-			program_name);
-		exit(1);
-	    }
-	}
-	capx[i] = xx;
-	capy[i] = yy;
-	xx += 2;
     }
 }
 
@@ -561,6 +545,17 @@ static int
 drift(void)
 {
     int turns, i;
+
+    for (i = 0; i < nc; i++) {
+	capy[i] = (2 * i) / WORLD_X;
+	capx[i] = (2 * i) % WORLD_X + capy[i] % 2;
+	if (capy[i] >= WORLD_Y) {
+	    fprintf(stderr,
+		    "%s: world not big enough for all the continents\n",
+		    program_name);
+	    exit(1);
+	}
+    }
 
     for (turns = 0; turns < DRIFT_MAX; ++turns) {
 	if (stable(turns))
