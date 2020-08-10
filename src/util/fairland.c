@@ -407,26 +407,43 @@ parse_args(int argc, char *argv[])
 	ni = atoi(argv[2]);
     else
 	ni = nc;
+    if (ni < 0) {
+	fprintf(stderr, "%s: number of islands must be >= 0\n",
+		program_name);
+	exit(1);
+    }
 
     if (argc > 3)
 	is = atoi(argv[3]);
     else
 	is = sc / 2;
-    if (is < 1)
-	is = 1;
+    if (is < 1) {
+	fprintf(stderr, "%s: size of islands must be > 0\n",
+		program_name);
+	exit(1);
+    }
 
     if (argc > 4)
 	sp = atoi(argv[4]);
     else
 	sp = DEFAULT_SPIKE;
-    sp = LIMIT_TO(sp, 0, 100);
+    if (sp < 0 || sp > 100) {
+	fprintf(stderr,
+		"%s: spike percentage must be between 0 and 100\n",
+		program_name);
+	exit(1);
+    }
 
     if (argc > 5)
 	pm = atoi(argv[5]);
     else
 	pm = DEFAULT_MOUNTAIN;
-    if (pm < 0)
-	pm = 0;
+    if (pm < 0 || pm > 100) {
+	fprintf(stderr,
+		"%s: mountain percentage must be between 0 and 100\n",
+		program_name);
+	exit(1);
+    }
 
     if (argc > 6)
 	di = atoi(argv[6]);
