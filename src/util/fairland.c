@@ -145,13 +145,13 @@ static char *program_name;
 static int nc, sc;		/* number and size of continents */
 static int ni, is;		/* number and size of islands */
 #define DEFAULT_SPIKE 10
-static int sp;			/* spike percentage */
+static int sp = DEFAULT_SPIKE;	/* spike percentage */
 #define DEFAULT_MOUNTAIN 0
-static int pm;			/* mountain percentage */
+static int pm = DEFAULT_MOUNTAIN; /* mountain percentage */
 #define DEFAULT_CONTDIST 2
-static int di;			/* min. distance between continents */
+static int di = DEFAULT_CONTDIST; /* min. distance between continents */
 #define DEFAULT_ISLDIST 1
-static int id;			/* ... continents and islands */
+static int id = DEFAULT_ISLDIST;  /* ... continents and islands */
 /* don't let the islands crash into each other.
    1 = don't merge, 0 = merge. */
 static int DISTINCT_ISLANDS = 1;
@@ -403,10 +403,11 @@ parse_args(int argc, char *argv[])
 	exit(1);
     }
 
+    ni = nc;
+    is = sc / 2;
+
     if (argc > 2)
 	ni = atoi(argv[2]);
-    else
-	ni = nc;
     if (ni < 0) {
 	fprintf(stderr, "%s: number of islands must be >= 0\n",
 		program_name);
@@ -415,8 +416,6 @@ parse_args(int argc, char *argv[])
 
     if (argc > 3)
 	is = atoi(argv[3]);
-    else
-	is = sc / 2;
     if (is < 1) {
 	fprintf(stderr, "%s: size of islands must be > 0\n",
 		program_name);
@@ -425,8 +424,6 @@ parse_args(int argc, char *argv[])
 
     if (argc > 4)
 	sp = atoi(argv[4]);
-    else
-	sp = DEFAULT_SPIKE;
     if (sp < 0 || sp > 100) {
 	fprintf(stderr,
 		"%s: spike percentage must be between 0 and 100\n",
@@ -436,8 +433,6 @@ parse_args(int argc, char *argv[])
 
     if (argc > 5)
 	pm = atoi(argv[5]);
-    else
-	pm = DEFAULT_MOUNTAIN;
     if (pm < 0 || pm > 100) {
 	fprintf(stderr,
 		"%s: mountain percentage must be between 0 and 100\n",
@@ -447,9 +442,6 @@ parse_args(int argc, char *argv[])
 
     if (argc > 6)
 	di = atoi(argv[6]);
-    else
-	di = DEFAULT_CONTDIST;
-
     if (di < 0) {
 	fprintf(stderr, "%s: distance between continents must be >= 0\n",
 		program_name);
@@ -463,8 +455,6 @@ parse_args(int argc, char *argv[])
 
     if (argc > 7)
 	id = atoi(argv[7]);
-    else
-	id = DEFAULT_ISLDIST;
     if (id < 0) {
 	fprintf(stderr,
 		"%s: distance from islands to continents must be >= 0\n",
