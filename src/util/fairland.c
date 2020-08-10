@@ -129,6 +129,11 @@
 #include "version.h"
 #include "xy.h"
 
+/*
+ * Number of retries when growing land fails
+ */
+#define NUMTRIES 10
+
 /* do not change these defines */
 #define LANDMIN		1	/* plate altitude for normal land */
 #define PLATMIN		36	/* plate altitude for plateau */
@@ -187,9 +192,6 @@ struct resource_point uran_conf[] = {
     { 97, 100 },
     { 98, 0 },
     { 127, 0 } };
-
-static void qprint(const char * const fmt, ...)
-    ATTRIBUTE((format (printf, 1, 2)));
 
 /*
  * Program arguments and options
@@ -300,30 +302,29 @@ static unsigned short *distance;
 static int *bfs_queue;
 static int bfs_queue_head, bfs_queue_tail;
 
-#define NUMTRIES 10		/* keep trying to grow this many times */
-
 static const char *numletter =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
+static void print_vars(void);
+static void qprint(const char * const fmt, ...)
+    ATTRIBUTE((format (printf, 1, 2)));
 static void help(char *);
 static void usage(void);
 static void parse_args(int argc, char *argv[]);
 static void allocate_memory(void);
 static void init(void);
 static int drift(void);
-static int grow_continents(void);
-static void create_elevations(void);
-static void write_sects(void);
-static void output(void);
-static int write_newcap_script(void);
 static int stable(int);
+static void fl_move(int);
+static int grow_continents(void);
+static int grow_islands(void);
+static void create_elevations(void);
 static void elevate_prep(void);
 static void elevate_land(void);
 static void elevate_sea(void);
-
-static void print_vars(void);
-static void fl_move(int);
-static int grow_islands(void);
+static void write_sects(void);
+static void output(void);
+static int write_newcap_script(void);
 
 /* Debugging aids: */
 void print_own_map(void);
@@ -451,6 +452,18 @@ print_vars(void)
     printf("minimum distance between continents: %d\n", di);
     printf("minimum distance from islands to continents: %d\n", id);
     printf("World dimensions: %dx%d\n", WORLD_X, WORLD_Y);
+}
+
+static void
+qprint(const char *const fmt, ...)
+{
+    va_list ap;
+
+    if (!quiet) {
+	va_start(ap, fmt);
+	vfprintf(stdout, fmt, ap);
+	va_end(ap);
+    }
 }
 
 static void
@@ -1664,16 +1677,4 @@ write_newcap_script(void)
     fprintf(script, "add %d visitor visitor v\n", c + 1);
     fclose(script);
     return 1;
-}
-
-static void
-qprint(const char *const fmt, ...)
-{
-    va_list ap;
-
-    if (!quiet) {
-	va_start(ap, fmt);
-	vfprintf(stdout, fmt, ap);
-	va_end(ap);
-    }
 }
