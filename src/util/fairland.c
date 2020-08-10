@@ -273,7 +273,6 @@ main(int argc, char *argv[])
 	    exit(1);
 	}
     }
-    parse_args(argc - optind, argv + optind);
 
     if (!seed_set)
 	rnd_seed = pick_seed();
@@ -282,6 +281,8 @@ main(int argc, char *argv[])
     if (emp_config(config_file) < 0)
 	exit(1);
     empfile_fixup();
+
+    parse_args(argc - optind, argv + optind);
 
     allocate_memory();
     print_vars();
