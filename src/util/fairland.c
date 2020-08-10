@@ -62,7 +62,12 @@
  *
  * 3. Place and grow additional islands
  *
- * Place and grow islands one after the other.  Place the first sector
+ * Each continent has a "sphere of influence": the set of sectors
+ * closer to it than to any other continent.  Each island is entirely
+ * in one such sphere, and each sphere contains the same number of
+ * islands (except when island placement fails for lack of room).
+ *
+ * Place and grow islands in spheres in turn.  Place the first sector
  * randomly, pick an island size, then grow the island to that size.
  *
  * Growing works as for continents, except the minimum distance for
@@ -454,6 +459,12 @@ parse_args(int argc, char *argv[])
 	ni = atoi(argv[2]);
     if (ni < 0) {
 	fprintf(stderr, "%s: number of islands must be >= 0\n",
+		program_name);
+	exit(1);
+    }
+    if (ni % nc) {
+	fprintf(stderr, "%s: number of islands must be a multiple of"
+		" the number of continents\n",
 		program_name);
 	exit(1);
     }
@@ -902,12 +913,22 @@ init_spheres_of_influence(void)
 }
 
 /*
+ * Is @x,@y in the same sphere of influence as island @c?
+ * Always true when @c is a continent.
+ */
+static int
+is_in_sphere(int c, int x, int y)
+{
+    return c < nc || closest[XYOFFSET(x, y)] == c % nc;
+}
+
+/*
  * Can island @c grow at @x,@y?
  */
 static int
 can_grow_at(int c, int x, int y)
 {
-    return own[x][y] == -1 && xzone_ok(c, x, y);
+    return own[x][y] == -1 && xzone_ok(c, x, y) && is_in_sphere(c, x, y);
 }
 
 static void
