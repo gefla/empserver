@@ -166,6 +166,10 @@ static void print_vars(void);
 static void fl_move(int);
 static void grow_islands(void);
 
+/* Debugging aids: */
+void print_own_map(void);
+void print_elev_map(void);
+
 /****************************************************************************
   MAIN
 ****************************************************************************/
@@ -1137,6 +1141,68 @@ map_symbol(int x, int y)
 	|| elev[x][y] >= HIGHMIN)
 	return '^';
     return own[x][y] >= nc ? '%' : '#';
+}
+
+/*
+ * Print a map to help visualize own[][].
+ * This is for debugging.
+ */
+void
+print_own_map(void)
+{
+    int sx, sy, x, y;
+
+    for (sy = -WORLD_Y / 2; sy < WORLD_Y / 2; sy++) {
+	y = YNORM(sy);
+	printf("%4d ", sy);
+	for (sx = -WORLD_X / 2; sx < WORLD_X / 2; sx++) {
+	    x = XNORM(sx);
+	    if ((x + y) & 1)
+		putchar(' ');
+	    else if (own[x][y] == -1)
+		putchar('.');
+	    else
+		putchar(numletter[own[x][y] % 62]);
+	}
+	putchar('\n');
+    }
+}
+
+/*
+ * Print a map to help visualize elev[][].
+ * This is for debugging.  It expects the terminal to understand
+ * 24-bit color escape sequences \e[48;2;$red;$green;$blue;m.
+ */
+void
+print_elev_map(void)
+{
+    int sx, sy, x, y, sat;
+
+    for (sy = -WORLD_Y / 2; sy < WORLD_Y / 2; sy++) {
+	y = YNORM(sy);
+	printf("%4d ", sy);
+	for (sx = -WORLD_X / 2; sx < WORLD_X / 2; sx++) {
+	    x = XNORM(sx);
+	    if ((x + y) & 1)
+		putchar(' ');
+	    else if (!elev[x][y])
+		putchar(' ');
+	    else if (elev[x][y] < 0) {
+		sat = 256 + elev[x][y] * 2;
+		printf("\033[48;2;%d;%d;%dm \033[0m", sat, sat, 255);
+	    } else if (elev[x][y] < HIGHMIN / 2) {
+		sat = (HIGHMIN / 2 - elev[x][y]) * 4;
+		printf("\033[48;2;%d;%d;%dm \033[0m", sat, 255, sat);
+	    } else if (elev[x][y] < HIGHMIN) {
+		sat = 128 + (HIGHMIN - elev[x][y]) * 2;
+		printf("\033[48;2;%d;%d;%dm \033[0m", sat, sat / 2, sat / 4);
+	    } else {
+		sat = 128 + (elev[x][y] - HIGHMIN) * 4 / 5;
+		printf("\033[48;2;%d;%d;%dm^\033[0m", sat, sat, sat);
+	    }
+	}
+	putchar('\n');
+    }
 }
 
 /***************************************************************************
