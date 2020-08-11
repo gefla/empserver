@@ -65,7 +65,7 @@
  * Each continent has a "sphere of influence": the set of sectors
  * closer to it than to any other continent.  Each island is entirely
  * in one such sphere, and each sphere contains the same number of
- * islands.
+ * islands with the same sizes.
  *
  * Pick an island size, and place one island's first sector into each
  * sphere, randomly.  Then add one sector to each island in turn,
@@ -944,15 +944,17 @@ can_grow_at(int c, int x, int y)
 static void
 adj_land_update(int x, int y)
 {
+    int is_land = own[x][y] != -1;
     int dir, nx, ny, noff;
-
-    assert(own[x][y] != -1);
 
     for (dir = DIR_FIRST; dir <= DIR_LAST; dir++) {
 	nx = new_x(x + diroff[dir][0]);
 	ny = new_y(y + diroff[dir][1]);
 	noff = XYOFFSET(nx, ny);
-	adj_land[noff] |= 1u << DIR_BACK(dir);
+	if (is_land)
+	    adj_land[noff] |= 1u << DIR_BACK(dir);
+	else
+	    adj_land[noff] &= ~(1u << DIR_BACK(dir));
     }
 }
 
@@ -1118,13 +1120,17 @@ grow_islands(void)
 {
     int n = ni / nc;
     int stunted_islands = 0;
-    int i, j, c, done, secs, isiz;
+    int xzone_valid = 0;
+    int i, j, c, done, secs, isiz, x, y;
 
-    xzone_init(nc);
     init_spheres_of_influence();
 
     for (i = 0; i < n; i++) {
 	c = nc + i * nc;
+
+	if (!xzone_valid)
+	    xzone_init(c);
+
 	isiz = roll(is) + roll0(is);
 
 	for (j = 0; j < nc; j++) {
@@ -1141,6 +1147,21 @@ grow_islands(void)
 		if (!grow_one_sector(c + j))
 		    done = 0;
 	    }
+	}
+
+	if (!done) {
+	    secs--;
+	    for (j = 0; j < nc; j++) {
+		if (isecs[c + j] != secs) {
+		    isecs[c + j]--;
+		    assert(isecs[c + j] == secs);
+		    x = sectx[c + j][secs];
+		    y = secty[c + j][secs];
+		    own[x][y] = -1;
+		    adj_land_update(x, y);
+		}
+	    }
+	    xzone_valid = 0;
 	}
 
 	for (j = 0; j < nc; j++)
