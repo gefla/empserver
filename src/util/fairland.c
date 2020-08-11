@@ -791,13 +791,17 @@ grow_continents(void)
     int c, secs;
 
     for (c = 0; c < nc; ++c) {
-	sectx[c][0] = capx[c];
-	secty[c][0] = capy[c];
-	own[sectx[c][0]][secty[c][0]] = c;
-	sectx[c][1] = new_x(capx[c] + 2);
-	secty[c][1] = capy[c];
-	own[sectx[c][1]][secty[c][1]] = c;
-	isecs[c] = 2;
+	isecs[c] = 0;
+	if (!try_to_grow(c, capx[c], capy[c], di)
+	    || !try_to_grow(c, new_x(capx[c] + 2), capy[c], di)) {
+	    done = 0;
+	    continue;
+	}
+    }
+
+    if (!done) {
+	qprint("No room for continents\n");
+	return 0;
     }
 
     for (secs = 2; secs < sc && done; secs++) {
