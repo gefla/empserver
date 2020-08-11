@@ -65,10 +65,13 @@
  * Each continent has a "sphere of influence": the set of sectors
  * closer to it than to any other continent.  Each island is entirely
  * in one such sphere, and each sphere contains the same number of
- * islands (except when island placement fails for lack of room).
+ * islands.
  *
  * Place and grow islands in spheres in turn.  Place the first sector
  * randomly, pick an island size, then grow the island to that size.
+ *
+ * If placement fails due to lack of room, start over, just like for
+ * continents.
  *
  * Growing works as for continents, except the minimum distance for
  * additional islands applies, and growing simply stops when there is
@@ -186,8 +189,11 @@ static const char *outfile = DEFAULT_OUTFILE_NAME;
 #define new_x(newx) (((newx) + WORLD_X) % WORLD_X)
 #define new_y(newy) (((newy) + WORLD_Y) % WORLD_Y)
 
-static int ctot;		/* total number of continents and islands grown */
-static int *isecs;		/* array of how large each island is */
+/*
+ * Island sizes
+ * isecs[i] is the size of the i-th island.
+ */
+static int *isecs;
 
 static int *capx, *capy;	/* location of the nc capitals */
 
@@ -265,7 +271,7 @@ static void set_coastal_flags(void);
 
 static void print_vars(void);
 static void fl_move(int);
-static void grow_islands(void);
+static int grow_islands(void);
 
 /* Debugging aids: */
 void print_own_map(void);
@@ -344,15 +350,17 @@ main(int argc, char *argv[])
 	    qprint("unstable drift\n");
 	qprint("growing continents...\n");
 	done = grow_continents();
+	if (!done)
+	    continue;
+	qprint("growing islands:");
+	done = grow_islands();
     } while (!done && ++try < NUMTRIES);
     if (!done) {
-	fprintf(stderr, "%s: world not large enough to hold continents\n",
+	fprintf(stderr, "%s: world not large enough for this much land\n",
 		program_name);
 	exit(1);
     }
-    qprint("growing islands:");
-    grow_islands();
-    qprint("\nelevating land...\n");
+    qprint("elevating land...\n");
     create_elevations();
 
     qprint("writing to sectors file...\n");
@@ -1033,7 +1041,6 @@ grow_continents(void)
     int done = 1;
     int c, secs;
 
-    ctot = 0;
     xzone_init(0);
 
     for (c = 0; c < nc; ++c) {
@@ -1065,7 +1072,6 @@ grow_continents(void)
     if (!done)
 	qprint("Only managed to grow %d out of %d sectors.\n",
 	       secs - 1, sc);
-    ctot = nc;
     return done;
 }
 
@@ -1101,10 +1107,11 @@ place_island(int c)
     return n;
 }
 
-/* Grow all the islands
-*/
-
-static void
+/*
+ * Grow the additional islands.
+ * Return 1 on success, 0 on error.
+ */
+static int
 grow_islands(void)
 {
     int stunted_islands = 0;
@@ -1114,6 +1121,8 @@ grow_islands(void)
     init_spheres_of_influence();
 
     for (c = nc; c < nc + ni; ++c) {
+	isecs[c] = 0;
+
 	if (!place_island(c)) {
 	    qprint("\nNo room for island #%d", c - nc + 1);
 	    break;
@@ -1129,12 +1138,17 @@ grow_islands(void)
 
 	find_coast(c);
 	qprint(" %d(%d)", c - nc + 1, secs);
-	ctot++;
     }
 
+    qprint("\n");
+
+    if (c < nc + ni)
+	return 0;
+
     if (stunted_islands)
-	qprint("\n%d stunted island%s",
+	qprint("%d stunted island%s\n",
 	       stunted_islands, splur(stunted_islands));
+    return 1;
 }
 
 /****************************************************************************
@@ -1196,7 +1210,7 @@ elevate_land(void)
     int i, mountain_search, k, c, total, ns, nm, highest, where, h, newk,
 	r, dk;
 
-    for (c = 0; c < ctot; ++c) {
+    for (c = 0; c < nc + ni; ++c) {
 	total = 0;
 	ns = isecs[c];
 	nm = (pm * ns) / 100;
