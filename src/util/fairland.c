@@ -109,9 +109,6 @@
 #include "version.h"
 #include "xy.h"
 
-/* define ORE 1 to add resources, define ORE 0 if you want to use another
-   program to add the resources */
-static int ORE = 1;
 static int quiet = 0;
 
 /* If you don't specify these command line arguments, then these are the
@@ -245,16 +242,13 @@ main(int argc, char *argv[])
 
     program_name = argv[0];
 
-    while ((opt = getopt(argc, argv, "e:hioqR:s:v")) != EOF) {
+    while ((opt = getopt(argc, argv, "e:hiqR:s:v")) != EOF) {
 	switch (opt) {
 	case 'e':
 	    config_file = optarg;
 	    break;
 	case 'i':
 	    DISTINCT_ISLANDS = 0;
-	    break;
-	case 'o':
-	    ORE = 0;
 	    break;
 	case 'q':
 	    quiet = 1;
@@ -312,8 +306,7 @@ main(int argc, char *argv[])
     qprint("\nelevating land...\n");
     create_elevations();
     qprint("designating sectors...\n");
-    if (ORE)
-	qprint("adding resources...\n");
+    qprint("adding resources...\n");
     if (!write_newcap_script())
 	exit(1);
 
@@ -331,8 +324,6 @@ main(int argc, char *argv[])
     output();
     qprint("\n\nA script for adding all the countries can be found in \"%s\".\n",
 	   outfile);
-    if (!ORE)
-	qprint("\t*** Resources have not been added ***\n");
     exit(0);
 }
 
@@ -382,7 +373,6 @@ usage(void)
 	   "  -e CONFIG-FILE  configuration file\n"
 	   "                  (default %s)\n"
 	   "  -i              islands may merge\n"
-	   "  -o              don't set resources\n"
 	   "  -q              quiet\n"
 	   "  -R SEED         seed for random number generator\n"
 	   "  -s SCRIPT       name of script to create (default %s)\n"
@@ -1142,8 +1132,7 @@ write_sects(void)
 	    sct->sct_elev = total;
 	    sct->sct_newtype = sct->sct_type;
 	    sct->sct_dterr = own[sct->sct_x][y] + 1;
-	    if (ORE)
-		add_resources(sct);
+	    add_resources(sct);
 	}
     }
     set_coastal_flags();
