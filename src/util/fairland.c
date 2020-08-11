@@ -67,8 +67,10 @@
  * in one such sphere, and each sphere contains the same number of
  * islands.
  *
- * Place and grow islands in spheres in turn.  Place the first sector
- * randomly, pick an island size, then grow the island to that size.
+ * Pick an island size, then place and grow one island of that size in
+ * each sphere.  Place the first sector randomly, then grow the island
+ * to the intended size.  Repeat until the specified number of islands
+ * has been grown.
  *
  * If placement fails due to lack of room, start over, just like for
  * continents.
@@ -1122,13 +1124,15 @@ grow_islands(void)
 
     for (c = nc; c < nc + ni; ++c) {
 	isecs[c] = 0;
+	if (c % nc == 0)
+	    isiz = roll(is) + roll0(is);
+	assert(isiz > 0);
 
 	if (!place_island(c)) {
 	    qprint("\nNo room for island #%d", c - nc + 1);
 	    break;
 	}
 
-	isiz = roll(is) + roll0(is);
 	for (secs = 1; secs < isiz; secs++) {
 	    if (!grow_one_sector(c)) {
 		stunted_islands++;
