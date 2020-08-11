@@ -67,17 +67,22 @@
  * in one such sphere, and each sphere contains the same number of
  * islands with the same sizes.
  *
- * Pick an island size, and place one island's first sector into each
- * sphere, randomly.  Then add one sector to each island in turn,
- * until they have the intended size.  Repeat until the specified
- * number of islands has been grown.
+ * First, split the specified number of island sectors per continent
+ * randomly into the island sizes.  Sort by size so that larger
+ * islands are grown before smaller ones, to give the large ones the
+ * best chance to grow to their planned size.
+ *
+ * Then place one island's first sector into each sphere, randomly.
+ * Add one sector to each island in turn, until they have the intended
+ * size.  Repeat until the specified number of islands has been grown.
  *
  * If placement fails due to lack of room, start over, just like for
  * continents.
  *
  * Growing works as for continents, except the minimum distance for
  * additional islands applies, and growing simply stops when any of
- * the islands being grown lacks the room to grow further.
+ * the islands being grown lacks the room to grow further.  The number
+ * of sectors not grown carries over to the next island size.
  *
  * 4. Compute elevation
  *
@@ -1111,6 +1116,32 @@ place_island(int c)
     return n;
 }
 
+static int
+int_cmp(const void *a, const void *b)
+{
+    return *(int *)b - *(int *)a;
+}
+
+static int *
+size_islands(void)
+{
+    int n = ni / nc;
+    int *isiz = malloc(n * sizeof(*isiz));
+    int r0, r1, i;
+
+    isiz[0] = n * is;
+    r1 = roll0(is);
+    for (i = 1; i < n; i++) {
+	r0 = r1;
+	r1 = roll0(is);
+	isiz[i] = is + r1 - r0;
+	isiz[0] -= isiz[i];
+    }
+
+    qsort(isiz, n, sizeof(*isiz), int_cmp);
+    return isiz;
+}
+
 /*
  * Grow the additional islands.
  * Return 1 on success, 0 on error.
@@ -1118,25 +1149,27 @@ place_island(int c)
 static int
 grow_islands(void)
 {
-    int n = ni / nc;
-    int stunted_islands = 0;
+    int *island_size = size_islands();
     int xzone_valid = 0;
+    int carry = 0;
     int i, j, c, done, secs, isiz, x, y;
 
     init_spheres_of_influence();
 
-    for (i = 0; i < n; i++) {
+    for (i = 0; i < ni / nc; i++) {
 	c = nc + i * nc;
 
 	if (!xzone_valid)
 	    xzone_init(c);
 
-	isiz = roll(is) + roll0(is);
+	carry += island_size[i];
+	isiz = MIN(2 * is, carry);
 
 	for (j = 0; j < nc; j++) {
 	    isecs[c + j] = 0;
 	    if (!place_island(c + j)) {
 		qprint("\nNo room for island #%d\n", c - nc + j + 1);
+		free(island_size);
 		return 0;
 	    }
 	}
@@ -1165,17 +1198,17 @@ grow_islands(void)
 	}
 
 	for (j = 0; j < nc; j++)
-	    stunted_islands += isecs[c + j] != isiz;
-
-	for (j = 0; j < nc; j++)
 	    qprint(" %d(%d)", c - nc + j + 1, isecs[c + j]);
+
+	carry -= secs;
     }
 
+    free(island_size);
     qprint("\n");
 
-    if (stunted_islands)
-	qprint("%d stunted island%s\n",
-	       stunted_islands, splur(stunted_islands));
+    if (carry)
+	qprint("Only managed to grow %d out of %d island sectors.\n",
+	       is * ni - carry * nc, is * ni);
 
     for (c = nc; c < nc + ni; c++)
 	find_coast(c);
