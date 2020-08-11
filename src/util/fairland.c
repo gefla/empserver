@@ -67,17 +67,17 @@
  * in one such sphere, and each sphere contains the same number of
  * islands.
  *
- * Pick an island size, then place and grow one island of that size in
- * each sphere.  Place the first sector randomly, then grow the island
- * to the intended size.  Repeat until the specified number of islands
- * has been grown.
+ * Pick an island size, and place one island's first sector into each
+ * sphere, randomly.  Then add one sector to each island in turn,
+ * until they have the intended size.  Repeat until the specified
+ * number of islands has been grown.
  *
  * If placement fails due to lack of room, start over, just like for
  * continents.
  *
  * Growing works as for continents, except the minimum distance for
- * additional islands applies, and growing simply stops when there is
- * no room.
+ * additional islands applies, and growing simply stops when any of
+ * the islands being grown lacks the room to grow further.
  *
  * 4. Compute elevation
  *
@@ -1116,42 +1116,49 @@ place_island(int c)
 static int
 grow_islands(void)
 {
+    int n = ni / nc;
     int stunted_islands = 0;
-    int c, secs, isiz;
+    int i, j, c, done, secs, isiz;
 
     xzone_init(nc);
     init_spheres_of_influence();
 
-    for (c = nc; c < nc + ni; ++c) {
-	isecs[c] = 0;
-	if (c % nc == 0)
-	    isiz = roll(is) + roll0(is);
-	assert(isiz > 0);
+    for (i = 0; i < n; i++) {
+	c = nc + i * nc;
+	isiz = roll(is) + roll0(is);
 
-	if (!place_island(c)) {
-	    qprint("\nNo room for island #%d", c - nc + 1);
-	    break;
-	}
-
-	for (secs = 1; secs < isiz; secs++) {
-	    if (!grow_one_sector(c)) {
-		stunted_islands++;
-		break;
+	for (j = 0; j < nc; j++) {
+	    isecs[c + j] = 0;
+	    if (!place_island(c + j)) {
+		qprint("\nNo room for island #%d\n", c - nc + j + 1);
+		return 0;
 	    }
 	}
 
-	find_coast(c);
-	qprint(" %d(%d)", c - nc + 1, secs);
+	done = 1;
+	for (secs = 1; secs < isiz && done; secs++) {
+	    for (j = 0; j < nc; j++) {
+		if (!grow_one_sector(c + j))
+		    done = 0;
+	    }
+	}
+
+	for (j = 0; j < nc; j++)
+	    stunted_islands += isecs[c + j] != isiz;
+
+	for (j = 0; j < nc; j++)
+	    qprint(" %d(%d)", c - nc + j + 1, isecs[c + j]);
     }
 
     qprint("\n");
 
-    if (c < nc + ni)
-	return 0;
-
     if (stunted_islands)
 	qprint("%d stunted island%s\n",
 	       stunted_islands, splur(stunted_islands));
+
+    for (c = nc; c < nc + ni; c++)
+	find_coast(c);
+
     return 1;
 }
 
