@@ -662,6 +662,9 @@ try_to_grow(int c, int newx, int newy, int d)
 {
     int i, j, px, py;
 
+    if (own[newx][newy] != -1)
+	return 0;
+
     for (i = 1; i <= d; ++i) {
 	for (j = 0; j < i; ++j)
 	    vector[j] = 0;
@@ -757,10 +760,9 @@ grow_one_sector(int c)
 	    for (i = roll0(6), n = 0; n < 12 && !done; i = (i + 1) % 6, ++n) {
 		newx = new_x(x + dirx[i]);
 		newy = new_y(y + diry[i]);
-		if (own[newx][newy] == -1 &&
-		    (n > 5 ||
-		     (own[new_x(x+dirx[(i+5)%6])][new_y(y+diry[(i+5)%6])] == -1 &&
-		      own[new_x(x+dirx[(i+1)%6])][new_y(y+diry[(i+1)%6])] == -1)))
+		if (n > 5 ||
+		    (own[new_x(x+dirx[(i+5)%6])][new_y(y+diry[(i+5)%6])] == -1 &&
+		     own[new_x(x+dirx[(i+1)%6])][new_y(y+diry[(i+1)%6])] == -1))
 		    if (try_to_grow(c, newx, newy, c < nc ? di : id))
 			done = 1;
 	    }
@@ -768,9 +770,8 @@ grow_one_sector(int c)
 	    for (i = roll0(6), n = 0; n < 6 && !done; i = (i + 1) % 6, ++n) {
 		newx = new_x(x + dirx[i]);
 		newy = new_y(y + diry[i]);
-		if (own[newx][newy] == -1)
-		    if (try_to_grow(c, newx, newy, c < nc ? di : id))
-			done = 1;
+		if (try_to_grow(c, newx, newy, c < nc ? di : id))
+		    done = 1;
 	    }
 	next_coast(c, x, y, &x, &y);
 	++coast_search;
@@ -843,7 +844,7 @@ place_island(int c, int *xp, int *yp)
 		if (*xp == sx && *yp == sy)
 		    break;
 	    }
-	    if (own[*xp][*yp] == -1 && try_to_grow(c, *xp, *yp, d))
+	    if (try_to_grow(c, *xp, *yp, d))
 		return 1;
 	}
     }
