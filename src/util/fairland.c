@@ -45,12 +45,17 @@
  *
  * For all continents, add the first sector at the capital's location,
  * and the second right to it.  These are the capital sectors.  Then
- * add one sector to each continent in turn, obeying the minimum
- * distance between continents, until they have the specified size.
+ * add one sector to each continent in turn, until they have the
+ * specified size.
  *
- * The kind of shape they grow into is determined by the "spike
- * percentage" --- the higher the spike, the more spindly they will
- * be.  If you lower the spike, the continents will be more round.
+ * Growth uses weighted random sampling to pick one sector from the
+ * set of adjacent sea sectors that aren't too close to another
+ * continent.  Growth operates in spiking mode with a chance given by
+ * the spike percentage.  When "spiking", a sector's weight increases
+ * with number of adjacent sea sectors.  This directs the growth away
+ * from land, resulting in spikes.  When not spiking, the weight
+ * increases with the number of adjacent land sectors.  This makes the
+ * island more rounded.
  *
  * If growing fails due to lack of room, start over.  If it fails too
  * many times, give up and terminate unsuccessfully.
@@ -166,9 +171,6 @@ static const char *outfile = DEFAULT_OUTFILE_NAME;
 
 /* these defines prevent infinite loops:
 */
-
-#define COAST_SEARCH_MAX 200	/* how many times do we look for a coast sector
-				   when growing continents and islands */
 #define DRIFT_BEFORE_CHECK ((WORLD_X + WORLD_Y)/2)
 #define DRIFT_MAX ((WORLD_X + WORLD_Y)*2)
 #define MOUNTAIN_SEARCH_MAX 1000	/* how long do we try to place mountains */
@@ -208,6 +210,14 @@ static unsigned char *adj_land;
  * exclusive zones.
  */
 static short *xzone;
+
+/*
+ * Set of sectors seen already
+ * Increment @cur_seen to empty the set of sectors seen, set
+ * seen[XYOFFSET(x, y)] to @cur_seen to add x,y to the set.
+ */
+static unsigned *seen;
+static unsigned cur_seen;
 
 static int **elev;		/* elevation of the sectors */
 static int **sectx, **secty;	/* the sectors for each continent */
@@ -503,6 +513,7 @@ allocate_memory(void)
     own = calloc(WORLD_X, sizeof(int *));
     adj_land = malloc(WORLD_SZ() * sizeof(*adj_land));
     xzone = malloc(WORLD_SZ() * sizeof(*xzone));
+    seen = calloc(WORLD_SZ(), sizeof(*seen));
     elev = calloc(WORLD_X, sizeof(int *));
     for (i = 0; i < WORLD_X; ++i) {
 	own[i] = calloc(WORLD_Y, sizeof(int));
@@ -802,106 +813,68 @@ add_sector(int c, int x, int y)
     adj_land_update(x, y);
 }
 
-static int
-try_to_grow(int c, int newx, int newy)
+static int grow_weight(int c, int x, int y, int spike)
 {
-    if (!can_grow_at(c, newx, newy))
-	return 0;
+    int n, b;
 
-    add_sector(c, newx, newy);
-    return 1;
+    /*
+     * #Land neighbors is #bits set in adj_land[].
+     * Count them Brian Kernighan's way.
+     */
+    n = 0;
+    for (b = adj_land[XYOFFSET(x, y)]; b; b &= b - 1)
+	n++;
+    assert(n > 0 && n < 7);
+
+    if (spike)
+	return (6 - n) * (6 - n);
+
+    return n * n * n;
 }
-
-/* Move along the coast in a clockwise direction.
-*/
-
-static void
-next_coast(int c, int x, int y, int *xp, int *yp)
-{
-    int i, nx, ny, wat = 0;
-
-    if (isecs[c] == 1) {
-	*xp = x;
-	*yp = y;
-	return;
-    }
-
-    for (i = 0; i < 12; ++i) {
-	nx = new_x(x + dirx[i % 6]);
-	ny = new_y(y + diry[i % 6]);
-	if (own[nx][ny] == -1)
-	    wat = 1;
-	if (wat && own[nx][ny] == c) {
-	    *xp = nx;
-	    *yp = ny;
-	    return;
-	}
-    }
-}
-
-/* Choose a sector to grow from
-*/
-
-static int
-new_try(int c, int spike)
-{
-    int secs = isecs[c];
-    int i, starti;
-
-    if (secs == 1) {
-	if (sectc[c][0])
-	    return 0;
-    } else {
-	i = starti = (spike && sectc[c][secs - 1]) ? secs - 1 : roll0(secs);
-	do {
-	    if (sectc[c][i])
-		return i;
-	    i = (i + 1) % secs;
-	} while (i != starti);
-	assert(c >= nc);
-	return -1;
-    }
-    return -1;
-}
-
-/* Grow continent c by 1 sector
-*/
 
 static int
 grow_one_sector(int c)
 {
     int spike = roll0(100) < sp;
-    int done, coast_search, try1, x, y, newx, newy, i, n, sx, sy;
+    int wsum, newx, newy, i, x, y, off, dir, nx, ny, noff, w;
 
-    if ((try1 = new_try(c, spike)) == -1)
+    assert(cur_seen < UINT_MAX);
+    cur_seen++;
+    wsum = 0;
+    newx = newy = -1;
+
+    for (i = 0; i < isecs[c]; i++) {
+	x = sectx[c][i];
+	y = secty[c][i];
+	off = XYOFFSET(x, y);
+
+	for (dir = DIR_FIRST; dir <= DIR_LAST; dir++) {
+	    if (adj_land[off] & (1u << dir))
+		continue;
+	    nx = new_x(x + diroff[dir][0]);
+	    ny = new_y(y + diroff[dir][1]);
+	    noff = XYOFFSET(nx, ny);
+	    if (seen[noff] == cur_seen)
+		continue;
+	    assert(seen[noff] < cur_seen);
+	    seen[noff] = cur_seen;
+	    if (!can_grow_at(c, nx, ny))
+		continue;
+	    w = grow_weight(c, nx, ny, spike);
+	    assert(wsum < INT_MAX - w);
+	    wsum += w;
+	    if (roll0(wsum) < w) {
+		newx = nx;
+		newy = ny;
+	    }
+	}
+    }
+
+    if (!wsum)
 	return 0;
-    x = sx = sectx[c][try1];
-    y = sy = secty[c][try1];
-    coast_search = 0;
-    done = 0;
-    do {
-	if (spike) {
-	    for (i = roll0(6), n = 0; n < 12 && !done; i = (i + 1) % 6, ++n) {
-		newx = new_x(x + dirx[i]);
-		newy = new_y(y + diry[i]);
-		if (n > 5 ||
-		    (own[new_x(x+dirx[(i+5)%6])][new_y(y+diry[(i+5)%6])] == -1 &&
-		     own[new_x(x+dirx[(i+1)%6])][new_y(y+diry[(i+1)%6])] == -1))
-		    if (try_to_grow(c, newx, newy))
-			done = 1;
-	    }
-	} else
-	    for (i = roll0(6), n = 0; n < 6 && !done; i = (i + 1) % 6, ++n) {
-		newx = new_x(x + dirx[i]);
-		newy = new_y(y + diry[i]);
-		if (try_to_grow(c, newx, newy))
-		    done = 1;
-	    }
-	next_coast(c, x, y, &x, &y);
-	++coast_search;
-    } while (!done && coast_search < COAST_SEARCH_MAX &&
-	     (isecs[c] == 1 || x != sx || y != sy));
-    return done;
+
+    add_sector(c, newx, newy);
+    return 1;
 }
 
 /*
@@ -919,11 +892,13 @@ grow_continents(void)
 
     for (c = 0; c < nc; ++c) {
 	isecs[c] = 0;
-	if (!try_to_grow(c, capx[c], capy[c])
-	    || !try_to_grow(c, new_x(capx[c] + 2), capy[c])) {
+	if (!can_grow_at(c, capx[c], capy[c])
+	    || !can_grow_at(c, new_x(capx[c] + 2), capy[c])) {
 	    done = 0;
 	    continue;
 	}
+	add_sector(c, capx[c], capy[c]);
+	add_sector(c, new_x(capx[c] + 2), capy[c]);
     }
 
     if (!done) {
@@ -933,7 +908,6 @@ grow_continents(void)
 
     for (secs = 2; secs < sc && done; secs++) {
 	for (c = 0; c < nc; ++c) {
-	    find_coast(c);
 	    if (!grow_one_sector(c))
 		done = 0;
 	}
@@ -1000,7 +974,6 @@ grow_islands(void)
 
 	isiz = roll(is) + roll0(is);
 	for (secs = 1; secs < isiz; secs++) {
-	    find_coast(c);
 	    if (!grow_one_sector(c)) {
 		stunted_islands++;
 		break;
