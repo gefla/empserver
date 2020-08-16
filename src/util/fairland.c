@@ -240,7 +240,8 @@ static unsigned cur_seen;
 /*
  * Closest continent and "distance"
  * closest[XYOFFSET(x, y)] is the closest continent's number.
- * distance[] is complicated; see init_spheres_of_influence().
+ * distance[] is complicated; see init_spheres_of_influence() and
+ * init_distance_to_coast().
  */
 static natid *closest;
 static unsigned short *distance;
@@ -963,6 +964,24 @@ init_spheres_of_influence(void)
 }
 
 /*
+ * Precompute distance to coast
+ * Set distance[XYOFFSET(x, y)] to the distance to the closest coastal
+ * land sector.
+ * Set closest[XYOFFSET(x, y)] to the closest continent's number,
+ * -1 if no single continent is closest.
+ */
+static void
+init_distance_to_coast(void)
+{
+    int c;
+
+    bfs_init();
+    for (c = 0; c < nc + ni; c++)
+	bfs_enqueue_island(c);
+    bfs_run_queue();
+}
+
+/*
  * Is @x,@y in the same sphere of influence as island @c?
  * Always true when @c is a continent.
  */
@@ -1266,6 +1285,7 @@ create_elevations(void)
 	for (j = 0; j < WORLD_Y; j++)
 	    elev[i][j] = -INFINITE_ELEVATION;
     }
+    init_distance_to_coast();
     elevate_land();
     elevate_sea();
 }
@@ -1301,7 +1321,6 @@ distance_to_what(int x, int y, int flag)
     return d;
 }
 
-#define distance_to_sea() (sectc[c][i]?1:distance_to_what(sectx[c][i], secty[c][i], 0))
 #define distance_to_mountain() distance_to_what(sectx[c][i], secty[c][i], 2)
 
 /* Decide where the mountains go
@@ -1309,7 +1328,7 @@ distance_to_what(int x, int y, int flag)
 static void
 elevate_land(void)
 {
-    int i, mountain_search, k, c, total, ns, nm, r, x, y;
+    int i, off, mountain_search, k, c, total, ns, nm, r, x, y;
     int highest, where, h, newk, dk;
 
     for (c = 0; c < nc + ni; ++c) {
@@ -1320,7 +1339,8 @@ elevate_land(void)
 /* Place the mountains */
 
 	for (i = 0; i < ns; ++i) {
-	    dsea[i] = distance_to_sea();
+	    off = XYOFFSET(sectx[c][i], secty[c][i]);
+	    dsea[i] = MIN(5, distance[off] + 1);
 	    weight[i] = (total += (dsea[i] * dsea[i]));
 	}
 
@@ -1400,17 +1420,16 @@ elevate_land(void)
     }
 }
 
-#define distance_to_land() distance_to_what(x, y, 1)
-
 static void
 elevate_sea(void)
 {
-    int x, y;
+    int x, y, off;
 
     for (y = 0; y < WORLD_Y; ++y) {
 	for (x = y % 2; x < WORLD_X; x += 2) {
+	    off = XYOFFSET(x, y);
 	    if (elev[x][y] == -INFINITE_ELEVATION)
-		elev[x][y] = -roll(distance_to_land() * 20 + 27);
+		elev[x][y] = -roll(MIN(5, distance[off]) * 20 + 27);
 	}
     }
 }
