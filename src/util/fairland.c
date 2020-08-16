@@ -1002,15 +1002,16 @@ elevate_land(void)
 	  (100 * (HIGHMIN - LANDMIN)) / (ns - nm - ((c < nc) ? 3 : 1)) :
 	  100 * INFINITY;
 	for (k = 100 * (HIGHMIN - 1);; k -= dk) {
-	    highest = -INFINITY;
+	    highest = 0;
 	    where = -1;
 	    for (i = 0; i < ns; ++i) {
-		if (ELEV != INFINITY &&
+		if (ELEV == -INFINITY &&
 		    (c >= nc || ((!(capx[c] == sectx[c][i] &&
 				    capy[c] == secty[c][i])) &&
 				 (!(new_x(capx[c] + 2) == sectx[c][i] &&
 				    capy[c] == secty[c][i]))))) {
 		    h = 3 * (5 - dmoun[i]) + dsea[i];
+		    assert(h > 0);
 		    if (h > highest) {
 			highest = h;
 			where = i;
@@ -1025,8 +1026,6 @@ elevate_land(void)
 	    if (newk < LANDMIN)
 		newk = LANDMIN;
 	    elev[sectx[c][where]][secty[c][where]] = newk;
-	    dsea[where] = -INFINITY;
-	    dmoun[where] = INFINITY;
 	}
 
 /* Elevate the mountains and capitals */
