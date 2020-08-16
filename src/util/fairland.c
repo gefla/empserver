@@ -1255,12 +1255,6 @@ grow_islands(void)
 static void
 create_elevations(void)
 {
-    int i, j;
-
-    for (i = 0; i < WORLD_X; i++) {
-	for (j = 0; j < WORLD_Y; j++)
-	    elev[i][j] = -INFINITE_ELEVATION;
-    }
     init_distance_to_coast();
     elevate_land();
     elevate_sea();
@@ -1327,7 +1321,7 @@ elevate_land(void)
 	    for (i = 0; i < ns; ++i) {
 		x = sectx[c][i];
 		y = secty[c][i];
-		if (r < weight[i] && elev[x][y] == -INFINITE_ELEVATION &&
+		if (r < weight[i] && !elev[x][y] &&
 		    (c >= nc ||
 		     ((!(capx[c] == sectx[c][i] &&
 			 capy[c] == secty[c][i])) &&
@@ -1353,7 +1347,7 @@ elevate_land(void)
 	    for (i = 0; i < ns; ++i) {
 		x = sectx[c][i];
 		y = secty[c][i];
-		if (elev[x][y] == -INFINITE_ELEVATION &&
+		if (!elev[x][y] &&
 		    (c >= nc || ((!(capx[c] == sectx[c][i] &&
 				    capy[c] == secty[c][i])) &&
 				 (!(new_x(capx[c] + 2) == sectx[c][i] &&
@@ -1404,7 +1398,7 @@ elevate_sea(void)
     for (y = 0; y < WORLD_Y; ++y) {
 	for (x = y % 2; x < WORLD_X; x += 2) {
 	    off = XYOFFSET(x, y);
-	    if (elev[x][y] == -INFINITE_ELEVATION)
+	    if (own[x][y] == -1)
 		elev[x][y] = -roll(MIN(5, distance[off]) * 20 + 27);
 	}
     }
