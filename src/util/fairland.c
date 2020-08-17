@@ -1300,7 +1300,6 @@ distance_to_what(int x, int y, int flag)
     return d;
 }
 
-#define ELEV elev[sectx[c][i]][secty[c][i]]
 #define distance_to_sea() (sectc[c][i]?1:distance_to_what(sectx[c][i], secty[c][i], 0))
 #define distance_to_mountain() distance_to_what(sectx[c][i], secty[c][i], 2)
 
@@ -1309,8 +1308,8 @@ distance_to_what(int x, int y, int flag)
 static void
 elevate_land(void)
 {
-    int i, mountain_search, k, c, total, ns, nm, highest, where, h, newk,
-	r, dk;
+    int i, mountain_search, k, c, total, ns, nm, r, x, y;
+    int highest, where, h, newk, dk;
 
     for (c = 0; c < nc + ni; ++c) {
 	total = 0;
@@ -1328,16 +1327,19 @@ elevate_land(void)
 	     k && mountain_search < MOUNTAIN_SEARCH_MAX;
 	     ++mountain_search) {
 	    r = roll0(total);
-	    for (i = 0; i < ns; ++i)
-		if (r < weight[i] && ELEV == -INFINITE_ELEVATION &&
+	    for (i = 0; i < ns; ++i) {
+		x = sectx[c][i];
+		y = secty[c][i];
+		if (r < weight[i] && elev[x][y] == -INFINITE_ELEVATION &&
 		    (c >= nc ||
 		     ((!(capx[c] == sectx[c][i] &&
 			 capy[c] == secty[c][i])) &&
 		      (!(new_x(capx[c] + 2) == sectx[c][i] &&
 			 capy[c] == secty[c][i]))))) {
-		    ELEV = INFINITE_ELEVATION;
+		    elev[x][y] = INFINITE_ELEVATION;
 		    break;
 		}
+	    }
 	    --k;
 	}
 
@@ -1352,7 +1354,9 @@ elevate_land(void)
 	    highest = 0;
 	    where = -1;
 	    for (i = 0; i < ns; ++i) {
-		if (ELEV == -INFINITE_ELEVATION &&
+		x = sectx[c][i];
+		y = secty[c][i];
+		if (elev[x][y] == -INFINITE_ELEVATION &&
 		    (c >= nc || ((!(capx[c] == sectx[c][i] &&
 				    capy[c] == secty[c][i])) &&
 				 (!(new_x(capx[c] + 2) == sectx[c][i] &&
@@ -1378,17 +1382,19 @@ elevate_land(void)
 /* Elevate the mountains and capitals */
 
 	for (i = 0; i < ns; ++i) {
-	    if (ELEV == INFINITE_ELEVATION) {
+	    x = sectx[c][i];
+	    y = secty[c][i];
+	    if (elev[x][y] == INFINITE_ELEVATION) {
 		if (dsea[i] == 1)
-		    ELEV = HILLMIN + roll0(PLATMIN - HILLMIN);
+		    elev[x][y] = HILLMIN + roll0(PLATMIN - HILLMIN);
 		else
-		    ELEV = HIGHMIN + roll0((256 - HIGHMIN) / 2) +
+		    elev[x][y] = HIGHMIN + roll0((256 - HIGHMIN) / 2) +
 		      roll0((256 - HIGHMIN) / 2);
 	    } else if (c < nc &&
 		       (((capx[c] == sectx[c][i] && capy[c] == secty[c][i])) ||
 			((new_x(capx[c] + 2) == sectx[c][i] &&
 			  capy[c] == secty[c][i]))))
-		ELEV = PLATMIN;
+		elev[x][y] = PLATMIN;
 	}
     }
 }
