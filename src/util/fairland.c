@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2020
  */
 
 #include <config.h>
@@ -1100,17 +1100,20 @@ write_sects(void)
 static void
 output(void)
 {
-    int i, j;
+    int sx, sy, x, y;
+
     if (quiet == 0) {
-	for (i = 0; i < WORLD_Y; ++i) {
+	for (sy = -WORLD_Y / 2; sy < WORLD_Y / 2; sy++) {
+	    y = YNORM(sy);
 	    puts("");
-	    if (i % 2)
+	    if (y % 2)
 		printf(" ");
-	    for (j = i % 2; j < WORLD_X; j += 2) {
-		if (own[j][i] == -1)
+	    for (sx = -WORLD_X / 2 + y % 2; sx < WORLD_X / 2; sx += 2) {
+		x = XNORM(sx);
+		if (own[x][y] == -1)
 		    printf(". ");
 		else {
-		    printf("%c ", map_symbol(j, i));
+		    printf("%c ", map_symbol(x, y));
 		}
 	    }
 	}
@@ -1124,16 +1127,16 @@ output(void)
 static int
 map_symbol(int x, int y)
 {
-    int c, iscap = 0;
+    int c;
 
     for (c = 0; c < nc; ++c)
 	if ((x == capx[c] && y == capy[c])
 	    || (x == new_x(capx[c] + 2) && y == capy[c]))
-	    iscap = 1;
+	    return numletter[own[x][y] % 62];
     if ((elev[x][y] >= HILLMIN && elev[x][y] < PLATMIN)
 	|| elev[x][y] >= HIGHMIN)
 	return '^';
-    return own[x][y] >= nc ? '%' : iscap ? '#' : numletter[own[x][y] % 62];
+    return own[x][y] >= nc ? '%' : '#';
 }
 
 /***************************************************************************
