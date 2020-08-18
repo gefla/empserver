@@ -185,8 +185,6 @@ static int ctot;		/* total number of continents and islands grown */
 static int *isecs;		/* array of how large each island is */
 
 static int *capx, *capy;	/* location of the nc capitals */
-static int dirx[] = { -2, -1, 1, 2, 1, -1 }; /* gyujnb */
-static int diry[] = { 0, -1, -1, 0, 1, 1 };
 
 static int **own;		/* owner of the sector.  -1 means water */
 
@@ -644,11 +642,15 @@ stable(int turns)
 static void
 fl_move(int j)
 {
-    int i, n, newx, newy;
+    int dir, i, newx, newy;
 
-    for (i = roll0(6), n = 0; n < 6; i = (i + 1) % 6, ++n) {
-	newx = new_x(capx[j] + dirx[i]);
-	newy = new_y(capy[j] + diry[i]);
+    dir = DIR_L + roll0(6);
+    for (i = 0; i < 6; i++) {
+	if (dir > DIR_LAST)
+	    dir -= 6;
+	newx = new_x(capx[j] + diroff[dir][0]);
+	newy = new_y(capy[j] + diroff[dir][1]);
+	dir++;
 	if (iso(j, newx, newy) >= iso(j, capx[j], capy[j])) {
 	    capx[j] = newx;
 	    capy[j] = newy;
@@ -667,13 +669,16 @@ fl_move(int j)
 static void
 find_coast(int c)
 {
-    int i, j;
+    int i, dir, nx, ny;
 
     for (i = 0; i < isecs[c]; ++i) {
 	sectc[c][i] = 0;
-	for (j = 0; j < 6; ++j)
-	    if (own[new_x(sectx[c][i] + dirx[j])][new_y(secty[c][i] + diry[j])] == -1)
+	for (dir = DIR_FIRST; dir <= DIR_LAST; dir++) {
+	    nx = new_x(sectx[c][i] + diroff[dir][0]);
+	    ny = new_y(secty[c][i] + diroff[dir][1]);
+	    if (own[nx][ny] == -1)
 		sectc[c][i] = 1;
+	}
     }
 }
 
