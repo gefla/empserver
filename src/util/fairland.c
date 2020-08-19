@@ -100,8 +100,6 @@
  * In between, elevate the remaining land one by one, working from
  * mountains towards the sea, and from the elevation just below "high"
  * elevation linearly down to 1.
- * TODO This still avoids the elevations formerly reserved for coastal
- * mountains.  Don't.
  *
  * This gives islands of the same size the same set of elevations.
  *
@@ -151,9 +149,8 @@
 /* lower URAN_MIN for more uranium */
 #define URAN_MIN   56
 
-/* do not change these 4 defines */
+/* do not change these defines */
 #define LANDMIN		1	/* plate altitude for normal land */
-#define HILLMIN		34	/* plate altitude for hills */
 #define PLATMIN		36	/* plate altitude for plateau */
 #define HIGHMIN		98	/* plate altitude for mountains */
 
@@ -1363,8 +1360,6 @@ elevate_land(void)
 	    if (where == -1)
 		break;
 	    newk = k / 100;
-	    if (newk >= HILLMIN && newk < PLATMIN)
-		newk = PLATMIN;
 	    if (newk < LANDMIN)
 		newk = LANDMIN;
 	    elev[sectx[c][where]][secty[c][where]] = newk;
@@ -1385,7 +1380,7 @@ elevate_land(void)
 		 * tests/fairland/ churn:
 		 */
 		if (dsea[i] == 1)
-		    roll0(PLATMIN - HILLMIN);
+		    roll0(2);
 		else {
 		    roll0((256 - HIGHMIN) / 2);
 		    roll0((256 - HIGHMIN) / 2);
@@ -1418,10 +1413,6 @@ elev_to_sct_type(int elevation)
 {
     if (elevation < LANDMIN)
 	return SCT_WATER;
-    if (elevation < HILLMIN)
-	return SCT_RURAL;
-    if (elevation < PLATMIN)
-	return SCT_MOUNT;
     if (elevation < HIGHMIN)
 	return SCT_RURAL;
     return SCT_MOUNT;
