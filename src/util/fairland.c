@@ -93,19 +93,17 @@
  * First, place the specified number of mountains randomly.
  * Probability increases with distance to sea.
  *
- * Last, elevate mountains and the capitals.  Pick coastal mountain
- * elevation randomly from an interval of medium elevations reserved
- * for them.  Pick non-coastal mountain elevation randomly from an
- * interval of high elevation reserved for them.  Set capital
- * elevation to a fixed, medium value.
+ * Last, elevate mountains and the capitals.  Set mountain elevations
+ * starting at a "high" elevation, then increasing linearly.  Set
+ * capital elevation to a fixed value.
  *
  * In between, elevate the remaining land one by one, working from
- * mountains towards the sea, and from the elevation just below the
- * non-coastal mountains' interval linearly down to 1, avoiding the
- * coastal mountains' interval.
+ * mountains towards the sea, and from the elevation just below "high"
+ * elevation linearly down to 1.
+ * TODO This still avoids the elevations formerly reserved for coastal
+ * mountains.  Don't.
  *
- * This gives islands of the same size the same set of elevations,
- * except for mountains.
+ * This gives islands of the same size the same set of elevations.
  *
  * Elevate sea: pick a random depth from an interval that deepens with
  * the distance to land.
@@ -1298,8 +1296,10 @@ distance_to_what(int x, int y, int flag)
 static void
 elevate_land(void)
 {
+    int max_nm = (pm * MAX(sc, is * 2)) / 100;
     int i, off, mountain_search, k, c, total, ns, nm, r, x, y;
     int highest, where, h, newk, dk;
+    double elevation, delta;
 
     for (c = 0; c < nc + ni; ++c) {
 	total = 0;
@@ -1372,15 +1372,24 @@ elevate_land(void)
 
 /* Elevate the mountains and capitals */
 
+	elevation = HIGHMIN;
+	delta = (127.0 - HIGHMIN) / max_nm;
 	for (i = 0; i < ns; ++i) {
 	    x = sectx[c][i];
 	    y = secty[c][i];
 	    if (elev[x][y] == INFINITE_ELEVATION) {
+		elevation += delta;
+		elev[x][y] = (int)(elevation + 0.5);
+		/*
+		 * Temporary "useless" die rolls to minimize
+		 * tests/fairland/ churn:
+		 */
 		if (dsea[i] == 1)
-		    elev[x][y] = HILLMIN + roll0(PLATMIN - HILLMIN);
-		else
-		    elev[x][y] = HIGHMIN + roll0((256 - HIGHMIN) / 2) +
-		      roll0((256 - HIGHMIN) / 2);
+		    roll0(PLATMIN - HILLMIN);
+		else {
+		    roll0((256 - HIGHMIN) / 2);
+		    roll0((256 - HIGHMIN) / 2);
+		}
 	    } else if (c < nc &&
 		       (((capx[c] == sectx[c][i] && capy[c] == secty[c][i])) ||
 			((new_x(capx[c] + 2) == sectx[c][i] &&
