@@ -1295,7 +1295,7 @@ elevate_land(void)
 {
     int max_nm = (pm * MAX(sc, is * 2)) / 100;
     int i, off, mountain_search, k, c, total, ns, nm, r, x, y;
-    int highest, where, h, newk, dk;
+    int highest, where, h;
     double elevation, delta;
 
     for (c = 0; c < nc + ni; ++c) {
@@ -1335,10 +1335,9 @@ elevate_land(void)
 
 	for (i = 0; i < ns; ++i)
 	    dmoun[i] = distance_to_mountain();
-	dk = (ns - nm - ((c < nc) ? 3 : 1) > 0) ?
-	  (100 * (HIGHMIN - LANDMIN)) / (ns - nm - ((c < nc) ? 3 : 1)) :
-	  100 * INFINITE_ELEVATION;
-	for (k = 100 * (HIGHMIN - 1);; k -= dk) {
+	delta = (double)(HIGHMIN - 1 - LANDMIN)
+	    / (ns - nm - ((c < nc) ? 3 : 1));
+	for (elevation = HIGHMIN - 1;; elevation -= delta) {
 	    highest = 0;
 	    where = -1;
 	    for (i = 0; i < ns; ++i) {
@@ -1359,10 +1358,9 @@ elevate_land(void)
 	    }
 	    if (where == -1)
 		break;
-	    newk = k / 100;
-	    if (newk < LANDMIN)
-		newk = LANDMIN;
-	    elev[sectx[c][where]][secty[c][where]] = newk;
+	    if (elevation < LANDMIN)
+		elevation = LANDMIN;
+	    elev[sectx[c][where]][secty[c][where]] = (int)(elevation + 0.5);
 	}
 
 /* Elevate the mountains and capitals */
