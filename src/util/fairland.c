@@ -109,8 +109,8 @@
  * 5. Set resources
  *
  * Sector resources are simple functions of elevation.  You can alter
- * macros OIL_MAX, IRON_MIN, GOLD_MIN, FERT_MAX, and URAN_MIN to
- * customize them.
+ * iron_conf[], gold_conf[], fert_conf[], oil_conf[], and uran_conf[]
+ * to customize them.
  */
 
 #include <config.h>
@@ -129,30 +129,68 @@
 #include "version.h"
 #include "xy.h"
 
-/* The following five numbers refer to elevation under which (in the case of
-   fertility or oil) or over which (in the case of iron, gold, and uranium)
-   sectors with that elevation will contain that resource.  Elevation ranges
-   from 0 to 100 */
-
-/* raise FERT_MAX for more fertility */
-#define FERT_MAX   56
-
-/* raise OIL_MAX for more oil */
-#define OIL_MAX	   33
-
-/* lower IRON_MIN for more iron */
-#define IRON_MIN   22
-
-/* lower GOLD_MIN for more gold */
-#define GOLD_MIN   36
-
-/* lower URAN_MIN for more uranium */
-#define URAN_MIN   56
-
 /* do not change these defines */
 #define LANDMIN		1	/* plate altitude for normal land */
 #define PLATMIN		36	/* plate altitude for plateau */
 #define HIGHMIN		98	/* plate altitude for mountains */
+
+/*
+ * Resource configuration
+
+ * Resources are determined by elevation.  The map from elevation to
+ * resource is defined as a linear interpolation of resource data
+ * points (elev, res) defined in the tables below.  Elevations range
+ * from -127 to 127, and resource values from 0 to 100.
+ */
+
+struct resource_point {
+    int elev;
+    double res;
+};
+
+struct resource_point iron_conf[] = {
+    { -127, 0 },
+    { 21, 0 },
+    { 84, 120.0 * 63 / 76 },
+    { 85, 100 },
+    { HIGHMIN - 1, 100 },
+    { HIGHMIN , 0 },
+    { 127, 0 } };
+
+struct resource_point gold_conf[] = {
+    { -127, 0 },
+    { 35, 0 },
+    { HIGHMIN - 1, 80 },
+    { HIGHMIN, 80 },
+    { 127, 85 } };
+
+struct resource_point fert_conf[] = {
+    { -127, 100 },
+    { -59, 100 },
+    { LANDMIN - 1, 41 },
+    { LANDMIN, 100 },
+    { 10, 100 },
+    { 11, 120.0 * 45 / 55 },
+    { 56, 0 },
+    { 127, 0 } };
+
+struct resource_point oil_conf[] = {
+    { -127, 100 },
+    { -49, 100 },
+    { LANDMIN - 1, 2 },
+    { LANDMIN, 100 },
+    { 6, 100 },
+    { 7, 120.0 * 27 / 33 },
+    { 34, 0 },
+    { 127, 0 } };
+
+struct resource_point uran_conf[] = {
+    { -127, 0 },
+    { 55, 0 },
+    { 90, 100 },
+    { 97, 100 },
+    { 98, 0 },
+    { 127, 0 } };
 
 static void qprint(const char * const fmt, ...)
     ATTRIBUTE((format (printf, 1, 2)));
@@ -1360,77 +1398,36 @@ elev_to_sct_type(int elevation)
   ADD THE RESOURCES
 ****************************************************************************/
 
+/*
+ * Map elevation @elev to a resource value according to @conf.
+ * This is a linear interpolation on the data points in @conf.
+ */
 static int
-set_fert(int e)
+elev_to_resource(int elev, struct resource_point conf[])
 {
-    int fert = 0;
-    if (e < LANDMIN)
-	fert = LANDMIN - e + 40;
-    else if (e < FERT_MAX)
-	fert = (120 * (FERT_MAX - e)) / (FERT_MAX - LANDMIN);
-    if (fert > 100)
-	fert = 100;
-    return fert;
-}
+    int i, elev1, elev2, delev;
+    double res1, res2, dres;
 
-static int
-set_oil(int e)
-{
-    int oil = 0;
-    if (e < LANDMIN)
-	oil = (LANDMIN - e) * 2;
-    else if (e <= OIL_MAX)
-	oil = (120 * (OIL_MAX - e + 1)) / (OIL_MAX - LANDMIN + 1);
-    if (oil > 100)
-	oil = 100;
-    return oil;
-}
+    for (i = 1; elev > conf[i].elev; i++) ;
+    assert(conf[i - 1].elev <= elev);
 
-static int
-set_iron(int e)
-{
-    int iron = 0;
-    if (e >= IRON_MIN && e < HIGHMIN)
-	iron = (120 * (e - IRON_MIN + 1)) / (HIGHMIN - IRON_MIN);
-    if (iron > 100)
-	iron = 100;
-    return iron;
-}
-
-static int
-set_gold(int e)
-{
-    int gold = 0;
-    if (e >= GOLD_MIN) {
-	if (e < HIGHMIN)
-	    gold = (80 * (e - GOLD_MIN + 1)) / (HIGHMIN - GOLD_MIN);
-	else
-	    gold = 80 + 5 * (e - HIGHMIN) / (127 - HIGHMIN);
-    }
-    if (gold > 100)
-	gold = 100;
-    return gold;
-}
-
-static int
-set_uran(int e)
-{
-    int uran = 0;
-    if (e >= URAN_MIN && e < HIGHMIN)
-	uran = (120 * (e - URAN_MIN + 1)) / (HIGHMIN - URAN_MIN);
-    if (uran > 100)
-	uran = 100;
-    return uran;
+    elev1 = conf[i - 1].elev;
+    elev2 = conf[i].elev;
+    delev = elev2 - elev1;
+    res1 = conf[i - 1].res;
+    res2 = conf[i].res;
+    dres = res2 - res1;
+    return (int)(res1 + ((elev - elev1) * dres) / delev);
 }
 
 static void
 add_resources(struct sctstr *sct)
 {
-    sct->sct_fertil = set_fert(sct->sct_elev);
-    sct->sct_oil = set_oil(sct->sct_elev);
-    sct->sct_min = set_iron(sct->sct_elev);
-    sct->sct_gmin = set_gold(sct->sct_elev);
-    sct->sct_uran = set_uran(sct->sct_elev);
+    sct->sct_min = elev_to_resource(sct->sct_elev, iron_conf);
+    sct->sct_gmin = elev_to_resource(sct->sct_elev, gold_conf);
+    sct->sct_fertil = elev_to_resource(sct->sct_elev, fert_conf);
+    sct->sct_oil = elev_to_resource(sct->sct_elev, oil_conf);
+    sct->sct_uran = elev_to_resource(sct->sct_elev, uran_conf);
 }
 
 /****************************************************************************
