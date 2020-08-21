@@ -254,7 +254,6 @@ static int bfs_queue_head, bfs_queue_tail;
 
 static int **elev;		/* elevation of the sectors */
 static int **sectx, **secty;	/* the sectors for each continent */
-static int **sectc;		/* which sectors are on the coast? */
 static int *weight;		/* used for placing mountains */
 static int *dsea, *dmoun;	/* the dist to the ocean and mountain */
 
@@ -277,7 +276,6 @@ static int write_newcap_script(void);
 static int stable(int);
 static void elevate_land(void);
 static void elevate_sea(void);
-static void set_coastal_flags(void);
 
 static void print_vars(void);
 static void fl_move(int);
@@ -567,7 +565,6 @@ allocate_memory(void)
     }
     sectx = calloc(nc + ni, sizeof(int *));
     secty = calloc(nc + ni, sizeof(int *));
-    sectc = calloc(nc + ni, sizeof(int *));
     isecs = calloc(nc + ni, sizeof(int));
     weight = calloc(MAX(sc, is * 2), sizeof(int));
     dsea = calloc(MAX(sc, is * 2), sizeof(int));
@@ -575,12 +572,10 @@ allocate_memory(void)
     for (i = 0; i < nc; ++i) {
 	sectx[i] = calloc(sc, sizeof(int));
 	secty[i] = calloc(sc, sizeof(int));
-	sectc[i] = calloc(sc, sizeof(int));
     }
     for (i = nc; i < nc + ni; ++i) {
 	sectx[i] = calloc(is * 2, sizeof(int));
 	secty[i] = calloc(is * 2, sizeof(int));
-	sectc[i] = calloc(is * 2, sizeof(int));
     }
 
 }
@@ -711,23 +706,11 @@ fl_move(int j)
   GROW THE CONTINENTS
 ****************************************************************************/
 
-/* Look for a coastal sector of continent c
-*/
-
-static void
-find_coast(int c)
+static int
+is_coastal(int x, int y)
 {
-    int i, dir, nx, ny;
-
-    for (i = 0; i < isecs[c]; ++i) {
-	sectc[c][i] = 0;
-	for (dir = DIR_FIRST; dir <= DIR_LAST; dir++) {
-	    nx = new_x(sectx[c][i] + diroff[dir][0]);
-	    ny = new_y(secty[c][i] + diroff[dir][1]);
-	    if (own[nx][ny] == -1)
-		sectc[c][i] = 1;
-	}
-    }
+    return adj_land[XYOFFSET(x, y)]
+	!= (1u << (DIR_LAST + 1)) - (1u << DIR_FIRST);
 }
 
 struct hexagon_iter {
@@ -905,7 +888,7 @@ bfs_enqueue_island(int c)
     int i;
 
     for (i = 0; i < isecs[c]; i++) {
-	if (sectc[c][i])
+	if (is_coastal(sectx[c][i], secty[c][i]))
 	    bfs_enqueue(c, sectx[c][i], secty[c][i], 0);
     }
 }
@@ -1128,9 +1111,6 @@ grow_continents(void)
 	}
     }
 
-    for (c = 0; c < nc; ++c)
-	find_coast(c);
-
     if (!done)
 	qprint("Only managed to grow %d out of %d sectors.\n",
 	       secs - 1, sc);
@@ -1265,9 +1245,6 @@ grow_islands(void)
     if (carry)
 	qprint("Only managed to grow %d out of %d island sectors.\n",
 	       is * ni - carry * nc, is * ni);
-
-    for (c = nc; c < nc + ni; c++)
-	find_coast(c);
 
     return 1;
 }
@@ -1541,10 +1518,10 @@ write_sects(void)
 	    sct->sct_type = elev_to_sct_type(elev[x][y]);
 	    sct->sct_newtype = sct->sct_type;
 	    sct->sct_dterr = own[sct->sct_x][y] + 1;
+	    sct->sct_coastal = is_coastal(sct->sct_x, sct->sct_y);
 	    add_resources(sct);
 	}
     }
-    set_coastal_flags();
 }
 
 /****************************************************************************
@@ -1766,19 +1743,5 @@ qprint(const char *const fmt, ...)
 	va_start(ap, fmt);
 	vfprintf(stdout, fmt, ap);
 	va_end(ap);
-    }
-}
-
-static void
-set_coastal_flags(void)
-{
-    int i, j;
-    struct sctstr *sp;
-
-    for (i = 0; i < nc + ni; ++i) {
-	for (j = 0; j < isecs[i]; j++) {
-	    sp = getsectp(sectx[i][j], secty[i][j]);
-	    sp->sct_coastal = sectc[i][j];
-	}
     }
 }
