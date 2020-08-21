@@ -230,7 +230,11 @@ static int *isecs;
 
 static int *capx, *capy;	/* location of the nc capitals */
 
-static int **own;		/* owner of the sector.  -1 means water */
+/*
+ * Island at x, y
+ * own[XYOFFSET(x, y)] is x,y's island number, -1 if water.
+ */
+static short *own;
 
 /*
  * Adjacent land sectors
@@ -579,7 +583,7 @@ allocate_memory(void)
 
     capx = calloc(nc, sizeof(int));
     capy = calloc(nc, sizeof(int));
-    own = calloc(WORLD_X, sizeof(int *));
+    own = malloc(WORLD_SZ() * sizeof(*own));
     adj_land = malloc(WORLD_SZ() * sizeof(*adj_land));
     elev = calloc(WORLD_SZ(), sizeof(*elev));
     xzone = malloc(WORLD_SZ() * sizeof(*xzone));
@@ -587,9 +591,6 @@ allocate_memory(void)
     closest = malloc(WORLD_SZ() * sizeof(*closest));
     distance = malloc(WORLD_SZ() * sizeof(*distance));
     bfs_queue = malloc(WORLD_SZ() * sizeof(*bfs_queue));
-    for (i = 0; i < WORLD_X; ++i) {
-	own[i] = calloc(WORLD_Y, sizeof(int));
-    }
     sectx = calloc(nc + ni, sizeof(int *));
     secty = calloc(nc + ni, sizeof(int *));
     isecs = calloc(nc + ni, sizeof(int));
@@ -607,13 +608,10 @@ allocate_memory(void)
 static void
 init(void)
 {
-    int i, j;
+    int i;
 
-    for (i = 0; i < WORLD_X; ++i) {
-	for (j = 0; j < WORLD_Y; ++j) {
-	    own[i][j] = -1;
-	}
-    }
+    for (i = 0; i < WORLD_SZ(); i++)
+	own[i] = -1;
     memset(adj_land, 0, WORLD_SZ() * sizeof(*adj_land));
 }
 
@@ -1004,13 +1002,14 @@ is_in_sphere(int c, int x, int y)
 static int
 can_grow_at(int c, int x, int y)
 {
-    return own[x][y] == -1 && xzone_ok(c, x, y) && is_in_sphere(c, x, y);
+    return own[XYOFFSET(x, y)] == -1 && xzone_ok(c, x, y)
+	&& is_in_sphere(c, x, y);
 }
 
 static void
 adj_land_update(int x, int y)
 {
-    int is_land = own[x][y] != -1;
+    int is_land = own[XYOFFSET(x, y)] != -1;
     int dir, nx, ny, noff;
 
     for (dir = DIR_FIRST; dir <= DIR_LAST; dir++) {
@@ -1027,12 +1026,14 @@ adj_land_update(int x, int y)
 static void
 add_sector(int c, int x, int y)
 {
-    assert(own[x][y] == -1);
+    int off = XYOFFSET(x, y);
+
+    assert(own[off] == -1);
     xzone_around_sector(c, x, y, c < nc ? di : DISTINCT_ISLANDS ? id : 0);
     sectx[c][isecs[c]] = x;
     secty[c][isecs[c]] = y;
     isecs[c]++;
-    own[x][y] = c;
+    own[off] = c;
     adj_land_update(x, y);
 }
 
@@ -1250,7 +1251,7 @@ grow_islands(void)
 		    assert(isecs[c + j] == secs);
 		    x = sectx[c + j][secs];
 		    y = secty[c + j][secs];
-		    own[x][y] = -1;
+		    own[XYOFFSET(x, y)] = -1;
 		    adj_land_update(x, y);
 		}
 	    }
@@ -1307,7 +1308,7 @@ elevate_prep(void)
     while (n > 0) {
 	off0 = roll0(WORLD_SZ());
 	sctoff2xy(&x0, &y0, off0);
-	if (own[x0][y0] == -1) {
+	if (own[off0] == -1) {
 	    r = roll(MIN(3, distance[off0]));
 	    sign = -1;
 	} else {
@@ -1441,7 +1442,7 @@ write_sects(void)
 	    sct->sct_elev = elev[sct->sct_uid];
 	    sct->sct_type = elev_to_sct_type(sct->sct_elev);
 	    sct->sct_newtype = sct->sct_type;
-	    sct->sct_dterr = own[sct->sct_x][y] + 1;
+	    sct->sct_dterr = own[sct->sct_uid] + 1;
 	    sct->sct_coastal = is_coastal(sct->sct_x, sct->sct_y);
 	    add_resources(sct);
 	}
@@ -1465,7 +1466,7 @@ output(void)
 	    for (sx = -WORLD_X / 2 + y % 2; sx < WORLD_X / 2; sx += 2) {
 		x = XNORM(sx);
 		off = XYOFFSET(x, y);
-		c = own[x][y];
+		c = own[off];
 		type = elev_to_sct_type(elev[off]);
 		if (type == SCT_WATER)
 		    printf(". ");
@@ -1487,25 +1488,26 @@ output(void)
 }
 
 /*
- * Print a map to help visualize own[][].
+ * Print a map to help visualize own[].
  * This is for debugging.
  */
 void
 print_own_map(void)
 {
-    int sx, sy, x, y;
+    int sx, sy, x, y, off;
 
     for (sy = -WORLD_Y / 2; sy < WORLD_Y / 2; sy++) {
 	y = YNORM(sy);
 	printf("%4d ", sy);
 	for (sx = -WORLD_X / 2; sx < WORLD_X / 2; sx++) {
 	    x = XNORM(sx);
+	    off = XYOFFSET(x, y);
 	    if ((x + y) & 1)
 		putchar(' ');
-	    else if (own[x][y] == -1)
+	    else if (own[off] == -1)
 		putchar('.');
 	    else
-		putchar(numletter[own[x][y] % 62]);
+		putchar(numletter[own[off] % 62]);
 	}
 	putchar('\n');
     }
@@ -1566,12 +1568,12 @@ print_xzone_map(void)
 	    off = XYOFFSET(x, y);
 	    if ((x + y) & 1)
 		putchar(' ');
-	    else if (own[x][y] >= 0)
+	    else if (own[off] >= 0)
 		putchar('-');
 	    else if (xzone[off] >= 0)
 		putchar(numletter[xzone[off] % 62]);
 	    else {
-		assert(own[x][y] == -1);
+		assert(own[off] == -1);
 		putchar(xzone[off] == -1 ? '.' : '!');
 	    }
 	}
@@ -1599,7 +1601,7 @@ print_closest_map(void)
 	    else if (closest[off] == (natid)-1)
 		putchar('.');
 	    else if (!distance[off]) {
-		assert(closest[off] == own[x][y]);
+		assert(closest[off] == own[off]);
 		putchar('-');
 	    } else {
 		putchar(numletter[closest[off] % 62]);
@@ -1625,7 +1627,7 @@ print_distance_map(void)
 	    else if (closest[off] == (natid)-1)
 		putchar('.');
 	    else if (!distance[off]) {
-		assert(closest[off] == own[x][y]);
+		assert(closest[off] == own[off]);
 		putchar('-');
 	    } else {
 		putchar(numletter[distance[off] % 62]);
