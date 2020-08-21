@@ -222,6 +222,10 @@ static const char *outfile = DEFAULT_OUTFILE_NAME;
 #define new_x(newx) (((newx) + WORLD_X) % WORLD_X)
 #define new_y(newy) (((newy) + WORLD_Y) % WORLD_Y)
 
+struct xy {
+    coord x, y;
+};
+
 /*
  * Island sizes
  * isecs[i] is the size of the i-th island.
@@ -229,6 +233,12 @@ static const char *outfile = DEFAULT_OUTFILE_NAME;
 static int *isecs;
 
 static int *capx, *capy;	/* location of the nc capitals */
+
+/*
+ * Island sectors
+ * The i-th island's j-th sector is at sect[i][j].
+ */
+struct xy **sect;
 
 /*
  * Island at x, y
@@ -285,8 +295,6 @@ static unsigned short *distance;
  */
 static int *bfs_queue;
 static int bfs_queue_head, bfs_queue_tail;
-
-static int **sectx, **secty;	/* the sectors for each continent */
 
 #define NUMTRIES 10		/* keep trying to grow this many times */
 
@@ -591,18 +599,12 @@ allocate_memory(void)
     closest = malloc(WORLD_SZ() * sizeof(*closest));
     distance = malloc(WORLD_SZ() * sizeof(*distance));
     bfs_queue = malloc(WORLD_SZ() * sizeof(*bfs_queue));
-    sectx = calloc(nc + ni, sizeof(int *));
-    secty = calloc(nc + ni, sizeof(int *));
     isecs = calloc(nc + ni, sizeof(int));
-    for (i = 0; i < nc; ++i) {
-	sectx[i] = calloc(sc, sizeof(int));
-	secty[i] = calloc(sc, sizeof(int));
-    }
-    for (i = nc; i < nc + ni; ++i) {
-	sectx[i] = calloc(is * 2, sizeof(int));
-	secty[i] = calloc(is * 2, sizeof(int));
-    }
-
+    sect = malloc((nc + ni) * sizeof(*sect));
+    for (i = 0; i < nc; i++)
+	sect[i] = malloc(sc * sizeof(**sect));
+    for (i = nc; i < nc + ni; i++)
+	sect[i] = malloc(is * 2 * sizeof(**sect));
 }
 
 static void
@@ -817,7 +819,7 @@ xzone_around_island(int c, int dist)
     int i;
 
     for (i = 0; i < isecs[c]; i++)
-	xzone_around_sector(c, sectx[c][i], secty[c][i], dist);
+	xzone_around_sector(c, sect[c][i].x, sect[c][i].y, dist);
 }
 
 /*
@@ -910,8 +912,8 @@ bfs_enqueue_island(int c)
     int i;
 
     for (i = 0; i < isecs[c]; i++) {
-	if (is_coastal(sectx[c][i], secty[c][i]))
-	    bfs_enqueue(c, sectx[c][i], secty[c][i], 0);
+	if (is_coastal(sect[c][i].x, sect[c][i].y))
+	    bfs_enqueue(c, sect[c][i].x, sect[c][i].y, 0);
     }
 }
 
@@ -1030,8 +1032,8 @@ add_sector(int c, int x, int y)
 
     assert(own[off] == -1);
     xzone_around_sector(c, x, y, c < nc ? di : DISTINCT_ISLANDS ? id : 0);
-    sectx[c][isecs[c]] = x;
-    secty[c][isecs[c]] = y;
+    sect[c][isecs[c]].x = x;
+    sect[c][isecs[c]].y = y;
     isecs[c]++;
     own[off] = c;
     adj_land_update(x, y);
@@ -1069,8 +1071,8 @@ grow_one_sector(int c)
     newx = newy = -1;
 
     for (i = 0; i < isecs[c]; i++) {
-	x = sectx[c][i];
-	y = secty[c][i];
+	x = sect[c][i].x;
+	y = sect[c][i].y;
 	off = XYOFFSET(x, y);
 
 	for (dir = DIR_FIRST; dir <= DIR_LAST; dir++) {
@@ -1250,8 +1252,8 @@ grow_islands(void)
 		if (isecs[c + j] != secs) {
 		    isecs[c + j]--;
 		    assert(isecs[c + j] == secs);
-		    x = sectx[c + j][secs];
-		    y = secty[c + j][secs];
+		    x = sect[c + j][secs].x;
+		    y = sect[c + j][secs].y;
 		    own[XYOFFSET(x, y)] = -1;
 		    adj_land_update(x, y);
 		}
@@ -1344,9 +1346,9 @@ elevate_land(void)
 	i0 = c < nc ? 2 : 0;
 	n = isecs[c] - i0;
 	for (i = 0; i < i0; i++)
-	    elev[XYOFFSET(sectx[c][i], secty[c][i])] = PLATMIN;
+	    elev[XYOFFSET(sect[c][i].x, sect[c][i].y)] = PLATMIN;
 	for (i = 0; i < n; i++)
-	    off[i] = XYOFFSET(sectx[c][i0 + i], secty[c][i0 + i]);
+	    off[i] = XYOFFSET(sect[c][i0 + i].x, sect[c][i0 + i].y);
 	qsort(off, n, sizeof(*off), elev_cmp);
 	delta = (double)(HIGHMIN - LANDMIN - 1) / (n - nm - 1);
 	elevation = LANDMIN;
