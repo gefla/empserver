@@ -1434,19 +1434,17 @@ add_resources(struct sctstr *sct)
 static void
 write_sects(void)
 {
-    struct sctstr *sct;
-    int x, y;
+    struct sctstr *sp;
+    int i;
 
-    for (y = 0; y < WORLD_Y; y++) {
-	for (x = y % 2; x < WORLD_X; x += 2) {
-	    sct = getsectp(x, y);
-	    sct->sct_elev = elev[sct->sct_uid];
-	    sct->sct_type = elev_to_sct_type(sct->sct_elev);
-	    sct->sct_newtype = sct->sct_type;
-	    sct->sct_dterr = own[sct->sct_uid] + 1;
-	    sct->sct_coastal = is_coastal(sct->sct_x, sct->sct_y);
-	    add_resources(sct);
-	}
+    for (i = 0; i < WORLD_SZ(); i++) {
+	sp = getsectid(i);
+	sp->sct_elev = elev[i];
+	sp->sct_type = elev_to_sct_type(sp->sct_elev);
+	sp->sct_newtype = sp->sct_type;
+	sp->sct_dterr = own[i] + 1;
+	sp->sct_coastal = is_coastal(sp->sct_x, sp->sct_y);
+	add_resources(sp);
     }
 }
 
