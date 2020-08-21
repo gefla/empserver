@@ -227,12 +227,16 @@ struct xy {
 };
 
 /*
+ * Capital locations
+ * The i-th capital is at cap[i].
+ */
+static struct xy *cap;
+
+/*
  * Island sizes
  * isecs[i] is the size of the i-th island.
  */
 static int *isecs;
-
-static int *capx, *capy;	/* location of the nc capitals */
 
 /*
  * Island sectors
@@ -589,8 +593,7 @@ allocate_memory(void)
 {
     int i;
 
-    capx = calloc(nc, sizeof(int));
-    capy = calloc(nc, sizeof(int));
+    cap = malloc(nc * sizeof(*cap));
     own = malloc(WORLD_SZ() * sizeof(*own));
     adj_land = malloc(WORLD_SZ() * sizeof(*adj_land));
     elev = calloc(WORLD_SZ(), sizeof(*elev));
@@ -634,7 +637,7 @@ iso(int j, int newx, int newy)
     for (i = 0; i < nc; ++i) {
 	if (i == j)
 	    continue;
-	md = mapdist(capx[i], capy[i], newx, newy);
+	md = mapdist(cap[i].x, cap[i].y, newx, newy);
 	if (md < d)
 	    d = md;
     }
@@ -652,9 +655,9 @@ drift(void)
     int turns, i;
 
     for (i = 0; i < nc; i++) {
-	capy[i] = (2 * i) / WORLD_X;
-	capx[i] = (2 * i) % WORLD_X + capy[i] % 2;
-	if (capy[i] >= WORLD_Y) {
+	cap[i].y = (2 * i) / WORLD_X;
+	cap[i].x = (2 * i) % WORLD_X + cap[i].y % 2;
+	if (cap[i].y >= WORLD_Y) {
 	    fprintf(stderr,
 		    "%s: world not big enough for all the continents\n",
 		    program_name);
@@ -690,7 +693,7 @@ stable(int turns)
 	return 0;
 
     for (i = 0; i < nc; ++i) {
-	isod = iso(i, capx[i], capy[i]);
+	isod = iso(i, cap[i].x, cap[i].y);
 	if (isod > d)
 	    d = isod;
     }
@@ -715,12 +718,12 @@ fl_move(int j)
     for (i = 0; i < 6; i++) {
 	if (dir > DIR_LAST)
 	    dir -= 6;
-	newx = new_x(capx[j] + diroff[dir][0]);
-	newy = new_y(capy[j] + diroff[dir][1]);
+	newx = new_x(cap[j].x + diroff[dir][0]);
+	newy = new_y(cap[j].y + diroff[dir][1]);
 	dir++;
-	if (iso(j, newx, newy) >= iso(j, capx[j], capy[j])) {
-	    capx[j] = newx;
-	    capy[j] = newy;
+	if (iso(j, newx, newy) >= iso(j, cap[j].x, cap[j].y)) {
+	    cap[j].x = newx;
+	    cap[j].y = newy;
 	    return;
 	}
     }
@@ -1117,13 +1120,13 @@ grow_continents(void)
 
     for (c = 0; c < nc; ++c) {
 	isecs[c] = 0;
-	if (!can_grow_at(c, capx[c], capy[c])
-	    || !can_grow_at(c, new_x(capx[c] + 2), capy[c])) {
+	if (!can_grow_at(c, cap[c].x, cap[c].y)
+	    || !can_grow_at(c, new_x(cap[c].x + 2), cap[c].y)) {
 	    done = 0;
 	    continue;
 	}
-	add_sector(c, capx[c], capy[c]);
-	add_sector(c, new_x(capx[c] + 2), capy[c]);
+	add_sector(c, cap[c].x, cap[c].y);
+	add_sector(c, new_x(cap[c].x + 2), cap[c].y);
     }
 
     if (!done) {
@@ -1476,8 +1479,8 @@ output(void)
 		    printf("%% ");
 		else {
 		    assert(0 <= c && c < nc);
-		    if ((x == capx[c] || x == new_x(capx[c] + 2))
-			&& y == capy[c])
+		    if ((x == cap[c].x || x == new_x(cap[c].x + 2))
+			&& y == cap[c].y)
 			printf("%c ", numletter[c % 62]);
 		    else
 			printf("# ");
@@ -1655,7 +1658,7 @@ write_newcap_script(void)
 
     for (c = 0; c < nc; ++c) {
 	fprintf(script, "add %d %d %d p\n", c + 1, c + 1, c + 1);
-	fprintf(script, "newcap %d %d,%d\n", c + 1, capx[c], capy[c]);
+	fprintf(script, "newcap %d %d,%d\n", c + 1, cap[c].x, cap[c].y);
     }
     fprintf(script, "add %d visitor visitor v\n", c + 1);
     fclose(script);
