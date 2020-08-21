@@ -1379,7 +1379,7 @@ set_oil(int e)
 {
     int oil = 0;
     if (e < LANDMIN)
-	oil = (LANDMIN - e) * 2 + roll0(2);
+	oil = (LANDMIN - e) * 2;
     else if (e <= OIL_MAX)
 	oil = (120 * (OIL_MAX - e + 1)) / (OIL_MAX - LANDMIN + 1);
     if (oil > 100)
@@ -1406,7 +1406,7 @@ set_gold(int e)
 	if (e < HIGHMIN)
 	    gold = (80 * (e - GOLD_MIN + 1)) / (HIGHMIN - GOLD_MIN);
 	else
-	    gold = 100 - 20 * HIGHMIN / e;
+	    gold = 80 + 5 * (e - HIGHMIN) / (127 - HIGHMIN);
     }
     if (gold > 100)
 	gold = 100;
