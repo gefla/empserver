@@ -144,14 +144,12 @@
  */
 
 struct resource_point {
-    int elev;
-    double res;
+    int elev, res;
 };
 
 struct resource_point iron_conf[] = {
     { -127, 0 },
     { 21, 0 },
-    { 84, 120.0 * 63 / 76 },
     { 85, 100 },
     { HIGHMIN - 1, 100 },
     { HIGHMIN , 0 },
@@ -170,7 +168,6 @@ struct resource_point fert_conf[] = {
     { LANDMIN - 1, 41 },
     { LANDMIN, 100 },
     { 10, 100 },
-    { 11, 120.0 * 45 / 55 },
     { 56, 0 },
     { 127, 0 } };
 
@@ -180,7 +177,6 @@ struct resource_point oil_conf[] = {
     { LANDMIN - 1, 2 },
     { LANDMIN, 100 },
     { 6, 100 },
-    { 7, 120.0 * 27 / 33 },
     { 34, 0 },
     { 127, 0 } };
 
@@ -1406,8 +1402,7 @@ elev_to_sct_type(int elevation)
 static int
 elev_to_resource(int elev, struct resource_point conf[])
 {
-    int i, elev1, elev2, delev;
-    double res1, res2, dres;
+    int i, elev1, elev2, delev, res1, res2, dres;
 
     for (i = 1; elev > conf[i].elev; i++) ;
     assert(conf[i - 1].elev <= elev);
@@ -1418,7 +1413,7 @@ elev_to_resource(int elev, struct resource_point conf[])
     res1 = conf[i - 1].res;
     res2 = conf[i].res;
     dres = res2 - res1;
-    return (int)(res1 + ((elev - elev1) * dres) / delev);
+    return (int)(res1 + (double)((elev - elev1) * dres) / delev);
 }
 
 static void
