@@ -88,23 +88,23 @@
  *
  * 4. Compute elevation
  *
- * Elevate islands one after the other.
+ * First, use a simple random hill algorithm to assign raw elevations:
+ * initialize elevation to zero, then randomly raise circular hills on
+ * land / lower circular depressions at sea.  Their size and height
+ * depends on the distance to the coast.
  *
- * First, place the specified number of mountains randomly.
- * Probability increases with distance to sea.
+ * Then, elevate islands one after the other.
  *
- * Last, elevate mountains and the capitals.  Set mountain elevations
- * starting at a "high" elevation, then increasing linearly.  Set
- * capital elevation to a fixed value.
- *
- * In between, elevate the remaining land one by one, working from
- * mountains towards the sea, and from the elevation just below "high"
- * elevation linearly down to 1.
+ * Set the capitals' elevation to a fixed value.  Process the
+ * remaining sectors in order of increasing raw elevation, first
+ * non-mountains, then mountains.  Non-mountain elevation starts at 1,
+ * and increases linearly to just below "high" elevation.  Mountain
+ * elevation starts at "high" elevation, and increases linearly.
  *
  * This gives islands of the same size the same set of elevations.
+ * Larger islands get more and taller mountains.
  *
- * Elevate sea: pick a random depth from an interval that deepens with
- * the distance to land.
+ * Finally, elevate sea: normalize the raw elevations to [-127:-1].
  *
  * 5. Set resources
  *
@@ -179,13 +179,8 @@ static int quiet;
 static const char *outfile = DEFAULT_OUTFILE_NAME;
 
 #define STABLE_CYCLE 4		/* stability required for perterbed capitals */
-#define INFINITE_ELEVATION 999
-
-/* these defines prevent infinite loops:
-*/
 #define DRIFT_BEFORE_CHECK ((WORLD_X + WORLD_Y)/2)
 #define DRIFT_MAX ((WORLD_X + WORLD_Y)*2)
-#define MOUNTAIN_SEARCH_MAX 1000	/* how long do we try to place mountains */
 
 /* handy macros:
 */
@@ -209,6 +204,12 @@ static int **own;		/* owner of the sector.  -1 means water */
  * to x, y in direction d is land.
  */
 static unsigned char *adj_land;
+
+/*
+ * Elevation at x,y
+ * elev[XYOFFSET(x, y)] is x,y's elevation.
+ */
+static short *elev;
 
 /*
  * Exclusive zones
@@ -247,10 +248,7 @@ static unsigned short *distance;
 static int *bfs_queue;
 static int bfs_queue_head, bfs_queue_tail;
 
-static int **elev;		/* elevation of the sectors */
 static int **sectx, **secty;	/* the sectors for each continent */
-static int *weight;		/* used for placing mountains */
-static int *dsea, *dmoun;	/* the dist to the ocean and mountain */
 
 #define NUMTRIES 10		/* keep trying to grow this many times */
 
@@ -269,6 +267,7 @@ static void write_sects(void);
 static void output(void);
 static int write_newcap_script(void);
 static int stable(int);
+static void elevate_prep(void);
 static void elevate_land(void);
 static void elevate_sea(void);
 
@@ -548,22 +547,18 @@ allocate_memory(void)
     capy = calloc(nc, sizeof(int));
     own = calloc(WORLD_X, sizeof(int *));
     adj_land = malloc(WORLD_SZ() * sizeof(*adj_land));
+    elev = calloc(WORLD_SZ(), sizeof(*elev));
     xzone = malloc(WORLD_SZ() * sizeof(*xzone));
     seen = calloc(WORLD_SZ(), sizeof(*seen));
     closest = malloc(WORLD_SZ() * sizeof(*closest));
     distance = malloc(WORLD_SZ() * sizeof(*distance));
     bfs_queue = malloc(WORLD_SZ() * sizeof(*bfs_queue));
-    elev = calloc(WORLD_X, sizeof(int *));
     for (i = 0; i < WORLD_X; ++i) {
 	own[i] = calloc(WORLD_Y, sizeof(int));
-	elev[i] = calloc(WORLD_Y, sizeof(int));
     }
     sectx = calloc(nc + ni, sizeof(int *));
     secty = calloc(nc + ni, sizeof(int *));
     isecs = calloc(nc + ni, sizeof(int));
-    weight = calloc(MAX(sc, is * 2), sizeof(int));
-    dsea = calloc(MAX(sc, is * 2), sizeof(int));
-    dmoun = calloc(MAX(sc, is * 2), sizeof(int));
     for (i = 0; i < nc; ++i) {
 	sectx[i] = calloc(sc, sizeof(int));
 	secty[i] = calloc(sc, sizeof(int));
@@ -1251,159 +1246,104 @@ grow_islands(void)
 static void
 create_elevations(void)
 {
-    init_distance_to_coast();
+    elevate_prep();
     elevate_land();
     elevate_sea();
 }
 
-/* Generic function for finding the distance to the closest sea, land, or
-   mountain
-*/
 static int
-distance_to_what(int x, int y, int flag)
+elev_cmp(const void *p, const void *q)
 {
-    int d, px, py;
-    struct hexagon_iter hexit;
+    int a = *(int *)p;
+    int b = *(int *)q;
+    int delev = elev[a] - elev[b];
 
-    for (d = 1; d < 5; ++d) {
-	hexagon_first(&hexit, x, y, d, &px, &py);
-	do {
-	    switch (flag) {
-	    case 0:		/* distance to sea */
-		if (own[px][py] == -1)
-		    return d;
-		break;
-	    case 1:		/* distance to land */
-		if (own[px][py] != -1)
-		    return d;
-		break;
-	    case 2:		/* distance to mountain */
-		if (elev[px][py] == INFINITE_ELEVATION)
-		    return d;
-		break;
-	    }
-	} while (hexagon_next(&hexit, &px, &py));
-    }
-    return d;
+    return delev ? delev : a - b;
 }
 
-#define distance_to_mountain() distance_to_what(sectx[c][i], secty[c][i], 2)
+static void
+elevate_prep(void)
+{
+    int n = WORLD_SZ() * 8;
+    int off0, r, sign, elevation, d, x1, y1, off1;
+    coord x0, y0;
+    struct hexagon_iter hexit;
 
-/* Decide where the mountains go
-*/
+    init_distance_to_coast();
+
+    while (n > 0) {
+	off0 = roll0(WORLD_SZ());
+	sctoff2xy(&x0, &y0, off0);
+	if (own[x0][y0] == -1) {
+	    r = roll(MIN(3, distance[off0]));
+	    sign = -1;
+	} else {
+	    r = roll(MIN(3, distance[off0]) + 1);
+	    sign = 1;
+	}
+	elevation = elev[off0] + sign * r * r;
+	elev[off0] = LIMIT_TO(elevation, SHRT_MIN, SHRT_MAX);
+	n--;
+	for (d = 1; d < r; d++) {
+	    hexagon_first(&hexit, x0, y0, d, &x1, &y1);
+	    do {
+		off1 = XYOFFSET(x1, y1);
+		elevation = elev[off1] + sign * (r * r - d * d);
+		elev[off1] = LIMIT_TO(elevation, SHRT_MIN, SHRT_MAX);
+		n--;
+	    } while (hexagon_next(&hexit, &x1, &y1));
+	}
+    }
+}
+
 static void
 elevate_land(void)
 {
+    int *off = malloc(MAX(sc, is * 2) * sizeof(*off));
     int max_nm = (pm * MAX(sc, is * 2)) / 100;
-    int i, off, mountain_search, k, c, total, ns, nm, r, x, y;
-    int highest, where, h;
+    int c, nm, i0, n, i;
     double elevation, delta;
 
-    for (c = 0; c < nc + ni; ++c) {
-	total = 0;
-	ns = isecs[c];
-	nm = (pm * ns) / 100;
-
-/* Place the mountains */
-
-	for (i = 0; i < ns; ++i) {
-	    off = XYOFFSET(sectx[c][i], secty[c][i]);
-	    dsea[i] = MIN(5, distance[off] + 1);
-	    weight[i] = (total += (dsea[i] * dsea[i]));
+    for (c = 0; c < nc + ni; c++) {
+	nm = (pm * isecs[c]) / 100;
+	i0 = c < nc ? 2 : 0;
+	n = isecs[c] - i0;
+	for (i = 0; i < i0; i++)
+	    elev[XYOFFSET(sectx[c][i], secty[c][i])] = PLATMIN;
+	for (i = 0; i < n; i++)
+	    off[i] = XYOFFSET(sectx[c][i0 + i], secty[c][i0 + i]);
+	qsort(off, n, sizeof(*off), elev_cmp);
+	delta = (double)(HIGHMIN - LANDMIN - 1) / (n - nm - 1);
+	elevation = LANDMIN;
+	for (i = 0; i < n - nm; i++) {
+	    elev[off[i]] = (int)(elevation + 0.5);
+	    elevation += delta;
 	}
-
-	for (k = nm, mountain_search = 0;
-	     k && mountain_search < MOUNTAIN_SEARCH_MAX;
-	     ++mountain_search) {
-	    r = roll0(total);
-	    for (i = 0; i < ns; ++i) {
-		x = sectx[c][i];
-		y = secty[c][i];
-		if (r < weight[i] && !elev[x][y] &&
-		    (c >= nc ||
-		     ((!(capx[c] == sectx[c][i] &&
-			 capy[c] == secty[c][i])) &&
-		      (!(new_x(capx[c] + 2) == sectx[c][i] &&
-			 capy[c] == secty[c][i]))))) {
-		    elev[x][y] = INFINITE_ELEVATION;
-		    break;
-		}
-	    }
-	    --k;
-	}
-
-/* Elevate land that is not mountain and not capital */
-
-	for (i = 0; i < ns; ++i)
-	    dmoun[i] = distance_to_mountain();
-	delta = (double)(HIGHMIN - 1 - LANDMIN)
-	    / (ns - nm - ((c < nc) ? 3 : 1));
-	for (elevation = HIGHMIN - 1;; elevation -= delta) {
-	    highest = 0;
-	    where = -1;
-	    for (i = 0; i < ns; ++i) {
-		x = sectx[c][i];
-		y = secty[c][i];
-		if (!elev[x][y] &&
-		    (c >= nc || ((!(capx[c] == sectx[c][i] &&
-				    capy[c] == secty[c][i])) &&
-				 (!(new_x(capx[c] + 2) == sectx[c][i] &&
-				    capy[c] == secty[c][i]))))) {
-		    h = 3 * (5 - dmoun[i]) + dsea[i];
-		    assert(h > 0);
-		    if (h > highest) {
-			highest = h;
-			where = i;
-		    }
-		}
-	    }
-	    if (where == -1)
-		break;
-	    if (elevation < LANDMIN)
-		elevation = LANDMIN;
-	    elev[sectx[c][where]][secty[c][where]] = (int)(elevation + 0.5);
-	}
-
-/* Elevate the mountains and capitals */
-
 	elevation = HIGHMIN;
 	delta = (127.0 - HIGHMIN) / max_nm;
-	for (i = 0; i < ns; ++i) {
-	    x = sectx[c][i];
-	    y = secty[c][i];
-	    if (elev[x][y] == INFINITE_ELEVATION) {
-		elevation += delta;
-		elev[x][y] = (int)(elevation + 0.5);
-		/*
-		 * Temporary "useless" die rolls to minimize
-		 * tests/fairland/ churn:
-		 */
-		if (dsea[i] == 1)
-		    roll0(2);
-		else {
-		    roll0((256 - HIGHMIN) / 2);
-		    roll0((256 - HIGHMIN) / 2);
-		}
-	    } else if (c < nc &&
-		       (((capx[c] == sectx[c][i] && capy[c] == secty[c][i])) ||
-			((new_x(capx[c] + 2) == sectx[c][i] &&
-			  capy[c] == secty[c][i]))))
-		elev[x][y] = PLATMIN;
+	for (; i < n; i++) {
+	    elevation += delta;
+	    elev[off[i]] = (int)(elevation + 0.5);
 	}
     }
+
+    free(off);
 }
 
 static void
 elevate_sea(void)
 {
-    int x, y, off;
+    int i, min;
 
-    for (y = 0; y < WORLD_Y; ++y) {
-	for (x = y % 2; x < WORLD_X; x += 2) {
-	    off = XYOFFSET(x, y);
-	    if (own[x][y] == -1)
-		elev[x][y] = -roll(MIN(5, distance[off]) * 20 + 27);
-	}
+    min = 0;
+    for (i = 0; i < WORLD_SZ(); i++) {
+	if (elev[i] < min)
+	    min = elev[i];
+    }
+
+    for (i = 0; i < WORLD_SZ(); i++) {
+	if (elev[i] < 0)
+	    elev[i] = -1 - 126 * elev[i] / min;
     }
 }
 
@@ -1507,8 +1447,8 @@ write_sects(void)
     for (y = 0; y < WORLD_Y; y++) {
 	for (x = y % 2; x < WORLD_X; x += 2) {
 	    sct = getsectp(x, y);
-	    sct->sct_elev = elev[x][y];
-	    sct->sct_type = elev_to_sct_type(elev[x][y]);
+	    sct->sct_elev = elev[sct->sct_uid];
+	    sct->sct_type = elev_to_sct_type(sct->sct_elev);
 	    sct->sct_newtype = sct->sct_type;
 	    sct->sct_dterr = own[sct->sct_x][y] + 1;
 	    sct->sct_coastal = is_coastal(sct->sct_x, sct->sct_y);
@@ -1523,7 +1463,7 @@ write_sects(void)
 static void
 output(void)
 {
-    int sx, sy, x, y, c, type;
+    int sx, sy, x, y, off, c, type;
 
     if (quiet == 0) {
 	for (sy = -WORLD_Y / 2; sy < WORLD_Y / 2; sy++) {
@@ -1533,8 +1473,9 @@ output(void)
 		printf(" ");
 	    for (sx = -WORLD_X / 2 + y % 2; sx < WORLD_X / 2; sx += 2) {
 		x = XNORM(sx);
+		off = XYOFFSET(x, y);
 		c = own[x][y];
-		type = elev_to_sct_type(elev[x][y]);
+		type = elev_to_sct_type(elev[off]);
 		if (type == SCT_WATER)
 		    printf(". ");
 		else if (type == SCT_MOUNT)
@@ -1580,35 +1521,36 @@ print_own_map(void)
 }
 
 /*
- * Print a map to help visualize elev[][].
+ * Print a map to help visualize elev[].
  * This is for debugging.  It expects the terminal to understand
  * 24-bit color escape sequences \e[48;2;$red;$green;$blue;m.
  */
 void
 print_elev_map(void)
 {
-    int sx, sy, x, y, sat;
+    int sx, sy, x, y, off, sat;
 
     for (sy = -WORLD_Y / 2; sy < WORLD_Y / 2; sy++) {
 	y = YNORM(sy);
 	printf("%4d ", sy);
 	for (sx = -WORLD_X / 2; sx < WORLD_X / 2; sx++) {
 	    x = XNORM(sx);
+	    off = XYOFFSET(x, y);
 	    if ((x + y) & 1)
 		putchar(' ');
-	    else if (!elev[x][y])
+	    else if (!elev[off])
 		putchar(' ');
-	    else if (elev[x][y] < 0) {
-		sat = 256 + elev[x][y] * 2;
+	    else if (elev[off] < 0) {
+		sat = 256 + elev[off] * 2;
 		printf("\033[48;2;%d;%d;%dm \033[0m", sat, sat, 255);
-	    } else if (elev[x][y] < HIGHMIN / 2) {
-		sat = (HIGHMIN / 2 - elev[x][y]) * 4;
+	    } else if (elev[off] < HIGHMIN / 2) {
+		sat = (HIGHMIN / 2 - elev[off]) * 4;
 		printf("\033[48;2;%d;%d;%dm \033[0m", sat, 255, sat);
-	    } else if (elev[x][y] < HIGHMIN) {
-		sat = 128 + (HIGHMIN - elev[x][y]) * 2;
+	    } else if (elev[off] < HIGHMIN) {
+		sat = 128 + (HIGHMIN - elev[off]) * 2;
 		printf("\033[48;2;%d;%d;%dm \033[0m", sat, sat / 2, sat / 4);
 	    } else {
-		sat = 128 + (elev[x][y] - HIGHMIN) * 4 / 5;
+		sat = 128 + (elev[off] - HIGHMIN) * 2;
 		printf("\033[48;2;%d;%d;%dm^\033[0m", sat, sat, sat);
 	    }
 	}
