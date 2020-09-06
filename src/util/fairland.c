@@ -189,6 +189,13 @@ static int diry[] = { 0, -1, -1, 0, 1, 1 };
 static int **own;		/* owner of the sector.  -1 means water */
 
 /*
+ * Adjacent land sectors
+ * adj_land[XYOFFSET(x, y)] bit d is set exactly when the sector next
+ * to x, y in direction d is land.
+ */
+static unsigned char *adj_land;
+
+/*
  * Exclusive zones
  * Each island is surrounded by an exclusive zone where only it may
  * grow.  The width of the zone depends on minimum distances.
@@ -494,6 +501,7 @@ allocate_memory(void)
     capx = calloc(nc, sizeof(int));
     capy = calloc(nc, sizeof(int));
     own = calloc(WORLD_X, sizeof(int *));
+    adj_land = malloc(WORLD_SZ() * sizeof(*adj_land));
     xzone = malloc(WORLD_SZ() * sizeof(*xzone));
     elev = calloc(WORLD_X, sizeof(int *));
     for (i = 0; i < WORLD_X; ++i) {
@@ -530,6 +538,7 @@ init(void)
 	    own[i][j] = -1;
 	}
     }
+    memset(adj_land, 0, WORLD_SZ() * sizeof(*adj_land));
 }
 
 /****************************************************************************
@@ -767,6 +776,21 @@ can_grow_at(int c, int x, int y)
 }
 
 static void
+adj_land_update(int x, int y)
+{
+    int dir, nx, ny, noff;
+
+    assert(own[x][y] != -1);
+
+    for (dir = DIR_FIRST; dir <= DIR_LAST; dir++) {
+	nx = new_x(x + diroff[dir][0]);
+	ny = new_y(y + diroff[dir][1]);
+	noff = XYOFFSET(nx, ny);
+	adj_land[noff] |= 1u << DIR_BACK(dir);
+    }
+}
+
+static void
 add_sector(int c, int x, int y)
 {
     assert(own[x][y] == -1);
@@ -775,6 +799,7 @@ add_sector(int c, int x, int y)
     secty[c][isecs[c]] = y;
     isecs[c]++;
     own[x][y] = c;
+    adj_land_update(x, y);
 }
 
 static int
