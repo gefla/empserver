@@ -72,9 +72,11 @@
  * islands are grown before smaller ones, to give the large ones the
  * best chance to grow to their planned size.
  *
- * Then place one island's first sector into each sphere, randomly.
- * Add one sector to each island in turn, until they have the intended
- * size.  Repeat until the specified number of islands has been grown.
+ * Then place one island's first sector into each sphere, using
+ * weighted random sampling with weights favoring sectors away from
+ * land and other spheres.  Add one sector to each island in turn,
+ * until they have the intended size.  Repeat until the specified
+ * number of islands has been grown.
  *
  * If placement fails due to lack of room, start over, just like for
  * continents.
@@ -908,13 +910,44 @@ bfs_enqueue_island(int c)
 }
 
 /*
+ * Enqueue spheres of influence borders for breadth-first search.
+ */
+static void
+bfs_enqueue_border(void)
+{
+    int x, y, off, dir, nx, ny, noff;
+
+    for (y = 0; y < WORLD_Y; y++) {
+	for (x = y % 2; x < WORLD_X; x += 2) {
+	    off = XYOFFSET(x, y);
+	    if (distance[off] <= id + 1)
+		continue;
+	    if (closest[off] == (natid)-1)
+		continue;
+	    for (dir = DIR_FIRST; dir <= DIR_LAST; dir++) {
+		nx = new_x(x + diroff[dir][0]);
+		ny = new_y(y + diroff[dir][1]);
+		noff = XYOFFSET(nx, ny);
+		if (closest[noff] != closest[off]) {
+		    bfs_enqueue(closest[off], x, y, id + 1);
+		    break;
+		}
+	    }
+	}
+    }
+}
+
+/*
  * Compute spheres of influence
  * A continent's sphere of influence is the set of sectors closer to
  * it than to any other continent.
  * Set closest[XYOFFSET(x, y)] to the closest continent's number,
  * -1 if no single continent is closest.
- * Set distance[XYOFFSET(x, y)] to the distance to the closest coastal
- * land sector.
+ * Set distance[XYOFFSET(x, y)] to the minimum of the distance to the
+ * closest coastal land sector and the distance to just outside the
+ * sphere of influence plus @id.  For sea sectors within a continent's
+ * sphere of influence, distance[off] - id is the distance to the
+ * border of the area where additional islands can be placed.
  */
 static void
 init_spheres_of_influence(void)
@@ -924,6 +957,8 @@ init_spheres_of_influence(void)
     bfs_init();
     for (c = 0; c < nc; c++)
 	bfs_enqueue_island(c);
+    bfs_run_queue();
+    bfs_enqueue_border();
     bfs_run_queue();
 }
 
@@ -1092,17 +1127,20 @@ grow_continents(void)
  * Return 1 on success, 0 on error.
  */
 static int
-place_island(int c)
+place_island(int c, int isiz)
 {
-    int n, x, y, newx, newy;
+    int n, x, y, d, w, newx, newy;
 
     n = 0;
 
     for (y = 0; y < WORLD_Y; y++) {
 	for (x = y % 2; x < WORLD_X; x += 2) {
 	    if (can_grow_at(c, x, y)) {
-		n++;
-		if (!roll0(n)) {
+		d = distance[XYOFFSET(x, y)];
+		assert(d > id);
+		w = (d - id) * (d - id);
+		n += MIN(w, (isiz + 2) / 3);
+		if (roll0(n) < w) {
 		    newx = x;
 		    newy = y;
 		}
@@ -1166,7 +1204,7 @@ grow_islands(void)
 
 	for (j = 0; j < nc; j++) {
 	    isecs[c + j] = 0;
-	    if (!place_island(c + j)) {
+	    if (!place_island(c + j, isiz)) {
 		qprint("\nNo room for island #%d\n", c - nc + j + 1);
 		free(island_size);
 		return 0;
