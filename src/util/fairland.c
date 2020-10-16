@@ -325,7 +325,7 @@ static void elevate_land(void);
 static void elevate_sea(void);
 
 static void print_vars(void);
-static void fl_move(int);
+static void drift_capital(int);
 static int grow_islands(void);
 
 /* Debugging aids: */
@@ -684,7 +684,7 @@ drift(void)
 	if (stable(turns))
 	    return 1;
 	for (i = 0; i < nc; ++i)
-	    fl_move(i);
+	    drift_capital(i);
     }
     return 0;
 }
@@ -721,11 +721,13 @@ stable(int turns)
     return stab;
 }
 
-/* This routine does the actual drifting
+/*
+ * Drift capital @j.
+ * Move it to an adjacent sector where it is at least as isolated.
 */
 
 static void
-fl_move(int j)
+drift_capital(int j)
 {
     int dir, i, newx, newy;
 
