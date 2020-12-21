@@ -8,7 +8,7 @@ will affect you, the player.  These were coded as the Wolfpack project.
 Changes to Empire 4.4.0 - Sun Sep  3 2017
  * Don't increase negative ship and land unit mobility to zero on
    trade.
- * Client improvements
+ * Client improvements:
    - Support fancy line editing and persistent history when compiled
      with the GNU readline library.  Contributed by Martin Haukeli.
    - Fix misdetection of input EOF in obscure circumstances.
@@ -176,8 +176,8 @@ Changes to Empire 4.4.0 - Sun Sep  3 2017
    - sect-chr field "cost" is now money to build 100% (was: cost to
      designate).  It replaces field "build" (money to build 1%).
    - New sect-chr, ship-chr, plane-chr, land-chr and nuke-chr field
-     "bwork" field "bwork" is work to build 100% sector efficiency.
-     Tearing down a sector costs one fourth as much.
+     "bwork" is work to build 100% sector efficiency.  Tearing down a
+     sector costs one fourth as much.
    - New sect-chr field "flags", backed by new table sect-chr-flags.
      The only flag so far is "deity", which marks sectors mortals
      can't designate.
