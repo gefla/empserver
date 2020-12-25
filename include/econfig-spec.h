@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Marc Olzheim, 2004
- *     Markus Armbruster, 2004-2015
+ *     Markus Armbruster, 2004-2020
  */
 
 /*
@@ -312,7 +312,7 @@ EMPCFBOTH("unit_damage", unit_damage, double, NSC_DOUBLE, 0,
 EMPCFBOTH("collateral_dam", collateral_dam, double, NSC_DOUBLE, 0,
     "Side effect damage amount done to sector")
 EMPCFBOTH("assault_penalty", assault_penalty, double, NSC_DOUBLE, 0,
-    "Attack strength multiplier for paratroopers and assaulting")
+    "Land unit strength multiplier for assaulting and boarding")
 EMPCFBOTH("fire_range_factor", fire_range_factor, float, NSC_FLOAT, 0,
     "Scale normal firing ranges by this amount")
 EMPCFBOTH("sect_mob_neg_factor", sect_mob_neg_factor, int, NSC_INT, 0,
