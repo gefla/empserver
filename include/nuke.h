@@ -82,7 +82,7 @@ struct nchrstr {
 #define putnuke(n, p) ef_write(EF_NUKE, (n), (p))
 #define getnukep(n) ((struct nukstr *)ef_ptr(EF_NUKE, (n)))
 
-#define NCHR_SZ 21
+#define NCHR_SZ 64
 extern struct nchrstr nchr[NCHR_SZ];
 
 /* src/lib/common/cargo.c */

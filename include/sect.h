@@ -165,7 +165,7 @@ struct dchrstr {
 #define getsectp(x, y) ((struct sctstr *)ef_ptr(EF_SECTOR, sctoff((x), (y))))
 #define getsectid(id) ((struct sctstr *)ef_ptr(EF_SECTOR, (id)))
 
-#define DCHR_SZ 40
+#define DCHR_SZ 64
 extern struct dchrstr dchr[DCHR_SZ];
 
 #define IS_BIG_CITY(type) (dchr[(type)].d_pkg == UPKG)

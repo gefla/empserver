@@ -124,7 +124,7 @@ struct lchrstr {
 #define putland(n, p) ef_write(EF_LAND, (n), (p))
 #define getlandp(n) ((struct lndstr *)ef_ptr(EF_LAND, (n)))
 
-#define LCHR_SZ 32
+#define LCHR_SZ 128
 extern struct lchrstr lchr[LCHR_SZ];
 
 enum {

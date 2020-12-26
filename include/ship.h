@@ -126,7 +126,7 @@ struct mchrstr {
 #define putship(n, p) ef_write(EF_SHIP, (n), (p))
 #define getshipp(n) ((struct shpstr *)ef_ptr(EF_SHIP, (n)))
 
-#define MCHR_SZ 48
+#define MCHR_SZ 128
 extern struct mchrstr mchr[MCHR_SZ];
 
 enum {
