@@ -57,6 +57,6 @@ struct pchrstr {
     char *p_sname;		/* short (7 char or less) name of product */
 };
 
-extern struct pchrstr pchr[24];
+extern struct pchrstr pchr[32];
 
 #endif

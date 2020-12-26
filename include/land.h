@@ -124,7 +124,7 @@ struct lchrstr {
 #define putland(n, p) ef_write(EF_LAND, (n), (p))
 #define getlandp(n) ((struct lndstr *)ef_ptr(EF_LAND, (n)))
 
-extern struct lchrstr lchr[32];
+extern struct lchrstr lchr[128];
 
 enum {
     LND_AIROPS_EFF = 50		/* min. efficiency for air ops */

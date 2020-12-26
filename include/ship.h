@@ -126,7 +126,7 @@ struct mchrstr {
 #define putship(n, p) ef_write(EF_SHIP, (n), (p))
 #define getshipp(n) ((struct shpstr *)ef_ptr(EF_SHIP, (n)))
 
-extern struct mchrstr mchr[48];
+extern struct mchrstr mchr[128];
 
 enum {
     SHP_AIROPS_EFF = 50,	/* min. efficiency for air ops */

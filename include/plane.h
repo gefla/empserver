@@ -134,7 +134,7 @@ struct plist {
 #define putplane(n, p) ef_write(EF_PLANE, (n), (p))
 #define getplanep(n) ((struct plnstr *)ef_ptr(EF_PLANE, (n)))
 
-extern struct plchrstr plchr[48];
+extern struct plchrstr plchr[128];
 
 struct shiplist {
     int uid;

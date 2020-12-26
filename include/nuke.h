@@ -82,7 +82,7 @@ struct nchrstr {
 #define putnuke(n, p) ef_write(EF_NUKE, (n), (p))
 #define getnukep(n) ((struct nukstr *)ef_ptr(EF_NUKE, (n)))
 
-extern struct nchrstr nchr[21];
+extern struct nchrstr nchr[64];
 
 /* src/lib/common/cargo.c */
 extern void nuk_carrier_change(struct nukstr *, int, int, int);
