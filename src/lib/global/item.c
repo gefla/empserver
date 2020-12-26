@@ -38,4 +38,4 @@
  * Table of item types
  * Initialized on startup from item.config and deity custom config (if any).
  */
-struct ichrstr ichr[I_MAX + 2];
+struct ichrstr ichr[ICHR_SZ];

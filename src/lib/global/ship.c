@@ -45,7 +45,7 @@
  * Initialized on startup from ship.config and deity custom config (if any).
  * Terminated by a sentinel with null m_name.
  */
-struct mchrstr mchr[SHP_TYPE_MAX + 2];
+struct mchrstr mchr[MCHR_SZ];
 
 #define logx(a, b) (log((a)) / log((b)))
 #define SHP_DEF(b, t) (t ? (b * (logx(t, 40.0) < 1.0 ? 1.0 : \

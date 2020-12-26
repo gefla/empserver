@@ -27,7 +27,7 @@
  *  item.h: Definitions for item characteristics stuff
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2016
+ *     Markus Armbruster, 2004-2020
  */
 
 #ifndef ITEM_H
@@ -80,7 +80,8 @@ struct ichrstr {
 
 /* variables using this structure */
 
-extern struct ichrstr ichr[I_MAX + 2];
+#define ICHR_SZ (I_MAX + 2)
+extern struct ichrstr ichr[ICHR_SZ];
 
 /* procedures using/returning this struct */
 

@@ -43,7 +43,7 @@
  * Initialized on startup from land.config and deity custom config (if any).
  * Terminated by a sentinel with null l_name.
  */
-struct lchrstr lchr[LND_TYPE_MAX + 2];
+struct lchrstr lchr[LCHR_SZ];
 
 #define logx(a, b) (log((a)) / log((b)))
 #define LND_ATTDEF(b, t) (((b) * (1.0 + ((sqrt((t)) / 100.0) * 4.0)))	\

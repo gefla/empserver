@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1986
- *     Markus Armbruster, 2004-2016
+ *     Markus Armbruster, 2004-2020
  */
 
 #ifndef NUKE_H
@@ -38,7 +38,6 @@
 #include "item.h"
 #include "types.h"
 
-#define N_MAXNUKE	20
 #define MIN_DRNUKE_CONST	0.001
 
 struct nukstr {
@@ -83,7 +82,8 @@ struct nchrstr {
 #define putnuke(n, p) ef_write(EF_NUKE, (n), (p))
 #define getnukep(n) ((struct nukstr *)ef_ptr(EF_NUKE, (n)))
 
-extern struct nchrstr nchr[N_MAXNUKE + 1];
+#define NCHR_SZ 21
+extern struct nchrstr nchr[NCHR_SZ];
 
 /* src/lib/common/cargo.c */
 extern void nuk_carrier_change(struct nukstr *, int, int, int);
