@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ville Virrankoski, 1995
- *     Markus Armbruster, 2004-2016
+ *     Markus Armbruster, 2004-2020
  */
 
 #ifndef UPDATE_H
@@ -59,7 +59,7 @@ struct budg_item {
 /* A nation's budget for an update */
 struct budget {
     /* production by sector type */
-    struct budg_item prod[SCT_TYPE_MAX + 1];
+    struct budg_item prod[ARRAY_SIZE(dchr) - 1];
     /* level production output */
     float level[4];
     /* building and maintenance */

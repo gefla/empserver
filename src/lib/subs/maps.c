@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2011
+ *     Markus Armbruster, 2004-2020
  *     Ron Koenderink, 2006
  */
 
@@ -358,7 +358,8 @@ bmnxtsct(struct nstr_sect *np)
 static char
 map_char(int type, natid own, int owner_or_god)
 {
-    if (CANT_HAPPEN(type > SCT_TYPE_MAX || !dchr[type].d_mnem))
+    if (CANT_HAPPEN((unsigned)type >= ARRAY_SIZE(dchr) - 1
+		    || !dchr[type].d_mnem))
 	return '?';
     if (owner_or_god
 	|| type == SCT_WATER || type == SCT_MOUNT || type == SCT_WASTE
