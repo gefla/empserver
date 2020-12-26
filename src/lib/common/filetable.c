@@ -27,7 +27,7 @@
  *  filetable.c: Empire game data file descriptions.
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2016
+ *     Markus Armbruster, 2005-2020
  */
 
 #include <config.h>
@@ -70,9 +70,6 @@ static void nchr_oninit(void *);
 
 static char dummy_cache;
 
-/* Number of elements in ARRAY. */
-#define SZ(array) (sizeof(array) / sizeof((array)[0]))
-
 /* Initializers for members flags... */
 /* Unmapped cache */
 #define UNMAPPED_CACHE(type, nent, flags)	\
@@ -84,7 +81,7 @@ static char dummy_cache;
  */
 #define ARRAY_CACHE(array, flags) \
     sizeof(*(array)), -1, (flags), (char *)(array),	\
-    SZ((array)), 0, 0, 0, -1
+    ARRAY_SIZE((array)), 0, 0, 0, -1
 /*
  * Mapped cache, array with unknown size.
  * Member csize gets a bogus value, needs to be fixed up.
@@ -98,7 +95,7 @@ static char dummy_cache;
  */
 #define ARRAY_TABLE(array, nent, flags)			\
     sizeof(*(array)), (nent), (flags), (char *)(array),	\
-    SZ((array)), 0, (nent), (nent), -1
+    ARRAY_SIZE((array)), 0, (nent), (nent), -1
 
 /* Common configuration table flags */
 #define EFF_CFG (EFF_PRIVATE | EFF_MEM | EFF_STATIC | EFF_SENTINEL)
