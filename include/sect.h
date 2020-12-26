@@ -30,7 +30,7 @@
  *     Dave Pare
  *     Ken Stevens, 1995
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2016
+ *     Markus Armbruster, 2004-2020
  */
 
 
@@ -160,14 +160,12 @@ struct dchrstr {
 #define SCT_PLAINS	32	/* plains sector */
 #define SCT_BTOWER	33	/* Bridge tower */
 
-#define SCT_TYPE_MAX	38
-
 #define getsect(x, y, p) ef_read(EF_SECTOR, sctoff((x), (y)), (p))
 #define putsect(p) ef_write(EF_SECTOR, (p)->sct_uid, (p))
 #define getsectp(x, y) ((struct sctstr *)ef_ptr(EF_SECTOR, sctoff((x), (y))))
 #define getsectid(id) ((struct sctstr *)ef_ptr(EF_SECTOR, (id)))
 
-extern struct dchrstr dchr[SCT_TYPE_MAX + 2];
+extern struct dchrstr dchr[40];
 #define IS_BIG_CITY(type) (dchr[(type)].d_pkg == UPKG)
 
 /* Minimal efficiency of sectors that can be knocked down (bridges) */

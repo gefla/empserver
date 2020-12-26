@@ -45,7 +45,7 @@
  * Initialized on startup from plane.config and deity custom config (if any).
  * Terminated by a sentinel with null pl_name.
  */
-struct plchrstr plchr[PLN_TYPE_MAX + 2];
+struct plchrstr plchr[];
 
 #define logx(a, b) (log((a)) / log((b)))
 #define PLN_ATTDEF(b, t) (b + ((b?1:0) * ((t/20)>10?10:(t/20))))

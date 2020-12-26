@@ -38,4 +38,4 @@
  * Table of product types
  * Initialized on startup from product.config and deity custom config (if any).
  */
-struct pchrstr pchr[P_MAX + 2];
+struct pchrstr pchr[];
