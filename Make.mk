@@ -27,7 +27,7 @@
 #   Make.mk: The real Makefile, included by GNUmakefile
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2017
+#      Markus Armbruster, 2005-2020
 #
 
 # This makefile was inspired by `Recursive Make Considered Harmful',
@@ -72,7 +72,7 @@ include $(srcdir)/info/subjects.mk
 topics := $(patsubst %.t,%,$(notdir $(tsrc)))
 info := $(topics) $(subjects) all TOP
 scripts := $(srcdir)/src/scripts
-depcomp := $(SHELL) $(srcdir)/depcomp
+depcomp := $(SHELL) $(srcdir)/build-aux/depcomp
 tarball := $(SHELL) -e $(scripts)/tarball
 econfig := $(sysconfdir)/empire/econfig
 schedule := $(sysconfdir)/empire/schedule
