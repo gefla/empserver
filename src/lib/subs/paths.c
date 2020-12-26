@@ -27,7 +27,7 @@
  *  paths.c: Routines associated with paths, directions, etc.
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2005-2011
+ *     Markus Armbruster, 2005-2020
  */
 
 #include <config.h>
@@ -73,7 +73,7 @@ diridx(char dir)
 {
     unsigned i = dir - 'a';
 
-    if (CANT_HAPPEN(i >= sizeof(dirindex) / sizeof(*dirindex)
+    if (CANT_HAPPEN(i >= ARRAY_SIZE(dirindex)
 		    || dirindex[i] < 0))
 	return DIR_STOP;
     return dirindex[i];

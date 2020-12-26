@@ -29,7 +29,7 @@
  *
  *  Known contributors to this file:
  *     Doug Hay, 1998
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2020
  */
 
 #ifndef MISC_H
@@ -88,6 +88,11 @@ extern void (*oops_handler)(void);
  */
 #define BUILD_ASSERT(cond) \
     ((void)BUILD_ASSERT_ONE(cond))
+
+/*
+ * Number of elements in ARRAY.
+ */
+#define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 
 void exit_nomem(void) ATTRIBUTE((noreturn));
 

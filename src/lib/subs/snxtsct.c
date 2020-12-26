@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1989
- *     Markus Armbruster, 2006-2011
+ *     Markus Armbruster, 2006-2020
  */
 
 #include <config.h>
@@ -127,7 +127,7 @@ snxtsct_use_condarg(struct nstr_sect *np)
 
     if (!player->condarg)
 	return 1;
-    n = nstr_comp(np->cond, sizeof(np->cond) / sizeof(*np->cond),
+    n = nstr_comp(np->cond, ARRAY_SIZE(np->cond),
 		  EF_SECTOR, player->condarg);
     if (n < 0)
 	return 0;

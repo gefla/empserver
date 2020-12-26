@@ -30,7 +30,7 @@
  *     Dave Pare, 1994
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2007-2012
+ *     Markus Armbruster, 2007-2020
  */
 
 #include <config.h>
@@ -83,7 +83,7 @@ static int
 update_get_schedule(void)
 {
     time_t now = time(NULL);
-    int n = sizeof(update_time) / sizeof(*update_time);
+    int n = ARRAY_SIZE(update_time);
     int i;
 
     ef_truncate(EF_UPDATES, 0);

@@ -31,7 +31,7 @@
  *     Jeff Bailey, 1990
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005-2009
- *     Markus Armbruster, 2006-2017
+ *     Markus Armbruster, 2006-2020
  */
 
 #include <config.h>
@@ -187,7 +187,7 @@ show_nuke_stats(int tlev)
 void
 show_nuke_build(int tlev)
 {
-    struct chr_index chridx[sizeof(nchr) / sizeof(*nchr)];
+    struct chr_index chridx[ARRAY_SIZE(nchr)];
     int n = make_nchr_index(chridx, tlev);
     int i;
     struct nchrstr *np;
@@ -208,7 +208,7 @@ show_nuke_build(int tlev)
 void
 show_nuke_capab(int tlev)
 {
-    struct chr_index chridx[sizeof(nchr) / sizeof(*nchr)];
+    struct chr_index chridx[ARRAY_SIZE(nchr)];
     int n = make_nchr_index(chridx, tlev);
     int i;
     struct nchrstr *np;
@@ -230,7 +230,7 @@ show_nuke_capab(int tlev)
 void
 show_ship_build(int tlev)
 {
-    struct chr_index chridx[sizeof(mchr) / sizeof(*mchr)];
+    struct chr_index chridx[ARRAY_SIZE(mchr)];
     int n = make_mchr_index(chridx, tlev);
     int i;
     struct mchrstr *mp;
@@ -247,7 +247,7 @@ show_ship_build(int tlev)
 void
 show_ship_stats(int tlev)
 {
-    struct chr_index chridx[sizeof(mchr) / sizeof(*mchr)];
+    struct chr_index chridx[ARRAY_SIZE(mchr)];
     int n = make_mchr_index(chridx, tlev);
     int i;
     struct mchrstr *mp;
@@ -268,7 +268,7 @@ show_ship_stats(int tlev)
 void
 show_ship_capab(int tlev)
 {
-    struct chr_index chridx[sizeof(mchr) / sizeof(*mchr)];
+    struct chr_index chridx[ARRAY_SIZE(mchr)];
     int n = make_mchr_index(chridx, tlev);
     int i;
     struct mchrstr *mp;
@@ -286,7 +286,7 @@ show_ship_capab(int tlev)
 void
 show_plane_stats(int tlev)
 {
-    struct chr_index chridx[sizeof(plchr) / sizeof(*plchr)];
+    struct chr_index chridx[ARRAY_SIZE(plchr)];
     int n = make_plchr_index(chridx, tlev);
     int i;
     struct plchrstr *pp;
@@ -304,7 +304,7 @@ show_plane_stats(int tlev)
 void
 show_plane_capab(int tlev)
 {
-    struct chr_index chridx[sizeof(plchr) / sizeof(*plchr)];
+    struct chr_index chridx[ARRAY_SIZE(plchr)];
     int n = make_plchr_index(chridx, tlev);
     int i;
     struct plchrstr *pp;
@@ -321,7 +321,7 @@ show_plane_capab(int tlev)
 void
 show_plane_build(int tlev)
 {
-    struct chr_index chridx[sizeof(plchr) / sizeof(*plchr)];
+    struct chr_index chridx[ARRAY_SIZE(plchr)];
     int n = make_plchr_index(chridx, tlev);
     int i;
     struct plchrstr *pp;
@@ -339,7 +339,7 @@ show_plane_build(int tlev)
 void
 show_land_build(int tlev)
 {
-    struct chr_index chridx[sizeof(lchr) / sizeof(*lchr)];
+    struct chr_index chridx[ARRAY_SIZE(lchr)];
     int n = make_lchr_index(chridx, tlev);
     int i;
     struct lchrstr *lp;
@@ -358,7 +358,7 @@ show_land_build(int tlev)
 void
 show_land_capab(int tlev)
 {
-    struct chr_index chridx[sizeof(lchr) / sizeof(*lchr)];
+    struct chr_index chridx[ARRAY_SIZE(lchr)];
     int n = make_lchr_index(chridx, tlev);
     int i;
     struct lchrstr *lcp;
@@ -376,7 +376,7 @@ show_land_capab(int tlev)
 void
 show_land_stats(int tlev)
 {
-    struct chr_index chridx[sizeof(lchr) / sizeof(*lchr)];
+    struct chr_index chridx[ARRAY_SIZE(lchr)];
     int n = make_lchr_index(chridx, tlev);
     int i;
     struct lchrstr *lcp;

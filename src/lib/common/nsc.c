@@ -27,7 +27,7 @@
  *  nsc.c: Empire selection global structures
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2016
+ *     Markus Armbruster, 2004-2020
  */
 
 /*
@@ -640,7 +640,7 @@ struct castr cou_ca[] = {
 #undef CURSTR
 };
 
-struct castr nat_ca[sizeof(cou_ca) / sizeof(*cou_ca)];
+struct castr nat_ca[ARRAY_SIZE(cou_ca)];
 /* initialized by nsc_init() */
 
 struct castr relat_ca[] = {

@@ -27,7 +27,7 @@
  *  cargo.c: Cargo lists
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2009
+ *     Markus Armbruster, 2009-2020
  */
 
 #include <config.h>
@@ -94,7 +94,7 @@ clink_init(struct clink *cl)
     unsigned i;
 
     cl->next = -1;
-    for (i = 0; i < sizeof(cl->head) / sizeof(*cl->head); i++)
+    for (i = 0; i < ARRAY_SIZE(cl->head); i++)
 	cl->head[i] = -1;
 }
 
