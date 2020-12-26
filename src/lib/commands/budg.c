@@ -30,7 +30,7 @@
  *     Thomas Ruschak, 1992
  *     Ville Virrankoski, 1995
  *     Steve McClure, 1997-2000
- *     Markus Armbruster, 2004-2016
+ *     Markus Armbruster, 2004-2020
  */
 
 #include <config.h>
@@ -61,7 +61,7 @@ budg(void)
 	{ "Sector building", "sector" },
 	{ "Sector maintenance", "sector" }
     };
-    int i;
+    unsigned i;
     struct budget *budget;
     int income, expenses, taxes;
     struct natstr *np;
@@ -76,7 +76,7 @@ budg(void)
     income = expenses = 0;
 
     pr("Sector Type\t\t\tProduction\t\t\t    Cost\n");
-    for (i = 0; i <= SCT_TYPE_MAX; i++) {
+    for (i = 0; i < ARRAY_SIZE(budget->prod); i++) {
 	if (!budget->prod[i].money)
 	    continue;
 	pr("%-17s\t\t", dchr[i].d_name);
