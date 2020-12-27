@@ -42,6 +42,31 @@
 #endif
 #include "misc.h"
 
+#ifndef HAVE_GETPASS
+static int
+set_echo_if_tty(int on)
+{
+#ifdef _WIN32
+    DWORD mode;
+    HANDLE input_handle = GetStdHandle(STD_INPUT_HANDLE);
+
+    if (!GetConsoleMode(input_handle, &mode))
+	return 0;
+
+    if (on)
+	mode |= ENABLE_ECHO_INPUT;
+    else
+	mode &= ~ENABLE_ECHO_INPUT;
+
+    if (!SetConsoleMode(input_handle, mode))
+	return -1;
+    return 1;
+#else
+    return 0;
+#endif
+}
+#endif	/* !HAVE_GETPASS */
+
 char *
 get_password(const char *prompt)
 {
@@ -51,22 +76,19 @@ get_password(const char *prompt)
     static char buf[128];
     char *p;
     size_t len;
-#ifdef _WIN32
-    DWORD mode;
-    HANDLE input_handle = GetStdHandle(STD_INPUT_HANDLE);
+    int echo_set;
 
-    if (GetConsoleMode(input_handle, &mode))
-	SetConsoleMode(input_handle, mode & ~ENABLE_ECHO_INPUT);
-    else
-#endif
+    echo_set = set_echo_if_tty(0);
+    if (echo_set <= 0)
 	printf("Note: your input is echoed to the screen\n");
+
     printf("%s", prompt);
     fflush(stdout);
     p = fgets(buf, sizeof(buf), stdin);
-#ifdef _WIN32
-    if (GetConsoleMode(input_handle, &mode))
-	SetConsoleMode(input_handle, mode | ENABLE_ECHO_INPUT);
-#endif
+
+    if (echo_set > 0)
+	set_echo_if_tty(1);
+
     if (!p)
 	return NULL;
     len = strlen(p);
