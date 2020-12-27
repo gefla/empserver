@@ -48,17 +48,17 @@ static int *LwpAwaitedSig;
  * Pending awaited signals.
  * Access only with signals blocked!
  */
-static volatile int *LwpSigCaught;
+static volatile int *LwpPendingSig;
 
 /*
- * Is there anything in LwpSigCaught[]?
+ * Is there anything in LwpPendingSig[]?
  */
 static volatile sig_atomic_t LwpSigCheck;
 
 /* The thread waiting for signals in lwpSigWait() */
 static struct lwpProc *LwpSigWaiter;
 
-static void lwpCatchAwaitedSig(int);
+static void lwpHandleAwaitedSig(int);
 
 /*
  * Initialize waiting for signals in @sig[].
@@ -74,12 +74,12 @@ lwpInitSigWait(int sig[])
     LwpAwaitedSig = sig;
 
     act.sa_flags = 0;
-    act.sa_handler = lwpCatchAwaitedSig;
+    act.sa_handler = lwpHandleAwaitedSig;
     sigemptyset(&act.sa_mask);
     for (i = 0; sig[i]; i++)
 	sigaddset(&act.sa_mask, sig[i]);
 
-    LwpSigCaught = calloc(i, sizeof(*LwpSigCaught));
+    LwpPendingSig = calloc(i, sizeof(*LwpPendingSig));
 
     for (i = 0; sig[i]; i++)
 	sigaction(sig[i], &act, NULL);
@@ -87,17 +87,17 @@ lwpInitSigWait(int sig[])
 
 /*
  * Signal handler for awaited signals.
- * Set @LwpSigCaught[] for @sig, and set @LwpSigCheck.
+ * Set @LwpPendingSig[] for @sig, and set @LwpSigCheck.
  * Not reentrant; lwpInitSigWait() guards.
  */
 static void
-lwpCatchAwaitedSig(int sig)
+lwpHandleAwaitedSig(int sig)
 {
     int i;
 
     for (i = 0; LwpAwaitedSig[i]; i++) {
 	if (sig == LwpAwaitedSig[i])
-	    LwpSigCaught[i] = 1;
+	    LwpPendingSig[i] = 1;
     }
     LwpSigCheck = 1;
 }
@@ -121,15 +121,15 @@ lwpGetSig(void)
     sigprocmask(SIG_BLOCK, &set, &save);
 
     for (i = 0; LwpAwaitedSig[i]; i++) {
-	if (LwpSigCaught[i]) {
-	    lwpStatus(LwpCurrent, "Got awaited signal %d", LwpSigCaught[i]);
+	if (LwpPendingSig[i]) {
+	    lwpStatus(LwpCurrent, "Got awaited signal %d", LwpPendingSig[i]);
 	    ret = LwpAwaitedSig[i];
-	    LwpSigCaught[i] = 0;
+	    LwpPendingSig[i] = 0;
 	}
     }
 
-    for (; LwpAwaitedSig[i] && LwpSigCaught[i]; i++) ;
-    if (!LwpSigCaught[i])
+    for (; LwpAwaitedSig[i] && LwpPendingSig[i]; i++) ;
+    if (!LwpPendingSig[i])
 	LwpSigCheck = 0;
 
     sigprocmask(SIG_SETMASK, &save, NULL);
