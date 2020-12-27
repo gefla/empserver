@@ -33,9 +33,6 @@
  *     Ron Koenderink, 2007-2009
  */
 
-/* Required for PTHREAD_STACK_MIN on some systems, e.g. Solaris: */
-#define _XOPEN_SOURCE 500
-
 #include <config.h>
 
 #include <errno.h>

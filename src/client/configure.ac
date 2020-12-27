@@ -44,6 +44,9 @@ AC_INIT([Wolfpack Empire Client],
 AC_CONFIG_SRCDIR([empire.6])
 AC_CONFIG_HEADERS([config.h])
 
+AC_DEFINE([_XOPEN_SOURCE], [600],
+	  [Request POSIX-1.2001 with XSI Extension])
+
 
 ### Checks for programs.
 AC_PROG_CC

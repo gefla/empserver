@@ -46,15 +46,19 @@ AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
 
-
 ### Checks for programs
 AC_PROG_AWK
 AC_PROG_INSTALL
 AC_PROG_RANLIB
-AC_PROG_CC
+
+AC_PROG_CC_STDC
 AM_PROG_CC_C_O
 # Private automake macro, tsk, tsk, tsk...
 _AM_DEPENDENCIES(CC)
+AC_DEFINE([_XOPEN_SOURCE], [600],
+	  [Request POSIX-1.2001 with XSI Extension])
+# Note: this is after AC_PROG_CC_STDC, because Solaris cc fails with
+# _XOPEN_SOURCE unless switched to C99, which breaks AC_PROG_CC_STDC.
 
 AC_ARG_VAR(NROFF, [nroff command])
 AC_CHECK_PROG(NROFF, groff, [GROFF_NO_SGR= groff -Tascii -U], nroff)
@@ -168,6 +172,7 @@ main(int argc, char *argv[])
 ### Checks for library functions
 
 AC_CHECK_FUNCS(getaddrinfo)
+MY_WORKING_IN6_IS_ADDR_V4MAPPED
 MY_FUNC_MAKECONTEXT
 
 
