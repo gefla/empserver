@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2016
+ *     Markus Armbruster, 2004-2020
  */
 
 #include <config.h>
@@ -1052,7 +1052,7 @@ pln_damage(struct plnstr *pp, char type, char *noisy)
 	aim = 100 - aim;
     }
 
-    len = snprintf(buf, sizeof(buf), "%s", noisy);
+    len = noisy ? snprintf(buf, sizeof(buf), "%s", noisy) : 0;
     while (i--) {
 	if (noisy) {
 	    if (len > 75) {
