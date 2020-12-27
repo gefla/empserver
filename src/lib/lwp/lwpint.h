@@ -28,13 +28,12 @@
  *  lwpint.h: lwp internal structures
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2020
  */
 
 #ifndef LWPINT_H
 #define LWPINT_H
 
-#include <signal.h>
 #include <time.h>
 #include <ucontext.h>
 
@@ -82,7 +81,7 @@ void lwpEntryPoint(void);
 void lwpInitSelect(struct lwpProc *);
 void lwpWakeupSleep(void);
 void lwpSelect(void *);
-void lwpInitSigWait(sigset_t *);
+void lwpInitSigWait(int[]);
 void lwpSigWakeup(void);
 void lwpStatus(struct lwpProc *, char *, ...)
     ATTRIBUTE((format (printf, 2, 3)));

@@ -28,7 +28,7 @@
  *  lwp.c: lightweight process creation, destruction and manipulation
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2017
+ *     Markus Armbruster, 2004-2020
  */
 
 #include <config.h>
@@ -296,7 +296,7 @@ lwpSetPriority(int new)
  * initialise the coroutine structures
  */
 struct lwpProc *
-lwpInitSystem(int pri, void **ctxptr, int flags, sigset_t *waitset)
+lwpInitSystem(int pri, void **ctxptr, int flags, int sig[])
 {
     struct lwpQueue *q;
     int i, *stack, marker;
@@ -323,7 +323,7 @@ lwpInitSystem(int pri, void **ctxptr, int flags, sigset_t *waitset)
     for (i = LWP_MAX_PRIO, q = LwpSchedQ; i--; q++)
 	q->head = q->tail = NULL;
     LwpDeadQ.head = LwpDeadQ.tail = NULL;
-    lwpInitSigWait(waitset);
+    lwpInitSigWait(sig);
     /* must be lower in priority than us for this to work right */
     sel = lwpCreate(0, lwpSelect, 65536, flags, "EventHandler", 0,
 		    NULL, NULL);
