@@ -27,7 +27,7 @@
 #   configure.ac: Autoconf input file
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2016
+#      Markus Armbruster, 2005-2020
 #
 # Process this file with autoconf to produce a configure script.
 
@@ -167,7 +167,7 @@ main(int argc, char *argv[])
 
 ### Checks for library functions
 
-AC_CHECK_FUNCS(getaddrinfo getpass)
+AC_CHECK_FUNCS(getaddrinfo)
 MY_FUNC_MAKECONTEXT
 
 
