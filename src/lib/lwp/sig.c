@@ -69,7 +69,7 @@ lwpInitSigWait(sigset_t *set)
     act.sa_mask = *set;
     act.sa_handler = lwpCatchAwaitedSig;
     for (i = 0; i < NSIG; i++) {
-	if (sigismember(set, i))
+	if (sigismember(set, i) > 0)
 	    sigaction(i, &act, NULL);
     }
 }
@@ -95,7 +95,7 @@ lwpGetSig(sigset_t *set)
 
     sigprocmask(SIG_BLOCK, set, &save);
     for (i = NSIG - 1; i > 0; i--) {
-	if (sigismember(set, i) && sigismember(&LwpSigCaught, i)) {
+	if (sigismember(set, i) > 0 && sigismember(&LwpSigCaught, i) > 0) {
 	    lwpStatus(LwpCurrent, "Got awaited signal %d", i);
 	    sigdelset(&LwpSigCaught, i);
 	    break;
