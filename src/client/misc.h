@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2017
+ *     Markus Armbruster, 2004-2020
  */
 
 #ifndef MISC_H
@@ -41,10 +41,31 @@
 
 extern char empirehost[];
 extern char empireport[];
+
+/* expect.c */
+int recvline(int s, char *buf);
+int parseid(char *);
+int expect(int s, int match, char *buf);
+void sendcmd(int s, char *cmd, char *arg);
+
+/* host.c */
+int tcp_connect(char *, char *);
+
+/* login.c */
+int login(int s, char *uname, char *cname, char *cpass, int kill_proc, int);
+
+/* play.c */
+int play(int, char *);
+void prompt(int, char *, char *);
+
+/* servcmd.c */
 extern int eight_bit_clean;
 extern FILE *auxfp;
 extern int restricted;
+int servercmd(int, char *, int);
+void outch(char);
 
+/* termlib.c */
 #ifdef HAVE_CURSES_TERMINFO
 void getsose(void);
 void putso(void);
@@ -55,17 +76,7 @@ void putse(void);
 #define putse() ((void)0)
 #endif	/* !HAVE_CURSES_TERMINFO */
 
-int recvline(int s, char *buf);
-int parseid(char *);
-int expect(int s, int match, char *buf);
-int tcp_connect(char *, char *);
-int login(int s, char *uname, char *cname, char *cpass, int kill_proc, int);
-int play(int, char *);
-void prompt(int, char *, char *);
-void sendcmd(int s, char *cmd, char *arg);
-int servercmd(int, char *, int);
-void outch(char);
-
+/* Compatibility gunk for Windows */
 #ifdef _MSC_VER
 #define pclose _pclose
 #define popen _popen
