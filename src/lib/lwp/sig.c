@@ -27,7 +27,7 @@
  *  sig.c: Wait for signals
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2006-2007
+ *     Markus Armbruster, 2006-2020
  */
 
 #include <config.h>
@@ -117,7 +117,7 @@ lwpSigWait(sigset_t *set, int *sig)
 {
     int res;
 
-    if (CANT_HAPPEN(LwpSigWaiter))
+    if (LwpSigWaiter)
 	return EBUSY;
     for (;;) {
 	LwpSigCheck = 0;
