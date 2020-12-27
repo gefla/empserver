@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996
- *     Markus Armbruster, 2004-2014
+ *     Markus Armbruster, 2004-2020
  */
 
 #include <config.h>
@@ -41,7 +41,11 @@ char *privname = "Deity forgot to edit econfig";
 /* E-mail of the deity */
 char *privlog = "careless@invalid";
 /* Divine hosts and networks */
-char *privip = "127.0.0.1 ::1";
+char *privip = "127.0.0.1 ::1"
+#ifndef HAVE_WORKING_IN6_IS_ADDR_V4MAPPED
+    " ::ffff:127.0.0.1"		/* See sockaddr_ntop() */
+#endif
+    ;
 
 char *post_crash_dump_hook = "";
 

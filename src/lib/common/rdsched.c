@@ -30,9 +30,6 @@
  *     Markus Armbruster, 2007-2011
  */
 
-/* Required for strptime() */
-#define _XOPEN_SOURCE 500
-
 #include <config.h>
 
 #include <ctype.h>
