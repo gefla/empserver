@@ -38,6 +38,8 @@
 #include <string.h>
 #ifdef _WIN32
 #include <windows.h>
+#else
+#include <termios.h>
 #endif
 #endif
 #include "misc.h"
@@ -62,7 +64,19 @@ set_echo_if_tty(int on)
 	return -1;
     return 1;
 #else
-    return 0;
+    struct termios tcattr;
+
+    if (tcgetattr(0, &tcattr) < 0)
+       return 0;
+
+    if (on)
+       tcattr.c_lflag |= ECHO;
+    else
+       tcattr.c_lflag &= ~ECHO;
+
+    if (tcsetattr(0, TCSAFLUSH, &tcattr) < 0)
+       return -1;
+    return 1;
 #endif
 }
 #endif	/* !HAVE_GETPASS */
