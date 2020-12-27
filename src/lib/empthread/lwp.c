@@ -117,13 +117,13 @@ empth_sleep(time_t until)
 int
 empth_wait_for_signal(void)
 {
-    int sig, err;
+    int sig;
     time_t now;
 
     ef_make_stale();
     for (;;) {
-	err = lwpSigWait(&sig);
-	if (CANT_HAPPEN(err)) {
+	sig = lwpSigWait();
+	if (CANT_HAPPEN(sig < 0)) {
 	    time(&now);
 	    lwpSleepUntil(now + 60);
 	    continue;

@@ -64,7 +64,7 @@ void lwpYield(void);
 int lwpSleepFd(int fd, int flags, struct timeval *timeout);
 int lwpSleepUntil(time_t until);
 void lwpWakeup(struct lwpProc *);
-int lwpSigWait(int *sig);
+int lwpSigWait(void);
 void *lwpGetUD(struct lwpProc *);
 void lwpSetUD(struct lwpProc *, char *ud);
 int lwpSetPriority(int prio);

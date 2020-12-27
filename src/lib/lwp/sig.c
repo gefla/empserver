@@ -138,17 +138,17 @@ lwpGetSig(void)
 
 /*
  * Wait until one of the signals passed to lwpInitSigWait() arrives.
- * Assign its number to *@sig and return 0.
- * If another thread is already waiting for signals, return EBUSY
+ * Return its signal number.
+ * If another thread is already waiting for signals, return -1
  * without waiting.
  */
 int
-lwpSigWait(int *sig)
+lwpSigWait(void)
 {
     int res;
 
     if (LwpSigWaiter)
-	return EBUSY;
+	return -1;
     for (;;) {
 	res = lwpGetSig();
 	if (res > 0)
@@ -157,8 +157,7 @@ lwpSigWait(int *sig)
 	LwpSigWaiter = LwpCurrent;
 	lwpReschedule();
     }
-    *sig = res;
-    return 0;
+    return res;
 }
 
 /*
