@@ -48,6 +48,9 @@ int parseid(char *);
 int expect(int s, int match, char *buf);
 void sendcmd(int s, char *cmd, char *arg);
 
+/* getpass.c */
+char *get_password(const char *);
+
 /* host.c */
 int tcp_connect(char *, char *);
 

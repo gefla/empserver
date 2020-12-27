@@ -38,46 +38,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#ifdef _WIN32
-#include <windows.h>
-#endif
 #include "misc.h"
 #include "proto.h"
-
-static char *
-get_password(const char *prompt)
-{
-#ifdef HAVE_GETPASS
-    return getpass(prompt);
-#else
-    static char buf[128];
-    char *p;
-    size_t len;
-#ifdef _WIN32
-    DWORD mode;
-    HANDLE input_handle = GetStdHandle(STD_INPUT_HANDLE);
-
-    if (GetConsoleMode(input_handle, &mode))
-	SetConsoleMode(input_handle, mode & ~ENABLE_ECHO_INPUT);
-    else
-#endif
-	printf("Note: your input is echoed to the screen\n");
-    printf("%s", prompt);
-    fflush(stdout);
-    p = fgets(buf, sizeof(buf), stdin);
-#ifdef _WIN32
-    if (GetConsoleMode(input_handle, &mode))
-	SetConsoleMode(input_handle, mode | ENABLE_ECHO_INPUT);
-#endif
-    if (!p)
-	return NULL;
-    len = strlen(p);
-    if (p[len - 1] == '\n')
-	p[len - 1] = 0;
-    return p;
-#endif	/* !HAVE_GETPASS */
-}
 
 int
 login(int s, char *uname, char *cname, char *cpass,
