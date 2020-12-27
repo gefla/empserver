@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Dave Pare, 1989
  *     Steve McClure, 1998
- *     Markus Armbruster, 2004-2009
+ *     Markus Armbruster, 2004-2020
  */
 
 #include <config.h>
@@ -45,11 +45,12 @@
 #include "misc.h"
 #include "proto.h"
 
-#ifndef HAVE_GETPASS
-#define getpass ersatz_getpass
 static char *
-ersatz_getpass(char *prompt)
+get_password(const char *prompt)
 {
+#ifdef HAVE_GETPASS
+    return getpass(prompt);
+#else
     static char buf[128];
     char *p;
     size_t len;
@@ -75,8 +76,8 @@ ersatz_getpass(char *prompt)
     if (p[len - 1] == '\n')
 	p[len - 1] = 0;
     return p;
+#endif	/* !HAVE_GETPASS */
 }
-#endif
 
 int
 login(int s, char *uname, char *cname, char *cpass,
@@ -123,7 +124,7 @@ login(int s, char *uname, char *cname, char *cpass,
 	return 0;
     }
     if (cpass == NULL) {
-	cpass = getpass("Your name? ");
+	cpass = get_password("Your name? ");
 	if (cpass == NULL || *cpass == 0)
 	    return 0;
     }
