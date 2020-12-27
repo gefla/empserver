@@ -67,7 +67,6 @@ lwpInitSigWait(sigset_t *set)
 
     act.sa_flags = 0;
     act.sa_mask = *set;
-    sigemptyset(&act.sa_mask);
     act.sa_handler = lwpCatchAwaitedSig;
     for (i = 0; i < NSIG; i++) {
 	if (sigismember(set, i))
