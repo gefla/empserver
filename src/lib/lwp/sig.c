@@ -34,20 +34,26 @@
 
 #include <errno.h>
 #include <stddef.h>
+#include <stdlib.h>
 #include <signal.h>
 #include "lwp.h"
 #include "lwpint.h"
 
 /*
- * Signals caught so far.
- * Access only with signals blocked!
+ * Awaited signal numbers, terminated with 0.
  */
-static sigset_t LwpSigCaught;
+static int *LwpAwaitedSig;
 
 /*
- * LwpSigCaught changed since last
+ * Pending awaited signals.
+ * Access only with signals blocked!
  */
-static sig_atomic_t LwpSigCheck;
+static volatile int *LwpSigCaught;
+
+/*
+ * Is there anything in LwpSigCaught[]?
+ */
+static volatile sig_atomic_t LwpSigCheck;
 
 /* The thread waiting for signals in lwpSigWait() */
 static struct lwpProc *LwpSigWaiter;
@@ -55,80 +61,96 @@ static struct lwpProc *LwpSigWaiter;
 static void lwpCatchAwaitedSig(int);
 
 /*
- * Initialize waiting for signals in @set.
+ * Initialize waiting for signals in @sig[].
+ * @sig[] contains signal numbers, terminated with 0.  It must have
+ * static storage duration.
  */
 void
-lwpInitSigWait(sigset_t *set)
+lwpInitSigWait(int sig[])
 {
     struct sigaction act;
     int i;
 
-    sigemptyset(&LwpSigCaught);
+    LwpAwaitedSig = sig;
 
     act.sa_flags = 0;
-    act.sa_mask = *set;
     act.sa_handler = lwpCatchAwaitedSig;
-    for (i = 0; i < NSIG; i++) {
-	if (sigismember(set, i) > 0)
-	    sigaction(i, &act, NULL);
-    }
+    sigemptyset(&act.sa_mask);
+    for (i = 0; sig[i]; i++)
+	sigaddset(&act.sa_mask, sig[i]);
+
+    LwpSigCaught = calloc(i, sizeof(*LwpSigCaught));
+
+    for (i = 0; sig[i]; i++)
+	sigaction(sig[i], &act, NULL);
 }
 
+/*
+ * Signal handler for awaited signals.
+ * Set @LwpSigCaught[] for @sig, and set @LwpSigCheck.
+ * Not reentrant; lwpInitSigWait() guards.
+ */
 static void
 lwpCatchAwaitedSig(int sig)
 {
-    sigaddset(&LwpSigCaught, sig);
+    int i;
+
+    for (i = 0; LwpAwaitedSig[i]; i++) {
+	if (sig == LwpAwaitedSig[i])
+	    LwpSigCaught[i] = 1;
+    }
     LwpSigCheck = 1;
 }
 
 /*
- * Test whether a signal from @set has been caught.
- * If yes, delete that signal from the set of caught signals, and
+ * Test whether an awaited signal is pending.
+ * If yes, remove that signal from the set of pending signals, and
  * return its number.
  * Else return 0.
  */
 static int
-lwpGetSig(sigset_t *set)
+lwpGetSig(void)
 {
-    sigset_t save;
-    int i, j;
+    int ret = 0;
+    sigset_t set, save;
+    int i;
 
-    sigprocmask(SIG_BLOCK, set, &save);
+    sigemptyset(&set);
+    for (i = 0; LwpAwaitedSig[i]; i++)
+	sigaddset(&set, LwpAwaitedSig[i]);
+    sigprocmask(SIG_BLOCK, &set, &save);
 
-    for (i = NSIG - 1; i > 0; i--) {
-	if (sigismember(set, i) > 0 && sigismember(&LwpSigCaught, i) > 0) {
-	    lwpStatus(LwpCurrent, "Got awaited signal %d", i);
-	    sigdelset(&LwpSigCaught, i);
-	    break;
+    for (i = 0; LwpAwaitedSig[i]; i++) {
+	if (LwpSigCaught[i]) {
+	    lwpStatus(LwpCurrent, "Got awaited signal %d", LwpSigCaught[i]);
+	    ret = LwpAwaitedSig[i];
+	    LwpSigCaught[i] = 0;
 	}
     }
 
-    for (j = i;
-	 sigismember(set, i) > 0 && sigismember(&LwpSigCaught, i) > 0;
-	 j--)
-	;
-    if (!j)
+    for (; LwpAwaitedSig[i] && LwpSigCaught[i]; i++) ;
+    if (!LwpSigCaught[i])
 	LwpSigCheck = 0;
 
     sigprocmask(SIG_SETMASK, &save, NULL);
-    return i;
+    return ret;
 }
 
 /*
- * Wait until a signal from @set arrives.
+ * Wait until one of the signals passed to lwpInitSigWait() arrives.
  * Assign its number to *@sig and return 0.
  * If another thread is already waiting for signals, return EBUSY
  * without waiting.
  */
 int
-lwpSigWait(sigset_t *set, int *sig)
+lwpSigWait(int *sig)
 {
     int res;
 
     if (LwpSigWaiter)
 	return EBUSY;
     for (;;) {
-	res = lwpGetSig(set);
+	res = lwpGetSig();
 	if (res > 0)
 	    break;
 	lwpStatus(LwpCurrent, "Waiting for signals");

@@ -28,7 +28,7 @@
  *  lwp.h -- prototypes and structures for lightweight processes
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2013
+ *     Markus Armbruster, 2004-2020
  *     Ron Koenderink, 2007-2009
  */
 
@@ -41,7 +41,6 @@
 #ifndef LWP_H
 #define LWP_H
 
-#include <signal.h>
 #include <sys/time.h>
 
 #define LWP_STACKCHECK	0x1
@@ -55,7 +54,7 @@ struct lwp_rwlock;
 
 #define LWP_MAX_PRIO	8
 
-struct lwpProc *lwpInitSystem(int prio, void **ctxp, int flags, sigset_t *);
+struct lwpProc *lwpInitSystem(int prio, void **ctxp, int flags, int[]);
 struct lwpProc *lwpCreate(int prio, void (*)(void *), int size,
 			  int flags, char *name,
 			  int argc, char **argv, void *ud);
@@ -65,7 +64,7 @@ void lwpYield(void);
 int lwpSleepFd(int fd, int flags, struct timeval *timeout);
 int lwpSleepUntil(time_t until);
 void lwpWakeup(struct lwpProc *);
-int lwpSigWait(sigset_t *set, int *sig);
+int lwpSigWait(int *sig);
 void *lwpGetUD(struct lwpProc *);
 void lwpSetUD(struct lwpProc *, char *ud);
 int lwpSetPriority(int prio);
