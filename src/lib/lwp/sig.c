@@ -91,9 +91,10 @@ static int
 lwpGetSig(sigset_t *set)
 {
     sigset_t save;
-    int i;
+    int i, j;
 
     sigprocmask(SIG_BLOCK, set, &save);
+
     for (i = NSIG - 1; i > 0; i--) {
 	if (sigismember(set, i) > 0 && sigismember(&LwpSigCaught, i) > 0) {
 	    lwpStatus(LwpCurrent, "Got awaited signal %d", i);
@@ -101,6 +102,14 @@ lwpGetSig(sigset_t *set)
 	    break;
 	}
     }
+
+    for (j = i;
+	 sigismember(set, i) > 0 && sigismember(&LwpSigCaught, i) > 0;
+	 j--)
+	;
+    if (!j)
+	LwpSigCheck = 0;
+
     sigprocmask(SIG_SETMASK, &save, NULL);
     return i;
 }
@@ -119,7 +128,6 @@ lwpSigWait(sigset_t *set, int *sig)
     if (LwpSigWaiter)
 	return EBUSY;
     for (;;) {
-	LwpSigCheck = 0;
 	res = lwpGetSig(set);
 	if (res > 0)
 	    break;
