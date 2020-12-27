@@ -145,7 +145,7 @@ info(void)
 	fclose(fp);
 	return RET_FAIL;
     }
-    if ((statb.st_mode & S_IFREG) == 0) {
+    if (!S_ISREG(statb.st_mode)) {
 	pr("Error reading info file for %s\n", name);
 	logerror("The info file \"%s\" is not regular file\n", filename);
 	fclose(fp);
@@ -220,7 +220,7 @@ apro(void)
 		fclose(fp);
 		continue;
 	    }
-	    if ((statb.st_mode & S_IFREG) == 0) {
+	    if (!S_ISREG(statb.st_mode)) {
 		logerror("The info file \"%s\" is not regular file\n",
 			 filename);
 		fclose(fp);
