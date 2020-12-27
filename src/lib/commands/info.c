@@ -41,6 +41,7 @@
 #include <sys/stat.h>
 #include <stdio.h>
 #if !defined(_WIN32)
+#include <strings.h>
 #include <dirent.h>
 #endif
 #include "commands.h"
