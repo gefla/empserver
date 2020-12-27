@@ -32,19 +32,14 @@
 
 #include <config.h>
 
-#ifdef HAVE_GETPASS
-#include <unistd.h>
-#else
 #include <string.h>
 #ifdef _WIN32
 #include <windows.h>
 #else
 #include <termios.h>
 #endif
-#endif
 #include "misc.h"
 
-#ifndef HAVE_GETPASS
 static int
 set_echo_if_tty(int on)
 {
@@ -79,14 +74,10 @@ set_echo_if_tty(int on)
     return 1;
 #endif
 }
-#endif	/* !HAVE_GETPASS */
 
 char *
 get_password(const char *prompt)
 {
-#ifdef HAVE_GETPASS
-    return getpass(prompt);
-#else
     static char buf[128];
     char *p;
     size_t len;
@@ -109,5 +100,4 @@ get_password(const char *prompt)
     if (p[len - 1] == '\n')
 	p[len - 1] = 0;
     return p;
-#endif	/* !HAVE_GETPASS */
 }
