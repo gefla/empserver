@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2016
+ *     Markus Armbruster, 2004-2020
  */
 
 #include <config.h>
@@ -426,7 +426,7 @@ ship_bomb(struct emp_qelem *list, struct sctstr *target)
 	} else {
 	    pr("splash\n");
 	    /* Bombs that miss have to land somewhere! */
-	    dam = pln_damage(&plp->plane, 'p', 0);
+	    dam = pln_damage(&plp->plane, 'p', NULL);
 	    collateral_damage(target->sct_x, target->sct_y, dam);
 	    continue;
 	}
@@ -524,7 +524,7 @@ plane_bomb(struct emp_qelem *list, struct sctstr *target)
 	} else {
 	    pr("thud\n");
 	    /* Bombs that miss have to land somewhere! */
-	    dam = pln_damage(&plp->plane, 'p', 0);
+	    dam = pln_damage(&plp->plane, 'p', NULL);
 	    collateral_damage(target->sct_x, target->sct_y, dam);
 	    continue;
 	}
@@ -624,7 +624,7 @@ land_bomb(struct emp_qelem *list, struct sctstr *target)
 	} else {
 	    pr("thud\n");
 	    /* Bombs that miss have to land somewhere! */
-	    dam = pln_damage(&plp->plane, 'p', 0);
+	    dam = pln_damage(&plp->plane, 'p', NULL);
 	    collateral_damage(target->sct_x, target->sct_y, dam);
 	    continue;
 	}
