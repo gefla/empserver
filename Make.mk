@@ -100,7 +100,7 @@ endif
 # Helper for running tests
 # Usage: $(call run-test, SHELL-SCRIPT)
 # Recursively expanded, or else parameters don't work
-run-test = $(call quiet-command, $1 $(srcdir), TEST $1)
+run-test = $(call quiet-command, $(SHELL) -e $1 $(srcdir), TEST $1)
 
 # How to substitute Autoconf output variables
 # Recursively expanded so that $@ and $< work.
