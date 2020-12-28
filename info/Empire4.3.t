@@ -1080,6 +1080,10 @@ Changes to Empire 4.3.21 - Mon Mar  9 21:34:52 UTC 2009
    4.3.20.
  * Code refactoring and cleanup.
 
+.\" Work around "nroff: Out of temp file space":
+.FI
+.NF
+
 Changes to Empire 4.3.20 - Fri Feb 20 18:14:20 UTC 2009
  * Option LOANS is now disabled by default.
  * Option RAILWAYS is now enabled by default.
