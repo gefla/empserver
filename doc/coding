@@ -191,8 +191,6 @@ Do not use
 
 	// C++/C99 comments
 
-because they are not portable C89.
-
 Conditional compilation
 
 Unless the conditional code is very short, please comment it like
@@ -362,7 +360,7 @@ it's as relevant as ever:
 Portability
 -----------
 
-FIXME C89, POSIX
+FIXME C99, POSIX
 
 FIXME sizes, printf formats
 

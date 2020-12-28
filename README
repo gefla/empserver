@@ -26,8 +26,9 @@ To build the server and set up a game, follow the steps below.
 
 (2) Building a server
 
-    Prerequisites: IEEE Std 1003.1-2001 (POSIX.1-2001), GNU make, a
-    curses library, Perl, and either nroff or GNU troff (`groff').
+    Prerequisites: IEEE Std 1003.1-2001 (POSIX.1-2001) with the X/Open
+    System Interfaces Extension, GNU make, Perl, and either nroff or
+    GNU troff (`groff').
 
     See file `INSTALL' for detailed compilation and installation
     instructions.  Quick guide for the impatient: run configure; make;
@@ -48,9 +49,14 @@ To build the server and set up a game, follow the steps below.
     GNU make.  Some systems have it installed as `gmake'.
 
     Solaris supports POSIX.1-2001, but you need to set up your
-    environment for that.  Try passing
-        SHELL=/usr/xpg4/bin/sh PATH=/usr/xpg6/bin:/usr/xpg4/bin:$PATH
-    to make.  See standards(5) for details.
+    environment for that.  Try
+
+        SHELL=/usr/xpg4/bin/sh
+        PATH=/usr/xpg6/bin:/usr/xpg4/bin:/usr/ccs/bin:$PATH
+
+    See standards(5) for details.
+
+    Likewise, AIX needs XPG_SUS_ENV=ON.
 
 (3) Creating a game
 

@@ -32,9 +32,9 @@
 # Process this file with autoconf to produce a configure script.
 
 # Autoconf makes checking for and programming around assorted ancient
-# crap relatively painless.  But why bother?  Just rely on C89 and
-# POSIX, and when something breaks on some oddball machine, see
-# whether it's worth fixing.
+# crap relatively painless.  But why bother?  Just rely on POSIX, and
+# when something breaks on some oddball machine, see whether it's
+# worth fixing.
 
 AC_PREREQ(2.69)
 AC_INIT([Wolfpack Empire],
