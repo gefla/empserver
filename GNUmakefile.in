@@ -28,7 +28,7 @@
 #   GNUmakefile.in: Makefile template for configure
 #
 #   Known contributors to this file:
-#      Markus Armbruster, 2005-2009
+#      Markus Armbruster, 2005-2020
 #
 
 # The real meat is in Make.mk, which see.
@@ -68,6 +68,7 @@ INSTALL_DATA := @INSTALL_DATA@
 INSTALL_PROGRAM := @INSTALL_PROGRAM@
 NROFF := @NROFF@
 RANLIB := @RANLIB@
+SHELL := @SHELL@
 
 prefix := @prefix@
 exec_prefix := @exec_prefix@
