@@ -91,6 +91,9 @@ MY_WITH_READLINE
 
 ### Checks for typedefs, structures, and compiler characteristics
 
+if test "$GCC"
+then
+
 # Enable useful warnings
 # Some of them are commented out because the code needs cleanup first
 # Clang needs to be tested with -Werror=unknown-warning-option
@@ -167,6 +170,8 @@ main(int argc, char *argv[])
     while ((*dst++ = *src++)) ;
 }
     ]])])
+
+fi # $GCC
 
 
 ### Checks for library functions
