@@ -84,6 +84,8 @@ LIBS="$LIBS_SOCKETS $LIBS"
 AX_LIB_SOCKET_NSL
 LIBS_server="$LIBS"
 MY_WITH_READLINE
+MY_WITH_TERMINFO
+LIBS_client="$LIBS"
 
 
 ### Checks for header files
@@ -221,9 +223,6 @@ LWP)	AC_DEFINE([EMPTH_LWP], 1, [Define to use LWP threads]) ;;
 POSIX)	AC_DEFINE([EMPTH_POSIX], 1, [Define to use POSIX threads]) ;;
 Windows) AC_DEFINE([EMPTH_W32], 1, [Define to use Windows threads]) ;;
 esac
-
-MY_WITH_TERMINFO
-LIBS_client="$LIBS"
 
 
 ### Output
