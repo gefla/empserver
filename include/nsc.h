@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Dave Pare, 1989
- *     Markus Armbruster, 2004-2016
+ *     Markus Armbruster, 2004-2020
  */
 
 #ifndef NSC_H
@@ -319,6 +319,12 @@ extern void nsc_init(void);
 extern int nxtitem(struct nstr_item *, void *);
 /* src/lib/subs/nxtsct.c */
 extern int nxtsct(struct nstr_sect *, struct sctstr *);
+/* src/lib/subs/sarg.c */
+extern enum ns_seltype sarg_type(char *);
+extern int sarg_xy(char *, coord *, coord *);
+extern int sarg_area(char *, struct range *);
+extern int sarg_range(char *, coord *, coord *, int *);
+extern int sarg_list(char *, int *, int);
 /* src/lib/subs/snxtitem.c */
 extern int snxtitem(struct nstr_item *, int, char *, char *);
 extern void snxtitem_area(struct nstr_item *, int, struct range *);
