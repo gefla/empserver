@@ -360,7 +360,18 @@ it's as relevant as ever:
 Portability
 -----------
 
-FIXME C99, POSIX
+Code for IEEE Std 1003.1-2001 (POSIX.1-2001) with the X/Open System
+Interfaces Extension.  This standard includes ISO/IEC 9899:1999 (C99)
+by reference.
+
+Some systems may have flaws that require work-arounds.  Use Autoconf
+to detect the flaws, and isolate the system-specific code, e.g. by
+providing a replacement function when the system's function is flawed.
+
+Keeping the Windows build working may require extending src/lib/w32/.
+
+Keep the client as portable as practical.  In particular, stick to
+C89.
 
 FIXME sizes, printf formats
 
