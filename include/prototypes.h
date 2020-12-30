@@ -566,11 +566,7 @@ extern void rad_map_set(natid, int, int, int, double, int);
 /* retreat.c */
 /* in retreat.h */
 /* sarg.c */
-extern enum ns_seltype sarg_type(char *);
-extern int sarg_xy(char *, coord *, coord *);
-extern int sarg_area(char *, struct range *);
-extern int sarg_range(char *, coord *, coord *, int *);
-extern int sarg_list(char *, int *, int);
+/* in nsc.h */
 /* satmap.c */
 extern void satdisp_sect(struct sctstr *, int);
 extern void satdisp_units(coord, coord);
