@@ -27,7 +27,7 @@
  *  pathfind.c: Find cheapest paths
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2014
+ *     Markus Armbruster, 2014-2020
  */
 
 #include <config.h>
@@ -42,9 +42,9 @@
 #include "sect.h"
 
 #ifdef PATH_FIND_DEBUG
-#define DPRINTF(fmt, ...) ((void)printf(fmt , ## __VA_ARGS__))
+#define DPRINTF(...) ((void)fprintf(stdout, ## __VA_ARGS__))
 #else
-#define DPRINTF(fmt, ...) ((void)0)
+#define DPRINTF(...) ((void)0)
 #endif
 
 static char *bufrotate(char *buf, size_t bufsz, size_t i);
