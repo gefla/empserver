@@ -108,8 +108,4 @@ extern char *ugetstring(char *prompt, char buf[]);
 extern char *prbuf(char *format, ...)
     ATTRIBUTE((format (printf, 1, 2)));
 
-#define AGREE_FREE	0
-#define AGREE_PROPOSED	1
-#define AGREE_SIGNED	2
-
 #endif
