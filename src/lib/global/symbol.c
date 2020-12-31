@@ -27,12 +27,13 @@
  *  symbol.c: Empire symbol tables
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2006-2016
+ *     Markus Armbruster, 2006-2020
  */
 
 #include <config.h>
 
 #include "land.h"
+#include "loan.h"
 #include "misc.h"
 #include "mission.h"
 #include "nat.h"
@@ -46,9 +47,9 @@
 #include "ship.h"
 
 struct symbol agreement_statuses[] = {
-    {AGREE_FREE, "free"},
-    {AGREE_PROPOSED, "proposed"},
-    {AGREE_SIGNED, "signed"},
+    {LS_FREE, "free"},
+    {LS_PROPOSED, "proposed"},
+    {LS_SIGNED, "signed"},
     {0, NULL}
 };
 

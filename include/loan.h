@@ -58,9 +58,9 @@ struct lonstr {
     time_t l_duedate;		/* date after which interest doubles, etc */
 };
 
-#define LS_FREE		AGREE_FREE
-#define LS_PROPOSED	AGREE_PROPOSED
-#define LS_SIGNED	AGREE_SIGNED
+#define LS_FREE		0
+#define LS_PROPOSED	1
+#define LS_SIGNED	2
 
 extern double loan_owed(struct lonstr *loan, time_t paytime);
 
