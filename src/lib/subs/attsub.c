@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2006-2016
+ *     Markus Armbruster, 2006-2021
  */
 
 #include <config.h>
@@ -1206,13 +1206,13 @@ get_dlist(struct combat *def, struct emp_qelem *list, int a_spy,
 	intelligence_report(player->cnum, &land, a_spy,
 			    "Scouts report defending unit:");
 	llp = lnd_insque(&land, list);
-	llp->supplied = lnd_supply_all(&land);
+	llp->supplied = lnd_supply_all(&llp->unit.land);
 	llp->mobil = 0.0;
 	llp->x = llp->unit.land.lnd_x;
 	llp->y = llp->unit.land.lnd_y;
 	llp->eff = llp->unit.land.lnd_effic;
-	if (lnd_spyval(&land) > *d_spyp)
-	    *d_spyp = lnd_spyval(&land);
+	if (lnd_spyval(&llp->unit.land) > *d_spyp)
+	    *d_spyp = lnd_spyval(&llp->unit.land);
     }
 }
 
