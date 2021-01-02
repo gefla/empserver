@@ -115,7 +115,6 @@ s_commod(struct empobj *sink, short *vec,
     struct lchrstr *lcp;
     struct shpstr ship;
     struct lndstr land;
-    /* leave at least 1 military in sectors/ships */
     int minimum = 0;
     int can_move;
     double move_cost, weight, mobcost;
