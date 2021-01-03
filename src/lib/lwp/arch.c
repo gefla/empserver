@@ -30,12 +30,13 @@
  *  Known contributors to this file:
  *     Dave Pare, 1994
  *     Steve McClure, 1994-2000
- *     Markus Armbruster, 2004-2008
+ *     Markus Armbruster, 2004-2021
  */
 
 #include <config.h>
 
 #include <stdlib.h>
+#include <ucontext.h>
 #include "lwpint.h"
 
 /*

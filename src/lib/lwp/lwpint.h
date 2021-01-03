@@ -28,14 +28,14 @@
  *  lwpint.h: lwp internal structures
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2020
+ *     Markus Armbruster, 2004-2021
  */
 
 #ifndef LWPINT_H
 #define LWPINT_H
 
 #include <time.h>
-#include <ucontext.h>
+#include <signal.h>
 
 #include "misc.h"
 
