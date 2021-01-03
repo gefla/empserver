@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Steve McClure, 2000
  *     Ron Koenderink, 2005-2006
- *     Markus Armbruster, 2006-2015
+ *     Markus Armbruster, 2006-2021
  */
 
 #include <config.h>
@@ -67,7 +67,7 @@ consume_step(char *rpath, int *rflags)
 }
 
 void
-retreat_ship(struct shpstr *sp, natid own, char code)
+retreat_ship(struct shpstr *sp, natid own)
 {
     int n, i;
     struct emp_qelem list;
@@ -173,7 +173,7 @@ retreat_ships_step(struct emp_qelem *list, char step, natid actor)
 }
 
 void
-retreat_land(struct lndstr *lp, natid own, char code)
+retreat_land(struct lndstr *lp, natid own)
 {
     int n, i;
     struct emp_qelem list;

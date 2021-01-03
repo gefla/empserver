@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Jim Griffith, 1989
  *     Ken Stevens, 1995
- *     Markus Armbruster, 2004-2015
+ *     Markus Armbruster, 2004-2021
  */
 
 #include <config.h>
@@ -163,7 +163,7 @@ sona(void)
 		       xyas(ship.shp_x, ship.shp_y,
 			    targ.shp_own), prship(&targ));
 		if (targ.shp_rflags & RET_SONARED)
-		    retreat_ship(&targ, targ.shp_own, 's');
+		    retreat_ship(&targ, targ.shp_own);
 	    }
 	    if (dist > vrange)
 		continue;

@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ken Stevens, 1995
- *     Markus Armbruster, 2011-2015
+ *     Markus Armbruster, 2011-2021
  */
 
 #include <config.h>
@@ -166,7 +166,7 @@ boar(void)
     if (!(att_fight(A_BOARD, off, &olist, 1.0, def, &dlist, 1.0))) {
 	getship(def_uid, &ship);
 	if (ship.shp_rflags & RET_BOARDED) {
-	    retreat_ship(&ship, def_own, 'u');
+	    retreat_ship(&ship, def_own);
 	    putship(def_uid, &ship);
 	}
     }
