@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2005-2018
+ *     Markus Armbruster, 2005-2021
  */
 
 #include <config.h>
@@ -277,7 +277,7 @@ launch_missile(struct plnstr *pp)
 	if (target_ship.shp_effic < SHIP_MINEFF)
 	    pr("%s sunk!\n", prship(&target_ship));
 	if (dam && (target_ship.shp_rflags & RET_INJURED))
-	    retreat_ship(&target_ship, target_ship.shp_own, 'i');
+	    retreat_ship(&target_ship, target_ship.shp_own);
 	putship(target_ship.shp_uid, &target_ship);
     }
     return RET_OK;
