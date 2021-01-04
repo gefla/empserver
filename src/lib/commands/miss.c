@@ -211,7 +211,7 @@ mission(void)
 
 	    pcp = &plchr[(int)gp->type];
 	    if (!(pcp->pl_flags & P_F)) {
-		pr("Only planes with the intercept abilities can perform air defense.\n"
+		pr("Only planes with the intercept ability can perform air defense.\n"
 		   "%s #%d is ineligible\n",
 		   pcp->pl_name, gp->uid);
 		continue;
