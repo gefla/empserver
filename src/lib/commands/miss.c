@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Thomas Ruschak, 1992
  *     Steve McClure, 2000
- *     Markus Armbruster, 2005-2016
+ *     Markus Armbruster, 2005-2021
  */
 
 #include <config.h>
@@ -222,6 +222,12 @@ mission(void)
 	    struct plchrstr *pcp;
 
 	    pcp = &plchr[(int)gp->type];
+	    if (pcp->pl_flags & P_M) {
+		pr("Missiles can't escort.\n"
+		   "%s #%d is ineligible\n",
+		   pcp->pl_name, gp->uid);
+		continue;
+	    }
 	    if (!(pcp->pl_flags & P_ESC) && !(pcp->pl_flags & P_F)) {
 		pr("Only planes with the escort or intercept abilities can escort.\n"
 		   "%s #%d is ineligible\n",
