@@ -365,7 +365,7 @@ msl_abm_intercept(struct plnstr *msl, coord x, coord y, int sublaunch)
     struct emp_qelem irvlist;
 
     getsect(x, y, &sect);
-    msl_sel(&irvlist, x, y, msl->pln_own, P_N, P_O, 0);
+    msl_sel(&irvlist, x, y, msl->pln_own, P_N, 0, 0);
     return msl_intercept(msl, &sect, sublaunch,
 			 &irvlist, "warhead", "abm",
 			 sublaunch ? N_NUKE_SSTOP : N_NUKE_STOP);

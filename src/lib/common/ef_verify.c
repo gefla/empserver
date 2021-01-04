@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2005
- *     Markus Armbruster, 2006-2016
+ *     Markus Armbruster, 2006-2021
  */
 
 #include <config.h>
@@ -342,16 +342,52 @@ static int
 verify_plane_chr(void)
 {
     int retval = 0;
-    int i;
+    int i, flags, accepted_flags;
+    char buf[1024];
 
     for (i = 0; plchr[i].pl_name; i++) {
 	if (!plchr[i].pl_name[0])
 	    continue;
-	if ((plchr[i].pl_flags & (P_M | P_V)) == P_M) {
+	flags = plchr[i].pl_flags;
+	accepted_flags = P_V | P_K | P_L;
+	if (flags & P_M) {
+	    /* missile */
+	    accepted_flags |= P_M | P_E;
+	    if (flags & P_N)
+		accepted_flags |=  P_N;
+	    else if (flags & P_O)
+		accepted_flags |=  P_O;
+	    else if (flags & P_F)
+		accepted_flags |=  P_F;
+	    else
+		accepted_flags |=  P_T | P_MAR;
+	    if (!(flags & P_V)) {
+		verify_fail(EF_PLANE_CHR, i, NULL, 0,
+			    "flag %s requires flag %s",
+			    symbol_by_value(P_M, plane_chr_flags),
+			    symbol_by_value(P_V, plane_chr_flags));
+		retval = -1;
+	    }
+	} else if (flags & P_O) {
+	    /* satellite */
+	    accepted_flags |= P_O | P_S | P_I;
+	} else {
+	    /* plane */
+	    accepted_flags |= P_B | P_T | P_F | P_C | P_S | P_I | P_A | P_P
+		| P_ESC | P_MINE | P_SWEEP;
+	    if ((flags & (P_P | P_C)) == P_P) {
+		verify_fail(EF_PLANE_CHR, i, NULL, 0,
+			    "flag %s requires flag %s",
+			    symbol_by_value(P_P, plane_chr_flags),
+			    symbol_by_value(P_C, plane_chr_flags));
+		retval = -1;
+	    }
+	}
+	if (flags & ~accepted_flags) {
+	    symbol_set_fmt(buf, sizeof(buf), flags & ~accepted_flags,
+			   plane_chr_flags, ", ", 1);
 	    verify_fail(EF_PLANE_CHR, i, NULL, 0,
-			"flag %s requires flag %s",
-			symbol_by_value(P_M, plane_chr_flags),
-			symbol_by_value(P_V, plane_chr_flags));
+			"invalid flag combination, can't have %s", buf);
 	    retval = -1;
 	}
     }
