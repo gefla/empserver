@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2003-2015
+ *     Markus Armbruster, 2003-2021
  */
 
 #include <config.h>
@@ -917,12 +917,8 @@ mission_pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
     case 'p':		/* pinpoint bomb */
 	itype = I_SHELL;
 	break;
-    case 'i':		/* missile interception */
-	if (load)
-	    itype = I_SHELL;
-	break;
     case 'e':		/* escort */
-    case 0:		/* plane interception */
+    case 0:		/* interception */
 	load = 0;
 	break;
     default:

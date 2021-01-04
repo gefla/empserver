@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Ken Stevens, 1995
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2020
+ *     Markus Armbruster, 2004-2021
  */
 
 #include <config.h>
@@ -713,13 +713,6 @@ pln_equip(struct plist *plp, struct ichrstr *ip, char mission)
     case 'r':		/* reconnaissance */
     case 'e':		/* escort */
 	load = 0;
-	break;
-    case 'i':		/* missile interception */
-	if (CANT_HAPPEN(!(pcp->pl_flags & P_M)
-			|| !(pcp->pl_flags & (P_N | P_O))))
-	    break;
-	if (load)
-	    itype = I_SHELL;
 	break;
     default:
 	CANT_REACH();

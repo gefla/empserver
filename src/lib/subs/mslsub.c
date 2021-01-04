@@ -29,7 +29,7 @@
  *  Known contributors to this file:
  *     Ken Stevens, 1995
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2004-2012
+ *     Markus Armbruster, 2004-2021
  */
 
 #include <config.h>
@@ -257,7 +257,7 @@ msl_intercept(struct plnstr *msl, struct sctstr *sp, int sublaunch,
 	pp = &ip->plane;
 	if (pp->pln_own != sp->sct_own)
 	    continue;
-	if (mission_pln_equip(ip, NULL, 'i') < 0) {
+	if (mission_pln_equip(ip, NULL, 0) < 0) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;
@@ -275,7 +275,7 @@ msl_intercept(struct plnstr *msl, struct sctstr *sp, int sublaunch,
 	next = qp->q_forw;
 	ip = (struct plist *)qp;
 	pp = &ip->plane;
-	if (mission_pln_equip(ip, NULL, 'i') < 0) {
+	if (mission_pln_equip(ip, NULL, 0) < 0) {
 	    emp_remque(qp);
 	    free(qp);
 	    continue;
