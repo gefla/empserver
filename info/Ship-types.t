@@ -212,11 +212,9 @@ land units can carry up to two spies.
 .L pln
 The number of 'light' planes the ship can carry.
 .L hel
-The number of helicopters the ship can carry. (If the SHIPCHOPPER option is
-enabled)
+The number of helicopters the ship can carry.
 .L xpl
-The number of extra-light planes the ship can carry. (If the XLIGHT option is
-enabled)
+The number of extra-light planes the ship can carry.
 .in
 .s1
 Each ship can carry a certain amount of products and has certain
