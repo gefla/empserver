@@ -241,7 +241,7 @@ mission(void)
 	    struct plchrstr *pcp;
 
 	    pcp = &plchr[(int)gp->type];
-	    if (!(pcp->pl_flags & P_T)) {
+	    if ((pcp->pl_flags & (P_T | P_MAR)) != P_T) {
 		pr("Only planes with the tactical ability can support.\n"
 		   "%s #%d is ineligible\n",
 		   pcp->pl_name, gp->uid);
