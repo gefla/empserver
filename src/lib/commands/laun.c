@@ -151,7 +151,7 @@ launch_as(struct plnstr *pp)
 	pr("Range too great!\n");
 	return RET_FAIL;
     }
-    if (msl_equip(pp, 'i') < 0)
+    if (msl_equip(pp, 0) < 0)
 	return RET_FAIL;
     if (msl_launch(pp, EF_PLANE, prplane(&plane),
 		   plane.pln_x, plane.pln_y, plane.pln_own, NULL) < 0)
