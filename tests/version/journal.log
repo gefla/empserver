@@ -428,7 +428,7 @@
     Play#0 output Play#0 1 abm  Patriot               22    0   0  41  21    0    0%
     Play#0 output Play#0 1 slbm Trident               27   13   0  16  32    0    0%
     Play#0 output Play#0 1 ss   KH-7 spysat            0    0   0  13  70    9    0%
-    Play#0 output Play#0 1 asat anti-sat              23   10   0  17  22    4    0%
+    Play#0 output Play#0 1 asat anti-sat              23    0   0  17  22    0    0%
     Play#0 output Play#0 1 icbm Minuteman             28   16   0  25  50    0    0%
     Play#0 output Play#0 1 sf   F-117A Nighthawk      21    4  29  29  29    4   80%
     Play#0 output Play#0 1 sb   B-2 stealth bomber    12   13   0  25  37    5   80%
@@ -1705,7 +1705,7 @@
     Play#0 output Play#0 1 30 "irbm\\040Titan" 0 0 0 0 0 0 0 0 0 0 20 20 0 0 80 260 1500 60 8 0 10 15 0 0 50
     Play#0 output Play#0 1 31 "icbm\\040Minuteman" 0 0 0 0 0 0 0 0 0 0 20 20 0 0 80 310 3000 60 10 0 15 41 0 0 50
     Play#0 output Play#0 1 32 "slbm\\040Trident" 0 0 0 0 0 0 0 0 0 0 20 20 0 0 80 280 2000 60 8 0 6 23 0 0 114
-    Play#0 output Play#0 1 33 "asat\\040anti-sat" 0 0 0 0 0 0 0 0 0 0 20 20 0 0 80 305 2000 50 6 0 7 13 4 0 560
+    Play#0 output Play#0 1 33 "asat\\040anti-sat" 0 0 0 0 0 0 0 0 0 0 20 20 0 0 80 305 2000 50 0 0 7 13 0 0 560
     Play#0 output Play#0 1 34 "abm\\040\\040Patriot" 0 0 0 0 0 0 0 0 0 0 16 8 0 0 52 270 1500 50 0 0 31 12 0 0 2096
     Play#0 output Play#0 1 /35
     Play#0 output Play#0 6 0 640
