@@ -225,9 +225,10 @@ cargo-carrying ability
 .L VTOL
 vertical take-off ability -- no need to use airports
 .L missile
-missile -- one shot, can be launched (see info launch).  "marine"
-missiles may only be fired at ships, "tactical" missiles which don't
-have "marine" capability may only be fired at sectors.
+missile -- One-shot.  Can either intercept planes (ability intercept),
+intercept tactical missiles (ability SDI), attack and intercept
+satellites (ability satellite), attack and interdict ships (ability
+marine), or attack and interdict on land (ability tactical).
 .L light
 light, can land on carriers or be carried on a submarine
 .L spy
@@ -302,4 +303,4 @@ as1 anti-sub plane 1      tactical ASW
 f2  fighter 2             tactical intercept
 es  escort                tactical escort
 .FI
-.SA "fly, build, show, Planes"
+.SA "fly, launch, build, show, Planes"
