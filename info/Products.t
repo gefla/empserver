@@ -57,16 +57,16 @@ Mining a \*Qnatural resource\*U such as fertility
 takes one unit of work;
 e.g., it takes 1 unit of work per unit of food produced.
 .s1
-How many products each unit of production makes depends on the level
+How many products each unit of production makes depends on the
 production efficiency, which is the product's level p.e. (shown by
 "show product") times the sector type's p.e. (shown by "show sect
-capabilities").  Production requires a level p.e. above zero, obviously.
+capabilities").  Production requires a p.e. above zero, obviously.
 .s1
-Say your country is at tech level 25.  Then your agribusinesses' level
+Say your country is at tech level 25.  Then your agribusinesses'
 p.e. is (25+10)/(25+20) * 900% = 7, i.e. they'll make 7 food per unit
-of production.  Your shell industries' level p.e. is only
+of production.  Your shell industries' p.e. is only
 (25-20)/(25-10) * 100% = 1/3, i.e. they'll make 1 shell per three
 units of production.  Your uranium mines can't produce at all, because
-their level p.e. is negative.
+their p.e. is negative.
 .s1
 .SA "Producing, Updates, Item-types"
