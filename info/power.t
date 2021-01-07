@@ -85,8 +85,8 @@ efficiency / 100.
 The power value of a ship, plane, land unit or nuke is the power value
 of the materials and money needed to build * efficiency / 100.
 .s1
-The power value of commodities is amount * type factor.  \*Qshow
-item\*U shows the type factor in column \*Qpower\*U.
+The power value of commodities is amount * type factor / 1000.
+\*Qshow item\*U shows the type factor in column \*Qpower\*U.
 .s1
 Efficiency is in percent.
 .s1
