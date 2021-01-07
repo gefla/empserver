@@ -27,7 +27,7 @@
  *  produce.c: Produce goodies
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2016
+ *     Markus Armbruster, 2004-2021
  */
 
 #include <config.h>
@@ -41,7 +41,9 @@
 #include "prototypes.h"
 #include "update.h"
 
+static double prod_materials_cost(struct pchrstr *, short[], int *);
 static void materials_charge(struct pchrstr *, short *, double);
+static double prod_resource_limit(struct pchrstr *, unsigned char *);
 
 static char *levelnames[] = {
     "Technology", "Research", "Education", "Happiness"
@@ -184,7 +186,7 @@ prod_output(struct sctstr *sp, double prodeff)
  * Return how much of product @pp can be made from materials @vec[].
  * Store amount of work per unit in *@costp.
  */
-double
+static double
 prod_materials_cost(struct pchrstr *pp, short vec[], int *costp)
 {
     double count, n;
@@ -230,7 +232,7 @@ materials_charge(struct pchrstr *pp, short *vec, double count)
  * Return how much of product @pp can be made from its resource.
  * If @pp depletes a resource, @resource must point to its value.
  */
-double
+static double
 prod_resource_limit(struct pchrstr *pp, unsigned char *resource)
 {
     if (CANT_HAPPEN(pp->p_nrndx && !resource))
