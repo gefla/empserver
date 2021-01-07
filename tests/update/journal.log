@@ -144,7 +144,7 @@
     Play#1 output Play#1 1   -8,4    g  10%    78    7d 1.00 $0                                        7
     Play#1 output Play#1 1   -6,4    g 100%    78   78d 1.00 $0                                       78
     Play#1 output Play#1 1   -4,4    g 100%  1200  500d 1.00 $0                                      500
-    Play#1 output Play#1 1   -2,4    ^ 100%    60   45d 0.75 $0                                       45
+    Play#1 output Play#1 1   -2,4    ^ 100%    60   60d 1.00 $0                                       60
     Play#1 output Play#1 1    0,4    a  10%    78   64f 8.25 $0                                       64
     Play#1 output Play#1 1    2,4    a 100%    80  660f 8.25 $0                                      660
     Play#1 output Play#1 1    4,4    a 100%   600  999f 8.25 $0                                      999
@@ -290,7 +290,7 @@
     Play#3 output Play#3 1 Thu Jan  1 00:00:00 1970
     Play#3 output Play#3 1 PRODUCTION SIMULATION
     Play#3 output Play#3 1    sect  des eff avail  make p.e. cost   use1 use2 use3  max1 max2 max3   max
-    Play#3 output Play#3 1    0,-2   ^   0%   114    0d 0.75 $0                                        0
+    Play#3 output Play#3 1    0,-2   ^   0%   114    0d 1.00 $0                                        0
     Play#3 output Play#3 1    5,-1   u 100%    78   66r 0.86 $154                                     66
     Play#3 output Play#3 1 2 sectors
     Play#3 output Play#3 6 0 99
@@ -714,7 +714,7 @@
     Play#0 output Play#0 1   1  -8,4    g .......... ..........   0   0    0    0    7   0    0    0    0   0
     Play#0 output Play#0 1   1  -6,4    g .......... ..........   0   0    0    0   79   0    0    0    0   0
     Play#0 output Play#0 1   1  -4,4    g .......... ..........   0   0    0    0  500   0    0    0    0   0
-    Play#0 output Play#0 1   1  -2,4    ^ .......... ..........   0   0    0    0   45   0    0    0    0   0
+    Play#0 output Play#0 1   1  -2,4    ^ .......... ..........   0   0    0    0   60   0    0    0    0   0
     Play#0 output Play#0 1   1   0,4    a .......... ..........   0   0    0    0    0   0    0    0    0   0
     Play#0 output Play#0 1   1   2,4    a .......... ..........   0   0    0    0    0   0    0   50   50   0
     Play#0 output Play#0 1   1   4,4    a .......... ..........   0   0    0    0    0   0    0    0    0   0
