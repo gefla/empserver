@@ -45,6 +45,7 @@ struct pchrstr {
     int p_uid;
     i_type p_ctype[MAXPRCON];	/* constituent types */
     unsigned short p_camt[MAXPRCON]; /* constituent amounts */
+    int p_bwork;		/* work to build one product unit */
     i_type p_type;		/* product item type, or I_NONE if level */
     int p_level;		/* level index (NAT_?LEV), or -1 if item */
     int p_cost;			/* dollars / product unit */

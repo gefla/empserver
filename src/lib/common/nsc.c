@@ -27,7 +27,7 @@
  *  nsc.c: Empire selection global structures
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2004-2020
+ *     Markus Armbruster, 2004-2021
  */
 
 /*
@@ -144,6 +144,7 @@ struct castr pchr_ca[] = {
      EF_ITEM, 0, CA_DUMP},
     {"camt", fldoff(p_camt), NSC_USHORT, MAXPRCON, NULL, EF_BAD, 0,
      CA_DUMP},
+    {"bwork", fldoff(p_bwork), NSC_INT, 0, NULL, EF_BAD, 0, CA_DUMP},
     {"type", fldoff(p_type), NSC_SITYPE(i_type), 0, NULL, EF_ITEM, 0,
      CA_DUMP},
     {"level", fldoff(p_level), NSC_INT, 0, NULL, EF_LEVEL, 0, CA_DUMP},

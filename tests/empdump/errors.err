@@ -20,6 +20,7 @@ tests/empdump/xundump-errors/colhdr-miss:2: header 'camt(0)' ... 'camt(2)' missi
 tests/empdump/xundump-errors/colhdr-miss:2: header 'nllag' missing
 tests/empdump/xundump-errors/colhdr-miss2:21: header 'ctype(0)' ... 'ctype(2)' missing
 tests/empdump/xundump-errors/colhdr-miss2:21: header 'camt(0)' ... 'camt(2)' missing
+tests/empdump/xundump-errors/colhdr-miss2:21: header 'bwork' missing
 tests/empdump/xundump-errors/colhdr-miss2:21: header 'type' missing
 tests/empdump/xundump-errors/colhdr-miss2:21: header 'level' missing
 tests/empdump/xundump-errors/colhdr-miss2:21: header 'cost' missing
@@ -105,7 +106,7 @@ tests/empdump/xundump-errors/fld-sep:2: bad field separator after field 1
 tests/empdump/xundump-errors/fld-strbig:3: field 19 takes at most 9 characters
 tests/empdump/xundump-errors/fld-unexpid:6: table's first part doesn't have this row
 tests/empdump/xundump-errors/fld-unexpid1:7: value for field 1 must be 2
-tests/empdump/xundump-errors/fld-unksym:2: unknown level symbol 'xxx' in field 11
+tests/empdump/xundump-errors/fld-unksym:2: unknown type symbol 'xxx' in field 11
 tests/empdump/xundump-errors/fld-unparen:2: unmatched '(' in field 19
 tests/empdump/xundump-errors/ftr-fewrows:2: expected 34 more rows
 tests/empdump/xundump-errors/ftr-fewrows2:4: expected 13 more rows

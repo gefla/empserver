@@ -21,6 +21,7 @@ config product
 name
 # header 'ctype(0)' ... 'ctype(2)' missing
 # header 'camt(0)' ... 'camt(2)' missing
+# header 'bwork' missing
 # header 'type' missing
 # header 'level' missing
 # header 'cost' missing
