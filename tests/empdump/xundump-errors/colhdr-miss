@@ -1,5 +1,5 @@
 config product
-name sname ctype(0) ctype(1) type level cost nrndx nrdep nlndx nlmin
+name sname ctype(0) ctype(1) bwork type level cost nrndx nrdep nlndx nlmin
 # header 'uid' missing
 # header 'ctype(2)' missing
 # header 'camt(0)' ... 'camt(2)' missing

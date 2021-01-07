@@ -31,7 +31,7 @@
  *     Jeff Bailey, 1990
  *     Steve McClure, 1996
  *     Ron Koenderink, 2005-2009
- *     Markus Armbruster, 2006-2020
+ *     Markus Armbruster, 2006-2021
  */
 
 #include <config.h>
@@ -508,7 +508,7 @@ show_product(int tlev)
     int i;
     char *lev;
 
-    pr("product    cost  raw materials  reso dep  level p.e.\n");
+    pr("product    cost  raw materials  avail   reso dep  level p.e.\n");
 
     for (pp = pchr; pp->p_sname; pp++) {
 	if (!pp->p_sname[0])
@@ -525,11 +525,12 @@ show_product(int tlev)
 	    else
 		pr("    ");
 	}
+	pr(" %8d", pp->p_bwork);
 	if (pp->p_nrndx)
-	    pr("   %5.5s %3d  ",
+	    pr("  %5.5s %3d  ",
 	       symbol_by_value(pp->p_nrndx, resources), pp->p_nrdep);
 	else
-	    pr("              ");
+	    pr("             ");
 	if (pp->p_nlndx < 0)
 	    pr("1.0\n");
 	else {

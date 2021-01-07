@@ -41,7 +41,7 @@
 #include "prototypes.h"
 #include "update.h"
 
-static double prod_materials_cost(struct pchrstr *, short[], int *);
+static double prod_materials_cost(struct pchrstr *, short[]);
 static void materials_charge(struct pchrstr *, short *, double);
 static double prod_resource_limit(struct pchrstr *, unsigned char *);
 
@@ -99,17 +99,14 @@ prod_output(struct sctstr *sp, double prodeff)
     else
 	resource = NULL;
 
-    material_limit = prod_materials_cost(product, sp->sct_item,
-					 &unit_work);
+    material_limit = prod_materials_cost(product, sp->sct_item);
+    unit_work = product->p_bwork;
 
     /* sector p.e. */
     p_e = sp->sct_effic / 100.0;
     if (resource) {
-	unit_work++;
 	p_e *= *resource / 100.0;
     }
-    if (unit_work == 0)
-	unit_work = 1;
 
     worker_limit = sp->sct_avail * p_e / unit_work;
     res_limit = prod_resource_limit(product, resource);
@@ -184,16 +181,14 @@ prod_output(struct sctstr *sp, double prodeff)
 
 /*
  * Return how much of product @pp can be made from materials @vec[].
- * Store amount of work per unit in *@costp.
  */
 static double
-prod_materials_cost(struct pchrstr *pp, short vec[], int *costp)
+prod_materials_cost(struct pchrstr *pp, short vec[])
 {
     double count, n;
-    int cost, i;
+    int i;
 
     count = ITEM_MAX;
-    cost = 0;
     for (i = 0; i < MAXPRCON; ++i) {
 	if (!pp->p_camt[i])
 	    continue;
@@ -202,9 +197,7 @@ prod_materials_cost(struct pchrstr *pp, short vec[], int *costp)
 	n = (double)vec[pp->p_ctype[i]] / pp->p_camt[i];
 	if (n < count)
 	    count = n;
-	cost += pp->p_camt[i];
     }
-    *costp = cost;
     return count;
 }
 
