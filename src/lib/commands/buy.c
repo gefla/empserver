@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Pat Loney, 1992
  *     Steve McClure, 1996-2000
- *     Markus Armbruster, 2004-2018
+ *     Markus Armbruster, 2004-2021
  */
 
 #include <config.h>
@@ -101,6 +101,8 @@ buy(void)
     bid = atof(p);
     if (bid <= 0)
 	return RET_FAIL;
+    if (!check_comm_ok(&comm))
+	return RET_FAIL;
     if (natp->nat_money < bid * comm.com_amount * buytax) {
 	pr("This purchase would cost %.2f, %.2f more than you have.\n",
 	   bid * comm.com_amount * buytax,
@@ -126,7 +128,6 @@ buy(void)
 	}
     }
     canspend = natp->nat_money - tally;
-    check_comm_ok(&comm);
     if (bid * comm.com_amount * buytax > canspend) {
 	pr("You have overextended yourself in the market\n");
 	pr("You can not bid on the current items at that price.\n");
