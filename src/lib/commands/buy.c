@@ -141,6 +141,8 @@ buy(void)
 	pr("Could not access sector");
 	return RET_FAIL;
     }
+    if (!check_comm_ok(&comm))
+	return RET_FAIL;
     if ((sect.sct_type != SCT_WAREH && sect.sct_type != SCT_HARBR) ||
 	sect.sct_own != player->cnum) {
 	pr("The destination sector is not one of your warehouses.\n");
@@ -161,8 +163,6 @@ buy(void)
 	pr("You don't have that much to spend!\n");
 	return RET_FAIL;
     }
-    if (!check_comm_ok(&comm))
-	return RET_FAIL;
     if (bid > 0.04 + comm.com_price) {
 	comm.com_price = bid;
 	time(&now);
