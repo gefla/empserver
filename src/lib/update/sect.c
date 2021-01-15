@@ -58,7 +58,7 @@ buildeff(struct sctstr *sp)
 	 * Easier to destroy than to build.
 	 */
 	dcp = &dchr[sp->sct_type];
-	build = 4 * avail / dcp->d_bwork;
+	build = dcp->d_bwork > 0 ? 4 * avail / dcp->d_bwork : 100;
 	if (build <= sp->sct_effic)
 	    sp->sct_effic -= build;
 	else {
@@ -72,7 +72,7 @@ buildeff(struct sctstr *sp)
 
     if (sp->sct_type == sp->sct_newtype) {
 	dcp = &dchr[sp->sct_type];
-	delta = avail / dcp->d_bwork;
+	delta = dcp->d_bwork > 0 ? avail / dcp->d_bwork : 100;
 	if (delta > 100 - sp->sct_effic)
 	    delta = 100 - sp->sct_effic;
 	build = get_materials(sp, dcp->d_mat, delta);
