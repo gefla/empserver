@@ -599,6 +599,250 @@
     Play#0 output Play#0 1   u     50  yes   2  1  1  2  1  1    2  uncompensated workers
     Play#0 output Play#0 1   r     50  yes   8  1  1 10  1  1 1000  radioactive materials
     Play#0 output Play#0 6 0 640
+    Play#0 input show product
+    Play#0 command show
+    Play#0 output Play#0 1 product    cost  raw materials  reso dep  level p.e.
+    Play#0 output Play#0 1    iron i  $0                    min   0  1.0
+    Play#0 output Play#0 1    dust d  $0                   gold  20  1.0
+    Play#0 output Play#0 1    food f  $0                   fert   0  (tech+10)/(tech+20)
+    Play#0 output Play#0 1     oil o  $0                  ocont  10  (tech+10)/(tech+20)
+    Play#0 output Play#0 1     rad r  $2                   uran  35  (tech-40)/(tech-30)
+    Play#0 output Play#0 1  shells s  $3     2l  1h                  (tech-20)/(tech-10)
+    Play#0 output Play#0 1    guns g  $30    1o  5l 10h              (tech-20)/(tech-10)
+    Play#0 output Play#0 1  petrol p  $1     1o                      (tech-20)/(tech-10)
+    Play#0 output Play#0 1    bars b  $10    5d                      1.0
+    Play#0 output Play#0 1     lcm l  $0     1i                      (tech+10)/(tech+20)
+    Play#0 output Play#0 1     hcm h  $0     2i                      (tech+10)/(tech+20)
+    Play#0 output Play#0 1    tech    $300   1d  5o 10l              (educ-5)/(educ+5)
+    Play#0 output Play#0 1 medical    $90    1d  5o 10l              (educ-5)/(educ+5)
+    Play#0 output Play#0 1     edu    $9     1l                      1.0
+    Play#0 output Play#0 1   happy    $9     1l                      1.0
+    Play#0 output Play#0 6 0 640
+    Play#0 input show news
+    Play#0 command show
+    Play#0 output Play#0 1 id category           good will
+    Play#0 output Play#0 1     messages
+    Play#0 output Play#0 1 1  The Front Line         -4
+    Play#0 output Play#0 1     infantry capture %s territory
+    Play#0 output Play#0 1     shock troops overrun one of %s's sectors
+    Play#0 output Play#0 1 2  The Front Line         -4
+    Play#0 output Play#0 1     infantry beaten back by %s troops
+    Play#0 output Play#0 1     shock troops annihilated in failed attack on %s
+    Play#0 output Play#0 1 3  Espionage              -1
+    Play#0 output Play#0 1     spy shot by %s firing squad
+    Play#0 output Play#0 1     spy captured and shot by %s
+    Play#0 output Play#0 1 4  Telecommunications      1
+    Play#0 output Play#0 1     sends a telegram to %s
+    Play#0 output Play#0 1     telexes %s
+    Play#0 output Play#0 1 6  Business & Economics    2
+    Play#0 output Play#0 1     bankers make a loan to %s
+    Play#0 output Play#0 1     Ministry of Finance lends money to %s
+    Play#0 output Play#0 1 7  Business & Economics    1
+    Play#0 output Play#0 1     repays a loan from %s
+    Play#0 output Play#0 1     makes last payment on loan from %s
+    Play#0 output Play#0 1 8  Business & Economics    0
+    Play#0 output Play#0 1     makes a sale to %s
+    Play#0 output Play#0 1     sells goods to %s
+    Play#0 output Play#0 1 9  Sky Watch              -1
+    Play#0 output Play#0 1     violates %s airspace
+    Play#0 output Play#0 1     overflies %s territory
+    Play#0 output Play#0 1 10 Firestorms             -2
+    Play#0 output Play#0 1     gunners bombard %s territory
+    Play#0 output Play#0 1     artillery fires on %s sectors
+    Play#0 output Play#0 1 11 The High Seas          -2
+    Play#0 output Play#0 1     shells a ship owned by %s
+    Play#0 output Play#0 1     fires on %s ships
+    Play#0 output Play#0 1 12 The Front Line          0
+    Play#0 output Play#0 1     takes over unoccupied land
+    Play#0 output Play#0 1     attacks unowned land for some reason
+    Play#0 output Play#0 1 13 The High Seas           0
+    Play#0 output Play#0 1     ships torpedoed by enemy wolf-packs
+    Play#0 output Play#0 1     ships torpedoed by marauding U-boats
+    Play#0 output Play#0 1 14 Firestorms              0
+    Play#0 output Play#0 1     gunners fire on %s in self-defense
+    Play#0 output Play#0 1     gunners decimate %s aggressors
+    Play#0 output Play#0 1 15 Foreign Affairs         0
+    Play#0 output Play#0 1     breaks sanctuary
+    Play#0 output Play#0 1     no longer has a sanctuary
+    Play#0 output Play#0 1 16 Sky Watch              -2
+    Play#0 output Play#0 1     planes dive-bomb one of %s's sectors
+    Play#0 output Play#0 1     bombers wreak havoc on %s
+    Play#0 output Play#0 1 17 The High Seas          -2
+    Play#0 output Play#0 1     dive-bombs a ship flying the flag of %s
+    Play#0 output Play#0 1     air force bombs %s ships
+    Play#0 output Play#0 1 18 The High Seas          -2
+    Play#0 output Play#0 1     seadogs board one of %s's ships
+    Play#0 output Play#0 1     pirates board %s ship
+    Play#0 output Play#0 1 19 The High Seas          -3
+    Play#0 output Play#0 1     is repelled by %s while attempting to board a ship
+    Play#0 output Play#0 1     pirates prove inept at boarding %s's ships
+    Play#0 output Play#0 1 21 Business & Economics   -2
+    Play#0 output Play#0 1     seizes a sector from %s to collect on a loan
+    Play#0 output Play#0 1     collects one of %s's sectors in repayment of a loan
+    Play#0 output Play#0 1 25 The High Seas           0
+    Play#0 output Play#0 1     ship hits a mine
+    Play#0 output Play#0 1     ship severely damaged in mine field
+    Play#0 output Play#0 1 26 Foreign Affairs         5
+    Play#0 output Play#0 1     announces an alliance with %s
+    Play#0 output Play#0 1     / %s alliance declared
+    Play#0 output Play#0 1 28 Foreign Affairs        -5
+    Play#0 output Play#0 1     declares TOTAL WAR on %s
+    Play#0 output Play#0 1     gets serious with %s and declares WAR
+    Play#0 output Play#0 1 29 Foreign Affairs         0
+    Play#0 output Play#0 1     diplomats disavow former alliance with %s
+    Play#0 output Play#0 1     is no longer allied with %s
+    Play#0 output Play#0 1 30 Foreign Affairs         5
+    Play#0 output Play#0 1     is no longer at war with %s
+    Play#0 output Play#0 1     Foreign Ministry declares "No more war with %s"
+    Play#0 output Play#0 1 31 The Home Front          0
+    Play#0 output Play#0 1     reports outbreak of the black plague
+    Play#0 output Play#0 1     sector infected with bubonic plague
+    Play#0 output Play#0 1 32 The Home Front          0
+    Play#0 output Play#0 1     citizens die from bubonic plague
+    Play#0 output Play#0 1     sector reports plague deaths
+    Play#0 output Play#0 1 33 Foreign Affairs         0
+    Play#0 output Play#0 1     goes through a name change
+    Play#0 output Play#0 1     adopts a new country name
+    Play#0 output Play#0 1 34 The Home Front          0
+    Play#0 output Play#0 1     citizens starve in disastrous famine
+    Play#0 output Play#0 1     loses citizens to mass starvation
+    Play#0 output Play#0 1 36 Sky Watch              -3
+    Play#0 output Play#0 1     pilots down %s planes
+    Play#0 output Play#0 1     victorious in air-to-air combat against %s
+    Play#0 output Play#0 1 37 Guidance Systems      -10
+    Play#0 output Play#0 1     nuclear device devastates %s sector
+    Play#0 output Play#0 1     explodes a nuclear device damaging %s territory
+    Play#0 output Play#0 1 38 The Home Front          0
+    Play#0 output Play#0 1     terrorists shoot it out with %s special forces
+    Play#0 output Play#0 1     underground rises up against %s occupation
+    Play#0 output Play#0 1 39 The Home Front         -2
+    Play#0 output Play#0 1     execution squads gun down helpless %s civilians
+    Play#0 output Play#0 1     firing squads massacre defenseless %s workers
+    Play#0 output Play#0 1 40 Guidance Systems        0
+    Play#0 output Play#0 1     launches a satellite into orbit
+    Play#0 output Play#0 1     continues its conquest of space with a successful launch
+    Play#0 output Play#0 1 41 Guidance Systems       -8
+    Play#0 output Play#0 1     strikes a %s big bird
+    Play#0 output Play#0 1     rockets damage a %s satellite
+    Play#0 output Play#0 1 42 Business & Economics    0
+    Play#0 output Play#0 1     makes a contribution to %s
+    Play#0 output Play#0 1     helps out %s
+    Play#0 output Play#0 1 43 The Home Front          0
+    Play#0 output Play#0 1     aids %s with divine intervention
+    Play#0 output Play#0 1     smiles upon %s
+    Play#0 output Play#0 1 44 The Home Front          0
+    Play#0 output Play#0 1     hurts %s with divine intervention
+    Play#0 output Play#0 1     frowns upon %s
+    Play#0 output Play#0 1 45 Business & Economics    0
+    Play#0 output Play#0 1     sacrifices to %s
+    Play#0 output Play#0 1     makes divine payment to %s
+    Play#0 output Play#0 1 46 Guidance Systems      -10
+    Play#0 output Play#0 1     ABMs intercept a %s missile
+    Play#0 output Play#0 1     strategic defense systems destroy a %s missile
+    Play#0 output Play#0 1 47 Guidance Systems       -2
+    Play#0 output Play#0 1     missile fired at one of %s's sectors
+    Play#0 output Play#0 1     missile wreaks havoc on %s
+    Play#0 output Play#0 1 48 Guidance Systems       -2
+    Play#0 output Play#0 1     missile fired at a ship flying the flag of %s
+    Play#0 output Play#0 1     missiles hit %s ships
+    Play#0 output Play#0 1 49 Business & Economics    2
+    Play#0 output Play#0 1     engages in friendly trade with %s
+    Play#0 output Play#0 1     profits from a merchant venture with %s
+    Play#0 output Play#0 1 50 Business & Economics    0
+    Play#0 output Play#0 1     pirates dispose of %s booty in trade
+    Play#0 output Play#0 1     buccaneers sell their %s goods
+    Play#0 output Play#0 1 51 Business & Economics    0
+    Play#0 output Play#0 1     pirates keep their %s booty
+    Play#0 output Play#0 1     buccaneers laugh and bury their %s goods
+    Play#0 output Play#0 1 52 The High Seas           0
+    Play#0 output Play#0 1     ships torpedoed by %s torpedo-boats
+    Play#0 output Play#0 1     ships sunk by marauding %s torpedo-boats
+    Play#0 output Play#0 1 53 The High Seas           0
+    Play#0 output Play#0 1     planes bomb a skulking %s submarine
+    Play#0 output Play#0 1     planes drop depth-charges on a %s sub
+    Play#0 output Play#0 1 55 Sky Watch              -2
+    Play#0 output Play#0 1     dive-bombs a brave %s unit
+    Play#0 output Play#0 1     air force bombs %s units
+    Play#0 output Play#0 1 56 The Front Line          0
+    Play#0 output Play#0 1     troops run afoul of a landmine
+    Play#0 output Play#0 1     troops severely damaged in mine field
+    Play#0 output Play#0 1 57 Firestorms             -2
+    Play#0 output Play#0 1     fortress gunners support troops attacking %s
+    Play#0 output Play#0 1     fortress artillery massacres %s defenders
+    Play#0 output Play#0 1 58 Firestorms             -2
+    Play#0 output Play#0 1     gunners support troops attacking %s
+    Play#0 output Play#0 1     artillery battery massacres %s defenders
+    Play#0 output Play#0 1 59 Firestorms             -2
+    Play#0 output Play#0 1     naval gunners support troops attacking %s
+    Play#0 output Play#0 1     naval gunfire massacres %s defenders
+    Play#0 output Play#0 1 60 Foreign Affairs        10
+    Play#0 output Play#0 1     sacks %s capital
+    Play#0 output Play#0 1     captures and pillages %s's capital
+    Play#0 output Play#0 1 61 Foreign Affairs         3
+    Play#0 output Play#0 1     announces friendly trade relations with %s
+    Play#0 output Play#0 1     upgrades %s's trade status to triple-A
+    Play#0 output Play#0 1 62 Foreign Affairs         0
+    Play#0 output Play#0 1     downgrades relations with %s to friendly
+    Play#0 output Play#0 1     cools relations with %s to friendly
+    Play#0 output Play#0 1 63 Foreign Affairs         2
+    Play#0 output Play#0 1     upgrades relations with %s to neutral
+    Play#0 output Play#0 1     Foreign Ministry declares "%s is A-OK."
+    Play#0 output Play#0 1 64 Foreign Affairs         0
+    Play#0 output Play#0 1     downgrades relations with %s to neutral
+    Play#0 output Play#0 1     gives the cold shoulder to %s and declares neutral relations
+    Play#0 output Play#0 1 65 Foreign Affairs         3
+    Play#0 output Play#0 1     upgrades relations with %s to hostile
+    Play#0 output Play#0 1     forgives %s of past war crimes but remains hostile
+    Play#0 output Play#0 1 66 Foreign Affairs         3
+    Play#0 output Play#0 1     downgrades relations with %s to hostile
+    Play#0 output Play#0 1     is suspicious that %s has hostile intentions
+    Play#0 output Play#0 1 67 Guidance Systems        0
+    Play#0 output Play#0 1     sector is struck by a sub-launched missile
+    Play#0 output Play#0 1     sector devastated by missile
+    Play#0 output Play#0 1 68 Guidance Systems        0
+    Play#0 output Play#0 1     ship is hit by a sub-launched missile
+    Play#0 output Play#0 1     ship damaged by marine missile
+    Play#0 output Play#0 1 69 The Frontier            0
+    Play#0 output Play#0 1     pilgrims settle on a new island
+    Play#0 output Play#0 1     discovers new land and starts a colony
+    Play#0 output Play#0 1 70 Guidance Systems        0
+    Play#0 output Play#0 1     ABMs intercept an incoming sub-launched missile
+    Play#0 output Play#0 1     strategic defense systems destroy an incoming sub-launched warhead
+    Play#0 output Play#0 1 71 Guidance Systems        2
+    Play#0 output Play#0 1     missile fired at %s ground troops
+    Play#0 output Play#0 1     missile hits %s troops
+    Play#0 output Play#0 1 72 Guidance Systems        0
+    Play#0 output Play#0 1     regiment struck by sub-launched missile
+    Play#0 output Play#0 1     ground troops hit by missile
+    Play#0 output Play#0 1 73 The Front Line         -4
+    Play#0 output Play#0 1     navy secures a beachhead on %s territory
+    Play#0 output Play#0 1     sailors take a coastal sector from %s
+    Play#0 output Play#0 1 74 The Front Line         -4
+    Play#0 output Play#0 1     paratroopers commandeer a sector from %s
+    Play#0 output Play#0 1     air force parachutists overwhelm a %s sector
+    Play#0 output Play#0 1 75 The Frontier            0
+    Play#0 output Play#0 1     parachutists grab unoccupied land
+    Play#0 output Play#0 1     paratroopers break new ground
+    Play#0 output Play#0 1 76 The Front Line          4
+    Play#0 output Play#0 1     sailors repelled by %s coast-guard
+    Play#0 output Play#0 1     naval forces massacred in failed assault of %s
+    Play#0 output Play#0 1 77 The Front Line          4
+    Play#0 output Play#0 1     paratroopers destroyed in failed air-assault on %s
+    Play#0 output Play#0 1     loses parachutists in failed air-assault of %s
+    Play#0 output Play#0 1 80 Business & Economics    0
+    Play#0 output Play#0 1     is unable to fulfill its financial obligations to %s
+    Play#0 output Play#0 1     welches on a deal with %s
+    Play#0 output Play#0 1 81 The Front Line         -3
+    Play#0 output Play#0 1     is repelled by %s while attempting to board a land unit
+    Play#0 output Play#0 1     forces prove inept at boarding %s's land unit
+    Play#0 output Play#0 1 82 The Front Line         -2
+    Play#0 output Play#0 1     mercenaries board one of %s's land units
+    Play#0 output Play#0 1     elite forces board %s land unit
+    Play#0 output Play#0 6 0 640
+    Play#0 input __cmd_added 2 0 0
+    Play#0 output Play#0 1 "__cmd_added" is not a legal command
+    Play#0 output Play#0 1 Try "list of commands" or "info"
+    Play#0 output Play#0 6 0 640
     Play#0 input show updates
     Play#0 command show
     Play#0 output Play#0 1 Thu, 01 Jan 1970 00:00:00 +0000, Turn 1, ETU 0

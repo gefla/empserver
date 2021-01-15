@@ -17,6 +17,9 @@ show nuke s
 show bridge
 show tower
 show item
+show product
+show news
+__cmd_added 2 0 0
 show updates
 xdump meta 0
 xdump meta 1
