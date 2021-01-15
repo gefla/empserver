@@ -27,7 +27,7 @@
  *  work.c: Implementation of the work command
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2009-2016
+ *     Markus Armbruster, 2009-2021
  */
 
 #include <config.h>
@@ -67,6 +67,11 @@ work(void)
 	    continue;
 	if (!(lchr[(int)land.lnd_type].l_flags & L_ENGINEER))
 	    continue;
+	if (land.lnd_ship >= 0 || land.lnd_land >= 0) {
+	    pr("%s is on a %s\n",
+	       prland(&land), land.lnd_ship >= 0 ? "ship" : "land unit");
+	    continue;
+	}
 	if (land.lnd_mobil <= 0) {
 	    pr("%s has no mobility!\n", prland(&land));
 	    continue;
