@@ -5,6 +5,125 @@
 This document outlines the various changes to the game and how they
 will affect you, the player.  These were coded as the Wolfpack project.
 .NF
+Changes to Empire 4.4.1 - Sun Jan 17 2021
+ * Fix land unit casualties in guerrilla fighting.  Broken in 4.4.0.
+ * Changes to edit:
+   - You can now edit bars on ships and land units, and missile
+     fortification.
+   - Fix to reject fortification of embarked land units.
+   - Fix to zap land unit and plane fortification on load.
+   - Fix to take satellite off its carrier when moving it to orbit.
+ * Changes to load, unload, lload, lunload, tend, and ltend:
+   - tend land with multiple target ships now tends each land unit
+     just once.
+   - tend land now reports "not on ship" only when the land unit was
+     explicitly selected by UID.  Matches unload.
+   - Fix load, unload, lload, lunload to suppress messages and skip
+     foreign ships / land units when the second argument starts with a
+     digit.
+   - load and unload no longer prompt for land units to unload when a
+     carrier can't carry any.
+   - Fix load plane to reject satellites in orbit.  The stock game
+     does not have loadable satellites.
+ * Fix launch to take satellites off their carrier when moving to
+   orbit.
+ * Shield embarked planes and land units from sector damage, like
+   their ships.
+ * Rewrite much of fairland to make it more robust and more fair:
+   - Show a more useful map.
+   - Fix error handling, fix and tidy up error and progress messages.
+   - Drop option -a.  Deities can find continents with ?dterr<N, where
+     N is the number of continents.
+   - Drop option -o.  Deities can unset resources with "edit l * i 0 g
+     0 f 0 c 0 u 0".
+   - Drop a useless warning about small world.  It was downgraded from
+     error in 4.3.25.
+   - Check arguments more thoroughly, and don't silently "correct" bad
+     arguments.
+   - Fix checking of minimal distance arguments.  Has always been
+     broken, but 4.3.15 made it worse.
+   - Ensure the continents' first two sectors obey minimal distance.
+   - Correct bias in placement of expansion islands.  These were more
+     often placed to the right of existing land.  Players could
+     exploit that to guide their search for land.
+   - Fix island growth and correct its bias.  Growth could fail even
+     when there was space to grow.  Islands tended to curve around
+     obstacles in a counterclockwise direction.  Besides fixing that,
+     the new code also gives better results for high spike
+     percentages: it produces shorter spikes extending from a core
+     rather than long snakes that tend to curve into themselves, and
+     is less prone to put capitals on the coast.
+   - Size and place expansion islands fairly: ensure each start island
+     "owns" the exact same set of expansion islands, where "owns"
+     means it's closer than any other start island.
+   - To make that work, fairland now requires the number of expansion
+     islands to be a multiple of the number of continents, and fails
+     when it can't place all the islands the deity asks for.  You
+     can't fill the world with islands anymore by asking for
+     impossibly many of them.
+   - Fix silent failure to place place mountains.  Fairness issue.
+   - Fix unfair mountain resources.  Neglected when Empire 3 made
+     mountains produce gold dust.
+   - Drop undocumented, silent limit of 1000 mountains per island.
+   - Location of resources is more varied, in particular for islands
+     with few mountains, and for sea.  Resource remain pretty much the
+     same overall.
+   - Performance improves for large minimal distances, especially for
+     crowded worlds.  It can suffer for huge worlds and small minimal
+     distances.
+   - Manual page improvements.
+   - Code refactoring and cleanup.
+ * Test suite improvements:
+   - Fix empdump-test for "make check-accept".  Has been broken its
+     addition in 4.3.33.
+   - Improve give and edit coverage.
+   - Cover load and tend.  There are known gaps.
+   - Improve fairland coverage.
+ * Game customization improvements:
+   - Configuration tables now have more extra space deities can use
+     for customizing their games: 31 product types, 63 sector types,
+     127 ship, plane and land unit types, and 63 nuke types.
+   - Work to produce stuff is now independently configurable, and
+     "show product" shows it.  Before, it was a function of raw
+     materials and resource use.
+ * New product selector "bwork" is work to build one unit of the
+   product.
+ * Fix build with compilers that require the depcomp wrapper for
+   dependency tracking.  Broken in 4.3.31.
+ * Fix LWP signal code.  Messed up in 4.3.6, some more in 4.3.10.
+ * Improve POSIX conformance for portability.  Observed to fix the
+   build on Solaris 10.
+ * The client's password prompt now behaves the same on all POSIX
+   systems: read from standard input in canonical mode with echo
+   turned off.  Before, it commonly read from /dev/tty in noncanonical
+   mode.
+ * The server crashed on systems when bomb, launch and interdiction
+   miss the target.  Fix that.
+ * Fix truncated "info Empire4.3" on systems with a losing nroff.
+ * Make client's fancy line editing and persistent history work on
+   more systems.
+ * Fix ground combat not to wipe out commodities supplied to defending
+   land units.  Broken in 4.3.33.
+ * Don't permit SAMs on escort missions.  They work, apart from a
+   recoverable internal error, but it makes no sense.
+ * Don't permit marine missiles on support missions.  They can't
+   actually go.
+ * Drop support for ABM and a-sat missiles consuming shells.  The
+   shell use is logistical busy-work, and economically irrelevant.
+   The stock game's abm type didn't consume any, but its asat type
+   did.
+ * Stricter plane configuration validation.
+ * Increase mountain process efficiency from 75% to 100%.  Gold
+   resources in mountains are now worth the same as elsewhere, and a
+   third more than before.
+ * Fix crash when a deity runs neweff or production on a sea sector.
+   Broken in 4.4.0.
+ * Don't let embarked engineers work.  Screwed up when the command was
+   added in Empire 2.
+ * Fix buy error messages on concurrent lot change.
+ * Code refactoring and cleanup.
+ * Info page, manual page and documentation fixes and clarifications.
+
 Changes to Empire 4.4.0 - Sun Sep  3 2017
  * Don't increase negative ship and land unit mobility to zero on
    trade.
