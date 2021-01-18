@@ -233,7 +233,6 @@ takeover_unit(struct empobj *unit, natid newown)
     struct shpstr *sp;
     struct plnstr *pp;
     struct lndstr *lp;
-    struct nukstr *np;
     int type;
     struct nstr_item ni;
     union empobj_storage cargo;
@@ -262,8 +261,6 @@ takeover_unit(struct empobj *unit, natid newown)
 	lp->lnd_harden = 0;
 	break;
     case EF_NUKE:
-	np = (struct nukstr *)unit;
-	np->nuk_off = 1;
 	break;
     default:
 	CANT_REACH();
