@@ -37,7 +37,7 @@
 #include "ship.h"
 
 int
-payo(void)
+c_payoff(void)
 {
     struct sctstr sect;
     int nships;

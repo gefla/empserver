@@ -36,7 +36,7 @@
 #include "optlist.h"
 
 int
-decl(void)
+c_declare(void)
 {
     struct natstr nat;
     enum relations rel;

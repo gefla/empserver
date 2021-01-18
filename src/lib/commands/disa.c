@@ -36,7 +36,7 @@
 #include "game.h"
 
 int
-disa(void)
+c_disable(void)
 {
     game_ctrl_update(0);
     pr("Updates are disabled\n");

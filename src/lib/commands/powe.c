@@ -59,7 +59,7 @@ static float power_tech_factor(float);
 static float item_power(short[]);
 
 int
-powe(void)
+c_power(void)
 {
     struct natstr *natp;
     int i;

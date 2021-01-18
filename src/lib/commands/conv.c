@@ -41,7 +41,7 @@
 #include "commands.h"
 
 int
-conv(void)
+c_convert(void)
 {
     struct natstr *natp;
     struct sctstr sect;

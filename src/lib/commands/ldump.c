@@ -37,7 +37,7 @@
 #include "land.h"
 
 int
-ldump(void)
+c_ldump(void)
 {
     int nunits;
     int field[128];

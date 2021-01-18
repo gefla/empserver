@@ -46,7 +46,7 @@ struct sectwon {
 };
 
 int
-news(void)
+c_newspaper(void)
 {
     struct natstr *natp;
     time_t now;
@@ -83,7 +83,7 @@ news(void)
 	then = now - delta;
     }
     natp->nat_newstim = now;
-    head();
+    c_headlines();
     pr("\nThe details of Empire news since %s", ctime(&then));
 
     heading = 0;

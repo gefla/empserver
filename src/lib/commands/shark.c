@@ -39,7 +39,7 @@
 #include "optlist.h"
 
 int
-shark(void)
+c_shark(void)
 {
     int arg;
     time_t now;

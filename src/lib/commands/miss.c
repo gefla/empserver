@@ -45,7 +45,7 @@ static int show_mission(struct nstr_item *);
  *  mission <type> <planes/ships/units> <mission type> <op sector> [<radius>]
  */
 int
-mission(void)
+c_mission(void)
 {
     static int ef_with_missions[] = { EF_SHIP, EF_LAND, EF_PLANE, EF_BAD };
     char *p;

@@ -38,7 +38,7 @@
 #include "optlist.h"
 
 int
-desi(void)
+c_designate(void)
 {
     int n;
     char *p;

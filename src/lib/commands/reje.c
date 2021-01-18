@@ -35,7 +35,7 @@
 #include "commands.h"
 
 int
-reje(void)
+c_reject(void)
 {
     static char *what[] = { "teles", "annos", "loans" };
     char *p;

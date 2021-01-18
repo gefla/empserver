@@ -53,7 +53,7 @@ static int showship(struct coast **cpp, int x, int y);
  * format: coastwatch [<SECTS>]
  */
 int
-coas(void)
+c_coastwatch(void)
 {
     struct sctstr sect;
     struct nstr_sect nstr;

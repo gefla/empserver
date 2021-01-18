@@ -35,7 +35,7 @@
 #include "commands.h"
 
 int
-brea(void)
+c_break(void)
 {
     struct natstr *natp;
 

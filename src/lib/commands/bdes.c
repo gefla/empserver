@@ -37,7 +37,7 @@
 #include "map.h"
 
 int
-bdes(void)
+c_bdes(void)
 {
     char *p, d;
     struct nstr_sect nstr;

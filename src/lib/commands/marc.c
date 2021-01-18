@@ -39,7 +39,7 @@
 #include "unit.h"
 
 int
-march(void)
+c_march(void)
 {
     struct nstr_item ni_land;
     struct emp_qelem land_list;

@@ -35,7 +35,7 @@
 #include "commands.h"
 
 int
-terr(void)
+c_territory(void)
 {
     struct sctstr sect;
     char *p;

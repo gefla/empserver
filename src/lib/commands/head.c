@@ -48,7 +48,7 @@ static int head_findscoop(struct histstr (*hist)[MAXNOC],
 			  natid maxcnum, natid *ano, natid *vno);
 
 int
-head(void)
+c_headlines(void)
 {
     struct histstr *hp;
     natid maxcnum;

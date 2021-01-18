@@ -41,7 +41,7 @@
 static int scuttle_tradeship(struct shpstr *);
 
 int
-scut(void)
+c_scuttle(void)
 {
     struct nstr_item ni;
     union empobj_storage item;

@@ -37,7 +37,7 @@
 #include "plane.h"
 
 int
-wing(void)
+c_wingadd(void)
 {
 
     struct plnstr plane;

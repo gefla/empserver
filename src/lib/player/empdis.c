@@ -107,7 +107,7 @@ log_last_commands(void)
 }
 
 int
-explain(void)
+c_list(void)
 {
     struct cmndstr *com;
 

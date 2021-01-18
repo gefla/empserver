@@ -38,7 +38,7 @@
 #include "land.h"
 
 int
-sabo(void)
+c_sabotage(void)
 {
     struct nstr_item ni;
     struct lndstr land, tmp;

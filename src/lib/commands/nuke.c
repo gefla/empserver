@@ -38,7 +38,7 @@
 #include "plane.h"
 
 int
-nuke(void)
+c_nuke(void)
 {
     int nnukes, noff;
     struct nstr_item nstr;

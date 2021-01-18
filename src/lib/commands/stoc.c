@@ -37,7 +37,7 @@
 #include "nuke.h"
 
 int
-stoc(void)
+c_stockpile(void)
 {
     struct nukstr nuke;
     int count;

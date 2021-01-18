@@ -44,7 +44,7 @@
 static int paradrop(struct emp_qelem *list, coord x, coord y);
 
 int
-para(void)
+c_paradrop(void)
 {
     coord tx, ty;
     coord ax, ay;

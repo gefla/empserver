@@ -66,7 +66,7 @@ static void free_flist(struct emp_qelem *);
 static struct flist *search_flist(struct emp_qelem *, struct empobj *);
 
 int
-multifire(void)
+c_fire(void)
 {
     static int ef_with_guns[] = { EF_SECTOR, EF_SHIP, EF_LAND, EF_BAD };
     char *ptr;

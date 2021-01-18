@@ -38,7 +38,7 @@
 #include "path.h"
 
 int
-dump(void)
+c_dump(void)
 {
     struct sctstr sect;
     char dirstr[20];

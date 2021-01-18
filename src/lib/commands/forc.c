@@ -38,7 +38,7 @@
 #include "server.h"
 
 int
-force(void)
+c_force(void)
 {
     if (shutdown_pending) {
 	pr("Shutdown is pending\n");

@@ -36,7 +36,7 @@
 #include "plane.h"
 
 int
-range(void)
+c_range(void)
 {
     struct nstr_item np;
     struct plnstr plane;

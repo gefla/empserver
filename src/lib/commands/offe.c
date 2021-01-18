@@ -41,7 +41,7 @@
 static int do_loan(void);
 
 int
-offe(void)
+c_offer(void)
 {
     char *cp;
 

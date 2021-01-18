@@ -39,7 +39,7 @@
 #include "news.h"
 
 int
-shoo(void)
+c_shoot(void)
 {
     struct sctstr sect;
     struct nstr_sect nstr;

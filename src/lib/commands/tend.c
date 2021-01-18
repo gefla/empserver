@@ -48,7 +48,7 @@ static void expose_ship(struct shpstr *s1, struct shpstr *s2);
 static int tend_land(struct shpstr *tenderp, int, char *units);
 
 int
-tend(void)
+c_tend(void)
 {
     struct nstr_item targets;
     struct nstr_item tenders;

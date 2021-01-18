@@ -41,7 +41,7 @@
 #include "optlist.h"
 
 int
-mark(void)
+c_market(void)
 {
     char buf[1024];
     char *p;

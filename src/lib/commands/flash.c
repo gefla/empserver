@@ -41,7 +41,7 @@ static int chat(struct natstr *, char *);
 static int sendmessage(struct natstr *, char *, int);
 
 int
-flash(void)
+c_flash(void)
 {
     struct natstr *us;
     struct natstr *to;
@@ -73,7 +73,7 @@ flash(void)
 }
 
 int
-wall(void)
+c_wall(void)
 {
     return chat(NULL, player->comtail[1]);
 }

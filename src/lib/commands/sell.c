@@ -47,7 +47,7 @@
  *   each sector.
  */
 int
-sell(void)
+c_sell(void)
 {
     struct sctstr sect;
     struct ichrstr *ip;

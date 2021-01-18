@@ -37,7 +37,7 @@
 #include "commands.h"
 
 int
-improve(void)
+c_improve(void)
 {
     struct sctintrins *incp;
     struct sctstr sect;

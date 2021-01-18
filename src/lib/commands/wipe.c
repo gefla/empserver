@@ -35,7 +35,7 @@
 #include "commands.h"
 
 int
-wipe(void)
+c_wipe(void)
 {
     struct sctstr sect;
     struct nstr_sect nstr;

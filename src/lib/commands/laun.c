@@ -56,7 +56,7 @@ static int msl_equip(struct plnstr *, char);
  * laun <PLANES>
  */
 int
-laun(void)
+c_launch(void)
 {
     struct nstr_item nstr;
     struct plnstr plane;

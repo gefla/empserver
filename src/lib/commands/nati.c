@@ -36,7 +36,7 @@
 #include "optlist.h"
 
 int
-nati(void)
+c_nation(void)
 {
     struct natstr *natp;
     struct sctstr sect;

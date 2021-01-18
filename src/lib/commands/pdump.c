@@ -38,7 +38,7 @@
 #include "plane.h"
 
 int
-pdump(void)
+c_pdump(void)
 {
     int nplanes;
     struct nstr_item np;

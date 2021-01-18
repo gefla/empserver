@@ -41,7 +41,7 @@
  * viewpoint of another country
  */
 int
-rela(void)
+c_relations(void)
 {
     struct natstr *np;
     natid cn;

@@ -37,7 +37,7 @@
 #include "optlist.h"
 
 int
-morale(void)
+c_morale(void)
 {
     struct nstr_item np;
     struct lndstr land;

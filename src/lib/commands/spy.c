@@ -54,7 +54,7 @@ static void prunits(int, int);
 static char *player_relstr(natid);
 
 int
-spy(void)
+c_spy(void)
 {
     natid own;
     enum relations relat;

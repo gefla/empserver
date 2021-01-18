@@ -37,7 +37,7 @@
 #include "commands.h"
 
 int
-peek(void)
+c_peek(void)
 {
     struct sctstr sect;
     int nsect;

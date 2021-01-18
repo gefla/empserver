@@ -36,7 +36,7 @@
 #include "product.h"
 
 int
-grin(void)
+c_grind(void)
 {
     struct nstr_sect nstr;
     struct sctstr sect;

@@ -36,7 +36,7 @@
 #include "commands.h"
 
 int
-add(void)
+c_add(void)
 {
     struct natstr *natp;
     int i;

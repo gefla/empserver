@@ -39,7 +39,7 @@
  * name <SHIP> <NAME>
  */
 int
-name(void)
+c_name(void)
 {
     struct shpstr ship;
     char *p;

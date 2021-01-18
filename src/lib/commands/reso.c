@@ -37,7 +37,7 @@
 static void reso_hdr(void);
 
 int
-reso(void)
+c_resource(void)
 {
     struct sctstr sect;
     int nsect;

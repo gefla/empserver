@@ -61,7 +61,7 @@ static int load_comm_land(struct sctstr *sectp, struct lndstr *lp,
 			  int *nunitsp);
 
 int
-load(void)
+c_load(void)
 {
     int loading = **player->argp == 'l';
     int noisy;
@@ -190,7 +190,7 @@ load(void)
 }
 
 int
-lload(void)
+c_lload(void)
 {
     int loading = player->argp[0][1] == 'l';
     int noisy;

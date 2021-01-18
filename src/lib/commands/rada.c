@@ -36,13 +36,13 @@
 #include "unit.h"
 
 int
-rada(void)
+c_radar(void)
 {
     return radar(EF_SHIP);
 }
 
 int
-lrad(void)
+c_lradar(void)
 {
     return radar(EF_LAND);
 }

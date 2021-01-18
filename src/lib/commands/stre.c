@@ -42,7 +42,7 @@ static double units_in_sector(struct combat *def);
 static void stre_hdr(void);
 
 int
-stre(void)
+c_strength(void)
 {
     struct sctstr sect;
     int nsect = 0;

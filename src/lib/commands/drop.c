@@ -39,7 +39,7 @@
 #include "plane.h"
 
 int
-drop(void)
+c_drop(void)
 {
     coord tx, ty;
     coord ax, ay;

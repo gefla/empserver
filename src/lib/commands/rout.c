@@ -39,7 +39,7 @@
 #include "path.h"
 
 int
-rout(void)
+c_route(void)
 {
     struct ichrstr *ip;
     struct nstr_sect ns;

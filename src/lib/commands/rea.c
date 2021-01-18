@@ -49,7 +49,7 @@
 static int print_sink(char *, size_t, void *);
 
 int
-rea(void)
+c_read(void)
 {
     static char *telnames[] = {
 	/* must follow TEL_ defines in tel.h */

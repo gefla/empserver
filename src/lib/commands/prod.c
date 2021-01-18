@@ -77,7 +77,7 @@ count_pop(void)
 }
 
 int
-prod(void)
+c_production(void)
 {
     struct natstr *natp;
     struct sctstr sect, scratch_sect;

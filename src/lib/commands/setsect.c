@@ -40,7 +40,7 @@
  * format: setres thing <sect> <#>
  */
 int
-setsector(void)
+c_setsector(void)
 {
     struct sctstr sect;
     char *what;

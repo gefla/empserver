@@ -36,7 +36,7 @@
 #include "lost.h"
 
 int
-lost(void)
+c_lost(void)
 {
     int nlost;
     struct nstr_item ni;

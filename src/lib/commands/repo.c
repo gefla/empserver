@@ -43,7 +43,7 @@ static void printdiff(struct natstr *, struct natstr *, int what);
 static int tryprdiff(double, double, double, int, int);
 
 int
-repo(void)
+c_report(void)
 {
     struct natstr *natp;
     struct natstr nat;

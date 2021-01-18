@@ -41,7 +41,7 @@
  * format: mine <SHIPS> <NUMBER MINES>
  */
 int
-mine(void)
+c_mine(void)
 {
     struct shpstr ship;
     struct sctstr sect;
@@ -88,7 +88,7 @@ mine(void)
  * format: landmine <UNITS> <NUMBER MINES>
  */
 int
-landmine(void)
+c_lmine(void)
 {
     struct lndstr land;
     struct sctstr sect;

@@ -63,7 +63,7 @@ static int edit_plane(struct plnstr *, char *, char *);
 static int edit_nuke(struct nukstr *, char *, char *);
 
 int
-edit(void)
+c_edit(void)
 {
     union empobj_storage item;
     char *what;

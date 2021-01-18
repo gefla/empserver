@@ -36,7 +36,7 @@
 #include "map.h"
 
 int
-shar(void)
+c_sharebmap(void)
 {
     int to;
     struct nstr_sect ns;

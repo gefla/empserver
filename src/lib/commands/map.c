@@ -39,7 +39,7 @@
 #include "map.h"
 
 int
-map(void)
+c_map(void)
 {
     int unit_type = EF_BAD;
     int bmap = 0;

@@ -37,7 +37,7 @@
 #include "optlist.h"
 
 int
-ledg(void)
+c_ledger(void)
 {
     struct nstr_item nstr;
     struct lonstr loan;

@@ -167,7 +167,7 @@ xditem(struct xdstr *xd, int type, char *arg)
 
 /* Extended dump command */
 int
-xdump(void)
+c_xdump(void)
 {
     char *p;
     char buf[1024];

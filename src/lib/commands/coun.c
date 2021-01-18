@@ -38,7 +38,7 @@
 static void coun_list(struct natstr *natp);
 
 int
-coun(void)
+c_country(void)
 {
     struct nstr_item ni;
     struct natstr nat;

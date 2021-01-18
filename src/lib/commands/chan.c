@@ -37,7 +37,7 @@
 #include "optlist.h"
 
 int
-chan(void)
+c_change(void)
 {
     char *p;
     int charge;

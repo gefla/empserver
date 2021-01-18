@@ -37,7 +37,7 @@
 #include "ship.h"
 
 int
-flee(void)
+c_fleetadd(void)
 {
     struct shpstr ship;
     int count;

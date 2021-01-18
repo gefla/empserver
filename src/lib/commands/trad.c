@@ -54,7 +54,7 @@
  * format: trade
  */
 int
-trad(void)
+c_trade(void)
 {
     struct sctstr sect;
     struct natstr *natp;

@@ -38,7 +38,7 @@
 #include "unit.h"
 
 int
-navi(void)
+c_navigate(void)
 {
     struct nstr_item ni_ship;
     struct emp_qelem ship_list;

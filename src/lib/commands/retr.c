@@ -54,13 +54,13 @@ static int retreat(int);
 static int retreat_show(int, struct nstr_item *);
 
 int
-retr(void)
+c_retreat(void)
 {
     return retreat(EF_SHIP);
 }
 
 int
-lretr(void)
+c_lretreat(void)
 {
     return retreat(EF_LAND);
 }

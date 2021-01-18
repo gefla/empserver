@@ -47,7 +47,7 @@ static void fire_dchrg(struct shpstr *, struct shpstr *, int);
 static int fire_torp(struct shpstr *, struct shpstr *, int);
 
 int
-torp(void)
+c_torpedo(void)
 {
     natid vshipown;
     int range;

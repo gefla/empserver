@@ -40,7 +40,7 @@
 #include "ship.h"
 
 int
-boar(void)
+c_board(void)
 {
     struct combat off[1];	/* boarding ship or sector */
     struct combat def[1];	/* defending ship */

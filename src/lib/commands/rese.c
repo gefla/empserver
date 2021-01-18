@@ -40,7 +40,7 @@
 #include "optlist.h"
 
 int
-rese(void)
+c_reset(void)
 {
     struct comstr comm;
     struct sctstr sect;

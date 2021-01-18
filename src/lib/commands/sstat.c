@@ -36,7 +36,7 @@
 #include "ship.h"
 
 int
-sstat(void)
+c_sstat(void)
 {
     int nships;
     struct nstr_item ni;

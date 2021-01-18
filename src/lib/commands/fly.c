@@ -41,7 +41,7 @@
 #include "plane.h"
 
 int
-fly(void)
+c_fly(void)
 {
     coord tx, ty;
     coord ax, ay;

@@ -38,7 +38,7 @@
 #include "ship.h"
 
 int
-lboa(void)
+c_lboard(void)
 {
     struct combat off[1];	/* boarding sector */
     struct combat def[1];	/* defending land unit */

@@ -45,7 +45,7 @@ static void sneak_ashore(struct combat[], struct emp_qelem *,
 			 struct combat *);
 
 int
-assa(void)
+c_assault(void)
 {
     struct combat off[1];	/* assaulting ship */
     struct combat def[1];	/* defending sector */

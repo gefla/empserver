@@ -36,7 +36,7 @@
 #include "game.h"
 
 int
-enab(void)
+c_enable(void)
 {
     game_ctrl_update(1);
     pr("Updates are enabled\n");

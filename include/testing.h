@@ -36,6 +36,6 @@
 extern int test_suite_prng_seed;
 
 /* Commands for test suite use */
-int testing_cmd(void);
+int c___cmd(void);
 
 #endif

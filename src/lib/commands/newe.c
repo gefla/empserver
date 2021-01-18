@@ -39,7 +39,7 @@
 #include "update.h"
 
 int
-newe(void)
+c_neweff(void)
 {
     struct natstr *natp;
     struct sctstr sect;

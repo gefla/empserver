@@ -36,7 +36,7 @@
 #include "land.h"
 
 int
-lsta(void)
+c_lstat(void)
 {
     int nunits;
     struct nstr_item ni;

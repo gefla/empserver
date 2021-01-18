@@ -46,7 +46,7 @@ static struct budget *calc_all(void);
 static char *dotsprintf(char *buf, char *format, int data);
 
 int
-budg(void)
+c_budget(void)
 {
     static struct {
 	char *activity;

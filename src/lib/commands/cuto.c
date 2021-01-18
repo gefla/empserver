@@ -36,7 +36,7 @@
 #include "path.h"
 
 int
-cuto(void)
+c_cutoff(void)
 {
     struct sctstr sect;
     int nsect;

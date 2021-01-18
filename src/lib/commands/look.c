@@ -44,13 +44,13 @@ static void look_ship(struct shpstr *lookship);
 static void look_land(struct lndstr *lookland);
 
 int
-look(void)
+c_lookout(void)
 {
     return do_look(EF_SHIP);
 }
 
 int
-llook(void)
+c_llookout(void)
 {
     return do_look(EF_LAND);
 }

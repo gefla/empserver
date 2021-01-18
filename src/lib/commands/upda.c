@@ -42,7 +42,7 @@
  * is likely to be.
  */
 int
-upda(void)
+c_update(void)
 {
     time_t now, next, stop;
 
