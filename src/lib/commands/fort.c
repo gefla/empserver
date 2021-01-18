@@ -37,7 +37,7 @@
 #include "optlist.h"
 
 int
-fort(void)
+c_fortify(void)
 {
     int nunits;
     struct nstr_item ni;

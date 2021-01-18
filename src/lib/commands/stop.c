@@ -46,13 +46,13 @@ static int start_stop_unit(int, char *, int);
 static void start_stop_unit_hdr(int);
 
 int
-start(void)
+c_start(void)
 {
     return start_stop(0);
 }
 
 int
-stop(void)
+c_stop(void)
 {
     return start_stop(1);
 }

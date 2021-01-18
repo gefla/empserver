@@ -41,7 +41,7 @@
  * format: setres resource <amt>  <sect>
  */
 int
-setres(void)
+c_setresource(void)
 {
     struct sctstr sect;
     char *what;

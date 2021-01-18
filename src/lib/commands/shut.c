@@ -39,7 +39,7 @@
 #include "server.h"
 
 int
-shut(void)
+c_shutdown(void)
 {
     int shutdown_minutes;
     int shutdown_was_pending;
@@ -56,7 +56,7 @@ shut(void)
 	if (!p)
 	    return RET_SYN;
 	if (*p != 'n')
-	    disa();
+	    c_disable();
     }
 
     shutdown_was_pending = shutdown_initiate(shutdown_minutes);

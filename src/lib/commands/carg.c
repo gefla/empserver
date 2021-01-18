@@ -37,7 +37,7 @@
 #include "ship.h"
 
 int
-carg(void)
+c_cargo(void)
 {
     int nships;
     struct nstr_item ni;
@@ -86,7 +86,7 @@ carg(void)
 }
 
 int
-lcarg(void)
+c_lcargo(void)
 {
     int nunits;
     struct nstr_item ni;

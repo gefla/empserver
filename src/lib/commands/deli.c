@@ -37,7 +37,7 @@
 #include "path.h"
 
 int
-deli(void)
+c_deliver(void)
 {
     struct sctstr sect;
     int dir, del;

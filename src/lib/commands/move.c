@@ -44,7 +44,7 @@
 static int cmd_move_map(coord, coord, char *, char *);
 
 int
-move(void)
+c_move(void)
 {
     int amount;
     struct sctstr sect;

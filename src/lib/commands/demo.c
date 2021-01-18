@@ -40,7 +40,7 @@
  */
 
 int
-demo(void)
+c_demobilize(void)
 {
     struct natstr *natp;
     int number;

@@ -38,7 +38,7 @@
 static void prthresh(int val);
 
 int
-comm(void)
+c_commodity(void)
 {
     struct sctstr sect;
     char dirstr[12];

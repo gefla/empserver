@@ -48,7 +48,7 @@
  *
  */
 int
-buy(void)
+c_buy(void)
 {
     struct sctstr sect;
     struct natstr *natp;

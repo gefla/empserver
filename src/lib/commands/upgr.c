@@ -49,7 +49,7 @@ static int pupgr(void);
 static int supgr(void);
 
 int
-upgr(void)
+c_upgrade(void)
 {
     char *p;
     char buf[1024];

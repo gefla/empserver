@@ -43,7 +43,7 @@
  * format: anti <SECT>
  */
 int
-anti(void)
+c_anti(void)
 {
     struct sctstr sect;
     int nsect;

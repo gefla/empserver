@@ -36,7 +36,7 @@
 #include "plane.h"
 
 int
-pboa(void)
+c_pboard(void)
 {
     struct sctstr sect;
     struct nstr_item np;

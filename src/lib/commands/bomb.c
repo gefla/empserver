@@ -61,7 +61,7 @@ static int pinflak_planedamage(struct plnstr *, struct plchrstr *,
 			       natid, int);
 
 int
-bomb(void)
+c_bomb(void)
 {
     char *p;
     coord tx, ty;

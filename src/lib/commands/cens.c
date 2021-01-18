@@ -39,7 +39,7 @@
 static void cens_hdr(void);
 
 int
-cens(void)
+c_census(void)
 {
     struct sctstr sect;
     int nsect;

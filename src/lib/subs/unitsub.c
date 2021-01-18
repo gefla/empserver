@@ -254,7 +254,7 @@ unit_move_non_dir(struct emp_qelem *list, char *cp, int *map_shown)
 	if (leader->ef_type != EF_SHIP)
 	    return NULL;
 	cp = unit_move_parse(cp, leader_str);
-	sona();
+	c_sonar();
 	player->btused++;	/* FIXME likewise */
 	*map_shown = 1;
 	break;
@@ -268,9 +268,9 @@ unit_move_non_dir(struct emp_qelem *list, char *cp, int *map_shown)
 	    player->argp[1] = leader_str;
 	}
 	if (leader->ef_type == EF_SHIP)
-	    mine();
+	    c_mine();
 	else
-	    landmine();
+	    c_lmine();
 	player->btused++;	/* FIXME likewise */
 	*map_shown = 1;
 	break;

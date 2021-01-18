@@ -63,7 +63,7 @@ lowerit(char *buf, int n, char *orig)
 #if !defined(_WIN32)
 
 int
-info(void)
+c_info(void)
 {
     char buf[255];
     FILE *fp;
@@ -159,7 +159,7 @@ info(void)
 }
 
 int
-apro(void)
+c_apropos(void)
 {
     FILE *fp;
     char *name, *lbp;

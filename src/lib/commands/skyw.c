@@ -51,7 +51,7 @@ static int showsat(struct sky **skypp, int x, int y);
  * format: skywatch [<SECTS>]
  */
 int
-skyw(void)
+c_skywatch(void)
 {
     struct sctstr sect;
     struct nstr_sect nstr;

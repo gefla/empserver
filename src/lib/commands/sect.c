@@ -37,7 +37,7 @@
 #include "optlist.h"
 
 int
-sct(void)
+c_sect(void)
 {
     struct nstr_sect ns;
     struct sctstr sect;

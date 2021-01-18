@@ -37,7 +37,7 @@
 #include "nuke.h"
 
 int
-ndump(void)
+c_ndump(void)
 {
     struct nstr_item nstr;
     struct nukstr nuk;

@@ -39,7 +39,7 @@
 #include "update.h"
 
 int
-work(void)
+c_work(void)
 {
     int nunits;
     struct nstr_item ni;

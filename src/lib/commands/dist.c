@@ -42,7 +42,7 @@
  * distribute <SECT> <DISTSECT|.|h>
  */
 int
-dist(void)
+c_distribute(void)
 {
     struct sctstr sect, dsect, tsect;
     struct nstr_sect nstr;

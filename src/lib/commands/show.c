@@ -38,7 +38,7 @@
 #include "optlist.h"
 
 int
-show(void)
+c_show(void)
 {
     char *p;
     void (*cfunc)(int);

@@ -41,7 +41,7 @@ static void print_res(struct sctstr *);
  * Syntax: swap <SECT> <SECT>
  */
 int
-swaps(void)
+c_swapsector(void)
 {
     struct sctstr secta, sectb, tmp;
     char buf[1024];

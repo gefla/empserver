@@ -36,7 +36,7 @@
 #include "commands.h"
 
 int
-enli(void)
+c_enlist(void)
 {
     struct nstr_sect nstr;
     struct sctstr sect;

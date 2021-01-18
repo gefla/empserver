@@ -43,7 +43,7 @@
 static void init_sanct(struct natstr *, coord, coord);
 
 int
-new(void)
+c_newcap(void)
 {
     static struct range defrealm = { -8, -5, 10, 5, 0, 0 };
     struct sctstr sect;

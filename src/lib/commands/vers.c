@@ -50,7 +50,7 @@ static void show_opts(int val);
 static char *prwrap(char *, char *, int *);
 
 int
-vers(void)
+c_version(void)
 {
     time_t now;
 

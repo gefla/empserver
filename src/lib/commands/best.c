@@ -36,7 +36,7 @@
 #include "path.h"
 
 int
-best(void)
+c_bestpath(void)
 {
     double cost;
     struct sctstr s1, s2;

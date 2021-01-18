@@ -65,7 +65,7 @@ static int build_can_afford(double, int, char *);
  * build <WHAT> <SECTS> <TYPE|DIR|MEG> [NUMBER]
  */
 int
-buil(void)
+c_build(void)
 {
     struct natstr *natp = getnatp(player->cnum);
     int tlev = (int)natp->nat_level[NAT_TLEV];

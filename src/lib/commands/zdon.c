@@ -49,7 +49,7 @@
 #include "server.h"
 
 int
-zdon(void)
+c_zdone(void)
 {
     int whichcnum;
     struct natstr *natp;

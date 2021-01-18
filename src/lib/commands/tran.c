@@ -45,7 +45,7 @@ static int tran_plane(void);
 static int pln_weight(struct plnstr *);
 
 int
-tran(void)
+c_transport(void)
 {
     char *what;
     char buf[1024];

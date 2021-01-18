@@ -37,7 +37,7 @@
 #include "commands.h"
 
 int
-capi(void)
+c_capital(void)
 {
     char buf[1024];
     char *p;

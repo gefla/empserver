@@ -42,7 +42,7 @@
 #include "optlist.h"
 
 int
-turn(void)
+c_turn(void)
 {
     FILE *fptr;
     struct telstr tgm;

@@ -47,7 +47,7 @@
  * format: set <type> <SHIP/NUKE> <PRICE>
  */
 int
-set(void)
+c_set(void)
 {
     static int ef_saleable[] = { EF_SHIP, EF_PLANE, EF_LAND, EF_NUKE, EF_BAD };
     char *p;

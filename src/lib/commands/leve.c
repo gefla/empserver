@@ -35,7 +35,7 @@
 #include "commands.h"
 
 int
-leve(void)
+c_level(void)
 {
     struct sctstr sect;
     int nsect;

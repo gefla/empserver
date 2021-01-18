@@ -36,7 +36,7 @@
 #include "land.h"
 
 int
-supp(void)
+c_supply(void)
 {
     int nunits;
     struct nstr_item ni;

@@ -46,7 +46,7 @@
 static int blankrow(char *);
 
 int
-sona(void)
+c_sonar(void)
 {
     struct nstr_item ni, nit;
     struct sctstr sect;

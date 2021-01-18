@@ -42,7 +42,7 @@
 #include "plane.h"
 
 int
-arm(void)
+c_arm(void)
 {
     struct nchrstr *ncp;
     struct plchrstr *plc;
@@ -132,7 +132,7 @@ arm(void)
 }
 
 int
-disarm(void)
+c_disarm(void)
 {
     struct plnstr pl;
     struct nukstr nuke;

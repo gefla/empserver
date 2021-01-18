@@ -40,7 +40,7 @@
  * threshold <COMM> <SECTS> <THRESH>
  */
 int
-thre(void)
+c_threshold(void)
 {
     struct sctstr sect;
     struct nstr_sect nstr;

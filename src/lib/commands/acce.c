@@ -42,7 +42,7 @@ static void pr_accept(natid, natid);
  * viewpoint of another country
  */
 int
-acce(void)
+c_accept(void)
 {
     struct natstr *natp;
     struct natstr *np;

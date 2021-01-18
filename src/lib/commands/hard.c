@@ -40,7 +40,7 @@
  * harden <PLANE> <LEVEL>
  */
 int
-hard(void)
+c_harden(void)
 {
     struct plchrstr *pcp;
     struct plnstr pln;

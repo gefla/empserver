@@ -39,7 +39,7 @@
 #include "plane.h"
 
 int
-reco(void)
+c_recon(void)
 {
     int mission_flags = player->argp[0][0] == 's' ? PM_R | PM_S : PM_R;
     coord tx, ty;

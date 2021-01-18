@@ -41,7 +41,7 @@ static void play_header(void);
 static int play_list(struct player *joe);
 
 int
-play(void)
+c_players(void)
 {
     struct player *joe;
     int saw = 0;

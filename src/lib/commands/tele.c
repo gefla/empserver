@@ -38,7 +38,7 @@
 #include "tel.h"
 
 int
-tele(void)
+c_telegram(void)
 {
     natid to;
     struct natstr *natp;

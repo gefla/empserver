@@ -64,7 +64,7 @@ static void late(struct ltcomstr *ltcp);
 static void prev_signed(struct ltcomstr *ltcp);
 
 int
-cons(void)
+c_consider(void)
 {
     int rv;
     struct ltcomstr ltc;

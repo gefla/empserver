@@ -42,7 +42,7 @@
  * format: fina
  */
 int
-fina(void)
+c_financial(void)
 {
     struct lonstr loan;
     struct nstr_item ni;

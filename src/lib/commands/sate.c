@@ -40,7 +40,7 @@
 #include "plane.h"
 
 int
-sate(void)
+c_satellite(void)
 {
     static int sct_shp_or_lnd[] = { EF_SECTOR, EF_SHIP, EF_LAND, EF_BAD };
     double tech;

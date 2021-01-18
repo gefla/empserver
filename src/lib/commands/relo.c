@@ -37,7 +37,7 @@
 #include "server.h"
 
 int
-relo(void)
+c_reload(void)
 {
     /*
      * Like SIGHUP, plus friendly chatter.  If you change anything

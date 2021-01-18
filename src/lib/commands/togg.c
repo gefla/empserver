@@ -36,7 +36,7 @@
 #include "commands.h"
 
 int
-togg(void)
+c_toggle(void)
 {
     int flag = 0;
     int pos;

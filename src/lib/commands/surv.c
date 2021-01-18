@@ -45,7 +45,7 @@ static char code_char(struct valstr, struct sctstr *sp);
  *
  */
 int
-surv(void)
+c_survey(void)
 {
     int nsect;
     struct nstr_sect nstr;

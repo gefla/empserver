@@ -40,7 +40,7 @@
 #include "unit.h"
 
 int
-scra(void)
+c_scrap(void)
 {
     struct nstr_item ni;
     union empobj_storage item;

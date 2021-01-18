@@ -46,7 +46,7 @@
 static void expose_land(struct shpstr *s1, struct lndstr *l1);
 
 int
-ltend(void)
+c_ltend(void)
 {
     struct nstr_item targets;
     struct nstr_item tenders;

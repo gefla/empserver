@@ -40,7 +40,7 @@
 #include "ship.h"
 
 int
-atta(void)
+c_attack(void)
 {
     struct combat off[6];	/* attacking sectors */
     struct combat def[1];	/* defending sector */

@@ -35,7 +35,7 @@
 #include "commands.h"
 
 int
-echo(void)
+c_echo(void)
 {
     pr("%s\n", player->argp[1] ? player->argp[1] : "");
 

@@ -37,7 +37,7 @@
 #include "land.h"
 
 int
-army(void)
+c_army(void)
 {
     struct lndstr land;
     int count;

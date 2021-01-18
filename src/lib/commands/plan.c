@@ -39,7 +39,7 @@
 #include "plane.h"
 
 int
-plan(void)
+c_plane(void)
 {
     int nplanes, noff;
     struct nstr_item np;

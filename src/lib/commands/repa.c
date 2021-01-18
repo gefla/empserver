@@ -39,7 +39,7 @@
 #include "optlist.h"
 
 int
-repa(void)
+c_repay(void)
 {
     struct lonstr loan;
     struct natstr *natp;

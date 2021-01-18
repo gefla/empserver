@@ -37,7 +37,7 @@
 #include "commands.h"
 
 int
-orig(void)
+c_origin(void)
 {
     char *p;
     coord x, y;

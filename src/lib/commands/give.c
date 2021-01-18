@@ -42,7 +42,7 @@
  * format: give <commod> <sect> <amt>
  */
 int
-give(void)
+c_give(void)
 {
     struct sctstr sect;
     int amt;

@@ -40,7 +40,7 @@
 #include "path.h"
 
 int
-path(void)
+c_path(void)
 {
 
     struct nstr_sect ns;

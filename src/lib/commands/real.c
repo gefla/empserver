@@ -47,7 +47,7 @@ list_realm(int curr, struct natstr *natp)
 }
 
 int
-real(void)
+c_realm(void)
 {
     struct realmstr realm;
     struct natstr *natp;

@@ -36,7 +36,7 @@
 #include "testing.h"
 
 int
-testing_cmd(void)
+c___cmd(void)
 {
     char *p;
     char buf[1024];

@@ -40,7 +40,7 @@
 static void prmobcost(struct sctstr *, int);
 
 int
-sinfra(void)
+c_sinfrastructure(void)
 {
     struct sctstr sect;
     int nsect;

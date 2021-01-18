@@ -43,7 +43,7 @@
 static double appraise_sect(struct sctstr *);
 
 int
-coll(void)
+c_collect(void)
 {
     int arg;
     time_t now;

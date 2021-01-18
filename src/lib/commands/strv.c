@@ -48,7 +48,7 @@ static void ship_hdr(void);
 static void unit_hdr(void);
 
 int
-starve(void)
+c_starvation(void)
 {
     int do_sects = 0;
     int do_ships = 0;

@@ -42,7 +42,7 @@
 static int explore_map(coord, coord, char *, char *);
 
 int
-explore(void)
+c_explore(void)
 {
     int amount;
     struct sctstr sect;

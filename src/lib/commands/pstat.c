@@ -36,7 +36,7 @@
 #include "plane.h"
 
 int
-pstat(void)
+c_pstat(void)
 {
     int nplanes;
     struct nstr_item np;
