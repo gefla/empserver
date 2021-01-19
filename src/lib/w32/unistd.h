@@ -27,7 +27,7 @@
  *  unistd.h: POSIX emulation for Windows
  *
  *  Known contributors to this file:
- *     Ron Koenderink, 2007
+ *     Ron Koenderink, 2007-2021
  *     Markus Armbruster, 2007-2013
  */
 
@@ -98,7 +98,13 @@ extern int (*w32_write_function)(int, const void *, unsigned);
 #define ftruncate(fd, length) _chsize((fd), (length))
 #endif
 
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+extern int getopt(int, char * const [], const char *);
+extern	 char *optarg;
+extern	 int opterr;
+extern	 int optind;
+extern	 int optopt;
+#else  /* !_MSC_VER */
 #include_next <unistd.h>
 #endif
 

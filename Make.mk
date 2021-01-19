@@ -81,8 +81,8 @@ edatadir := $(datadir)/empire
 builtindir := $(edatadir)/builtin
 einfodir := $(edatadir)/info.nr
 ehtmldir := $(edatadir)/info.html
-client/w32 := arpa/inet.h netdb.h netinet/in.h sys/time.h sys/socket.h	\
-sys/uio.h unistd.h w32io.c w32sockets.c w32types.h
+client/w32 := arpa/inet.h getopt.c netdb.h netinet/in.h sys/time.h	\
+sys/socket.h sys/uio.h unistd.h w32io.c w32sockets.c w32types.h
 
 # Abbreviate make output
 # Run make with a V=1 parameter for full output.
