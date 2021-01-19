@@ -111,7 +111,7 @@ move_ground(struct sctstr *start, struct sctstr *end,
     curx = start->sct_x;
     cury = start->sct_y;
     total_mcost = 0.0;
-    if (getsect(curx, cury, &sect) < 0) {
+    if (!getsect(curx, cury, &sect)) {
 	logerror("move_path: getsect %d,%d", curx, cury);
 	return -1;
     }
@@ -191,7 +191,7 @@ move_ground(struct sctstr *start, struct sctstr *end,
 	 */
 	tmpx = curx + diroff[dir][0];
 	tmpy = cury + diroff[dir][1];
-	if (getsect(tmpx, tmpy, &next) < 0) {
+	if (!getsect(tmpx, tmpy, &next)) {
 	    pr("You can't go there...\n");
 	    *movstr = 0;
 	    continue;
