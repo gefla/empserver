@@ -128,7 +128,8 @@ journal_entry_end(int newline, int flush)
     if (!newline)
 	fputc('\\', journal);
     fputc('\n', journal);
-    fflush(journal);
+    if (flush)
+	fflush(journal);
     if (ferror(journal)) {
 	logerror("Error writing journal (%s)", strerror(errno));
 	clearerr(journal);
