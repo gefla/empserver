@@ -30,7 +30,7 @@
  *     Dave Pare, 1986
  *     Thomas Ruschak, 1992
  *     Steve McClure, 2000
- *     Markus Armbruster, 2004-2017
+ *     Markus Armbruster, 2004-2021
  */
 
 #include <config.h>
@@ -70,10 +70,10 @@ c_tend(void)
 		 buf);
     if (!p || !*p)
 	return RET_SYN;
-
+    ip = item_by_name(p);
     if (!strncmp(p, "land", 4))
 	type = EF_LAND;
-    else if (NULL != (ip = item_by_name(p)))
+    else if (ip)
 	type = EF_SECTOR;
     else {
 	pr("Can't tend '%s'\n", p);

@@ -30,7 +30,7 @@
  *     David Sharnoff, 1987
  *     Ken Stevens, 1995 (rewritten)
  *     Steve McClure, 1998-2000
- *     Markus Armbruster, 2004-2018
+ *     Markus Armbruster, 2004-2021
  */
 
 #include <config.h>
@@ -79,12 +79,12 @@ c_load(void)
 		 "What commodity (or 'plane' or 'land')? ", buf);
     if (!p || !*p)
 	return RET_SYN;
-
+    ich = item_by_name(p);
     if (!strncmp(p, "plane", 5))
 	type = EF_PLANE;
     else if (!strncmp(p, "land", 4))
 	type = EF_LAND;
-    else if (NULL != (ich = item_by_name(p)))
+    else if (ich)
 	type = EF_SECTOR;
     else {
 	pr("Can't %sload '%s'\n", loading ? "" : "un", p);
@@ -208,11 +208,12 @@ c_lload(void)
 		 "What commodity (or 'plane' or 'land')? ", buf);
     if (!p || !*p)
 	return RET_SYN;
+    ich = item_by_name(p);
     if (!strncmp(p, "plane", 5))
 	type = EF_PLANE;
     else if (!strncmp(p, "land", 4))
 	type = EF_LAND;
-    else if (NULL != (ich = item_by_name(p)))
+    else if (ich)
 	type = EF_SECTOR;
     else {
 	pr("Can't %sload '%s'\n", loading ? "" : "un", p);
