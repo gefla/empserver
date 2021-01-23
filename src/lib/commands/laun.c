@@ -263,7 +263,8 @@ launch_missile(struct plnstr *pp)
 		       target_ship.shp_x, target_ship.shp_y,
 		       target_ship.shp_own, &sublaunch) < 0)
 	    return RET_OK;
-	getship(n, &target_ship);
+	/* @target_ship may have expended shells defending */
+	getship(target_ship.shp_uid, &target_ship);
 	if (!msl_hit(pp, shp_hardtarget(&target_ship), EF_SHIP,
 		     N_SHP_MISS, N_SHP_SMISS, sublaunch,
 		     target_ship.shp_own)) {

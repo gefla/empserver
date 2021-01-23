@@ -393,7 +393,7 @@ c_fire(void)
 	    putsect(&vsect);
 	    break;
 	default:
-	    getship(vshipno, &vship);
+	    getship(vship.shp_uid, &vship);
 	    shipdamage(&vship, dam);
 	    if (vship.shp_effic < SHIP_MINEFF)
 		pr("%s sunk!\n", prsub(&vship));
