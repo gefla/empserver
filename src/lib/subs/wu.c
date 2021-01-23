@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Steve McClure, 2000
- *     Markus Armbruster, 2005-2016
+ *     Markus Armbruster, 2005-2021
  */
 
 #include <config.h>
@@ -110,14 +110,16 @@ typed_wu(natid from, natid to, char *message, int type)
     char box[1024];
     struct player *other;
 
-    if (type == TEL_ANNOUNCE)
+    if (type == TEL_ANNOUNCE) {
 	strcpy(box, annfil);
-    else
+	np = NULL;
+    } else {
 	mailbox(box, to);
-
-    if (type != TEL_ANNOUNCE)
-	if (!(np = getnatp(to)) || np->nat_stat < STAT_SANCT)
+	np = getnatp(to);
+	if (!np || np->nat_stat < STAT_SANCT)
 	    return -1;
+    }
+
 #if !defined(_WIN32)
     if ((fd = open(box, O_WRONLY | O_APPEND, 0)) < 0) {
 #else
