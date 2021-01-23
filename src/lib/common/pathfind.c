@@ -490,12 +490,11 @@ path_find_visualize(coord sx, coord sy, coord dx, coord dy)
 {
     int uid;
     int xmin, xmax, ymin, ymax, x, y, odd, ch;
-    double c, u, cost;
+    double c, cost;
     char buf[1024];
 
     assert(pf_cost(XYOFFSET(sx, sy)) == 0.0);
     c = pf_cost(XYOFFSET(dx, dy));
-    u = c / 10.0;
 
     /* find bounding box */
     xmin = xmax = 0;
