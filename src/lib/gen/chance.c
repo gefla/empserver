@@ -27,7 +27,7 @@
  *  chance.c: Roll dice
  *
  *  Known contributors to this file:
- *     Markus Armbruster, 2006-2012
+ *     Markus Armbruster, 2006-2021
  */
 
 #include <config.h>
@@ -140,11 +140,12 @@ djb_hash(unsigned hash, void *buf, size_t sz)
 unsigned
 pick_seed(void)
 {
-    int fd;
     unsigned seed;
     int got_seed = 0;
     struct timeval tv;
     pid_t pid;
+#ifndef _WIN32
+    int fd;
 
     /*
      * Modern systems provide random number devices, but the details
@@ -164,6 +165,7 @@ pick_seed(void)
 	got_seed = read(fd, &seed, sizeof(seed)) == sizeof(seed);
 	close(fd);
     }
+#endif
 
     if (!got_seed) {
 	/* Kernel didn't provide, fall back to hashing time and PID */
