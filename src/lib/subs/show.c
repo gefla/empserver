@@ -615,34 +615,10 @@ static char *
 fmttime2822(time_t t)
 {
     static char buf[32];
-#if defined(_WIN32)
-    size_t n;
-    int nn;
-    TIME_ZONE_INFORMATION tzi;
-    long time_offset;
-    struct tm *time;
-
-    time = localtime(&t);
-
-    n = strftime(buf, sizeof(buf), "%a, %d %b %Y %H:%M:%S", time);
-    if (CANT_HAPPEN(n == 0)) {
-	buf[0] = 0;
-	return buf;
-    }
-    GetTimeZoneInformation(&tzi);
-    time_offset = -(tzi.Bias +
-	(time->tm_isdst ? tzi.DaylightBias : tzi.StandardBias));
-
-    nn = _snprintf(buf + n, sizeof(buf) - n, " %+03ld%02ld",
-		   time_offset / 60, labs(time_offset) % 60);
-    if (CANT_HAPPEN(nn <= 0 || nn + n >= sizeof(buf)))
-	buf[0] = 0;
-#else
-    size_t n = strftime(buf, sizeof(buf), "%a, %d %b %Y %T %z",
+    size_t n = strftime(buf, sizeof(buf), "%a, %d %b %Y %H:%M:%S %z",
 			localtime(&t));
     if (CANT_HAPPEN(n == 0))
 	buf[0] = 0;
-#endif
     return buf;
 }
 
