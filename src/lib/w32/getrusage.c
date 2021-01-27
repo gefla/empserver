@@ -33,7 +33,7 @@
 
 #include <config.h>
 
-#include <errno.h>
+#include <windows.h>
 #include "sys/resource.h"
 
 int

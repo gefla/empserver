@@ -28,7 +28,7 @@
  *
  *  Known contributors to this file:
  *     Ron Koenderink, 2007
- *     Markus Armbruster, 2007-2013
+ *     Markus Armbruster, 2007-2021
  */
 
 /*
@@ -44,15 +44,12 @@
 #ifdef _MSC_VER
 /* integral mismatch, due to misuse of sector short */
 #pragma warning (disable : 4761 )
+#endif
 
 /* strings.h */
+#ifdef _MSC_VER
 #define strncasecmp(s1, s2, s3) _strnicmp((s1), (s2), (s3))
 #endif /* _MSC_VER */
-
-/* errno.h */
-#ifndef EWOULDBLOCK
-#define EWOULDBLOCK EAGAIN
-#endif
 
 /* fcntl.h */
 #ifdef _MSC_VER

@@ -33,9 +33,15 @@
 #ifndef SYS_TIME_H
 #define SYS_TIME_H
 
+#ifdef _MSC_VER
+
 /* include winsock2.h thru sys/socket.h to get struct timeval */
 #include "sys/socket.h"
 
 extern int gettimeofday(struct timeval *tv, void *tz);
+
+#else  /* !_MSC_VER */
+#include_next <sys/time.h>
+#endif
 
 #endif /* SYS_TIME_H */

@@ -40,7 +40,9 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <stdio.h>
-#if !defined(_WIN32)
+#ifdef _WIN32
+#include <windows.h>
+#else
 #include <strings.h>
 #include <dirent.h>
 #endif
