@@ -4,6 +4,9 @@
  */
 
 #include "w32misc.h"
+#ifdef _MSC_VER
+#define tzname _tzname
+#endif
 
 typedef unsigned char u_char;
 typedef unsigned int uint;
