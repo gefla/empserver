@@ -51,12 +51,6 @@
 #define O_ACCMODE (_O_RDONLY|_O_WRONLY|_O_RDWR)
 #endif
 
-/* stdio.h */
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#define vsnprintf _vsnprintf
-#endif
-
 /* time.h */
 struct tm;
 extern char *strptime(const char *buf, const char *fmt, struct tm *tm);
