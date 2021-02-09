@@ -41,11 +41,6 @@
 
 #include <stddef.h>
 
-#ifdef _MSC_VER
-/* integral mismatch, due to misuse of sector short */
-#pragma warning (disable : 4761 )
-#endif
-
 /* strings.h */
 #ifdef _MSC_VER
 #define strncasecmp(s1, s2, s3) _strnicmp((s1), (s2), (s3))
