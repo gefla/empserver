@@ -5,7 +5,7 @@
 This document outlines the various changes to the game and how they
 will affect you, the player.  These were coded as the Wolfpack project.
 .NF
-Changes to Empire 4.4.1 - Sun Jan 17 2021
+Changes to Empire 4.4.1 - Sat Feb 13 2021
  * Fix land unit casualties in guerrilla fighting.  Broken in 4.4.0.
  * Changes to edit:
    - You can now edit bars on ships and land units, and missile
@@ -121,6 +121,10 @@ Changes to Empire 4.4.1 - Sun Jan 17 2021
  * Don't let embarked engineers work.  Screwed up when the command was
    added in Empire 2.
  * Fix buy error messages on concurrent lot change.
+ * Fix MOB_ACCESS mobility update for ships owned by countries with
+   even country number.  Broken in 4.4.0.
+ * Journal entries for output are no longer flushed to disk right
+   away.
  * Code refactoring and cleanup.
  * Info page, manual page and documentation fixes and clarifications.
 
