@@ -53,9 +53,9 @@ srcdir = @srcdir@
 VPATH = @srcdir@
 
 prog = empire$E
-obj = expect.$O fnameat.$O getpass.$O getopt.$O host.$O ipglob.$O	\
-linebuf.$O login.$O main.$O play.$O ringbuf.$O secure.$O servcmd.$O	\
-termlib.$O version.$O $(LIBOBJS)
+obj = expect.$O fnameat.$O getpass.$O host.$O ipglob.$O linebuf.$O	\
+login.$O main.$O play.$O ringbuf.$O secure.$O servcmd.$O termlib.$O	\
+version.$O $(LIBOBJS)
 
 all: $(prog)
 
@@ -83,7 +83,6 @@ uninstall:
 expect.$O: misc.h proto.h
 fnameat.$O: fnameat.h
 getpass.$O: misc.h
-getopt.$O:
 host.$O: misc.h
 linebuf.$O: linebuf.h
 login.$O: misc.h proto.h
@@ -102,5 +101,6 @@ host.$O: w32/sys/socket.h w32/netinet/in.h w32/arpa/inet.h w32/netdb.h w32/unist
 main.$O: w32/sys/socket.h w32/unistd.h w32/w32types.h
 play.$O: w32/sys/socket.h w32/unistd.h w32/w32types.h
 ringbuf.$O: w32/sys/uio.h w32/w32types.h
+w32/getopt.$O:
 w32/w32io.$O: misc.h w32/sys/uio.h w32/w32types.h
 w32/w32sockets.$O: w32/sys/socket.h w32/unistd.h w32/w32types.h
