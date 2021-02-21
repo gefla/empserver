@@ -5,7 +5,7 @@
 This document outlines the various changes to the game and how they
 will affect you, the player.  These were coded as the Wolfpack project.
 .NF
-Changes to Empire 4.4.1 - Sat Feb 13 2021
+Changes to Empire 4.4.1 - Sat Feb 21 2021
  * Fix land unit casualties in guerrilla fighting.  Broken in 4.4.0.
  * Changes to edit:
    - You can now edit bars on ships and land units, and missile
@@ -61,7 +61,7 @@ Changes to Empire 4.4.1 - Sat Feb 13 2021
      when it can't place all the islands the deity asks for.  You
      can't fill the world with islands anymore by asking for
      impossibly many of them.
-   - Fix silent failure to place place mountains.  Fairness issue.
+   - Fix silent failure to place mountains.  Fairness issue.
    - Fix unfair mountain resources.  Neglected when Empire 3 made
      mountains produce gold dust.
    - Drop undocumented, silent limit of 1000 mountains per island.
@@ -74,8 +74,8 @@ Changes to Empire 4.4.1 - Sat Feb 13 2021
    - Manual page improvements.
    - Code refactoring and cleanup.
  * Test suite improvements:
-   - Fix empdump-test for "make check-accept".  Has been broken its
-     addition in 4.3.33.
+   - Fix empdump-test for "make check-accept".  Has been broken since
+     its addition in 4.3.33.
    - Improve give and edit coverage.
    - Cover load and tend.  There are known gaps.
    - Improve fairland coverage.
@@ -97,8 +97,8 @@ Changes to Empire 4.4.1 - Sat Feb 13 2021
    systems: read from standard input in canonical mode with echo
    turned off.  Before, it commonly read from /dev/tty in noncanonical
    mode.
- * The server crashed on systems when bomb, launch and interdiction
-   miss the target.  Fix that.
+ * The server crashed on some systems when bomb, launch and
+   interdiction missed the target.  Fix that.
  * Fix truncated "info Empire4.3" on systems with a losing nroff.
  * Make client's fancy line editing and persistent history work on
    more systems.
@@ -118,9 +118,10 @@ Changes to Empire 4.4.1 - Sat Feb 13 2021
    third more than before.
  * Fix crash when a deity runs neweff or production on a sea sector.
    Broken in 4.4.0.
- * Don't let embarked engineers work.  Screwed up when the command was
-   added in Empire 2.
- * Fix buy error messages on concurrent lot change.
+ * Don't let embarked engineers work.  Screwed up when the work
+   command was added in Empire 2.
+ * Fix buy to handle concurrent lot change more robustly.  The flawed
+   handling goes back to 4.0.0 and 4.0.2.
  * Fix MOB_ACCESS mobility update for ships owned by countries with
    even country number.  Broken in 4.4.0.
  * Journal entries for output are no longer flushed to disk right
