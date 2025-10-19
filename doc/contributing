@@ -30,11 +30,7 @@ Getting sources
 
 You can get a copy of the Empire source repository with this command:
 
-    $ git clone git://git.pond.sub.org/~armbru/empserver
-
-If that doesn't work because you're behind a restrictive firewall, try
-
-    $ git clone http://git.pond.sub.org/empserver
+    $ git clone https://git.pond.sub.org/empire/empserver.git
 
 Cloning downloads the entire repository, including revision control
 history dating back to 2003.  The repository (the part you download,
