@@ -61,6 +61,9 @@
 *.rej
 *~
 
+# Nix
+/result
+
 # Visual Studio Directories for building
 /.vs
 /Empire
