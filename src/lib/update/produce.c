@@ -57,17 +57,18 @@ produce(struct natstr *np, struct sctstr *sp)
     double prodeff;
     double output;
     double cost;
+    double consume;
 
     if (dchr[sp->sct_type].d_prd < 0)
 	return;
     product = &pchr[dchr[sp->sct_type].d_prd];
 
     prodeff = prod_eff(sp->sct_type, np->nat_level[product->p_nlndx]);
-    output = prod_output(sp, prodeff);
+    output = prod_output(sp, prodeff, &consume);
     if (!output)
 	return;
 
-    cost = product->p_cost * output / prodeff;
+    cost = product->p_cost * consume;
     if (opt_TECH_POP) {
 	if (product->p_level == NAT_TLEV) {
 	    if (budget->oldowned_civs > 50000)
@@ -82,8 +83,15 @@ produce(struct natstr *np, struct sctstr *sp)
     budget->money -= cost;
 }
 
+/*
+ * Produce in @sp with production efficiency @prodeff.
+ * Store the amount of materials consumed in *@consume.  That's the
+ * amount of production before @prodeff is applied; callers must use
+ * it instead of dividing the returned output by @prodeff, which can
+ * round differently.
+ */
 double
-prod_output(struct sctstr *sp, double prodeff)
+prod_output(struct sctstr *sp, double prodeff, double *consume)
 {
     struct pchrstr *product = &pchr[dchr[sp->sct_type].d_prd];
     i_type item = product->p_type;
@@ -93,6 +101,8 @@ prod_output(struct sctstr *sp, double prodeff)
     double material_consume, output;
     int unit_work, work_used;
     int val;
+
+    *consume = 0.0;
 
     if (product->p_nrndx)
 	resource = (unsigned char *)sp + product->p_nrndx;
@@ -175,6 +185,8 @@ prod_output(struct sctstr *sp, double prodeff)
     if (CANT_HAPPEN(work_used > sp->sct_avail))
 	work_used = sp->sct_avail;
     sp->sct_avail -= work_used;
+
+    *consume = material_consume;
 
     return output;
 }

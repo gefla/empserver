@@ -152,20 +152,21 @@ c_production(void)
 
 	prodeff = prod_eff(sect.sct_type, natp->nat_level[pp->p_nlndx]);
 
+	/*
+	 * Use the amounts of materials prod_output() charged instead of
+	 * dividing the output by prodeff.  Both are the same in exact
+	 * arithmetic, but the division rounds depending on the low bits
+	 * of prodeff, so the simulated resource usage (rounded up by
+	 * ceil() below) could come out one higher.  See prod_output().
+	 */
 	scratch_sect = sect;
-	real = prod_output(&scratch_sect, prodeff);
+	real = prod_output(&scratch_sect, prodeff, &take);
 
 	scratch_sect = sect;
 	for (i = 0; i < MAXPRCON; ++i)
 	    scratch_sect.sct_item[pp->p_ctype[i]] = ITEM_MAX;
 	scratch_sect.sct_item[pp->p_type] = 0;
-	maxr = prod_output(&scratch_sect, prodeff);
-
-	if (prodeff != 0) {
-	    take = real / prodeff;
-	    mtake = maxr / prodeff;
-	} else
-	    mtake = take = 0.0;
+	maxr = prod_output(&scratch_sect, prodeff, &mtake);
 
 	cost = take * pp->p_cost;
 	if (opt_TECH_POP) {
