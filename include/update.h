@@ -139,7 +139,7 @@ extern void prep_one_sect(struct sctstr *, int, struct bp *);
 extern void pay_reserve(struct natstr *, int);
 /* produce.c */
 extern void produce(struct natstr *, struct sctstr *);
-extern double prod_output(struct sctstr *, double);
+extern double prod_sect(struct sctstr *, double);
 extern double prod_eff(int, float);
 /* removewants.c */
 extern int update_removewants(void);

@@ -89,7 +89,6 @@ c_production(void)
     double cost;
     int i;
     int nsect;
-    double real, maxr;
     double count, max_count;
     i_type it;
     unsigned char *resource;
@@ -153,19 +152,13 @@ c_production(void)
 	prodeff = prod_eff(sect.sct_type, natp->nat_level[pp->p_nlndx]);
 
 	scratch_sect = sect;
-	real = prod_output(&scratch_sect, prodeff);
+	count = prod_sect(&scratch_sect, prodeff);
 
 	scratch_sect = sect;
 	for (i = 0; i < MAXPRCON; ++i)
 	    scratch_sect.sct_item[pp->p_ctype[i]] = ITEM_MAX;
 	scratch_sect.sct_item[pp->p_type] = 0;
-	maxr = prod_output(&scratch_sect, prodeff);
-
-	if (prodeff != 0) {
-	    count = real / prodeff;
-	    max_count = maxr / prodeff;
-	} else
-	    max_count = count = 0.0;
+	max_count = prod_sect(&scratch_sect, prodeff);
 
 	cost = count * pp->p_cost;
 	if (opt_TECH_POP) {
@@ -195,8 +188,9 @@ c_production(void)
 	    mnem = '.';
 	else
 	    mnem = 0;
-	prprod(&sect, p_e, prodeff, mnem, real, maxr, cost,
-	       cmnem, cuse, cmax, nsect++);
+	prprod(&sect, p_e, prodeff, mnem,
+	       count * prodeff, max_count * prodeff,
+	       cost, cmnem, cuse, cmax, nsect++);
     }
     player->simulation = 0;
     if (nsect == 0) {

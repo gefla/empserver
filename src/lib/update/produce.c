@@ -55,7 +55,7 @@ produce(struct natstr *np, struct sctstr *sp)
     struct budget *budget = &nat_budget[sp->sct_own];
     struct pchrstr *product;
     double prodeff;
-    double output;
+    double count, output;
     double cost;
 
     if (dchr[sp->sct_type].d_prd < 0)
@@ -63,11 +63,12 @@ produce(struct natstr *np, struct sctstr *sp)
     product = &pchr[dchr[sp->sct_type].d_prd];
 
     prodeff = prod_eff(sp->sct_type, np->nat_level[product->p_nlndx]);
-    output = prod_output(sp, prodeff);
-    if (!output)
+    count = prod_sect(sp, prodeff);
+    if (!count)
 	return;
 
-    cost = product->p_cost * output / prodeff;
+    output = count * prodeff;
+    cost = count * product->p_cost;
     if (opt_TECH_POP) {
 	if (product->p_level == NAT_TLEV) {
 	    if (budget->oldowned_civs > 50000)
@@ -83,7 +84,7 @@ produce(struct natstr *np, struct sctstr *sp)
 }
 
 double
-prod_output(struct sctstr *sp, double prodeff)
+prod_sect(struct sctstr *sp, double prodeff)
 {
     struct pchrstr *product = &pchr[dchr[sp->sct_type].d_prd];
     i_type item = product->p_type;
@@ -175,7 +176,7 @@ prod_output(struct sctstr *sp, double prodeff)
 	work_used = sp->sct_avail;
     sp->sct_avail -= work_used;
 
-    return output;
+    return count;
 }
 
 /*
