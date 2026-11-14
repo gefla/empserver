@@ -90,7 +90,7 @@ c_production(void)
     int i;
     int nsect;
     double real, maxr;
-    double take, mtake;
+    double count, max_count;
     i_type it;
     unsigned char *resource;
     char cmnem[MAXPRCON];
@@ -162,12 +162,12 @@ c_production(void)
 	maxr = prod_output(&scratch_sect, prodeff);
 
 	if (prodeff != 0) {
-	    take = real / prodeff;
-	    mtake = maxr / prodeff;
+	    count = real / prodeff;
+	    max_count = maxr / prodeff;
 	} else
-	    mtake = take = 0.0;
+	    max_count = count = 0.0;
 
-	cost = take * pp->p_cost;
+	cost = count * pp->p_cost;
 	if (opt_TECH_POP) {
 	    if (pp->p_level == NAT_TLEV) {
 		if (totpop < 0)
@@ -185,8 +185,8 @@ c_production(void)
 	    if (CANT_HAPPEN(it <= I_NONE || I_MAX < it))
 		continue;
 	    cmnem[i] = ichr[it].i_mnem;
-	    cuse[i] = (int)ceil(take * pp->p_camt[i]);
-	    cmax[i] = (int)ceil(mtake * pp->p_camt[i]);
+	    cuse[i] = (int)ceil(count * pp->p_camt[i]);
+	    cmax[i] = (int)ceil(max_count * pp->p_camt[i]);
 	}
 
 	if (pp->p_type != I_NONE)
