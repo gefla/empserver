@@ -90,7 +90,7 @@ prod_output(struct sctstr *sp, double prodeff)
     unsigned char *resource;
     double p_e;
     double material_limit, worker_limit, res_limit;
-    double material_consume, output;
+    double count, output;
     int unit_work, work_used;
     int val;
 
@@ -111,14 +111,14 @@ prod_output(struct sctstr *sp, double prodeff)
     worker_limit = sp->sct_avail * p_e / unit_work;
     res_limit = prod_resource_limit(product, resource);
 
-    material_consume = res_limit;
-    if (material_consume > worker_limit)
-	material_consume = worker_limit;
-    if (material_consume > material_limit)
-	material_consume = material_limit;
-    if (CANT_HAPPEN(material_consume < 0.0))
-	material_consume = 0.0;
-    if (material_consume == 0.0)
+    count = res_limit;
+    if (count > worker_limit)
+	count = worker_limit;
+    if (count > material_limit)
+	count = material_limit;
+    if (CANT_HAPPEN(count < 0.0))
+	count = 0.0;
+    if (count == 0.0)
 	return 0.0;
 
     if (prodeff <= 0.0) {
@@ -132,7 +132,7 @@ prod_output(struct sctstr *sp, double prodeff)
     /*
      * Adjust produced amount by commodity production ratio
      */
-    output = material_consume * prodeff;
+    output = count * prodeff;
     if (item == I_NONE) {
 	if (!player->simulation) {
 	    wu(0, sp->sct_own, "%s (%.2f) produced in %s\n",
@@ -149,21 +149,20 @@ prod_output(struct sctstr *sp, double prodeff)
 		   "%s production backlog in %s\n",
 		   product->p_name, ownxy(sp));
 	}
-	material_consume = output / prodeff;
+	count = output / prodeff;
 	sp->sct_item[item] += output;
     }
 
     /*
      * Reset produced amount by commodity production ratio
      */
-    materials_charge(product, sp->sct_item, material_consume);
+    materials_charge(product, sp->sct_item, count);
     if (resource && product->p_nrdep != 0) {
 	/*
 	 * lower natural resource in sector depending on
 	 * amount produced
 	 */
-	val = *resource - roundavg(product->p_nrdep *
-				   material_consume / 100.0);
+	val = *resource - roundavg(product->p_nrdep * count / 100.0);
 	if (val < 0)
 	    val = 0;
 	*resource = val;
@@ -171,7 +170,7 @@ prod_output(struct sctstr *sp, double prodeff)
 
     if (CANT_HAPPEN(p_e <= 0.0))
 	return 0.0;
-    work_used = roundavg(unit_work * material_consume / p_e);
+    work_used = roundavg(unit_work * count / p_e);
     if (CANT_HAPPEN(work_used > sp->sct_avail))
 	work_used = sp->sct_avail;
     sp->sct_avail -= work_used;
