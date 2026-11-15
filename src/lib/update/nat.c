@@ -122,9 +122,9 @@ prod_nat(int etu)
 {
     struct natstr *np;
     float *level;
-    float hap;
-    float edu;
-    float hap_edu;
+    double hap;
+    double edu;
+    double hap_edu;
     int pop;
     int sea_money, air_money, lnd_money;
     double rlev;
@@ -153,8 +153,8 @@ prod_nat(int etu)
 	 * for this time period.
 	 */
 	hap = level[NAT_HLEV] * hap_edu * hap_cons /
-	    ((float)pop * etu);
-	edu = level[NAT_ELEV] * edu_cons / ((float)pop * etu);
+	    ((double)pop * etu);
+	edu = level[NAT_ELEV] * edu_cons / ((double)pop * etu);
 	wu(0, n, "%3.0f happiness, %3.0f education produced\n",
 	   level[NAT_HLEV], level[NAT_ELEV]);
 	hap = limit_level(hap, NAT_HLEV, 1);
@@ -164,10 +164,10 @@ prod_nat(int etu)
 	 * education levels are weighted heavier than current
 	 * production.
 	 */
-	newvalue = (np->nat_level[NAT_HLEV] * hap_avg + hap * etu) /
+	newvalue = (np->nat_level[NAT_HLEV] * (double)hap_avg + hap * etu) /
 	    (hap_avg + etu);
 	np->nat_level[NAT_HLEV] = newvalue;
-	newvalue = (np->nat_level[NAT_ELEV] * edu_avg + edu * etu) /
+	newvalue = (np->nat_level[NAT_ELEV] * (double)edu_avg + edu * etu) /
 	    (edu_avg + etu);
 	np->nat_level[NAT_ELEV] = newvalue;
 	/*
