@@ -131,7 +131,6 @@ prod_nat(int etu)
     double tlev;
     double tech[MAXNOC];
     double res[MAXNOC];
-    double newvalue;
     struct budg_item *bm;
     natid n;
 
@@ -164,19 +163,19 @@ prod_nat(int etu)
 	 * education levels are weighted heavier than current
 	 * production.
 	 */
-	newvalue = (np->nat_level[NAT_HLEV] * (double)hap_avg + hap * etu) /
-	    (hap_avg + etu);
-	np->nat_level[NAT_HLEV] = newvalue;
-	newvalue = (np->nat_level[NAT_ELEV] * (double)edu_avg + edu * etu) /
-	    (edu_avg + etu);
-	np->nat_level[NAT_ELEV] = newvalue;
+	np->nat_level[NAT_HLEV] =
+	    (np->nat_level[NAT_HLEV] * (double)hap_avg + hap * etu)
+	    / (hap_avg + etu);
+	np->nat_level[NAT_ELEV] =
+	    (np->nat_level[NAT_ELEV] * (double)edu_avg + edu * etu)
+	    / (edu_avg + etu);
 	/*
 	 * limit tech/research production
 	 */
 	level[NAT_TLEV] =
-	    limit_level(level[NAT_TLEV] / 1, NAT_TLEV, 0) * 1;
+	    limit_level(level[NAT_TLEV], NAT_TLEV, 0);
 	level[NAT_RLEV] =
-	    limit_level(level[NAT_RLEV] / 1, NAT_RLEV, 0) * 1;
+	    limit_level(level[NAT_RLEV], NAT_RLEV, 0);
 	wu(0, n, "total pop was %d, yielding %4.2f hap, %4.2f edu\n",
 	   pop - 1, hap, edu);
     }
